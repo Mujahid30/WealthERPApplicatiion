@@ -677,13 +677,13 @@
     }
 </style>
 <telerik:RadAjaxManager ID="AjaxManagerMain" runat="server">
-    <ajaxsettings>
+    <AjaxSettings>
         <telerik:AjaxSetting AjaxControlID="LBCustomer">
             <UpdatedControls>
                 <telerik:AjaxUpdatedControl ControlID="PLCustomer" LoadingPanelID="AjaxLoadingPanelMain" />
             </UpdatedControls>
         </telerik:AjaxSetting>
-    </ajaxsettings>
+    </AjaxSettings>
 </telerik:RadAjaxManager>
 <table width="100%" class="TableBackground" style="padding-bottom: 6px;">
     <tr>
@@ -708,7 +708,7 @@
 <div>
     <telerik:RadTabStrip ID="RadTabStrip2" EnableTheming="True" Skin="Telerik" EnableEmbeddedSkins="False"
         runat="server" MultiPageID="tabViewAndEmailReports" SelectedIndex="0">
-        <tabs>
+        <Tabs>
             <telerik:RadTab runat="server" Text="View & Email" Value="tabpnlViewReports" TabIndex="0">
             </telerik:RadTab>
             <telerik:RadTab runat="server" Text="Bulk Mail Request" Value="tabpnlEmailReports"
@@ -717,7 +717,7 @@
             <telerik:RadTab runat="server" Text="Bulk Mail Status" Value="tabpnlRequestStatus"
                 TabIndex="2">
             </telerik:RadTab>
-        </tabs>
+        </Tabs>
     </telerik:RadTabStrip>
     <telerik:RadMultiPage ID="tabViewAndEmailReports" EnableViewState="false" runat="server"
         SelectedIndex="0" Width="100%">
@@ -1233,12 +1233,12 @@
                                                                 </ajaxToolkit:TextBoxWatermarkExtender>--%>
                                                                 <telerik:RadDatePicker ID="txtEmailAsOnDate" CssClass="txtField" runat="server" Culture="English (United States)"
                                                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                                                    <calendar runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                                                                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                                                                    </calendar>
-                                                                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                                                                    <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                                                                    </dateinput>
+                                                                    <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                                    </Calendar>
+                                                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                                    <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                                    </DateInput>
                                                                 </telerik:RadDatePicker>
                                                                 <asp:RequiredFieldValidator ID="txtEmailAsOnDate_RequiredFieldValidator" runat="server"
                                                                     ControlToValidate="txtEmailAsOnDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="&lt;br /&gt;Please select a From Date"
@@ -1291,12 +1291,12 @@
                                                                         --%>
                                                                             <telerik:RadDatePicker ID="txtEmailFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                                                                                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                                                                <calendar runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                                                                                    viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                                                                    </calendar>
-                                                                                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                                                                                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                                                                    </dateinput>
+                                                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                                                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                                                </Calendar>
+                                                                                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                                                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                                                </DateInput>
                                                                             </telerik:RadDatePicker>
                                                                             <asp:RequiredFieldValidator ID="txtEmailFromDate_RequiredFieldValidator" runat="server"
                                                                                 ControlToValidate="txtEmailFromDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select From Date"
@@ -1313,12 +1313,12 @@
                                                                             </ajaxToolkit:TextBoxWatermarkExtender>--%>
                                                                             <telerik:RadDatePicker ID="txtEmailToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                                                                                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                                                                <calendar runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                                                                                    viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                                                                    </calendar>
-                                                                                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                                                                                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                                                                    </dateinput>
+                                                                                <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                                                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                                                                </Calendar>
+                                                                                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                                                                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                                                                </DateInput>
                                                                             </telerik:RadDatePicker>
                                                                             <asp:RequiredFieldValidator ID="txtEmailToDate_RequiredFieldValidator" runat="server"
                                                                                 ControlToValidate="txtEmailToDate" CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select To Date"
@@ -1401,12 +1401,12 @@
                                 <telerik:RadDatePicker ID="rdpShowRequestStausGrid" CssClass="txtField" runat="server"
                                     Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
                                     ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
-                                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
-                                    </calendar>
-                                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                                    <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                                    </dateinput>
+                                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                                    </Calendar>
+                                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                                    </DateInput>
                                 </telerik:RadDatePicker>
                                 <br />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" Display="Dynamic"
@@ -1438,9 +1438,9 @@
                                                     AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvRequestStatus_NeedDataSource"
                                                     EnableEmbeddedSkins="false" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="true"
                                                     AllowFilteringByColumn="true">
-                                                    <exportsettings hidestructurecolumns="false" exportonlydata="true">
-                                                    </exportsettings>
-                                                    <mastertableview width="90%" commanditemdisplay="None" commanditemsettings-showrefreshbutton="false">
+                                                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true">
+                                                    </ExportSettings>
+                                                    <MasterTableView Width="90%" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false">
                                                         <Columns>
                                                             <telerik:GridBoundColumn UniqueName="CustomerName" HeaderStyle-Width="137px" HeaderText="Customer"
                                                                 DataField="CustomerName" SortExpression="CustomerName" AllowFiltering="true"
@@ -1466,6 +1466,10 @@
                                                             <telerik:GridBoundColumn UniqueName="RequeTime" HeaderText="Requested Dt" HeaderStyle-Width="144px"
                                                                 DataField="RequeTime" SortExpression="RequeTime" AllowFiltering="false" ShowFilterIcon="false"
                                                                 AutoPostBackOnFilter="true">
+                                                                <HeaderStyle></HeaderStyle>
+                                                            </telerik:GridBoundColumn>
+                                                            <telerik:GridBoundColumn UniqueName="RequestedBy" HeaderText="Requested By" HeaderStyle-Width="144px"
+                                                                DataField="RequestedBy" SortExpression="RequestedBy" AllowFiltering="false" ShowFilterIcon="false">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn Visible="false" UniqueName="RequestStatus" HeaderText="Request Sts"
@@ -1524,12 +1528,12 @@
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
                                                         </Columns>
-                                                    </mastertableview>
-                                                    <clientsettings reordercolumnsonclient="True" allowcolumnsreorder="True" enablerowhoverstyle="true">
+                                                    </MasterTableView>
+                                                    <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
                                                         <Scrolling AllowScroll="false" />
                                                         <Resizing AllowColumnResize="true" />
                                                         <Selecting AllowRowSelect="true" />
-                                                    </clientsettings>
+                                                    </ClientSettings>
                                                 </telerik:RadGrid>
                                             </td>
                                         </tr>

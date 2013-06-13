@@ -86,13 +86,13 @@ namespace BoCommon
         }
 
 
-        public DataSet GetRequestStatusList(int userId, DateTime requestDate)
+        public DataSet GetRequestStatusList(int adviserId, DateTime requestDate)
         {
             DataSet dsRequestList = null;
             WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
             try
             {
-                dsRequestList = requestManagementDao.GetRequestStatusList(userId, requestDate);
+                dsRequestList = requestManagementDao.GetRequestStatusList(adviserId, requestDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -104,7 +104,7 @@ namespace BoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "WERPTaskRequestManagementBo.cs:GetRequestStatusList(int userId,DateTime requestDate)");
                 object[] objects = new object[1];
-                objects[0] = userId;
+                objects[0] = adviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

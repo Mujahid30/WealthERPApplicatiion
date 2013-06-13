@@ -647,10 +647,10 @@ namespace WealthERP.Reports
             }
         }
 
-        public void BindGvRequestStatus(int userId, DateTime dtSelectedRequestDate)
+        public void BindGvRequestStatus(int adviserId, DateTime dtSelectedRequestDate)
         {
             //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-27"));
-            GetRequestStatusList(userId, dtSelectedRequestDate);
+            GetRequestStatusList(adviserId, dtSelectedRequestDate);
             gvRequestStatus.DataSource = dtRequestStatusList;
 
             if (dtRequestStatusList.Rows.Count != 0)
@@ -679,7 +679,7 @@ namespace WealthERP.Reports
 
         protected void btnShowRequestStausGrid_Click(object sender, EventArgs e)
         {
-            BindGvRequestStatus(userVo.UserId, Convert.ToDateTime(rdpShowRequestStausGrid.SelectedDate));
+            BindGvRequestStatus(advisorVo.advisorId, Convert.ToDateTime(rdpShowRequestStausGrid.SelectedDate));
          
         }
 
@@ -1579,10 +1579,10 @@ namespace WealthERP.Reports
             }
         }
 
-        private DataTable GetRequestStatusList(int userId, DateTime requestedDate)
+        private DataTable GetRequestStatusList(int adviserId, DateTime requestedDate)
         {
 
-            dsRequestListStatus = taskRequestManagementBo.GetRequestStatusList(userId, requestedDate);
+            dsRequestListStatus = taskRequestManagementBo.GetRequestStatusList(adviserId, requestedDate);
             dtRequestStatusList = PrepareFinalRequestStatsuDataTable(dsRequestListStatus);
             return dtRequestStatusList;
 
@@ -1596,6 +1596,7 @@ namespace WealthERP.Reports
             dtFinalRequestListStatus.Columns.Add("RequestId");
             dtFinalRequestListStatus.Columns.Add("TaskName");
             dtFinalRequestListStatus.Columns.Add("RequeTime");
+            dtFinalRequestListStatus.Columns.Add("RequestedBy");
             dtFinalRequestListStatus.Columns.Add("RequestStatus");
             dtFinalRequestListStatus.Columns.Add("AttemptCount");
             dtFinalRequestListStatus.Columns.Add("DependentRequestId");
@@ -1627,6 +1628,7 @@ namespace WealthERP.Reports
                     drFinalStatus["DependentRequestId"] = drRequest["WR_DependentOn"].ToString();
                     drFinalStatus["ParentRequestId"] = drRequest["WR_ParentRequestId"].ToString();
                     drFinalStatus["CreatedOn"] = drRequest["WR_CreatedOn"].ToString();
+                    drFinalStatus["RequestedBy"] = drRequest["WR_CreatedBy"].ToString();
 
                     if (drFinalStatus["RequestStatus"].ToString() == "1")
                     {

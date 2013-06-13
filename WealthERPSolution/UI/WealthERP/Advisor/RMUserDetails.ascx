@@ -169,6 +169,7 @@
                     <%--<asp:BoundField DataField="Password" HeaderText="Password" SortExpression="Password" />--%>
                     <asp:BoundField DataField="EmailId" HeaderText="Email Id" />
                     <asp:ButtonField CommandName="resetPassword" Text="Reset Password" />
+                      <asp:BoundField DataField="UserId" HeaderText="User Id" />
                 </Columns>
             </asp:GridView>
         </td>

@@ -163,7 +163,7 @@ namespace DaoCommon
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="requestDate"></param>
-        public DataSet GetRequestStatusList(int userId,DateTime requestDate)
+        public DataSet GetRequestStatusList(int adviserId,DateTime requestDate)
         {
             Database db;
             DbCommand cmdGetRequestList;
@@ -173,7 +173,7 @@ namespace DaoCommon
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetRequestList = db.GetStoredProcCommand("SPROC_GetTaskRequestStatusList");
-                db.AddInParameter(cmdGetRequestList, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(cmdGetRequestList, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetRequestList, "@RequestDate", DbType.Date, requestDate);
                 dsRequestList = db.ExecuteDataSet(cmdGetRequestList);
             }
@@ -187,7 +187,7 @@ namespace DaoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "WERPTaskRequestManagementDao.cs:GetRequestStatusList(int userId,DateTime requestDate)");
                 object[] objects = new object[1];
-                objects[0] = userId;
+                objects[0] = adviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
