@@ -96,6 +96,7 @@ namespace WealthERP.Uploads
                 //Panel2.Visible = true;
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
+                if(rmVo!=null)
                 rmId =rmVo.RMId;
             }
            
@@ -348,12 +349,12 @@ namespace WealthERP.Uploads
                     }
                     else if (filetypeId == (int)Contants.UploadTypes.ODINTransaction && extracttype == "ET" || filetypeId == 10 || filetypeId == 11)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedEquityTransactionStaging','processId=" + processID + "&filetypeid=" + filetypeId + "&adviserId=" + adviserId + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
                     }
 
                     else if (filetypeId == 20 || filetypeId == 26 || filetypeId == 27 || filetypeId == 34 || filetypeId == 23)
                     {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID + "');", true);
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedSystematicTransactionStaging','processId=" + processID + "&adviserId=" + adviserId + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
                     }                 
 
                 }
