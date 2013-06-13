@@ -94,7 +94,7 @@ namespace VoReports
         public string EndDateSTP;
         public bool UnitsChk;
         public bool AmountsChk;
-        public string ChequeDate;
+        public DateTime ChequeDate;
         public string ChequeNo;
         public string SchemeSwitch;
         public string ArnNo;
