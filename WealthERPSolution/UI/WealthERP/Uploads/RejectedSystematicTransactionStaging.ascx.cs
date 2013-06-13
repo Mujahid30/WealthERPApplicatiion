@@ -108,6 +108,7 @@ namespace WealthERP.Uploads
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             processId = 0;
+            adviserId = adviserVo.advisorId;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
             {
@@ -124,7 +125,23 @@ namespace WealthERP.Uploads
                 LinkInputRejects.Visible = false;
             }
 
-            if (adviserVo.advisorId == 1000)
+            if (Request.QueryString["adviserId"] != null)
+            {
+                adviserId = Int32.Parse(Request.QueryString["adviserId"].ToString());
+                if (rmVo == null)
+                {
+                    DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
+
+                    if (dsAdviserRmDetails.Tables[0].Rows.Count > 0)
+                    {
+                        rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());
+                        hfRmId.Value = rmId.ToString();
+                    }
+
+                }
+            }
+
+            if (adviserId == 1000)
             {
                 if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
                 {
@@ -140,19 +157,29 @@ namespace WealthERP.Uploads
                     adviserId = 1000;
                 }
             }
+            else
+            {
+                Session["adviserId_Upload"] = adviserId;
+                if (adviserVo.advisorId != 1000)
+                {
+                    adviserId = adviserVo.advisorId;
+                }
+                if (rmVo != null)
+                    rmId = rmVo.RMId;
+        }
 
             if (!Page.IsPostBack)
             {
                 DataSet dsSIP = new DataSet();
-                if (Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] != null)
-                    Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] = dsSIP;
+                if (Cache["RejectedSIPDetails" + adviserId] != null)
+                    Cache["RejectedSIPDetails" + adviserId] = dsSIP;
 
                 DateTime fromDate = DateTime.Now.AddMonths(-1);
                 txtFromSIP.SelectedDate = fromDate.Date;
                 txtToSIP.SelectedDate = DateTime.Now;
 
 
-                if (adviserVo.advisorId != 1000)
+                if (adviserId != 1000)
                 {
                     trAdviserSelection.Visible = false;
                     BindddlRejectReason();
@@ -259,12 +286,12 @@ namespace WealthERP.Uploads
             DataSet dsRejectedSIP = new DataSet();
             Dictionary<string, string> genDictIsRejected = new Dictionary<string, string>();
             Dictionary<string, string> genDictRejectReason = new Dictionary<string, string>();
-            if (adviserVo.advisorId != 1000)
-                dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(adviserVo.advisorId, processId, fromDate, toDate, rejectReasonCode);
+            if (adviserId != 1000)
+                dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(adviserId, processId, fromDate, toDate, rejectReasonCode);
             else
             {
-                if (Request.QueryString["processId"] != null)                    
-                    dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(Convert.ToInt32(adviserVo.advisorId), processId, fromDate, toDate, rejectReasonCode);
+                if (Request.QueryString["processId"] != null)
+                    dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(Convert.ToInt32(adviserId), processId, fromDate, toDate, rejectReasonCode);
                 else
                     dsRejectedSIP = uploadsCommonBo.GetRejectedSIPRecords(Convert.ToInt32(ddlAdviser.SelectedValue), processId, fromDate, toDate, rejectReasonCode);
             }
@@ -274,14 +301,14 @@ namespace WealthERP.Uploads
                 //trMessage.Visible = false;
                 trReprocess.Visible = true;
                 DivAction.Visible = true;
-                if (Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()] == null)
+                if (Cache["RejectedSIPDetails" + adviserId.ToString()] == null)
                 {
-                    Cache.Insert("RejectedSIPDetails" + adviserVo.advisorId.ToString(), dsRejectedSIP);
+                    Cache.Insert("RejectedSIPDetails" + adviserId.ToString(), dsRejectedSIP);
                 }
                 else
                 {
-                    Cache.Remove("RejectedSIPDetails" + adviserVo.advisorId.ToString());
-                    Cache.Insert("RejectedSIPDetails" + adviserVo.advisorId.ToString(), dsRejectedSIP);
+                    Cache.Remove("RejectedSIPDetails" + adviserId.ToString());
+                    Cache.Insert("RejectedSIPDetails" + adviserId.ToString(), dsRejectedSIP);
                 }
                 gvSIPReject.CurrentPageIndex = 0;
                 gvSIPReject.DataSource = dsRejectedSIP.Tables[0];
@@ -316,7 +343,7 @@ namespace WealthERP.Uploads
                 RadComboBox RadComboBoxRR = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
                 RadComboBox RadComboBoxTT = (RadComboBox)filterItem.FindControl("RadComboBoxTT");
 
-                dsRejectedSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
+                dsRejectedSIP = (DataSet)Cache["RejectedSIPDetails" + adviserId.ToString()];
                 DataTable dtSIP = new DataTable();
                 dtgvWERPSIP = dsRejectedSIP.Tables[0];
                 dtSIP.Columns.Add("WRR_RejectReasonDescription");
@@ -352,7 +379,7 @@ namespace WealthERP.Uploads
             // btnExport.Visible = true;
             DataSet dsSIP = new DataSet();
             DataTable dtrr = new DataTable();
-            dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
+            dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserId.ToString()];
             if (dsSIP != null)
             {
                 dtrr = dsSIP.Tables[0];
@@ -391,7 +418,7 @@ namespace WealthERP.Uploads
             btnExport.Visible = true;
             DataSet dsSIP = new DataSet();
             DataTable dtrr = new DataTable();
-            dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
+            dsSIP = (DataSet)Cache["RejectedSIPDetails" + adviserId.ToString()];
             if (dsSIP != null)
             {
                 dtrr = dsSIP.Tables[0];
@@ -1078,7 +1105,7 @@ namespace WealthERP.Uploads
 
         protected void RefreshCombos()
         {
-            dsRejectedSIP = (DataSet)Cache["RejectedSIPDetails" + adviserVo.advisorId.ToString()];
+            dsRejectedSIP = (DataSet)Cache["RejectedSIPDetails" + adviserId.ToString()];
             DataTable dtRejectedSIP = new DataTable();
             dtRejectedSIP = dsRejectedSIP.Tables[0];
             DataView view = new DataView(dtRejectedSIP);
@@ -1088,7 +1115,7 @@ namespace WealthERP.Uploads
         }
         protected void btnViewSIP_Click(object sender, EventArgs e)
         {
-            if (adviserVo.advisorId == 1000)
+            if (adviserId == 1000)
             {
                 if (ddlAdviser.SelectedIndex == 0)
                 {
