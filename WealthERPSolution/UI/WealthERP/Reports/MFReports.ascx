@@ -1151,7 +1151,7 @@
                                                     OnClick="btnViewStatus_Click" />
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr style="display: none;">
                                             <td align="center">
                                                 <asp:Label ID="lblCountSource" runat="server" CssClass="FieldName" Text="Count : "></asp:Label>
                                                 <asp:Label ID="lblCountSourceValue" runat="server" CssClass="txtField"></asp:Label>
