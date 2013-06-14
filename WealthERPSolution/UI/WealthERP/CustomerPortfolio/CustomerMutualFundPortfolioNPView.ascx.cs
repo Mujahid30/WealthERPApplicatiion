@@ -334,9 +334,9 @@ namespace WealthERP.CustomerPortfolio
                 DataView dvReturnsHoldings = new DataView(dtReturnsHoldings, expressonHoldings, "", DataViewRowState.CurrentRows);
 
                 if (hdnReturnsRealizedCategory.Value == "")
-                    expressonRealized = "";
+                    expressonRealized = "UnitsSold > '0.00'";
                 else
-                    expressonRealized = "Category LIKE '%" + hdnReturnsRealizedCategory.Value + "%'";
+                    expressonRealized = "UnitsSold > '0.00' AND Category LIKE '%" + hdnReturnsRealizedCategory.Value + "%'";
                 DataView dvReturnsRealized = new DataView(dtReturnsRealized, expressonRealized, "", DataViewRowState.CurrentRows);
 
                 if (hdnReturnsAllCategory.Value != "")
@@ -506,9 +506,9 @@ namespace WealthERP.CustomerPortfolio
                 }
 
                 if (hdnTaxRealizedCategory.Value == "")
-                    expressonTaxRealized = "";
+                    expressonTaxRealized = "RedeemedAmount > '0.00'";
                 else
-                    expressonTaxRealized = "Category LIKE '%" + hdnTaxRealizedCategory.Value + "%'";
+                    expressonTaxRealized = "RedeemedAmount > '0.00' AND Category LIKE '%" + hdnTaxRealizedCategory.Value + "%'";
 
                 DataView dvTaxRealized = new DataView(dtTaxRealized, expressonTaxRealized, "", DataViewRowState.CurrentRows);
 
@@ -613,7 +613,7 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioAll[3] = mfVo.SchemePlan;
             drMFPortfolioAll[4] = mfVo.FolioNumber;
 
-            if (mfVo.NetHoldings > 0 || mfVo.NetHoldings==0)
+            if (mfVo.NetHoldings > 0 || mfVo.NetHoldings == 0)
             {
                 if (mfVo.ReturnsHoldPurchaseUnit != 0)
                     drMFPortfolioAll[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -727,6 +727,22 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioAll[17] = "N/A";
                 drMFPortfolioAll[18] = "N/A";
                 drMFPortfolioAll[19] = "N/A";
+                drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;
+                if (mfVo.FolioStartDate == DateTime.MinValue)
+                    drMFPortfolioAll[23] = "N/A";
+                else
+                    //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioAll[23] = mfVo.FolioStartDate.ToShortDateString();
+
+                if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                    drMFPortfolioAll[24] = "N/A";
+                else
+                    //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioAll[24] = mfVo.InvestmentStartDate.ToShortDateString();
+                if (mfVo.NavDate == DateTime.MinValue)
+                    drMFPortfolioAll[25] = "N/A";
+                else
+                    drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
             }
         }
 
@@ -842,6 +858,24 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioHoldings[12] = "N/A";
                 drMFPortfolioHoldings[13] = "N/A";
                 drMFPortfolioHoldings[14] = "N/A";
+                drMFPortfolioHoldings[17] = mfVo.AssetInstrumentSubCategoryName;
+                if (mfVo.FolioStartDate == DateTime.MinValue)
+                    drMFPortfolioHoldings[18] = "N/A";
+                else
+                    //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToShortDateString();
+
+
+                if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                    drMFPortfolioHoldings[19] = "N/A";
+                else
+                    //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
+                if (mfVo.NavDate == DateTime.MinValue)
+                    drMFPortfolioHoldings[21] = "N/A";
+                else
+                    drMFPortfolioHoldings[21] = mfVo.NavDate.ToShortDateString();
+
                 drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "N/A";
                 drMFPortfolioHoldings[22] = "N/A";
                 drMFPortfolioHoldings[23] = "N/A";
@@ -913,6 +947,7 @@ namespace WealthERP.CustomerPortfolio
                     drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
 
             }
+
             else
             {
                 drTaxHoldings[5] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -922,6 +957,21 @@ namespace WealthERP.CustomerPortfolio
                 drTaxHoldings[9] = "N/A";
                 drTaxHoldings[10] = "N/A";
                 drTaxHoldings[11] = "N/A";
+                drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
+                if (mfVo.FolioStartDate == DateTime.MinValue)
+                    drTaxHoldings[15] = "0.00";
+                else
+                    //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                    drTaxHoldings[15] = mfVo.FolioStartDate.ToShortDateString();
+                if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                    drTaxHoldings[16] = "N/A";
+                else
+                    //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                    drTaxHoldings[16] = mfVo.InvestmentStartDate.ToShortDateString();
+                if (mfVo.NavDate == DateTime.MinValue)
+                    drTaxHoldings[17] = "N/A";
+                else
+                    drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
             }
         }
 
