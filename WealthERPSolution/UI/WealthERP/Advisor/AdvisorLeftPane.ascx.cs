@@ -2076,7 +2076,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString() == "Login History")
+                            if (dr[2].ToString() == "Login History" || dr[2].ToString() == "MF NP & Tranx Compare")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
