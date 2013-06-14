@@ -145,6 +145,8 @@ namespace WealthERP.Uploads
             }
             if (!IsPostBack)
             {
+                gvCAMSProfileReject.Visible = false;
+                divBtnActionSection.Visible = false;
                 //    if (ProcessId != 0)
                 //    {
 
@@ -215,8 +217,6 @@ namespace WealthERP.Uploads
                 //{
                 //    divGvCAMSProfileReject.Visible = false;
                 //}
-                gvCAMSProfileReject.Visible = false;
-                divBtnActionSection.Visible = false;
             }
             //gvCAMSProfileReject.Visible = true;
             trNote.Visible = false;
