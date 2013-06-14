@@ -727,6 +727,8 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioAll[17] = "N/A";
                 drMFPortfolioAll[18] = "N/A";
                 drMFPortfolioAll[19] = "N/A";
+                drMFPortfolioAll[20] = mfVo.AMCCode;
+                drMFPortfolioAll[21] = mfVo.SchemePlanCode;
                 drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;
                 if (mfVo.FolioStartDate == DateTime.MinValue)
                     drMFPortfolioAll[23] = "N/A";
@@ -858,6 +860,8 @@ namespace WealthERP.CustomerPortfolio
                 drMFPortfolioHoldings[12] = "N/A";
                 drMFPortfolioHoldings[13] = "N/A";
                 drMFPortfolioHoldings[14] = "N/A";
+                drMFPortfolioHoldings[15] = mfVo.AMCCode;
+                drMFPortfolioHoldings[16] = mfVo.SchemePlanCode;
                 drMFPortfolioHoldings[17] = mfVo.AssetInstrumentSubCategoryName;
                 if (mfVo.FolioStartDate == DateTime.MinValue)
                     drMFPortfolioHoldings[18] = "N/A";
@@ -957,6 +961,8 @@ namespace WealthERP.CustomerPortfolio
                 drTaxHoldings[9] = "N/A";
                 drTaxHoldings[10] = "N/A";
                 drTaxHoldings[11] = "N/A";
+                drTaxHoldings[12] = mfVo.AMCCode;
+                drTaxHoldings[13] = mfVo.SchemePlanCode;
                 drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
                 if (mfVo.FolioStartDate == DateTime.MinValue)
                     drTaxHoldings[15] = "0.00";
