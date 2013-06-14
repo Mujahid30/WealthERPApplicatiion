@@ -1081,7 +1081,10 @@
                                     2 Business day will not be available. To view the recent data View Dashboards &
                                     Net Positions.</label>
                                 <label id="Label6" runat="server" class="HeaderTextSmall" style="display: none">
-                                    Note: You can view the recent data, as on last business date.</label>
+                                    Note: 1. You can view the recent data, as on last business date.
+                                    <br />
+                                    2. List only contain those customers who are having Email id in their Profile
+                                    </label>
                             </div>
                         </td>
                     </tr>
@@ -1377,7 +1380,9 @@
                                                 2 Business day will not be available. To view the recent data View Dashboards &
                                                 Net Positions.</label>
                                             <label id="lblNote2" runat="server" class="HeaderTextSmall" style="display: none">
-                                                Note: You can view the recent data, as on last business date.</label>
+                                                Note: 1. You can view the recent data, as on last business date.
+                                                 <br />
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  2. List only contains those customer who is having Email_id in their Profile</label>
                                         </div>
                                     </td>
                                 </tr>

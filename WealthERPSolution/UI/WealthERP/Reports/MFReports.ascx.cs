@@ -1376,7 +1376,7 @@ namespace WealthERP.Reports
         protected void btnViewStatus_Click(object sender, EventArgs e)
         {
             rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
-            BindGvRequestStatus(userVo.UserId, DateTime.Now);
+            BindGvRequestStatus(advisorVo.advisorId, DateTime.Now);
 
 
             RadTabStrip2.TabIndex = 2;
