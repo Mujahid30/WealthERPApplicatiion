@@ -266,6 +266,8 @@ namespace WealthERP.Reports {
             
             private global::System.Data.DataColumn columnPAN;
             
+            private global::System.Data.DataColumn columnCMFAA_AssociationType;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public JointHoldersDataTable() {
                 this.TableName = "JointHolders";
@@ -311,6 +313,13 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public global::System.Data.DataColumn CMFAA_AssociationTypeColumn {
+                get {
+                    return this.columnCMFAA_AssociationType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -339,11 +348,12 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            public JointHoldersRow AddJointHoldersRow(string JointHolderName, string PAN) {
+            public JointHoldersRow AddJointHoldersRow(string JointHolderName, string PAN, string CMFAA_AssociationType) {
                 JointHoldersRow rowJointHoldersRow = ((JointHoldersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         JointHolderName,
-                        PAN};
+                        PAN,
+                        CMFAA_AssociationType};
                 rowJointHoldersRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowJointHoldersRow);
                 return rowJointHoldersRow;
@@ -365,6 +375,7 @@ namespace WealthERP.Reports {
             internal void InitVars() {
                 this.columnJointHolderName = base.Columns["JointHolderName"];
                 this.columnPAN = base.Columns["PAN"];
+                this.columnCMFAA_AssociationType = base.Columns["CMFAA_AssociationType"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -373,6 +384,8 @@ namespace WealthERP.Reports {
                 base.Columns.Add(this.columnJointHolderName);
                 this.columnPAN = new global::System.Data.DataColumn("PAN", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPAN);
+                this.columnCMFAA_AssociationType = new global::System.Data.DataColumn("CMFAA_AssociationType", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCMFAA_AssociationType);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -535,6 +548,21 @@ namespace WealthERP.Reports {
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public string CMFAA_AssociationType {
+                get {
+                    try {
+                        return ((string)(this[this.tableJointHolders.CMFAA_AssociationTypeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CMFAA_AssociationType\' in table \'JointHolders\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableJointHolders.CMFAA_AssociationTypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public bool IsJointHolderNameNull() {
                 return this.IsNull(this.tableJointHolders.JointHolderNameColumn);
             }
@@ -552,6 +580,16 @@ namespace WealthERP.Reports {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             public void SetPANNull() {
                 this[this.tableJointHolders.PANColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public bool IsCMFAA_AssociationTypeNull() {
+                return this.IsNull(this.tableJointHolders.CMFAA_AssociationTypeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            public void SetCMFAA_AssociationTypeNull() {
+                this[this.tableJointHolders.CMFAA_AssociationTypeColumn] = global::System.Convert.DBNull;
             }
         }
         
