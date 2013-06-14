@@ -313,8 +313,12 @@ namespace WealthERP.Reports
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             {
-                orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]);
+                orderTransaction.ChequeDate = Request.QueryString["ChequeDate"];
             }
+            //if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
+            //{
+            //    orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]);
+            //}
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString().Trim()))
             {
                 orderTransaction.ChequeNo = Request.QueryString["ChequeNo"];
@@ -569,7 +573,7 @@ namespace WealthERP.Reports
                          crmain.SetParameterValue("OrgTelephone", "Mobile :--");
                      }
                      crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-                     crmain.SetParameterValue("OrgAddress", advisorVo.AddressLine1 + " " +advisorVo.AddressLine2+" "+advisorVo.AddressLine3+" "+ advisorVo.PinCode);
+                     crmain.SetParameterValue("OrgAddress", advisorVo.AddressLine1 + ", " +advisorVo.AddressLine2+", "+advisorVo.AddressLine3+", "+advisorVo.City+", "+ advisorVo.PinCode);
                     
 
                     crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(orderTransaction.amcCode) ? orderTransaction.amcCode : string.Empty);
@@ -585,16 +589,20 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(orderTransaction.Scheme) ? orderTransaction.Scheme : string.Empty);
 
                     crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(orderTransaction.ChequeNo) ? orderTransaction.ChequeNo : string.Empty);
-                    crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(orderTransaction.ChequeDate.ToString().Trim()) ? orderTransaction.ChequeDate.ToString() : string.Empty);
+                    if (!string.IsNullOrEmpty(orderTransaction.ChequeDate))
+                        crmain.SetParameterValue("ChequeDate", orderTransaction.ChequeDate);
+                    else
+                        crmain.SetParameterValue("ChequeDate", string.Empty);
+                    //crmain.SetParameterValue("ChequeDate", !string.IsNullOrEmpty(orderTransaction.ChequeDate.ToString().Trim()) ? orderTransaction.ChequeDate.ToString() : string.Empty);
                     crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(orderTransaction.Amount) ? orderTransaction.Amount : string.Empty);
                     if (ds.Tables[1].Rows.Count > 0)
                         crmain.SetParameterValue("JointHolder", "1");
                     else
                         crmain.SetParameterValue("JointHolder", "0");
 
-                    
-                    
-                    if (RbtnAmounts == true)
+
+
+                    if (orderTransaction.AmountsChk == true)
                     {
                         if (orderTransaction.Type == "BUY" || orderTransaction.Type == "ABY" || orderTransaction.Type == "SIP")
                             crmain.SetParameterValue("Amount", !string.IsNullOrEmpty(orderTransaction.Amount) ? orderTransaction.Amount : string.Empty);
@@ -605,7 +613,7 @@ namespace WealthERP.Reports
                     }
                     
                     crmain.SetParameterValue("Units", string.Empty);
-                    if (RbtnUnits == true)
+                    if (orderTransaction.UnitsChk == true)
                     {
 
                         if (!String.IsNullOrEmpty(orderTransaction.NewAmount))
@@ -852,7 +860,7 @@ namespace WealthERP.Reports
                         crmain.SetParameterValue("SuppressSWP", "1");
                         break;
                     }
-                case "STP":
+                case "STB":
                     {
                         crmain.SetParameterValue("SuppressSTP", "1");
                         break;
