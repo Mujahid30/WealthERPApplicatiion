@@ -368,7 +368,7 @@ namespace WealthERP.Uploads
                 {
                     if (((CheckBox)gvr.FindControl("ChkOne")).Checked == true)
                     {
-                        StagingID += Convert.ToString(GVTrailTransactionRejects.MasterTableView.DataKeyValues[gvr.ItemIndex]["WUPL_ProcessId"]) + "~";
+                        StagingID += Convert.ToString(GVTrailTransactionRejects.MasterTableView.DataKeyValues[gvr.ItemIndex]["Adul_ProcessId"]) + "~";
 
                     }
                 }
