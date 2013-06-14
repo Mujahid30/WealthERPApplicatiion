@@ -313,7 +313,7 @@ namespace WealthERP.Reports
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             {
-                orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]).ToString();
+                orderTransaction.ChequeDate=DateTime.Parse(Request.QueryString["ChequeDate"]);
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeNo"].ToString().Trim()))
             {
