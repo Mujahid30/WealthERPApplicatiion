@@ -202,6 +202,7 @@ namespace WealthERP.Uploads
                         tdlblFromDate.Visible = false;
                         tdlblRejectReason.Visible = false;
                         tdDDLRejectReason.Visible = false;
+                        tblProcessIdDetails.Visible = false;
                     }
                 }
 
