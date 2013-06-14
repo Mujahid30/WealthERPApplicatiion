@@ -313,7 +313,7 @@ namespace WealthERP.Reports
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             {
-                orderTransaction.ChequeDate = Request.QueryString["ChequeDate"];
+                orderTransaction.ChequeDate =Convert.ToDateTime(Request.QueryString["ChequeDate"]);
             }
             //if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             //{
@@ -589,7 +589,7 @@ namespace WealthERP.Reports
                     crmain.SetParameterValue("Scheme", !string.IsNullOrEmpty(orderTransaction.Scheme) ? orderTransaction.Scheme : string.Empty);
 
                     crmain.SetParameterValue("ChequeNo", !string.IsNullOrEmpty(orderTransaction.ChequeNo) ? orderTransaction.ChequeNo : string.Empty);
-                    if (!string.IsNullOrEmpty(orderTransaction.ChequeDate))
+                    if (Convert.ToDateTime(orderTransaction.ChequeDate)!=null)
                         crmain.SetParameterValue("ChequeDate", orderTransaction.ChequeDate);
                     else
                         crmain.SetParameterValue("ChequeDate", string.Empty);
