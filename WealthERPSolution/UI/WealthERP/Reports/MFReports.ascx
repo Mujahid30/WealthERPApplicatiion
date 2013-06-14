@@ -40,16 +40,19 @@
     
 </script>
 
+
+
 <script type="text/javascript" language="javascript">
     function LBCustomer_Count(sender, e) {
         var source = e.get_sourceListBox();
         var dest = e.get_destinationListBox();
         var newItems = source.get_items();
         var oldItems = dest.get_items();
-
+        
         var target = e.get_domEvent().target.parentNode;
         //    alert(target.className.indexOf("rlbTransferTo"));
-
+       
+        
         document.getElementById('<%=lblCountDestinationValue.ClientID %>').innerHTML = oldItems.get_count();
 
         document.getElementById('<%=lblCountSourceValue.ClientID %>').innerHTML = newItems.get_count() - 1;
@@ -1159,7 +1162,7 @@
                                                 <asp:Label ID="lblCountSource" runat="server" CssClass="FieldName" Text="Count : "></asp:Label>
                                                 <asp:Label ID="lblCountSourceValue" runat="server" CssClass="txtField"></asp:Label>
                                             </td>
-                                            <td visible="false">
+                                            <td >
                                                 <asp:Label ID="lblDestinationSource" runat="server" CssClass="FieldName" Text="Count : "></asp:Label>
                                                 <asp:Label ID="lblCountDestinationValue" runat="server" CssClass="txtField"></asp:Label>
                                             </td>

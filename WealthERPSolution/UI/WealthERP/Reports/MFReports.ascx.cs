@@ -1412,6 +1412,7 @@ namespace WealthERP.Reports
             tabViewAndEmailReports.SelectedIndex = 2;
             RadTabStrip2.Tabs[2].Selected = true;
             RadTabStrip2.SelectedIndex = 2;
+            RadListBoxDestination.Items.Clear();
 
         }
         protected void btnEmailReport_Click(object sender, EventArgs e)
