@@ -107,7 +107,8 @@ namespace WealthERP.Uploads
 
             if (!IsPostBack)
             {
-
+                Panel2.Visible = false;
+                trReprocess.Visible = false;
                 txtFromMFT.SelectedDate = DateTime.Now.AddMonths(-1).Date;
                 txtToMFT.SelectedDate = DateTime.Now;
                 if (adviserId != 1000)
