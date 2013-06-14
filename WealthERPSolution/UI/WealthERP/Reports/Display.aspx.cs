@@ -3152,7 +3152,7 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group Sectorwise Summary Report";
+                                Headername = "Sectorwise Summary Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
@@ -3191,7 +3191,7 @@ namespace WealthERP.Reports
                             string Headername;
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group Equity Transaction Report";
+                                Headername = "Equity Transaction Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
@@ -3239,10 +3239,10 @@ namespace WealthERP.Reports
 
                             crmain.SetParameterValue("DateRange","As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
-                            string Headername;
+                            string Headername;                            
                             if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group Equity Holding Report";
+                                Headername = "Equity Holding Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
@@ -4085,6 +4085,7 @@ namespace WealthERP.Reports
 
                 if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"]))
                     equityReport.GroupHead = Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"];
+                ViewState["GroupHead"] = equityReport;   
 
                 //txtParentCustomerId
 
