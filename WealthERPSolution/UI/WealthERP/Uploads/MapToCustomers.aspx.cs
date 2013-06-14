@@ -115,7 +115,7 @@ namespace WealthERP.Uploads
             }
 
 
-            if (userVo.UserType.ToLower() == "admin" || userVo.UserType.ToLower() == "ops")
+            if (userVo.UserType == "Advisor" || userVo.UserType.ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
