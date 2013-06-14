@@ -249,13 +249,13 @@ namespace WealthERP.SuperAdmin
                                 {
                                     email.Body = email.Body.Replace("[WEBSITE]", "https://app.wealtherp.com/");
                                 }
-                              
-                                email.Body = email.Body.Replace("[CONTACTPERSON]", "Mr Vijay Shenoy");
-                               
-                                email.Body = email.Body.Replace("[DESIGNATION]", "Customer Care");
 
-                                email.Body = email.Body.Replace("[PHONE]", "080 - 32429514");                               
-                                
+                                email.Body = email.Body.Replace("[CONTACTPERSON]", "Customer Care");
+
+                                email.Body = email.Body.Replace("[DESIGNATION]", "Team WealthERP");
+
+                                email.Body = email.Body.Replace("[PHONE]", "+91 9663305249 <br/>Skype: custcare.ampsys");
+
                                 email.Body = email.Body.Replace("[EMAIL]", "custcare@ampsys.in");
                                 
 
