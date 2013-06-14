@@ -4241,13 +4241,13 @@ namespace WealthERP.Reports
 
                     foreach (CustomerPortfolioVo custPortfolio in customerPortfolioVos)
                     {
-                        if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "ALL")
+                        if (Request.Form["ctrl_MFReports$ddlPortfolioGroup"] == "ALL")
                         {
                             portfolioIDs = portfolioIDs + custPortfolio.PortfolioId;
                             portfolioIDs = portfolioIDs + ",";
 
                         }
-                        else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "MANAGED")
+                        else if (Request.Form["ctrl_MFReports$ddlPortfolioGroup"] == "MANAGED")
                         {
                             if (custPortfolio.PortfolioName == "MyPortfolio")
                             {
@@ -4255,7 +4255,7 @@ namespace WealthERP.Reports
                                 portfolioIDs = portfolioIDs + ",";
                             }
                         }
-                        else if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$ddlPortfolioGroup"] == "UN_MANAGED")
+                        else if (Request.Form["ctrl_MFReports$ddlPortfolioGroup"] == "UN_MANAGED")
                         {
                             if (custPortfolio.PortfolioName != "MyPortfolio")
                             {
