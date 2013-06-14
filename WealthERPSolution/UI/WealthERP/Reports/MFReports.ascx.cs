@@ -99,6 +99,34 @@ namespace WealthERP.Reports
 
             //
         }
+
+        protected void txtEmailAsOnDate_DayRender(object sender, Telerik.Web.UI.Calendar.DayRenderEventArgs e)
+        {
+            // modify the cell rendered content for the days we want to be disabled (e.g. every Saturday and Sunday)
+            if (e.Day.Date.DayOfWeek == DayOfWeek.Saturday || e.Day.Date.DayOfWeek == DayOfWeek.Sunday)
+            {
+                // if you are using the skin bundled as a webresource("Default"), the Skin property returns empty string
+                string calendarSkin = txtEmailAsOnDate.Calendar.Skin != "" ? txtEmailAsOnDate.Calendar.Skin : "Default";
+                string otherMonthCssClass = String.Format("otherMonth_{0}", calendarSkin);
+
+                // clear the default cell content (anchor tag) as we need to disable the hover effect for this cell
+                e.Cell.Text = "";
+                e.Cell.CssClass = otherMonthCssClass; //set new CssClass for the disabled calendar day cells (e.g. look like other month days here)
+
+                // render a span element with the processed calendar day number instead of the removed anchor -- necessary for the calendar skinning mechanism 
+                Label label = new Label();
+                label.Text = e.Day.Date.Day.ToString();
+                e.Cell.Controls.Add(label);
+
+                // disable the selection for the specific day
+                RadCalendarDay calendarDay = new RadCalendarDay();
+                calendarDay.Date = e.Day.Date;
+                calendarDay.IsSelectable = false;
+                calendarDay.ItemStyle.CssClass = otherMonthCssClass;
+                txtEmailAsOnDate.Calendar.SpecialDays.Add(calendarDay);
+            }
+        }
+
         protected void ListBoxSource_Transferred(object source , Telerik.Web.UI.RadListBoxTransferredEventArgs e)
         {
             LBCustomer.Items.Sort();
