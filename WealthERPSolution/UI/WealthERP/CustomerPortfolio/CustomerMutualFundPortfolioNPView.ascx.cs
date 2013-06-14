@@ -262,6 +262,9 @@ namespace WealthERP.CustomerPortfolio
             double totalALLInvestedCost = 0;
             double totalRealizedInvestedCost = 0;
             double totalHoldingInvestedCost = 0;
+            double totalHoldingMarketValue = 0;
+            double TotalPL = 0;
+            double TotalInvestcost = 0;
 
 
             if (ddlPortfolio.Items.Count == 0 || Session["mfPortfolioList"] == null)
@@ -324,16 +327,16 @@ namespace WealthERP.CustomerPortfolio
                 //DataRow[] drCategory;
                 //drCategory = dtReturnsHoldings.Select(expresson);
                 if (hdnReturnsHoldingsCategory.Value == "")
-                    expressonHoldings = "OpenUnits > 0";
+                    expressonHoldings = "OpenUnits <> '0.000'";
                 else
-                    expressonHoldings = "OpenUnits > 0 AND Category LIKE '%" + hdnReturnsHoldingsCategory.Value + "%'";
+                    expressonHoldings = "OpenUnits <> '0.000' AND Category LIKE '%" + hdnReturnsHoldingsCategory.Value + "%'";
 
                 DataView dvReturnsHoldings = new DataView(dtReturnsHoldings, expressonHoldings, "", DataViewRowState.CurrentRows);
 
                 if (hdnReturnsRealizedCategory.Value == "")
-                    expressonRealized = "UnitsSold > 0";
+                    expressonRealized = "";
                 else
-                    expressonRealized = "UnitsSold > 0 AND Category LIKE '%" + hdnReturnsRealizedCategory.Value + "%'";
+                    expressonRealized = "Category LIKE '%" + hdnReturnsRealizedCategory.Value + "%'";
                 DataView dvReturnsRealized = new DataView(dtReturnsRealized, expressonRealized, "", DataViewRowState.CurrentRows);
 
                 if (hdnReturnsAllCategory.Value != "")
@@ -352,13 +355,26 @@ namespace WealthERP.CustomerPortfolio
 
                 DataTable dtMFReturnsholding = new DataTable();
                 dtMFReturnsholding = dvReturnsHoldings.ToTable();
+                foreach (DataRow dr in dtMFReturnsholding.Rows)
+                {
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        totalHoldingPL = totalHoldingPL + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["InvestedCost"].ToString() != "N/A")
+                    {
+                        totalHoldingInvestedCost = totalHoldingInvestedCost + double.Parse(dr["InvestedCost"].ToString());
+                    }
+                }
 
+                //sumObject = dtMFReturnsholding.Compute("Sum(TotalPL)", string.Empty);
+                //double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
 
-                sumObject = dtMFReturnsholding.Compute("Sum(TotalPL)", string.Empty);
-                double.TryParse(Convert.ToString(sumObject), out totalHoldingPL);
+                //sumObject = dtMFReturnsholding.Compute("Sum(InvestedCost)", string.Empty);
+                //double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
 
-                sumObject = dtMFReturnsholding.Compute("Sum(InvestedCost)", string.Empty);
-                double.TryParse(Convert.ToString(sumObject), out totalHoldingInvestedCost);
+                //sumObject = dtMFReturnsholding.Compute("sum(MarketValue)"," ");
+                //double.TryParse(Convert.ToString(sumObject), out totalHoldingMarketValue);
 
                 if (totalHoldingInvestedCost != 0)
                     totalHoldingAbsoluteReturn = (totalHoldingPL / totalHoldingInvestedCost) * 100;
@@ -367,11 +383,10 @@ namespace WealthERP.CustomerPortfolio
                 lblHoldingTotalPLValue.Text = Math.Round(totalHoldingPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
 
-
+                ViewState["HoldingReturns"] = dtMFReturnsholding;
                 rgHoldings.DataSource = dtMFReturnsholding;
                 rgHoldings.DataBind();
-                
-                ViewState["HoldingReturns"] = dtMFReturnsholding;
+
                 if (dtMFReturnsholding.Rows.Count != 0)
                     imgBtnrgHoldings.Visible = true;
                 else
@@ -379,23 +394,33 @@ namespace WealthERP.CustomerPortfolio
 
                 DataTable dtMFReturnsAll = new DataTable();
                 dtMFReturnsAll = dvReturnsAll.ToTable();
+                foreach (DataRow dr in dtMFReturnsAll.Rows)
+                {
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        totalALLPL = totalALLPL + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["InvestedCost"].ToString() != "N/A")
+                    {
+                        totalALLInvestedCost = totalALLInvestedCost + double.Parse(dr["InvestedCost"].ToString());
+                    }
+                }
 
+                //sumObject = dtMFReturnsAll.Compute("Sum(TotalPL)", string.Empty);
+                //double.TryParse(Convert.ToString(sumObject), out totalALLPL);
 
-                sumObject = dtMFReturnsAll.Compute("Sum(TotalPL)", string.Empty);
-                double.TryParse(Convert.ToString(sumObject), out totalALLPL);
-
-                sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
-                double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
+                //sumObject = dtMFReturnsAll.Compute("Sum(InvestedCost)", string.Empty);
+                //double.TryParse(Convert.ToString(sumObject), out totalALLInvestedCost);
 
                 if (totalALLInvestedCost != 0)
                     totalALLAbsoluteReturn = (totalALLPL / totalALLInvestedCost) * 100;
 
                 lblALLAbsoluteReturnsValue.Text = Math.Round(totalALLAbsoluteReturn, 2).ToString();
                 lblALLTotalPLValue.Text = Math.Round(totalALLPL, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-
+                ViewState["AllReturns"] = dtMFReturnsAll;
                 rgAll.DataSource = dtMFReturnsAll;
                 rgAll.DataBind();
-                ViewState["AllReturns"] = dtMFReturnsAll;
+
                 if (dtMFReturnsAll.Rows.Count != 0)
                     imgBtnrgAll.Visible = true;
                 else
@@ -404,25 +429,37 @@ namespace WealthERP.CustomerPortfolio
                 DataTable dtMFReturnsRealized = new DataTable();
                 dtMFReturnsRealized = dvReturnsRealized.ToTable();
 
+                foreach (DataRow dr in dtMFReturnsRealized.Rows)
+                {
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        totalRealizedPl = totalRealizedPl + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["InvestedCost"].ToString() != "N/A")
+                    {
+                        totalRealizedInvestedCost = totalRealizedInvestedCost + double.Parse(dr["InvestedCost"].ToString());
+                    }
+                }
+                //sumObject = dtMFReturnsRealized.Compute("Sum(TotalPL)", string.Empty);
+                //double.TryParse(Convert.ToString(sumObject), out totalRealizedPl);
 
-                sumObject = dtMFReturnsRealized.Compute("Sum(TotalPL)", string.Empty);
-                double.TryParse(Convert.ToString(sumObject), out totalRealizedPl);
-
-                sumObject = dtMFReturnsRealized.Compute("Sum(InvestedCost)", string.Empty);
-                double.TryParse(Convert.ToString(sumObject), out totalRealizedInvestedCost);
+                //sumObject = dtMFReturnsRealized.Compute("Sum(InvestedCost)", string.Empty);
+                //double.TryParse(Convert.ToString(sumObject), out totalRealizedInvestedCost);
 
                 if (totalRealizedInvestedCost != 0)
                     totalRealizedAbsReturn = (totalRealizedPl / totalRealizedInvestedCost) * 100;
 
                 lblRealizedAbsoluteReturnValue.Text = Math.Round(totalRealizedAbsReturn, 2).ToString();
                 lblRealizedTotalPLValue.Text = Math.Round(totalRealizedPl, 2).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+
+                ViewState["RealizedReturns"] = dtMFReturnsRealized;
                 rgRealized.DataSource = dtMFReturnsRealized;
                 if (dtMFReturnsRealized.Rows.Count != 0)
                     imgBtnrgRealized.Visible = true;
                 else
                     imgBtnrgRealized.Visible = false;
                 rgRealized.DataBind();
-                ViewState["RealizedReturns"] = dtMFReturnsRealized;
+
 
             }
         }
@@ -469,30 +506,31 @@ namespace WealthERP.CustomerPortfolio
                 }
 
                 if (hdnTaxRealizedCategory.Value == "")
-                    expressonTaxRealized = "RedeemedAmount > 0.00";
+                    expressonTaxRealized = "";
                 else
-                    expressonTaxRealized = "RedeemedAmount > 0.00 AND Category LIKE '%" + hdnTaxRealizedCategory.Value + "%'";
+                    expressonTaxRealized = "Category LIKE '%" + hdnTaxRealizedCategory.Value + "%'";
 
                 DataView dvTaxRealized = new DataView(dtTaxRealized, expressonTaxRealized, "", DataViewRowState.CurrentRows);
 
                 if (hdnTaxHoldingsCategory.Value == "")
-                    expressonTaxHoldings = "OpenUnits > 0.00";
+                    expressonTaxHoldings = "OpenUnits <> '0.000'";
                 else
-                    expressonTaxHoldings = "OpenUnits > 0.00 AND Category LIKE '%" + hdnTaxHoldingsCategory.Value + "%'";
+                    expressonTaxHoldings = "OpenUnits <> '0.000' AND Category LIKE '%" + hdnTaxHoldingsCategory.Value + "%'";
 
                 DataView dvTaxHoldings = new DataView(dtTaxHoldings, expressonTaxHoldings, "", DataViewRowState.CurrentRows);
 
+                ViewState["TaxHoldings"] = dvTaxHoldings.ToTable();
                 rgTaxHoldings.DataSource = dvTaxHoldings.ToTable();
                 rgTaxHoldings.DataBind();
-                ViewState["TaxHoldings"] = dvTaxHoldings.ToTable();
+
                 if (dtTaxHoldings.Rows.Count != 0)
                     imgBtnrgTaxHoldings.Visible = true;
                 else
                     imgBtnrgTaxHoldings.Visible = false;
-
+                ViewState["TaxRealized"] = dvTaxRealized.ToTable();
                 rgTaxRealized.DataSource = dvTaxRealized.ToTable();
                 rgTaxRealized.DataBind();
-                ViewState["TaxRealized"] = dvTaxRealized.ToTable();
+
                 if (dtTaxRealized.Rows.Count != 0)
                     imgBtnrgTaxRealized.Visible = true;
                 else
@@ -512,32 +550,32 @@ namespace WealthERP.CustomerPortfolio
             if (mfVo.ReturnsRealizedInvestedCost != 0)
                 drMFPortfolioRealized[5] = mfVo.ReturnsRealizedInvestedCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[5] = "0";
+                drMFPortfolioRealized[5] = "0.00";
 
             if (mfVo.SalesQuantity != 0)
                 drMFPortfolioRealized[6] = mfVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[6] = "0.000";
+                drMFPortfolioRealized[6] = "0.00";
 
             if (mfVo.RedeemedAmount != 0)
                 drMFPortfolioRealized[7] = mfVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[7] = "0";
+                drMFPortfolioRealized[7] = "0.00";
 
             if (mfVo.ReturnsRealizedDVPAmt != 0)
                 drMFPortfolioRealized[8] = mfVo.ReturnsRealizedDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[8] = "0";
+                drMFPortfolioRealized[8] = "0.00";
 
             if (mfVo.ReturnsRealizedTotalDividends != 0)
                 drMFPortfolioRealized[9] = mfVo.ReturnsRealizedTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[9] = "0";
+                drMFPortfolioRealized[9] = "0.00";
 
             if (mfVo.ReturnsRealizedTotalPL != 0)
                 drMFPortfolioRealized[10] = mfVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
             else
-                drMFPortfolioRealized[10] = "0";
+                drMFPortfolioRealized[10] = "0.00";
 
             if (mfVo.ReturnsRealizedAbsReturn != 0)
                 drMFPortfolioRealized[11] = mfVo.ReturnsRealizedAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
@@ -575,100 +613,121 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioAll[3] = mfVo.SchemePlan;
             drMFPortfolioAll[4] = mfVo.FolioNumber;
 
-            if (mfVo.ReturnsHoldPurchaseUnit != 0)
-                drMFPortfolioAll[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[5] = "0.000";
+            if (mfVo.NetHoldings > 0 || mfVo.NetHoldings==0)
+            {
+                if (mfVo.ReturnsHoldPurchaseUnit != 0)
+                    drMFPortfolioAll[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[5] = "0.00";
 
-            if (mfVo.ReturnsHoldDVRUnits != 0)
-                drMFPortfolioAll[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[6] = "0.000";
+                if (mfVo.ReturnsHoldDVRUnits != 0)
+                    drMFPortfolioAll[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[6] = "0.00";
 
-            if (mfVo.NetHoldings != 0)
+                if (mfVo.NetHoldings != 0)
+                    drMFPortfolioAll[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[7] = "0.00";
+
+                if (mfVo.ReturnsAllPrice != 0)
+                    drMFPortfolioAll[8] = mfVo.ReturnsAllPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[8] = "N/A";
+
+                if (mfVo.InvestedCost != 0)
+                    drMFPortfolioAll[9] = mfVo.InvestedCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[9] = "0.00";
+
+                if (mfVo.MarketPrice != 0)
+                    drMFPortfolioAll[10] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[10] = "0.00";
+
+                if (mfVo.CurrentValue != 0)
+                    drMFPortfolioAll[11] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[11] = "0.00";
+
+                if (mfVo.SalesQuantity != 0)
+                    drMFPortfolioAll[12] = mfVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[12] = "0.00";
+
+                if (mfVo.RedeemedAmount != 0)
+                    drMFPortfolioAll[13] = mfVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[13] = "0.00";
+
+                if (mfVo.ReturnsAllDVPAmt != 0)
+                    drMFPortfolioAll[14] = mfVo.ReturnsAllDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[14] = "0.00";
+
+                if (mfVo.ReturnsAllTotalPL != 0)
+                    drMFPortfolioAll[15] = mfVo.ReturnsAllTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[15] = "0.00";
+
+                if (mfVo.ReturnsAllAbsReturn != 0)
+                    drMFPortfolioAll[16] = mfVo.ReturnsAllAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[16] = "0.00";
+
+                if (mfVo.ReturnsAllDVRAmt != 0)
+                    drMFPortfolioAll[17] = mfVo.ReturnsAllDVRAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[17] = "0";
+
+                if (mfVo.ReturnsAllTotalXIRR != 0)
+                    drMFPortfolioAll[18] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[18] = "0.00";
+
+                if (mfVo.ReturnsAllTotalDividends != 0)
+                    drMFPortfolioAll[19] = mfVo.ReturnsAllTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioAll[19] = "0.00";
+
+                drMFPortfolioAll[20] = mfVo.AMCCode;
+                drMFPortfolioAll[21] = mfVo.SchemePlanCode;
+                drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;
+                if (mfVo.FolioStartDate == DateTime.MinValue)
+                    drMFPortfolioAll[23] = "N/A";
+                else
+                    //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioAll[23] = mfVo.FolioStartDate.ToShortDateString();
+
+                if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                    drMFPortfolioAll[24] = "N/A";
+                else
+                    //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioAll[24] = mfVo.InvestmentStartDate.ToShortDateString();
+                if (mfVo.NavDate == DateTime.MinValue)
+                    drMFPortfolioAll[25] = "N/A";
+                else
+                    drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
+
+            }
+            else
+            {
+                drMFPortfolioAll[5] = "N/A";
+                drMFPortfolioAll[6] = "N/A";
                 drMFPortfolioAll[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[7] = "0.000";
-
-            if (mfVo.ReturnsAllPrice != 0)
-                drMFPortfolioAll[8] = mfVo.ReturnsAllPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[8] = "0.0000";
-
-            if (mfVo.InvestedCost != 0)
-                drMFPortfolioAll[9] = mfVo.InvestedCost.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[9] = "0";
-
-            if (mfVo.MarketPrice != 0)
+                drMFPortfolioAll[8] = "N/A";
+                drMFPortfolioAll[9] = "N/A";
                 drMFPortfolioAll[10] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[10] = "0.0000";
-
-            if (mfVo.CurrentValue != 0)
-                drMFPortfolioAll[11] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[11] = "0";
-
-            if (mfVo.SalesQuantity != 0)
-                drMFPortfolioAll[12] = mfVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[12] = "0.000";
-
-            if (mfVo.RedeemedAmount != 0)
-                drMFPortfolioAll[13] = mfVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[13] = "0";
-
-            if (mfVo.ReturnsAllDVPAmt != 0)
-                drMFPortfolioAll[14] = mfVo.ReturnsAllDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[14] = "0";
-
-            if (mfVo.ReturnsAllTotalPL != 0)
-                drMFPortfolioAll[15] = mfVo.ReturnsAllTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[15] = "0";
-
-            if (mfVo.ReturnsAllAbsReturn != 0)
-                drMFPortfolioAll[16] = mfVo.ReturnsAllAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[16] = "0.00";
-
-            if (mfVo.ReturnsAllDVRAmt != 0)
-                drMFPortfolioAll[17] = mfVo.ReturnsAllDVRAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[17] = "0";
-
-            if (mfVo.ReturnsAllTotalXIRR != 0)
-                drMFPortfolioAll[18] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[18] = "0.00";
-
-            if (mfVo.ReturnsAllTotalDividends != 0)
-                drMFPortfolioAll[19] = mfVo.ReturnsAllTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioAll[19] = "0";
-
-            drMFPortfolioAll[20] = mfVo.AMCCode;
-            drMFPortfolioAll[21] = mfVo.SchemePlanCode;
-            drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;
-            if (mfVo.FolioStartDate == DateTime.MinValue)
-                drMFPortfolioAll[23] = "N/A";
-            else
-                //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
-                drMFPortfolioAll[23] = mfVo.FolioStartDate.ToShortDateString();
-
-            if (mfVo.InvestmentStartDate == DateTime.MinValue)
-                drMFPortfolioAll[24] = "N/A";
-            else
-                //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
-                drMFPortfolioAll[24] = mfVo.InvestmentStartDate.ToShortDateString();
-            if (mfVo.NavDate == DateTime.MinValue)
-                drMFPortfolioAll[25] = "N/A";
-            else
-                drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
-
+                drMFPortfolioAll[11] = "N/A";
+                drMFPortfolioAll[12] = "N/A";
+                drMFPortfolioAll[13] = "N/A";
+                drMFPortfolioAll[14] = "N/A";
+                drMFPortfolioAll[15] = "N/A";
+                drMFPortfolioAll[16] = "N/A";
+                drMFPortfolioAll[17] = "N/A";
+                drMFPortfolioAll[18] = "N/A";
+                drMFPortfolioAll[19] = "N/A";
+            }
         }
 
         private static void PopulateReturnsHoldDataTable(MFPortfolioNetPositionVo mfVo, DataRow drMFPortfolioHoldings)
@@ -680,95 +739,114 @@ namespace WealthERP.CustomerPortfolio
             drMFPortfolioHoldings[3] = mfVo.SchemePlan;
             drMFPortfolioHoldings[4] = mfVo.FolioNumber;
 
-            if (mfVo.ReturnsHoldPurchaseUnit != 0)
-                drMFPortfolioHoldings[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[5] = "0.000";
+            if (mfVo.NetHoldings > 0)
+            {
+                if (mfVo.ReturnsHoldPurchaseUnit != 0)
+                    drMFPortfolioHoldings[5] = mfVo.ReturnsHoldPurchaseUnit.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[5] = "0.00";
 
-            if (mfVo.ReturnsHoldDVRUnits != 0)
-                drMFPortfolioHoldings[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[6] = "0.000";
+                if (mfVo.ReturnsHoldDVRUnits != 0)
+                    drMFPortfolioHoldings[6] = mfVo.ReturnsHoldDVRUnits.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[6] = "0.00";
 
-            if (mfVo.NetHoldings != 0)
+                if (mfVo.NetHoldings != 0)
+                    drMFPortfolioHoldings[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[7] = "0.00";
+
+                if (mfVo.InvestedCost != 0)
+                    drMFPortfolioHoldings[8] = mfVo.ReturnsHoldAcqCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[8] = "0.00";
+
+                if (mfVo.MarketPrice != 0)
+                    drMFPortfolioHoldings[9] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[9] = "0.00";
+
+                if (mfVo.CurrentValue != 0)
+                    drMFPortfolioHoldings[10] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[10] = "0.00";
+
+                if (mfVo.ReturnsHoldDVPAmt != 0)
+                    drMFPortfolioHoldings[11] = mfVo.ReturnsHoldDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[11] = "0.00";
+
+                if (mfVo.ReturnsHoldTotalPL != 0)
+                    drMFPortfolioHoldings[12] = mfVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[12] = "N/A";
+
+                if (mfVo.ReturnsHoldAbsReturn != 0)
+                    drMFPortfolioHoldings[13] = mfVo.ReturnsHoldAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[13] = "0.00";
+
+                // Showing RetunAll XIRR instead of Holding XIRR(as per MJ discussion)
+                if (mfVo.ReturnsAllTotalXIRR != 0)
+                    drMFPortfolioHoldings[14] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[14] = "0.00";
+
+                drMFPortfolioHoldings[15] = mfVo.AMCCode;
+                drMFPortfolioHoldings[16] = mfVo.SchemePlanCode;
+                drMFPortfolioHoldings[17] = mfVo.AssetInstrumentSubCategoryName;
+                if (mfVo.FolioStartDate == DateTime.MinValue)
+                    drMFPortfolioHoldings[18] = "N/A";
+                else
+                    //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToShortDateString();
+
+
+                if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                    drMFPortfolioHoldings[19] = "N/A";
+                else
+                    //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
+                    drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
+                if (mfVo.ReturnHoldDVRAmounts != 0)
+                    drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = mfVo.ReturnHoldDVRAmounts.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "0.00";
+
+                if (mfVo.NavDate == DateTime.MinValue)
+                    drMFPortfolioHoldings[21] = "N/A";
+                else
+                    drMFPortfolioHoldings[21] = mfVo.NavDate.ToShortDateString();
+
+                if (mfVo.AnnualisedReturns != 0)
+                    drMFPortfolioHoldings[22] = mfVo.AnnualisedReturns.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[22] = "0";
+                if (mfVo.WeightageNAV != 0)
+                    drMFPortfolioHoldings[23] = mfVo.WeightageNAV.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drMFPortfolioHoldings[23] = "0";
+                if (mfVo.WeightageDays != 0)
+                    drMFPortfolioHoldings[24] = mfVo.WeightageDays;
+                else
+                    drMFPortfolioHoldings[24] = "0";
+            }
+            else
+            {
+                drMFPortfolioHoldings[5] = "N/A";
+                drMFPortfolioHoldings[6] = "N/A";
                 drMFPortfolioHoldings[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[7] = "0.000";
-
-            if (mfVo.InvestedCost != 0)
-                drMFPortfolioHoldings[8] = mfVo.ReturnsHoldAcqCost.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[8] = "0.00";
-
-            if (mfVo.MarketPrice != 0)
+                drMFPortfolioHoldings[8] = "N/A";
                 drMFPortfolioHoldings[9] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[9] = "0.0000";
-
-            if (mfVo.CurrentValue != 0)
-                drMFPortfolioHoldings[10] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[10] = "0";
-
-            if (mfVo.ReturnsHoldDVPAmt != 0)
-                drMFPortfolioHoldings[11] = mfVo.ReturnsHoldDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[11] = "0.00";
-
-            if (mfVo.ReturnsHoldTotalPL != 0)
-                drMFPortfolioHoldings[12] = mfVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[12] = "0";
-
-            if (mfVo.ReturnsHoldAbsReturn != 0)
-                drMFPortfolioHoldings[13] = mfVo.ReturnsHoldAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[13] = "0.00";
-
-            // Showing RetunAll XIRR instead of Holding XIRR(as per MJ discussion)
-            if (mfVo.ReturnsAllTotalXIRR != 0)
-                drMFPortfolioHoldings[14] = mfVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[14] = "0.00";
-
-            drMFPortfolioHoldings[15] = mfVo.AMCCode;
-            drMFPortfolioHoldings[16] = mfVo.SchemePlanCode;
-            drMFPortfolioHoldings[17] = mfVo.AssetInstrumentSubCategoryName;
-            if (mfVo.FolioStartDate == DateTime.MinValue)
-                drMFPortfolioHoldings[18] = "N/A";
-            else
-                //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
-                drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToShortDateString();
-
-
-            if (mfVo.InvestmentStartDate == DateTime.MinValue)
-                drMFPortfolioHoldings[19] = "N/A";
-            else
-                //drMFPortfolioHoldings[18] = mfVo.FolioStartDate.ToString("D");
-                drMFPortfolioHoldings[19] = mfVo.InvestmentStartDate.ToShortDateString();
-            if (mfVo.ReturnHoldDVRAmounts != 0)
-                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = mfVo.ReturnHoldDVRAmounts.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "0.00";
-
-            if (mfVo.NavDate == DateTime.MinValue)
-                drMFPortfolioHoldings[21] = "N/A";
-            else
-                drMFPortfolioHoldings[21] = mfVo.NavDate.ToShortDateString();
-
-            if (mfVo.AnnualisedReturns != 0)
-                drMFPortfolioHoldings[22] = mfVo.AnnualisedReturns.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[22] = "0.00";
-            if (mfVo.WeightageNAV != 0)
-                drMFPortfolioHoldings[23] = mfVo.WeightageNAV.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drMFPortfolioHoldings[23] = "0.00";
-            if (mfVo.WeightageDays != 0)
-                drMFPortfolioHoldings[24] = mfVo.WeightageDays;
-            else
-                drMFPortfolioHoldings[24] = "0";
-
+                drMFPortfolioHoldings[10] = "N/A";
+                drMFPortfolioHoldings[11] = "N/A";
+                drMFPortfolioHoldings[12] = "N/A";
+                drMFPortfolioHoldings[13] = "N/A";
+                drMFPortfolioHoldings[14] = "N/A";
+                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "N/A";
+                drMFPortfolioHoldings[22] = "N/A";
+                drMFPortfolioHoldings[23] = "N/A";
+                drMFPortfolioHoldings[24] = "N/A";
+            }
         }
 
         private static void PopulateTaxHoldDataTable(DataRow drTaxHoldings, MFPortfolioNetPositionVo mfVo)
@@ -779,60 +857,72 @@ namespace WealthERP.CustomerPortfolio
             drTaxHoldings[3] = mfVo.SchemePlan;
             drTaxHoldings[4] = mfVo.FolioNumber;
 
-            if (mfVo.NetHoldings != 0)
+            if (mfVo.NetHoldings > 0)
+            {
+                if (mfVo.NetHoldings != 0)
+                    drTaxHoldings[5] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[5] = "0.00";
+
+                if (mfVo.TaxHoldBalanceAmt != 0)
+                    drTaxHoldings[6] = mfVo.TaxHoldBalanceAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[6] = "0.00";
+
+                if (mfVo.MarketPrice != 0)
+                    drTaxHoldings[7] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[7] = "0.00";
+
+                if (mfVo.CurrentValue != 0)
+                    drTaxHoldings[8] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[8] = "0.00";
+
+                if (mfVo.TaxHoldTotalPL != 0)
+                    drTaxHoldings[9] = mfVo.TaxHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[9] = "0.00";
+
+                if (mfVo.TaxHoldEligibleSTCG != 0)
+                    drTaxHoldings[10] = mfVo.TaxHoldEligibleSTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[10] = "N/A";
+
+                if (mfVo.TaxHoldEligibleLTCG != 0)
+                    drTaxHoldings[11] = mfVo.TaxHoldEligibleLTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                else
+                    drTaxHoldings[11] = "0.00";
+
+                drTaxHoldings[12] = mfVo.AMCCode;
+                drTaxHoldings[13] = mfVo.SchemePlanCode;
+                drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
+                if (mfVo.FolioStartDate == DateTime.MinValue)
+                    drTaxHoldings[15] = "0.00";
+                else
+                    //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                    drTaxHoldings[15] = mfVo.FolioStartDate.ToShortDateString();
+                if (mfVo.InvestmentStartDate == DateTime.MinValue)
+                    drTaxHoldings[16] = "N/A";
+                else
+                    //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
+                    drTaxHoldings[16] = mfVo.InvestmentStartDate.ToShortDateString();
+                if (mfVo.NavDate == DateTime.MinValue)
+                    drTaxHoldings[17] = "N/A";
+                else
+                    drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
+
+            }
+            else
+            {
                 drTaxHoldings[5] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[5] = "0.00";
-
-            if (mfVo.TaxHoldBalanceAmt != 0)
-                drTaxHoldings[6] = mfVo.TaxHoldBalanceAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[6] = "0.00";
-
-            if (mfVo.MarketPrice != 0)
+                drTaxHoldings[6] = "N/A";
                 drTaxHoldings[7] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[7] = "0.00";
-
-            if (mfVo.CurrentValue != 0)
-                drTaxHoldings[8] = mfVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[8] = "0.00";
-
-            if (mfVo.TaxHoldTotalPL != 0)
-                drTaxHoldings[9] = mfVo.TaxHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[9] = "0.00";
-
-            if (mfVo.TaxHoldEligibleSTCG != 0)
-                drTaxHoldings[10] = mfVo.TaxHoldEligibleSTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[10] = "0.00";
-
-            if (mfVo.TaxHoldEligibleLTCG != 0)
-                drTaxHoldings[11] = mfVo.TaxHoldEligibleLTCG.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
-            else
-                drTaxHoldings[11] = "0.00";
-
-            drTaxHoldings[12] = mfVo.AMCCode;
-            drTaxHoldings[13] = mfVo.SchemePlanCode;
-            drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
-            if (mfVo.FolioStartDate == DateTime.MinValue)
-                drTaxHoldings[15] = "N/A";
-            else
-                //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
-                drTaxHoldings[15] = mfVo.FolioStartDate.ToShortDateString();
-            if (mfVo.InvestmentStartDate == DateTime.MinValue)
-                drTaxHoldings[16] = "N/A";
-            else
-                //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
-                drTaxHoldings[16] = mfVo.InvestmentStartDate.ToShortDateString();
-            if (mfVo.NavDate == DateTime.MinValue)
-                drTaxHoldings[17] = "N/A";
-            else
-                drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
-
-
+                drTaxHoldings[8] = "N/A";
+                drTaxHoldings[9] = "N/A";
+                drTaxHoldings[10] = "N/A";
+                drTaxHoldings[11] = "N/A";
+            }
         }
 
         private static void PopulateTaxRealizedDataTable(DataRow drTaxRealized, MFPortfolioNetPositionVo mfVo)
@@ -928,25 +1018,25 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("Category");
             dtReturnsHoldings.Columns.Add("Scheme", typeof(string));
             dtReturnsHoldings.Columns.Add("FolioNum");
-            dtReturnsHoldings.Columns.Add("PurchasedUnits", typeof(double));
-            dtReturnsHoldings.Columns.Add("DVRUnits", typeof(double));
-            dtReturnsHoldings.Columns.Add("OpenUnits", typeof(double));
-            dtReturnsHoldings.Columns.Add("InvestedCost", typeof(double));
+            dtReturnsHoldings.Columns.Add("PurchasedUnits");
+            dtReturnsHoldings.Columns.Add("DVRUnits");
+            dtReturnsHoldings.Columns.Add("OpenUnits");
+            dtReturnsHoldings.Columns.Add("InvestedCost");
             dtReturnsHoldings.Columns.Add("NAV", typeof(double));
-            dtReturnsHoldings.Columns.Add("MarketValue", typeof(double));
-            dtReturnsHoldings.Columns.Add("DVP", typeof(double));
-            dtReturnsHoldings.Columns.Add("TotalPL", typeof(double));
-            dtReturnsHoldings.Columns.Add("AbsoluteReturn", typeof(double));
-            dtReturnsHoldings.Columns.Add("XIRR", typeof(double));
+            dtReturnsHoldings.Columns.Add("MarketValue");
+            dtReturnsHoldings.Columns.Add("DVP");
+            dtReturnsHoldings.Columns.Add("TotalPL");
+            dtReturnsHoldings.Columns.Add("AbsoluteReturn");
+            dtReturnsHoldings.Columns.Add("XIRR");
             dtReturnsHoldings.Columns.Add("AMCCode");
             dtReturnsHoldings.Columns.Add("SchemeCode");
             dtReturnsHoldings.Columns.Add("SubCategoryName");
             dtReturnsHoldings.Columns.Add("FolioStartDate");
             dtReturnsHoldings.Columns.Add("InvestmentStartDate");
-            dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts", typeof(double));
+            dtReturnsHoldings.Columns.Add("CMFNP_RET_Hold_DVRAmounts");
             dtReturnsHoldings.Columns.Add("CMFNP_NAVDate");
-            dtReturnsHoldings.Columns.Add("weightage returns", typeof(double));
-            dtReturnsHoldings.Columns.Add("Weighted NAV", typeof(double));
+            dtReturnsHoldings.Columns.Add("weightage returns");
+            dtReturnsHoldings.Columns.Add("Weighted NAV");
             dtReturnsHoldings.Columns.Add("Weighted Days");
         }
 
@@ -957,21 +1047,21 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("Category");
             dtReturnsAll.Columns.Add("Scheme");
             dtReturnsAll.Columns.Add("FolioNum");
-            dtReturnsAll.Columns.Add("PurchasedUnits", typeof(double));
-            dtReturnsAll.Columns.Add("DVRUnits", typeof(double));
-            dtReturnsAll.Columns.Add("OpenUnits", typeof(double));
-            dtReturnsAll.Columns.Add("Price", typeof(double));
-            dtReturnsAll.Columns.Add("InvestedCost", typeof(double));
-            dtReturnsAll.Columns.Add("NAV", typeof(double));
-            dtReturnsAll.Columns.Add("CurrentValue", typeof(double));
-            dtReturnsAll.Columns.Add("UnitsSold", typeof(double));
-            dtReturnsAll.Columns.Add("RedeemedAmount", typeof(double));
-            dtReturnsAll.Columns.Add("DVP", typeof(double));
-            dtReturnsAll.Columns.Add("TotalPL", typeof(double));
-            dtReturnsAll.Columns.Add("AbsoluteReturn", typeof(double));
-            dtReturnsAll.Columns.Add("DVR", typeof(double));
-            dtReturnsAll.Columns.Add("XIRR", typeof(double));
-            dtReturnsAll.Columns.Add("TotalDividends", typeof(double));
+            dtReturnsAll.Columns.Add("PurchasedUnits");
+            dtReturnsAll.Columns.Add("DVRUnits");
+            dtReturnsAll.Columns.Add("OpenUnits");
+            dtReturnsAll.Columns.Add("Price");
+            dtReturnsAll.Columns.Add("InvestedCost");
+            dtReturnsAll.Columns.Add("NAV");
+            dtReturnsAll.Columns.Add("CurrentValue");
+            dtReturnsAll.Columns.Add("UnitsSold");
+            dtReturnsAll.Columns.Add("RedeemedAmount");
+            dtReturnsAll.Columns.Add("DVP");
+            dtReturnsAll.Columns.Add("TotalPL");
+            dtReturnsAll.Columns.Add("AbsoluteReturn");
+            dtReturnsAll.Columns.Add("DVR");
+            dtReturnsAll.Columns.Add("XIRR");
+            dtReturnsAll.Columns.Add("TotalDividends");
             dtReturnsAll.Columns.Add("AMCCode");
             dtReturnsAll.Columns.Add("SchemeCode");
             dtReturnsAll.Columns.Add("SubCategoryName");
@@ -987,14 +1077,14 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsRealized.Columns.Add("Category");
             dtReturnsRealized.Columns.Add("Scheme");
             dtReturnsRealized.Columns.Add("FolioNum");
-            dtReturnsRealized.Columns.Add("InvestedCost", typeof(double));
-            dtReturnsRealized.Columns.Add("UnitsSold", typeof(double));
-            dtReturnsRealized.Columns.Add("RedeemedAmount", typeof(double));
-            dtReturnsRealized.Columns.Add("DVP", typeof(double));
-            dtReturnsRealized.Columns.Add("TotalDividends", typeof(double));
-            dtReturnsRealized.Columns.Add("TotalPL", typeof(double));
-            dtReturnsRealized.Columns.Add("AbsoluteReturn", typeof(double));
-            dtReturnsRealized.Columns.Add("XIRR", typeof(double));
+            dtReturnsRealized.Columns.Add("InvestedCost");
+            dtReturnsRealized.Columns.Add("UnitsSold");
+            dtReturnsRealized.Columns.Add("RedeemedAmount");
+            dtReturnsRealized.Columns.Add("DVP");
+            dtReturnsRealized.Columns.Add("TotalDividends");
+            dtReturnsRealized.Columns.Add("TotalPL");
+            dtReturnsRealized.Columns.Add("AbsoluteReturn");
+            dtReturnsRealized.Columns.Add("XIRR");
             dtReturnsRealized.Columns.Add("AMCCode");
             dtReturnsRealized.Columns.Add("SchemeCode");
             dtReturnsRealized.Columns.Add("SubCategoryName");
@@ -1009,13 +1099,13 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("Category");
             dtTaxHoldings.Columns.Add("Scheme");
             dtTaxHoldings.Columns.Add("FolioNum");
-            dtTaxHoldings.Columns.Add("OpenUnits", typeof(double));
-            dtTaxHoldings.Columns.Add("BalanceAmount", typeof(double));
-            dtTaxHoldings.Columns.Add("NAV", typeof(double));
-            dtTaxHoldings.Columns.Add("MarketValue", typeof(double));
-            dtTaxHoldings.Columns.Add("UnrealizedPL", typeof(double));
-            dtTaxHoldings.Columns.Add("EligibleSTCG", typeof(double));
-            dtTaxHoldings.Columns.Add("EligibleLTCG", typeof(double));
+            dtTaxHoldings.Columns.Add("OpenUnits");
+            dtTaxHoldings.Columns.Add("BalanceAmount");
+            dtTaxHoldings.Columns.Add("NAV");
+            dtTaxHoldings.Columns.Add("MarketValue");
+            dtTaxHoldings.Columns.Add("UnrealizedPL");
+            dtTaxHoldings.Columns.Add("EligibleSTCG");
+            dtTaxHoldings.Columns.Add("EligibleLTCG");
             dtTaxHoldings.Columns.Add("AMCCode");
             dtTaxHoldings.Columns.Add("SchemeCode");
             dtTaxHoldings.Columns.Add("SubCategoryName");
@@ -1031,15 +1121,15 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("Category");
             dtTaxRealized.Columns.Add("Scheme");
             dtTaxRealized.Columns.Add("FolioNum");
-            dtTaxRealized.Columns.Add("AcquisitionCost", typeof(double));
-            dtTaxRealized.Columns.Add("RedeemedAmount", typeof(double));
-            dtTaxRealized.Columns.Add("TotalPL", typeof(double));
-            dtTaxRealized.Columns.Add("STCG", typeof(double));
-            dtTaxRealized.Columns.Add("LTCG", typeof(double));
+            dtTaxRealized.Columns.Add("AcquisitionCost");
+            dtTaxRealized.Columns.Add("RedeemedAmount");
+            dtTaxRealized.Columns.Add("TotalPL");
+            dtTaxRealized.Columns.Add("STCG");
+            dtTaxRealized.Columns.Add("LTCG");
             dtTaxRealized.Columns.Add("AMCCode");
             dtTaxRealized.Columns.Add("SchemeCode");
             dtTaxRealized.Columns.Add("SubCategoryName");
-            dtTaxRealized.Columns.Add("UnitsSold", typeof(double));
+            dtTaxRealized.Columns.Add("UnitsSold");
             dtTaxRealized.Columns.Add("FolioStartDate");
             dtTaxRealized.Columns.Add("InvestmentStartDate");
         }
@@ -1257,7 +1347,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 string portfolio = string.Empty;
                 //if(ddlPortfolio.SelectedIndex!=0)
-                portfolio=ddlPortfolio.SelectedItem.ToString();
+                portfolio = ddlPortfolio.SelectedItem.ToString();
                 GridDataItem dataItem = e.Item as GridDataItem;
                 string strMFNPId = dataItem.GetDataKeyValue("MFNPId").ToString();
                 //string strMFNPId = rgHoldings.MasterTableView.DataKeyValues[e.Item.ItemIndex]["MFNPId"].ToString();
@@ -1291,7 +1381,7 @@ namespace WealthERP.CustomerPortfolio
 
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);        
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);
 
                 }
                 else if (e.CommandName == "NavigateToMarketData")
@@ -1359,7 +1449,7 @@ namespace WealthERP.CustomerPortfolio
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','none');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);        
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);
 
                 }
                 else if (e.CommandName == "NavigateToMarketData")
@@ -1426,7 +1516,7 @@ namespace WealthERP.CustomerPortfolio
                     //Response.Redirect("ControlHost.aspx?pageid=TransactionsView&Folio=" + strFolio + "&Scheme=" + strScheme + "&FromDate=" + strFromDate + "&ToDate=" + strToDate + "", false);
                     //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMMultipleTransactionView','none');", true);
 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);        
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMMultipleTransactionView", "loadcontrol('RMMultipleTransactionView','strPortfolio=" + portfolio + "');", true);
 
                 }
                 else if (e.CommandName == "NavigateToMarketData")
@@ -2253,6 +2343,455 @@ namespace WealthERP.CustomerPortfolio
             dtSchemePerformance = (DataTable)Cache["SchemePerformance" + userVo.UserId];
             gvSchemePerformance.DataSource = dtSchemePerformance;
             gvSchemePerformance.Visible = true;
+        }
+        protected void rgHoldings_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            //double sum;
+            //double TotalSum = 0.0;
+            //string Value = string.Empty;
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem item = (GridDataItem)e.Item;
+            //    Value = (item["MarketValue"].Text).ToString();
+            //    Value = Value.Replace("N/A", "0");
+            //    sum = Convert.ToDouble(Value);
+            //    TotalSum = TotalSum + sum;
+            //}
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem footer = (GridFooterItem)e.Item;
+                if (rgHoldings.Items.Count > 0)
+                {
+                    Dictionary<string, double> dic = CalculateHoldingFooterTotal();
+                    if (dic.Count > 0)
+                    {
+                        var keyValuePair = dic.FirstOrDefault(x => x.Key == "MarketValue");
+                        var keyValuePairPurchase = dic.FirstOrDefault(x => x.Key == "PurchasedUnits");
+                        var keyValuePairDVR = dic.FirstOrDefault(x => x.Key == "DVRUnits");
+                        var keyValuePairDVP = dic.FirstOrDefault(x => x.Key == "DVP");
+                        var keyValuePairDVRAmt = dic.FirstOrDefault(x => x.Key == "CMFNP_RET_Hold_DVRAmounts");
+                        var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
+                        var keyValuePairInvestCost = dic.FirstOrDefault(x => x.Key == "InvestedCost");
+                        var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "OpenUnits");
+                        footer["MarketValue"].Text = string.Format("{0:N2}", (keyValuePair.Value).ToString());
+                        footer["PurchasedUnits"].Text = string.Format("{0:N3}", keyValuePairPurchase.Value.ToString());
+                        footer["DVRUnits"].Text = keyValuePairDVR.Value.ToString();
+                        footer["DVP"].Text = keyValuePairDVP.Value.ToString();
+                        footer["CMFNP_RET_Hold_DVRAmounts"].Text = keyValuePairDVRAmt.Value.ToString();
+                        footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
+                        footer["InvestedCost"].Text = keyValuePairInvestCost.Value.ToString();
+                        footer["OpenUnits"].Text = string.Format("{0:N3}", keyValuePairUnit.Value.ToString());
+
+                    }
+                }
+            }
+        }
+        protected Dictionary<string, double> CalculateHoldingFooterTotal()
+        {
+            Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
+            double MarketValueTotal = 0;
+            double PurchasedUnitsTotal = 0;
+            double DVRUnitsTotal = 0;
+            double DVPTotal = 0;
+            double DVRAmountTotal = 0;
+            double TotalPL = 0;
+            double TotalInvestCost = 0;
+            double TotalUnit = 0;
+            if (ViewState["HoldingReturns"] != null)
+            {
+                DataTable dtHoldingReturns = (DataTable)ViewState["HoldingReturns"];
+                foreach (DataRow dr in dtHoldingReturns.Rows)
+                {
+                    if (dr["MarketValue"].ToString() != "N/A")
+                    {
+                        MarketValueTotal = MarketValueTotal + double.Parse(dr["MarketValue"].ToString());
+                    }
+                    if (dr["PurchasedUnits"].ToString() != "N/A")
+                    {
+                        PurchasedUnitsTotal = PurchasedUnitsTotal + double.Parse(dr["PurchasedUnits"].ToString());
+                    }
+                    if (dr["DVRUnits"].ToString() != "N/A")
+                    {
+                        DVRUnitsTotal = DVRUnitsTotal + double.Parse(dr["DVRUnits"].ToString());
+                    }
+                    if (dr["DVP"].ToString() != "N/A")
+                    {
+                        DVPTotal = DVPTotal + double.Parse(dr["DVP"].ToString());
+                    }
+                    if (dr["CMFNP_RET_Hold_DVRAmounts"].ToString() != "N/A")
+                    {
+                        DVRAmountTotal = DVRAmountTotal + double.Parse(dr["CMFNP_RET_Hold_DVRAmounts"].ToString());
+                    }
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["InvestedCost"].ToString() != "N/A")
+                    {
+                        TotalInvestCost = TotalInvestCost + double.Parse(dr["InvestedCost"].ToString());
+                    }
+                    if (dr["OpenUnits"].ToString() != "N/A")
+                    {
+                        TotalUnit = TotalUnit + double.Parse(dr["OpenUnits"].ToString());
+                    }
+                }
+                dicTotalSum.Add("MarketValue", MarketValueTotal);
+                dicTotalSum.Add("PurchasedUnits", PurchasedUnitsTotal);
+                dicTotalSum.Add("DVRUnits", DVRUnitsTotal);
+                dicTotalSum.Add("DVP", DVPTotal);
+                dicTotalSum.Add("CMFNP_RET_Hold_DVRAmounts", DVRAmountTotal);
+                dicTotalSum.Add("TotalPL", TotalPL);
+                dicTotalSum.Add("InvestedCost", TotalInvestCost);
+                dicTotalSum.Add("OpenUnits", TotalUnit);
+            }
+            return dicTotalSum;
+        }
+
+        protected void rgAll_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem footer = (GridFooterItem)e.Item;
+                if (rgAll.Items.Count > 0)
+                {
+                    Dictionary<string, double> dic = CalculateAllFooterTotal();
+                    if (dic.Count > 0)
+                    {
+                        var keyValuePair = dic.FirstOrDefault(x => x.Key == "CurrentValue");
+                        var keyValuePairPurchase = dic.FirstOrDefault(x => x.Key == "PurchasedUnits");
+                        var keyValuePairDVRUnit = dic.FirstOrDefault(x => x.Key == "DVRUnits");
+                        var keyValuePairDVP = dic.FirstOrDefault(x => x.Key == "DVP");
+                        var keyValuePairDVR = dic.FirstOrDefault(x => x.Key == "DVR");
+                        var keyValuePairReedemAmt = dic.FirstOrDefault(x => x.Key == "RedeemedAmount");
+                        var keyValuePairTotalDIV = dic.FirstOrDefault(x => x.Key == "TotalDividends");
+                        var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
+                        var keyValuePairInvestCost = dic.FirstOrDefault(x => x.Key == "InvestedCost");
+                        var keyValuePairSoldUnit = dic.FirstOrDefault(x => x.Key == "UnitsSold");
+                        var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "OpenUnits");
+                        footer["CurrentValue"].Text = Convert.ToDouble(keyValuePair.Value).ToString();
+                        footer["PurchasedUnits"].Text = keyValuePairPurchase.Value.ToString();
+                        footer["DVRUnits"].Text = keyValuePairDVRUnit.Value.ToString();
+                        footer["DVP"].Text = keyValuePairDVP.Value.ToString();
+                        footer["DVR"].Text = keyValuePairDVR.Value.ToString();
+                        footer["RedeemedAmount"].Text = keyValuePairReedemAmt.Value.ToString();
+                        footer["TotalDividends"].Text = keyValuePairTotalDIV.Value.ToString();
+                        footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
+                        footer["InvestedCost"].Text = keyValuePairInvestCost.Value.ToString();
+                        footer["UnitsSold"].Text = keyValuePairSoldUnit.Value.ToString();
+                        footer["OpenUnits"].Text = keyValuePairUnit.Value.ToString();
+                    }
+                }
+            }
+        }
+        protected Dictionary<string, double> CalculateAllFooterTotal()
+        {
+            Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
+            double CurrentValueTotal = 0;
+            double PurchasedUnitsTotal = 0;
+            double DVRUnitsTotal = 0;
+            double DVRTotal = 0;
+            double DVPTotal = 0;
+            double TotalDividend = 0;
+            double RedeemedAmountTotal = 0;
+            double TotalPL = 0;
+            double TotalInvestCost = 0;
+            double TotalUnit = 0;
+            // double Price = 0;
+            double TotalSoldUnit = 0;
+            if (ViewState["AllReturns"] != null)
+            {
+                DataTable dtAllReturns = (DataTable)ViewState["AllReturns"];
+                foreach (DataRow dr in dtAllReturns.Rows)
+                {
+                    if (dr["CurrentValue"].ToString() != "N/A")
+                    {
+                        CurrentValueTotal = CurrentValueTotal + double.Parse(dr["CurrentValue"].ToString());
+                    }
+                    if (dr["PurchasedUnits"].ToString() != "N/A")
+                    {
+                        PurchasedUnitsTotal = PurchasedUnitsTotal + double.Parse(dr["PurchasedUnits"].ToString());
+                    }
+                    if (dr["DVRUnits"].ToString() != "N/A")
+                    {
+                        DVRUnitsTotal = DVRUnitsTotal + double.Parse(dr["DVRUnits"].ToString());
+                    }
+                    if (dr["DVP"].ToString() != "N/A")
+                    {
+                        DVPTotal = DVPTotal + double.Parse(dr["DVP"].ToString());
+                    }
+                    if (dr["DVR"].ToString() != "N/A")
+                    {
+                        DVRTotal = DVRTotal + double.Parse(dr["DVR"].ToString());
+                    }
+                    //if (dr["Price"].ToString() != "N/A")
+                    //{
+                    //    Price = Price + double.Parse(dr["Price"].ToString());
+                    //}
+                    if (dr["RedeemedAmount"].ToString() != "N/A")
+                    {
+                        RedeemedAmountTotal = RedeemedAmountTotal + double.Parse(dr["RedeemedAmount"].ToString());
+                    }
+                    if (dr["TotalDividends"].ToString() != "N/A")
+                    {
+                        TotalDividend = TotalDividend + double.Parse(dr["TotalDividends"].ToString());
+                    }
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["InvestedCost"].ToString() != "N/A")
+                    {
+                        TotalInvestCost = TotalInvestCost + double.Parse(dr["InvestedCost"].ToString());
+                    }
+                    if (dr["UnitsSold"].ToString() != "N/A")
+                    {
+                        TotalSoldUnit = TotalSoldUnit + double.Parse(dr["UnitsSold"].ToString());
+                    }
+                    if (dr["OpenUnits"].ToString() != "N/A")
+                    {
+                        TotalUnit = TotalUnit + double.Parse(dr["OpenUnits"].ToString());
+                    }
+                }
+                dicTotalSum.Add("CurrentValue", CurrentValueTotal);
+                dicTotalSum.Add("PurchasedUnits", PurchasedUnitsTotal);
+                dicTotalSum.Add("DVRUnits", DVRUnitsTotal);
+                dicTotalSum.Add("DVP", DVPTotal);
+                dicTotalSum.Add("DVR", DVRTotal);
+                // dicTotalSum.Add("Price", Price);
+                dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
+                dicTotalSum.Add("TotalDividends", TotalDividend);
+                dicTotalSum.Add("TotalPL", TotalPL);
+                dicTotalSum.Add("InvestedCost", TotalInvestCost);
+                dicTotalSum.Add("OpenUnits", TotalUnit);
+                dicTotalSum.Add("UnitsSold", TotalSoldUnit);
+
+            }
+            return dicTotalSum;
+        }
+        protected void rgRealized_ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem footer = (GridFooterItem)e.Item;
+                if (rgRealized.Items.Count > 0)
+                {
+                    Dictionary<string, double> dic = CalculateRealizedFooterTotal();
+                    if (dic.Count > 0)
+                    {
+                        var keyValuePairTotalDIV = dic.FirstOrDefault(x => x.Key == "TotalDividends");
+                        var keyValuePairDVP = dic.FirstOrDefault(x => x.Key == "DVP");
+                        var keyValuePairReedemAmt = dic.FirstOrDefault(x => x.Key == "RedeemedAmount");
+                        var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
+                        var keyValuePairInvestCost = dic.FirstOrDefault(x => x.Key == "InvestedCost");
+                        var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "UnitsSold");
+                        footer["TotalDividends"].Text = keyValuePairTotalDIV.Value.ToString();
+                        footer["DVP"].Text = keyValuePairDVP.Value.ToString();
+                        footer["RedeemedAmount"].Text = keyValuePairReedemAmt.Value.ToString();
+                        footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
+                        footer["InvestedCost"].Text = keyValuePairInvestCost.Value.ToString();
+                        footer["UnitsSold"].Text = keyValuePairUnit.Value.ToString();
+                    }
+                }
+            }
+        }
+        protected Dictionary<string, double> CalculateRealizedFooterTotal()
+        {
+            Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
+            double TotalDividend = 0;
+            double DVPTotal = 0;
+            double RedeemedAmountTotal = 0;
+            double TotalPL = 0;
+            double TotalInvestCost = 0;
+            double TotalSoldUnit = 0;
+            if (ViewState["RealizedReturns"] != null)
+            {
+                DataTable dtRealizedReturns = (DataTable)ViewState["RealizedReturns"];
+                foreach (DataRow dr in dtRealizedReturns.Rows)
+                {
+                    if (dr["TotalDividends"].ToString() != "N/A")
+                    {
+                        TotalDividend = TotalDividend + double.Parse(dr["TotalDividends"].ToString());
+                    }
+                    if (dr["DVP"].ToString() != "N/A")
+                    {
+                        DVPTotal = DVPTotal + double.Parse(dr["DVP"].ToString());
+                    }
+                    if (dr["RedeemedAmount"].ToString() != "N/A")
+                    {
+                        RedeemedAmountTotal = RedeemedAmountTotal + double.Parse(dr["RedeemedAmount"].ToString());
+                    }
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["InvestedCost"].ToString() != "N/A")
+                    {
+                        TotalInvestCost = TotalInvestCost + double.Parse(dr["InvestedCost"].ToString());
+                    }
+                    if (dr["UnitsSold"].ToString() != "N/A")
+                    {
+                        TotalSoldUnit = TotalSoldUnit + double.Parse(dr["UnitsSold"].ToString());
+                    }
+                }
+                dicTotalSum.Add("TotalDividends", TotalDividend);
+                dicTotalSum.Add("DVP", DVPTotal);
+                dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
+                dicTotalSum.Add("TotalPL", TotalPL);
+                dicTotalSum.Add("InvestedCost", TotalInvestCost);
+                dicTotalSum.Add("UnitsSold", TotalSoldUnit);
+            }
+            return dicTotalSum;
+        }
+
+        protected void rgTaxHoldings_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem footer = (GridFooterItem)e.Item;
+                if (rgTaxHoldings.Items.Count > 0)
+                {
+                    Dictionary<string, double> dic = CalculateTaxHoldingFooterTotal();
+                    if (dic.Count > 0)
+                    {
+                        var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "OpenUnits");
+                        var keyValuePairBalanceAmt = dic.FirstOrDefault(x => x.Key == "BalanceAmount");
+                        var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "UnrealizedPL");
+                        var keyValuePairSTCG = dic.FirstOrDefault(x => x.Key == "EligibleSTCG");
+                        var keyValuePairLTCG = dic.FirstOrDefault(x => x.Key == "EligibleLTCG");
+                        var keyValueMarketValue = dic.FirstOrDefault(x => x.Key == "MarketValue");
+                        footer["OpenUnits"].Text = string.Format("{0:N2}", keyValuePairUnit.Value.ToString());
+                        footer["BalanceAmount"].Text = keyValuePairBalanceAmt.Value.ToString();
+                        footer["UnrealizedPL"].Text = keyValuePairTotalPL.Value.ToString();
+                        footer["EligibleSTCG"].Text = keyValuePairSTCG.Value.ToString();
+                        footer["EligibleLTCG"].Text = keyValuePairLTCG.Value.ToString();
+                        footer["MarketValue"].Text = keyValueMarketValue.Value.ToString();
+                    }
+                }
+            }
+        }
+        protected Dictionary<string, double> CalculateTaxHoldingFooterTotal()
+        {
+            Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
+            double TotalMarketVlaue = 0;
+            double BalanceAmountTotal = 0;
+            double TotalPL = 0;
+            double TotalSTCG = 0;
+            double TotalLTCG = 0;
+            double TotalUnit = 0;
+
+            if (ViewState["TaxHoldings"] != null)
+            { //
+                DataTable dtTaxRealizedReturns = (DataTable)ViewState["TaxHoldings"];
+                foreach (DataRow dr in dtTaxRealizedReturns.Rows)
+                {
+                    if (dr["OpenUnits"].ToString() != "N/A")
+                    {
+                        TotalUnit = TotalUnit + double.Parse(dr["OpenUnits"].ToString());
+                    }
+                    if (dr["BalanceAmount"].ToString() != "N/A")
+                    {
+                        BalanceAmountTotal = BalanceAmountTotal + double.Parse(dr["BalanceAmount"].ToString());
+                    }
+                    if (dr["UnrealizedPL"].ToString() != "N/A")
+                    {
+                        TotalPL = TotalPL + double.Parse(dr["UnrealizedPL"].ToString());
+                    }
+                    if (dr["EligibleSTCG"].ToString() != "N/A")
+                    {
+                        TotalSTCG = TotalSTCG + double.Parse(dr["EligibleSTCG"].ToString());
+                    }
+                    if (dr["EligibleLTCG"].ToString() != "N/A")
+                    {
+                        TotalLTCG = TotalLTCG + double.Parse(dr["EligibleLTCG"].ToString());
+                    }
+                    if (dr["MarketValue"].ToString() != "N/A")
+                    {
+                        TotalMarketVlaue = TotalMarketVlaue + double.Parse(dr["MarketValue"].ToString());
+                    }
+                }
+                dicTotalSum.Add("OpenUnits", TotalUnit);
+                dicTotalSum.Add("BalanceAmount", BalanceAmountTotal);
+                dicTotalSum.Add("UnrealizedPL", TotalPL);
+                dicTotalSum.Add("EligibleSTCG", TotalSTCG);
+                dicTotalSum.Add("EligibleLTCG", TotalLTCG);
+                dicTotalSum.Add("MarketValue", TotalMarketVlaue);
+            }
+            return dicTotalSum;
+        }
+
+        protected void rgTaxRealized_OnItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem footer = (GridFooterItem)e.Item;
+                if (rgRealized.Items.Count > 0)
+                {
+                    Dictionary<string, double> dic = CalculateTaxRealizedFooterTotal();
+                    if (dic.Count > 0)
+                    {
+                        var keyValuePairAcquisitionCost = dic.FirstOrDefault(x => x.Key == "AcquisitionCost");
+                        var keyValuePairReedemAmt = dic.FirstOrDefault(x => x.Key == "RedeemedAmount");
+                        var keyValuePairTotalPL = dic.FirstOrDefault(x => x.Key == "TotalPL");
+                        var keyValuePairSCTG = dic.FirstOrDefault(x => x.Key == "STCG");
+                        var keyValuePairLCTG = dic.FirstOrDefault(x => x.Key == "LTCG");
+                        var keyValuePairUnit = dic.FirstOrDefault(x => x.Key == "UnitsSold");
+                        footer["AcquisitionCost"].Text = keyValuePairAcquisitionCost.Value.ToString();
+                        footer["RedeemedAmount"].Text = keyValuePairReedemAmt.Value.ToString();
+                        footer["TotalPL"].Text = keyValuePairTotalPL.Value.ToString();
+                        footer["STCG"].Text = keyValuePairSCTG.Value.ToString();
+                        footer["LTCG"].Text = keyValuePairLCTG.Value.ToString();
+                        footer["UnitsSold"].Text = keyValuePairUnit.Value.ToString();
+                    }
+                }
+            }
+        }
+        protected Dictionary<string, double> CalculateTaxRealizedFooterTotal()
+        {
+            Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
+            double TotalAcquisitionCost = 0;
+            double RedeemedAmountTotal = 0;
+            double TotalPL = 0;
+            double TotalSTCG = 0;
+            double TotalLTCG = 0;
+            double TotalSoldUnit = 0;
+            if (ViewState["TaxRealized"] != null)
+            {
+                DataTable dtTaxRealizedReturns = (DataTable)ViewState["TaxRealized"];
+                foreach (DataRow dr in dtTaxRealizedReturns.Rows)
+                {
+                    if (dr["AcquisitionCost"].ToString() != "N/A")
+                    {
+                        TotalAcquisitionCost = TotalAcquisitionCost + double.Parse(dr["AcquisitionCost"].ToString());
+                    }
+                    if (dr["RedeemedAmount"].ToString() != "N/A")
+                    {
+                        RedeemedAmountTotal = RedeemedAmountTotal + double.Parse(dr["RedeemedAmount"].ToString());
+                    }
+                    if (dr["TotalPL"].ToString() != "N/A")
+                    {
+                        TotalPL = TotalPL + double.Parse(dr["TotalPL"].ToString());
+                    }
+                    if (dr["STCG"].ToString() != "N/A")
+                    {
+                        TotalSTCG = TotalSTCG + double.Parse(dr["STCG"].ToString());
+                    }
+                    if (dr["LTCG"].ToString() != "N/A")
+                    {
+                        TotalLTCG = TotalLTCG + double.Parse(dr["LTCG"].ToString());
+                    }
+                    if (dr["UnitsSold"].ToString() != "N/A")
+                    {
+                        TotalSoldUnit = TotalSoldUnit + double.Parse(dr["UnitsSold"].ToString());
+                    }
+                }
+                dicTotalSum.Add("AcquisitionCost", TotalAcquisitionCost);
+                dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
+                dicTotalSum.Add("TotalPL", TotalPL);
+                dicTotalSum.Add("STCG", TotalSTCG);
+                dicTotalSum.Add("LTCG", TotalLTCG);
+                dicTotalSum.Add("UnitsSold", TotalSoldUnit);
+            }
+            return dicTotalSum;
         }
     }
 }
