@@ -37,9 +37,10 @@
 
         //uncheck other portfolio Ids in Group/Individual panel
         if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 0)
-            panel = document.getElementById('<%= TabPanel2.ClientID %>');
-        else if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 1)
             panel = document.getElementById('<%= TabPanel1.ClientID %>');
+          
+        else if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 1)
+            panel = document.getElementById('<%= TabPanel2.ClientID %>');
 
         var groupChkArray = panel.getElementsByTagName("input");
         for (var i = 0; i < groupChkArray.length; i++) {

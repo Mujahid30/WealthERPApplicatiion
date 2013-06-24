@@ -245,6 +245,8 @@ namespace WealthERP.Reports
                 trPortfolioDetails.Visible = true;
                 ShowFolios();
             }
+            txtParentCustomerId.Value = null;
+            txtParentCustomer.Text = string.Empty;
             TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
             TabContainer1.ActiveTabIndex = activeTabIndex;
 
@@ -290,6 +292,8 @@ namespace WealthERP.Reports
                     divGroupCustomers.InnerHtml = "No Customers found";
                 }
             }
+            txtCustomerId.Value = null;
+            txtCustomer.Text = String.Empty;
             TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
             TabContainer1.ActiveTabIndex = activeTabIndex;
             divPortfolios.InnerHtml = string.Empty;
