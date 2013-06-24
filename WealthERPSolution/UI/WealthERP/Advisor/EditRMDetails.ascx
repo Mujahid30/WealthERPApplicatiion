@@ -7,7 +7,7 @@
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery.min.js" type="text/javascript"></script>
- 
+
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
@@ -75,38 +75,37 @@
         //alert(selectedBranches)
     }
 
-//    function CheckItem(sender, args) {
-//        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
-//        if (chk4ops.checked == false) {
+    //    function CheckItem(sender, args) {
+    //        var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
+    //        if (chk4ops.checked == false) {
 
-//            var chkControlId = '<%=ChklistRMBM.ClientID%>';
-//            var options = document.getElementById(chkControlId).getElementsByTagName('input');
-//            var ischecked = false;
-//            args.IsValid = false;
-//            for (i = 0; i < options.length; i++) {
-//                var opt = options[i];
-//                if (opt.type == "checkbox") {
-//                    var check = opt.checked;
-//                    if (!check && i == 0) {
-//                        var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
-//                        if (count > 0) {
-//                            alert("Please deassociate Customer First");
-//                            return false;
-//                        }
-//                    }
-//                    if (check) {
-//                        ischecked = true;
-//                        args.IsValid = true;
-//                    }
-//                }
-//            }
-//        }
-//        else {
-//        }
+    //            var chkControlId = '<%=ChklistRMBM.ClientID%>';
+    //            var options = document.getElementById(chkControlId).getElementsByTagName('input');
+    //            var ischecked = false;
+    //            args.IsValid = false;
+    //            for (i = 0; i < options.length; i++) {
+    //                var opt = options[i];
+    //                if (opt.type == "checkbox") {
+    //                    var check = opt.checked;
+    //                    if (!check && i == 0) {
+    //                        var count = document.getElementById("ctrl_EditRMDetails_hndRmCustomerCount").value;
+    //                        if (count > 0) {
+    //                            alert("Please deassociate Customer First");
+    //                            return false;
+    //                        }
+    //                    }
+    //                    if (check) {
+    //                        ischecked = true;
+    //                        args.IsValid = true;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //        else {
+    //        }
     //    }
     function CheckItem(sender, args) {
         var hdnIsOpsEnabled = document.getElementById('ctrl_EditRMDetails_hdnIsOpsEnabled').value;
-        alert(hdnIsOpsEnabled);
 
         if (hdnIsOpsEnabled == "1") {
             var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
@@ -176,7 +175,7 @@
         var options = document.getElementById(chkControlId).getElementsByTagName('input');
         var ischecked = false;
         for (i = 0; i < options.length; i++) {
-               var opt = options[i];
+            var opt = options[i];
             if (opt.type == "checkbox") {
                 if (opt.checked == true) {
                     ischecked = true;
@@ -204,7 +203,7 @@
         var chk4ops = document.getElementById("<%= chkOps.ClientID %>");
 
         if (chk4ops.checked == true) {
-         
+
             document.getElementById("<%= availableBranch.ClientID %>").disabled = true;
             document.getElementById("<%= associatedBranch.ClientID %>").disabled = true;
             document.getElementById("<%= chkExternalStaff.ClientID %>").disabled = true;
@@ -327,7 +326,7 @@
             <asp:Label ID="lblName" runat="server" CssClass="FieldName" Text="Staff Name:"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)" ></asp:TextBox>
+            <asp:TextBox ID="txtFirstName" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rfvName" ValidationGroup="btnUpdate" ControlToValidate="txtFirstName"
                 ErrorMessage="<br />Please Enter the Name" Display="Dynamic" runat="server" CssClass="rfvPCG">
@@ -377,7 +376,7 @@
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
             </asp:CheckBoxList>
-            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField"  onclick="DisableControls()"/>
+            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" onclick="DisableControls()" />
             &nbsp;<span id="Span4" class="spnRequiredField">*</span>
             <asp:CustomValidator ID="CheckRMBM" runat="server" CssClass="rfvPCG" ControlToValidate="txtEmail"
                 ValidationGroup="btnUpdate" ErrorMessage="select at least one role" ClientValidationFunction="CheckItem"
@@ -428,15 +427,15 @@
             <asp:Label ID="lblPhoneDirectNumber" runat="server" CssClass="FieldName" Text="Telephone Number Direct :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:TextBox ID="txtPhDirectISD" runat="server" CssClass="txtField" Width="55px" onkeypress="return keyPress(this, event)"
-                MaxLength="3"></asp:TextBox>
-            <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px" onkeypress="return keyPress(this, event)"
-                MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtPhDirectISD" runat="server" CssClass="txtField" Width="55px"
+                onkeypress="return keyPress(this, event)" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtPhDirectSTD" runat="server" CssClass="txtField" Width="55px"
+                onkeypress="return keyPress(this, event)" MaxLength="3"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhDirectSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px" onkeypress="return keyPress(this, event)"
-                MaxLength="8"></asp:TextBox>
+            <asp:TextBox ID="txtPhDirectPhoneNumber" runat="server" CssClass="txtField" Width="150px"
+                onkeypress="return keyPress(this, event)" MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtPhDirectPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -447,16 +446,16 @@
             <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Telephone Number Extention :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtPhExtISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtPhExtISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtPhExtISD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtExtSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtExtSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtExtSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px" onkeypress="return keyPress(this, event)"
-                MaxLength="8"></asp:TextBox>
+            <asp:TextBox ID="txtPhExtPhoneNumber" runat="server" CssClass="txtField" Width="150px"
+                onkeypress="return keyPress(this, event)" MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtPhExtPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -467,16 +466,16 @@
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Telephone Number Residence :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtPhResiISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtPhResiISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtPhResiISD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtResiSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtResiSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtResiSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtPhResiPhoneNumber" runat="server" CssClass="txtField" Width="150px" onkeypress="return keyPress(this, event)"
-                MaxLength="8"></asp:TextBox>
+            <asp:TextBox ID="txtPhResiPhoneNumber" runat="server" CssClass="txtField" Width="150px"
+                onkeypress="return keyPress(this, event)" MaxLength="8"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtPhResiPhoneNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -487,15 +486,16 @@
             <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Fax :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtFaxISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtFaxISD" runat="server" CssClass="txtField" Width="55px" MaxLength="3" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtFaxISD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtFaxSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3"></asp:TextBox>
+            <asp:TextBox ID="txtFaxSTD" runat="server" CssClass="txtField" Width="55px" MaxLength="3" onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtFaxSTD"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
-            <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8" onkeypress="return keyPress(this, event)"></asp:TextBox>
+            <asp:TextBox ID="txtFaxNumber" runat="server" CssClass="txtField" Width="150px" MaxLength="8"
+                onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFaxNumber"
                 ValidationGroup="btnUpdate" Display="Dynamic" runat="server" CssClass="rfvPCG"
                 Operator="DataTypeCheck" ErrorMessage="Not acceptable format" ValidationExpression="^\d*$"></asp:RegularExpressionValidator>
@@ -506,7 +506,8 @@
             <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Mobile Number :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10" onkeypress="return keyPress(this, event)"></asp:TextBox>
+            <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"
+                onkeypress="return keyPress(this, event)"></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
                 ValidationGroup="btnUpdate" ValidationExpression="^\d{10,10}$"></asp:RegularExpressionValidator>
@@ -622,4 +623,4 @@
         </td>
     </tr>
 </table>
-<asp:HiddenField ID="hdnIsOpsEnabled" runat="server"/>
+<asp:HiddenField ID="hdnIsOpsEnabled" runat="server" />

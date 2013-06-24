@@ -119,8 +119,9 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    chkOps.Visible = false;
                     hdnIsOpsEnabled.Value = "0";
+                    chkOps.Visible = false;
+                  // 
                 }
             }
             else
