@@ -4648,12 +4648,12 @@ namespace WealthERP.Uploads
             else if (File11.Checked)
             {
 
-                Response.Redirect("Standard Upload Files/GeneralInsurance.xlsx");
+                Response.Redirect("Standard Upload Files/LITemplate.xlsx");
             }
             else if (File12.Checked)
             {
 
-                Response.Redirect("Standard Upload Files/LITemplate.xlsx");
+                Response.Redirect("Standard Upload Files/GeneralInsurance.xlsx");
             }
             else if (AllFiles.Checked)
             {
