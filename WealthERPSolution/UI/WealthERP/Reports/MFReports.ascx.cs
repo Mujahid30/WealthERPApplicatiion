@@ -1204,7 +1204,13 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            //RadListBoxDestination.Items.Clear();
+            string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+            if (controlName != "ctrl_MFReports$btnEmailReport")
+            {
+                 RadListBoxDestination.Items.Clear();
+            }
+           
             CustomerBo customerBo = new CustomerBo();
             DataTable dtGroupCustomerList = new DataTable();
 
@@ -1255,8 +1261,13 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            //RadListBoxDestination.Items.Clear();
-            CustomerBo customerBo = new CustomerBo();
+                        string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+                        if (controlName != "ctrl_MFReports$btnEmailReport")
+                        {
+                            RadListBoxDestination.Items.Clear();
+                        }
+                CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
 
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -1355,8 +1366,13 @@ namespace WealthERP.Reports
             //old code
             //LBSelectCustomer.Items.Clear();
             LBCustomer.Items.Clear();
-            //RadListBoxDestination.Items.Clear();
-            CustomerBo customerBo = new CustomerBo();
+                        string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+                        if (controlName != "ctrl_MFReports$btnEmailReport")
+                        {
+                            RadListBoxDestination.Items.Clear();
+                        }
+                CustomerBo customerBo = new CustomerBo();
             DataTable dtIndiviCustomerList = new DataTable();
 
             if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -1619,8 +1635,8 @@ namespace WealthERP.Reports
         private DataTable PrepareFinalRequestStatsuDataTable(DataSet dsRequestStatusList)
         {
             DataTable dtRequestList = dsRequestStatusList.Tables[0];
-            DataTable dtRequestInputParameterList = dsRequestStatusList.Tables[1];
-            DataTable dtRequestLog = dsRequestStatusList.Tables[2];
+            //DataTable dtRequestInputParameterList = dsRequestStatusList.Tables[1];
+            //DataTable dtRequestLog = dsRequestStatusList.Tables[2];
             DataTable dtFinalRequestListStatus = new DataTable();
             dtFinalRequestListStatus.Columns.Add("RequestId");
             dtFinalRequestListStatus.Columns.Add("TaskName");
@@ -1659,6 +1675,14 @@ namespace WealthERP.Reports
                     drFinalStatus["CreatedOn"] = drRequest["WR_CreatedOn"].ToString();
                     drFinalStatus["RequestedBy"] = drRequest["WR_CreatedBy"].ToString();
 
+
+                    #region //-----------------------Changed Region----------------------\\
+
+                    drFinalStatus["ExecutionStartTime"] = drRequest["WRL_ExecuteStartTime"].ToString();
+                    drFinalStatus["ExecutionEndTime"] = drRequest["WRL_EndTime"].ToString();
+                    drFinalStatus["Message"] = drRequest["WRL_Message"].ToString();
+                    #endregion
+
                     if (drFinalStatus["RequestStatus"].ToString() == "1")
                     {
                         drFinalStatus["statusYN"] = "Yes";
@@ -1667,50 +1691,62 @@ namespace WealthERP.Reports
                     {
                         drFinalStatus["statusYN"] = "No";
                     }
-
-                    DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId=" + requestId.ToString(), "WR_RequestId", DataViewRowState.CurrentRows);
-                    DataView dvRequestLog = new DataView(dtRequestLog, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
-
-                    foreach (DataRow drParameter in dvRequestInputParameter.ToTable().Rows)
+                    if (drRequest["WT_Task"].ToString() == "Report Bulk Mail Request")
                     {
-                        switch (Convert.ToInt32(drParameter["WTP_Id"].ToString()))
-                        {
-                            case 1006:
-                                drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1009:
-                                drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1000:
-                                drFinalStatus["ReportName"] = drParameter["WRD_InputParameterValue"].ToString();
-                                break;
-                            case 1001:
-                                drFinalStatus["FromDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
-                                break;
-                            case 1002:
-                                drFinalStatus["ToDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
-                                break;
-
-                        }
-
+                        drFinalStatus["CustomerName"] = drRequest["CustomerName_Report_Bulk_Mail_Request"].ToString();
+                    }
+                    else if (drRequest["WT_Task"].ToString() == "Report Generation")
+                    {
+                         drFinalStatus["CustomerName"] = drRequest["CustomerName_Report_Generation"].ToString();
                     }
 
-                    if (dvRequestLog.ToTable().Rows.Count > 0)
-                    {
-                        foreach (DataRow drlog in dvRequestLog.ToTable().Rows)
-                        {
-                            drFinalStatus["ExecutionStartTime"] = drlog["WRL_ExecuteStartTime"].ToString();
-                            drFinalStatus["ExecutionEndTime"] = drlog["WRL_EndTime"].ToString();
-                            drFinalStatus["Message"] = drlog["WRL_Message"].ToString();
-                        }
-                    }
-                    else
-                    {
-                        drFinalStatus["ExecutionStartTime"] = String.Empty;
-                        drFinalStatus["ExecutionEndTime"] = String.Empty;
-                        drFinalStatus["Message"] = String.Empty;
+                    drFinalStatus["ReportName"] = drRequest["ReportName"].ToString();
+                    drFinalStatus["FromDate"] = drRequest["FromDate"].ToString();
+                    drFinalStatus["ToDate"] = drRequest["ToDate"].ToString();
 
-                    }
+                   // DataView dvRequestInputParameter = new DataView(dtRequestInputParameterList, "WR_RequestId=" + requestId.ToString(), "WR_RequestId", DataViewRowState.CurrentRows);
+                    //DataView dvRequestLog = new DataView(dtRequestLog, "WR_RequestId='" + requestId.ToString() + "'", "WR_RequestId", DataViewRowState.CurrentRows);
+
+                    //foreach (DataRow drParameter in dvRequestInputParameter.ToTable().Rows)
+                    //{
+                    //    switch (Convert.ToInt32(drParameter["WTP_Id"].ToString()))
+                    //    {
+                    //        case 1006:
+                    //            drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
+                    //            break;
+                    //        case 1009:
+                    //            drFinalStatus["CustomerName"] = drParameter["WRD_InputParameterValue"].ToString();
+                    //            break;
+                    //        case 1000:
+                    //            drFinalStatus["ReportName"] = drParameter["WRD_InputParameterValue"].ToString();
+                    //            break;
+                    //        case 1001:
+                    //            drFinalStatus["FromDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
+                    //            break;
+                    //        case 1002:
+                    //            drFinalStatus["ToDate"] =Convert.ToDateTime(drParameter["WRD_InputParameterValue"].ToString());
+                    //            break;
+
+                    //    }
+
+                    //}
+
+                    //if (dvRequestLog.ToTable().Rows.Count > 0)
+                    //{
+                    //    foreach (DataRow drlog in dvRequestLog.ToTable().Rows)
+                    //    {
+                    //        drFinalStatus["ExecutionStartTime"] = drlog["WRL_ExecuteStartTime"].ToString();
+                    //        drFinalStatus["ExecutionEndTime"] = drlog["WRL_EndTime"].ToString();
+                    //        drFinalStatus["Message"] = drlog["WRL_Message"].ToString();
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    drFinalStatus["ExecutionStartTime"] = String.Empty;
+                    //    drFinalStatus["ExecutionEndTime"] = String.Empty;
+                    //    drFinalStatus["Message"] = String.Empty;
+
+                    //}
 
                     dtFinalRequestListStatus.Rows.Add(drFinalStatus);
 

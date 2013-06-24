@@ -40,7 +40,26 @@
     
 </script>
 
-
+<style type="text/css" media="print">
+    ..noDisplay
+    {
+    }
+    .noPrint
+    {
+        display: none;
+    }
+    .landScape
+    {
+        width: 100%;
+        height: 100%;
+        margin: 0% 0% 0% 0%;
+        filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=3);
+    }
+    .pageBreak
+    {
+        page-break-before: always;
+    }
+</style>
 
 <script type="text/javascript" language="javascript">
     function LBCustomer_Count(sender, e) {
@@ -707,6 +726,23 @@
             </div>
         </td>
     </tr>
+    <tr>
+                <td>
+                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel3">
+                        <ProgressTemplate>
+                            <table width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <asp:Image ID="imgProgress" ImageUrl="~/Images/ajax-loader.gif" AlternateText="Processing"
+                                            runat="server" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <%--<img alt="Processing" src="~/Images/ajax_loader.gif" style="width: 200px; height: 100px" />--%>
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
+                </td>
+            </tr>
 </table>
 <div>
     <telerik:RadTabStrip ID="RadTabStrip2" EnableTheming="True" Skin="Telerik" EnableEmbeddedSkins="False"
@@ -1150,7 +1186,7 @@
                                             </td>
                                             <td>
                                                 &nbsp;&nbsp;
-                                                <asp:Button ID="btnEmailReport" runat="server" CssClass="PCGMediumButton" Text="Email Request"
+                                                <asp:Button ID="btnEmailReport" runat="server" UseSubmitBehavior="false"  CssClass="PCGMediumButton" Text="Email Request"
                                                     OnClick="btnEmailReport_Click" />
                                                 &nbsp;&nbsp;
                                                 <asp:Button ID="btnViewStatus" runat="server" CssClass="PCGMediumButton" Text="View Status"
