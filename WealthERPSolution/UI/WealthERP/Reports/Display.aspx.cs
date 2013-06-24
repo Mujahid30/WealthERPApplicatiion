@@ -80,22 +80,22 @@ namespace WealthERP.Reports
         double recEquity, recDebt, recCash, recAlternate, currEquity, currDebt, currCash, currAlternate = 0;
 
         int orderId = 0;
-        int OCustomerId=0;
-        string OAmc ;
-        string  OScheme;
+        int OCustomerId = 0;
+        string OAmc;
+        string OScheme;
         int OportfolioId = 0;
-        string  OFolioNo;
+        string OFolioNo;
         string OType;
         string BankName = string.Empty;
         string BranchName = string.Empty;
-        string Amount=string.Empty;
+        string Amount = string.Empty;
         string StartDateSIP = string.Empty;
         string StartDateSTP = string.Empty;
         string NewAmount = string.Empty;
         string EndDateSIP = string.Empty;
         string EndDateSTP = string.Empty;
-        bool RbtnUnits =false;
-        bool RbtnAmounts =false;
+        bool RbtnUnits = false;
+        bool RbtnAmounts = false;
         string ChequeNo = string.Empty;
         string ChequeDate = string.Empty;
         string SchemeSwitch = string.Empty;
@@ -114,7 +114,7 @@ namespace WealthERP.Reports
                     {
                         return ReportType.MFReports;
                     }
-                    else if (Request.Form["ctrl_PortfolioReports$btnView"] != null )
+                    else if (Request.Form["ctrl_PortfolioReports$btnView"] != null)
                     {
                         return ReportType.PortfolioReports;
                     }
@@ -156,7 +156,7 @@ namespace WealthERP.Reports
             {
                 if (Request.QueryString["mail"] == "1")
                     isMail = "1";
-                
+
             }
             if (Request.Form["ctrl_EquityReports$btnView"] != null || Request.Form["ctrl_EquityReports$btnMail"] != null || Request.Form["ctrl_EquityReports$btnViewInPDF"] != null || Request.Form["ctrl_EquityReports$btnViewInDOC"] != null
                 || Request.Form["ctrl_EquityReports$btnCustomerViewReport"] != null
@@ -235,7 +235,7 @@ namespace WealthERP.Reports
                 HideShowFPSection();
 
             }
-          
+
             if (Request.QueryString["Page"] != null)
             {
                 GetOrderDetails();
@@ -249,19 +249,19 @@ namespace WealthERP.Reports
         {
             if (Request.QueryString["CustomerId"] != null)
             {
-                orderTransaction.CustomerId= Convert.ToInt32(Request.QueryString["CustomerId"]);
+                orderTransaction.CustomerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
             }
             if (Request.QueryString["AmcCode"] != null)
             {
-                orderTransaction.amcCode=Request.QueryString["AmcCode"];
+                orderTransaction.amcCode = Request.QueryString["AmcCode"];
             }
             if (Request.QueryString["AccoutId"] != null)
             {
-                orderTransaction.FolioNo=Request.QueryString["AccoutId"];
+                orderTransaction.FolioNo = Request.QueryString["AccoutId"];
             }
             if (Request.QueryString["SchemeCode"] != null)
             {
-                orderTransaction.Scheme=Request.QueryString["SchemeCode"];
+                orderTransaction.Scheme = Request.QueryString["SchemeCode"];
             }
             if (Request.QueryString["Type"] != null)
             {
@@ -289,27 +289,27 @@ namespace WealthERP.Reports
             }
             if (!string.IsNullOrEmpty(Request.QueryString["StartDateSTP"].ToString().Trim()))
             {
-                 orderTransaction.StartDateSTP = Request.QueryString["StartDateSTP"];
+                orderTransaction.StartDateSTP = Request.QueryString["StartDateSTP"];
             }
             if (!string.IsNullOrEmpty(Request.QueryString["NewAmount"].ToString().Trim()))
             {
-                 orderTransaction.NewAmount = Request.QueryString["NewAmount"];
+                orderTransaction.NewAmount = Request.QueryString["NewAmount"];
             }
             if (!string.IsNullOrEmpty(Request.QueryString["EndDateSIP"].ToString().Trim()))
             {
-                 orderTransaction.EndDateSIP = Request.QueryString["EndDateSIP"];
+                orderTransaction.EndDateSIP = Request.QueryString["EndDateSIP"];
             }
             if (!string.IsNullOrEmpty(Request.QueryString["EndDateSTP"].ToString().Trim()))
             {
-                 orderTransaction.EndDateSIP = Request.QueryString["EndDateSTP"];
+                orderTransaction.EndDateSIP = Request.QueryString["EndDateSTP"];
             }
             if (!string.IsNullOrEmpty(Request.QueryString["RbtnUnits"].ToString().Trim()))
             {
-                 orderTransaction.UnitsChk = bool.Parse(Request.QueryString["RbtnUnits"]);
+                orderTransaction.UnitsChk = bool.Parse(Request.QueryString["RbtnUnits"]);
             }
             if (!string.IsNullOrEmpty(Request.QueryString["RbtnAmounts"].ToString().Trim()))
             {
-                 orderTransaction.AmountsChk = bool.Parse(Request.QueryString["RbtnAmounts"]);
+                orderTransaction.AmountsChk = bool.Parse(Request.QueryString["RbtnAmounts"]);
             }
             if (!string.IsNullOrEmpty(Request.QueryString["ChequeDate"].ToString().Trim()))
             {
@@ -531,8 +531,8 @@ namespace WealthERP.Reports
             //        report = (OrderTransactionSlipVo)Session["reportParams"];
             //}
             DataSet dstransactionSlip = new DataSet();
-            DataSet dsOrderTransactionForm=new DataSet();
-            DataTable dtTransactionSlip;DataTable dtOrderTransactionForm;
+            DataSet dsOrderTransactionForm = new DataSet();
+            DataTable dtTransactionSlip; DataTable dtOrderTransactionForm;
 
             crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
             //crmain.Load(Server.MapPath("OrderTransactionSlip.rpt"));
@@ -540,16 +540,16 @@ namespace WealthERP.Reports
             {
                 setLogo();
                 customerVo = customerBo.GetCustomer(int.Parse(orderTransaction.CustomerId.ToString()));
-                DataSet ds = mfReportBo.GetARNNoAndJointHoldings(int.Parse(orderTransaction.CustomerId.ToString()),int.Parse(orderTransaction.portfolioId.ToString()),orderTransaction.FolioNo);
-                DataRow[] drARNNo= new DataRow[ds.Tables[0].Columns.Count];
+                DataSet ds = mfReportBo.GetARNNoAndJointHoldings(int.Parse(orderTransaction.CustomerId.ToString()), int.Parse(orderTransaction.portfolioId.ToString()), orderTransaction.FolioNo);
+                DataRow[] drARNNo = new DataRow[ds.Tables[0].Columns.Count];
                 setLogo();
 
-              
-                if(customerVo != null)
+
+                if (customerVo != null)
                 {
-                    
-                     crmain.Subreports["JointHolder"].Database.Tables["JointHolders"].SetDataSource(ds.Tables[1]);
-                   
+
+                    crmain.Subreports["JointHolder"].Database.Tables["JointHolders"].SetDataSource(ds.Tables[1]);
+
                     //if (ds.Tables[0].Rows.Count > 0)
                     //{
                     //    crmain.SetDataSource(ds.Tables[0]);
@@ -558,23 +558,23 @@ namespace WealthERP.Reports
                     //    //crmain.SetParameterValue("ARNNo", !string.IsNullOrEmpty(drARNNo[0]["AL_Identifier"].ToString().Trim()) ? drARNNo[0]["AL_Identifier"].ToString() : string.Empty);
                     //    crmain.SetParameterValue("OrgName", !string.IsNullOrEmpty(drARNNo[0]["A_OrgName"].ToString().Trim()) ? drARNNo[0]["A_OrgName"].ToString() : string.Empty);
                     //}
-                     customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
-                     if (!string.IsNullOrEmpty(customerRMVo.Email))
-                         crmain.SetParameterValue("OrgDetails", "Email :  " + customerRMVo.Email);
-                     else
-                         crmain.SetParameterValue("OrgDetails", "Email :--");
+                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
+                    if (!string.IsNullOrEmpty(customerRMVo.Email))
+                        crmain.SetParameterValue("OrgDetails", "Email :  " + customerRMVo.Email);
+                    else
+                        crmain.SetParameterValue("OrgDetails", "Email :--");
 
-                     if (customerRMVo.Mobile != 0)
-                     {
-                         crmain.SetParameterValue("OrgTelephone", "Mobile :  " + "+91-" + customerRMVo.Mobile);
-                     }
-                     else
-                     {
-                         crmain.SetParameterValue("OrgTelephone", "Mobile :--");
-                     }
-                     crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
-                     crmain.SetParameterValue("OrgAddress", advisorVo.AddressLine1 + ", " +advisorVo.AddressLine2+", "+advisorVo.AddressLine3+", "+advisorVo.City+", "+ advisorVo.PinCode);
-                    
+                    if (customerRMVo.Mobile != 0)
+                    {
+                        crmain.SetParameterValue("OrgTelephone", "Mobile :  " + "+91-" + customerRMVo.Mobile);
+                    }
+                    else
+                    {
+                        crmain.SetParameterValue("OrgTelephone", "Mobile :--");
+                    }
+                    crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+                    crmain.SetParameterValue("OrgAddress", advisorVo.AddressLine1 + ", " + advisorVo.AddressLine2 + ", " + advisorVo.AddressLine3 + ", " + advisorVo.City + ", " + advisorVo.PinCode);
+
 
                     crmain.SetParameterValue("AmcName", !string.IsNullOrEmpty(orderTransaction.amcCode) ? orderTransaction.amcCode : string.Empty);
                     crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(customerVo.PANNum) ? customerVo.PANNum : string.Empty);
@@ -611,7 +611,7 @@ namespace WealthERP.Reports
                         else
                             crmain.SetParameterValue("Amount", string.Empty);
                     }
-                    
+
                     crmain.SetParameterValue("Units", string.Empty);
                     if (orderTransaction.UnitsChk == true)
                     {
@@ -717,15 +717,15 @@ namespace WealthERP.Reports
                     lblClosingBalanceNote.Visible = false;
                 }
             }
-            
+
             else
             {
                 setLogo();
                 customerVo = customerBo.GetCustomer(report.CustomerId);
-                if(customerVo != null)
+                if (customerVo != null)
                 {
                     if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAmcCode"]))
-                        crmain.SetParameterValue("AmcName",Request.Form[ctrlPrefix + "hdnAmcCode"]);
+                        crmain.SetParameterValue("AmcName", Request.Form[ctrlPrefix + "hdnAmcCode"]);
                     else
                         crmain.SetParameterValue("AmcName", string.Empty);
                     crmain.SetParameterValue("PAN", !string.IsNullOrEmpty(customerVo.PANNum) ? customerVo.PANNum : string.Empty);
@@ -791,7 +791,7 @@ namespace WealthERP.Reports
                     else
                         crmain.SetParameterValue("EndDate", string.Empty);
 
-                   crmain.SetParameterValue("BankName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnBankName"]) ? Request.Form["ctrl_MFOrderEntry$hdnBankName"] : string.Empty);
+                    crmain.SetParameterValue("BankName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnBankName"]) ? Request.Form["ctrl_MFOrderEntry$hdnBankName"] : string.Empty);
                     crmain.SetParameterValue("BranchName", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$txtBranchName"]) ? Request.Form["ctrl_MFOrderEntry$txtBranchName"] : string.Empty);
                     crmain.SetParameterValue("SchemeSwitch", !String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$ddlSchemeSwitch"]) ? Request.Form["ctrl_MFOrderEntry$ddlSchemeSwitch"] : string.Empty);
                     ShowTransactionShowHide(report.Type);
@@ -819,7 +819,7 @@ namespace WealthERP.Reports
                 }
             }
 
-            
+
         }
 
         private void ShowTransactionShowHide(string Type)
@@ -1092,7 +1092,7 @@ namespace WealthERP.Reports
             double currentAssetPer = 0;
             double recAssetPer = 0;
             double financialHealthTotal = 0;
-            double totalAnnualIncome = 0;           
+            double totalAnnualIncome = 0;
             int dynamicRiskClass = 0;
             string fpImage = "SCBFPImage.jpg";
             string fpCoverHeaderImage = "FPReportHeader.jpg";
@@ -1155,7 +1155,7 @@ namespace WealthERP.Reports
             //dtHLVAnalysis = dsCustomerFPReportDetails.Tables[18];
             //dtAdvisorRiskClass = dsCustomerFPReportDetails.Tables[16];
             //dtPortfolioAllocation = dsCustomerFPReportDetails.Tables[17];
-            
+
 
             dtAdvisorPortfolioAllocation = CreatePortfolioAllocationTable(dtAdvisorPortfolioAllocation, dynamicRiskClass);
 
@@ -1207,7 +1207,7 @@ namespace WealthERP.Reports
             crmain.SetParameterValue("Networth", convertUSCurrencyFormat(Math.Round(double.Parse(networth.ToString()), 0)));
             crmain.SetParameterValue("AnnualIncomeTotal", totalAnnualIncome);
             crmain.SetParameterValue("FinancialAssetTotal", Math.Round(double.Parse(financialAssetTotal.ToString()), 0).ToString());
-           
+
 
 
             if (!string.IsNullOrEmpty(riskClass.Trim()))
@@ -1815,7 +1815,7 @@ namespace WealthERP.Reports
             string strIncomeExpenseSurplus = string.Empty;
             string strAssetAllocation = string.Empty;
             string strHLVNote = string.Empty;
-            string strRMRecommendations = string.Empty;            
+            string strRMRecommendations = string.Empty;
 
             DataTable dtReportSectionAndText = dsCustomerFPReportDetails.Tables["ReportSection"];
             DataTable dtMonthlyGoalTotal = dsCustomerFPReportDetails.Tables["MonthlyGoalTotal"];
@@ -2822,7 +2822,7 @@ namespace WealthERP.Reports
                 PortfolioReportsBo portfolioReports = new PortfolioReportsBo();
                 report = (PortfolioReportVo)Session["reportParams"];
                 RMVo rmVo = (RMVo)Session["rmvo"];
-                switch (report.SubType)   
+                switch (report.SubType)
                 {
 
                     case "MULTI_ASSET_SUMMARY_REPORT":
@@ -2892,8 +2892,8 @@ namespace WealthERP.Reports
                         DataTable dt = ds.Tables[0];
                         if (dt.Rows.Count > 0)
                         {
-                           crmain.Subreports["CustomerNetworth"].Database.Tables[0].SetDataSource(ds.Tables[0]);
-                           crmain.Subreports["Networth"].Database.Tables[0].SetDataSource(ds.Tables[1]);
+                            crmain.Subreports["CustomerNetworth"].Database.Tables[0].SetDataSource(ds.Tables[0]);
+                            crmain.Subreports["Networth"].Database.Tables[0].SetDataSource(ds.Tables[1]);
                             crmain.Subreports["Liabilities"].Database.Tables[0].SetDataSource(ds.Tables[2]);
 
                             setLogo();
@@ -2941,7 +2941,7 @@ namespace WealthERP.Reports
                         DataSet dsAssetAllocation = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
                         DataTable dtAssetSummary = dsAssetAllocation.Tables[0];
                         DataTable dtAssetDetails = dsAssetAllocation.Tables[1];
-                       
+
                         if (!string.IsNullOrEmpty(report.GroupHead))
                         {
 
@@ -3150,16 +3150,23 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("ToDate", report.FromDate.ToShortDateString());
                             AssignReportViewerProperties();
                             string Headername;
-                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            //  string GroupHead =Convert.ToInt32(ViewState["GroupHead"]).ToString();                       
+                           
+                         if ((report.CustomerIds==equityReport.GroupHead)||!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Sectorwise Summary Report";
-                                crmain.SetParameterValue("Header", Headername);
+                                Headername = "Group Sectorwise Summary Report";
+                                crmain.SetParameterValue("Header", Headername);                             
                             }
-                            else
-                            {
-                                Headername = "Sectorwise Summary Report";
-                                crmain.SetParameterValue("Header", Headername);
-                            }
+                         //if (!String.IsNullOrEmpty(equityReport.CustomerIds))
+                         //{
+                         //    Headername = "Sectorwise Summary Report";
+                         //    crmain.SetParameterValue("Header", Headername);
+                         //}
+                         else
+                         {
+                             Headername = "Sectorwise Summary Report";
+                             crmain.SetParameterValue("Header", Headername);
+                         }
                             lblClosingBalanceNote.Visible = false;
                             if (Request.QueryString["mail"] == "2")
                             {
@@ -3189,9 +3196,10 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             lblClosingBalanceNote.Visible = false;
                             string Headername;
-                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            // if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            if (report.CustomerIds == equityReport.GroupHead || !String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Equity Transaction Report";
+                                Headername = "Group Equity Transaction Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
@@ -3218,7 +3226,7 @@ namespace WealthERP.Reports
 
                     case "EQUITY_HOLDING_WISE":
                         crmain.Load(Server.MapPath("EquityHoldingWise.rpt"));
-                       
+
                         DataSet dsEquityholdingwise = equityReports.GetEquityHolding(report, advisorVo.advisorId);
                         DataTable dtEquityholdingwise = dsEquityholdingwise.Tables[0];
                         //crmain.Load(Server.MapPath("AbsoluteReturn.rpt"));
@@ -3226,7 +3234,7 @@ namespace WealthERP.Reports
                         DataTable dtXIRR = equityReports.GetEquityCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         //----------------------------- To Calulate MF XIRR-------------------------
                         //dtXIRR = GetAbsolutereturnToXIRRDt(dtXIRR, dtabsoluteReturn);
-                        
+
                         if (dsEquityholdingwise.Tables[0].Rows.Count > 0)
                         {
 
@@ -3237,12 +3245,13 @@ namespace WealthERP.Reports
                             setLogo();
                             AssignReportViewerProperties();
 
-                            crmain.SetParameterValue("DateRange","As on: " + report.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
-                            string Headername;                            
-                            if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            string Headername;
+                            // if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            if (report.CustomerIds == equityReport.GroupHead || !String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Equity Holding Report";
+                                Headername = "Group Equity Holding Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
@@ -3660,7 +3669,7 @@ namespace WealthERP.Reports
                     case "RETURNS_PORTFOLIO":
                         DataTable dtReturnsPortfolio;
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        DataSet  dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        DataSet dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
                         dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[0];
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[1];
@@ -3741,7 +3750,7 @@ namespace WealthERP.Reports
                         }
                         break;
                     case "COMPOSITION_REPORT":
-                       crmain.Load(Server.MapPath("SchemePerformance.rpt"));
+                        crmain.Load(Server.MapPath("SchemePerformance.rpt"));
                         DataSet dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
 
                         if (dsCustomerPortfolioComposition.Tables[0].Rows.Count > 0)
@@ -4023,9 +4032,9 @@ namespace WealthERP.Reports
             try
             {
                 dtPortfolioXIRR.Columns.Add("AbsoluteReturn", typeof(double));
-               // dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
+                // dtPortfolioXIRR.Columns.Add("AnnualReturn", typeof(Int64));
                 int portfolioId = 0;
-                String NA="NA";
+                String NA = "NA";
                 Double XIRR;
                 DataRow[] drAbsolutereturn;
                 DataRow[] drXirr;
@@ -4051,8 +4060,8 @@ namespace WealthERP.Reports
                     //        dr["XIRR"] = drXIrr["XIRR"];
                     //    }
                     //}
-                   
-                   
+
+
                 }
                 return dtPortfolioXIRR;
             }
@@ -4075,17 +4084,17 @@ namespace WealthERP.Reports
                 equityReport.PortfolioIds = GetPortfolios();
 
                 if (Session["txtCustomerId"] != null && Session["txtParentCustomerId"] != null)
-                    equityReport.GroupHead =Session["txtParentCustomerId"].ToString();
+                    equityReport.GroupHead = Session["txtParentCustomerId"].ToString();
 
                 if (Session["txtCustomerId"] != null && Session["txtParentCustomerId"] == null)
                     equityReport.CustomerIds = Session["txtCustomerId"].ToString();
 
                 if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel2$txtCustomerId"]))
-                    equityReport.CustomerIds = Request.Form[ctrlPrefix + "TabContainer1$TabPanel$txtCustomerId"];
+                    equityReport.CustomerIds = Request.Form[ctrlPrefix + "TabContainer1$TabPanel2$txtCustomerId"];
 
                 if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"]))
                     equityReport.GroupHead = Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"];
-                ViewState["GroupHead"] = equityReport;   
+                ViewState["GroupHead"] = equityReport.GroupHead;
 
                 //txtParentCustomerId
 
@@ -4154,9 +4163,9 @@ namespace WealthERP.Reports
 
                 portfolioReport.FromDate = dtFrom;
                 portfolioReport.ToDate = dtTo;
-                
-               
-                
+
+
+
                 if (!String.IsNullOrEmpty(Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"]))
                     portfolioReport.GroupHead = Request.Form[ctrlPrefix + "TabContainer1$TabPanel1$txtParentCustomerId"];
 
@@ -4198,7 +4207,7 @@ namespace WealthERP.Reports
             {
                 orderTransaction.advisorId = advisorVo.advisorId;
                 orderVo = (OrderVo)Session["orderVo"];
-                if (orderVo!= null)
+                if (orderVo != null)
                 {
                     orderTransaction.orderId = orderVo.OrderId;
                 }
@@ -4208,7 +4217,7 @@ namespace WealthERP.Reports
                     orderTransaction.CustomerId = int.Parse(Request.Form[ctrlPrefix + "hdnCustomerId"]);
                 }
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnSchemeCode"]))
-                    orderTransaction.SchemeCode = int.Parse(Request.Form [ctrlPrefix + "hdnSchemeCode"].ToString());
+                    orderTransaction.SchemeCode = int.Parse(Request.Form[ctrlPrefix + "hdnSchemeCode"].ToString());
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnType"]))
                     orderTransaction.Type = Request.Form["ctrl_MFOrderEntry$hdnType"];
                 if (!String.IsNullOrEmpty(Request.Form["ctrl_MFOrderEntry$hdnAccountId"]))
