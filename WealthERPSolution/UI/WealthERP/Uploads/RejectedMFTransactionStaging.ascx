@@ -308,7 +308,8 @@
                                     <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTSId").ToString()%>' />
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server" Text="Save" />
+                                    <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server"
+                                        Text="Save" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="RejectReason" AllowFiltering="true" HeaderText="RejectReason"
@@ -344,11 +345,20 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFTS_PANNum" AllowFiltering="true" HeaderText="PAN Number"
+                            <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="PAN Number" DataField="CMFTS_PANNum"
+                                SortExpression="CMFTS_PANNum" AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                                <ItemTemplate>
+                                    <asp:TextBox ID="txtPanNum" CssClass="txtField" runat="server" Text='<%# Bind("CMFTS_PANNum") %>'></asp:TextBox>
+                                </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:TextBox ID="txtPanFooter" CssClass="txtField" runat="server" />
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
+                           <%-- <telerik:GridBoundColumn DataField="CMFTS_PANNum" AllowFiltering="true" HeaderText="PAN Number"
                                 UniqueName="CMFTS_PANNum" SortExpression="CMFTS_PANNum" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="ProcessId" AllowFiltering="true" HeaderText="ProcessId"
                                 UniqueName="ProcessId" SortExpression="ProcessId" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
