@@ -125,8 +125,10 @@ namespace WealthERP.Reports
                         trCustomerInd.Visible = true;
                         trStepIndi.Visible = false;
                         trStepGrHead.Visible = false;
-                        IndivisulCustomerLogin();
+                        hdnCustomerId1.Value = customerVo.CustomerId.ToString();
                         ShowGroupCustomers();
+                        IndivisulCustomerLogin();
+                        //ShowFolios();
 
                     }
                     else
@@ -296,7 +298,7 @@ namespace WealthERP.Reports
             txtCustomer.Text = String.Empty;
             TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
             TabContainer1.ActiveTabIndex = activeTabIndex;
-            divPortfolios.InnerHtml = string.Empty;
+            //divPortfolios.InnerHtml = string.Empty;
         }
         private void BindPeriodDropDown()
         {
@@ -335,7 +337,7 @@ namespace WealthERP.Reports
         {
 
             PortfolioBo portfolioBo = new PortfolioBo();
-            divPortfolios.InnerHtml = string.Empty;
+            //divPortfolios.InnerHtml = string.Empty;
             if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 int customerId = Convert.ToInt32(hdnCustomerId1.Value);
@@ -365,6 +367,7 @@ namespace WealthERP.Reports
                             custPortfolio.PortfolioName = "No Name";
                         //checkboxList.Items.Add(new ListItem(custPortfolio.PortfolioName, custPortfolio.PortfolioId.ToString()));
                         checkbox.Append("<input type='checkbox' checked name='chk--" + custPortfolio.PortfolioId + "' id='chk--" + custPortfolio.PortfolioId + "'>" + custPortfolio.PortfolioName);
+                        
                     }
                     divPortfolios.InnerHtml = checkbox.ToString();
                     //divPortfolios.Controls.Add(checkboxList);
@@ -378,7 +381,7 @@ namespace WealthERP.Reports
             {
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
-            divGroupCustomers.InnerHtml = string.Empty;
+            //divGroupCustomers.InnerHtml = string.Empty;
         }
 
         private string ShowGroupFolios(int customerId)
