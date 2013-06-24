@@ -49,5 +49,10 @@ namespace WealthERP.Advisor {
         protected global::Telerik.Web.UI.RadComboBox ddlAction;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ErrorMessage;
         protected global::System.Web.UI.WebControls.Button hiddenassociation;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLblAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdDdlAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDdlAdviser;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivCustomerList;
     }
 }

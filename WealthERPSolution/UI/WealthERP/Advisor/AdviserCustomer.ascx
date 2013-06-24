@@ -170,10 +170,22 @@
 <%--<div style="width: 100%;">--%>
 <%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
         Visible="false" Width="100%">--%>
+<table class="TableBackground" cellpadding="2">
+    <tr id="trDdlAdviser" runat="server">
+        <td id="tdLblAdviser" runat="server" align="right">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+        </td>
+        <td id="tdDdlAdviser" runat="server" align="left">
+            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
+</table>
 <table width="100%" cellspacing="0" cellpadding="1">
     <tr>
         <td>
-            <div style="width: 52.8%">
+            <div id="DivCustomerList" style="width: 52.8%">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -189,8 +201,8 @@
                                 HeaderStyle-Width="140px">
                                 <ItemTemplate>
                                     <asp:DropDownList ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
-                                            CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" 
-                                            AutoPostBack="true" width="120px" AppendDataBoundItems="true"> 
+                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" AutoPostBack="true"
+                                        Width="120px" AppendDataBoundItems="true">
                                         <Items>
                                             <asp:ListItem Text="Select" Value="Select" Selected="true" />
                                             <asp:ListItem Text="ShortCuts" Value="QuickLinks" />
