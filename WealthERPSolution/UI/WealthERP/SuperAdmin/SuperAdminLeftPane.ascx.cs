@@ -81,6 +81,11 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('SuperAdminConfiguration', 'none')", true);
                 }
+                else if (e.Item.Value == "CustomerList")
+                {
+                    Session["Customer"] = "Customer";                    
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                }
                 else if (e.Item.Value == "Valuation_Monitor")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DailyValuationMonitor', 'none')", true);
@@ -117,6 +122,7 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('MessageOutbox', 'none')", true);
                 }
+               
                 else if (e.Item.Value == "Uploads")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerUpload', 'none')", true);
