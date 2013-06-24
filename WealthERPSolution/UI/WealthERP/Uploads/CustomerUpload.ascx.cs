@@ -97,7 +97,7 @@ namespace WealthERP.Uploads
             Panel1.Visible = true;
             Panel1.Style.Add("display", "none");
             lnkPaintFileDwnload.Visible = false;
-            lnkbtnpup.Visible = false;
+            lnkbtnpup.Visible = true;
             ModalPopupExtender1.Hide();
             //lblErrorFileType.Visible = false;
 
@@ -4639,6 +4639,21 @@ namespace WealthERP.Uploads
             {
 
                 Response.Redirect("Standard Upload Files/ProfileMFFolio.xlsx");
+            }
+            else if (File10.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/FixedIncome.xlsx");
+            }
+            else if (File11.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/GeneralInsurance.xlsx");
+            }
+            else if (File12.Checked)
+            {
+
+                Response.Redirect("Standard Upload Files/LITemplate.xlsx");
             }
             else if (AllFiles.Checked)
             {

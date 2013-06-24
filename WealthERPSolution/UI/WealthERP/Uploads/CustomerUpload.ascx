@@ -68,6 +68,7 @@
             var rdButton = document.getElementById('<%= File8.ClientID %>');
             rdButton.checked = true;
         }
+       
     }
 
 </script>
@@ -460,6 +461,16 @@
                 <asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
+                 <asp:RadioButton ID="File10" Text="Fixed Income" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                 <asp:RadioButton ID="File11" Text="LI" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                 <asp:RadioButton ID="File12" Text="GI" Checked="false" GroupName="colors"
+                    runat="server" />
+                <br />
+                
                 <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
