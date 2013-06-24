@@ -1464,13 +1464,13 @@ namespace BoUploads
             return dsWERPRejectedTransactions;
         }
 
-        public bool UpdateMFTrasactionStaging(int CMFTSId, string newScheme)
+        public bool UpdateMFTrasactionStaging(int CMFTSId,string PanNum, string newScheme)
         {
             bool result = false;
             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
             try
             {
-                result = rejecetedRecords.UpdateMFTrasactionStaging(CMFTSId, newScheme);
+                result = rejecetedRecords.UpdateMFTrasactionStaging(CMFTSId,PanNum,newScheme);
             }
             catch (BaseApplicationException Ex)
             {
