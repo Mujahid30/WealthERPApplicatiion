@@ -131,7 +131,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            trExportFilteredData.Visible = false;
+            btnExportFilteredData.Visible = false;
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
@@ -186,7 +186,7 @@ namespace WealthERP.CustomerPortfolio
                 //}
                 if (fixedincomeList == null)
                 {
-                    trExportFilteredData.Visible = false;
+                    btnExportFilteredData.Visible = false;
                     //lblMessage.Visible = true;
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
@@ -197,7 +197,7 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     //lblMessage.Visible = false;
-                    trExportFilteredData.Visible = true;
+                    btnExportFilteredData.Visible = true;
                     tblMessage.Visible = false;
                     gvFixedIncomePortfolio.Visible = true;
                     ErrorMessage.Visible = false;
@@ -441,7 +441,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvFixedIncomePortfolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            trExportFilteredData.Visible = true;
+            btnExportFilteredData.Visible = true;
             DataTable dtFIDetails = new DataTable();
             dtFIDetails = (DataTable)Cache["FIList"];
             gvFixedIncomePortfolio.DataSource = dtFIDetails;

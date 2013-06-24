@@ -23,32 +23,25 @@
     }
 </script>
 
+<%--<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
 <table width="100%">
     <tr>
-        <td align="center">
-            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
-                Record has been deleted Successfully.
-            </div>
-        </td>
-    </tr>
-</table>
-<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-<table class="TableBackground" width="100%">
-    <tr>
-      <td>  
-             <div class="divPageHeading">
+        <td>
+            <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
-                <tr>
-                    <td align="left"> Fixed Income Portfolio</td>
-                    
-                </tr>
+                    <tr>
+                        <td align="left">
+                            Fixed Income Portfolio
+                        </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
                 </table>
             </div>
-            </td>
-     <%--   <td class="HeaderCell">
-            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Fixed Income Portfolio"></asp:Label>
-            <hr />
-        </td>--%>
+        </td>
     </tr>
     <tr>
         <td>
@@ -58,18 +51,54 @@
             </asp:DropDownList>
         </td>
     </tr>
+</table>
+<table width="100%">
     <tr>
-        <%--  <td>
+        <td align="center">
+            <div id="msgRecordStatus" runat="server" class="success-msg" align="center" visible="false">
+                Record has been deleted Successfully.
+            </div>
+        </td>
+    </tr>
+</table>
+<%--<table width="100%" cellspacing="0" cellpadding="2">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            Fixed Income Portfolio
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>--%>
+<%--   <td class="HeaderCell">
+            <asp:Label ID="Label1" runat="server" CssClass="HeaderTextBig" Text="Fixed Income Portfolio"></asp:Label>
+            <hr />
+        </td>--%>
+<%-- </tr>
+    <tr>
+        <td>
+            <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio Name:"></asp:Label>
+            <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>--%>
+<%--  <td>
             <asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records Found...!"></asp:Label>
         </td>--%>
-    </tr>
-    <%--<tr>
+<%--</tr>--%>
+<%--<tr>
         <td class="leftField">
             <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
             <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
         </td>
     </tr>--%>
-    <tr id="trExportFilteredData" runat="server">
+<%-- <tr id="trExportFilteredData" runat="server">
         <td>
             <asp:ImageButton ID="btnExportFilteredData" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
@@ -77,8 +106,8 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <%--<asp:GridView ID="gvFixedIncomePortfolio" runat="server" AutoGenerateColumns="False"
+        <td>--%>
+<%--<asp:GridView ID="gvFixedIncomePortfolio" runat="server" AutoGenerateColumns="False"
                 CellPadding="4" CssClass="GridViewStyle" DataKeyNames="FITransactionId" AllowSorting="True"
                 OnSorting="gvFixedIncomePortfolio_Sorting" OnDataBound="gvFixedIncomePortfolio_DataBound"
                 ShowFooter="True" 
@@ -129,78 +158,82 @@
                     </asp:BoundField>
                 </Columns>
             </asp:GridView>--%>
-            <telerik:RadGrid ID="gvFixedIncomePortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false" OnNeedDataSource="gvFixedIncomePortfolio_OnNeedDataSource"
-                >
-                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="FixedIncomeList">
-                </ExportSettings>
-                <MasterTableView AllowFilteringByColumn="false" DataKeyNames="FITransactionId" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="None">
-                    <Columns>
-                        <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
-                            <ItemTemplate>
-                                <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
-                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                    AllowCustomText="true" Width="120px" AutoPostBack="true">
-                                    <Items>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
-                                        </telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                        <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
-                                            runat="server"></telerik:RadComboBoxItem>
-                                    </Items>
-                                </telerik:RadComboBox>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                <asp:Label ID="lblFooterTotal" runat="server" Text="Grand Total:"></asp:Label>
-                            </FooterTemplate>
-                            <FooterStyle HorizontalAlign="Right"/>
-                        </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Instrument Category"
-                            UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Name" AllowFiltering="false" HeaderText="Particulars"
-                            UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Purchase Date" AllowFiltering="false" HeaderText="Purchase Date (dd/mm/yyyy)"
-                            UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Maturity Date" AllowFiltering="false" HeaderText="Maturity Date (dd/mm/yyyy)"
-                            UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N2}" DataField="Deposit Amount" AllowFiltering="false" 
-                        HeaderText="Deposit Amount/ purchase Cost (Rs)" UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Interest Rate" DataFormatString="{0:dd/MM/yyyy}"
-                            AllowFiltering="false" HeaderText="Interest Rate (%)" UniqueName="ActiveLevel">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Current Value" DataFormatString="{0:N2}"
-                            AllowFiltering="false" HeaderText="Current Value (Rs)" UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataField="Maturity Value" DataFormatString="{0:N2}"
-                            AllowFiltering="false" HeaderText="Maturity Value (Rs)" UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
-                            <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                    </Columns>
-                </MasterTableView>
-                <ClientSettings>
-                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                </ClientSettings>
-            </telerik:RadGrid>
-        </td>
+<asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
+    <telerik:RadGrid ID="gvFixedIncomePortfolio" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
+        OnNeedDataSource="gvFixedIncomePortfolio_OnNeedDataSource">
+        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="FixedIncomeList">
+        </ExportSettings>
+        <MasterTableView AllowFilteringByColumn="false" DataKeyNames="FITransactionId" Width="100%"
+            AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+            <Columns>
+                <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
+                    <ItemTemplate>
+                        <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
+                            CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                            AllowCustomText="true" Width="120px" AutoPostBack="true">
+                            <Items>
+                                <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
+                                </telerik:RadComboBoxItem>
+                                <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
+                                    runat="server"></telerik:RadComboBoxItem>
+                                <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
+                                    runat="server"></telerik:RadComboBoxItem>
+                                <telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
+                                    runat="server"></telerik:RadComboBoxItem>
+                            </Items>
+                        </telerik:RadComboBox>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Label ID="lblFooterTotal" runat="server" Text="Grand Total:"></asp:Label>
+                    </FooterTemplate>
+                    <FooterStyle HorizontalAlign="Right" />
+                </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn DataField="Category" AllowFiltering="false" HeaderText="Instrument Category"
+                    UniqueName="ActiveLevel">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="Name" AllowFiltering="false" HeaderText="Particulars"
+                    UniqueName="ActiveLevel">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="Purchase Date" AllowFiltering="false" HeaderText="Purchase Date (dd/mm/yyyy)"
+                    UniqueName="ActiveLevel">
+                    <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="Maturity Date" AllowFiltering="false" HeaderText="Maturity Date (dd/mm/yyyy)"
+                    UniqueName="ActiveLevel">
+                    <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn Aggregate="Sum" DataFormatString="{0:N2}" DataField="Deposit Amount"
+                    AllowFiltering="false" HeaderText="Deposit Amount/ purchase Cost (Rs)" UniqueName="ActiveLevel"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="Interest Rate" DataFormatString="{0:dd/MM/yyyy}"
+                    AllowFiltering="false" HeaderText="Interest Rate (%)" UniqueName="ActiveLevel">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn Aggregate="Sum" DataField="Current Value" DataFormatString="{0:N2}"
+                    AllowFiltering="false" HeaderText="Current Value (Rs)" UniqueName="ActiveLevel"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn Aggregate="Sum" DataField="Maturity Value" DataFormatString="{0:N2}"
+                    AllowFiltering="false" HeaderText="Maturity Value (Rs)" UniqueName="ActiveLevel"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+            </Columns>
+        </MasterTableView>
+        <ClientSettings>
+            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+        </ClientSettings>
+    </telerik:RadGrid>
+    <%--    </td>
     </tr>
-</table>
+</table>--%>
 </asp:Panel>
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
@@ -224,5 +257,5 @@
 <asp:HiddenField ID="hdndeleteId" runat="server" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
     BorderStyle="None" BackColor="Transparent" />
- <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
 <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
