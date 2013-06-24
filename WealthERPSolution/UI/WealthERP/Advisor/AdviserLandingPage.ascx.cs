@@ -41,7 +41,7 @@ namespace WealthERP.Advisor
 
             if (advisorVo.IsOpsEnable == 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LoadCustomerGrid", "loadcontrol('RMCustomer','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace WealthERP.Advisor
 
             if (advisorVo.IsOpsEnable == 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LoadCustomerGrid", "loadcontrol('RMCustomer','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LoadCustomerGrid", "loadcontrol('AdviserCustomer','login');", true);
             }
             else
             {
