@@ -3452,6 +3452,13 @@
     <Compile Include="UserManagement\AdvisorRMLeftpane.ascx.designer.cs">
       <DependentUpon>AdvisorRMLeftpane.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserManagement\AgentManagement.ascx.cs">
+      <DependentUpon>AgentManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserManagement\AgentManagement.ascx.designer.cs">
+      <DependentUpon>AgentManagement.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserManagement\BMDashBoard.ascx.cs">
       <DependentUpon>BMDashBoard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6411,6 +6418,7 @@
     <Content Include="Uploads\ViewEQTransactionInputrejects.ascx" />
     <Content Include="Uploads\WERPFolioDetails.ascx" />
     <Content Include="Uploads\WerpFolioDetailsMapping.aspx" />
+    <Content Include="UserManagement\AgentManagement.ascx" />
     <Content Include="YUI\build\animation\animation-debug.js" />
     <Content Include="YUI\build\animation\animation-min.js" />
     <Content Include="YUI\build\animation\animation.js" />

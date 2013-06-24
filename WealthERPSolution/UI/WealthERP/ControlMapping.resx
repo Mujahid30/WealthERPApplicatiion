@@ -1585,4 +1585,8 @@
     <value>Associates//ViewAssociates.ascx</value>
     <comment>Associates//ViewAssociates.ascx</comment>
   </data>
+  <data name="AgentManagement" xml:space="preserve">
+    <value>UserManagement//AgentManagement.ascx</value>
+    <comment>UserManagement//AgentManagement.ascx</comment>
+  </data>
 </root>

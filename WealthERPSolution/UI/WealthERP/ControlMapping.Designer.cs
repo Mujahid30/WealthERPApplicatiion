@@ -565,6 +565,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UserManagement//AgentManagement.ascx.
+        /// </summary>
+        internal static string AgentManagement {
+            get {
+                return ResourceManager.GetString("AgentManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alerts//AlertServicesExecution.ascx.
         /// </summary>
         internal static string AlertServicesExecution {
