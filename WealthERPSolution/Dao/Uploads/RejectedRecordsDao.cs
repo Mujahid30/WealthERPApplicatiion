@@ -2108,7 +2108,7 @@ namespace DaoUploads
             }
             return dsGetFolioDetails;
         }
-        public bool UpdateMFTrasactionStaging(int CMFTSId, string newScheme)
+        public bool UpdateMFTrasactionStaging(int CMFTSId, string PanNum ,string newScheme)
         {
             bool result = false;
             Database db;
@@ -2118,6 +2118,10 @@ namespace DaoUploads
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 UpdateTrnxCmd = db.GetStoredProcCommand("SPROC_UpdateMFTrasactionStaging");
                 db.AddInParameter(UpdateTrnxCmd, "@CMFTS_Id", DbType.Int32, CMFTSId);
+                if (PanNum != "")
+                    db.AddInParameter(UpdateTrnxCmd, "@PanNum", DbType.String, PanNum);
+                else
+                    db.AddInParameter(UpdateTrnxCmd, "@PanNum", DbType.String, DBNull.Value);
                 if (newScheme != "")
                     db.AddInParameter(UpdateTrnxCmd, "@Scheme", DbType.String, newScheme);
                 else
