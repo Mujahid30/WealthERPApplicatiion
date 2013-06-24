@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
+﻿    <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdvisorLeftPane.ascx.cs"
     Inherits="WealthERP.Advisor.AdvisorLeftPane" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
@@ -119,7 +119,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
+                                            <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
                                                     </telerik:RadPanelItem>
@@ -281,7 +281,7 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="RM Home" Value="RM Home">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile">
+                                    <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile" Visible="false">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
@@ -318,6 +318,19 @@
                                             <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer Reports" Value="Customer_Report">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
+                                        <Items>
+                                            <%--<telerik:RadPanelItem runat="server" Text="Order Query/MIS"
+                                                        Value="OrderMIS">
+                                                    </telerik:RadPanelItem>--%>
+                                            <telerik:RadPanelItem runat="server" Text="Order Entry" Value="OrderEntry">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Order List" Value="Order_List">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Order Recon" Value="OrderRecon" Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -499,7 +512,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
+                                            <telerik:RadPanelItem runat="server" Text="Manage Portfolio" Value="Manage Portfolio">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Portfolio" Value="Add Portfolio">
                                                     </telerik:RadPanelItem>
@@ -515,8 +528,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
-                                            </telerik:RadPanelItem>
+                                          <%--  <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
+                                            </telerik:RadPanelItem>--%>
                                             <%-- <telerik:RadPanelItem runat="server" Text="MF Folios" Value="MF Folios">
                                             </telerik:RadPanelItem>--%>
                                             <telerik:RadPanelItem runat="server" Text="ISA Status" Value="Status_ISA">
@@ -562,7 +575,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
+                                                    <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -634,7 +647,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Returns & Analytics" Value="Returns_Analytics">
+                                    <telerik:RadPanelItem runat="server" Text="Returns & Analytics" Value="Returns_Analytics" Visible="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS" Value="Asset_Allocation_MIS"
                                                 Vissble="true">

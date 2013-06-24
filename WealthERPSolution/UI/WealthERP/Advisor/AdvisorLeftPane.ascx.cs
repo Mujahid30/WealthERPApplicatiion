@@ -2114,33 +2114,33 @@ namespace WealthERP.Advisor
                         {
                             Item.Visible = false;
                         }
-                        else if (advisorVo.IsOpsEnable == 1)
-                        {
-                            switch (Item.Value)
-                            {
-                                case "Customer":
-                                    Item.Visible = false;
-                                    break;
-                                //case "Operations":
-                                //    Item.Visible = false;
-                                //    break;
-                                case "Returns_Analytics":
-                                    Item.Visible = false;
-                                    break;
-                                case "Queries":
-                                    Item.Visible = false;
-                                    break;
-                                case "AUM_Holdings":
-                                    Item.Visible = false;
-                                    break;
-                                case "Business MIS":
-                                    Item.Visible = false;
-                                    break;
-                                case "Order_Management":
-                                    Item.Visible = false;
-                                    break;
-                            }
-                        }
+                        //else if (advisorVo.IsOpsEnable == 1)
+                        //{
+                        //    switch (Item.Value)
+                        //    {
+                        //        case "Customer":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        //case "Operations":
+                        //        //    Item.Visible = false;
+                        //        //    break;
+                        //        case "Returns_Analytics":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Queries":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "AUM_Holdings":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Business MIS":
+                        //            Item.Visible = false;
+                        //            break;
+                        //        case "Order_Management":
+                        //            Item.Visible = false;
+                        //            break;
+                        //    }
+                        //}
                        
                     }
                 }
@@ -2192,6 +2192,27 @@ namespace WealthERP.Advisor
                                 case "Loan Partner Commission":
                                     Item.Visible = false;
                                     break;
+                                case "Add Customer":
+                                    Item.Visible = false;
+                                    break;
+                                case "Add FP Prospect":
+                                    Item.Visible = false;
+                                    break;
+                                case "Manage Portfolio":
+                                    Item.Visible = false;
+                                    break;
+                                case "Manage Group Account":
+                                    Item.Visible = false;
+                                    break;
+                                case "Customer Association":
+                                    Item.Visible = false;
+                                    break;
+
+                                case "FP Offline Form":
+                                    Item.Visible = false;
+                                    break;
+                                   
+                                  
                             }
                         }
                         //if (int.Parse(dsAdminTreeNodes.Tables[3].Rows[0]["WP_IsOtherStaffEnabled"].ToString()) == 0)
