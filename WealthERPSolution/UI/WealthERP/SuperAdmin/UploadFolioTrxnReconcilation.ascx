@@ -62,7 +62,7 @@
                 <asp:ListItem Value="Folio" Text="Folio"></asp:ListItem>
                 <asp:ListItem Value="Tranx" Text="Transaction"></asp:ListItem>
                 <asp:ListItem Value="Customer" Text="Customer"></asp:ListItem>
-               <%-- <asp:ListItem Value="Systematic" Text="Systematic"></asp:ListItem>--%>
+                <asp:ListItem Value="Systematic" Text="Systematic"></asp:ListItem>
                 <asp:ListItem Value="Trail" Text="Trail"></asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -408,7 +408,7 @@
 <table width="100%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlsystematic" runat="server" Width="98%" Visible="true" ScrollBars="Horizontal">
+            <asp:Panel ID="pnlsystematic" runat="server" Width="90%" Visible="true" ScrollBars="Horizontal">
                 <table>
                     <tr>
                         <td>
@@ -431,8 +431,8 @@
                                                 FooterStyle-HorizontalAlign="Left">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ProcessId" DataField="ADUL_ProcessId"
-                                                HeaderStyle-HorizontalAlign="Right" UniqueName="ADUL_ProcessId" SortExpression="ADUL_ProcessId"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ProcessId" DataField="Wupl_processid"
+                                                HeaderStyle-HorizontalAlign="Right" UniqueName="Wupl_processid" SortExpression="Wupl_processid"
                                                 AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 FooterStyle-HorizontalAlign="Right" FilterControlWidth="65px">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -445,11 +445,12 @@
                                             <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Folio No." DataField="CMFA_FolioNum"
                                                 UniqueName="CMFA_FolioNum" SortExpression="CMFA_FolioNum" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Scheme" DataField="PASP_SchemePlanName"
                                                 UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" FilterControlWidth="100px">
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                FilterControlWidth="100px">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="SystematicDate" DataField="CMFSS_SystematicDate"
@@ -520,7 +521,7 @@
                                                 UniqueName="WUXFT_XMLFileName" SortExpression="WUXFT_XMLFileName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>                                           
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Folio No." DataField="CMFA_FolioNum"
                                                 UniqueName="CMFA_FolioNum" SortExpression="CMFA_FolioNum" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -528,7 +529,8 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Scheme" DataField="PASP_SchemePlanName"
                                                 UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" FilterControlWidth="100px">
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                FilterControlWidth="100px">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Tranx Date" DataField="CMFTTCS_TransactionDate"
@@ -542,7 +544,7 @@
                                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                           <%-- <telerik:GridBoundColumn visible ="false" HeaderStyle-Width="150px" HeaderText="Tranx No." DataField="CMFTTCS_TransactionNo"
+                                            <%-- <telerik:GridBoundColumn visible ="false" HeaderStyle-Width="150px" HeaderText="Tranx No." DataField="CMFTTCS_TransactionNo"
                                                 UniqueName="CMFTTCS_TransactionNo" SortExpression="CMFTTCS_TransactionNo" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
