@@ -333,7 +333,11 @@ namespace WealthERP.CustomerPortfolio
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 13;
                 }
-
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Bonus")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 4;
+                }
 
                 eqTransactionVo.CustomerId = customerVo.CustomerId;
                 eqTransactionVo.IsCorpAction = 0;
@@ -420,9 +424,7 @@ namespace WealthERP.CustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
-            }
-
+            } 
         }
 
         public void resetControls()
