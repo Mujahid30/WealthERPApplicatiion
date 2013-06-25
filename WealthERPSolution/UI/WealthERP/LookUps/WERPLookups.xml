@@ -2233,6 +2233,7 @@
     <Transaction TransactionCode="PUR" TransactionName="Purchase" Deleted="False"/>
     <Transaction TransactionCode="SELL" TransactionName="Sell" Deleted="False"/>
     <Transaction TransactionCode="HOLD" TransactionName="Holdings" Deleted="False"/>
+    <Transaction TransactionCode="BONUS" TransactionName="Bonus" Deleted="False"/>
   </TransactionType>
 
   <CustomerRelationship>
