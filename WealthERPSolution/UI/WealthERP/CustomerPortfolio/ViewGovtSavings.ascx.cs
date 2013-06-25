@@ -12,6 +12,7 @@ using VoUser;
 using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -31,98 +32,98 @@ namespace WealthERP.CustomerPortfolio
 
         protected override void OnInit(EventArgs e)
         {
-            try
-            {
-                this.Page.Culture = "en-GB";
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewGovtSavings.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+            //try
+            //{
+            //    this.Page.Culture = "en-GB";
+            //    ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+            //    mypager.EnableViewState = true;
+            //    base.OnInit(e);
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "ViewGovtSavings.ascx.cs:OnInit()");
+            //    object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
          
         }
 
         public void HandlePagerEvent(object sender, ItemClickEventArgs e)
         {
-            try
-            {
-                GetPageCount();
-                this.LoadGridview(portfolioId);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewGovtSavings.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[0];
+            //try
+            //{
+            //    GetPageCount();
+            //    this.LoadGridview(portfolioId);
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "ViewGovtSavings.ascx.cs:HandlePagerEvent()");
+            //    object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
             
         }
 
         private void GetPageCount()
         {
-            string upperlimit = "";
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = "";
-            string PageRecords = "";
-            try
-            {
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewGovtSavings.ascx.cs:GetPageCount()");
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            //string upperlimit = "";
+            //int rowCount = 0;
+            //int ratio = 0;
+            //string lowerlimit = "";
+            //string PageRecords = "";
+            //try
+            //{
+            //    rowCount = Convert.ToInt32(hdnRecordCount.Value);
+            //    ratio = rowCount / 10;
+            //    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
+            //    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
+            //    lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
+            //    upperlimit = (mypager.CurrentPage * 10).ToString();
+            //    if (mypager.CurrentPage == mypager.PageCount)
+            //        upperlimit = hdnRecordCount.Value;
+            //    PageRecords = string.Format("{0}- {1} of ", lowerlimit, upperlimit);
+                //lblCurrentPage.Text = PageRecords;
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "ViewGovtSavings.ascx.cs:GetPageCount()");
+            //    object[] objects = new object[5];
+            //    objects[0] = upperlimit;
+            //    objects[1] = rowCount;
+            //    objects[2] = ratio;
+            //    objects[3] = lowerlimit;
+            //    objects[4] = PageRecords;
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
            
         }
         protected void ddlPortfolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -207,17 +208,18 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 govtSavingsList = govtSavingsBo.GetGovtSavingsNPList(portfolioId, mypager.CurrentPage, hdnSort.Value, out count);
-                if (count > 0)
-                {
-                    lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
-                    tblPager.Visible = true;
-                }
+                //if (count > 0)
+                //{
+                //    lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //    tblPager.Visible = true;
+                //}
 
                 if (govtSavingsList != null)
                 {
                     //lblMsg.Visible = false;
                     tblMessage.Visible = false;
                     ErrorMessage.Visible = false;
+                    btnExportFilteredData.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
                     GovtSavingsVo govtSavingsVo;
 
@@ -260,10 +262,10 @@ namespace WealthERP.CustomerPortfolio
 
                     }
 
-                    gvrGovtSavings.DataSource = dtGovtSavings;
-                    gvrGovtSavings.DataBind();
-                    gvrGovtSavings.Visible = true;
-                    this.GetPageCount();
+                    gvGovtSavings.DataSource = dtGovtSavings;
+                    gvGovtSavings.DataBind();
+                    gvGovtSavings.Visible = true;
+                   // this.GetPageCount();
                 }
                 else
                 {
@@ -271,8 +273,8 @@ namespace WealthERP.CustomerPortfolio
                     tblMessage.Visible = true;
                     ErrorMessage.Visible = true;
                     ErrorMessage.InnerText = "No Records Found...!";
-                    gvrGovtSavings.DataSource = null;
-                    gvrGovtSavings.DataBind();
+                    gvGovtSavings.DataSource = null;
+                    gvGovtSavings.DataBind();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -304,9 +306,9 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 DropDownList ddlMenu = (DropDownList)sender;
-                GridViewRow gvr = (GridViewRow)ddlMenu.NamingContainer;
-                int selectedRow = gvr.RowIndex;
-                int govtSavingsId = int.Parse(gvrGovtSavings.DataKeys[selectedRow].Value.ToString());
+                GridDataItem gvr = (GridDataItem)ddlMenu.NamingContainer;               
+                int selectedRow = gvr.ItemIndex;
+                int govtSavingsId = int.Parse(gvGovtSavings.MasterTableView.DataKeyValues[selectedRow]["GovtSavingId"].ToString());
                 hdndeleteId.Value = govtSavingsId.ToString();
                 Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(govtSavingsId);
                 if (ddlMenu.SelectedItem.Value.ToString() == "Edit")
@@ -343,14 +345,13 @@ namespace WealthERP.CustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
         }
 
         protected void gvrGovtSavings_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            gvrGovtSavings.PageIndex = e.NewPageIndex;
-            gvrGovtSavings.DataBind();
+            //gvrGovtSavings.PageIndex = e.NewPageIndex;
+            //gvrGovtSavings.DataBind();
         }
 
         protected void gvrGovtSavings_Sorting(object sender, GridViewSortEventArgs e)
@@ -391,16 +392,78 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrGovtSavings_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            GovtSavingsBo govtSavingsBo=new GovtSavingsBo();
-            try
+            //GovtSavingsBo govtSavingsBo=new GovtSavingsBo();
+            //try
+            //{
+            //    string govtSavingId = "";
+            //    int index = Convert.ToInt16(e.CommandArgument.ToString());
+            //    int portfolioId = int.Parse(gvGovtSavings.MasterTableView.DataKeyValues[index].ToString());
+            //    govtSavingId = gvGovtSavings.MasterTableView.DataKeyValues[index]["GovtSavingId"].ToString();
+            //    hdndeleteId.Value = govtSavingId;
+            //    Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(portfolioId);
+            //    if (e.CommandName.ToString() == "Edit")
+            //    {
+            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('PortfolioGovtSavingsEntry','EditGS');", true);
+            //    }
+            //    else if (e.CommandName.ToString() == "View")
+            //    {
+            //        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('PortfolioGovtSavingsEntry','ViewGS');", true);
+            //    }
+            //    else if (e.CommandName.ToString() == "Delete")
+            //    {
+            //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+            //    }
+            //    else if (e.CommandName.ToString() == "Sort")
+            //    {
+            //        string sortExpression = e.CommandArgument.ToString();
+            //        ViewState["sortExpression"] = sortExpression;
+            //        if (GridViewSortDirection == SortDirection.Ascending)
+            //        {
+            //            GridViewSortDirection = SortDirection.Descending;
+            //            SortGridVIew(sortExpression, DESCENDING);
+            //        }
+            //        else
+            //        {
+            //            GridViewSortDirection = SortDirection.Ascending;
+            //            SortGridVIew(sortExpression, ASCENDING);
+            //        }
+            //    }
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "ViewGovtSavings.ascx:gvrGovtSavings_RowCommand()");
+            //    object[] objects = new object[1];
+            //    objects[1] = portfolioId;
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+
+            //}
+        }
+
+        protected void gvrGovtSavings_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+
+        }
+
+        protected void gvGovtSavings_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+         if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
-                string govtSavingId = "";
-                int index = Convert.ToInt16(e.CommandArgument.ToString());
-                int portfolioId = int.Parse(gvrGovtSavings.DataKeys[index].Value.ToString());
-                govtSavingId = gvrGovtSavings.DataKeys[index].Values["GovtSavingId"].ToString();
+                GovtSavingsBo govtSavingsBo = new GovtSavingsBo();
+                string govtSavingId = "";              
+                int portfolioId = int.Parse(gvGovtSavings.MasterTableView.DataKeyValues[e.Item.ItemIndex].ToString());
+                govtSavingId = gvGovtSavings.MasterTableView.DataKeyValues[e.Item.ItemIndex]["GovtSavingId"].ToString();
                 hdndeleteId.Value = govtSavingId;
                 Session["govtSavingsVo"] = govtSavingsBo.GetGovtSavingsDetails(portfolioId);
-                if (e.CommandName.ToString() == "Edit")
+                if (e.CommandName == "Edit")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('PortfolioGovtSavingsEntry','EditGS');", true);
                 }
@@ -411,57 +474,24 @@ namespace WealthERP.CustomerPortfolio
                 else if (e.CommandName.ToString() == "Delete")
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-                }
-                else if (e.CommandName.ToString() == "Sort")
-                {
-                    string sortExpression = e.CommandArgument.ToString();
-                    ViewState["sortExpression"] = sortExpression;
-                    if (GridViewSortDirection == SortDirection.Ascending)
-                    {
-                        GridViewSortDirection = SortDirection.Descending;
-                        SortGridVIew(sortExpression, DESCENDING);
-                    }
-                    else
-                    {
-                        GridViewSortDirection = SortDirection.Ascending;
-                        SortGridVIew(sortExpression, ASCENDING);
-                    }
-                }
+                }               
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ViewGovtSavings.ascx:gvrGovtSavings_RowCommand()");
-                object[] objects = new object[1];
-                objects[1] = portfolioId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
+           
         }
-
-        protected void gvrGovtSavings_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-
-        }
-
-        protected void gvrGovtSavings_DataBound(object sender, EventArgs e)
-        {
-
-        }
-
         protected void gvrGovtSavings_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
-
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvGovtSavings.ExportSettings.OpenInNewWindow = true;
+            gvGovtSavings.ExportSettings.IgnorePaging = true;
+            gvGovtSavings.ExportSettings.HideStructureColumns = true;
+            gvGovtSavings.ExportSettings.ExportOnlyData = true;
+            gvGovtSavings.ExportSettings.FileName = "Govt Savings";
+            gvGovtSavings.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvGovtSavings.MasterTableView.ExportToExcel();
+        }
         protected void hiddenassociation_Click(object sender, EventArgs e)
         {
             string val = Convert.ToString(hdnMsgValue.Value);
