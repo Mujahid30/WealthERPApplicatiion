@@ -237,6 +237,21 @@ namespace BoUploads
              return dsGetFolioDetails;
          }
 
+         public DataSet getMFRejectedFoliosForFolioSelection(int adviserId, DateTime FromDate, DateTime ToDate)
+         {
+             DataSet dsCAMSRejectedProfiles;
+             RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
+             try
+             {
+                 dsCAMSRejectedProfiles = rejecetedRecords.getMFRejectedFoliosForFolioSelection(adviserId, FromDate, ToDate);
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+             return dsCAMSRejectedProfiles;
+         }
+
         public DataSet getMFRejectedFolios(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
         {
             DataSet dsCAMSRejectedProfiles;

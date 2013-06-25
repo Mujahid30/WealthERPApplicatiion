@@ -24,6 +24,7 @@ using VoCustomerProfiling;
 using BoSuperAdmin;
 using System.Configuration;
 using Telerik.Web.UI;
+using BoUploads;
 
 namespace WealthERP.SuperAdmin
 {
@@ -37,6 +38,7 @@ namespace WealthERP.SuperAdmin
         int onlyDuplicate;
         DataSet dsDuplicateFolioOrTransactions;
         int adviserId;
+        DataSet dsMFRejectedFolios = new DataSet();
 
         int count;
 
@@ -142,7 +144,7 @@ namespace WealthERP.SuperAdmin
                 //remove if any thing is in the cache
                 Cache.Remove("DuplicateTransactionDetailsSA");
                 Cache.Remove("DuplicateFolioDetailsSA");
-
+                Cache.Remove("RejectedMFFolioDetails");
                 BindAdviserDropDownList();
                 trRange.Visible = true;
                 if (rbtnPickDate.Checked == true)
@@ -278,11 +280,11 @@ namespace WealthERP.SuperAdmin
             }
             else if (ddlAction.SelectedValue == "mfRejects")
             {
+
                 trExportFilteredNavData.Visible = false;
                 trExportFilteredDupData.Visible = false;
                 trExportFilteredAumData.Visible = false;
                 trExportFilteredRejData.Visible = false;
-                BindMFRejectedGrid();
                 gvAumMis.Visible = false;
                 trbtnDelete.Visible = false;
                 gvDuplicateCheck.Visible = false;
@@ -290,6 +292,19 @@ namespace WealthERP.SuperAdmin
                 gvNavChange.Visible = false;
                 btnDelete.Visible = false;
                 btnDeleteAll.Visible = false;
+
+                if (rbtnSelection.SelectedValue == "0")
+                {
+                    BindFolioGrid();
+                    divRGVGridViewForFolioRejects.Visible = true;
+                    divGvTransactionDuplicates.Visible = false;
+                }
+                else
+                {
+                    BindMFRejectedGrid();
+                    divRGVGridViewForFolioRejects.Visible = false;
+                    divGvTransactionDuplicates.Visible = true;
+                }
             }
             else if (ddlAction.SelectedValue == "NAVChange")
             {
@@ -674,7 +689,7 @@ namespace WealthERP.SuperAdmin
         /// </summary>
         private void CalculateDateRange(out DateTime fromDate, out DateTime toDate)
         {
-            if (rbtnPickDate.Checked == true && rbtnPickDate.Visible==true)
+            if (rbtnPickDate.Checked == true && rbtnPickDate.Visible == true)
             {
                 fromDate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 toDate = DateTime.Parse(txtToDate.SelectedDate.ToString());
@@ -1403,6 +1418,8 @@ namespace WealthERP.SuperAdmin
                     trRange.Visible = false;
                     trPeriod.Visible = false;
 
+                    trSelectionForFolioOrMF.Visible = false;
+
                 }
                 else if (ddlAction.SelectedValue == "DuplicateTransactions")
                 {
@@ -1426,6 +1443,8 @@ namespace WealthERP.SuperAdmin
                     //trDate.Visible = false;
                     divGvFolioDuplicates.Visible = false;
                     btnExportDuplicateFolioFilteredData.Visible = false;
+
+                    trSelectionForFolioOrMF.Visible = false;
                 }
                 else if (ddlAction.SelectedValue == "DuplicateFolios")
                 {
@@ -1436,6 +1455,8 @@ namespace WealthERP.SuperAdmin
                     trDate.Visible = false;
                     divGvTransactionDuplicates.Visible = false;
                     btnExportDuplicateTransactionFilteredData.Visible = false;
+
+                    trSelectionForFolioOrMF.Visible = false;
                 }
                 else
                 {
@@ -1444,7 +1465,7 @@ namespace WealthERP.SuperAdmin
                         trRange.Visible = true;
                     else if (rbtnPickPeriod.Checked == true)
                         trPeriod.Visible = true;
-
+                    trSelectionForFolioOrMF.Visible = true;
                     trDate.Visible = false;
 
                 }
@@ -1576,6 +1597,19 @@ namespace WealthERP.SuperAdmin
             dsGetNAV = (DataSet)Cache["dsGetNAVList"];
             gvNavChange.DataSource = dsGetNAV;
         }
+
+        protected void btnExportRGVGridViewForFolioRejects_Click(object sender, ImageClickEventArgs e)
+        {
+            RGVGridViewForFolioRejects.ExportSettings.OpenInNewWindow = true;
+            RGVGridViewForFolioRejects.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in RGVGridViewForFolioRejects.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            RGVGridViewForFolioRejects.MasterTableView.ExportToExcel();
+        }
+
+
         protected void btnExportFilteredNavData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvNavChange.ExportSettings.OpenInNewWindow = true;
@@ -1586,6 +1620,8 @@ namespace WealthERP.SuperAdmin
             }
             gvNavChange.MasterTableView.ExportToExcel();
         }
+
+
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvDuplicateCheck.ExportSettings.OpenInNewWindow = true;
@@ -1596,6 +1632,7 @@ namespace WealthERP.SuperAdmin
             }
             gvDuplicateCheck.MasterTableView.ExportToCSV();
         }
+
         protected void btnExportFilteredRejData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvMFRejectedDetails.ExportSettings.OpenInNewWindow = true;
@@ -1939,6 +1976,72 @@ namespace WealthERP.SuperAdmin
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "DailyValuationMonitor.ascx.cs:btnExportDuplicateFolioFilteredData_Click(object sender, ImageClickEventArgs e)");
                 object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        protected void rbtnSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+
+        protected void RGVGridViewForFolioRejects_OnNeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dsMFRejectedFolios = new DataTable();
+            RGVGridViewForFolioRejects.Visible = true;
+            gvAumMis.Visible = false;
+            trbtnDelete.Visible = true;
+            gvDuplicateCheck.Visible = false;
+            gvMFRejectedDetails.Visible = false;
+            trExportFilteredAumData.Visible = true;
+            gvNavChange.Visible = false;
+            dsMFRejectedFolios = (DataTable)Cache["dsRGVGridViewForFolioRejects"];
+            RGVGridViewForFolioRejects.DataSource = dsMFRejectedFolios;
+        }
+
+
+        
+
+
+        private void BindFolioGrid()
+        {
+            try
+            {
+                RejectedRecordsBo rejectedRecordsBo = new RejectedRecordsBo();
+                dsMFRejectedFolios = rejectedRecordsBo.getMFRejectedFoliosForFolioSelection(adviserId, DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
+
+                if (dsMFRejectedFolios.Tables[0].Rows.Count > 0)
+                {
+                    if (Cache["dsRGVGridViewForFolioRejects" + adviserId.ToString()] == null)
+                    {
+                        Cache.Insert("dsRGVGridViewForFolioRejects", dsMFRejectedFolios.Tables[0]);
+                    }
+                    else
+                    {
+                        Cache.Remove("dsRGVGridViewForFolioRejects");
+                        Cache.Insert("dsRGVGridViewForFolioRejects", dsMFRejectedFolios.Tables[0]);
+                    }
+
+                    RGVGridViewForFolioRejects.DataSource = dsMFRejectedFolios.Tables[0];
+                    RGVGridViewForFolioRejects.DataBind();
+                    RGVGridViewForFolioRejects.Visible = true;
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedCAMSProfile.ascx:BindGrid()");
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

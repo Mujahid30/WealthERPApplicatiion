@@ -147,6 +147,54 @@ namespace DaoUploads
             }
             return dsGetRejectReasonMFList;
         }
+
+
+        public DataSet getMFRejectedFoliosForFolioSelection(int adviserId, DateTime FromDate, DateTime ToDate)
+        {
+            DataSet dsMFRejectedFoliosForFolioSelection;
+            Database db;
+            DbCommand getMFRejectedFoliosForFolioSelectionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFRejectedFoliosForFolioSelectionCmd = db.GetStoredProcCommand("SP_GetMFRejectedFoliosForFolioSelection");
+
+                if(adviserId!=0)
+                db.AddInParameter(getMFRejectedFoliosForFolioSelectionCmd, "@adviserId", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(getMFRejectedFoliosForFolioSelectionCmd, "@adviserId", DbType.Int32, DBNull.Value);
+                
+                if(FromDate!=null)
+                db.AddInParameter(getMFRejectedFoliosForFolioSelectionCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    db.AddInParameter(getMFRejectedFoliosForFolioSelectionCmd, "@FromDate", DbType.DateTime, DBNull.Value);
+                
+                if(ToDate!=null)
+                db.AddInParameter(getMFRejectedFoliosForFolioSelectionCmd, "@ToDate", DbType.DateTime, ToDate);
+                else
+                    db.AddInParameter(getMFRejectedFoliosForFolioSelectionCmd, "@ToDate", DbType.DateTime, DBNull.Value);
+
+                dsMFRejectedFoliosForFolioSelection = db.ExecuteDataSet(getMFRejectedFoliosForFolioSelectionCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RejectedRecordsDao.cs:getMFRejectedFoliosForFolioSelection(int adviserId, DateTime FromDate, DateTime ToDate)");
+                object[] objects = new object[9];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsMFRejectedFoliosForFolioSelection;
+        }
+
+
         public DataSet GetRejectReasonEquityList(int uploadFileType)
         {
             DataSet dsGetRejectReasonEquityList;
