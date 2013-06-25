@@ -312,19 +312,22 @@
                 Display="Dynamic" runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
-        <td style="float: right; vertical-align: top;" width="350px">
+        <td align="right">
             <asp:LinkButton ID="lnkbtnpup" runat="server" Font-Size="X-Small" CausesValidation="False"
                 OnClientClick="return setRadioButtonForFileFormat();" OnClick="lnkbtnpup_Click1">click here to download standard file formats</asp:LinkButton>
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1"
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
                 Drag="true" OnOkScript="DownloadScript();">
-            </cc1:ModalPopupExtender>
-            <td>
+            </cc1:ModalPopupExtender>           
+            <%-- <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
+                    OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>--%>
+            </td>
+            <td align="right">
                 <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
                     OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
             </td>
-        </td>      
+       <%-- </td> --%>     
     </tr>
     <tr id="datevisible" runat="server" visible="false">
         <td class="leftField">
