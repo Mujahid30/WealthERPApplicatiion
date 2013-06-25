@@ -80,7 +80,7 @@ namespace WealthERP.Advisor
                 rmId = rmVo.RMId;
                 branchHeadId = rmVo.RMId;
             }
-            if (userVo.UserType=="SuperAdmin")
+            if (userVo.UserType == "SuperAdmin")
             {
                 if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
                 {
@@ -153,7 +153,7 @@ namespace WealthERP.Advisor
         }
         protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-          if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+            if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
             {
                 adviserId = int.Parse(ddlAdviser.SelectedValue);
                 DataSet dsAdviserRmDetails = superAdminOpsBo.GetAdviserRmDetails(adviserId);
@@ -161,17 +161,20 @@ namespace WealthERP.Advisor
                 {
                     rmId = int.Parse(dsAdviserRmDetails.Tables[0].Rows[0]["ar_rmid"].ToString());
                 }
+               DivCustomerList.Visible = true;
                 BindCustomerGrid();
                 gvCustomerList.Columns[0].Visible = false;
                 gvCustomerList.Visible = true;
-               // DivCustomerList.Style.Add("width","1000px");
+
             }
             else
             {
-               gvCustomerList.Columns[0].Visible = true;
-               gvCustomerList.Visible = false;
+                DivCustomerList.Visible = false;
+                gvCustomerList.Columns[0].Visible = true;
+                gvCustomerList.Visible = false;
+
             }
-         }
+        }
         /// <summary>
         /// This Function use to create DataTable 
         /// </summary>
@@ -239,6 +242,7 @@ namespace WealthERP.Advisor
                 customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
+                    DivCustomerList.Visible = false;
                     gvCustomerList.Visible = false;
                     imgexportButton.Visible = false;
                     //  pnlCustomerList.Visible = false;
@@ -352,9 +356,10 @@ namespace WealthERP.Advisor
                         Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
                     }
                     gvCustomerList.DataSource = dtCustomerList;
-                    if (advisorPrefernceVo!=null)
-                    gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
+                    if (advisorPrefernceVo != null)
+                        gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
                     gvCustomerList.DataBind();
+                    DivCustomerList.Visible = true;
                     gvCustomerList.Visible = true;
                     // pnlCustomerList.Visible = true;
                     imgexportButton.Visible = true;
@@ -403,6 +408,7 @@ namespace WealthERP.Advisor
 
                 if (customerList == null)
                 {
+                    DivCustomerList.Visible = false;
                     gvCustomerList.Visible = false;
                     // pnlCustomerList.Visible = true; 
                     imgexportButton.Visible = false;
@@ -519,6 +525,7 @@ namespace WealthERP.Advisor
                     gvCustomerList.DataSource = dtCustomerList;
                     gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
                     gvCustomerList.DataBind();
+                    DivCustomerList.Visible = true;
                     gvCustomerList.Visible = true;
                     //pnlCustomerList.Style.Add("Height", "410px");
                     //  pnlCustomerList.Visible = true;                    
@@ -1260,7 +1267,7 @@ namespace WealthERP.Advisor
 
             }
         }
-      
+
     }
 
 }

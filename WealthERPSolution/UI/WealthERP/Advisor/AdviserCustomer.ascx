@@ -148,28 +148,6 @@
         </td>
     </tr>
 </table>
-<table width="100%">
-    <tr>
-        <td align="center">
-            <div class="success-msg" id="CreationSuccessMessage" runat="server" visible="false"
-                align="center">
-                Record deleted successfully...
-            </div>
-        </td>
-    </tr>
-</table>
-<table width="100%" cellspacing="0" cellpadding="0" runat="server">
-    <tr>
-        <td align="center">
-            <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
-                No Records found.....
-            </div>
-        </td>
-    </tr>
-</table>
-<%--<div style="width: 100%;">--%>
-<%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
-        Visible="false" Width="100%">--%>
 <table class="TableBackground" cellpadding="2">
     <tr id="trDdlAdviser" runat="server">
         <td id="tdLblAdviser" runat="server" align="right">
@@ -182,10 +160,34 @@
         </td>
     </tr>
 </table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div class="success-msg" id="CreationSuccessMessage" runat="server" visible="false"
+                align="center">
+                Record deleted successfully...
+            </div>
+        </td>
+    </tr>
+</table>
+
+<table width="100%" cellspacing="0" cellpadding="0" runat="server">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" align="center">
+                No Records found.....
+            </div>
+        </td>
+    </tr>
+</table>
+<%--<div style="width: 100%;">--%>
+<%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
+        Visible="false" Width="100%">--%>
+
 <table width="100%" cellspacing="0" cellpadding="1">
     <tr>
         <td>
-            <div id="DivCustomerList" style="width: 52.8%">
+            <div id="DivCustomerList" runat="server" style="width: 52.8%" visible="false">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
