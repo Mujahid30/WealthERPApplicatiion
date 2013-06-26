@@ -1,31 +1,26 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IFF.ascx.cs" Inherits="WealthERP.SuperAdmin.IFF" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
-
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<telerik:RadStyleSheetManager  Runat="server">
+<telerik:RadStyleSheetManager runat="server">
 </telerik:RadStyleSheetManager>
-<telerik:RadScriptManager  Runat="server">
+<telerik:RadScriptManager runat="server">
 </telerik:RadScriptManager>
-
-   <telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
-            <AjaxSettings>
-                <telerik:AjaxSetting AjaxControlID="RadGrid1">
-                    <UpdatedControls>
-                        <telerik:AjaxUpdatedControl ControlID="gvAdvisorList" />
-                    </UpdatedControls>
-                </telerik:AjaxSetting>
-                <telerik:AjaxSetting AjaxControlID="clrFilters">
-                    <UpdatedControls>
-                        <telerik:AjaxUpdatedControl ControlID="gvAdvisorList" />
-                        <telerik:AjaxUpdatedControl ControlID="clrFilters" />
-                    </UpdatedControls>
-                </telerik:AjaxSetting>
-            </AjaxSettings>
-   </telerik:RadAjaxManager>
-
-
-
+<telerik:RadAjaxManager ID="RadAjaxManager1" runat="server">
+    <AjaxSettings>
+        <telerik:AjaxSetting AjaxControlID="RadGrid1">
+            <UpdatedControls>
+                <telerik:AjaxUpdatedControl ControlID="gvAdvisorList" />
+            </UpdatedControls>
+        </telerik:AjaxSetting>
+        <telerik:AjaxSetting AjaxControlID="clrFilters">
+            <UpdatedControls>
+                <telerik:AjaxUpdatedControl ControlID="gvAdvisorList" />
+                <telerik:AjaxUpdatedControl ControlID="clrFilters" />
+            </UpdatedControls>
+        </telerik:AjaxSetting>
+    </AjaxSettings>
+</telerik:RadAjaxManager>
 <table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -58,98 +53,121 @@
 </table>
 <%--<asp:Panel ID="pnlIFFGrid" runat="server" Width="100%" ScrollBars="Vertical,horizontal">--%>
 <table class="TableBackground" width="100%" cellpadding="0" cellspacing="0">
-<tr align="left">
-<td style="padding-left:4px">
-    <asp:Button ID="btnExportFilteredData" CssClass="PCGLongButton" OnClick="btnExportFilteredData_OnClick" Text="Export AllPage" runat="server" />
-</td>
-</tr>
+    <tr align="left">
+        <td style="padding-left: 4px">
+            <asp:Button ID="btnExportFilteredData" CssClass="PCGLongButton" OnClick="btnExportFilteredData_OnClick"
+                Text="Export AllPage" runat="server" />
+        </td>
+    </tr>
     <tr>
         <td>
-           <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-            <div id="dvHoldings" runat="server" style="width: 650px; padding:4px">
-            <telerik:RadGrid 
-             ID="gvAdvisorList" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" 
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvAdvisorList_OnNeedDataSource">
-                    <ExportSettings ExportOnlyData="true" HideStructureColumns="true"> </ExportSettings>
-                    <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top">
-                    <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
-                    ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true"/>
-                    <Columns>
-                        <telerik:GridTemplateColumn AllowFiltering="false">
-                            <ItemStyle />
-                            <ItemTemplate>
-                                <asp:DropDownList ID="ddlMenu" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
-                                    OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
-                                <asp:ListItem>Select </asp:ListItem>
-                                   <%--<asp:ListItem Text="View Dashboard" Value="View Dashboard">View Dashboard  </asp:ListItem>--%>
-                                    <asp:ListItem Text="Edit profile" Value="Edit profile">View/Edit profile </asp:ListItem>
-                                    <asp:ListItem Text="Subscription" Value="Subscription">Subscription</asp:ListItem>
-
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                        </telerik:GridTemplateColumn>
-                         <telerik:GridBoundColumn HeaderText="AdviserId" AutoPostBackOnFilter="true" ItemStyle-HorizontalAlign="Right" DataField="AdviserId" AllowFiltering="true" ShowFilterIcon="false">
-                            <ItemStyle />                            
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="IFA" AutoPostBackOnFilter="true" DataField="IFFName" AllowFiltering="true" ShowFilterIcon="false">
-                            <ItemStyle />                            
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Category" AutoPostBackOnFilter="true" DataField="Category" AllowFiltering="true" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Area" DataField="IFFAddress" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="City" DataField="IFFCity" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Contact Person" AutoPostBackOnFilter="true" DataField="IFFContactPerson"  AllowFiltering ="true" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Mobile" DataField="IFFMobileNumber" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Email" DataField="IFFEmailId" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Is Active" AutoPostBackOnFilter="true" DataField="imgIFFIsActive" AllowFiltering="true" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="MF Subs" DataField="imgIFFMutualfund" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="EQ Subs" DataField="imgIFFEquity" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="LI Subs"  DataField="imgIFFInsurance" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Loan Subs"  DataField="imgIFFLiabilities" AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="PMS Subs"  DataField="imgIFFPMS"  AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Fixed Inc. Subs"  DataField="imgIFFFixedIncome"  AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Postal Subs"  DataField="imgIFFPostalSavings"  AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Commodities Subs"  DataField="imgIFFComodities"  AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderText="Real Est., Subs"  DataField="imgIFFComodities"  AllowFiltering="false" ShowFilterIcon="false">
-                            <ItemStyle />
-                        </telerik:GridBoundColumn>                        
-                        
-                    </Columns>
-                </MasterTableView>
-            </telerik:RadGrid>
-            </div>
-             </asp:Panel>
+            <asp:Panel ID="pnlMFPortfolioHoldings" runat="server" class="Landscape" Width="100%"
+                ScrollBars="Horizontal">
+                <div id="dvHoldings" runat="server" style="width: 650px; padding: 4px">
+                    <telerik:RadGrid ID="gvAdvisorList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+                        AllowAutomaticInserts="false" OnNeedDataSource="gvAdvisorList_OnNeedDataSource">
+                        <ExportSettings ExportOnlyData="true" HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="Top">
+                            <CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
+                                ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />
+                            <Columns>
+                                <telerik:GridTemplateColumn AllowFiltering="false">
+                                    <ItemStyle />
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlMenu" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                            OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
+                                            <asp:ListItem>Select </asp:ListItem>
+                                            <%--<asp:ListItem Text="View Dashboard" Value="View Dashboard">View Dashboard  </asp:ListItem>--%>
+                                            <asp:ListItem Text="Edit profile" Value="Edit profile">View/Edit profile </asp:ListItem>
+                                            <asp:ListItem Text="Subscription" Value="Subscription">Subscription</asp:ListItem>
+                                        </asp:DropDownList>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn HeaderText="AdviserId" AutoPostBackOnFilter="true" ItemStyle-HorizontalAlign="Right"
+                                    DataField="AdviserId" AllowFiltering="true" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="IFA" AutoPostBackOnFilter="true" DataField="IFFName"
+                                    AllowFiltering="true" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Category" AutoPostBackOnFilter="true" DataField="Category"
+                                    AllowFiltering="true" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Area" DataField="IFFAddress" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="City" DataField="IFFCity" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Contact Person" AutoPostBackOnFilter="true"
+                                    DataField="IFFContactPerson" AllowFiltering="true" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Mobile" DataField="IFFMobileNumber" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Email" DataField="IFFEmailId" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Is Active" AutoPostBackOnFilter="true" DataField="imgIFFIsActive"
+                                    AllowFiltering="true" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="MF Subs" DataField="imgIFFMutualfund" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="EQ Subs" DataField="imgIFFEquity" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="LI Subs" DataField="imgIFFInsurance" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Loan Subs" DataField="imgIFFLiabilities" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="PMS Subs" DataField="imgIFFPMS" AllowFiltering="false"
+                                    ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Fixed Inc. Subs" DataField="imgIFFFixedIncome"
+                                    AllowFiltering="false" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Postal Subs" DataField="imgIFFPostalSavings"
+                                    AllowFiltering="false" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Commodities Subs" DataField="imgIFFComodities"
+                                    AllowFiltering="false" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Real Est., Subs" DataField="imgIFFComodities"
+                                    AllowFiltering="false" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderText="Last Login Details" DataField="Lastlogin"
+                                    AllowFiltering="false" ShowFilterIcon="false">
+                                    <ItemStyle />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                        </MasterTableView>
+                    </telerik:RadGrid>
+                </div>
+            </asp:Panel>
             <br />
             <%--<asp:Button ID="clrFilters" runat="server" Text="Clear filters" CssClass="button"
             OnClick="clrFilters_Click"></asp:Button>--%>
@@ -157,7 +175,6 @@
     </tr>
 </table>
 <%--</asp:Panel>--%>
-
 <%--<asp:Panel ID="pnlIFFGrid" runat="server" Width="100%" ScrollBars="Horizontal">
     <table class="TableBackground" width="100%">
         <tr align="center">

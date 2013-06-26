@@ -58,7 +58,8 @@ namespace VoUser
         private AdviserSubscriptionVo advSubVo = new AdviserSubscriptionVo();
         private bool m_IsLoginWidgetEnable;
         private bool s_IsISASubscribed;
-       
+        private DateTime s_lastlogin;
+    
 
         #endregion Fields
 
@@ -297,6 +298,13 @@ namespace VoUser
             get { return s_DeactivationDate; }
             set { s_DeactivationDate = value; }
         }
+
+        public DateTime lastlogin
+        {
+            get { return s_lastlogin; }
+            set { s_lastlogin = value; }
+        }
+
         public Int16 IsActive
         {
             get { return s_IsActive; }

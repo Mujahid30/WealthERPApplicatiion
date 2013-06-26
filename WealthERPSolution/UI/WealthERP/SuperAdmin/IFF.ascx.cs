@@ -279,6 +279,7 @@ namespace WealthERP.SuperAdmin
                     dtAdvisor.Columns.Add("imgIFFPostalSavings");
                     dtAdvisor.Columns.Add("imgIFFRealEstate");
                     dtAdvisor.Columns.Add("imgIFFIsActive");
+                    dtAdvisor.Columns.Add("Lastlogin");
                     DataRow dr;
                     
                     for (int i = 0; i < advisorvolist.Count; i++)
@@ -307,6 +308,7 @@ namespace WealthERP.SuperAdmin
                         drAdvisor[16] = "";
                         drAdvisor[17] = "";
                         drAdvisor[18] = "";
+                        drAdvisor["Lastlogin"] = advisorVo.lastlogin;
                         for (int j = 0; j < advisorVo.AdvisorLOBVoList.Count; j++)
                         {
                             advisorlobvo = advisorVo.AdvisorLOBVoList[j];

@@ -355,6 +355,8 @@ namespace DaoWerpAdmin
                         adviserVo.Category = dr["XAC_AdviserCategory"].ToString();
                     adviserVo.LoginId = dr["U_LoginId"].ToString();
                     adviserVo.Password = dr["U_Password"].ToString();
+                    if (dr["LT_CreatedOn"] != null && dr["LT_CreatedOn"].ToString() != "")
+                        adviserVo.lastlogin = DateTime.Parse(dr["LT_CreatedOn"].ToString());                    
                     adviserVo.AdvisorLOBVoList = GetAdvisorLOBs(adviserVo.advisorId);
                     adviserVoList.Add(adviserVo);
                 }
