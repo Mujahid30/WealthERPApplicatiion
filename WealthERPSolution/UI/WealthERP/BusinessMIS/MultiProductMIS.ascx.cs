@@ -995,7 +995,7 @@ namespace WealthERP.BusinessMIS
                         dtFIMIS.Columns.Add("CFINP_PurchaseDate", typeof(DateTime));
                         dtFIMIS.Columns.Add("CFINP_MaturityDate", typeof(DateTime));
                         dtFIMIS.Columns.Add("CFINP_PrincipalAmount", typeof(double));
-                        dtFIMIS.Columns.Add("CFINP_InterestRate");
+                        dtFIMIS.Columns.Add("CFINP_InterestRate", typeof(double));
                         dtFIMIS.Columns.Add("CFINP_CurrentValue", typeof(double));
                         dtFIMIS.Columns.Add("CFINP_MaturityValue", typeof(double));
                         dtFIMIS.Columns.Add("CustomerId");

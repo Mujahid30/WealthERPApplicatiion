@@ -381,7 +381,7 @@
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_InterestRate" HeaderText="Interest Rate"
-                            DataField="CFINP_InterestRate" DataFormatString="{0:n2}" HtmlEncode="false">
+                            DataField="CFINP_InterestRate" DataFormatString="{0:N2}" HtmlEncode="false">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_CurrentValue" HeaderText="Current Value" Aggregate="Sum"
