@@ -728,7 +728,7 @@
     </tr>
     <tr>
                 <td>
-                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel3">
+                    <asp:UpdateProgress ID="UpdateProgress1" runat="server">
                         <ProgressTemplate>
                             <table width="100%">
                                 <tr>
