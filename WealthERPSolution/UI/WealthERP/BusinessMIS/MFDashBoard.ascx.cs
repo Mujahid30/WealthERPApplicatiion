@@ -13,28 +13,276 @@ using Telerik.Web.UI;
 using BoAdvisorProfiling;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
+using BoUploads;
+using System.Configuration;
 
 namespace WealthERP.BusinessMIS
 {
     public partial class MFDashBoard : System.Web.UI.UserControl
     {
         AdvisorVo advisorVo = new AdvisorVo();
+        RMVo rmVo = new RMVo();
+        UserVo userVo = new UserVo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
-        
+        AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+
+        string path = string.Empty;
+       
+        int advisorId = 0;
+        String userType;
+        int rmId = 0;
+        int bmID = 0;
+        int all = 0;
+        int branchId = 0;
+        int branchHeadId = 0;
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            if(!IsPostBack)
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            userVo = (UserVo)Session["userVo"];
+            AdvisorMISBo adviserMISBo = new AdvisorMISBo();
+            path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                userType = "rm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+            advisorId = advisorVo.advisorId;
+            int RMId = rmVo.RMId;
+            rmId = rmVo.RMId;
+            bmID = rmVo.RMId;
+
+
+
+            if (!IsPostBack)
+            {
+                if (userType == "advisor" || userType == "rm")
+                {
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    if (userType == "rm")
+                    {
+                        ddlBranch.Enabled = false;
+                        ddlRM.SelectedValue = rmVo.RMId.ToString();
+                        ddlRM.Enabled = false;
+                      
+                    }
+                }
+                else if (userType == "rm")
+                {
+                    
+                    //BindBranchDropDown();
+                    //BindRMDropDown();
+                    //if (userType == "rm")
+                    //{
+                    //    ddlBranch.Enabled = false;
+                    //    ddlRM.SelectedValue = rmVo.RMId.ToString();
+                    //    ddlRM.Enabled = false;
+                    //}
+                }
+                if (userType == "bm")
+                {
+                    //trBranchRM.Visible = true;
+                    BindBranchForBMDropDown();
+                    BindRMforBranchDropdown(0, bmID);
+                    //BindMfDashBoard();
+                }
+            }
+
+            // BindMfDashBoard();
+        }
+
+        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBranch.SelectedIndex == 0)
+            {
+                BindRMforBranchDropdown(0, bmID);
+            }
+            else
+            {
+                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
+            }
+
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {  
+            SetParameters();
             BindMfDashBoard();
+            UpnlMFDashBoard.Visible = true;
+        }
+
+        private void SetParameters()
+        {
+            if (userType == "advisor")
+            {
+                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnAll.Value = "0";
+                    hdnbranchId.Value = "0";
+                    hdnrmId.Value = "0";
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAll.Value = "1";
+                    hdnrmId.Value = "0";
+                }
+                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue; ;
+                }
+                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnadviserId.Value = advisorVo.advisorId.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAll.Value = "3";
+                }
+
+            }
+            else if (userType == "rm")
+            {
+                hdnrmId.Value = rmVo.RMId.ToString();
+                hdnAll.Value = "0";
+
+            }
+            else if (userType == "bm")
+            {
+                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                {
+
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnAll.Value = "0";
+                    hdnrmId.Value = "0";
+                }
+                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                {
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAll.Value = "1";
+                    hdnrmId.Value = "0";
+                }
+                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnbranchId.Value = "0";
+                    hdnAll.Value = "2";
+                    hdnrmId.Value = ddlRM.SelectedValue; ;
+                }
+                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                {
+                    hdnbranchHeadId.Value = bmID.ToString();
+                    hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAll.Value = "3";
+                }
+            }
+            if (hdnbranchHeadId.Value == "")
+                hdnbranchHeadId.Value = "0";
+
+            if (hdnbranchId.Value == "")
+                hdnbranchId.Value = "0";
+
+            if (hdnadviserId.Value == "")
+                hdnadviserId.Value = "0";
+
+            if (hdnrmId.Value == "")
+                hdnrmId.Value = "0";
+        }
+
+        private void BindBranchForBMDropDown()
+        {
+            try
+            {
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
+                if (ds != null)
+                {
+                    ddlBranch.DataSource = ds.Tables[1]; ;
+                    ddlBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
+                    ddlBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                    ddlBranch.DataBind();
+                }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserRMMFSystematicMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        private void BindRMforBranchDropdown(int branchId, int branchHeadId)
+        {
+
+            try
+            {
+
+                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+                if (ds != null)
+                {
+                    ddlRM.DataSource = ds.Tables[0]; ;
+                    ddlRM.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
+                    ddlRM.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                    ddlRM.DataBind();
+                }
+                ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserEQMIS.ascx:BindRMforBranchDropdown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         private void BindMfDashBoard()
         {
+
             string preMonth = string.Empty;
             string currMonth = string.Empty;
-            int i, j;
+            int i=0, j=0;
             DataSet dsMFDashBoard = new DataSet();
-            dsMFDashBoard=adviserMFMIS.GetMFDashBoard(advisorVo.advisorId,out i);
+
+            dsMFDashBoard = adviserMFMIS.GetMFDashBoard(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), out i);
+            
+
             //i = DateTime.Now.Month;
             if (i == 1)
                 j = 12;
@@ -62,7 +310,7 @@ namespace WealthERP.BusinessMIS
                 gvMFDashboardAmount.DataBind();
                 gvMFDashboardAmount.Visible = true;
             }
-            if (dsMFDashBoard.Tables[6]!=null)
+            if (dsMFDashBoard.Tables[6] != null)
             {
                 gvAUM.DataSource = dsMFDashBoard.Tables[6];
                 GridBoundColumn gvItemPrev = gvAUM.MasterTableView.Columns.FindByUniqueName("CostPrevious") as GridBoundColumn;
@@ -76,7 +324,7 @@ namespace WealthERP.BusinessMIS
             /* End*/
             /*  Bind Top 5 Scheme*/
             #region
-            if (dsMFDashBoard.Tables[4]!=null)
+            if (dsMFDashBoard.Tables[4] != null)
             {
                 gvScheme.DataSource = dsMFDashBoard.Tables[4];
                 gvScheme.DataBind();
@@ -245,7 +493,7 @@ namespace WealthERP.BusinessMIS
                 gvCustomer.DataBind();
                 gvCustomer.Visible = true;
             }
-           
+
             //    if (dsMFDashBoard.Tables[3].Rows.Count > 0)
             //    {
             //        // Total Assets Chart
@@ -320,22 +568,23 @@ namespace WealthERP.BusinessMIS
             //}
             /* END*/
             /* Bind Subcategory Grid*/
-                if (dsMFDashBoard.Tables[5].Rows.Count > 0)
-                {
-                    gvSubcategory.DataSource = dsMFDashBoard.Tables[5];
-                    gvSubcategory.DataBind();
-                }
+            if (dsMFDashBoard.Tables[5].Rows.Count > 0)
+            {
+                gvSubcategory.DataSource = dsMFDashBoard.Tables[5];
+                gvSubcategory.DataBind();
+            }
             /* END*/
+
         }
 
         private string GetMonthName(int i)
         {
-            string monthName=string.Empty;
+            string monthName = string.Empty;
             switch (i)
             {
                 case 1:
                     monthName = "Jan";
-                    break; 
+                    break;
                 case 2:
                     monthName = "Feb";
                     break;
@@ -387,6 +636,80 @@ namespace WealthERP.BusinessMIS
         protected void lnkFolioNavi_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MutualFundMIS", "loadcontrol('MutualFundMIS','action=FolioWise');", true);
+        }
+
+        private void BindBranchDropDown()
+        {
+
+            RMVo rmVo = new RMVo();
+            rmVo = (RMVo)Session[SessionContents.RmVo];
+            int bmID = rmVo.RMId;
+            try
+            {
+                UploadCommonBo uploadsCommonDao = new UploadCommonBo();
+                DataSet ds = uploadsCommonDao.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null)
+                {
+                    ddlBranch.DataSource = ds;
+                    ddlBranch.DataValueField = ds.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlBranch.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlBranch.DataBind();
+                }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        private void BindRMDropDown()
+        {
+            try
+            {
+                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                DataTable dt = advisorStaffBo.GetAdviserRM(advisorVo.advisorId);
+                if (dt.Rows.Count > 0)
+                {
+                    ddlRM.DataSource = dt;
+                    ddlRM.DataValueField = dt.Columns["AR_RMId"].ToString();
+                    ddlRM.DataTextField = dt.Columns["RMName"].ToString();
+                    ddlRM.DataBind();
+                }
+                ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "2"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "RMAMCSchemewiseMIS.ascx:BindRMDropDown()");
+
+                object[] objects = new object[0];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
     }

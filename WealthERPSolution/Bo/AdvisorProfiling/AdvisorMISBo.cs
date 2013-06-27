@@ -1003,13 +1003,13 @@ namespace BoAdvisorProfiling
         }
 
 
-        public DataSet GetMFDashBoard(int adviserId,out int i)
+        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All,  out int i)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsMfDashBoard;
             try
             {
-                dsMfDashBoard = MISDao.GetMFDashBoard(adviserId,out i);
+                dsMfDashBoard = MISDao.GetMFDashBoard( userType,  adviserId,  rmId,  branchId,  branchHeadId,  All,  out i);
             }
             catch (BaseApplicationException Ex)
             {

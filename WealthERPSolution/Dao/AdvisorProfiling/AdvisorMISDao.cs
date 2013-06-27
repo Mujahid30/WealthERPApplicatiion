@@ -1268,7 +1268,7 @@ namespace DaoAdvisorProfiling
         {
             Database db;
             DbCommand validateToFromDatesCmd;
-            DataSet ds=new DataSet();
+            DataSet ds = new DataSet();
             bool isValid = false;
             try
             {
@@ -1542,7 +1542,7 @@ namespace DaoAdvisorProfiling
 
             return latestValuationDate;
         }
-        public DataSet GetMFDashBoard(int adviserId, out int i)
+        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All, out int i)
         {
             Database db;
             DbCommand getMFDashBoardCmd;
@@ -1551,7 +1551,16 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMFDashBoardCmd = db.GetStoredProcCommand("SP_GetMFDashBoard");
+
+
+                db.AddInParameter(getMFDashBoardCmd, "@UserType", DbType.String, userType);
                 db.AddInParameter(getMFDashBoardCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getMFDashBoardCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(getMFDashBoardCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(getMFDashBoardCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getMFDashBoardCmd, "@all", DbType.Int32, All);
+
+
                 db.AddOutParameter(getMFDashBoardCmd, "@month", DbType.Int32, 0);
                 getMFDashBoardCmd.CommandTimeout = 60 * 60;
                 dsGetMFDashBoard = db.ExecuteDataSet(getMFDashBoardCmd);
