@@ -188,7 +188,7 @@
                             AllowFiltering="true" HeaderStyle-Width="100px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Deposit Amount" UniqueName="Deposit Amount" HeaderText="Deposit Amount(Rs)"
+                        <telerik:GridBoundColumn DataField="Deposit Amount" UniqueName="Deposit Amount" HeaderText="Deposit Amount (Rs)"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="105px"
                             SortExpression="Deposit Amount" CurrentFilterFunction="Contains">
                             <ItemStyle Width="67px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
@@ -198,12 +198,12 @@
                             AllowFiltering="true" HeaderStyle-Width="76px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Current Value" UniqueName="Current Value" HeaderText="Current Value(Rs)"
+                        <telerik:GridBoundColumn DataField="Current Value" UniqueName="Current Value" HeaderText="Current Value (Rs)"
                             AutoPostBackOnFilter="true" SortExpression="Current Value" ShowFilterIcon="false"
                             AllowFiltering="true" HeaderStyle-Width="115px">
                             <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Maturity Value" UniqueName="Maturity Value" HeaderText="Maturity Value(Rs)"
+                        <telerik:GridBoundColumn DataField="Maturity Value" UniqueName="Maturity Value" HeaderText="Maturity Value (Rs)"
                             SortExpression="Maturity Value" AllowFiltering="false" HeaderStyle-Width="100px"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
