@@ -434,7 +434,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>                                        
-                                            <telerik:RadPanelItem runat="server" Text="MF DashBoard Value="MFDashboard"
+                                            <telerik:RadPanelItem runat="server" Text="MF DashBoard" Value="MFDashboard"
                                                 Vissble="true">
                                             </telerik:RadPanelItem>
                                             <%------------------New Tree View--------------%>
