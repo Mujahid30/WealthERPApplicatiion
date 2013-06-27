@@ -239,7 +239,7 @@
                 }
             }
         }
-        alert(isPorfolioSelected);
+  
         if (isPorfolioSelected == false) {
             alert("Please choose customer or portfolio")
             return false;
