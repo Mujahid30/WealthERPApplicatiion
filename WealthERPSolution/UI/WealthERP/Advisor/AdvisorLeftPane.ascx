@@ -336,10 +336,14 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="MF Dashboard MIS" Value="MFDashboard"
+                                                Vissble="true">
+                                            </telerik:RadPanelItem>
                                             <%------------------New Tree View--------------%>
                                             <telerik:RadPanelItem runat="server" Text="MF TurnOver MIS" Value="MFTurnOverMIS"
                                                 Vissble="true">
                                             </telerik:RadPanelItem>
+                                            
                                             <%------------------New Tree View--------------%>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -429,7 +433,10 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">
-                                        <Items>
+                                        <Items>                                        
+                                            <telerik:RadPanelItem runat="server" Text="MF DashBoard Value="MFDashboard"
+                                                Vissble="true">
+                                            </telerik:RadPanelItem>
                                             <%------------------New Tree View--------------%>
                                             <telerik:RadPanelItem runat="server" Text="MF TurnOver MIS" Value="MFTurnOverMIS"
                                                 Vissble="true">

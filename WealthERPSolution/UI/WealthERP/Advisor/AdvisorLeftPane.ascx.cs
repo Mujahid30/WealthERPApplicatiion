@@ -1037,10 +1037,15 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
-                else if (e.Item.Value == "MF systematic MIS")
+                else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
+                }
+                else if (e.Item.Value == "MFDashboard")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "MF_SIP_Projection")
                 {
@@ -1226,6 +1231,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMAMCwiseMIS", "loadcontrol('MutualFundMIS','login');", true);
+                }
+                else if (e.Item.Value == "MFDashboard")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "MF systematic MIS")
                 {
