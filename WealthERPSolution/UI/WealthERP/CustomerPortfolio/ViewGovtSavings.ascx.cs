@@ -29,7 +29,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
-
+      
         protected override void OnInit(EventArgs e)
         {
             //try
@@ -246,10 +246,10 @@ namespace WealthERP.CustomerPortfolio
                         drGovtSavings[2] = govtSavingsVo.AssetInstrumentCategoryName.ToString();
                         drGovtSavings[3] = govtSavingsVo.Name.ToString();
                         if (govtSavingsVo.PurchaseDate != DateTime.MinValue)
-                        drGovtSavings[4] = govtSavingsVo.PurchaseDate.ToShortDateString().ToString();
+                            drGovtSavings[4] = govtSavingsVo.PurchaseDate.ToShortDateString().ToString();
                         if (govtSavingsVo.MaturityDate != DateTime.MinValue)
-                        drGovtSavings[5] = govtSavingsVo.MaturityDate.ToShortDateString().ToString();
-                      //  if (govtSavingsVo.DepositAmt != null)
+                            drGovtSavings[5] = govtSavingsVo.MaturityDate.ToShortDateString().ToString();
+                        //  if (govtSavingsVo.DepositAmt != null)
                         drGovtSavings[6] = govtSavingsVo.DepositAmt.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         //if (govtSavingsVo.InterestRate != null)
                         drGovtSavings[7] = govtSavingsVo.InterestRate.ToString();
@@ -261,11 +261,22 @@ namespace WealthERP.CustomerPortfolio
                         dtGovtSavings.Rows.Add(drGovtSavings);
 
                     }
-
-                    gvGovtSavings.DataSource = dtGovtSavings;
-                    gvGovtSavings.DataBind();
-                    gvGovtSavings.Visible = true;
-                   // this.GetPageCount();
+                    if (dtGovtSavings.Rows.Count > 1)
+                    {
+                        if (Cache["gvGovtSavings" + customerVo.CustomerId] == null)
+                        {
+                            Cache.Insert("gvGovtSavings" + customerVo.CustomerId, dtGovtSavings);
+                        }
+                        else
+                        {
+                            Cache.Remove("gvGovtSavings" + customerVo.CustomerId);
+                            Cache.Insert("gvGovtSavings" + customerVo.CustomerId, dtGovtSavings);
+                        }
+                        gvGovtSavings.DataSource = dtGovtSavings;
+                        gvGovtSavings.DataBind();
+                        gvGovtSavings.Visible = true;
+                        // this.GetPageCount();
+                    }
                 }
                 else
                 {
@@ -275,6 +286,7 @@ namespace WealthERP.CustomerPortfolio
                     ErrorMessage.InnerText = "No Records Found...!";
                     gvGovtSavings.DataSource = null;
                     gvGovtSavings.DataBind();
+                    gvGovtSavings.Visible = false;
                 }
             }
             catch (BaseApplicationException Ex)
@@ -356,33 +368,33 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvrGovtSavings_Sorting(object sender, GridViewSortEventArgs e)
         {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                hdnSort.Value = sortExpression + " DESC";
-              // SortGridVIew(sortExpression, DESCENDING);
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                hdnSort.Value = sortExpression + " ASC";
-             //  SortGridVIew(sortExpression, ASCENDING);
-            }
-            this.LoadGridview(portfolioId);
+            //string sortExpression = e.SortExpression;
+            //ViewState["sortExpression"] = sortExpression;
+            //if (GridViewSortDirection == SortDirection.Ascending)
+            //{
+            //    GridViewSortDirection = SortDirection.Descending;
+            //    hdnSort.Value = sortExpression + " DESC";
+            //  // SortGridVIew(sortExpression, DESCENDING);
+            //}
+            //else
+            //{
+            //    GridViewSortDirection = SortDirection.Ascending;
+            //    hdnSort.Value = sortExpression + " ASC";
+            // //  SortGridVIew(sortExpression, ASCENDING);
+            //}
+            //this.LoadGridview(portfolioId);
         }
 
-        private SortDirection GridViewSortDirection
-        {
-            get
-            {
-                if (ViewState["sortDirection"] == null)
-                    ViewState["sortDirection"] = SortDirection.Ascending;
-                return (SortDirection)ViewState["sortDirection"];
-            }
-            set { ViewState["sortDirection"] = value; }
-        }
+      //  private SortDirection GridViewSortDirection
+      //  {
+      //  //    get
+      //  //    {
+      //  //        if (ViewState["sortDirection"] == null)
+      //  //            ViewState["sortDirection"] = SortDirection.Ascending;
+      //  //        return (SortDirection)ViewState["sortDirection"];
+      //  //    }
+      //  //    set { ViewState["sortDirection"] = value; }
+      //}
 
         private void SortGridVIew(string sortExpression, string direction)
         {
@@ -500,6 +512,23 @@ namespace WealthERP.CustomerPortfolio
                 govtSavingsBo.DeleteGovtSavingsPortfolio(int.Parse(hdndeleteId.Value));
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewGovtSavings','login');", true);
                 msgRecordStatus.Visible = true;
+            }
+        }
+        protected void gvGovtSavings_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtGovtSavings = new DataTable();
+            dtGovtSavings = (DataTable)Cache["gvGovtSavings" + customerVo.CustomerId];
+            gvGovtSavings.DataSource = dtGovtSavings;
+            if (dtGovtSavings != null)
+            {
+               
+                gvGovtSavings.Visible = true;
+            }
+            else 
+            {
+                gvGovtSavings.Visible = false;
+            
             }
         }
     }

@@ -150,7 +150,7 @@
         <td>           
             <telerik:RadGrid ID="gvGovtSavings" runat="server" AllowAutomaticDeletes="false"
                 EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
-                ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
+                ShowStatusBar="false" ShowFooter="true" AllowPaging="true" AllowSorting="true" OnNeedDataSource="gvGovtSavings_OnNeedDataSource"
                 Skin="Telerik" GridLines="none" AllowAutomaticInserts="false" OnItemCommand="gvGovtSavings_ItemCommand">               
                 <ExportSettings HideStructureColumns="true">
                 </ExportSettings>
@@ -180,7 +180,7 @@
                             <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Date" UniqueName="Deposit Date" HeaderText="Deposit Date (dd/mm/yyyy)"
-                            AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px">
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="145px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Date" UniqueName="Maturity Date" HeaderText="Maturity Date (dd/mm/yyyy)"
