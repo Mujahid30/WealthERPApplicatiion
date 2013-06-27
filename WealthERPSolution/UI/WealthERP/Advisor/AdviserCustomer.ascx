@@ -337,7 +337,7 @@
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="City" UniqueName="City" HeaderText="City" SortExpression="City"
-                                ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="85px" FilterControlWidth="70px"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="85px" FilterControlWidth="70px"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
