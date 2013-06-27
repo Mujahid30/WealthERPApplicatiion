@@ -116,6 +116,11 @@ namespace WealthERP.OPS
                     txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
                 }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    txtCustomerName_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    txtCustomerName_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                }
                 if (Request.QueryString["CustomerId"] != null)
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);

@@ -30,6 +30,7 @@ namespace WealthERP.OPS
         AdvisorVo advisorVo;
         string userType;
         int customerId = 0;
+        int bmID;
         string customerType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -40,22 +41,88 @@ namespace WealthERP.OPS
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                userType = "rm";
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            int bmID = rmVo.RMId;           
+            bmID = rmVo.RMId;           
             gvOrderList.Visible = false;
             trExportFilteredDupData.Visible = false;
             if (!IsPostBack)
             {
-                BindBranchDropDown();
-                BindRMDropDown();
+                if (userType == "advisor" || userType == "rm")
+                {
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    if (userType == "rm")
+                    {
+                        ddlBranch.Enabled = false;
+                        ddlRM.SelectedValue = rmVo.RMId.ToString();
+                        ddlRM.Enabled = false;                       
+                    }
+                }
+                else if (userType == "rm")
+                {
+                    //ddlBranch.SelectedValue = rmVo.RMId.ToString();
+                    // ddlRM.SelectedValue=rmVo.RMId.ToString();
+                    //Action.Visible = false;
+                    //ddlAction.Visible = false;
+                    //  trBranchRM.Visible = false;
+                }
+                if (userType == "bm")
+                {
+                    BindBranchForBMDropDown();
+                    BindRMforBranchDropdown(0, bmID);
+                }
+
+                //BindBranchDropDown();
+                //BindRMDropDown();
                 BindOrderStatus();
                 if (userType == "bm")
                 {
                     ddlBranch.SelectedValue = bmID.ToString();
+                    //ddlBranch.Enabled = false;
+                }
+                else if (userType == "rm")
+                {
                     ddlBranch.Enabled = false;
+                    ddlRM.SelectedValue = rmVo.RMId.ToString();
+                    ddlRM.Enabled = false;
                 }
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
+            }
+        }
+        private void BindBranchForBMDropDown()
+        {
+            try
+            {
+                DataSet ds = advisorBranchBo.GetBranchsRMForBMDp(0, bmID, 0);
+                if (ds != null)
+                {
+                    ddlBranch.DataSource = ds.Tables[1]; ;
+                    ddlBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString();
+                    ddlBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                    ddlBranch.DataBind();
+                }
+                ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", bmID.ToString()));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserRMMFSystematicMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
 

@@ -308,17 +308,20 @@ namespace WealthERP.Advisor
             }
             else if (Session["NodeType"] == "AdviserCustomer")
             {
-                if (advisorVo.IsOpsEnable == 1)
-                {
-                    RadPanelBar1.FindItemByValue("Admin").Expanded = false;
-                    RadPanelBar2.FindItemByValue("RM").Expanded = true;
-                    RadPanelBar2.FindItemByValue("Customer").Expanded = true;
-                    RadPanelBar2.FindItemByValue("Customer").Selected = true;
-                }
-                {
-                    RadPanelBar1.FindItemByValue("Customer").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Customer").Selected = true;
-                }
+                //if (advisorVo.IsOpsEnable == 1)
+                //{
+                //    RadPanelBar1.FindItemByValue("Admin").Expanded = false;
+                //    RadPanelBar2.FindItemByValue("RM").Expanded = true;
+                //    RadPanelBar2.FindItemByValue("Customer").Expanded = true;
+                //    RadPanelBar2.FindItemByValue("Customer").Selected = true;
+                //}
+                //{
+                //    RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+                //    RadPanelBar1.FindItemByValue("Customer").Selected = true;
+                //}
+
+                RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+                RadPanelBar1.FindItemByValue("CustomerList").Selected = true;
             }
             else if (Session["NodeType"] == "MFOrderEntry")
             {
@@ -937,6 +940,29 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+                }
+                else if (e.Item.Value == "OrderEntry")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "LI_Order")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
+                }
+                else if (e.Item.Value == "Order_List")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
+                }
+                else if (e.Item.Value == "OrderMIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','login');", true);
+                }
+                else if (e.Item.Value == "OrderRecon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderRecon','login');", true);
                 }
                 else if (e.Item.Value == "Add FP Prospect")
                 {
