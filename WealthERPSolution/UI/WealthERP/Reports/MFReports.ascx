@@ -1496,7 +1496,7 @@
                                                                 AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="ReportName" HeaderStyle-Width="147px" HeaderText="Request Description"
+                                                            <telerik:GridBoundColumn UniqueName="ReportName" HeaderStyle-Width="147px" HeaderText="Description"
                                                                 DataField="ReportName" SortExpression="ReportName" AllowFiltering="true" ShowFilterIcon="false"
                                                                 AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
@@ -1521,7 +1521,7 @@
                                                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                                                 <HeaderStyle></HeaderStyle>
                                                             </telerik:GridBoundColumn>
-                                                            <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Status Completed(Y/N)"
+                                                            <telerik:GridBoundColumn UniqueName="StatusYN" HeaderText="Complete (Y/N)"
                                                                 DataField="StatusYN" HeaderStyle-Width="145px" SortExpression="StatusYN" AllowFiltering="true"
                                                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" ItemStyle-Wrap="true">
                                                                 <HeaderStyle></HeaderStyle>
