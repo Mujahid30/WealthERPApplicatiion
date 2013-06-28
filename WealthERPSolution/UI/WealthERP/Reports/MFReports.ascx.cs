@@ -1691,7 +1691,7 @@ namespace WealthERP.Reports
                     {
                         drFinalStatus["statusYN"] = "No";
                     }
-                    if (drRequest["WT_Task"].ToString() == "Report Bulk Mail Request")
+                    if (drRequest["WT_Task"].ToString() == "Email Generation")
                     {
                         drFinalStatus["CustomerName"] = drRequest["CustomerName_Report_Bulk_Mail_Request"].ToString();
                     }
