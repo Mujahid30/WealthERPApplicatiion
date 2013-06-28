@@ -188,8 +188,7 @@
                                                 &nbsp;
                                             </td>
                                             <td id="tdDemo" visible="true" runat="server">
-                                                <a href="Demo/Demo.html" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none"
-                                                    target="_blank">Demo</a> &nbsp;
+                                                <a href="WealthERP_Help/Cust_care.htm" id="lnkDemo" runat="server" class="LinkButtons" style="text-decoration: none">CustCare</a> &nbsp;
                                             </td>
                                             <td id="tdHelp" runat="server">
                                                 <a id="lnkHelp" name="lnkHelp" runat="server" href="WealthERP_Help/Index.htm" style="text-decoration: none"
