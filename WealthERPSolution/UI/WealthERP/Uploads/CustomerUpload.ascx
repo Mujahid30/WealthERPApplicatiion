@@ -68,7 +68,7 @@
             var rdButton = document.getElementById('<%= File8.ClientID %>');
             rdButton.checked = true;
         }
-       
+
     }
 
 </script>
@@ -230,14 +230,16 @@
             Source Selection
         </div>
     </tr>
-     <tr id="trAdviserSelection" runat="server">
-     <td class="leftField">
+    <tr id="trAdviserSelection" runat="server">
+        <td class="leftField">
             <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
         </td>
-       <td id="tdDdlAdviser" runat="server" align="left">
-     <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged" ></asp:DropDownList>
-     </td>
-     <%-- <asp:CompareValidator ID="cvDDLAdviser" runat="server" ErrorMessage="<br />Please Select Adviser"
+        <td id="tdDdlAdviser" runat="server" align="left">
+            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+        <%-- <asp:CompareValidator ID="cvDDLAdviser" runat="server" ErrorMessage="<br />Please Select Adviser"
             ValidationGroup="btn_Upload" ControlToValidate="ddlAdviser" Operator="NotEqual"
             CssClass="rfvPCG" ValueToCompare="Select" Display="Dynamic"></asp:CompareValidator>--%>
     </tr>
@@ -249,7 +251,7 @@
             <asp:DropDownList ID="ddlUploadType" runat="server" OnSelectedIndexChanged="ddlUploadType_SelectedIndexChanged"
                 AutoPostBack="true" CssClass="cmbField">
                 <asp:ListItem Value="0">Select an Extract Type</asp:ListItem>
-                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
+                <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
                 <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
                 <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>
@@ -319,15 +321,15 @@
                 TargetControlID="lnkbtnpup" DynamicServicePath="" BackgroundCssClass="modalBackground"
                 Enabled="True" OkControlID="btnOk" PopupDragHandleControlID="Panel1" CancelControlID="btnCancel"
                 Drag="true" OnOkScript="DownloadScript();">
-            </cc1:ModalPopupExtender>           
+            </cc1:ModalPopupExtender>
             <%-- <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
                     OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>--%>
-            </td>
-            <td align="right">
-                <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
-                    OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
-            </td>
-       <%-- </td> --%>     
+        </td>
+        <td align="right">
+            <asp:LinkButton ID="lnkPaintFileDwnload" runat="server" Font-Size="X-Small" CausesValidation="False"
+                OnClick="lnkPaintFileDwnload_Click" Visible="false">click here to download SIP file upload steps</asp:LinkButton>
+        </td>
+        <%-- </td> --%>
     </tr>
     <tr id="datevisible" runat="server" visible="false">
         <td class="leftField">
@@ -369,7 +371,7 @@
             </asp:DropDownList>
         </td>
     </tr>--%>
-   <%-- <tr id="SkiprowsVisible" runat="server" visible="False">
+    <%-- <tr id="SkiprowsVisible" runat="server" visible="False">
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Do you wish to skip rows?:"></asp:Label>
         </td>
@@ -439,14 +441,14 @@
     </tr>
     <tr>
         <td>
-            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false">
+            <asp:Panel ID="Panel1" runat="server" CssClass="ModelPup" Visible="false" Width="450px">
                 <asp:RadioButton ID="File1" Text="Equity Trade Account" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
                 <asp:RadioButton ID="File2" Text="Equity Transaction" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File3" Text="MFFolio" Checked="false" GroupName="colors" runat="server" />
+                <asp:RadioButton ID="File3" Text="MF Folio" Checked="false" GroupName="colors" runat="server" />
                 <br />
                 <asp:RadioButton ID="File4" Text="MF Transaction" Checked="false" GroupName="colors"
                     runat="server" />
@@ -457,23 +459,21 @@
                 <asp:RadioButton ID="File6" Text="Systematic" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File7" Text="NSE" Checked="false" GroupName="colors" runat="server" />
+                <asp:RadioButton ID="File7" Text="ODIN (NSE)" Checked="false" GroupName="colors"
+                    runat="server" />
                 <br />
-                <asp:RadioButton ID="File8" Text="BSE" Checked="false" GroupName="colors" runat="server" />
+                <asp:RadioButton ID="File8" Text="ODIN (BSE)" Checked="false" GroupName="colors"
+                    runat="server" />
                 <br />
                 <asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                 <asp:RadioButton ID="File10" Text="Fixed Income" Checked="false" GroupName="colors"
-                    runat="server" />
+                <asp:RadioButton ID="File10" Text="FI *" Checked="false" GroupName="colors" runat="server" />
                 <br />
-                 <asp:RadioButton ID="File11" Text="LI" Checked="false" GroupName="colors"
-                    runat="server" />
+                <asp:RadioButton ID="File11" Text="LI *" Checked="false" GroupName="colors" runat="server" />
                 <br />
-                 <asp:RadioButton ID="File12" Text="GI" Checked="false" GroupName="colors"
-                    runat="server" />
+                <asp:RadioButton ID="File12" Text="GI *" Checked="false" GroupName="colors" runat="server" />
                 <br />
-                
                 <asp:RadioButton ID="AllFiles" Text="All Standard Upload Files" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
@@ -481,11 +481,13 @@
                 &nbsp;
                 <asp:Button ID="btnCancel" CausesValidation="false" runat="server" Text="Cancel"
                     CssClass="PCGButton" />
+                <br />
+                Note:* Request Custcare to Upload these files from back end
             </asp:Panel>
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" CausesValidation="false" Height="31px" Width="35px" />
         </td>
-    </tr>
+    </tr>  
 </table>
 <div id="divInputErrorList" runat="server" visible="false">
     <table class="TableBackground" style="width: 100%;">
@@ -727,6 +729,7 @@
         }
     }
 </script>
+
 <asp:HiddenField ID="hfRmId" runat="server" />
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>
