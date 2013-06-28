@@ -74,6 +74,15 @@ namespace WealthERP.BusinessMIS
                         ddlRM.Enabled = false;
                       
                     }
+                    if (Session["NodeType"] != null)
+                    {
+                        if (Session["NodeType"] == "MFDashBoard")
+                        {
+                            SetParameters();
+                            BindMfDashBoard();
+                            UpnlMFDashBoard.Visible = true;
+                        }
+                    }
                 }
                 else if (userType == "rm")
                 {

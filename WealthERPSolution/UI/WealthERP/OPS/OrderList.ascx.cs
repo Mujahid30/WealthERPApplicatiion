@@ -68,7 +68,7 @@ namespace WealthERP.OPS
                     //ddlAction.Visible = false;
                     //  trBranchRM.Visible = false;
                 }
-                if (userType == "bm")
+                else if (userType == "bm")
                 {
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);

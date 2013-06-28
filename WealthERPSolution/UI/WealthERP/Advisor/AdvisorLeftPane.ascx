@@ -389,6 +389,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
@@ -497,6 +499,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox">
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

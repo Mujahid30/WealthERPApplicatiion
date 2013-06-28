@@ -113,10 +113,10 @@ namespace WealthERP.Advisor
             }
             else
             {
-                Session["NodeType"] = "IFAAdminMainDashboardOld";
+                Session["NodeType"] = "MFDashBoard";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('IFAAdminMainDashboardOld','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadBusinessMIS", "loadcontrol('MFDashBoard','login');", true);
             }
         }
         public void lnkbtnBusinessMIS_OnClick(object sender, EventArgs e)

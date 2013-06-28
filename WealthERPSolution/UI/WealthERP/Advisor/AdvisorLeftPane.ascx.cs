@@ -331,11 +331,11 @@ namespace WealthERP.Advisor
                                   
 
             }
-            else if (Session["NodeType"] == "IFAAdminMainDashboardOld")
+            else if (Session["NodeType"] == "MFDashBoard")
             {               
                 RadPanelBar1.FindItemByValue("Business MIS").Expanded = true;
-                RadPanelBar1.FindItemByValue("Business_MIS_Dashboard").Expanded = true;              
-                RadPanelBar1.FindItemByValue("Business_MIS_Dashboard").Selected = true;               
+                RadPanelBar1.FindItemByValue("MFDashBoard").Expanded = true;
+                RadPanelBar1.FindItemByValue("MFDashBoard").Selected = true;               
               
             }
 
@@ -1321,6 +1321,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Outbox")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
+                }
+                else if (e.Item.Value == "Customized SMS")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomerManualSMS", "loadcontrol('AdviserCustomerManualSMS','none');", true);
                 }
             }
             catch (BaseApplicationException Ex)

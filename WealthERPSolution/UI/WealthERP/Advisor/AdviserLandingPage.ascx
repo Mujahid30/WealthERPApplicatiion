@@ -153,11 +153,11 @@
                     <td style="width: 30%;" align="center">
                             <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgBusinessMIS" ImageUrl="~/Images/Dashboard-BusinessMIS.png"
-                                runat="server" ToolTip="Navigate to Business MIS" OnClick="imgBusinessMIS_OnClick"
+                                runat="server" ToolTip="Navigate to MF Dashboard" OnClick="imgBusinessMIS_OnClick"
                                 Width="70px" />
                             <br />
                             <asp:LinkButton ID="lnkbtnBusinessMIS" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnBusinessMIS_OnClick"
-                                ToolTip="Navigate to Business MIS" Text="Business MIS"></asp:LinkButton>
+                                ToolTip="Navigate to MF Dashboard" Text="MF Dashboard"></asp:LinkButton>
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
