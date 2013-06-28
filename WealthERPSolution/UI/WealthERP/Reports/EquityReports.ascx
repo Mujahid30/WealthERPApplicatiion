@@ -34,21 +34,21 @@
 
         var panel = "";
         var isPorfolioSelected = false;
-      
+
         //uncheck other portfolio Ids in Group/Individual panel
         if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 0)
             panel = document.getElementById('<%= TabPanel1.ClientID %>');
-          
+
         else if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 1)
             panel = document.getElementById('<%= TabPanel2.ClientID %>');
 
-//        var groupChkArray = panel.getElementsByTagName("input");
-//        
-//        for (var i = 0; i < groupChkArray.length; i++) {
-//            if (groupChkArray[i].type == "checkbox") {
-//                //                groupChkArray[i].checked = false;
-//            }
-//        }
+        //        var groupChkArray = panel.getElementsByTagName("input");
+        //        
+        //        for (var i = 0; i < groupChkArray.length; i++) {
+        //            if (groupChkArray[i].type == "checkbox") {
+        //                //                groupChkArray[i].checked = false;
+        //            }
+        //        }
 
         //Check if atleast one portfolio Id is selected
         for (i = 0; i < document.forms[0].elements.length; i++) {
@@ -61,7 +61,7 @@
                 }
             }
         }
-        
+
         if (isPorfolioSelected == false) {
             alert("Please choose customer or portfolio")
             return false;
@@ -183,7 +183,7 @@
             DisplayDates(arr[selectedReport]);
         }
         else if (selectedReport == 'EQUITY_TRANSACTION_REPORT') {
-//            alert("equity");
+            //            alert("equity");
             document.getElementById("spnFilter").style.display = 'none';
             DisplayDates(arr[selectedReport]);
         } else {
@@ -219,14 +219,14 @@
             panel = document.getElementById('<%= TabPanel2.ClientID %>');
         else if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 1)
             panel = document.getElementById('<%= TabPanel1.ClientID %>');
-        
-//        var groupChkArray = panel.getElementsByTagName("input");
 
-//        for (var i = 0; i < groupChkArray.length; i++) {
-//            if (groupChkArray[i].type == "checkbox") {
-//                //                groupChkArray[i].checked = false;
-//            }
-//        }
+        //        var groupChkArray = panel.getElementsByTagName("input");
+
+        //        for (var i = 0; i < groupChkArray.length; i++) {
+        //            if (groupChkArray[i].type == "checkbox") {
+        //                //                groupChkArray[i].checked = false;
+        //            }
+        //        }
 
         //Check if atleast one portfolio Id is selected
         for (i = 0; i < document.forms[0].elements.length; i++) {
@@ -234,12 +234,12 @@
                 var checkboxName = document.forms[0].elements[i].name;
                 if (checkboxName.substr(0, 5) == "chk--" && document.forms[0].elements[i].checked == true) {
 
-                    isPorfolioSelected = true;
+                   isPorfolioSelected = true;
 
                 }
             }
         }
-  
+       // alert(isPorfolioSelected);
         if (isPorfolioSelected == false) {
             alert("Please choose customer or portfolio")
             return false;

@@ -244,13 +244,16 @@ namespace WealthERP.Reports
                 Session["customerVo"] = customerVo;
                 txtPanParent.Text = dr["C_PANNum"].ToString();
                 trCustomerDetails.Visible = true;
-                trPortfolioDetails.Visible = true;
+                trPortfolioDetails.Visible = true;              
                 ShowFolios();
+               
             }
             txtParentCustomerId.Value = null;
-            txtParentCustomer.Text = string.Empty;
+            txtParentCustomer.Text = string.Empty;            
             TabContainer1.ActiveTab = TabContainer1.Tabs[activeTabIndex];
             TabContainer1.ActiveTabIndex = activeTabIndex;
+            divGroupCustomers.InnerHtml = string.Empty;
+            
 
         }
         protected void txtParentCustomerId_ValueChanged(object sender, EventArgs e)
@@ -382,6 +385,7 @@ namespace WealthERP.Reports
                 divPortfolios.InnerHtml = "<span class='Error'>Invalid Customer selected.</span>";
             }
             //divGroupCustomers.InnerHtml = string.Empty;
+            
         }
 
         private string ShowGroupFolios(int customerId)
