@@ -194,7 +194,7 @@
                             <ItemStyle Width="67px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Rate Of Interest" UniqueName="Rate Of Interest" FilterControlWidth="60px"
-                            HeaderText="Rate Of Interest(%)" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            HeaderText="Rate Of Interest (%)" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                             AllowFiltering="true" HeaderStyle-Width="76px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
