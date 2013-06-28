@@ -27,7 +27,7 @@ namespace WealthERP.BusinessMIS
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
 
         string path = string.Empty;
-       
+
         int advisorId = 0;
         String userType;
         int rmId = 0;
@@ -67,14 +67,12 @@ namespace WealthERP.BusinessMIS
                 {
                     BindBranchDropDown();
                     BindRMDropDown();
-                    gvBranch.Visible = true;
                     if (userType == "rm")
                     {
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
                         ddlRM.Enabled = false;
-                        gvBranch.Visible = false;
-                      
+
                     }
                     if (Session["NodeType"] != null)
                     {
@@ -88,7 +86,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "rm")
                 {
-                    
+
                     //BindBranchDropDown();
                     //BindRMDropDown();
                     //if (userType == "rm")
@@ -103,7 +101,6 @@ namespace WealthERP.BusinessMIS
                     //trBranchRM.Visible = true;
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
-                    gvBranch.Visible = true;
                     //BindMfDashBoard();
                 }
             }
@@ -125,10 +122,28 @@ namespace WealthERP.BusinessMIS
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
-        {  
+        {
             SetParameters();
             BindMfDashBoard();
             UpnlMFDashBoard.Visible = true;
+            if (userType == "advisor")
+            {
+                gvBranch.Visible = true;
+                Label1.Visible = true;
+                lnkBranchNavi.Visible = true;
+            }
+            else if (userType == "rm")
+            {
+                gvBranch.Visible = false;
+                Label1.Visible = false;
+                lnkBranchNavi.Visible = false;
+            }
+            else if (userType == "bm")
+            {
+                gvBranch.Visible = true;
+                Label1.Visible = true;
+                lnkBranchNavi.Visible = true;
+            }
         }
 
         private void SetParameters()
@@ -163,13 +178,11 @@ namespace WealthERP.BusinessMIS
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnAll.Value = "3";
                 }
-
             }
             else if (userType == "rm")
             {
                 hdnrmId.Value = rmVo.RMId.ToString();
                 hdnAll.Value = "0";
-
             }
             else if (userType == "bm")
             {
@@ -289,11 +302,11 @@ namespace WealthERP.BusinessMIS
 
             string preMonth = string.Empty;
             string currMonth = string.Empty;
-            int i=0, j=0;
+            int i = 0, j = 0;
             DataSet dsMFDashBoard = new DataSet();
 
             dsMFDashBoard = adviserMFMIS.GetMFDashBoard(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), out i);
-            
+
 
             //i = DateTime.Now.Month;
             if (i == 1)
