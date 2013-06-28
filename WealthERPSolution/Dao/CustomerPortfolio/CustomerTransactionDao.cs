@@ -4157,5 +4157,36 @@ namespace DaoCustomerPortfolio
             }
             return dsGetEqLedgerMIS;
         }
+        public DataSet GetTransactionType()
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getTransactionTypeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTransactionTypeCmd = db.GetStoredProcCommand("SP_GetEquityTranscationType");
+                ds = db.ExecuteDataSet(getTransactionTypeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetTransactionType()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+
     }
 }
