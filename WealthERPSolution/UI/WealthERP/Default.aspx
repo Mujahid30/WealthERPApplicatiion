@@ -192,7 +192,7 @@
                                                     target="_blank">Demo</a> &nbsp;
                                             </td>
                                             <td id="tdHelp" runat="server">
-                                                <a id="lnkHelp" name="lnkHelp" runat="server" href="help/Index.htm" style="text-decoration: none"
+                                                <a id="lnkHelp" name="lnkHelp" runat="server" href="WealthERP_Help/Index.htm" style="text-decoration: none"
                                                     class="LinkButtons" target="_blank">Help</a> &nbsp;
                                             </td>
                                             <td id="tdSignOut" runat="server">
