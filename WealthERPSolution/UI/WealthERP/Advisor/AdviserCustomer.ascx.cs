@@ -357,7 +357,11 @@ namespace WealthERP.Advisor
                     }
                     gvCustomerList.DataSource = dtCustomerList;
                     if (advisorPrefernceVo != null)
+                    {
                         gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
+                    }
+                    else
+                    { gvCustomerList.PageSize = 40; }
                     gvCustomerList.DataBind();
                     DivCustomerList.Visible = true;
                     gvCustomerList.Visible = true;
@@ -523,7 +527,12 @@ namespace WealthERP.Advisor
                     }
 
                     gvCustomerList.DataSource = dtCustomerList;
-                    gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
+                    if (advisorPrefernceVo != null)
+                    {
+                        gvCustomerList.PageSize = advisorPrefernceVo.GridPageSize;
+                    }
+                    else
+                    { gvCustomerList.PageSize = 40; }
                     gvCustomerList.DataBind();
                     DivCustomerList.Visible = true;
                     gvCustomerList.Visible = true;

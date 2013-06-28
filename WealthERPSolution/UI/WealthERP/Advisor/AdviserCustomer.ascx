@@ -243,7 +243,7 @@
                                 <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Group" UniqueName="ParentId" HeaderText="Group"
-                                AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="145px">
+                                AutoPostBackOnFilter="true" SortExpression="Group" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="145px">
                                 <ItemStyle Width="145px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 <%-- <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboGroup" AutoPostBack="true" AllowFiltering="true"
@@ -279,12 +279,12 @@
                                 <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="BranchName" UniqueName="BranchName" HeaderText="Branch"
-                                AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px"
+                                AutoPostBackOnFilter="true" SortExpression="BranchName" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px"
                                 FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AssignedRM" UniqueName="RMId" HeaderText="RM"
-                                AutoPostBackOnFilter="true" SortExpression="RMId" ShowFilterIcon="false" AllowFiltering="true"
+                                AutoPostBackOnFilter="true" SortExpression="AssignedRM" ShowFilterIcon="false" AllowFiltering="true"
                                 HeaderStyle-Width="140px">
                                 <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 <FilterTemplate>
