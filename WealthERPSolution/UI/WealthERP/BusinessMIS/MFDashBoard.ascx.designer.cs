@@ -221,40 +221,22 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.LinkButton lnkSchemeNavi;
         
         /// <summary>
-        /// Label1 control.
+        /// Label3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// divBranch control.
+        /// gvSubcategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBranch;
-        
-        /// <summary>
-        /// gvBranch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvBranch;
-        
-        /// <summary>
-        /// lnkBranchNavi control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBranchNavi;
+        protected global::Telerik.Web.UI.RadGrid gvSubcategory;
         
         /// <summary>
         /// Label2 control.
@@ -293,22 +275,40 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.LinkButton lnkFolioNavi;
         
         /// <summary>
-        /// Label3 control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// gvSubcategory control.
+        /// divBranch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvSubcategory;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divBranch;
+        
+        /// <summary>
+        /// gvBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvBranch;
+        
+        /// <summary>
+        /// lnkBranchNavi control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBranchNavi;
         
         /// <summary>
         /// hdnbranchId control.

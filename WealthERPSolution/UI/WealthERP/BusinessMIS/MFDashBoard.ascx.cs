@@ -67,11 +67,13 @@ namespace WealthERP.BusinessMIS
                 {
                     BindBranchDropDown();
                     BindRMDropDown();
+                    gvBranch.Visible = true;
                     if (userType == "rm")
                     {
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
                         ddlRM.Enabled = false;
+                        gvBranch.Visible = false;
                       
                     }
                     if (Session["NodeType"] != null)
@@ -101,6 +103,7 @@ namespace WealthERP.BusinessMIS
                     //trBranchRM.Visible = true;
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
+                    gvBranch.Visible = true;
                     //BindMfDashBoard();
                 }
             }

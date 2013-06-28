@@ -303,11 +303,12 @@
                     <asp:LinkButton ID="lnkSchemeNavi" Text=" >>More" runat="server" CssClass="LinkButtons"
                         OnClick="lnkSchemeNavi_Click"></asp:LinkButton>
                 </td>
+                
                 <td style="padding-left: 10px; padding-right: 5px; width: 50%" valign="top">
-                    <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Branch by AUM"></asp:Label>
+                    <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Sub category wise AUM"></asp:Label>
                     <br />
-                    <div id="divBranch" runat="server">
-                        <telerik:RadGrid ID="gvBranch" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    <div>
+                        <telerik:RadGrid ID="gvSubcategory" runat="server" GridLines="None" AutoGenerateColumns="False"
                             Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                             ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                             AllowAutomaticInserts="false" ExportSettings-FileName="Count">
@@ -317,8 +318,8 @@
                             <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                 CommandItemDisplay="None">
                                 <Columns>
-                                    <telerik:GridBoundColumn DataField="BranchName" HeaderText="Branch" UniqueName="BranchName"
-                                        SortExpression="BranchName">
+                                    <telerik:GridBoundColumn DataField="SubCategory" HeaderText="SubCategory" UniqueName="SubCategory"
+                                        SortExpression="SubCategory">
                                         <ItemStyle Width="75%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false"
@@ -330,21 +331,7 @@
                             <ClientSettings>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             </ClientSettings>
-                        </telerik:RadGrid>
-                        <%--<asp:Chart ID="chrtBranch" runat="server" BackColor="Transparent" Palette="Pastel"
-                    Width="500px" Height="250px">
-                    <Series>
-                        <asp:Series Name="Series1">
-                        </asp:Series>
-                    </Series>
-                    <ChartAreas>
-                        <asp:ChartArea Name="ChartArea1">
-                        </asp:ChartArea>
-                    </ChartAreas>
-                </asp:Chart>--%>
-                        <br />
-                        <asp:LinkButton ID="lnkBranchNavi" Text=" >>More" runat="server" CssClass="LinkButtons"
-                            OnClick="lnkBranchNavi_Click"></asp:LinkButton>
+                        </telerik:RadGrid><br />
                     </div>
                 </td>
             </tr>
@@ -410,10 +397,10 @@
                     </div>
                 </td>
                 <td style="padding-left: 10px; padding-right: 5px; width: 50%" valign="top">
-                    <asp:Label ID="Label3" runat="server" CssClass="HeaderTextSmall" Text="Sub category wise AUM"></asp:Label>
+                    <asp:Label ID="Label1" runat="server" CssClass="HeaderTextSmall" Text="Top 5 Branch by AUM"></asp:Label>
                     <br />
-                    <div>
-                        <telerik:RadGrid ID="gvSubcategory" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    <div id="divBranch" runat="server">
+                        <telerik:RadGrid ID="gvBranch" Visible="false" runat="server" GridLines="None" AutoGenerateColumns="False"
                             Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                             ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                             AllowAutomaticInserts="false" ExportSettings-FileName="Count">
@@ -423,8 +410,8 @@
                             <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                 CommandItemDisplay="None">
                                 <Columns>
-                                    <telerik:GridBoundColumn DataField="SubCategory" HeaderText="SubCategory" UniqueName="SubCategory"
-                                        SortExpression="SubCategory">
+                                    <telerik:GridBoundColumn DataField="BranchName" HeaderText="Branch" UniqueName="BranchName"
+                                        SortExpression="BranchName">
                                         <ItemStyle Width="75%" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AUM" HeaderText="AUM" AllowFiltering="false"
@@ -436,7 +423,21 @@
                             <ClientSettings>
                                 <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             </ClientSettings>
-                        </telerik:RadGrid><br />
+                        </telerik:RadGrid>
+                        <%--<asp:Chart ID="chrtBranch" runat="server" BackColor="Transparent" Palette="Pastel"
+                    Width="500px" Height="250px">
+                    <Series>
+                        <asp:Series Name="Series1">
+                        </asp:Series>
+                    </Series>
+                    <ChartAreas>
+                        <asp:ChartArea Name="ChartArea1">
+                        </asp:ChartArea>
+                    </ChartAreas>
+                </asp:Chart>--%>
+                        <br />
+                        <asp:LinkButton ID="lnkBranchNavi" Text=" >>More" runat="server" CssClass="LinkButtons"
+                            OnClick="lnkBranchNavi_Click"></asp:LinkButton>
                     </div>
                 </td>
             </tr>
