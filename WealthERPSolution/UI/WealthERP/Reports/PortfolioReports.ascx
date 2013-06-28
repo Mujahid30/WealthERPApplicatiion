@@ -187,7 +187,6 @@
         var isPorfolioSelected = false;
 
         //uncheck other portfolio Ids in Group/Individual panel
-        alert(document.getElementById("<%= hidTabIndex.ClientID %>").value);
         if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 0)
             panel = document.getElementById('<%= TabPanel2.ClientID %>');
         else if (document.getElementById("<%= hidTabIndex.ClientID %>").value == 1)
