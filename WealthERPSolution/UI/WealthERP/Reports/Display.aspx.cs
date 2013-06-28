@@ -3132,6 +3132,7 @@ namespace WealthERP.Reports
                     customerVo = (CustomerVo)Session["CusVo"];
                 else if (Session["customerVo"] != null)
                     customerVo = (CustomerVo)Session["customerVo"];
+               
 
                 switch (report.SubType)
                 {
@@ -3154,7 +3155,7 @@ namespace WealthERP.Reports
                            
                          if ((report.CustomerIds==equityReport.GroupHead)||!String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group Sectorwise Summary Report";
+                                Headername = "Sectorwise Summary Report";
                                 crmain.SetParameterValue("Header", Headername);                             
                             }
                          //if (!String.IsNullOrEmpty(equityReport.CustomerIds))
@@ -3196,12 +3197,19 @@ namespace WealthERP.Reports
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                             lblClosingBalanceNote.Visible = false;
                             string Headername;
+                            Session["customerVo"] = customerVo;
+                         
+                            
+                            
                             // if (!String.IsNullOrEmpty(equityReport.GroupHead))
-                            if (report.CustomerIds == equityReport.GroupHead || !String.IsNullOrEmpty(equityReport.GroupHead))
-                            {
-                                Headername = "Group Equity Transaction Report";
-                                crmain.SetParameterValue("Header", Headername);
-                            }
+                            //if (!String.IsNullOrEmpty(equityReport.GroupHead))
+                            //{
+                            if (report.CustomerIds == equityReport.GroupHead||!String.IsNullOrEmpty(equityReport.GroupHead))
+                                {
+                                    Headername = "Equity Transaction Report";
+                                    crmain.SetParameterValue("Header", Headername);
+                                }
+                           // }
                             else
                             {
                                 Headername = "Equity Transaction Report";
@@ -3251,7 +3259,7 @@ namespace WealthERP.Reports
                             // if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             if (report.CustomerIds == equityReport.GroupHead || !String.IsNullOrEmpty(equityReport.GroupHead))
                             {
-                                Headername = "Group Equity Holding Report";
+                                Headername = "Equity Holding Report";
                                 crmain.SetParameterValue("Header", Headername);
                             }
                             else
