@@ -70,7 +70,8 @@ namespace WealthERP.CustomerPortfolio
                     portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                     BindPortfolioDropDown();
                     lblScripName.Visible = false;
-                    LoadTransactionType(path);
+                    BindTransactionType();
+                    //LoadTransactionType(path);
                     LoadExchangeType(path);
                     LoadEquityTradeNumbers();
                 }
@@ -88,7 +89,8 @@ namespace WealthERP.CustomerPortfolio
                     txtScrip.Text = ht["Scrip"].ToString();
                     LoadExchangeType(path);
                     ddlExchange.SelectedValue = ht["Exchange"].ToString();
-                    LoadTransactionType(path);
+                    BindTransactionType();
+                    //LoadTransactionType(path);
                     ddlTransactionType.SelectedValue = ht["TranType"].ToString();
                     txtTicker.Text = ht["Ticker"].ToString();
                     SetFields(1);
@@ -201,36 +203,48 @@ namespace WealthERP.CustomerPortfolio
                 trTradeDate.Visible = true;
             }
         }
-        private void LoadTransactionType(string path)
+
+        protected void BindTransactionType()
         {
-            try
-            {
-                DataTable dt = XMLBo.GetTransactionType(path);
-                ddlTransactionType.DataSource = dt;
-                ddlTransactionType.DataTextField = "TransactionName";
-                ddlTransactionType.DataValueField = "TransactionCode";
-                ddlTransactionType.DataBind();
-                ddlTransactionType.Items.Insert(0, new ListItem("Select Transaction", "Select Transaction"));
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+            DataSet dsTransactionType = new DataSet();
+            dsTransactionType=customerTransactionBo.GetTransactionType();
+            ddlTransactionType.DataValueField = "WETT_TransactionCode";
+            ddlTransactionType.DataTextField = "WETT_TransactionTypeName";
+            ddlTransactionType.DataSource = dsTransactionType;
+            ddlTransactionType.DataBind();
+            ddlTransactionType.Items.Insert(0, new ListItem("Select", "Select"));
 
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "EquityManualSingleTransaction.ascx:LoadTransactionType()");
-                object[] objects = new object[1];
-                objects[0] = path;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
         }
+        //private void LoadTransactionType(string path)
+        //{
+        //    try
+        //    {
+        //        DataTable dt = XMLBo.GetTransactionType(path);
+        //        ddlTransactionType.DataSource = dt;
+        //        ddlTransactionType.DataTextField = "TransactionName";
+        //        ddlTransactionType.DataValueField = "TransactionCode";
+        //        ddlTransactionType.DataBind();
+        //        ddlTransactionType.Items.Insert(0, new ListItem("Select Transaction", "Select Transaction"));
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "EquityManualSingleTransaction.ascx:LoadTransactionType()");
+        //        object[] objects = new object[1];
+        //        objects[0] = path;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //}
         private void LoadExchangeType(string path)
         {
             try
@@ -303,8 +317,6 @@ namespace WealthERP.CustomerPortfolio
 
             }
         }
-
-
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             decimal temp;
@@ -318,7 +330,7 @@ namespace WealthERP.CustomerPortfolio
                 if (txtBrokerage.Text != "")
                     eqTransactionVo.Brokerage = float.Parse(txtBrokerage.Text);
                 eqTransactionVo.BrokerCode = dt.Rows[0]["XB_BrokerCode"].ToString();
-                if (ddlTransactionType.SelectedItem.Text.ToString() == "Purchase")
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Buy")
                 {
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 1;
@@ -333,12 +345,58 @@ namespace WealthERP.CustomerPortfolio
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 13;
                 }
-                if (ddlTransactionType.SelectedItem.Text.ToString() == "Bonus")
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Stocks Split")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 3;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Bonus Issue")
                 {
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 4;
                 }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Right Issue")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 5;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Dividend")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 6;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Amalgamtion")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 7;
+                }
 
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Capital Reduction")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 8;
+                }
+
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Merger")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 9;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Demerger")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 10;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Buy Back Offer")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 11;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Open Offer")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 12;
+                }
                 eqTransactionVo.CustomerId = customerVo.CustomerId;
                 eqTransactionVo.IsCorpAction = 0;
                 if (rbtnDelivery.Checked)
