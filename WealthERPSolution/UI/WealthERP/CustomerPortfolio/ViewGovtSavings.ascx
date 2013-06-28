@@ -179,32 +179,32 @@
                             SortExpression="Particulars" CurrentFilterFunction="Contains" FilterControlWidth="95px">
                             <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="Deposit Date" UniqueName="Deposit Date" HeaderText="Deposit Date (dd/mm/yyyy)"
+                        <telerik:GridBoundColumn DataField="Deposit Date" UniqueName="Deposit Date" HeaderText="Deposit Date (dd/mm/yyyy)" DataFormatString="{0:d}"
                             AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="145px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Date" UniqueName="Maturity Date" HeaderText="Maturity Date (dd/mm/yyyy)"
-                            SortExpression="Maturity Date" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            SortExpression="Maturity Date" AutoPostBackOnFilter="true" ShowFilterIcon="false" DataFormatString="{0:d}"
                             AllowFiltering="true" HeaderStyle-Width="100px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Amount" UniqueName="Deposit Amount" HeaderText="Deposit Amount (Rs)"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="105px"
-                            SortExpression="Deposit Amount" CurrentFilterFunction="Contains">
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="105px" DataFormatString="{0:n0}"
+                            CurrentFilterFunction="Contains">
                             <ItemStyle Width="67px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Rate Of Interest" UniqueName="Rate Of Interest" FilterControlWidth="60px"
-                            HeaderText="Rate Of Interest (%)" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            HeaderText="Rate Of Interest (%)" AutoPostBackOnFilter="true" ShowFilterIcon="false" 
                             AllowFiltering="true" HeaderStyle-Width="76px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" UniqueName="Current Value" HeaderText="Current Value (Rs)"
-                            AutoPostBackOnFilter="true" SortExpression="Current Value" ShowFilterIcon="false"
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false"
                             AllowFiltering="true" HeaderStyle-Width="115px">
                             <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Value" UniqueName="Maturity Value" HeaderText="Maturity Value (Rs)"
-                            SortExpression="Maturity Value" AllowFiltering="false" HeaderStyle-Width="100px"
+                            AllowFiltering="false" HeaderStyle-Width="100px"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
