@@ -261,7 +261,7 @@ namespace WealthERP.CustomerPortfolio
                         dtGovtSavings.Rows.Add(drGovtSavings);
 
                     }
-                    if (dtGovtSavings.Rows.Count > 1)
+                    if (dtGovtSavings.Rows.Count >0)
                     {
                         if (Cache["gvGovtSavings" + customerVo.CustomerId] == null)
                         {
