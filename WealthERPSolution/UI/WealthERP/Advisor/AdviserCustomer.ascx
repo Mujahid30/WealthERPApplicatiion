@@ -384,7 +384,7 @@
                                         <Items>
                                             <telerik:RadComboBoxItem Text="ALL" Value="" Selected="false"></telerik:RadComboBoxItem>
                                             <telerik:RadComboBoxItem Text="Active" Value="Active" Selected="false"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="InActive" Value="InActive" Selected="false"></telerik:RadComboBoxItem>
+                                            <telerik:RadComboBoxItem Text="InActive" Value="In Active" Selected="false"></telerik:RadComboBoxItem>
                                         </Items>
                                     </telerik:RadComboBox>
                                     <telerik:RadScriptBlock ID="RadScriptBlock4" runat="server">
