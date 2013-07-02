@@ -49,6 +49,7 @@ namespace WealthERP.Uploads
             rmVo = (RMVo)Session[SessionContents.RmVo];
             customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            adviserId = advisorVo.advisorId;
             processId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
@@ -70,7 +71,7 @@ namespace WealthERP.Uploads
                 }
             }
 
-            if (advisorVo.advisorId == 1000)
+            if (adviserId == 1000)
             {
                 if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
                 {
@@ -96,12 +97,19 @@ namespace WealthERP.Uploads
             }
             else
             {
+                Session["adviserId_Upload"] = adviserId;
+
+                if (advisorVo.advisorId != 1000)
+                {
+                    adviserId = advisorVo.advisorId;
+                }
+                if (rmVo != null)
+                    rmId = rmVo.RMId;
+
                 trReprocess.Visible = true;
                 Panel2.Visible = true;
                 Panel2.ScrollBars = ScrollBars.Horizontal;
-                //Panel2.Visible = true;
                 trAdviserSelection.Visible = false;
-                adviserId = advisorVo.advisorId;
             }
 
 
@@ -546,12 +554,20 @@ namespace WealthERP.Uploads
         {
             DataSet dsRejectedSIP = new DataSet();
             DataTable dtRejectedSIP = new DataTable();
-            dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
-            dtRejectedSIP = dsRejectedSIP.Tables[0];
-            DataView view = new DataView(dtRejectedSIP);
-            DataTable distinctValues = view.ToTable();
-            DataRow[] rows = distinctValues.Select(GVTrailTransactionRejects.MasterTableView.FilterExpression.ToString());
+            try
+            {
+                dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
+                dtRejectedSIP = dsRejectedSIP.Tables[0];
+                DataView view = new DataView(dtRejectedSIP);
+                DataTable distinctValues = view.ToTable();
+                DataRow[] rows = distinctValues.Select(GVTrailTransactionRejects.MasterTableView.FilterExpression.ToString());
+            }
+            catch (Exception ex)
+            {
+            }
+                finally{
             GVTrailTransactionRejects.MasterTableView.Rebind();
+            }
         }
         protected void NeedSource()
         {

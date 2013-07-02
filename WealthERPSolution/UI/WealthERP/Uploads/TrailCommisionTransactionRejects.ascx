@@ -212,7 +212,7 @@
     <table>
         <tr>
             <td>
-                <telerik:RadGrid ID="GVTrailTransactionRejects" runat="server" GridLines="None" AutoGenerateColumns="False"
+                <%--<telerik:RadGrid ID="GVTrailTransactionRejects" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     AllowFilteringByColumn="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowAutomaticInserts="false"
                     OnNeedDataSource="GVTrailTransactionRejects_NeedDataSource" OnItemDataBound="GVTrailTransactionRejects_ItemDataBound"
@@ -222,15 +222,7 @@
                     <MasterTableView AllowFilteringByColumn="true" DataKeyNames="CMFTCCS_Id,A_AdviserId,Adul_ProcessId"
                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <%--  <telerik:GridTemplateColumn AllowFiltering="false">
-                                <HeaderTemplate>
-                                    <asp:CheckBox runat="server" ID="ChkALL" AutoPostBack="True" OnCheckedChanged="ToggleSelectedState" />
-                                </HeaderTemplate>
-                                <ItemTemplate>
-                                    <asp:CheckBox runat="server" ID="ChkOne" AutoPostBack="True" OnCheckedChanged="ToggleRowSelection" />
-                                </ItemTemplate>
-                            </telerik:GridTemplateColumn>--%>
-                            <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                                  <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
                                 HeaderStyle-Width="50px">
                                 <HeaderTemplate>
                                     <input id="ChkALL" name="ChkALL" type="checkbox" onclick="checkAllBoxes()" />
@@ -240,8 +232,7 @@
                                     <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
                                     <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("Adul_ProcessId").ToString() %>' />
                                     <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() %>' />
-                                    <%--<asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("WERPTransactionId").ToString()%>' />--%>
-                                </ItemTemplate>
+                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
                                 HeaderText="Reject Reason" UniqueName="RejectReasonCode" AutoPostBackOnFilter="true">
@@ -252,7 +243,6 @@
                                         IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
                                         OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReasonCode").CurrentFilterValue %>'
                                         runat="server">
-                                        <%--OnPreRender="rcbContinents_PreRender"--%>
                                         <Items>
                                             <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
                                         </Items>
@@ -263,7 +253,6 @@
                                             function RejectReasonIndexChanged(sender, args) {
                                                 alert(tableView);
                                                 var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
-                                                //////                                                    sender.value = args.get_item().get_value();
                                                 tableView.filter("RejectReasonCode", args.get_item().get_value(), "EqualTo");
                                             } 
                                         </script>
@@ -330,6 +319,120 @@
                     </MasterTableView>
                     <ClientSettings>
                         <ClientEvents OnRowClick="onRowClick" />
+                    </ClientSettings>
+                </telerik:RadGrid>--%>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <telerik:RadGrid ID="GVTrailTransactionRejects" runat="server" GridLines="None" AutoGenerateColumns="False"
+                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    AllowAutomaticInserts="false" ExportSettings-FileName="TrailTransactionRejects DETAILS"
+                    OnNeedDataSource="GVTrailTransactionRejects_NeedDataSource" OnItemDataBound="GVTrailTransactionRejects_ItemDataBound"
+                    OnPreRender="GVTrailTransactionRejects_PreRender">
+                    <ExportSettings HideStructureColumns="true">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="CMFTCCS_Id,A_AdviserId,Adul_ProcessId" Width="100%"
+                        AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <Columns>
+                                  <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action"
+                                HeaderStyle-Width="50px">
+                                <HeaderTemplate>
+                                    <input id="ChkALL" name="ChkALL" type="checkbox" onclick="checkAllBoxes()" />
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                    <asp:CheckBox runat="server" ID="ChkOne" />
+                                    <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() + "-" +  Eval("RejectReasonCode").ToString()%>' />
+                                    <asp:HiddenField ID="hdnBxProcessID" runat="server" Value='<%# Eval("Adul_ProcessId").ToString() %>' />
+                                    <asp:HiddenField ID="hdnBxStagingId" runat="server" Value='<%# Eval("CMFTCCS_Id").ToString() %>' />
+                                 </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
+                                HeaderText="Reject Reason" UniqueName="RejectReasonCode" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <FilterTemplate>
+                                    <telerik:RadComboBox ID="RadComboBoxRR" Width="210px" CssClass="cmbField" AllowFiltering="true"
+                                        AutoPostBack="true" OnSelectedIndexChanged="RadComboBoxRR_SelectedIndexChanged"
+                                        IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
+                                        OnPreRender="rcbContinents1_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("RejectReasonCode").CurrentFilterValue %>'
+                                        runat="server">
+                                        <Items>
+                                            <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                        </Items>
+                                    </telerik:RadComboBox>
+                                    <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                                        <script type="text/javascript">
+                                            function RejectReasonIndexChanged(sender, args) {
+                                                alert(tableView);
+                                                var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                tableView.filter("RejectReasonCode", args.get_item().get_value(), "EqualTo");
+                                            } 
+                                        </script>
+
+                                    </telerik:RadScriptBlock>
+                                </FilterTemplate>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="Adul_ProcessId" AllowFiltering="true" HeaderText="Process Id"
+                                UniqueName="ProcessId" SortExpression="Adul_ProcessId" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="ADUL_FileName" HeaderText="File Name"
+                                FilterControlWidth="150px" UniqueName="ADUL_FileName" SortExpression="ADUL_FileName"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFA_FolioNum" HeaderText="Folio Number"
+                                UniqueName="CMFA_FolioNum" SortExpression="CMFA_FolioNum" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_InvName" HeaderText="InvName"
+                                UniqueName="CMFTTCS_InvName" SortExpression="CMFTTCS_InvName" AutoPostBackOnFilter="true"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="Scheme Plan Name"
+                                FilterControlWidth="220px" UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
+                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AllowFiltering="false">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_FROMDate" HeaderText="From Date"
+                                UniqueName="FromDate">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_TODate" HeaderText="To Date"
+                                UniqueName="ToDate">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_PRDate" HeaderText="Purchase Date"
+                                UniqueName="purchasedate">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_TransactionType"
+                                HeaderText="Transaction Type" UniqueName="transactiontype" SortExpression="ADUL_FileName"
+                                AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_Units" HeaderText="Units"
+                                UniqueName="units" DataFormatString="{0:N2}">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_Amount" HeaderText="Amount"
+                                UniqueName="amount" DataFormatString="{0:N2}">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn AllowFiltering="false" DataField="CMFTTCS_SubBroker" HeaderText="Sub Broker"
+                                UniqueName="subbroker">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings>
+                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
                 </telerik:RadGrid>
             </td>
