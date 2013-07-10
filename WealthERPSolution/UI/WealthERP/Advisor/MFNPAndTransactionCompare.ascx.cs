@@ -141,8 +141,16 @@ namespace WealthERP.Advisor
                 if (Session[SessionContents.ValuationDate] == null)
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-                strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
-                txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
+                if (strValuationDate != null)
+                {
+                    strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
+                    txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
+                }
+                else
+                {
+                    strValuationDate = DateTime.MinValue.ToShortDateString();
+                }
+               
                 hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
             }
             BindBranchDropDown();
