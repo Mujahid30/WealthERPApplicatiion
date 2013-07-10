@@ -1808,6 +1808,13 @@
     <Compile Include="CustomerPortfolio\RMMultipleTransactionView.ascx.designer.cs">
       <DependentUpon>RMMultipleTransactionView.ascx</DependentUpon>
     </Compile>
+    <Compile Include="CustomerPortfolio\TrailManualMerge.aspx.cs">
+      <DependentUpon>TrailManualMerge.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPortfolio\TrailManualMerge.aspx.designer.cs">
+      <DependentUpon>TrailManualMerge.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CustomerPortfolio\TransactionsView.ascx.cs">
       <DependentUpon>TransactionsView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5961,6 +5968,7 @@
     <Content Include="CustomerPortfolio\RMMultipleEqTransactionsEntry.ascx" />
     <Content Include="CustomerPortfolio\RMMultipleEqTransactionsView.ascx" />
     <Content Include="CustomerPortfolio\RMMultipleTransactionView.ascx" />
+    <Content Include="CustomerPortfolio\TrailManualMerge.aspx" />
     <Content Include="CustomerPortfolio\ViewGeneralInsuranceDetails.ascx" />
     <Content Include="CustomerPortfolio\ViewMFPortfolioValuation.ascx" />
     <Content Include="Customer\AddBankAccount.ascx" />
