@@ -29,10 +29,10 @@
         var scrollArea = sender.GridDataDiv;
         var dataHeight = sender.get_masterTableView().get_element().clientHeight;
         if (dataHeight < 300) {
-            scrollArea.style.height = dataHeight +17+ "px";
+            scrollArea.style.height = dataHeight + 17 + "px";
         }
-    }     
-    
+    }
+
     function CheckFolioSelected() {
         var Count = 0;
         Parent = document.getElementById("<%=gvCustomerFolioMerge.ClientID %>");
@@ -74,7 +74,6 @@
         width: 101.5% !important;
     }
 </style>
-
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
     .CheckField
@@ -105,8 +104,42 @@
         </td>
     </tr>
 </table>
-<table width="70%">
+<table>
     <tr>
+        <td colspan="2">
+            <table class="TableBackground" width="100%">
+                <tr id="trBranchRM" runat="server">
+                    <td align="right" valign="top" class="leftLabel">
+                        <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+                    </td>
+                    <td valign="top" class="rightData">
+                        <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
+                            CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </td>
+                    <td style="width: 1%">
+                    &nbsp;&nbsp;&nbsp
+                    </td>
+                    <td align="right" valign="top" class="leftLabel">
+                        <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+                    </td>
+                    <td valign="top" class="rightData">
+                        <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" Style="vertical-align: middle">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr colspan="2">
+        <td id="tdGoBtn" runat="server" colspan="7">
+            <asp:Button ID="btnGo" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnGo_Click"
+                ValidationGroup="vgBtnGo" />
+        </td>
+    </tr>
+</table>
+<table width="70%">
+    <tr id="trAction" runat="server" visible="false">
         <td style="width: 100px">
         </td>
         <td style="width: 120px" align="right">
@@ -218,16 +251,6 @@
         </td>
     </tr>
 </table>
-<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
-    visible="false">
-    <tr>
-        <td align="center">
-            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
-                No Records found.....
-            </div>
-        </td>
-    </tr>
-</table>
 <table width="100%">
     <tr id="trFolioStatus" runat="server">
         <td align="center">
@@ -244,20 +267,18 @@
         </td>
     </tr>
 </table>
-
 <table width="100%" cellspacing="0" cellpadding="2">
-   <%-- <td class="leftField" align="right">
+    <%-- <td class="leftField" align="right">
         <asp:Label ID="lblCurrentPage" class="Field" runat="server"></asp:Label>
         <asp:Label ID="lblTotalRows" class="Field" runat="server"></asp:Label>
     </td>--%>
     <tr>
         <td>
-            <asp:Label ID="Label1" class="Field" Text="Note: Select the folios below that needs to be transferred/merged."
+            <asp:Label ID="Label1" Visible="false" class="Field" Text="Note: Select the folios below that needs to be transferred/merged."
                 runat="server"></asp:Label>
         </td>
     </tr>
-    
-        <%--<td colspan="3" allign="center">
+    <%--<td colspan="3" allign="center">
             <asp:GridView ID="gvCustomerFolioMerge" runat="server" CellPadding="4" CssClass="GridViewStyle"
                 AllowSorting="True" ShowFooter="true" AutoGenerateColumns="False" DataKeyNames="CustomerId,AMCCode,Count,portfilionumber"
                 OnSelectedIndexChanged="gvCustomerFolioMerge_SelectedIndexChanged">
@@ -347,87 +368,102 @@
                 </Columns>
             </asp:GridView>
         </td>--%>
-     <tr>
+    <tr>
         <td>
-        <div style="width:78%;">
-            <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
-                 AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false"
-                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                AllowAutomaticUpdates="false" Skin="Telerik" 
-                EnableEmbeddedSkins="false" 
-                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true"
-                OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
-                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-                </ExportSettings>
-                <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None" Width="100%">
-                    <Columns>
-                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
-                            <ItemTemplate>
-                                <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"
-                                    runat="server" AutoPostBack="true" />
-                            </ItemTemplate>
-                        </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn UniqueName="Group Head" HeaderText="Group Head" DataField="GroupHead" HeaderStyle-Width="200px"
-                            SortExpression="GroupHead" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName" HeaderStyle-Width="200px"
-                            SortExpression="CustomerName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMC" DataField="AMCName" HeaderStyle-Width="280px"
-                            SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                       <%-- <telerik:GridTemplateColumn DataField="Count" AllowFiltering="true" HeaderText="Folios" HeaderStyle-Width="100px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+            <div id="DivCustomerFolio" style="width: 78%;" visible="false" runat="server">
+                <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
+                    AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
+                    AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
+                    Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
+                    AllowFilteringByColumn="true" OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
+                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                    </ExportSettings>
+                    <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None"
+                        Width="100%">
+                        <Columns>
+                            <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="rdbGVRow" OnCheckedChanged="rdbGVRow_CheckedChanged" onclick="javascript:CheckOtherIsCheckedByGVID(this);"
+                                        runat="server" AutoPostBack="true" />
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn UniqueName="Group Head" HeaderText="Group Head" DataField="GroupHead"
+                                HeaderStyle-Width="200px" SortExpression="GroupHead" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName"
+                                HeaderStyle-Width="200px" SortExpression="CustomerName" AllowFiltering="true"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMC" DataField="AMCName"
+                                HeaderStyle-Width="280px" SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <%-- <telerik:GridTemplateColumn DataField="Count" AllowFiltering="true" HeaderText="Folios" HeaderStyle-Width="100px" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <ItemTemplate>
                          <asp:LinkButton ID="hypFolioNo" runat="server" CssClass="CmbField" OnClick="hypFolioNo_Click"
                                 Text='<%# Eval("Count").ToString() %>'>
                             </asp:LinkButton>
                               </ItemTemplate>
                         </telerik:GridTemplateColumn>--%>
-                        <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count" HeaderStyle-Width="100px"
-                            SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                     <telerik:GridBoundColumn UniqueName="FolioName" HeaderText="Folio Name" DataField="FolioName" HeaderStyle-Width="100px"
-                            SortExpression="FolioName" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus" HeaderStyle-Width="100px"
-                            SortExpression="mergerstatus" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="processId" HeaderText="Process Id" DataField="processId" HeaderStyle-Width="108px"
-                            SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn UniqueName="Nominee" HeaderStyle-Width="100px" HeaderText="Nominee"
-                    DataField="Nominee" SortExpression="Nominee" AllowFiltering="true" ShowFilterIcon="false"
-                    AutoPostBackOnFilter="true">
-                    <HeaderStyle></HeaderStyle>
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn UniqueName="ModeOfHolding" HeaderStyle-Width="80px" HeaderText="Mode Of Holding"
-                    DataField="ModeOfHolding" SortExpression="ModeOfHolding" AllowFiltering="true"
-                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                    <HeaderStyle></HeaderStyle>
-                </telerik:GridBoundColumn>
-                    </Columns>
-                </MasterTableView>
-                <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                
-                    <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px" />
-                    <ClientEvents OnGridCreated="GridCreated" />
-                    <Resizing AllowColumnResize="true" />
-                    <Selecting AllowRowSelect="true" />
-                </ClientSettings>
-            </telerik:RadGrid>
+                            <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count"
+                                HeaderStyle-Width="100px" SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="FolioName" HeaderText="Folio Name" DataField="FolioName"
+                                HeaderStyle-Width="100px" SortExpression="FolioName" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus"
+                                HeaderStyle-Width="100px" SortExpression="mergerstatus" AllowFiltering="true"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="processId" HeaderText="Process Id" DataField="processId"
+                                HeaderStyle-Width="108px" SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="Nominee" HeaderStyle-Width="100px" HeaderText="Nominee"
+                                DataField="Nominee" SortExpression="Nominee" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="ModeOfHolding" HeaderStyle-Width="80px" HeaderText="Mode Of Holding"
+                                DataField="ModeOfHolding" SortExpression="ModeOfHolding" AllowFiltering="true"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
+                            </telerik:GridBoundColumn>
+                        </Columns>
+                    </MasterTableView>
+                    <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                        <Scrolling AllowScroll="true" UseStaticHeaders="true" ScrollHeight="300px" />
+                        <ClientEvents OnGridCreated="GridCreated" />
+                        <Resizing AllowColumnResize="true" />
+                        <Selecting AllowRowSelect="true" />
+                    </ClientSettings>
+                </telerik:RadGrid>
+            </div>
+        </td>
+    </tr>
+</table>
+<table id="ErrorMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
+    <tr>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage1" runat="server" visible="true" align="center">
+                No Records found.....
             </div>
         </td>
     </tr>
 </table>
 <table width="100%">
-   <%-- <tr style="width: 100%">
+    <%-- <tr style="width: 100%">
         <td colspan="3">
             <table width="100%">
                 <tr id="trPager" runat="server" width="100%">
@@ -479,13 +515,16 @@
         <td></td>
     </tr>
   </table>--%>
+  <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnadviserId" runat="server" />  
 <asp:HiddenField ID="hdnCustomerId" runat="server" Value="0" OnValueChanged="txtPickCustomer_TextChanged" />
-<asp:HiddenField ID="hdnCurrentPage" runat="server" />
-<asp:Button ID="btnCustomerSearch" runat="server" Text="" 
-    BorderStyle="None" BackColor="Transparent" />
-<asp:HiddenField ID="hdnRecordCount" runat="server" />
+<%--<asp:HiddenField ID="hdnCurrentPage" runat="server" />--%>
+<asp:Button ID="btnCustomerSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent" />
+<%--<asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnBranchFilter" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnNameFilter" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />
-<asp:Button ID="btnFolioNumberSearch" runat="server" Text="" 
-    BorderStyle="None" BackColor="Transparent" />
+<asp:HiddenField ID="hdnFolioFilter" runat="server" Visible="false" />--%>
+<asp:Button ID="btnFolioNumberSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent" />
