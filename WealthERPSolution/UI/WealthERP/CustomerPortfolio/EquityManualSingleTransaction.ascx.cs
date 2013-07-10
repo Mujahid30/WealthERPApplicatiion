@@ -630,7 +630,7 @@ namespace WealthERP.CustomerPortfolio
 
                 // Rate Inclusive Brokerage
 
-                if (ddlTransactionType.SelectedItem.Text.ToString() == "Purchase")
+                if (ddlTransactionType.SelectedItem.Text.ToString() !="Sell")
                 {
 
                     rateIncBroker = double.Parse(txtRate.Text) + STT + Stax + brokerage + otherCharges;
