@@ -2175,7 +2175,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetAdviserCustomerFolioMerge(int adviserId)
+        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int rmId, int branchId, int branchHeadId, int All)
         {
 
             Database db;
@@ -2184,7 +2184,29 @@ namespace DaoAdvisorProfiling
 
             db = DatabaseFactory.CreateDatabase("wealtherp");
             getCustomerListCmd = db.GetStoredProcCommand("SP_GetAdviserCustomerFolioMerge");
-            db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
+            if (adviserId != 0)
+                db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
+            else
+                db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, DBNull.Value);
+           
+            if (rmId != 0)
+                db.AddInParameter(getCustomerListCmd, "@RMId", DbType.Int32, rmId);
+            else
+                db.AddInParameter(getCustomerListCmd, "@RMId", DbType.Int32, DBNull.Value);
+
+            if (branchId != 0)
+                db.AddInParameter(getCustomerListCmd, "@BranchId", DbType.Int32, branchId);
+            else
+                db.AddInParameter(getCustomerListCmd, "@BranchId", DbType.Int32, DBNull.Value);
+            if (branchHeadId != 0)
+                db.AddInParameter(getCustomerListCmd, "@BranchHeadId", DbType.Int32, branchHeadId);
+            else
+                db.AddInParameter(getCustomerListCmd, "@BranchHeadId", DbType.Int32, DBNull.Value);
+            if (All != 0)
+                db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, All);
+            else
+                db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, 0);
+          
             //db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
 
             //if (custNameFilter != "")
@@ -2438,10 +2460,7 @@ namespace DaoAdvisorProfiling
                 getBranchsRMCmd = db.GetStoredProcCommand("SP_GetAllRMsWithOutBMRole");
                 db.AddInParameter(getBranchsRMCmd, "@branchId", DbType.Int16, branchId);
                 db.AddInParameter(getBranchsRMCmd, "@branchHeadId", DbType.Int16, branchHeadId);
-
                 ds = db.ExecuteDataSet(getBranchsRMCmd);
-
-
             }
             catch (BaseApplicationException Ex)
             {
