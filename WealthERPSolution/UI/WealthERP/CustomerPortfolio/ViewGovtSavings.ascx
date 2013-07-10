@@ -154,7 +154,7 @@
                 Skin="Telerik" GridLines="none" AllowAutomaticInserts="false" OnItemCommand="gvGovtSavings_ItemCommand">               
                 <ExportSettings HideStructureColumns="true">
                 </ExportSettings>
-                <MasterTableView DataKeyNames="GovtSavingId" Width="100%" AllowMultiColumnSorting="True"
+                <MasterTableView DataKeyNames="GovtSavingId" Width="100%" 
                     AutoGenerateColumns="false">
                     <Columns>
                         <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
@@ -180,7 +180,7 @@
                             <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Date" UniqueName="Deposit Date" HeaderText="Deposit Date (dd/mm/yyyy)" DataFormatString="{0:d}"
-                            AutoPostBackOnFilter="true" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px" CurrentFilterFunction="Contains">
+                            AutoPostBackOnFilter="true" SortExpression="Deposit Date" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="145px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Date" UniqueName="Maturity Date" HeaderText="Maturity Date (dd/mm/yyyy)"
@@ -189,22 +189,22 @@
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Deposit Amount" UniqueName="Deposit Amount" HeaderText="Deposit Amount (Rs)"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="105px" DataFormatString="{0:n0}"
+                            ShowFilterIcon="false" SortExpression="Deposit Amount" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="105px" DataFormatString="{0:n0}"
                             CurrentFilterFunction="Contains">
                             <ItemStyle Width="67px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Rate Of Interest" UniqueName="Rate Of Interest" FilterControlWidth="60px"
-                            HeaderText="Rate Of Interest (%)" AutoPostBackOnFilter="true" ShowFilterIcon="false" 
+                            HeaderText="Rate Of Interest (%)" AutoPostBackOnFilter="true" ShowFilterIcon="false" SortExpression="Rate Of Interest" 
                             AllowFiltering="true" HeaderStyle-Width="76px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="100px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Current Value" UniqueName="Current Value" HeaderText="Current Value (Rs)"
-                            AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                            AutoPostBackOnFilter="true" ShowFilterIcon="false" SortExpression="Current Value"
                             AllowFiltering="true" HeaderStyle-Width="115px">
                             <ItemStyle Width="140px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn DataField="Maturity Value" UniqueName="Maturity Value" HeaderText="Maturity Value (Rs)"
-                            AllowFiltering="false" HeaderStyle-Width="100px"
+                            AllowFiltering="false" HeaderStyle-Width="100px" SortExpression="Maturity Value"
                             CurrentFilterFunction="Contains" ShowFilterIcon="false">
                             <ItemStyle Width="80px" HorizontalAlign="Right" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
