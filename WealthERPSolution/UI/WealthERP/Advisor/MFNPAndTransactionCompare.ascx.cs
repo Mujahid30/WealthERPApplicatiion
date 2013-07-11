@@ -78,12 +78,13 @@ namespace WealthERP.Advisor
                 if (strValuationDate == "01/01/0001")
                     txtAsOnDate.SelectedDate = DateTime.Now;
                 else
-                    txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
+                txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
                 hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
 
             }
             else
             {
+                //txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
                 txtAsOnDate.SelectedDate = DateTime.Now;
                 hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
             }
@@ -141,17 +142,18 @@ namespace WealthERP.Advisor
                 if (Session[SessionContents.ValuationDate] == null)
                     GetLatestValuationDate();
                 genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-                if (strValuationDate != null)
-                {
+              //  if (strValuationDate != null)
+              //  {
                     strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
                     txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
-                }
-                else
-                {
-                    strValuationDate = DateTime.MinValue.ToShortDateString();
-                }
+                    hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
+              //  }
+               // else
+              //  {
+              //      strValuationDate = DateTime.MinValue.ToShortDateString();
+               // }
                
-                hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
+               
             }
             BindBranchDropDown();
             BindRMDropDown();
