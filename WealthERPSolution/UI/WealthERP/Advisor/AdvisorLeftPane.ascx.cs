@@ -980,6 +980,11 @@ namespace WealthERP.Advisor
                 //{
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GroupAccountSetup','login');", true);
                 //}
+                else if (e.Item.Value == "MF Folios")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
+                }
                 else if (e.Item.Value == "Manage Portfolio")
                 {
                     Session["UserType"] = "rm";
@@ -1007,7 +1012,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
-                else if (e.Item.Value == "View EQ Transactions")
+               else if (e.Item.Value == "View EQ Transactions")
                 {
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
@@ -1226,6 +1231,11 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+                }
+                else if (e.Item.Value == "MF Folios")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
                 }
                 else if (e.Item.Value == "MF MIS")
                 {
