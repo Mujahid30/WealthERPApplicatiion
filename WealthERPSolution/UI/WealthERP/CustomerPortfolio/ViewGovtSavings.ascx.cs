@@ -231,7 +231,7 @@ namespace WealthERP.CustomerPortfolio
                     dtGovtSavings.Columns.Add("Deposit Date", typeof(DateTime));
                     dtGovtSavings.Columns.Add("Maturity Date",typeof(DateTime));
                     dtGovtSavings.Columns.Add("Deposit Amount",typeof(double));
-                    dtGovtSavings.Columns.Add("Rate Of Interest");
+                    dtGovtSavings.Columns.Add("Rate Of Interest",typeof(double));
                     dtGovtSavings.Columns.Add("Current Value",typeof(double));
                     dtGovtSavings.Columns.Add("Maturity Value",typeof(double));
                     DataRow drGovtSavings;
