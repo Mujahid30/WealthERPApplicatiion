@@ -139,21 +139,12 @@ namespace WealthERP.Advisor
             if (ddlAdviser.SelectedIndex != 0)
             {
                 advisorId = int.Parse(ddlAdviser.SelectedValue);
-                if (Session[SessionContents.ValuationDate] == null)
+                //if (Session[SessionContents.ValuationDate] == null)
                     GetLatestValuationDate();
-                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-              //  if (strValuationDate != null)
-              //  {
+                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];          
                     strValuationDate = genDict[Constants.MFDate.ToString()].ToShortDateString();
                     txtAsOnDate.SelectedDate = DateTime.Parse(genDict[Constants.MFDate.ToString()].ToString());
-                    hdnDate.Value = txtAsOnDate.SelectedDate.ToString();
-              //  }
-               // else
-              //  {
-              //      strValuationDate = DateTime.MinValue.ToShortDateString();
-               // }
-               
-               
+                    hdnDate.Value = txtAsOnDate.SelectedDate.ToString();           
             }
             BindBranchDropDown();
             BindRMDropDown();
@@ -442,8 +433,8 @@ namespace WealthERP.Advisor
         {
             if (ddlAdviser.SelectedIndex != -1 && ddlAdviser.SelectedIndex != 0)
                 advisorId = int.Parse(ddlAdviser.SelectedValue);
-            if (advisorVo != null)
-                advisorId = advisorVo.advisorId;
+            //if (advisorVo != null)
+            //    advisorId = advisorVo.advisorId;
             if ((ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "advisor")
                 || (ddlSelectCustomer.SelectedItem.Value == "All Customer") && (userType == "SuperAdmin"))
             {
