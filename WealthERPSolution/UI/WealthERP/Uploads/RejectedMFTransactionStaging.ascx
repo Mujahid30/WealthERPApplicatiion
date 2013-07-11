@@ -192,7 +192,6 @@
         document.getElementById('<%= btnReprocess.ClientID %>').click();
     }
 </script>
-
 <table width="100%">
     <tr>
         <td>
@@ -292,12 +291,12 @@
                     EnableViewState="true" ExportSettings-FileName="MF Transaction Reject Details"
                     ShowFooter="true" OnItemDataBound="gvWERPTrans_ItemDataBound" OnPreRender="gvWERPTrans_PreRender"
                     OnNeedDataSource="gvWERPTrans_NeedDataSource">
-                    <%--  OnPreRender="gvWERPTrans_PreRender"--%>
+                    <%--  OnPreRender="gvWERPTrans_PreRende"--%>
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
                     <MasterTableView TableLayout="Auto" DataKeyNames="CMFTSId,ProcessId,FolioNumber,InvestorName"
                         AllowFilteringByColumn="true" Width="120%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-                        CommandItemDisplay="None">
+                        CommandItemDisplay="none">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                 <HeaderTemplate>
@@ -354,7 +353,7 @@
                                     <asp:TextBox ID="txtPanFooter" CssClass="txtField" runat="server" />
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                           <%-- <telerik:GridBoundColumn DataField="CMFTS_PANNum" AllowFiltering="true" HeaderText="PAN Number"
+                            <%-- <telerik:GridBoundColumn DataField="CMFTS_PANNum" AllowFiltering="true" HeaderText="PAN Number"
                                 UniqueName="CMFTS_PANNum" SortExpression="CMFTS_PANNum" AutoPostBackOnFilter="true"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

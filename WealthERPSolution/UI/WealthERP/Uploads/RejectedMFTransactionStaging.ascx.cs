@@ -30,7 +30,7 @@ namespace WealthERP.Uploads
         WerpUploadsBo werpUploadBo;
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         StandardProfileUploadBo standardProfileUploadBo;
-
+        RMVo rmVo = new RMVo();
         DataSet dsRejectedRecords = new DataSet();
         DataTable dtgvWERPTrans1 = new DataTable();
         DataTable dtgvWERPTrans2 = new DataTable();
@@ -56,7 +56,7 @@ namespace WealthERP.Uploads
                 filetypeId = Int32.Parse(Request.QueryString["filetypeId"].ToString());
 
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-
+            rmVo = (RMVo)Session[SessionContents.RmVo];
             if (adviserVo.advisorId == 1000)
             {
                 if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
@@ -322,8 +322,9 @@ namespace WealthERP.Uploads
                 msgReprocessincomplete.Visible = true;
                 lblError.Text = "ErrorStatus:" + error;
             }
-
-            BindEquityTransactionGrid(ProcessId);
+            NeedSource();
+            gvWERPTrans.MasterTableView.Rebind();
+           // BindEquityTransactionGrid(ProcessId);
             //used to display alert msg after completion of reprocessing
 
         }
@@ -459,14 +460,11 @@ namespace WealthERP.Uploads
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             int i = 0;
-            string StagingID = string.Empty;
 
             foreach (GridDataItem gvr in this.gvWERPTrans.Items)
-            //foreach (GridViewRow gvr in this.gvWERPTrans.Rows)
             {
                 if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
                 {
-                    StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[i]["CMFTSId"]) + "~";
                     i = i + 1;
                 }
             }
@@ -477,16 +475,36 @@ namespace WealthERP.Uploads
             }
             else
             {
-                rejectedRecordsBo = new RejectedRecordsBo();
-                rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
-                if (hdnProcessIdFilter.Value != "")
-                {
-                    ProcessId = int.Parse(hdnProcessIdFilter.Value);
-                }
-                BindEquityTransactionGrid(ProcessId);
+                CustomerTransactionDelete();
+                NeedSource();
+                gvWERPTrans.MasterTableView.Rebind();
+                msgReprocessComplete.Visible = false;
+                msgReprocessincomplete.Visible = false;
+                //    rejectedRecordsBo = new RejectedRecordsBo();
+                //    rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
+                //    if (hdnProcessIdFilter.Value != "")
+                //    {
+                //        ProcessId = int.Parse(hdnProcessIdFilter.Value);
+                //    }
+                //    BindEquityTransactionGrid(ProcessId);
             }
         }
+        private void CustomerTransactionDelete()
+        {
+            string StagingID = string.Empty;
+            foreach (GridDataItem gvr in this.gvWERPTrans.Items)
+            {
+                if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                {
+                    rejectedRecordsBo = new RejectedRecordsBo();
+                    StagingID += Convert.ToString(gvWERPTrans.MasterTableView.DataKeyValues[gvr.ItemIndex]["CMFTSId"]) + "~";
+                }
 
+            }
+            rejectedRecordsBo.DeleteMFTransactionStaging(StagingID);
+            BindEquityTransactionGrid(ProcessId);
+
+        }
         protected void btnProbableInsert_Click(object sender, EventArgs e)
         {
             bool result = true;
@@ -668,6 +686,31 @@ namespace WealthERP.Uploads
                 rcb.Items.Insert(0, rcbi);
             }
         }
+        protected void NeedSource()
+        {
+            string rcbType = string.Empty;
+            trMessage.Visible = false;
+            DataSet dtProcessLogDetails = new DataSet();
+            DataTable dtrr = new DataTable();
+            dtProcessLogDetails = (DataSet)Cache["MFTransactionDetails" + adviserId.ToString()];
+            if (dtProcessLogDetails != null)
+            {
+                dtrr = dtProcessLogDetails.Tables[0];
+                if (ViewState["RejectReason"] != null)
+                    rcbType = ViewState["RejectReason"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "RejectReason = '" + rcbType + "'", "InvestorName,CMFTS_PANNum,ProcessId,FolioNumber,Scheme,SchemeName,TransactionType,ExternalFileName,SourceType", DataViewRowState.CurrentRows);
+                    gvWERPTrans.DataSource = dvStaffList.ToTable();
+
+                }
+                else
+                {
+                    gvWERPTrans.DataSource = dtProcessLogDetails;
+
+                }
+            }
+        }
         protected void gvWERPTrans_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
             string rcbType = string.Empty;
@@ -704,6 +747,7 @@ namespace WealthERP.Uploads
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
             gvWERPTrans.ExportSettings.OpenInNewWindow = true;
+           // gvWERPTrans.MasterTableView.Caption = "Adviser:" + adviserVo.OrganizationName+' '+"RM:"+ rmVo.FirstName;            
             gvWERPTrans.ExportSettings.IgnorePaging = true;
             gvWERPTrans.ExportSettings.HideStructureColumns = true;
             gvWERPTrans.ExportSettings.ExportOnlyData = true;
