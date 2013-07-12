@@ -651,5 +651,39 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnExportType;
+        protected global::System.Web.UI.WebControls.Label lblAMC;
+        protected global::System.Web.UI.WebControls.Label lblCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+         protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+        
+        /// <summary>
+        /// radwindowForManualMerge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadWindow radwindowForManualMerge;
+        protected global::System.Web.UI.WebControls.ImageButton btnExportTrnxToBeMerged;
+        
+        /// <summary>
+        /// gvManualMerge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvManualMerge;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
     }
+
 }

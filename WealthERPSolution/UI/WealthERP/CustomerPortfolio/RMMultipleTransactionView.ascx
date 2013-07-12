@@ -21,7 +21,6 @@
         }
     }
 </script>
-
 <script type="text/javascript" language="javascript">
     function CheckOneForRadWindow(obj) {
         var grid = obj.parentNode.parentNode.parentNode;
@@ -35,7 +34,6 @@
         }
     }
 </script>
-
 <script type="text/javascript" language="javascript">
     function GetParentCustomerId(source, eventArgs) {
         document.getElementById("<%= txtParentCustomerId.ClientID %>").value = eventArgs.get_value();
@@ -476,6 +474,22 @@
                                         <asp:ListItem Text="TrailCommissionView" Value="TCV">Trail Commission View</asp:ListItem>
                                     </asp:DropDownList>
                                 </td>
+                                <td align="right" width="10%">
+                                    <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left" width="10%">
+                                    <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="false">
+                                        <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
+                                    </asp:DropDownList>
+                                </td>
+                                <td align="right" width="10%">
+                                    <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td align="left" width="10%">
+                                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="false">
+                                        <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
+                                    </asp:DropDownList>
+                                </td>
                                 <td>
                                     &nbsp;
                                 </td>
@@ -541,7 +555,7 @@
                                                     FileName="View Transactions Details">
                                                 </ExportSettings>
                                                 <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
-                                                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                                                    AllowFilteringByColumn="true" AutoGenerateColumns="false" CommandItemDisplay="None">
                                                     <Columns>
                                                         <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
                                                             <ItemStyle Wrap="false" />
@@ -776,6 +790,11 @@
                                                             UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="AMC" HeaderText="AMC" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                                            SortExpression="AMC" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Transaction Type" HeaderText="Type" AllowFiltering="true"
                                                             HeaderStyle-Wrap="false" SortExpression="Transaction Type" ShowFilterIcon="false"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Type"
@@ -853,8 +872,8 @@
                                             </ExportSettings>
                                             <MasterTableView Width="100%" DataKeyNames="CMFA_AccountId,CMFTCSU_TrailComissionSetUpId" AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" CommandItemDisplay="None">
-                                                <Columns>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
+                                                <Columns>   
+                                                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
                                                         <HeaderTemplate>
                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                                             <input style="display: none" id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox"
@@ -874,9 +893,7 @@
                                                         AllowFiltering="false" Visible="false">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    
-                                                    
-                                                     <telerik:GridBoundColumn DataField="CMFTCSU_TrailComissionSetUpId" HeaderText="CMFTCSU_TrailComissionSetUpId"
+                                                      <telerik:GridBoundColumn DataField="CMFTCSU_TrailComissionSetUpId" HeaderText="CMFTCSU_TrailComissionSetUpId"
                                                         UniqueName="CMFTCSU_TrailComissionSetUpId" SortExpression="CMFTCSU_TrailComissionSetUpId" AutoPostBackOnFilter="true"
                                                         ShowFilterIcon="false">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -899,6 +916,17 @@
                                                     <telerik:GridBoundColumn ShowFilterIcon="false" DataField="customerName" HeaderText="Customer Name"
                                                         HeaderStyle-Width="150px" UniqueName="customerName" SortExpression="customerName"
                                                         AutoPostBackOnFilter="true">
+                                                        <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Category"
+                                                        AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PAIC_AssetInstrumentCategoryName"
+                                                        ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                        UniqueName="PAIC_AssetInstrumentCategoryName" FooterStyle-HorizontalAlign="Left">
+                                                        <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn DataField="PA_AMCName" HeaderText="AMC" AllowFiltering="true"
+                                                        HeaderStyle-Wrap="false" SortExpression="PA_AMCName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                        AutoPostBackOnFilter="true" UniqueName="PA_AMCName" FooterStyle-HorizontalAlign="Left">
                                                         <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn ShowFilterIcon="false" DataField="PASP_SchemePlanName" HeaderText="Scheme"
@@ -969,14 +997,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <asp:Button ID="btnAutoMatch" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
-                                        OnClick="btnAutoMatch_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
-                                        OnClick="btnShowTransactionForManualMerge_Click" />
-                                </td>
-                            </tr>
                         </table>
                         <%-- </asp:Panel>--%>
                     </div>
@@ -998,8 +1018,8 @@
                     <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
                     <asp:HiddenField ID="hdnSchemeSearch" runat="server" Visible="false" />
                     <asp:HiddenField ID="hdnTranType" runat="server" Visible="false" />
-                    <asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />
-                    <asp:HiddenField ID="hdnAMC" runat="server" Visible="false" />
+                    <asp:HiddenField ID="hdnCategory" runat="server" />
+                    <asp:HiddenField ID="hdnAMC" runat="server" />
                     <asp:HiddenField ID="hdnFolioNumber" runat="server" Visible="false" />
                     <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
                     <asp:HiddenField ID="hdnDownloadFormat" runat="server" Visible="true" />
