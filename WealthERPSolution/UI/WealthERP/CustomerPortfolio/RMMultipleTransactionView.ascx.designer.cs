@@ -38,35 +38,10 @@ namespace WealthERP.CustomerPortfolio {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
-        
-        /// <summary>
-        /// radwindowForManualMerge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow radwindowForManualMerge;
-        
-        /// <summary>
-        /// btnExportTrnxToBeMerged control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton btnExportTrnxToBeMerged;
+        protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;       
         
         
-        /// <summary>
-        /// Button1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+      
         
         /// <summary>
         /// lbBack control.
@@ -647,7 +622,7 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.Label lblCategory;
         protected global::System.Web.UI.WebControls.DropDownList ddlAMC;
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
-         protected global::Telerik.Web.UI.RadWindowManager RadWindowManager1;
+       
         
         /// <summary>
         /// radwindowForManualMerge control.
