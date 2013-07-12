@@ -69,7 +69,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                radwindowForManualMerge.VisibleOnPageLoad = false;
+               // radwindowForManualMerge.VisibleOnPageLoad = false;
 
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
