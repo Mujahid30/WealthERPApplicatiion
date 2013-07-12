@@ -54,11 +54,19 @@ namespace WealthERP.CustomerPortfolio
         String DisplayType;
         Hashtable ht = new Hashtable();
         int schemePlanCode = 0;
+        int count;
+        int accountIdForMerge = 0;
+        int isMergeComplete = 0;
+        int isMergeManual = 0;
+        int transactionIdForMerge = 0;
+        int trailIdForMerge = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                radwindowForManualMerge.VisibleOnPageLoad = false;
+
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 userVo = (UserVo)Session["userVo"];
@@ -211,6 +219,139 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void btnAutoMatch_Click(object sender, EventArgs e)
+        {
+            bool isMergeCompleted = false;
+
+
+            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 0);
+            if (isMergeCompleted == false)
+                Response.Write(@"<script language='javascript'>alert('Error updating Trail Data for: \n" + accountIdForMerge + "');</script>");
+            else
+                Response.Write(@"<script language='javascript'>alert('Trail Data Updated for: \n" + accountIdForMerge + " successfully.');</script>");
+
+        }
+
+
+        protected void btnManualMerge_Click(object sender, EventArgs e)
+        {
+            bool isMergeCompleted = false;
+            accountIdForMerge = Convert.ToInt32(Session["accountIdForMerge"].ToString());
+            trailIdForMerge=Convert.ToInt32(Session["TrailComissionSetUpId"].ToString());
+
+            foreach (GridDataItem item in this.gvManualMerge.Items)
+            {
+                if (((CheckBox)item.FindControl("cbRecons")).Checked == true)
+                {
+                    transactionIdForMerge = Convert.ToInt32(gvManualMerge.MasterTableView.DataKeyValues[item.ItemIndex]["CMFT_MFTransId"]);
+                    break;
+                }
+
+            }
+            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 1);
+            if (isMergeCompleted == false)
+                Response.Write(@"<script language='javascript'>alert('Error updating Trail Data for: \n" + accountIdForMerge + "');</script>");
+            else
+                Response.Write(@"<script language='javascript'>alert('Trail Data Updated for: \n" + accountIdForMerge + " successfully.');</script>");
+            radwindowForManualMerge.VisibleOnPageLoad = true;
+        }
+
+        protected void btnShowTransactionForManualMerge_Click(object sender, EventArgs e)
+        {
+            RadWindowManager1.Visible = true;
+            radwindowForManualMerge.VisibleOnPageLoad = true;
+            DataSet dsTransactionForMerge = new DataSet();
+
+            foreach (GridDataItem item in this.gvTrail.Items)
+            {
+                if (((CheckBox)item.FindControl("cbOne")).Checked == true)
+                {
+                    accountIdForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFA_AccountId"]);
+                    trailIdForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFTCSU_TrailComissionSetUpId"]);
+                    break;
+                }
+
+            }
+
+            Session["accountIdForMerge"] = accountIdForMerge;
+            Session["TrailComissionSetUpId"] = trailIdForMerge;
+            dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge);
+
+
+            if (Cache["TrnxToBeMergedDetails" + userVo.UserId + userType] == null)
+            {
+                Cache.Insert("TrnxToBeMergedDetails" + userVo.UserId + userType, dsTransactionForMerge);
+            }
+            else
+            {
+                Cache.Remove("TrnxToBeMergedDetails" + userVo.UserId + userType);
+                Cache.Insert("TrnxToBeMergedDetails" + userVo.UserId + userType, dsTransactionForMerge);
+            }
+
+            if (dsTransactionForMerge.Tables[0].Rows.Count > 0)
+            {
+                gvManualMerge.DataSource = dsTransactionForMerge;
+                gvManualMerge.DataBind();
+                gvManualMerge.Visible = true;
+                btnExportTrnxToBeMerged.Visible = true;
+                Button1.Visible = true;
+            }
+            else
+            {
+                gvManualMerge.DataSource = dsTransactionForMerge;
+                btnExportTrnxToBeMerged.Visible = false;
+                Button1.Visible = false;
+            }
+        }
+
+        protected void btnSync_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+            DateTime gvOrderDate = DateTime.MinValue;
+            bool result = false;
+            foreach (GridDataItem gvRow in gvTrail.Items)
+            {
+
+                CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
+                if (chk.Checked)
+                {
+                    i++;
+                }
+
+            }
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                //BindMISGridView();
+            }
+            else
+            {
+                foreach (GridDataItem gdi in gvTrail.Items)
+                {
+                    if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
+                    {
+                        int selectedRow = gdi.ItemIndex + 1;
+                        //gvOrderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
+                        //gvPortfolioId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString());
+                        //gvSchemeCode = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
+                        //if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
+                        //    gvaccountId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
+                        //else
+                        //    gvaccountId = 0;
+                        //gvTrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
+                        //gvAmount = Convert.ToDouble(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
+                        //gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
+                        //result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
+                        if (result == true)
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
+                        else
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
+                    }
+                }
+                //BindMISGridView();
+            }
+        }
+
         private void BindLastTradeDate()
         {
             DataSet ds = customerTransactionBo.GetLastTradeDate();
@@ -245,6 +386,7 @@ namespace WealthERP.CustomerPortfolio
             ddlPeriod.DataBind();
             ddlPeriod.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select a Period", "Select a Period"));
             ddlPeriod.Items.RemoveAt(15);
+
         }
 
 
@@ -867,6 +1009,34 @@ namespace WealthERP.CustomerPortfolio
             dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
             gvTrail.DataSource = dtTrailstransactionDetails;
             gvTrail.Visible = true;
+        }
+
+
+        protected void gvManualMerge_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            radwindowForManualMerge.VisibleOnPageLoad = true;
+            DataSet dtTrailstransactionDetails = new DataSet();
+            dtTrailstransactionDetails = (DataSet)Cache["TrnxToBeMergedDetails" + userVo.UserId + userType];
+            gvManualMerge.DataSource = dtTrailstransactionDetails;
+            gvTrail.Visible = true;
+        }
+
+        protected void btnExportTrnxToBeMerged_Click(object sender, ImageClickEventArgs e)
+        {
+            DataSet dtFolioDetails = new DataSet();
+
+            dtFolioDetails = (DataSet)Cache["TrnxToBeMergedDetails" + advisorVo.advisorId.ToString()];
+            gvManualMerge.DataSource = dtFolioDetails;
+            gvManualMerge.Visible = true;
+
+            gvManualMerge.DataSource = dtFolioDetails;
+            gvManualMerge.ExportSettings.OpenInNewWindow = true;
+            gvManualMerge.ExportSettings.IgnorePaging = true;
+            gvManualMerge.ExportSettings.HideStructureColumns = true;
+            gvManualMerge.ExportSettings.ExportOnlyData = true;
+            gvManualMerge.ExportSettings.FileName = "TrnxToBeMerged Details";
+            gvManualMerge.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvManualMerge.MasterTableView.ExportToExcel();
         }
 
         protected void btnTrailExport_Click(object sender, ImageClickEventArgs e)

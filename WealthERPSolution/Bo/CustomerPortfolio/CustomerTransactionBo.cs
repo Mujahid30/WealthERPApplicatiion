@@ -2030,5 +2030,47 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
+
+        public bool MergeTrailDetailsWithTransaction(int accountId,int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual)
+        {
+            bool bResult = false;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+                bResult = customerTransactionDao.MergeTrailDetailsWithTransaction(accountId,trailIdForMerge, transactionIdForMerge, IsCompleted, isMergeManual);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+            
+        }
+
+        public DataSet GetTransactionDetailsForTrail(int AccountId)
+        {
+            DataSet ds;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+                ds = customerTransactionDao.GetTransactionDetailsForTrail(AccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionBo.cs:GetTransactionDetailsForTrail(int AccountId)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
 }

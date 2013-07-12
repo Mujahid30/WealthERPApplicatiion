@@ -4157,6 +4157,73 @@ namespace DaoCustomerPortfolio
             }
             return dsGetEqLedgerMIS;
         }
+
+        public bool MergeTrailDetailsWithTransaction(int accountId,int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual)
+        {
+            bool result = false;
+            Database db;
+            DbCommand createEquityTransactionCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createEquityTransactionCmd = db.GetStoredProcCommand("SP_UpdateTrailTable");
+
+                db.AddInParameter(createEquityTransactionCmd, "@accountId", DbType.Int32, accountId);
+
+                db.AddInParameter(createEquityTransactionCmd, "@trailIdForMerge", DbType.Int32, trailIdForMerge);
+
+                db.AddInParameter(createEquityTransactionCmd, "@transactionIdForMerge", DbType.Int32, transactionIdForMerge);
+
+                db.AddInParameter(createEquityTransactionCmd, "@isMergeManual", DbType.Int32, isMergeManual);
+
+                db.AddOutParameter(createEquityTransactionCmd, "isMergeComplete", DbType.Int32, 5000);
+
+                db.ExecuteNonQuery(createEquityTransactionCmd);
+
+                IsCompleted = int.Parse(db.GetParameterValue(createEquityTransactionCmd, "isMergeComplete").ToString());
+
+                if (IsCompleted > 0)
+                    result = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+        public DataSet GetTransactionDetailsForTrail(int AccountId)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getTransactionDetailsForTrailCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTransactionDetailsForTrailCmd = db.GetStoredProcCommand("SPROC_GetTransactionDetailsForTrail");
+                db.AddInParameter(getTransactionDetailsForTrailCmd, "@AccountId", DbType.Int32, AccountId);
+              
+                ds = db.ExecuteDataSet(getTransactionDetailsForTrailCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetTransactionDetailsForTrail(int AccountId)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
         public DataSet GetTransactionType()
         {
             DataSet ds = null;
