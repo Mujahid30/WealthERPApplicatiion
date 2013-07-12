@@ -629,10 +629,13 @@ namespace WealthERP.Uploads
             DataSet dsRejectedSIP = new DataSet();
 
             dsRejectedSIP = (DataSet)Cache["TrailCommissionRejectDetails" + adviserId.ToString()];
+        
+
             GVTrailTransactionRejects.ExportSettings.OpenInNewWindow = true;
-            GVTrailTransactionRejects.DataSource = dsRejectedSIP;
             GVTrailTransactionRejects.ExportSettings.IgnorePaging = true;
             GVTrailTransactionRejects.ExportSettings.HideStructureColumns = true;
+            GVTrailTransactionRejects.ExportSettings.ExportOnlyData = true;
+            GVTrailTransactionRejects.ExportSettings.FileName = "View Transactions Details";
             GVTrailTransactionRejects.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             GVTrailTransactionRejects.MasterTableView.ExportToExcel();
         }
