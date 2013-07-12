@@ -1,8 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CustomerMutualFundPortfolioNPView.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.CustomerMutualFundPortfolioNPView" %>
 <%@ Register Assembly="Telerik.Web.UI" Namespace="Telerik.Web.UI" TagPrefix="telerik" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
+<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-</asp:ScriptManager> 
+</asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
     
@@ -137,8 +141,10 @@
                                                         ShowFooter="true" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                                                         HorizontalAlign="NotSet" AllowPaging="true" GridLines="None" AutoGenerateColumns="false"
                                                         Style="border: 0; outline: none;" Skin="Telerik" EnableEmbeddedSkins="false"
-                                                        ShowStatusBar="false" OnItemCommand="rgHoldings_ItemCommand" AllowSorting="true" OnItemDataBound="rgHoldings_ItemDataBound"
-                                                        EnableViewState="true" OnNeedDataSource="rgHoldings_OnNeedDataSource" AllowFilteringByColumn="true">
+                                                        OnExcelMLExportStylesCreated="rgHoldings_OnExcelMLExportStylesCreated" OnExcelMLExportRowCreated="rgHoldings_OnExcelMLExportRowCreated"
+                                                        ShowStatusBar="false" OnItemCommand="rgHoldings_ItemCommand" AllowSorting="true"
+                                                        OnItemDataBound="rgHoldings_ItemDataBound" EnableViewState="true" OnNeedDataSource="rgHoldings_OnNeedDataSource"
+                                                        AllowFilteringByColumn="true">
                                                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                                         <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                                     Excel-Format="ExcelML">
@@ -218,8 +224,7 @@
                                                                     </FilterTemplate>
                                                                 </telerik:GridDateTimeColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="PurchasedUnits" HeaderText="Purchased Units"
-                                                                    DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="DVRUnits" HeaderText="DVR Units"
@@ -228,41 +233,37 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="OpenUnits" HeaderText="Total Units"
-                                                                    DataField="OpenUnits" AllowFiltering="false" DataFormatString="{0:N3}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="OpenUnits" AllowFiltering="false" DataFormatString="{0:N3}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="CMFNP_RET_Hold_DVRAmounts" HeaderText="DVR Amount"
-                                                                    DataField="CMFNP_RET_Hold_DVRAmounts" AllowFiltering="false" FooterStyle-HorizontalAlign="Right"
-                                                                    DataFormatString="{0:N0}">
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="CMFNP_RET_Hold_DVRAmounts"
+                                                                    HeaderText="DVR Amount" DataField="CMFNP_RET_Hold_DVRAmounts" AllowFiltering="false"
+                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="InvestedCost" HeaderText="Invested Cost"
-                                                                    DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn>                                                                
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="NAV" HeaderText="NAV"
                                                                     DataField="NAV" AllowFiltering="false" DataFormatString="{0:N4}">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn> 
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
                                                                     DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn>                                                               
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="88px" UniqueName="MarketValue" HeaderText="Market Value"
                                                                     DataField="MarketValue" AllowFiltering="false" DataFormatString="{0:N0}" DataType="System.Double"
-                                                                    FooterStyle-HorizontalAlign="Right" FooterText="">                                                                   
-                                                                    <ItemStyle HorizontalAlign="Right" />                                                                    
+                                                                    FooterStyle-HorizontalAlign="Right" FooterText="">
+                                                                    <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="40px" UniqueName="DVP" HeaderText="DVP"
-                                                                    DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="77px" UniqueName="TotalPL" HeaderText="Total P/L"
-                                                                    DataField="TotalPL" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="TotalPL" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="79px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return (%)"
@@ -273,11 +274,11 @@
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                  <telerik:GridBoundColumn SortExpression="Weighted NAV"  HeaderStyle-Width="77px" UniqueName="Weighted_NAV" HeaderText="Weighted NAV"
-                                                                    DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N4}"  FooterStyle-HorizontalAlign="Right">
+                                                                <telerik:GridBoundColumn SortExpression="Weighted NAV" HeaderStyle-Width="77px" UniqueName="Weighted_NAV"
+                                                                    HeaderText="Weighted NAV" DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N4}"
+                                                                    FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn> 
-                                                                
+                                                                </telerik:GridBoundColumn>
                                                                 <%-- <telerik:GridBoundColumn HeaderStyle-Width="77px" SortExpression="weightage returns" UniqueName="Annualized_Return" HeaderText="Annualized Return (%)"
                                                                     DataField="weightage returns"  AllowFiltering="false" DataFormatString="{0:N2}"  FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
@@ -287,7 +288,6 @@
                                                                     DataField="Weighted Days" AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>   --%>
-                                                                                                                          
                                                             </Columns>
                                                         </MasterTableView>
                                                         <HeaderStyle Width="150px" />
@@ -331,10 +331,11 @@
                                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportrgAllFilteredData_OnClick"
                                                         OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgAll" runat="server" Width="1500px" PageSize="10" AllowPaging="True"
+                                                        OnExcelMLExportStylesCreated="rgAll_OnExcelMLExportStylesCreated" OnExcelMLExportRowCreated="rgAll_OnExcelMLExportRowCreated"
                                                         GridLines="None" AutoGenerateColumns="true" Style="border: 0; outline: none;"
-                                                        Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgAll_ItemCommand" OnItemDataBound="rgAll_ItemDataBound"
-                                                        AllowSorting="true" EnableViewState="true" OnNeedDataSource="rgAll_OnNeedDataSource"
-                                                        AllowFilteringByColumn="true">
+                                                        Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgAll_ItemCommand"
+                                                        OnItemDataBound="rgAll_ItemDataBound" AllowSorting="true" EnableViewState="true"
+                                                        OnNeedDataSource="rgAll_OnNeedDataSource" AllowFilteringByColumn="true">
                                                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                                         <%--  <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                                     Excel-Format="ExcelML">
@@ -425,8 +426,7 @@
                                                                     </FilterTemplate>
                                                                 </telerik:GridDateTimeColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="PurchasedUnits" HeaderText="Purchased Units"
-                                                                    DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="PurchasedUnits" AllowFiltering="false" DataFormatString="{0:N3}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="DVRUnits" HeaderText="DVR Units"
@@ -436,7 +436,7 @@
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="OpenUnits" HeaderText="Total Units"
                                                                     DataField="OpenUnits" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}"
-                                                                     AllowFiltering="false">
+                                                                    AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <%--<telerik:GridBoundColumn UniqueName="Price" HeaderText="Price" DataField="Price"
@@ -453,13 +453,12 @@
                                                                     DataField="NAV" FooterStyle-HorizontalAlign="Right" AllowFiltering="false" DataFormatString="{0:N4}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
                                                                     DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn> 
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue"
-                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" 
-                                                                    AllowFiltering="false">
+                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="UnitsSold" HeaderText="Units Sold"
@@ -469,16 +468,15 @@
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
                                                                     DataField="RedeemedAmount" FooterStyle-HorizontalAlign="Right" AllowFiltering="false"
-                                                                    DataFormatString="{0:N0}" >
+                                                                    DataFormatString="{0:N0}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="46px" UniqueName="DVP" HeaderText="DVP"
-                                                                    DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="TotalPL" HeaderText="Total P/L"
-                                                                    DataField="TotalPL" DataFormatString="{0:N0}"  FooterStyle-HorizontalAlign="Right"
+                                                                    DataField="TotalPL" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
                                                                     AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
@@ -487,8 +485,7 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="59px" UniqueName="DVR" HeaderText="DVR"
-                                                                    DataField="DVR" DataFormatString="{0:N0}"  AllowFiltering="false"
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="DVR" DataFormatString="{0:N0}" AllowFiltering="false" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR (%)"
@@ -542,7 +539,9 @@
                                                         OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgRealized" runat="server" Width="1500px" PageSize="10" AllowPaging="True"
                                                         AllowSorting="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
-                                                        outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgRealized_ItemCommand"  OnItemDataBound="rgRealized_ItemDataBound"
+                                                        outline: none;" OnExcelMLExportStylesCreated="rgRealized_OnExcelMLExportStylesCreated"
+                                                        OnExcelMLExportRowCreated="rgRealized_OnExcelMLExportRowCreated" Skin="Telerik"
+                                                        EnableEmbeddedSkins="false" OnItemCommand="rgRealized_ItemCommand" OnItemDataBound="rgRealized_ItemDataBound"
                                                         EnableViewState="true" OnNeedDataSource="rgRealized_OnNeedDataSource" AllowFilteringByColumn="true">
                                                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                                         <%-- <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -632,33 +631,27 @@
                                                                     </FilterTemplate>
                                                                 </telerik:GridDateTimeColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="120px" UniqueName="InvestedCost" HeaderText="Invested Cost"
-                                                                    DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="InvestedCost" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="UnitsSold" HeaderText="Units Sold"
-                                                                    DataField="UnitsSold" AllowFiltering="false" DataFormatString="{0:N3}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="UnitsSold" AllowFiltering="false" DataFormatString="{0:N3}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="100px" UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
-                                                                    DataField="RedeemedAmount" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="RedeemedAmount" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="50px" UniqueName="DVP" HeaderText="DVP"
-                                                                    DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="DVP" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="90px" UniqueName="TotalDividends" HeaderText="Total Dividends"
-                                                                    DataField="TotalDividends" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="TotalDividends" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="81px" UniqueName="TotalPL" HeaderText="Total P/L"
-                                                                    DataField="TotalPL" AllowFiltering="false" DataFormatString="{0:N0}" 
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="TotalPL" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="AbsoluteReturn" HeaderText="Absolute Return (%)"
@@ -990,7 +983,9 @@
                                                         OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgTaxHoldings" runat="server" Width="1500px" PageSize="10" AllowPaging="true"
                                                         AllowSorting="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
-                                                        outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgTaxHoldings_ItemCommand" OnItemDataBound="rgTaxHoldings_OnItemDataBound"
+                                                        outline: none;" OnExcelMLExportStylesCreated="rgTaxHoldings_OnExcelMLExportStylesCreated"
+                                                        OnExcelMLExportRowCreated="rgTaxHoldings_OnExcelMLExportRowCreated" Skin="Telerik"
+                                                        EnableEmbeddedSkins="false" OnItemCommand="rgTaxHoldings_ItemCommand" OnItemDataBound="rgTaxHoldings_OnItemDataBound"
                                                         EnableViewState="true" OnNeedDataSource="rgTaxHoldings_OnNeedDataSource" AllowFilteringByColumn="true">
                                                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                                         <%--<ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -1082,18 +1077,17 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="BalanceAmount" HeaderText="Acquisition Cost"
-                                                                    DataField="BalanceAmount" AllowFiltering="false" DataFormatString="{0:N0}"
-                                                                    FooterStyle-HorizontalAlign="Right">
+                                                                    DataField="BalanceAmount" AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="NAV" HeaderText="NAV" DataField="NAV" AllowFiltering="false"
                                                                     DataFormatString="{0:N4}">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
-                                                                 <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
+                                                                <telerik:GridBoundColumn HeaderStyle-Width="86px" UniqueName="CMFNP_NAVDate " HeaderText="NAV Date"
                                                                     DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                                                     <ItemStyle HorizontalAlign="Right" />
-                                                                </telerik:GridBoundColumn> 
+                                                                </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="MarketValue" HeaderText="Market Value" DataField="MarketValue"
                                                                     AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
@@ -1138,7 +1132,9 @@
                                                         OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>
                                                     <telerik:RadGrid ID="rgTaxRealized" runat="server" Width="1500px" PageSize="10" AllowPaging="true"
                                                         AllowSorting="true" GridLines="None" AutoGenerateColumns="true" Style="border: 0;
-                                                        outline: none;" Skin="Telerik" EnableEmbeddedSkins="false" OnItemCommand="rgTaxRealized_ItemCommand" OnItemDataBound="rgTaxRealized_OnItemDataBound"
+                                                        outline: none;" OnExcelMLExportStylesCreated="rgTaxRealized_OnExcelMLExportStylesCreated"
+                                                        OnExcelMLExportRowCreated="rgTaxRealized_OnExcelMLExportRowCreated" Skin="Telerik"
+                                                        EnableEmbeddedSkins="false" OnItemCommand="rgTaxRealized_ItemCommand" OnItemDataBound="rgTaxRealized_OnItemDataBound"
                                                         EnableViewState="true" OnNeedDataSource="rgTaxRealized_OnNeedDataSource" AllowFilteringByColumn="true">
                                                         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                                                         <%--     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -1221,8 +1217,7 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="UnitsSold" HeaderText="Units Sold" DataField="UnitsSold"
-                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}" 
-                                                                    AllowFiltering="false">
+                                                                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N3}" AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="RedeemedAmount" HeaderText="Redeemed Amount"
@@ -1231,7 +1226,8 @@
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="TotalPL" HeaderText="Total P/L" DataField="TotalPL"
-                                                                    AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">                                                                  <ItemStyle HorizontalAlign="Right" />
+                                                                    AllowFiltering="false" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn UniqueName="STCG" HeaderText="STCG" DataField="STCG" AllowFiltering="false"
                                                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
@@ -1256,6 +1252,18 @@
                             </telerik:RadPageView>
                         </telerik:RadMultiPage>
                     </asp:Panel>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr id="trNote" runat="server"  visible="false">
+                <td colspan="2">
+                    <div id="Div3" class="Note">
+                        <p>
+                            <span style="font-weight: bold">Note:</span><br />
+                            If the Net Unit balance is displaying negative please check if all the transactions and  corporate actions are uploaded. 
+                        </p>
+                    </div>
                 </td>
             </tr>
         </table>
