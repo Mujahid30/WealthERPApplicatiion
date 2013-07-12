@@ -774,7 +774,7 @@ namespace DaoUploads
 
                 if (RejectReasonFilter != "")
                     db.AddInParameter(getWERPRejectedProfilesCmd, "@rejectReasonFilter", DbType.String, RejectReasonFilter);
-
+                getWERPRejectedProfilesCmd.CommandTimeout = 60 * 60;
                 dsGetWERPRejectedProfiles = db.ExecuteDataSet(getWERPRejectedProfilesCmd);
             }
             catch (BaseApplicationException Ex)
