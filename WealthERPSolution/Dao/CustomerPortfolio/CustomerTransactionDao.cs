@@ -2325,7 +2325,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category)
         {
             DataSet ds = null;
             Database db;
@@ -2390,8 +2390,20 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
-               
 
+                if (AmcCode!=0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, DBNull.Value);
+                if (Category!="0")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
+                //if (All != 0)
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@all", DbType.Int32, All);
+                //else
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@all", DbType.Int32, 0);
+               
                 //db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CurrentPage", DbType.Int32, CurrentPage);
                 //if (CustomerName != string.Empty)
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerName", DbType.String, CustomerName);
@@ -2561,7 +2573,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category)
         {
             DataSet ds = null;
             Database db;
@@ -2600,7 +2612,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
-
+                if (AmcCode != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, DBNull.Value);
+                if (Category != "0")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
                 
@@ -3996,7 +4015,7 @@ namespace DaoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId)
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category)
         {
             DataSet ds = null;
             Database db;
@@ -4039,7 +4058,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, AccountId);
                 else
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, DBNull.Value);
-               
+                if (AmcCode != 0)
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AmcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AmcCode", DbType.Int32, DBNull.Value);
+                if (Category != "0")
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@Category", DbType.String, Category);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@Category", DbType.String, DBNull.Value);
                 getRMCustomerMFBalanceCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
                
@@ -4065,6 +4091,15 @@ namespace DaoCustomerPortfolio
                         mfBalanceVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
                         mfBalanceVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfBalanceVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfBalanceVo.AMCCode = int.Parse(dr["PA_AmcCode"].ToString());
+                        if (dr["PA_AMCName"].ToString() != null && dr["PA_AMCName"].ToString()!=string.Empty)
+                        {
+                            mfBalanceVo.AMCName = dr["PA_AMCName"].ToString();
+                        }
+                        else
+                        {
+                            mfBalanceVo.AMCName = "N/A";
+                        }
                         mfBalanceVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                         mfBalanceVo.Price = float.Parse(dr["CMFT_Price"].ToString());
                         mfBalanceVo.Amount = double.Parse(dr["CMFT_Amount"].ToString());
