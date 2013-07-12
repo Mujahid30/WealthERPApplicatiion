@@ -63,8 +63,8 @@
                     }
                 }
 
-                if (timerEvent != null) window.clearInterval(timerEvent);
-                timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
+                //if (timerEvent != null) window.clearInterval(timerEvent);
+//                timerEvent = window.setTimeout("calc('" + iframe_id + "')", 1000);
             }
             catch (e) { }
         }
