@@ -32,22 +32,23 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
             {
                 int requestId = Convert.ToInt32(dr["WR_RequestId"].ToString());
                 int dependentRequestId = Convert.ToInt32(dr["WR_DependentOn"].ToString());
-
+                bool flag;
                 int logId = 0;
                 try
                 {
-                    bool requestStatus = CheckDependentRequestStatus(dependentRequestId);
-                    if (requestStatus == true)
-                    {
+                    //bool requestStatus = CheckDependentRequestStatus(dependentRequestId);
+                    //if (requestStatus == true)
+                    //{
                         CreateTaskRequestLOG(requestId, out logId);
-                        ProcessBulkMailRequest(requestId, dependentRequestId);
+                        flag=ProcessBulkMailRequest(requestId, dependentRequestId);
+                        if(flag)
                         UpdateTaskRequestLOG(logId, "MAIL REQUEST SENT");
                         //UpdateTaskRequestStatus(requestId, 1);
-                    }
-                    else
-                    {
-                        UpdateRequestDetails(requestId);
-                    }
+                    //}
+                    //else
+                    //{
+                        
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -64,24 +65,25 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
 
         }
 
-        private void ProcessBulkMailRequest(int requestId, int dependentRequestId)
+        private bool ProcessBulkMailRequest(int requestId, int dependentRequestId)
         {
             EmailVo emailVo = new EmailVo();
             DataSet dsReportInputOutPutData = GetBulkMailReportInputOutData(requestId, dependentRequestId);
             DataTable dtRequestInputData = dsReportInputOutPutData.Tables[0];
             DataTable dtRequestOutPutData = dsReportInputOutPutData.Tables[1];
+            bool flag;
             try
             {
                 emailVo = FillBulkMailParamerValues(dtRequestInputData, dtRequestOutPutData);
                 emailVo.Body = "Dear Customer Please find attached report";
                 emailVo.Subject = "MF Report";
                 emailVo.SourceId = requestId;
-                CreateBulkMailRequest(emailVo);
-
+                flag=CreateBulkMailRequest(emailVo);
+                return flag;
             }
             catch (BaseApplicationException Ex)
             {
-
+                UpdateRequestDetails(requestId);
                 throw Ex;
             }
             catch (Exception Ex)
@@ -147,7 +149,7 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BulkMailRequestGenerationBo:ProcessBulkMailRequest()");
+                FunctionInfo.Add("Method", "BulkMailRequestGenerationBo:FillBulkMailParamerValues()");
                 object[] objects = new object[1];
                 objects[0] = daemonCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -180,7 +182,7 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BulkMailRequestGenerationBo:CheckDependentRequestStatus()");
+                FunctionInfo.Add("Method", "BulkMailRequestGenerationBo:GetBulkMailReportInputOutData()");
                 object[] objects = new object[1];
                 objects[0] = daemonCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -252,7 +254,7 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BulkReportGenerationDao:GetTheSubBulkReportRequestList()");
+                FunctionInfo.Add("Method", "BulkReportGenerationDao:UpdateTaskRequestLOG()");
                 object[] objects = new object[2];
                 objects[0] = logId;
                 objects[1] = message;
@@ -285,7 +287,7 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BulkMailRequestGenerationBo:CheckDependentRequestStatus()");
+                FunctionInfo.Add("Method", "BulkMailRequestGenerationBo:UpdateRequestDetails()");
                 object[] objects = new object[1];
                 objects[0] = daemonCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -408,10 +410,11 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
 
         }
 
-        private void CreateBulkMailRequest(EmailVo emailVo)
+        private bool CreateBulkMailRequest(EmailVo emailVo)
         {
             try
             {
+                bool flag=false;
                 SqlParameter[] Params = new SqlParameter[9];
                 Params[0] = new SqlParameter("@TO", emailVo.To);
                 Params[0].DbType = DbType.String;
@@ -441,7 +444,8 @@ namespace WERP_BULK_MAIL_REQUEST_RENERATION
                 Params[8].DbType = DbType.String;
 
                 Utils.ExecuteNonQuery("SPROC_CreateReportBulkMailRequest", Params);
-
+                flag=true;
+                return flag;
             }
             catch (BaseApplicationException Ex)
             {
