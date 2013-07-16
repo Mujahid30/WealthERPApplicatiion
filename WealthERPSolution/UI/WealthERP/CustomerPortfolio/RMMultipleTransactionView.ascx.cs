@@ -69,8 +69,6 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-               radwindowForManualMerge.VisibleOnPageLoad = false;
-
                 SessionBo.CheckSession();
                 this.Page.Culture = "en-GB";
                 userVo = (UserVo)Session["userVo"];
@@ -106,6 +104,7 @@ namespace WealthERP.CustomerPortfolio
                 if (!IsPostBack)
                 {
 
+              
                     if (Session["CustomerVo"] != null)
                     {
                         ddlDisplayType.Items.RemoveAt(2);
@@ -197,6 +196,7 @@ namespace WealthERP.CustomerPortfolio
 
                     ErrorMessage.Visible = false;
                 }
+                //radwindowForManualMerge.Visible = false;
             }
             catch (BaseApplicationException Ex)
             {
@@ -254,12 +254,11 @@ namespace WealthERP.CustomerPortfolio
                 Response.Write(@"<script language='javascript'>alert('Error updating Trail Data for: \n" + accountIdForMerge + "');</script>");
             else
                 Response.Write(@"<script language='javascript'>alert('Trail Data Updated for: \n" + accountIdForMerge + " successfully.');</script>");
-            radwindowForManualMerge.VisibleOnPageLoad = true;
+            
         }
 
         protected void btnShowTransactionForManualMerge_Click(object sender, EventArgs e)
         {
-            RadWindowManager1.Visible = true;
             radwindowForManualMerge.VisibleOnPageLoad = true;
             DataSet dsTransactionForMerge = new DataSet();
 
@@ -274,8 +273,11 @@ namespace WealthERP.CustomerPortfolio
 
             }
 
+            Session["accountIdForMerge"] = null;
             Session["accountIdForMerge"] = accountIdForMerge;
+            Session["TrailComissionSetUpId"] = null;
             Session["TrailComissionSetUpId"] = trailIdForMerge;
+            
             dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge);
 
 
@@ -302,6 +304,7 @@ namespace WealthERP.CustomerPortfolio
                 gvManualMerge.DataSource = dsTransactionForMerge;
                 btnExportTrnxToBeMerged.Visible = false;
                 Button1.Visible = false;
+                gvManualMerge.Visible = true;
             }
         }
 
@@ -1096,7 +1099,7 @@ namespace WealthERP.CustomerPortfolio
                     btnTrnxExport.Visible = false;
                     //imgBtnTrail.Visible = false;
                 }
-
+                radwindowForManualMerge.VisibleOnPageLoad = false;
 
                 if (Cache["ViewTrailCommissionDetails" + userVo.UserId + userType] == null)
                 {
@@ -1120,6 +1123,7 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvTrail_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
+            radwindowForManualMerge.VisibleOnPageLoad = false;
             DataSet dtTrailstransactionDetails = new DataSet();
             dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
             gvTrail.DataSource = dtTrailstransactionDetails;
@@ -1129,7 +1133,6 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvManualMerge_NeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            radwindowForManualMerge.VisibleOnPageLoad = true;
             DataSet dtTrailstransactionDetails = new DataSet();
             dtTrailstransactionDetails = (DataSet)Cache["TrnxToBeMergedDetails" + userVo.UserId + userType];
             gvManualMerge.DataSource = dtTrailstransactionDetails;

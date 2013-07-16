@@ -21,6 +21,7 @@
         }
     }
 </script>
+
 <script type="text/javascript" language="javascript">
     function CheckOneForRadWindow(obj) {
         var grid = obj.parentNode.parentNode.parentNode;
@@ -34,6 +35,7 @@
         }
     }
 </script>
+
 <script type="text/javascript" language="javascript">
     function GetParentCustomerId(source, eventArgs) {
         document.getElementById("<%= txtParentCustomerId.ClientID %>").value = eventArgs.get_value();
@@ -117,191 +119,189 @@
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <telerik:RadWindowManager ID="RadWindowManager1" runat="server" EnableShadow="false">
-            <Windows>
-                <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForManualMerge" EnableShadow="false"
-                    Modal="false" runat="server" InitialBehaviors="None" VisibleStatusbar="false"
-                    Title="Link transaction to Trail" Behaviors="Move,close" Width="570px" Height="420px">
-                    <ContentTemplate>
-                        <div  style="padding: 20px">
-                            <asp:ImageButton ID="btnExportTrnxToBeMerged" ImageUrl="~/Images/Export_Excel.png"
-                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                                OnClientClick="setFormat('excel')" Height="23px" Width="25px" OnClick="btnExportTrnxToBeMerged_Click">
-                            </asp:ImageButton>
-                            
-                        </div>
-                       
-                        <div style="padding: 20px">
-                            <telerik:RadGrid ID="gvManualMerge" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
-                                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="true"
-                                OnNeedDataSource="gvManualMerge_NeedDataSource" AllowAutomaticInserts="false"
-                                ExportSettings-FileName="Nominee Details">
-                                <ExportSettings HideStructureColumns="true">
-                                </ExportSettings>
-                                <MasterTableView DataKeyNames="CMFA_AccountId,CMFT_MFTransId" NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
-                                    AutoGenerateColumns="false" CommandItemDisplay="None">
-                                    <Columns>
-                                        <telerik:GridTemplateColumn HeaderText="Select" AllowFiltering="false">
-                                            <HeaderTemplate>
-                                                <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
-                                                <input style="display: none" id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox"
-                                                    onclick="checkAllBoxes()" />
-                                            </HeaderTemplate>
-                                            <ItemTemplate>
-                                                <asp:CheckBox ID="cbRecons" runat="server" onclick="CheckOneForRadWindow(this)" />
-                                            </ItemTemplate>
-                                        </telerik:GridTemplateColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_MFTransId" HeaderText="MFTransId" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="CMFT_MFTransId" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_MFTransId"
-                                            FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFA_AccountId" HeaderText="AccountId" AllowFiltering="true"
-                                            Visible="false" SortExpression="CMFA_AccountId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" UniqueName="CMFA_AccountId" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="ProcessId" AllowFiltering="true"
-                                            SortExpression="ADUL_ProcessId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
-                                            AllowFiltering="true" SortExpression="PASP_SchemePlanCode" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanCode"
-                                            FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_TransactionDate" HeaderText="TransactionDate"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_TransactionDate"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_TransactionDate" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_BuySell" HeaderText="BuySell" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="CMFT_BuySell" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_BuySell"
-                                            FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_DividendRate" HeaderText="DividendRate"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_DividendRate"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_DividendRate" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_TransactionNumber" HeaderText="TransactionNumber"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="Transaction Type"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_TransactionNumber" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_NAV" HeaderText="NAV" AllowFiltering="true"
-                                            AllowSorting="true" HeaderStyle-Wrap="false" SortExpression="CMFT_NAV" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_NAV"
-                                            FooterStyle-HorizontalAlign="Center">
-                                            <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_Price" HeaderText="Price (Rs)" AllowFiltering="true"
-                                            SortExpression="CMFT_Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CMFT_Price"
-                                            FooterStyle-HorizontalAlign="Right">
-                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_Amount" HeaderText="Amount" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="CMFT_Amount" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_Amount"
-                                            FooterStyle-HorizontalAlign="Right">
-                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_Units" HeaderText="Units" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="CMFT_Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" UniqueName="CMFT_Units" FooterStyle-HorizontalAlign="Right">
-                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_STT" HeaderText="STT(Rs)" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="CMFT_STT" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" UniqueName="CMFT_STT" FooterStyle-HorizontalAlign="Right"
-                                            DataFormatString="{0:n2}" Aggregate="Sum">
-                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="XES_SourceCode" HeaderText="SourceCode" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="XES_SourceCode" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="XES_SourceCode"
-                                            FooterStyle-HorizontalAlign="Right">
-                                            <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="WMTT_TransactionClassificationCode" HeaderText="TransactionClassificationCode"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="WMTT_TransactionClassificationCode"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="WMTT_TransactionClassificationCode" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_ARNNumber" HeaderText="ARNNumber" AllowFiltering="true"
-                                            HeaderStyle-Wrap="false" SortExpression="CMFT_ARNNumber" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_ARNNumber"
-                                            FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_ExternalBrokeragePer" HeaderText="ExternalBrokeragePer"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokeragePer"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="CMFT_ExternalBrokeragePer"
-                                            FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_InternalBrokeragePer" HeaderText="InternalBrokeragePer"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_InternalBrokeragePer"
-                                            ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_InternalBrokeragePer" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_InternalBrokerageAmount" HeaderText="InternalBrokerageAmount"
-                                            AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CMFT_InternalBrokerageAmount"
-                                            ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_InternalBrokerageAmount" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="ExternalBrokerageAmount"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount"
-                                            ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_ExternalBrokerageAmount" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="WTS_TransactionStatusCode" HeaderText="TransactionStatusCode"
-                                            AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="WTS_TransactionStatusCode"
-                                            ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="WTS_TransactionStatusCode" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_TransactionStatusChangeDate" HeaderText="TransactionStatusChangeDate"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_TransactionStatusChangeDate"
-                                            ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_TransactionStatusChangeDate" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CMFT_OriginalTransactionNumber" HeaderText="OriginalTransactionNumber"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_OriginalTransactionNumber"
-                                            ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            UniqueName="CMFT_OriginalTransactionNumber" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                    </Columns>
-                                </MasterTableView>
-                                <ClientSettings>
-                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                </ClientSettings>
-                            </telerik:RadGrid>
-                        </div>
-                        <div style="padding: 20px">
-                            <asp:Button ID="Button1" runat="server" CssClass="PCGButton" Text="Merge" OnClick="btnManualMerge_Click" />
-                        </div>
-                    </ContentTemplate>
-                </telerik:RadWindow>
-            </Windows>
-        </telerik:RadWindowManager>
         <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <telerik:RadWindow ID="radwindowForManualMerge" EnableShadow="false" Modal="false"
+                        runat="server" InitialBehaviors="None" VisibleStatusbar="false" Title="Link transaction to Trail"
+                        Behaviors="Move,close" Width="570px" Height="420px">
+                        <ContentTemplate>
+                            <div style="padding: 20px">
+                                <asp:ImageButton ID="btnExportTrnxToBeMerged" ImageUrl="~/Images/Export_Excel.png"
+                                    Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                    OnClientClick="setFormat('excel')" Height="23px" Width="25px" OnClick="btnExportTrnxToBeMerged_Click">
+                                </asp:ImageButton>
+                            </div>
+                            <div style="padding: 20px">
+                                <telerik:RadGrid ID="gvManualMerge" runat="server" GridLines="None" AutoGenerateColumns="False"
+                                    PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="true"
+                                    OnNeedDataSource="gvManualMerge_NeedDataSource" AllowAutomaticInserts="false"
+                                    ExportSettings-FileName="Nominee Details">
+                                    <ExportSettings HideStructureColumns="true">
+                                    </ExportSettings>
+                                    <MasterTableView DataKeyNames="CMFA_AccountId,CMFT_MFTransId" NoDetailRecordsText="Records not found"
+                                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                                        <Columns>
+                                            <telerik:GridTemplateColumn HeaderText="Select" AllowFiltering="false">
+                                                <HeaderTemplate>
+                                                    <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
+                                                    <input style="display: none" id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox"
+                                                        onclick="checkAllBoxes()" />
+                                                </HeaderTemplate>
+                                                <ItemTemplate>
+                                                    <asp:CheckBox ID="cbRecons" runat="server" onclick="CheckOneForRadWindow(this)" />
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_MFTransId" HeaderText="MFTransId" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="CMFT_MFTransId" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_MFTransId"
+                                                FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFA_AccountId" HeaderText="AccountId" AllowFiltering="true"
+                                                SortExpression="CMFA_AccountId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                AutoPostBackOnFilter="true" UniqueName="CMFA_AccountId" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ADUL_ProcessId" HeaderText="ProcessId" AllowFiltering="true"
+                                                SortExpression="ADUL_ProcessId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                AutoPostBackOnFilter="true" UniqueName="ADUL_ProcessId" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
+                                                AllowFiltering="true" SortExpression="PASP_SchemePlanCode" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanCode"
+                                                FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_TransactionDate" HeaderText="TransactionDate"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_TransactionDate"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_TransactionDate" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_BuySell" HeaderText="BuySell" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="CMFT_BuySell" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_BuySell"
+                                                FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_DividendRate" HeaderText="DividendRate"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_DividendRate"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_DividendRate" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_TransactionNumber" HeaderText="TransactionNumber"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="Transaction Type"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_TransactionNumber" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_NAV" HeaderText="NAV" AllowFiltering="true"
+                                                AllowSorting="true" HeaderStyle-Wrap="false" SortExpression="CMFT_NAV" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_NAV"
+                                                FooterStyle-HorizontalAlign="Center">
+                                                <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_Price" HeaderText="Price (Rs)" AllowFiltering="true"
+                                                SortExpression="CMFT_Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CMFT_Price"
+                                                FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_Amount" HeaderText="Amount" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="CMFT_Amount" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_Amount"
+                                                FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_Units" HeaderText="Units" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="CMFT_Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                AutoPostBackOnFilter="true" UniqueName="CMFT_Units" FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_STT" HeaderText="STT(Rs)" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="CMFT_STT" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                AutoPostBackOnFilter="true" UniqueName="CMFT_STT" FooterStyle-HorizontalAlign="Right"
+                                                DataFormatString="{0:n2}" Aggregate="Sum">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="XES_SourceCode" HeaderText="SourceCode" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="XES_SourceCode" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="XES_SourceCode"
+                                                FooterStyle-HorizontalAlign="Right">
+                                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="WMTT_TransactionClassificationCode" HeaderText="TransactionClassificationCode"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="WMTT_TransactionClassificationCode"
+                                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="WMTT_TransactionClassificationCode" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_ARNNumber" HeaderText="ARNNumber" AllowFiltering="true"
+                                                HeaderStyle-Wrap="false" SortExpression="CMFT_ARNNumber" ShowFilterIcon="false"
+                                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_ARNNumber"
+                                                FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_ExternalBrokeragePer" HeaderText="ExternalBrokeragePer"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokeragePer"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="CMFT_ExternalBrokeragePer"
+                                                FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_InternalBrokeragePer" HeaderText="InternalBrokeragePer"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_InternalBrokeragePer"
+                                                ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_InternalBrokeragePer" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_InternalBrokerageAmount" HeaderText="InternalBrokerageAmount"
+                                                AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CMFT_InternalBrokerageAmount"
+                                                ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_InternalBrokerageAmount" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_ExternalBrokerageAmount" HeaderText="ExternalBrokerageAmount"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_ExternalBrokerageAmount"
+                                                ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_ExternalBrokerageAmount" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="WTS_TransactionStatusCode" HeaderText="TransactionStatusCode"
+                                                AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="WTS_TransactionStatusCode"
+                                                ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="WTS_TransactionStatusCode" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_TransactionStatusChangeDate" HeaderText="TransactionStatusChangeDate"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_TransactionStatusChangeDate"
+                                                ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_TransactionStatusChangeDate" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CMFT_OriginalTransactionNumber" HeaderText="OriginalTransactionNumber"
+                                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFT_OriginalTransactionNumber"
+                                                ShowFilterIcon="false" AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                                UniqueName="CMFT_OriginalTransactionNumber" FooterStyle-HorizontalAlign="Left">
+                                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                        </Columns>
+                                    </MasterTableView>
+                                    <ClientSettings>
+                                        <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                                    </ClientSettings>
+                                </telerik:RadGrid>
+                            </div>
+                            <div style="padding: 20px">
+                                <asp:Button ID="Button1" runat="server" CssClass="PCGButton" Text="Merge" OnClick="btnManualMerge_Click" />
+                            </div>
+                        </ContentTemplate>
+                    </telerik:RadWindow>
+                </td>
+            </tr>
             <tr>
                 <td>
                     <table width="100%">
@@ -870,10 +870,10 @@
                                             AllowAutomaticInserts="false" ExportSettings-FileName="Trail DETAILS" OnNeedDataSource="gvTrail_OnNeedDataSource">
                                             <ExportSettings HideStructureColumns="true">
                                             </ExportSettings>
-                                            <MasterTableView Width="100%" DataKeyNames="CMFA_AccountId,CMFTCSU_TrailComissionSetUpId" AllowMultiColumnSorting="True"
-                                                AutoGenerateColumns="false" CommandItemDisplay="None">
-                                                <Columns>   
-                                                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
+                                            <MasterTableView Width="100%" DataKeyNames="CMFA_AccountId,CMFTCSU_TrailComissionSetUpId"
+                                                AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                                                <Columns>
+                                                    <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
                                                         <HeaderTemplate>
                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                                             <input style="display: none" id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox"
@@ -893,9 +893,9 @@
                                                         AllowFiltering="false" Visible="false">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                      <telerik:GridBoundColumn DataField="CMFTCSU_TrailComissionSetUpId" HeaderText="CMFTCSU_TrailComissionSetUpId"
-                                                        UniqueName="CMFTCSU_TrailComissionSetUpId" SortExpression="CMFTCSU_TrailComissionSetUpId" AutoPostBackOnFilter="true"
-                                                        ShowFilterIcon="false">
+                                                    <telerik:GridBoundColumn DataField="CMFTCSU_TrailComissionSetUpId" HeaderText="TrailComissionSetUpId"
+                                                        UniqueName="CMFTCSU_TrailComissionSetUpId" SortExpression="CMFTCSU_TrailComissionSetUpId"
+                                                        AutoPostBackOnFilter="true" ShowFilterIcon="false">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" HeaderText="SchemePlanCode"
@@ -986,6 +986,18 @@
                                                         UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N2}">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
+                                                     <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFT_MFTransId"
+                                                        HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="MFTransId"
+                                                        UniqueName="CMFT_MFTransId">
+                                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                     <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFA_AccountId"
+                                                        HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="AccountId"
+                                                        UniqueName="CMFA_AccountId">
+                                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    
+
                                                 </Columns>
                                                 <HeaderStyle Width="180px" />
                                             </MasterTableView>
@@ -995,6 +1007,14 @@
                                             </ClientSettings>
                                         </telerik:RadGrid>
                                     </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <asp:Button ID="btnAutoMatch" runat="server" Text="Auto Match" CssClass="PCGMediumButton"
+                                        OnClick="btnAutoMatch_Click" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <asp:Button ID="btnMannualMatch" runat="server" Text="Manual Match" CssClass="PCGMediumButton"
+                                        OnClick="btnShowTransactionForManualMerge_Click" />
                                 </td>
                             </tr>
                         </table>
