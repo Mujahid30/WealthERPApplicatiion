@@ -219,10 +219,10 @@ namespace WealthERP.CustomerPortfolio
                     dtGoldPortfolio.Columns.Add("GoldNPId");
                     dtGoldPortfolio.Columns.Add("Instrument Category");
                     dtGoldPortfolio.Columns.Add("Purchase Date");
-                    dtGoldPortfolio.Columns.Add("Purchase Value");
-                    dtGoldPortfolio.Columns.Add("Current Value");
+                    dtGoldPortfolio.Columns.Add("Purchase Value",typeof(Double));
+                    dtGoldPortfolio.Columns.Add("Current Value", typeof(Double));
+                 
                     dtGoldPortfolio.Columns.Add("Remarks");
-
 
 
                     DataRow drGoldPortfolio;
@@ -241,7 +241,6 @@ namespace WealthERP.CustomerPortfolio
                         drGoldPortfolio[3] = goldVo.PurchaseValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drGoldPortfolio[4] = goldVo.CurrentValue.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
                         drGoldPortfolio[5] = goldVo.Remarks.ToString();
-
 
                         dtGoldPortfolio.Rows.Add(drGoldPortfolio);
                     }

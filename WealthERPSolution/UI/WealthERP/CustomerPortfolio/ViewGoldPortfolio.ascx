@@ -2,7 +2,6 @@
     Inherits="WealthERP.CustomerPortfolio.ViewGoldPortfolio" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
-
 <script language="javascript" type="text/javascript">
     function showmessage() {
 
@@ -30,7 +29,6 @@
         </td>
     </tr>
 </table>
-
 <table class="TableBackground" style="width: 100%">
     <tr>
         <td colspan="4" class="HeaderCell">
@@ -49,7 +47,6 @@
     <tr>
         <td>
             <%--<asp:Label ID="lblMessage" runat="server" CssClass="Error" Text="No Records found..!"></asp:Label>--%>
-            
         </td>
     </tr>
     <tr>
@@ -74,7 +71,8 @@
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
+                            <asp:DropDownList ID="ddlAction" runat="server" AutoPostBack="true" CssClass="GridViewCmbField"
+                                OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange">
                                 <asp:ListItem Text="Select" />
                                 <asp:ListItem Text="View" Value="View">View</asp:ListItem>
                                 <asp:ListItem Text="Edit" Value="Edit">Edit</asp:ListItem>
@@ -87,6 +85,11 @@
                         ItemStyle-HorizontalAlign="Center" />
                     <asp:BoundField DataField="Purchase Value" HeaderText="Purchase Value (Rs)" ItemStyle-HorizontalAlign="Right" />
                     <asp:BoundField DataField="Current Value" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
+                    <asp:TemplateField HeaderText="P/L(Rs)">
+                        <ItemTemplate>
+                            <asp:Label ID="LblTotal" runat="server" Text='<%# Convert.ToInt32(Eval("Purchase Value")) - Convert.ToInt32(Eval("Current Value"))%>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="Remarks" HeaderText="Remarks" />
                 </Columns>
             </asp:GridView>
@@ -102,24 +105,23 @@
         </tr>
     </table>
 </div>
-<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
+<table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
+    visible="false">
     <tr>
-    <td align="center">
-     <div class="failure-msg" id="ErrorMessage" visible="false" runat="server"  align="center">
-    </div>
-    </td>
+        <td align="center">
+            <div class="failure-msg" id="ErrorMessage" visible="false" runat="server" align="center">
+            </div>
+        </td>
     </tr>
- </table>
+</table>
 <tr>
-<asp:Button ID="btnUpdateNP" runat="server" Text="Update Current Value" OnClick="btn_Update" CssClass="PCGLongButton" AutoPostBack="true" />
+    <asp:Button ID="btnUpdateNP" runat="server" Text="Update Current Value" OnClick="btn_Update"
+        CssClass="PCGLongButton" AutoPostBack="true" />
 </tr>
-
 <asp:HiddenField ID="hdnSort" runat="server" Value="InstrumentCategory ASC" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
-
-           <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
 <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
-
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdndeleteId" runat="server" />
 <asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"

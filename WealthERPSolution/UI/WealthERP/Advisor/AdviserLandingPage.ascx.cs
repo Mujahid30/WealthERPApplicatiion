@@ -200,14 +200,14 @@ namespace WealthERP.Advisor
             intCount = msgBo.GetUnreadMessageCount(userVo.UserId, out flavourId);
             hdfFlavourId.Value = flavourId.ToString();
             if (intCount > 0)
-            {   
-                    lnkbtnInbox.Text = "Inbox " + "(" + intCount + ")";
+            {
+                lnkbtnInbox.Text = "Reports " + "(" + intCount + ")";
                     imgInbox.ImageUrl = "~/Images/msgUnRead.png";
             }
             
             else
             {
-                lnkbtnInbox.Text = "Inbox " + "(" + intCount + ")";
+                lnkbtnInbox.Text = "Reports " + "(" + intCount + ")";
                 imgInbox.ImageUrl = "~/Images/messageread.png";
             }
         }

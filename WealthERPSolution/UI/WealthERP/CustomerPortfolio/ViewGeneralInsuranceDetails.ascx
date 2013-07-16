@@ -143,7 +143,7 @@
                                     <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="MaturityDate" DataFormatString="{0:dd/MM/yyyy}"
-                                    AllowFiltering="false" HeaderText="Maturity Date" UniqueName="ActiveLevel">
+                                    AllowFiltering="false" HeaderText="Policy Renewal date" UniqueName="ActiveLevel">
                                     <ItemStyle Width="" HorizontalAlign="center" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
