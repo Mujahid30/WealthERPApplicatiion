@@ -2965,7 +2965,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement DateRow = new RowElement();
                 CellElement Datecell = new CellElement();
                 Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "As on Date" + ": " + Convert.ToDateTime(genDict[Constants.MFDate.ToString()].ToString());
+                Datecell.Data.DataItem = "As on Date" + ": " +genDict[Constants.MFDate.ToString()].ToString("dd/MM/yyyy");
                 DateRow.Cells.Add(Datecell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
                 rowIndex++;
@@ -3058,7 +3058,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement DateRow = new RowElement();
                 CellElement Datecell = new CellElement();
                 Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString();
+                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString("dd/MM/yyyy");
                 DateRow.Cells.Add(Datecell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
                 rowIndex++;
@@ -3150,7 +3150,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement DateRow = new RowElement();
                 CellElement Datecell = new CellElement();
                 Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString();
+                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString("dd/MM/yyyy");
                 DateRow.Cells.Add(Datecell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
                 rowIndex++;
@@ -3242,7 +3242,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement DateRow = new RowElement();
                 CellElement Datecell = new CellElement();
                 Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString();
+                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString("dd/MM/yyyy");
                 DateRow.Cells.Add(Datecell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
                 rowIndex++;
@@ -3334,7 +3334,7 @@ namespace WealthERP.CustomerPortfolio
                 RowElement DateRow = new RowElement();
                 CellElement Datecell = new CellElement();
                 Datecell.MergeAcross = e.Row.Cells.Count - 1;
-                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString();
+                Datecell.Data.DataItem = "As on Date" + ": " + genDict[Constants.MFDate.ToString()].ToString("dd/MM/yyyy");
                 DateRow.Cells.Add(Datecell);
                 e.Worksheet.Table.Rows.Insert(rowIndex, DateRow);
                 rowIndex++;
