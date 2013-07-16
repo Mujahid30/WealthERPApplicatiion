@@ -259,6 +259,10 @@ namespace WealthERP.CustomerPortfolio
 
         protected void btnShowTransactionForManualMerge_Click(object sender, EventArgs e)
         {
+
+            Session["accountIdForMerge"] = null;
+            Session["TrailComissionSetUpId"] = null;
+
             radwindowForManualMerge.VisibleOnPageLoad = true;
             DataSet dsTransactionForMerge = new DataSet();
 
@@ -273,9 +277,8 @@ namespace WealthERP.CustomerPortfolio
 
             }
 
-            Session["accountIdForMerge"] = null;
             Session["accountIdForMerge"] = accountIdForMerge;
-            Session["TrailComissionSetUpId"] = null;
+         
             Session["TrailComissionSetUpId"] = trailIdForMerge;
             
             dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge);
