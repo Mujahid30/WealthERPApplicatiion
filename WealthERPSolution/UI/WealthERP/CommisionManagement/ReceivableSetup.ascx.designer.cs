@@ -66,6 +66,44 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+
+        /// <summary>
+        /// ddlBrokerageUnit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBrokerageUnit;
+
+        /// <summary>
+        /// ddlCommissionType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionType;
+
+
+           /// <summary>
+        /// ddlCommisionCalOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCommisionCalOn;
+        
+
+         /// <summary>
+        /// ddlInvestorType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlInvestorType;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -102,15 +140,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSubCategory;
-        
-        /// <summary>
-        /// ddlSubCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSubCategory;
         
         /// <summary>
         /// lblIssuer control.
@@ -158,22 +187,13 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.DropDownList ddlCommissionApplicableLevel;
         
         /// <summary>
-        /// lblCommissionType control.
+        /// rlbAssetSubCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCommissionType;
-        
-        /// <summary>
-        /// ddlCommissionType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionType;
+        protected global::Telerik.Web.UI.RadListBox rlbAssetSubCategory;
         
         /// <summary>
         /// lblValidityFrom control.
@@ -284,24 +304,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
-        /// chkMoneytaryReward control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkMoneytaryReward;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-        
-        /// <summary>
         /// lblStructureName control.
         /// </summary>
         /// <remarks>
@@ -320,58 +322,22 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.TextBox txtStructureName;
         
         /// <summary>
-        /// lblValue control.
+        /// chkHasClawBackOption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblValue;
+        protected global::System.Web.UI.WebControls.CheckBox chkHasClawBackOption;
         
         /// <summary>
-        /// txtValue control.
+        /// lblHasClawBackOption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtValue;
-        
-        /// <summary>
-        /// lblUnit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUnit;
-        
-        /// <summary>
-        /// ddlUnit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlUnit;
-        
-        /// <summary>
-        /// lblCalculatedOn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCalculatedOn;
-        
-        /// <summary>
-        /// ddlCommisionCalOn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommisionCalOn;
+        protected global::System.Web.UI.WebControls.Label lblHasClawBackOption;
         
         /// <summary>
         /// lblApplyTaxes control.
@@ -392,31 +358,22 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.CheckBoxList chkListApplyTax;
         
         /// <summary>
-        /// lblAUMFor control.
+        /// chkMoneytaryReward control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAUMFor;
+        protected global::System.Web.UI.WebControls.CheckBox chkMoneytaryReward;
         
         /// <summary>
-        /// txtAUMFor control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAUMFor;
-        
-        /// <summary>
-        /// ddlAUMFor control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAUMFor;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// lblAppCityGroup control.
@@ -455,24 +412,6 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.DropDownList ddlReceivableFrequency;
         
         /// <summary>
-        /// chkHasClawBackOption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkHasClawBackOption;
-        
-        /// <summary>
-        /// lblHasClawBackOption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHasClawBackOption;
-        
-        /// <summary>
         /// lblNote control.
         /// </summary>
         /// <remarks>
@@ -489,6 +428,24 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNote;
+        
+        /// <summary>
+        /// btnStructureSubmit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStructureSubmit;
+        
+        /// <summary>
+        /// tblCommissionStructureRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
         
         /// <summary>
         /// trStepTwoHeading control.
@@ -509,165 +466,21 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Label lblStage;
         
         /// <summary>
-        /// lblMinInvestmentAmount control.
+        /// RadGridStructureRule control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMinInvestmentAmount;
+        protected global::Telerik.Web.UI.RadGrid RadGridStructureRule;
         
         /// <summary>
-        /// txtMinInvestmentAmount control.
+        /// hidCommissionStructureName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMinInvestmentAmount;
-        
-        /// <summary>
-        /// lblMaxInvestmentAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMaxInvestmentAmount;
-        
-        /// <summary>
-        /// txtMaxInvestmentAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMaxInvestmentAmount;
-        
-        /// <summary>
-        /// lblMinTenure control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMinTenure;
-        
-        /// <summary>
-        /// txtMinTenure control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMinTenure;
-        
-        /// <summary>
-        /// lblMaxTenure control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMaxTenure;
-        
-        /// <summary>
-        /// txtMaxTenure control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMaxTenure;
-        
-        /// <summary>
-        /// lblMinInvestAge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMinInvestAge;
-        
-        /// <summary>
-        /// txtMinInvestAge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMinInvestAge;
-        
-        /// <summary>
-        /// lblMaxInvestAge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMaxInvestAge;
-        
-        /// <summary>
-        /// txtMaxInvestAge control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMaxInvestAge;
-        
-        /// <summary>
-        /// lblInvestorType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInvestorType;
-        
-        /// <summary>
-        /// ddlInvestorType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlInvestorType;
-        
-        /// <summary>
-        /// lblTransactionType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTransactionType;
-        
-        /// <summary>
-        /// chkListTtansactionType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBoxList chkListTtansactionType;
-        
-        /// <summary>
-        /// lblMinNumberOfApplication control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMinNumberOfApplication;
-        
-        /// <summary>
-        /// txtMinNumberOfApplication control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMinNumberOfApplication;
+        protected global::System.Web.UI.WebControls.HiddenField hidCommissionStructureName;
     }
 }
