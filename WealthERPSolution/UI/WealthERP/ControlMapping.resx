@@ -1589,4 +1589,8 @@
     <value>UserManagement//AgentManagement.ascx</value>
     <comment>UserManagement//AgentManagement.ascx</comment>
   </data>
+  <data name="CommissionStructureRuleGrid" xml:space="preserve">
+    <value>CommisionManagement//CommissionStructureRuleGrid.ascx</value>
+    <comment>CommisionManagement//CommissionStructureRuleGrid.ascx</comment>
+  </data>
 </root>
