@@ -471,7 +471,7 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     imgBtnrgRealized.Visible = false;
-                    trNote.Visible = false;
+                    //trNote.Visible = false;
                 }
                 rgRealized.DataBind();
 
@@ -2131,7 +2131,7 @@ namespace WealthERP.CustomerPortfolio
             else
             {
                 ErrorMessage.Visible = true;
-                trNote.Visible = false;
+               trNote.Visible = false;
             }
         }
 
@@ -2209,7 +2209,7 @@ namespace WealthERP.CustomerPortfolio
                         chrtTopTenSectors.DataBind();
                         //chrtTotalAssets.Series["Assets"]. 
                         chrtTopTenSectors.Visible = true;
-                        trNote.Visible = false;
+                       trNote.Visible = false;
                     }
 
                 }
@@ -2304,14 +2304,14 @@ namespace WealthERP.CustomerPortfolio
                         chrtTopHoldings.DataBind();
                         //chrtTotalAssets.Series["Assets"]. 
                         chrtTopHoldings.Visible = true;
-                        trNote.Visible = false;
+                      trNote.Visible = false;
                     }
 
                 }
                 else
                 {
                     trHoldingGrid.Visible = true;
-                    trNote.Visible = false;
+                   trNote.Visible = false;
                     trTop10HoldingsPie.Visible = true;
                 }
 
@@ -2379,14 +2379,14 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     gvSchemePerformance.Visible = false;
-                    trNote.Visible = false;
+                  trNote.Visible = false;
                     ErrorMessage.Visible = true;
 
                 }
             }
             else
             {
-                trNote.Visible = false;
+               trNote.Visible = false;
                 ErrorMessage.Visible = true;
             }
         }
