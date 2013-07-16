@@ -42,5 +42,118 @@ namespace BoCommisionManagement
             }
             return dsLookupData;
         }
+
+
+        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId,out int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            
+            try
+            {
+                 commisionReceivableDao.CreateCommissionStructureMastter(commissionStructureMasterVo, userId, out structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:CreateCommissionStructureMastter(int adviserId)");
+                object[] objects = new object[2];
+                objects[0] = userId;
+                objects[1] = commissionStructureMasterVo.AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           
+        }
+
+        public DataSet GetAdviserCommissionStructureRules(int adviserId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsCommissionStructureRules;
+            try
+            {
+                dsCommissionStructureRules = commisionReceivableDao.GetAdviserCommissionStructureRules(adviserId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetAdviserCommissionStructureRules(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCommissionStructureRules;
+        }
+
+        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo)");
+                object[] objects = new object[2];
+                objects[0] = commissionStructureRuleVo.CommissionStructureId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        public DataSet GetStructureCommissionAllRules(int structureId, string commissionType)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsCommissionRules;
+            try
+            {
+                dsCommissionRules = commisionReceivableDao.GetStructureCommissionAllRules(structureId, commissionType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetStructureCommissionAllRules(int structureId, string commissionType)");
+                object[] objects = new object[1];
+                objects[0] = structureId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCommissionRules;
+        }
     }
 }
