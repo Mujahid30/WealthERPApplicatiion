@@ -737,6 +737,22 @@ namespace WealthERP.Advisor
                 else
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView','none');", true);
             }
+            else if (str == "Insurance")
+            {
+                Session["IsDashboard"] = "Insurance";
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewInsuranceDetails','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewInsuranceDetails','none');", true);
+            }
+            else if (str == "General Insurance")
+            {
+                Session["IsDashboard"] = "GeneralInsurance";
+                if (Session["S_CurrentUserRole"] == "Customer")
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrolCustomer('ViewGeneralInsuranceDetails','none');", true);
+                else
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewGeneralInsuranceDetails','none');", true);
+            }
             else if (str == "Direct Equity")
             {
                 Session["IsDashboard"] = "DirectEquity";
