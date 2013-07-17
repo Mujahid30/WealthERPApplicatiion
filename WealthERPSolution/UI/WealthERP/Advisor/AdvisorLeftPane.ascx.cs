@@ -360,6 +360,16 @@ namespace WealthERP.Advisor
               
               
             }
+
+            else if (Session["NodeType"] == "CustomerReportsDashBoard")
+            {
+                RadPanelBar1.FindItemByValue("Customer").Expanded = true;
+                RadPanelBar1.FindItemByValue("Customer_Report").Expanded = true;
+                RadPanelBar1.FindItemByValue("Customer_Report").Selected = true;
+
+
+
+            }
             //if (!String.IsNullOrEmpty(Session["NodeType"].ToString()))
             //{
 
