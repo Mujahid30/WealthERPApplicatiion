@@ -71,7 +71,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PremiumAccumalated", DbType.Decimal, insuranceVo.PremiumAccumalated);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_PolicyEpisode", DbType.Decimal, insuranceVo.PolicyEpisode);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_BonusAccumalated", DbType.Decimal, insuranceVo.BonusAccumalated);
+                if (insuranceVo.SurrenderValue!=null)
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_SurrenderValue", DbType.Decimal, insuranceVo.SurrenderValue);
+                else
+                    db.AddInParameter(createInsurancePortfolioCmd, "@CINP_SurrenderValue", DbType.Decimal, DBNull.Value);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_MaturityValue", DbType.Decimal, insuranceVo.MaturityValue);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_ULIPCharges", DbType.Decimal, insuranceVo.InsuranceCharges);
                 db.AddInParameter(createInsurancePortfolioCmd, "@CINP_CreatedBy", DbType.Int32, userId);
@@ -288,8 +291,8 @@ namespace DaoCustomerPortfolio
                         if (dr["CINP_StartDate"].ToString() != string.Empty)
                             insuranceVo.StartDate = DateTime.Parse(dr["CINP_StartDate"].ToString());
                         insuranceVo.SumAssured = float.Parse(dr["CINP_SumAssured"].ToString());
+                        if (dr["CINP_SurrenderValue"].ToString() != null && dr["CINP_SurrenderValue"].ToString() != "")
                         insuranceVo.SurrenderValue = float.Parse(dr["CINP_SurrenderValue"].ToString());
-
                         if (dr["CINP_ULIPCharges"].ToString() != null && dr["CINP_ULIPCharges"].ToString() != "")
                             insuranceVo.InsuranceCharges = float.Parse(dr["CINP_ULIPCharges"].ToString());
                         if (dr["CINP_PremiumPaymentDate"].ToString() != null && dr["CINP_PremiumPaymentDate"].ToString() != "")
