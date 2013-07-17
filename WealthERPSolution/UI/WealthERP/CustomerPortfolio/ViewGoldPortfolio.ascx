@@ -85,12 +85,12 @@
                         ItemStyle-HorizontalAlign="Center" />
                     <asp:BoundField DataField="Purchase Value" HeaderText="Purchase Value (Rs)" ItemStyle-HorizontalAlign="Right" />
                     <asp:BoundField DataField="Current Value" HeaderText="Current Value (Rs)" ItemStyle-HorizontalAlign="Right" />
-                    <asp:TemplateField HeaderText="P/L(Rs)" ItemStyle-HorizontalAlign="Right">
+                    <asp:TemplateField HeaderText="P/L (Rs)" ItemStyle-HorizontalAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="LblTotal" runat="server" Text='<%# Convert.ToDouble(Eval("Purchase Value")) - Convert.ToDouble(Eval("Current Value"))%>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                      <asp:TemplateField HeaderText="P/L(%)" ItemStyle-HorizontalAlign="Right">
+                      <asp:TemplateField HeaderText="P/L (%)" ItemStyle-HorizontalAlign="Right">
                         <ItemTemplate>
                             <asp:Label ID="LblPercentage" runat="server" Text='<%# (Convert.ToDouble(Eval("Purchase Value")) - Convert.ToDouble(Eval("Current Value")))/100%>'></asp:Label>
                         </ItemTemplate>
