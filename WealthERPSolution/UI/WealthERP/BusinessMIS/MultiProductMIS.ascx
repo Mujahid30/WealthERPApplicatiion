@@ -452,7 +452,7 @@
                         <%--<telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="maturity value">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>--%>
-                        <telerik:GridBoundColumn DataField="MaturityDate" AllowFiltering="false" HeaderText="Maturity Date" DataFormatString="{0:d}">
+                        <telerik:GridBoundColumn DataField="MaturityDate" AllowFiltering="false" HeaderText="Policy Renewal Date" DataFormatString="{0:d}">
                             <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <%--<telerik:GridBoundColumn DataField="CommencementDate" AllowFiltering="false" HeaderText="Next Premium due date"
