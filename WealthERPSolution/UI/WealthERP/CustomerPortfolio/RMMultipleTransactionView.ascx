@@ -135,7 +135,7 @@
                             <div style="padding: 20px">
                                 <telerik:RadGrid ID="gvManualMerge" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="true"
+                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                                     OnNeedDataSource="gvManualMerge_NeedDataSource" AllowAutomaticInserts="false"
                                     ExportSettings-FileName="Nominee Details">
                                     <ExportSettings HideStructureColumns="true">
@@ -866,13 +866,40 @@
                                     <div id="Div3" visible="false" runat="server" style="margin: 2px; width: 100%;">
                                         <telerik:RadGrid ID="gvTrail" runat="server" GridLines="None" AutoGenerateColumns="False"
                                             PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                            Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
-                                            AllowAutomaticInserts="false" ExportSettings-FileName="Trail DETAILS" OnNeedDataSource="gvTrail_OnNeedDataSource">
+                                            Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" OnItemDataBound="gvTrail_ItemDataBound"
+                                            AllowAutomaticInserts="false" ExportSettings-FileName="Trail DETAILS" OnPreRender="gvTrail_PreRender"
+                                            OnNeedDataSource="gvTrail_OnNeedDataSource">
                                             <ExportSettings HideStructureColumns="true">
                                             </ExportSettings>
-                                            <MasterTableView Width="100%" DataKeyNames="CMFA_AccountId,CMFTCSU_TrailComissionSetUpId"
+                                            <MasterTableView Width="100%" DataKeyNames="CMFA_FolioNum,CMFA_AccountId,CMFTCSU_TrailComissionSetUpId,PASP_SchemePlanCode,CMFT_TransactionNumber,CMFTCSU_Units,CMFTCSU_Amount,CMFTCSU_TransactionDate"
                                                 AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                                                 <Columns>
+                                                    <telerik:GridBoundColumn DataField="Conditioning" AllowFiltering="true"
+                                                        HeaderText="Select" UniqueName="Conditioning" AutoPostBackOnFilter="true">
+                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        <FilterTemplate>
+                                                            <telerik:RadComboBox ID="RadComboBoxRR" Width="210px" CssClass="cmbField" AllowFiltering="true"
+                                                                AutoPostBack="true" OnSelectedIndexChanged="RCBForTrailCondiotining_SelectedIndexChanged"
+                                                                IsFilteringEnabled="true" AppendDataBoundItems="true" AutoPostBackOnFilter="false"
+                                                                OnPreRender="RCBForTrailCondiotining_PreRender" EnableViewState="true" SelectedValue='<%# ((GridItem)Container).OwnerTableView.GetColumn("Conditioning").CurrentFilterValue %>'
+                                                                runat="server">
+                                                                <Items>
+                                                                    <telerik:RadComboBoxItem Text="All" Value="" Selected="false"></telerik:RadComboBoxItem>
+                                                                </Items>
+                                                            </telerik:RadComboBox>
+                                                            <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
+                                                                <script type="text/javascript">
+                                                                    function RejectReasonIndexChanged(sender, args) {
+                                                                        alert(tableView);
+                                                                        var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
+                                                                        tableView.filter("RejectReasonCode", args.get_item().get_value(), "EqualTo");
+                                                                    } 
+                                                                </script>
+
+                                                            </telerik:RadScriptBlock>
+                                                        </FilterTemplate>
+                                                    </telerik:GridBoundColumn>
                                                     <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="50px">
                                                         <HeaderTemplate>
                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
@@ -986,18 +1013,26 @@
                                                         UniqueName="CMFTCSU_TrailFee" Aggregate="Sum" DataFormatString="{0:N2}">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                     <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFT_MFTransId"
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFT_MFTransId"
                                                         HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="MFTransId"
                                                         UniqueName="CMFT_MFTransId">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                     <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFA_AccountId"
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFA_AccountId"
                                                         HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="AccountId"
                                                         UniqueName="CMFA_AccountId">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    
-
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFT_TransactionNumber"
+                                                        HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="TransactionNumber"
+                                                        UniqueName="CMFT_TransactionNumber">
+                                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFA_FolioNum"
+                                                        HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText="FolioNum"
+                                                        UniqueName="CMFA_FolioNum">
+                                                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
                                                 </Columns>
                                                 <HeaderStyle Width="180px" />
                                             </MasterTableView>

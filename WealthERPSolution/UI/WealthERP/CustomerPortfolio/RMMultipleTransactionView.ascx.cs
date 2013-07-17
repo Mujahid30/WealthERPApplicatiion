@@ -64,7 +64,13 @@ namespace WealthERP.CustomerPortfolio
         int isMergeManual = 0;
         int transactionIdForMerge = 0;
         int trailIdForMerge = 0;
-       
+        string folionoForMerge = string.Empty;
+        int schemeplancodeForMerge = 0;
+        string transactionnoForMerge = string.Empty;
+        double unitsForMerge;
+        double amountForMerge = 0;
+        DateTime transactionDateForMerge;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -104,13 +110,13 @@ namespace WealthERP.CustomerPortfolio
                 if (!IsPostBack)
                 {
 
-              
+
                     if (Session["CustomerVo"] != null)
                     {
                         ddlDisplayType.Items.RemoveAt(2);
                     }
 
-                    BindAMC();                   
+                    BindAMC();
                     BindCategory();
                     Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
                     trGroupHead.Visible = false;
@@ -224,8 +230,37 @@ namespace WealthERP.CustomerPortfolio
         {
             bool isMergeCompleted = false;
 
+            Session["accountIdForMerge"] = null;
+            Session["TrailComissionSetUpId"] = null;
+            Session["folionoForMerge"] = null;
+            Session["schemeplancodeForMerge"] = null;
+            Session["transactionnoForMerge"] = null;
 
-            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 0);
+            radwindowForManualMerge.VisibleOnPageLoad = true;
+            DataSet dsTransactionForMerge = new DataSet();
+
+
+
+            foreach (GridDataItem item in this.gvTrail.Items)
+            {
+                if (((CheckBox)item.FindControl("cbOne")).Checked == true)
+                {
+                    accountIdForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFA_AccountId"]);
+                    trailIdForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFTCSU_TrailComissionSetUpId"]);
+                    folionoForMerge = gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFA_FolioNum"].ToString();
+                    schemeplancodeForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["PASP_SchemePlanCode"]);
+                    transactionnoForMerge = gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFT_TransactionNumber"].ToString();
+
+                    unitsForMerge = Convert.ToDouble(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFTCSU_Units"].ToString());
+                    amountForMerge = Convert.ToDouble(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFTCSU_Amount"].ToString());
+                    transactionDateForMerge = Convert.ToDateTime(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFTCSU_TransactionDate"].ToString());
+                    break;
+                }
+
+            }
+
+
+            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 0, folionoForMerge, schemeplancodeForMerge, transactionnoForMerge,unitsForMerge,amountForMerge,transactionDateForMerge,advisorVo.advisorId);
             if (isMergeCompleted == false)
                 Response.Write(@"<script language='javascript'>alert('Error updating Trail Data for: \n" + accountIdForMerge + "');</script>");
             else
@@ -249,12 +284,12 @@ namespace WealthERP.CustomerPortfolio
                 }
 
             }
-            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 1);
+            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 1, folionoForMerge, schemeplancodeForMerge, transactionnoForMerge, unitsForMerge, amountForMerge, transactionDateForMerge, advisorVo.advisorId);
             if (isMergeCompleted == false)
                 Response.Write(@"<script language='javascript'>alert('Error updating Trail Data for: \n" + accountIdForMerge + "');</script>");
             else
                 Response.Write(@"<script language='javascript'>alert('Trail Data Updated for: \n" + accountIdForMerge + " successfully.');</script>");
-            
+
         }
 
         protected void btnShowTransactionForManualMerge_Click(object sender, EventArgs e)
@@ -262,9 +297,14 @@ namespace WealthERP.CustomerPortfolio
 
             Session["accountIdForMerge"] = null;
             Session["TrailComissionSetUpId"] = null;
+            Session["folionoForMerge"] = null;
+            Session["schemeplancodeForMerge"] = null;
+            Session["transactionnoForMerge"] = null;
 
             radwindowForManualMerge.VisibleOnPageLoad = true;
             DataSet dsTransactionForMerge = new DataSet();
+
+        
 
             foreach (GridDataItem item in this.gvTrail.Items)
             {
@@ -272,16 +312,22 @@ namespace WealthERP.CustomerPortfolio
                 {
                     accountIdForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFA_AccountId"]);
                     trailIdForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFTCSU_TrailComissionSetUpId"]);
+                    folionoForMerge = gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFA_FolioNum"].ToString();
+                    schemeplancodeForMerge = Convert.ToInt32(gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["PASP_SchemePlanCode"]);
+                    transactionnoForMerge = gvTrail.MasterTableView.DataKeyValues[item.ItemIndex]["CMFT_TransactionNumber"].ToString();
                     break;
                 }
 
             }
 
             Session["accountIdForMerge"] = accountIdForMerge;
-         
             Session["TrailComissionSetUpId"] = trailIdForMerge;
-            
-            dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge);
+            Session["folionoForMerge"] = folionoForMerge;
+            Session["schemeplancodeForMerge"] = schemeplancodeForMerge;
+            Session["transactionnoForMerge"] = transactionnoForMerge;
+
+
+            dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge,trailIdForMerge,folionoForMerge,schemeplancodeForMerge,transactionnoForMerge,advisorVo.advisorId);
 
 
             if (Cache["TrnxToBeMergedDetails" + userVo.UserId + userType] == null)
@@ -434,7 +480,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlAMC.DataValueField = dtProductAMC.Columns["PA_AMCCode"].ToString();
                     ddlAMC.DataBind();
                 }
-            ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlAMC.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -455,7 +501,7 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
             }
         }
-      private void BindCategory()
+        private void BindCategory()
         {
             try
             {
@@ -469,7 +515,7 @@ namespace WealthERP.CustomerPortfolio
                     ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                     ddlCategory.DataBind();
                 }
-              ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
 
             }
             catch (BaseApplicationException Ex)
@@ -492,7 +538,7 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
-       
+
         private void BindGroupHead()
         {
 
@@ -634,7 +680,7 @@ namespace WealthERP.CustomerPortfolio
         }
         private void BindGrid(DateTime convertedFromDate, DateTime convertedToDate)
         {
-           
+
             //Dictionary<string, string> genDictTranType = new Dictionary<string, string>();
             //Dictionary<string, string> genDictCategory = new Dictionary<string, string>();
             //Dictionary<string, int> genDictAMC = new Dictionary<string, int>();
@@ -654,7 +700,7 @@ namespace WealthERP.CustomerPortfolio
                 }
 
             }
-           SetParameter();
+            SetParameter();
             DataSet ds = new DataSet();
             //int Count = 0;
             //totalAmount = 0;
@@ -663,7 +709,7 @@ namespace WealthERP.CustomerPortfolio
             int AdviserId = 0;
             //AmcCode =  hdnAMC.Value.ToString();
             //Category = hdnCategory.Value;
-            
+
             if (userType == "advisor" || userType == "ops")
                 AdviserId = advisorVo.advisorId;
             else if (userType == "rm")
@@ -1064,7 +1110,7 @@ namespace WealthERP.CustomerPortfolio
             {
                 if (rbtnGroup.Checked)
                 {
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,int.Parse(hdnAMC.Value),hdnCategory.Value);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value);
                 }
                 else if (Session["IsCustomerDrillDown"] == "Yes")
                 {
@@ -1077,6 +1123,28 @@ namespace WealthERP.CustomerPortfolio
                 }
                 if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
                 {
+                    dsTrailCommissionDetails.Tables[0].Columns.Add("Conditioning");
+                    int i=0;
+                    foreach(DataRow dr in dsTrailCommissionDetails.Tables[0].Rows)
+                    {
+                    if (!string.IsNullOrEmpty(dsTrailCommissionDetails.Tables[0].Columns["CMFT_MFTransId"].ToString()))
+                        dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"]="Not Matched";
+                        else
+                        dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"] = "Matched";
+                    i++;
+                    }
+
+
+                    if (Cache["ViewTrailCommissionDetails" + advisorVo.advisorId] == null)
+                    {
+                        Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
+                    }
+                    else
+                    {
+                        Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
+                        Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
+                    }
+
                     btnTrnxExport.Visible = true;
                     ErrorMessage.Visible = false;
                     Panel1.Visible = false;
@@ -1104,15 +1172,6 @@ namespace WealthERP.CustomerPortfolio
                 }
                 radwindowForManualMerge.VisibleOnPageLoad = false;
 
-                if (Cache["ViewTrailCommissionDetails" + userVo.UserId + userType] == null)
-                {
-                    Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
-                }
-                else
-                {
-                    Cache.Remove("ViewTrailCommissionDetails" + advisorVo.advisorId);
-                    Cache.Insert("ViewTrailCommissionDetails" + advisorVo.advisorId, dsTrailCommissionDetails);
-                }
                 Panel2.Visible = false;
                 Panel1.Visible = false;
                 //Div1.Visible = false;
@@ -1124,6 +1183,93 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void RCBForTrailCondiotining_PreRender(object sender, EventArgs e)
+        {
+            RadComboBox Combo = sender as RadComboBox;
+            ////persist the combo selected value  
+            if (ViewState["Conditioning"] != null)
+            {
+                Combo.SelectedValue = ViewState["Conditioning"].ToString();
+            }
+
+        }
+
+        protected void gvTrail_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
+            {
+                DataSet dsRejectedSIP = new DataSet();
+                DataTable dtRejectedSIP = new DataTable();
+                GridFilteringItem filterItem = (GridFilteringItem)e.Item;
+                RadComboBox RadComboBoxRR = (RadComboBox)filterItem.FindControl("RadComboBoxRR");
+                dsRejectedSIP = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+                dtRejectedSIP = dsRejectedSIP.Tables[0];
+                DataTable dtTSIP = new DataTable();
+                dtTSIP.Columns.Add("ConditioningCode");
+                dtTSIP.Columns.Add("ConditioningDescription");
+                DataRow drTSIP;
+                foreach (DataRow dr in dtRejectedSIP.Rows)
+                {
+                    drTSIP = dtTSIP.NewRow();
+                    drTSIP["ConditioningCode"] = dr["Conditioning"].ToString();
+                    drTSIP["ConditioningDescription"] = dr["Conditioning"].ToString();
+                    dtTSIP.Rows.Add(drTSIP);
+                }
+                //RadComboBoxRR.Items.Insert(0, new Telerik.Web.UI.RadComboBoxItem("ALL", "0"));
+                DataView view = new DataView(dtTSIP);
+                DataTable distinctValues = view.ToTable(true, "ConditioningDescription", "ConditioningCode");
+                RadComboBoxRR.DataSource = distinctValues;
+                RadComboBoxRR.DataValueField = dtTSIP.Columns["ConditioningCode"].ToString();
+                RadComboBoxRR.DataTextField = dtTSIP.Columns["ConditioningDescription"].ToString();
+                RadComboBoxRR.DataBind();
+
+            }
+
+        }
+
+        protected void gvTrail_PreRender(object sender, EventArgs e)
+        {
+            if (gvTrail.MasterTableView.FilterExpression != string.Empty)
+            {
+                DataSet dsRejectedSIP = new DataSet();
+                DataTable dtRejectedSIP = new DataTable();
+                try
+                {
+                    dsRejectedSIP = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+                    dtRejectedSIP = dsRejectedSIP.Tables[0];
+                    DataView view = new DataView(dtRejectedSIP);
+                    DataTable distinctValues = view.ToTable();
+                    DataRow[] rows = distinctValues.Select(gvTrail.MasterTableView.FilterExpression.ToString());
+                }
+                catch (Exception ex)
+                {
+                }
+                finally
+                {
+                    gvTrail.MasterTableView.Rebind();
+                }
+            }
+        }  
+
+        protected void RCBForTrailCondiotining_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
+        {
+            RadComboBox dropdown = o as RadComboBox;
+            ViewState["Conditioning"] = dropdown.SelectedValue.ToString();
+            if (ViewState["Conditioning"] != "")
+            {
+                GridColumn column = gvTrail.MasterTableView.GetColumnSafe("Conditioning");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvTrail.MasterTableView.Rebind();
+            }
+            else
+            {
+                GridColumn column = gvTrail.MasterTableView.GetColumnSafe("Conditioning");
+                column.CurrentFilterFunction = GridKnownFunction.EqualTo;
+                gvTrail.MasterTableView.Rebind();
+            }
+
+        }
+
         protected void gvTrail_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             radwindowForManualMerge.VisibleOnPageLoad = false;
@@ -1131,6 +1277,28 @@ namespace WealthERP.CustomerPortfolio
             dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
             gvTrail.DataSource = dtTrailstransactionDetails;
             gvTrail.Visible = true;
+
+            string rcbType = string.Empty;
+          
+            DataTable dtrr = new DataTable();
+            dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
+            if (dtTrailstransactionDetails != null)
+            {
+                dtrr = dtTrailstransactionDetails.Tables[0];
+                if (ViewState["Conditioning"] != null)
+                    rcbType = ViewState["Conditioning"].ToString();
+                if (!string.IsNullOrEmpty(rcbType))
+                {
+                    DataView dvStaffList = new DataView(dtrr, "Conditioning = '" + rcbType + "'", "", DataViewRowState.CurrentRows);
+                    gvTrail.DataSource = dvStaffList.ToTable();
+
+                }
+                else
+                {
+                    gvTrail.DataSource = dtrr;
+                 
+                }
+            }
         }
 
 
