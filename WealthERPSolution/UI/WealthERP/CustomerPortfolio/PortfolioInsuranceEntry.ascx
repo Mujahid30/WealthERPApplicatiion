@@ -215,8 +215,9 @@
     }
 </script>
 
-<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
-    Width="500px" Modal="true" BackColor="#DADADA" Behaviors="Move,resize,close" VisibleStatusbar="false" 
+
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false"
+    Width="500px" Modal="true" BackColor="#DADADA" Behaviors="Move,resize,close" VisibleStatusbar="false"
     Title="Insert New Scheme">
     <ContentTemplate>
         <div style="padding: 20px">
@@ -379,7 +380,7 @@
                 Width="42%" OnSelectedIndexChanged="ddlUlipPlans_SelectedIndexChanged">
             </asp:DropDownList>
             <asp:Button ID="btnAddScheme" runat="server" CssClass="PCGMediumButton" Text="Add Scheme"
-                CausesValidation="false" OnClick="btnAddScheme_OnClick" />
+                CausesValidation="false"  OnClick="btnAddScheme_OnClick" />
         </td>
     </tr>
     <tr>
