@@ -393,6 +393,7 @@ namespace WealthERP.Advisor
                 {
 
                     hdnbranchHeadId.Value = bmID.ToString();
+                    hdnbranchId.Value = "0";
                     hdnAll.Value = "0";
                     hdnrmId.Value = "0";
                 }
