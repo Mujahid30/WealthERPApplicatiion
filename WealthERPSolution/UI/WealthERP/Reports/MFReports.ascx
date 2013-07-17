@@ -61,6 +61,7 @@
     }
 </style>
 
+
 <script type="text/javascript" language="javascript">
     function LBCustomer_Count(sender, e) {
         var source = e.get_sourceListBox();
@@ -70,8 +71,8 @@
         
         var target = e.get_domEvent().target.parentNode;
         //    alert(target.className.indexOf("rlbTransferTo"));
-       
-        
+
+
         document.getElementById('<%=lblCountDestinationValue.ClientID %>').innerHTML = oldItems.get_count();
 
         document.getElementById('<%=lblCountSourceValue.ClientID %>').innerHTML = newItems.get_count() - 1;
@@ -1172,12 +1173,12 @@
                                                         padding-left: 150px;">
                                                         <asp:Label ID="lblSelectCustomer" runat="server" CssClass="FieldName" Text="   ">
                                                         </asp:Label>
-                                                        <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y"
+                                                        <telerik:RadListBox SelectionMode="Multiple" EnableDragAndDrop="true" AccessKey="y" 
                                                             AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ListBoxSource_Transferred"
                                                             EnableViewState="true" EnableMarkMatches="true" runat="server" ID="LBCustomer"
                                                             Height="200px" Width="250px" OnClientTransferred="LBCustomer_Count" AllowTransfer="true"
                                                             TransferToID="RadListBoxDestination" CssClass="cmbField">
-                                                        </telerik:RadListBox>
+                                                        </telerik:RadListBox>   
                                                         <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
                                                             ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField">
                                                         </telerik:RadListBox>
@@ -1275,7 +1276,7 @@
                                                                 </ajaxToolkit:TextBoxWatermarkExtender>--%>
                                                                 <telerik:RadDatePicker ID="txtEmailAsOnDate" CssClass="txtField" runat="server" Culture="English (United States)"
                                                                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                                                                    <Calendar runat="server" OnDayRender="txtEmailAsOnDate_DayRender" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                                                                    <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                                                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                                                                     </Calendar>
                                                                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
