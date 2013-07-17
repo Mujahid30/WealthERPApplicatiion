@@ -27,7 +27,7 @@ namespace WealthERP.Advisor
 
             if (!IsPostBack)
             {
-                ShowUnreadMessageAlert();
+                //ShowUnreadMessageAlert();
                 ShowMessageBroadcast();
             }
         }
@@ -140,10 +140,11 @@ namespace WealthERP.Advisor
 
             if (flavourId == 10)
             {
-            Session["NodeType"] = "MessageInbox";
+                Session["NodeType"] = "CustomerReportsDashBoard";   
+            //Session["NodeType"] = "MessageInbox";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('CustomerReportsDashBoard','login');", true);
             }
             else
             {
@@ -153,20 +154,31 @@ namespace WealthERP.Advisor
         }
         public void imgInbox_OnClick(object sender, EventArgs e)
         {
-            int flavourId = 0;
-            int.TryParse(hdfFlavourId.Value, out flavourId);
+            //int flavourId = 0;
+            //int.TryParse(hdfFlavourId.Value, out flavourId);
 
-            if (flavourId == 10)
+            //if (flavourId == 10)
+            //{
+            //    Session["NodeType"] = "CustomerReportsDashBoard";
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('CustomerReportsDashBoard','login');", true);
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+
+            //}
+
+            if (advisorVo.IsOpsEnable == 1)
             {
-                Session["NodeType"] = "MessageInbox";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
-
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('MessageInbox','login');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
-
+                Session["NodeType"] = "CustomerReportsDashBoard";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerReportsDashBoard','login');", true);
             }
         }
 

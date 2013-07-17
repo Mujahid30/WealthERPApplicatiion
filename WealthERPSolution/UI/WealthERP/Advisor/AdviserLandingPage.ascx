@@ -162,11 +162,11 @@
                     </td>
                     <td style="width: 30%;" align="center">
                            <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
-                            <asp:ImageButton ID="imgInbox" runat="server" ToolTip="Navigate to Inbox" OnClick="imgInbox_OnClick"
+                            <asp:ImageButton ID="imgInbox" ImageUrl="~/Images/report.png" runat="server" ToolTip="Navigate to Reports" OnClick="imgInbox_OnClick"
                                 Width="70px" />
                             <br />
                             <asp:LinkButton ID="lnkbtnInbox" runat="server"  Font-Underline="false"  CssClass="FieldName" OnClick="lnkbtnInbox_OnClick"
-                                ToolTip="Navigate to Inbox" Text=""></asp:LinkButton>
+                                ToolTip="Navigate to Inbox"  Text="Reports"></asp:LinkButton>
                         </div>
                     </td>
                     <td style="width: 30%;" align="center">
