@@ -2179,7 +2179,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool SundaramTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        public bool SundaramTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm,int adviserId)
         {
             bool IsProcessComplete = false;
             try
@@ -2188,6 +2188,7 @@ namespace BoUploads
                 Package standardProPkg2 = App.LoadPackage(Packagepath, null);
                 standardProPkg2.Variables["varProcessId"].Value = processId;
                 standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.Variables["varAdviserId"].Value = adviserId;
                 standardProPkg2.ImportConfigurationFile(configPath);
                 DTSExecResult karvyProResult2 = standardProPkg2.Execute();
                 if (karvyProResult2.ToString() == "Success")
@@ -2642,7 +2643,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool TempletonTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        public bool TempletonTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm,int adviserId)
         {
             bool IsProcessComplete = false;
             try
@@ -2651,6 +2652,7 @@ namespace BoUploads
                 Package standardProPkg2 = App.LoadPackage(Packagepath, null);
                 standardProPkg2.Variables["varProcessId"].Value = processId;
                 standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.Variables["varAdviserId"].Value = adviserId;
                 standardProPkg2.ImportConfigurationFile(configPath);
                 DTSExecResult karvyProResult2 = standardProPkg2.Execute();
                 if (karvyProResult2.ToString() == "Success")
@@ -2875,7 +2877,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool CAMSTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        public bool CAMSTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm,int adviserId)
         {
             bool IsProcessComplete = false;
             try
@@ -2884,6 +2886,7 @@ namespace BoUploads
                 Package standardProPkg2 = App.LoadPackage(Packagepath, null);
                 standardProPkg2.Variables["varProcessId"].Value = processId;
                 standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.Variables["varAdviserId"].Value = adviserId;
                 standardProPkg2.ImportConfigurationFile(configPath);
                 DTSExecResult karvyProResult2 = standardProPkg2.Execute();
                 if (karvyProResult2.ToString() == "Success")
@@ -3107,7 +3110,7 @@ namespace BoUploads
             return IsProcessComplete;
         }
 
-        public bool KARVYTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm)
+        public bool KARVYTrailCommissionCommonStagingChk(int processId, string Packagepath, string configPath, string UploadTypeShortForm,int adviserId)
         {
             bool IsProcessComplete = false;
             try
@@ -3116,6 +3119,8 @@ namespace BoUploads
                 Package standardProPkg2 = App.LoadPackage(Packagepath, null);
                 standardProPkg2.Variables["varProcessId"].Value = processId;
                 standardProPkg2.Variables["varUploadTypeShortForm"].Value = UploadTypeShortForm;
+                standardProPkg2.Variables["varAdviserId"].Value = adviserId;
+
                 standardProPkg2.ImportConfigurationFile(configPath);
                 DTSExecResult karvyProResult2 = standardProPkg2.Execute();
                 if (karvyProResult2.ToString() == "Success")
