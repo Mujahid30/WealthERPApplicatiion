@@ -2085,7 +2085,7 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                TempletonTrailCommonStagingChk = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "TN");
+                                                TempletonTrailCommonStagingChk = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "TN", adviserId);
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "TN");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
@@ -2215,7 +2215,7 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                TempletonTrailCommonStagingChk = camsUploadsBo.SundaramTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "SU");
+                                                TempletonTrailCommonStagingChk = camsUploadsBo.SundaramTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "SU", adviserId);
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "SU");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
@@ -2342,7 +2342,7 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                TempletonTrailCommonStagingChk = camsUploadsBo.SundaramTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "SU");
+                                                TempletonTrailCommonStagingChk = camsUploadsBo.SundaramTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "SU", adviserId);
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "SU");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
@@ -2474,7 +2474,7 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                CAMSTrailCommonStagingChk = camsUploadsBo.CAMSTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "CA");
+                                                CAMSTrailCommonStagingChk = camsUploadsBo.CAMSTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "CA", adviserId);
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "CA");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
@@ -2608,7 +2608,7 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                KARVYTrailCommonStagingChk = camsUploadsBo.KARVYTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA");
+                                                KARVYTrailCommonStagingChk = camsUploadsBo.KARVYTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA",adviserId);
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "KA");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
