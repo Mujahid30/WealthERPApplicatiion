@@ -135,22 +135,28 @@ namespace WealthERP.Advisor
         }
         public void lnkbtnInbox_OnClick(object sender, EventArgs e)
         {
-            int flavourId = 0;
-            int.TryParse(hdfFlavourId.Value, out flavourId);
 
-            if (flavourId == 10)
-            {
-                Session["NodeType"] = "CustomerReportsDashBoard";   
-            //Session["NodeType"] = "MessageInbox";
+            Session["NodeType"] = "CustomerReportsDashBoard";
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
 
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('CustomerReportsDashBoard','login');", true);
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrderentry", "loadcontrol('CustomerReportsDashBoard','login');", true);
 
-            }
+            //int flavourId = 0;
+            //int.TryParse(hdfFlavourId.Value, out flavourId);
+
+            //if (flavourId == 10)
+            //{
+            //    Session["NodeType"] = "CustomerReportsDashBoard";   
+          
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadInbox", "loadcontrol('CustomerReportsDashBoard','login');", true);
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+
+            //}
         }
         public void imgInbox_OnClick(object sender, EventArgs e)
         {
@@ -169,7 +175,7 @@ namespace WealthERP.Advisor
             //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
 
             //}
-
+            Session["UserType"] = "adviser";
             if (advisorVo.IsOpsEnable == 1)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
