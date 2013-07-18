@@ -2031,13 +2031,13 @@ namespace BoCustomerPortfolio
         }
 
 
-        public bool MergeTrailDetailsWithTransaction(int accountId,int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual)
+        public bool MergeTrailDetailsWithTransaction(int accountId, int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual, string folionoForMerge, int schemeplancodeForMerge, string transactionnoForMerge, double unitsForMerge, double amountForMerge, DateTime transactionDateForMerge, int adviserId)
         {
             bool bResult = false;
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             try
             {
-                bResult = customerTransactionDao.MergeTrailDetailsWithTransaction(accountId,trailIdForMerge, transactionIdForMerge, IsCompleted, isMergeManual);
+                bResult = customerTransactionDao.MergeTrailDetailsWithTransaction(accountId, trailIdForMerge, transactionIdForMerge, IsCompleted, isMergeManual, folionoForMerge, schemeplancodeForMerge, transactionnoForMerge, unitsForMerge, amountForMerge, transactionDateForMerge,adviserId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2047,13 +2047,13 @@ namespace BoCustomerPortfolio
             
         }
 
-        public DataSet GetTransactionDetailsForTrail(int AccountId)
+        public DataSet GetTransactionDetailsForTrail(int AccountId,int trailIdForMerge,string folionoForMerge,int schemeplancodeForMerge,string transactionnoForMerge,int advisorId)
         {
             DataSet ds;
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             try
             {
-                ds = customerTransactionDao.GetTransactionDetailsForTrail(AccountId);
+                ds = customerTransactionDao.GetTransactionDetailsForTrail(AccountId,trailIdForMerge,folionoForMerge,schemeplancodeForMerge,transactionnoForMerge,advisorId);
             }
             catch (BaseApplicationException Ex)
             {

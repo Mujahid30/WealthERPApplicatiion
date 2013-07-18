@@ -4193,7 +4193,7 @@ namespace DaoCustomerPortfolio
             return dsGetEqLedgerMIS;
         }
 
-        public bool MergeTrailDetailsWithTransaction(int accountId,int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual)
+        public bool MergeTrailDetailsWithTransaction(int accountId, int trailIdForMerge, int transactionIdForMerge, int IsCompleted, int isMergeManual, string folionoForMerge, int schemeplancodeForMerge, string transactionnoForMerge, double unitsForMerge, double amountForMerge, DateTime transactionDateForMerge, int adviserId)
         {
             bool result = false;
             Database db;
@@ -4210,6 +4210,29 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createEquityTransactionCmd, "@transactionIdForMerge", DbType.Int32, transactionIdForMerge);
 
                 db.AddInParameter(createEquityTransactionCmd, "@isMergeManual", DbType.Int32, isMergeManual);
+
+                if (!string.IsNullOrEmpty(folionoForMerge))
+                db.AddInParameter(createEquityTransactionCmd, "@folionoForMerge", DbType.String, folionoForMerge);
+
+                if (schemeplancodeForMerge!=0)
+                db.AddInParameter(createEquityTransactionCmd, "@schemeplancodeForMerge", DbType.Int32, schemeplancodeForMerge);
+
+                if (!string.IsNullOrEmpty(transactionnoForMerge))                
+                db.AddInParameter(createEquityTransactionCmd, "@transactionnoForMerge", DbType.String, transactionnoForMerge);
+
+                if(unitsForMerge!=0.0)
+                db.AddInParameter(createEquityTransactionCmd, "@units", DbType.Double, unitsForMerge);
+
+
+                if (amountForMerge != 0.0)
+                db.AddInParameter(createEquityTransactionCmd, "@amount", DbType.Double, amountForMerge);
+
+                if (transactionDateForMerge!=DateTime.MinValue)
+                db.AddInParameter(createEquityTransactionCmd, "@transactionDate", DbType.DateTime, transactionDateForMerge);
+
+                db.AddInParameter(createEquityTransactionCmd, "@adviserId", DbType.Int32, adviserId);
+
+
 
                 db.AddOutParameter(createEquityTransactionCmd, "isMergeComplete", DbType.Int32, 5000);
 
@@ -4228,7 +4251,7 @@ namespace DaoCustomerPortfolio
             return result;
         }
 
-        public DataSet GetTransactionDetailsForTrail(int AccountId)
+        public DataSet GetTransactionDetailsForTrail(int AccountId,int trailIdForMerge,string folionoForMerge,int schemeplancodeForMerge,string transactionnoForMerge,int advisorId)
         {
             DataSet ds = null;
             Database db;
@@ -4238,7 +4261,12 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getTransactionDetailsForTrailCmd = db.GetStoredProcCommand("SPROC_GetTransactionDetailsForTrail");
                 db.AddInParameter(getTransactionDetailsForTrailCmd, "@AccountId", DbType.Int32, AccountId);
-              
+
+                db.AddInParameter(getTransactionDetailsForTrailCmd, "@folionoForMerge", DbType.String, folionoForMerge);
+                db.AddInParameter(getTransactionDetailsForTrailCmd, "@schemeplancodeForMerge", DbType.Int32, schemeplancodeForMerge);
+                db.AddInParameter(getTransactionDetailsForTrailCmd, "@transactionnoForMerge", DbType.String, transactionnoForMerge);
+                db.AddInParameter(getTransactionDetailsForTrailCmd, "@advisorId", DbType.Int32, advisorId);
+
                 ds = db.ExecuteDataSet(getTransactionDetailsForTrailCmd);
             }
             catch (BaseApplicationException Ex)
