@@ -875,7 +875,7 @@
                                                 AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                                                 <Columns>
                                                     <telerik:GridBoundColumn DataField="Conditioning" AllowFiltering="true"
-                                                        HeaderText="Select" UniqueName="Conditioning" AutoPostBackOnFilter="true">
+                                                        UniqueName="Conditioning" AutoPostBackOnFilter="true">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         <FilterTemplate>
                                                             <telerik:RadComboBox ID="RadComboBoxRR" Width="210px" CssClass="cmbField" AllowFiltering="true"
@@ -968,7 +968,7 @@
                                                         <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn AutoPostBackOnFilter="true" ShowFilterIcon="false" DataField="CMFTCSU_Units"
-                                                        HeaderStyle-Width="100px" FooterStyle-HorizontalAlign="Right" HeaderText='Units'
+                                                        HeaderStyle-Width="100px" AllowFiltering="false" SortExpression="CMFTCSU_Units" FooterStyle-HorizontalAlign="Right" HeaderText='Units'
                                                         ItemStyle-Wrap="false" Aggregate="Sum" DataFormatString="{0:N0}" UniqueName="CMFTCSU_Units">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
