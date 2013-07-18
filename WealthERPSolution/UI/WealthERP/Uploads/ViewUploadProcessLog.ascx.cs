@@ -1140,7 +1140,7 @@ namespace WealthERP.Uploads
                             if (TempletonTrailCommonStagingChk)
                             {
                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                TempletonTrailCommonStagingToSetUp = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(processID, packagePath, configPath, "TN");
+                                TempletonTrailCommonStagingToSetUp = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(processID, packagePath, configPath, "TN",adviserId);
 
                                 if (TempletonTrailCommonStagingToSetUp)
                                 {
@@ -1179,7 +1179,7 @@ namespace WealthERP.Uploads
                             if (TempletonTrailCommonStagingChk)
                             {
                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                TempletonTrailCommonStagingToSetUp = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(processID, packagePath, configPath, "CA");
+                                TempletonTrailCommonStagingToSetUp = camsUploadsBo.TempletonTrailCommissionCommonStagingChk(processID, packagePath, configPath, "CA",adviserId);
 
                                 if (TempletonTrailCommonStagingToSetUp)
                                 {
