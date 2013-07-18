@@ -170,7 +170,7 @@
                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                     DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
-                        <asp:LinkButton runat="server" CommandName="Select" Text="Details" ItemStyle-Width="12px" />
+                        <asp:LinkButton runat="server" CommandName="Select" Text="View Details" ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn HeaderText="AMC" HeaderStyle-Width="353px" DataField="AMC"
@@ -214,7 +214,7 @@
                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                     DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
-                        <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="Details"
+                        <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="View Details"
                             ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
@@ -319,7 +319,7 @@
                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                     DataField="action" FooterText="Grand Total:">
                     <ItemTemplate>
-                        <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="Details"
+                        <asp:LinkButton ID="LinkButton1" CommandName="Select" runat="server" Text="View Details"
                             ItemStyle-Width="12px" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
