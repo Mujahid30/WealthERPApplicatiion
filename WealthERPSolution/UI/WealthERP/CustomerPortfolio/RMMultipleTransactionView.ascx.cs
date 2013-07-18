@@ -1127,10 +1127,10 @@ namespace WealthERP.CustomerPortfolio
                     int i=0;
                     foreach(DataRow dr in dsTrailCommissionDetails.Tables[0].Rows)
                     {
-                    if (!string.IsNullOrEmpty(dsTrailCommissionDetails.Tables[0].Columns["CMFT_MFTransId"].ToString()))
-                        dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"]="Not Matched";
+                        if (!string.IsNullOrEmpty(dsTrailCommissionDetails.Tables[0].Rows[i]["CMFT_MFTransId"].ToString()))
+                        dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"]="Matched";
                         else
-                        dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"] = "Matched";
+                            dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"] = "Not Matched";
                     i++;
                     }
 
