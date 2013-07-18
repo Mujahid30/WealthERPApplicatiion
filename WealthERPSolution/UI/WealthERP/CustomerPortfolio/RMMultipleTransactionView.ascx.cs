@@ -1272,7 +1272,18 @@ namespace WealthERP.CustomerPortfolio
 
         protected void gvTrail_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            radwindowForManualMerge.VisibleOnPageLoad = false;
+            //radwindowForManualMerge.VisibleOnPageLoad = true;
+
+            string controlName = this.Request.Params.Get("ctrl_RMMultipleTransactionView$btnMannualMatch");
+
+            if (controlName == "Manual Match")
+            {
+                radwindowForManualMerge.VisibleOnPageLoad = true;
+            }
+            else
+                radwindowForManualMerge.VisibleOnPageLoad = false;
+
+
             DataSet dtTrailstransactionDetails = new DataSet();
             dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
             gvTrail.DataSource = dtTrailstransactionDetails;
