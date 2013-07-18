@@ -1211,7 +1211,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetFolioTransactionDeatails["SELCount"] = dr["TrnsCount"].ToString();
                                                 drGetFolioTransactionDeatails["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drFolioTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetFolioTransactionDeatails["GrossRedemption"] = double.Parse(drGetFolioTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetFolioTransactionDeatails["SELAmount"].ToString());
                                                 }
