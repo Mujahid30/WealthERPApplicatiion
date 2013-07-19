@@ -63,7 +63,7 @@ namespace BoReports
             double debt_To_Income_Ratio = 0;
             double solvency_Ratio = 0;
             double life_Insurance_Cover_Ratio = 0;
-            int annualSalary = 0;
+            double annualSalary = 0;
             double cashAndSaving = 0;
             double totalMonthlyEMI = 0;
             double totalIncomeAnnual = 0;
@@ -96,9 +96,9 @@ namespace BoReports
                 //if (dr["IncomeCategory"].ToString().Trim() == "Salary")
                 if (dr["IncomeCategory"].ToString().Trim() == "Gross Salary")
                 {
-                    annualSalary = int.Parse(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString());
+                    annualSalary = Convert.ToDouble(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString());
                 }
-                totalIncomeAnnual += int.Parse(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString()) * 12;
+                totalIncomeAnnual += Convert.ToDouble(Math.Round(double.Parse(dr["IncomeAmount"].ToString())).ToString()) * 12;
             }
 
             if (Convert.ToString(dtLoanEMI.Rows[0][0]) != string.Empty)
