@@ -140,12 +140,17 @@ namespace WealthERP.Advisor
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
                         ddlRM.Enabled = false;
+                        trAction.Visible = false;
+                        Label1.Visible = false;
+
                     }
                 }
                 if (userType == "bm") 
                 {
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
+                    trAction.Visible = false;
+                    Label1.Visible = false;
                    
                 }
             }
@@ -344,7 +349,18 @@ namespace WealthERP.Advisor
         protected void btnGo_Click(object sender, EventArgs e)
         {
             SetParameters();
-            BindCustomer();
+            if (userType == "rm"||userType=="bm")
+            {
+                BindCustomer();
+                trAction.Visible = false;
+                Label1.Visible = false;
+            }
+            else
+            {
+                BindCustomer();
+                trAction.Visible = true;
+                Label1.Visible = true;
+            }
             //Label1.Visible = true;
             //trAction.Visible = true;
 
@@ -483,8 +499,8 @@ namespace WealthERP.Advisor
                     //trPager.Visible = true;
                     //lblTotalRows.Visible = true;
                     //lblCurrentPage.Visible = true;
-                    trAction.Visible = true;
-                    Label1.Visible = true;
+                    //trAction.Visible = true;
+                    //Label1.Visible = true;
 
                     DataRow drCustomerFolio;
                     DataTable dtCustomer = dsCustomerFolio.Tables[0];
