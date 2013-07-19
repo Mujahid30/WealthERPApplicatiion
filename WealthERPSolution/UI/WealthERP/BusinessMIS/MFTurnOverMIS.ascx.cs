@@ -705,7 +705,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["BUYCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BUYAmount"].ToString());
                                                 }
@@ -715,7 +715,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["SELCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SELAmount"].ToString());
                                                 }
@@ -725,7 +725,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["DVRCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["DVRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["DVRAmount"].ToString());
                                                 }
@@ -741,7 +741,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["SIPCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SIPAmount"].ToString());
                                                 }
@@ -751,7 +751,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["BCICount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BCIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BCIAmount"].ToString());
                                                 }
@@ -761,7 +761,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["BCOCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BCOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BCOAmount"].ToString());
                                                 }
@@ -771,7 +771,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["STBCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["STBAmount"].ToString());
                                                 }
@@ -781,7 +781,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["STSCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["STSAmount"].ToString());
                                                 }
@@ -791,7 +791,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["SWBCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SWBAmount"].ToString());
                                                 }
@@ -801,7 +801,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["SWPCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SWPAmount"].ToString());
                                                 }
@@ -811,7 +811,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["SWSCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SWSAmount"].ToString());
                                                 }
@@ -829,7 +829,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["ABYCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["ABYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["ABYAmount"].ToString());
                                                 }
@@ -841,7 +841,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["BIRCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BIRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BIRAmount"].ToString());
                                                 }
@@ -853,7 +853,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["BNSCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["BNSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["BNSAmount"].ToString());
                                                 }
@@ -865,7 +865,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["CNICount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["CNIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["CNIAmount"].ToString());
                                                 }
@@ -877,7 +877,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["CNOCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["CNOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["CNOAmount"].ToString());
                                                 }
@@ -888,7 +888,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["DSICount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["DSIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["DSIAmount"].ToString());
                                                 }
@@ -899,7 +899,7 @@ namespace WealthERP.BusinessMIS
                                             {
                                                 drGetSchemeTransactionDeatails["DSOCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["DSOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["DSOAmount"].ToString());
                                                 }
@@ -910,7 +910,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["HLDCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["HLDAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["HLDAmount"].ToString());
                                                 }
@@ -922,7 +922,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["NFOCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["NFOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["NFOAmount"].ToString());
                                                 }
@@ -936,7 +936,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["RRJCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["RRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossInvestment"].ToString() == "1")
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossInvestment"] = double.Parse(drGetSchemeTransactionDeatails["GrossInvestment"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["RRJAmount"].ToString());
                                                 }
@@ -948,7 +948,7 @@ namespace WealthERP.BusinessMIS
                                                 drGetSchemeTransactionDeatails["SRJCount"] = dr["TrnsCount"].ToString();
                                                 drGetSchemeTransactionDeatails["SRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
 
-                                                if (drAMCTransaction["WMTT_GrossRedemption"].ToString() == "1")
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
                                                 {
                                                     drGetSchemeTransactionDeatails["GrossRedemption"] = double.Parse(drGetSchemeTransactionDeatails["GrossRedemption"].ToString()) + double.Parse(drGetSchemeTransactionDeatails["SRJAmount"].ToString());
                                                 }
