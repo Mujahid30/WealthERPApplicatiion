@@ -32,6 +32,33 @@ namespace WealthERP.Reports {
         protected global::Telerik.Web.UI.RadAjaxManager AjaxManagerMain;
         
         /// <summary>
+        /// btnExportToPDF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportToPDF;
+        
+        /// <summary>
+        /// btnViewReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewReport;
+        
+        /// <summary>
+        /// btnViewInDOC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnViewInDOC;
+        
+        /// <summary>
         /// imgBtnrgHoldings control.
         /// </summary>
         /// <remarks>
@@ -39,6 +66,15 @@ namespace WealthERP.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton imgBtnrgHoldings;
+        
+        /// <summary>
+        /// UpdateProgress1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress UpdateProgress1;
         
         /// <summary>
         /// RadTabStrip2 control.
@@ -86,31 +122,13 @@ namespace WealthERP.Reports {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAdminRM;
         
         /// <summary>
-        /// btnExportToPDF control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExportToPDF;
-        
-        /// <summary>
-        /// btnViewReport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewReport;
-        
-        /// <summary>
-        /// btnViewInDOC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnViewInDOC;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// trCustomer control.

@@ -235,28 +235,30 @@ namespace WealthERP.Reports
                     imgBtnrgHoldings.Visible = false;
                 }
 
-                if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
-                {
-                    if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
-                        customerVo = (CustomerVo)Session["CustomerVo"];
-                    CustomerLogin = true;
-                    hndCustomerLogin.Value = "true";
-                    Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-                    //old code
-                    //tabpnlEmailReports.Visible = false;
+               
+                    if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
+                    {
+                        if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
+                            customerVo = (CustomerVo)Session["CustomerVo"];
+                        CustomerLogin = true;
+                        hndCustomerLogin.Value = "true";
+                        Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+                        //old code
+                        //tabpnlEmailReports.Visible = false;
 
-                    //new gr
-                    RadTabStrip2.Tabs[1].Visible = false;
-                    RadTabStrip2.Tabs[2].Visible = false;
+                        //new gr
+                        RadTabStrip2.Tabs[1].Visible = false;
+                        RadTabStrip2.Tabs[2].Visible = false;
 
 
-                }
-                else
-                {
-                    hndCustomerLogin.Value = "false";
-                    Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+                    }
+                    else
+                    {
+                        hndCustomerLogin.Value = "false";
+                        Session["hndCustomerLogin"] = hndCustomerLogin.Value;
 
-                }
+                    }
+                
 
                 BindPeriodDropDown();
 
@@ -547,10 +549,13 @@ namespace WealthERP.Reports
                     txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
                     txtFromDate.Text = LatestValuationdate.ToShortDateString();
                     txtToDate.Text = LatestValuationdate.ToShortDateString();
-                    txtEmailAsOnDate.SelectedDate = LatestValuationdate;
-                    txtEmailAsOnDate.SelectedDate = LatestValuationdate;
-                    txtEmailFromDate.SelectedDate = LatestValuationdate;
-                    txtEmailToDate.SelectedDate = LatestValuationdate;
+                    if (LatestValuationdate != DateTime.MinValue)
+                    {
+                        txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                        txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                        txtEmailFromDate.SelectedDate = LatestValuationdate;
+                        txtEmailToDate.SelectedDate = LatestValuationdate;
+                    }
 
                 }
                 //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
