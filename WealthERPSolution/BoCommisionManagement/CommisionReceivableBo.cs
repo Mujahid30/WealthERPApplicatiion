@@ -155,5 +155,140 @@ namespace BoCommisionManagement
             }
             return dsCommissionRules;
         }
+
+
+        public DataSet GetProductType()
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetProductType();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetProductType()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetCategories(String prodType)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetCategories(prodType);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetCategories(string prodType)");
+                object[] objects = new object[1];
+                objects[0] = prodType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetSubCategories(String cat)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetSubCategories(cat);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetSubCategories(string cat)");
+                object[] objects = new object[1];
+                objects[0] = cat;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetProdAmc()
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = commisionReceivableDao.GetProdAmc();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementBo.cs:GetProdAmc()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetAdviserCommissionStructureRules(int adviserId, string product, string cat, string subcat, int issuer, string validity)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsCommissionStructureRules;
+            try
+            {
+                dsCommissionStructureRules = commisionReceivableDao.GetAdviserCommissionStructureRules(adviserId, product, cat, subcat, issuer, validity);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetAdviserCommissionStructureRules(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCommissionStructureRules;
+        }
     }
 }
