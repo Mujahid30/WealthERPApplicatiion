@@ -633,6 +633,8 @@ namespace WealthERP.Uploads
 
             GVTrailTransactionRejects.ExportSettings.OpenInNewWindow = true;
             GVTrailTransactionRejects.ExportSettings.IgnorePaging = true;
+            GVTrailTransactionRejects.ExportSettings.ExportOnlyData = true;
+            GVTrailTransactionRejects.ExportSettings.FileName = "View Trail Exceptions Details";
             GVTrailTransactionRejects.ExportSettings.HideStructureColumns = true;
             GVTrailTransactionRejects.ExportSettings.ExportOnlyData = true;
             GVTrailTransactionRejects.ExportSettings.FileName = "View Transactions Details";
