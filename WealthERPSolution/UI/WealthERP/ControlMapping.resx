@@ -1593,4 +1593,8 @@
     <value>CommisionManagement//CommissionStructureRuleGrid.ascx</value>
     <comment>CommisionManagement//CommissionStructureRuleGrid.ascx</comment>
   </data>
+  <data name="CommissionStructureToSchemeMapping" xml:space="preserve">
+    <value>CommisionManagement//CommissionStructureToSchemeMapping.ascx</value>
+    <comment>CommisionManagement//CommissionStructureToSchemeMapping.ascx</comment>
+  </data>
 </root>

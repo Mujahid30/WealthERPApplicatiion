@@ -781,6 +781,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//CommissionStructureToSchemeMapping.ascx.
+        /// </summary>
+        internal static string CommissionStructureToSchemeMapping {
+            get {
+                return ResourceManager.GetString("CommissionStructureToSchemeMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CompleteCustomerProfile.ascx.
         /// </summary>
         internal static string CompleteCustomerProfile {
