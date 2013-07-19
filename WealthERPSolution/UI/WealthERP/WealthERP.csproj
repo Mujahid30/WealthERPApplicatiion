@@ -6240,6 +6240,7 @@
     <Content Include="Images\red-sample.gif" />
     <Content Include="Images\RedDownArrow.png" />
     <Content Include="Images\redStatus.png" />
+    <Content Include="Images\report.png" />
     <Content Include="Images\reprocess.png" />
     <Content Include="Images\RetirementGoal.jpg" />
     <Content Include="Images\RetirementGoal.png" />
