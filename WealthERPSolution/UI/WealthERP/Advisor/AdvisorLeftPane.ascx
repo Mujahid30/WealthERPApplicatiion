@@ -158,6 +158,22 @@
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
                                                     </telerik:RadPanelItem>
                                                 </Items>
+                                                </telerik:RadPanelItem>
+                                                <telerik:RadPanelItem runat="server" Text="Commission" Value="Commissions">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Receivable structure" Value="View_Receivable_structure">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Receivable Strucrure setup" Value="Receivable_Strucrure_setup">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Receivable Scheme Structure Association" Value="Receivable_Scheme_Structure_Association">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Payable Structure Setup" Value="Payable_Structure_Setup">
+                                                    </telerik:RadPanelItem>
+                                                </Items>                                              
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                                 <Items>
@@ -579,6 +595,22 @@
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
                                                     </telerik:RadPanelItem>
                                                 </Items>
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="Commission" Value="Commissions">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Receivable structure" Value="View_Receivable_structure">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Receivable Strucrure setup" Value="Receivable_Strucrure_setup">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Receivable Scheme Structure Association" Value="Receivable_Scheme_Structure_Association">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="Payable Structure Setup" Value="Payable_Structure_Setup">
+                                                    </telerik:RadPanelItem>
+                                                </Items>                                              
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Reconciliation" Value="Reconciliation">
                                                 <Items>

@@ -890,6 +890,34 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepository','login');", true);
                 }
+                else if (e.Item.Value == "View MF Transactions")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
+                }
+                else if (e.Item.Value == "View_Receivable_structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Receivable_Strucrure_setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "View_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Payable_Structure_Setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1706,6 +1734,30 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderRecon','login');", true);
                 }
+                else if (e.Item.Value == "View_Receivable_structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Receivable_Strucrure_setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "View_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Payable_Structure_Setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1794,7 +1846,7 @@ namespace WealthERP.Advisor
                             if ( dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "MF Dashboard"
-                                || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Customer SignUp")
+                                || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Customer SignUp" || dr[2].ToString() == "Commission")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1958,7 +2010,7 @@ namespace WealthERP.Advisor
                             if (dr[2].ToString() == "Goal MIS" 
                                 || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                                 || dr[2].ToString() == "MF Turnover MIS" || dr[2].ToString() == "Generate ISA"
-                                || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "Returns")
+                                || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "Returns" || dr[2].ToString()=="Commission")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
