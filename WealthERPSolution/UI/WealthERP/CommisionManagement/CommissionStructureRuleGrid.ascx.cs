@@ -41,8 +41,7 @@ namespace WealthERP.CommisionManagement
 
                 BindCategoryDropdown(ddProduct.SelectedValue);
                 BindIssuerDropdown();
-            }
-            
+            }            
         }
         
         private void bindDropdown(DropDownList ddList, DataSet dsListItems) {
@@ -126,8 +125,6 @@ namespace WealthERP.CommisionManagement
                                                 ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(), 
                                                 ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
-            //if (dsStructureRules.Tables[0].Rows.Count <= gvCommMgmt.PageSize)
-            //    gvCommMgmt.AllowPaging = false;
             gvCommMgmt.DataBind();
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
         }
@@ -170,7 +167,19 @@ namespace WealthERP.CommisionManagement
 
         protected void ddAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            string sActionName = ((DropDownList)sender).SelectedItem.Text;
+            string sStructId = ((DropDownList)sender).SelectedValue;
 
+            switch (sActionName) { 
+                case "View Details":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MappedSchemes','ID=" + sStructId + " ');", true);
+                    break;
+                case "View Mapped Schemes":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MappedSchemes','ID=" + sStructId + " ');", true);
+                    break;
+                default:
+                    return;
+            }
         }
 
         protected void gvCommMgmt_PageIndexChanged(object sender, GridPageChangedEventArgs e)
@@ -179,5 +188,18 @@ namespace WealthERP.CommisionManagement
             BindStructureRuleGrid();
         }
 
+        protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem item = e.Item as GridDataItem;
+                DropDownList myDD = item.FindControl("ddAction") as DropDownList;
+                string itemVal = ((DataRowView)e.Item.DataItem).Row["StructureId"].ToString();
+                myDD.Items.Insert(0, "Action");
+                myDD.Items.Insert(1, new ListItem("View Details", itemVal));
+                myDD.Items.Insert(2, new ListItem("View Mapped Schemes", itemVal));
+                myDD.SelectedIndexChanged += new EventHandler(ddAction_OnSelectedIndexChanged);
+            }
+        }
     }
 }

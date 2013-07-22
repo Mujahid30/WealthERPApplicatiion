@@ -228,7 +228,9 @@
                                         EnableLoadOnDemand="True" AllowPaging="True" AutoGenerateColumns="False"
                                         EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
                                         EnableViewState="true" ShowStatusBar="true" Skin="Telerik" 
-                                        onpageindexchanged="gvCommMgmt_PageIndexChanged" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
+                                        onpageindexchanged="gvCommMgmt_PageIndexChanged" 
+                                        OnNeedDataSource="gvCommMgmt_OnNeedDataSource" 
+                                        onitemdatabound="gvCommMgmt_ItemDataBound">
                                         
                                         <HeaderContextMenu EnableEmbeddedSkins="False"></HeaderContextMenu>
 
@@ -241,14 +243,13 @@
                                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="Action" 
                                                     HeaderStyle-Width="100px" UniqueName="Action">
                                                     <ItemTemplate>
-                                                        <asp:DropDownList ID="ddAction" runat="server" AppendDataBoundItems="true" 
-                                                            AutoPostBack="true" CssClass="cmbField" EnableEmbeddedSkins="false" 
-                                                            OnSelectedIndexChanged="ddAction_OnSelectedIndexChanged" Width="80px">
-                                                            <Items>
+                                                        <asp:DropDownList ID="ddAction" runat="server" OnSelectedIndexChanged="ddAction_OnSelectedIndexChanged" 
+                                                            AutoPostBack="true" CssClass="cmbField" EnableEmbeddedSkins="false" Width="80px" >
+                                                            <%--<Items>
                                                                 <asp:ListItem Selected="true" Text="Select" Value="Select" />
                                                                 <asp:ListItem Text="View Details" Value="viewDetails" />
                                                                 <asp:ListItem Text="View Mapped Schemes" Value="viewMappedSchemes" />
-                                                            </Items>
+                                                            </Items>--%>
                                                         </asp:DropDownList>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
@@ -305,7 +306,7 @@
                                             <%--<Scrolling AllowScroll="true" UseStaticHeaders="True" ScrollHeight="200px"></Scrolling>--%>
                                             <ClientEvents OnGridCreated="GridCreated" />
                                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                            <Resizing AllowColumnResize="true" />                                           
+                                            <Resizing AllowColumnResize="true" />                                          
                                         </ClientSettings>
                                         <FilterMenu EnableEmbeddedSkins="False"></FilterMenu>
                                     </telerik:RadGrid>
