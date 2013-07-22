@@ -417,6 +417,235 @@ namespace DaoCommisionManagement
             return ds;
         }
 
+        public CommissionStructureMasterVo GetCommissionStructureMaster(int structureId)
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureMaster;
+            CommissionStructureMasterVo commissionStructureMasterVo = new CommissionStructureMasterVo();
+            DataSet ds;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureMaster = db.GetStoredProcCommand("SPROC_GetCommissionStructureMaster");
+                db.AddInParameter(cmdGetCommissionStructureMaster, "@StructureId", DbType.Int32, structureId);
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureMaster);
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    
+                    commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(dr["ACSM_CommissionStructureId"].ToString());
+                    commissionStructureMasterVo.ProductType = dr["PAG_AssetGroupCode"].ToString();
+                    commissionStructureMasterVo.AssetCategory = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    commissionStructureMasterVo.CommissionStructureName = dr["ACSM_CommissionStructureName"].ToString();
+                    commissionStructureMasterVo.Issuer= dr["ACSM_Issuer"].ToString();
+                    commissionStructureMasterVo.ApplicableLevelCode = dr["WCAL_ApplicableLevelCode"].ToString();
+                    commissionStructureMasterVo.ValidityStartDate = Convert.ToDateTime(dr["ACSM_ValidityStartDate"].ToString());
+                    commissionStructureMasterVo.ValidityEndDate = Convert.ToDateTime(dr["ACSM_ValidityEndDate"].ToString());
+
+                    commissionStructureMasterVo.IsServiceTaxReduced= Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsServiceTaxReduced"].ToString()));
+                    commissionStructureMasterVo.IsTDSReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsTDSReduced"].ToString()));
+                    commissionStructureMasterVo.IsOtherTaxReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsOtherTaxReduced"].ToString()));
+                    commissionStructureMasterVo.IsNonMonetaryReward = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsNonMonetaryReward"].ToString()));
+                    commissionStructureMasterVo.IsClawBackApplicable = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsClawBackApplicable"].ToString()));
+
+                    commissionStructureMasterVo.ReceivableFrequency = dr["ACSM_ReceivableFrequency"].ToString();
+                    commissionStructureMasterVo.StructureNote = dr["ACSM_Note"].ToString();
+                }
+                StringBuilder strSubCategoryCode = new StringBuilder();
+
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    strSubCategoryCode.Append(dr["PAISC_AssetInstrumentSubCategoryCode"].ToString());
+                    strSubCategoryCode.Append("~");
+ 
+                }
+                if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
+                    strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
+
+                commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
+               
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs: GetCommissionStructureMaster(int structureId)");
+                object[] objects = new object[2];
+                objects[0] = structureId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return commissionStructureMasterVo;
+        }
+
+        public void UpdateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId)
+        {
+            Database db;
+            DbCommand cmdUpdateCommissionStructure;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateCommissionStructure = db.GetStoredProcCommand("SPROC_UpdateCommissionStructureMaster");
+                db.AddInParameter(cmdUpdateCommissionStructure, "@CommissionStructureId", DbType.Int32, commissionStructureMasterVo.CommissionStructureId);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@PAG_AssetCategoryCode", DbType.String, commissionStructureMasterVo.ProductType);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
+                db.AddInParameter(cmdUpdateCommissionStructure, "@WCAL_ApplicableLevelCode", DbType.String, commissionStructureMasterVo.ApplicableLevelCode);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ValidityStartDate", DbType.Date, commissionStructureMasterVo.ValidityStartDate);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ValidityEndDate", DbType.Date, commissionStructureMasterVo.ValidityEndDate);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsServiceTaxReduced", DbType.Int16, commissionStructureMasterVo.IsServiceTaxReduced);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsTDSReduced", DbType.Int16, commissionStructureMasterVo.IsTDSReduced);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsOtherTaxReduced", DbType.Int16, commissionStructureMasterVo.IsOtherTaxReduced);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsNonMonetaryReward", DbType.Int16, commissionStructureMasterVo.IsNonMonetaryReward);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsClawBackApplicable", DbType.Int16, commissionStructureMasterVo.IsClawBackApplicable);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ReceivableFrequency", DbType.String, commissionStructureMasterVo.ReceivableFrequency);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Note", DbType.String, commissionStructureMasterVo.StructureNote);
+                db.AddInParameter(cmdUpdateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
+                db.AddInParameter(cmdUpdateCommissionStructure, "@UserId", DbType.String, userId);
+                db.ExecuteNonQuery(cmdUpdateCommissionStructure);
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:UpdateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId)");
+                object[] objects = new object[2];
+                objects[0] = commissionStructureMasterVo.AdviserId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        public void UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        {
+            Database db;
+            DbCommand cmdUpdateCommissionStructureRule;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateCommissionStructureRule = db.GetStoredProcCommand("SPROC_UpdateCommissionStructureRule");
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_CommissionStructureRuleId", DbType.Int64, commissionStructureRuleVo.CommissionStructureRuleId);              
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
+
+                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                {
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MinInvestmentAmount);
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MaxInvestmentAmount);
+                }
+
+                if (commissionStructureRuleVo.TenureMax != 0)
+                {
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinTenure", DbType.Int32, commissionStructureRuleVo.TenureMin);
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxTenure", DbType.Int32, commissionStructureRuleVo.TenureMax);
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TenureUnit", DbType.String, commissionStructureRuleVo.TenureUnit);
+                }
+
+                if (commissionStructureRuleVo.MaxInvestmentAge != 0)
+                {
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinInvestmentAge", DbType.Int32, commissionStructureRuleVo.MinInvestmentAge);
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxInvestmentAge", DbType.Int32, commissionStructureRuleVo.MaxInvestmentAge);
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_InvestmentAgeUnit", DbType.String, commissionStructureRuleVo.InvestmentAgeUnit);
+                }
+
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
+                if (commissionStructureRuleVo.MinNumberofApplications != 0)
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+
+
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_BrokerageValue", DbType.Decimal, commissionStructureRuleVo.BrokerageValue);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCU_UnitCode", DbType.String, commissionStructureRuleVo.BrokerageUnitCode);
+
+
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCCO_CalculatedOnCode", DbType.String, commissionStructureRuleVo.CalculatedOnCode);
+                if (commissionStructureRuleVo.AUMMonth != 0)
+                {
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_AUMFrequency", DbType.String, commissionStructureRuleVo.AUMFrequency);
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_AUMMonth", DbType.Int16, commissionStructureRuleVo.AUMMonth);
+                }
+
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
+
+                db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)");
+                object[] objects = new object[2];
+                objects[0] = commissionStructureRuleVo.CommissionStructureId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
+
+        public void DeleteCommissionStructureRule(int id, bool isAllRuleDelete)
+        {
+            Database db;
+            DbCommand cmdDeleteStructureCommissionRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdDeleteStructureCommissionRules = db.GetStoredProcCommand("SPROC_DeleteCommissionStructureRules");
+                if (isAllRuleDelete)
+                    db.AddInParameter(cmdDeleteStructureCommissionRules, "@ACSM_CommissionStructureId", DbType.Int32, id);
+                else
+                    db.AddInParameter(cmdDeleteStructureCommissionRules, "@ACSR_CommissionStructureRuleId", DbType.String, id);
+                ds = db.ExecuteDataSet(cmdDeleteStructureCommissionRules);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:DeleteCommissionStructureRule(int id, bool isAllRuleDelete)");
+                object[] objects = new object[2];
+                objects[0] = id;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           
+        }
+
 
     }
 }
