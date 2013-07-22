@@ -7,6 +7,7 @@ namespace VoCommisionManagement
 {
     public class CommissionStructureMasterVo
     {
+        public Int32 CommissionStructureId { get; set; }
         public int AdviserId { get; set; }
         public string ProductType { get; set; }
         //public bool IsMonetary { get; set; }
@@ -43,7 +44,7 @@ namespace VoCommisionManagement
 
     public class CommissionStructureRuleVo : CommissionStructureMasterVo
     {
-        public Int32 CommissionStructureId { get; set; }
+        public Int32 CommissionStructureRuleId { get; set; }
         public string CommissionType { get; set; }
         public string CustomerType { get; set; }
 
