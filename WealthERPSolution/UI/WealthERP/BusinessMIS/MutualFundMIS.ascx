@@ -628,7 +628,7 @@
     <label id="lbl" class="HeaderTextSmall">
         Note:<br /> 1: Only historical data is accessible from this screen. Recent data for the last
         2 Business day will not be available. To view the recent data View Dashboards &
-        Net Positions.<br /> 2: Please verify the correctness of to and from date inorder to get the valid data</label>
+        Net Positions.<br /> 2: Please verify the correctness of To and From date inorder to get the valid data</label>
 </div>
 
 
