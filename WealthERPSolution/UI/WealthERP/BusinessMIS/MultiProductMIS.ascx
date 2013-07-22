@@ -504,7 +504,7 @@
                             DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Aggregate="Sum" DataField="PremiumAmount" AllowFiltering="false" HeaderText="premium amount"
+                        <telerik:GridBoundColumn Aggregate="Sum" DataField="PremiumAmount" AllowFiltering="false" HeaderText="Premium Amount"
                         FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}">
                             <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
