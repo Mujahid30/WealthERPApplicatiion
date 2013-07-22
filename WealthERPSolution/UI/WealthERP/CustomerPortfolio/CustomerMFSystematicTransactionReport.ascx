@@ -74,7 +74,7 @@
                         <asp:DropDownList ID="ddlViewType" runat="server" CssClass="cmbLongField" AutoPostBack="True"
                             OnSelectedIndexChanged="ddlViewType_SelectedIndexChanged">
                             <asp:ListItem Text="All" Value="ALL" Selected="True"></asp:ListItem>
-                            <asp:ListItem Text="SIP Transactios not found in the feed" Value="NAT"></asp:ListItem>
+                            <asp:ListItem Text="SIP Transactions not found in the feed" Value="NAT"></asp:ListItem>
                             <asp:ListItem Text="SIP set up found missing" Value="NST"></asp:ListItem>
                         </asp:DropDownList>
                     </td>
