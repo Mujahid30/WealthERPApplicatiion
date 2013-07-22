@@ -183,7 +183,7 @@
                                                     class="LinkButtons" style="text-decoration: none" href="#">Settings</a> &nbsp;
                                             </td>
                                             <td id="tdSignIn" runat="server">
-                                                <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign In" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
+                                                <asp:LinkButton ID="LinkButtonSignIn" runat="server" Text="Sign in" OnClientClick="javascript:loadcontrol('Userlogin','none'); return false;"
                                                     CssClass="LinkButtons" Style="text-decoration: none"></asp:LinkButton>
                                                 &nbsp;
                                             </td>
