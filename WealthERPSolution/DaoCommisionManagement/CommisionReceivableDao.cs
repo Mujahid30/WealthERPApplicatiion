@@ -453,7 +453,7 @@ namespace DaoCommisionManagement
                 }
                 StringBuilder strSubCategoryCode = new StringBuilder();
 
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                foreach (DataRow dr in ds.Tables[1].Rows)
                 {
                     strSubCategoryCode.Append(dr["PAISC_AssetInstrumentSubCategoryCode"].ToString());
                     strSubCategoryCode.Append("~");
