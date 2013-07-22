@@ -35,18 +35,35 @@ namespace WealthERP.Receivable
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session["rmVo"];
+            int structureId = 0;
             if (!IsPostBack)
             {
-                BindAllDropdown();
-                BindStructureRuleGrid();
+                if (Request.QueryString["StructureId"] != null)
+                    structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
+               
+                 BindAllDropdown();
+                if (structureId != 0)
+                {
+                    LoadStructureDetails(structureId);
+                    BindCommissionStructureRuleGrid(structureId);
+                }
+                else
+                {
+                    ControlStateNewStructureCreate();
+                }
             }
 
         }
 
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            BindSubcategoryListBox(ddlCategory.SelectedValue);
+        }
+
+        private void BindSubcategoryListBox(string categoryCode)
+        {
             DataTable dtSubcategory = new DataTable();
-            dtSubcategory = commonLookupBo.GetMFInstrumentSubCategory(ddlCategory.SelectedValue.ToString());
+            dtSubcategory = commonLookupBo.GetMFInstrumentSubCategory(categoryCode);
             rlbAssetSubCategory.DataSource = dtSubcategory;
             rlbAssetSubCategory.DataValueField = dtSubcategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
             rlbAssetSubCategory.DataTextField = dtSubcategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
@@ -113,6 +130,7 @@ namespace WealthERP.Receivable
             //ddlInvestorType.DataTextField = dsLookupData.Tables[8].Columns["XCC_CustomerCategory"].ToString();
             //ddlInvestorType.DataBind();
             Session["CommissionLookUpData"] = dsLookupData;
+
         }
 
         protected CommissionStructureMasterVo CollectStructureMastetrData()
@@ -131,11 +149,11 @@ namespace WealthERP.Receivable
                 commissionStructureMasterVo.CommissionStructureName = txtStructureName.Text.Trim();
 
                 //receivableStructureMasterVo.CommissionTypeCode = ddlCommissionType.SelectedValue;
-                commissionStructureMasterVo.IsClawBackApplicable = bool.Parse(chkHasClawBackOption.Checked.ToString());
-                commissionStructureMasterVo.IsNonMonetaryReward = bool.Parse(chkMoneytaryReward.Checked.ToString());
-                commissionStructureMasterVo.IsServiceTaxReduced = bool.Parse(chkListApplyTax.Items[1].Selected.ToString());
-                commissionStructureMasterVo.IsTDSReduced = bool.Parse(chkListApplyTax.Items[2].Selected.ToString());
-                commissionStructureMasterVo.IsOtherTaxReduced = bool.Parse(chkListApplyTax.Items[2].Selected.ToString());
+                commissionStructureMasterVo.IsClawBackApplicable = chkHasClawBackOption.Checked;
+                commissionStructureMasterVo.IsNonMonetaryReward = chkMoneytaryReward.Checked;
+                commissionStructureMasterVo.IsServiceTaxReduced = chkListApplyTax.Items[1].Selected;
+                commissionStructureMasterVo.IsTDSReduced = chkListApplyTax.Items[2].Selected;
+                commissionStructureMasterVo.IsOtherTaxReduced = chkListApplyTax.Items[2].Selected;
 
                 //receivableStructureMasterVo.IsStructureFromIssuer = bool.Parse(chk.Checked.ToString());
                 //receivableStructureMasterVo.RecurringiSIPFrequency=ddl
@@ -152,6 +170,9 @@ namespace WealthERP.Receivable
                         strSubCategoryCode.Append("~");
                     }
                 }
+                if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
+                    strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
+
                 commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
 
             }
@@ -181,15 +202,17 @@ namespace WealthERP.Receivable
             commissionStructureMasterVo = CollectStructureMastetrData();
             commisionReceivableBo.CreateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId, out commissionStructureId);
             hidCommissionStructureName.Value = commissionStructureId.ToString();
+            CommissionStructureControlsEnable(false);
+            tblCommissionStructureRule.Visible = true;
+            tblCommissionStructureRule1.Visible = true;
         }
 
-        protected void BindStructureRuleGrid()
+        protected void btnStructureUpdate_Click(object sender, EventArgs e)
         {
-            DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId);
-            RadGridStructureRule.DataSource = dsStructureRules.Tables[0];
-            RadGridStructureRule.DataBind();
-            Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules);
-
+            commissionStructureMasterVo = CollectStructureMastetrData();
+            commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
+            commisionReceivableBo.UpdateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId);
+            CommissionStructureControlsEnable(false);
         }
 
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
@@ -265,10 +288,23 @@ namespace WealthERP.Receivable
 
 
         }
+
         protected void RadGridStructureRule_DeleteCommand(object source, GridCommandEventArgs e)
         {
+            Int32 commissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+            commisionReceivableBo.DeleteCommissionStructureRule(commissionStructureRuleId,false);
+            BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+        }
+
+        protected void BindCommissionStructureRuleGrid(int structureId)
+        {
+            DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, structureId);
+            RadGridStructureRule.DataSource = dsStructureRules.Tables[0];
+            RadGridStructureRule.DataBind();
+            Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules);
 
         }
+
         protected void RadGridStructureRule_ItemInserted(object source, GridCommandEventArgs e)
         {
             try
@@ -291,10 +327,15 @@ namespace WealthERP.Receivable
                 throw exBase;
             }
         }
-        protected void RadGridStructureRule_ItemUpdated(object source, Telerik.Web.UI.GridUpdatedEventArgs e)
-        {
 
+        protected void RadGridStructureRule_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
+            commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+            commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
+            BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
         }
+
         protected void RadGridStructureRule_ItemCommand(object source, GridCommandEventArgs e)
         {
 
@@ -306,6 +347,43 @@ namespace WealthERP.Receivable
             try
             {
 
+                commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
+                /*******************DUPLICATE CHECK********************/
+                bool isValidRule = true;
+                if (isValidRule)
+                {
+                    commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
+                    BindCommissionStructureRuleGrid(5);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplicate commission structure rule');", true);
+                    return;
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ReceivableSetup.ascx.cs:RadGridStructureRule_InsertCommand()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        private CommissionStructureRuleVo CollectDataForCommissionStructureRule(GridCommandEventArgs e)
+        {
+            try
+            {
                 DropDownList ddlCommissionType = (DropDownList)e.Item.FindControl("ddlCommissionType");
                 DropDownList ddlInvestorType = (DropDownList)e.Item.FindControl("ddlInvestorType");
 
@@ -387,15 +465,6 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
                     commissionStructureRuleVo.AUMFrequency = ddlAUMFrequency.SelectedValue;
                 }
-                /*******************DUPLICATE CHECK********************/
-                bool isValidRule = ValidateCommissionRule(commissionStructureRuleVo);
-                if (isValidRule)
-                {
-                    commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
-                    BindStructureRuleGrid();
-                }
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -405,13 +474,15 @@ namespace WealthERP.Receivable
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "ReceivableSetup.ascx.cs:CollectStructureMastetrData()");
+                FunctionInfo.Add("Method", "ReceivableSetup.ascx.cs:CollectDataForCommissionStructureRule()");
                 object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return commissionStructureRuleVo;
+
         }
 
         protected void RadGridStructureRule_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -428,45 +499,14 @@ namespace WealthERP.Receivable
         {
             bool isValidRule = false;
             var duplicateCheck = new List<bool>();
-            DataSet dsCommissionRule = commisionReceivableBo.GetStructureCommissionAllRules(commissionStructureRuleVo.CommissionStructureId, commissionStructureRuleVo.CommissionType);
-            foreach (DataRow dr in dsCommissionRule.Tables[0].Rows)
+            try
             {
-                /******Check for Customer Type******/
-                if (dr["XCT_CustomerTypeCode"].ToString() == commissionStructureRuleVo.CustomerType)
+
+                DataSet dsCommissionRule = commisionReceivableBo.GetStructureCommissionAllRules(commissionStructureRuleVo.CommissionStructureId, commissionStructureRuleVo.CommissionType);
+                foreach (DataRow dr in dsCommissionRule.Tables[0].Rows)
                 {
-                    duplicateCheck.Add(true);
-                }
-                else
-                {
-                    duplicateCheck.Add(false);
-
-                }
-
-
-                /******Check for Investment Amount******/
-                if ((!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()) && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()))
-                    && (commissionStructureRuleVo.MinInvestmentAmount != 0 && commissionStructureRuleVo.MaxInvestmentAmount!=0))
-                {
-                    if ((commissionStructureRuleVo.MinInvestmentAmount > Convert.ToDecimal(dr["ACSR_MinInvestmentAmount"].ToString())) && (commissionStructureRuleVo.MinInvestmentAmount < Convert.ToDecimal(dr["ACSR_MaxInvestmentAmount"].ToString()))
-                        || (commissionStructureRuleVo.MaxInvestmentAmount > Convert.ToDecimal(dr["ACSR_MinInvestmentAmount"].ToString())) && (commissionStructureRuleVo.MaxInvestmentAmount < Convert.ToDecimal(dr["ACSR_MaxInvestmentAmount"].ToString())))
-                    {
-                        duplicateCheck.Add(true);
-                    }
-                    else
-                    {
-                        duplicateCheck.Add(false);
-
-                    }
-                }
-
-                /******Check for Tenure******/
-                if ((commissionStructureRuleVo.TenureUnit == dr["ACSR_TenureUnit"].ToString()) 
-                    && (!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()) 
-                    && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()))
-                    && (commissionStructureRuleVo.TenureMin != 0 && commissionStructureRuleVo.TenureMax != 0))
-                {
-                    if ((commissionStructureRuleVo.TenureMin > Convert.ToDecimal(dr["ACSR_MinTenure"].ToString())) && (commissionStructureRuleVo.TenureMin < Convert.ToDecimal(dr["ACSR_MaxTenure"].ToString()))
-                        || (commissionStructureRuleVo.TenureMax > Convert.ToDecimal(dr["ACSR_MinTenure"].ToString())) && (commissionStructureRuleVo.TenureMax < Convert.ToDecimal(dr["ACSR_MaxTenure"].ToString())))
+                    /******Check for Customer Type******/
+                    if (dr["XCT_CustomerTypeCode"].ToString() == commissionStructureRuleVo.CustomerType)
                     {
                         duplicateCheck.Add(true);
                     }
@@ -476,57 +516,339 @@ namespace WealthERP.Receivable
 
                     }
 
-                }
-                /******Check for Investment Age ******/
 
-                if ((!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAgeInMonth"].ToString()) && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAgeInMonth"].ToString()))
-                    && (commissionStructureRuleVo.MinInvestmentAge != 0 && commissionStructureRuleVo.MaxInvestmentAge != 0))
-                {
-                    if ((commissionStructureRuleVo.MinInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAgeInMonth"].ToString())) && (commissionStructureRuleVo.MinInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAgeInMonth"].ToString()))
-                        || (commissionStructureRuleVo.MaxInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAgeInMonth"].ToString())) && (commissionStructureRuleVo.MaxInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAgeInMonth"].ToString())))
+                    /*********Check for Investment Amount*********/
+                    if ((!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()) && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()))
+                        && (commissionStructureRuleVo.MinInvestmentAmount != 0 && commissionStructureRuleVo.MaxInvestmentAmount != 0))
                     {
-                        duplicateCheck.Add(true);
-                    }
-                    else
-                    {
-                        duplicateCheck.Add(false);
-
-                    }
-                }
-                /******Check for Transaction Type ******/
-                if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType) && !string.IsNullOrEmpty(dr["ACSR_TransactionType"].ToString()))
-                {
-                    string[] arrayTTypeE = dr["ACSR_TransactionType"].ToString().Split(',');
-                    string[] arrayTTypeN = commissionStructureRuleVo.TransactionType.ToString().Split(',');
-                    if (arrayTTypeE.Count() == arrayTTypeN.Count())
-                    {
-                        foreach (string str in arrayTTypeE)
+                        if ((commissionStructureRuleVo.MinInvestmentAmount > Convert.ToDecimal(dr["ACSR_MinInvestmentAmount"].ToString())) && (commissionStructureRuleVo.MinInvestmentAmount < Convert.ToDecimal(dr["ACSR_MaxInvestmentAmount"].ToString()))
+                            || (commissionStructureRuleVo.MaxInvestmentAmount > Convert.ToDecimal(dr["ACSR_MinInvestmentAmount"].ToString())) && (commissionStructureRuleVo.MaxInvestmentAmount < Convert.ToDecimal(dr["ACSR_MaxInvestmentAmount"].ToString())))
                         {
-                            if (!string.IsNullOrEmpty(str.Trim()))
+                            duplicateCheck.Add(true);
+                        }
+                        else
+                        {
+                            duplicateCheck.Add(false);
+
+                        }
+                    }
+
+                    /**********Check for Tenure**********/
+                    if ((commissionStructureRuleVo.TenureUnit == dr["ACSR_TenureUnit"].ToString())
+                        && (!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString())
+                        && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAmount"].ToString()))
+                        && (commissionStructureRuleVo.TenureMin != 0 && commissionStructureRuleVo.TenureMax != 0))
+                    {
+                        if ((commissionStructureRuleVo.TenureMin > Convert.ToDecimal(dr["ACSR_MinTenure"].ToString())) && (commissionStructureRuleVo.TenureMin < Convert.ToDecimal(dr["ACSR_MaxTenure"].ToString()))
+                            || (commissionStructureRuleVo.TenureMax > Convert.ToDecimal(dr["ACSR_MinTenure"].ToString())) && (commissionStructureRuleVo.TenureMax < Convert.ToDecimal(dr["ACSR_MaxTenure"].ToString())))
+                        {
+                            duplicateCheck.Add(true);
+                        }
+                        else
+                        {
+                            duplicateCheck.Add(false);
+
+                        }
+
+                    }
+                    /******Check for Investment Age ******/
+
+                    if ((!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAgeInMonth"].ToString()) && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAgeInMonth"].ToString()))
+                        && (commissionStructureRuleVo.MinInvestmentAge != 0 && commissionStructureRuleVo.MaxInvestmentAge != 0))
+                    {
+                        if ((commissionStructureRuleVo.MinInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAgeInMonth"].ToString())) && (commissionStructureRuleVo.MinInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                            || (commissionStructureRuleVo.MaxInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAgeInMonth"].ToString())) && (commissionStructureRuleVo.MaxInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAgeInMonth"].ToString())))
+                        {
+                            duplicateCheck.Add(true);
+                        }
+                        else
+                        {
+                            duplicateCheck.Add(false);
+
+                        }
+                    }
+                    /******Check for Transaction Type ******/
+                    if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType) && !string.IsNullOrEmpty(dr["ACSR_TransactionType"].ToString()))
+                    {
+                        string[] arrayTTypeE = dr["ACSR_TransactionType"].ToString().Split(',');
+                        string[] arrayTTypeN = commissionStructureRuleVo.TransactionType.ToString().Split(',');
+                        if (arrayTTypeE.Count() == arrayTTypeN.Count())
+                        {
+                            var duplicateCheckTType = new List<bool>();
+
+                            foreach (string str in arrayTTypeE)
                             {
-                                str.Contains(commissionStructureRuleVo.TransactionType);
+                                if (!string.IsNullOrEmpty(str.Trim()))
+                                {
+                                    duplicateCheckTType.Add(str.Contains(commissionStructureRuleVo.TransactionType));
+                                }
+                            }
+
+                            if (duplicateCheckTType.Count == duplicateCheckTType.Distinct().Count())
+                            {
+                                duplicateCheck.Add(true);
+                            }
+                            else
+                            {
+                                duplicateCheck.Add(false);
                             }
                         }
-                    }else
+                        else
+                        {
+                            duplicateCheck.Add(false);
+                        }
+
+                    }
+
+                    /******Check for Minimum Application Nos ******/
+                    if (commissionStructureRuleVo.MinNumberofApplications != 0 && String.IsNullOrEmpty(dr["ACSR_MinNumberOfApplications"].ToString()))
+                    {
+                        if (commissionStructureRuleVo.MinNumberofApplications == Convert.ToInt32(dr["ACSR_MinNumberOfApplications"].ToString()))
+                        {
+                            duplicateCheck.Add(true);
+                        }
+                    }
+                    else
                     {
                         duplicateCheck.Add(false);
                     }
 
+                    if (duplicateCheck.Count(b => b == false) >= 1)
+                    {
+                        isValidRule = true;
                     }
+                    else
+                    {
+                        isValidRule = false;
+                        break;
+                    }
+
                 }
 
+                // Commission structure Rule Duplicates exist
 
-                if (duplicateCheck.Count != duplicateCheck.Distinct().Count())
-                {
-                    // Duplicates exist
-
-                }
-
-             return isValidRule;
             }
-
-
-           
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ReceivableSetup.ascx.cs:ValidateCommissionRule()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isValidRule;
         }
 
+        private void LoadStructureDetails(int structureId)
+        {
+            try
+            {
+                commissionStructureMasterVo = commisionReceivableBo.GetCommissionStructureMaster(structureId);
+                BindSubcategoryListBox(commissionStructureMasterVo.AssetCategory);
+                ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;
+                foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
+                {
+                    if (commissionStructureMasterVo.AssetSubCategory.ToString().Contains(item.Value))
+                    {
+                        item.Checked = true;
+                    }
+                }
+                ddlIssuer.SelectedValue = commissionStructureMasterVo.Issuer;
+                ddlCommissionApplicableLevel.SelectedValue = commissionStructureMasterVo.ApplicableLevelCode;
+                txtValidityFrom.Text = commissionStructureMasterVo.ValidityStartDate.ToString();
+                txtValidityTo.Text = commissionStructureMasterVo.ValidityEndDate.ToString();
+                txtStructureName.Text = commissionStructureMasterVo.CommissionStructureName;
+                chkHasClawBackOption.Checked = commissionStructureMasterVo.IsClawBackApplicable;
+                chkMoneytaryReward.Checked = commissionStructureMasterVo.IsNonMonetaryReward;
+                chkListApplyTax.Items[0].Selected = commissionStructureMasterVo.IsServiceTaxReduced;
+                chkListApplyTax.Items[1].Selected = commissionStructureMasterVo.IsTDSReduced;
+                chkListApplyTax.Items[2].Selected = commissionStructureMasterVo.IsOtherTaxReduced;
+                //ddlAppCityGroup.SelectedValue=commissionStructureMasterVo.
+                ddlReceivableFrequency.SelectedValue = commissionStructureMasterVo.ReceivableFrequency;
+                txtNote.Text = commissionStructureMasterVo.StructureNote;
+                hidCommissionStructureName.Value = structureId.ToString();
+                CommissionStructureControlsEnable(false);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ReceivableSetup.ascx.cs:ValidateCommissionRule()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+
+        private void CommissionStructureControlsEnable(bool enable)
+        {
+            if (enable)
+            {
+                ddlCategory.Enabled = true;
+                rlbAssetSubCategory.Enabled = true;
+                ddlIssuer.Enabled = true;
+                ddlCommissionApplicableLevel.Enabled = true;
+                txtValidityFrom.Enabled = true;
+                txtValidityTo.Enabled = true;
+                txtStructureName.Enabled = true;
+                chkHasClawBackOption.Enabled = true;
+                chkMoneytaryReward.Enabled = true;
+                chkListApplyTax.Enabled = true;
+                ddlAppCityGroup.Enabled = true;
+                ddlReceivableFrequency.Enabled = true;
+                txtNote.Enabled = true;
+
+                lnkEditStructure.Text = "View";
+                lnkEditStructure.ToolTip = "View commission structure section";
+                btnStructureSubmit.Visible = false;
+                btnStructureUpdate.Visible = true;
+            }
+            else
+            {
+                ddlCategory.Enabled = false;
+                rlbAssetSubCategory.Enabled = false;
+                ddlIssuer.Enabled = false;
+                ddlCommissionApplicableLevel.Enabled = false;
+                txtValidityFrom.Enabled = false;
+                txtValidityTo.Enabled = false;
+                txtStructureName.Enabled = false;
+                chkHasClawBackOption.Enabled = false;
+                chkMoneytaryReward.Enabled = false;
+                chkListApplyTax.Enabled = false;
+                ddlAppCityGroup.Enabled = false;
+                ddlReceivableFrequency.Enabled = false;
+                txtNote.Enabled = false;
+
+                lnkEditStructure.Visible = true;
+                lnkEditStructure.Text = "Edit";
+                lnkEditStructure.ToolTip = "Edit commission structure section";
+                lnkAddNewStructure.Visible = true;
+                btnStructureSubmit.Visible = false;
+                btnStructureUpdate.Visible = false;
+            }
+
+        }
+
+        protected void lnkEditStructure_Click(object sender, EventArgs e)
+        {
+            if (lnkEditStructure.Text == "View")
+            {
+                LoadStructureDetails(Convert.ToInt32(hidCommissionStructureName.Value));
+                CommissionStructureControlsEnable(false);
+            }
+            else if (lnkEditStructure.Text == "Edit")
+                CommissionStructureControlsEnable(true);
+
+        }
+
+        protected void lnkAddNewStructure_Click(object sender, EventArgs e)
+        {
+            ControlStateNewStructureCreate();
+        }
+
+        private void ControlStateNewStructureCreate()
+        {
+
+            ddlCategory.SelectedIndex = 0;
+            rlbAssetSubCategory.Items.Clear();
+            ddlIssuer.SelectedIndex = 0;
+            ddlCommissionApplicableLevel.SelectedIndex = 0;
+            txtValidityFrom.Text = string.Empty;
+            txtValidityTo.Text = string.Empty;
+            txtStructureName.Text = string.Empty;
+            chkHasClawBackOption.Checked = false;
+            chkMoneytaryReward.Checked = false;
+            foreach (ListItem item in chkListApplyTax.Items)
+            {
+                item.Selected = false;
+            }
+            ddlAppCityGroup.SelectedIndex = 0;
+            ddlReceivableFrequency.SelectedIndex = 0;
+            txtNote.Text = string.Empty;
+            CommissionStructureControlsEnable(true);
+            btnStructureSubmit.Visible = true;
+            btnStructureUpdate.Visible = false;
+            lnkEditStructure.Visible = false;
+            lnkAddNewStructure.Visible = false;
+            BindSubcategoryListBox(ddlCategory.SelectedValue);
+
+            if (Cache[userVo.UserId.ToString() + "CommissionStructureRule"] != null)
+                Cache.Remove(userVo.UserId.ToString() + "CommissionStructureRule");
+
+            
+            BindCommissionStructureRuleBlankRow();
+            tblCommissionStructureRule.Visible = false;
+            tblCommissionStructureRule1.Visible = false;
+
+        }
+
+        private void BindCommissionStructureRuleBlankRow()
+        {
+            DataSet dsStructureRules = new DataSet();
+            dsStructureRules.Tables.Add(CreateCommissionStructureRuleDataTable());
+            RadGridStructureRule.DataSource = dsStructureRules;
+            RadGridStructureRule.Rebind();
+            Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules);
+        }
+
+        private DataTable CreateCommissionStructureRuleDataTable()
+        {
+            DataTable dtCommissionStructureRule = new DataTable();
+            dtCommissionStructureRule.Columns.Add("WCT_CommissionType");
+            dtCommissionStructureRule.Columns.Add("XCT_CustomerTypeName");
+            dtCommissionStructureRule.Columns.Add("ACSR_MinInvestmentAmount");
+            dtCommissionStructureRule.Columns.Add("ACSR_MaxInvestmentAmount");
+            dtCommissionStructureRule.Columns.Add("ACSR_MinTenure");
+            dtCommissionStructureRule.Columns.Add("ACSR_MaxTenure");
+            dtCommissionStructureRule.Columns.Add("ACSR_TenureUnit");
+            dtCommissionStructureRule.Columns.Add("ACSR_MinInvestmentAgeInMonth");
+            dtCommissionStructureRule.Columns.Add("ACSR_MaxInvestmentAgeInMonth");
+            dtCommissionStructureRule.Columns.Add("ACSR_TransactionType");
+            dtCommissionStructureRule.Columns.Add("ACSR_MinNumberOfApplications");
+            dtCommissionStructureRule.Columns.Add("ACSR_BrokerageValue");
+            dtCommissionStructureRule.Columns.Add("WCU_Unit");
+            dtCommissionStructureRule.Columns.Add("WCCO_CalculatedOn");
+            dtCommissionStructureRule.Columns.Add("ACSM_AUMFrequency");
+            dtCommissionStructureRule.Columns.Add("ACSR_AUMMonth");
+            dtCommissionStructureRule.Columns.Add("ACG_CityGroupName");
+            dtCommissionStructureRule.Columns.Add("ACSR_Comment");
+            return dtCommissionStructureRule;
+        }
+
+
+        protected void lnkDeleteAllRule_Click(object sender, EventArgs e)
+        {
+            commisionReceivableBo.DeleteCommissionStructureRule(Convert.ToInt32(hidCommissionStructureName.Value), true);
+            BindCommissionStructureRuleBlankRow();
+        }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            RadGridStructureRule.ExportSettings.OpenInNewWindow = true;
+            RadGridStructureRule.ExportSettings.IgnorePaging = true;
+            RadGridStructureRule.ExportSettings.HideStructureColumns = true;
+            RadGridStructureRule.ExportSettings.ExportOnlyData = true;
+            RadGridStructureRule.ExportSettings.FileName = "CommissionStructureRule";
+            RadGridStructureRule.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            RadGridStructureRule.MasterTableView.ExportToExcel();
+        }
+
+
+
+
     }
+
+}

@@ -50,6 +50,24 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
+        /// lnkAddNewStructure control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAddNewStructure;
+        
+        /// <summary>
+        /// lnkEditStructure control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkEditStructure;
+        
+        /// <summary>
         /// lblStatusStage2 control.
         /// </summary>
         /// <remarks>
@@ -66,44 +84,6 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
-
-        /// <summary>
-        /// ddlBrokerageUnit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBrokerageUnit;
-
-        /// <summary>
-        /// ddlCommissionType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommissionType;
-
-
-           /// <summary>
-        /// ddlCommisionCalOn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCommisionCalOn;
-        
-
-         /// <summary>
-        /// ddlInvestorType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlInvestorType;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -439,6 +419,15 @@ namespace WealthERP.Receivable {
         protected global::System.Web.UI.WebControls.Button btnStructureSubmit;
         
         /// <summary>
+        /// btnStructureUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStructureUpdate;
+        
+        /// <summary>
         /// tblCommissionStructureRule control.
         /// </summary>
         /// <remarks>
@@ -464,6 +453,42 @@ namespace WealthERP.Receivable {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblStage;
+        
+        /// <summary>
+        /// imgexportButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgexportButton;
+        
+        /// <summary>
+        /// lnkDeleteAllRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkDeleteAllRule;
+        
+        /// <summary>
+        /// tblCommissionStructureRule1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule1;
+        
+        /// <summary>
+        /// Panel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel2;
         
         /// <summary>
         /// RadGridStructureRule control.
