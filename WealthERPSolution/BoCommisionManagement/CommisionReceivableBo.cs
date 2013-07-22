@@ -43,7 +43,6 @@ namespace BoCommisionManagement
             return dsLookupData;
         }
 
-
         public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId,out int structureId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
@@ -73,13 +72,13 @@ namespace BoCommisionManagement
            
         }
 
-        public DataSet GetAdviserCommissionStructureRules(int adviserId)
+        public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsCommissionStructureRules;
             try
             {
-                dsCommissionStructureRules = commisionReceivableDao.GetAdviserCommissionStructureRules(adviserId);
+                dsCommissionStructureRules = commisionReceivableDao.GetAdviserCommissionStructureRules(adviserId, structureId);
 
             }
             catch (BaseApplicationException Ex)
@@ -289,6 +288,118 @@ namespace BoCommisionManagement
                 throw exBase;
             }
             return dsCommissionStructureRules;
+        }
+
+        public CommissionStructureMasterVo GetCommissionStructureMaster(int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            CommissionStructureMasterVo commissionStructureMasterVo = new CommissionStructureMasterVo();           
+            try
+            {
+                commissionStructureMasterVo = commisionReceivableDao.GetCommissionStructureMaster(structureId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetCommissionStructureMaster(int structureId)");
+                object[] objects = new object[1];
+                objects[0] = structureId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return commissionStructureMasterVo;
+        }
+
+        public void UpdateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+
+            try
+            {
+                commisionReceivableDao.UpdateCommissionStructureMastter(commissionStructureMasterVo, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:UpdateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId)");
+                object[] objects = new object[2];
+                objects[0] = userId;
+                objects[1] = commissionStructureMasterVo.CommissionStructureId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        public void UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                commisionReceivableDao.UpdateCommissionStructureRule(commissionStructureRuleVo, userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo)");
+                object[] objects = new object[2];
+                objects[0] = commissionStructureRuleVo.CommissionStructureRuleId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        public void DeleteCommissionStructureRule(int id, bool isAllRuleDelete)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                commisionReceivableDao.DeleteCommissionStructureRule(id, isAllRuleDelete);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:DeleteCommissionStructureRule(int id, bool isAllRuleDelete)");
+                object[] objects = new object[2];
+                objects[0] = id;
+                objects[1] = isAllRuleDelete;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
     }
 }
