@@ -236,7 +236,7 @@
 
                                         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule"></ExportSettings>
                                         <PagerStyle AlwaysVisible="True" />
-                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" 
+                                        <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true"  DataKeyNames="StructureId"
                                             AutoGenerateColumns="false" Width="100%">
                                             <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                             <Columns>
@@ -245,11 +245,11 @@
                                                     <ItemTemplate>
                                                         <asp:DropDownList ID="ddAction" runat="server" OnSelectedIndexChanged="ddAction_OnSelectedIndexChanged" 
                                                             AutoPostBack="true" CssClass="cmbField" EnableEmbeddedSkins="false" Width="80px" >
-                                                            <%--<Items>
+                                                           <Items>
                                                                 <asp:ListItem Selected="true" Text="Select" Value="Select" />
-                                                                <asp:ListItem Text="View Details" Value="viewDetails" />
-                                                                <asp:ListItem Text="View Mapped Schemes" Value="viewMappedSchemes" />
-                                                            </Items>--%>
+                                                                <asp:ListItem Text="View Details" Value="ViewSTDetails" />
+                                                                <asp:ListItem Text="View Mapped Schemes" Value="ManageSchemeMapping" />
+                                                            </Items>
                                                         </asp:DropDownList>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>

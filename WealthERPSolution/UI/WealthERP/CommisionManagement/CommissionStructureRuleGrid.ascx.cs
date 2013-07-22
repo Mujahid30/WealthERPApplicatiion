@@ -122,8 +122,8 @@ namespace WealthERP.CommisionManagement
         protected void BindStructureRuleGrid()
         {
             DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, 
-                                                ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(), 
-                                                ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
+            ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(), 
+            ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
             gvCommMgmt.DataBind();
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
@@ -167,15 +167,19 @@ namespace WealthERP.CommisionManagement
 
         protected void ddAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            string sActionName = ((DropDownList)sender).SelectedItem.Text;
-            string sStructId = ((DropDownList)sender).SelectedValue;
+            //string sActionName = ((DropDownList)sender).SelectedItem.Text;
+            //string sStructId = ((DropDownList)sender).SelectedValue;
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
+            int structureId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
 
-            switch (sActionName) { 
-                case "View Details":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MappedSchemes','ID=" + sStructId + " ');", true);
+            switch (ddlAction.SelectedValue)
+            {
+                case "ViewSTDetails":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + " ');", true);
                     break;
-                case "View Mapped Schemes":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MappedSchemes','ID=" + sStructId + " ');", true);
+                case "ManageSchemeMapping":
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MappedSchemes','ID=" + structureId + " ');", true);
                     break;
                 default:
                     return;
@@ -190,16 +194,16 @@ namespace WealthERP.CommisionManagement
 
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = e.Item as GridDataItem;
-                DropDownList myDD = item.FindControl("ddAction") as DropDownList;
-                string itemVal = ((DataRowView)e.Item.DataItem).Row["StructureId"].ToString();
-                myDD.Items.Insert(0, "Action");
-                myDD.Items.Insert(1, new ListItem("View Details", itemVal));
-                myDD.Items.Insert(2, new ListItem("View Mapped Schemes", itemVal));
-                myDD.SelectedIndexChanged += new EventHandler(ddAction_OnSelectedIndexChanged);
-            }
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem item = e.Item as GridDataItem;
+            //    DropDownList myDD = item.FindControl("ddAction") as DropDownList;
+            //    string itemVal = ((DataRowView)e.Item.DataItem).Row["StructureId"].ToString();
+            //    myDD.Items.Insert(0, "Action");
+            //    myDD.Items.Insert(1, new ListItem("View Details", itemVal));
+            //    myDD.Items.Insert(2, new ListItem("View Mapped Schemes", itemVal));
+            //    myDD.SelectedIndexChanged += new EventHandler(ddAction_OnSelectedIndexChanged);
+            //}
         }
     }
 }
