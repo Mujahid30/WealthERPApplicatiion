@@ -51,7 +51,7 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, out int instructureId)
+        public void CreateCommissionStructureMastter(CommissionStructureMasterVo commissionStructureMasterVo, int userId, out Int32 instructureId)
         {
             Database db;
             DbCommand cmdCreateCommissionStructure;
@@ -81,7 +81,7 @@ namespace DaoCommisionManagement
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
                 Object objCommissionStructureId = db.GetParameterValue(cmdCreateCommissionStructure, "@CommissionStructureId");
                 if (objCommissionStructureId != DBNull.Value)
-                    instructureId = (int)db.GetParameterValue(cmdCreateCommissionStructure, "@CommissionStructureId");
+                    instructureId = Convert.ToInt32(objCommissionStructureId);
                 else
                     instructureId = 0;
             }
@@ -106,7 +106,7 @@ namespace DaoCommisionManagement
         }
 
 
-        public DataSet GetAdviserCommissionStructureRules(int adviserId)
+        public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -117,6 +117,7 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_GetAdviserCommissionStructureRules");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@StructureId", DbType.Int32, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)
@@ -172,26 +173,26 @@ namespace DaoCommisionManagement
                 }
 
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
-                if (commissionStructureRuleVo.MinNumberofApplications!=0)
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
+                if (commissionStructureRuleVo.MinNumberofApplications != 0)
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
 
-               
+
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_BrokerageValue", DbType.Decimal, commissionStructureRuleVo.BrokerageValue);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@WCU_UnitCode", DbType.String, commissionStructureRuleVo.BrokerageUnitCode);
 
 
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@WCCO_CalculatedOnCode", DbType.String, commissionStructureRuleVo.CalculatedOnCode);
-                if(commissionStructureRuleVo.AUMMonth!=0)
+                if (commissionStructureRuleVo.AUMMonth != 0)
                 {
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_AUMFrequency", DbType.String, commissionStructureRuleVo.AUMFrequency);
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_AUMMonth", DbType.Int16, commissionStructureRuleVo.AUMMonth);
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_AUMFrequency", DbType.String, commissionStructureRuleVo.AUMFrequency);
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_AUMMonth", DbType.Int16, commissionStructureRuleVo.AUMMonth);
                 }
 
-                db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32,userId);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
 
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -219,7 +220,7 @@ namespace DaoCommisionManagement
         /// <param name="adviserId"></param>
         /// <returns></returns>
 
-        public DataSet GetStructureCommissionAllRules(int structureId,string commissionType)
+        public DataSet GetStructureCommissionAllRules(int structureId, string commissionType)
         {
             Database db;
             DbCommand cmdGetStructureCommissionRules;
@@ -245,170 +246,6 @@ namespace DaoCommisionManagement
                 object[] objects = new object[2];
                 objects[0] = structureId;
                 objects[1] = commissionType;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return ds;
-        }
-
-
-        public DataSet GetProductType()
-        {
-            Database db;
-            DbCommand cmdGetProdTypeCm;
-            DataSet ds = null;
-
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetProdTypeCm = db.GetStoredProcCommand("SPROC_GetProductTypeCM");
-                ds = db.ExecuteDataSet(cmdGetProdTypeCm);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetProductType()");
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return ds;
-        }
-
-        public DataSet GetCategories(string prodType)
-        {
-            Database db;
-            DbCommand cmdGetCatCm;
-            DataSet ds = null;
-
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetCatCm = db.GetStoredProcCommand("SPROC_GetCategoryCM");
-                db.AddInParameter(cmdGetCatCm, "@AssetGroupCode", DbType.String, prodType);
-                ds = db.ExecuteDataSet(cmdGetCatCm);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetCategories(string prodType)");
-                object[] objects = new object[1];
-                objects[0] = prodType;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return ds;
-        }
-
-        public DataSet GetSubCategories(string cat)
-        {
-            Database db;
-            DbCommand cmdGetSubCatCm;
-            DataSet ds = null;
-
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetSubCatCm = db.GetStoredProcCommand("SPROC_GetSubCategoryCM");
-                db.AddInParameter(cmdGetSubCatCm, "@Category", DbType.String, cat);
-                ds = db.ExecuteDataSet(cmdGetSubCatCm);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetSubCategories(string cat)");
-                object[] objects = new object[1];
-                objects[0] = cat;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return ds;
-        }
-
-        public DataSet GetProdAmc()
-        {
-            Database db;
-            DbCommand cmdGetProdAmc;
-            DataSet ds = null;
-
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetProdAmc = db.GetStoredProcCommand("SP_GetProductAmc");
-                ds = db.ExecuteDataSet(cmdGetProdAmc);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetProdAmc()");
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return ds;
-        }
-
-        public DataSet GetAdviserCommissionStructureRules(int adviserId, string product, string cat, string subcat, int issuer, string validity)
-        {
-            Database db;
-            DbCommand cmdGetCommissionStructureRules;
-            DataSet ds = null;
-
-            string parProd = product.ToLower().Equals("all") ? null : product;
-            string parCat = cat.ToLower().Equals("all") ? null : cat;
-            string parSubcat = subcat.ToLower().Equals("all") ? null : subcat;
-            string parValid = validity.ToLower().Equals("all") ? null : validity;
-            //For issuer, param dealt in SPROC
-
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_GetAdviserCommissionStructureRulesCM");
-                db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Product", DbType.String, parProd);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Category", DbType.String, parCat);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@SubCategory", DbType.String, parSubcat);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Issuer", DbType.Int32, issuer);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Valid", DbType.String, parValid);
-                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAdviserCommissionStructureRules(int adviserId, string product, string cat, string subcat, int validity)");
-                object[] objects = new object[1];
-                objects[0] = adviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
