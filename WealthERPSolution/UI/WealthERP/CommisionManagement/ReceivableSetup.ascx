@@ -425,7 +425,7 @@
                             OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="100%">
                             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                             </ExportSettings>
-                            <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                            <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" EditMode="EditForms"
                                 CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule" DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionType,XCT_CustomerTypeCode,ACSR_TenureUnit,ACSR_TransactionType,WCU_Unit,WCCO_CalculatedOn,ACSM_AUMFrequency,ACSR_MaxTenure">
                                 <Columns>
                                     <telerik:GridEditCommandColumn>
