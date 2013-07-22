@@ -1,33 +1,21 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Calculators.ascx.cs"
     Inherits="WealthERP.General.Calculators" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%--<style type="text/css">
-    .style1
-    {
-        color: #FF0000;
-    }
-    .FieldName
-    {
-        color: #000000;
-    }
-</style>--%>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+<%@ Register Src="~/General/InterestCalculator.ascx" TagPrefix="ICalc" TagName="ICalc" %>
 
 <script type="text/javascript">
-function CheckDecimal(inputtxt)
-{
- var numbers =/^[0-9]+(\.[0-9]+)+$/;
- if((inputtxt.value.match(numbers))) 
-  {
-   return true;
-  }
- else
-  {
-  alert("Please enter a non decimal number"); 
-  return false; 
-  }
-}
+    function CheckDecimal(inputtxt) {
+        var numbers = /^[0-9]+(\.[0-9]+)+$/;
+        if ((inputtxt.value.match(numbers))) {
+            return true;
+        }
+        else {
+            alert("Please enter a non decimal number");
+            return false;
+        }
+    }
 </script>
 
 <script id="myScript" language="javascript" type="text/javascript">
@@ -200,10 +188,11 @@ function CheckDecimal(inputtxt)
                                     <asp:Label ID="lblStartDate" runat="server" Text="Installment Start Date:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td align="left">
-                                    <asp:TextBox ValidationGroup="vgBtnCalculateEMI"  AutoPostBack="true" OnTextChanged="txtStartDate_OnTextChanged" ID="txtStartDate"
-                                        runat="server" Width="120px" CssClass="Field"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ValidationGroup="vgBtnCalculateEMI" ID="RegularExpressionValidator1" runat="server" CssClass="FieldName"
-                                        ErrorMessage="Invalid Date" ControlToValidate="txtStartDate" ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
+                                    <asp:TextBox ValidationGroup="vgBtnCalculateEMI" AutoPostBack="true" OnTextChanged="txtStartDate_OnTextChanged"
+                                        ID="txtStartDate" runat="server" Width="120px" CssClass="Field"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ValidationGroup="vgBtnCalculateEMI" ID="RegularExpressionValidator1"
+                                        runat="server" CssClass="FieldName" ErrorMessage="Invalid Date" ControlToValidate="txtStartDate"
+                                        ValidationExpression="^(((((0[1-9])|(1\d)|(2[0-8]))\/((0[1-9])|(1[0-2])))|((31\/((0[13578])|(1[02])))|((29|30)\/((0[1,3-9])|(1[0-2])))))\/((20[0-9][0-9])|(19[0-9][0-9])))|((29\/02\/(19|20)(([02468][048])|([13579][26]))))$"></asp:RegularExpressionValidator>
                                     <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
                                         Format="dd/MM/yyyy" Enabled="True">
                                     </cc1:CalendarExtender>
@@ -604,6 +593,21 @@ function CheckDecimal(inputtxt)
                                             </table>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
+                                </td>
+                            </tr>
+                        </table>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+                <cc1:TabPanel ID="TabPanel1" runat="server" TabIndex="3" HeaderText="Interest Calculator"
+                    Width="100%">
+                    <HeaderTemplate>
+                        Interest Calculator</HeaderTemplate>
+                    <ContentTemplate>
+                        <table>
+                            <tr>
+                                <td runat="server" id="tdIntCalculator">
+                                    <ICalc:ICalc ID="IdICalc" runat="server">
+                                    </ICalc:ICalc>
                                 </td>
                             </tr>
                         </table>

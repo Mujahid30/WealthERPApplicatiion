@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InterestCalculator.ascx.cs"
     Inherits="WealthERP.General.InterestCalculator" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<cc1:ToolkitScriptManager ID="scriptManager" runat="server">
-</cc1:ToolkitScriptManager>
+
 <%--<script type="text/javascript">
     function setHourglass() {
         document.body.style.cursor = 'wait';

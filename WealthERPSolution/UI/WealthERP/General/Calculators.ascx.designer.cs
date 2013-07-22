@@ -986,6 +986,33 @@ namespace WealthERP.General {
         protected global::System.Web.UI.WebControls.Label lblFVValue;
         
         /// <summary>
+        /// TabPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel1;
+        
+        /// <summary>
+        /// tdIntCalculator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdIntCalculator;
+        
+        /// <summary>
+        /// IdICalc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::WealthERP.General.InterestCalculator IdICalc;
+        
+        /// <summary>
         /// hidTabIndex control.
         /// </summary>
         /// <remarks>

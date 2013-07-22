@@ -13,9 +13,7 @@ namespace WealthERP.General
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-
+            IdICalc.Visible = true;
         }
 
         protected void btnCalculateEMI_Click(object sender, EventArgs e)
