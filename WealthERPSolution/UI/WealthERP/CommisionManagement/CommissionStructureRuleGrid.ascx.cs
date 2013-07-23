@@ -176,10 +176,10 @@ namespace WealthERP.CommisionManagement
             switch (ddlAction.SelectedValue)
             {
                 case "ViewSTDetails":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + " ');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
                     break;
                 case "ManageSchemeMapping":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('MappedSchemes','ID=" + structureId + " ');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + structureId + "');", true);
                     break;
                 default:
                     return;
