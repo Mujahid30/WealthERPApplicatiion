@@ -401,5 +401,61 @@ namespace BoCommisionManagement
             }
 
         }
+
+        public DataSet GetCMStructNames(int advId, int cmStructId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsStructList;
+            try
+            {
+                dsStructList = commisionReceivableDao.GetCMStructNames(advId, cmStructId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetCMStructNames(int cmStructId)");
+                object[] objects = new object[1];
+                objects[0] = cmStructId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsStructList;
+        }
+
+        public DataSet GetMappedSchemes(int cmStructId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsStructList;
+            try
+            {
+                dsStructList = commisionReceivableDao.GetMappedSchemes(cmStructId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetMappedSchemes(int cmStructId)");
+                object[] objects = new object[1];
+                objects[0] = cmStructId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsStructList;
+        }
     }
 }
