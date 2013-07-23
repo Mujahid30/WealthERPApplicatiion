@@ -140,6 +140,26 @@ namespace WealthERP
             return checkAccDao.CheckTransactionExistanceOnHoldingAdd(CBBankAccountNum);
         }
 
+
+
+        [WebMethod]
+        public static bool CheckInsuranceNoAvailabilityOnAdd(string InsuranceNo, int AdviserId)
+        {
+
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckInsuranceNoAvailabilityOnAdd(InsuranceNo,AdviserId);
+        }
+
+        [WebMethod]
+        public static bool CheckGenInsuranceNoAvailabilityOnAdd(string InsuranceNo, int AdviserId)
+        {
+
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckGenInsuranceNoAvailabilityOnAdd(InsuranceNo, AdviserId);
+        }
+
+
+
         private void AddSessionTrack()
         {
             UserVo userVo = null;

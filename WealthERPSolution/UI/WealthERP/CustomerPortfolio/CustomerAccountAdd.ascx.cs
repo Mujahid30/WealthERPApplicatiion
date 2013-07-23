@@ -30,6 +30,7 @@ namespace WealthERP.CustomerPortfolio
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         UserVo userVo = new UserVo();
+        AdvisorVo advisorVo = new AdvisorVo(); 
         CustomerVo customerVo = new CustomerVo();
         InsuranceBo insuranceBo = new InsuranceBo();
         DataSet dsAssetCategories;
@@ -54,6 +55,8 @@ namespace WealthERP.CustomerPortfolio
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 customerVo = (CustomerVo)Session["CustomerVo"];
+                advisorVo = (AdvisorVo)Session["advisorVo"];
+                HdnAdviserId.Value =advisorVo.advisorId.ToString();
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 insuranceUlipList = (List<InsuranceULIPVo>)Session["ulipList"];
                 group = Session["action"].ToString().Trim();

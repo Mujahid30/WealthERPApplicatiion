@@ -619,7 +619,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrCity", DbType.String, DBNull.Value);
                 }
-                if ((!string.IsNullOrEmpty(customerAccountVo.BranchAdrState)) && (customerAccountVo.BranchAdrState!="0"))
+                if ((!string.IsNullOrEmpty(customerAccountVo.BranchAdrState)) && (customerAccountVo.BranchAdrState != "0"))
                 {
                     db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrState", DbType.String, customerAccountVo.BranchAdrState);
                 }
@@ -1011,6 +1011,62 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
+
+
+        public bool CheckInsuranceNoAvailabilityOnAdd(string policyNumber, int adviserId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckInsuranceNoAvailabilityOnAdd");
+
+            db.AddInParameter(chkAvailabilityCmd, "@policyNumber", DbType.String, policyNumber);
+            db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
+
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            rowCount = Convert.ToInt32(ds.Tables[0].Rows[0]["column1"].ToString());
+            if (rowCount > 0)
+            {
+                bResult = false;
+            }
+            else
+            {
+                bResult = true;
+            }
+            return bResult;
+        }
+
+        public bool CheckGenInsuranceNoAvailabilityOnAdd(string policyNumber, int adviserId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckGenInsuranceNoAvailabilityOnAdd");
+
+            db.AddInParameter(chkAvailabilityCmd, "@policyNumber", DbType.String, policyNumber);
+            db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
+
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            rowCount = ds.Tables[0].Rows.Count;
+            if (rowCount > 0)
+            {
+                bResult = false;
+            }
+            else
+            {
+                bResult = true;
+            }
+            return bResult;
+        }
+
 
         public bool CheckTransactionExistanceOnHoldingAdd(int CBAccountNumber)
         {
@@ -1588,7 +1644,7 @@ namespace DaoCustomerPortfolio
             return dsCustomerAssociates;
         }
 
-        public DataSet GetCustomerAssociatedRelForCashAndSavings(int customerId,string strVisibility)
+        public DataSet GetCustomerAssociatedRelForCashAndSavings(int customerId, string strVisibility)
         {
             DataSet dsCustomerAssociates = null;
             DbCommand getCustomerAssociatesCmd;
@@ -3135,29 +3191,29 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreatecustomerBanktransactionCmd = db.GetStoredProcCommand("SP_CreateCustomerBankTransaction");
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CB_CustBankAccId", DbType.Int32, customerAccountVo.AccountId);
-                if(customerAccountVo.ExternalTransactionId!=null)
-                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
+                if (customerAccountVo.ExternalTransactionId != null)
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
                 else
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ExternalTransactionId", DbType.String, DBNull.Value);
                 if (customerAccountVo.Transactiondate != null)
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
                 else
                     customerAccountVo.Transactiondate = DateTime.MinValue;
-               
+
                 if (customerAccountVo.CCST_Desc != null)
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 else
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, DBNull.Value);
-               // db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
+                // db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
                 if (!string.IsNullOrEmpty("@WERP_CFCCode".ToString()))
                     db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, customerAccountVo.CFCCategoryCode);
                 else
-                db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, DBNull.Value); 
-                if(customerAccountVo.ChequeNo!=null)
-                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@WERP_CFCCode", DbType.String, DBNull.Value);
+                if (customerAccountVo.ChequeNo != null)
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
                 else
-                db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, DBNull.Value);
+                    db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_ChequeNo", DbType.String, DBNull.Value);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);
                 db.AddInParameter(CreatecustomerBanktransactionCmd, "@CCST_CreatedBy", DbType.Int32, userId);
@@ -3199,7 +3255,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 InsertholdingAmountCustomerBankCmd = db.GetStoredProcCommand("SP_InsertholdingAmountCustomerBank");
-                db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@C_CustomerId", DbType.Int32,CustomerId);
+                db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@CB_CustBankAccId", DbType.String, customerAccountVo.AccountId);
                 //db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@CB_AccountNum", DbType.String, customerAccountVo.AccountNum);
                 db.AddInParameter(InsertholdingAmountCustomerBankCmd, "@CB_HoldingAmount", DbType.Double, customerAccountVo.Amount);
@@ -3253,8 +3309,8 @@ namespace DaoCustomerPortfolio
 
                     foreach (DataRow dr in getCustomerBankTransactionDs.Tables[0].Rows)
                     {
-                        customerAccountsVo = new CustomerAccountsVo();                       
-                        customerAccountsVo.BankName=dr["WERPBM_BankCode"].ToString();
+                        customerAccountsVo = new CustomerAccountsVo();
+                        customerAccountsVo.BankName = dr["WERPBM_BankCode"].ToString();
                         customerAccountsVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
                         customerAccountsVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                         if (!string.IsNullOrEmpty(dr["CCST_TransactionId"].ToString()))
@@ -3277,9 +3333,9 @@ namespace DaoCustomerPortfolio
                             customerAccountsVo.ChequeNo = dr["CCST_ChequeNo"].ToString();
                         else
                             customerAccountsVo.ChequeNo = null;
-                       
-                        if (!string.IsNullOrEmpty(dr["CCST_IsWithdrwal"].ToString()))                           
-                            if (dr["CCST_IsWithdrwal"].ToString()=="CR")
+
+                        if (!string.IsNullOrEmpty(dr["CCST_IsWithdrwal"].ToString()))
+                            if (dr["CCST_IsWithdrwal"].ToString() == "CR")
                                 customerAccountsVo.IsWithdrwal = 0;
                             else
                                 customerAccountsVo.IsWithdrwal = 1;
@@ -3329,30 +3385,30 @@ namespace DaoCustomerPortfolio
             return accountList;
 
         }
-        public bool UpdateCustomerBankTransaction(CustomerAccountsVo customerAccountVo,int TransactionId)
+        public bool UpdateCustomerBankTransaction(CustomerAccountsVo customerAccountVo, int TransactionId)
         {
             bool bResult = false;
             Database db;
             DbCommand updateCustomerBankTransactionCmd;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCustomerBankTransactionCmd = db.GetStoredProcCommand("SP_UpdateCustomerBankTransaction");
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_TransactionId", DbType.Int32, TransactionId);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_ExternalTransactionId", DbType.String, customerAccountVo.ExternalTransactionId);
-                if(customerAccountVo.Transactiondate!=null)
-                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
+                if (customerAccountVo.Transactiondate != null)
+                    db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Transactiondate", DbType.DateTime, customerAccountVo.Transactiondate);
                 else
-                  customerAccountVo.Transactiondate= DateTime.MinValue;
+                    customerAccountVo.Transactiondate = DateTime.MinValue;
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Desc", DbType.String, customerAccountVo.CCST_Desc);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_IsWithdrwal", DbType.Int32, customerAccountVo.IsWithdrwal);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@WERP_CFCCode", DbType.String, customerAccountVo.CFCCategoryCode);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_ChequeNo", DbType.String, customerAccountVo.ChequeNo);
                 db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_Amount", DbType.Double, customerAccountVo.Amount);
-                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);               
+                db.AddInParameter(updateCustomerBankTransactionCmd, "@CCST_AvailableBalance", DbType.Double, customerAccountVo.AvailableBalance);
                 if (db.ExecuteNonQuery(updateCustomerBankTransactionCmd) != 0)
-                bResult = true;
+                    bResult = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -3366,7 +3422,7 @@ namespace DaoCustomerPortfolio
                 FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:UpdateCustomerBankTransaction()");
 
 
-                object[] objects = new object[2];               
+                object[] objects = new object[2];
                 objects[0] = customerAccountVo;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -3515,15 +3571,15 @@ namespace DaoCustomerPortfolio
         public double GetHoldingBalance(int CB_CustBankAccId)
         {
             Database db;
-            DbCommand GetHoldingBalanceCmd;            
+            DbCommand GetHoldingBalanceCmd;
             double Amount = 0.0;
-           
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetHoldingBalanceCmd = db.GetStoredProcCommand("SP_GetHoldingAmount");
                 db.AddInParameter(GetHoldingBalanceCmd, "@CB_CustBankAccId", DbType.Int32, CB_CustBankAccId);
-                db.AddOutParameter(GetHoldingBalanceCmd,"@CB_HoldingAmount", DbType.Double,100000);            
+                db.AddOutParameter(GetHoldingBalanceCmd, "@CB_HoldingAmount", DbType.Double, 100000);
                 if (db.ExecuteNonQuery(GetHoldingBalanceCmd) != 0)
                     Amount = double.Parse(db.GetParameterValue(GetHoldingBalanceCmd, "CB_HoldingAmount").ToString());
 

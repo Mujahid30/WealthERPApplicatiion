@@ -28,12 +28,16 @@ namespace WealthERP.CustomerPortfolio
         GeneralInsuranceVo generalInsuranceVo = new GeneralInsuranceVo();
         InsuranceBo insuranceBo = new InsuranceBo();
         int CustomerGIPortfolioId;
+        AdvisorVo advisorVo = new AdvisorVo(); 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            HdnAdviserId.Value = advisorVo.advisorId.ToString();
+
             DataTable dt;
 
             if (!IsPostBack)
