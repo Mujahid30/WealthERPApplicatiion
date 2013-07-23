@@ -656,6 +656,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createCustomerMFAccountCmd, "@CB_IFSC", DbType.String, DBNull.Value);
                 }
 
+                if (!string.IsNullOrEmpty(customerAccountVo.AssociateCode))
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_SubBrokerCode", DbType.String, customerAccountVo.AssociateCode);
+                else
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_SubBrokerCode", DbType.String, DBNull.Value);
+                if (customerAccountVo.AdviserAgentId != 0)
+                    db.AddInParameter(createCustomerMFAccountCmd, "@AAC_AdviserAgentId", DbType.Int32, customerAccountVo.AdviserAgentId);
+                else
+                    db.AddInParameter(createCustomerMFAccountCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CB_CreatedBy", DbType.Int32, userId);
 
 
