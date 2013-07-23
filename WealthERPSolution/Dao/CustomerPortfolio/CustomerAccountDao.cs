@@ -1055,7 +1055,7 @@ namespace DaoCustomerPortfolio
             db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
 
             ds = db.ExecuteDataSet(chkAvailabilityCmd);
-            rowCount = ds.Tables[0].Rows.Count;
+            rowCount = Convert.ToInt32(ds.Tables[0].Rows[0]["column1"].ToString());
             if (rowCount > 0)
             {
                 bResult = false;
