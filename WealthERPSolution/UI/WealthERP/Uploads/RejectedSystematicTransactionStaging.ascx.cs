@@ -453,7 +453,7 @@ namespace WealthERP.Uploads
 
         protected void lnkBtnBackToUploadLog_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
         }
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
