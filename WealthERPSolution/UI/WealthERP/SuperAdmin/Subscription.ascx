@@ -367,7 +367,8 @@
                             <asp:ListItem Text="Order Management" Value="15" Enabled="false"></asp:ListItem> 
                             <asp:ListItem Text="Organization Hierarchies" Value="16" Enabled="false"></asp:ListItem>   
                             <asp:ListItem Text="Product Master" Value="17" Enabled="false"></asp:ListItem> 
-                            <asp:ListItem Text="Customized Theme" Value="18" Enabled="false"></asp:ListItem>                     
+                            <asp:ListItem Text="Customized Theme" Value="18" Enabled="false"></asp:ListItem>  
+                            <asp:ListItem Text="Associates" Value="19" Enabled="false"></asp:ListItem>                    
                         </asp:CheckBoxList>
                         <asp:CustomValidator runat="server" ID="cvmodulelist" 
                             ErrorMessage="Please Select Atleast one Module" CssClass="cvPCG"></asp:CustomValidator>
