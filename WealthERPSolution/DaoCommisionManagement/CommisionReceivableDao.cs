@@ -647,5 +647,77 @@ namespace DaoCommisionManagement
         }
 
 
+        public DataSet GetCMStructNames(int adviserId, int cmStructId)
+        {
+            Database db;
+            DbCommand cmdGetStructNames;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStructNames = db.GetStoredProcCommand("SP_GetAllStrutureNamesById");
+                db.AddInParameter(cmdGetStructNames, "@AdviserId", DbType.Int32, adviserId);
+                if (cmStructId > 1)
+                {
+                    db.AddInParameter(cmdGetStructNames, "@StructId", DbType.Int32, cmStructId);
+                }
+                ds = db.ExecuteDataSet(cmdGetStructNames);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAllStructureDetails(int cmStructId)");
+                object[] objects = new object[1];
+                objects[0] = cmStructId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        //GetMappedSchemes
+
+        public DataSet GetMappedSchemes(int cmStructId)
+        {
+            Database db;
+            DbCommand cmdGetStructNames;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStructNames = db.GetStoredProcCommand("SP_GetMappedSchemes");
+                if (cmStructId > 1)
+                {
+                    db.AddInParameter(cmdGetStructNames, "@StructId", DbType.Int32, cmStructId);
+                }
+                ds = db.ExecuteDataSet(cmdGetStructNames);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAllStructureDetails(int cmStructId)");
+                object[] objects = new object[1];
+                objects[0] = cmStructId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+
     }
 }
