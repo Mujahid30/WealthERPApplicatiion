@@ -193,6 +193,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Customer User Management" Value="Customer User Management">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Associate User Management" Value="Associate_User_Mnagement">
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Login History" Value="Adviser_Login_Track"
                                                         Vissble="true">
                                                     </telerik:RadPanelItem>
@@ -425,6 +427,14 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Associates" Value="AddAssociates">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Associates" Value="ViewAssociates">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
@@ -533,6 +543,18 @@
                         <Items>
                             <telerik:RadPanelItem runat="server" Text="Ops" Value="Ops">
                                 <Items>
+                                    <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Add Associates" Value="AddAssociates">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Associates" Value="ViewAssociates">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Add Agent/Associate Code" Value="AddAgentCode">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
@@ -593,6 +615,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
+                                                    </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

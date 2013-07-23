@@ -818,6 +818,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMCustomerUserDetails','login');", true);
                 }
+                else if (e.Item.Value == "Associate_User_Mnagement")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AgentManagement','login');", true);
+                }
 
                 else if (e.Item.Value == "Adviser_Login_Track")
                 {
@@ -1370,6 +1374,16 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
                 }
+                else if (e.Item.Value == "AddAssociates")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','login');", true);
+                }
+                else if (e.Item.Value == "ViewAssociates")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAssociates','login');", true);
+                }
                 else if (e.Item.Value == "Customized SMS")
                 {
                     Session["UserType"] = "bm";
@@ -1733,6 +1747,26 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "OrderRecon")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderRecon','login');", true);
+                }
+                else if (e.Item.Value == "AddAssociates")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','login');", true);
+                }
+                else if (e.Item.Value == "ViewAssociates")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAssociates','login');", true);
+                }
+                else if (e.Item.Value == "AddAgentCode")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation','login');", true);
+                }
+                else if (e.Item.Value == "ViewAgentCode")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
                 }
                 else if (e.Item.Value == "View_Receivable_structure")
                 {
