@@ -61,13 +61,27 @@
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestmentAmount').value;
         if (maxValue > minValue)
             args.IsValid = true;
+            
+        if (minValue == "" && maxValue == "")
+            args.IsValid = true;
     }
 
+//    function alertTest() {
+//        var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
+//        if (maxValue=="")
+//            alert("blank");
+//            else
+//                alert("empty");
+//    }
     function TenureValidation(source, args) {
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinTenure').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
+      
         if (maxValue > minValue)
+            args.IsValid = true;
+            
+        if (minValue== "" && maxValue== "")
             args.IsValid = true;
     }
 
@@ -76,6 +90,9 @@
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestAge').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestAge').value;
         if (maxValue > minValue)
+            args.IsValid = true;
+
+        if (minValue == "" && maxValue == "")
             args.IsValid = true;
     }
     
@@ -394,14 +411,12 @@
                             &nbsp;
                             <asp:Label ID="lblStage" runat="server" Text="Structure Rule Details"></asp:Label>
                         </div>
-                        
                         <div class="divViewEdit" style="padding-right: 10px;">
                             <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
                                 OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                 Width="25px"></asp:ImageButton>
                         </div>
-                        
                         <div class="divViewEdit" style="padding-right: 30px;">
                             <asp:LinkButton ID="lnkDeleteAllRule" Text="Delete" ToolTip="Delete commission structure all rule"
                                 runat="server" CssClass="LinkButtons" OnClientClick="return confirm('Do you want to delete structure all rules? Click OK to proceed');"
@@ -425,8 +440,9 @@
                             OnUpdateCommand="RadGridStructureRule_UpdateCommand" Width="100%">
                             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                             </ExportSettings>
-                            <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" EditMode="EditForms"
-                                CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule" DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionType,XCT_CustomerTypeCode,ACSR_TenureUnit,ACSR_TransactionType,WCU_Unit,WCCO_CalculatedOn,ACSM_AUMFrequency,ACSR_MaxTenure">
+                            <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
+                                EditMode="EditForms" CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule"
+                                DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionType,XCT_CustomerTypeCode,ACSR_TenureUnit,ACSR_TransactionType,WCU_Unit,WCCO_CalculatedOn,ACSM_AUMFrequency,ACSR_MaxTenure">
                                 <Columns>
                                     <telerik:GridEditCommandColumn>
                                     </telerik:GridEditCommandColumn>
@@ -660,6 +676,7 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="leftLabel">
+                                               
                                                 </td>
                                             </tr>
                                             <tr>
@@ -720,6 +737,6 @@
         </div>
     </ContentTemplate>
     <Triggers>
-      <asp:PostBackTrigger ControlID="imgexportButton" />
+        <asp:PostBackTrigger ControlID="imgexportButton" />
     </Triggers>
 </asp:UpdatePanel>

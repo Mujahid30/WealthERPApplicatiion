@@ -353,7 +353,7 @@ namespace WealthERP.Receivable
                 if (isValidRule)
                 {
                     commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
-                    BindCommissionStructureRuleGrid(5);
+                    BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
                 }
                 else
                 {
@@ -408,7 +408,7 @@ namespace WealthERP.Receivable
                 TextBox txtAUMFor = (TextBox)e.Item.FindControl("txtAUMFor");
                 DropDownList ddlAUMFrequency = (DropDownList)e.Item.FindControl("ddlAUMFrequency");
 
-                commissionStructureRuleVo.CommissionStructureId = 5;
+                commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
                 commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
                 commissionStructureRuleVo.CustomerType = ddlInvestorType.SelectedValue;
 
@@ -462,7 +462,8 @@ namespace WealthERP.Receivable
                 commissionStructureRuleVo.CalculatedOnCode = ddlCommisionCalOn.SelectedValue;
                 if (ddlCommisionCalOn.SelectedValue == "AGAM" || ddlCommisionCalOn.SelectedValue == "AUM" || ddlCommisionCalOn.SelectedValue == "CLAM")
                 {
-                    commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
+                    if (!string.IsNullOrEmpty(txtAUMFor.Text.Trim()))
+                     commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
                     commissionStructureRuleVo.AUMFrequency = ddlAUMFrequency.SelectedValue;
                 }
             }
