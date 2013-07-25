@@ -46,7 +46,7 @@ namespace WERP_REQUEST_PROCESSOR
                 string customerIds = dr["WRR_CustomerIds"].ToString();
                 userId = Convert.ToInt32(dr["WRR_CreatedBy"].ToString());
                 //groupCustomerId = Convert.ToInt32(dr["WRR_GroupCustomerId"].ToString());
-                isGroupHead = Convert.ToBoolean(dr["ASWRR_IsGroupHead"].ToString());
+                isGroupHead = Convert.ToBoolean(Convert.ToInt16(dr["ASWRR_IsGroupHead"].ToString()));
                 reportTypeAsOn = dr["WRR_ReportTypeAsON"].ToString();
                 reportTypeRange = dr["WRR_ReportTypeRange"].ToString();
                 adviserId = Convert.ToInt32(dr["WRR_AdviserId"].ToString());
