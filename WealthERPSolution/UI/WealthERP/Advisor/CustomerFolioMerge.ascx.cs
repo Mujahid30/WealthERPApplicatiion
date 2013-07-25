@@ -27,6 +27,8 @@ using BoCommon;
 using VoCustomerProfiling;
 using VoAdvisorProfiling;
 using BoUploads;
+using VOAssociates;
+using BOAssociates;
 using Telerik.Web.UI;
 
 
@@ -46,6 +48,7 @@ namespace WealthERP.Advisor
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         RMVo rmVo = new RMVo();
+        AssociatesVO associatesVo = new AssociatesVO();
         //protected override void OnInit(EventArgs e)
         //{
         //    try
@@ -113,6 +116,7 @@ namespace WealthERP.Advisor
             adviserVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
+            associatesVo = (AssociatesVO)Session["associatesVo"];
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
@@ -121,6 +125,8 @@ namespace WealthERP.Advisor
                 userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                userType = "associates";
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
@@ -142,7 +148,6 @@ namespace WealthERP.Advisor
                         ddlRM.Enabled = false;
                         trAction.Visible = false;
                         Label1.Visible = false;
-
                     }
                 }
                 if (userType == "bm") 
@@ -150,8 +155,21 @@ namespace WealthERP.Advisor
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                     trAction.Visible = false;
-                    Label1.Visible = false;
-                   
+                    Label1.Visible = false;                  
+                }
+                if (userType == "associates")
+                {
+                    trBranchRM.Visible = false;
+                    ddlRM.Visible=false;
+                    trAction.Visible = true;
+                    Label1.Visible = true;
+                    ddlBranch.Visible = false;
+                    btnGo.Visible = false;
+                    BindCustomer();
+                    //BindBranchDropDown();
+                    //BindRMDropDown();
+                    //ddlRM.SelectedValue = rmVo.RMId.ToString();
+                    //ddlRM.Enabled = false;
                 }
             }
 
@@ -355,6 +373,12 @@ namespace WealthERP.Advisor
                 trAction.Visible = false;
                 Label1.Visible = false;
             }
+           else if (userType == "associates")
+            {
+                BindCustomer();
+                trAction.Visible = false;
+                Label1.Visible = false;
+            }
             else
             {
                 BindCustomer();
@@ -369,24 +393,29 @@ namespace WealthERP.Advisor
         {
             if (userType == "advisor")
             {
+                hdnIsassociate.Value = "0";
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
                     hdnadviserId.Value = advisorId.ToString();
                     hdnAll.Value = "0";
+                    hdnAgentId.Value = "0";
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
+                   
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
                     hdnadviserId.Value = advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "1";
-                    hdnrmId.Value = "0";
+                    hdnrmId.Value = "0";                    
                 }
                 else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
                 {
                     hdnadviserId.Value = advisorId.ToString();
                     hdnbranchId.Value = "0";
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "2";
                     hdnrmId.Value = ddlRM.SelectedValue; ;
                 }
@@ -395,21 +424,26 @@ namespace WealthERP.Advisor
                     hdnadviserId.Value = advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "3";
                 }
             }
             else if (userType == "rm")
             {
+                hdnIsassociate.Value = "0";
                 hdnrmId.Value = rmVo.RMId.ToString();
+                hdnAgentId.Value = "0";
                 hdnAll.Value = "0";
             }
             else if (userType == "bm")
             {
+                    hdnIsassociate.Value = "0";
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
 
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = "0";
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "0";
                     hdnrmId.Value = "0";
                 }
@@ -417,6 +451,7 @@ namespace WealthERP.Advisor
                 {
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "1";
                     hdnrmId.Value = "0";
                 }
@@ -424,6 +459,7 @@ namespace WealthERP.Advisor
                 {
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = "0";
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "2";
                     hdnrmId.Value = ddlRM.SelectedValue; ;
                 }
@@ -432,8 +468,18 @@ namespace WealthERP.Advisor
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "3";
                 }
+            }
+            else if (userType == "associates")
+            {
+                hdnIsassociate.Value = "1";
+                hdnAgentId.Value =associatesVo.AAC_AdviserAgentId.ToString();
+                hdnbranchHeadId.Value = "0";
+                hdnbranchId.Value = "0";
+                hdnrmId.Value = "0";
+                hdnAll.Value = "0";
             }
             if (hdnbranchHeadId.Value == "")
                 hdnbranchHeadId.Value = "0";
@@ -456,13 +502,14 @@ namespace WealthERP.Advisor
             DataTable dtCustomerFolio = new DataTable();
             try
             {
+                SetParameters();
                 //if (hdnCurrentPage.Value.ToString() != "")
                 //{
                 //    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
                 //    hdnCurrentPage.Value = "";
                 //}
 
-                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value));
+                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(int.Parse(hdnadviserId.Value),int.Parse(hdnIsassociate.Value),int.Parse(hdnAgentId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value));
 
                 //if (hdnFolioFilter.Value != "")
                 //    dsCustomerFolio = adviserBranchBo.FilterFolioNumber(adviserVo.advisorId, mypager.CurrentPage, hdnFolioFilter.Value.ToString(), out count);
@@ -481,19 +528,8 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("mergerstatus");
                 dtCustomerFolio.Columns.Add("Nominee");
                 dtCustomerFolio.Columns.Add("ModeOfHolding");
-                if (dsCustomerFolio.Tables[0].Rows.Count == 0)
-                {
-                    //hdnRecordCount.Value = "0";
-                    ErrorMessage.Visible = true;
-                    //trPager.Visible = false;
-                    //lblTotalRows.Visible = false;
-                    //lblCurrentPage.Visible = false;
-                    trAction.Visible = false;
-                    Label1.Visible = false;
-                    DivCustomerFolio.Visible = false;
-                    btnExportFilteredData.Visible = false;
-                }
-                else
+               
+               if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
                     btnExportFilteredData.Visible = true;
                     //trPager.Visible = true;
@@ -553,6 +589,18 @@ namespace WealthERP.Advisor
                     //}    
                     //this.GetPageCount();
                 }
+               else
+               {
+                   //hdnRecordCount.Value = "0";
+                   ErrorMessage.Visible = true;
+                   //trPager.Visible = false;
+                   //lblTotalRows.Visible = false;
+                   //lblCurrentPage.Visible = false;
+                   trAction.Visible = false;
+                   Label1.Visible = false;
+                   DivCustomerFolio.Visible = false;
+                   btnExportFilteredData.Visible = false;
+               }
             }
             catch (BaseApplicationException Ex)
             {

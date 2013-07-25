@@ -171,6 +171,12 @@ namespace WealthERP.Advisor
                     dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
                     SetAdminTreeNodesForRoles(dsFilteredData, "Research");
                 }
+                 if (userVo.RoleList.Contains("Associates"))
+                 {
+                     userRole = "Associates";
+                     dsFilteredData = FilterUserTreeNode(userRole, dsTreeNodes);
+                     SetAdminTreeNodesForRoles(dsFilteredData, "Associates");
+                 }
                 dsSubscriptionDetails = FilterUserTreeNodeSubscription(dsTreeNodes);             
               
                 dsTreeNodes = FilterUserTreeNodePlan(dsTreeNodes);
@@ -352,7 +358,7 @@ namespace WealthERP.Advisor
 
             else if (Session["NodeType"] == "MessageInbox")
             {
-                  RadPanelBar1.FindItemByValue("Message").Expanded = true;
+                RadPanelBar1.FindItemByValue("Message").Expanded = true;
                 RadPanelBar1.FindItemByValue("Inbox").Expanded = true;              
                 RadPanelBar1.FindItemByValue("Inbox").Selected = true;               
               
@@ -2800,12 +2806,7 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
-                }
-                else if (e.Item.Value == "MF MIS")
-                {
-                    Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
-                }
+                }               
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "Associates";
@@ -2813,8 +2814,23 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "MFDashboard")
                 {
-                    Session["UserType"] = "rm";
+                    Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+                }
+                else if (e.Item.Value == "CustomerSignUp")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
+                }
+
+                else if (e.Item.Value == "MF Commission MIS")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                }
+                else if (e.Item.Value == "MF systematic MIS")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
                 }
                 else if (e.Item.Value == "MF_SIP_Projection")
                 {
@@ -2851,21 +2867,21 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
+                else if (e.Item.Value == "Customer_AUM")
+                {
+                    Session["UserType"] = "Associates";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                }
                 else if (e.Item.Value == "Customer_Holdings")
                 {
-                    Session["UserType"] = "rm";
+                    Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
-                }
-                else if (e.Item.Value == "Customer Report")
-                {
-                    Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
-                }
+                }               
                 else if (e.Item.Value == "Multi Asset Report")
                 {
                     Session["UserType"] = "Associates";

@@ -622,8 +622,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
-                                                    </telerik:RadPanelItem>
+                                                   <%--  <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
+                                                    </telerik:RadPanelItem>--%>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                              <telerik:RadPanelItem runat="server" Text="Commission" Value="Commissions">
@@ -860,7 +860,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transactions" Value="Transactions">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF systematic MIS" Value="MF systematic MIS">
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
                                             </telerik:RadPanelItem>                                           
                                         </Items>
                                     </telerik:RadPanelItem>
