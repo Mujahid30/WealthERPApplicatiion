@@ -1457,87 +1457,139 @@ namespace WealthERP.Reports
             RadListBoxDestination.Items.Clear();
 
         }
+        //protected void btnEmailReport_Click(object sender, EventArgs e)
+        //{
+        //    String allCustomerId = string.Empty;
+
+        //    foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+        //    {
+        //        allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
+
+        //    }
+        //    CustomerVo custVo = new CustomerVo();
+        //    AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
+        //    RMVo customerRMVo = new RMVo();
+        //    char[] separator = new char[] { ',' };
+        //    int customerId = 0;
+        //    string[] strSplitArr = allCustomerId.Split(separator);
+        //    //bool isForGroupCustomer = false;
+        //    int groupCustomerId = 0;
+        //    int parentrequestId = 0;
+        //    List<MFReportVo> mfReportVoList = null;
+        //    MFReportEmailVo mfReportEmailVo = new MFReportEmailVo();
+        //    DateTime fromDateRangeRpt;
+        //    DateTime toDateRangeRpt;
+
+        //    CalculateDateRange(out fromDateRangeRpt, out toDateRangeRpt);
+
+
+        //    foreach (string arrStr in strSplitArr)
+        //    {
+        //        if (!String.IsNullOrEmpty(arrStr))
+        //        {
+        //            mfReportVoList = new List<MFReportVo>();
+        //            mfReportEmailVo = new MFReportEmailVo();
+        //            customerId = int.Parse(arrStr);
+        //            taskRequestManagementBo.CreateTaskRequest(1, userVo.UserId, out parentrequestId);
+        //            //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
+        //            if (rbtnGrp.Checked == true)
+        //            {
+        //                groupCustomerId = int.Parse(arrStr);
+        //            }
+
+        //            custVo = customerBo.GetCustomer(customerId);
+        //            customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(custVo.RmId);
+        //            foreach (ListItem chkItems in chkAsOnReportList.Items)
+        //            {
+        //                if (chkItems.Selected == true)
+        //                {
+        //                    mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "ASON"));
+        //                }
+
+        //            }
+
+        //            foreach (ListItem chkItems in chkRangeReportList.Items)
+        //            {
+        //                if (chkItems.Selected == true)
+        //                {
+        //                    mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "RANGE"));
+        //                }
+
+        //            }
+
+        //            mfReportEmailVo.AdviserId = advisorVo.advisorId;
+        //            mfReportEmailVo.CustomerId = custVo.CustomerId;
+        //            mfReportEmailVo.CustomerEmail = custVo.Email;
+        //            mfReportEmailVo.RMEmail = customerRMVo.Email;
+        //            mfReportEmailVo.ReportTypeName = "Mutual Fund Portfolio Statement";
+
+        //            taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, mfReportEmailVo, parentrequestId, 1, userVo.UserId);
+
+        //        }
+        //    }
+
+        //    msgEmailSentComplete.Visible = true;
+
+        //    RadTabStrip2.Tabs[1].Selected = true;
+        //    tabViewAndEmailReports.SelectedIndex = 1;
+        //    RadListBoxDestination.Items.Clear();
+        //}
+
         protected void btnEmailReport_Click(object sender, EventArgs e)
         {
-            String allCustomerId = string.Empty;
-
-            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
-            {
-                allCustomerId = allCustomerId + ListItem.Value.ToString() + ",";
-
-            }
-            CustomerVo custVo = new CustomerVo();
-            AdvisorStaffBo adviserStaffBo = new AdvisorStaffBo();
-            RMVo customerRMVo = new RMVo();
-            char[] separator = new char[] { ',' };
-            int customerId = 0;
-            string[] strSplitArr = allCustomerId.Split(separator);
-            //bool isForGroupCustomer = false;
-            int groupCustomerId = 0;
-            int parentrequestId = 0;
-            List<MFReportVo> mfReportVoList = null;
-            MFReportEmailVo mfReportEmailVo = new MFReportEmailVo();
+            Dictionary<string, object> bulkMailRequest = new Dictionary<string, object>();
             DateTime fromDateRangeRpt;
             DateTime toDateRangeRpt;
+            
+            StringBuilder allCustomerId = new StringBuilder();
+            StringBuilder strReportAsOn = new StringBuilder();
+            StringBuilder strReportRange = new StringBuilder();
+            int isGroupHead = 0;
+            if (rbtnGrp.Checked == true)
+            {
+                isGroupHead = 1;
+            }
 
             CalculateDateRange(out fromDateRangeRpt, out toDateRangeRpt);
 
+            bulkMailRequest.Add("TASK_ID", 1);
 
-            foreach (string arrStr in strSplitArr)
+            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
-                if (!String.IsNullOrEmpty(arrStr))
+                allCustomerId.Append(ListItem.Value.ToString()+"~");
+            }
+            bulkMailRequest.Add("CUST_IDS", allCustomerId);
+
+            foreach (ListItem chkItems in chkAsOnReportList.Items)
+            {
+                if (chkItems.Selected == true)
                 {
-                    mfReportVoList = new List<MFReportVo>();
-                    mfReportEmailVo = new MFReportEmailVo();
-                    customerId = int.Parse(arrStr);
-                    taskRequestManagementBo.CreateTaskRequest(1, userVo.UserId, out parentrequestId);
-                    //If Group Customer radio Button is selected then assign group HeadId Else GroupCustomer FLAG Make false 
-                    if (rbtnGrp.Checked == true)
-                    {
-                        groupCustomerId = int.Parse(arrStr);
-                    }
-
-                    custVo = customerBo.GetCustomer(customerId);
-                    customerRMVo = adviserStaffBo.GetAdvisorStaffDetails(custVo.RmId);
-                    foreach (ListItem chkItems in chkAsOnReportList.Items)
-                    {
-                        if (chkItems.Selected == true)
-                        {
-                            mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "ASON"));
-                        }
-
-                    }
-
-                    foreach (ListItem chkItems in chkRangeReportList.Items)
-                    {
-                        if (chkItems.Selected == true)
-                        {
-                            mfReportVoList.Add(GetReportInputData(chkItems, customerId, groupCustomerId, ref fromDateRangeRpt, ref toDateRangeRpt, "RANGE"));
-                        }
-
-                    }
-
-                    mfReportEmailVo.AdviserId = advisorVo.advisorId;
-                    mfReportEmailVo.CustomerId = custVo.CustomerId;
-                    mfReportEmailVo.CustomerEmail = custVo.Email;
-                    mfReportEmailVo.RMEmail = customerRMVo.Email;
-                    mfReportEmailVo.ReportTypeName = "Mutual Fund Portfolio Statement";
-
-                    taskRequestManagementBo.CreateBulkReportRequest(mfReportVoList, mfReportEmailVo, parentrequestId, 1, userVo.UserId);
-
+                    strReportAsOn.Append(chkItems.Value.Trim() + "~");
                 }
             }
+            bulkMailRequest.Add("ASON_REPORT", strReportAsOn);
 
-            msgEmailSentComplete.Visible = true;
+            foreach (ListItem chkItems in chkRangeReportList.Items)
+            {
+                if (chkItems.Selected == true)
+                {
+                    strReportRange.Append(chkItems.Value.Trim() + "~");
+                }
+            }
+            bulkMailRequest.Add("RANGE_REPORT", strReportRange);
 
-            RadTabStrip2.Tabs[1].Selected = true;
+            bulkMailRequest.Add("ADVISER_ID", advisorVo.advisorId);
+            bulkMailRequest.Add("USER_ID", userVo.UserId);
+            bulkMailRequest.Add("IS_GROUP_HEAD_REPORT", isGroupHead);
+            bulkMailRequest.Add("START_DATE", fromDateRangeRpt);
+            bulkMailRequest.Add("END_DATE", toDateRangeRpt);
+            bulkMailRequest.Add("ASON_DATE", txtAsOnDate.Text);
+
+            taskRequestManagementBo.CreateBulkMailRequestRecord(bulkMailRequest);
+
             tabViewAndEmailReports.SelectedIndex = 1;
             RadListBoxDestination.Items.Clear();
         }
-
-        //protected void btnEmailReport_Click(object sender, EventArgs e)
-        //{
-        //}
 
 
 
