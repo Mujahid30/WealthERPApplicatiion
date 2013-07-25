@@ -116,6 +116,15 @@ namespace WealthERP.Advisor
                     txtFindRMCustomer.Visible = false;
                     btnSearchRMCustomer.Visible = false;
                 }
+                else if (userVo.RoleList.Contains("Associates"))
+                {
+                    txtFindRMCustomer.Visible = false;
+                    txtFindBranch.Visible = false;
+                    txtFindRM.Visible = false;
+                    btnSearchRM.Visible = false;
+                    btnSearchBranch.Visible = false;
+                    btnSearchRMCustomer.Visible = false;
+                }
 
                 //Code to display the left tree based on the Roles
                 if (!userVo.RoleList.Contains("Admin"))
@@ -128,6 +137,8 @@ namespace WealthERP.Advisor
                     RadPanelBar4.Visible = false;
                 if (!userVo.RoleList.Contains("Research"))
                     RadPanelBar5.Visible = false;
+                if (!userVo.RoleList.Contains("Associates"))
+                    RadPanelBar6.Visible = false;
                 
                 if (userVo.RoleList.Contains("Admin"))
                 {
@@ -2682,8 +2693,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Profile")
                 {
-                    Session["CurrentrmVo"] = null;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRMDetails','login');", true);
+                    Session["action"] = "View";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociatesDetails','login');", true);
                 }
                 else if (e.Item.Value == "CustomerList")
                 {
