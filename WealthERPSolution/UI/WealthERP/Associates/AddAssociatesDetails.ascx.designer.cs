@@ -1598,31 +1598,31 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.CheckBox chkAssociates;
         
         /// <summary>
-        /// CheckBox1 control.
+        /// chkMf control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+        protected global::System.Web.UI.WebControls.CheckBox chkMf;
         
         /// <summary>
-        /// CheckBox2 control.
+        /// chlIpo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox2;
+        protected global::System.Web.UI.WebControls.CheckBox chlIpo;
         
         /// <summary>
-        /// CheckBox3 control.
+        /// chkfd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox3;
+        protected global::System.Web.UI.WebControls.CheckBox chkfd;
         
         /// <summary>
         /// btnSubmit control.

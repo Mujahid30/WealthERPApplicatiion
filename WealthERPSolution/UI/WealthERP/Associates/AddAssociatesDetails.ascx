@@ -44,13 +44,13 @@
         <td align="right">
             <asp:Label ID="lblAMFINo" CssClass="FieldName" runat="server" Text="AMFI/NISM number:"></asp:Label>
         </td>
-        <td class="leftField">
+        <td>
             <asp:TextBox ID="txtAMFINo" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblStartDate" CssClass="FieldName" runat="server" Text="Start Date:"></asp:Label>
         </td>
-        <td class="leftField">
+        <td>
             <telerik:RadDatePicker ID="txtStartDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar ID="Calendar4" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -67,7 +67,7 @@
         <td align="right">
             <asp:Label ID="lblEndDate" CssClass="FieldName" runat="server" Text="End Date:"></asp:Label>
         </td>
-        <td class="leftField">
+        <td>
             <telerik:RadDatePicker ID="txtEndDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar ID="Calendar5" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -86,7 +86,7 @@
         <td align="right">
             <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="Expiry Date:"></asp:Label>
         </td>
-        <td class="leftField">
+        <td>
             <telerik:RadDatePicker ID="txtAssociateExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar ID="Calendar3" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
@@ -141,7 +141,7 @@
                         <asp:Label ID="lblResNo" CssClass="FieldName" runat="server" Text="Telephone No.(Res):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtResPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
+                        <asp:TextBox ID="txtResPhoneNoIsd" runat="server" Width="30px" CssClass="txtField" Enabled="false"
                             MaxLength="3">91</asp:TextBox>
                         <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
                             MaxLength="3"></asp:TextBox>
@@ -160,7 +160,7 @@
                         <asp:Label ID="lblResFax" CssClass="FieldName" runat="server" Text="Fax(Res):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtResFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3">91</asp:TextBox>
+                        <asp:TextBox ID="txtResFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3" Enabled="false">91</asp:TextBox>
                         <asp:TextBox ID="txtResFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtResFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtResFaxIsd_CompareValidator" ControlToValidate="txtResFaxIsd"
@@ -179,7 +179,7 @@
                         <asp:Label ID="lblPhoneOfc" CssClass="FieldName" runat="server" Text="Telephone No.(Off):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
+                        <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="30px" CssClass="txtField" Enabled="false"
                             MaxLength="3">91</asp:TextBox>
                         <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
                             MaxLength="3"></asp:TextBox>
@@ -198,7 +198,7 @@
                         <asp:Label ID="lblFaxOfc" CssClass="FieldName" runat="server" Text="Fax(Off):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtOfcFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3">91</asp:TextBox>
+                        <asp:TextBox ID="txtOfcFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3" Enabled="false">91</asp:TextBox>
                         <asp:TextBox ID="txtOfcFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtOfcFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcFaxIsd_CompareValidator" ControlToValidate="txtOfcFaxIsd"
@@ -756,9 +756,9 @@
                     <td class="rightField" colspan="3">
                         <asp:CheckBox ID="chkAssociates" runat="server" Text="Insurance" CssClass="cmbField"
                             value="IN" />
-                        <asp:CheckBox ID="CheckBox1" runat="server" Text="MF" CssClass="cmbField" value="MF" />
-                        <asp:CheckBox ID="CheckBox2" runat="server" Text="IPO" CssClass="cmbField" value="IPO" />
-                        <asp:CheckBox ID="CheckBox3" runat="server" Text="FD" CssClass="cmbField" value="FD" />
+                        <asp:CheckBox ID="chkMf" runat="server" Text="MF" CssClass="cmbField" value="MF" />
+                        <asp:CheckBox ID="chlIpo" runat="server" Text="IPO" CssClass="cmbField" value="IPO" />
+                        <asp:CheckBox ID="chkfd" runat="server" Text="FD" CssClass="cmbField" value="FD" />
                     </td>
                 </tr>
             </table>

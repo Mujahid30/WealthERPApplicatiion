@@ -35,6 +35,7 @@ namespace WealthERP.Associates
 
         int adviserId = 0;
         string path;
+        string viewAction;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,6 +44,7 @@ namespace WealthERP.Associates
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
+            viewAction = (string)Session["action"];
             if (Session["associatesVo"] != null)
             {
                 associatesVo = (AssociatesVO)Session["associatesVo"];
@@ -54,6 +56,13 @@ namespace WealthERP.Associates
                 {
                     SetControls(associatesVo);
                 }
+                if (viewAction == "View")
+                {
+                    SetEnableDisable();
+                    associatesVo = (AssociatesVO)Session["associatesVo"];
+                    if(associatesVo!=null)
+                        SetEditViewControls(associatesVo);
+                }
                 BindAccountType();
                 BindBankName();
                 BindState();
@@ -62,6 +71,91 @@ namespace WealthERP.Associates
                 BindRelationship();
                 BindAssetCategory();
             }
+        }
+
+        private void SetEnableDisable()
+        {
+            txtBranch.Enabled = false;
+            btnSubmit.Visible = false;
+            txtRM.Enabled = false;
+            txtAMFINo.Enabled = false;
+            txtStartDate.Enabled = false;
+            txtEndDate.Enabled = false;
+            txtAssociateExpDate.Enabled = false;
+            txtResPhoneNoStd.Enabled = false;
+            txtResPhoneNo.Enabled = false;
+            txtResFaxStd.Enabled = false;
+            txtResFax.Enabled = false;
+            txtOfcPhoneNoStd.Enabled = false;
+            txtOfcPhoneNo.Enabled = false;
+            txtOfcFaxStd.Enabled = false;
+            txtOfcFax.Enabled = false;
+            txtMobile1.Enabled = false;
+            txtEmail.Enabled = false;
+            txtCorLine1.Enabled = false;
+            txtCorLine2.Enabled = false;
+            txtCorLine3.Enabled = false;
+            txtCorCity.Enabled = false;
+            txtCorPin.Enabled = false;
+            ddlCorState.Enabled = false;
+            txtCorCountry.Enabled = false;
+
+            txtPermAdrLine1.Enabled = false;
+            txtPermAdrLine2.Enabled = false;
+            txtPermAdrLine3.Enabled = false;
+            txtPermAdrCity.Enabled = false;
+            txtPermAdrPinCode.Enabled = false;
+            ddlPermAdrState.Enabled = false;
+            txtPermAdrCountry.Enabled = false;
+
+            ddlMaritalStatus.Enabled = false;
+            ddlQualification.Enabled = false;
+            ddlGender.Enabled = false;
+            txtDOB.Enabled = false;
+
+            ddlBankName.Enabled = false;
+            ddlAccountType.Enabled = false;
+            txtAccountNumber.Enabled = false;
+            txtBankAdrLine1.Enabled = false;
+            txtBankAdrLine2.Enabled = false;
+            txtBankAdrLine3.Enabled = false;
+            txtBankAdrCity.Enabled = false;
+            ddlBankAdrState.Enabled = false;
+            txtBankAdrPinCode.Enabled = false;
+
+            txtMicr.Enabled = false;
+            txtIfsc.Enabled = false;
+            ddlCategory.Enabled = false;
+            txtRegNo.Enabled = false;
+            txtRegExpDate.Enabled = false;
+
+
+            txtNomineeName.Enabled = false;
+            ddlNomineeRel.Enabled = false;
+            txtNomineeAdress.Enabled = false;
+            txtNomineePhone.Enabled = false;
+            txtGurdiannName.Enabled = false;
+            ddlGuardianRel.Enabled = false;
+            txtGuardianAdress.Enabled = false;
+            txtGurdianPhone.Enabled = false;
+
+            ddlAdviserCategory.Enabled = false;
+
+            txtNoBranches.Enabled = false;
+            txtNoofSales.Enabled = false;
+            txtNoofSubBrokers.Enabled = false;
+            txtNoofClients.Enabled = false;
+
+            chkAssociates.Enabled = false;
+            chkMf.Enabled = false;
+            chlIpo.Enabled = false;
+            chkfd.Enabled = false;
+
+        }
+
+        private void SetEditViewControls(AssociatesVO associatesVo)
+        {
+            
         }
 
         private void BindAssetCategory()
