@@ -114,5 +114,41 @@ namespace BoCommon
 
 
         }
+
+        /// <summary>
+        /// Create Task Request returns RequestId
+        /// </summary>
+        /// <param name="portfolioIDs"></param>
+        /// <param name="subreportype"></param>
+        /// <param name="fromDate"></param>
+        /// <returns></returns>
+        public void CreateBulkMailRequestRecord(Dictionary<string, object> bulkMailRequest)
+        {
+            WERPTaskRequestManagementDao requestManagementDao = new WERPTaskRequestManagementDao();
+
+            try
+            {
+                requestManagementDao.CreateBulkMailRequestRecord(bulkMailRequest);
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "WERPTaskRequestManagementBo.cs:CreateTaskRequest()");
+                object[] objects = new object[2];
+                objects[0] = bulkMailRequest["ADVISER_ID"];
+                objects[1] = bulkMailRequest["USER_ID"];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
     }
 }
