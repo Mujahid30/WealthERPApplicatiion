@@ -388,7 +388,7 @@ namespace WealthERP.Uploads
             genDictMFSystematic.Add("KARVY", "KA");
 
             //genDictMFSystematic.Add("TEMPLETON", "TN");
-            genDictMFSystematic.Add("SUNDARAM", "SU");
+            //genDictMFSystematic.Add("SUNDARAM", "SU");
             genDictMFSystematic.Add("STANDARD", "WPT");
             return genDictMFSystematic;
         }
