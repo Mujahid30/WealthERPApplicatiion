@@ -18,6 +18,7 @@ using System.Configuration;
 using VOAssociates;
 using BOAssociates;
 using BoCustomerProfiling;
+using BoUser;
 
 namespace WealthERP.Associates
 {
@@ -31,6 +32,7 @@ namespace WealthERP.Associates
         AssociatesVO associatesVo= new AssociatesVO();
         AssociatesBo associatesBo = new AssociatesBo();
         CustomerBo customerBo = new CustomerBo();
+        UserBo userBo = new UserBo();
 
         List<int> associatesIds;
         string path = string.Empty;
@@ -565,6 +567,8 @@ namespace WealthERP.Associates
             Session["userId"] = associatesVo.UserId;
             Session["associatesId"] = associatesVo.AdviserAssociateId;
             Session["AdviserAgentId"] = associatesVo.AAC_AdviserAgentId;
+            //------------------------ To create User role Association-----------------------
+            userBo.CreateRoleAssociation(associatesVo.UserId, 1009);
 
             if (associatesIds.Count > 0)
             {
