@@ -199,5 +199,55 @@ namespace DaoCommon
         }
 
 
+        /// <summary>
+        /// Create Task Request returns RequestId
+        /// </summary>
+        /// <param name="portfolioIDs"></param>
+        /// <param name="subreportype"></param>
+        /// <param name="fromDate"></param>
+        /// <returns></returns>
+        public void CreateBulkMailRequestRecord(Dictionary<string, object> bulkMailRequest)
+        {
+            Microsoft.Practices.EnterpriseLibrary.Data.Database db;
+            DbCommand cmdCreateTaskRequest;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdCreateTaskRequest = db.GetStoredProcCommand("SPROC_CreateBulkMailRequestRecord");
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_TaskId", DbType.Int32, Convert.ToInt32(bulkMailRequest["TASK_ID"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_CustomerIds", DbType.String, Convert.ToString(bulkMailRequest["CUST_IDS"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_AdviserId", DbType.Int32, Convert.ToInt32(bulkMailRequest["ADVISER_ID"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_ReportTypeAsON", DbType.String, Convert.ToString(bulkMailRequest["ASON_REPORT"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_ReportTypeRange", DbType.String, Convert.ToString(bulkMailRequest["RANGE_REPORT"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_StartDate", DbType.Date, Convert.ToString(bulkMailRequest["START_DATE"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_EndDate", DbType.Date, Convert.ToString(bulkMailRequest["END_DATE"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_AsOnReportDate", DbType.Date, Convert.ToString(bulkMailRequest["ASON_DATE"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@WRR_IsGroupHead", DbType.Int16, Convert.ToString(bulkMailRequest["IS_GROUP_HEAD_REPORT"]));
+                db.AddInParameter(cmdCreateTaskRequest, "@UserId", DbType.Int32, Convert.ToInt32(bulkMailRequest["USER_ID"]));
+                db.ExecuteNonQuery(cmdCreateTaskRequest);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw (ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFReports.cs:CreateBulkMailRequestRecord(Dictionary<string, object> bulkMailRequest)");
+                object[] objects = new object[2];
+                objects[0] = bulkMailRequest["ADVISER_ID"];
+                objects[1] = bulkMailRequest["USER_ID"];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+
+
     }
 }
