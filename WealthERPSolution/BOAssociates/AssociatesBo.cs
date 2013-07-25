@@ -280,5 +280,18 @@ namespace BOAssociates
             }
             return dsGetAssociateCodeList;
         }
+        public AssociatesVO GetAssociateUser(int UserId)
+        {
+            AssociatesVO associatesVo = new AssociatesVO();
+            try
+            {
+                associatesVo = associatesDao.GetAssociateUser(UserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return associatesVo;
+        }
     }
 }
