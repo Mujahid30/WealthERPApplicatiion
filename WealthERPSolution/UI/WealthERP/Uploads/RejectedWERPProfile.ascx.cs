@@ -861,7 +861,7 @@ namespace WealthERP.Uploads
 
         protected void lnkBtnBack_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('UploadDashBoard','login');", true);
         }
 
         protected void lnkProfile_Click(object sender, EventArgs e)
