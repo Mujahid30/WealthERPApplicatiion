@@ -1560,6 +1560,8 @@ namespace WealthERP.Reports
             }
             bulkMailRequest.Add("CUST_IDS", allCustomerId);
 
+            allCustomerId.Remove(allCustomerId.Length - 1, 1);
+
             foreach (ListItem chkItems in chkAsOnReportList.Items)
             {
                 if (chkItems.Selected == true)
@@ -1567,6 +1569,9 @@ namespace WealthERP.Reports
                     strReportAsOn.Append(chkItems.Value.Trim() + "~");
                 }
             }
+
+            strReportAsOn.Remove(strReportAsOn.Length - 1, 1);
+
             bulkMailRequest.Add("ASON_REPORT", strReportAsOn);
 
             foreach (ListItem chkItems in chkRangeReportList.Items)
@@ -1576,6 +1581,8 @@ namespace WealthERP.Reports
                     strReportRange.Append(chkItems.Value.Trim() + "~");
                 }
             }
+            strReportRange.Remove(strReportRange.Length - 1, 1);
+
             bulkMailRequest.Add("RANGE_REPORT", strReportRange);
 
             bulkMailRequest.Add("ADVISER_ID", advisorVo.advisorId);
