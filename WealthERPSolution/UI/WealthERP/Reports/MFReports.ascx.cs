@@ -310,6 +310,8 @@ namespace WealthERP.Reports
 
                         trAdminRM.Visible = true;
                         trCustomer.Visible = false;
+                        if (rdoGroup.Checked)
+                            hdnCustomerId_ValueChanged(this, null);
                     }
 
 
