@@ -1884,5 +1884,35 @@ namespace BoAdvisorProfiling
             }
             return customerList;
         }
+
+        public AdvisorVo GetAssociateAdviserUser(int userId)
+        {
+            AdvisorVo advisorVo = null;
+            AdvisorDao advisorDao = new AdvisorDao();
+            try
+            {
+                advisorVo = advisorDao.GetAssociateAdviserUser(userId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAssociateAdviserUser()");
+                object[] objects = new object[1];
+                objects[0] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+           }
+            return advisorVo;
+        }
     }
 }
