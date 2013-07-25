@@ -3176,6 +3176,182 @@ namespace DaoAdvisorProfiling
             }
           return customerList;
         }
+        public AdvisorVo GetAssociateAdviserUser(int userId)
+        {
+            AdvisorVo advisorVo = null;
+
+            Database db;
+            DbCommand getAdvisorUserCmd;
+            DataSet getAdvisorUserDs;
+            DataTable table;
+            DataRow dr;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdvisorUserCmd = db.GetStoredProcCommand("SPROC_GetAssociateAdviserUser");
+                db.AddInParameter(getAdvisorUserCmd, "@U_UserId", DbType.Int32, userId);
+                getAdvisorUserDs = db.ExecuteDataSet(getAdvisorUserCmd);
+                if (getAdvisorUserDs.Tables[0].Rows.Count > 0)
+                {
+                    advisorVo = new AdvisorVo();
+                    table = getAdvisorUserDs.Tables["Adviser"];
+                    dr = getAdvisorUserDs.Tables[0].Rows[0];
+                    advisorVo.advisorId = int.Parse(dr["A_AdviserId"].ToString());
+                    if (dr["XABT_BusinessTypeCode"] != DBNull.Value)
+                        advisorVo.BusinessCode = dr["XABT_BusinessTypeCode"].ToString();
+
+                    advisorVo.OrganizationName = dr["A_OrgName"].ToString();
+                    if (dr["A_AddressLine1"] != DBNull.Value)
+                        advisorVo.AddressLine1 = dr["A_AddressLine1"].ToString();
+                    if (dr["A_AddressLine2"] != DBNull.Value)
+                        advisorVo.AddressLine2 = dr["A_AddressLine2"].ToString();
+                    if (dr["A_AddressLine3"] != DBNull.Value)
+                        advisorVo.AddressLine3 = dr["A_AddressLine3"].ToString();
+
+                    advisorVo.City = dr["A_City"].ToString();
+                    if (dr["A_ContactPersonFirstName"] != DBNull.Value)
+                        advisorVo.ContactPersonFirstName = dr["A_ContactPersonFirstName"].ToString();
+                    if (dr["A_ContactPersonLastName"] != DBNull.Value)
+                        advisorVo.ContactPersonLastName = dr["A_ContactPersonLastName"].ToString();
+                    if (dr["A_ContactPersonMiddleName"] != DBNull.Value)
+                        advisorVo.ContactPersonMiddleName = dr["A_ContactPersonMiddleName"].ToString();
+                    if (dr["A_Country"] != DBNull.Value)
+                        advisorVo.Country = dr["A_Country"].ToString();
+                    advisorVo.Email = dr["A_Email"].ToString();
+                    if (dr["A_Fax"] != DBNull.Value)
+                        advisorVo.Fax = int.Parse(dr["A_Fax"].ToString());
+                    if (dr["A_Website"] != DBNull.Value)
+                        advisorVo.Website = dr["A_Website"].ToString();
+                    if (dr["A_FaxISD"] != DBNull.Value)
+                        advisorVo.FaxIsd = int.Parse(dr["A_FaxISD"].ToString());
+                    if (dr["A_FaxSTD"] != DBNull.Value)
+                        advisorVo.FaxStd = int.Parse(dr["A_FaxSTD"].ToString());
+                    if (dr["A_ContactPersonMobile"] != DBNull.Value)
+                        advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
+                    if (dr["A_IsMultiBranch"] != DBNull.Value)
+                        advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
+                    if (dr["A_IsAssociateModel"] != DBNull.Value)
+                        advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
+
+                    if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
+                        advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
+                    if (dr["A_Phone2STD"] != DBNull.Value && dr["A_Phone2STD"].ToString() != string.Empty)
+                        advisorVo.Phone2Std = int.Parse(dr["A_Phone2STD"].ToString());
+                    if (dr["A_Phone1ISD"] != DBNull.Value && dr["A_Phone1ISD"].ToString() != string.Empty)
+                        advisorVo.Phone1Isd = int.Parse(dr["A_Phone1ISD"].ToString());
+                    if (dr["A_Phone2ISD"] != DBNull.Value && dr["A_Phone2ISD"].ToString() != string.Empty)
+                        advisorVo.Phone2Isd = int.Parse(dr["A_Phone2ISD"].ToString());
+                    if (dr["A_Phone1Number"] != DBNull.Value && dr["A_Phone1Number"].ToString() != string.Empty)
+                        advisorVo.Phone1Number = int.Parse(dr["A_Phone1Number"].ToString());
+                    if (dr["A_Phone2Number"] != DBNull.Value && dr["A_Phone2Number"].ToString() != string.Empty)
+                        advisorVo.Phone2Number = int.Parse(dr["A_Phone2Number"].ToString());
+                    if (dr["A_PinCode"] != DBNull.Value)
+                        advisorVo.PinCode = int.Parse(dr["A_PinCode"].ToString());
+                    if (dr["A_State"] != DBNull.Value)
+                        advisorVo.State = dr["A_State"].ToString();
+                    if (dr["A_AdviserLogo"] != DBNull.Value)
+                        advisorVo.LogoPath = dr["A_AdviserLogo"].ToString();
+                    if (dr["A_Designation"] != DBNull.Value)
+                        advisorVo.Designation = dr["A_Designation"].ToString();
+                    if (dr["XAC_AdviserCategory"] != null && dr["XAC_AdviserCategory"].ToString() != "")
+                        advisorVo.Category = dr["XAC_AdviserCategory"].ToString();
+                    if (dr["AL_IsDependent"] != null && dr["AL_IsDependent"].ToString() != "")
+                        advisorVo.IsDependent = Int16.Parse(dr["AL_IsDependent"].ToString());
+                    advisorVo.LoginId = dr["U_LoginId"].ToString();
+                    advisorVo.Password = dr["U_Password"].ToString();
+                    advisorVo.Email = dr["A_Email"].ToString();
+                    if (!string.IsNullOrEmpty(dr["A_IsActive"].ToString()))
+                        advisorVo.IsActive = Int16.Parse(dr["A_IsActive"].ToString());
+                    if (dr["A_ActivationDate"] != null && dr["A_ActivationDate"].ToString() != "")
+                        advisorVo.ActivationDate = DateTime.Parse(dr["A_ActivationDate"].ToString());
+                    if (dr["A_DeactivateDate"] != null && dr["A_DeactivateDate"].ToString() != "")
+                        advisorVo.DeactivationDate = DateTime.Parse(dr["A_DeactivateDate"].ToString());
+
+                    if (dr["A_VaultSize(in MB)"] != null && dr["A_VaultSize(in MB)"].ToString() != "")
+                        advisorVo.VaultSize = float.Parse(dr["A_VaultSize(in MB)"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["A_DomainName"].ToString()))
+                        advisorVo.DomainName = dr["A_DomainName"].ToString();
+                    else
+                        advisorVo.DomainName = string.Empty;
+                    advisorVo.IsIPEnable = Convert.ToInt16(dr["A_isIPEnable"].ToString());
+                    advisorVo.IsOpsEnable = Convert.ToInt16(dr["A_IsOpsEnable"].ToString());
+                    if (!string.IsNullOrEmpty(dr["U_Theme"].ToString().Trim()))
+                        advisorVo.theme = Convert.ToString(dr["U_Theme"]).Trim();
+
+                    advisorVo.SubscriptionVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
+
+                    if (dr["AS_AdviserSubscriptionId"] != DBNull.Value && dr["AS_AdviserSubscriptionId"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.SubscriptionId = int.Parse(dr["AS_AdviserSubscriptionId"].ToString());
+
+                    if (dr["AS_TrialStartDate"] != DBNull.Value && dr["AS_TrialStartDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.TrialStartDate = DateTime.Parse(dr["AS_TrialStartDate"].ToString());
+
+                    if (dr["AS_TrialEndDate"] != DBNull.Value && dr["AS_TrialEndDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.TrialEndDate = DateTime.Parse(dr["AS_TrialEndDate"].ToString());
+
+                    if (dr["AS_SubscriptionStartDate"] != DBNull.Value && dr["AS_SubscriptionStartDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StartDate = DateTime.Parse(dr["AS_SubscriptionStartDate"].ToString());
+
+                    if (dr["AS_SubscriptionEndDate"] != DBNull.Value && dr["AS_SubscriptionEndDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.EndDate = DateTime.Parse(dr["AS_SubscriptionEndDate"].ToString());
+
+                    if (dr["AS_SMSLicences"] != DBNull.Value && dr["AS_SMSLicences"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.SmsBought = int.Parse(dr["AS_SMSLicences"].ToString());
+
+                    if (dr["AS_StorageSize"] != DBNull.Value && dr["AS_StorageSize"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StorageSize = float.Parse(dr["AS_StorageSize"].ToString());
+
+                    if (dr["AS_StorageBalance"] != DBNull.Value && dr["AS_StorageBalance"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.StorageBalance = float.Parse(dr["AS_StorageBalance"].ToString());
+
+                    if (dr["AS_NoOfStaffWebLogins"] != DBNull.Value && dr["AS_NoOfStaffWebLogins"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfStaffLogins = int.Parse(dr["AS_NoOfStaffWebLogins"].ToString());
+
+                    if (dr["AS_NoOfBranches"] != DBNull.Value && dr["AS_NoOfBranches"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfBranches = int.Parse(dr["AS_NoOfBranches"].ToString());
+
+                    if (dr["AS_NoOfCustomerWebLogins"] != DBNull.Value && dr["AS_NoOfCustomerWebLogins"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.NoOfCustomerLogins = int.Parse(dr["AS_NoOfCustomerWebLogins"].ToString());
+
+                    if (dr["AS_IsDeactivated"] != DBNull.Value && dr["AS_IsDeactivated"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.IsDeActivated = int.Parse(dr["AS_IsDeactivated"].ToString());
+
+                    if (dr["AS_DeactivationDate"] != DBNull.Value && dr["AS_DeactivationDate"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.DeActivationDate = DateTime.Parse(dr["AS_DeactivationDate"].ToString());
+
+                    if (dr["AS_Comments"] != DBNull.Value && dr["AS_Comments"].ToString() != string.Empty)
+                        advisorVo.SubscriptionVo.Comments = dr["AS_Comments"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["A_HostId"].ToString()))
+                        advisorVo.HostId = Int16.Parse(dr["A_HostId"].ToString());
+
+                    advisorVo.IsLoginWidgetEnable = Convert.ToBoolean(Int16.Parse(dr["A_IsloginWidgetEnable"].ToString()));
+                    advisorVo.IsISASubscribed = Convert.ToBoolean(Int16.Parse(dr["AS_IsISASubscribed"].ToString()));
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAdvisorUser()");
+
+                object[] objects = new object[1];
+                objects[0] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return advisorVo;
+        }
 
     }
 }
