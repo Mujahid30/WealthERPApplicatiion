@@ -1183,7 +1183,7 @@
         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None">
             <Columns>
-             <telerik:GridBoundColumn HeaderStyle-Width="130px" HeaderText="Adv Name" DataField="A_OrgName"
+             <telerik:GridBoundColumn HeaderStyle-Width="130px" HeaderText="Adviser" DataField="A_OrgName"
                     UniqueName="AdvName" SortExpression="A_OrgName" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
