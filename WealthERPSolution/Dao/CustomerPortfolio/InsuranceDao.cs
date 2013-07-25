@@ -312,6 +312,8 @@ namespace DaoCustomerPortfolio
 
                         if (dr["XF_Frequency"].ToString() != string.Empty)
                             insuranceVo.Frequency = dr["XF_Frequency"].ToString();
+                        if (dr["PolicyNo"].ToString() != string.Empty)
+                            insuranceVo.PolicyNumber = dr["PolicyNo"].ToString();
 
                         if (dr["XII_InsuranceIssuerName"].ToString() != string.Empty)
                             insuranceVo.InsuranceIssuerName = dr["XII_InsuranceIssuerName"].ToString();

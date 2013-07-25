@@ -104,7 +104,10 @@
                                 </telerik:RadComboBox>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        
+                         <telerik:GridBoundColumn DataField="PolicyNo"  AllowFiltering="false" HeaderText="Policy No."
+                            UniqueName="PolicyNo" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn> 
                         <telerik:GridBoundColumn DataField="XII_InsuranceIssuerName"  AllowFiltering="false" HeaderText="Policy Issuer" FooterText="Grand Total:"
                             UniqueName="ActiveLevel" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

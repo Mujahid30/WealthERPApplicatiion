@@ -234,6 +234,7 @@ namespace WealthERP.CustomerPortfolio
                     //dtInsurance.Columns.Add("CINP_FirstPremiumDate");
                     dtInsurance.Columns.Add("Next Due Date", typeof(DateTime));
                     dtInsurance.Columns.Add("XF_Frequency");
+                    dtInsurance.Columns.Add("PolicyNo");
 
                     DataRow drInsurance;
 
@@ -406,6 +407,7 @@ namespace WealthERP.CustomerPortfolio
                         drInsurance["Insurance Company"] = insuranceVo.AssetInstrumentCategoryName;
                         drInsurance["XII_InsuranceIssuerName"] = insuranceVo.InsuranceIssuerName;
                         drInsurance["XF_Frequency"] = insuranceVo.Frequency;
+                        drInsurance["PolicyNo"] = insuranceVo.PolicyNumber;
 
                         string frequency = "";
                         DateTime startDate = insuranceVo.FirstPremiumDate;
