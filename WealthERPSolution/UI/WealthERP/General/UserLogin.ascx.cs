@@ -23,7 +23,8 @@ using BoHostConfig;
 using VoHostConfig;
 using System.Configuration;
 using VoCustomerPortfolio;
-using BoCustomerPortfolio;
+using BOAssociates;
+using VOAssociates;
 
 namespace WealthERP.General
 {
@@ -32,6 +33,8 @@ namespace WealthERP.General
         Dictionary<string, DateTime> genDict = new Dictionary<string, DateTime>();
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         AdviserPreferenceBo adviserPreferenceBo = new AdviserPreferenceBo();
+        AssociatesBo associatesBo = new AssociatesBo();
+        AssociatesVO associatesVo = new AssociatesVO();
         AdvisorVo advisorVo = new AdvisorVo();
         string strUserTheme;
         string currentPageUrl;
@@ -56,15 +59,18 @@ namespace WealthERP.General
                 AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
                 if (userVo != null)
                 {
-                    if (userVo.UserType != "Customer")
-                        advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
+                    
+                    if (userVo.UserType == "Associates")
+                        advisorVo = advisorBo.GetAssociateAdviserUser(userVo.UserId);
 
-                    else
+                    else if (userVo.UserType == "Customer")
                     {
                         customerVo = customerBo.GetCustomerInfo(userVo.UserId);
                         advisorVo = advisorBo.GetAdvisor(advisorBranchBo.GetBranch(customerVo.BranchId).AdviserId);
 
                     }
+                    else 
+                      advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
                 }
 
                 Session["advisorVo"] = advisorVo;
@@ -181,7 +187,10 @@ namespace WealthERP.General
                     userVo = userBo.GetUser(txtLoginId.Text);
                     if (userVo != null)
                     {
-                        if (userVo.UserType != "Customer")
+                        
+                         if (userVo.UserType == "Associates")
+                            advisorVo = advisorBo.GetAssociateAdviserUser(userVo.UserId);
+                         else if (userVo.UserType != "Customer")
                             advisorVo = advisorBo.GetAdvisorUser(userVo.UserId);
                         else
                         {
@@ -618,6 +627,60 @@ namespace WealthERP.General
                                                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Reg23itlpoeewsdserw", "loadcontrol('AdviserCustomer','login');", true);
                                             }
                                             //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AdvisorDashBoard','login','" + UserName + "','" + sourcePath + "');", true);
+                                        }
+                                    }
+
+                                    GetLatestValuationDate();
+                                }
+                                //-------------------------------------------------Checking Associate User Login Details----------------
+                                else if (userVo.UserType == "Associates")
+                                {
+                                    bool breakLoopIfIPFailed = false;
+                                    Session[SessionContents.CurrentUserRole] = "Associates";
+                                    associatesVo = associatesBo.GetAssociateUser(userVo.UserId);
+                                    Session["associatesVo"] = associatesVo; ;
+                                    Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(associatesVo.RMId);
+                                    //advisorVo = (AdvisorVo)Session["advisorVo"];
+                                    rmVo = (RMVo)Session["rmVo"];
+                                    Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                                    if (advisorVo.LogoPath == null)
+                                    {
+                                        advisorVo.LogoPath = "";
+                                    }
+                                    sourcePath = "Images/" + advisorVo.LogoPath.ToString();
+
+                                    Session[SessionContents.LogoPath] = sourcePath;
+
+                                    roleList = userBo.GetUserRoles(userVo.UserId);
+                                    count = roleList.Count;
+                                    //Check For IP Authentication enable for Advisor 
+                                    if (advisorVo.IsIPEnable == 1)
+                                    {
+                                        breakLoopIfIPFailed = CheckIPAuthentication(roleList, advisorVo);
+                                        if (breakLoopIfIPFailed == false)
+                                            return;
+                                    }
+
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "loadingatthelogin", "parent.loadCB();", true);
+
+                                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "adviserpaneleftttt", "loadlinks('AdvisorLeftPane','login');", true);
+                                    if (count == 1)
+                                    {
+                                        if (roleList.Contains("Associates"))
+                                        {
+                                            Session["adviserId"] = advisorBo.GetRMAdviserId(rmVo.RMId);
+                                            //Session["advisorVo"]=advisorBo.GetAdvisor(
+                                            branchLogoSourcePath = "Images/" + userBo.GetRMBranchLogo(rmVo.RMId);
+                                            sourcePath = "Images/" + userBo.GetRMLogo(rmVo.RMId);
+                                            Session[SessionContents.LogoPath] = sourcePath;
+                                            Session[SessionContents.BranchLogoPath] = branchLogoSourcePath;
+                                            userBo.GetUserTheme(rmVo.RMId, "RM", out strUserTheme);
+                                            Session["Theme"] = strUserTheme;
+                                            Session["refreshTheme"] = true;
+                                            Session[SessionContents.CurrentUserRole] = "Associates";
+                                            Session[SessionContents.UserTopRole] = "Associates";
+                                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','login');", true);
+
                                         }
                                     }
 
