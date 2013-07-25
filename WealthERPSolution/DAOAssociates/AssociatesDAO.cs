@@ -730,5 +730,221 @@ namespace DAOAssociates
             }
             return dsAssociateCodeList;
         }
+
+        public AssociatesVO GetAssociateUser(int UserId)
+        {
+            AssociatesVO associatesVo = new AssociatesVO();
+            Database db;
+            DbCommand getAssociateUserCmd;
+            DataSet getAssociateUserDs;
+            // DataTable table;
+            DataRow dr;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAssociateUserCmd = db.GetStoredProcCommand("SPROC_GetAssociateUser");
+                db.AddInParameter(getAssociateUserCmd, "@U_UserId", DbType.Int32, UserId);
+                getAssociateUserDs = db.ExecuteDataSet(getAssociateUserCmd);
+                if (getAssociateUserDs.Tables[0].Rows.Count > 0)
+                {
+                    // table = getAdvisorStaffDs.Tables["AdviserRM"];
+                    dr = getAssociateUserDs.Tables[0].Rows[0];
+                    associatesVo.UserId = int.Parse((dr["U_UserId"].ToString()));
+                    associatesVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                    associatesVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
+                    associatesVo.ContactPersonName = dr["AA_ContactPersonName"].ToString();
+                    if (dr["AA_Email"] != DBNull.Value)
+                        associatesVo.Email = dr["AA_Email"].ToString();
+                    else
+                        associatesVo.Email = string.Empty;
+                    if (dr["AA_CorrAdrLine1"] != DBNull.Value)
+                        associatesVo.CorrAdrLine1 = dr["AA_CorrAdrLine1"].ToString();
+                    else
+                        associatesVo.CorrAdrLine1 = string.Empty;
+                    if (dr["AA_CorrAdrLine2"] != DBNull.Value)
+                        associatesVo.CorrAdrLine2= dr["AA_CorrAdrLine2"].ToString();
+                    else
+                        associatesVo.CorrAdrLine2 = string.Empty;
+                    if (dr["AA_CorrAdrLine3"] != DBNull.Value)
+                        associatesVo.CorrAdrLine3 = dr["AA_CorrAdrLine3"].ToString();
+                    else
+                        associatesVo.CorrAdrLine3 = string.Empty;
+                    if (dr["AA_CorrAdrPinCode"] != DBNull.Value)
+                        associatesVo.CorrAdrPinCode =int.Parse(dr["AA_CorrAdrPinCode"].ToString());
+                    else
+                        associatesVo.CorrAdrPinCode = 0;
+                    if (dr["AA_CorrAdrCity"] != DBNull.Value)
+                        associatesVo.CorrAdrCity= dr["AA_CorrAdrCity"].ToString();
+                    else
+                        associatesVo.CorrAdrCity = string.Empty;
+                    if (dr["AA_CorrAdrState"] != DBNull.Value)
+                        associatesVo.CorrAdrState = dr["AA_CorrAdrState"].ToString();
+                    else
+                        associatesVo.CorrAdrState = string.Empty;
+                    if (dr["AA_CorrAdrCountry"] != DBNull.Value)
+                        associatesVo.CorrAdrCountry = dr["AA_CorrAdrCountry"].ToString();
+                    else
+                        associatesVo.CorrAdrCountry = string.Empty;
+                    if (dr["AA_PerAdrLine1"] != DBNull.Value)
+                        associatesVo.PerAdrLine1 = dr["AA_PerAdrLine1"].ToString();
+                    else
+                        associatesVo.PerAdrLine1 = string.Empty;
+                    if (dr["AA_PerAdrLine2"] != DBNull.Value)
+                        associatesVo.PerAdrLine2 = dr["AA_PerAdrLine2"].ToString();
+                    else
+                        associatesVo.PerAdrLine2 = string.Empty;
+                    if (dr["AA_PerAdrLine3"] != DBNull.Value)
+                        associatesVo.PerAdrLine3= dr["AA_PerAdrLine3"].ToString();
+                    else
+                        associatesVo.PerAdrLine3 = string.Empty;
+                    if (dr["AA_PerAdrPinCode"] != DBNull.Value)
+                        associatesVo.PerAdrPinCode = int.Parse(dr["AA_PerAdrPinCode"].ToString());
+                    else
+                        associatesVo.PerAdrPinCode = 0;
+                    if (dr["AA_PerAdrCity"] != DBNull.Value)
+                        associatesVo.PerAdrCity = dr["AA_PerAdrCity"].ToString();
+                    else
+                        associatesVo.PerAdrCity = string.Empty;
+                    if (dr["AA_PerAdrState"] != DBNull.Value)
+                        associatesVo.PerAdrState = dr["AA_PerAdrState"].ToString();
+                    else
+                        associatesVo.PerAdrState = string.Empty;
+                    if (dr["AA_PerAdrCountry"] != DBNull.Value)
+                        associatesVo.PerAdrCountry = dr["AA_PerAdrCountry"].ToString();
+                    else
+                        associatesVo.PerAdrCountry = string.Empty;
+                    if (dr["AA_OfficePhoneNo"] != DBNull.Value)
+                        associatesVo.OfficePhoneNo = int.Parse(dr["AA_OfficePhoneNo"].ToString());
+
+                    if (dr["AA_Fax"] != DBNull.Value)
+                        associatesVo.ResFaxNumber = int.Parse(dr["AA_Fax"].ToString());
+                    if (dr["XMS_MaritalStatusCode"] != DBNull.Value)
+                        associatesVo.MaritalStatusCode = dr["XMS_MaritalStatusCode"].ToString();
+                    if (dr["AA_Gender"] != DBNull.Value)
+                        associatesVo.Gender = dr["AA_Gender"].ToString();
+                    if (dr["XQ_QualificationCode"] != DBNull.Value)
+                        associatesVo.QualificationCode =dr["XQ_QualificationCode"].ToString();
+                    if (dr["AA_ResISDCode"] != DBNull.Value)
+                        associatesVo.ResISDCode = int.Parse(dr["AA_ResISDCode"].ToString());
+                    if (dr["AA_OfcISDCode"] != DBNull.Value)
+                        associatesVo.ResSTDCode = int.Parse(dr["AA_OfcISDCode"].ToString());
+                    if (dr["AA_ResPhoneNo"] != DBNull.Value)
+                        associatesVo.ResPhoneNo = int.Parse(dr["AA_ResPhoneNo"].ToString());
+                    if (dr["AA_DOB"] != DBNull.Value)
+                        associatesVo.DOB = DateTime.Parse(dr["AA_DOB"].ToString());
+                    //if (!string.IsNullOrEmpty(dr["WERPBM_BankCode]"].ToString()))
+                    //    associatesVo.BankCode =dr["WERPBM_BankCode]"].ToString();
+                    if (dr["XBAT_BankAccountTypeCode"] != DBNull.Value)
+                        associatesVo.BankAccountTypeCode = dr["XBAT_BankAccountTypeCode"].ToString();
+                    if (dr["AA_Mobile"] != DBNull.Value)
+                        associatesVo.Mobile = Convert.ToInt64(dr["AA_Mobile"].ToString());
+                    if (dr["AA_BranchName"] != DBNull.Value)
+                        associatesVo.BranchName = dr["AA_BranchName"].ToString();
+                    if (dr["UR_UserRoleId"] != DBNull.Value)
+                        associatesVo.UserRoleId = int.Parse(dr["UR_UserRoleId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["AA_AccountNum"].ToString().Trim()))
+                        associatesVo.AccountNum = dr["AA_AccountNum"].ToString();
+                    if (dr["AA_BranchAdrLine1"] != DBNull.Value)
+                        associatesVo.CorrAdrLine1 = dr["AA_BranchAdrLine1"].ToString();
+                    else
+                        associatesVo.PerAdrLine1 = string.Empty;
+                    if (dr["AA_BranchAdrLine2"] != DBNull.Value)
+                        associatesVo.BranchAdrLine2 = dr["AA_BranchAdrLine2"].ToString();
+                    else
+                        associatesVo.BranchAdrLine2 = string.Empty;
+                    if (dr["AA_BranchAdrLine3"] != DBNull.Value)
+                        associatesVo.BranchAdrLine3 = dr["AA_BranchAdrLine3"].ToString();
+                    else
+                        associatesVo.BranchAdrLine3 = string.Empty;
+                    if (dr["AA_BranchAdrCity"] != DBNull.Value)
+                        associatesVo.BranchAdrCity = dr["AA_BranchAdrCity"].ToString();
+                    else
+                        associatesVo.BranchAdrCity = string.Empty;
+                    if (dr["AA_BranchAdrState"] != DBNull.Value)
+                        associatesVo.BranchAdrState = dr["AA_BranchAdrState"].ToString();
+                    else
+                        associatesVo.BranchAdrState = string.Empty;
+                    if (dr["AA_BranchAdrCountry"] != DBNull.Value)
+                        associatesVo.BranchAdrCountry = dr["AA_BranchAdrCountry"].ToString();
+                    else
+                        associatesVo.BranchAdrCountry = string.Empty;
+                    if (dr["CB_MICR"] != DBNull.Value && dr["CB_MICR"].ToString() != "")
+                        associatesVo.MICR = Int16.Parse(dr["CB_MICR"].ToString());
+                    else
+                        associatesVo.MICR = 0;
+
+                    if (dr["CB_IFSC"] != DBNull.Value)
+                        associatesVo.IFSC = dr["CB_IFSC"].ToString();
+                    else
+                        associatesVo.IFSC = string.Empty;
+
+                    if (dr["AA_StepStatus"] != DBNull.Value)
+                        associatesVo.StepCode = dr["AA_StepStatus"].ToString();
+                    if (dr["XISAS_Code"] != DBNull.Value)
+                        associatesVo.StatusCode = dr["XISAS_Code"].ToString();
+                    if (dr["AA_PAN"] != DBNull.Value)
+                        associatesVo.PanNo = dr["AA_PAN"].ToString();
+                    if (dr["AA_RequestDate"] != DBNull.Value)
+                        associatesVo.RequestDate =DateTime.Parse( dr["AA_RequestDate"].ToString());
+                    if (dr["AA_NomineeName"] != DBNull.Value)
+                        associatesVo.NomineeName = dr["AA_NomineeName"].ToString();
+                    if (dr["XR_RelationshipCode"] != DBNull.Value)
+                        associatesVo.RelationshipCode = dr["XR_RelationshipCode"].ToString();
+                    if (dr["AA_NomineeAddress"] != DBNull.Value)
+                        associatesVo.NomineeAddres = dr["AA_NomineeAddress"].ToString();
+                    if (dr["AA_NomineeTelNo"] != DBNull.Value)
+                        associatesVo.NomineeTelNo = int.Parse(dr["AA_NomineeTelNo"].ToString());
+                    if (dr["AA_GuardianName"] != DBNull.Value)
+                        associatesVo.GuardianName = dr["AA_GuardianName"].ToString();
+                    if (dr["AA_GuardianRelationship"] != DBNull.Value)
+                        associatesVo.GuardianRelationship = dr["AA_GuardianRelationship"].ToString();
+                    if (dr["AA_GuardianAddress"] != DBNull.Value)
+                        associatesVo.GuardianAddress = dr["AA_GuardianAddress"].ToString();
+                    if (dr["AA_GuardianTelNo"] != DBNull.Value)
+                        associatesVo.GuardianTelNo = int.Parse(dr["AA_GuardianTelNo"].ToString());
+                    if (dr["AA_AMFIregistrationNo"] != DBNull.Value)
+                        associatesVo.AMFIregistrationNo = dr["AA_AMFIregistrationNo"].ToString();
+                    if (dr["AA_StartDate"] != DBNull.Value)
+                        associatesVo.StartDate = DateTime.Parse(dr["AA_StartDate"].ToString());
+                    if (dr["AA_EndDate"] != DBNull.Value)
+                        associatesVo.EndDate = DateTime.Parse(dr["AA_EndDate"].ToString());
+                    if (dr["AA_NoOfBranches"] != DBNull.Value)
+                        associatesVo.NoOfBranches = int.Parse(dr["AA_NoOfBranches"].ToString());
+                    if (dr["AA_NoOfSalesEmployees"] != DBNull.Value)
+                        associatesVo.NoOfSalesEmployees = int.Parse(dr["AA_NoOfSalesEmployees"].ToString());
+                    if (dr["AA_NoOfSubBrokers"] != DBNull.Value)
+                        associatesVo.NoOfSubBrokers = int.Parse(dr["AA_NoOfSubBrokers"].ToString());
+                    if (dr["AA_NoOfClients"] != DBNull.Value)
+                        associatesVo.NoOfClients = int.Parse(dr["AA_NoOfClients"].ToString());
+                    if (dr["AAC_AgentCode"] != DBNull.Value)
+                        associatesVo.AAC_AgentCode= dr["AAC_AgentCode"].ToString();
+                    if (dr["AAC_UserType"] != DBNull.Value)
+                        associatesVo.AAC_UserType = dr["AAC_UserType"].ToString();
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetAdvisorStaff()");
+
+                object[] objects = new object[1];
+                objects[0] = UserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return associatesVo;
+        }
     }
 }
