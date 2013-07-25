@@ -176,16 +176,16 @@ namespace WealthERP.Advisor
 
             //}
             Session["UserType"] = "adviser";
-            if (advisorVo.IsOpsEnable == 1)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
-            }
-            else
-            {
+            //if (advisorVo.IsOpsEnable == 1)
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+            //}
+            //else
+            //{
                 Session["NodeType"] = "CustomerReportsDashBoard";
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerReportsDashBoard','login');", true);
-            }
+            //}
         }
 
 
