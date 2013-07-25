@@ -5,10 +5,12 @@ using System.Text;
 
 namespace WERP_REQUEST_PROCESSOR
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
+            RequestCreatorBo requestCreatorBo = new RequestCreatorBo();
+            requestCreatorBo.CreateRequestFromWERPRequestRecorder();
 
         }
     }
