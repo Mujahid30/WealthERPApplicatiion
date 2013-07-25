@@ -170,7 +170,9 @@ namespace WealthERP.Associates
 
             else
             {
-                gvViewAssociates.Visible = false;
+                gvViewAssociates.Visible = true;
+                gvViewAssociates.DataSource = null;
+                gvViewAssociates.DataBind();
                 imgViewAssociates.Visible = false;
             }
             //if (dtViewAssociates == null)
