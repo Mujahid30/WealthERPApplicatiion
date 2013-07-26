@@ -750,6 +750,8 @@ namespace DAOAssociates
                 {
                     // table = getAdvisorStaffDs.Tables["AdviserRM"];
                     dr = getAssociateUserDs.Tables[0].Rows[0];
+                    associatesVo.AdviserAssociateId = int.Parse((dr["AA_AdviserAssociateId"].ToString()));
+                    associatesVo.AAC_AdviserAgentId = int.Parse((dr["AAC_AdviserAgentId"].ToString()));
                     associatesVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     associatesVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                     associatesVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
