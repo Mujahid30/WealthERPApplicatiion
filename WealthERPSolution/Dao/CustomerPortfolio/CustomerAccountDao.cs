@@ -656,6 +656,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createCustomerMFAccountCmd, "@CB_IFSC", DbType.String, DBNull.Value);
                 }
 
+                if (!string.IsNullOrEmpty(customerAccountVo.AssociateCode))
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_SubBrokerCode", DbType.String, customerAccountVo.AssociateCode);
+                else
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_SubBrokerCode", DbType.String, DBNull.Value);
+                if (customerAccountVo.AdviserAgentId != 0)
+                    db.AddInParameter(createCustomerMFAccountCmd, "@AAC_AdviserAgentId", DbType.Int32, customerAccountVo.AdviserAgentId);
+                else
+                    db.AddInParameter(createCustomerMFAccountCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CB_CreatedBy", DbType.Int32, userId);
 
 
@@ -1057,62 +1065,6 @@ namespace DaoCustomerPortfolio
             }
             return bResult;
         }
-
-
-        public bool CheckInsuranceNoAvailabilityOnAdd(string policyNumber, int adviserId)
-        {
-            bool bResult = false;
-            Database db;
-            DbCommand chkAvailabilityCmd;
-            int rowCount;
-            DataSet ds;
-
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckInsuranceNoAvailabilityOnAdd");
-
-            db.AddInParameter(chkAvailabilityCmd, "@policyNumber", DbType.String, policyNumber);
-            db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
-
-            ds = db.ExecuteDataSet(chkAvailabilityCmd);
-            rowCount = Convert.ToInt32(ds.Tables[0].Rows[0]["column1"].ToString());
-            if (rowCount > 0)
-            {
-                bResult = false;
-            }
-            else
-            {
-                bResult = true;
-            }
-            return bResult;
-        }
-
-        public bool CheckGenInsuranceNoAvailabilityOnAdd(string policyNumber, int adviserId)
-        {
-            bool bResult = false;
-            Database db;
-            DbCommand chkAvailabilityCmd;
-            int rowCount;
-            DataSet ds;
-
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckGenInsuranceNoAvailabilityOnAdd");
-
-            db.AddInParameter(chkAvailabilityCmd, "@policyNumber", DbType.String, policyNumber);
-            db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
-
-            ds = db.ExecuteDataSet(chkAvailabilityCmd);
-            rowCount = Convert.ToInt32(ds.Tables[0].Rows[0]["column1"].ToString());
-            if (rowCount > 0)
-            {
-                bResult = false;
-            }
-            else
-            {
-                bResult = true;
-            }
-            return bResult;
-        }
-
 
         public bool CheckTradeNoAvailabilityAccount(string TradeAccNo, string BrokerCode, int PortfolioId)
         {
@@ -3582,9 +3534,5 @@ namespace DaoCustomerPortfolio
             }
             return Amount;
         }
-
-   
-
-       
     }
 }
