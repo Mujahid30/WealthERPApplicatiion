@@ -41,6 +41,15 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.DropDownList ddlUserType;
         
         /// <summary>
+        /// CVTrxType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CVTrxType;
+        
+        /// <summary>
         /// lblSelectType control.
         /// </summary>
         /// <remarks>
@@ -59,22 +68,13 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
         
         /// <summary>
-        /// lblNoOfCode control.
+        /// CompareValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoOfCode;
-        
-        /// <summary>
-        /// txtNoOfCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNoOfCode;
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
         /// lblAgentCode control.
@@ -93,6 +93,15 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAgentCode;
+        
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
         /// btnSubmit control.

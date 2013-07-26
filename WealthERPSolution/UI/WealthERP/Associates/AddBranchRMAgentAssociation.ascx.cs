@@ -33,23 +33,12 @@ namespace WealthERP.Associates
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
+            userVo = (UserVo)Session["userVo"];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             associatesVo = (AssociatesVO)Session["associatesVo"];
             if(!IsPostBack)
             {
-                if (Request.QueryString["AgentId"] != null)
-                {
-                    agentCode = Request.QueryString["AgentId"];
-                    txtAgentCode.Text = agentCode;
-                }
-                else
-                {
-                    agentId = associatesBo.GetAgentId();
-                    agentId = agentId + 1;
-                    agentCode = agentId.ToString();
-                    txtAgentCode.Text = agentCode;
-                }
                 if (Request.QueryString["AssociationId"] != null)
                 {
                     BindAgentList();
@@ -57,30 +46,36 @@ namespace WealthERP.Associates
                     ddlUserType.SelectedValue = "Associates";
                     ddlSelectType.SelectedValue = associationId.ToString();
                 }
+              
             }
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            AssociatesVO associatesVo = new AssociatesVO();
             bool result = false;
             if (Request.QueryString["AgentId"] != null)
             {
                 agentId = int.Parse(Request.QueryString["AgentId"]);
                 associatesVo.AAC_AdviserAgentId = agentId;
             }
-            else
-                agentId = associatesVo.AAC_AdviserAgentId;
             if (ddlUserType.SelectedIndex != 0)
             {
                 if (ddlUserType.SelectedValue == "BM")
                 {
-                    if (ddlSelectType.SelectedIndex!=0)
-                         associatesVo.BranchId = int.Parse(ddlSelectType.SelectedValue);
+                    if (ddlSelectType.SelectedIndex != 0)
+                    {
+                        associatesVo.BranchId = int.Parse(ddlSelectType.SelectedValue);
+                        associatesVo.AAC_UserType = ddlUserType.SelectedValue;
+                    }
                 }
                 else if (ddlUserType.SelectedValue == "RM")
                 {
                     if (ddlSelectType.SelectedIndex != 0)
+                    {
                         associatesVo.RMId = int.Parse(ddlSelectType.SelectedValue);
+                        associatesVo.AAC_UserType = ddlUserType.SelectedValue;
+                    }
                 }
                 else if (ddlUserType.SelectedValue == "Associates")
                 {
@@ -88,29 +83,15 @@ namespace WealthERP.Associates
                     {
                         associatesVo.AdviserAssociateId = int.Parse(ddlSelectType.SelectedValue);
                         associatesVo.ContactPersonName = ddlSelectType.SelectedItem.Text;
+                        associatesVo.AAC_UserType = ddlUserType.SelectedValue;
                     }
                 }
 
             }
-            //if (rbtBM.Checked == true)
-            //{
-            //    associatesVo.AAC_UserType = "BM";
-            //    if (ddlSelectType.SelectedIndex!=0)
-            //        associatesVo.BranchId = int.Parse(ddlSelectType.SelectedValue);
-            //}
-            //else if (rbtRM.Checked == true)
-            //{
-            //    associatesVo.AAC_UserType = "RM";
-            //    if (ddlSelectType.SelectedIndex != 0)
-            //        associatesVo.RMId = int.Parse(ddlSelectType.SelectedValue);
-            //}
-            //else if (rbtnAgent.Checked == true)
-            //{
-            //    associatesVo.AAC_UserType = "Agent";
-            //    if (ddlSelectType.SelectedIndex != 0)
-            //        associatesVo.AdviserAssociateId = int.Parse(ddlSelectType.SelectedValue);
-            //}
-            associatesVo.AAC_AgentCode = txtAgentCode.Text;
+            if (!string.IsNullOrEmpty(txtAgentCode.Text))
+                associatesVo.AAC_AgentCode = txtAgentCode.Text;
+            else
+                associatesVo.AAC_AgentCode = null;
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
             result = associatesBo.CreateAdviserAgentCode(associatesVo,agentId);
@@ -131,7 +112,7 @@ namespace WealthERP.Associates
                 ddlSelectType.DataTextField = dt.Columns["AA_ContactPersonName"].ToString();
                 ddlSelectType.DataBind();
             }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Agent", "Select Agent"));
+            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
 
         }
         private void BindBranchDropDown()
@@ -151,7 +132,7 @@ namespace WealthERP.Associates
                     ddlSelectType.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                     ddlSelectType.DataBind();
                 }
-                ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select Branch", "Select Branch"));
+                ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
@@ -185,7 +166,7 @@ namespace WealthERP.Associates
                     ddlSelectType.DataTextField = dt.Columns["RMName"].ToString();
                     ddlSelectType.DataBind();
                 }
-                ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select RM", "Select RM"));
+                ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
             }
             catch (BaseApplicationException Ex)
             {
