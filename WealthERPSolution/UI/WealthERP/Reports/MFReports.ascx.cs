@@ -1594,8 +1594,11 @@ namespace WealthERP.Reports
 
             taskRequestManagementBo.CreateBulkMailRequestRecord(bulkMailRequest);
 
+            msgEmailSentComplete.Visible = true;
+
             tabViewAndEmailReports.SelectedIndex = 1;
             RadListBoxDestination.Items.Clear();
+
         }
 
 
