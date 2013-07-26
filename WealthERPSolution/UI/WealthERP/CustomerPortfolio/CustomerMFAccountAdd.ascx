@@ -396,9 +396,17 @@
         <td class="leftField">
             <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="Broker Code:"></asp:Label>
         </td>
-        <td class="rightField" colspan="4">
+        <td class="rightField">
             <asp:TextBox ID="txtBrokerCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
+        <td class="leftField">
+            <asp:Label ID="lblAssociateCode" runat="server" CssClass="FieldName" Text="SubBroaker Code:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlAssociateCode" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+        </td>
+        <td></td>
     </tr>
     <tr visible="false">
         <td class="leftField">
