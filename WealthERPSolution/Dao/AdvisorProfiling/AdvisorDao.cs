@@ -2968,7 +2968,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId,int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -2985,8 +2985,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
                 db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
-                db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
-                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);                     
+                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                      
                 getCustomerListCmd.CommandTimeout = 60 * 60;
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
               
@@ -3057,7 +3057,7 @@ namespace DaoAdvisorProfiling
                 }
                 else
                     customerList = null;
-                if (UserRole == "advisor" || UserRole == "bm" || UserRole=="associates")
+                if (UserRole =="advisor"|| UserRole=="bm")
                 {
                     //if (getCustomerDs.Tables[1].Rows.Count > 0)
                     //{
@@ -3120,16 +3120,6 @@ namespace DaoAdvisorProfiling
                     }
                 }
                 if (UserRole == "bm")
-                {
-                    if (getCustomerDs.Tables[1].Rows.Count > 0)
-                    {
-                        foreach (DataRow dr in getCustomerDs.Tables[1].Rows)
-                        {
-                            genDictParent.Add(dr["ParentId"].ToString(), dr["Parent"].ToString());
-                        }
-                    }
-                }
-                if (UserRole == "associates")
                 {
                     if (getCustomerDs.Tables[1].Rows.Count > 0)
                     {

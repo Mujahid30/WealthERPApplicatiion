@@ -85,9 +85,6 @@ namespace VoCustomerPortfolio
         private string m_mergerstatus;
         private int m_processId;
         private DateTime m_createdOn;
-        private int m_AdviserAgentId;
-        private string m_AssociateCode;
-
 
 
 
@@ -435,16 +432,6 @@ namespace VoCustomerPortfolio
         {
             get { return m_CFCCategoryCode; }
             set { m_CFCCategoryCode = value; }
-        }
-        public int AdviserAgentId
-        {
-            get { return m_AdviserAgentId; }
-            set { m_AdviserAgentId = value; }
-        }
-        public string AssociateCode
-        {
-            get { return m_AssociateCode; }
-            set { m_AssociateCode = value; }
         }
         #endregion Properties
 

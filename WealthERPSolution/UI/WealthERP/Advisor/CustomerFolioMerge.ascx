@@ -519,8 +519,6 @@
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnAgentId" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnIsassociate" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnadviserId" runat="server" />  
 <asp:HiddenField ID="hdnCustomerId" runat="server" Value="0" OnValueChanged="txtPickCustomer_TextChanged" />
 <%--<asp:HiddenField ID="hdnCurrentPage" runat="server" />--%>

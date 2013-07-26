@@ -19,7 +19,6 @@ using System.Web.Services;
 using BoOps;
 using Telerik.Web.UI;
 using BoCustomerProfiling;
-using BOAssociates;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -55,8 +54,6 @@ namespace WealthERP.CustomerPortfolio
         DataTable dtModeofOperation = new DataTable();
         DataTable dtStates = new DataTable();
         Dictionary<int, int> genDictPortfolioDetails = new Dictionary<int, int>();
-        AdvisorVo advisorVo = new AdvisorVo();
-        AssociatesBo associatesBo = new AssociatesBo();
 
 
         [WebMethod]
@@ -68,7 +65,6 @@ namespace WealthERP.CustomerPortfolio
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            advisorVo = (AdvisorVo)Session["advisorVo"];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             try
             {
@@ -99,7 +95,6 @@ namespace WealthERP.CustomerPortfolio
                     {
 
                         BindDropDowns(path);
-                        BindAssociateCode();
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
                             if (Request.QueryString["action"].Trim() == "Edit")
@@ -177,19 +172,6 @@ namespace WealthERP.CustomerPortfolio
                 throw exBase;
 
             }
-        }
-
-        private void BindAssociateCode()
-        {
-            DataSet ds = associatesBo.BindAssociateCodeList(advisorVo.advisorId);
-            if (ds != null)
-            {
-                ddlAssociateCode.DataSource = ds;
-                ddlAssociateCode.DataValueField = ds.Tables[0].Columns["AAC_AdviserAgentId"].ToString();
-                ddlAssociateCode.DataTextField = ds.Tables[0].Columns["AAC_AgentCode"].ToString();
-                ddlAssociateCode.DataBind();
-            }
-            ddlAssociateCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
 
         protected void SetCustomerNameInInvestorTextBox()
@@ -1015,17 +997,7 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.ModeOfHolding = ddlModeOfHolding.SelectedItem.Value.ToString();
                     if (txtAccountDate.SelectedDate.ToString() != "")
                         customerAccountsVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.SelectedDate.ToString());
-
                     customerAccountsVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
-                    if (ddlAssociateCode.SelectedIndex != 0)
-                    {
-                        customerAccountsVo.AdviserAgentId = int.Parse(ddlAssociateCode.SelectedValue);
-                        customerAccountsVo.AssociateCode = ddlAssociateCode.SelectedItem.Text;
-                    }
-                    else
-                    {
-                        customerAccountsVo.AdviserAgentId = 0;
-                    }
                     accountId = customerAccountBo.CreateCustomerMFAccount(customerAccountsVo, userVo.UserId);
                     if (accountId == 1)
                     {

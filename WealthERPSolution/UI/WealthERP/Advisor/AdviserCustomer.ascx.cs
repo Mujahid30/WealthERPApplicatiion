@@ -22,8 +22,6 @@ using BoCustomerPortfolio;
 using BoCommon;
 using VoAdvisorProfiling;
 using BoSuperAdmin;
-using VOAssociates;
-using BOAssociates;
 using Telerik.Web.UI;
 
 namespace WealthERP.Advisor
@@ -46,14 +44,12 @@ namespace WealthERP.Advisor
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
-        AssociatesVO associatesVo = new AssociatesVO();
         int rmId;
         int branchHeadId;
         AdvisorPreferenceVo advisorPrefernceVo = new AdvisorPreferenceVo();
         string customer = "";
         int ParentId;
         int adviserId;
-        int AgentId;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -62,7 +58,6 @@ namespace WealthERP.Advisor
             CreationSuccessMessage.Visible = false;
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-            associatesVo = (AssociatesVO)Session["associatesVo"];
             if (userVo.UserType == "SuperAdmin")
             {
                 UserRole = "advisor";
@@ -83,12 +78,6 @@ namespace WealthERP.Advisor
             {
                 UserRole = "bm";
                 rmId = rmVo.RMId;
-                branchHeadId = rmVo.RMId;
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
-            {
-                UserRole = "associates";
-                AgentId = associatesVo.AAC_AdviserAgentId;
                 branchHeadId = rmVo.RMId;
             }
             if (userVo.UserType == "SuperAdmin")
@@ -237,10 +226,6 @@ namespace WealthERP.Advisor
                 gvCustomerList.Columns[6].Visible = false;
                 gvCustomerList.Columns[7].Visible = false;
             }
-            if (UserRole == "associates")
-            {
-                gvCustomerList.Columns[0].Visible = false;
-            }
         }
 
         /// <summary>
@@ -254,7 +239,7 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
                     DivCustomerList.Visible = false;
@@ -423,7 +408,7 @@ namespace WealthERP.Advisor
                     if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                         customer = string.Empty;
                 }
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {

@@ -1522,10 +1522,10 @@ namespace BoAdvisorProfiling
 
         /* End For Branch Dropdowns */
 
-        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int Isassociate, int AgentId, int rmId, int branchId, int branchHeadId, int All)
+        public DataSet GetAdviserCustomerFolioMerge(int adviserId, int rmId, int branchId, int branchHeadId, int All)
         {
             AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
-            return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId, Isassociate,AgentId,rmId, branchId, branchHeadId, All); 
+            return advisorBranchDao.GetAdviserCustomerFolioMerge(adviserId,rmId,branchId,branchHeadId,All); 
         }
 
         /// <summary>
