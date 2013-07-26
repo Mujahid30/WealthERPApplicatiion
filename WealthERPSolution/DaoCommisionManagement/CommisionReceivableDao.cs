@@ -152,9 +152,12 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
 
-                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                if (commissionStructureRuleVo.MinInvestmentAmount != 0)
                 {
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MinInvestmentAmount);
+                }
+                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                {
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MaxInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MaxInvestmentAmount);
                 }
 
@@ -174,8 +177,8 @@ namespace DaoCommisionManagement
 
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
-                if (commissionStructureRuleVo.MinNumberofApplications != 0)
-                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.SIPFrequency))
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_SIPFrequency", DbType.String, commissionStructureRuleVo.SIPFrequency);
 
 
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_BrokerageValue", DbType.Decimal, commissionStructureRuleVo.BrokerageValue);
@@ -189,6 +192,11 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_AUMMonth", DbType.Int16, commissionStructureRuleVo.AUMMonth);
                 }
 
+                if (commissionStructureRuleVo.MinNumberofApplications != 0)
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.StructureRuleComment))
+                    db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
+                
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
 
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
@@ -432,23 +440,24 @@ namespace DaoCommisionManagement
 
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    
+
                     commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(dr["ACSM_CommissionStructureId"].ToString());
                     commissionStructureMasterVo.ProductType = dr["PAG_AssetGroupCode"].ToString();
                     commissionStructureMasterVo.AssetCategory = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     commissionStructureMasterVo.CommissionStructureName = dr["ACSM_CommissionStructureName"].ToString();
-                    commissionStructureMasterVo.Issuer= dr["ACSM_Issuer"].ToString();
+                    commissionStructureMasterVo.Issuer = dr["ACSM_Issuer"].ToString();
                     commissionStructureMasterVo.ApplicableLevelCode = dr["WCAL_ApplicableLevelCode"].ToString();
                     commissionStructureMasterVo.ValidityStartDate = Convert.ToDateTime(dr["ACSM_ValidityStartDate"].ToString());
                     commissionStructureMasterVo.ValidityEndDate = Convert.ToDateTime(dr["ACSM_ValidityEndDate"].ToString());
 
-                    commissionStructureMasterVo.IsServiceTaxReduced= Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsServiceTaxReduced"].ToString()));
+                    commissionStructureMasterVo.IsServiceTaxReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsServiceTaxReduced"].ToString()));
                     commissionStructureMasterVo.IsTDSReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsTDSReduced"].ToString()));
                     commissionStructureMasterVo.IsOtherTaxReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsOtherTaxReduced"].ToString()));
                     commissionStructureMasterVo.IsNonMonetaryReward = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsNonMonetaryReward"].ToString()));
                     commissionStructureMasterVo.IsClawBackApplicable = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsClawBackApplicable"].ToString()));
 
                     commissionStructureMasterVo.ReceivableFrequency = dr["ACSM_ReceivableFrequency"].ToString();
+                    commissionStructureMasterVo.AdviserCityGroupCode = dr["ACG_CityGroupID"].ToString();
                     commissionStructureMasterVo.StructureNote = dr["ACSM_Note"].ToString();
                 }
                 StringBuilder strSubCategoryCode = new StringBuilder();
@@ -457,13 +466,13 @@ namespace DaoCommisionManagement
                 {
                     strSubCategoryCode.Append(dr["PAISC_AssetInstrumentSubCategoryCode"].ToString());
                     strSubCategoryCode.Append("~");
- 
+
                 }
                 if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
                     strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
 
                 commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -512,7 +521,7 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
                 db.AddInParameter(cmdUpdateCommissionStructure, "@UserId", DbType.String, userId);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructure);
-               
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -543,13 +552,17 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdUpdateCommissionStructureRule = db.GetStoredProcCommand("SPROC_UpdateCommissionStructureRule");
-                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_CommissionStructureRuleId", DbType.Int64, commissionStructureRuleVo.CommissionStructureRuleId);              
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_CommissionStructureRuleId", DbType.Int64, commissionStructureRuleVo.CommissionStructureRuleId);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
 
-                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                if (commissionStructureRuleVo.MinInvestmentAmount != 0)
                 {
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MinInvestmentAmount);
+
+                }
+                if (commissionStructureRuleVo.MaxInvestmentAmount != 0)
+                {
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxInvestmentAmount", DbType.Decimal, commissionStructureRuleVo.MaxInvestmentAmount);
                 }
 
@@ -568,10 +581,7 @@ namespace DaoCommisionManagement
                 }
 
                 if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
-                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);
-                if (commissionStructureRuleVo.MinNumberofApplications != 0)
-                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
-
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TransactionType", DbType.String, commissionStructureRuleVo.TransactionType);               
 
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_BrokerageValue", DbType.Decimal, commissionStructureRuleVo.BrokerageValue);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCU_UnitCode", DbType.String, commissionStructureRuleVo.BrokerageUnitCode);
@@ -583,6 +593,11 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_AUMFrequency", DbType.String, commissionStructureRuleVo.AUMFrequency);
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_AUMMonth", DbType.Int16, commissionStructureRuleVo.AUMMonth);
                 }
+
+                if (commissionStructureRuleVo.MinNumberofApplications != 0)
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MinNumberOfApplications", DbType.Int32, commissionStructureRuleVo.MinNumberofApplications);
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.StructureRuleComment))
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
 
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
 
@@ -643,7 +658,7 @@ namespace DaoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
+
         }
 
 
