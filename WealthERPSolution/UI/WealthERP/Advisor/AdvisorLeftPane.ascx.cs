@@ -2711,7 +2711,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_Report")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
                 
                 else if (e.Item.Value == "Prospect List")
@@ -2720,30 +2720,30 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
                     Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProspectList','login');", true);
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LifeInsuranceOrderEntry','login');", true);
                 }
                 else if (e.Item.Value == "Order_List")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
                 }
                 else if (e.Item.Value == "OrderMIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderMIS','login');", true);
                 }
                 else if (e.Item.Value == "OrderRecon")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderRecon','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderRecon','login');", true);
                 }
                 else if (e.Item.Value == "Add FP Prospect")
                 {
@@ -2751,7 +2751,7 @@ namespace WealthERP.Advisor
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_ProspectList_CustomerId);
                     Session.Remove(SessionContents.FPS_AddProspectListActionStatus);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddProspectList','login');", true);
                 }
                
                 else if (e.Item.Value == "MF Folios")
@@ -2762,157 +2762,157 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Manage Portfolio")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolio','login');", true);
                 }
                 else if (e.Item.Value == "Add Portfolio")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerPortfolioSetup','login');", true);
                 }              
                 else if (e.Item.Value == "Alert Notifications")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','login');", true);
                 }
                 else if (e.Item.Value == "View MF Transactions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
+                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "Add MF Transactions")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
                 else if (e.Item.Value == "View EQ Transactions")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);
                 }
                 else if (e.Item.Value == "Add EQ Transactions")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleEqTransactionsEntry','login');", true);
                 }
                 else if (e.Item.Value == "Loan Proposal")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanTrackingGrid','login');", true);
                 }
                 else if (e.Item.Value == "Add Loan proposal")
                 {
                     Session["LoanProcessAction"] = "add";
                     Session[SessionContents.LoanProcessTracking] = null;
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('LoanProcessTracking','login');", true);
                 }
                 else if (e.Item.Value == "FP Offline Form")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OfflineForm','login');", true);
                 }               
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "MFDashboard")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "CustomerSignUp")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserNewSignupMIS','login');", true);
                 }
 
                 else if (e.Item.Value == "MF Commission MIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Commissiondashboard','login');", true);
                 }
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
                 }
                 else if (e.Item.Value == "MF_SIP_Projection")
                 {
                     Session["UserType"] = "Associates";
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFSIPProjection','login');", true);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_Projection');", true);
                 }
                 else if (e.Item.Value == "Performance_Allocation")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PerformanceAndAllocation','login');", true);
                 }
                 else if (e.Item.Value == "Equity MIS")
                 {
                     Session["UserType"] = "rm";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEQMIS','login');", true);
                 }
                 else if (e.Item.Value == "Goal_MIS")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('GoalMIS','login');", true);
                 }
                 else if (e.Item.Value == "Asset_Allocation_MIS")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetAllocationMIS','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssetAllocationMIS','login');", true);
                 }
                 else if (e.Item.Value == "MFTurnOverMIS")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Loan MIS")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
                 else if (e.Item.Value == "Customer_AUM")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }               
                 else if (e.Item.Value == "Multi Asset Report")
                 {
                     Session["UserType"] = "Associates";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioReports','login');", true);
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('PortfolioReports','login');", true);
                 }
                 else if (e.Item.Value == "MF Report")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFReports", "loadcontrol('MFReports','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFReports", "loadcontrol('MFReports','login');", true);
                 }
                 else if (e.Item.Value == "Equity Report")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EquityReports", "loadcontrol('EquityReports','login');", true);
+                  //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EquityReports", "loadcontrol('EquityReports','login');", true);
                 }
                 else if (e.Item.Value == "FP Report")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanningReports", "loadcontrol('FPSectional','login')", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FinancialPlanningReports", "loadcontrol('FPSectional','login')", true);
                 }
                 else if (e.Item.Value == "Inbox")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
                 }
                 else if (e.Item.Value == "Compose")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageCompose','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageCompose','login');", true);
                 }
                 else if (e.Item.Value == "Outbox")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
+                 //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageOutbox','login');", true);
                 }
             }
             catch (BaseApplicationException Ex)
