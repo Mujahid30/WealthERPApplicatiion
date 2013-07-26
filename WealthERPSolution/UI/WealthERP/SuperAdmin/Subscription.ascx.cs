@@ -218,6 +218,7 @@ namespace WealthERP.SuperAdmin
                         chkModules.Items[13].Selected = true;
                         chkModules.Items[12].Selected = true;
                         chkModules.Items[14].Selected = true;
+                        chkModules.Items[15].Selected = true;
                         chkValueAdds.Items[0].Selected = true;
                     }
                     else if (ddlPlan.SelectedValue == "5")
@@ -236,6 +237,7 @@ namespace WealthERP.SuperAdmin
                         chkModules.Items[12].Selected = true;
                         chkModules.Items[13].Selected = true;
                         chkModules.Items[14].Selected = true;
+                        chkModules.Items[15].Selected = true;
                         chkValueAdds.Items[0].Selected = true;
                     }
                 }
@@ -821,6 +823,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[13].Selected = true;
                 chkModules.Items[12].Selected = true;
                 chkModules.Items[14].Selected = true;
+                chkModules.Items[15].Selected = true;
 
                 chkModules.Items[9].Selected = false;
                 chkModules.Items[12].Selected = false;
@@ -843,6 +846,7 @@ namespace WealthERP.SuperAdmin
                 chkModules.Items[12].Selected = true;
                 chkModules.Items[13].Selected = true;
                 chkModules.Items[14].Selected = true;
+                chkModules.Items[15].Selected = true;
                 chkValueAdds.Items[0].Selected = true;
             }
         }
