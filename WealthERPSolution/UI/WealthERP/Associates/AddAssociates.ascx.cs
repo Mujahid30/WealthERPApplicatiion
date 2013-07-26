@@ -544,6 +544,7 @@ namespace WealthERP.Associates
             userVo.LoginId = txtEmailId.Text.ToString();
             userVo.FirstName = txtAssociateName.Text.ToString();
             userVo.Email = txtEmailId.Text.ToString();
+            userVo.UserType="Associates";
 
             associatesVo.ContactPersonName = txtAssociateName.Text;
             associatesVo.BranchId = int.Parse(ddlBranch.SelectedValue);
@@ -716,6 +717,7 @@ namespace WealthERP.Associates
                 ddlstatus1.DataTextField = ds.Tables[1].Columns["XS_Status"].ToString();
                 ddlstatus1.DataBind();
                 ddlstatus1.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlstatus1.Items.RemoveAt(4);
 
                 ddlstatus2.DataSource = ds.Tables[1];
                 ddlstatus2.DataValueField = ds.Tables[1].Columns["XS_StatusCode"].ToString();
@@ -751,8 +753,10 @@ namespace WealthERP.Associates
 
         protected void btnSubmitAddStage1_Click(object sender, EventArgs e)
         {
+            string comments = string.Empty;
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
+                comments = txtCommentstep1.Text;
                 associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlstatus1.SelectedValue, "AREQ", ddlReasonStage1.SelectedValue);
                 btnSubmitAddStage1.Visible = false;
                 ddlstatus1.Enabled = false;
