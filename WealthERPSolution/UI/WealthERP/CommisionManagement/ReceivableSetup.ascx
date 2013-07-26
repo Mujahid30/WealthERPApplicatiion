@@ -53,6 +53,20 @@
 
     }
 
+    function ValidateAUMFrequency(source, args) {
+
+        var ddlCalculated = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_ddlCommisionCalOn').value;
+        var txtAMUFor = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtAUMFor').value;
+        if (ddlCalculated == 'AGAM' || ddlCalculated == 'AUM' || ddlCalculated == 'CLAM') {
+            if (txtAMUFor == '') {
+                args.IsValid = false;
+                return false;
+            }
+            else {
+                args.IsValid = true;
+            }
+        }
+    }
 
 
     function InvestmentAmountValidation(source, args) {
@@ -61,27 +75,27 @@
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestmentAmount').value;
         if (maxValue > minValue)
             args.IsValid = true;
-            
+
         if (minValue == "" && maxValue == "")
             args.IsValid = true;
     }
 
-//    function alertTest() {
-//        var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
-//        if (maxValue=="")
-//            alert("blank");
-//            else
-//                alert("empty");
-//    }
+    //    function alertTest() {
+    //        var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
+    //        if (maxValue=="")
+    //            alert("blank");
+    //            else
+    //                alert("empty");
+    //    }
     function TenureValidation(source, args) {
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinTenure').value;
         var maxValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
-      
+
         if (maxValue > minValue)
             args.IsValid = true;
-            
-        if (minValue== "" && maxValue== "")
+
+        if (minValue == "" && maxValue == "")
             args.IsValid = true;
     }
 
@@ -95,6 +109,24 @@
         if (minValue == "" && maxValue == "")
             args.IsValid = true;
     }
+
+    function validateSubCategory(source, arguments) {
+        arguments.IsValid = false;
+
+        var checklist = document.getElementById("rlbAssetSubCategory");
+        if (checklist == null) return;
+
+        var elements = checklist.getElementsByTagName("INPUT");
+        if (elements == null) return;
+
+        var checkBoxCount = 0;
+        for (i = 0; i < elements.length; i++) {
+            if (elements[i].checked) checkBoxCount++;
+        }
+        arguments.IsValid = (checkBoxCount > 0);
+    }
+
+    
     
 </script>
 
@@ -293,6 +325,11 @@
                     <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CheckBoxes="true" CssClass="txtField"
                         Width="220px" Height="200px">
                     </telerik:RadListBox>
+                    <span id="Span4" class="spnRequiredField">*</span>
+                    <asp:CustomValidator ControlToValidate="rlbAssetSubCategory" ID="cus" runat="server"
+                        ErrorMessage="Select a checkbox" ClientValidationFunction="validateSubCategory"
+                        ValidationGroup="btnStrAddUpdate">
+                    </asp:CustomValidator>
                 </td>
             </tr>
             <tr>
@@ -313,7 +350,7 @@
                         ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtValidityFrom"
                         ErrorMessage="<br />Please enter a validity from Date" Display="Dynamic" CssClass="rfvPCG"
-                        runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
+                        runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
@@ -333,8 +370,11 @@
                         ValidationGroup="vgBtnSubmitTemp" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtValidityTo"
                         ErrorMessage="<br />Please enter a validity to Date" Display="Dynamic" CssClass="rfvPCG"
-                        runat="server" InitialValue="" ValidationGroup="vgBtnSubmitTemp">
+                        runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
                     </asp:RequiredFieldValidator>
+                    <asp:CompareValidator ControlToCompare="txtValidityFrom" ControlToValidate="txtValidityTo"
+                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than Validity From"
+                        ID="CompareValidator2" Operator="GreaterThan" Type="Date" runat="server" />
                 </td>
             </tr>
             <tr>
@@ -343,6 +383,11 @@
                 </td>
                 <td class="rightDataTwoColumn" colspan="2">
                     <asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" Style="width: 80% !Important"></asp:TextBox>
+                    <span id="Span2" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtStructureName"
+                        ErrorMessage="<br />Structure name required" Display="Dynamic" CssClass="rfvPCG"
+                        runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
+                    </asp:RequiredFieldValidator>
                 </td>
                 <td class="rightDataThreeColumn">
                     <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server" />
@@ -394,9 +439,9 @@
                     <asp:TextBox ID="txtNote" runat="server" CssClass="txtField" TextMode="MultiLine"
                         Width="50%"></asp:TextBox>
                     <asp:Button ID="btnStructureSubmit" CssClass="PCGButton" Text="Submit" runat="server"
-                        OnClick="btnStructureSubmit_Click" />
+                        ValidationGroup="btnStrAddUpdate" OnClick="btnStructureSubmit_Click" />
                     <asp:Button ID="btnStructureUpdate" CssClass="PCGButton" Text="Update" runat="server"
-                        OnClick="btnStructureUpdate_Click" />
+                        OnClick="btnStructureUpdate_Click" ValidationGroup="btnStrAddUpdate" />
                 </td>
             </tr>
         </table>
@@ -430,7 +475,7 @@
         <table id="tblCommissionStructureRule1" runat="server" width="99%">
             <tr>
                 <td>
-                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="85%" ScrollBars="Horizontal">
+                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
                         <telerik:RadGrid ID="RadGridStructureRule" runat="server" CssClass="RadGrid" GridLines="Both"
                             AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
                             ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -442,7 +487,7 @@
                             </ExportSettings>
                             <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                 EditMode="EditForms" CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule"
-                                DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionType,XCT_CustomerTypeCode,ACSR_TenureUnit,ACSR_TransactionType,WCU_Unit,WCCO_CalculatedOn,ACSM_AUMFrequency,ACSR_MaxTenure">
+                                DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency">
                                 <Columns>
                                     <telerik:GridEditCommandColumn>
                                     </telerik:GridEditCommandColumn>
@@ -507,11 +552,8 @@
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="ACSR_AUMMonth" HeaderText="AUM Month" DataField="ACSR_AUMMonth">
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACG_CityGroupName" HeaderText="City Group Name"
-                                        DataField="ACG_CityGroupName">
-                                    </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_Comment" HeaderText="City Group Name" DataField="ACSR_Comment">
-                                    </telerik:GridBoundColumn>
+                                    <%--<telerik:GridBoundColumn UniqueName="ACSR_Comment" HeaderText="City Group Name" DataField="ACSR_Comment">
+                                    </telerik:GridBoundColumn>--%>
                                 </Columns>
                                 <EditFormSettings EditFormType="Template">
                                     <FormTemplate>
@@ -626,12 +668,11 @@
                                                     </asp:CheckBoxList>
                                                 </td>
                                                 <td class="leftLabel">
-                                                    <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
-                                                        CssClass="FieldName"></asp:Label>
+                                                    <asp:Label ID="lblSIPFrequency" runat="server" Text="SIP Frequency:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
-                                                        runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <asp:DropDownList ID="ddlSIPFrequency" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
                                                 </td>
                                                 <td class="leftLabel">
                                                 </td>
@@ -676,49 +717,62 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="leftLabel">
-                                               
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
+                                                <td class="leftLabel">
+                                                    <asp:Label ID="lblRuleNote" runat="server" Text="Comment:" CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td colspan="2">
+                                                <td class="rightData">
+                                                    <asp:TextBox ID="txtStruRuleComment" runat="server" CssClass="txtField" Text='<%# Bind( "ACSR_Comment") %>'
+                                                        TextMode="MultiLine" ></asp:TextBox>
+                                                </td>
+                                                <td class="leftLabel">
+                                                    <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
+                                                        CssClass="FieldName"></asp:Label>
+                                                        <br />
+                                                   <span id="Span4" class="spnRequiredField">&nbsp;</span>
+                                                </td>
+                                                <td class="rightData" colspan="2">
+                                                    <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
+                                                        runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <br />
+                                                        
                                                     <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                         CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                        CausesValidation="true"></asp:Button>&nbsp;
+                                                        CausesValidation="true" OnClientClick="return ValidateAUMFrequency()"></asp:Button>&nbsp;
                                                     <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" ValidationGroup="btnSubmitRule"
                                                         runat="server" CausesValidation="false" CommandName="Cancel"></asp:Button>
                                                 </td>
-                                                <td colspan="2">
-                                                </td>
-                                            </tr>
+                                            </tr>                                            
                                             <tr>
                                                 <td colspan="5">
-                                                    <asp:CustomValidator ID="CustomValidator4" runat="server" ErrorMessage="At least one rule is required"
+                                                    <asp:CustomValidator ID="CustomValidator4" runat="server" Text="At least one rule is required"
                                                         ControlToValidate="txtBrokerageValue" ClientValidationFunction="InvestmentAmountValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                     </asp:CustomValidator>
-                                                    <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Min Invest Amount should be less than Max Invest"
+                                                    <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min Invest Amount should be less than Max Invest"
                                                         ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                     </asp:CustomValidator>
-                                                    <br />
-                                                    <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="Min Tenure should be less than Max Tenure"
+                                                    <asp:CustomValidator ID="CustomValidator2" runat="server" Text="Min Tenure should be less than Max Tenure"
                                                         ControlToValidate="txtMaxTenure" ClientValidationFunction="TenureValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                     </asp:CustomValidator>
-                                                    <br />
-                                                    <asp:CustomValidator ID="CustomValidator3" runat="server" ErrorMessage="Min Investment Age should be less than Max Investment Age"
+                                                    <asp:CustomValidator ID="CustomValidator3" runat="server" Text="Min Investment Age should be less than Max Investment Age"
                                                         ControlToValidate="txtMaxInvestAge" ClientValidationFunction="InvestmentAgeValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                     </asp:CustomValidator>
-                                                    <br />
                                                     <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
-                                                        ControlToValidate="txtBrokerageValue" ErrorMessage="Brokerage value is mandatory" />
-                                                    <br />
-                                                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Following error occurs:"
+                                                        Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="Brokerage value is mandatory"
+                                                        Text="" />
+                                                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
                                                         ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Display="Dynamic"
                                                         ValidationGroup="btnSubmitRule" />
+                                                    <asp:CustomValidator ID="CustomValidator5" runat="server" Text="AUM for Required"
+                                                        ControlToValidate="txtAUMFor" ClientValidationFunction="ValidateAUMFrequency"
+                                                        ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
+                                                    </asp:CustomValidator>
                                                 </td>
                                             </tr>
                                         </table>

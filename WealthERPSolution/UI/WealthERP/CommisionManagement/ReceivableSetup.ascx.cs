@@ -40,8 +40,8 @@ namespace WealthERP.Receivable
             {
                 if (Request.QueryString["StructureId"] != null)
                     structureId = Convert.ToInt32(Request.QueryString["StructureId"].ToString());
-               
-                 BindAllDropdown();
+
+                BindAllDropdown();
                 if (structureId != 0)
                 {
                     LoadStructureDetails(structureId);
@@ -68,6 +68,12 @@ namespace WealthERP.Receivable
             rlbAssetSubCategory.DataValueField = dtSubcategory.Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
             rlbAssetSubCategory.DataTextField = dtSubcategory.Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
             rlbAssetSubCategory.DataBind();
+
+            foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
+            {
+                item.Checked = true;
+
+            }
 
         }
 
@@ -160,7 +166,7 @@ namespace WealthERP.Receivable
 
                 commissionStructureMasterVo.ReceivableFrequency = ddlReceivableFrequency.SelectedValue;
                 commissionStructureMasterVo.StructureNote = txtNote.Text.Trim();
-
+                commissionStructureMasterVo.AdviserCityGroupCode = ddlAppCityGroup.SelectedValue;
 
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
@@ -170,6 +176,7 @@ namespace WealthERP.Receivable
                         strSubCategoryCode.Append("~");
                     }
                 }
+
                 if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
                     strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
 
@@ -233,6 +240,7 @@ namespace WealthERP.Receivable
                 DropDownList ddlCommisionCalOn = (DropDownList)editform.FindControl("ddlCommisionCalOn");
                 DropDownList ddlAUMFrequency = (DropDownList)editform.FindControl("ddlAUMFrequency");
                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
+                DropDownList ddlSIPFrequency = (DropDownList)editform.FindControl("ddlSIPFrequency");
 
 
 
@@ -256,16 +264,21 @@ namespace WealthERP.Receivable
                 ddlInvestorType.DataTextField = dsCommissionLookup.Tables[9].Columns["XCC_CustomerCategory"].ToString();
                 ddlInvestorType.DataBind();
 
+                ddlSIPFrequency.DataSource = dsCommissionLookup.Tables[5];
+                ddlSIPFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
+                ddlSIPFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
+                ddlSIPFrequency.DataBind();
 
                 if (e.Item.RowIndex != -1)
                 {
-                    string strCommissionType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCT_CommissionType"].ToString();
+                    string strCommissionType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCT_CommissionTypeCode"].ToString();
                     string strCustomerCategory = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XCT_CustomerTypeCode"].ToString();
                     string strTenureUnit = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_TenureUnit"].ToString();
                     //string strInvestmentAgeUnit=RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_InvestmentAgeUnit"].ToString();
                     string strInvestmentTransactionType = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_TransactionType"].ToString();
-                    string strBrokargeUnit = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCU_Unit"].ToString();
-                    string strCalculatedOn = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCCO_CalculatedOn"].ToString();
+                    string strSIPFrequency = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_SIPFrequency"].ToString();
+                    string strBrokargeUnit = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCU_UnitCode"].ToString();
+                    string strCalculatedOn = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCCO_CalculatedOnCode"].ToString();
                     string strAUMFrequency = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_AUMFrequency"].ToString();
 
                     ddlCommissionType.SelectedValue = strCommissionType;
@@ -282,6 +295,7 @@ namespace WealthERP.Receivable
                             chkItems.Selected = true;
 
                     }
+                    ddlSIPFrequency.SelectedValue = strSIPFrequency;
                 }
 
             }
@@ -292,7 +306,7 @@ namespace WealthERP.Receivable
         protected void RadGridStructureRule_DeleteCommand(object source, GridCommandEventArgs e)
         {
             Int32 commissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
-            commisionReceivableBo.DeleteCommissionStructureRule(commissionStructureRuleId,false);
+            commisionReceivableBo.DeleteCommissionStructureRule(commissionStructureRuleId, false);
             BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
         }
 
@@ -330,10 +344,23 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_UpdateCommand(object source, GridCommandEventArgs e)
         {
+            bool isPageValid = false;
+                /*******************COLLECT DATA********************/
             commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
-            commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
-            commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
-            BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+
+            /*******************UI VALIDATION********************/
+            isPageValid=ValidatePage(commissionStructureRuleVo);
+            if (isPageValid)
+            {
+                commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
+                commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
+                BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
+            }
+            else 
+            {
+                e.Canceled = true;
+                return;
+            }
         }
 
         protected void RadGridStructureRule_ItemCommand(object source, GridCommandEventArgs e)
@@ -344,13 +371,18 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_InsertCommand(object source, GridCommandEventArgs e)
         {
+            bool isPageValid = false;
             try
             {
-
+                /*******************COLLECT DATA********************/
                 commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
+
+                 /*******************UI VALIDATION********************/
+                isPageValid=ValidatePage(commissionStructureRuleVo);
+
                 /*******************DUPLICATE CHECK********************/
                 bool isValidRule = true;
-                if (isValidRule)
+                if (isValidRule && isPageValid)
                 {
                     commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
                     BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
@@ -358,6 +390,7 @@ namespace WealthERP.Receivable
                 else
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplicate commission structure rule');", true);
+                    e.Canceled = true;
                     return;
                 }
 
@@ -399,7 +432,8 @@ namespace WealthERP.Receivable
                 DropDownList ddlInvestAgeTenure = (DropDownList)e.Item.FindControl("ddlInvestAgeTenure");
 
                 CheckBoxList chkListTtansactionType = (CheckBoxList)e.Item.FindControl("chkListTtansactionType");
-                TextBox txtMinNumberOfApplication = (TextBox)e.Item.FindControl("txtMinNumberOfApplication");
+                DropDownList ddlSIPFrequency = (DropDownList)e.Item.FindControl("ddlSIPFrequency");
+               
 
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
@@ -408,14 +442,17 @@ namespace WealthERP.Receivable
                 TextBox txtAUMFor = (TextBox)e.Item.FindControl("txtAUMFor");
                 DropDownList ddlAUMFrequency = (DropDownList)e.Item.FindControl("ddlAUMFrequency");
 
+                TextBox txtMinNumberOfApplication = (TextBox)e.Item.FindControl("txtMinNumberOfApplication");
+                TextBox txtStruRuleComment = (TextBox)e.Item.FindControl("txtStruRuleComment");
+
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
                 commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
                 commissionStructureRuleVo.CustomerType = ddlInvestorType.SelectedValue;
 
                 if (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text.Trim()))
                     commissionStructureRuleVo.MinInvestmentAmount = Convert.ToDecimal(txtMinInvestmentAmount.Text.Trim());
-                if (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text.Trim()))
-                    commissionStructureRuleVo.MaxInvestmentAmount = Convert.ToDecimal(txtMinInvestmentAmount.Text.Trim());
+                if (!string.IsNullOrEmpty(txtMaxInvestmentAmount.Text.Trim()))
+                    commissionStructureRuleVo.MaxInvestmentAmount = Convert.ToDecimal(txtMaxInvestmentAmount.Text.Trim());
 
                 if (!string.IsNullOrEmpty(txtMinTenure.Text.Trim()))
                     commissionStructureRuleVo.TenureMin = Convert.ToInt32(txtMinTenure.Text.Trim());
@@ -447,12 +484,11 @@ namespace WealthERP.Receivable
                     if (chkItems.Selected == true)
                     {
                         commissionStructureRuleVo.TransactionType = commissionStructureRuleVo.TransactionType + chkItems.Value + ",";
-
+                        if (chkItems.Value == "SIP")
+                            commissionStructureRuleVo.SIPFrequency = ddlSIPFrequency.SelectedValue;
                     }
                 }
-                if (!string.IsNullOrEmpty(txtMinNumberOfApplication.Text.Trim()))
-                    commissionStructureRuleVo.MinNumberofApplications = Convert.ToInt16(txtMinNumberOfApplication.Text.Trim());
-
+                
                 if (!string.IsNullOrEmpty(txtBrokerageValue.Text.Trim()))
                 {
                     commissionStructureRuleVo.BrokerageValue = Convert.ToDecimal(txtBrokerageValue.Text.Trim());
@@ -463,9 +499,15 @@ namespace WealthERP.Receivable
                 if (ddlCommisionCalOn.SelectedValue == "AGAM" || ddlCommisionCalOn.SelectedValue == "AUM" || ddlCommisionCalOn.SelectedValue == "CLAM")
                 {
                     if (!string.IsNullOrEmpty(txtAUMFor.Text.Trim()))
-                     commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
+                        commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
                     commissionStructureRuleVo.AUMFrequency = ddlAUMFrequency.SelectedValue;
                 }
+
+                if (!string.IsNullOrEmpty(txtMinNumberOfApplication.Text.Trim()))
+                    commissionStructureRuleVo.MinNumberofApplications = Convert.ToInt16(txtMinNumberOfApplication.Text.Trim());
+
+                if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
+                    commissionStructureRuleVo.StructureRuleComment =txtStruRuleComment.Text.Trim();
             }
             catch (BaseApplicationException Ex)
             {
@@ -663,15 +705,15 @@ namespace WealthERP.Receivable
                 }
                 ddlIssuer.SelectedValue = commissionStructureMasterVo.Issuer;
                 ddlCommissionApplicableLevel.SelectedValue = commissionStructureMasterVo.ApplicableLevelCode;
-                txtValidityFrom.Text = commissionStructureMasterVo.ValidityStartDate.ToString();
-                txtValidityTo.Text = commissionStructureMasterVo.ValidityEndDate.ToString();
+                txtValidityFrom.Text = commissionStructureMasterVo.ValidityStartDate.ToShortDateString();
+                txtValidityTo.Text = commissionStructureMasterVo.ValidityEndDate.ToShortDateString();
                 txtStructureName.Text = commissionStructureMasterVo.CommissionStructureName;
                 chkHasClawBackOption.Checked = commissionStructureMasterVo.IsClawBackApplicable;
                 chkMoneytaryReward.Checked = commissionStructureMasterVo.IsNonMonetaryReward;
                 chkListApplyTax.Items[0].Selected = commissionStructureMasterVo.IsServiceTaxReduced;
                 chkListApplyTax.Items[1].Selected = commissionStructureMasterVo.IsTDSReduced;
                 chkListApplyTax.Items[2].Selected = commissionStructureMasterVo.IsOtherTaxReduced;
-                //ddlAppCityGroup.SelectedValue=commissionStructureMasterVo.
+                ddlAppCityGroup.SelectedValue = commissionStructureMasterVo.AdviserCityGroupCode;
                 ddlReceivableFrequency.SelectedValue = commissionStructureMasterVo.ReceivableFrequency;
                 txtNote.Text = commissionStructureMasterVo.StructureNote;
                 hidCommissionStructureName.Value = structureId.ToString();
@@ -790,7 +832,7 @@ namespace WealthERP.Receivable
             if (Cache[userVo.UserId.ToString() + "CommissionStructureRule"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionStructureRule");
 
-            
+
             BindCommissionStructureRuleBlankRow();
             tblCommissionStructureRule.Visible = false;
             tblCommissionStructureRule1.Visible = false;
@@ -836,6 +878,7 @@ namespace WealthERP.Receivable
             commisionReceivableBo.DeleteCommissionStructureRule(Convert.ToInt32(hidCommissionStructureName.Value), true);
             BindCommissionStructureRuleBlankRow();
         }
+
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
             RadGridStructureRule.ExportSettings.OpenInNewWindow = true;
@@ -845,6 +888,23 @@ namespace WealthERP.Receivable
             RadGridStructureRule.ExportSettings.FileName = "CommissionStructureRule";
             RadGridStructureRule.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             RadGridStructureRule.MasterTableView.ExportToExcel();
+        }
+
+        private bool ValidatePage(CommissionStructureMasterVo commissionStructureMasterVo)
+        {
+            bool isValid = false;
+            if (commissionStructureRuleVo.CalculatedOnCode == "AGAM" || commissionStructureRuleVo.CalculatedOnCode == "AGAM" || commissionStructureRuleVo.CalculatedOnCode == "AGAM")
+            {
+                if (commissionStructureRuleVo.AUMMonth == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('AUM For is Required !');", true);
+
+                }
+                else
+                    isValid = true;
+ 
+            }
+            return isValid;
         }
 
 
