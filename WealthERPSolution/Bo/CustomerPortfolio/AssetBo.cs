@@ -329,13 +329,13 @@ namespace BoCustomerPortfolio
         }
 
         //TO get Customer MF and EQ values for each RM in RM Dashboard
-        public DataSet GetRMCustomersAssetAggregateCurrentValues(int RMId)
+        public DataSet GetRMCustomersAssetAggregateCurrentValues(int RMId,int agentId,string usertype)
         {
             AssetDao assetDao = new AssetDao();
             DataSet aggrCurrentValues;
             try
             {
-                aggrCurrentValues = assetDao.GetRMCustomersAssetAggregateCurrentValues(RMId);
+                aggrCurrentValues = assetDao.GetRMCustomersAssetAggregateCurrentValues(RMId,agentId,usertype);
 
             }
             catch (BaseApplicationException Ex)

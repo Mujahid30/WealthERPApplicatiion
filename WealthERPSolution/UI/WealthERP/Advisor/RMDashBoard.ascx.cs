@@ -13,6 +13,8 @@ using System.Data;
 using WealthERP.Customer;
 using System.Collections.Specialized;
 using WealthERP.Base;
+using VOAssociates;
+using BOAssociates;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoCommon;
 
@@ -30,18 +32,48 @@ namespace WealthERP.Advisor
         DataRow drCustomerAlerts;
         DataTable dtLoanProposal = new DataTable();
         LiabilitiesBo liabilitiesBo = new LiabilitiesBo();
+        AssociatesVO associatesVo = new AssociatesVO();
         MessageBo msgBo;
+        string userType;
+        int agentId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            userVo = (UserVo)Session["userVo"];
+            associatesVo = (AssociatesVO)Session["associatesVo"];
+            rmVo = (RMVo)Session[SessionContents.RmVo];
             int rmId = 0;
             double total = 0;
             DataSet dsCurrentValues = null;
             DataTable dt;
+
+           if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+            {
+                userType = "rm";
+                rmId = rmVo.RMId;
+                trAUM.Visible = true;
+                trcustomer.Visible = true;
+                tdloan.Visible = true;
+               
+             
+            }
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                agentId = associatesVo.AAC_AdviserAgentId;
+                trAUM.Visible = false;
+                trcustomer.Visible = true;
+                tdloan.Visible = false;
+             
+            }
             try
             {
-                rmVo = (RMVo)Session[SessionContents.RmVo];
+               
+
+
+
+
 
                 if (Session["BMDashBoardRMId"] != null)
                 {
@@ -51,7 +83,7 @@ namespace WealthERP.Advisor
                 rmId = rmVo.RMId;
 
                 dsCurrentValues = getCurrentValuesforRM(rmId);
-                getCustomerListforRM(rmId);
+                getCustomerListforRM(rmId,agentId,userType);
                 dt = dsCurrentValues.Tables[0];
                 foreach (DataRow dr in dt.Rows)
                 {
@@ -251,21 +283,24 @@ namespace WealthERP.Advisor
         /// Modified the function to add total field to the Client List Grid
         /// </summary>
         /// <param name="RMId"></param>
-        public void getCustomerListforRM(int RMId)
+        public void getCustomerListforRM(int RMId,int agentID,string usertype)
         {
             DataSet dsCurrentValues=null;
             double total = 0.00;
 
             try
             {
-                dsCurrentValues = assetBo.GetRMCustomersAssetAggregateCurrentValues(RMId);
+                dsCurrentValues = assetBo.GetRMCustomersAssetAggregateCurrentValues(RMId, agentID,usertype);
 
                 if (dsCurrentValues != null)
                 {
                     DataTable dtCurrentValusForRM = new DataTable();
                     dtCurrentValusForRM.Columns.Add("CustomerId");
                     dtCurrentValusForRM.Columns.Add("Customer_Name");
-                    dtCurrentValusForRM.Columns.Add("EQCurrentVal");
+                    //if (userType != "associates")
+                    //{
+                        dtCurrentValusForRM.Columns.Add("EQCurrentVal");
+                    //}
                     dtCurrentValusForRM.Columns.Add("MFCurrentVal");
                     dtCurrentValusForRM.Columns.Add("Total");
                     DataRow drCurrentValuesForRM;
@@ -275,15 +310,29 @@ namespace WealthERP.Advisor
                         drCurrentValuesForRM = dtCurrentValusForRM.NewRow();
                         drCurrentValuesForRM[0] = dsCurrentValues.Tables[0].Rows[i]["CustomerId"].ToString();
                         drCurrentValuesForRM[1] = dsCurrentValues.Tables[0].Rows[i]["Customer_Name"].ToString();
+                       
                         drCurrentValuesForRM[2] = String.Format("{0:n2}", decimal.Parse(dsCurrentValues.Tables[0].Rows[i]["EQCurrentVal"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
                         drCurrentValuesForRM[3] = String.Format("{0:n2}", decimal.Parse(dsCurrentValues.Tables[0].Rows[i]["MFCurrentVal"].ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-                        total  = double.Parse(dsCurrentValues.Tables[0].Rows[i]["EQCurrentVal"].ToString()) + double.Parse(dsCurrentValues.Tables[0].Rows[i]["MFCurrentVal"].ToString());
-                        drCurrentValuesForRM[4] = String.Format("{0:n2}", total.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        if (userType != "associates")
+                        {
+                            total = double.Parse(dsCurrentValues.Tables[0].Rows[i]["EQCurrentVal"].ToString()) + double.Parse(dsCurrentValues.Tables[0].Rows[i]["MFCurrentVal"].ToString());
+                            drCurrentValuesForRM[4] = String.Format("{0:n2}", total.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        }
+                        else
+                        {
+                            total = double.Parse(dsCurrentValues.Tables[0].Rows[i]["MFCurrentVal"].ToString());
+                            drCurrentValuesForRM[4] = String.Format("{0:n2}", total.ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
+                        }
+                       
 
                         dtCurrentValusForRM.Rows.Add(drCurrentValuesForRM);
                     }
                     gvrRMClinetList.DataSource = dtCurrentValusForRM;
                     gvrRMClinetList.DataBind();
+                    if (userType == "associates")
+                    {
+                        gvrRMClinetList.Columns[1].Visible = false;
+                    }
                 }
 
                 /* If AUM is zero, donot show customers */

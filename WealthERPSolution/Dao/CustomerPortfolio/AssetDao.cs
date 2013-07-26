@@ -461,7 +461,7 @@ namespace DaoCustomerPortfolio
             return assetAggrCurrValues;
         }
         //TO get Customer MF and EQ values for each RM in RM Dashboard
-        public DataSet GetRMCustomersAssetAggregateCurrentValues(int RMId)
+        public DataSet GetRMCustomersAssetAggregateCurrentValues(int RMId ,int agentId,string usertype)
         {
             Database db;
             DbCommand getAssetAggregateCurrentValuesCmd;
@@ -472,6 +472,8 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAssetAggregateCurrentValuesCmd = db.GetStoredProcCommand("SP_GetRMCustAssetAgrVal");
                 db.AddInParameter(getAssetAggregateCurrentValuesCmd, "AR_RmId", DbType.Int32, RMId);
+                db.AddInParameter(getAssetAggregateCurrentValuesCmd, "@AAC_AdviserAgentId", DbType.Int32, agentId);
+                db.AddInParameter(getAssetAggregateCurrentValuesCmd, "@Usertype", DbType.String, usertype);
                 getAssetAggregateCurrentValuesCmd.CommandTimeout = 60 * 60;
                 assetAggrCurrValues = db.ExecuteDataSet(getAssetAggregateCurrentValuesCmd);
             }

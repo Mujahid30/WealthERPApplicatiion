@@ -1,5 +1,27 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMDashBoard.ascx.cs"
     Inherits="WealthERP.Advisor.RMDashBoard" %>
+    
+    
+    
+    
+    
+    <table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                            DashBoard
+                        </td>                       
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+    
+    
 <table style="width: 100%;" class="TableBackground">
     <tr>
         <td colspan="2">
@@ -13,7 +35,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+    <tr id="trAUM" runat="server">
         <td style="width: 50%" valign="top">
             <table style="width: 100%">
                 <tr>
@@ -174,7 +196,7 @@
         <td>
         </td>
     </tr>
-    <tr>
+    <tr id="trcustomer" runat="server">
         <td>
             <table style="width: 100%">
                 <tr>
@@ -214,8 +236,8 @@
                     </td>
                 </tr>
             </table>
-        </td>
-        <td valign="top">
+        </td>         
+        <td id="tdloan" runat="server" valign="top">
             <table style="width: 80%" id="tblLoanCount" runat="server">
                 <tr>
                     <td>
