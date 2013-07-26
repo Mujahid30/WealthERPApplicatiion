@@ -3582,5 +3582,59 @@ namespace DaoCustomerPortfolio
             }
             return Amount;
         }
+
+        public bool CheckInsuranceNoAvailabilityOnAdd(string policyNumber, int adviserId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckInsuranceNoAvailabilityOnAdd");
+
+            db.AddInParameter(chkAvailabilityCmd, "@policyNumber", DbType.String, policyNumber);
+            db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
+
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            rowCount = Convert.ToInt32(ds.Tables[0].Rows[0]["column1"].ToString());
+            if (rowCount > 0)
+            {
+                bResult = false;
+            }
+            else
+            {
+                bResult = true;
+            }
+            return bResult;
+        }
+
+        public bool CheckGenInsuranceNoAvailabilityOnAdd(string policyNumber, int adviserId)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int rowCount;
+            DataSet ds;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CheckGenInsuranceNoAvailabilityOnAdd");
+
+            db.AddInParameter(chkAvailabilityCmd, "@policyNumber", DbType.String, policyNumber);
+            db.AddInParameter(chkAvailabilityCmd, "@adviserId", DbType.Int32, adviserId);
+
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            rowCount = Convert.ToInt32(ds.Tables[0].Rows[0]["column1"].ToString());
+            if (rowCount > 0)
+            {
+                bResult = false;
+            }
+            else
+            {
+                bResult = true;
+            }
+            return bResult;
+        }
     }
 }
