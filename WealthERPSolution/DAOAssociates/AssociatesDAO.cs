@@ -46,8 +46,14 @@ namespace DAOAssociates
                 db.AddInParameter(completeAssociatesCmd, "@AA_Email", DbType.String, associatesVo.Email);
                 db.AddInParameter(completeAssociatesCmd, "@U_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(completeAssociatesCmd, "@U_ModifiedBy", DbType.Int32, userId);
-                db.AddInParameter(completeAssociatesCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
-                db.AddInParameter(completeAssociatesCmd, "@AA_Mobile", DbType.Int64, associatesVo.Mobile);
+                if(!string.IsNullOrEmpty(associatesVo.PanNo))
+                    db.AddInParameter(completeAssociatesCmd, "@AA_PAN", DbType.String, associatesVo.PanNo);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@AA_PAN", DbType.String, DBNull.Value);
+                if (associatesVo.Mobile!=0)
+                    db.AddInParameter(completeAssociatesCmd, "@AA_Mobile", DbType.Int64, associatesVo.Mobile);
+                else
+                    db.AddInParameter(completeAssociatesCmd, "@AA_Mobile", DbType.Int64, DBNull.Value);
                 db.AddInParameter(completeAssociatesCmd, "@AA_RequestDate", DbType.DateTime, associatesVo.RequestDate);
 
                 db.AddInParameter(completeAssociatesCmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
