@@ -2325,7 +2325,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category,int IsAssociates,int AgentId)
         {
             DataSet ds = null;
             Database db;
@@ -2395,10 +2395,18 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AmcCode", DbType.Int32, DBNull.Value);
-                if (Category!="0")
+               if (Category!="0")
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
+               if (AgentId != 0)
+                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+               else
+                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+               if (IsAssociates != 0)
+                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+               else
+                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 //if (All != 0)
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@all", DbType.Int32, All);
                 //else
@@ -2573,7 +2581,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category)
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int IsAssociates, int AgentId)
         {
             DataSet ds = null;
             Database db;
@@ -2620,6 +2628,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
+                if (AgentId != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+                if (IsAssociates != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
                 
@@ -4015,7 +4031,7 @@ namespace DaoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category)
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int IsAssociates, int AgentId)
         {
             DataSet ds = null;
             Database db;
@@ -4066,6 +4082,14 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@Category", DbType.String, DBNull.Value);
+                if (AgentId != 0)
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+                if (IsAssociates != 0)
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 getRMCustomerMFBalanceCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
                
