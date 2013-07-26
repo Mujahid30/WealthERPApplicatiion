@@ -275,7 +275,7 @@
                     </ChartAreas>
                 </asp:Chart>--%>
                         <telerik:RadGrid ID="gvScheme" runat="server" GridLines="None" AutoGenerateColumns="False"
-                            Width="100%" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
+                            Width="100%" PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True"
                             ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false"
                             AllowAutomaticInserts="false" ExportSettings-FileName="Count">
                             <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
