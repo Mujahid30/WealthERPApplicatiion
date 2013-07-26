@@ -84,7 +84,7 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="Expiry Date:"></asp:Label>
+            <asp:Label ID="lblAssociateExpiryDate" CssClass="FieldName" runat="server" Text="AMFI Number Expiry Date:"></asp:Label>
         </td>
         <td>
             <telerik:RadDatePicker ID="txtAssociateExpDate" CssClass="txtTo" runat="server" Culture="English (United States)"

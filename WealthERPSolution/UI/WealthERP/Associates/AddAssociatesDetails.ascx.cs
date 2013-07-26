@@ -155,7 +155,103 @@ namespace WealthERP.Associates
 
         private void SetEditViewControls(AssociatesVO associatesVo)
         {
-            
+            if (associatesVo.BMName != null)
+                txtBranch.Text = associatesVo.BMName;
+            if (associatesVo.RMNAme!= null)
+                txtRM.Text = associatesVo.RMNAme;
+            if (associatesVo.AMFIregistrationNo != null)
+                txtAMFINo.Text = associatesVo.AMFIregistrationNo;
+            if (associatesVo.StartDate != null)
+                txtStartDate.SelectedDate = associatesVo.StartDate;
+            if (associatesVo.EndDate != null)
+                txtEndDate.SelectedDate = associatesVo.EndDate;
+            if (associatesVo.AssociationExpairyDate != null)
+                txtAssociateExpDate.SelectedDate = associatesVo.AssociationExpairyDate;
+            if (associatesVo.ResPhoneNo != null)
+                txtResPhoneNoStd.Text = associatesVo.ResPhoneNo.ToString();
+            if (associatesVo.ResPhoneNo != null)
+                txtResPhoneNo.Text = associatesVo.ResPhoneNo.ToString();
+            if (associatesVo.ResFaxStd != null)
+                txtResFaxStd.Text = associatesVo.ResFaxStd.ToString();
+            if (associatesVo.ResFaxNumber != null)
+                txtResFax.Text = associatesVo.ResFaxNumber.ToString();
+            if (associatesVo.OfcSTDCode != null)
+                txtOfcPhoneNoStd.Text = associatesVo.OfcSTDCode.ToString();
+            if (associatesVo.OfficePhoneNo != null)
+                txtOfcPhoneNo.Text = associatesVo.OfficePhoneNo.ToString();
+            if (associatesVo.OfcFaxSTD != null)
+                txtOfcFaxStd.Text = associatesVo.OfcFaxSTD.ToString();
+            if (associatesVo.OfcFaxNumber != null)
+                txtOfcFax.Text = associatesVo.OfcFaxNumber.ToString();
+            if (associatesVo.Mobile != null)
+                txtMobile1.Text = associatesVo.Mobile.ToString();
+            if (associatesVo.Email != null)
+                txtEmail.Text = associatesVo.Email;
+            if (associatesVo.CorrAdrLine1 != null)
+                txtCorLine1.Text = associatesVo.CorrAdrLine1;
+            if (associatesVo.CorrAdrLine2 != null)
+                txtCorLine2.Text = associatesVo.CorrAdrLine2;
+            if (associatesVo.CorrAdrLine3 != null)
+                txtCorLine3.Text = associatesVo.CorrAdrLine3;
+            if (associatesVo.CorrAdrCity != null)
+                txtCorCity.Text = associatesVo.CorrAdrCity;
+            if (associatesVo.CorrAdrPinCode != null)
+                txtCorPin.Text = associatesVo.CorrAdrPinCode.ToString();
+            if (associatesVo.CorrAdrState != null)
+                ddlCorState.SelectedValue = associatesVo.CorrAdrState;
+            if (associatesVo.CorrAdrCountry != null)
+                txtCorCountry.Text = associatesVo.CorrAdrCountry;
+
+            txtPermAdrLine1.Enabled = false;
+            txtPermAdrLine2.Enabled = false;
+            txtPermAdrLine3.Enabled = false;
+            txtPermAdrCity.Enabled = false;
+            txtPermAdrPinCode.Enabled = false;
+            ddlPermAdrState.Enabled = false;
+            txtPermAdrCountry.Enabled = false;
+
+            ddlMaritalStatus.Enabled = false;
+            ddlQualification.Enabled = false;
+            ddlGender.Enabled = false;
+            txtDOB.Enabled = false;
+
+            ddlBankName.Enabled = false;
+            ddlAccountType.Enabled = false;
+            txtAccountNumber.Enabled = false;
+            txtBankAdrLine1.Enabled = false;
+            txtBankAdrLine2.Enabled = false;
+            txtBankAdrLine3.Enabled = false;
+            txtBankAdrCity.Enabled = false;
+            ddlBankAdrState.Enabled = false;
+            txtBankAdrPinCode.Enabled = false;
+
+            txtMicr.Enabled = false;
+            txtIfsc.Enabled = false;
+            ddlCategory.Enabled = false;
+            txtRegNo.Enabled = false;
+            txtRegExpDate.Enabled = false;
+
+
+            txtNomineeName.Enabled = false;
+            ddlNomineeRel.Enabled = false;
+            txtNomineeAdress.Enabled = false;
+            txtNomineePhone.Enabled = false;
+            txtGurdiannName.Enabled = false;
+            ddlGuardianRel.Enabled = false;
+            txtGuardianAdress.Enabled = false;
+            txtGurdianPhone.Enabled = false;
+
+            ddlAdviserCategory.Enabled = false;
+
+            txtNoBranches.Enabled = false;
+            txtNoofSales.Enabled = false;
+            txtNoofSubBrokers.Enabled = false;
+            txtNoofClients.Enabled = false;
+
+            chkAssociates.Enabled = false;
+            chkMf.Enabled = false;
+            chlIpo.Enabled = false;
+            chkfd.Enabled = false;
         }
 
         private void BindAssetCategory()
