@@ -28,6 +28,7 @@ namespace VoCommisionManagement
 
         public string CommissionStructureName { get; set; }
         public bool IsNonMonetaryReward { get; set; }
+        public string AdviserCityGroupCode { get; set; }
        
         public string ReceivableFrequency { get; set; }
         public string StructureNote { get; set; }
@@ -60,6 +61,7 @@ namespace VoCommisionManagement
         public string InvestmentAgeUnit { get; set; }
 
         public string TransactionType { get; set; }
+        public string SIPFrequency { get; set; }
         public Int32 MinNumberofApplications { get; set; }
 
         public decimal BrokerageValue { get; set; }
@@ -71,6 +73,7 @@ namespace VoCommisionManagement
 
         //public DateTime RuleValidityStartDate { get; set; }
         //public DateTime RuleValidityEndDate { get; set; }
+        public string StructureRuleComment { get; set; }
 
         public int RuleCreatedBy { get; set; }
         public int RuleModifiedBy { get; set; }
