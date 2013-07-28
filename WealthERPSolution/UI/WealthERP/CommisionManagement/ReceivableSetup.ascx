@@ -557,7 +557,7 @@
                                 </Columns>
                                 <EditFormSettings EditFormType="Template">
                                     <FormTemplate>
-                                        <table cellspacing="2" cellpadding="2">
+                                        <table cellspacing="2" cellpadding="2" width="100%">
                                             <tr>
                                                 <td colspan="5" class="tdSectionHeading">
                                                     <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -620,7 +620,7 @@
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMaxTenure" runat="server" Text="Max Tenure:" CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightData">
+                                                <td class="rightData" colspan="2">
                                                     <asp:TextBox ID="txtMaxTenure" Text='<%# Bind( "ACSR_MaxTenure") %>' runat="server"
                                                         CssClass="txtField"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlTenureFrequency" runat="server" CssClass="cmbField" Style="width: 100px !Important">
@@ -628,9 +628,7 @@
                                                         <asp:ListItem Text="Installment" Value="Installment"></asp:ListItem>
                                                         <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
                                                     </asp:DropDownList>
-                                                </td>
-                                                <td class="leftLabel">
-                                                </td>
+                                                </td> 
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
@@ -643,7 +641,7 @@
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMaxInvestAge" runat="server" Text="Max Investment age :" CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightData">
+                                                <td class="rightData" colspan="2">
                                                     <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAgeInMonth") %>'
                                                         runat="server" CssClass="txtField"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
@@ -652,8 +650,7 @@
                                                         <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                                <td class="leftLabel">
-                                                </td>
+                                                
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
@@ -707,7 +704,7 @@
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblAUMFor" runat="server" Text="AUM for:" CssClass="FieldName"></asp:Label>
                                                 </td>
-                                                <td class="rightData">
+                                                <td class="rightData" colspan="2">
                                                     <asp:TextBox ID="txtAUMFor" Text='<%# Bind( "ACSR_AUMMonth") %>' runat="server" CssClass="txtField"
                                                         Style="width: 70px !Important"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlAUMFrequency" runat="server" CssClass="cmbField" Style="width: 70px !Important">
@@ -716,8 +713,7 @@
                                                         <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                                <td class="leftLabel">
-                                                </td>
+                 
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">

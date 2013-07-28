@@ -381,15 +381,17 @@ namespace WealthERP.Receivable
                 isPageValid=ValidatePage(commissionStructureRuleVo);
 
                 /*******************DUPLICATE CHECK********************/
-                bool isValidRule = true;
-                if (isValidRule && isPageValid)
+                //bool isValidRule = true;
+
+                if (isPageValid)
                 {
                     commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
                     BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplicate commission structure rule');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('AUM For is Required !');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Duplicate commission structure rule');", true);
                     e.Canceled = true;
                     return;
                 }
@@ -897,12 +899,16 @@ namespace WealthERP.Receivable
             {
                 if (commissionStructureRuleVo.AUMMonth == 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('AUM For is Required !');", true);
-
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('AUM For is Required !');", true);
+                    isValid = false;
                 }
                 else
                     isValid = true;
- 
+
+            }
+            else
+            {
+                isValid = true;
             }
             return isValid;
         }
