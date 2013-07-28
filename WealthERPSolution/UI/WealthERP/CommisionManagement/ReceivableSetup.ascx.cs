@@ -93,6 +93,7 @@ namespace WealthERP.Receivable
             ddlCommissionApplicableLevel.DataValueField = dsLookupData.Tables[1].Columns["WCAL_ApplicableLEvelCode"].ToString();
             ddlCommissionApplicableLevel.DataTextField = dsLookupData.Tables[1].Columns["WCAL_ApplicableLEvel"].ToString();
             ddlCommissionApplicableLevel.DataBind();
+            ddlCommissionApplicableLevel.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
             //ddlCommissionType.DataSource = dsLookupData.Tables[2];
             //ddlCommissionType.DataValueField = dsLookupData.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
@@ -113,22 +114,26 @@ namespace WealthERP.Receivable
             ddlReceivableFrequency.DataValueField = dsLookupData.Tables[5].Columns["XF_FrequencyCode"].ToString();
             ddlReceivableFrequency.DataTextField = dsLookupData.Tables[5].Columns["XF_Frequency"].ToString();
             ddlReceivableFrequency.DataBind();
+            ddlReceivableFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
             ddlIssuer.DataSource = dsLookupData.Tables[6];
             ddlIssuer.DataValueField = dsLookupData.Tables[6].Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataTextField = dsLookupData.Tables[6].Columns["PA_AMCName"].ToString();
             ddlIssuer.DataBind();
+            ddlIssuer.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
             ddlAppCityGroup.DataSource = dsLookupData.Tables[7];
             ddlAppCityGroup.DataValueField = dsLookupData.Tables[7].Columns["ACG_CityGroupID"].ToString();
             ddlAppCityGroup.DataTextField = dsLookupData.Tables[7].Columns["ACG_CityGroupName"].ToString();
             ddlAppCityGroup.DataBind();
-
+            ddlAppCityGroup.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
 
             ddlCategory.DataSource = dsLookupData.Tables[8];
             ddlCategory.DataValueField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
+            ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+           
 
 
             //ddlInvestorType.DataSource = dsLookupData.Tables[9];
@@ -207,19 +212,37 @@ namespace WealthERP.Receivable
         {
             int commissionStructureId = 0;
             commissionStructureMasterVo = CollectStructureMastetrData();
-            commisionReceivableBo.CreateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId, out commissionStructureId);
-            hidCommissionStructureName.Value = commissionStructureId.ToString();
-            CommissionStructureControlsEnable(false);
-            tblCommissionStructureRule.Visible = true;
-            tblCommissionStructureRule1.Visible = true;
+            if (!string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()))
+            {
+                commisionReceivableBo.CreateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId, out commissionStructureId);
+                hidCommissionStructureName.Value = commissionStructureId.ToString();
+                CommissionStructureControlsEnable(false);
+                tblCommissionStructureRule.Visible = true;
+                tblCommissionStructureRule1.Visible = true;
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('At least one subcategory required!');", true);
+                return;
+            }
         }
 
         protected void btnStructureUpdate_Click(object sender, EventArgs e)
         {
             commissionStructureMasterVo = CollectStructureMastetrData();
-            commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
-            commisionReceivableBo.UpdateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId);
-            CommissionStructureControlsEnable(false);
+            if (string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()))
+            {
+                commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
+                commisionReceivableBo.UpdateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId);
+                CommissionStructureControlsEnable(false);
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('At least one subcategory required!');", true);
+                return;
+            }
         }
 
         protected void RadGridStructureRule_ItemDataBound(object sender, GridItemEventArgs e)
@@ -345,19 +368,20 @@ namespace WealthERP.Receivable
         protected void RadGridStructureRule_UpdateCommand(object source, GridCommandEventArgs e)
         {
             bool isPageValid = false;
-                /*******************COLLECT DATA********************/
+            /*******************COLLECT DATA********************/
             commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
 
             /*******************UI VALIDATION********************/
-            isPageValid=ValidatePage(commissionStructureRuleVo);
+            isPageValid = ValidatePage(commissionStructureRuleVo);
             if (isPageValid)
             {
                 commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
                 commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
                 BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
             }
-            else 
+            else
             {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('AUM For is Required !');", true);
                 e.Canceled = true;
                 return;
             }
@@ -377,8 +401,8 @@ namespace WealthERP.Receivable
                 /*******************COLLECT DATA********************/
                 commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
 
-                 /*******************UI VALIDATION********************/
-                isPageValid=ValidatePage(commissionStructureRuleVo);
+                /*******************UI VALIDATION********************/
+                isPageValid = ValidatePage(commissionStructureRuleVo);
 
                 /*******************DUPLICATE CHECK********************/
                 //bool isValidRule = true;
@@ -435,7 +459,7 @@ namespace WealthERP.Receivable
 
                 CheckBoxList chkListTtansactionType = (CheckBoxList)e.Item.FindControl("chkListTtansactionType");
                 DropDownList ddlSIPFrequency = (DropDownList)e.Item.FindControl("ddlSIPFrequency");
-               
+
 
                 TextBox txtBrokerageValue = (TextBox)e.Item.FindControl("txtBrokerageValue");
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
@@ -490,7 +514,7 @@ namespace WealthERP.Receivable
                             commissionStructureRuleVo.SIPFrequency = ddlSIPFrequency.SelectedValue;
                     }
                 }
-                
+
                 if (!string.IsNullOrEmpty(txtBrokerageValue.Text.Trim()))
                 {
                     commissionStructureRuleVo.BrokerageValue = Convert.ToDecimal(txtBrokerageValue.Text.Trim());
@@ -509,7 +533,7 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.MinNumberofApplications = Convert.ToInt16(txtMinNumberOfApplication.Text.Trim());
 
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
-                    commissionStructureRuleVo.StructureRuleComment =txtStruRuleComment.Text.Trim();
+                    commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
             }
             catch (BaseApplicationException Ex)
             {

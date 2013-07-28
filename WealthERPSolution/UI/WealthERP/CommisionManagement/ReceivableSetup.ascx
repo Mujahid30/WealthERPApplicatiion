@@ -296,9 +296,14 @@
                     <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
+                    <span id="Span7" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
+                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate"
+                        InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td align="left">
-                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"></asp:Label>
+                    <span id="Span4" class="spnRequiredField">*</span>
                 </td>
             </tr>
             <tr>
@@ -308,11 +313,11 @@
                 <td class="rightData">
                     <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
+                    <span id="Span6" class="spnRequiredField">*</span>
                     <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Select Product Type" Display="Dynamic" ControlToValidate="ddlIssuer"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
-                    </asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
+                        CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnStrAddUpdate"
+                        InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
                     <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName"></asp:Label>
@@ -320,12 +325,15 @@
                 <td class="rightData">
                     <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
+                    <span id="Span9" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Select ApplicableLevel"
+                        CssClass="rfvPCG" ControlToValidate="ddlCommissionApplicableLevel" ValidationGroup="btnStrAddUpdate"
+                        InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td rowspan="6" colspan="2" class="rightDataTwoColumn">
                     <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CheckBoxes="true" CssClass="txtField"
                         Width="220px" Height="200px">
                     </telerik:RadListBox>
-                    <span id="Span4" class="spnRequiredField">*</span>
                     <asp:CustomValidator ControlToValidate="rlbAssetSubCategory" ID="cus" runat="server"
                         ErrorMessage="Select a checkbox" ClientValidationFunction="validateSubCategory"
                         ValidationGroup="btnStrAddUpdate">
@@ -429,6 +437,10 @@
                 <td class="rightData">
                     <asp:DropDownList ID="ddlReceivableFrequency" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
+                    <span id="Span5" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
+                        CssClass="rfvPCG" ControlToValidate="ddlReceivableFrequency" ValidationGroup="btnStrAddUpdate"
+                        InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
@@ -628,7 +640,7 @@
                                                         <asp:ListItem Text="Installment" Value="Installment"></asp:ListItem>
                                                         <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
                                                     </asp:DropDownList>
-                                                </td> 
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
@@ -650,7 +662,6 @@
                                                         <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                                
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
@@ -713,7 +724,6 @@
                                                         <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                 
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
@@ -721,26 +731,25 @@
                                                 </td>
                                                 <td class="rightData">
                                                     <asp:TextBox ID="txtStruRuleComment" runat="server" CssClass="txtField" Text='<%# Bind( "ACSR_Comment") %>'
-                                                        TextMode="MultiLine" ></asp:TextBox>
+                                                        TextMode="MultiLine"></asp:TextBox>
                                                 </td>
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
                                                         CssClass="FieldName"></asp:Label>
-                                                        <br />
-                                                   <span id="Span4" class="spnRequiredField">&nbsp;</span>
+                                                    <br />
+                                                    <span id="Span4" class="spnRequiredField">&nbsp;</span>
                                                 </td>
                                                 <td class="rightData" colspan="2">
                                                     <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
                                                         runat="server" CssClass="txtField"></asp:TextBox>
-                                                        <br />
-                                                        
+                                                    <br />
                                                     <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                         CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                         CausesValidation="true" OnClientClick="return ValidateAUMFrequency()"></asp:Button>&nbsp;
                                                     <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" ValidationGroup="btnSubmitRule"
                                                         runat="server" CausesValidation="false" CommandName="Cancel"></asp:Button>
                                                 </td>
-                                            </tr>                                            
+                                            </tr>
                                             <tr>
                                                 <td colspan="5">
                                                     <asp:CustomValidator ID="CustomValidator4" runat="server" Text="At least one rule is required"
