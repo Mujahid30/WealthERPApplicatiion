@@ -161,11 +161,11 @@ namespace WealthERP.Associates
                 txtRM.Text = associatesVo.RMNAme;
             if (associatesVo.AMFIregistrationNo != null)
                 txtAMFINo.Text = associatesVo.AMFIregistrationNo;
-            if (associatesVo.StartDate != null)
+            if (associatesVo.StartDate != null && associatesVo.StartDate != DateTime.MinValue)
                 txtStartDate.SelectedDate = associatesVo.StartDate;
-            if (associatesVo.EndDate != null)
+            if (associatesVo.EndDate != null && associatesVo.EndDate != DateTime.MinValue)
                 txtEndDate.SelectedDate = associatesVo.EndDate;
-            if (associatesVo.AssociationExpairyDate != null)
+            if (associatesVo.AssociationExpairyDate != null && associatesVo.AssociationExpairyDate != DateTime.MinValue)
                 txtAssociateExpDate.SelectedDate = associatesVo.AssociationExpairyDate;
             if (associatesVo.ResPhoneNo != null)
                 txtResPhoneNoStd.Text = associatesVo.ResPhoneNo.ToString();
@@ -197,7 +197,7 @@ namespace WealthERP.Associates
                 txtCorCity.Text = associatesVo.CorrAdrCity;
             if (associatesVo.CorrAdrPinCode != null)
                 txtCorPin.Text = associatesVo.CorrAdrPinCode.ToString();
-            if (associatesVo.CorrAdrState != null)
+            if (!String.IsNullOrEmpty(associatesVo.CorrAdrState))
                 ddlCorState.SelectedValue = associatesVo.CorrAdrState;
             if (associatesVo.CorrAdrCountry != null)
                 txtCorCountry.Text = associatesVo.CorrAdrCountry;
