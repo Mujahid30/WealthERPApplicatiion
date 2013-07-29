@@ -1814,19 +1814,7 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
-                }
-                else if (e.Item.Value == "View_Receivable_structure")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
-                }
-                else if (e.Item.Value == "Receivable_Strucrure_setup")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
-                }
-                else if (e.Item.Value == "View_Scheme_Structure_Association")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
-                }
+                }               
                 else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
