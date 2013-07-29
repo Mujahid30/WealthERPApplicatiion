@@ -761,7 +761,16 @@ namespace DAOAssociates
                     associatesVo.AAC_AdviserAgentId = int.Parse((dr["AAC_AdviserAgentId"].ToString()));
                     associatesVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     associatesVo.RMId = int.Parse(dr["AR_RMId"].ToString());
+                    if (dr["RMName"] != DBNull.Value)
+                        associatesVo.RMNAme= dr["RMName"].ToString();
+                    else
+                        associatesVo.RMNAme = string.Empty;
                     associatesVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
+                    if (dr["AB_BranchName"] != DBNull.Value)
+                         associatesVo.BMName = dr["AB_BranchName"].ToString();
+                    else
+                         associatesVo.BMName =string.Empty;
+
                     associatesVo.ContactPersonName = dr["AA_ContactPersonName"].ToString();
                     if (dr["AA_Email"] != DBNull.Value)
                         associatesVo.Email = dr["AA_Email"].ToString();
@@ -879,7 +888,7 @@ namespace DAOAssociates
                     else
                         associatesVo.BranchAdrCountry = string.Empty;
                     if (dr["CB_MICR"] != DBNull.Value && dr["CB_MICR"].ToString() != "")
-                        associatesVo.MICR = Int16.Parse(dr["CB_MICR"].ToString());
+                        associatesVo.MICR = Int32.Parse(dr["CB_MICR"].ToString());
                     else
                         associatesVo.MICR = 0;
 
