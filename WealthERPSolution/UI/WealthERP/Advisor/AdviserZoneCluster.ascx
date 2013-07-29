@@ -154,7 +154,7 @@
                                                 <Items>
                                                     <telerik:RadComboBoxItem Text="" Value="" />
                                                     <telerik:RadComboBoxItem Text="Zone" Value="1" />
-                                                    <telerik:RadComboBoxItem Text="Custer" Value="2" />
+                                                    <telerik:RadComboBoxItem Text="Cluster" Value="2" />
                                                 </Items>
                                             </telerik:RadComboBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
