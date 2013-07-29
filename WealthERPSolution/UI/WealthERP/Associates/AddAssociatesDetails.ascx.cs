@@ -52,16 +52,20 @@ namespace WealthERP.Associates
             if (!IsPostBack)
             {
                 AssociatesDetails.SelectedIndex = 0;
-                if (Request.QueryString["action"] != null)
-                {
-                    SetControls(associatesVo);
-                }
+                //if (Request.QueryString["action"] != null)
+                //{
+                //    SetControls(associatesVo);
+                //}
                 if (viewAction == "View")
                 {
                     SetEnableDisable();
                     associatesVo = (AssociatesVO)Session["associatesVo"];
                     if(associatesVo!=null)
                         SetEditViewControls(associatesVo);
+                }
+                if (viewAction == "Edit")
+                {
+                    SetControls(associatesVo);
                 }
                 BindAccountType();
                 BindBankName();
@@ -605,8 +609,8 @@ namespace WealthERP.Associates
             result=associatesBo.UpdateAdviserAssociates(associatesVo);
             Session["associatesVo"] = associatesVo;
             if(result==true)
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociates','page=AddAssociates');", true);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&pageName=" + "AddAssociates" + "');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
         }
     }
 }
