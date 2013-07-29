@@ -62,10 +62,7 @@
 <%--<div>--%>
 <table width="80%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr>
-        <td>
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
-            </asp:ScriptManager>
-        </td>
+        
         <td id="tdFromDate" runat="server">
             <td align="Left">
                 <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
