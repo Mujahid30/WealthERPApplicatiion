@@ -76,6 +76,8 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ReceivableFrequency", DbType.String, commissionStructureMasterVo.ReceivableFrequency);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Note", DbType.String, commissionStructureMasterVo.StructureNote);
                 db.AddInParameter(cmdCreateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
+                if (!string.IsNullOrEmpty(commissionStructureMasterVo.AdviserCityGroupCode))
+                    db.AddInParameter(cmdCreateCommissionStructure, "@ACG_CityGroupID", DbType.String, commissionStructureMasterVo.AdviserCityGroupCode);
                 db.AddInParameter(cmdCreateCommissionStructure, "@UserId", DbType.String, userId);
                 db.AddOutParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, 1000000);
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
@@ -520,6 +522,9 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ReceivableFrequency", DbType.String, commissionStructureMasterVo.ReceivableFrequency);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Note", DbType.String, commissionStructureMasterVo.StructureNote);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
+                if (!string.IsNullOrEmpty(commissionStructureMasterVo.AdviserCityGroupCode))
+                db.AddInParameter(cmdUpdateCommissionStructure, "@ACG_CityGroupID", DbType.String, commissionStructureMasterVo.AdviserCityGroupCode);
+                
                 db.AddInParameter(cmdUpdateCommissionStructure, "@UserId", DbType.String, userId);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructure);
 
