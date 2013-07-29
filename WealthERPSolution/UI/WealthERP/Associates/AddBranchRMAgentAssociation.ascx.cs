@@ -34,7 +34,7 @@ namespace WealthERP.Associates
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
                 userType = "advisor";
             associatesVo = (AssociatesVO)Session["associatesVo"];
             if(!IsPostBack)
@@ -43,8 +43,11 @@ namespace WealthERP.Associates
                 {
                     BindAgentList();
                     associationId = int.Parse(Request.QueryString["AssociationId"]);
+                    ddlUserType.Enabled = false;
+                    ddlSelectType.Enabled = false;
                     ddlUserType.SelectedValue = "Associates";
                     ddlSelectType.SelectedValue = associationId.ToString();
+
                 }
               
             }
@@ -95,7 +98,12 @@ namespace WealthERP.Associates
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
             result = associatesBo.CreateAdviserAgentCode(associatesVo,agentId);
-            if(result==true)
+            if (Request.QueryString["AssociationId"] != null)
+            {
+                int associationId = int.Parse(Request.QueryString["AssociationId"]);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&fromPage=" + "AddCode" + "');", true);
+            }
+            else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
 
         }
