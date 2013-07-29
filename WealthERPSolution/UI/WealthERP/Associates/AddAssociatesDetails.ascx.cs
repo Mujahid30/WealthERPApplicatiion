@@ -163,6 +163,8 @@ namespace WealthERP.Associates
                 txtBranch.Text = associatesVo.BMName;
             if (associatesVo.RMNAme!= null)
                 txtRM.Text = associatesVo.RMNAme;
+            if (associatesVo.ContactPersonName != null)
+                txtAssociateName.Text = associatesVo.ContactPersonName;
             if (associatesVo.AMFIregistrationNo != null)
                 txtAMFINo.Text = associatesVo.AMFIregistrationNo;
             if (associatesVo.StartDate != null && associatesVo.StartDate != DateTime.MinValue)
