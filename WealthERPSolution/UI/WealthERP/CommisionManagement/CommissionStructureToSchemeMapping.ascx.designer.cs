@@ -113,22 +113,13 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.TextBox txtStructureName;
         
         /// <summary>
-        /// lblSubcats control.
+        /// lblProductName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSubcats;
-        
-        /// <summary>
-        /// Label1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblProductName;
         
         /// <summary>
         /// txtProductName control.
@@ -140,6 +131,15 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.TextBox txtProductName;
         
         /// <summary>
+        /// lblSubcats control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSubcats;
+        
+        /// <summary>
         /// rlbAssetSubCategory control.
         /// </summary>
         /// <remarks>
@@ -147,24 +147,6 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadListBox rlbAssetSubCategory;
-        
-        /// <summary>
-        /// lblIssuerName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIssuerName;
-        
-        /// <summary>
-        /// txtIssuerName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIssuerName;
         
         /// <summary>
         /// lblCategory control.
@@ -183,6 +165,24 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCategory;
+        
+        /// <summary>
+        /// lblIssuerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIssuerName;
+        
+        /// <summary>
+        /// txtIssuerName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIssuerName;
         
         /// <summary>
         /// tblCommissionStructureRule control.

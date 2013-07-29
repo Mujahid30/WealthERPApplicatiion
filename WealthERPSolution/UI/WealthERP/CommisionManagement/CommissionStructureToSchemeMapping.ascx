@@ -177,54 +177,37 @@
                 <asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" 
                     AutoPostBack="True" />                
             </td>
-            <td class="rightData" colspan="2">
-                <asp:Label ID="lblSubcats" runat="server" Text="Sub-Category" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>     
-       </tr>
-       <tr>
             <td class="leftLabel">
-                <asp:Label ID="Label1" runat="server" Text="Product: " CssClass="FieldName"></asp:Label>
-            </td>
+                <asp:Label ID="lblProductName" runat="server" Text="Product: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtProductName" runat="server" CssClass="txtField" 
-                    AutoPostBack="True" />
-            </td>
-            <td rowspan="4" colspan="2" class="rightDataTwoColumn">
+                <asp:TextBox ID="txtProductName" runat="server" CssClass="txtField" AutoPostBack="True" /></td>
+            <td class="leftLabel">
+                <asp:Label ID="lblSubcats" runat="server" Text="Sub-Category" CssClass="FieldName"></asp:Label></td>     
+            <td rowspan="2">
                 <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CssClass="cmbField" 
-                    Width="200px" Height="60px" AutoPostBack="True">
+                    Width="200px" Height="25px" AutoPostBack="True">
                     <ButtonSettings TransferButtons="All"></ButtonSettings>
-                </telerik:RadListBox>
-            </td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>     
+                </telerik:RadListBox></td>
        </tr>
        <tr>
             <td class="leftLabel">
-                <asp:Label ID="lblIssuerName" runat="server" Text="Issuer: " CssClass="FieldName"></asp:Label>
-            </td>
+                <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField" />
-            </td>
-            
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>     
-       </tr>
-       <tr>
+                <asp:TextBox ID="txtCategory" runat="server" CssClass="txtField" /></td>
             <td class="leftLabel">
-                <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label>
-            </td>
+                <asp:Label ID="lblIssuerName" runat="server" Text="Issuer: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtCategory" runat="server" CssClass="txtField" />
-            </td>
+                <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField" /></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>     
        </tr>
        <tr>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>            
             <td>&nbsp;</td>
-            <td colspan="2">&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>     
        </tr>
     </table>
          
