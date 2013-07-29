@@ -1597,4 +1597,12 @@
     <value>CommisionManagement//CommissionStructureToSchemeMapping.ascx</value>
     <comment>CommisionManagement//CommissionStructureToSchemeMapping.ascx</comment>
   </data>
+  <data name="CommissionReconMIS" xml:space="preserve">
+    <value>BusinessMIS//CommissionReconMIS.ascx</value>
+    <comment>BusinessMIS//CommissionReconMIS.ascx</comment>
+  </data>
+  <data name="ViewAdviserAssociateList" xml:space="preserve">
+    <value>Associates//ViewAdviserAssociateList.ascx</value>
+    <comment>Associates//ViewAdviserAssociateList.ascx</comment>
+  </data>
 </root>

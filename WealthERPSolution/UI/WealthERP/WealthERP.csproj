@@ -1142,6 +1142,13 @@
     <Compile Include="Associates\AddBranchRMAgentAssociation.ascx.designer.cs">
       <DependentUpon>AddBranchRMAgentAssociation.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Associates\ViewAdviserAssociateList.ascx.cs">
+      <DependentUpon>ViewAdviserAssociateList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associates\ViewAdviserAssociateList.ascx.designer.cs">
+      <DependentUpon>ViewAdviserAssociateList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Associates\ViewAgentCode.ascx.cs">
       <DependentUpon>ViewAgentCode.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1209,6 +1216,13 @@
     </Compile>
     <Compile Include="BusinessMIS\Commissiondashboard.ascx.designer.cs">
       <DependentUpon>Commissiondashboard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessMIS\CommissionReconMIS.ascx.cs">
+      <DependentUpon>CommissionReconMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\CommissionReconMIS.ascx.designer.cs">
+      <DependentUpon>CommissionReconMIS.ascx</DependentUpon>
     </Compile>
     <Compile Include="BusinessMIS\CustomerAUM.ascx.cs">
       <DependentUpon>CustomerAUM.ascx</DependentUpon>
@@ -3308,6 +3322,7 @@
     </Compile>
     <Compile Include="Uploads\RejectedMFAutoSIPTransactions.ascx.cs">
       <DependentUpon>RejectedMFAutoSIPTransactions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Uploads\RejectedMFAutoSIPTransactions.ascx.designer.cs">
       <DependentUpon>RejectedMFAutoSIPTransactions.ascx</DependentUpon>
@@ -5877,6 +5892,7 @@
     <Content Include="Associates\AddAssociates.ascx" />
     <Content Include="Associates\AddAssociatesDetails.ascx" />
     <Content Include="Associates\AddBranchRMAgentAssociation.ascx" />
+    <Content Include="Associates\ViewAdviserAssociateList.ascx" />
     <Content Include="Associates\ViewAgentCode.ascx" />
     <Content Include="Associates\ViewAssociates.ascx" />
     <Content Include="bin\AjaxControlToolkit.dll" />
@@ -5948,6 +5964,7 @@
     <Content Include="BusinessMIS\AssetAllocationMIS.ascx" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\Commissiondashboard.ascx" />
+    <Content Include="BusinessMIS\CommissionReconMIS.ascx" />
     <Content Include="BusinessMIS\CustomerAUM.ascx" />
     <Content Include="BusinessMIS\CustomerEquityLedgerMIS.ascx" />
     <Content Include="BusinessMIS\EquityReturns.ascx" />

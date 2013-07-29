@@ -772,6 +772,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//CommissionReconMIS.ascx.
+        /// </summary>
+        internal static string CommissionReconMIS {
+            get {
+                return ResourceManager.GetString("CommissionReconMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CommisionManagement//CommissionStructureRuleGrid.ascx.
         /// </summary>
         internal static string CommissionStructureRuleGrid {
@@ -3036,6 +3045,15 @@ namespace WealthERP {
         internal static string UserSettingsLeftPane {
             get {
                 return ResourceManager.GetString("UserSettingsLeftPane", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Associates//ViewAdviserAssociateList.ascx.
+        /// </summary>
+        internal static string ViewAdviserAssociateList {
+            get {
+                return ResourceManager.GetString("ViewAdviserAssociateList", resourceCulture);
             }
         }
         
