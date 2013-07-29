@@ -116,7 +116,7 @@ namespace WealthERP.BusinessMIS
         protected void GdBind_Click(Object sender, EventArgs e)
         {
             DataSet ds = new DataSet();
-            ds.ReadXml(@"C:\Users\psai\Desktop\Sample.xml");
+            ds.ReadXml(Server.MapPath(@"\Sample.xml"));
             gvEQMIS.DataSource = ds.Tables[0];
             gvEQMIS.DataBind();
         }
