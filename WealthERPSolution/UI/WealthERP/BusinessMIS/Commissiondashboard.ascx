@@ -38,6 +38,15 @@
                                             </asp:LinkButton>
                                         </div>
                                     </td>
+                                    
+                                     <td id="td2" runat="server" align="center">
+                                        <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
+                                            <asp:LinkButton ID="lnkCommissionTreeNode2" CssClass="LinkTextBig" Text='<%# Eval("TreeNodeText2").ToString() %>'
+                                                runat="server" Font-Underline="false" CommandName="Tree_Navi_Row2" CommandArgument='<%# Eval("TreeNode2").ToString() %>'>  
+                                            </asp:LinkButton>
+                                        </div>
+                                    </td>
+                                    
                                </tr>
                             </ItemTemplate>
                             <FooterTemplate>

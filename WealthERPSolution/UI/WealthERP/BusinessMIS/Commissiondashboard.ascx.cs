@@ -48,6 +48,10 @@ namespace WealthERP.BusinessMIS
 
             dtCommissionTreeNode.Columns.Add("Path1", typeof(String));
 
+            dtCommissionTreeNode.Columns.Add("TreeNode2", typeof(Int32));
+
+            dtCommissionTreeNode.Columns.Add("TreeNodeText2", typeof(String));
+            dtCommissionTreeNode.Columns.Add("Path2", typeof(String));
             
             //For Commission 2015 is Tree Node Id in Sub Table in XML...
             int treeSubNodeId = 2015;
@@ -65,6 +69,16 @@ namespace WealthERP.BusinessMIS
                     drCommissionTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
                     drCommissionTreeNode["Path1"] = drSubSubNode["Path"].ToString();
                     dtCommissionTreeNode.Rows.Add(drCommissionTreeNode);
+
+                }
+                else if (count == 1)
+                {
+                    count++;
+                    drCommissionTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                    drCommissionTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                    drCommissionTreeNode["Path2"] = drSubSubNode["Path"].ToString();
+                    count = 0;
+                    drCommissionTreeNode = dtCommissionTreeNode.NewRow();
 
                 }
                 //else if (count == 1)
@@ -101,6 +115,7 @@ namespace WealthERP.BusinessMIS
         protected void rptCommissionTree_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             LinkButton lnkbtn1 = e.Item.FindControl("lnkCommissionTreeNode1") as LinkButton;
+            LinkButton lnkbtn2 = e.Item.FindControl("lnkCommissionTreeNode2") as LinkButton;
 
             if (e.CommandName == "Tree_Navi_Row1")
             {
@@ -109,6 +124,15 @@ namespace WealthERP.BusinessMIS
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('AdvisorMISCommission','login');", true);
                 }
+            }
+            if (e.CommandName == "Tree_Navi_Row2")
+            {
+
+                if (lnkbtn2.CommandArgument == "3030")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('CommissionReconMIS','login');", true);
+                }
+
             }
 
 
