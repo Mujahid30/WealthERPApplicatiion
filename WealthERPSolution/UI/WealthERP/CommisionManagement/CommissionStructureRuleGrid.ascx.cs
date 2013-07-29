@@ -172,6 +172,7 @@ namespace WealthERP.CommisionManagement
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
             int structureId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
+            string prodType = this.ddProduct.SelectedValue;
 
             switch (ddlAction.SelectedValue)
             {
@@ -179,7 +180,7 @@ namespace WealthERP.CommisionManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
                     break;
                 case "ManageSchemeMapping":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + structureId + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + structureId + "&p=" + prodType + "');", true);
                     break;
                 default:
                     return;

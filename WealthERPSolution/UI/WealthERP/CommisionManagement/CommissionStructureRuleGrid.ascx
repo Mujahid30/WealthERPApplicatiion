@@ -279,7 +279,7 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="SubCategory" 
                                                     HeaderStyle-Width="150px" HeaderText="SubCategory" ShowFilterIcon="false" 
-                                                    UniqueName="cmSubCategory">
+                                                    UniqueName="cmSubCategory" Visible="false">
                                                     <%--<HeaderStyle Width="150px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" 
                                                         Wrap="false" />
