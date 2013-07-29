@@ -2403,10 +2403,10 @@ namespace DaoCustomerPortfolio
                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                else
                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-               if (IsAssociates != 0)
+               //if (IsAssociates != 0)
                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, IsAssociates);
-               else
-                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
+               //else
+               //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 //if (All != 0)
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@all", DbType.Int32, All);
                 //else
@@ -2632,10 +2632,9 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-                if (IsAssociates != 0)
+             
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, IsAssociates);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
+               
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
                 
@@ -4086,10 +4085,8 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 else
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-                if (IsAssociates != 0)
-                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAssociate", DbType.Int32, IsAssociates);
-                else
-                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+                
                 getRMCustomerMFBalanceCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
                

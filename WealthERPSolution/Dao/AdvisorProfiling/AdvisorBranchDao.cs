@@ -2206,10 +2206,9 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
             else
                 db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-            if (Isassociate != 0)
+          
                 db.AddInParameter(getCustomerListCmd, "@IsAccociates", DbType.Int32, Isassociate);
-            else
-                db.AddInParameter(getCustomerListCmd, "@IsAccociates", DbType.Int32, 0);
+          
             if (All != 0)
                 db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, All);
             else

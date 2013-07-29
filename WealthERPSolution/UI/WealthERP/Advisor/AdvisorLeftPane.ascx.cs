@@ -2804,7 +2804,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "Associates";
                  //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomerSMSAlerts','login');", true);
                 }
-                else if (e.Item.Value == "View MF Transactions")
+                else if (e.Item.Value == "Transactions")
                 {
                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
