@@ -24,7 +24,6 @@ namespace WealthERP.CommisionManagement
         AdvisorVo advisorVo;
         RMVo rmVo;
         CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
-        int StructureId = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,43 +33,130 @@ namespace WealthERP.CommisionManagement
             rmVo = (RMVo)Session["rmVo"];
 
             if (!IsPostBack) {
+                //pnlNewSchemes.Visible = false;
                 pnlGrid.Visible = false;
-                BindStructDD();
+                
+                //BindStructDD();
                 if (Request.QueryString["ID"] != null)
                 {
-                    string sStructId = Request.QueryString["ID"];
-                    Session["StructureId"] = StructureId;
-                    ddlStructures.SelectedValue = sStructId;
-                    ddlStructures.Enabled = false;
+                    hdnStructId.Value = Request.QueryString["ID"].Trim();
+                    SetStructureDetails();
+                    CreateMappedSchemeGrid();
+                    SetDatePickControls();
+                }                
+            }
+        }
+
+        private string convertSubcatListToCSV(List<RadListBoxItem> itemList)
+        {
+            string strSubcatsList = "";
+            int nCount = itemList.Count, i = 0;
+            foreach (RadListBoxItem item in itemList) {
+                i++;
+                strSubcatsList += item.Value;
+                if (i < nCount) {
+                    strSubcatsList += ",";
                 }
-            }            
+            }
+
+            return strSubcatsList;
         }
 
-        private void BindStructDD() {
-            DataSet dsStructList = commisionReceivableBo.GetCMStructNames(advisorVo.advisorId, 0);
+        private void SetStructureDetails() {
+            DataSet dsStructDet;
+            try
+            {
+                dsStructDet = commisionReceivableBo.GetStructureDetails(advisorVo.advisorId, int.Parse(hdnStructId.Value));
+                foreach (DataRow row in dsStructDet.Tables[0].Rows) {
+                    txtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
+                    txtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
+                    txtProductName.Text = row["PAG_AssetGroupName"].ToString();
+                    txtProductName.ToolTip = row["PAG_AssetGroupName"].ToString();
+                    txtCategory.Text = row["PAIC_AssetInstrumentCategoryName"].ToString();
+                    txtCategory.ToolTip = row["PAIC_AssetInstrumentCategoryName"].ToString();
+                    txtIssuerName.Text = row["PA_AMCName"].ToString();
+                    txtIssuerName.ToolTip = row["PA_AMCName"].ToString();
+                    hdnProductId.Value = row["PAG_AssetGroupCode"].ToString();
+                    hdnStructValidFrom.Value = row["ACSM_ValidityStartDate"].ToString();
+                    hdnStructValidTill.Value = row["ACSM_ValidityEndDate"].ToString();
+                    hdnIssuerId.Value = row["PA_AMCCode"].ToString();
+                    hdnCategoryId.Value = row["PAIC_AssetInstrumentCategoryCode"].ToString();
+                }
+                
 
-            DataRow drStruct = dsStructList.Tables[0].NewRow();
-            drStruct["ACSM_CommissionStructureId"] = 0;
-            drStruct["ACSM_CommissionStructureName"] = "All";
-            dsStructList.Tables[0].Rows.InsertAt(drStruct, 0);
-            ddlStructures.DataSource = dsStructList.Tables[0];
-            ddlStructures.DataValueField = dsStructList.Tables[0].Columns["ACSM_CommissionStructureId"].ToString();
-            ddlStructures.DataTextField = dsStructList.Tables[0].Columns["ACSM_CommissionStructureName"].ToString();
-            ddlStructures.DataBind();
+                //Getting the list of subcategories
+                dsStructDet = commisionReceivableBo.GetSubcategories(advisorVo.advisorId, int.Parse(hdnStructId.Value));
+                DataTable dtSubcats = dsStructDet.Tables[0];
+
+                foreach (DataRow row in dtSubcats.Rows) 
+                {
+                    if (row["PAISC_AssetInstrumentSubCategoryName"].ToString().Trim() == "")
+                        continue;
+                    rlbAssetSubCategory.Items.Add(new RadListBoxItem(row["PAISC_AssetInstrumentSubCategoryName"].ToString().Trim(), row["PAISC_AssetInstrumentSubCategoryCode"].ToString().Trim()));
+
+                }
+                hdnSubcategoryIds.Value = convertSubcatListToCSV(rlbAssetSubCategory.Items.ToList());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionStructureToSchemeMapping.ascx.cs:SetStructureDetails()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
-        private void CreateMappedSchemeGrid() {
+        private void CreateMappedSchemeGrid()
+        {
             DataSet dsMappedSchemes = new DataSet();
-            dsMappedSchemes = commisionReceivableBo.GetMappedSchemes(this.StructureId);
+            dsMappedSchemes = commisionReceivableBo.GetMappedSchemes(int.Parse(hdnStructId.Value));
             gvMappedSchemes.DataSource = dsMappedSchemes.Tables[0];
             gvMappedSchemes.DataBind();
             Cache.Insert(userVo.UserId.ToString() + "MappedSchemes", dsMappedSchemes);
+            pnlGrid.Visible = true;
+        }
+
+        private void BindMappedSchemesToList()
+        {
+            //DataSet dsMappedSchemes = new DataSet();
+            //dsMappedSchemes = commisionReceivableBo.GetMappedSchemes(int.Parse(hdnStructId.Value), advisorVo.advisorId);
+            //rlbAvailSchemes.DataSource = dsMappedSchemes.Tables[0];
+            //rlbAvailSchemes.DataValueField = dsMappedSchemes.Tables[0].Columns["SchemePlanCode"].ToString();
+            //rlbAvailSchemes.DataTextField = dsMappedSchemes.Tables[0].Columns["Name"].ToString();
+            //rlbAvailSchemes.DataBind();
+            //Cache.Insert(userVo.UserId.ToString() + "MappedSchemes", dsMappedSchemes);
+            //pnlGrid.Visible = true;
+        }
+
+        private void BindAvailSchemesToList()
+        {
+            int sStructId = int.Parse(hdnStructId.Value);
+            int sIssuerId = int.Parse(hdnIssuerId.Value);
+            string sProduct = hdnProductId.Value;
+            string sCategory = hdnCategoryId.Value;
+            string sSubcats = hdnSubcategoryIds.Value;
+            
+            DateTime validFrom = rclPeriodStart.SelectedDate.Value;
+            DateTime validTill = rclPeriodEnd.SelectedDate.Value;
+
+            DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
+            rlbAvailSchemes.DataSource = dsAvailSchemes.Tables[0];
+            rlbAvailSchemes.DataValueField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
+            rlbAvailSchemes.DataTextField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanName"].ToString();
+            rlbAvailSchemes.DataBind();
+
+            //Debug code
+            lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            StructureId = int.Parse(ddlStructures.SelectedItem.Value);
-            pnlGrid.Visible = true;
             CreateMappedSchemeGrid();
         }
 
@@ -92,12 +178,80 @@ namespace WealthERP.CommisionManagement
         protected void gvMappedSchemes_PageIndexChanged(object sender, GridPageChangedEventArgs e)
         {
             gvMappedSchemes.CurrentPageIndex = e.NewPageIndex;
-            CreateMappedSchemeGrid();
+            //CreateMappedSchemeGrid();
         }
 
-        protected void ddlStructures_SelectedIndexChanged(object sender, EventArgs e)
+        private void SetDatePickControls() 
+        {
+            rclPeriodStart.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rclPeriodStart.MinDate =  DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rclPeriodStart.SelectedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rclPeriodStart.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString()).AddDays(-1);
+            rclPeriodEnd.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rclPeriodEnd.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString()).AddDays(1);
+            rclPeriodEnd.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+            rclPeriodEnd.SelectedDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+        }
+
+        protected void lnkAddNewSchemes_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void ListBoxSource_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
 
+        }
+
+        private void SetMappedSchemeDatePicker() {
+            rdpMappedFrom.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedFrom.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedFrom.SelectedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedFrom.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString()).AddDays(-1);
+            rdpMappedTill.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedTill.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString()).AddDays(1);
+            rdpMappedTill.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+            rdpMappedTill.SelectedDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+        }
+
+        protected void btn_GetAvailableSchemes_Click(object sender, EventArgs e)
+        {
+            rlbAvailSchemes.Items.Clear();
+            rlbMappedSchemes.Items.Clear();
+            BindAvailSchemesToList();
+            BindMappedSchemesToList();
+            SetMappedSchemeDatePicker();
+        }
+
+        protected void rlbAvailSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
+        {
+            
+        }
+
+        protected void rlbMappedSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
+        {
+
+        }
+
+        private void MapSchemesToStructure() 
+        {
+            if (rlbMappedSchemes.Items.Count < 1)
+                return;
+            List<int> schemeIds = new List<int>();
+            foreach (RadListBoxItem item in rlbMappedSchemes.Items) {
+                //schemeIds.Add(int.Parse(item.Value));
+                int structId = int.Parse(hdnStructId.Value);
+                commisionReceivableBo.MapSchemesToStructres(structId, int.Parse(item.Value), rdpMappedFrom.SelectedDate.Value, rdpMappedTill.SelectedDate.Value);
+            }
+        }
+
+        protected void btnMapSchemes_Click(object sender, EventArgs e)
+        {
+            MapSchemesToStructure();
+            CreateMappedSchemeGrid();
+            rlbAvailSchemes.Items.Clear();
+            BindAvailSchemesToList();
+            rlbMappedSchemes.Items.Clear();
+            BindMappedSchemesToList();
         }
     }
 }
