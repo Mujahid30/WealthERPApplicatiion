@@ -332,6 +332,7 @@ namespace WealthERP.Advisor
                     if (userType == "associates")
                     {
                         gvrRMClinetList.Columns[1].Visible = false;
+                       // lnkCustomerName.Visible= false;
                     }
                 }
 
@@ -482,9 +483,15 @@ namespace WealthERP.Advisor
             customerVo = customerBo.GetCustomer(customerId);
             Session["CustomerVo"] = customerVo;
             Session["IsDashboard"] = "CustDashboard";
-            
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            if (userType != "associates")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('AdvisorRMCustIndiDashboard','none');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "RMCustomerIndividualLeftPane", "loadlinks('RMCustomerIndividualLeftPane','login');", true);
+            }
+            else
+            {
+               // lnkCustomerName.Visible = false;
+            }
         }
 
         /// <summary>
