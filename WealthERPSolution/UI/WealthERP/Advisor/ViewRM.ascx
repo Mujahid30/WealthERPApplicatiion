@@ -211,15 +211,15 @@
                                 </FilterTemplate>
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn DataField="StaffCode" AllowFiltering="false" HeaderText="Staffcode"
+                           <%-- <telerik:GridBoundColumn DataField="StaffCode" AllowFiltering="false" HeaderText="Staffcode"
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="StaffType" SortExpression="StaffType" AutoPostBackOnFilter="true"
+                            </telerik:GridBoundColumn>--%>
+                           <%-- <telerik:GridBoundColumn DataField="StaffType" SortExpression="StaffType" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                 HeaderText="Type" UniqueName="Type">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="StaffRole" SortExpression="StaffRole" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                 HeaderText="Role" UniqueName="Role">
