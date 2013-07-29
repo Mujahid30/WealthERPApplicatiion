@@ -217,11 +217,11 @@ namespace BOAssociates
             }
             return ds;
         }
-        public void UpdateAssociatesWorkFlowStatusDetails(int AssociateId, string Status, string StepCode, string StatusReason)
+        public void UpdateAssociatesWorkFlowStatusDetails(int AssociateId, string Status, string StepCode, string StatusReason,string comments)
         {
             try
             {
-                associatesDao.UpdateAssociatesWorkFlowStatusDetails(AssociateId, Status, StepCode, StatusReason);
+                associatesDao.UpdateAssociatesWorkFlowStatusDetails(AssociateId, Status, StepCode, StatusReason, comments);
             }
             catch (BaseApplicationException Ex)
             {
