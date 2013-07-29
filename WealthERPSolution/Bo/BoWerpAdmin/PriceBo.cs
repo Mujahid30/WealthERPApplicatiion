@@ -16,6 +16,24 @@ namespace BoWerpAdmin
     public class PriceBo
     {
 
+        public DataTable GetStructureoverScheme()
+        {
+            DataTable dtStructure = new DataTable();
+            DataSet dSStructure = new DataSet();
+            PriceDao priceDao = new PriceDao();
+            try
+            {
+                dSStructure = priceDao.GetStructureScheme();
+                dtStructure = dSStructure.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dtStructure;
+        }
+
+
         public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             PriceDao PriceObj = new PriceDao();
