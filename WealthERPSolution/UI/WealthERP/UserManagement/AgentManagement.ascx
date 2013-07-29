@@ -93,7 +93,7 @@
                                     UniqueName="U_LoginId" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="U_Email" HeaderText="Emial Id" SortExpression="U_Email"
+                                <telerik:GridBoundColumn DataField="U_Email" HeaderText="Email Id" SortExpression="U_Email"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="U_Email" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
