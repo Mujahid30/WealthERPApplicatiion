@@ -55,7 +55,7 @@ namespace WealthERP.Associates
 
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
@@ -88,6 +88,32 @@ namespace WealthERP.Associates
                 if (Request.QueryString["StatusCode"] != null)
                 {
                     stageStatus = Request.QueryString["StatusCode"].ToString();
+                }
+                if (Request.QueryString["pageName"] != null)
+                {
+                    if (Request.QueryString["AssociationId"] != null)
+                    {
+                        requestId = int.Parse(Request.QueryString["AssociationId"].ToString());
+                    }
+                    if (txtGenerateReqstNum.Text != null)
+                        HideAndShowBasedOnRole(requestId);
+                    lnlStep2.Enabled = false;
+                    lnkAgentCode.Enabled = true;
+                    ddlstatus2.Enabled = true;
+                    ddlReasonStage2.Enabled = true;
+                    btnSubmitAddStage2.Visible = true;
+                    btnSubmitAddStage2.Enabled = true;
+                }
+                if (Request.QueryString["fromPage"] != null)
+                {
+                    if (Request.QueryString["AssociationId"] != null)
+                    {
+                        requestId = int.Parse(Request.QueryString["AssociationId"].ToString());
+                    }
+                    if (txtGenerateReqstNum.Text != null)
+                        HideAndShowBasedOnRole(requestId);
+                    ddlStepstatus3.Enabled = true;
+                    ddlReasonStep3.Enabled = true;
                 }
                 if (Request.QueryString["page"] != null)
                 {
@@ -559,7 +585,7 @@ namespace WealthERP.Associates
             else
                 associatesVo.Mobile = 0;
             associatesVo.RequestDate = DateTime.Now;
-            associatesVo.AAC_UserType = "Agent";
+            associatesVo.AAC_UserType = "Associates";
             Session["AssociatesVo"] = associatesVo;
             associatesIds = associatesBo.CreateCompleteAssociates(userVo, associatesVo, userVo.UserId);
             associatesVo.UserId = associatesIds[0];
@@ -609,13 +635,13 @@ namespace WealthERP.Associates
 
         }
 
-        protected void Step2_Click(object sender, EventArgs e)
+        protected void lnlStep2_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text.ToString().Trim()))
             {
                 requestId = int.Parse(txtGenerateReqstNum.Text);
                 GetAdviserAssociatesDetails(requestId);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociatesDetails','action=View');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociatesDetails','action=Edit');", true);
                 ddlstatus2.Enabled = true;
                 ddlReasonStage2.Enabled = true;
             }
@@ -665,7 +691,8 @@ namespace WealthERP.Associates
         protected void ddlstatus1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "DO")
+            if ((ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "DO") || 
+                (ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "IP"))
             {
                 lnlStep2.Enabled = true;
                 associatesVo.StatusCode = ddlstatus1.SelectedValue;
@@ -677,6 +704,8 @@ namespace WealthERP.Associates
             {
                 ddlReasonStage1.Enabled = true;
                 txtCommentstep1.Enabled = true;
+                lblReasonStage1.Visible = true;
+                ddlReasonStage1.Visible = true;
             }
         }
 
@@ -724,12 +753,14 @@ namespace WealthERP.Associates
                 ddlstatus2.DataTextField = ds.Tables[1].Columns["XS_Status"].ToString();
                 ddlstatus2.DataBind();
                 ddlstatus2.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlstatus2.Items.RemoveAt(4);
 
                 ddlStepstatus3.DataSource = ds.Tables[1];
                 ddlStepstatus3.DataValueField = ds.Tables[1].Columns["XS_StatusCode"].ToString();
                 ddlStepstatus3.DataTextField = ds.Tables[1].Columns["XS_Status"].ToString();
                 ddlStepstatus3.DataBind();
                 ddlStepstatus3.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlStepstatus3.Items.RemoveAt(4);
 
                 ddlReasonStage1.DataSource = ds.Tables[0];
                 ddlReasonStage1.DataValueField = ds.Tables[0].Columns["XSR_StatusReasonCode"].ToString();
@@ -753,11 +784,14 @@ namespace WealthERP.Associates
 
         protected void btnSubmitAddStage1_Click(object sender, EventArgs e)
         {
-            string comments = string.Empty;
+            string comments;
+            string reason=null;
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 comments = txtCommentstep1.Text;
-                associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlstatus1.SelectedValue, "AREQ", ddlReasonStage1.SelectedValue);
+                if (ddlReasonStage1.SelectedIndex != 0)
+                    reason = ddlReasonStage1.SelectedValue;
+                associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlstatus1.SelectedValue, "AREQ", reason, comments);
                 btnSubmitAddStage1.Visible = false;
                 ddlstatus1.Enabled = false;
                 HideAndShowBasedOnRole(int.Parse(txtGenerateReqstNum.Text));
@@ -787,11 +821,13 @@ namespace WealthERP.Associates
         protected void btnSubmitAddStage2_Click(object sender, EventArgs e)
         {
             string reason = string.Empty;
+            string comments;
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 if (ddlReasonStage2.SelectedIndex != 0)
                     reason = ddlReasonStage2.SelectedValue;
-                associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlstatus2.SelectedValue, "ADETLS", reason);
+                comments = txtComments2.Text;
+                associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlstatus2.SelectedValue, "ADETLS", reason, comments);
                 btnSubmitAddStage2.Visible = false;
                 ddlstatus2.Enabled = false;
                 if (ddlstatus2.SelectedValue == "DO")
@@ -811,16 +847,26 @@ namespace WealthERP.Associates
 
         protected void btnSubmitStep3_Click(object sender, EventArgs e)
         {
-            string reason = string.Empty; ;
+            string reason = string.Empty;
+            string comments;
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 if (ddlReasonStep3.SelectedIndex != 0)
                     reason = ddlReasonStep3.SelectedValue;
-                associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlStepstatus3.SelectedValue, "ACGEN", reason);
+                comments = txtCommentStep3.Text;
+                associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlStepstatus3.SelectedValue, "ACGEN", reason, comments);
                 btnSubmitStep3.Visible = false;
                 ddlStepstatus3.Enabled = true;
                 ddlReasonStep3.Enabled = true;
             }
+        }
+
+        protected void lnkAgentCode_Click(object sender, EventArgs e)
+        {
+            int associationId=0;
+            if (txtGenerateReqstNum.Text != null)
+                associationId = int.Parse(txtGenerateReqstNum.Text);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
         }
     }
 }

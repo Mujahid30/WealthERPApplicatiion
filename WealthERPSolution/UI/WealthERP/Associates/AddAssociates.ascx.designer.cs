@@ -653,6 +653,15 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.LinkButton lnlStep2;
         
         /// <summary>
+        /// lnkAgentCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkAgentCode;
+        
+        /// <summary>
         /// lblStatus2 control.
         /// </summary>
         /// <remarks>

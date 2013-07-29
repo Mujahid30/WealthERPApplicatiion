@@ -563,7 +563,7 @@
                                 
                                 <td colspan="4">
                                     <asp:LinkButton runat="server" ID="lnlStep2" CssClass="LinkButtons" Text="GoTo Detailed section"
-                                        OnClick="Step2_Click" Enabled="false"></asp:LinkButton>
+                                        OnClick="lnlStep2_Click" Enabled="false"></asp:LinkButton>
                                 </td>
                                 <td colspan="2">
                                 </td>
@@ -571,6 +571,16 @@
                         <tr>
                             <td colspan="8">
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                
+                                <td colspan="4">
+                                    <asp:LinkButton runat="server" ID="lnkAgentCode" CssClass="LinkButtons" Text="Generate Agent Code"
+                                        OnClick="lnkAgentCode_Click" Enabled="false"></asp:LinkButton>
+                                </td>
+                                <td colspan="2">
+                                </td>
                         </tr>
                         <%--<tr>
         <td class="leftLabel">
