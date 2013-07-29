@@ -3373,6 +3373,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//ViewSchemeStructureAssociation.ascx.
+        /// </summary>
+        internal static string ViewSchemeStructureAssociation {
+            get {
+                return ResourceManager.GetString("ViewSchemeStructureAssociation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//ViewUploadHistory.ascx.
         /// </summary>
         internal static string ViewUploadHistorySA {

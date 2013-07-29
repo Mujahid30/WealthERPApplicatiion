@@ -1605,4 +1605,8 @@
     <value>Associates//ViewAdviserAssociateList.ascx</value>
     <comment>Associates//ViewAdviserAssociateList.ascx</comment>
   </data>
+  <data name="ViewSchemeStructureAssociation" xml:space="preserve">
+    <value>CommisionManagement//ViewSchemeStructureAssociation.ascx</value>
+    <comment>CommisionManagement//ViewSchemeStructureAssociation.ascx</comment>
+  </data>
 </root>
