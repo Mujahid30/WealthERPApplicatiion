@@ -650,7 +650,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Receivable Strucrure setup" Value="Receivable_Strucrure_setup">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association" Visible="false">
+                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
                                                      <telerik:RadPanelItem runat="server" Text="Receivable Scheme Structure Association" Value="Receivable_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
