@@ -637,7 +637,7 @@ namespace DAOAssociates
             return dsAgentCodeAndTypeList;
         }
 
-        public void UpdateAssociatesWorkFlowStatusDetails(int AssociateId, string Status, string StepCode, string StatusReason)
+        public void UpdateAssociatesWorkFlowStatusDetails(int AssociateId, string Status, string StepCode, string StatusReason,string comments)
         {
             Database db;
             DbCommand updateWorkFlowcmd;
@@ -649,6 +649,7 @@ namespace DAOAssociates
                 db.AddInParameter(updateWorkFlowcmd, "@AWFSD_Status", DbType.String, Status);
                 db.AddInParameter(updateWorkFlowcmd, "@AWFSD_StatusReason", DbType.String, StatusReason);
                 db.AddInParameter(updateWorkFlowcmd, "@WWFSM_StepCode", DbType.String, StepCode);
+                db.AddInParameter(updateWorkFlowcmd, "@AWFSD_Notes", DbType.String, comments);
                 db.ExecuteNonQuery(updateWorkFlowcmd);
             }
             catch (BaseApplicationException Ex)
