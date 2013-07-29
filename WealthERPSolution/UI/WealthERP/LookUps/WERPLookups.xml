@@ -2890,6 +2890,8 @@
     <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3027" TreeSubSubNodeText="MF Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3028" TreeSubSubNodeText="EQ Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3029" TreeSubSubNodeText="Auto SIP Exceptions" Path="~/Images/1044_prin.jpg" Category="MF" Deleted="False"	/>
+    <TreeSubSubNode	TreeSubNodeCode="2015" TreeSubSubNodeCode="3030" TreeSubSubNodeText="Expected Commission MIS" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+    
   </SuperAdminTreeSubSubNode>
   
   <UserRole>
