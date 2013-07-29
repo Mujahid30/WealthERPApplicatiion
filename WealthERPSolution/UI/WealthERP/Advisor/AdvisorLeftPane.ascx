@@ -73,12 +73,12 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <%--<telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
+                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                             </telerik:RadPanelItem>
                                         </Items>
-                                    </telerik:RadPanelItem>--%>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile">
@@ -650,7 +650,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Receivable Strucrure setup" Value="Receivable_Strucrure_setup">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
+                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association" Visible="false">
                                                     </telerik:RadPanelItem>
                                                      <telerik:RadPanelItem runat="server" Text="Receivable Scheme Structure Association" Value="Receivable_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
