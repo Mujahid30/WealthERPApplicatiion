@@ -721,13 +721,18 @@ namespace WealthERP.Receivable
             {
                 commissionStructureMasterVo = commisionReceivableBo.GetCommissionStructureMaster(structureId);
                 BindSubcategoryListBox(commissionStructureMasterVo.AssetCategory);
-                ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;
+                ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;                
+                foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
+                {
+                 item.Checked = false;
+                }
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
                     if (commissionStructureMasterVo.AssetSubCategory.ToString().Contains(item.Value))
                     {
                         item.Checked = true;
                     }
+                    
                 }
                 ddlIssuer.SelectedValue = commissionStructureMasterVo.Issuer;
                 ddlCommissionApplicableLevel.SelectedValue = commissionStructureMasterVo.ApplicableLevelCode;
