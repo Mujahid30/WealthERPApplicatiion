@@ -457,5 +457,131 @@ namespace BoCommisionManagement
             }
             return dsStructList;
         }
+
+        //DataSet GetAvailSchemes(int structId, int issuer, string prodType, string cat, string subCat)
+
+        public DataSet GetAvailSchemes(int structid, int issuer, string prodType, string cat, string subCat, DateTime from, DateTime till)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsStructList;
+            try
+            {
+                dsStructList = commisionReceivableDao.GetAvailSchemes(structid, issuer, prodType, cat, subCat, from, till);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAvailSchemes(int issuer, string prodType, string cat, string subCat)");
+                object[] objects = new object[4];
+                objects[0] = issuer;
+                objects[1] = prodType;
+                objects[2] = cat;
+                objects[3] = subCat;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsStructList;
+        }
+
+        /**
+         * CommissionStructureToSchemeMapping - 
+         */
+
+        public DataSet GetStructureDetails(int adviserId, int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsStructList;
+            try
+            {
+                dsStructList = commisionReceivableDao.GetStructureDetails(adviserId, structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetStructureDetails(int adviserId, int structureId)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = structureId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsStructList;
+        }
+
+        public DataSet GetSubcategories(int adviserId, int structureId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsStructList;
+            try
+            {
+                dsStructList = commisionReceivableDao.GetSubcategories(adviserId, structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetSubcategories(int adviserId, int structureId)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = structureId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsStructList;
+        }
+
+        public void MapSchemesToStructres(int structId, int schemeId, DateTime validFrom, DateTime validTill)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            //DataSet dsStructList;
+            try
+            {
+                commisionReceivableDao.MapSchemesToStructres(structId, schemeId, validFrom, validTill);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:MapSchemesToStructres(int structId, int schemeId, DateTime validFrom, DateTime validTill)");
+                object[] objects = new object[4];
+                objects[0] = structId;
+                objects[1] = schemeId;
+                objects[2] = validFrom;
+                objects[3] = validTill;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            //return dsStructList;
+        }
     }
 }
