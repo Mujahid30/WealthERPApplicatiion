@@ -231,7 +231,7 @@ namespace WealthERP.Receivable
         protected void btnStructureUpdate_Click(object sender, EventArgs e)
         {
             commissionStructureMasterVo = CollectStructureMastetrData();
-            if (string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()))
+            if (!string.IsNullOrEmpty(commissionStructureMasterVo.AssetSubCategory.ToString()))
             {
                 commissionStructureMasterVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
                 commisionReceivableBo.UpdateCommissionStructureMastter(commissionStructureMasterVo, userVo.UserId);
