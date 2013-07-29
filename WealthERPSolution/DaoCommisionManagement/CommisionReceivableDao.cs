@@ -673,7 +673,7 @@ namespace DaoCommisionManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetStructNames = db.GetStoredProcCommand("SP_GetAllStrutureNamesById");
                 db.AddInParameter(cmdGetStructNames, "@AdviserId", DbType.Int32, adviserId);
-                if (cmStructId > 1)
+                if (cmStructId >= 1)
                 {
                     db.AddInParameter(cmdGetStructNames, "@StructId", DbType.Int32, cmStructId);
                 }
@@ -709,7 +709,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetStructNames = db.GetStoredProcCommand("SP_GetMappedSchemes");
-                if (cmStructId > 1)
+                if (cmStructId >= 1)
                 {
                     db.AddInParameter(cmdGetStructNames, "@StructId", DbType.Int32, cmStructId);
                 }
@@ -733,6 +733,151 @@ namespace DaoCommisionManagement
             return ds;
         }
 
+        public DataSet GetAvailSchemes(int structId, int issuer, string prodType, string cat, string subCat, DateTime validFrom, DateTime validTill)
+        {
+            Database db;
+            DbCommand cmdGetAvailSchemes;
+            DataSet ds = null;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAvailSchemes = db.GetStoredProcCommand("SPROC_GetAvailableSchemes");
+                db.AddInParameter(cmdGetAvailSchemes, "@StructId", DbType.Int32, structId);
+                db.AddInParameter(cmdGetAvailSchemes, "@Issuer", DbType.Int32, issuer);
+                db.AddInParameter(cmdGetAvailSchemes, "@Product", DbType.String, prodType);
+                db.AddInParameter(cmdGetAvailSchemes, "@Category", DbType.String, cat);
+                db.AddInParameter(cmdGetAvailSchemes, "@Subcategory", DbType.String, subCat);
+                db.AddInParameter(cmdGetAvailSchemes, "@ValidFrom", DbType.DateTime, validFrom);
+                db.AddInParameter(cmdGetAvailSchemes, "@ValidTill", DbType.DateTime, validTill);
+                ds = db.ExecuteDataSet(cmdGetAvailSchemes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAvailSchemes(int issuer, string prodType, string cat, string subCat)");
+                object[] objects = new object[4];
+                objects[0] = issuer;
+                objects[1] = prodType;
+                objects[2] = cat;
+                objects[3] = subCat;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        /**
+         * CommissionStructureToSchemeMapping - 
+         */
+
+        public DataSet GetStructureDetails(int adviserId, int structureId)
+        {
+            Database db;
+            DbCommand cmdGetStructDet;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStructDet = db.GetStoredProcCommand("SPROC_GetCommissionStructureDetails");
+                db.AddInParameter(cmdGetStructDet, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetStructDet, "@StructureId", DbType.Int32, structureId);
+                ds = db.ExecuteDataSet(cmdGetStructDet);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetStructureDetails(int adviserId, int structureId)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = structureId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetSubcategories(int adviserId, int structureId)
+        {
+            Database db;
+            DbCommand cmdGetStructDet;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetStructDet = db.GetStoredProcCommand("SPROC_GetSubcategoriesOfStructure");
+                db.AddInParameter(cmdGetStructDet, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetStructDet, "@StructureId", DbType.Int32, structureId);
+                ds = db.ExecuteDataSet(cmdGetStructDet);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetSubcategories(int adviserId, int structureId)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = structureId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public void MapSchemesToStructres(int structureId, int schemeId, DateTime validFrom, DateTime validTill)
+        {
+            Database db;
+            DbCommand cmdMapScheme;
+           // DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdMapScheme = db.GetStoredProcCommand("SPROC_MapSchemesToStructure");
+                db.AddInParameter(cmdMapScheme, "@StructId", DbType.Int32, structureId);
+                db.AddInParameter(cmdMapScheme, "@SchemeId", DbType.Int32, schemeId);
+                db.AddInParameter(cmdMapScheme, "@ValidFrom", DbType.DateTime, validFrom);
+                db.AddInParameter(cmdMapScheme, "@ValidTill", DbType.DateTime, validTill);                
+                db.ExecuteDataSet(cmdMapScheme);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:MapSchemesToStructres(int structId, int schemeId, DateTime validFrom, DateTime validTill)");
+                object[] objects = new object[4];
+                objects[0] = structureId;
+                objects[1] = schemeId;
+                objects[2] = validFrom;
+                objects[3] = validTill;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            //return ds;
+        }
     }
 }
