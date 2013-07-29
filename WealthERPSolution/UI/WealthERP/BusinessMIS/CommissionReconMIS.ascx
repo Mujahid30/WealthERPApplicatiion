@@ -4,6 +4,23 @@
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="scptMgr" runat="server">
 </telerik:RadScriptManager>
+
+ <table width="100%">
+            <tr>
+                <td>
+                    <div class="divPageHeading">
+                        <table cellspacing="0" cellpadding="3" width="100%">
+                            <tr>
+                                <td align="left">
+                                    Commission Recon MIS
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
 <table width="70%">
     <tr id="trSelectMutualFund" runat="server">
         <td align="right">
@@ -62,7 +79,6 @@
 <%--<div>--%>
 <table width="80%" class="TableBackground" cellspacing="0" cellpadding="2">
     <tr>
-        
         <td id="tdFromDate" runat="server">
             <td align="Left">
                 <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
@@ -70,12 +86,12 @@
             <td align="left">
                 <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                    </DateInput>
+                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput id="DateInput1" runat="server" displaydateformat="dd/MM/yyyy" dateformat="dd/MM/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <%-- <asp:CompareValidator ID="cvChkFutureDate" runat="server" ControlToValidate="txtFrom"
                                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Date Can't be in future" Operator="LessThanEqual"
@@ -92,12 +108,12 @@
             <td align="left">
                 <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                    </DateInput>
+                    <calendar id="Calendar2" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput id="DateInput2" runat="server" displaydateformat="dd/MM/yyyy" dateformat="dd/MM/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <%--<asp:CompareValidator ID="compDateValidator" runat="server" ControlToValidate="txtTo"
                                         CssClass="cvPCG" Display="Dynamic" ErrorMessage="Date Can't be in future" Operator="LessThanEqual"
@@ -141,75 +157,76 @@
                             
                         
                         </asp:GridView>--%>
-<telerik:RadGrid ID="gvEQMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-    PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-    Skin="Telerik" EnableEmbeddedSkins="false" Width="80%" AllowFilteringByColumn="true"
-    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-    EnableHeaderContextFilterMenu="true">
-    <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+<div style="width: 100%; overflow: scroll;">
+    <telerik:RadGrid ID="gvEQMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="150%" AllowFilteringByColumn="true"
+        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
+        EnableHeaderContextFilterMenu="true">
+        <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
                     filename="Company/Sector" excel-format="ExcelML">--%>
-    <%-- </exportsettings>--%>
-    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
-        CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-        GroupLoadMode="Client" ShowGroupFooter="true">
+        <%-- </exportsettings>--%>
+        <mastertableview width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false"
+            commanditemdisplay="None" groupsdefaultexpanded="false" expandcollapsecolumn-groupable="true"
+            grouploadmode="Client" showgroupfooter="true">
         <Columns>
-            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Comm Type" DataField="CommType"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Comm Type" DataField="CommType"
                 UniqueName="CommType" SortExpression="CommType" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                 CurrentFilterFunction="Contains">
                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Product" DataField="Product"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Product" DataField="Product"
                 UniqueName="Product" SortExpression="Product" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                 CurrentFilterFunction="Contains">
                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Category" DataField="Category"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Category" DataField="Category"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="Category" SortExpression="Category"
                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubCategory" DataField="SubCategory"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="SubCategory" DataField="SubCategory"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="SubCategory" SortExpression="SubCategory"
                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Issuer" DataField="Issuer"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Issuer" DataField="Issuer"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="Issuer" SortExpression="Issuer"
                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Scheme" DataField="Scheme"
+            <telerik:GridBoundColumn HeaderStyle-Width="300px" HeaderText="Scheme" DataField="Scheme"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="Scheme" SortExpression="Scheme"
                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ExpectedAmt" DataField="ExpectedAmt"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="ExpectedAmt" DataField="ExpectedAmt"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="ExpectedAmt" SortExpression="ExpectedAmt"
                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Days of Holding" DataField="DofHolding"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Days of Holding" DataField="DofHolding"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="DofHolding" SortExpression="DofHolding"
                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
-            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="CNFP" DataField="CNFP"
+            <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="CNFP" DataField="CNFP"
                 HeaderStyle-HorizontalAlign="Right" UniqueName="CNFP" SortExpression="CNFP" AutoPostBackOnFilter="true"
                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                 FooterStyle-HorizontalAlign="Right">
                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
             </telerik:GridBoundColumn>
         </Columns>
-    </MasterTableView>
-    <HeaderStyle Width="150px" />
-    <ClientSettings>
+    </mastertableview>
+        <clientsettings>
         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
         <Resizing AllowColumnResize="true" />
-    </ClientSettings>
-</telerik:RadGrid>
+    </clientsettings>
+    </telerik:RadGrid>
+</div>
