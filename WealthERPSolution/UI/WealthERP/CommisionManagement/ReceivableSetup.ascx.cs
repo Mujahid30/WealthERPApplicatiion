@@ -450,7 +450,7 @@ namespace WealthERP.Receivable
                 TextBox txtMaxInvestmentAmount = (TextBox)e.Item.FindControl("txtMaxInvestmentAmount");
 
                 TextBox txtMinTenure = (TextBox)e.Item.FindControl("txtMinTenure");
-                TextBox txtMaxTenure = (TextBox)e.Item.FindControl("txtMinTenure");
+                TextBox txtMaxTenure = (TextBox)e.Item.FindControl("txtMaxTenure");
                 DropDownList ddlTenureFrequency = (DropDownList)e.Item.FindControl("ddlTenureFrequency");
 
                 TextBox txtMinInvestAge = (TextBox)e.Item.FindControl("txtMinInvestAge");
@@ -484,17 +484,17 @@ namespace WealthERP.Receivable
                     commissionStructureRuleVo.TenureMin = Convert.ToInt32(txtMinTenure.Text.Trim());
                 if (!string.IsNullOrEmpty(txtMaxTenure.Text.Trim()))
                     commissionStructureRuleVo.TenureMax = Convert.ToInt32(txtMaxTenure.Text.Trim());
-                if (!string.IsNullOrEmpty(txtMinTenure.Text.Trim()) && !string.IsNullOrEmpty(txtMaxTenure.Text.Trim()))
+                if (!string.IsNullOrEmpty(txtMinTenure.Text.Trim()) || !string.IsNullOrEmpty(txtMaxTenure.Text.Trim()))
                     commissionStructureRuleVo.TenureUnit = ddlTenureFrequency.SelectedValue.ToString();
 
-                if (ddlInvestAgeTenure.SelectedValue == "Month")
+                if (ddlInvestAgeTenure.SelectedValue == "Months")
                 {
                     if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()))
                         commissionStructureRuleVo.MinInvestmentAge = Convert.ToInt32(txtMinInvestAge.Text.Trim());
                     if (!string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
                         commissionStructureRuleVo.MaxInvestmentAge = Convert.ToInt32(txtMaxInvestAge.Text.Trim());
                 }
-                else if (ddlInvestAgeTenure.SelectedValue == "Year")
+                else if (ddlInvestAgeTenure.SelectedValue == "Years")
                 {
                     if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()))
                         commissionStructureRuleVo.MinInvestmentAge = Convert.ToInt32(txtMinInvestAge.Text.Trim()) * 12;
@@ -502,8 +502,8 @@ namespace WealthERP.Receivable
                         commissionStructureRuleVo.MaxInvestmentAge = Convert.ToInt32(txtMaxInvestAge.Text.Trim()) * 12;
                 }
 
-                if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()) && !string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
-                    commissionStructureRuleVo.InvestmentAgeUnit = ddlInvestAgeTenure.SelectedValue.ToString();
+                if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()) || !string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
+                commissionStructureRuleVo.InvestmentAgeUnit = "Months";
 
                 foreach (ListItem chkItems in chkListTtansactionType.Items)
                 {
