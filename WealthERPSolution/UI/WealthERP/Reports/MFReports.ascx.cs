@@ -310,8 +310,8 @@ namespace WealthERP.Reports
 
                         trAdminRM.Visible = true;
                         trCustomer.Visible = false;
-                        if (rdoGroup.Checked)
-                            hdnCustomerId_ValueChanged(this, null);
+                        //if (rdoGroup.Checked)
+                        //    hdnCustomerId_ValueChanged(this, null);
                     }
 
 
@@ -602,6 +602,7 @@ namespace WealthERP.Reports
                             txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                             txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
+                          
                         }
                         else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                         {

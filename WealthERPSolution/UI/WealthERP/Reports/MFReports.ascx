@@ -537,7 +537,7 @@
                     document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'none';
                     document.getElementById("<%= rbnAllCustomer.ClientID %>").style.display = 'none';
                     document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
-                    break;
+                     break;
                 }
             case 'rdoIndividual':
                 {
@@ -545,7 +545,7 @@
                     document.getElementById("<%= trIndCustomer.ClientID %>").style.display = 'block';
                     document.getElementById("<%= rbnAllCustomer.ClientID %>").style.display = 'none';
                     document.getElementById("<%= txtParentCustomer.ClientID %>").value = '';
-                    break;
+                     break;
                 }
             case 'chkCustomer':
                 {
@@ -823,10 +823,13 @@
                                     <td id="Td2" runat="server">
                                         <asp:Label ID="lblGrpOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                             Text="Generate report for :"></asp:Label>
+                                        
+                                        
                                         <asp:RadioButton runat="server" ID="rdoGroup" Text="Group" Class="cmbField" GroupName="GrpOrInd"
                                             Checked="True" onClick="ChangeCustomerSelectionTextBox('Group')" />
                                         <asp:RadioButton runat="server" ID="rdoIndividual" Text="Individual" Class="cmbField"
                                             GroupName="GrpOrInd" onClick="return ChangeCustomerSelectionTextBox('Individual')" />
+                                            
                                     </td>
                                     <td id="Td3" runat="server">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -907,8 +910,8 @@
                                 <tr id="Tr1" runat="server">
                                     <td id="Td12" runat="server" class="style1">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio: "></asp:Label><asp:DropDownList
-                                            ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
+                                        <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio: "></asp:Label>
+                                        <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
                                             AutoPostBack="True">
                                             <asp:ListItem Text="Managed" Value="MANAGED" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="UnManaged" Value="UN_MANAGED"></asp:ListItem>
