@@ -160,7 +160,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 hideHealthInsuranceFields();
-
+            rdoGroupPolicyNo.Checked = true;
             if (rdoGroupPolicyNo.Checked==true)
             {
                 gvNominees.Visible = false;
