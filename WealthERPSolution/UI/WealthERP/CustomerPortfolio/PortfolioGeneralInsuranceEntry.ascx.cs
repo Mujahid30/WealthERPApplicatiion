@@ -160,6 +160,19 @@ namespace WealthERP.CustomerPortfolio
             }
             else
                 hideHealthInsuranceFields();
+
+            if (rdoGroupPolicyNo.Checked==true)
+            {
+                gvNominees.Visible = false;
+                ddlTypeOfPolicy.SelectedValue = "PTIND";
+                
+            }
+            else if(rdoGroupPolicyYes.Checked==true)
+            {
+                gvNominees.Visible = true;
+                ddlTypeOfPolicy.SelectedValue = "PTFLT";
+
+            }
         }
 
         protected void hideControlsForViewAndEdit()
