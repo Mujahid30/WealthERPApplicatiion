@@ -913,7 +913,8 @@
                                         <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio: "></asp:Label>
                                         <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
                                             AutoPostBack="True">
-                                            <asp:ListItem Text="Managed" Value="MANAGED" Selected="True"></asp:ListItem>
+                                                 <asp:ListItem Text="Select" Value="Select" ></asp:ListItem>
+                                            <asp:ListItem Text="Managed" Value="MANAGED"  ></asp:ListItem>
                                             <asp:ListItem Text="UnManaged" Value="UN_MANAGED"></asp:ListItem>
                                             <asp:ListItem Text="All" Value="ALL"></asp:ListItem>
                                         </asp:DropDownList>
@@ -1589,8 +1590,7 @@
                                     <%-- </td>
                                         </tr>
                                     </table>--%>
-                                    <%--</div>--%>
-                                </asp:Panel>
+                                    <%--</div>--%></asp:Panel>
                             </td>
                         </tr>
                     </table>

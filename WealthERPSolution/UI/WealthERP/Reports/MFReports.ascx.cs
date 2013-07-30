@@ -937,7 +937,7 @@ namespace WealthERP.Reports
         private void ShowGroupCustomers()
         {
             CustomerBo customerBo = new CustomerBo();
-            if (hdnCustomerId1.Value != string.Empty)
+            if (hdnCustomerId1.Value != string.Empty && ddlPortfolioGroup.SelectedValue != "Select")
             {
                 CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
                 DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(hdnCustomerId1.Value));
@@ -1085,7 +1085,7 @@ namespace WealthERP.Reports
         {
             StringBuilder checkbox = new StringBuilder();
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value) && ddlPortfolioGroup.SelectedValue != "Select") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
@@ -1561,7 +1561,6 @@ namespace WealthERP.Reports
             }
             bulkMailRequest.Add("CUST_IDS", allCustomerId);
 
-            if (!string.IsNullOrEmpty(allCustomerId.ToString()))
             allCustomerId.Remove(allCustomerId.Length - 1, 1);
 
             foreach (ListItem chkItems in chkAsOnReportList.Items)
@@ -1571,8 +1570,8 @@ namespace WealthERP.Reports
                     strReportAsOn.Append(chkItems.Value.Trim() + "~");
                 }
             }
-            if(!string.IsNullOrEmpty(strReportAsOn.ToString()))
-             strReportAsOn.Remove(strReportAsOn.Length - 1, 1);
+
+            strReportAsOn.Remove(strReportAsOn.Length - 1, 1);
 
             bulkMailRequest.Add("ASON_REPORT", strReportAsOn);
 
@@ -1583,7 +1582,6 @@ namespace WealthERP.Reports
                     strReportRange.Append(chkItems.Value.Trim() + "~");
                 }
             }
-            if (!string.IsNullOrEmpty(strReportRange.ToString()))
             strReportRange.Remove(strReportRange.Length - 1, 1);
 
             bulkMailRequest.Add("RANGE_REPORT", strReportRange);
