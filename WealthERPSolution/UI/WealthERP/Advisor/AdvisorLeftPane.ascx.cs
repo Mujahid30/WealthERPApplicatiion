@@ -1792,40 +1792,28 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "AddAssociates")
                 {
-                    Session["UserType"] = "adviser";
+                    //Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','login');", true);
                 }
                 else if (e.Item.Value == "ViewAssociates")
                 {
-                    Session["UserType"] = "adviser";
+                   // Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAssociates','login');", true);
                 }
                 else if (e.Item.Value == "ViewAssociatess")
                 {
-                    Session["UserType"] = "adviser";
+                   // Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAssociates','login');", true);
                 }
                 else if (e.Item.Value == "AddAgentCode")
                 {
-                    Session["UserType"] = "adviser";
+                  //  Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation','login');", true);
                 }
                 else if (e.Item.Value == "ViewAgentCode")
                 {
-                    Session["UserType"] = "adviser";
+                   // Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
-                }               
-                else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
-                }
-                else if (e.Item.Value == "View_Payable_Structure")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
-                }
-                else if (e.Item.Value == "Payable_Structure_Setup")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
                 }
                 else if (e.Item.Value == "View_Receivable_structure")
                 {
@@ -1839,6 +1827,19 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','none');", true);
                 }
+                else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "View_Payable_Structure")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+                else if (e.Item.Value == "Payable_Structure_Setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                }
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -2907,12 +2908,12 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_AUM")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Holdings")
                 {
                     Session["UserType"] = "Associates";
-                    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
+                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Transactions")
                 {

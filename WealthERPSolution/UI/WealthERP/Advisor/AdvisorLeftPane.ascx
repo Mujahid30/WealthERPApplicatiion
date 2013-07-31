@@ -828,7 +828,7 @@
                     </telerik:RadPanelBar>
                     <telerik:RadPanelBar ID="RadPanelBar6" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar6_ItemClick"
-                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
+                        AllowCollapseAllItems="true" ExpandMode="SingleExpandedItem">
                         <Items>
                            <telerik:RadPanelItem runat="server" Text="Associates" Value="Agent">
                                 <Items>
