@@ -128,11 +128,12 @@ namespace WERP_REQUEST_PROCESSOR
         {
 
             MFReportVo mfReportVo = new MFReportVo();
+            string customerPortfolioids = string.Empty;
             mfReport.ReportName = reportName;
             if (reportDateType == "ASON")
             {
-                mfReport.FromDate = dtFrom;
-                mfReport.ToDate = mfReport.FromDate;
+                mfReport.FromDate = dtAsOn;
+                mfReport.ToDate = dtAsOn;
             }
             else if (reportDateType == "RANGE")
             {
@@ -145,12 +146,16 @@ namespace WERP_REQUEST_PROCESSOR
             mfReport.GroupHeadId = groupCustomerId;
             if (groupCustomerId != 0)
             {
-                mfReport.PortfolioIds = GetGroupCustomerAllPortfolio(groupCustomerId);
+                customerPortfolioids = GetGroupCustomerAllPortfolio(groupCustomerId);
             }
             else
             {
-                mfReport.PortfolioIds = GetCustomerAllPortfolio(customerId);
+                customerPortfolioids = GetCustomerAllPortfolio(customerId);
             }
+
+            if (!string.IsNullOrEmpty(customerPortfolioids.ToString()))
+                customerPortfolioids=customerPortfolioids.Remove(customerPortfolioids.Length - 1, 1);
+            mfReport.PortfolioIds = customerPortfolioids;
 
             return mfReport;
         }
