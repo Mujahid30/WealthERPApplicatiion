@@ -895,6 +895,10 @@ namespace WealthERP.Reports
         {
             CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
             DataTable dt = customerFamilyBo.GetAllCustomerAssociates(customerVo.CustomerId);
+            if (ddlPortfolioGroup.SelectedValue == "Select")
+            {
+                return;
+            }
             if (dt != null && dt.Rows.Count > 0)
             {
                 StringBuilder strCustomers = new StringBuilder();
@@ -937,7 +941,11 @@ namespace WealthERP.Reports
         private void ShowGroupCustomers()
         {
             CustomerBo customerBo = new CustomerBo();
-            if (hdnCustomerId1.Value != string.Empty && ddlPortfolioGroup.SelectedValue != "Select")
+            if (ddlPortfolioGroup.SelectedValue == "Select")
+            {
+                return;
+            }
+            if ((hdnCustomerId1.Value != string.Empty))
             {
                 CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
                 DataTable dt = customerFamilyBo.GetAllCustomerAssociates(int.Parse(hdnCustomerId1.Value));
@@ -1032,7 +1040,11 @@ namespace WealthERP.Reports
 
             PortfolioBo portfolioBo = new PortfolioBo();
             divPortfolios.InnerHtml = string.Empty;
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+           if(ddlPortfolioGroup.SelectedValue == "Select") 
+           {
+               return ;
+           }
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value) ) //Note : customer Id assigned to hdnCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 int customerId = Convert.ToInt32(hdnCustomerId1.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
@@ -1085,7 +1097,11 @@ namespace WealthERP.Reports
         {
             StringBuilder checkbox = new StringBuilder();
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(hdnCustomerId1.Value) && ddlPortfolioGroup.SelectedValue != "Select") //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (ddlPortfolioGroup.SelectedValue == "Select")
+            {
+                return "";
+            }
+            if (!String.IsNullOrEmpty(hdnCustomerId1.Value)) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
@@ -1138,7 +1154,11 @@ namespace WealthERP.Reports
         {
             StringBuilder checkbox = new StringBuilder();
             PortfolioBo portfolioBo = new PortfolioBo();
-            if (!String.IsNullOrEmpty(customerVo.CustomerId.ToString())) //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
+            if (ddlPortfolioGroup.SelectedValue == "Select")
+            {
+                return "";
+            }
+            if (!String.IsNullOrEmpty(customerVo.CustomerId.ToString()))   //Note : customer Id assigned to txtCustomerId(hidden field) when the user selects customer from customer name suggestion text box
             {
                 //int customerId = Convert.ToInt32(txtParentCustomerId.Value);
                 List<CustomerPortfolioVo> customerPortfolioVos = portfolioBo.GetCustomerPortfolios(customerId); //Get all the portfolios of the selected customer.
