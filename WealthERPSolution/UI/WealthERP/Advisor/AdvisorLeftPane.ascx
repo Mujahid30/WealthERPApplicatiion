@@ -73,12 +73,12 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
+                                    <%--<telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                             </telerik:RadPanelItem>
                                         </Items>
-                                    </telerik:RadPanelItem>
+                                    </telerik:RadPanelItem>--%>
                                     <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile">
