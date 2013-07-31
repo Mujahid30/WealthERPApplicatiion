@@ -551,8 +551,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                                 //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                                 //crmain.SetParameterValue("CustomerName", "--");
-                                crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToString("dd/MM/yy"));
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
