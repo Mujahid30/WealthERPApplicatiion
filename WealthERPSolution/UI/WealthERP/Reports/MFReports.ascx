@@ -1149,8 +1149,7 @@
                                         <tr id="msgEmailSentComplete" runat="server" visible="false">
                                             <td align="center" colspan="2">
                                                 <div class="success-msg" align="center">
-                                                    Request Sent Successfully.Please check the status from the "Bulk Mail Status" Tab
-                                                    After 15-30 Min
+                                                    Request Sent Successfully.Please check status from "Status" Tab after 15-25 Min
                                                 </div>
                                             </td>
                                         </tr>
