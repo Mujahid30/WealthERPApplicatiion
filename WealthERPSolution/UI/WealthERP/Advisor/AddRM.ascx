@@ -337,8 +337,8 @@
                 <asp:ListItem Value="1002">BM</asp:ListItem>
                 <asp:ListItem Value="1005">Research</asp:ListItem>
             </asp:CheckBoxList>
-            <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName"></asp:Label>
-            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004"
+            <asp:Label ID="lblOr" runat="server" Text="&nbsp;/&nbsp;" CssClass="FieldName" Visible="false"></asp:Label>
+            <asp:CheckBox ID="chkOps" runat="server" Text="Ops" CssClass="cmbField" value="1004"  Visible="false"
                 onclick="DisableControls()" />&nbsp; <span id="Span4" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <asp:CheckBox ID="chkExternalStaff" OnCheckedChanged="chkExternalStaff_CheckedChanged"
                 runat="server" AutoPostBack="true"  Text="IsExternalStaff" CssClass="cmbField" />

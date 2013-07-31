@@ -66,20 +66,15 @@ namespace WealthERP.Advisor
         private void GetPlanOpsStaffAddStatus(int adviserId)
         {
             DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
-            if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
+            if (dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["WP_IsOpsEnabled"].ToString() == "1" && int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["AS_NoOfBranches"].ToString()) > 1)
             {
+                chkOps.Visible = true;
+                lblOr.Visible = true;
                 hdnIsOpsEnabled.Value = "1";
-                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) > 0)
-                {
-                    chkOps.Visible = false;
-                    lblOr.Visible = false;
-                    hdnIsOpsEnabled.Value = "0";
-                }               
+
             }
             else
             {
-                chkOps.Visible = false;
-                lblOr.Visible = false;
                 hdnIsOpsEnabled.Value = "0";
             }
         }
