@@ -398,7 +398,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.SetDataSource(dtCapitalGainSummary);
                                 setLogo(adviserLogoPath);
 
-                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToString("dd/MM/yy") + " to " + reportVo.ToDate.ToString("dd/MM/yy"));
                                 //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
@@ -423,7 +423,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.SetDataSource(dtCapitalGainDetails);
                                 setLogo(adviserLogoPath);
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToString("dd/MM/yy") + " to " + reportVo.ToDate.ToString("dd/MM/yy"));
                                 //crmain.SetParameterValue("FromDate", report.FromDate.ToShortDateString());
                                 //crmain.SetParameterValue("ToDate", report.ToDate.ToShortDateString());
                                 AssignReportViewerProperties();
@@ -452,11 +452,11 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.Subreports["AllPositionReport2"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[1]);
                                 setLogo(adviserLogoPath);
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
-                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("ToDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(reportVo.FromDate).ToShortDateString());
-                                crmain.SetParameterValue("AsOnDate", reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("ToDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("PreviousMonthDate", DateBo.GetPreviousMonthLastDate(reportVo.FromDate).ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("AsOnDate", reportVo.ToDate.ToString("dd/MM/yy"));
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
@@ -482,9 +482,9 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                                 //if (!String.IsNullOrEmpty(dtTransactions.Rows[0]["CustomerName"].ToString()))
                                 // crmain.SetParameterValue("CustomerName", "Cust");
-                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
-                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("ToDate", reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToString("dd/MM/yy") + " to " + reportVo.ToDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("ToDate", reportVo.ToDate.ToString("dd/MM/yy"));
 
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
@@ -510,9 +510,9 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                                 //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                                 //crmain.SetParameterValue("CustomerName", "--");
-                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
-                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("ToDate", reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToString("dd/MM/yy") + " to " + reportVo.ToDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("ToDate", reportVo.ToDate.ToString("dd/MM/yy"));
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
@@ -588,8 +588,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
 
                                 setLogo(adviserLogoPath);
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToString("dd/MM/yy"));
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
@@ -617,9 +617,9 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 setLogo(adviserLogoPath);
                                 //if (!String.IsNullOrEmpty(dtDividend.Rows[0]["Name"].ToString()))
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
-                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToShortDateString());
-                                crmain.SetParameterValue("ToDate", reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToString("dd/MM/yy") + " to " + reportVo.ToDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("FromDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                                crmain.SetParameterValue("ToDate", reportVo.ToDate.ToString("dd/MM/yy"));
 
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
@@ -666,7 +666,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 crmain.SetDataSource(dtEligibleCapitalGainsDetails);
                                 setLogo(adviserLogoPath);
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToString("dd/MM/yy"));
                                 //crmain.SetParameterValue("AsOnDate", report.FromDate.ToShortDateString());
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
@@ -692,7 +692,7 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                                 setLogo(adviserLogoPath);
                                 crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
                                 //crmain.SetParameterValue("DateRange", "As on: " + report.ToDate.ToShortDateString());
-                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
+                                crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToString("dd/MM/yy"));
                                 AssignReportViewerProperties();
                                 reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
                                 exportReportFullPath = savedLocation + @"/" + reportFileName;
@@ -717,9 +717,9 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                             crmain.Database.Tables["MFOpenCloseTransactionReport"].SetDataSource((DataTable)dtOpeningClosingTransactions);
 
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToShortDateString() + " to " + reportVo.ToDate.ToShortDateString());
-                            crmain.SetParameterValue("FromDate", reportVo.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("ToDate", reportVo.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "Period: " + reportVo.FromDate.ToString("dd/MM/yy") + " to " + reportVo.ToDate.ToString("dd/MM/yy"));
+                            crmain.SetParameterValue("FromDate", reportVo.FromDate.ToString("dd/MM/yy"));
+                            crmain.SetParameterValue("ToDate", reportVo.ToDate.ToString("dd/MM/yy"));
                             AssignReportViewerProperties();
                          
                             reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
@@ -742,8 +742,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
                             crmain.SetDataSource(dtMFRealized);
                             setLogo(adviserLogoPath);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToShortDateString());
-                            crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + reportVo.ToDate.ToString("dd/MM/yy"));
+                            crmain.SetParameterValue("AsOnDate", reportVo.FromDate.ToString("dd/MM/yy"));
                             AssignReportViewerProperties();
 
                             reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
@@ -771,8 +771,8 @@ namespace WERP_BULK_REPORT_GENERATION_QUEUE
 
                             setLogo(adviserLogoPath);
                             crmain.SetParameterValue("CustomerName", customerVo.FirstName + " " + customerVo.MiddleName + " " + customerVo.LastName);
-                            crmain.SetParameterValue("DateRange", "As on: " + reportVo.FromDate.ToShortDateString());
-                            crmain.SetParameterValue("AsOnDate", reportVo.ToDate.ToShortDateString());
+                            crmain.SetParameterValue("DateRange", "As on: " + reportVo.FromDate.ToString("dd/MM/yy"));
+                            crmain.SetParameterValue("AsOnDate", reportVo.ToDate.ToString("dd/MM/yy"));
                             AssignReportViewerProperties();
 
                             reportFileName = reportVo.SubType + "_" + DateTime.Now.Ticks.ToString() + fileExtension;
