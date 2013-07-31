@@ -35,26 +35,58 @@ namespace WERP_REQUEST_PROCESSOR
         DateTime dtFrom;
         DateTime dtTo;
         DateTime dtAsOn;
-        int requestRecorderId=0;
+        int requestRecorderId = 0;
 
         public void CreateRequestFromWERPRequestRecorder()
         {
             DataTable dtRequestRecorderList = GetListOfRequest();
-
-            foreach (DataRow dr in dtRequestRecorderList.Rows)
+            try
             {
-                string customerIds = dr["WRR_CustomerIds"].ToString();
-                userId = Convert.ToInt32(dr["WRR_CreatedBy"].ToString());
-                //groupCustomerId = Convert.ToInt32(dr["WRR_GroupCustomerId"].ToString());
-                isGroupHead = Convert.ToBoolean(Convert.ToInt16(dr["ASWRR_IsGroupHead"].ToString()));
-                reportTypeAsOn = dr["WRR_ReportTypeAsON"].ToString();
-                reportTypeRange = dr["WRR_ReportTypeRange"].ToString();
-                adviserId = Convert.ToInt32(dr["WRR_AdviserId"].ToString());
-                dtFrom = Convert.ToDateTime(dr["WRR_StartDate"].ToString());
-                dtTo = Convert.ToDateTime(dr["WRR_EndDate"].ToString());
-                dtAsOn = Convert.ToDateTime(dr["WRR_AsOnReportDate"].ToString());
-                requestRecorderId=Convert.ToInt32(dr["WRR_Id"].ToString());
-                ProcessAllCustomerRequest(customerIds);
+                foreach (DataRow dr in dtRequestRecorderList.Rows)
+                {
+                    try
+                    {
+                        string customerIds = dr["WRR_CustomerIds"].ToString();
+                        userId = Convert.ToInt32(dr["WRR_CreatedBy"].ToString());
+                        //groupCustomerId = Convert.ToInt32(dr["WRR_GroupCustomerId"].ToString());
+                        isGroupHead = Convert.ToBoolean(Convert.ToInt16(dr["ASWRR_IsGroupHead"].ToString()));
+                        reportTypeAsOn = dr["WRR_ReportTypeAsON"].ToString();
+                        reportTypeRange = dr["WRR_ReportTypeRange"].ToString();
+                        adviserId = Convert.ToInt32(dr["WRR_AdviserId"].ToString());
+                        dtFrom = Convert.ToDateTime(dr["WRR_StartDate"].ToString());
+                        dtTo = Convert.ToDateTime(dr["WRR_EndDate"].ToString());
+                        dtAsOn = Convert.ToDateTime(dr["WRR_AsOnReportDate"].ToString());
+                        requestRecorderId = Convert.ToInt32(dr["WRR_Id"].ToString());
+                        ProcessAllCustomerRequest(customerIds);
+                    }
+                    catch (BaseApplicationException Ex)
+                    {
+                        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                        NameValueCollection FunctionInfo = new NameValueCollection();
+                        FunctionInfo.Add("Method", "RequestCreatorBo:CreateRequestFromWERPRequestRecorder()");
+                        object[] objects = new object[2];
+                        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                        exBase.AdditionalInformation = FunctionInfo;
+                        ExceptionManager.Publish(exBase);
+                        throw exBase;
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RequestCreatorBo:CreateRequestFromWERPRequestRecorder()");
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
 
         }
@@ -103,18 +135,18 @@ namespace WERP_REQUEST_PROCESSOR
 
                 }
 
-                UpdateTaskRequestRecorder(requestRecorderId,"SUCCESS");
+                UpdateTaskRequestRecorder(requestRecorderId, "SUCCESS");
             }
             catch (BaseApplicationException Ex)
             {
-               throw Ex;
+                throw Ex;
             }
             catch (Exception Ex)
             {
-                 UpdateTaskRequestRecorder(requestRecorderId,Ex.Message);
+                UpdateTaskRequestRecorder(requestRecorderId, Ex.Message);
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BulkReportGenerationDao:UpdateTaskRequestLOG()");
+                FunctionInfo.Add("Method", "RequestCreatorBo:ProcessAllCustomerRequest(string customerIds)");
                 object[] objects = new object[2];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -154,7 +186,7 @@ namespace WERP_REQUEST_PROCESSOR
             }
 
             if (!string.IsNullOrEmpty(customerPortfolioids.ToString()))
-                customerPortfolioids=customerPortfolioids.Remove(customerPortfolioids.Length - 1, 1);
+                customerPortfolioids = customerPortfolioids.Remove(customerPortfolioids.Length - 1, 1);
             mfReport.PortfolioIds = customerPortfolioids;
 
             return mfReport;
@@ -223,7 +255,7 @@ namespace WERP_REQUEST_PROCESSOR
 
 
 
-        
+
         private DataTable GetListOfRequest()
         {
             DataSet DS = null;
@@ -282,7 +314,7 @@ namespace WERP_REQUEST_PROCESSOR
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "BulkReportGenerationDao:UpdateTaskRequestLOG()");
+                FunctionInfo.Add("Method", "RequestCreatorBo:UpdateTaskRequestRecorder(int recorderId, string message)");
                 object[] objects = new object[2];
                 objects[0] = recorderId;
                 objects[1] = message;
