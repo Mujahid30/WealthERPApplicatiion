@@ -77,6 +77,24 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
+        /// lblNoOfCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNoOfCode;
+        
+        /// <summary>
+        /// txtNoOfCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNoOfCode;
+        
+        /// <summary>
         /// lblAgentCode control.
         /// </summary>
         /// <remarks>

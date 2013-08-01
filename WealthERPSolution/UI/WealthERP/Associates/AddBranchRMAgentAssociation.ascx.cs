@@ -11,9 +11,10 @@ using WealthERP.Base;
 using BoUploads;
 using VoUser;
 using BoCommon;
-using VOAssociates;
+using VOAssociates; 
 using BOAssociates;
 using BoAdvisorProfiling;
+using System.Web.UI.HtmlControls;
 
 namespace WealthERP.Associates
 {
@@ -200,12 +201,71 @@ namespace WealthERP.Associates
         {
             if (ddlUserType.SelectedIndex != 0)
             {
-                if(ddlUserType.SelectedValue=="BM")
+                if (ddlUserType.SelectedValue == "BM")
+                {
                     BindBranchDropDown();
+                    lblNoOfCode.Visible = false;
+                    txtNoOfCode.Visible = false;
+                    txtAgentCode.Visible = true;
+                    
+                }
                 else if (ddlUserType.SelectedValue == "RM")
+                {
                     BindRMDropDown();
+                    lblNoOfCode.Visible = false;
+                    txtNoOfCode.Visible = false;
+                    txtAgentCode.Visible = true;
+                }
                 else if (ddlUserType.SelectedValue == "Associates")
+                {
                     BindAgentList();
+                    lblNoOfCode.Visible = true;
+                    txtNoOfCode.Visible = true;
+                    txtAgentCode.Visible = false;
+                }
+            }
+        }
+
+        protected void txtNoOfCode_TextChanged(object sender, EventArgs e)
+        {
+            int count = 0;
+            double limitvalue = 0.0;
+            //HtmlTable tblAddCode=new HtmlTable();
+            Table table = new Table();
+            table.ID = "tblAddCode";
+            if (!string.IsNullOrEmpty(txtNoOfCode.Text))
+            {
+                count = int.Parse(txtNoOfCode.Text);
+                limitvalue = count / 3;
+                limitvalue = double.Parse(Math.Ceiling(limitvalue).ToString());
+
+                for (int i = 0; i < limitvalue; i++)
+                {
+
+                    TableRow row = new TableRow();
+
+                    for (int j = 0; j < 3; j++)
+                    {
+
+                        TableCell cell = new TableCell();
+
+                        TextBox txtAddCode = new TextBox();
+
+
+                        txtAddCode.ID = "txtAddCode" + i.ToString();
+
+                        cell.ID = "cell" + i.ToString();
+
+                        cell.Controls.Add(txtAddCode);
+
+                        row.Cells.Add(cell);
+
+
+                    }
+
+                    table.Rows.Add(row);
+
+                }
             }
         }
     }
