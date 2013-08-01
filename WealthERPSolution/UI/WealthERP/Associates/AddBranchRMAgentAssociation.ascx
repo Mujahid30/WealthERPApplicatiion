@@ -54,7 +54,7 @@
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddlUserType"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a user type"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an user type"
                 Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField">
@@ -65,19 +65,18 @@
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlSelectType"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a item from the list"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an item from the list"
                 Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    <%--    <tr>
         <td class="leftField">
-            <asp:Label ID="lblNoOfCode" CssClass="FieldName" runat="server" Text="No. of code to be generated:" Visible="false"></asp:Label>
+            <asp:Label ID="lblNoOfCode" CssClass="FieldName" runat="server" Text="No. of code to be generated:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:TextBox ID="txtNoOfCode" runat="server" CssClass="txtField" OnTextChanged="txtNoOfCode_TextChanged" Visible="false"></asp:TextBox>
+            <asp:TextBox ID="txtNoOfCode" runat="server" CssClass="txtField" Text="1"></asp:TextBox>
         </td>
-    </tr>
-
+    </tr>--%>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblAgentCode" CssClass="FieldName" runat="server" Text="Agent Code:"></asp:Label>
@@ -87,7 +86,7 @@
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtAgentCode"
-                ValidationGroup="Submit" ErrorMessage="Please enter a Code" Display="Dynamic"
+                ValidationGroup="Submit" ErrorMessage="Please enter an Code" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
         </td>
@@ -98,7 +97,7 @@
         </td>
         <td class="rightField">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="Submit"
-                OnClick="btnSubmit_Click" />
+            OnClick="btnSubmit_Click" />
         </td>
     </tr>
 </table>
