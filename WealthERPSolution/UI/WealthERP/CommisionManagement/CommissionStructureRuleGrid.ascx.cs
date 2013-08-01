@@ -80,17 +80,17 @@ namespace WealthERP.CommisionManagement
 
         private void BindSubCategoryDropdown(string cat)
         {
-            DataSet dsLookupData = commisionReceivableBo.GetSubCategories(cat);
+            //DataSet dsLookupData = commisionReceivableBo.GetSubCategories(cat);
 
-            //Populating the categories dropdown
-            DataRow drProduct = dsLookupData.Tables[0].NewRow();
-            drProduct["PAISC_AssetInstrumentSubCategoryCode"] = "All";
-            drProduct["PAISC_AssetInstrumentSubCategoryName"] = "All";
-            dsLookupData.Tables[0].Rows.InsertAt(drProduct, 0);
-            ddSubCategory.DataSource = dsLookupData.Tables[0];
-            ddSubCategory.DataValueField = dsLookupData.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-            ddSubCategory.DataTextField = dsLookupData.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
-            ddSubCategory.DataBind();
+            ////Populating the categories dropdown
+            //DataRow drProduct = dsLookupData.Tables[0].NewRow();
+            //drProduct["PAISC_AssetInstrumentSubCategoryCode"] = "All";
+            //drProduct["PAISC_AssetInstrumentSubCategoryName"] = "All";
+            //dsLookupData.Tables[0].Rows.InsertAt(drProduct, 0);
+            //ddSubCategory.DataSource = dsLookupData.Tables[0];
+            //ddSubCategory.DataValueField = dsLookupData.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+            //ddSubCategory.DataTextField = dsLookupData.Tables[0].Columns["PAISC_AssetInstrumentSubCategoryName"].ToString();
+            //ddSubCategory.DataBind();
         }
 
         private void BindIssuerDropdown() 
@@ -115,15 +115,18 @@ namespace WealthERP.CommisionManagement
 
         protected void ddCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSubCategoryDropdown(ddCategory.SelectedValue);
-            ddSubCategory.Enabled = true;
+            //BindSubCategoryDropdown(ddCategory.SelectedValue);
+            //ddSubCategory.Enabled = true;
         }
 
         protected void BindStructureRuleGrid()
         {
-            DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, 
-            ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(), 
-            ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
+            //DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, 
+            //ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(), 
+            //ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
+            DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId,
+            ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(),
+            "all", int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
             gvCommMgmt.DataBind();
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);

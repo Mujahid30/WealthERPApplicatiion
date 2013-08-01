@@ -125,17 +125,17 @@
         </tr>
     </table>
                 
-        <table width="100%">
-            <tr id="trStepOneHeading" runat="server">
-                <td class="tdSectionHeading">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">                        
-                        <div class="fltlft">                           
-                            <asp:Label ID="Label2" runat="server" Text="Filter Section"></asp:Label>
-                        </div>                       
-                    </div>
-                </td>
-            </tr>
-        </table>
+    <%--<table width="100%">
+        <tr id="trStepOneHeading" runat="server">
+            <td class="tdSectionHeading">
+                <div class="divSectionHeading" style="vertical-align: text-bottom">                        
+                    <div class="fltlft">                           
+                        <asp:Label ID="Label2" runat="server" Text="Filter Section"></asp:Label>
+                    </div>                       
+                </div>
+            </td>
+        </tr>
+    </table>--%>
         
         <table width="100%">
             <tr>
@@ -179,15 +179,6 @@
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
-                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="false" 
-                        Enabled="False">
-                        <asp:ListItem>All</asp:ListItem>
-                    </asp:DropDownList>
-                </td>
-                <td class="leftLabel">
                     <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -196,7 +187,28 @@
                         <asp:ListItem Value="Active">Active</asp:ListItem>
                         <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                     </asp:DropDownList>
-                </td>           
+                </td>
+                <%--<td class="leftLabel">
+                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName" Visible="False"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="false" 
+                        Enabled="False" Visible="False">
+                        <asp:ListItem>All</asp:ListItem>
+                    </asp:DropDownList>
+                </td>--%>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <%--<td class="leftLabel">
+                    <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddStatus" runat="server" CssClass="cmbField" AutoPostBack="false">
+                        <asp:ListItem Value="All">All</asp:ListItem>
+                        <asp:ListItem Value="Active">Active</asp:ListItem>
+                        <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
+                    </asp:DropDownList>
+                </td>--%>           
             </tr>
             <tr>
                 <td>
@@ -209,7 +221,7 @@
         </table>
         
         <table id="tblCommissionStructureRule" runat="server" width="100%">
-            <tr id="trStepTwoHeading" runat="server">
+            <%--<tr id="trStepTwoHeading" runat="server">
                 <td class="tdSectionHeading">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
                         <div class="fltlft" style="width: 200px;">
@@ -217,7 +229,7 @@
                         </div>
                     </div>
                 </td>
-            </tr>
+            </tr>--%>
             <tr>
                 <td>
                     <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
