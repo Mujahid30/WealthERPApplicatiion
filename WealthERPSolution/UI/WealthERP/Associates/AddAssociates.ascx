@@ -398,7 +398,7 @@
                                 <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtField"></asp:TextBox>
+                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper"></asp:TextBox>
                                 <span id="spnLoginStatus"></span>
                                 <br />
                                 <asp:RegularExpressionValidator ID="revPANNum" ControlToValidate="txtPanNum" ValidationGroup="vgbtnSubmit"
