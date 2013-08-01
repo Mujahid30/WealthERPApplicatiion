@@ -42,7 +42,7 @@ namespace WealthERP.CommisionManagement
                     hdnStructId.Value = Request.QueryString["ID"].Trim();
                     SetStructureDetails();
                     CreateMappedSchemeGrid();
-                    SetDatePickControls();
+                    //SetDatePickControls();
                 }                
             }
         }
@@ -68,6 +68,12 @@ namespace WealthERP.CommisionManagement
             {
                 dsStructDet = commisionReceivableBo.GetStructureDetails(advisorVo.advisorId, int.Parse(hdnStructId.Value));
                 foreach (DataRow row in dsStructDet.Tables[0].Rows) {
+                    hdnProductId.Value = row["PAG_AssetGroupCode"].ToString();
+                    hdnStructValidFrom.Value = row["ACSM_ValidityStartDate"].ToString();
+                    hdnStructValidTill.Value = row["ACSM_ValidityEndDate"].ToString();
+                    hdnIssuerId.Value = row["PA_AMCCode"].ToString();
+                    hdnCategoryId.Value = row["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    
                     txtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
                     txtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
                     txtProductName.Text = row["PAG_AssetGroupName"].ToString();
@@ -76,11 +82,8 @@ namespace WealthERP.CommisionManagement
                     txtCategory.ToolTip = row["PAIC_AssetInstrumentCategoryName"].ToString();
                     txtIssuerName.Text = row["PA_AMCName"].ToString();
                     txtIssuerName.ToolTip = row["PA_AMCName"].ToString();
-                    hdnProductId.Value = row["PAG_AssetGroupCode"].ToString();
-                    hdnStructValidFrom.Value = row["ACSM_ValidityStartDate"].ToString();
-                    hdnStructValidTill.Value = row["ACSM_ValidityEndDate"].ToString();
-                    hdnIssuerId.Value = row["PA_AMCCode"].ToString();
-                    hdnCategoryId.Value = row["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    txtValidFrom.Text = DateTime.Parse(hdnStructValidFrom.Value).ToShortDateString();
+                    txtValidTo.Text = DateTime.Parse(hdnStructValidTill.Value).ToShortDateString();
                 }
                 
 
@@ -193,8 +196,10 @@ namespace WealthERP.CommisionManagement
             rclPeriodEnd.SelectedDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
         }
 
-        protected void lnkAddNewSchemes_Click(object sender, EventArgs e)
+        protected void btnAddNewSchemes_Click(object sender, EventArgs e)
         {
+            SetDatePickControls();
+            pnlAddSchemes.Visible = true;
         }
 
         protected void ListBoxSource_Transferred(object sender, RadListBoxTransferredEventArgs e)
@@ -203,18 +208,22 @@ namespace WealthERP.CommisionManagement
         }
 
         private void SetMappedSchemeDatePicker() {
-            rdpMappedFrom.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedFrom.FocusedDate = (DateTime)rclPeriodStart.SelectedDate;
             rdpMappedFrom.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
-            rdpMappedFrom.SelectedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedFrom.SelectedDate = (DateTime)rclPeriodStart.SelectedDate;
             rdpMappedFrom.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString()).AddDays(-1);
-            rdpMappedTill.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpMappedTill.FocusedDate = (DateTime)rclPeriodEnd.SelectedDate;
             rdpMappedTill.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString()).AddDays(1);
             rdpMappedTill.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
-            rdpMappedTill.SelectedDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+            rdpMappedTill.SelectedDate = (DateTime)rclPeriodEnd.SelectedDate;
         }
 
         protected void btn_GetAvailableSchemes_Click(object sender, EventArgs e)
         {
+            //Perform validations
+            this.Page.Validate("availSchemesPeriod");
+            if (!this.Page.IsValid) { return; }
+
             rlbAvailSchemes.Items.Clear();
             rlbMappedSchemes.Items.Clear();
             BindAvailSchemesToList();
@@ -246,12 +255,48 @@ namespace WealthERP.CommisionManagement
 
         protected void btnMapSchemes_Click(object sender, EventArgs e)
         {
+            //Validation
+            this.Page.Validate("mappingPeriod");
+            if (!this.Page.IsValid) { return; }
+
             MapSchemesToStructure();
             CreateMappedSchemeGrid();
             rlbAvailSchemes.Items.Clear();
             BindAvailSchemesToList();
             rlbMappedSchemes.Items.Clear();
             BindMappedSchemesToList();
+        }
+
+        protected void gvMappedSchemes_UpdateCommand(object sender, GridCommandEventArgs e)
+        {
+            GridEditableItem item = (GridEditableItem)e.Item;
+            int setupId = int.Parse(item.GetDataKeyValue("ACSTSM_SetupId").ToString());
+            DateTime oldDate = DateTime.Parse(item.SavedOldValues["ValidTill"].ToString());
+            DateTime newDate = ((RadDatePicker)item["schemeValidTill"].Controls[0]).SelectedDate.Value;
+            commisionReceivableBo.updateStructureToSchemeMapping(setupId, newDate);
+            CreateMappedSchemeGrid();
+        }
+
+        protected void gvMappedSchemes_OnItemCreated(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditableItem && e.Item.IsInEditMode)
+            {
+                GridEditableItem item = e.Item as GridEditableItem;
+                RequiredFieldValidator rfvRequired = new RequiredFieldValidator();
+                rfvRequired.ControlToValidate = ((RadDatePicker)item["schemeValidTill"].Controls[0]).ID;
+                rfvRequired.ErrorMessage = "Please select a valid date";
+                rfvRequired.Display = ValidatorDisplay.Dynamic;
+
+                CompareValidator cmvCompare = new CompareValidator();
+                cmvCompare.ControlToCompare = ((RadDatePicker)item["schemeValidFrom"].Controls[0]).ID;
+                cmvCompare.ControlToValidate = ((RadDatePicker)item["schemeValidTill"].Controls[0]).ID;
+                cmvCompare.ErrorMessage = "Please select a valid date";
+                cmvCompare.Operator = ValidationCompareOperator.GreaterThan;
+                cmvCompare.Display = ValidatorDisplay.Dynamic;
+
+                item["schemeValidTill"].Controls.Add(rfvRequired);
+                item["schemeValidTill"].Controls.Add(cmvCompare);
+            }
         }
     }
 }

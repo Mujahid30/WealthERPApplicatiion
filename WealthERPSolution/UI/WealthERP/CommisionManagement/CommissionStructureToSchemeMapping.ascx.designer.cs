@@ -185,6 +185,42 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.TextBox txtIssuerName;
         
         /// <summary>
+        /// lblStructValidFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStructValidFrom;
+        
+        /// <summary>
+        /// txtValidFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtValidFrom;
+        
+        /// <summary>
+        /// lblStrucValidTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStrucValidTo;
+        
+        /// <summary>
+        /// txtValidTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtValidTo;
+        
+        /// <summary>
         /// tblCommissionStructureRule control.
         /// </summary>
         /// <remarks>
@@ -212,15 +248,6 @@ namespace WealthERP.CommisionManagement {
         protected global::Telerik.Web.UI.RadGrid gvMappedSchemes;
         
         /// <summary>
-        /// tr2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow tr2;
-        
-        /// <summary>
         /// lblAddNewSchemes control.
         /// </summary>
         /// <remarks>
@@ -230,13 +257,22 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.Label lblAddNewSchemes;
         
         /// <summary>
-        /// lnkAddNewSchemes control.
+        /// btnAddNewSchemes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkAddNewSchemes;
+        protected global::System.Web.UI.WebControls.Button btnAddNewSchemes;
+        
+        /// <summary>
+        /// pnlAddSchemes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddSchemes;
         
         /// <summary>
         /// lblPeriodStart control.
@@ -273,6 +309,33 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_GetAvailableSchemes;
+        
+        /// <summary>
+        /// rfvPeriodStart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPeriodStart;
+        
+        /// <summary>
+        /// rfvPeriodEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPeriodEnd;
+        
+        /// <summary>
+        /// cvPeriodEnd control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvPeriodEnd;
         
         /// <summary>
         /// lblAvailableSchemes control.
@@ -345,5 +408,32 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMapSchemes;
+        
+        /// <summary>
+        /// rfvMappingTo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvMappingTo;
+        
+        /// <summary>
+        /// rfvMappingFrom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvMappingFrom;
+        
+        /// <summary>
+        /// cmvMappingPeriod control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmvMappingPeriod;
     }
 }
