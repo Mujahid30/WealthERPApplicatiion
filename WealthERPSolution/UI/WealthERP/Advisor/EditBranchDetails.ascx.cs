@@ -105,7 +105,33 @@ namespace WealthERP.Advisor
             }
 
         }
+        protected void ddlZOneCluster_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
 
+            if (ddlZOneCluster.SelectedValue == "Select")
+            {
+                trZoneCluster.Visible = false;
+                ddlSelectedZC.Items.Clear();
+                return;
+            }
+            else
+            {
+                trZoneCluster.Visible = true;
+                lb1Zc.Text = ddlZOneCluster.SelectedValue.ToString() + "s";
+            }
+            dt = advisorBranchBo.GetZoneClusterAssociation(advisorVo.advisorId);
+            DataView dv = new DataView(dt);
+            dv.RowFilter = "AZOC_Type='" + ddlZOneCluster.SelectedValue + "'";
+
+            //ddlSelectedZC.SelectedItem 
+            ddlSelectedZC.DataTextField = "AZOC_Name";
+            ddlSelectedZC.DataValueField = "AZOC_ZoneClusterId";
+            ddlSelectedZC.DataSource = dv;
+            ddlSelectedZC.DataBind();
+            ddlSelectedZC.Items.Insert(0, "--SELECT--");
+
+        }
         private void BindStates(string path)
         {
             DataTable dtStates = XMLBo.GetStates(path);
@@ -252,7 +278,11 @@ namespace WealthERP.Advisor
                 ddlState.SelectedValue = advisorBranchVo.State.ToString().Trim();
                 showRM();
                 ddlRmlist.SelectedValue = advisorBranchVo.BranchHeadId.ToString();
-                
+               ddlZOneCluster.Text = advisorBranchVo.ZoneClusterType.ToString();
+                //ddlZOneCluster.Items.FindByText(advisorBranchVo.ZoneClusterType.ToString()).Selected = true;
+                ddlZOneCluster_SelectedIndexChanged(this, null);
+                 ddlSelectedZC.Items.FindByText(advisorBranchVo.ZoneClusterName.ToString()).Selected = true;
+           
                 txtBranchCode.Enabled = true;
                 txtBranchName.Enabled = true;
                 txtEmail.Enabled = true;
@@ -474,6 +504,10 @@ namespace WealthERP.Advisor
                     else
                         newAdvisorBranchVo.State = "";
 
+                    if (ddlZOneCluster.SelectedIndex != 0 && ddlSelectedZC.SelectedIndex != 0)
+                    {
+                        newAdvisorBranchVo.ZoneClusterId = int.Parse(ddlSelectedZC.SelectedItem.Value.ToString());
+                    }
                     advisorBranchBo.UpdateAdvisorBranch(newAdvisorBranchVo);
 
                     //Add Associate Commission Details

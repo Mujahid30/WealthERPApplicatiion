@@ -115,6 +115,28 @@
         </td>
     </tr>
     <tr>
+       <td class="leftField" width="25%">
+        <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Pick Zone/Cluster :"></asp:Label>
+            </td> 
+        <td class="rightfield" width="25%">
+            <asp:DropDownList ID="ddlZOneCluster" runat="server" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlZOneCluster_SelectedIndexChanged"  AutoPostBack="true">
+                  <asp:ListItem Text="--SELECT--" Value="Select" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="Zone" Value="Zone"></asp:ListItem>
+                                            <asp:ListItem Text="Cluster" Value="Cluster"></asp:ListItem>
+                                             
+                  </asp:DropDownList> </td> 
+    </tr>
+    <tr id="trZoneCluster" runat="server">
+         <td class="leftField" width="25%">
+        <asp:Label ID="lb1Zc" runat="server" CssClass="FieldName" Text="Zone :"></asp:Label>
+            </td> 
+        <td class="rightfield" width="25%">
+            <asp:DropDownList ID="ddlSelectedZC" runat="server" CssClass="cmbField"
+                  AutoPostBack="true"></asp:DropDownList> </td> 
+     
+    </tr>
+    <tr>
         <td colspan="2">
             <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Text="Branch Address"></asp:Label>
             <hr />

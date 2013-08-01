@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewBranchDetails.ascx.cs"
     Inherits="WealthERP.Advisor.ViewBranchDetails" %>
-  
 
 <script language="javascript" type="text/javascript">
     function showmessage() {
@@ -19,17 +18,17 @@
     }
    
 </script>
-<style type="text/css">
-.txtGridMediumField
-{
-    font-family: Verdana,Tahoma;
-    font-weight: normal;
-    font-size: x-small;
-    color: #16518A;
-    width: 80px;
-}
-</style>
 
+<style type="text/css">
+    .txtGridMediumField
+    {
+        font-family: Verdana,Tahoma;
+        font-weight: normal;
+        font-size: x-small;
+        color: #16518A;
+        width: 80px;
+    }
+</style>
 <table class="TableBackground" width="100%">
     <tr>
         <td colspan="4">
@@ -87,6 +86,14 @@
         </td>
         <td class="rightField">
             <asp:Label ID="lblAssociateCategory" runat="server" Text="Label" CssClass="Field"></asp:Label>
+        </td>
+    </tr>
+    <tr id="trZC" runat="server">
+        <td class="leftField">
+            <asp:Label ID="lb1ZC" runat="server" CssClass="FieldName" Text="Associate Cluster/Zone"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lb1SZC" runat="server" Text="Label" CssClass="Field"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -166,7 +173,7 @@
         <td class="rightField">
             <asp:Label ID="lblHead" runat="server" Text="Label" CssClass="Field"></asp:Label>
         </td>
-    </tr>   
+    </tr>
     <tr>
         <td class="leftField">
             <asp:Label ID="lblPhoneNumber" runat="server" CssClass="FieldName" Text="Telephone Number1:"></asp:Label>
@@ -229,9 +236,9 @@
         </td>
     </tr>
     <tr>
-    <td>
-    &nbsp;&nbsp;
-    </td>
+        <td>
+            &nbsp;&nbsp;
+        </td>
     </tr>
     <tr id="CommSharingStructureHdr" runat="server">
         <td colspan="4">
@@ -240,7 +247,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" >
+        <td colspan="2">
             <asp:GridView ID="gvCommStructure" runat="server" AutoGenerateColumns="False" CssClass="GridViewStyle"
                 ShowFooter="True" CellPadding="4">
                 <RowStyle CssClass="RowStyle" />
@@ -251,12 +258,12 @@
                 <EditRowStyle CssClass="EditRowStyle" />
                 <AlternatingRowStyle CssClass="AltRowStyle" />
                 <Columns>
-                    <asp:BoundField DataField="AssetGroup" HeaderText = "Asset Group" />
-                    <asp:BoundField DataField="CommissionFee" HeaderText = "Commission Fee" />
-                    <asp:BoundField DataField="RevenueUpperLimit" HeaderText = "Revenue Upper Limit" />
-                    <asp:BoundField DataField="RevenueLowerLimit" HeaderText = "Revenue Lower Limit" />
-                    <asp:BoundField DataField="StartDate" HeaderText = "Start Date" DataFormatString = "{0:dd/MM/yyyy}"/>
-                    <asp:BoundField DataField="EndDate" HeaderText = "End Date" DataFormatString = "{0:dd/MM/yyyy}"/>
+                    <asp:BoundField DataField="AssetGroup" HeaderText="Asset Group" />
+                    <asp:BoundField DataField="CommissionFee" HeaderText="Commission Fee" />
+                    <asp:BoundField DataField="RevenueUpperLimit" HeaderText="Revenue Upper Limit" />
+                    <asp:BoundField DataField="RevenueLowerLimit" HeaderText="Revenue Lower Limit" />
+                    <asp:BoundField DataField="StartDate" HeaderText="Start Date" DataFormatString="{0:dd/MM/yyyy}" />
+                    <asp:BoundField DataField="EndDate" HeaderText="End Date" DataFormatString="{0:dd/MM/yyyy}" />
                 </Columns>
             </asp:GridView>
         </td>

@@ -1078,7 +1078,16 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AssociateCategoryId", DbType.Int32, advisorBranchVo.AssociateCategoryId);
                 else
                     db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AssociateCategoryId", DbType.Int32, DBNull.Value);
-                db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
+
+                if (advisorBranchVo.ZoneClusterId == 0)
+                {
+                    db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, DBNull.Value);
+                }
+                else
+                {
+                    db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
+                }
+                //db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
 
 
                 if (db.ExecuteNonQuery(updateAdvisorBranchCmd) != 0)
