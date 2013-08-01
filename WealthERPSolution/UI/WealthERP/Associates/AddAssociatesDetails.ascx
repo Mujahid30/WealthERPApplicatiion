@@ -45,7 +45,7 @@
             <asp:Label ID="lblAMFINo" CssClass="FieldName" runat="server" Text="AMFI/NISM number:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtAMFINo" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtAMFINo" runat="server" CssClass="txtField" MaxLength="20"></asp:TextBox>
         </td>
         <td align="right">
             <asp:Label ID="lblStartDate" CssClass="FieldName" runat="server" Text="Start Date:"></asp:Label>
@@ -651,7 +651,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="leftField">
+                    <td colspan="4" align="left">
                         <asp:Label ID="lblGudHeader" runat="server" CssClass="FieldName" Text="Guardian details in case of minor nominee"></asp:Label>
                     </td>
                 </tr>
