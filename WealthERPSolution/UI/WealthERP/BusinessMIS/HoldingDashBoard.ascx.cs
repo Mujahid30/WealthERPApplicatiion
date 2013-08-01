@@ -37,6 +37,8 @@ namespace WealthERP.BusinessMIS
                 roleId = 1001;
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 roleId = 1002;
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                roleId = 1009;
             if (!IsPostBack)
             {
                 BindReptHoldingsDashBoard();
@@ -128,7 +130,7 @@ namespace WealthERP.BusinessMIS
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MutualFundMIS','login');", true);
                     
                 }
-                if (lnkbtn1.CommandArgument == "3022")
+                if (lnkbtn1.CommandArgument == "3022" && roleId!=1009 )
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MultiProductMIS','action=GI');", true);
                 }
@@ -136,12 +138,12 @@ namespace WealthERP.BusinessMIS
             if (e.CommandName == "Tree_Navi_Row2")
             {
 
-                if ( lnkbtn2.CommandArgument == "3021")
+                if (lnkbtn2.CommandArgument == "3021" && roleId != 1009)
                 {
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MultiProductMIS','action=LI');", true);
                 }
-                if (lnkbtn2.CommandArgument == "3023")
+                if (lnkbtn2.CommandArgument == "3023" && roleId != 1009)
                 {
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('MultiProductMIS','action=FI');", true);

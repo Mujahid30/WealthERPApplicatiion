@@ -2222,5 +2222,119 @@ namespace DaoAdvisorProfiling
             }
             return dsvalidateDate;
         }
+        public DataSet GetAMCwiseAUMForAssociate(int AgentId, DateTime valuationDate)
+        {
+            Database db;
+            DbCommand getLoanMICmd;
+            DataSet AMCSchemewiseMIS = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLoanMICmd = db.GetStoredProcCommand("SP_GetAMCwiseMISForAssociate");
+                db.AddInParameter(getLoanMICmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetAMCwiseMISForAssociate()");
+
+                object[] objects = new object[3];
+                objects[0] = AgentId;
+                objects[1] = valuationDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AMCSchemewiseMIS;
+        }
+        public DataSet GetAMCSchemewiseAUMForAssociate(int AgentId, DateTime valuationDate, int AmcCode)
+        {
+            Database db;
+            DbCommand getLoanMICmd;
+            DataSet AMCSchemewiseMIS = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLoanMICmd = db.GetStoredProcCommand("SP_GetAMCSchemewiseAUMForAssociate");
+                db.AddInParameter(getLoanMICmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                if (AmcCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, DBNull.Value);
+                AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetAMCSchemewiseMISForAssociate()");
+
+                object[] objects = new object[5];
+                objects[0] = AgentId;
+                objects[1] = valuationDate;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AMCSchemewiseMIS;
+        }
+        public DataSet GetCustomerAMCSchemewiseAUMForAssociate(int AgentId, DateTime valuationDate, int SchemeCode)
+        {
+
+            Database db;
+            DbCommand getLoanMICmd;
+            DataSet AMCSchemewiseMIS = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getLoanMICmd = db.GetStoredProcCommand("SP_GetCustomerAMCSchemewiseAUMForAssociate");
+                db.AddInParameter(getLoanMICmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
+                if (SchemeCode != 0)
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, SchemeCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@SchemeCode", DbType.Int32, DBNull.Value);
+                AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetCustomerAMCSchemewiseMISForAssociate()");
+
+                object[] objects = new object[3];
+                objects[0] = AgentId;
+                objects[1] = valuationDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AMCSchemewiseMIS;
+        }
+
     }
 }

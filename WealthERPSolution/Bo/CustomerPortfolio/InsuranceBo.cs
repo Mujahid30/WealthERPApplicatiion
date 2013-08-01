@@ -1374,13 +1374,13 @@ namespace BoCustomerPortfolio
         }
 
 
-        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int isGroup)
+        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId,int AgentId,int IsAssociate, int isGroup)
         {
             InsuranceDao insuaranceDao = new InsuranceDao();
             DataSet dsAllProductMIS;
             try
             {
-                dsAllProductMIS = insuaranceDao.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
+                dsAllProductMIS = insuaranceDao.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId,AgentId,IsAssociate, isGroup);
             }
             catch (BaseApplicationException Ex)
             {

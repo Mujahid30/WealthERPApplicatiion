@@ -13,6 +13,8 @@ using VoUser;
 using BoUploads;
 using BoCustomerProfiling;
 using BoCustomerPortfolio;
+using VOAssociates;
+using BOAssociates;
 using Telerik.Web.UI;
 
 namespace WealthERP.BusinessMIS
@@ -25,13 +27,14 @@ namespace WealthERP.BusinessMIS
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         CustomerBo customerBo = new CustomerBo();
         InsuranceBo insuranceBo = new InsuranceBo();
-
+        AssociatesVO associatesVo = new AssociatesVO();
         int advisorId = 0;
         int customerId = 0;
         String userType;
         int rmId = 0;
         int bmID = 0;
-
+        int AgentId = 0;
+        int IsAssociate;
         int all = 0;
         int branchId = 0;
         int branchHeadId = 0;
@@ -51,6 +54,7 @@ namespace WealthERP.BusinessMIS
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
+            associatesVo = (AssociatesVO)Session["associatesVo"];
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
@@ -58,12 +62,19 @@ namespace WealthERP.BusinessMIS
                 userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateCustomerName";
+            }
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
             advisorId = advisorVo.advisorId;
             int RMId = rmVo.RMId;
             customerId = customerVo.CustomerId;
+            //AgentId = associatesVo.AAC_AdviserAgentId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
             if (!IsPostBack)
@@ -89,6 +100,14 @@ namespace WealthERP.BusinessMIS
                 {
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
+                }
+                if (userType == "associates")
+                {
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    ddlCustomerType.Visible = false;
+                    lblSelectTypeOfCustomer.Visible = false;
+                    trBranchRM.Visible = false;                    
                 }
             }
 
@@ -265,6 +284,11 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 }
+                //else if (Session[SessionContents.CurrentUserRole].ToString() == "associates")
+                //{
+                //    txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
+                //    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateGroupCustomerName";
+                //}
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
@@ -323,6 +347,11 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
 
                 }
+                //else if (Session[SessionContents.CurrentUserRole].ToString() == "associates")
+                //{
+                //    txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
+                //    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateCustomerName";
+                //}
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
@@ -386,8 +415,12 @@ namespace WealthERP.BusinessMIS
             }
             if (ddlSelectCustomer.SelectedItem.Value == "Pick Customer")
             {
-                ddlCustomerType.Visible = true;
-                lblSelectTypeOfCustomer.Visible = true;
+                if (userType != "associates")
+                {
+                    ddlCustomerType.Visible = true;
+                    lblSelectTypeOfCustomer.Visible = true;
+                }
+               // lblSelectTypeOfCustomer.Visible = true;
                 txtIndividualCustomer.Text = string.Empty;
                 trCustomerSearch.Visible = true;
                 rquiredFieldValidatorIndivudialCustomer.Visible = true;
@@ -438,6 +471,7 @@ namespace WealthERP.BusinessMIS
 
                 if (userType == "advisor")
                 {
+                    IsAssociate = 0;
                     lblBranch.Visible = true;
                     ddlBranch.Visible = true;
                     lblRM.Visible = true;
@@ -510,6 +544,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "rm")
                 {
+                    IsAssociate = 0;
                     lblBranch.Visible = false;
                     ddlBranch.Visible = false;
                     lblRM.Visible = false;
@@ -531,6 +566,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "bm")
                 {
+                    IsAssociate = 0;
                     branchHeadId = bmID;
                     //for all branch all RM and particular customer
                     if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0 && ddlSelectCustomer.SelectedIndex != 0)
@@ -596,6 +632,27 @@ namespace WealthERP.BusinessMIS
                         branchHeadId = 0;
                     }
                 }
+                else if (userType == "associates")
+                {
+                    IsAssociate = 1;                                   
+                    AgentId = associatesVo.AAC_AdviserAgentId;
+                    ddlCustomerType.Visible = false;
+                    lblSelectTypeOfCustomer.Visible = false;
+                    trBranchRM.Visible = false;
+                    if (ddlSelectCustomer.SelectedIndex == 0)
+                    {
+                        advisorId = 0;
+                        branchId = 0;
+                        customerId = 0;
+                        branchHeadId = 0;
+                    }
+                    else if (ddlSelectCustomer.SelectedIndex != 0)
+                    {
+                        advisorId = 0;
+                        branchId = 0;
+                        branchHeadId = 0;
+                    }
+                }
             }
         }
 
@@ -608,7 +665,7 @@ namespace WealthERP.BusinessMIS
                 SetParametersforDifferentRoles();
                 if (lblWrongCustomer.Text != "selected customer does not exist")
                 {
-                    dsGrpAssetNetHoldings = insuranceBo.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId, isGroup);
+                    dsGrpAssetNetHoldings = insuranceBo.GetAllProductMIS(advisorId, branchId, rmId, branchHeadId, customerId,AgentId,IsAssociate,isGroup);
 
                     if (dsGrpAssetNetHoldings.Tables[0]== null)
                     {

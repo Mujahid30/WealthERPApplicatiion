@@ -18,6 +18,8 @@ using VoAdvisorProfiling;
 using BoCommon;
 using System.Configuration;
 using System.Globalization;
+using VOAssociates;
+using BOAssociates;
 using BoSuperAdmin;
 
 namespace WealthERP.BusinessMIS
@@ -36,6 +38,7 @@ namespace WealthERP.BusinessMIS
         AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
         AdvisorMISBo adviserMISBo = new AdvisorMISBo();
         RMVo rmVo = new RMVo();
+        AssociatesVO associatesVo = new AssociatesVO();
         string userType;
         int advisorId;
         int userId;
@@ -78,7 +81,7 @@ namespace WealthERP.BusinessMIS
             advisorBranchVo = (AdvisorBranchVo)Session[SessionContents.AdvisorBranchVo];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
-
+            associatesVo = (AssociatesVO)Session["associatesVo"];
             if (advisorVo.advisorId == 1000)
             {
                 //if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
@@ -105,6 +108,8 @@ namespace WealthERP.BusinessMIS
                     userType = "rm";
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                     userType = "bm";
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                    userType = "associates";
                 else
                     userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
                 advisorId = advisorVo.advisorId;
@@ -137,6 +142,12 @@ namespace WealthERP.BusinessMIS
                         BindRMforBranchDropdown(0, bmID, 1);
 
                         hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                    }
+                    if (userType == "associates")
+                    {
+                        hidingConrolForRMAndBMLogin(userType);
+                        BindBranchDropDown();
+                        BindRMDropDown();
                     }
 
                     //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId,"MF");
@@ -441,6 +452,12 @@ namespace WealthERP.BusinessMIS
                     hdnAll.Value = "3";
                 }
             }
+            else if (userType == "associates")
+            {
+                hdnAgentId.Value = associatesVo.AAC_AdviserAgentId.ToString();              
+                hdnAll.Value = "0";
+
+            }
 
         }
 
@@ -655,6 +672,10 @@ namespace WealthERP.BusinessMIS
                             hdnadviserId.Value = "0";
                         dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode);
                     }
+                    if (userType == "associates")
+                    {
+                        dsMISReport = adviserMISBo.GetAMCwiseAUMForAssociate(int.Parse(hdnAgentId.Value), Valuation_Date);
+                    }
                 }
                 else
                 {
@@ -753,6 +774,10 @@ namespace WealthERP.BusinessMIS
                     dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date, AmcCode);
 
                 }
+                if (userType == "associates")
+                {
+                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAssociate(int.Parse(hdnAgentId.Value), Valuation_Date, AmcCode);
+                }
             }
             else
                 dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(Convert.ToInt32(ddlAdviser.SelectedValue), 0, 0, Valuation_Date, AmcCode);
@@ -818,6 +843,10 @@ namespace WealthERP.BusinessMIS
                 else if (userType == "advisor")
                 {
                     dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate, SchemeCode);
+                }
+                if (userType == "associates")
+                {
+                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAssociate(int.Parse(hdnAgentId.Value), Valuationdate, SchemeCode);
                 }
             }
             else
@@ -1023,7 +1052,7 @@ namespace WealthERP.BusinessMIS
 
         protected void hidingConrolForRMAndBMLogin(string userType)
         {
-            if (userType == "rm")
+            if (userType == "rm" || userType == "associates")
             {
                 lblBranch.Visible = false;
                 ddlBranch.Visible = false;

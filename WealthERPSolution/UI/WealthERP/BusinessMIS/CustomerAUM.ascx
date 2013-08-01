@@ -6,7 +6,8 @@
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
-        document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+        document.getElementById("<%=hdnCustomerId.ClientID %>").value = eventArgs.get_value();
+       
         //alert(document.getElementById("<%= hdnCustomerId.ClientID %>").value = eventArgs.get_value());
         return false;
     };
@@ -101,14 +102,14 @@
         <td class="leftField" style="width: 35%">
         </td>
     </tr>
-    <tr id="trCustomerSearch" runat="server">
-        <td class="leftField" style="width: 15%">
+    <tr id="trCustomerSearch" runat="server" align="left">
+       <%-- <td class="leftField" style="width: 15%">
             &nbsp;
         </td>
         <td class="rightField" style="width: 15%">
             &nbsp;
-        </td>
-        <td class="leftField" style="width: 10%">
+        </td>--%>
+        <td  class="leftField" style="width: 10%">
             <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
         </td>
        <td align="left" width="10%" onkeypress="return keyPress(this, event)">

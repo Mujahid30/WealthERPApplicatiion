@@ -280,6 +280,12 @@ namespace WealthERP.Advisor
                     RadPanelBar5.FindItemByValue("Reference_Data").Expanded = true;
                     RadPanelBar5.FindItemByValue("Reference_Data").Selected = true;
                 }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Associates")
+                {
+                    RadPanelBar6.FindItemByValue("Associates").Expanded = true;
+                    
+                }
+
 
                 //
                 // Code to display inbox/message links based on main role
@@ -1192,6 +1198,11 @@ namespace WealthERP.Advisor
                 //    Session["UserType"] = "rm";
                 //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomerManualSMS", "loadcontrol('AdviserCustomerManualSMS','none');", true);
                 //}
+                else if (e.Item.Value == "Associateslist")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAdviserAssociateList','login');", true);
+                }
                 else if (e.Item.Value == "Multi Asset Report")
                 {
                     Session["UserType"] = "rm";
@@ -1425,6 +1436,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAssociates','login');", true);
+                }
+                else if (e.Item.Value == "Associateslist")
+                {
+                    Session["UserType"] = "bm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAdviserAssociateList','login');", true);
                 }
                 else if (e.Item.Value == "Customized SMS")
                 {

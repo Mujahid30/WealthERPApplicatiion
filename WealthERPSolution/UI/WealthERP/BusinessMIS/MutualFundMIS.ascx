@@ -637,6 +637,7 @@
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAgentId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnXWise" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnadviserId" runat="server" />
 <asp:HiddenField ID="hdnValuationDate" runat="server" />

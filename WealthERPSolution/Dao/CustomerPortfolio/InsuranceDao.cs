@@ -2169,7 +2169,7 @@ namespace DaoCustomerPortfolio
             return insuranceCustDetails;
         }
 
-        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId, int isGroup)
+        public DataSet GetAllProductMIS(int advisorId, int branchId, int rmId, int branchHeadId, int customerId,int AgentId,int IsAssociate, int isGroup)
         {
             Database db;
             DbCommand getAllProductMISCmd;
@@ -2198,6 +2198,13 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getAllProductMISCmd, "@customerId", DbType.Int32, customerId);
                 else
                     db.AddInParameter(getAllProductMISCmd, "@customerId", DbType.Int32, DBNull.Value);
+                if (AgentId != 0)
+                    db.AddInParameter(getAllProductMISCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                else
+                    db.AddInParameter(getAllProductMISCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+
+                db.AddInParameter(getAllProductMISCmd, "@IsAssociates", DbType.Int32, IsAssociate);
+              
                 //if (isGroup != 0)
                     db.AddInParameter(getAllProductMISCmd, "@isGroup", DbType.Int32, isGroup);
                 //else
