@@ -48,7 +48,7 @@
 </table>
 <table style="width: 100%;" class="TableBackground">
     <tr>
-        <td colspan="4" class="tdRequiredText">
+        <td colspan="4">
             <label id="lbl" class="lblRequiredText">
                 Note: Fields marked with ' * ' are compulsory</label>
         </td>
@@ -76,12 +76,13 @@
                 CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator1" ValidationGroup="btnSubmit"
                 runat="server"></asp:RequiredFieldValidator>
         </td>
+        
     </tr>
     <tr>
-        <td class="leftField">
+              <td class="leftField" width="25%" >
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
-        </td>
-        <td class="rightfield" colspan="3">
+        </td> 
+        <td class="rightfield" width="25%">
             <asp:DropDownList ID="ddlBranchAssociateType" runat="server" CssClass="cmbField"
                 OnSelectedIndexChanged="ddlBranchAssociateType_SelectedIndexChanged" AutoPostBack="true">
             </asp:DropDownList>
@@ -91,17 +92,40 @@
                 Operator="NotEqual" ValueToCompare="Select a Type" CssClass="cvPCG" ValidationGroup="btnSubmit">
             </asp:CompareValidator>
         </td>
+        <td class="leftField" width="25%">
+        <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="Pick Zone/Cluster :"></asp:Label>
+            </td> 
+        <td class="rightfield" width="25%">
+            <asp:DropDownList ID="ddlZOneCluster" runat="server" CssClass="cmbField"
+                OnSelectedIndexChanged="ddlZOneCluster_SelectedIndexChanged"  AutoPostBack="true">
+                  <asp:ListItem Text="--SELECT--" Value="Select" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="Zone" Value="Zone"></asp:ListItem>
+                                            <asp:ListItem Text="Cluster" Value="Cluster"></asp:ListItem>
+                                             
+                  </asp:DropDownList> </td> 
+    </tr>
+    <tr id="trZoneCluster" runat="server">
+    <td colspan="2"></td>
+    <td class="leftField" width="25%">
+        <asp:Label ID="lb1Zc" runat="server" CssClass="FieldName" Text="Zone :"></asp:Label>
+            </td> 
+        <td class="rightfield" width="25%">
+            <asp:DropDownList ID="ddlSelectedZC" runat="server" CssClass="cmbField"
+                  AutoPostBack="true"></asp:DropDownList> </td> 
+     
     </tr>
     <tr id="AssociateCategoryRow" runat="server">
         <td class="leftField">
             <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
         </td>
-        <td class="rightfield" colspan="3">
+        <td class="rightfield" width="25%">
             <asp:DropDownList ID="ddlAssociateCategory" runat="server" CssClass="cmbField" ToolTip="Please setup the category if u dont find any data here">
             </asp:DropDownList>
                        
         </td>
+        
     </tr>
+    
     <tr>
         <td colspan="4">
             <asp:Label ID="Label5" runat="server" CssClass="HeaderTextSmall" Text="Address"></asp:Label>

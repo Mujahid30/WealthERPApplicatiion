@@ -24,6 +24,7 @@ namespace DaoAdvisorProfiling
         {
 
             int branchId = 0; ;
+            int ZCId=0;
             Database db;
             DbCommand createAdvisorBranchCmd;
             try
@@ -75,8 +76,16 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(createAdvisorBranchCmd, "@AB_IsHeadBranch", DbType.Int32, DBNull.Value);
                 db.AddOutParameter(createAdvisorBranchCmd, "BranchId", DbType.Int32, 5000);
+                                     
                 //added for Zone cluster Id insertion
-                db.AddInParameter(createAdvisorBranchCmd, "@AB_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
+                if (advisorBranchVo.ZoneClusterId == 0)
+                {
+                    db.AddInParameter(createAdvisorBranchCmd, "@AB_ZoneClusterId", DbType.Int32, DBNull.Value);
+                }
+                else
+                {
+                    db.AddInParameter(createAdvisorBranchCmd, "@AB_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
+                }
 
                 if (db.ExecuteNonQuery(createAdvisorBranchCmd) != 0)
                     branchId = int.Parse(db.GetParameterValue(createAdvisorBranchCmd, "BranchId").ToString());
@@ -350,7 +359,40 @@ namespace DaoAdvisorProfiling
             return branchId;
 
         }
+        public DataTable GetZoneClusterAssociation(int adviserId)
+        {            
+            Database db;
+            DbCommand getZoneClusterIdCmd;
+            DataTable dtZoneCluster;
+            DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getZoneClusterIdCmd = db.GetSqlStringCommand("SELECT  AZOC_ZoneClusterId,AZOC_Name,AZOC_Type from AdviserZoneCluster where A_Adviserid= " + adviserId.ToString());
+                dtZoneCluster = db.ExecuteDataSet(getZoneClusterIdCmd).Tables[0];
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetZoneClusterAssociation()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtZoneCluster;
+
+        }
         public bool CheckRMBranchAssociation(int rmId, int branchId)
         {
             bool bResult = false;

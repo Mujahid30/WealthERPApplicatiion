@@ -83,6 +83,11 @@ namespace WealthERP.Advisor
                     trCommsharingHeading.Visible = false; ;
                     SetInitialRow();
                     CheckAdviserEquityLob();    //Making invisible Terminal id add row if there is no Equity LOB
+                    if (ddlZOneCluster.SelectedValue == "Select")
+                    {
+                        trZoneCluster.Visible = false;
+                    }
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -474,6 +479,14 @@ namespace WealthERP.Advisor
                     {
                         advisorBranchVo.State = "";
                     }
+                    if (ddlZOneCluster.SelectedIndex != 0 && ddlSelectedZC.SelectedIndex != 0)
+                    {
+                         advisorBranchVo.ZoneClusterId = int.Parse( ddlSelectedZC.SelectedItem.Value.ToString());
+                    }
+                    //else
+                    //{
+                    //    advisorBranchVo.ZoneClusterId = 0;
+                    //}
 
                     // Create Branch 
 
@@ -715,6 +728,34 @@ namespace WealthERP.Advisor
                 CommSharingStructureGv.Visible = false;
             }
             showRM();
+        }
+        //ddlZOneCluster
+        protected void ddlZOneCluster_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+
+            if (ddlZOneCluster.SelectedValue == "Select")
+            {
+                trZoneCluster.Visible = false;
+                ddlSelectedZC.Items.Clear();
+                return;
+            }
+            else
+            {
+                trZoneCluster.Visible = true;
+                lb1Zc.Text = ddlZOneCluster.SelectedValue.ToString() + "s";
+            }
+            dt = advisorBranchBo.GetZoneClusterAssociation(advisorVo.advisorId);
+            DataView dv = new DataView(dt);
+             dv.RowFilter = "AZOC_Type='" + ddlZOneCluster.SelectedValue + "'";
+
+             //ddlSelectedZC.SelectedItem 
+            ddlSelectedZC.DataTextField = "AZOC_Name";
+            ddlSelectedZC.DataValueField = "AZOC_ZoneClusterId";
+            ddlSelectedZC.DataSource = dv;
+            ddlSelectedZC.DataBind();
+            ddlSelectedZC.Items.Insert(0, "--SELECT--");
+            
         }
 
         protected void gvCommStructure_RowDataBound(object sender, GridViewRowEventArgs e)

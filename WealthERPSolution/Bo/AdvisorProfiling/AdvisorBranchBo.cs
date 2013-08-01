@@ -81,6 +81,20 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
+        public DataTable GetZoneClusterAssociation(int adviserId)
+        {
+            DataTable dtZoneCluster = new DataTable();
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            try
+            {
+                dtZoneCluster = advisorBranchDao.GetZoneClusterAssociation(adviserId);
+            }
+            catch (Exception Ex)
+            {
+                string msg = Ex.Message.ToString();
+            }
+            return dtZoneCluster;
+        }
         /// <summary>
         /// 
         /// </summary>
