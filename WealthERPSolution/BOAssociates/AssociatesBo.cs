@@ -293,5 +293,31 @@ namespace BOAssociates
             }
             return associatesVo;
         }
+        public DataSet GetAdviserAssociateList(int adviserId)
+        {
+            DataSet dsGetAssociateCodeList;
+            try
+            {
+                dsGetAssociateCodeList = associatesDao.GetAdviserAssociateList(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAssociateCodeList;
+        }
+        public AssociatesVO GetAssociateVoList(int assiciateId)
+        {
+            AssociatesVO associatesVo = new AssociatesVO();
+            try
+            {
+                associatesVo = associatesDao.GetAssociateVoList(assiciateId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return associatesVo;
+        }
     }
 }
