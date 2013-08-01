@@ -952,7 +952,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "ViewAssociatess")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAssociates','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAssociates", "loadcontrol('ViewAdviserAssociateList','login');", true);
                 }
                 else if (e.Item.Value == "AddAgentCode")
                 {
