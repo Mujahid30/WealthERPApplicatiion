@@ -61,7 +61,7 @@ namespace VOAssociates
         private string m_BranchAdrCity;
         private string m_BranchAdrState;
         private string m_BranchAdrCountry;
-        private int m_MICR;
+        private long m_MICR;
         private string m_IFSC;
 
 
@@ -363,7 +363,7 @@ namespace VOAssociates
             get { return m_BranchAdrCountry; }
             set { m_BranchAdrCountry = value; }
         }
-        public int MICR
+        public long MICR
         {
             get { return m_MICR; }
             set { m_MICR = value; }
