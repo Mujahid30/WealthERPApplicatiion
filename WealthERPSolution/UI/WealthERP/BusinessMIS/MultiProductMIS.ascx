@@ -376,7 +376,7 @@
                             DataField="CFINP_MaturityDate"  HtmlEncode="false" DataType="System.DateTime">
                             <ItemStyle HorizontalAlign="Center" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount" Aggregate="Sum"
+                        <telerik:GridBoundColumn HeaderStyle-Wrap="false" UniqueName="CFINP_PrincipalAmount" HeaderText="Deposit Amount/Purchase Cost (Rs)" Aggregate="Sum"
                          DataField="CFINP_PrincipalAmount" DataFormatString="{0:N0}" HtmlEncode="false" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle HorizontalAlign="Right" />
                         </telerik:GridBoundColumn>
