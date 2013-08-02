@@ -168,10 +168,10 @@
             document.getElementById('addBranch').disabled = true;
             document.getElementById('deleteBranch').disabled = true;
             var chkckmk = '<%=ChklistRMBM.ClientID%>';
-            var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
-            if (hdn == "True") {
-                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
-            }
+//            var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
+//            if (hdn == "True") {
+//                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
+//            }
 
 
             var chkControlId = '<%=ChklistRMBM.ClientID%>';
@@ -186,7 +186,7 @@
         else {
             
             
-                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+//                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
                 
            
             document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
@@ -206,7 +206,7 @@
         }
     }
     function CheckSubscription() {
-        document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+//        document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
     }
 //    function XYZ() {
 //        var flag = 0;
@@ -352,7 +352,7 @@
            
         </td>--%>
     </tr>
-    <tr id="trCKMK" runat="server">
+    <tr id="trCKMK" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="OpsCKMK" runat="server" CssClass="FieldName" Text="Ops Role:"></asp:Label>
         </td>

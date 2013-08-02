@@ -51,7 +51,7 @@ namespace WealthERP.Advisor
 
             if (!IsPostBack)
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
                 lblEmailDuplicate.Visible = false;
                 GetPlanOpsStaffAddStatus(advisorVo.advisorId);
                 setBranchList("N");
@@ -70,6 +70,7 @@ namespace WealthERP.Advisor
             {
                 chkOps.Visible = true;
                 lblOr.Visible = true;
+                trCKMK.Visible = true;
                 hdnIsOpsEnabled.Value = "1";
 
             }
