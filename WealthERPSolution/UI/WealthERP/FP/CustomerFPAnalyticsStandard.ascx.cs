@@ -1371,10 +1371,9 @@ namespace WealthERP.FP
 
         public void BindRepFinancialHealth(DataTable dtCustomerFPRatio)
         {
-
             try
             {
-                if (dtCustomerFPRatio.Rows.Count>0)
+                if (dtCustomerFPRatio.Rows.Count > 0)
                 {
                     DataTable dtFinancialHealth = new DataTable();
                     DataRow drFinancialHealth;
@@ -1410,13 +1409,18 @@ namespace WealthERP.FP
                         drFinancialHealth["RatioName"] = dr["RatioName"];
                         drFinancialHealth["RatioPunchLine"] = dr["RatioPunchLine"];
                         drFinancialHealth["RatioValue"] = dr["RatioValue"];
+
                         string[] ratioAllColor = dr["RatioColor"].ToString().Split('~');
-                        drFinancialHealth["RatioColorOne"] =ratioAllColor[0];
+                        if (ratioAllColor.Length > 2)
+                        {
+                            drFinancialHealth["RatioColorOne"] = ratioAllColor[0];
+                            drFinancialHealth["RatioColorThree"] = ratioAllColor[2];
+                            drFinancialHealth["RatioColorTwo"] = ratioAllColor[1];
+                        }
+
                         drFinancialHealth["RatioRangeOne"] = dr["RatioRangeOne"];
-                        drFinancialHealth["RatioRangeTwo"] = dr["RatioRangeTwo"];
-                        drFinancialHealth["RatioColorTwo"] = ratioAllColor[1];
-                        drFinancialHealth["RatioRangeThree"] = dr["RatioRangeThree"];
-                        drFinancialHealth["RatioColorThree"] = ratioAllColor[2];
+                        drFinancialHealth["RatioRangeTwo"] = dr["RatioRangeTwo"];                        
+                        drFinancialHealth["RatioRangeThree"] = dr["RatioRangeThree"];                        
                         drFinancialHealth["RatioDescription"] = dr["RatioDescription"];
                         drFinancialHealth["Indicator"] = indicator.ToString();
 
@@ -1435,39 +1439,32 @@ namespace WealthERP.FP
 
         public int ColorforRepFinancialHealth(string rangeone, string rangeTwo, string rangeThree, decimal value, int ratioId)
         {
-            int rangeoneUpper=0;
-            int rangeTwoLower=0;
-            int rangeTwoUpper=0;
-            int rangeThreeLower=0;
-
-            //string strData = rangeone;
+            int rangeoneUpper = 0;
+            int rangeTwoLower = 0;
+            int rangeTwoUpper = 0;
+            int rangeThreeLower = 0;
 
             if (ratioId != 5)
             {
-                rangeoneUpper = int.Parse(rangeone.Substring(1));
+                if (rangeone.Length > 0) { rangeoneUpper = int.Parse(rangeone.Substring(1)); }
+                
             }
             else
             {
-                rangeoneUpper = int.Parse(rangeone.Substring(2));
+                if (rangeone.Length > 0) { rangeoneUpper = int.Parse(rangeone.Substring(2)); }
             }
-                string[] ratioMiddleRange = rangeTwo.Split('-');
+
+            if (rangeTwo.Length <= 0) return 0;
+
+            string[] ratioMiddleRange = rangeTwo.Split('-');
             rangeTwoLower = int.Parse(ratioMiddleRange[0]);
             rangeTwoUpper = int.Parse(ratioMiddleRange[1]);
             rangeThreeLower = int.Parse(rangeThree.Substring(1));
 
-            if (value < rangeoneUpper)
-            {
-                return 0;                
-            }
+            if (value < rangeoneUpper) { return 0; }
 
-            else if (rangeTwoLower <= value && rangeTwoUpper >= value)
-            {
-                return 1;
-            }
-            else
-            {
-                return 2;
-            }            
+            else if (rangeTwoLower <= value && rangeTwoUpper >= value) { return 1; }
+            else { return 2; }            
         }
 
         public void repFinancialHealth_RowDataBound(object sender, RepeaterItemEventArgs e)
