@@ -62,7 +62,7 @@ namespace WealthERP.Advisor
 
             if (!Page.IsPostBack)
             {
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
+                //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
                 this.Action = Request.QueryString[0];
                 GetPlanOpsStaffAddStatus(advisorVo.advisorId);
                 if (Action == "Edit Profile")
@@ -101,35 +101,35 @@ namespace WealthERP.Advisor
             lblSTD.CssClass = "FieldName";
 
         }
-        private void GetPlanOpsStaffAddStatus(int adviserId)
-        {
-            DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
-            if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
-            {
-                if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 1 && rmVo.RMRole == "Ops")
-                {
-                    hdnIsOpsEnabled.Value = "1";
-                    chkOps.Visible = true;
-                    //chkOps.Checked = true;
-                }
-                else if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 0 && rmVo.RMRole != "Ops")
-                {
-                    hdnIsOpsEnabled.Value = "1";
-                    chkOps.Visible = true;
-                }
-                else
-                {
-                    hdnIsOpsEnabled.Value = "0";
-                    chkOps.Visible = false;
-                  // 
-                }
-            }
-            else
-            {
-                chkOps.Visible = false;
-                hdnIsOpsEnabled.Value = "0";
-            }
-        }
+        //private void GetPlanOpsStaffAddStatus(int adviserId)
+        //{
+        //    DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
+        //    if (dsPlanOpsStaffAddStatus.Tables[1].Rows[0]["WP_IsOpsEnabled"].ToString() == "1")
+        //    {
+        //        if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 1 && rmVo.RMRole == "Ops")
+        //        {
+        //            hdnIsOpsEnabled.Value = "1";
+        //            chkOps.Visible = true;
+        //            //chkOps.Checked = true;
+        //        }
+        //        else if (int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["CountOps"].ToString()) == 0 && rmVo.RMRole != "Ops")
+        //        {
+        //            hdnIsOpsEnabled.Value = "1";
+        //            chkOps.Visible = true;
+        //        }
+        //        else
+        //        {
+        //            hdnIsOpsEnabled.Value = "0";
+        //            chkOps.Visible = false;
+        //          // 
+        //        }
+        //    }
+        //    else
+        //    {
+        //        chkOps.Visible = false;
+        //        hdnIsOpsEnabled.Value = "0";
+        //    }
+        //}
         //protected void rbtnMainBranch_CheckedChanged(object sender, EventArgs e)
         //{
         //    foreach (GridViewRow row in gvBranchList.Rows)
@@ -139,7 +139,22 @@ namespace WealthERP.Advisor
         //    RadioButton rbtn = (RadioButton)sender;
         //    GridViewRow tempRow = (GridViewRow)rbtn.NamingContainer;
         //    ((RadioButton)tempRow.FindControl("rbtnMainBranch")).Checked = true;
+        private void GetPlanOpsStaffAddStatus(int adviserId)
+        {
+            DataSet dsPlanOpsStaffAddStatus = advisorStaffBo.GetPlanOpsStaffAddStatus(adviserId);
+            if (dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["WP_IsOpsEnabled"].ToString() == "1" && int.Parse(dsPlanOpsStaffAddStatus.Tables[0].Rows[0]["AS_NoOfBranches"].ToString()) > 1)
+            {
+                chkOps.Visible = true;
+                //lblOr.Visible = true;
+                trCKMK.Visible = true;
+                hdnIsOpsEnabled.Value = "1";
 
+            }
+            else
+            {
+                hdnIsOpsEnabled.Value = "0";
+            }
+        }
 
 
         //}
@@ -741,10 +756,8 @@ namespace WealthERP.Advisor
             if (rmVo.RMRole == "Ops")
             {
                 chkOps.Checked = true;
-                if (advisorVo.IsISASubscribed == true)
-                {
-                    
-                    trCKMK.Visible = true;
+
+                    //trCKMK.Visible = true;
                     bool Value;
                     foreach (ListItem Items in CheckListCKMK.Items)
                     {
@@ -760,20 +773,10 @@ namespace WealthERP.Advisor
 
                         }
                     }
-                }
-                else
-                {
-                    trCKMK.Visible = false;
-                }
-
-                
             }
-           
-
-
             else
             {
-                chkOps.Enabled = false;
+                chkOps.Visible = false;
                 trCKMK.Visible = false;
 
             }

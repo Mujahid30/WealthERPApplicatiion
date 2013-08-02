@@ -211,9 +211,9 @@
             document.getElementById('deleteBranch').disabled = true;
             var chkckmk = '<%=ChklistRMBM.ClientID%>';
             var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
-            if (hdn == 'True') {
-                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
-            }
+//            if (hdn == 'True') {
+//                document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'visible';
+//            }
 
 
             var chkControlId = '<%=ChklistRMBM.ClientID%>';
@@ -228,7 +228,7 @@
         else {
 
 
-            document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
+//            document.getElementById("<%= trCKMK.ClientID %>").style.visibility = 'collapse';
 
 
             document.getElementById("<%= availableBranch.ClientID %>").disabled = false;
@@ -389,7 +389,7 @@
             &nbsp;
         </td>
     </tr>
-    <tr id="trCKMK" runat="server">
+    <tr id="trCKMK" runat="server" visible="false">
         <td class="leftField">
             <asp:Label ID="OpsCKMK" runat="server" CssClass="FieldName" Text="Ops Role:"></asp:Label>
         </td>
