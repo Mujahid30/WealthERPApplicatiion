@@ -134,11 +134,11 @@ namespace WealthERP.CommisionManagement
 
         protected void gvCommMgmt_OnNeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            DataSet dsCommissionStructureRule = new DataSet();
+            DataTable dsCommissionStructureRule = new DataTable();
             if (Cache[userVo.UserId.ToString() + "CommissionStructureRule"] != null)
             {
-                dsCommissionStructureRule = (DataSet)Cache[userVo.UserId.ToString() + "CommissionStructureRule"];
-                gvCommMgmt.DataSource = dsCommissionStructureRule.Tables[0];
+                dsCommissionStructureRule = (DataTable)Cache[userVo.UserId.ToString() + "CommissionStructureRule"];
+                gvCommMgmt.DataSource = dsCommissionStructureRule;
             }
         }
 
