@@ -389,6 +389,17 @@ namespace WealthERP.Advisor
             //trAction.Visible = true;
 
         }
+
+        protected void rgvMultiProductMIS_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Redirect")
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                string value = ""; // item.GetDataKeyValue("CMFA_BROKERCODE").ToString();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CustomerMFAccountAdd','strCustomreId=" + value + " ');", true);
+
+            }
+        }
         private void SetParameters()
         {
             if (userType == "advisor")
@@ -528,7 +539,7 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("mergerstatus");
                 dtCustomerFolio.Columns.Add("Nominee");
                 dtCustomerFolio.Columns.Add("ModeOfHolding");
-               
+                dtCustomerFolio.Columns.Add("CMFA_BROKERCODE");
                if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
                     btnExportFilteredData.Visible = true;
@@ -559,6 +570,7 @@ namespace WealthERP.Advisor
                             drCustomerFolio["FolioName"] = dtCustomer.Rows[i]["FolioName"];
                         else
                             drCustomerFolio["FolioName"] = "";
+                        drCustomerFolio["CMFA_BROKERCODE"] = dtCustomer.Rows[i]["CMFA_BROKERCODE"];
                         drCustomerFolio["portfilionumber"] = dtCustomer.Rows[i]["portfilionumber"];
                         drCustomerFolio["mergerstatus"] = dtCustomer.Rows[i]["mergerstatus"];
                         drCustomerFolio["Nominee"] = dtCustomer.Rows[i]["Nominee"];

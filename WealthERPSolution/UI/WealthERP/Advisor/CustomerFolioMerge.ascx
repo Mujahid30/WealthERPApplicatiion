@@ -375,7 +375,8 @@
                     AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                     Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
-                    AllowFilteringByColumn="true" OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
+                    AllowFilteringByColumn="true" onItemCommand="rgvMultiProductMIS_ItemCommand"
+                    OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="CustomerId,AMCCode,Count,portfilionumber" CommandItemDisplay="None"
@@ -409,15 +410,42 @@
                             </asp:LinkButton>
                               </ItemTemplate>
                         </telerik:GridTemplateColumn>--%>
-                            <telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count"
+                        <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" HeaderStyle-Width="50px"
+                             AllowFiltering="false"   SortExpression="Count" ItemStyle-HorizontalAlign="left"
+                            DataField="Count" FooterStyle-HorizontalAlign="Right"   >
+                            <ItemTemplate >
+                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%#Eval("Count")%>' 
+                                    CommandName="Redirect"  ></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <%-- <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" Groupable="False"
+                            ItemStyle-Wrap="false" AllowFiltering="true"  SortExpression="Count" ItemStyle-HorizontalAlign="Right"
+                            DataField="Count" FooterStyle-HorizontalAlign="Right">
+                            <ItemTemplate >
+                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%#DataBinder.Eval(Container.DataItem, "Count")%>' 
+                                    CommandName="Redirect"  ></asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>--%>
+                            <%--<telerik:GridBoundColumn UniqueName="Count" HeaderText="Folios" DataField="Count"
                                 HeaderStyle-Width="100px" SortExpression="Count" AllowFiltering="true" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
-                            </telerik:GridBoundColumn>
+                                 <ItemTemplate >
+                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%# String.Format("{0:N0}", DataBinder.Eval(Container.DataItem, "Mutual_Fund")) %>' 
+                                    CommandName="Redirect"  >
+                                    </asp:LinkButton>
+                            </ItemTemplate>
+                            </telerik:GridBoundColumn>--%>
+                            
                             <telerik:GridBoundColumn UniqueName="FolioName" HeaderText="Folio Name" DataField="FolioName"
                                 HeaderStyle-Width="100px" SortExpression="FolioName" AllowFiltering="true" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
+                              </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="CMFA_BROKERCODE" HeaderText="SubBrokerCode" DataField="CMFA_BROKERCODE"
+                                HeaderStyle-Width="50px" SortExpression="CMFA_BROKERCODE" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                 
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus"
                                 HeaderStyle-Width="100px" SortExpression="mergerstatus" AllowFiltering="true"
