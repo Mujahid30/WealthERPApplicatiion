@@ -437,6 +437,7 @@ namespace DaoAdvisorProfiling
                     foreach (DataRow dr in getAdvisorDs.Tables[0].Rows)
                     {
                         rmVo = new RMVo();
+                        if (dr["U_UserId"].ToString()!="")
                         rmVo.UserId = int.Parse(dr["U_UserId"].ToString());
                         rmVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                         rmVo.FirstName = dr["AR_FirstName"].ToString();
