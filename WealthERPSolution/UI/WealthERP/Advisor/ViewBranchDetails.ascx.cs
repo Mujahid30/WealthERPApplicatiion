@@ -236,6 +236,7 @@ namespace WealthERP.Advisor
                     lblPhone1.Text = advisorBranchVo.Phone1Isd.ToString() + "-" + advisorBranchVo.Phone1Std.ToString() + "-" + advisorBranchVo.Phone1Number.ToString();
                     lblPhone2.Text = advisorBranchVo.Phone2Isd.ToString() + "-" + advisorBranchVo.Phone2Std.ToString() + "-" + advisorBranchVo.Phone2Number.ToString();
                     lblPin.Text = advisorBranchVo.PinCode.ToString();
+                    if (advisorBranchVo.ZoneClusterType!=null)
                     lb1ZC.Text = "Branch/Associate" + " " + advisorBranchVo.ZoneClusterType.ToString()+":";
                     lb1SZC.Text = advisorBranchVo.ZoneClusterName;
                     if (advisorBranchVo.State == "")
