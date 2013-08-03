@@ -16,6 +16,7 @@ using System.Configuration;
 using System.Net.Mail;
 using PCGMailLib;
 using System.IO;
+using VOAssociates;
 
 namespace WealthERP.Advisor 
 {
@@ -33,6 +34,7 @@ namespace WealthERP.Advisor
         List<int> rmIds;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+        AssociatesVO associatesVo = new AssociatesVO();
         UserBo userBo = new UserBo();
 
         int rmId;
@@ -48,7 +50,13 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["UserVo"];
             rmVo = (RMVo)Session["RMVo"];
+            trAddStaffCode.Visible = false  ;
 
+            //if (Session["associatesVo"] != null)
+            //{
+            //    associatesVo = (AssociatesVO)Session["associatesVo"];
+            //    txtStaffCode.Text = associatesVo.AAC_AgentCode.ToString();
+            //}
             if (!IsPostBack)
             {
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
@@ -502,6 +510,36 @@ namespace WealthERP.Advisor
                 throw exBase;
             }
         }
+        
+             protected void BtnStaffCode_Click(object sender, EventArgs e)
+             {
+                 string StaffRole;
+                 if (ChklistRMBM.Items[0].Selected == true)
+                 {
+                     StaffRole = ChklistRMBM.Items[0].Text;
+                 }
+                 else if (ChklistRMBM.Items[1].Selected == true)
+                 {
+                     StaffRole = ChklistRMBM.Items[1].Text;
+                 }
+                 else 
+                 {
+                     StaffRole = ChklistRMBM.Items[2].Text;
+                 }
+
+                 //string queryString = "?prevPage=AddRM&?StaffName=" + txtFirstName.Text + "&?StaffRole='" + StaffRole + "' ";
+                 string queryString = "?prevPage=AddRM&StaffName=" + txtFirstName.Text + "&StaffRole=" + StaffRole + "";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranchRMAgentAssociation','" + queryString + "');", true);
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation', '?GoalId=" + 5 + "&GoalAction=" + "pavani m" + "&'" + queryString + "'');", true);
+                 // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "rightpane", "loadcontrol('AddBranchRMAgentAssociation','none');", true);
+
+                 //AssociatesVO associatesVo = new AssociatesVO();
+
+                 //associatesVo = (AssociatesVO)Session["associatesVo"];
+                 //txtStaffCode.Text = associatesVo.AAC_AgentCode.ToString();  
+                 //=Request.QueryString["Name"];
+             }
 
         protected void btnNext_Click(object sender, EventArgs e)
         {
@@ -524,6 +562,8 @@ namespace WealthERP.Advisor
                     CreateOps(isOpsIsChecked);
                    
                 }
+                trAddStaffCode.Visible = true;
+                BtnStaffCode_Click(this, null);
                 //        }
                 //    }
                 //    else if (i == 0)
@@ -619,7 +659,7 @@ namespace WealthERP.Advisor
                 rmVo.FirstName = txtFirstName.Text.ToString();
                 rmVo.LastName = txtLastName.Text.ToString();
                 rmVo.MiddleName = txtMiddleName.Text.ToString();
-                rmVo.StaffCode = txtStaffCode.Text.ToString();
+                rmVo.StaffCode = ""; //txtStaffCode.Text.ToString();
                 if (txtMobileNumber.Text.ToString() != "")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
@@ -812,7 +852,7 @@ namespace WealthERP.Advisor
                 rmVo.FirstName = txtFirstName.Text.ToString();
                 rmVo.LastName = txtLastName.Text.ToString();
                 rmVo.MiddleName = txtMiddleName.Text.ToString();
-                rmVo.StaffCode = txtStaffCode.Text.ToString();
+                rmVo.StaffCode = "";// txtStaffCode.Text.ToString();
                 if (txtMobileNumber.Text.ToString() != "")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
