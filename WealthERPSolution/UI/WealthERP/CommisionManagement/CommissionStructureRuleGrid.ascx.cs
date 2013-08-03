@@ -127,6 +127,12 @@ namespace WealthERP.CommisionManagement
             DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId,
             ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(),
             "all", int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
+
+            if (dsStructureRules.Tables[0].Rows.Count > 0)
+                ibtExportSummary.Visible = true;
+            else
+                ibtExportSummary.Visible = false;
+
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
             gvCommMgmt.DataBind();
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
