@@ -203,11 +203,14 @@ namespace WealthERP.Advisor
 
                         drRMUsers[0] = (i + 1).ToString();
                         drRMUsers[1] = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
-                        
-                        drRMUsers[2] = userVo.LoginId.ToString();
-                        
-                        drRMUsers[3] = userVo.Email;
-                        drRMUsers[4] = userVo.UserId;
+
+                        if (userVo != null)
+                        {
+                            drRMUsers[2] = userVo.LoginId.ToString();
+
+                            drRMUsers[3] = userVo.Email;
+                            drRMUsers[4] = userVo.UserId;
+                        }
 
                         dtRMUsers.Rows.Add(drRMUsers);
                     }
