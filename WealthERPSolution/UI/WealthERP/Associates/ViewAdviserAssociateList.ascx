@@ -13,8 +13,8 @@
                         </td>
                         <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
                             <asp:ImageButton ID="imgViewAssoList" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
-                                Width="25px" Visible="false"></asp:ImageButton>
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px" OnClick="btnExportFilteredData_OnClick"
+                                Width="25px" Visible="true" ></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -65,7 +65,7 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="PAN DataField="AA_PAN"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="PAN" DataField="AA_PAN"
                                                 UniqueName="AA_PAN" SortExpression="AA_PAN" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

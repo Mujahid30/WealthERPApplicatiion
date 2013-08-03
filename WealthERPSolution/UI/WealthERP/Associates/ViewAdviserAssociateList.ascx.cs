@@ -36,10 +36,12 @@ namespace WealthERP.Associates
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
+            imgViewAssoList.Visible = false;
             if (!IsPostBack)
             {
                 GetAdviserAssociateList();
+                
+                
             }
         }
 
@@ -53,6 +55,7 @@ namespace WealthERP.Associates
             {
                 gvAdviserAssociateList.DataSource = dtGetAdviserAssociateList;
                 gvAdviserAssociateList.DataBind();
+                imgViewAssoList.Visible = false;
             }
             else
             {
@@ -60,6 +63,7 @@ namespace WealthERP.Associates
                 gvAdviserAssociateList.DataBind();
                 pnlAdviserAssociateList.Visible = true;
                 gvAdviserAssociateList.Visible = true;
+                imgViewAssoList.Visible = true;
                 if (Cache["gvAdviserAssociateList" + userVo.UserId + userType] == null)
                 {
                     Cache.Insert("gvAdviserAssociateList" + userVo.UserId + userType, dtGetAdviserAssociateList);
@@ -71,15 +75,27 @@ namespace WealthERP.Associates
                 }
             }
         }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            gvAdviserAssociateList.ExportSettings.OpenInNewWindow = true;
+            gvAdviserAssociateList.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvAdviserAssociateList.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvAdviserAssociateList.MasterTableView.ExportToExcel();
+
+        }
         protected void gvAdviserAssociateList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGetAdviserAssociateList = new DataTable();
-            dtGetAdviserAssociateList = (DataTable)Cache["gvViewAssociates" + userVo.UserId + userType];
+            dtGetAdviserAssociateList = (DataTable)Cache["gvAdviserAssociateList" + userVo.UserId + userType];
             gvAdviserAssociateList.DataSource = dtGetAdviserAssociateList;
             gvAdviserAssociateList.Visible = true;
 
             pnlAdviserAssociateList.Visible = true;
-            gvAdviserAssociateList.Visible = false;
+           imgViewAssoList.Visible = true;
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
