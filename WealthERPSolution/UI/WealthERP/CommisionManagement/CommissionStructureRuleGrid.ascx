@@ -236,8 +236,8 @@
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <telerik:RadGrid ID="gvCommMgmt" AllowSorting="false" runat="server" AllowAutomaticInserts="false"
-                                        EnableLoadOnDemand="True" AllowPaging="True" AutoGenerateColumns="False"
+                                    <telerik:RadGrid ID="gvCommMgmt" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
+                                        EnableLoadOnDemand="True" AllowPaging="True" AutoGenerateColumns="False" 
                                         EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
                                         EnableViewState="true" ShowStatusBar="true" Skin="Telerik" 
                                         onpageindexchanged="gvCommMgmt_PageIndexChanged" 
@@ -266,25 +266,25 @@
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
                                                 <telerik:GridBoundColumn DataField="Name" HeaderStyle-Width="160px" 
-                                                    HeaderText="Name" UniqueName="cmRuleName">
+                                                    HeaderText="Name" UniqueName="cmRuleName" SortExpression="Name">
                                                     <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="160px" 
                                                         Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="Product" HeaderStyle-Width="100px" 
-                                                    HeaderText="Product" UniqueName="cmProdType">
+                                                    HeaderText="Product" UniqueName="cmProdType" SortExpression="Product">
                                                     <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
                                                         Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="Issuer" HeaderStyle-Width="200px" 
-                                                    HeaderText="Issuer" UniqueName="cmIssuer">
+                                                    HeaderText="Issuer" UniqueName="cmIssuer" SortExpression="Issuer">
                                                     <%--<HeaderStyle Width="200px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="200px" 
                                                         Wrap="true" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="Category" HeaderStyle-Width="100px" 
-                                                    HeaderText="Category" ShowFilterIcon="false" UniqueName="cmCategory">
+                                                    HeaderText="Category" ShowFilterIcon="false" UniqueName="cmCategory" SortExpression="Category">
                                                     <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
                                                         Wrap="false" />
@@ -305,7 +305,7 @@
                                                 </telerik:GridDateTimeColumn>
                                                 <telerik:GridDateTimeColumn DataField="ValidTill" 
                                                     DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
-                                                    HeaderText="Valid Till" UniqueName="cmValidTill">
+                                                    HeaderText="Valid Till" UniqueName="cmValidTill"  SortExpression="ValidTill">
                                                     <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
                                                         Wrap="false" />
