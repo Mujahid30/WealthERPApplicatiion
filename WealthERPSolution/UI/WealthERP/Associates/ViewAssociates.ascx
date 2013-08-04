@@ -12,9 +12,9 @@
                             View Associates
                         </td>
                         <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
-                            <asp:ImageButton ID="imgViewAssociates" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                          <asp:ImageButton ID="imgExportAssociates" runat="server" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
-                                Width="25px" Visible="false" OnClick="imgViewAssociates_Click"></asp:ImageButton>
+                                Width="25px" Visible="false"  OnClick="imgExportAssociates_Click" />
                         </td>
                     </tr>
                 </table>
@@ -45,7 +45,7 @@
                                 <telerik:RadGrid ID="gvViewAssociates" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvViewAssociates_OnNeedDataSource"
+                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvAssociates_NeedDataSource"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="ViewAssociates" Excel-Format="ExcelML">

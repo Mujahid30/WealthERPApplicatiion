@@ -155,15 +155,15 @@ namespace WealthERP.Associates
                 gvViewAssociates.DataSource = dtViewAssociates;
                 gvViewAssociates.DataBind();
                 gvViewAssociates.Visible = true;
-                imgViewAssociates.Visible = true;
+                imgExportAssociates.Visible = true;
                 if (Cache["gvViewAssociates + '" + advisorVo.advisorId + "'"] == null)
                 {
-                    Cache.Insert("gvViewAssociates  + '" + advisorVo.advisorId + "'", dtViewAssociates);
+                    Cache.Insert("gvViewAssociates + '" + advisorVo.advisorId + "'", dtViewAssociates);
                 }
                 else
                 {
-                    Cache.Remove("gvViewAssociates  + '" + advisorVo.advisorId + "'");
-                    Cache.Insert("gvViewAssociates  + '" + advisorVo.advisorId + "'", dtViewAssociates);
+                    Cache.Remove("gvViewAssociates + '" + advisorVo.advisorId + "'");
+                    Cache.Insert("gvViewAssociates + '" + advisorVo.advisorId + "'", dtViewAssociates);
                 }
 
             }
@@ -173,7 +173,7 @@ namespace WealthERP.Associates
                 gvViewAssociates.Visible = true;
                 gvViewAssociates.DataSource = null;
                 gvViewAssociates.DataBind();
-                imgViewAssociates.Visible = false;
+                imgExportAssociates.Visible = false;
             }
             //if (dtViewAssociates == null)
             //{
@@ -196,27 +196,42 @@ namespace WealthERP.Associates
             //    }
             //}
         }
-        protected void gvViewAssociates_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+
+        protected void gvAssociates_NeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtViewAssociates = new DataTable();
-            dtViewAssociates = (DataTable)Cache["gvViewAssociates" + userVo.UserId + userType];
+            dtViewAssociates = (DataTable)Cache["gvViewAssociates + '" + advisorVo.advisorId + "'"];
             gvViewAssociates.DataSource = dtViewAssociates;
             gvViewAssociates.Visible = true;
 
             pnlAssociatesView.Visible = true;
-            gvViewAssociates.Visible = false;
+            //gvViewAssociates.Visible = false;
         }
 
-        protected void imgViewAssociates_Click(object sender, ImageClickEventArgs e)
+      
+        protected void imgExportAssociates_Click(object sender, ImageClickEventArgs e)
         {
+            //gvViewAssociates.ExportSettings.OpenInNewWindow = true;
+            //gvViewAssociates.ExportSettings.IgnorePaging = true;
+            //foreach (GridFilteringItem filter in gvViewAssociates.MasterTableView.GetItems(GridItemType.FilteringItem))
+            //{
+            //    filter.Visible = false;
+            //}
+            //gvViewAssociates.MasterTableView.ExportToExcel();
+
+            DataTable dtGvSchemeDetails = new DataTable();
+            dtGvSchemeDetails = (DataTable)Cache["gvViewAssociates + '" + advisorVo.advisorId + "'"];
+            gvViewAssociates.DataSource = dtGvSchemeDetails;
+
             gvViewAssociates.ExportSettings.OpenInNewWindow = true;
             gvViewAssociates.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvViewAssociates.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
+            gvViewAssociates.ExportSettings.HideStructureColumns = true;
+            gvViewAssociates.ExportSettings.ExportOnlyData = true;
+            //gvViewAssociates.ExportSettings.FileName = "Scheme Mapping Details";
+            gvViewAssociates.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvViewAssociates.MasterTableView.ExportToExcel();
         }
+      
         protected void LnkRQ_Click(object sender, EventArgs e)
         {
             GridDataItem gvRow = ((GridDataItem)(((LinkButton)sender).Parent.Parent));
