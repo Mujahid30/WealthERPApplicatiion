@@ -1004,6 +1004,7 @@ namespace DAOAssociates
                     dr = getAssociateUserDs.Tables[0].Rows[0];
                     associatesVo.AdviserAssociateId = int.Parse((dr["AA_AdviserAssociateId"].ToString()));
                     associatesVo.AAC_AdviserAgentId = int.Parse((dr["AAC_AdviserAgentId"].ToString()));
+                    if (dr["U_UserId"].ToString()!="")
                     associatesVo.UserId = int.Parse((dr["U_UserId"].ToString()));
                     associatesVo.RMId = int.Parse(dr["AR_RMId"].ToString());
                     if (dr["RMName"] != DBNull.Value)
