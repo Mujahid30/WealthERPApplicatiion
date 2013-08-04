@@ -48,9 +48,10 @@
             <asp:DropDownList ID="ddlUserType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlUserType_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
+                <asp:ListItem Text="Associates" Value="Associates"></asp:ListItem>
                 <asp:ListItem Text="BM" Value="BM"></asp:ListItem>
                 <asp:ListItem Text="RM" Value="RM"></asp:ListItem>
-                <asp:ListItem Text="Associates" Value="Associates"></asp:ListItem>
+               
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddlUserType"
@@ -97,7 +98,7 @@
         </td>
         <td class="rightField">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="Submit"
-            OnClick="btnSubmit_Click" />
+                OnClick="btnSubmit_Click" />
         </td>
     </tr>
 </table>

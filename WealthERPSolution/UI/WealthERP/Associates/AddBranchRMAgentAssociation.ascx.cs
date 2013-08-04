@@ -57,7 +57,7 @@ namespace WealthERP.Associates
         {
             AssociatesVO associatesVo = new AssociatesVO();
             bool result = false;
-            if (Request.QueryString["AgentId"] != null)
+            if (Request.QueryString["AgentId"]!= null)
             {
                 agentId = int.Parse(Request.QueryString["AgentId"]);
                 associatesVo.AAC_AdviserAgentId = agentId;
