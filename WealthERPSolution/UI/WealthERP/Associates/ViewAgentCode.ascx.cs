@@ -43,11 +43,13 @@ namespace WealthERP.Associates
             dtGetAgentCodeAndType = dsGetAgentCodeAndType.Tables[0];
             if (dtGetAgentCodeAndType == null)
             {
+                imgexportButton.Visible = false;
                 gvAgentCodeView.DataSource = null;
                 gvAgentCodeView.DataBind();
             }
             else
             {
+                imgexportButton.Visible = true;
                 gvAgentCodeView.DataSource = dtGetAgentCodeAndType;
                 gvAgentCodeView.DataBind();
                 if (Cache["gvAgentCodeView" + userVo.UserId + userType] == null)
@@ -70,6 +72,16 @@ namespace WealthERP.Associates
 
             pnlAgentCodeView.Visible = true;
             gvAgentCodeView.Visible = false;
+        }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvAgentCodeView.ExportSettings.OpenInNewWindow = true;
+            gvAgentCodeView.ExportSettings.IgnorePaging = true;
+            gvAgentCodeView.ExportSettings.HideStructureColumns = true;
+            gvAgentCodeView.ExportSettings.ExportOnlyData = true;
+            gvAgentCodeView.ExportSettings.FileName = "AgentCode View";
+            gvAgentCodeView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvAgentCodeView.MasterTableView.ExportToExcel();
         }
     }
 }

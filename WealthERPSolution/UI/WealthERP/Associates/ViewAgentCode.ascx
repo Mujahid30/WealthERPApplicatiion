@@ -13,6 +13,12 @@
                         </td>
                         <td align="right" style="padding-bottom: 2px;">
                         </td>
+                         <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
