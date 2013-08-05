@@ -128,6 +128,42 @@
 
     
 </script>
+<script type="text/javascript">
+    function chkPanExists() {
+        $("#<%= hidValidCheck.ClientID %>").val("0");
+        if ($("#<%=txtPanNum.ClientID %>").val() == "") {
+            $("#spnLoginStatus").html("");
+            return;
+        }
+        $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "ControlHost.aspx/CheckPANNoAvailabilityForAssociates",
+            data: "{ 'PanNumber': '" + $("#<%=txtPanNum.ClientID %>").val() + "','adviserId': '" + $("#<%=hdnAdviserID.ClientID %>").val() + "' }",
+            error: function(xhr, status, error) {
+                
+            },
+            success: function(msg) {
+            alert(msg.d);
+
+                if (msg.d) {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("1");
+                }
+                else {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("0");
+                    $("#spnLoginStatus").removeClass();
+                    alert("Pan Number Already Exists");
+                    return false;
+                }
+
+            }
+        });
+    }
+</script>
 
 <style type="text/css">
     .table
@@ -224,6 +260,9 @@
         padding-right: 5px;
     }
 </style>
+
+
+
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -398,13 +437,15 @@
                                 <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper"></asp:TextBox>
+                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper" onblur="return chkPanExists()"></asp:TextBox>
                                 <span id="spnLoginStatus"></span>
                                 <br />
-                                <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNum" ErrorMessage="Please enter a PAN Number"
-                                    Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                </asp:RequiredFieldValidator>
-                                <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists" Visible="false"></asp:Label>
+                                <asp:CustomValidator ID="cvPanOrName" runat="server" ValidationGroup="Submit"
+                                    Display="Dynamic" ClientValidationFunction="chkPanorCustomerNameRequired" CssClass="revPCG"
+                                    ErrorMessage="CustomValidator">Either Name or Pan Number is must</asp:CustomValidator>
+                                <asp:RegularExpressionValidator ID="revPANNum" ControlToValidate="txtPanNum" ValidationGroup="Submit"
+                                    ErrorMessage="Not A Valid PAN" Display="Dynamic" runat="server" ValidationExpression="^[0-9a-zA-Z]+$"
+                                    CssClass="revPCG"></asp:RegularExpressionValidator>
                             </td>
                             <td align="right">
                                 <asp:Label ID="lblEmailId" runat="server" CssClass="FieldName" Text="Email Id: "></asp:Label>
@@ -536,7 +577,8 @@
                         <div class="fltlft">
                             &nbsp;
                             <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtStage2" runat="server" Text="Detailed Information/Codegeneration" CssClass="txtField"></asp:Label>
+                            <asp:Label ID="txtStage2" runat="server" Text="Detailed Information/Codegeneration"
+                                CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
@@ -699,8 +741,7 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlStepstatus3" runat="server" AutoPostBack="true" CssClass="cmbField"
-                                    Enabled="false" 
-                                    onselectedindexchanged="ddlStepstatus3_SelectedIndexChanged">
+                                    Enabled="false" OnSelectedIndexChanged="ddlStepstatus3_SelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="rfvddlStepStatus3" runat="server" CssClass="rfvPCG"
@@ -728,8 +769,7 @@
                             </td>
                             <td class="leftLabel">
                                 <asp:Button ID="btnSubmitStep3" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage3"
-                                    CausesValidation="true" CssClass="PCGButton" Visible="false" 
-                                    onclick="btnSubmitStep3_Click1" />
+                                    CausesValidation="true" CssClass="PCGButton" Visible="false" OnClick="btnSubmitStep3_Click1" />
                             </td>
                             <td colspan="5">
                             </td>
@@ -742,3 +782,5 @@
     <Triggers>
     </Triggers>
 </asp:UpdatePanel>
+<asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
+<asp:HiddenField ID="hdnAdviserID" runat="server" />

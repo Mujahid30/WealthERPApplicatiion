@@ -45,6 +45,7 @@ namespace WealthERP.Associates
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
+            hdnAdviserID.Value = advisorVo.advisorId.ToString();
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
@@ -609,8 +610,8 @@ namespace WealthERP.Associates
                 associatesVo.UserId = associatesIds[0];
                 associatesVo.AdviserAssociateId = associatesIds[1];
                 txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
-                Session["userId"] = associatesVo.UserId;
-                Session["associatesId"] = associatesVo.AdviserAssociateId;
+                //Session["userId"] = associatesVo.UserId;
+                //Session["associatesId"] = associatesVo.AdviserAssociateId;
                 Session["AdviserAgentId"] = associatesVo.AAC_AdviserAgentId;
                 //------------------------ To create User role Association-----------------------
                 userBo.CreateRoleAssociation(associatesVo.UserId, 1009);

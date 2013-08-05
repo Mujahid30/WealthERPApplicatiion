@@ -365,22 +365,22 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.TextBox txtPanNum;
         
         /// <summary>
-        /// rfvPanNumber control.
+        /// cvPanOrName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPanNumber;
+        protected global::System.Web.UI.WebControls.CustomValidator cvPanOrName;
         
         /// <summary>
-        /// lblPanDuplicate control.
+        /// revPANNum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPANNum;
         
         /// <summary>
         /// lblEmailId control.
@@ -903,5 +903,23 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitStep3;
+        
+        /// <summary>
+        /// hidValidCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidValidCheck;
+        
+        /// <summary>
+        /// hdnAdviserID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAdviserID;
     }
 }
