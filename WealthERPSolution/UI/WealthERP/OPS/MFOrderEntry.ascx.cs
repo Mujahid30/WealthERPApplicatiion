@@ -17,6 +17,7 @@ using BoUploads;
 using Telerik.Web.UI;
 using BoProductMaster;
 using BoOps;
+using BOAssociates;
 using System.Configuration;
 using VoOps;
 using iTextSharp.text.pdf;
@@ -39,6 +40,8 @@ namespace WealthERP.OPS
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
         RMVo rmVo = new RMVo();
+        AssociatesBo associatesBo = new AssociatesBo();
+
 
         string path;
         DataTable dtBankName = new DataTable();
@@ -78,6 +81,8 @@ namespace WealthERP.OPS
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                userType = "rm";
             if (Session["mforderVo"] != null && Session["orderVo"] != null)
             {
                 mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -89,6 +94,7 @@ namespace WealthERP.OPS
             {
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
+                BindAssociate(userType);
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
@@ -193,6 +199,25 @@ namespace WealthERP.OPS
             }
             ddlARNNo.Items.Insert(0, new ListItem("Select", "Select"));
         }
+
+        private void BindAssociate(string userRole)
+        {
+            DataTable dtAssociateList=new DataTable();
+            if (userRole.ToLower() == "rm")
+                dtAssociateList = associatesBo.GetRMAssociatesList(rmVo.RMId);
+            else if (userRole.ToLower() == "ops" || userRole.ToLower() == "advisor")
+                dtAssociateList = associatesBo.GetAssociatesList(advisorVo.advisorId);
+
+            if (dtAssociateList.Rows.Count > 0)
+            {
+                ddlAssociate.DataSource = dtAssociateList;
+                ddlAssociate.DataValueField = dtAssociateList.Columns["AA_AdviserAssociateId"].ToString();
+                ddlAssociate.DataTextField = dtAssociateList.Columns["AA_ContactPersonName"].ToString();
+                ddlAssociate.DataBind();
+            }
+            ddlAssociate.Items.Insert(0, new ListItem("Select", "0"));
+        }
+
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
@@ -245,6 +270,7 @@ namespace WealthERP.OPS
                     txtstartDateSTP.SelectedDate = null;
                     txtendDateSTP.SelectedDate = null;
                     txtNewAmount.Text = "";
+                    ddlAssociate.SelectedIndex = 0;
                 }
             }
             else if (action == "Edit")
@@ -252,6 +278,8 @@ namespace WealthERP.OPS
                 if (mforderVo != null && orderVo != null)
                 {
                     SetEditViewMode(false);
+                    if (orderVo.AssociationId!=0)
+                        ddlAssociate.SelectedValue = orderVo.AssociationId.ToString();
                     orderId = orderVo.OrderId;
                     txtCustomerName.Enabled = false;
                     txtCustomerName.Text = mforderVo.CustomerName;
@@ -1946,6 +1974,9 @@ namespace WealthERP.OPS
             }
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
+            if (ddlAssociate.SelectedIndex != 0)
+                mforderVo.AssociateId = Convert.ToInt32(ddlAssociate.SelectedValue);
+
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
 
@@ -2033,7 +2064,7 @@ namespace WealthERP.OPS
 
                 btnSubmit.Enabled = false;
                 btnAddMore.Visible = false;
-
+                ddlAssociate.Enabled = false; 
 
             }
             else
@@ -2091,7 +2122,7 @@ namespace WealthERP.OPS
 
                 btnSubmit.Enabled = true;
                 btnAddMore.Visible = false;
-
+                ddlAssociate.Enabled = true; 
             }
 
 
@@ -2317,6 +2348,9 @@ namespace WealthERP.OPS
             mforderVo.Country = ddlCorrAdrCountry.SelectedValue;
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
+
+            if (ddlAssociate.SelectedIndex != 0)
+                mforderVo.AssociateId = Convert.ToInt32(ddlAssociate.SelectedValue);
         }
 
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)

@@ -160,12 +160,18 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_Units", DbType.Double, mforderVo.Units);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_Units", DbType.Double, DBNull.Value);
+
                 if (!string.IsNullOrEmpty(mforderVo.ARNNo.ToString().Trim()))
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, mforderVo.ARNNo);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
+
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
+                if (mforderVo.AssociateId !=0)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@AssociateId", DbType.Int32, mforderVo.AssociateId);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@AssociateId", DbType.Int32, DBNull.Value);
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
@@ -341,6 +347,10 @@ namespace DaoOps
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_ARNNo", DbType.String, DBNull.Value);
 
+                if (mforderVo.AssociateId != 0)
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@AssociateId", DbType.Int32, mforderVo.AssociateId);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@AssociateId", DbType.Int32, DBNull.Value);
 
                 db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
             }

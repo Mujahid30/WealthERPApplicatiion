@@ -319,5 +319,31 @@ namespace BOAssociates
             }
             return associatesVo;
         }
+
+        public DataTable GetRMAssociatesList(int rmId)
+        {
+            DataTable dtGetAgentlist;
+            try
+            {
+                dtGetAgentlist = associatesDao.GetRMAssociatesList(rmId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetRMAssociatesList()");
+                object[] objects = new object[1];
+                objects[0] = rmId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetAgentlist;
+        }
     }
 }

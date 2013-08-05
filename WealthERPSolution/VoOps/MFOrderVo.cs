@@ -45,6 +45,7 @@ namespace VoOps
         private DateTime m_EndDate;
         private string m_PanNo;
         private string m_ARNNo;
+        public int AssociateId { get; set; }
         
         #endregion
 

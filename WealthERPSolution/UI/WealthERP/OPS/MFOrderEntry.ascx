@@ -214,14 +214,15 @@
             <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false">
             </asp:DropDownList>
         </td>
         <td class="leftField" style="width: 20%">
-            
+          <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            
+            <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField" AutoPostBack="false">
+            </asp:DropDownList>
         </td>
     </tr>
     <tr id="trIsa" runat="server">
