@@ -19,11 +19,13 @@ using DanLudwig;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
+using BoSuperAdmin;
 
 namespace WealthERP.Reports
 {
     public partial class MFReports : System.Web.UI.UserControl
     {
+        SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
 
         RMVo rmVo = new RMVo();
         CustomerBo customerBo = new CustomerBo();
@@ -202,7 +204,7 @@ namespace WealthERP.Reports
         {
             try
             {
-
+                BindAdviserDropDownList();
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["UserVo"];
                 pnlGvRequestStatus.Visible = true;
@@ -216,428 +218,766 @@ namespace WealthERP.Reports
                 rdoCustomerGroup.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
 
                 rdoCustomerIndivisual.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
-
                 if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                     advisorVo = (AdvisorVo)Session["advisorVo"];
+
+                
+               
                 // cvAsOnDate.ValueToCompare = DateTime.Now.ToShortDateString();
 
                 //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
-
-                if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
+                if (userVo.UserType!="SuperAdmin")
                 {
-                    path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                    if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
-                        rmVo = (RMVo)Session[SessionContents.RmVo];
-
-                    if (Session["UserType"] != null)
+                    ddlAdviser.Visible = false;
+                      if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
                     {
-                        if (Session["UserType"].ToString() == "Customer")
-                            strFromCustomerDashBoard = true;
-                        imgBtnrgHoldings.Visible = false;
-                    }
+                        path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                        if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
+                            rmVo = (RMVo)Session[SessionContents.RmVo];
 
-
-                    if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
-                    {
-                        if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
-                            customerVo = (CustomerVo)Session["CustomerVo"];
-                        CustomerLogin = true;
-                        hndCustomerLogin.Value = "true";
-                        Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-                        //old code
-                        //tabpnlEmailReports.Visible = false;
-
-                        //new gr
-                        RadTabStrip2.Tabs[1].Visible = false;
-                        RadTabStrip2.Tabs[2].Visible = false;
-
-
-                    }
-                    else
-                    {
-                        hndCustomerLogin.Value = "false";
-                        Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-
-                    }
-
-
-                    BindPeriodDropDown();
-
-                    //if (CustomerLogin == false)
-                    //{
-                    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    //}
-
-                    #region new gr
-                    if (CustomerLogin == true)
-                    {
-                        trCustomerName.Visible = true;
-                        trIndCustomer.Visible = false;
-                        trGroupCustomer.Visible = false;
-                        IndivisulCustomerLogin();
-
-                        trAdvisorRadioList.Visible = false;
-                        trCustomerRadioList.Visible = true;
-
-                        trAdminRM.Visible = false;
-                        trCustomer.Visible = true;
-
-                        isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
-                        if (isGrpHead == false)
+                        if (Session["UserType"] != null)
                         {
-                            trCustomerRadioList.Visible = false;
-                            rdoCustomerIndivisual.Checked = true;
-                            divGroupCustomers.Visible = false;
-                            hndSelfOrGroup.Value = "self";
-                            ShowFolios();
-                        }
-                        else
-                        {
-                            rdoCustomerGroup.Checked = true;
-                            hndSelfOrGroup.Value = "";
-                        }
-
-                    }
-                    else
-                    {
-                        trCustomerName.Visible = false;
-                        trIndCustomer.Visible = true;
-                        trGroupCustomer.Visible = true;
-
-                        trAdvisorRadioList.Visible = true;
-                        trCustomerRadioList.Visible = false;
-
-                        trAdminRM.Visible = true;
-                        trCustomer.Visible = false;
-                        //if (rdoGroup.Checked)
-                        //    hdnCustomerId_ValueChanged(this, null);
-                    }
-
-
-                    //tabpnlEmailReports.Visible = false;
-                    if (CustomerLogin == false)
-                    {
-                        //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                        //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                        //{
-                        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                        //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                        //}
-                        //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                        //{
-                        //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                        //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                        //}
-
-
-                        //ListBox horizontal Scorling enabled false
-                        //old code
-                        //LBCustomer.HorizontalScrollEnabled = false;
-                        //old code
-                        //LBSelectCustomer.HorizontalScrollEnabled = false;
-
-                        CustomerBo customerBo = new CustomerBo();
-                        DataTable dtGroupCustomerList = new DataTable();
-                        //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                        {
-                            RadTabStrip2.Tabs[1].Visible = false;
-                            RadTabStrip2.Tabs[2].Visible = false;
-                            dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                            if (Session["UserType"].ToString() == "Customer")
+                                strFromCustomerDashBoard = true;
                             imgBtnrgHoldings.Visible = false;
                         }
-                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                        {
-                            //old code
-                            //tabpnlEmailReports.Visible = true;
 
-                            //new gr
-                            RadTabStrip2.Tabs[1].Visible = true;
-                            dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-                            imgBtnrgHoldings.Visible = true;
-                        }
-                        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+
+                        if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
                         {
+                            if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
+                                customerVo = (CustomerVo)Session["CustomerVo"];
+                            CustomerLogin = true;
+                            hndCustomerLogin.Value = "true";
+                            Session["hndCustomerLogin"] = hndCustomerLogin.Value;
                             //old code
                             //tabpnlEmailReports.Visible = false;
 
                             //new gr
                             RadTabStrip2.Tabs[1].Visible = false;
                             RadTabStrip2.Tabs[2].Visible = false;
-                            imgBtnrgHoldings.Visible = false;
+
+
+                        }
+                        else
+                        {
+                            hndCustomerLogin.Value = "false";
+                            Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+
                         }
 
-                        if (!Page.IsPostBack)
+
+                        BindPeriodDropDown();
+
+                        //if (CustomerLogin == false)
+                        //{
+                        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        //}
+
+                        #region new gr
+                        if (CustomerLogin == true)
                         {
-                            txtEmailAsOnDate.SelectedDate = DateTime.Now;
-                            txtEmailAsOnDate.Calendar.SpecialDays.Clear();
-                            txtEmailAsOnDate.MaxDate = DateTime.Today;
+                            trCustomerName.Visible = true;
+                            trIndCustomer.Visible = false;
+                            trGroupCustomer.Visible = false;
+                            IndivisulCustomerLogin();
 
-                            if (Session["UserType"] != null)
+                            trAdvisorRadioList.Visible = false;
+                            trCustomerRadioList.Visible = true;
+
+                            trAdminRM.Visible = false;
+                            trCustomer.Visible = true;
+
+                            isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                            if (isGrpHead == false)
                             {
-                                if (Session["UserType"].ToString().ToLower() == "adviser" || Session["UserType"].ToString().ToLower() == "ops")
-                                {
-
-                                    DataRow dr = dtGroupCustomerList.NewRow();
-                                    dr["C_FirstName"] = "CUSTOMER LIST";
-                                    dr["C_CustomerId"] = 0;
-
-                                    dtGroupCustomerList.Rows.InsertAt(dr, 0);
-
-                                    LBCustomer.DataSource = dtGroupCustomerList;
-                                    LBCustomer.DataTextField = "C_FirstName";
-                                    LBCustomer.DataValueField = "C_CustomerId";
-                                    LBCustomer.DataBind();
-                                }
+                                trCustomerRadioList.Visible = false;
+                                rdoCustomerIndivisual.Checked = true;
+                                divGroupCustomers.Visible = false;
+                                hndSelfOrGroup.Value = "self";
+                                ShowFolios();
+                            }
+                            else
+                            {
+                                rdoCustomerGroup.Checked = true;
+                                hndSelfOrGroup.Value = "";
                             }
 
                         }
-                    }
-                    #endregion
-                    ddlMFTransactionTypeBind();
-                    if (!IsPostBack)
-                    {
-                        //imgBtnrgHoldings.Visible = false;
-                        if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                        else
                         {
-                            Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                            trCustomerName.Visible = false;
+                            trIndCustomer.Visible = true;
+                            trGroupCustomer.Visible = true;
+
+                            trAdvisorRadioList.Visible = true;
+                            trCustomerRadioList.Visible = false;
+
+                            trAdminRM.Visible = true;
+                            trCustomer.Visible = false;
+                            //if (rdoGroup.Checked)
+                            //    hdnCustomerId_ValueChanged(this, null);
                         }
-                        pnlGvRequestStatus.Visible = false;
 
-                        rbtnGrp.Checked = true;
-                        rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
-                        lblNote2.Visible = true;
 
-                        #region old code
-                        //if (CustomerLogin == true)
+                        //tabpnlEmailReports.Visible = false;
+                        if (CustomerLogin == false)
+                        {
+                            //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                            //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            //{
+                            //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                            //}
+                            //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                            //{
+                            //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                            //}
+
+
+                            //ListBox horizontal Scorling enabled false
+                            //old code
+                            //LBCustomer.HorizontalScrollEnabled = false;
+                            //old code
+                            //LBSelectCustomer.HorizontalScrollEnabled = false;
+
+                            CustomerBo customerBo = new CustomerBo();
+                            DataTable dtGroupCustomerList = new DataTable();
+                            //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            {
+                                RadTabStrip2.Tabs[1].Visible = false;
+                                RadTabStrip2.Tabs[2].Visible = false;
+                                dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                                imgBtnrgHoldings.Visible = false;
+                            }
+                            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                            {
+                                //old code
+                                //tabpnlEmailReports.Visible = true;
+
+                                //new gr
+                                RadTabStrip2.Tabs[1].Visible = true;
+                                dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                                imgBtnrgHoldings.Visible = true;
+                            }
+                            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                            {
+                                //old code
+                                //tabpnlEmailReports.Visible = false;
+
+                                //new gr
+                                RadTabStrip2.Tabs[1].Visible = false;
+                                RadTabStrip2.Tabs[2].Visible = false;
+                                imgBtnrgHoldings.Visible = false;
+                            }
+
+                            if (!Page.IsPostBack)
+                            {
+                                txtEmailAsOnDate.SelectedDate = DateTime.Now;
+                                txtEmailAsOnDate.Calendar.SpecialDays.Clear();
+                                txtEmailAsOnDate.MaxDate = DateTime.Today;
+
+                                if (Session["UserType"] != null)
+                                {
+                                    if (Session["UserType"].ToString().ToLower() == "adviser" || Session["UserType"].ToString().ToLower() == "ops")
+                                    {
+
+                                        DataRow dr = dtGroupCustomerList.NewRow();
+                                        dr["C_FirstName"] = "CUSTOMER LIST";
+                                        dr["C_CustomerId"] = 0;
+
+                                        dtGroupCustomerList.Rows.InsertAt(dr, 0);
+
+                                        LBCustomer.DataSource = dtGroupCustomerList;
+                                        LBCustomer.DataTextField = "C_FirstName";
+                                        LBCustomer.DataValueField = "C_CustomerId";
+                                        LBCustomer.DataBind();
+                                    }
+                                }
+
+                            }
+                        }
+                        #endregion
+                        ddlMFTransactionTypeBind();
+                        if (!IsPostBack)
+                        {
+
+
+                            //imgBtnrgHoldings.Visible = false;
+                            if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                            {
+                                Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                            }
+                            pnlGvRequestStatus.Visible = false;
+
+                            rbtnGrp.Checked = true;
+                            rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
+                            lblNote2.Visible = true;
+
+                            #region old code
+                            //if (CustomerLogin == true)
+                            //{
+                            //    trCustomerName.Visible = true;
+                            //    trIndCustomer.Visible = false;
+                            //    trGroupCustomer.Visible = false;
+                            //    IndivisulCustomerLogin();
+
+                            //    trAdvisorRadioList.Visible = false;
+                            //    trCustomerRadioList.Visible = true;
+
+                            //    trAdminRM.Visible = false;
+                            //    trCustomer.Visible = true;
+
+                            //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                            //    if (isGrpHead == false)
+                            //    {
+                            //        trCustomerRadioList.Visible = false;
+                            //        rdoCustomerIndivisual.Checked = true;
+                            //        divGroupCustomers.Visible = false;
+                            //        hndSelfOrGroup.Value = "self";
+                            //        ShowFolios();
+                            //    }
+                            //    else
+                            //    {
+                            //        rdoCustomerGroup.Checked = true;
+                            //        hndSelfOrGroup.Value = "";
+                            //    }
+
+                            //}
+                            //else
+                            //{
+                            //    trCustomerName.Visible = false;
+                            //    trIndCustomer.Visible = true;
+                            //    trGroupCustomer.Visible = true;
+
+                            //    trAdvisorRadioList.Visible = true;
+                            //    trCustomerRadioList.Visible = false;
+
+                            //    trAdminRM.Visible = true;
+                            //    trCustomer.Visible = false;
+                            //}
+
+
+                            ////tabpnlEmailReports.Visible = false;
+                            //if (CustomerLogin == false)
+                            //{
+                            //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                            //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            //    //{
+                            //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                            //    //}
+                            //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                            //    //{
+                            //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                            //    //}
+
+
+                            //    //ListBox horizontal Scorling enabled false
+                            //    LBCustomer.HorizontalScrollEnabled = false;
+                            //    LBSelectCustomer.HorizontalScrollEnabled = false;
+
+                            //    CustomerBo customerBo = new CustomerBo();
+                            //    DataTable dtGroupCustomerList = new DataTable();
+                            //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                            //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            //    {
+                            //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                            //    }
+                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                            //    {
+                            //        tabpnlEmailReports.Visible = true;
+                            //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                            //    }
+                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                            //    {
+                            //        tabpnlEmailReports.Visible = false;
+                            //    }
+
+
+                            //    LBCustomer.DataSource = dtGroupCustomerList;
+                            //    LBCustomer.DataTextField = "C_FirstName";
+                            //    LBCustomer.DataValueField = "C_CustomerId";
+                            //    LBCustomer.DataBind();
+                            //}
+                            #endregion
+
+                            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                            DataSet ds = customerTransactionBo.GetLastMFTradeDate();
+                            DateTime AsonDate = new DateTime();
+
+                            if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
+                            {
+                                //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
+                                //AsonDate = AsonDate.AddDays(-1);
+
+                                //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
+                                //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                            }
+                            //Transaction Subreport search invissible intitialy..
+                            //trTranFilter1.Visible = false;
+                            //trTranFilter2.Visible = false;
+
+                            //old code
+                            //tabViewAndEmailReports.ActiveTabIndex = 0;
+
+                            //new gr
+                            RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
+                            tabViewAndEmailReports.SelectedIndex = 0;
+
+                            //ShowFolios();
+                            advisorId = advisorVo.advisorId;
+                            //---------------------------------- Old code to get last Valuation date from History----
+                            //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                            //hdnValuationDate.Value = LatestValuationdate.ToString();
+
+                            //---------------------------------- New code to get last Valuation date----------------------
+                            if (Session[SessionContents.ValuationDate] == null)
+                                GetLatestValuationDate();
+                            genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                            LatestValuationdate = genDict[Constants.MFDate.ToString()];
+                            hdnValuationDate.Value = LatestValuationdate.ToString();
+                            txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                            txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                            txtToDate.Text = LatestValuationdate.ToShortDateString();
+                            if (LatestValuationdate != DateTime.MinValue)
+                            {
+                                txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                                txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                                txtEmailFromDate.SelectedDate = LatestValuationdate;
+                                txtEmailToDate.SelectedDate = LatestValuationdate;
+                            }
+
+                        }
+                        //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
                         //{
-                        //    trCustomerName.Visible = true;
-                        //    trIndCustomer.Visible = false;
-                        //    trGroupCustomer.Visible = false;
-                        //    IndivisulCustomerLogin();
+                        //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                        //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
+                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
 
-                        //    trAdvisorRadioList.Visible = false;
-                        //    trCustomerRadioList.Visible = true;
-
-                        //    trAdminRM.Visible = false;
-                        //    trCustomer.Visible = true;
-
-                        //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
-                        //    if (isGrpHead == false)
-                        //    {
-                        //        trCustomerRadioList.Visible = false;
-                        //        rdoCustomerIndivisual.Checked = true;
-                        //        divGroupCustomers.Visible = false;
-                        //        hndSelfOrGroup.Value = "self";
-                        //        ShowFolios();
-                        //    }
-                        //    else
-                        //    {
-                        //        rdoCustomerGroup.Checked = true;
-                        //        hndSelfOrGroup.Value = "";
-                        //    }
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
 
                         //}
                         //else
                         //{
-                        //    trCustomerName.Visible = false;
-                        //    trIndCustomer.Visible = true;
-                        //    trGroupCustomer.Visible = true;
-
-                        //    trAdvisorRadioList.Visible = true;
-                        //    trCustomerRadioList.Visible = false;
-
-                        //    trAdminRM.Visible = true;
-                        //    trCustomer.Visible = false;
+                        //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
                         //}
-
-
-                        ////tabpnlEmailReports.Visible = false;
-                        //if (CustomerLogin == false)
-                        //{
-                        //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
-                        //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                        //    //{
-                        //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                        //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                        //    //}
-                        //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                        //    //{
-                        //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                        //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-
-                        //    //}
-
-
-                        //    //ListBox horizontal Scorling enabled false
-                        //    LBCustomer.HorizontalScrollEnabled = false;
-                        //    LBSelectCustomer.HorizontalScrollEnabled = false;
-
-                        //    CustomerBo customerBo = new CustomerBo();
-                        //    DataTable dtGroupCustomerList = new DataTable();
-                        //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                        //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                        //    {
-                        //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-                        //    }
-                        //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                        //    {
-                        //        tabpnlEmailReports.Visible = true;
-                        //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-
-                        //    }
-                        //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                        //    {
-                        //        tabpnlEmailReports.Visible = false;
-                        //    }
-
-
-                        //    LBCustomer.DataSource = dtGroupCustomerList;
-                        //    LBCustomer.DataTextField = "C_FirstName";
-                        //    LBCustomer.DataValueField = "C_CustomerId";
-                        //    LBCustomer.DataBind();
-                        //}
-                        #endregion
-
-                        CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
-                        DataSet ds = customerTransactionBo.GetLastMFTradeDate();
-                        DateTime AsonDate = new DateTime();
-
-                        if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
+                        if (CustomerLogin == false)
                         {
-                            //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
-                            //AsonDate = AsonDate.AddDays(-1);
+                            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            {
+                                hidBMLogin.Value = "False";
+                                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                                txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                            }
+                            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                            {
+                                hidBMLogin.Value = "False";
+                                txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                                txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
-                            //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                            ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
-                            //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                            //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                            //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                            //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                            //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
-                        }
-                        //Transaction Subreport search invissible intitialy..
-                        //trTranFilter1.Visible = false;
-                        //trTranFilter2.Visible = false;
 
-                        //old code
-                        //tabViewAndEmailReports.ActiveTabIndex = 0;
+                            }
+                            else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                            {
+                                hidBMLogin.Value = "true";
+                                txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                                txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                                txtCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+                                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
-                        //new gr
-                        RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
-                        tabViewAndEmailReports.SelectedIndex = 0;
-
-                        //ShowFolios();
-                        advisorId = advisorVo.advisorId;
-                        //---------------------------------- Old code to get last Valuation date from History----
-                        //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                        //hdnValuationDate.Value = LatestValuationdate.ToString();
-
-                        //---------------------------------- New code to get last Valuation date----------------------
-                        if (Session[SessionContents.ValuationDate] == null)
-                            GetLatestValuationDate();
-                        genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-                        LatestValuationdate = genDict[Constants.MFDate.ToString()];
-                        hdnValuationDate.Value = LatestValuationdate.ToString();
-                        txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                        txtFromDate.Text = LatestValuationdate.ToShortDateString();
-                        txtToDate.Text = LatestValuationdate.ToShortDateString();
-                        if (LatestValuationdate != DateTime.MinValue)
-                        {
-                            txtEmailAsOnDate.SelectedDate = LatestValuationdate;
-                            txtEmailAsOnDate.SelectedDate = LatestValuationdate;
-                            txtEmailFromDate.SelectedDate = LatestValuationdate;
-                            txtEmailToDate.SelectedDate = LatestValuationdate;
+                            }
                         }
 
-                    }
-                    //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
-                    //{
-                    //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                    //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
-                    //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                    //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                    //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-
-                    //}
-                    //else
-                    //{
-                    //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
-                    //    hdnValuationDate.Value = LatestValuationdate.ToString();
-                    //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtToDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
-                    //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
-                    //}
-                    if (CustomerLogin == false)
-                    {
-                        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                        if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
                         {
-                            hidBMLogin.Value = "False";
-                            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                        }
-                        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-                        {
-                            hidBMLogin.Value = "False";
-                            txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                            activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
 
-                          
-                        }
-                        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                        {
-                            hidBMLogin.Value = "true";
-                            txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                            txtCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                            txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
+                            //old code
+                            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+
+                            //new gr
+                            RadTabStrip2.Tabs[activeTabIndex].Selected = true;
+                            tabViewAndEmailReports.SelectedIndex = 0;
                         }
                     }
 
-                    if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
+                    gvRequestStatus.Rebind();
+                    if (!IsPostBack)
                     {
-                        activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
-
-
-                        //old code
-                        //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-
-                        //new gr
-                        RadTabStrip2.Tabs[activeTabIndex].Selected = true;
-                        tabViewAndEmailReports.SelectedIndex = 0;
+                        if (Session["UserType"] != null)
+                        {
+                            if (Session["UserType"].ToString() == "adviser")
+                            {
+                                LBCustomer.Items[0].Enabled = false;
+                            }
+                        }
                     }
                 }
-
-                gvRequestStatus.Rebind();
-                if (!IsPostBack)
+                else if (userVo.UserType == "SuperAdmin")
                 {
-                    if (Session["UserType"] != null)
+                    ddlAdviser.Visible = true;
+                    RadTabStrip2.Visible = false;
+                    tabViewAndEmailReports.Visible = false;
+
+                    if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
                     {
-                        if (Session["UserType"].ToString() == "adviser")
+                        path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                       
+                      
+
+
+                            hndCustomerLogin.Value = "false";
+                            Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+
+                     
+
+
+                        BindPeriodDropDown();
+
+                        //if (CustomerLogin == false)
+                        //{
+                        //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                        //}
+
+                       
+                            trCustomerName.Visible = false;
+                            trIndCustomer.Visible = true;
+                            trGroupCustomer.Visible = true;
+
+                            trAdvisorRadioList.Visible = true;
+                            trCustomerRadioList.Visible = false;
+
+                            trAdminRM.Visible = true;
+                            trCustomer.Visible = false;
+                            //if (rdoGroup.Checked)
+                            //    hdnCustomerId_ValueChanged(this, null);
+                      
+
+
+                        //tabpnlEmailReports.Visible = false;
+                        if (CustomerLogin == false)
                         {
-                            LBCustomer.Items[0].Enabled = false;
+                            //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                            //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            //{
+                            //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                            //}
+                            //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                            //{
+                            //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                            //}
+
+
+                            //ListBox horizontal Scorling enabled false
+                            //old code
+                            //LBCustomer.HorizontalScrollEnabled = false;
+                            //old code
+                            //LBSelectCustomer.HorizontalScrollEnabled = false;
+
+                            CustomerBo customerBo = new CustomerBo();
+                            DataTable dtGroupCustomerList = new DataTable();
+                            //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                           
+                                //new gr
+                                RadTabStrip2.Tabs[1].Visible = true;
+                                dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                                imgBtnrgHoldings.Visible = true;
+                            
+                           
+                            if (!Page.IsPostBack)
+                            {
+                                txtEmailAsOnDate.SelectedDate = DateTime.Now;
+                                txtEmailAsOnDate.Calendar.SpecialDays.Clear();
+                                txtEmailAsOnDate.MaxDate = DateTime.Today;
+
+                                if (Session["UserType"] != null)
+                                {
+                                    if (Session["UserType"].ToString().ToLower() == "adviser" || Session["UserType"].ToString().ToLower() == "ops")
+                                    {
+
+                                        DataRow dr = dtGroupCustomerList.NewRow();
+                                        dr["C_FirstName"] = "CUSTOMER LIST";
+                                        dr["C_CustomerId"] = 0;
+
+                                        dtGroupCustomerList.Rows.InsertAt(dr, 0);
+
+                                        LBCustomer.DataSource = dtGroupCustomerList;
+                                        LBCustomer.DataTextField = "C_FirstName";
+                                        LBCustomer.DataValueField = "C_CustomerId";
+                                        LBCustomer.DataBind();
+                                    }
+                                }
+
+                            }
+                        }
+                        ddlMFTransactionTypeBind();
+                        if (!IsPostBack)
+                        {
+
+
+                            //imgBtnrgHoldings.Visible = false;
+                            if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                            {
+                                Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                            }
+                            pnlGvRequestStatus.Visible = false;
+
+                            rbtnGrp.Checked = true;
+                            rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
+                            lblNote2.Visible = true;
+
+                            #region old code
+                            //if (CustomerLogin == true)
+                            //{
+                            //    trCustomerName.Visible = true;
+                            //    trIndCustomer.Visible = false;
+                            //    trGroupCustomer.Visible = false;
+                            //    IndivisulCustomerLogin();
+
+                            //    trAdvisorRadioList.Visible = false;
+                            //    trCustomerRadioList.Visible = true;
+
+                            //    trAdminRM.Visible = false;
+                            //    trCustomer.Visible = true;
+
+                            //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                            //    if (isGrpHead == false)
+                            //    {
+                            //        trCustomerRadioList.Visible = false;
+                            //        rdoCustomerIndivisual.Checked = true;
+                            //        divGroupCustomers.Visible = false;
+                            //        hndSelfOrGroup.Value = "self";
+                            //        ShowFolios();
+                            //    }
+                            //    else
+                            //    {
+                            //        rdoCustomerGroup.Checked = true;
+                            //        hndSelfOrGroup.Value = "";
+                            //    }
+
+                            //}
+                            //else
+                            //{
+                            //    trCustomerName.Visible = false;
+                            //    trIndCustomer.Visible = true;
+                            //    trGroupCustomer.Visible = true;
+
+                            //    trAdvisorRadioList.Visible = true;
+                            //    trCustomerRadioList.Visible = false;
+
+                            //    trAdminRM.Visible = true;
+                            //    trCustomer.Visible = false;
+                            //}
+
+
+                            ////tabpnlEmailReports.Visible = false;
+                            //if (CustomerLogin == false)
+                            //{
+                            //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                            //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            //    //{
+                            //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                            //    //}
+                            //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                            //    //{
+                            //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                            //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                            //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                            //    //}
+
+
+                            //    //ListBox horizontal Scorling enabled false
+                            //    LBCustomer.HorizontalScrollEnabled = false;
+                            //    LBSelectCustomer.HorizontalScrollEnabled = false;
+
+                            //    CustomerBo customerBo = new CustomerBo();
+                            //    DataTable dtGroupCustomerList = new DataTable();
+                            //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                            //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                            //    {
+                            //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                            //    }
+                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                            //    {
+                            //        tabpnlEmailReports.Visible = true;
+                            //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                            //    }
+                            //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                            //    {
+                            //        tabpnlEmailReports.Visible = false;
+                            //    }
+
+
+                            //    LBCustomer.DataSource = dtGroupCustomerList;
+                            //    LBCustomer.DataTextField = "C_FirstName";
+                            //    LBCustomer.DataValueField = "C_CustomerId";
+                            //    LBCustomer.DataBind();
+                            //}
+                            #endregion
+
+                            CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                            DataSet ds = customerTransactionBo.GetLastMFTradeDate();
+                            DateTime AsonDate = new DateTime();
+
+                            if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
+                            {
+                                //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
+                                //AsonDate = AsonDate.AddDays(-1);
+
+                                //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
+                                //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                                //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                            }
+                            //Transaction Subreport search invissible intitialy..
+                            //trTranFilter1.Visible = false;
+                            //trTranFilter2.Visible = false;
+
+                            //old code
+                            //tabViewAndEmailReports.ActiveTabIndex = 0;
+
+                            //new gr
+                            RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
+                            tabViewAndEmailReports.SelectedIndex = 0;
+
+                            //ShowFolios();
+                            advisorId = advisorVo.advisorId;
+                            //---------------------------------- Old code to get last Valuation date from History----
+                            //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                            //hdnValuationDate.Value = LatestValuationdate.ToString();
+
+                            //---------------------------------- New code to get last Valuation date----------------------
+                            if (Session[SessionContents.ValuationDate] == null)
+                                GetLatestValuationDate();
+                            genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                            LatestValuationdate = genDict[Constants.MFDate.ToString()];
+                            hdnValuationDate.Value = LatestValuationdate.ToString();
+                            txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                            txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                            txtToDate.Text = LatestValuationdate.ToShortDateString();
+                            if (LatestValuationdate != DateTime.MinValue)
+                            {
+                                txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                                txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                                txtEmailFromDate.SelectedDate = LatestValuationdate;
+                                txtEmailToDate.SelectedDate = LatestValuationdate;
+                            }
+
+                        }
+                        //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
+                        //{
+                        //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                        //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
+                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                        //}
+                        //else
+                        //{
+                        //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                        //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                        //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
+                        //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                        //}
+                        if (CustomerLogin == false)
+                        {
+                            
+                                hidBMLogin.Value = "False";
+                                txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                                txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                                txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+
+                           
+                        }
+
+                        if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
+                        {
+                            activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
+
+
+                            //old code
+                            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+
+                            //new gr
+                            RadTabStrip2.Tabs[activeTabIndex].Selected = true;
+                            tabViewAndEmailReports.SelectedIndex = 0;
+                        }
+                    }
+
+                    gvRequestStatus.Rebind();
+                    if (!IsPostBack)
+                    {
+                        if (Session["UserType"] != null)
+                        {
+                            if (Session["UserType"].ToString() == "adviser")
+                            {
+                                LBCustomer.Items[0].Enabled = false;
+                            }
                         }
                     }
                 }
@@ -660,6 +1000,361 @@ namespace WealthERP.Reports
                 throw exBase;
             }
 
+        }
+
+        protected void BindAdviserDropDownList()
+        {
+            DataTable dtAdviserList = new DataTable();
+            dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
+
+            if (dtAdviserList.Rows.Count > 0)
+            {
+                ddlAdviser.DataSource = dtAdviserList;
+                ddlAdviser.DataTextField = "A_OrgName";
+                ddlAdviser.DataValueField = "A_AdviserId";
+                ddlAdviser.DataBind();
+            }
+            ddlAdviser.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+
+        }
+
+        protected void ddlAdviser_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            RadTabStrip2.Visible = true;
+            tabViewAndEmailReports.Visible = true;
+            RadTabStrip2.Tabs[0].Visible = true;
+            RadTabStrip2.Tabs[1].Visible = false;
+            RadTabStrip2.Tabs[2].Visible = false;
+            
+            txtCustomer.Text="";
+            txtParentCustomer.Text = "";
+            //ddlPortfolioGroup.SelectedIndex = 0;
+
+
+
+            if (ddlAdviser.SelectedValue != "Select")
+                advisorVo.advisorId = Convert.ToInt32(ddlAdviser.SelectedValue);
+
+            if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
+            {
+                path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
+                //if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
+                //    rmVo = (RMVo)Session[SessionContents.RmVo];
+
+             
+
+
+                BindPeriodDropDown();
+
+                //if (CustomerLogin == false)
+                //{
+                //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                //}
+
+                #region new gr
+                
+                    trCustomerName.Visible = false;
+                    trIndCustomer.Visible = true;
+                    trGroupCustomer.Visible = true;
+
+                    trAdvisorRadioList.Visible = true;
+                    trCustomerRadioList.Visible = false;
+
+                    trAdminRM.Visible = true;
+                    trCustomer.Visible = false;
+                    //if (rdoGroup.Checked)
+                    //    hdnCustomerId_ValueChanged(this, null);
+               
+
+                //tabpnlEmailReports.Visible = false;
+                if (CustomerLogin == false)
+                {
+                    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    //{
+                    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    //}
+                    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    //{
+                    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                    //}
+
+
+                    //ListBox horizontal Scorling enabled false
+                    //old code
+                    //LBCustomer.HorizontalScrollEnabled = false;
+                    //old code
+                    //LBSelectCustomer.HorizontalScrollEnabled = false;
+
+                    CustomerBo customerBo = new CustomerBo();
+                    DataTable dtGroupCustomerList = new DataTable();
+                    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                   
+                        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                        imgBtnrgHoldings.Visible = true;
+                    
+
+                    if (!Page.IsPostBack)
+                    {
+                        txtEmailAsOnDate.SelectedDate = DateTime.Now;
+                        txtEmailAsOnDate.Calendar.SpecialDays.Clear();
+                        txtEmailAsOnDate.MaxDate = DateTime.Today;
+
+                        if (Session["UserType"] != null)
+                        {
+                            if (Session["UserType"].ToString().ToLower() == "adviser" || Session["UserType"].ToString().ToLower() == "ops")
+                            {
+
+                                DataRow dr = dtGroupCustomerList.NewRow();
+                                dr["C_FirstName"] = "CUSTOMER LIST";
+                                dr["C_CustomerId"] = 0;
+
+                                dtGroupCustomerList.Rows.InsertAt(dr, 0);
+
+                                LBCustomer.DataSource = dtGroupCustomerList;
+                                LBCustomer.DataTextField = "C_FirstName";
+                                LBCustomer.DataValueField = "C_CustomerId";
+                                LBCustomer.DataBind();
+                            }
+                        }
+
+                    }
+                }
+                #endregion
+                ddlMFTransactionTypeBind();
+                if (!IsPostBack)
+                {
+
+
+                    //imgBtnrgHoldings.Visible = false;
+                    if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                    {
+                        Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                    }
+                    pnlGvRequestStatus.Visible = false;
+
+                    rbtnGrp.Checked = true;
+                    rdpShowRequestStausGrid.SelectedDate = DateTime.Now;
+                    lblNote2.Visible = true;
+
+                    #region old code
+                    //if (CustomerLogin == true)
+                    //{
+                    //    trCustomerName.Visible = true;
+                    //    trIndCustomer.Visible = false;
+                    //    trGroupCustomer.Visible = false;
+                    //    IndivisulCustomerLogin();
+
+                    //    trAdvisorRadioList.Visible = false;
+                    //    trCustomerRadioList.Visible = true;
+
+                    //    trAdminRM.Visible = false;
+                    //    trCustomer.Visible = true;
+
+                    //    isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
+                    //    if (isGrpHead == false)
+                    //    {
+                    //        trCustomerRadioList.Visible = false;
+                    //        rdoCustomerIndivisual.Checked = true;
+                    //        divGroupCustomers.Visible = false;
+                    //        hndSelfOrGroup.Value = "self";
+                    //        ShowFolios();
+                    //    }
+                    //    else
+                    //    {
+                    //        rdoCustomerGroup.Checked = true;
+                    //        hndSelfOrGroup.Value = "";
+                    //    }
+
+                    //}
+                    //else
+                    //{
+                    //    trCustomerName.Visible = false;
+                    //    trIndCustomer.Visible = true;
+                    //    trGroupCustomer.Visible = true;
+
+                    //    trAdvisorRadioList.Visible = true;
+                    //    trCustomerRadioList.Visible = false;
+
+                    //    trAdminRM.Visible = true;
+                    //    trCustomer.Visible = false;
+                    //}
+
+
+                    ////tabpnlEmailReports.Visible = false;
+                    //if (CustomerLogin == false)
+                    //{
+                    //    //This for Customer Search AutoCompelete TextBox Dynamic Assign Service Method.
+                    //    //if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    //    //{
+                    //    //    txtCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    //    //    txtParentCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                    //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+                    //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+                    //    //}
+                    //    //else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+                    //    //{
+                    //    //    txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    //    //    txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    //    //    txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    //    //    txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+                    //    //}
+
+
+                    //    //ListBox horizontal Scorling enabled false
+                    //    LBCustomer.HorizontalScrollEnabled = false;
+                    //    LBSelectCustomer.HorizontalScrollEnabled = false;
+
+                    //    CustomerBo customerBo = new CustomerBo();
+                    //    DataTable dtGroupCustomerList = new DataTable();
+                    //    //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                    //    if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                    //    {
+                    //        dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                    //    }
+                    //    else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                    //    {
+                    //        tabpnlEmailReports.Visible = true;
+                    //        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                    //    }
+                    //    else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+                    //    {
+                    //        tabpnlEmailReports.Visible = false;
+                    //    }
+
+
+                    //    LBCustomer.DataSource = dtGroupCustomerList;
+                    //    LBCustomer.DataTextField = "C_FirstName";
+                    //    LBCustomer.DataValueField = "C_CustomerId";
+                    //    LBCustomer.DataBind();
+                    //}
+                    #endregion
+
+                    CustomerTransactionBo customerTransactionBo = new CustomerTransactionBo();
+                    DataSet ds = customerTransactionBo.GetLastMFTradeDate();
+                    DateTime AsonDate = new DateTime();
+
+                    if (ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0]["WTD_Date"] != null)
+                    {
+                        //AsonDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]);
+                        //AsonDate = AsonDate.AddDays(-1);
+
+                        //txtAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        ////txtAsOnDate1 = DateTime.Parse(txtAsOnDate.Text.ToString());
+                        //txtFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtEmailAsOnDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtEmailFromDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                        //txtEmailToDate.Text = Convert.ToDateTime(ds.Tables[0].Rows[0]["WTD_Date"]).ToShortDateString();
+                    }
+                    //Transaction Subreport search invissible intitialy..
+                    //trTranFilter1.Visible = false;
+                    //trTranFilter2.Visible = false;
+
+                    //old code
+                    //tabViewAndEmailReports.ActiveTabIndex = 0;
+
+                    //new gr
+                    RadTabStrip2.Tabs.FindTabByValue("tabpnlViewReports").Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+
+                    //ShowFolios();
+                    advisorId = advisorVo.advisorId;
+                    //---------------------------------- Old code to get last Valuation date from History----
+                    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                    //hdnValuationDate.Value = LatestValuationdate.ToString();
+
+                    //---------------------------------- New code to get last Valuation date----------------------
+                    if (Session[SessionContents.ValuationDate] == null)
+                        GetLatestValuationDate();
+                    genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+                    LatestValuationdate = genDict[Constants.MFDate.ToString()];
+                    hdnValuationDate.Value = LatestValuationdate.ToString();
+                    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                    if (LatestValuationdate != DateTime.MinValue)
+                    {
+                        txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                        txtEmailAsOnDate.SelectedDate = LatestValuationdate;
+                        txtEmailFromDate.SelectedDate = LatestValuationdate;
+                        txtEmailToDate.SelectedDate = LatestValuationdate;
+                    }
+
+                }
+                //if (ddlReportSubType.SelectedValue.ToString() == "RETURNS_PORTFOLIO" || ddlReportSubType.SelectedValue.ToString() == "COMPREHENSIVE" || ddlReportSubType.SelectedValue.ToString() == "CATEGORY_WISE" || ddlReportSubType.SelectedValue.ToString() == "REALIZED_REPORT")
+                //{
+                //    //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                //    LatestValuationdate = DateTime.Parse(portfolioBo.GetLatestValuationDate(advisorId, "MF").ToString());
+                //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+
+                //}
+                //else
+                //{
+                //    LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
+                //    hdnValuationDate.Value = LatestValuationdate.ToString();
+                //    txtAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtFromDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtToDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailAsOnDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailFromDate.Text = LatestValuationdate.ToShortDateString();
+                //    txtEmailToDate.Text = LatestValuationdate.ToShortDateString();
+                //}
+                if (CustomerLogin == false)
+                {
+                  
+                        hidBMLogin.Value = "False";
+                        txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                        txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+
+
+                    
+                    
+                }
+
+                if (IsPostBack && !string.IsNullOrEmpty(Request.Form["ctrl_MFReports$hidTabIndex"]))
+                {
+                    activeTabIndex = Convert.ToInt32(Request.Form["ctrl_MFReports$hidTabIndex"]);
+
+
+                    //old code
+                    //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+
+                    //new gr
+                    RadTabStrip2.Tabs[activeTabIndex].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
+            }
+
+            gvRequestStatus.Rebind();
+            if (!IsPostBack)
+            {
+                if (Session["UserType"] != null)
+                {
+                    if (Session["UserType"].ToString() == "adviser")
+                    {
+                        LBCustomer.Items[0].Enabled = false;
+                    }
+                }
+            }
         }
 
         private void GetLatestValuationDate()
@@ -1250,114 +1945,219 @@ namespace WealthERP.Reports
         {
             //old code
             //LBSelectCustomer.Items.Clear();
-            LBCustomer.Items.Clear();
-            string controlName = this.Request.Params.Get("__EVENTTARGET");
-
-            if (controlName != "ctrl_MFReports$btnEmailReport")
+            if (userVo.UserType != "SuperAdmin")
             {
-                 RadListBoxDestination.Items.Clear();
+                LBCustomer.Items.Clear();
+                string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+                if (controlName != "ctrl_MFReports$btnEmailReport")
+                {
+                    RadListBoxDestination.Items.Clear();
+                }
+
+                CustomerBo customerBo = new CustomerBo();
+                DataTable dtGroupCustomerList = new DataTable();
+
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                {
+
+                    dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                }
+
+                DataRow dr = dtGroupCustomerList.NewRow();
+                if (dtGroupCustomerList.Rows.Count != 0)
+                {
+                    dr["C_FirstName"] = "CUSTOMER LIST";
+                    dr["C_CustomerId"] = 0;
+
+                    dtGroupCustomerList.Rows.InsertAt(dr, 0);
+                    LBCustomer.DataSource = dtGroupCustomerList;
+                    LBCustomer.DataTextField = "C_FirstName";
+                    LBCustomer.DataValueField = "C_CustomerId";
+                    LBCustomer.DataBind();
+
+                    LBCustomer.Items[0].Enabled = false;
+                }
+                //old code
+                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+                //new gr
+                if (RadTabStrip2.Tabs[1].Selected != false)
+                {
+                    RadTabStrip2.Tabs[1].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadTabStrip2.Tabs[0].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
             }
-           
-            CustomerBo customerBo = new CustomerBo();
-            DataTable dtGroupCustomerList = new DataTable();
-
-            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            else
             {
-                dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                LBCustomer.Items.Clear();
+                string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+                if (controlName != "ctrl_MFReports$btnEmailReport")
+                {
+                    RadListBoxDestination.Items.Clear();
+                }
+
+                CustomerBo customerBo = new CustomerBo();
+                DataTable dtGroupCustomerList = new DataTable();
+
+                
+
+                    dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                
+
+                DataRow dr = dtGroupCustomerList.NewRow();
+                if (dtGroupCustomerList.Rows.Count != 0)
+                {
+                    dr["C_FirstName"] = "CUSTOMER LIST";
+                    dr["C_CustomerId"] = 0;
+
+                    dtGroupCustomerList.Rows.InsertAt(dr, 0);
+                    LBCustomer.DataSource = dtGroupCustomerList;
+                    LBCustomer.DataTextField = "C_FirstName";
+                    LBCustomer.DataValueField = "C_CustomerId";
+                    LBCustomer.DataBind();
+
+                    LBCustomer.Items[0].Enabled = false;
+                }
+                //old code
+                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+                //new gr
+                if (RadTabStrip2.Tabs[1].Selected != false)
+                {
+                    RadTabStrip2.Tabs[1].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadTabStrip2.Tabs[0].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
+
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+        }
+
+        protected void rbnIndivisual_CheckedChanged(object sender, EventArgs e)
+        {
+            if (userVo.UserType != "SuperAdmin")
             {
+                //old code
+                //LBSelectCustomer.Items.Clear();
+                LBCustomer.Items.Clear();
+                string controlName = this.Request.Params.Get("__EVENTTARGET");
 
-                dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                if (controlName != "ctrl_MFReports$btnEmailReport")
+                {
+                    RadListBoxDestination.Items.Clear();
+                }
+                CustomerBo customerBo = new CustomerBo();
+                DataTable dtIndiviCustomerList = new DataTable();
 
-            }
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    dtIndiviCustomerList = customerBo.GetAllRMMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                {
 
-            DataRow dr = dtGroupCustomerList.NewRow();
-            if (dtGroupCustomerList.Rows.Count != 0)
-            {
+                    dtIndiviCustomerList = customerBo.GetAdviserCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+                }
+
+
+
+                DataRow dr = dtIndiviCustomerList.NewRow();
                 dr["C_FirstName"] = "CUSTOMER LIST";
                 dr["C_CustomerId"] = 0;
 
-                dtGroupCustomerList.Rows.InsertAt(dr, 0);
-                LBCustomer.DataSource = dtGroupCustomerList;
+                dtIndiviCustomerList.Rows.InsertAt(dr, 0);
+
+                LBCustomer.DataSource = dtIndiviCustomerList;
                 LBCustomer.DataTextField = "C_FirstName";
                 LBCustomer.DataValueField = "C_CustomerId";
                 LBCustomer.DataBind();
 
                 LBCustomer.Items[0].Enabled = false;
-            }
-            //old code
-            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
-            //new gr
-            if (RadTabStrip2.Tabs[1].Selected != false)
-            {
-                RadTabStrip2.Tabs[1].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 1;
+                //old code
+                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+                //new gr
+                if (RadTabStrip2.Tabs[1].Selected != false)
+                {
+                    RadTabStrip2.Tabs[1].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadTabStrip2.Tabs[0].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
+
             }
             else
-            {
-                RadTabStrip2.Tabs[0].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 0;
-            }
+            { //old code
+                //LBSelectCustomer.Items.Clear();
+                LBCustomer.Items.Clear();
+                string controlName = this.Request.Params.Get("__EVENTTARGET");
 
-        }
-
-        protected void rbnIndivisual_CheckedChanged(object sender, EventArgs e)
-        {
-            //old code
-            //LBSelectCustomer.Items.Clear();
-            LBCustomer.Items.Clear();
-                        string controlName = this.Request.Params.Get("__EVENTTARGET");
-
-                        if (controlName != "ctrl_MFReports$btnEmailReport")
-                        {
-                            RadListBoxDestination.Items.Clear();
-                        }
+                if (controlName != "ctrl_MFReports$btnEmailReport")
+                {
+                    RadListBoxDestination.Items.Clear();
+                }
                 CustomerBo customerBo = new CustomerBo();
-            DataTable dtIndiviCustomerList = new DataTable();
+                DataTable dtIndiviCustomerList = new DataTable();
 
-            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-            {
-                dtIndiviCustomerList = customerBo.GetAllRMMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+               
+
+                    dtIndiviCustomerList = customerBo.GetAdviserCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+               
+
+
+
+                DataRow dr = dtIndiviCustomerList.NewRow();
+                dr["C_FirstName"] = "CUSTOMER LIST";
+                dr["C_CustomerId"] = 0;
+
+                dtIndiviCustomerList.Rows.InsertAt(dr, 0);
+
+                LBCustomer.DataSource = dtIndiviCustomerList;
+                LBCustomer.DataTextField = "C_FirstName";
+                LBCustomer.DataValueField = "C_CustomerId";
+                LBCustomer.DataBind();
+
+                LBCustomer.Items[0].Enabled = false;
+
+                //old code
+                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+                //new gr
+                if (RadTabStrip2.Tabs[1].Selected != false)
+                {
+                    RadTabStrip2.Tabs[1].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadTabStrip2.Tabs[0].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
+
+
             }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-            {
-
-                dtIndiviCustomerList = customerBo.GetAdviserCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
-
-            }
-
-
-
-            DataRow dr = dtIndiviCustomerList.NewRow();
-            dr["C_FirstName"] = "CUSTOMER LIST";
-            dr["C_CustomerId"] = 0;
-
-            dtIndiviCustomerList.Rows.InsertAt(dr, 0);
-
-            LBCustomer.DataSource = dtIndiviCustomerList;
-            LBCustomer.DataTextField = "C_FirstName";
-            LBCustomer.DataValueField = "C_CustomerId";
-            LBCustomer.DataBind();
-
-            LBCustomer.Items[0].Enabled = false;
-
-            //old code
-            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
-
-            //new gr
-            if (RadTabStrip2.Tabs[1].Selected != false)
-            {
-                RadTabStrip2.Tabs[1].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 1;
-            }
-            else
-            {
-                RadTabStrip2.Tabs[0].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 0;
-            }
-
 
         }
 
@@ -1410,57 +2210,109 @@ namespace WealthERP.Reports
 
         protected void rbnAllCustomer_CheckedChanged(object sender, EventArgs e)
         {
-            //old code
-            //LBSelectCustomer.Items.Clear();
-            LBCustomer.Items.Clear();
-                        string controlName = this.Request.Params.Get("__EVENTTARGET");
+            if (userVo.UserType != "SuperAdmin")
+            {
+                //old code
+                //LBSelectCustomer.Items.Clear();
+                LBCustomer.Items.Clear();
+                string controlName = this.Request.Params.Get("__EVENTTARGET");
 
-                        if (controlName != "ctrl_MFReports$btnEmailReport")
-                        {
-                            RadListBoxDestination.Items.Clear();
-                        }
+                if (controlName != "ctrl_MFReports$btnEmailReport")
+                {
+                    RadListBoxDestination.Items.Clear();
+                }
                 CustomerBo customerBo = new CustomerBo();
-            DataTable dtIndiviCustomerList = new DataTable();
+                DataTable dtIndiviCustomerList = new DataTable();
 
-            if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-            {
-                dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
-            }
-            else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
-            {
+                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+                {
+                    dtIndiviCustomerList = customerBo.GetMemberCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
+                {
 
-                dtIndiviCustomerList = customerBo.GetAllCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                    dtIndiviCustomerList = customerBo.GetAllCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
 
-            }
+                }
 
-            DataRow dr = dtIndiviCustomerList.NewRow();
-            dr["C_FirstName"] = "CUSTOMER LIST";
-            dr["C_CustomerId"] = 0;
+                DataRow dr = dtIndiviCustomerList.NewRow();
+                dr["C_FirstName"] = "CUSTOMER LIST";
+                dr["C_CustomerId"] = 0;
 
-            dtIndiviCustomerList.Rows.InsertAt(dr, 0);
+                dtIndiviCustomerList.Rows.InsertAt(dr, 0);
 
-            LBCustomer.DataSource = dtIndiviCustomerList;
-            LBCustomer.DataTextField = "C_FirstName";
-            LBCustomer.DataValueField = "C_CustomerId";
-            LBCustomer.DataBind();
+                LBCustomer.DataSource = dtIndiviCustomerList;
+                LBCustomer.DataTextField = "C_FirstName";
+                LBCustomer.DataValueField = "C_CustomerId";
+                LBCustomer.DataBind();
 
-            LBCustomer.Items[0].Enabled = false;
-            
-            //old code
-            //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+                LBCustomer.Items[0].Enabled = false;
 
-            //new gr
+                //old code
+                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
 
-            //new gr
-            if (RadTabStrip2.Tabs[1].Selected != false)
-            {
-                RadTabStrip2.Tabs[1].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 1;
+                //new gr
+
+                //new gr
+                if (RadTabStrip2.Tabs[1].Selected != false)
+                {
+                    RadTabStrip2.Tabs[1].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadTabStrip2.Tabs[0].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
             }
             else
-            {
-                RadTabStrip2.Tabs[0].Selected = true;
-                tabViewAndEmailReports.SelectedIndex = 0;
+            { //old code
+                //LBSelectCustomer.Items.Clear();
+                LBCustomer.Items.Clear();
+                string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+                if (controlName != "ctrl_MFReports$btnEmailReport")
+                {
+                    RadListBoxDestination.Items.Clear();
+                }
+                CustomerBo customerBo = new CustomerBo();
+                DataTable dtIndiviCustomerList = new DataTable();
+
+             
+
+                    dtIndiviCustomerList = customerBo.GetAllCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+
+               
+                DataRow dr = dtIndiviCustomerList.NewRow();
+                dr["C_FirstName"] = "CUSTOMER LIST";
+                dr["C_CustomerId"] = 0;
+
+                dtIndiviCustomerList.Rows.InsertAt(dr, 0);
+
+                LBCustomer.DataSource = dtIndiviCustomerList;
+                LBCustomer.DataTextField = "C_FirstName";
+                LBCustomer.DataValueField = "C_CustomerId";
+                LBCustomer.DataBind();
+
+                LBCustomer.Items[0].Enabled = false;
+
+                //old code
+                //tabViewAndEmailReports.ActiveTabIndex = activeTabIndex;
+
+                //new gr
+
+                //new gr
+                if (RadTabStrip2.Tabs[1].Selected != false)
+                {
+                    RadTabStrip2.Tabs[1].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 1;
+                }
+                else
+                {
+                    RadTabStrip2.Tabs[0].Selected = true;
+                    tabViewAndEmailReports.SelectedIndex = 0;
+                }
+
             }
 
         }

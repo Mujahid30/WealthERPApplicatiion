@@ -709,7 +709,7 @@
 </telerik:RadAjaxManager>
 <table width="100%" class="TableBackground" style="padding-bottom: 6px;">
     <tr>
-        <td>
+        <td colspan="2">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
@@ -724,6 +724,16 @@
                     </tr>
                 </table>
             </div>
+        </td>
+    </tr>
+    <tr id="trAdviserSelection" runat="server">
+        <td class="leftField">
+            <asp:Label ID="lblAdviser" CssClass="FieldName" runat="server" Text="Please Select Adviser:"></asp:Label>
+        </td>
+        <td id="tdDdlAdviser" runat="server" align="left">
+            <asp:DropDownList ID="ddlAdviser" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAdviser_OnSelectedIndexChanged">
+            </asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -823,13 +833,10 @@
                                     <td id="Td2" runat="server">
                                         <asp:Label ID="lblGrpOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                             Text="Generate report for :"></asp:Label>
-                                        
-                                        
                                         <asp:RadioButton runat="server" ID="rdoGroup" Text="Group" Class="cmbField" GroupName="GrpOrInd"
                                             Checked="True" onClick="ChangeCustomerSelectionTextBox('Group')" />
                                         <asp:RadioButton runat="server" ID="rdoIndividual" Text="Individual" Class="cmbField"
                                             GroupName="GrpOrInd" onClick="return ChangeCustomerSelectionTextBox('Individual')" />
-                                            
                                     </td>
                                     <td id="Td3" runat="server">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -913,8 +920,8 @@
                                         <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Portfolio: "></asp:Label>
                                         <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolioGroup_SelectedIndexChanged"
                                             AutoPostBack="True">
-                                                 <asp:ListItem Text="Select" Value="Select" Selected="True"  ></asp:ListItem>
-                                            <asp:ListItem Text="Managed" Value="MANAGED"  ></asp:ListItem>
+                                            <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
+                                            <asp:ListItem Text="Managed" Value="MANAGED"></asp:ListItem>
                                             <asp:ListItem Text="UnManaged" Value="UN_MANAGED"></asp:ListItem>
                                             <asp:ListItem Text="All" Value="ALL"></asp:ListItem>
                                         </asp:DropDownList>
