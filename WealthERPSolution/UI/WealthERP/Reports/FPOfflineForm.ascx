@@ -15,7 +15,7 @@
             window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=2";
         } else {
-            window.document.forms[0].target = '_blank';
+//            window.document.forms[0].target = '_blank';
             window.document.forms[0].action = "/Reports/Display.aspx?mail=0";
         }
 
