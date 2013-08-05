@@ -4629,11 +4629,11 @@ namespace WealthERP.Uploads
             {
                 Response.Redirect("Standard Upload Files/BSEForOdin.xlsx");
             }
-            else if (File9.Checked)
-            {
+            //else if (File9.Checked)
+            //{
 
-                Response.Redirect("Standard Upload Files/ProfileMFFolio.xlsx");
-            }
+            //    Response.Redirect("Standard Upload Files/ProfileMFFolio.xlsx");
+            //}
             else if (File10.Checked)
             {
 

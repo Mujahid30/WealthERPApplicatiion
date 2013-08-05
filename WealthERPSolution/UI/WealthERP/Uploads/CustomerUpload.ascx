@@ -41,7 +41,7 @@
             rdButton.checked = true;
         }
         else if (a == 'PMFF' && b == 'WPT') {
-            var rdButton = document.getElementById('<%= File9.ClientID %>');
+            var rdButton = document.getElementById('<%--= File9.ClientID --%>');
             rdButton.checked = true;
         }
         else if (a == 'MFT' && b == 'WPT') {
@@ -252,7 +252,7 @@
                 AutoPostBack="true" CssClass="cmbField">
                 <asp:ListItem Value="0">Select an Extract Type</asp:ListItem>
                 <%-- <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem>--%>
-                <asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>
+                <%--<asp:ListItem Value="PMFF">Profile & MF Folio</asp:ListItem>--%>
                 <asp:ListItem Value="MFT">MF Transaction</asp:ListItem>
                 <%--    <asp:ListItem Value="MFF">MF Folio Only</asp:ListItem> --%>
                 <asp:ListItem Value="EQTA">Equity Trade Account Only</asp:ListItem>
@@ -466,8 +466,8 @@
                     runat="server" />
                 <br />
                 <%--<asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
-                    runat="server" />--%>
-                <br />
+                    runat="server" />
+                <br />--%>
                 <asp:RadioButton ID="File10" Text="FI *" Checked="false" GroupName="colors" runat="server" />
                 <br />
                 <asp:RadioButton ID="File11" Text="LI *" Checked="false" GroupName="colors" runat="server" />
