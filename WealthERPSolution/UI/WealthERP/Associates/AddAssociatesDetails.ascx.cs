@@ -63,6 +63,7 @@ namespace WealthERP.Associates
                 BindClassification();
                 BindRelationship();
                 BindAssetCategory();
+                BindMaritalStatus();
                 if (viewAction == "View")
                 {
                     SetEnableDisable();
@@ -79,6 +80,16 @@ namespace WealthERP.Associates
                 }
                
             }
+        }
+
+        private void BindMaritalStatus()
+        {
+            DataTable dtMaritalStatus = XMLBo.GetMaritalStatus(path);
+            ddlMaritalStatus.DataSource = dtMaritalStatus;
+            ddlMaritalStatus.DataTextField = "MaritalStatus";
+            ddlMaritalStatus.DataValueField = "MaritalStatusCode";
+            ddlMaritalStatus.DataBind();
+            ddlMaritalStatus.Items.Insert(0, new ListItem("Select", "Selec"));
         }
 
         private void SetEnableDisable()
@@ -301,7 +312,15 @@ namespace WealthERP.Associates
 
         private void BindAssetCategory()
         {
-            DataTable dtAssetCategory = associatesBo.GetProductAssetGroup(); 
+            DataTable dtAssetCategory = associatesBo.GetProductAssetGroup();
+            if (dtAssetCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtAssetCategory;
+                ddlCategory.DataValueField = dtAssetCategory.Columns["PAG_AssetGroupCode"].ToString();
+                ddlCategory.DataTextField = dtAssetCategory.Columns["PAG_AssetGroupName"].ToString();
+                ddlCategory.DataBind();
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         private void BindRelationship()
