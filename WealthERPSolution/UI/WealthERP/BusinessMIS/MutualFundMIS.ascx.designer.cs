@@ -428,6 +428,15 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.HiddenField hdnrmId;
         
         /// <summary>
+        /// hdnAgentId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAgentId;
+        
+        /// <summary>
         /// hdnXWise control.
         /// </summary>
         /// <remarks>
@@ -462,7 +471,5 @@ namespace WealthERP.BusinessMIS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnType;
-
-        protected global::System.Web.UI.WebControls.HiddenField hdnAgentId;
     }
 }

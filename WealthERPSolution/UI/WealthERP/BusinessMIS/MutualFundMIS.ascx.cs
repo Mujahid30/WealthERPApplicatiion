@@ -70,6 +70,8 @@ namespace WealthERP.BusinessMIS
         int SchemeCode = 0;
         string type;
 
+        DateTime QSdtCurrentDate;
+        DateTime QSdtPreviousDate;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -82,6 +84,24 @@ namespace WealthERP.BusinessMIS
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session[SessionContents.UserVo];
             associatesVo = (AssociatesVO)Session["associatesVo"];
+
+
+            if (Request.QueryString["QSdtCurrentDate"] != null)
+            {
+                
+                QSdtCurrentDate = Convert.ToDateTime(Request.QueryString["QSdtCurrentDate"].ToString());
+                txtDate.SelectedDate = QSdtCurrentDate;
+                BindAMCWISEAUMDetails();
+            }
+
+            if (Request.QueryString["QSdtPreviousDate"] != null)
+            {
+                QSdtCurrentDate = Convert.ToDateTime(Request.QueryString["QSdtCurrentDate"].ToString());
+                txtDate.SelectedDate = QSdtCurrentDate;
+                BindAMCWISEAUMDetails();
+            }
+
+
             if (advisorVo.advisorId == 1000)
             {
                 //if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
@@ -1181,9 +1201,10 @@ namespace WealthERP.BusinessMIS
                                 GridDataItem gvr = (GridDataItem)e.Item;
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int folio = int.Parse(gvr.GetDataKeyValue("CMFA_AccountId").ToString());
+                                int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
                                 if (e.CommandName == "Select")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "", false);
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "", false);
                                 }
                             }
                         }
