@@ -48,6 +48,15 @@ div#MainDivLeft
     vertical-align: middle;
     text-align: right;
 }
+.txtFieldUpper
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: x-small;
+    color: #16518A;
+    width: 145px;
+}
 .Field
 {
     font-family: Verdana,Tahoma;
