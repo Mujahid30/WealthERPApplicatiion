@@ -100,7 +100,11 @@
                 Type="Date" ControlToValidate="txtAssociateExpDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
         </td>
-        <td colspan="4">
+        <td class="leftLabel">
+            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="fieldName"></asp:Label></td>
+        <td class="rightData">
+            <asp:TextBox ID="txtAdviserAgentCode" runat="server" Enabled="False"></asp:TextBox></td>
+        <td colspan="2">
         </td>
     </tr>
 </table>
