@@ -204,6 +204,11 @@
                                 HeaderText="Id" UniqueName="WealthERP Id">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="StaffCode" SortExpression="StaffCode" AutoPostBackOnFilter="true"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderText="Employee Code" UniqueName="StaffCode">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <%--<telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText=""
                                 UniqueName="ActiveLevel">
                                 <FilterTemplate>

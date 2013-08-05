@@ -262,7 +262,7 @@ namespace WealthERP.Advisor
                     dt = ds.Tables[0];
                     trMessage.Visible = false;
                     dtAdvisorStaff.Columns.Add("UserId");
-                    dtAdvisorStaff.Columns.Add("WealthERP Id");
+                    dtAdvisorStaff.Columns.Add("WealthERP Id");                    
                     dtAdvisorStaff.Columns.Add("RMName");
                     dtAdvisorStaff.Columns.Add("StaffCode");
                     //dtAdvisorStaff.Columns.Add("RM Main Branch");
@@ -271,6 +271,7 @@ namespace WealthERP.Advisor
                     dtAdvisorStaff.Columns.Add("Email");
                     dtAdvisorStaff.Columns.Add("Mobile Number");
                     dtAdvisorStaff.Columns.Add("BranchList");
+                    dtAdvisorStaff.Columns.Add("AR_StaffCode");
                     
                     //dtAdvisorStaff.Columns.Add("Branch Name");
                     DataRow dr;
@@ -292,6 +293,7 @@ namespace WealthERP.Advisor
                         drAdvisorStaff[6] = dr["AR_Email"].ToString();
                         drAdvisorStaff[7] = dr["AR_Mobile"].ToString();
                         drAdvisorStaff[8] = dr["BranchList"].ToString();
+                        drAdvisorStaff[9] = dr["AR_StaffCode"].ToString();
                         dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                     }
 
@@ -381,6 +383,7 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("Email");
                         dtAdvisorStaff.Columns.Add("BranchList");
                         dtAdvisorStaff.Columns.Add("Mobile Number");
+                        dtAdvisorStaff.Columns.Add("AR_StaffCode");
 
                         DataRow drAdvisorStaff;
                         for (int i = 0; i < rmList.Count; i++)
@@ -403,6 +406,7 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[6] = rmVo.Email.ToString();
                             drAdvisorStaff[8] = rmVo.Mobile.ToString();
                             drAdvisorStaff[7] =  rmVo.BranchList;
+                            drAdvisorStaff[9] = rmVo.StaffCode;
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
                         gvRMList.DataSource = dtAdvisorStaff;                      
@@ -457,6 +461,7 @@ namespace WealthERP.Advisor
                         dtAdvisorStaff.Columns.Add("Email");
                         dtAdvisorStaff.Columns.Add("Mobile Number");
                         dtAdvisorStaff.Columns.Add("BranchList");
+                        dtAdvisorStaff.Columns.Add("AR_StaffCode");
                         DataRow drAdvisorStaff;
 
                         for (int i = 0; i < advisorStaffList.Count; i++)
@@ -480,6 +485,7 @@ namespace WealthERP.Advisor
                             drAdvisorStaff[6] = rmVo.Email.ToString();
                             drAdvisorStaff[7] = rmVo.Mobile.ToString();
                             drAdvisorStaff[8] = rmVo.BranchList.ToString();
+                            drAdvisorStaff[9] = rmVo.StaffCode;
                             dtAdvisorStaff.Rows.Add(drAdvisorStaff);
                         }
                         dtAdvisorStaff.DefaultView.Sort = "RMName ASC";

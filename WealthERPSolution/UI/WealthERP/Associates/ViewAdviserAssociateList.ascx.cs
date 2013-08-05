@@ -41,7 +41,6 @@ namespace WealthERP.Associates
             {
                 GetAdviserAssociateList();
                 
-                
             }
         }
 
