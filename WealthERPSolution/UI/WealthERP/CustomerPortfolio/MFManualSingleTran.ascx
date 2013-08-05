@@ -324,6 +324,7 @@
                             <asp:ListItem>Select</asp:ListItem>
                             <asp:ListItem>Sell</asp:ListItem>
                             <asp:ListItem>Buy</asp:ListItem>
+                            <asp:ListItem>Bonus</asp:ListItem>
                             <asp:ListItem>Dividend Reinvestment</asp:ListItem>
                             <asp:ListItem>SIP</asp:ListItem>
                             <asp:ListItem>SWP</asp:ListItem>

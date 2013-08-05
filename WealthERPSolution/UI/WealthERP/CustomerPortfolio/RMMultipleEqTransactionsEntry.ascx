@@ -151,12 +151,15 @@
             <asp:Label ID="lbl" runat="server" CssClass="FieldName" Text="Transaction Type:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlTransactionType" runat="server" CssClass="cmbField">
+          <asp:DropDownList ID="ddlTransactionType" runat="server" CssClass="cmbField" AutoPostBack="True"
+                        EnableViewState="true" OnSelectedIndexChanged="ddlTransactionType_SelectedIndexChanged">
+                    </asp:DropDownList>
+           <%-- <asp:DropDownList ID="ddlTransactionType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Select" Value="-1"></asp:ListItem>
                 <asp:ListItem Text="Purchase" Value="Purchase"></asp:ListItem>
                 <asp:ListItem Text="Sell" Value="Sell"></asp:ListItem>
                 <asp:ListItem Text="Holdings" Value="Holdings"></asp:ListItem>
-            </asp:DropDownList>
+            </asp:DropDownList>--%>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator SetFocusOnError="true" ID="rfvTransactionType" runat="server"
                 ControlToValidate="ddlTransactionType" ErrorMessage="<br>Select Transaction Type"
@@ -288,7 +291,7 @@
             </ajaxToolkit:FilteredTextBoxExtender>
         </td>
     </tr>
-    <tr>
+    <tr id="trTransactionMode" runat="server">
         <td align="right">
             <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Transaction Mode :"></asp:Label>
         </td>

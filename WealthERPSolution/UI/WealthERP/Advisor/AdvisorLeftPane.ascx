@@ -109,6 +109,12 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="View Associates List" Value="ViewAssociatess">
@@ -215,7 +221,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add Agent/Associate Code" Value="AddAgentCode">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                                    <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode"
+                                                        Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -326,7 +333,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile" Visible="false">
                                     </telerik:RadPanelItem>
-                                   <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
+                                    <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="View Associates List" Value="Associateslist">
                                             </telerik:RadPanelItem>
@@ -585,6 +592,16 @@
                                             <telerik:RadPanelItem runat="server" Text="Add Agent/Associate Code" Value="AddAgentCode">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

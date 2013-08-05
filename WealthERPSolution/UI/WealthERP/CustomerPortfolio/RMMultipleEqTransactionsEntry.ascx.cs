@@ -56,6 +56,7 @@ namespace WealthERP.CustomerPortfolio
             if (!IsPostBack && Session["EqTransactionHT"] == null) //Session["EqTransactionHT"] -> returning from trade account add.
             {
                BindLastTradeDate();
+               BindTransactionType();
             }
             RestorePreviousState();
         }
@@ -72,7 +73,17 @@ namespace WealthERP.CustomerPortfolio
             }
 
         }
+        protected void BindTransactionType()
+        {
+            DataSet dsTransactionType = new DataSet();
+            dsTransactionType = customerTransactionBo.GetTransactionType();
+            ddlTransactionType.DataValueField = "WETT_TransactionCode";
+            ddlTransactionType.DataTextField = "WETT_TransactionTypeName";
+            ddlTransactionType.DataSource = dsTransactionType;
+            ddlTransactionType.DataBind();
+            ddlTransactionType.Items.Insert(0, new ListItem("Select", "Select"));
 
+        }
         protected void txtScrip_TextChanged(object sender, EventArgs e)
         {
             DataSet ds = productEqutiyBo.GetScripCode(txtScrip.Text);
@@ -131,7 +142,23 @@ namespace WealthERP.CustomerPortfolio
                 eqTransactionVo.Brokerage = float.Parse(txtBrokerage.Text);
                 //eqTransactionVo.BrokerCode = dt.Rows[0]["XB_BrokerCode"].ToString();
 
-                if (ddlTransactionType.SelectedItem.Text.ToString() == "Purchase")
+                //if (ddlTransactionType.SelectedItem.Text.ToString() == "Purchase")
+                //{
+                //    eqTransactionVo.BuySell = "B";
+                //    eqTransactionVo.TransactionCode = 1;
+                //}
+                //if (ddlTransactionType.SelectedItem.Text.ToString() == "Sell")
+                //{
+                //    eqTransactionVo.BuySell = "S";
+                //    eqTransactionVo.TransactionCode = 2;
+                //}
+                //if (ddlTransactionType.SelectedItem.Text.ToString() == "Holdings")
+                //{
+                //    eqTransactionVo.BuySell = "B";
+                //    eqTransactionVo.TransactionCode = 13;
+                //}
+
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Buy")
                 {
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 1;
@@ -145,6 +172,58 @@ namespace WealthERP.CustomerPortfolio
                 {
                     eqTransactionVo.BuySell = "B";
                     eqTransactionVo.TransactionCode = 13;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Stocks Split")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 3;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Bonus Issue")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 4;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Right Issue")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 5;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Dividend")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 6;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Amalgamtion")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 7;
+                }
+
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Capital Reduction")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 8;
+                }
+
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Merger")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 9;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Demerger")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 10;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Buy Back Offer")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 11;
+                }
+                if (ddlTransactionType.SelectedItem.Text.ToString() == "Open Offer")
+                {
+                    eqTransactionVo.BuySell = "B";
+                    eqTransactionVo.TransactionCode = 12;
                 }
                 if (txtParentCustomerId.Value != string.Empty)
                     eqTransactionVo.CustomerId = Convert.ToInt32(txtParentCustomerId.Value); //customerVo.CustomerId;
@@ -338,6 +417,28 @@ namespace WealthERP.CustomerPortfolio
                 hidBrokerRate.Value = "0";
                 hidOtherCharges.Value = "0";
             }
+        }
+
+        protected void ddlTransactionType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlTransactionType.SelectedValue == "HOLD")
+            {
+                //Session["Holdings"] = ddlTransactionType.SelectedValue;
+                //trBroker.Visible = false;
+                //trBrokerage.Visible = false;
+                //trOthers.Visible = false;
+                //trRateInc.Visible = false;
+                //trServiceTax.Visible = false;
+                //trSTT.Visible = false;
+                //rbtnSpeculation.Visible = false;
+            }
+            else
+            {
+                //SetFields(1);
+                //trTransactionMode.Visible = true;
+                //rbtnSpeculation.Visible = true;
+            }
+            //trTransactionMode.Visible = true;
         }
 
     }

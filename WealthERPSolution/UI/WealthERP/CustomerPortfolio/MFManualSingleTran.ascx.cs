@@ -368,6 +368,27 @@ namespace WealthERP.CustomerPortfolio
                 tdUnitsAllotedValue.Visible = false;
                 Label19.Text = "Purchase Price :";
             }
+            if (ddlTransactionType.SelectedItem.Value == "Bonus")
+            {
+                trPrice.Visible = true;
+                tdUnitsLabel.Visible = true;
+                tdUnitsValue.Visible = true;
+                tdSTTLabel.Visible = false;
+                tdSTTValue.Visible = false;
+                trDividentRate.Visible = false;
+                tdSchemeToLabel.Visible = false;
+                tdSchemeToValue.Visible = false;
+                tdNAVPurchasedLabel.Visible = false;
+                tdNAVPurchasedValue.Visible = false;
+                tdSwitchUseNAV.Visible = false;
+                tdPricePurchasedLabel.Visible = false;
+                tdPricePurchasedValue.Visible = false;
+                tdAmtPurchasedLabel.Visible = false;
+                tdAmtPurchasedValue.Visible = false;
+                tdUnitsAllotedLabel.Visible = false;
+                tdUnitsAllotedValue.Visible = false;
+                Label19.Text = "Purchase Price :";
+            }
             if (ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment")
             {
                 trPrice.Visible = true;
@@ -544,7 +565,20 @@ namespace WealthERP.CustomerPortfolio
                             customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
                         }
                     }
-                
+                    if (ddlTransactionType.SelectedItem.Value == "Bonus")
+                    {
+                        mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
+                        mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
+                        mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                        mfTransactionVo.Units = float.Parse(txtUnits.Text.ToString());
+                        mfTransactionVo.TransactionClassificationCode = "BNS";
+                        mfTransactionVo.BuySell = "B";
+
+                        if (customerTransactionBo.AddMFTransaction(mfTransactionVo, customerVo.UserId) != 0)
+                        {
+                            customerPortfolioBo.UpdateAdviserDailyEODLogRevaluateForTransaction(advisorVo.advisorId, "MF", mfTransactionVo.TransactionDate);
+                        }
+                    }
                 if (ddlTransactionType.SelectedItem.Value == "Holdings")
                 {
                     mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
@@ -840,6 +874,10 @@ namespace WealthERP.CustomerPortfolio
             else if( ddlTransactionType.SelectedItem.Value == "Buy" )
             {
                 ddlTrxnType = "BUY";
+            }
+            else if (ddlTransactionType.SelectedItem.Value == "Bonus")
+            {
+                ddlTrxnType = "BNS";
             }
             else if( ddlTransactionType.SelectedItem.Value == "Dividend Reinvestment" )
             {

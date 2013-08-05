@@ -1859,6 +1859,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
                 }
+                else if (e.Item.Value == "ViewAgentCode")
+                {
+                    Session["UserType"] = "ops";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
+                }
                
             }
             catch (BaseApplicationException Ex)
