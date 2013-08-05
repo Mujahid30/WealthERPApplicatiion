@@ -1192,7 +1192,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "rm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
-
+                else if (e.Item.Value == "MF systematic MIS")
+                {
+                    Session["UserType"] = "rm";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                }
                 //else if (e.Item.Value == "Customized SMS")
                 //{
                 //    Session["UserType"] = "rm";
@@ -2779,7 +2783,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "OrderEntry")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+                   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -2789,7 +2793,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Order_List")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
+                 //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
                 }
                 else if (e.Item.Value == "OrderMIS")
                 {
@@ -2869,7 +2873,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFDashboard")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "CustomerSignUp")
                 {
