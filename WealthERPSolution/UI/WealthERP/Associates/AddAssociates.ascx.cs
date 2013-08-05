@@ -29,7 +29,7 @@ namespace WealthERP.Associates
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
-        AssociatesVO associatesVo= new AssociatesVO();
+        AssociatesVO associatesVo = new AssociatesVO();
         AssociatesBo associatesBo = new AssociatesBo();
         CustomerBo customerBo = new CustomerBo();
         UserBo userBo = new UserBo();
@@ -118,7 +118,7 @@ namespace WealthERP.Associates
                 if (Request.QueryString["page"] != null)
                 {
                     SetControls(associatesVo);
-                    associatesVo=(AssociatesVO)Session["associatesVo"] ;
+                    associatesVo = (AssociatesVO)Session["associatesVo"];
                     EnableCurrentStep(0);
                     requestId = associatesVo.AdviserAssociateId;
                     ddlstatus1.Enabled = false;
@@ -145,7 +145,7 @@ namespace WealthERP.Associates
 
         private void HideAndShowBasedOnRole(int requestId)
         {
-             DataSet dsAssociatesStepDetails = new DataSet();
+            DataSet dsAssociatesStepDetails = new DataSet();
             string stepCode = string.Empty;
             string stageStatus = string.Empty;
             int currentStep = 0;
@@ -241,7 +241,11 @@ namespace WealthERP.Associates
 
                             if (drISARequestDetails["WWFSM_StepCode"].ToString() == "ADETLS" && drISARequestDetails["AA_StepStatus"].ToString() != null)
                             {
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_Status"].ToString()))
+                                    ddlstatus2.SelectedValue = drISARequestDetails["AWFSD_Status"].ToString();
 
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_StatusReason"].ToString()))
+                                    ddlReasonStage2.SelectedValue = drISARequestDetails["AWFSD_StatusReason"].ToString();
                                 ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AWFSD_Status"].ToString(), 2);
 
                             }
@@ -250,25 +254,32 @@ namespace WealthERP.Associates
 
                             if (drISARequestDetails["WWFSM_StepCode"].ToString() == "ACGEN" && drISARequestDetails["AA_StepStatus"].ToString() != null)
                             {
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_Status"].ToString()))
+                                    ddlStepstatus3.SelectedValue = drISARequestDetails["AWFSD_Status"].ToString();
+
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_StatusReason"].ToString()))
+                                    ddlReasonStep3.SelectedValue = drISARequestDetails["AWFSD_StatusReason"].ToString();
                                 ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AWFSD_Status"].ToString(), 3);
                             }
-                            MarkAllFieldEnableFalse();
-                            if (currentStep == 3)
-                            {
-                                //txtlblISAGenerationStatus.Style["color"] = "green";
-                                //txtlblISAGenerationStatus.Style["font-weight"] = "bold";
-                                //SetStepStatusImage(0);
-                                EnableCurrentStep(100); //False Case Make all enable false in case of completed ISA Request
-                            }
-                            else
-                            {
-                                //SetStepStatusImage(currentStep);
-                                EnableCurrentStep(currentStep);
-                            }
+                        }
+                        
 
-                       }
+                        
                     }
                 }
+            }
+            MarkAllFieldEnableFalse();
+            if (currentStep == 3)
+            {
+                //txtlblISAGenerationStatus.Style["color"] = "green";
+                //txtlblISAGenerationStatus.Style["font-weight"] = "bold";
+                //SetStepStatusImage(0);
+                EnableCurrentStep(3); //False Case Make all enable false in case of completed ISA Request
+            }
+            else
+            {
+                //SetStepStatusImage(currentStep);
+                EnableCurrentStep(currentStep);
             }
         }
 
@@ -385,7 +396,7 @@ namespace WealthERP.Associates
                             lnlStep2.Enabled = true;
                         }
 
-                   }
+                    }
 
                     break;
                 case 2:
@@ -395,6 +406,9 @@ namespace WealthERP.Associates
                         txtComments2.Enabled = true;
                         lnlStep2.Enabled = true;
                         btnSubmitAddStage2.Visible = true;
+                        btnSubmitAddStage2.Enabled = true;
+                        lnkAgentCode.Enabled = true;
+                        lnlStep2.Enabled = true;
                     }
 
                     break;
@@ -403,6 +417,8 @@ namespace WealthERP.Associates
                         ddlStepstatus3.Enabled = true;
                         ddlReasonStep3.Enabled = true;
                         txtCommentStep3.Enabled = true;
+                        btnSubmitStep3.Enabled = true;
+                        btnSubmitStep3.Visible = true;
                         btnSubmitStep3.Enabled = true;
 
                     }
@@ -563,56 +579,71 @@ namespace WealthERP.Associates
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Random id = new Random();
-            string password = id.Next(10000, 99999).ToString();
+            //if (Validation())
+            //{
+                Random id = new Random();
+                string password = id.Next(10000, 99999).ToString();
 
-            userVo.Password = password;
-            userVo.LoginId = txtEmailId.Text.ToString();
-            userVo.FirstName = txtAssociateName.Text.ToString();
-            userVo.Email = txtEmailId.Text.ToString();
-            userVo.UserType="Associates";
+                userVo.Password = password;
+                userVo.LoginId = txtEmailId.Text.ToString();
+                userVo.FirstName = txtAssociateName.Text.ToString();
+                userVo.Email = txtEmailId.Text.ToString();
+                userVo.UserType = "Associates";
 
-            associatesVo.ContactPersonName = txtAssociateName.Text;
-            associatesVo.BranchId = int.Parse(ddlBranch.SelectedValue);
-            associatesVo.BMName = ddlBranch.SelectedItem.Text;
-            associatesVo.RMId = int.Parse(ddlRM.SelectedValue);
-            associatesVo.RMNAme = ddlRM.SelectedItem.Text;
-            associatesVo.UserRoleId = 1009;
-            associatesVo.Email = txtEmailId.Text;
-            associatesVo.PanNo = txtPanNum.Text;
-            if (!string.IsNullOrEmpty(txtMobileNum.Text))
-                associatesVo.Mobile = long.Parse(txtMobileNum.Text);
-            else
-                associatesVo.Mobile = 0;
-            associatesVo.RequestDate = DateTime.Now;
-            associatesVo.AAC_UserType = "Associates";
-            Session["AssociatesVo"] = associatesVo;
-            associatesIds = associatesBo.CreateCompleteAssociates(userVo, associatesVo, userVo.UserId);
-            associatesVo.UserId = associatesIds[0];
-            associatesVo.AdviserAssociateId = associatesIds[1];
-            txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
-            Session["userId"] = associatesVo.UserId;
-            Session["associatesId"] = associatesVo.AdviserAssociateId;
-            Session["AdviserAgentId"] = associatesVo.AAC_AdviserAgentId;
-            //------------------------ To create User role Association-----------------------
-            userBo.CreateRoleAssociation(associatesVo.UserId, 1009);
+                associatesVo.ContactPersonName = txtAssociateName.Text;
+                associatesVo.BranchId = int.Parse(ddlBranch.SelectedValue);
+                associatesVo.BMName = ddlBranch.SelectedItem.Text;
+                associatesVo.RMId = int.Parse(ddlRM.SelectedValue);
+                associatesVo.RMNAme = ddlRM.SelectedItem.Text;
+                associatesVo.UserRoleId = 1009;
+                associatesVo.Email = txtEmailId.Text;
+                associatesVo.PanNo = txtPanNum.Text;
+                if (!string.IsNullOrEmpty(txtMobileNum.Text))
+                    associatesVo.Mobile = long.Parse(txtMobileNum.Text);
+                else
+                    associatesVo.Mobile = 0;
+                associatesVo.RequestDate = DateTime.Now;
+                associatesVo.AAC_UserType = "Associates";
+                Session["AssociatesVo"] = associatesVo;
+                associatesIds = associatesBo.CreateCompleteAssociates(userVo, associatesVo, userVo.UserId);
+                associatesVo.UserId = associatesIds[0];
+                associatesVo.AdviserAssociateId = associatesIds[1];
+                txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
+                Session["userId"] = associatesVo.UserId;
+                Session["associatesId"] = associatesVo.AdviserAssociateId;
+                Session["AdviserAgentId"] = associatesVo.AAC_AdviserAgentId;
+                //------------------------ To create User role Association-----------------------
+                userBo.CreateRoleAssociation(associatesVo.UserId, 1009);
 
-            if (associatesIds.Count > 0)
-            {
-                HideAndShowBasedOnRole(associatesIds[1]);
-            }
+                if (associatesIds.Count > 0)
+                {
+                    HideAndShowBasedOnRole(associatesIds[1]);
+                }
 
-            AssignHeaderInfo();
-            SetAccsessMode();
-            //txtRequestNumber.Text = associatesVo.AdviserAssociateId.ToString();
-            divStep1SuccMsg.Visible = true;
+                AssignHeaderInfo();
+                SetAccsessMode();
+                //txtRequestNumber.Text = associatesVo.AdviserAssociateId.ToString();
+                divStep1SuccMsg.Visible = true;
+            //}
+        }
+
+        private bool Validation()
+        {
+            bool result = true;
+            int adviserId = (int)Session["adviserId"];
+            //if (associatesBo.PANNumberDuplicateCheck(adviserId, txtPanNum.Text.ToString(), associatesVo.AdviserAssociateId))
+            //{
+            //    result = false;
+            //    lblPanDuplicate.Visible = true;
+            //}
+            return result;
         }
 
         private void AssignHeaderInfo()
         {
             if (Session["AssociatesVo"] != null)
             {
-                associatesVo=(AssociatesVO)Session["AssociatesVo"];
+                associatesVo = (AssociatesVO)Session["AssociatesVo"];
                 txtAssoName.Text = associatesVo.ContactPersonName;
                 txtBMName.Text = associatesVo.BMName;
                 txtRMName.Text = associatesVo.RMNAme;
@@ -631,7 +662,7 @@ namespace WealthERP.Associates
             ddlstatus1.Enabled = true;
             //lnlStep3.Enabled = false;
             btnSubmitAddStage1.Visible = true;
-            
+
 
         }
 
@@ -685,13 +716,13 @@ namespace WealthERP.Associates
                 GetAdviserAssociatesDetails(requestId);
             }
             agentId = associatesVo.AAC_AdviserAgentId;
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AgentId=" + agentId +"');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AgentId=" + agentId + "');", true);
         }
 
         protected void ddlstatus1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if ((ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "DO") || 
+            if ((ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "DO") ||
                 (ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "IP"))
             {
                 lnlStep2.Enabled = true;
@@ -785,7 +816,7 @@ namespace WealthERP.Associates
         protected void btnSubmitAddStage1_Click(object sender, EventArgs e)
         {
             string comments;
-            string reason=null;
+            string reason = null;
             if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
             {
                 comments = txtCommentstep1.Text;
@@ -840,12 +871,30 @@ namespace WealthERP.Associates
                     ddlReasonStep3.Enabled = true;
                     lnlStep2.Enabled = false;
                     btnSubmitStep3.Visible = true;
+                    btnSubmitStep3.Enabled = true;
                 }
 
             }
         }
 
-        protected void btnSubmitStep3_Click(object sender, EventArgs e)
+        protected void lnkAgentCode_Click(object sender, EventArgs e)
+        {
+            int associationId = 0;
+            if (txtGenerateReqstNum.Text != null)
+                associationId = int.Parse(txtGenerateReqstNum.Text);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
+        }
+
+        protected void ddlStepstatus3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+             if (ddlStepstatus3.SelectedIndex != 0 && ddlStepstatus3.SelectedValue == "DO")
+            {
+                lblReasonStep3.Visible = false;
+                ddlReasonStep3.Visible = false;
+            }
+        }
+
+        protected void btnSubmitStep3_Click1(object sender, EventArgs e)
         {
             string reason = string.Empty;
             string comments;
@@ -855,18 +904,11 @@ namespace WealthERP.Associates
                     reason = ddlReasonStep3.SelectedValue;
                 comments = txtCommentStep3.Text;
                 associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlStepstatus3.SelectedValue, "ACGEN", reason, comments);
-                btnSubmitStep3.Visible = false;
-                ddlStepstatus3.Enabled = true;
-                ddlReasonStep3.Enabled = true;
+                //btnSubmitStep3.Visible = false;
+                //ddlStepstatus3.Enabled = true;
+                //ddlReasonStep3.Enabled = true;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAssociates','');", true);
             }
-        }
-
-        protected void lnkAgentCode_Click(object sender, EventArgs e)
-        {
-            int associationId=0;
-            if (txtGenerateReqstNum.Text != null)
-                associationId = int.Parse(txtGenerateReqstNum.Text);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
         }
     }
 }

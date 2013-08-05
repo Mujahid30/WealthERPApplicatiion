@@ -401,9 +401,10 @@
                                 <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper"></asp:TextBox>
                                 <span id="spnLoginStatus"></span>
                                 <br />
-                                <asp:RegularExpressionValidator ID="revPANNum" ControlToValidate="txtPanNum" ValidationGroup="vgbtnSubmit"
-                                    ErrorMessage="Not a valid PAN" Display="Dynamic" runat="server" ValidationExpression="^[0-9a-zA-Z]+$"
-                                    CssClass="revPCG"></asp:RegularExpressionValidator>
+                                <asp:RequiredFieldValidator ID="rfvPanNumber" ControlToValidate="txtPanNum" ErrorMessage="Please enter a PAN Number"
+                                    Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                </asp:RequiredFieldValidator>
+                                <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="PAN Number already exists" Visible="false"></asp:Label>
                             </td>
                             <td align="right">
                                 <asp:Label ID="lblEmailId" runat="server" CssClass="FieldName" Text="Email Id: "></asp:Label>
@@ -535,7 +536,7 @@
                         <div class="fltlft">
                             &nbsp;
                             <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtStage2" runat="server" Text="Detailed Information" CssClass="txtField"></asp:Label>
+                            <asp:Label ID="txtStage2" runat="server" Text="Detailed Information/Codegeneration" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
@@ -560,7 +561,6 @@
                     <table class="StepTwoContentTable">
                         <tr>
                             <td class="leftLabel">
-                                
                                 <td colspan="4">
                                     <asp:LinkButton runat="server" ID="lnlStep2" CssClass="LinkButtons" Text="GoTo Detailed section"
                                         OnClick="lnlStep2_Click" Enabled="false"></asp:LinkButton>
@@ -574,7 +574,6 @@
                         </tr>
                         <tr>
                             <td class="leftLabel">
-                                
                                 <td colspan="4">
                                     <asp:LinkButton runat="server" ID="lnkAgentCode" CssClass="LinkButtons" Text="Generate Agent Code"
                                         OnClick="lnkAgentCode_Click" Enabled="false"></asp:LinkButton>
@@ -666,7 +665,7 @@
                         <div class="fltlft">
                             &nbsp;
                             <asp:Label ID="lblStage3" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtStage3" runat="server" Text="Agent_Code Generation" CssClass="txtField"></asp:Label>
+                            <asp:Label ID="txtStage3" runat="server" Text="Verification" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
@@ -699,8 +698,9 @@
                                 <asp:Label ID="lblStepStatus3" runat="server" CssClass="FieldName" Text="Status:"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="ddlStepstatus3" runat="server" 
-                                    AutoPostBack="true" CssClass="cmbField" Enabled="false">
+                                <asp:DropDownList ID="ddlStepstatus3" runat="server" AutoPostBack="true" CssClass="cmbField"
+                                    Enabled="false" 
+                                    onselectedindexchanged="ddlStepstatus3_SelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="rfvddlStepStatus3" runat="server" CssClass="rfvPCG"
@@ -715,7 +715,8 @@
                                 <asp:DropDownList ID="ddlReasonStep3" runat="server" CssClass="cmbField" Enabled="false">
                                 </asp:DropDownList>
                             </td>
-                            <td colspan="4"></td>
+                            <td colspan="4">
+                            </td>
                         </tr>
                         <tr>
                             <td class="leftLabel">
@@ -727,9 +728,11 @@
                             </td>
                             <td class="leftLabel">
                                 <asp:Button ID="btnSubmitStep3" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitStage3"
-                                    CausesValidation="true" CssClass="PCGButton" Visible="false" />
+                                    CausesValidation="true" CssClass="PCGButton" Visible="false" 
+                                    onclick="btnSubmitStep3_Click1" />
                             </td>
-                            <td colspan="5"></td>
+                            <td colspan="5">
+                            </td>
                         </tr>
                     </table>
                 </td>
