@@ -465,8 +465,8 @@
                 <asp:RadioButton ID="File8" Text="ODIN (BSE)" Checked="false" GroupName="colors"
                     runat="server" />
                 <br />
-                <asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
-                    runat="server" />
+                <%--<asp:RadioButton ID="File9" Text="Profile & MF Folio" Checked="false" GroupName="colors"
+                    runat="server" />--%>
                 <br />
                 <asp:RadioButton ID="File10" Text="FI *" Checked="false" GroupName="colors" runat="server" />
                 <br />
