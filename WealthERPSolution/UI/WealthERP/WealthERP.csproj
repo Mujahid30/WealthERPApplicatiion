@@ -3271,6 +3271,13 @@
     <Compile Include="Uploads\CustomerUpload.ascx.designer.cs">
       <DependentUpon>CustomerUpload.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Uploads\CustomerUploadNew.ascx.cs">
+      <DependentUpon>CustomerUploadNew.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\CustomerUploadNew.ascx.designer.cs">
+      <DependentUpon>CustomerUploadNew.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Uploads\DeutscheProfileFolioInputRejects.ascx.cs">
       <DependentUpon>DeutscheProfileFolioInputRejects.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6448,6 +6455,7 @@
     <Content Include="UploadPackages\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew\WERPEquityProfileUploadPackageNew.dtproj.user" />
     <Content Include="Uploads\CAMSProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\CAMSTransInputRejects.ascx" />
+    <Content Include="Uploads\CustomerUploadNew.ascx" />
     <Content Include="Uploads\DeutscheProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\DeutscheTransInputRejects.ascx" />
     <Content Include="Uploads\EquityMapToCustomers.aspx" />

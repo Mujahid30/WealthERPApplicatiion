@@ -1609,4 +1609,8 @@
     <value>CommisionManagement//ViewSchemeStructureAssociation.ascx</value>
     <comment>CommisionManagement//ViewSchemeStructureAssociation.ascx</comment>
   </data>
+  <data name="CustomerUploadNew" xml:space="preserve">
+    <value>Uploads//CustomerUploadNew.ascx</value>
+    <comment>Uploads//CustomerUploadNew.ascx</comment>
+  </data>
 </root>

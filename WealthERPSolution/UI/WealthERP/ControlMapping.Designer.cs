@@ -1312,6 +1312,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploads//CustomerUploadNew.ascx.
+        /// </summary>
+        internal static string CustomerUploadNew {
+            get {
+                return ResourceManager.GetString("CustomerUploadNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//DailyValuation.ascx.
         /// </summary>
         internal static string DailyValuation {
