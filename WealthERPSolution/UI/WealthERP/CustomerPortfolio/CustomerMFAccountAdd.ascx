@@ -400,7 +400,7 @@
             <asp:TextBox ID="txtBrokerCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="leftField">
-            <asp:Label ID="lblAssociateCode" runat="server" CssClass="FieldName" Text="SubBroaker Code:"></asp:Label>
+            <asp:Label ID="lblAssociateCode" runat="server" CssClass="FieldName" Text="SubBroker Code:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:DropDownList ID="ddlAssociateCode" runat="server" CssClass="cmbField">
