@@ -168,13 +168,17 @@ namespace WealthERP.CustomerPortfolio
 
                     }
 
-                    if (Request.QueryString["folionum"] != null)
+                    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null)
                     {
                         int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
                         PasssedFolioValue = accountId;
                         BindLastTradeDate();
                         string fromdate = "01-01-1990";
                         txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                        ViewState["SchemePlanCode"] = SchemePlanCode;
+
+                        BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
                     }
                     else
                     {
@@ -731,6 +735,8 @@ namespace WealthERP.CustomerPortfolio
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 IsAssociates = 1;
             }
+
+            schemePlanCode =Convert.ToInt32(ViewState["SchemePlanCode"]);
 
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
