@@ -23,7 +23,7 @@
     </tr>
 </table>
 <table width="100%">
-    <tr>
+    <tr visible="false">
         <td>
             <br />
             <asp:Label ID="lblbranch" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName"
