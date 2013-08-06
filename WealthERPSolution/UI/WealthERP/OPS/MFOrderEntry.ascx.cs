@@ -193,7 +193,7 @@ namespace WealthERP.OPS
             if (dsArnNo.Tables[0].Rows.Count > 0)
             {
                 ddlARNNo.DataSource = dsArnNo;
-                ddlARNNo.DataValueField = dsArnNo.Tables[0].Columns["Id"].ToString();
+                ddlARNNo.DataValueField = dsArnNo.Tables[0].Columns["Identifier"].ToString();
                 ddlARNNo.DataTextField = dsArnNo.Tables[0].Columns["Identifier"].ToString();
                 ddlARNNo.DataBind();
             }
@@ -271,6 +271,7 @@ namespace WealthERP.OPS
                     txtendDateSTP.SelectedDate = null;
                     txtNewAmount.Text = "";
                     ddlAssociate.SelectedIndex = 0;
+                    ddlARNNo.SelectedIndex = 0;
                 }
             }
             else if (action == "Edit")
@@ -278,8 +279,10 @@ namespace WealthERP.OPS
                 if (mforderVo != null && orderVo != null)
                 {
                     SetEditViewMode(false);
-                    if (orderVo.AssociationId!=0)
-                        ddlAssociate.SelectedValue = orderVo.AssociationId.ToString();
+                    if (mforderVo.AssociateId != 0)
+                        ddlAssociate.SelectedValue = mforderVo.AssociateId.ToString();
+                    if (mforderVo.ARNNo != null)
+                        ddlARNNo.SelectedValue = mforderVo.ARNNo;
                     orderId = orderVo.OrderId;
                     txtCustomerName.Enabled = false;
                     txtCustomerName.Text = mforderVo.CustomerName;
@@ -545,6 +548,11 @@ namespace WealthERP.OPS
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
                     lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
                     hdnType.Value = mforderVo.TransactionCode;
+                    if (mforderVo.AssociateId!=0)
+                      ddlAssociate.SelectedValue = mforderVo.AssociateId.ToString();
+                    if (mforderVo.ARNNo != null)
+                        ddlARNNo.SelectedValue = mforderVo.ARNNo;
+
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY")
                     {
                         ShowTransactionType(1);

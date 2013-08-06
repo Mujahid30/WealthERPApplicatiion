@@ -528,6 +528,14 @@ namespace WealthERP.OPS
                         mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
                     else
                         mforderVo.Units = 0;
+                    if (!string.IsNullOrEmpty(dr["AA_AdviserAssociateId"].ToString()))
+                    {
+                        mforderVo.AssociateId = Convert.ToInt32(dr["AA_AdviserAssociateId"].ToString());
+                    }
+                    if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
+                    {
+                        mforderVo.ARNNo = Convert.ToString(dr["CMFOD_ARNNo"]);
+                    }
 
                 }
                 Session["orderVo"] = orderVo;

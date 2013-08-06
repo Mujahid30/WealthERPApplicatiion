@@ -335,20 +335,7 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a transaction type"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblAMC" runat="server" Text="AMC: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged">
-            </asp:DropDownList>
-            <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an AMC"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        </td>
-    </tr>
-    <tr id="trARDate" runat="server">
+        
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "
                 CssClass="FieldName"></asp:Label>
@@ -374,16 +361,12 @@
                 Display="Dynamic" CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Application Received date must be less than or equal to Today"
                 Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
         </td>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
-            </asp:DropDownList>
-        </td>
+        
+        
+      
     </tr>
-    <tr id="trAplNumber" runat="server">
+    
+    <tr id="trARDate" runat="server">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number: " CssClass="FieldName"></asp:Label>
         </td>
@@ -394,20 +377,7 @@
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application number" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
-            </asp:DropDownList>
-            <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        </td>
-    </tr>
-    <tr id="trOrderDate" runat="server">
+       
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date: " CssClass="FieldName"></asp:Label>
         </td>
@@ -432,6 +402,53 @@
                 CssClass="cvPCG" ErrorMessage="<br />Order date should  be greater than or equal to Today"
                 Operator="GreaterThanEqual" Type="Date"></asp:CompareValidator>--%>
         </td>
+        
+        
+
+        
+    </tr>
+    
+    
+    <tr id="trAplNumber" runat="server">
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblAMC" runat="server" Text="AMC: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged">
+            </asp:DropDownList>
+            <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlAMCList"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an AMC"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+        
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
+            </asp:DropDownList>
+        </td>
+      
+    </tr>
+    
+    <tr id="trOrderDate" runat="server">
+         
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
+            </asp:DropDownList>
+            <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        </td>
+        
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number: " CssClass="FieldName"></asp:Label>
         </td>
@@ -440,13 +457,20 @@
             </asp:DropDownList>
         </td>
     </tr>
+    
+    
+    
+    
+    
     <tr id="trOrderNo" runat="server">
+    
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:Label ID="lblGetOrderNo" runat="server" Text="" CssClass="txtField"></asp:Label>
         </td>
+        
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>
         </td>
@@ -454,6 +478,7 @@
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
+        
     </tr>
     <tr id="trOrderType" runat="server">
         <td class="leftField" style="width: 20%">
