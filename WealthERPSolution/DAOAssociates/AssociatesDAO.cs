@@ -240,7 +240,7 @@ namespace DAOAssociates
                 UpdateAssociatesCmd = db.GetStoredProcCommand("SPROC_UpdateAdviserAssociateDetails");
                 db.AddInParameter(UpdateAssociatesCmd, "@AA_AdviserAssociateId", DbType.Int32, associatesVo.AdviserAssociateId);
                 //db.AddInParameter(UpdateAssociatesCmd, "@AA_AdviserAssociateId", DbType.Int32, associatesVo.AdviserAssociateId);
-                db.AddInParameter(UpdateAssociatesCmd, "@U_UserId", DbType.Int32, associatesVo.AdviserAssociateId);
+                db.AddInParameter(UpdateAssociatesCmd, "@U_UserId", DbType.Int32, associatesVo.UserId);
                 db.AddInParameter(UpdateAssociatesCmd, "@AR_RMId", DbType.Int32, associatesVo.RMId);
                 db.AddInParameter(UpdateAssociatesCmd, "@AB_BranchId", DbType.Int32, associatesVo.BranchId);
                 db.AddInParameter(UpdateAssociatesCmd, "@AA_ContactPersonName", DbType.String, associatesVo.ContactPersonName);
@@ -1242,6 +1242,115 @@ namespace DAOAssociates
                 throw exBase;
             }
             return dtAssociatesList;
+        }
+
+        public bool CodeduplicateCheck(int adviserId, string agentCode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCodeduplicateCheck;
+            bool bResult = false;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdCodeduplicateCheck = db.GetStoredProcCommand("SPROC_CodeduplicateChack");
+                db.AddInParameter(cmdCodeduplicateCheck, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCodeduplicateCheck, "@agentCode", DbType.String, agentCode);
+                db.AddOutParameter(cmdCodeduplicateCheck, "@count", DbType.Int32, 10);
+
+                ds = db.ExecuteDataSet(cmdCodeduplicateCheck);
+                //count = int.Parse(db.ExecuteScalar(cmdCodeduplicateCheck).ToString());
+                Object objCount = db.GetParameterValue(cmdCodeduplicateCheck, "@count");
+                if (objCount != DBNull.Value)
+                    count = int.Parse(db.GetParameterValue(cmdCodeduplicateCheck, "@count").ToString());
+                else
+                    count = 0;
+                if (count > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = agentCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
+        public string GetAgentCodeFromAgentPaaingAssociateId(int assiciateId)
+        {
+            DataSet ds;
+            Database db;
+            DataTable dt;
+            DbCommand getcmd;
+            string code=null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getcmd = db.GetStoredProcCommand("SPROC_GetAgentCodeFromAgentPaaingAssociateId");
+                db.AddInParameter(getcmd, "@assiciateId", DbType.Int32, assiciateId);
+                ds = db.ExecuteDataSet(getcmd);
+                dt = ds.Tables[0];
+                if (dt.Rows.Count > 0)
+                    code = dt.Rows[0]["AAC_AgentCode"].ToString();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateBo.cs:GetAgentCodeFromAgentPaaingAssociateId(assiciateId)");
+                object[] objects = new object[1];
+                objects[0] = assiciateId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return code;
+        }
+
+        public bool AddAgentChildCode(AssociatesVO associatesVo, string multiCode)
+        {
+            bool result = false;
+            Database db;
+            DbCommand createAdviserAgentCodecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createAdviserAgentCodecmd = db.GetStoredProcCommand("SPROC_CreateAdviserAgentCode");
+                db.AddInParameter(createAdviserAgentCodecmd, "@AAC_AgentCode", DbType.String, associatesVo.AAC_AgentCode);
+                db.AddInParameter(createAdviserAgentCodecmd, "@multiCode", DbType.String, multiCode);
+                db.AddInParameter(createAdviserAgentCodecmd, "@AAC_UserType", DbType.String, "associates");
+                db.AddInParameter(createAdviserAgentCodecmd, "@AAC_CreatedBy", DbType.Int32, associatesVo.AAC_CreatedBy);
+                db.AddInParameter(createAdviserAgentCodecmd, "@AAC_ModifiedBy", DbType.Int32, associatesVo.AAC_ModifiedBy);
+                db.AddOutParameter(createAdviserAgentCodecmd, "@AAC_AdviserAgentId", DbType.Int32, 1000);
+                db.ExecuteNonQuery(createAdviserAgentCodecmd);
+                result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return result;
         }
     }
 }
