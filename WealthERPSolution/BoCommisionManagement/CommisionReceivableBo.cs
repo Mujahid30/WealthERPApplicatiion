@@ -477,7 +477,7 @@ namespace BoCommisionManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAvailSchemes(int issuer, string prodType, string cat, string subCat)");
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetAvailSchemes(int issuer, string prodType, string cat, string subCat)");
                 object[] objects = new object[4];
                 objects[0] = issuer;
                 objects[1] = prodType;
@@ -512,7 +512,7 @@ namespace BoCommisionManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetStructureDetails(int adviserId, int structureId)");
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetStructureDetails(int adviserId, int structureId)");
                 object[] objects = new object[2];
                 objects[0] = adviserId;
                 objects[1] = structureId;
@@ -541,7 +541,7 @@ namespace BoCommisionManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetSubcategories(int adviserId, int structureId)");
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetSubcategories(int adviserId, int structureId)");
                 object[] objects = new object[2];
                 objects[0] = adviserId;
                 objects[1] = structureId;
@@ -570,7 +570,7 @@ namespace BoCommisionManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:MapSchemesToStructres(int structId, int schemeId, DateTime validFrom, DateTime validTill)");
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:MapSchemesToStructres(int structId, int schemeId, DateTime validFrom, DateTime validTill)");
                 object[] objects = new object[4];
                 objects[0] = structId;
                 objects[1] = schemeId;
@@ -584,12 +584,13 @@ namespace BoCommisionManagement
             //return dsStructList;
         }
 
-        public void updateStructureToSchemeMapping(int setupId, DateTime validTill)
+        public bool checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
-                commisionReceivableDao.updateStructureToSchemeMapping(setupId, validTill);
+                int nRows = commisionReceivableDao.checkSchemeAssociationExists(schemeId, structId, validFrom, validTo);
+                if (nRows > 0) { return true; }
             }
             catch (BaseApplicationException Ex)
             {
@@ -599,7 +600,67 @@ namespace BoCommisionManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:updateStructureToSchemeMapping(int setupId, DateTime validTill)");
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo)");
+                object[] objects = new object[4];
+                objects[0] = schemeId;
+                objects[1] = structId;
+                objects[2] = validFrom;
+                objects[3] = validTo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return false;
+        }
+
+        public bool checkSchemeAssociationExists(int setupId, DateTime validFrom, DateTime validTo)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                int nRows = commisionReceivableDao.checkSchemeAssociationExists(setupId, validFrom, validTo);
+                if (nRows > 0) { return true; }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:checkSchemeAssociationExists(int setupId, DateTime validFrom, DateTime validTo)");
+                object[] objects = new object[3];
+                objects[0] = setupId;
+                objects[1] = validFrom;
+                objects[2] = validTo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return false;
+        }
+
+        public int updateStructureToSchemeMapping(int setupId, DateTime validTill)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                return commisionReceivableDao.updateStructureToSchemeMapping(setupId, validTill);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:updateStructureToSchemeMapping(int setupId, DateTime validTill)");
                 object[] objects = new object[2];
                 objects[0] = setupId;
                 objects[1] = validTill;
