@@ -41,7 +41,8 @@ namespace WealthERP.Associates
             {
                 BindAgentList();
                 if (Request.QueryString["AssociationId"] != null)
-                {                 
+                {
+                    
                     associationId = int.Parse(Request.QueryString["AssociationId"]);
                     ddlUserType.Enabled = false;
                     ddlSelectType.Enabled = false;
@@ -68,7 +69,7 @@ namespace WealthERP.Associates
                     ddlUserType_SelectedIndexChanged(this, null);
                 }
                 if (Request.QueryString["BranchName"] != null)
-                {                 
+                {
                     if (ddlSelectType.Items.FindByText(Request.QueryString["BranchName"].ToString()) != null)
                         ddlSelectType.Items.FindByText(Request.QueryString["BranchName"].ToString()).Selected = true;
                     else
@@ -80,7 +81,6 @@ namespace WealthERP.Associates
                     txtAgentCode.Text = Request.QueryString["AgentCode"].ToString();
 
                 }
-                
               
             }
         }
@@ -119,6 +119,7 @@ namespace WealthERP.Associates
                         associatesVo.AdviserAssociateId = int.Parse(ddlSelectType.SelectedValue);
                         associatesVo.ContactPersonName = ddlSelectType.SelectedItem.Text;
                         associatesVo.AAC_UserType = ddlUserType.SelectedValue;
+                        
                     }
                 }
 
@@ -129,14 +130,43 @@ namespace WealthERP.Associates
                 associatesVo.AAC_AgentCode = null;
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
-            result = associatesBo.CreateAdviserAgentCode(associatesVo,agentId);
+
+            
+        
+
+            if (Session["agentCodelist"] != null)
+            {
+
+                List<string> agentcodelist = (List<string>)Session["agentCodelist"];
+                for (int i = 0; i < agentcodelist.Count; i++)
+                {
+                    associatesBo.AddAgentChildCode(associatesVo, agentcodelist[i]);
+                    
+                }
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
+            }
+            else
+            {
+                if (Validation())
+                {
+                    result = associatesBo.CreateAdviserAgentCode(associatesVo, agentId);
+                    if (Request.QueryString["AssociationId"] != null)
+                    {
+                        int associationId = int.Parse(Request.QueryString["AssociationId"]);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&fromPage=" + "AddCode" + "');", true);
+                    }
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
+                }
+            }
+
             if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "AddRM")
-            {                 
+            {
                 string queryString = "?prevPage=AddRM";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewRM','" + queryString + "');", true);
-             } 
+            }
             else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "AddBranch")
-            {               
+            {
                 //string queryString = "?prevPage=AddBranch";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranch','" + queryString + "');", true);
@@ -144,7 +174,7 @@ namespace WealthERP.Associates
             }
             else if (Request.QueryString["prevPage"] != null && Request.QueryString["prevPage"] == "EditRMDetails")
             {
-                string queryString = "?prevPage=EditRMDetails&AgentCode="+ txtAgentCode.Text +"&Action=Edit";
+                string queryString = "?prevPage=EditRMDetails&AgentCode=" + txtAgentCode.Text + "&Action=Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EditRMDetails','" + queryString + "');", true);
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranch','" + queryString + "');", true);
 
@@ -156,14 +186,40 @@ namespace WealthERP.Associates
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranch','" + queryString + "');", true);
 
             }
-            else if (Request.QueryString["AssociationId"] != null)
+
+        }
+
+        private bool Validation()
+        {
+            bool result = true;
+            int adviserId = advisorVo.advisorId;
+            try
             {
-                int associationId = int.Parse(Request.QueryString["AssociationId"]);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&fromPage=" + "AddCode" + "');", true);
+                if (associatesBo.CodeduplicateCheck(adviserId, txtAgentCode.Text.ToString()))
+                {
+                    result = false;
+                    //lblPanDuplicate.Visible = true;
+                }
             }
-            else
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
-               
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddBranchRMAgentAssociation.ascx:Validation()");
+                object[] objects = new object[1];
+                objects[0] = result;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
         }
 
         private void BindAgentList()
@@ -264,6 +320,44 @@ namespace WealthERP.Associates
                     BindRMDropDown();
                 else if (ddlUserType.SelectedValue == "Associates")
                     BindAgentList();
+            }
+        }
+
+        protected void ddlSelectType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+            if (ddlSelectType.SelectedIndex != 0 && ddlUserType.SelectedValue == "Associates")
+            {
+                GetAgentCode(int.Parse(ddlSelectType.SelectedValue));
+            }
+        }
+
+        private void GetAgentCode(int associates)
+        {
+            string code = string.Empty;
+            code = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(associates);
+            if (code != null)
+            {
+                txtAgentCode.Text = code;
+                txtAgentCode.Enabled = false;
+                btnAddCode.Visible = true;
+                lblNoOfCodes.Visible = true;
+                txtNoOfCodes.Visible = true;
+            }
+            else
+            {
+                txtAgentCode.Text = "";
+                txtAgentCode.Enabled = true;
+            }
+        }
+
+        protected void btnAddCode_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(txtNoOfCodes.Text))
+            {
+                int count = int.Parse(txtNoOfCodes.Text);
+                Session["AgentCodeCount"] = count;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PopUpScript", "showpopup();", true);
             }
         }
     }

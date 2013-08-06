@@ -62,7 +62,8 @@
             <asp:Label ID="lblSelectType" runat="server" CssClass="FieldName" Text="Select:"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                onselectedindexchanged="ddlSelectType_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlSelectType"
@@ -90,6 +91,19 @@
                 ValidationGroup="Submit" ErrorMessage="Please enter an Code" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+        </td>
+        
+    </tr>
+    <tr>
+    <td class="leftField">
+            <asp:Label ID="lblNoOfCodes" CssClass="FieldName" runat="server" Text="AddMultiple Codes:" Visible="false"></asp:Label>
+        </td>
+    <td>
+    <asp:TextBox ID="txtNoOfCodes" runat="server" CssClass="txtField" Visible="false"></asp:TextBox>
+    </td>
+    <td>
+        <asp:Button ID="btnAddCode" runat="server" Text="AddCode" CssClass="PCGButton" Visible="false"
+                ValidationGroup="Submit" onclick="btnAddCode_Click" />
         </td>
     </tr>
     <tr>
