@@ -61,7 +61,7 @@
                 <div id="dvAssoMgt" runat="server" style="width: 640px;">
                     <telerik:RadGrid ID="gvAssoMgt" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvAssoMgt_OnNeedDataSource"
-                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
+                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             Excel-Format="ExcelML">
@@ -69,7 +69,7 @@
                         <MasterTableView DataKeyNames="U_userId" Width="100%" AllowMultiColumnSorting="True"
                             AutoGenerateColumns="false" CommandItemDisplay="None">
                             <Columns>
-                                <telerik:GridTemplateColumn HeaderText="Select">
+                                <telerik:GridTemplateColumn HeaderText="Select" AllowFiltering="false">
                                     <HeaderTemplate>
                                         <asp:Label ID="lblchkBxSelect" runat="server"></asp:Label>
                                         <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
@@ -78,11 +78,11 @@
                                         <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridDateTimeColumn DataField="AA_ContactPersonName" HeaderText="Associate Name" AllowFiltering="true"
+                                <telerik:GridBoundColumn DataField="AA_ContactPersonName" HeaderText="Associate Name" AllowFiltering="true"
                                     SortExpression="AA_ContactPersonName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="AA_ContactPersonName" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridDateTimeColumn>
+                                </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="U_userId" HeaderText="UserId" SortExpression="U_userId"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="U_userId" FooterStyle-HorizontalAlign="Left">
