@@ -541,13 +541,13 @@ namespace BoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status , string customerId , string orderType)
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string SubBrokerName)
         { 
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType);
+                dtOrder = orderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype,AgentId,SubBrokerCode,SubBrokerName);
             }
             catch (BaseApplicationException Ex)
             {
@@ -709,6 +709,64 @@ namespace BoOps
                 throw Ex;
             }
             return dtOrderAccociates;
+        }
+        public DataTable GetSubBrokerCode(int advisorId, int rmId, int branchId, string usertype)
+        {
+            DataTable dtOrder = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrder = orderDao.GetSubBrokerCode(advisorId, rmId, branchId,usertype);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSubBrokerCode()");
+
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrder;
+        }
+        public DataTable GetSubBrokerName(int advisorId, int rmId, int branchId, string usertype)
+        {
+            DataTable dtOrder = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrder = orderDao.GetSubBrokerName(advisorId, rmId, branchId, usertype);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSubBrokerName()");
+
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrder;
         }
     }
 }

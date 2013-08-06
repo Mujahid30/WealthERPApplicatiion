@@ -944,7 +944,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId,string orderType)
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string SubBrokerName)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -954,11 +954,21 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbOrder = db.GetStoredProcCommand("SP_GetOrderList");
+                if (advisorId!=0)
                 db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, advisorId);
+                else
+                db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64,DBNull.Value);
+                if (AgentId!=0)
+                db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, AgentId);
+                else
+                 db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, DBNull.Value);
                 db.AddInParameter(dbOrder, "@RmId", DbType.String, rmId);
                 db.AddInParameter(dbOrder, "@BranchId", DbType.String, branchId);
                 db.AddInParameter(dbOrder, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(dbOrder, "@Todate", DbType.DateTime, toDate);
+                db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);
+                db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, SubBrokerCode);
+                db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
                 db.AddInParameter(dbOrder, "@status", DbType.String, status);
                 db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
                 if (orderType == "All")
@@ -1172,6 +1182,91 @@ namespace DaoOps
                 throw ex;
             }
             return dt;
+        }
+        public DataTable GetSubBrokerCode(int advisorId, int rmId, int branchId, string usertype)
+        {
+            DataSet dsOrder = null;
+            DataTable dtOrder;
+            Database db;
+            DbCommand dbOrder;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbOrder = db.GetStoredProcCommand("SP_BindSubBrokerCode");
+                if (advisorId != 0)
+                    db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, advisorId);
+                else
+                    db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, DBNull.Value);
+                db.AddInParameter(dbOrder, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(dbOrder, "@BranchId ", DbType.Int32, branchId);             
+                db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);              
+                dsOrder = db.ExecuteDataSet(dbOrder);
+                dtOrder = dsOrder.Tables[0];
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderDao.cs:GetSubBrokerCode()");
+
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrder;
+        }
+
+        public DataTable GetSubBrokerName(int advisorId, int rmId, int branchId, string usertype)
+        {
+            DataSet dsOrder = null;
+            DataTable dtOrder;
+            Database db;
+            DbCommand dbOrder;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbOrder = db.GetStoredProcCommand("SP_BindSubBrokerName");
+                if (advisorId != 0)
+                    db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, advisorId);
+                else
+                    db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, DBNull.Value);
+                db.AddInParameter(dbOrder, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(dbOrder, "@BranchId ", DbType.Int32, branchId);
+                db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);
+                dsOrder = db.ExecuteDataSet(dbOrder);
+                dtOrder = dsOrder.Tables[0];
+
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderDao.cs:GetSubBrokerName()");
+
+                object[] objects = new object[1];
+                objects[0] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrder;
         }
     }
 }

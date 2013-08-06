@@ -426,5 +426,12 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnOrderType;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRMbranch;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAgentId;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubBrokerCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSubBrokerName;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSubBrokerCode;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSubBrokerName;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBrokerCodeName;
     }
 }

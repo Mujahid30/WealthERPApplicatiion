@@ -14,6 +14,8 @@ using WealthERP.Base;
 using BoAdvisorProfiling;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using VOAssociates;
+using BOAssociates;
 using VoOps;
 
 namespace WealthERP.OPS
@@ -27,24 +29,37 @@ namespace WealthERP.OPS
         OperationBo operationBo = new OperationBo();
         RMVo rmVo = new RMVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+        AssociatesVO associatesVo = new AssociatesVO();
         AdvisorVo advisorVo;
         string userType;
         int customerId = 0;
+        int AgentId = 0;
+        int IsAssociate;
         int bmID;
+        int rmId;
         string customerType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();            
-            advisorVo = (AdvisorVo)Session["advisorVo"];           
+            SessionBo.CheckSession();
+            advisorVo = (AdvisorVo)Session["advisorVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
+            associatesVo = (AssociatesVO)Session["associatesVo"];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                 userType = "rm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateCustomerName";
+            }
             rmVo = (RMVo)Session[SessionContents.RmVo];
-            bmID = rmVo.RMId;           
+            bmID = rmVo.RMId;
+            rmId = rmVo.RMId;
+           
             gvOrderList.Visible = false;
             trExportFilteredDupData.Visible = false;
             if (!IsPostBack)
@@ -53,11 +68,13 @@ namespace WealthERP.OPS
                 {
                     BindBranchDropDown();
                     BindRMDropDown();
+                    BindSubBrokerCode();
+                    BindSubBrokerName();
                     if (userType == "rm")
                     {
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
-                        ddlRM.Enabled = false;                       
+                        ddlRM.Enabled = false;
                     }
                 }
                 else if (userType == "rm")
@@ -88,8 +105,22 @@ namespace WealthERP.OPS
                     ddlRM.SelectedValue = rmVo.RMId.ToString();
                     ddlRM.Enabled = false;
                 }
+
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
+                if (userType == "associates")
+                {
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    AgentId = associatesVo.AAC_AdviserAgentId;
+                    ddlCustomerType.Visible = false;
+                    lblSelectTypeOfCustomer.Visible = false;
+                    trRMbranch.Visible = false;
+                    lblselectCustomer.Visible = true;
+                    txtIndividualCustomer.Visible = true;
+                    txtIndividualCustomer.Enabled = true;
+
+                }
             }
         }
         private void BindBranchForBMDropDown()
@@ -139,6 +170,32 @@ namespace WealthERP.OPS
                 ddlOrderStatus.DataTextField = dtOrderStatus.Columns["XS_Status"].ToString();
                 ddlOrderStatus.DataBind();
             }
+        }
+        protected void BindSubBrokerCode()
+        {
+            DataTable dtSubbrokerCode;
+            dtSubbrokerCode = orderbo.GetSubBrokerCode(advisorVo.advisorId, rmId, bmID, userType);
+            if (dtSubbrokerCode.Rows.Count > 0)     
+            {
+                ddlSubBrokerCode.DataSource = dtSubbrokerCode;
+                ddlSubBrokerCode.DataValueField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
+                ddlSubBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
+                ddlSubBrokerCode.DataBind();
+            }
+            ddlSubBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
+        protected void BindSubBrokerName()
+        {
+            DataTable dtSubbrokerName;
+            dtSubbrokerName = orderbo.GetSubBrokerName(advisorVo.advisorId, rmId, bmID, userType);         
+            if (dtSubbrokerName.Rows.Count > 0)
+            {
+                ddlSubBrokerName.DataSource = dtSubbrokerName;
+                ddlSubBrokerName.DataValueField = dtSubbrokerName.Columns["AA_ContactPersonName"].ToString();
+                ddlSubBrokerName.DataTextField = dtSubbrokerName.Columns["AA_ContactPersonName"].ToString();
+                ddlSubBrokerName.DataBind();
+            }
+            ddlSubBrokerName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
 
         private void BindBranchDropDown()
@@ -233,12 +290,32 @@ namespace WealthERP.OPS
             else
                 hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
         }
-
+        private void SetParameterSubbroker()
+        {
+            if (ddlSubBrokerCode.SelectedIndex != 0)
+            {
+                hdnSubBrokerCode.Value = ddlSubBrokerCode.SelectedValue.ToString();
+                ViewState["SubBrokerCode"] = hdnSubBrokerCode.Value;
+            }           
+            else
+            {
+                hdnSubBrokerCode.Value = "0";
+            }
+            if (ddlSubBrokerName.SelectedIndex != 0)
+            {
+                hdnSubBrokerName.Value = ddlSubBrokerName.SelectedItem.ToString();
+                ViewState["SubBrokerName"] = hdnSubBrokerName.Value;
+            }
+           else
+            {
+                hdnSubBrokerName.Value = "0";
+            }
+        }
         protected void BindGvOrderList()
         {
+            SetParameterSubbroker();
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value,hdnOrderType.Value);
-
+            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, AgentId,hdnSubBrokerCode.Value,hdnSubBrokerName.Value);
             if (dtOrder.Rows.Count > 0)
             {
                 trExportFilteredDupData.Visible = true;
@@ -295,7 +372,7 @@ namespace WealthERP.OPS
         {
             if (e.CommandName == "Redirect")
             {
-                
+
                 GridDataItem item = (GridDataItem)e.Item;
                 string orderId = item.GetDataKeyValue("CO_OrderId").ToString();
                 string customerId = item.GetDataKeyValue("C_CustomerId").ToString();
@@ -310,7 +387,7 @@ namespace WealthERP.OPS
                 RadComboBox rcb = new RadComboBox();
                 TemplateColumn tm = new TemplateColumn();
                 RadComboBox lbl = new RadComboBox();
-                 if (userType=="bm")
+                if (userType == "bm")
                 {
 
                     rcb = (RadComboBox)e.Item.FindControl("ddlMenu");
@@ -362,7 +439,7 @@ namespace WealthERP.OPS
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                     action = "Edit";
-                    if(assetGroupCode =="IN")
+                    if (assetGroupCode == "IN")
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "LifeInsuranceOrderEntry", "loadcontrol('LifeInsuranceOrderEntry','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);
                     else if (assetGroupCode == "MF")
                     {
@@ -561,7 +638,7 @@ namespace WealthERP.OPS
             if (!string.IsNullOrEmpty(hdnCustomerId.Value.ToString().Trim()))
             {
                 customerId = int.Parse(hdnCustomerId.Value);
-               
+
                 //customerVo = customerBo.GetCustomer(int.Parse(txtIndividualCustomer_autoCompleteExtender.ContextKey));
             }
         }
@@ -573,7 +650,7 @@ namespace WealthERP.OPS
             rquiredFieldValidatorIndivudialCustomer.Visible = true;
             if (ddlCustomerType.SelectedItem.Value == "0")
             {
-               
+
                 customerType = "GROUP";
                 if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
                 {
