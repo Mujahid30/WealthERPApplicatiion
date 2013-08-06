@@ -12,7 +12,7 @@
     
         <br />
         <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
-        &nbsp; Enter Numeric Value<br />
+       
         <br />
         <br />
         <br />
