@@ -673,7 +673,7 @@ namespace WealthERP.Associates
             {
                 requestId = int.Parse(txtGenerateReqstNum.Text);
                 GetAdviserAssociatesDetails(requestId);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociatesDetails','action=Edit');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociatesDetails','action=EditFromRequestPage');", true);
                 ddlstatus2.Enabled = true;
                 ddlReasonStage2.Enabled = true;
             }

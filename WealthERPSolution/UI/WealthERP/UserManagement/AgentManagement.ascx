@@ -58,7 +58,7 @@
     <table width="100%">
         <tr>
             <td>
-                <div id="dvAssoMgt" runat="server" style="width: 640px;">
+                <div id="dvAssoMgt" runat="server" style="width: 840px;">
                     <telerik:RadGrid ID="gvAssoMgt" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvAssoMgt_OnNeedDataSource"
                         ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
@@ -81,6 +81,11 @@
                                 <telerik:GridBoundColumn DataField="AA_ContactPersonName" HeaderText="Associate Name" AllowFiltering="true"
                                     SortExpression="AA_ContactPersonName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="AA_ContactPersonName" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="AAC_AgentCode" HeaderText="Sub Broker Code" AllowFiltering="true"
+                                    SortExpression="AAC_AgentCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="AAC_AgentCode" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="U_userId" HeaderText="UserId" SortExpression="U_userId"

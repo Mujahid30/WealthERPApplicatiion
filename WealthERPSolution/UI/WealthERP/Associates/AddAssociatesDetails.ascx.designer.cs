@@ -185,24 +185,6 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator5;
         
         /// <summary>
-        /// lblAdviserAgentCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdviserAgentCode;
-        
-        /// <summary>
-        /// txtAdviserAgentCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAdviserAgentCode;
-        
-        /// <summary>
         /// RadTabStripAssociatesDetails control.
         /// </summary>
         /// <remarks>
@@ -1470,6 +1452,9 @@ namespace WealthERP.Associates {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGurdianPhone;
+
+        protected global::System.Web.UI.WebControls.TextBox txtAdviserAgentCode;       
+
         
         /// <summary>
         /// rpvCategory control.

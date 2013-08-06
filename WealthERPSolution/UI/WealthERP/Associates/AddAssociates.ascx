@@ -438,9 +438,7 @@
                                 <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper" onblur="return chkPanExists()"></asp:TextBox>
                                 <span id="spnLoginStatus"></span>
                                 <br />
-                                <asp:CustomValidator ID="cvPanOrName" runat="server" ValidationGroup="Submit"
-                                    Display="Dynamic" ClientValidationFunction="chkPanorCustomerNameRequired" CssClass="revPCG"
-                                    ErrorMessage="CustomValidator">Either Name or Pan Number is must</asp:CustomValidator>
+                                
                                 <asp:RegularExpressionValidator ID="revPANNum" ControlToValidate="txtPanNum" ValidationGroup="Submit"
                                     ErrorMessage="Not A Valid PAN" Display="Dynamic" runat="server" ValidationExpression="^[0-9a-zA-Z]+$"
                                     CssClass="revPCG"></asp:RegularExpressionValidator>
