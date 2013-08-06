@@ -146,8 +146,6 @@
                 
             },
             success: function(msg) {
-            alert(msg.d);
-
                 if (msg.d) {
 
                     $("#<%= hidValidCheck.ClientID %>").val("1");
