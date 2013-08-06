@@ -763,6 +763,9 @@
                         <asp:CheckBox ID="chkMf" runat="server" Text="MF" CssClass="cmbField" value="MF" />
                         <asp:CheckBox ID="chlIpo" runat="server" Text="IPO" CssClass="cmbField" value="IPO" />
                         <asp:CheckBox ID="chkfd" runat="server" Text="FD" CssClass="cmbField" value="FD" />
+                         <asp:CheckBox ID="chkEQ" runat="server" Text="EQ" CssClass="cmbField" value="EQ" />
+                          <asp:CheckBox ID="chkDebt" runat="server" Text="Debt" CssClass="cmbField" value="Debt" />
+                            <asp:CheckBox ID="chkPMS" runat="server" Text="PMS" CssClass="cmbField" value="PMS" />
                     </td>
                 </tr>
             </table>

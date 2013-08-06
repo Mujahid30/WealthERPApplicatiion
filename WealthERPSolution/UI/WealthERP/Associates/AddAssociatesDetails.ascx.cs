@@ -673,6 +673,7 @@ namespace WealthERP.Associates
                 associatesVo.NoOfClients = 0;
 
 
+
             result = associatesBo.UpdateAdviserAssociates(associatesVo);
             Session["associatesVo"] = associatesVo;
             if (result == true)
