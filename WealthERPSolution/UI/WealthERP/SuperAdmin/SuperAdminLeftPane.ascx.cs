@@ -65,6 +65,10 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddSchemeMapping','login')", true);
                 }
+                else if (e.Item.Value == "Reports")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFReports','login')", true);
+                }
 
                 else if (e.Item.Value == "LoanScheme")
                 {

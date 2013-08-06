@@ -101,5 +101,7 @@
         </telerik:RadPanelItem>
         <telerik:RadPanelItem Text="Scheme Mapping" Value="SchemeMapping">
         </telerik:RadPanelItem>
+        <telerik:RadPanelItem Text="Reports" Value="Reports">
+        </telerik:RadPanelItem>
     </Items>
 </telerik:RadPanelBar>
