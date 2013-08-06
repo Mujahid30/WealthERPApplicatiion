@@ -890,7 +890,6 @@ namespace DaoCommisionManagement
         {
             Database db;
             DbCommand cmdMapScheme;
-           // DataSet ds = null;
 
             try
             {
@@ -920,13 +919,91 @@ namespace DaoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            //return ds;
         }
 
-        public void updateStructureToSchemeMapping(int setupId, DateTime validTill)
+        public int checkSchemeAssociationExists(int schemeId, int structId, DateTime validFrom, DateTime validTo)
         {
             Database db;
             DbCommand cmdUpdateSetup;
+            int retVal = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateSetup = db.GetStoredProcCommand("SPROC_CheckSchemeAssociation");
+                db.AddInParameter(cmdUpdateSetup, "@SchemeId", DbType.Int32, schemeId);
+                db.AddInParameter(cmdUpdateSetup, "@StructId", DbType.Int32, structId);
+                db.AddInParameter(cmdUpdateSetup, "@ValidFrom", DbType.DateTime, validFrom);
+                db.AddInParameter(cmdUpdateSetup, "@ValidTill", DbType.DateTime, validTo);
+                db.AddOutParameter(cmdUpdateSetup, "@RowUpdate", DbType.Int32, retVal);
+                db.ExecuteDataSet(cmdUpdateSetup);
+                retVal = (int)cmdUpdateSetup.Parameters["@RowUpdate"].Value;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:updateStructureToSchemeMapping(int setupId, DateTime validTill)");
+                object[] objects = new object[4];
+                objects[0] = schemeId;
+                objects[1] = structId;
+                objects[2] = validFrom;
+                objects[3] = validTo;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return retVal;
+        }
+
+        public int checkSchemeAssociationExists(int setupId, DateTime validFrom, DateTime validTo)
+        {
+            Database db;
+            DbCommand cmdUpdateSetup;
+            int retVal = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateSetup = db.GetStoredProcCommand("SPROC_CheckSchemeAssociationBySetup");
+                db.AddInParameter(cmdUpdateSetup, "@SetupId", DbType.Int32, setupId);
+                db.AddInParameter(cmdUpdateSetup, "@ValidFrom", DbType.DateTime, validFrom);
+                db.AddInParameter(cmdUpdateSetup, "@ValidTill", DbType.DateTime, validTo);
+                db.AddOutParameter(cmdUpdateSetup, "@RowUpdate", DbType.Int32, retVal);
+                db.ExecuteDataSet(cmdUpdateSetup);
+                retVal = (int)cmdUpdateSetup.Parameters["@RowUpdate"].Value;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:updateStructureToSchemeMapping(int setupId, DateTime validTill)");
+                object[] objects = new object[3];
+                objects[0] = setupId;
+                objects[1] = validFrom;
+                objects[2] = validTo;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return retVal;
+        }
+
+        public int updateStructureToSchemeMapping(int setupId, DateTime validTill)
+        {
+            Database db;
+            DbCommand cmdUpdateSetup;
+            int rowsUpdate = 0;
 
             try
             {
@@ -934,7 +1011,9 @@ namespace DaoCommisionManagement
                 cmdUpdateSetup = db.GetStoredProcCommand("SPROC_UpdateStructureToSchemeMapping");
                 db.AddInParameter(cmdUpdateSetup, "@SetupId", DbType.Int32, setupId);
                 db.AddInParameter(cmdUpdateSetup, "@ValidTill", DbType.DateTime, validTill);
+                db.AddOutParameter(cmdUpdateSetup, "@RowUpdate", DbType.Int32, rowsUpdate);
                 db.ExecuteDataSet(cmdUpdateSetup);
+                return (int)cmdUpdateSetup.Parameters["@RowUpdate"].Value;
             }
             catch (BaseApplicationException Ex)
             {
