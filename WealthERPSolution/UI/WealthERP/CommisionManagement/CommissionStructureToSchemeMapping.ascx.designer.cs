@@ -95,6 +95,15 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.HiddenField hdnSubcategoryIds;
         
         /// <summary>
+        /// ibtExportSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
+        
+        /// <summary>
         /// lblStructName control.
         /// </summary>
         /// <remarks>
@@ -284,22 +293,22 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.Label lblPeriodStart;
         
         /// <summary>
-        /// rclPeriodStart control.
+        /// rdpPeriodStart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker rclPeriodStart;
+        protected global::Telerik.Web.UI.RadDatePicker rdpPeriodStart;
         
         /// <summary>
-        /// rclPeriodEnd control.
+        /// rdpPeriodEnd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker rclPeriodEnd;
+        protected global::Telerik.Web.UI.RadDatePicker rdpPeriodEnd;
         
         /// <summary>
         /// btn_GetAvailableSchemes control.
@@ -336,6 +345,15 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvPeriodEnd;
+        
+        /// <summary>
+        /// lblMapError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMapError;
         
         /// <summary>
         /// lblAvailableSchemes control.

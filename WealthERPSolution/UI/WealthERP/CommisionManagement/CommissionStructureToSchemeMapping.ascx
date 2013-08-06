@@ -152,9 +152,9 @@
                                 <asp:HiddenField ID="hdnSubcategoryIds" runat="server" />
                             </td>
                             <td align=right>
-                                <%--<asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExportSummary_OnClick"
-                                    Height="25px" Width="25px"></asp:ImageButton>--%>
+                                    Height="25px" Width="25px" />
                             </td>
                         </tr>
                     </table>
@@ -246,11 +246,12 @@
                                     onpageindexchanged="gvMappedSchemes_PageIndexChanged" onupdatecommand="gvMappedSchemes_UpdateCommand">
                                     <HeaderContextMenu EnableEmbeddedSkins="False"></HeaderContextMenu>
 
-                                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule"></ExportSettings>
+                                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MappedSchemes"
+                                    IgnorePaging="true" ></ExportSettings>
                                     <PagerStyle AlwaysVisible="True" />
                                     <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" 
                                         AutoGenerateColumns="false" Width="100%" DataKeyNames="ACSTSM_SetupId">
-                                        <CommandItemSettings ExportToPdfText="Export to Pdf" />
+                                        <CommandItemSettings ExportToExcelText="Export to excel" />
                                         <Columns>
                                             <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" HeaderStyle-Width="50px">
                                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
@@ -315,19 +316,19 @@
                 <td class="leftLabel">
                     <asp:Label ID="lblPeriodStart" runat="server" CssClass="FieldName" Text="Available Between: "></asp:Label></td>
                 <td class="rightData">
-                    <telerik:RadDatePicker ID="rclPeriodStart" runat="server"></telerik:RadDatePicker></td>
+                    <telerik:RadDatePicker ID="rdpPeriodStart" runat="server"></telerik:RadDatePicker></td>
                 <td class="leftLabel">
-                    <telerik:RadDatePicker ID="rclPeriodEnd" runat="server"></telerik:RadDatePicker></td>
+                    <telerik:RadDatePicker ID="rdpPeriodEnd" runat="server"></telerik:RadDatePicker></td>
                 <td class="rightData"><asp:Button ID="btn_GetAvailableSchemes" runat="server" Text="Schemes" 
                     CssClass="PCGButton" onclick="btn_GetAvailableSchemes_Click" /></td>
-                <td>
-                    <asp:RequiredFieldValidator ID="rfvPeriodStart" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter valid date(s)" ControlToValidate="rclPeriodStart" ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
-                    <asp:RequiredFieldValidator ID="rfvPeriodEnd" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter valid date(s)" ControlToValidate="rclPeriodEnd" ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
+                <td colspan="2">
+                    <asp:RequiredFieldValidator ID="rfvPeriodStart" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter valid date(s)" ControlToValidate="rdpPeriodStart" ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvPeriodEnd" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter valid date(s)" ControlToValidate="rdpPeriodEnd" ValidationGroup="availSchemesPeriod" Display="Dynamic"></asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="cvPeriodEnd" runat="server" CssClass="rfvPCG"
-                        ControlToCompare="rclPeriodStart" ErrorMessage="Please enter valid date(s)" 
-                        ControlToValidate="rclPeriodEnd" Display="Dynamic" Operator="GreaterThan" 
-                        SetFocusOnError="True" Type="Date" ValidationGroup="availSchemesPeriod"></asp:CompareValidator></td>                
-                <td class="rightData"></td>
+                        ControlToCompare="rdpPeriodStart" ErrorMessage="Please enter valid date(s)" 
+                        ControlToValidate="rdpPeriodEnd" Display="Dynamic" Operator="GreaterThan" 
+                        SetFocusOnError="True" Type="Date" ValidationGroup="availSchemesPeriod"></asp:CompareValidator>
+                    <asp:Label ID="lblMapError" runat="server" CssClass="rfvPCG" Text=""></asp:Label></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -355,14 +356,12 @@
                         AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false"
                         EnableViewState="true" EnableMarkMatches="true" runat="server" ID="rlbAvailSchemes"
                         Height="200px" Width="250px" AllowTransfer="true"
-                        TransferToID="rlbMappedSchemes" CssClass="cmbField" 
-                        ontransferred="rlbAvailSchemes_Transferred">
+                        TransferToID="rlbMappedSchemes" CssClass="cmbField">
                         <ButtonSettings TransferButtons="All" />
                     </telerik:RadListBox></td>            
                 <td rowspan="2" class="leftLabel">
                     <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
-                        ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbField" 
-                        ontransferred="rlbMappedSchemes_Transferred">
+                        ID="rlbMappedSchemes" Height="200px" Width="220px" CssClass="cmbField">
                     </telerik:RadListBox>
                 </td>
                 <td>&nbsp;</td>
@@ -388,19 +387,15 @@
                     <telerik:RadDatePicker ID="rdpMappedTill" runat="server"></telerik:RadDatePicker>
                 <td class="rightData">
                     <asp:Button ID="btnMapSchemes" CssClass="PCGButton" runat="server" Text="Map" onclick="btnMapSchemes_Click" /></td>
-                <td>
-                    <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)" 
-                    Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator></td>
-                    <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)" Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator></td>
-                    <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)" CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill" 
-                    Operator="GreaterThan"></asp:CompareValidator></td>
-                <td>&nbsp;</td>
+                <td colspan="2">
+                    <asp:RequiredFieldValidator ID="rfvMappingTo" runat="server" ErrorMessage="Please enter valid date(s)" Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedTill"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvMappingFrom" runat="server" ErrorMessage="Please enter valid date(s)" Display="Dynamic" CssClass="rfvPCG" ValidationGroup="mappingPeriod" ControlToValidate="rdpMappedFrom"></asp:RequiredFieldValidator>
+                    <asp:CompareValidator ID="cmvMappingPeriod" runat="server" ErrorMessage="Please enter valid date(s)" CssClass="rfvPCG" Display="Dynamic" ControlToCompare="rdpMappedFrom" ControlToValidate="rdpMappedTill" Operator="GreaterThan"></asp:CompareValidator></td>
             </tr>
         </table>
-    </asp:Panel>
-    
+    </asp:Panel>    
 </ContentTemplate>
-    <%--<Triggers-->
+    <Triggers>
         <asp:PostBackTrigger ControlID="ibtExportSummary" />
-    </Triggers>--%>
+    </Triggers>
 </asp:UpdatePanel>

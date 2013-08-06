@@ -33,16 +33,12 @@ namespace WealthERP.CommisionManagement
             rmVo = (RMVo)Session["rmVo"];
 
             if (!IsPostBack) {
-                //pnlNewSchemes.Visible = false;
                 pnlGrid.Visible = false;
                 
-                //BindStructDD();
-                if (Request.QueryString["ID"] != null)
-                {
+                if (Request.QueryString["ID"] != null) {
                     hdnStructId.Value = Request.QueryString["ID"].Trim();
                     SetStructureDetails();
                     CreateMappedSchemeGrid();
-                    //SetDatePickControls();
                 }                
             }
         }
@@ -117,45 +113,69 @@ namespace WealthERP.CommisionManagement
 
         private void CreateMappedSchemeGrid()
         {
-            DataSet dsMappedSchemes = new DataSet();
-            dsMappedSchemes = commisionReceivableBo.GetMappedSchemes(int.Parse(hdnStructId.Value));
-            gvMappedSchemes.DataSource = dsMappedSchemes.Tables[0];
-            gvMappedSchemes.DataBind();
-            Cache.Insert(userVo.UserId.ToString() + "MappedSchemes", dsMappedSchemes);
-            pnlGrid.Visible = true;
+            try 
+            {
+                DataSet dsMappedSchemes = new DataSet();
+                dsMappedSchemes = commisionReceivableBo.GetMappedSchemes(int.Parse(hdnStructId.Value));
+                gvMappedSchemes.DataSource = dsMappedSchemes.Tables[0];
+                gvMappedSchemes.DataBind();
+                Cache.Insert(userVo.UserId.ToString() + "MappedSchemes", dsMappedSchemes.Tables[0]);
+                pnlGrid.Visible = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionStructureToSchemeMapping.ascx.cs:void CreateMappedSchemeGrid()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }            
         }
 
         private void BindMappedSchemesToList()
         {
-            //DataSet dsMappedSchemes = new DataSet();
-            //dsMappedSchemes = commisionReceivableBo.GetMappedSchemes(int.Parse(hdnStructId.Value), advisorVo.advisorId);
-            //rlbAvailSchemes.DataSource = dsMappedSchemes.Tables[0];
-            //rlbAvailSchemes.DataValueField = dsMappedSchemes.Tables[0].Columns["SchemePlanCode"].ToString();
-            //rlbAvailSchemes.DataTextField = dsMappedSchemes.Tables[0].Columns["Name"].ToString();
-            //rlbAvailSchemes.DataBind();
-            //Cache.Insert(userVo.UserId.ToString() + "MappedSchemes", dsMappedSchemes);
-            //pnlGrid.Visible = true;
+            lblMappedSchemes.Text = "Mapped Schemes(" + rlbMappedSchemes.Items.Count.ToString() + ")";
         }
 
         private void BindAvailSchemesToList()
         {
-            int sStructId = int.Parse(hdnStructId.Value);
-            int sIssuerId = int.Parse(hdnIssuerId.Value);
-            string sProduct = hdnProductId.Value;
-            string sCategory = hdnCategoryId.Value;
-            string sSubcats = hdnSubcategoryIds.Value;
-            
-            DateTime validFrom = rclPeriodStart.SelectedDate.Value;
-            DateTime validTill = rclPeriodEnd.SelectedDate.Value;
+            try
+            {
+                int sStructId = int.Parse(hdnStructId.Value);
+                int sIssuerId = int.Parse(hdnIssuerId.Value);
+                string sProduct = hdnProductId.Value;
+                string sCategory = hdnCategoryId.Value;
+                string sSubcats = hdnSubcategoryIds.Value;
 
-            DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
-            rlbAvailSchemes.DataSource = dsAvailSchemes.Tables[0];
-            rlbAvailSchemes.DataValueField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
-            rlbAvailSchemes.DataTextField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanName"].ToString();
-            rlbAvailSchemes.DataBind();
+                DateTime validFrom = rdpPeriodStart.SelectedDate.Value;
+                DateTime validTill = rdpPeriodEnd.SelectedDate.Value;
 
-            //Debug code
-            lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
+                DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
+                rlbAvailSchemes.DataSource = dsAvailSchemes.Tables[0];
+                rlbAvailSchemes.DataValueField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
+                rlbAvailSchemes.DataTextField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanName"].ToString();
+                rlbAvailSchemes.DataBind();
+
+                lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionStructureToSchemeMapping.ascx.cs:BindAvailSchemesToList()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
         protected void btnGo_Click(object sender, EventArgs e)
@@ -170,11 +190,11 @@ namespace WealthERP.CommisionManagement
 
         protected void gvMappedSchemes_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
-            DataSet dsMappedSchemes = new DataSet();
+            DataTable dtMappedSchemes = new DataTable();
             if (Cache[userVo.UserId.ToString() + "MappedSchemes"] != null)
             {
-                dsMappedSchemes = (DataSet)Cache[userVo.UserId.ToString() + "MappedSchemes"];
-                gvMappedSchemes.DataSource = dsMappedSchemes.Tables[0];
+                dtMappedSchemes = (DataTable)Cache[userVo.UserId.ToString() + "MappedSchemes"];
+                gvMappedSchemes.DataSource = dtMappedSchemes;
             }
         }
 
@@ -184,61 +204,60 @@ namespace WealthERP.CommisionManagement
             //CreateMappedSchemeGrid();
         }
 
-        private void SetDatePickControls() 
+        private void SetFetchSchemesDatePickControls() 
         {
-            rclPeriodStart.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
-            rclPeriodStart.MinDate =  DateTime.Parse(hdnStructValidFrom.Value.ToString());
-            rclPeriodStart.SelectedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
-            rclPeriodStart.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString()).AddDays(-1);
-            rclPeriodEnd.FocusedDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
-            rclPeriodEnd.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString()).AddDays(1);
-            rclPeriodEnd.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
-            rclPeriodEnd.SelectedDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+            rdpPeriodStart.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
+            rdpPeriodStart.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString()).AddDays(-1);
+            rdpPeriodStart.SelectedDate = rdpPeriodStart.MinDate;
+            
+            rdpPeriodEnd.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString()).AddDays(1);
+            rdpPeriodEnd.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
+            rdpPeriodEnd.SelectedDate = rdpPeriodEnd.MaxDate;
         }
 
         protected void btnAddNewSchemes_Click(object sender, EventArgs e)
         {
-            SetDatePickControls();
+            SetFetchSchemesDatePickControls();
             pnlAddSchemes.Visible = true;
         }
 
         protected void ListBoxSource_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
-
         }
 
-        private void SetMappedSchemeDatePicker() {
-            rdpMappedFrom.FocusedDate = (DateTime)rclPeriodStart.SelectedDate;
+        private void SetMappedSchemesDatePicker() {
             rdpMappedFrom.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString());
-            rdpMappedFrom.SelectedDate = (DateTime)rclPeriodStart.SelectedDate;
             rdpMappedFrom.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString()).AddDays(-1);
-            rdpMappedTill.FocusedDate = (DateTime)rclPeriodEnd.SelectedDate;
+            rdpMappedFrom.SelectedDate = rdpMappedFrom.MinDate;
+
             rdpMappedTill.MinDate = DateTime.Parse(hdnStructValidFrom.Value.ToString()).AddDays(1);
             rdpMappedTill.MaxDate = DateTime.Parse(hdnStructValidTill.Value.ToString());
-            rdpMappedTill.SelectedDate = (DateTime)rclPeriodEnd.SelectedDate;
+            rdpMappedTill.SelectedDate = rdpMappedTill.MaxDate;
         }
 
         protected void btn_GetAvailableSchemes_Click(object sender, EventArgs e)
         {
+
             //Perform validations
             this.Page.Validate("availSchemesPeriod");
             if (!this.Page.IsValid) { return; }
 
+            lblMapError.Text = "";
             rlbAvailSchemes.Items.Clear();
             rlbMappedSchemes.Items.Clear();
             BindAvailSchemesToList();
             BindMappedSchemesToList();
-            SetMappedSchemeDatePicker();
+            SetMappedSchemesDatePicker();
         }
 
         protected void rlbAvailSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
-            
+            lblAvailableSchemes.Text = "Available Schemes(" + rlbAvailSchemes.Items.Count.ToString() + ")";
         }
 
         protected void rlbMappedSchemes_Transferred(object sender, RadListBoxTransferredEventArgs e)
         {
-
+            lblMappedSchemes.Text = "Mapped Schemes(" + rlbMappedSchemes.Items.Count.ToString() + ")";
         }
 
         private void MapSchemesToStructure() 
@@ -246,11 +265,29 @@ namespace WealthERP.CommisionManagement
             if (rlbMappedSchemes.Items.Count < 1)
                 return;
             List<int> schemeIds = new List<int>();
+
+            bool mapOk = true;
+            int structId = int.Parse(hdnStructId.Value);
             foreach (RadListBoxItem item in rlbMappedSchemes.Items) {
-                //schemeIds.Add(int.Parse(item.Value));
-                int structId = int.Parse(hdnStructId.Value);
+                int schemeId = int.Parse(item.Value);
+                if (commisionReceivableBo.checkSchemeAssociationExists(schemeId, structId, rdpMappedFrom.SelectedDate.Value, rdpMappedTill.SelectedDate.Value)) {
+                    mapOk = false;
+                    break;
+                }
+            }
+
+            if (!mapOk) {
+                showMapError();
+                return;
+            }
+            foreach (RadListBoxItem item in rlbMappedSchemes.Items) {
                 commisionReceivableBo.MapSchemesToStructres(structId, int.Parse(item.Value), rdpMappedFrom.SelectedDate.Value, rdpMappedTill.SelectedDate.Value);
             }
+        }
+
+        private void showMapError() {
+            //lblMapError.Text = "Scheme mapping cannot be performed";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Scheme mapping could not be performed');", true);
         }
 
         protected void btnMapSchemes_Click(object sender, EventArgs e)
@@ -273,7 +310,14 @@ namespace WealthERP.CommisionManagement
             int setupId = int.Parse(item.GetDataKeyValue("ACSTSM_SetupId").ToString());
             DateTime oldDate = DateTime.Parse(item.SavedOldValues["ValidTill"].ToString());
             DateTime newDate = ((RadDatePicker)item["schemeValidTill"].Controls[0]).SelectedDate.Value;
-            commisionReceivableBo.updateStructureToSchemeMapping(setupId, newDate);
+
+            //check whether it is not associated
+            int retVal = commisionReceivableBo.updateStructureToSchemeMapping(setupId, newDate);
+            if (retVal < 1)
+            {
+                return;
+            }
+
             CreateMappedSchemeGrid();
         }
 
@@ -294,9 +338,47 @@ namespace WealthERP.CommisionManagement
                 cmvCompare.Operator = ValidationCompareOperator.GreaterThan;
                 cmvCompare.Display = ValidatorDisplay.Dynamic;
 
+                //Custom validator: checks whether Scheme association exits)
+                CustomValidator cusValidator = new CustomValidator();
+                cusValidator.ControlToValidate = ((RadDatePicker)item["schemeValidTill"].Controls[0]).ID;
+                cusValidator.ErrorMessage = "This scheme association not permitted";
+                cusValidator.Display = ValidatorDisplay.Dynamic;
+                cusValidator.ServerValidate += new ServerValidateEventHandler(cusValidator_ServerValidate);
+
                 item["schemeValidTill"].Controls.Add(rfvRequired);
                 item["schemeValidTill"].Controls.Add(cmvCompare);
+                item["schemeValidTill"].Controls.Add(cusValidator);
             }
+        }
+
+        void cusValidator_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            GridEditableItem item = (GridEditableItem)((CustomValidator)source).NamingContainer;
+            int setupId = int.Parse(item.GetDataKeyValue("ACSTSM_SetupId").ToString());
+            DateTime validFrom = ((RadDatePicker)item["schemeValidFrom"].Controls[0]).SelectedDate.Value;
+            DateTime validTill = ((RadDatePicker)item["schemeValidTill"].Controls[0]).SelectedDate.Value;
+
+            args.IsValid = true;
+            if (commisionReceivableBo.checkSchemeAssociationExists(setupId, validFrom, validTill)) { args.IsValid = false; }
+        }
+
+        protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
+        {
+            DataTable dtMappedSchemes = new DataTable();
+            dtMappedSchemes = (DataTable)Cache[userVo.UserId.ToString() + "MappedSchemes"];
+            if (dtMappedSchemes == null)
+                return;
+            if (dtMappedSchemes.Rows.Count < 1)
+                return;
+            gvMappedSchemes.DataSource = dtMappedSchemes;
+            gvMappedSchemes.ExportSettings.OpenInNewWindow = true;
+            gvMappedSchemes.ExportSettings.IgnorePaging = true;
+            gvMappedSchemes.ExportSettings.HideStructureColumns = true;
+            gvMappedSchemes.ExportSettings.ExportOnlyData = true;
+            gvMappedSchemes.ExportSettings.FileName = "MappedSchemes";
+            gvMappedSchemes.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvMappedSchemes.MasterTableView.ExportToExcel();
+            CreateMappedSchemeGrid();
         }
     }
 }
