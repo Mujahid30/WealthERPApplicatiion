@@ -86,8 +86,6 @@ namespace WealthERP.Receivable
             ddlProductType.DataValueField = dsLookupData.Tables[0].Columns["PAG_AssetGroupCode"].ToString();
             ddlProductType.DataTextField = dsLookupData.Tables[0].Columns["PAG_AssetGroupName"].ToString();
             ddlProductType.DataBind();
-            ddlProductType.SelectedValue = "MF";
-            ddlProductType.Enabled = false;
 
             ddlCommissionApplicableLevel.DataSource = dsLookupData.Tables[1];
             ddlCommissionApplicableLevel.DataValueField = dsLookupData.Tables[1].Columns["WCAL_ApplicableLEvelCode"].ToString();
@@ -115,6 +113,7 @@ namespace WealthERP.Receivable
             ddlReceivableFrequency.DataTextField = dsLookupData.Tables[5].Columns["XF_Frequency"].ToString();
             ddlReceivableFrequency.DataBind();
             ddlReceivableFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+            
 
             ddlIssuer.DataSource = dsLookupData.Tables[6];
             ddlIssuer.DataValueField = dsLookupData.Tables[6].Columns["PA_AMCCode"].ToString();
@@ -133,7 +132,7 @@ namespace WealthERP.Receivable
             ddlCategory.DataTextField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-           
+            
 
 
             //ddlInvestorType.DataSource = dsLookupData.Tables[9];
@@ -143,6 +142,23 @@ namespace WealthERP.Receivable
             Session["CommissionLookUpData"] = dsLookupData;
 
         }
+
+        protected void SetStructureMasterControlDefaultValues(string assetType)
+        {
+            if (assetType == "MF")
+            {
+                ddlProductType.SelectedValue = "MF";
+                ddlProductType.Enabled = false;
+
+                ddlCategory.SelectedValue = "MFDT";
+            }
+            ddlReceivableFrequency.SelectedValue = "MN";
+ 
+        }
+        //protected void SetStructureRuleControlDefaultValues(string commType)
+        //{
+
+        //}
 
         protected CommissionStructureMasterVo CollectStructureMastetrData()
         {
@@ -276,6 +292,7 @@ namespace WealthERP.Receivable
                 ddlBrokerageUnit.DataValueField = dsCommissionLookup.Tables[3].Columns["WCU_UnitCode"].ToString();
                 ddlBrokerageUnit.DataTextField = dsCommissionLookup.Tables[3].Columns["WCU_Unit"].ToString();
                 ddlBrokerageUnit.DataBind();
+                ddlBrokerageUnit.SelectedValue = "PER";
 
                 ddlCommisionCalOn.DataSource = dsCommissionLookup.Tables[4];
                 ddlCommisionCalOn.DataValueField = dsCommissionLookup.Tables[4].Columns["WCCO_Calculatedoncode"].ToString();
@@ -291,6 +308,7 @@ namespace WealthERP.Receivable
                 ddlSIPFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
                 ddlSIPFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
                 ddlSIPFrequency.DataBind();
+                ddlSIPFrequency.SelectedValue = "MN";
 
                 if (e.Item.RowIndex != -1)
                 {
@@ -826,7 +844,6 @@ namespace WealthERP.Receivable
             }
             else if (lnkEditStructure.Text == "Edit")
                 CommissionStructureControlsEnable(true);
-
         }
 
         protected void lnkAddNewStructure_Click(object sender, EventArgs e)
@@ -836,7 +853,6 @@ namespace WealthERP.Receivable
 
         private void ControlStateNewStructureCreate()
         {
-
             ddlCategory.SelectedIndex = 0;
             rlbAssetSubCategory.Items.Clear();
             ddlIssuer.SelectedIndex = 0;
@@ -868,6 +884,7 @@ namespace WealthERP.Receivable
             tblCommissionStructureRule.Visible = false;
             tblCommissionStructureRule1.Visible = false;
 
+            SetStructureMasterControlDefaultValues("MF");
         }
 
         private void BindCommissionStructureRuleBlankRow()

@@ -658,8 +658,9 @@
                                                         runat="server" CssClass="txtField"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
                                                         <%-- <asp:ListItem Text="Days" Value="Days"></asp:ListItem>--%>
-                                                        <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
                                                         <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
+                                                        <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
+                                                        
                                                     </asp:DropDownList>
                                                 </td>
                                             </tr>
