@@ -307,6 +307,40 @@ namespace BoAdvisorProfiling
             }
             return advisorBranchVo;
         }
+        public int GetAdviserAgentID(string AgentCode, string UserType)
+        {
+            Database db;
+            DbCommand cmdGetAdviserAgentID;
+            int AdviserAgentID = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserAgentID = db.GetStoredProcCommand("SP_GetAdviserAgentID");
+                db.AddInParameter(cmdGetAdviserAgentID, "@AAC_AgentCode", DbType.String, AgentCode);
+                db.AddInParameter(cmdGetAdviserAgentID, "@AAC_UserType", DbType.String, UserType);
+
+                if (db.ExecuteScalar(cmdGetAdviserAgentID) != null)
+                    Int32.TryParse(db.ExecuteScalar(cmdGetAdviserAgentID).ToString(), out AdviserAgentID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetAdviserAgentID()");
+                object[] objects = new object[1];
+                objects[0] = AdviserAgentID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AdviserAgentID;
+        }
         /// <summary>
         /// 
         /// </summary>

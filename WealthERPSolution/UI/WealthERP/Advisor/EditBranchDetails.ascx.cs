@@ -56,6 +56,8 @@ namespace WealthERP.Advisor
                 branchRMDependendency = advisorBranchBo.CheckBranchDependency(advisorBranchVo.BranchId);
                 advisorVo =(AdvisorVo) Session[SessionContents.AdvisorVo];
                 userVo = (UserVo)Session[SessionContents.UserVo];
+               
+
                 if (!IsPostBack)
                 {
                     BindStates(path);
@@ -84,7 +86,10 @@ namespace WealthERP.Advisor
                    
                     
                 }
+                if (Request.QueryString["AgentCode"] != null)
+                    txtAgentCode.Text = Request.QueryString["AgentCode"].ToString();
             }
+                
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -140,6 +145,23 @@ namespace WealthERP.Advisor
             ddlState.DataTextField = "StateName";
             ddlState.DataBind();
             ddlState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+        }
+        protected void BtnBranchCode_Click(object sender, EventArgs e)
+        {
+
+
+            //string queryString = "?prevPage=AddRM&?StaffName=" + txtFirstName.Text + "&?StaffRole='" + StaffRole + "' ";
+            string queryString = "?prevPage=EditBranchDetails&BranchRole=BM&BranchName=" + txtBranchName.Text + "&AgentCode=" + txtAgentCode.Text + "";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranchRMAgentAssociation','" + queryString + "');", true);
+
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation', '?GoalId=" + 5 + "&GoalAction=" + "pavani m" + "&'" + queryString + "'');", true);
+            // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "rightpane", "loadcontrol('AddBranchRMAgentAssociation','none');", true);
+
+            //AssociatesVO associatesVo = new AssociatesVO();
+
+            //associatesVo = (AssociatesVO)Session["associatesVo"];
+            //txtStaffCode.Text = associatesVo.AAC_AgentCode.ToString();  
+            //=Request.QueryString["Name"];
         }
 
         //public void showRM()
@@ -253,6 +275,7 @@ namespace WealthERP.Advisor
                     ddlBranchAssociateType.Enabled = false;
  
                 }
+                txtAgentCode.Text = advisorBranchVo.AdviserAgentCode.ToString();
                 txtBranchCode.Text = advisorBranchVo.BranchCode.ToString();
                 txtBranchName.Text = advisorBranchVo.BranchName.ToString();
                 txtEmail.Text = advisorBranchVo.Email.ToString();
@@ -281,8 +304,17 @@ namespace WealthERP.Advisor
                ddlZOneCluster.Text = advisorBranchVo.ZoneClusterType.ToString();
                 //ddlZOneCluster.Items.FindByText(advisorBranchVo.ZoneClusterType.ToString()).Selected = true;
                 ddlZOneCluster_SelectedIndexChanged(this, null);
-                 ddlSelectedZC.Items.FindByText(advisorBranchVo.ZoneClusterName.ToString()).Selected = true;
-           
+                                 
+                for (int i = 0; i <  ddlSelectedZC.Items.Count;i++ )
+                {
+                    if (ddlSelectedZC.Items[i].Text == advisorBranchVo.ZoneClusterName.ToString())
+                    {
+                        ddlSelectedZC.Items.FindByText(advisorBranchVo.ZoneClusterName.ToString()).Selected = true;
+                        break;
+                    }
+
+                }
+                txtAgentCode.Enabled = false;
                 txtBranchCode.Enabled = true;
                 txtBranchName.Enabled = true;
                 txtEmail.Enabled = true;
@@ -481,6 +513,7 @@ namespace WealthERP.Advisor
                     newAdvisorBranchVo.AddressLine2 = txtLine2.Text.ToString();
                     newAdvisorBranchVo.AddressLine3 = txtLine3.Text.ToString();
                     newAdvisorBranchVo.BranchCode = txtBranchCode.Text.ToString();
+                    newAdvisorBranchVo.AdviserAgentCode = txtAgentCode.Text.ToString();
                     newAdvisorBranchVo.BranchName = txtBranchName.Text.ToString();
                     newAdvisorBranchVo.City = txtCity.Text.Trim();
                     newAdvisorBranchVo.Country = ddlCountry.SelectedItem.Value.ToString();

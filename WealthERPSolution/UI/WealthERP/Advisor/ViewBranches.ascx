@@ -73,7 +73,9 @@
                         </asp:TemplateField>
                         <asp:BoundField DataField="BranchName" HeaderText="Name" />
                         <asp:BoundField DataField="BranchCode" HeaderText="Code" />
+                       
                         <asp:BoundField DataField="BranchHead" HeaderText="Head" />
+                         
                         <asp:BoundField DataField="Email" HeaderText="Email" />
                         <asp:BoundField DataField="Phone" HeaderText="Phone" />
                         <asp:BoundField DataField="BranchType" HeaderText="Type" />
@@ -166,6 +168,12 @@
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridBoundColumn UniqueName="AB_BranchCode" HeaderStyle-Width="120px" HeaderText="Code"
                                             DataField="AB_BranchCode" SortExpression="AB_BranchCode" AllowFiltering="true"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                            <HeaderStyle></HeaderStyle>
+                                        </telerik:GridBoundColumn>
+                                         <%--<asp:BoundField DataField="AAC_AgentCode" HeaderText="AgentCode" />--%>
+                                         <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderStyle-Width="120px" HeaderText="Agent Code"
+                                            DataField="AAC_AgentCode" SortExpression="AAC_AgentCode" AllowFiltering="true"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                             <HeaderStyle></HeaderStyle>
                                         </telerik:GridBoundColumn>

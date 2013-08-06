@@ -17,6 +17,7 @@ using System.Net.Mail;
 using PCGMailLib;
 using System.IO;
 using VOAssociates;
+ 
 
 namespace WealthERP.Advisor 
 {
@@ -540,7 +541,30 @@ namespace WealthERP.Advisor
                  //txtStaffCode.Text = associatesVo.AAC_AgentCode.ToString();  
                  //=Request.QueryString["Name"];
              }
+             protected void BtnStaffCode1_Click(object sender, EventArgs e)
+             {
+                 
 
+                 //string queryString = "?prevPage=AddRM&?StaffName=" + txtFirstName.Text + "&?StaffRole='" + StaffRole + "' ";
+                 //string queryString = "?prevPage=AddRM&StaffName=" + txtFirstName.Text + "&StaffRole=" + StaffRole + "";
+                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewRM');", true);
+
+                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation', '?GoalId=" + 5 + "&GoalAction=" + "pavani m" + "&'" + queryString + "'');", true);
+                 // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "rightpane", "loadcontrol('AddBranchRMAgentAssociation','none');", true);
+
+                 //AssociatesVO associatesVo = new AssociatesVO();
+
+                 //associatesVo = (AssociatesVO)Session["associatesVo"];
+                 //txtStaffCode.Text = associatesVo.AAC_AgentCode.ToString();  
+                 //=Request.QueryString["Name"];
+             }
+
+
+        //     protected void HiddenField1_ValueChanged(object sender, EventArgs e)
+        //{
+        //    string str = HiddenField1.Value;
+
+        //       }
         protected void btnNext_Click(object sender, EventArgs e)
         {
          
@@ -562,8 +586,20 @@ namespace WealthERP.Advisor
                     CreateOps(isOpsIsChecked);
                    
                 }
-                trAddStaffCode.Visible = true;
-                BtnStaffCode_Click(this, null);
+                //RadWindowManager1.RadConfirm("Server radconfirm: Are you sure?", "confirmCallBackFn", 330, 180, null, "Server RadConfirm", choices.SelectedValue);
+               // Response.Write("<script language=javascript>var conf= confirm('Do u want to add Agent code')</script>");
+               // BtnStaffCode1.Attributes.Add("onclick", "return Confirmbtn();");
+                //BtnStaffCode1.Attributes.Add();
+              //  HiddenField1_ValueChanged(this, null);
+                // HiddenField1.Value = "";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+
+             // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Staff Details added successfully.Select Either to add agent code or view Staf Deatils..');", true);
+                
+                //trAddStaffCode.Visible = true;
+                //BtnStaffCode.Visible = true;
+                //BtnviewStaffCode.Visible = true;
+                //BtnStaffCode_Click(this, null);
                 //        }
                 //    }
                 //    else if (i == 0)
@@ -598,8 +634,22 @@ namespace WealthERP.Advisor
                 throw exBase;
 
             }
+            //BtnStaffCode.Visible = true;
+            //BtnviewStaffCode.Visible = true;
         }
+        protected void hiddenDelete_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                BtnStaffCode_Click(this, null);
+            }
+            else
+            {
+                BtnStaffCode1_Click(this, null);
+            }
 
+        }
         private void CreateOps(bool isOpsIsChecked)
         {
             if (Validation())
@@ -659,7 +709,7 @@ namespace WealthERP.Advisor
                 rmVo.FirstName = txtFirstName.Text.ToString();
                 rmVo.LastName = txtLastName.Text.ToString();
                 rmVo.MiddleName = txtMiddleName.Text.ToString();
-                rmVo.StaffCode = ""; //txtStaffCode.Text.ToString();
+                rmVo.StaffCode =  txtStaffcode.Text.ToString();
                 if (txtMobileNumber.Text.ToString() != "")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
@@ -786,7 +836,7 @@ namespace WealthERP.Advisor
                 else
                 {
                     string hdnSelectedString = hdnSelectedBranches.Value.ToString();
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
                 }
 
             }
@@ -852,7 +902,7 @@ namespace WealthERP.Advisor
                 rmVo.FirstName = txtFirstName.Text.ToString();
                 rmVo.LastName = txtLastName.Text.ToString();
                 rmVo.MiddleName = txtMiddleName.Text.ToString();
-                rmVo.StaffCode = "";// txtStaffCode.Text.ToString();
+                rmVo.StaffCode =  txtStaffcode.Text.ToString();
                 if (txtMobileNumber.Text.ToString() != "")
                     rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
                 if (!string.IsNullOrEmpty(txtPhDirectISD.Text.ToString()))
@@ -1035,7 +1085,7 @@ namespace WealthERP.Advisor
 
                 }
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
+             //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','none');", true);
 
             }
         }

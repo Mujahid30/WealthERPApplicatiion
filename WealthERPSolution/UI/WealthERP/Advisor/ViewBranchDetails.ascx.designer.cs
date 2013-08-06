@@ -111,7 +111,9 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblACategory;
-        
+       
+             protected global::System.Web.UI.WebControls.Label lb1AgentCode ;
+             protected global::System.Web.UI.WebControls.Label lb1AgentCode1;
         /// <summary>
         /// lblAssociateCategory control.
         /// </summary>

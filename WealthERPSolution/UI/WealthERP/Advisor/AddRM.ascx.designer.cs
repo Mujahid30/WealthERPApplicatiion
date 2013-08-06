@@ -41,6 +41,24 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr3;
         
         /// <summary>
+        /// lb1StaffCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1StaffCode;
+        
+        /// <summary>
+        /// txtStaffcode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtStaffcode;
+        
+        /// <summary>
         /// lblName control.
         /// </summary>
         /// <remarks>
@@ -707,13 +725,13 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trAddStaffCode;
         
         /// <summary>
-        /// lb1StaffCode control.
+        /// lb1BranchCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lb1StaffCode;
+        protected global::System.Web.UI.WebControls.Label lb1BranchCode;
         
         /// <summary>
         /// BtnStaffCode control.
@@ -723,6 +741,42 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnStaffCode;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// BtnviewStaffCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnviewStaffCode;
+        
+        /// <summary>
+        /// hdnMsgValue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnMsgValue;
+        
+        /// <summary>
+        /// hiddenDelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button hiddenDelete;
         
         /// <summary>
         /// hdnExistingBranches control.

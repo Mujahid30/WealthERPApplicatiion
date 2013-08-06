@@ -16,7 +16,23 @@
         $(".flip").click(function() { $(".panel").slideToggle(); });
     });
 </script>
+<script language="javascript" type="text/javascript">
+    function showmessage() {
 
+        var bool = window.confirm('Do u want to add Agent code?');
+        if (bool) {
+            document.getElementById("ctrl_AddRM_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AddRM_hiddenDelete").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_AddRM_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AddRM_hiddenDelete").click();
+            return true;
+        }
+    }
+   
+</script>
 <script type="text/javascript">
     var content_Prefix = "ctrl_AddRM_";
     function CalculateYear(txtMonth, txtYearName) {
@@ -33,6 +49,21 @@
             txtMonth.value = 0;
         }
     }
+    function confirmbtn(){
+var confirmed = window.confirm("change a record, would you like to continue ?");
+ return(confirmed);
+ }
+function ShowYesNo() 
+{    
+    var answer = window.showModalDialog("myModalDialog.htm", '', "dialogWidth:300px; dialogHeight:200px; center:yes");
+if(answer="yes")
+var hdnIsOpsEnabled = document.getElementById('ctrl_AddRM_hdnIsOpsEnabled').value;
+       document.write('Clicked yes');
+    } else
+     {
+       document.write('Clicked no');
+    }
+}
 
     function roundNumber(num, dec) {
         var result = Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
@@ -126,7 +157,7 @@
         }
         //alert(selectedBranches)
     }
-
+   
     function DisableControls() {
 
         var chkControlId = '<%=ChklistRMBM.ClientID%>';
@@ -288,6 +319,27 @@
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Staff Details
             </div>
+        </td>
+    </tr>
+    <%--<tr>
+    <td class="leftField" width="25%">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Code :"></asp:Label>
+        </td>
+        <td class="rightField" width="25%">
+            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span5" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ControlToValidate="txtStaffCode" ErrorMessage="Please enter the Branch Code"
+                CssClass="rfvPCG" Display="Dynamic" ID="rfvBranchCode" ValidationGroup="btnSubmit"
+                runat="server"></asp:RequiredFieldValidator>
+        </td>
+    </tr>--%>
+    <tr>
+    <td class="leftField">
+            <asp:Label ID="lb1StaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
+        </td>
+        <td>
+         <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -652,8 +704,23 @@
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_AddRM_btnNext', 'S');" />
         </td>
     </tr>
-     
-      <tr id="trAddStaffCode"  runat="server">
+      <tr id="trAddStaffCode"  runat="server" width="25%">
+       <td class="leftField">
+       <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Add Branch code"></asp:Label>
+        </td> 
+    <td  class="rightField" width="25%">
+     <asp:Button ID="BtnStaffCode" runat="server"  Text="Agent Code" 
+            CssClass="PCGMediumButton" onClick="BtnStaffCode_Click"  />
+    </td>
+    <td class="leftField" width="25%">
+       <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="View Branch"></asp:Label>
+        </td> 
+        <td  class="rightField" width="25%">
+     <asp:Button ID="BtnviewStaffCode" runat="server"  Text="View Branch" 
+            CssClass="PCGMediumButton" onClick="BtnStaffCode1_Click" />
+    </td>
+    </tr>
+    <%--  <tr id="trAddStaffCode"  runat="server">
        <td class="leftField">
        <asp:Label ID="lb1StaffCode" runat="server" CssClass="FieldName" Text="Add Staff code"></asp:Label>
         </td> 
@@ -661,16 +728,31 @@
      <asp:Button ID="BtnStaffCode" runat="server"  Text="StaffCode" CssClass="PCGButton" onClick="BtnStaffCode_Click" />
     </td>
         
-    </tr>
+    </tr>--%>
     <tr>
     
         <td style="height: 10px;" colspan="4">
             &nbsp;
         </td>
     </tr>
+     <tr>
+        <td colspan="2">
+            <asp:HiddenField ID="hdnMsgValue" runat="server" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
+                BorderStyle="None" BackColor="Transparent" />
+        </td>
+    </tr>
+     <%--<button style="width: 200px;" runat="server" ID="BtnStaffCode1" onclick="radconfirm('Client radconfirm: Are you sure?', confirmCallBackFn, 330, 180, null,'Client RadConfirm', imgUrl); return false;">
+                    radconfirm from client</button>--%>
 </table>
 <asp:HiddenField ID="hdnExistingBranches" runat="server" />
 <asp:HiddenField ID="hdnSelectedBranches" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
 <asp:HiddenField ID="hdnIsOpsEnabled" runat="server"/>
+<%--
+<asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged='ShowYesNo();'/>--%>
 <%--</ContentTemplate>--%><%--</asp:UpdatePanel>--%>

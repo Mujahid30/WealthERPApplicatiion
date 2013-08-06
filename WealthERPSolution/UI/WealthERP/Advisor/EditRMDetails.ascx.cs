@@ -36,6 +36,7 @@ namespace WealthERP.Advisor
         DataSet _commondatasetdestination;
         UserVo uvo = new UserVo();
         int branchHead;
+        
         protected void Page_PreInit(object sender, EventArgs e)
         {
 
@@ -59,7 +60,8 @@ namespace WealthERP.Advisor
             {
                 rmVo = (RMVo)Session["rmVo"];
             }
-
+            if (Request.QueryString["Action"] != null)
+                Action = Request.QueryString["Action"].ToString();
             if (!Page.IsPostBack)
             {
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Verification", " CheckSubscription();", true);
@@ -99,7 +101,32 @@ namespace WealthERP.Advisor
             lblPhoneDirectNumber.CssClass = "FieldName";
             lblPhoneNumber.CssClass = "FieldName";
             lblSTD.CssClass = "FieldName";
+            if (Request.QueryString["AgentCode"] != null)
+                txtStafAgentCode.Text = Request.QueryString["AgentCode"].ToString();
 
+
+
+        }
+        protected void BtnStaffCode_Click(object sender, EventArgs e)
+        {
+            
+            string StaffRole;
+            if (ChklistRMBM.Items[0].Selected == true)
+            {
+                StaffRole = ChklistRMBM.Items[0].Text;
+            }
+            else if (ChklistRMBM.Items[1].Selected == true)
+            {
+                StaffRole = ChklistRMBM.Items[1].Text;
+            }
+            else
+            {
+                StaffRole = ChklistRMBM.Items[2].Text;
+            }
+            string queryString = "?prevPage=EditRMDetails&StaffName=" + txtFirstName.Text + "&StaffRole=" + StaffRole + "&AgentCode=" + txtStafAgentCode.Text + "";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranchRMAgentAssociation','" + queryString + "');", true);
+
+             
         }
         //private void GetPlanOpsStaffAddStatus(int adviserId)
         //{
@@ -296,10 +323,13 @@ namespace WealthERP.Advisor
         {
             if (Action == "Edit Profile")
             {
+                //lb1AgentCode.
+                txtStafAgentCode.Enabled = false;
+                BtnAgentCode.Enabled = true;
                 txtFirstName.Enabled = true;
                 txtLastName.Enabled = true;
                 txtMiddleName.Enabled = true;
-                txtStaffCode.Enabled = true;
+                txtStaffCode.Enabled = true  ;
                 txtEmail.Enabled = true;
                 txtExtSTD.Enabled = true;
                 txtFaxISD.Enabled = true;
@@ -323,9 +353,12 @@ namespace WealthERP.Advisor
                 availableBranch.Enabled = true;
                 associatedBranch.Enabled = true;
                 CheckListCKMK.Enabled = true;
+                 //trAddStaffCode.Visible = true;
             }
             else
             {
+                txtStafAgentCode.Enabled = false;
+                BtnAgentCode.Enabled = false;
                 txtFirstName.Enabled = false;
                 txtLastName.Enabled = false;
                 txtMiddleName.Enabled = false;
@@ -353,6 +386,7 @@ namespace WealthERP.Advisor
                 availableBranch.Enabled = false;
                 associatedBranch.Enabled = false;
                 CheckListCKMK.Enabled = false;
+                //trAddStaffCode.Visible = false;
             }
 
         }
@@ -715,9 +749,14 @@ namespace WealthERP.Advisor
             {
                 rmVo = (RMVo)Session["rmVo"];
             }
+            if (rmVo == null)
+            {
+                return;
+            }
             txtFirstName.Text = rmVo.FirstName.ToString();
             txtLastName.Text = rmVo.LastName.ToString();
             txtMiddleName.Text = rmVo.MiddleName.ToString();
+            txtStafAgentCode.Text = rmVo.AAC_AgentCode.ToString();
             if (!string.IsNullOrEmpty(rmVo.StaffCode))
                 txtStaffCode.Text = rmVo.StaffCode.ToString();
             else
@@ -878,6 +917,7 @@ namespace WealthERP.Advisor
                     else
                         rmVo.CTC = Convert.ToDouble(txtCTC.Text.Trim());
 
+                   // rmVo.AdviserAgentId = advisorBrBo.GetAdviserAgentID(rmVo.StaffCode,rmVo.RMRole);
                     if (chkExternalStaff.Checked)
                     {
                         // Check for Internal Associations, if they exist do not update.

@@ -32,11 +32,23 @@ namespace VoUser
         private string m_RoleList;
         private string m_MainBranch;
         private string m_BranchList;
-      
-        
+        private int m_AdviserAgentId;
+        private string m_AAC_AgentCode;
+
         #endregion Fields
 
         #region Properties
+        public int AdviserAgentId
+        {
+            get { return m_AdviserAgentId; }
+            set { m_AdviserAgentId = value; }
+        }
+        public string AAC_AgentCode
+        {
+            get { return m_AAC_AgentCode; }
+            set { m_AAC_AgentCode = value; }
+        }
+
         public string BranchList
         {
             get { return m_BranchList; }

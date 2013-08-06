@@ -669,7 +669,7 @@ namespace DaoAdvisorProfiling
                     else
                         rmVo.LastName = string.Empty;
                     if (dr["AR_StaffCode"] != DBNull.Value)
-                        rmVo.StaffCode = dr["AR_StaffCode"].ToString();
+                        rmVo.StaffCode = dr["AR_StaffCode"].ToString(); //dr["AAC_AgentCode"].ToString();    //dr["AR_StaffCode"].ToString();
                     else
                         rmVo.StaffCode = string.Empty;
                     if (dr["AR_OfficePhoneDirect"] != DBNull.Value)
@@ -731,6 +731,11 @@ namespace DaoAdvisorProfiling
                         rmVo.AdviserId = int.Parse(dr["A_AdviserId"].ToString());
                     else
                         rmVo.AdviserId = 0;
+
+                    if (dr["AAC_AgentCode"] != DBNull.Value)
+                        rmVo.AAC_AgentCode =  dr["AAC_AgentCode"].ToString() ;
+                    else
+                        rmVo.AAC_AgentCode ="";
                 }
             }
             catch (BaseApplicationException Ex)
@@ -909,6 +914,10 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_Email", DbType.String, rmVo.Email);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_CTC", DbType.String, rmVo.CTC);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AR_IsExternalStaff", DbType.String, rmVo.IsExternal);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AdviserAgentId", DbType.String, "");
+                db.AddInParameter(updateAdvisorStaffCmd, "@AAC_UserType", DbType.String, rmVo.RMRole);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
+
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
 
                     bResult = true;
@@ -1912,7 +1921,41 @@ namespace DaoAdvisorProfiling
             }
             return branchId;
         }
+        public int GetAdviserAgentID(string AgentCode,string UserType)
+        {
+            Database db;
+            DbCommand cmdGetAdviserAgentID;
+            int AdviserAgentID = 0;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserAgentID = db.GetStoredProcCommand("SP_GetAdviserAgentID");
+                db.AddInParameter(cmdGetAdviserAgentID, "@AAC_AgentCode", DbType.String, AgentCode);
+                db.AddInParameter(cmdGetAdviserAgentID, "@AAC_UserType", DbType.String, UserType);
+
+                if (db.ExecuteScalar(cmdGetAdviserAgentID) != null)
+                    Int32.TryParse(db.ExecuteScalar(cmdGetAdviserAgentID).ToString(), out AdviserAgentID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetAdviserAgentID()");
+                object[] objects = new object[1];
+                objects[0] = AdviserAgentID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AdviserAgentID;
+        }
+      
         public DataTable GetBranchRMList(int branchId)
         {
             Database db;

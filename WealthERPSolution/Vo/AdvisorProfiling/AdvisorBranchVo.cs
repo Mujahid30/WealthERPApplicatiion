@@ -39,7 +39,8 @@ namespace VoAdvisorProfiling
         private int m_FaxIsd;
         private long m_MobileNumber;
         private int m_IsHeadBranch;
-               
+        private string m_AdviserAgentCode;
+    
         public string LogoPath { get; set; }
         public string AssociateCategory { get; set; }
         public int AssociateCategoryId { get; set; }
@@ -76,6 +77,11 @@ namespace VoAdvisorProfiling
         {
             get { return m_BranchHeadId; }
             set { m_BranchHeadId = value; }
+        }
+        public string AdviserAgentCode
+        {
+            get { return m_AdviserAgentCode; }
+            set { m_AdviserAgentCode = value; }
         }
         public string BranchCode
         {

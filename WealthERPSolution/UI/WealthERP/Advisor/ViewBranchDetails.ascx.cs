@@ -220,7 +220,9 @@ namespace WealthERP.Advisor
 
                 if (advisorBranchVo.BranchId != 0)
                 {
+
                     lblBranchCode.Text = advisorBranchVo.BranchCode.ToString();
+                    lb1AgentCode1.Text = advisorBranchVo.AdviserAgentCode.ToString();
                     lblBranchName.Text = advisorBranchVo.BranchName.ToString();
                     lblBranchType.Text = advisorBranchVo.BranchType;
                     lblAssociateCategory.Text = advisorBranchVo.AssociateCategory;

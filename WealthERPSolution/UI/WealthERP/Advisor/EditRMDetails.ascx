@@ -350,10 +350,24 @@
         <td class="leftField">
             <asp:Label ID="lblStaffCode" runat="server" CssClass="FieldName" Text="StaffCode :"></asp:Label>
         </td>
-        <td class="rightField" colspan="3">
-            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField" onkeypress="return keyPress(this, event)"></asp:TextBox>
+        <td class="rightField">
+            <asp:TextBox ID="txtStaffCode" runat="server" CssClass="txtField"   ReadOnly="false"  ></asp:TextBox>
         </td>
+      
     </tr>
+    <tr id="trAddStaffCode"  runat="server">
+       <td class="leftField" width="25%">
+       <asp:Label ID="lb1AgentCode" runat="server" CssClass="FieldName" Text="Agent Code"></asp:Label>
+        </td> 
+         <td class="rightField" width="25%">
+            <asp:TextBox ID="txtStafAgentCode" runat="server" CssClass="txtField"   ReadOnly="false"  ></asp:TextBox>
+        </td>
+    <td   class="rightField"   colspan="2">
+     <asp:Button ID="BtnAgentCode" runat="server"  Text="AgentCode" CssClass="PCGMediumButton" onClick="BtnStaffCode_Click" />
+    </td>
+        
+    </tr>
+      
     <tr>
         <td class="leftField">
             <asp:Label ID="lblCTC" runat="server" CssClass="FieldName" Text="CTC Per Month :"></asp:Label>

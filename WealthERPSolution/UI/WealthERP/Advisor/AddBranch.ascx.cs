@@ -57,6 +57,7 @@ namespace WealthERP.Advisor
                 rmVo = (RMVo)Session["rmVo"];
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 imgPath = Server.MapPath("Images") + "\\";
+                trAddBranchCode.Visible = false ;
                 if (!IsPostBack)
                 {
 
@@ -113,6 +114,43 @@ namespace WealthERP.Advisor
             }
 
         }
+        protected void hiddenDelete_Click(object sender, EventArgs e)
+        {
+            string val = Convert.ToString(hdnMsgValue.Value);
+            if (val == "1")
+            {
+                BtnBranchCode_Click(this, null);
+            }
+            else
+            {
+                BtnBranchCode1_Click(this, null);
+            }
+
+        }
+        protected void BtnBranchCode_Click(object sender, EventArgs e)
+        {
+          
+
+            //string queryString = "?prevPage=AddRM&?StaffName=" + txtFirstName.Text + "&?StaffRole='" + StaffRole + "' ";
+            string queryString = "?prevPage=AddBranch&BranchRole=BM&BranchName="+txtBranchName.Text+"";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddBranchRMAgentAssociation','" + queryString + "');", true);
+
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation', '?GoalId=" + 5 + "&GoalAction=" + "pavani m" + "&'" + queryString + "'');", true);
+            // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "rightpane", "loadcontrol('AddBranchRMAgentAssociation','none');", true);
+
+            //AssociatesVO associatesVo = new AssociatesVO();
+
+            //associatesVo = (AssociatesVO)Session["associatesVo"];
+            //txtStaffCode.Text = associatesVo.AAC_AgentCode.ToString();  
+            //=Request.QueryString["Name"];
+        }
+        protected void BtnBranchCode1_Click(object sender, EventArgs e)
+        {
+            string queryString = "?prevPage=ViewBranches";//&BranchRole=BM&BranchName=" + txtBranchName.Text + "";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('ViewBranches','" + queryString + "');", true);
+                      
+        }
+
 
         private void BindDropDowns(string path)
         {
@@ -337,6 +375,12 @@ namespace WealthERP.Advisor
             return bResult;
         }
 
+        //protected void btnSubmit_Click(object sender, EventArgs e)
+        //{
+        //    bool confirmValue = Convert.ToBoolean(this.hfConfirmValue.Value);
+        //    Response.Write(confirmValue.ToString());
+        //}
+
         protected void btnSaveChanges_Click(object sender, EventArgs e)
         {
             string branchAdd = "";
@@ -362,7 +406,7 @@ namespace WealthERP.Advisor
                     advisorBranchVo.AddressLine1 = txtLine1.Text.ToString();
                     advisorBranchVo.AddressLine2 = txtLine2.Text.ToString();
                     advisorBranchVo.AddressLine3 = txtLine3.Text.ToString();
-                    advisorBranchVo.BranchCode = txtBranchCode.Text.ToString();
+                    advisorBranchVo.BranchCode =  txtBranchCode.Text.ToString();
                     rmList = advisorStaffBo.GetRMList(advisorVo.advisorId);
                     if (rmList == null)
                     {
@@ -396,7 +440,8 @@ namespace WealthERP.Advisor
                          advisorBranchVo.AssociateCategoryId = Int32.Parse(ddlAssociateCategory.SelectedItem.Value.ToString());
                         if (FileUpload.HasFile)
                         {
-                            advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
+                            //advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + "" + ".jpg";
+                             advisorBranchVo.LogoPath = advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg";
                             HttpPostedFile myFile = FileUpload.PostedFile;
                             UploadImage(imgPath, myFile, advisorBranchVo.LogoPath);
                             //FileUpload.SaveAs(Server.MapPath("Images") + "\\" + advisorVo.advisorId + "_" + txtBranchCode.Text.ToString() + ".jpg");
@@ -491,7 +536,7 @@ namespace WealthERP.Advisor
                     // Create Branch 
 
                     advisorBranchVo.BranchId = advisorBranchBo.CreateAdvisorBranch(advisorBranchVo, advisorId, userId);
-
+                   
                     //Add Associate Commission Details
                     if (ddlBranchAssociateType.SelectedValue.ToString() == "2")
                     {
@@ -544,7 +589,11 @@ namespace WealthERP.Advisor
                         advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 1, userId);
                     else
                         advisorBranchBo.AssociateBranch(advisorBranchVo.BranchHeadId, advisorBranchVo.BranchId, 0, userId);
-
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+                   // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Branch Details added successfully.Select Either to add agent code or view branches');", true);
+                
+                    //  btnSubmit_Click(this, null);
+                  //  Button1.Attributes.Add("onClick", "Add();");
                     //if (!advisorBranchBo.CheckBranchMgrRole(advisorBranchVo.BranchHeadId))
                     //{
                     //    int rmUserId = advisorStaffBo.GetUserId(advisorBranchVo.BranchHeadId);
@@ -598,8 +647,9 @@ namespace WealthERP.Advisor
                     Session.Remove("table");
                     Session.Remove("count");
                     btnSubmit.Enabled = false;
-
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
+                   // trAddBranchCode.Visible = true;
+                   // BtnBranchCode_Click(this, null);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranches','none');", true);
                 }
 
                 else

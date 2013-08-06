@@ -1,29 +1,61 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBranch.ascx.cs" Inherits="WealthERP.Advisor.AddBranch" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<script language="javascript" type="text/javascript">
+    function showmessage() {
+
+        var bool = window.confirm('Do u want to add Agent code?');
+        if (bool) {
+            document.getElementById("ctrl_AddBranch_hdnMsgValue").value = 1;
+            document.getElementById("ctrl_AddBranch_hiddenDelete").click();
+            return false;
+        }
+        else {
+            document.getElementById("ctrl_AddBranch_hdnMsgValue").value = 0;
+            document.getElementById("ctrl_AddBranch_hiddenDelete").click();
+            return true;
+        }
+    }
+   
+</script>
+
 <html>
 <head>
     <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+    <%-- <script type="text/javascript">
+         function Add() {
+             //            var a = window.confirm("Do u want to continue");
+             var a1 = window.alert("Do u want to continue");
+             if (a1) {
+                 alert("Proceed");
+                 //                alert("Yes");
+
+             }
+             else {
+                 alert("Stop");
+
+             }
+         }
+         //    function ViewAssociateRows(BranchAssociateType) {
+         //        var content_Prefix = "ctrl_AddBranch_";
+         //        CategoryRow = content_Prefix + "AssociateCategoryRow";
+         //        LogoRow = content_Prefix + "AssociateLogoRow";
+         //        AssociateCategoryRow = document.getElementById(CategoryRow);
+         //        AssociateLogoRow = document.getElementById(LogoRow);
+         //        if (BranchAssociateType.options[BranchAssociateType.selectedIndex].text == "Associate") {
+         //            AssociateCategoryRow.style.display = '';
+         //            AssociateLogoRow.style.display = '';
+         //        }
+         //        else {
+         //            AssociateCategoryRow.style.display = 'none';
+         //            AssociateLogoRow.style.display = 'none';
+         //        }
+         //    }
+</script> --%>
 </head>
 <body>
 </body>
 </html>
-<%--<script>
-    function ViewAssociateRows(BranchAssociateType) {
-        var content_Prefix = "ctrl_AddBranch_";
-        CategoryRow = content_Prefix + "AssociateCategoryRow";
-        LogoRow = content_Prefix + "AssociateLogoRow";
-        AssociateCategoryRow = document.getElementById(CategoryRow);
-        AssociateLogoRow = document.getElementById(LogoRow);
-        if (BranchAssociateType.options[BranchAssociateType.selectedIndex].text == "Associate") {
-            AssociateCategoryRow.style.display = '';
-            AssociateLogoRow.style.display = '';
-        }
-        else {
-            AssociateCategoryRow.style.display = 'none';
-            AssociateLogoRow.style.display = 'none';
-        }
-    }
-</script>--%>
+ 
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
 <%--<asp:UpdatePanel ID="upnl" runat="server">
@@ -78,6 +110,18 @@
         </td>
         
     </tr>
+    <%--<tr>
+     <td class="leftField" width="25%">
+            <asp:Label ID="Label15" runat="server" CssClass="FieldName" Text="Agent Code :"></asp:Label>
+        </td>
+        <td class="rightField" width="25%">
+            <asp:TextBox ID="txtAgentCode" runat="server" CssClass="txtField"></asp:TextBox>
+           <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
+          <%--  <br />--%>
+           <%-- <asp:RequiredFieldValidator ControlToValidate="txtBranchCode" ErrorMessage="Please enter the Branch Code"
+                CssClass="rfvPCG" Display="Dynamic" ID="RequiredFieldValidator6" ValidationGroup="btnSubmit"
+                runat="server"></asp:RequiredFieldValidator>--%>
+        
     <tr>
               <td class="leftField" width="25%" >
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Type:"></asp:Label>
@@ -546,4 +590,36 @@
                 Text="Submit" OnClick="btnSaveChanges_Click" ValidationGroup="btnSubmit" />
         </td>
     </tr>
+     <tr id="trAddBranchCode"  runat="server">
+       <td class="leftField">
+       <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Add Branch code"></asp:Label>
+        </td> 
+    <td  class="rightField">
+     <asp:Button ID="BtnBranchCode" runat="server"  Text="Agent Code" 
+            CssClass="PCGMediumButton" onClick="BtnBranchCode_Click"  />
+    </td>
+    <td class="leftField">
+       <asp:Label ID="lb1ViewBranch" runat="server" CssClass="FieldName" Text="View Branch"></asp:Label>
+        </td> 
+        <td  class="rightField">
+     <asp:Button ID="BtnBranchCode1" runat="server"  Text="View Branch" 
+            CssClass="PCGMediumButton" onClick="BtnBranchCode1_Click" />
+    </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <asp:HiddenField ID="hdnMsgValue" runat="server" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="hiddenDelete" runat="server" OnClick="hiddenDelete_Click" Text=""
+                BorderStyle="None" BackColor="Transparent" />
+        </td>
+    </tr>
+   <%-- <tr>
+     <asp:Button runat="server" ID="Button1"  onClick="Button1_Click"
+            Text="Submit" Visible="false" />
+    <asp:HiddenField runat="server" ID="hfConfirmValue" />
+    </tr>--%>
 </table>

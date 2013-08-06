@@ -57,7 +57,8 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBranchCode;
-        
+
+        protected global::System.Web.UI.WebControls.TextBox txtAgentCode;
         /// <summary>
         /// rfvBranchCode control.
         /// </summary>
@@ -66,6 +67,33 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvBranchCode;
+        
+        /// <summary>
+        /// trAddStaffCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAddStaffCode;
+        
+        /// <summary>
+        /// lb1StaffCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1StaffCode;
+        
+        /// <summary>
+        /// BtnStaffCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnStaffCode;
         
         /// <summary>
         /// Label4 control.

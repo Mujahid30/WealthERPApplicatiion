@@ -782,7 +782,7 @@ namespace DaoAdvisorProfiling
                         advisorBranchVo.State = dr["AB_State"].ToString();
                         advisorBranchVo.BranchType = dr["XABRT_BranchType"].ToString();
                         advisorBranchVo.BranchHead = dr["BranchHead"].ToString();
-
+                        advisorBranchVo.AdviserAgentCode = dr["AAC_AgentCode"].ToString();
                         branchList.Add(advisorBranchVo);
                     }
 
@@ -1087,7 +1087,9 @@ namespace DaoAdvisorProfiling
                 {
                     db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
                 }
-                //db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
+                db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AgentCode", DbType.String, advisorBranchVo.AdviserAgentCode);
+               
+              //  db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AdviserAgentId", DbType.Int32, 0);
 
 
                 if (db.ExecuteNonQuery(updateAdvisorBranchCmd) != 0)
@@ -1158,7 +1160,8 @@ namespace DaoAdvisorProfiling
                     advisorBranchVo.AddressLine1 = dr["AB_AddressLine1"].ToString();
                     advisorBranchVo.AddressLine2 = dr["AB_AddressLine2"].ToString();
                     advisorBranchVo.AddressLine3 = dr["AB_AddressLine3"].ToString();
-                    advisorBranchVo.BranchCode = dr["AB_BranchCode"].ToString();
+                    advisorBranchVo.BranchCode = dr["AB_BranchCode"].ToString();      //dr["AB_BranchCode"].ToString();
+                    advisorBranchVo.AdviserAgentCode = dr["AAC_AgentCode"].ToString();
                     advisorBranchVo.BranchName = dr["AB_BranchName"].ToString();
                     advisorBranchVo.City = dr["AB_City"].ToString();
                     advisorBranchVo.Country = dr["AB_Country"].ToString();
@@ -1205,7 +1208,40 @@ namespace DaoAdvisorProfiling
             }
             return advisorBranchVo;
         }
+        public int GetAdviserAgentID(string AgentCode, string UserType)
+        {
+            Database db;
+            DbCommand cmdGetAdviserAgentID;
+            int AdviserAgentID = 0;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetAdviserAgentID = db.GetStoredProcCommand("SP_GetAdviserAgentID");
+                db.AddInParameter(cmdGetAdviserAgentID, "@AAC_AgentCode", DbType.String, AgentCode);
+                db.AddInParameter(cmdGetAdviserAgentID, "@AAC_UserType", DbType.String, UserType);
+
+                if (db.ExecuteScalar(cmdGetAdviserAgentID) != null)
+                    Int32.TryParse(db.ExecuteScalar(cmdGetAdviserAgentID).ToString(), out AdviserAgentID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffDao.cs:GetAdviserAgentID()");
+                object[] objects = new object[1];
+                objects[0] = AdviserAgentID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AdviserAgentID;
+        }
         public bool DeleteBranchTerminal(int terminalId)
         {
             bool bResult = false;

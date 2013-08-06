@@ -78,6 +78,22 @@
         </td>
     </tr>
     <tr>
+     <td class="leftField">
+       <asp:Label ID="lb1AgentCode" runat="server" CssClass="FieldName" Text="Agent Code"></asp:Label>
+        </td> 
+    <td colspan="3" class="rightField">
+      <asp:TextBox ID="txtAgentCode" runat="server" CssClass="txtField"></asp:TextBox> </td>
+    </tr>
+   <tr id="trAddBranchCode"  runat="server">
+       <td class="leftField">
+       <asp:Label ID="lb1BranchCode" runat="server" CssClass="FieldName" Text="Edit Branch code"></asp:Label>
+        </td> 
+    <td colspan="3" class="rightField">
+     <asp:Button ID="BtnBranchCode" runat="server"  Text="EditBranchCode" CssClass="PCGMediumButton" onClick="BtnBranchCode_Click" />
+    </td>
+        
+    </tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label4" runat="server" CssClass="FieldName" Text="Branch Name :"></asp:Label>
         </td>

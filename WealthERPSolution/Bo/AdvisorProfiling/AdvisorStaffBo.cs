@@ -1048,6 +1048,33 @@ namespace BoAdvisorProfiling
             }
             return branchId;
         }
+        public int GetAdviserAgentID(string AgentCode, string UserType)
+        {
+            int AdviserAgentID = 0;
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            try
+            {
+                AdviserAgentID = advisorStaffDao.GetAdviserAgentID(AgentCode, UserType);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserAgentID()");
+                object[] objects = new object[1];
+                objects[0] = AgentCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AdviserAgentID;
+        }
         /// <summary>
         /// 
         /// </summary>
