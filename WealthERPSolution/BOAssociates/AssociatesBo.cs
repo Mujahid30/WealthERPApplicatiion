@@ -345,5 +345,56 @@ namespace BOAssociates
             }
             return dtGetAgentlist;
         }
+        public bool CodeduplicateCheck(int adviserId, string agentCode)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = associatesDao.CodeduplicateCheck(adviserId, agentCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public string GetAgentCodeFromAgentPaaingAssociateId(int assiciateId)
+        {
+            string code;
+            try
+            {
+                code = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateBo.cs:GetAgentCodeFromAgentPaaingAssociateId(assiciateId)");
+                object[] objects = new object[1];
+                objects[0] = assiciateId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return code;
+        }
+        public bool AddAgentChildCode(AssociatesVO associatesVo, string code)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = associatesDao.AddAgentChildCode(associatesVo, code);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 }
