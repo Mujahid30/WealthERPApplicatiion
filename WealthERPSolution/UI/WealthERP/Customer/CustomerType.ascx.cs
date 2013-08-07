@@ -420,6 +420,7 @@ namespace WealthERP.Customer
                     customerVo.ViaSMS = 1;
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, tempUserVo.UserId);
                     Session["Customer"] = "Customer";
+                    
                     if (customerIds != null)
                     {
                         CustomerFamilyVo familyVo = new CustomerFamilyVo();
@@ -435,6 +436,8 @@ namespace WealthERP.Customer
                         }
                         else
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
+                        MakeReadonlyControls();
+                        trSumbitSuccess.Visible = true;
                     }
 
                 }
@@ -460,6 +463,22 @@ namespace WealthERP.Customer
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        private void MakeReadonlyControls()
+        {
+            ddlAdviserBranchList.Enabled = false;
+            ddlAdviseRMList.Enabled = false;
+            ddlCustomerSubType.Enabled = false;
+            txtPanNumber.Enabled = false;
+            ddlSalutation.Enabled = false;
+            txtFirstName.Enabled = false;
+            txtMiddleName.Enabled = false;
+            txtLastName.Enabled = false;
+            txtEmail.Enabled = false;
+            btnSubmit.Enabled = false;
+            btnCustomerProfile.Enabled = false;
+ 
         }
 
         protected void btnCustomerProfile_Click(object sender, EventArgs e)
