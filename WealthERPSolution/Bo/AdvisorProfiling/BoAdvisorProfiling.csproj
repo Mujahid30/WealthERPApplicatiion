@@ -73,6 +73,7 @@
     <Compile Include="AdvisorLOBBo.cs" />
     <Compile Include="AdvisorMISBo.cs" />
     <Compile Include="AdvisorStaffBo.cs" />
+    <Compile Include="ProductgroupSetupBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -56,6 +56,7 @@
     <Compile Include="AdvisorLOBVo.cs" />
     <Compile Include="AdvisorPreferenceVo.cs" />
     <Compile Include="AssociateCategoryVo.cs" />
+    <Compile Include="ProductgroupSetupVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
