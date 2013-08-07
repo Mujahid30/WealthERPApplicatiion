@@ -1501,5 +1501,35 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
+        public DataSet GetCommissionReconMis( int AdviserId, int schemeid, DateTime FromDate, DateTime Todate,string category)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsGetCommissionReconMis;
+            try
+            {
+                dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetAMCTransactionDeatails()");
+
+                object[] objects = new object[2];
+                objects[0] = AdviserId;
+                objects[1] = schemeid;
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetCommissionReconMis;
+        }
     }
 }
