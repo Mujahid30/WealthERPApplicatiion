@@ -414,7 +414,7 @@
             <asp:Label ID="lblAMC" runat="server" Text="AMC: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlAMCList" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAMCList_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="spnAMC" runat="server" class="spnRequiredField">*</span>
@@ -440,7 +440,7 @@
             <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
