@@ -46,17 +46,18 @@
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                                         GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
+                                         <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Associate Code" DataField="AAC_AgentCode"
+                                                UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AutoPostBackOnFilter="true"
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Name" DataField="NAME"
                                                 UniqueName="NAME" SortExpression="NAME" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Associate Code" DataField="AAC_AgentCode"
-                                                UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Role" DataField="AAC_UserType"
+                                           
+                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Type" DataField="AAC_UserType"
                                                 UniqueName="AAC_UserType" SortExpression="AAC_UserType" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
