@@ -165,10 +165,10 @@ namespace WealthERP.Associates
             txtNoofSubBrokers.Enabled = false;
             txtNoofClients.Enabled = false;
 
-            chkAssociates.Enabled = false;
-            chkMf.Enabled = false;
-            chlIpo.Enabled = false;
-            chkfd.Enabled = false;
+            //chkAssociates.Enabled = false;
+            //chkMf.Enabled = false;
+            //chlIpo.Enabled = false;
+            //chkfd.Enabled = false;
 
         }
 
@@ -423,7 +423,7 @@ namespace WealthERP.Associates
         {
             int associationId = 0;
             bool result = false;
-
+            string assetGroupCodes;
             if (associatesVo.AdviserAssociateId != 0)
                 associationId = associatesVo.AdviserAssociateId;
 
@@ -591,10 +591,15 @@ namespace WealthERP.Associates
                 associatesVo.Registrationumber = txtRegNo.Text;
             else
                 associatesVo.Registrationumber = "";
-            if (ddlCategory.SelectedIndex != 0)
-                associatesVo.assetGroupCode = ddlCategory.SelectedValue;
-            else
-                associatesVo.assetGroupCode = "";
+            //if (ddlCategory.SelectedIndex != 0)
+            //    associatesVo.assetGroupCode = ddlCategory.SelectedValue;
+            //else
+            //    associatesVo.assetGroupCode = "";
+
+            assetGroupCodes = GetAssetGroup();
+            if (assetGroupCodes != null)
+                associatesVo.assetGroupCode = assetGroupCodes;
+
             if (txtRegExpDate.SelectedDate != DateTime.MinValue)
                 associatesVo.ExpiryDate = Convert.ToDateTime(txtRegExpDate.SelectedDate);
             //---------------------------------------NOMINEE-------------------------------------------
@@ -631,7 +636,7 @@ namespace WealthERP.Associates
                 associatesVo.GuardianRelationship = ddlGuardianRel.SelectedValue;
             else
                 associatesVo.GuardianRelationship = "";
-            //---------------------------------------NOMINEE-------------------------------------------
+            //---------------------------------------Category-------------------------------------------
 
             if (ddlAdviserCategory.SelectedIndex != 0)
                 associatesVo.AdviserCategory = ddlAdviserCategory.SelectedValue;
@@ -672,6 +677,7 @@ namespace WealthERP.Associates
             else
                 associatesVo.NoOfClients = 0;
 
+            
 
 
             result = associatesBo.UpdateAdviserAssociates(associatesVo);
@@ -689,6 +695,20 @@ namespace WealthERP.Associates
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&pageName=" + "AddAssociates" + "');", true);
                 }
             }
+        }
+
+        private string GetAssetGroup()
+        {
+            string assetGroupCodes = "";
+            int i = 0;
+            for (i = 0; i < chkModules.Items.Count; i++)
+            {
+                if (chkModules.Items[i].Selected == true)
+                {
+                    assetGroupCodes += chkModules.Items[i].Value + "~";
+                }
+            }
+            return assetGroupCodes;
         }
     }
 }

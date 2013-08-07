@@ -758,14 +758,23 @@
                         <asp:Label ID="lblExpSelling" CssClass="FieldName" runat="server" Text="Experience in selling :"></asp:Label>
                     </td>
                     <td class="rightField" colspan="3">
-                        <asp:CheckBox ID="chkAssociates" runat="server" Text="Insurance" CssClass="cmbField"
+                        <%--<asp:CheckBox ID="chkAssociates" runat="server" Text="Insurance" CssClass="cmbField"
                             value="IN" />
                         <asp:CheckBox ID="chkMf" runat="server" Text="MF" CssClass="cmbField" value="MF" />
                         <asp:CheckBox ID="chlIpo" runat="server" Text="IPO" CssClass="cmbField" value="IPO" />
                         <asp:CheckBox ID="chkfd" runat="server" Text="FD" CssClass="cmbField" value="FD" />
                          <asp:CheckBox ID="chkEQ" runat="server" Text="EQ" CssClass="cmbField" value="EQ" />
                           <asp:CheckBox ID="chkDebt" runat="server" Text="Debt" CssClass="cmbField" value="Debt" />
-                            <asp:CheckBox ID="chkPMS" runat="server" Text="PMS" CssClass="cmbField" value="PMS" />
+                            <asp:CheckBox ID="chkPMS" runat="server" Text="PMS" CssClass="cmbField" value="PMS" />--%>
+                            
+                            <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName"  RepeatDirection="Horizontal">
+                            <asp:ListItem Text="MF" Value="MF"></asp:ListItem>
+                            <asp:ListItem Text="IPO" Value="OT" ></asp:ListItem>
+                            <asp:ListItem Text="FD" Value="FD"></asp:ListItem>
+                            <asp:ListItem Text="EQ" Value="DE"></asp:ListItem>                            
+                            <asp:ListItem Text="Debt" Value="DT"></asp:ListItem>
+                            <asp:ListItem Text="PMS" Value="PM" ></asp:ListItem>                  
+                        </asp:CheckBoxList>
                     </td>
                 </tr>
             </table>
