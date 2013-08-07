@@ -37,6 +37,7 @@
                 <asp:ListItem Value="All">All </asp:ListItem>
                 <asp:ListItem Value="customer">Customer</asp:ListItem>
                 <asp:ListItem Value="advisor">Staff</asp:ListItem>
+                <asp:ListItem Value="associates">Associates</asp:ListItem>
             </asp:DropDownList>
         </td>
         <td align="right">

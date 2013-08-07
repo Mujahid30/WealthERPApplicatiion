@@ -160,7 +160,14 @@ namespace WealthERP.Advisor
                 gvLoginTrack.Visible = true;
                 tblMessage.Visible = false;
                 ErrorMessage.Visible = false;
-            }          
+            }
+            if (userType == "associates")
+            {
+                gvLoginTrack.Visible = true;
+                tblMessage.Visible = false;
+                ErrorMessage.Visible = false;
+
+            }
         }
         protected void gvLoginTrack_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
         {
