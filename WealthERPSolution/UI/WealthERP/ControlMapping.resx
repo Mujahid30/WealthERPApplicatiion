@@ -1613,4 +1613,12 @@
     <value>Uploads//CustomerUploadNew.ascx</value>
     <comment>Uploads//CustomerUploadNew.ascx</comment>
   </data>
+  <data name="HierarchySetup" xml:space="preserve">
+    <value>Advisor//HierarchySetup.ascx</value>
+    <comment>Advisor//HierarchySetup.ascx</comment>
+  </data>
+  <data name="ProductgroupSetup" xml:space="preserve">
+    <value>Advisor//ProductgroupSetup.ascx</value>
+    <comment>Advisor//ProductgroupSetup.ascx</comment>
+  </data>
 </root>

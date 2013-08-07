@@ -827,6 +827,13 @@
     <Compile Include="Advisor\GenerateLoginPassword.ascx.designer.cs">
       <DependentUpon>GenerateLoginPassword.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\HierarchySetup.ascx.cs">
+      <DependentUpon>HierarchySetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\HierarchySetup.ascx.designer.cs">
+      <DependentUpon>HierarchySetup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\IFAAdminMainDashboard.ascx.cs">
       <DependentUpon>IFAAdminMainDashboard.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -875,6 +882,13 @@
     </Compile>
     <Compile Include="Advisor\PopUp.aspx.designer.cs">
       <DependentUpon>PopUp.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\ProductgroupSetup.ascx.cs">
+      <DependentUpon>ProductgroupSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ProductgroupSetup.ascx.designer.cs">
+      <DependentUpon>ProductgroupSetup.ascx</DependentUpon>
     </Compile>
     <Compile Include="Advisor\RegistrationType.ascx.cs">
       <DependentUpon>RegistrationType.ascx</DependentUpon>
@@ -4000,10 +4014,12 @@
     <Content Include="Advisor\FinancialPlanningLeftPane.ascx" />
     <Content Include="Advisor\FPGoalProfiling.ascx" />
     <Content Include="Advisor\FPReports.ascx" />
+    <Content Include="Advisor\HierarchySetup.ascx" />
     <Content Include="Advisor\LeadManagement.ascx" />
     <Content Include="Advisor\LeadManagementAdd.ascx" />
     <Content Include="Advisor\LoanTrackingGrid.ascx" />
     <Content Include="Advisor\MFNPAndTransactionCompare.ascx" />
+    <Content Include="Advisor\ProductgroupSetup.ascx" />
     <Content Include="Advisor\RMAMCSchemewiseMIS.ascx" />
     <Content Include="Advisor\RMAMCWiseMIS.ascx" />
     <Content Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx" />

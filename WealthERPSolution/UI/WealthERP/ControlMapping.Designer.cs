@@ -1699,6 +1699,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//HierarchySetup.ascx.
+        /// </summary>
+        internal static string HierarchySetup {
+            get {
+                return ResourceManager.GetString("HierarchySetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//HoldingDashBoard.ascx.
         /// </summary>
         internal static string HoldingDashBoard {
@@ -2388,6 +2397,15 @@ namespace WealthERP {
         internal static string PriceListMonitor {
             get {
                 return ResourceManager.GetString("PriceListMonitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advisor//ProductgroupSetup.ascx.
+        /// </summary>
+        internal static string ProductgroupSetup {
+            get {
+                return ResourceManager.GetString("ProductgroupSetup", resourceCulture);
             }
         }
         
