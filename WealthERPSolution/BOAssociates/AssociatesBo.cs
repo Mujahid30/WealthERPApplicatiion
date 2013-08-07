@@ -47,12 +47,12 @@ namespace BOAssociates
             }
             return associatesIds;
         }
-        public List<AssociatesVO> GetViewAssociates(int adviserId)
+        public List<AssociatesVO> GetViewAssociates(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole)
         {
             List<AssociatesVO> associatesVOList = null;
             try
             {
-                associatesVOList = associatesDao.GetViewAssociates(adviserId);
+                associatesVOList = associatesDao.GetViewAssociates(id, isAdviser, isBranchHead, isBranchId, currentUserRole);
             }
             catch (BaseApplicationException Ex)
             {
@@ -67,7 +67,7 @@ namespace BOAssociates
 
 
                 object[] objects = new object[1];
-                objects[0] = adviserId;
+                objects[0] = id;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
