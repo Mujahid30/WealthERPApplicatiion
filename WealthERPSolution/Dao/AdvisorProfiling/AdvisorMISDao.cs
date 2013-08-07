@@ -2335,6 +2335,43 @@ namespace DaoAdvisorProfiling
             }
             return AMCSchemewiseMIS;
         }
+        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category)
+        {
+            Database db;
+            DbCommand getCommissionReconMisCmd;
+            DataSet dsGetCommissionReconMis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCommissionReconMisCmd = db.GetStoredProcCommand("SPROC_GetCommissionReconMis");
+                db.AddInParameter(getCommissionReconMisCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getCommissionReconMisCmd, "@schemeid", DbType.Int32, schemeid);
+
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+
+                if (!string.IsNullOrEmpty(category))
+                    db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
+
+                getCommissionReconMisCmd.CommandTimeout = 60 * 60;
+                dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+            return dsGetCommissionReconMis;
+        }
 
     }
 }
