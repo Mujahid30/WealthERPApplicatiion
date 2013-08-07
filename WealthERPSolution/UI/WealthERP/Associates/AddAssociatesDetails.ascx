@@ -588,7 +588,7 @@
                         <asp:Label ID="lblRegNo" CssClass="FieldName" runat="server" Text="Registration No:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtRegNo" runat="server" CssClass="txtField" Enabled="false"></asp:TextBox>
+                        <asp:TextBox ID="txtRegNo" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
