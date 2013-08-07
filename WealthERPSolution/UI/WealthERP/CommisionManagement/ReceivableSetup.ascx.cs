@@ -243,6 +243,11 @@ namespace WealthERP.Receivable
                 return;
             }
         }
+        protected void btnMapToscheme_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + hidCommissionStructureName.Value + "');", true);
+        }
+        
 
         protected void btnStructureUpdate_Click(object sender, EventArgs e)
         {
@@ -808,6 +813,7 @@ namespace WealthERP.Receivable
                 lnkEditStructure.ToolTip = "View commission structure section";
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = true;
+                btnMapToscheme.Visible = true;
             }
             else
             {
@@ -831,6 +837,7 @@ namespace WealthERP.Receivable
                 lnkAddNewStructure.Visible = true;
                 btnStructureSubmit.Visible = false;
                 btnStructureUpdate.Visible = false;
+                btnMapToscheme.Visible = true;
             }
 
         }
@@ -883,6 +890,8 @@ namespace WealthERP.Receivable
             BindCommissionStructureRuleBlankRow();
             tblCommissionStructureRule.Visible = false;
             tblCommissionStructureRule1.Visible = false;
+
+            btnMapToscheme.Visible = false;
 
             SetStructureMasterControlDefaultValues("MF");
         }

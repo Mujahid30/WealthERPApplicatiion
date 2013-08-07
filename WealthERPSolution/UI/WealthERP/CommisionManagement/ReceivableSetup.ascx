@@ -454,6 +454,8 @@
                         ValidationGroup="btnStrAddUpdate" OnClick="btnStructureSubmit_Click" />
                     <asp:Button ID="btnStructureUpdate" CssClass="PCGButton" Text="Update" runat="server"
                         OnClick="btnStructureUpdate_Click" ValidationGroup="btnStrAddUpdate" />
+                     <asp:Button ID="btnMapToscheme" CssClass="PCGMediumButton" Text="Map Scheme" runat="server"
+                        OnClick="btnMapToscheme_Click" ValidationGroup="btnStrAddUpdate" />
                 </td>
             </tr>
         </table>
