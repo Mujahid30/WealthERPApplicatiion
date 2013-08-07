@@ -14,6 +14,8 @@ using BoUploads;
 using BoCustomerGoalProfiling;
 using Telerik.Web.UI;
 using BoCommon;
+using VOAssociates;
+using BOAssociates;
 using BoAdvisorProfiling;
 using System.Configuration;
 
@@ -26,6 +28,7 @@ namespace WealthERP.BusinessMIS
         AdvisorVo advisorVo = new AdvisorVo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         RMVo rmVo = new RMVo();
+        AssociatesVO associatesVo = new AssociatesVO();
         UserVo userVo = new UserVo();
         DateTime dtTo = new DateTime();
         DateBo dtBo = new DateBo();
@@ -36,6 +39,7 @@ namespace WealthERP.BusinessMIS
         int rmId = 0;
         int bmID = 0;
         int all = 0;
+        int AgentId = 0;
         int branchId = 0;
         int branchHeadId = 0;
         string path = string.Empty;
@@ -49,6 +53,7 @@ namespace WealthERP.BusinessMIS
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
+            associatesVo = (AssociatesVO)Session["associatesVo"];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
@@ -57,14 +62,17 @@ namespace WealthERP.BusinessMIS
                 userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                userType = "associates";
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
             advisorId = advisorVo.advisorId;
             int RMId = rmVo.RMId;
+            
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
-
+            //AgentId = associatesVo.AAC_AdviserAgentId;
             if (!IsPostBack)
             {
                 if (!Convert.ToBoolean(advisorVo.MultiBranch))
@@ -129,6 +137,17 @@ namespace WealthERP.BusinessMIS
                         ddlAction.Items.RemoveAt(0);
 
                     }
+                }
+                if (userType == "associates")
+                {
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    if (Convert.ToBoolean(advisorVo.MultiBranch))
+                    {
+                        ddlAction.Items.RemoveAt(0);
+
+                    }
+                    trBranchRM.Visible = false;
                 }
                 //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
                 txtFromDate.SelectedDate =DateTime.Now;
@@ -351,7 +370,7 @@ namespace WealthERP.BusinessMIS
             int amcCode = 0;
             int amcCodeOld = 0;
             DataSet dsGetAMCTransactionDeatails = new DataSet();
-            dsGetAMCTransactionDeatails = adviserMFMIS.GetAMCTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value));
+            dsGetAMCTransactionDeatails = adviserMFMIS.GetAMCTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
 
             DataTable dtGetAMCTransactionDeatails = new DataTable();
 
@@ -531,7 +550,7 @@ namespace WealthERP.BusinessMIS
             int SchemeCode = 0;
             int SchemeCodeOld = 0;
             DataSet dsGetSchemeTransactionDeatails = new DataSet();
-            dsGetSchemeTransactionDeatails = adviserMFMIS.GetSchemeTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), gvAmcCode, hdnCategory.Value);
+            dsGetSchemeTransactionDeatails = adviserMFMIS.GetSchemeTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), gvAmcCode, hdnCategory.Value, int.Parse(hdnAgentId.Value));
 
             DataTable dtGetSchemeTransactionDeatails = new DataTable();
 
@@ -1002,7 +1021,7 @@ namespace WealthERP.BusinessMIS
             int AcountId = 0;
             int AcountIdOld = 0;
             DataSet dsGetFolioTransactionDeatails = new DataSet();
-            dsGetFolioTransactionDeatails = adviserMFMIS.GetFolioTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), gvSchemeCode);
+            dsGetFolioTransactionDeatails = adviserMFMIS.GetFolioTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), gvSchemeCode,int.Parse(hdnAgentId.Value));
 
             DataTable dtGetFolioTransactionDeatails = new DataTable();
 
@@ -1500,7 +1519,7 @@ namespace WealthERP.BusinessMIS
             string subcategoryCode = string.Empty;
             string subCategoryCodeOld = string.Empty;
             DataSet dsGetCategoryTransactionDeatails = new DataSet();
-            dsGetCategoryTransactionDeatails = adviserMFMIS.GetCategoryTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value);
+            dsGetCategoryTransactionDeatails = adviserMFMIS.GetCategoryTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, int.Parse(hdnAgentId.Value));
 
             DataTable dtGetCategoryTransactionDeatails = new DataTable();
 
@@ -1686,7 +1705,7 @@ namespace WealthERP.BusinessMIS
             int BranchId = 0;
             int BranchIdOld = 0;
             DataSet dsGetBranchTransactionDeatails = new DataSet();
-            dsGetBranchTransactionDeatails = adviserMFMIS.GetBranchTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value));
+            dsGetBranchTransactionDeatails = adviserMFMIS.GetBranchTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value),int.Parse(hdnAgentId.Value));
 
             DataTable dtGetBranchTransactionDeatails = new DataTable();
 
@@ -1867,6 +1886,7 @@ namespace WealthERP.BusinessMIS
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnAll.Value = "0";
+                    hdnAgentId.Value = "0";
                     hdnbranchId.Value = "0";
                     hdnrmId.Value = "0";
                 }
@@ -1874,6 +1894,7 @@ namespace WealthERP.BusinessMIS
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "1";
                     hdnrmId.Value = "0";
                 }
@@ -1881,6 +1902,7 @@ namespace WealthERP.BusinessMIS
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnbranchId.Value = "0";
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "2";
                     hdnrmId.Value = ddlRM.SelectedValue; ;
                 }
@@ -1889,6 +1911,7 @@ namespace WealthERP.BusinessMIS
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "3";
                 }
 
@@ -1896,6 +1919,7 @@ namespace WealthERP.BusinessMIS
             else if (userType == "rm")
             {
                 hdnrmId.Value = rmVo.RMId.ToString();
+                hdnAgentId.Value = "0";
                 hdnAll.Value = "0";
 
             }
@@ -1907,6 +1931,7 @@ namespace WealthERP.BusinessMIS
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnAll.Value = "0";
                     hdnrmId.Value = "0";
+                    hdnAgentId.Value = "0";
                 }
                 else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
                 {
@@ -1914,12 +1939,14 @@ namespace WealthERP.BusinessMIS
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnAll.Value = "1";
                     hdnrmId.Value = "0";
+                    hdnAgentId.Value = "0";
                 }
                 else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
                 {
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = "0";
                     hdnAll.Value = "2";
+                    hdnAgentId.Value = "0";
                     hdnrmId.Value = ddlRM.SelectedValue; ;
                 }
                 else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
@@ -1927,8 +1954,19 @@ namespace WealthERP.BusinessMIS
                     hdnbranchHeadId.Value = bmID.ToString();
                     hdnbranchId.Value = ddlBranch.SelectedValue;
                     hdnrmId.Value = ddlRM.SelectedValue;
+                    hdnAgentId.Value = "0";
                     hdnAll.Value = "3";
                 }
+            }
+            else if (userType == "associates")
+            {
+                hdnAgentId.Value = associatesVo.AAC_AdviserAgentId.ToString();
+                hdnadviserId.Value = "0";
+                hdnbranchHeadId.Value = "0";
+                hdnbranchId.Value = "0";
+                hdnrmId.Value = "0";
+                hdnAll.Value = "0";
+
             }
             if (hdnbranchHeadId.Value == "")
                 hdnbranchHeadId.Value = "0";
@@ -2365,7 +2403,7 @@ namespace WealthERP.BusinessMIS
             int RMId = 0;
             int RMIdOld = 0;
             DataSet dsGetRMTransactionDeatails = new DataSet();
-            dsGetRMTransactionDeatails = adviserMFMIS.GetRMTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value));
+            dsGetRMTransactionDeatails = adviserMFMIS.GetRMTransactionDeatails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value),int.Parse(hdnAgentId.Value));
 
             DataTable dtGetRMTransactionDeatails = new DataTable();
 

@@ -156,6 +156,8 @@
                 </td>
                 <td style="width: 1%">
                 </td>
+                </tr>
+                <tr>
                 <td align="left" class="rightData" style="width: 40%;" colspan="2">
                     <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Date Type:"></asp:Label>
                     <asp:RadioButton ID="rbtnPickDate" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnDate_CheckedChanged"
@@ -2533,6 +2535,7 @@
         <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
         <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
         <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
+         <asp:HiddenField ID="hdnAgentId" runat="server" Visible="false" />
         <asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />
         <asp:HiddenField ID="hdnadviserId" runat="server" />
         <asp:HiddenField ID="hdnType" runat="server" />

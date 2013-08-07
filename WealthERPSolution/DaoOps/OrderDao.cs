@@ -962,15 +962,30 @@ namespace DaoOps
                 db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, AgentId);
                 else
                  db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, DBNull.Value);
+                if (rmId!="")
                 db.AddInParameter(dbOrder, "@RmId", DbType.String, rmId);
+                else
+                db.AddInParameter(dbOrder, "@RmId", DbType.String,DBNull.Value );
+                if (branchId!="")
                 db.AddInParameter(dbOrder, "@BranchId", DbType.String, branchId);
+                else
+                db.AddInParameter(dbOrder, "@BranchId", DbType.String, DBNull.Value);
                 db.AddInParameter(dbOrder, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(dbOrder, "@Todate", DbType.DateTime, toDate);
                 db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);
+                if (SubBrokerCode!="0")
                 db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, SubBrokerCode);
+                else
+                db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, DBNull.Value);
+                if (SubBrokerName != "0")
                 db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
+                else
+                db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, DBNull.Value);
                 db.AddInParameter(dbOrder, "@status", DbType.String, status);
+                if (customerId!="")
                 db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
+                else
+                db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, DBNull.Value);
                 if (orderType == "All")
                 {
                     db.AddInParameter(dbOrder, "@orderType", DbType.String, null);

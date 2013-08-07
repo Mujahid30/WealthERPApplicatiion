@@ -14,6 +14,8 @@ using BoAdvisorProfiling;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 using BoUploads;
+using BOAssociates;
+using VOAssociates;
 using System.Configuration;
 
 namespace WealthERP.BusinessMIS
@@ -25,7 +27,7 @@ namespace WealthERP.BusinessMIS
         UserVo userVo = new UserVo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
-
+        AssociatesVO associatesVo = new AssociatesVO();
         string path = string.Empty;
 
         int advisorId = 0;
@@ -35,6 +37,8 @@ namespace WealthERP.BusinessMIS
         int all = 0;
         int branchId = 0;
         int branchHeadId = 0;
+        int AgentId = 0;
+        int IsAssociates;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -42,6 +46,7 @@ namespace WealthERP.BusinessMIS
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
+            associatesVo = (AssociatesVO)Session["associatesVo"];
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
 
@@ -51,6 +56,9 @@ namespace WealthERP.BusinessMIS
                 userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                userType = "associates";
+
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
@@ -59,7 +67,11 @@ namespace WealthERP.BusinessMIS
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
 
-
+            //if (userType == "associates")
+            //{
+            //    SetParameters();
+            //    BindMfDashBoard();
+            //}
 
             if (!IsPostBack)
             {
@@ -102,6 +114,19 @@ namespace WealthERP.BusinessMIS
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                     //BindMfDashBoard();
+                }
+                else if (userType == "associates")
+                {
+                    SetParameters();
+                    BindMfDashBoard();
+                    BindBranchDropDown();
+                    BindRMDropDown();
+                    gvBranch.Visible = true;
+                    Label1.Visible = true;
+                    lnkBranchNavi.Visible = true;
+                    UpnlMFDashBoard.Visible = true;
+                    trBranchRM.Visible = false;
+                    btnGo.Visible = false;
                 }
             }
 
@@ -150,6 +175,7 @@ namespace WealthERP.BusinessMIS
         {
             if (userType == "advisor")
             {
+                IsAssociates = 0;
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
                     hdnadviserId.Value = advisorVo.advisorId.ToString();
@@ -181,11 +207,13 @@ namespace WealthERP.BusinessMIS
             }
             else if (userType == "rm")
             {
+                IsAssociates = 0;
                 hdnrmId.Value = rmVo.RMId.ToString();
                 hdnAll.Value = "0";
             }
             else if (userType == "bm")
             {
+                IsAssociates = 0;
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                 {
 
@@ -214,6 +242,15 @@ namespace WealthERP.BusinessMIS
                     hdnrmId.Value = ddlRM.SelectedValue;
                     hdnAll.Value = "3";
                 }
+            }
+            else if (userType == "associates")
+            {
+                AgentId = associatesVo.AAC_AdviserAgentId;
+                IsAssociates = 1;
+                hdnadviserId.Value ="0";
+                hdnbranchId.Value ="0";
+                hdnrmId.Value ="0";
+                hdnAll.Value = "0";
             }
             if (hdnbranchHeadId.Value == "")
                 hdnbranchHeadId.Value = "0";
@@ -305,7 +342,7 @@ namespace WealthERP.BusinessMIS
             int i = 0, j = 0;
             DataSet dsMFDashBoard = new DataSet();
 
-            dsMFDashBoard = adviserMFMIS.GetMFDashBoard(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), out i);
+            dsMFDashBoard = adviserMFMIS.GetMFDashBoard(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), out i,IsAssociates,AgentId);
 
 
             //i = DateTime.Now.Month;

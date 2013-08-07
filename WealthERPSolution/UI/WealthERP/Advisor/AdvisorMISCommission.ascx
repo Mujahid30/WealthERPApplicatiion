@@ -30,11 +30,9 @@
                             <asp:ImageButton Visible="false" ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                       
                             <asp:ImageButton Visible="false" ID="imgZoneClusterCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnZoneCLusterMISCommission_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                     
                             <asp:ImageButton Visible="false" ID="imgMISCommission" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCategoryWise_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -60,8 +58,9 @@
                         <asp:Label ID="Label1" runat="server" Text="MIS Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td runat="server">
-                        <telerik:RadComboBox ID="ddlMISType" runat="server" CssClass="cmbField" EnableEmbeddedSkins="false"
-                            Skin="Telerik" AllowCustomText="true" Width="150px">
+                        <telerik:RadComboBox ID="ddlMISType" AutoPostBack="true" OnSelectedIndexChanged="ddlMISType_SelectedIndexChanged"
+                            runat="server" CssClass="cmbField" EnableEmbeddedSkins="false" Skin="Telerik"
+                            AllowCustomText="true" Width="150px">
                             <Items>
                                 <telerik:RadComboBoxItem Text="Organization Level" Value="Zone_Cluster_Wise" />
                                 <telerik:RadComboBoxItem Text="AMC/Folio/Type Wise" Value="AMC_Folio_Type_AllMIS" />
@@ -166,6 +165,88 @@
             </table>
         </td>
     </tr>
+    <%--<tr id="trAMCScheme" runat="server">
+        <td align="right" width="10%">
+            <asp:Label ID="lblAMC" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlAMC" runat="server" CssClass="cmbField" AutoPostBack="false">
+                <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
+    <%--       </asp:DropDownList>
+        </td>
+        <td align="right" width="10%">
+            <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left" width="10%">
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="false">
+                <%--<asp:ListItem Text="All" Value="0">All</asp:ListItem>--%>
+    <%--      </asp:DropDownList>
+        </td>
+    </tr>--%>
+    <tr id="trAMCSelection" visible="false" runat="server">
+        <td align="left">
+            <table width="70%">
+                <tr id="trSelectMutualFund" runat="server" align="left">
+                    <td align="right">
+                        <asp:Label ID="lblSelectMutualFund" runat="server" CssClass="FieldName" Text="Select AMC Code:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlSelectMutualFund" runat="server" AutoPostBack="true" CssClass="cmbField"
+                            OnSelectedIndexChanged="ddlSelectMutualFund_OnSelectedIndexChanged">
+                        </asp:DropDownList>
+                        <asp:CompareValidator ID="cvddlSelectMutualFund" runat="server" ControlToValidate="ddlSelectMutualFund"
+                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select AMC Code" Operator="NotEqual"
+                            ValidationGroup="vgbtnSubmit" ValueToCompare="Select AMC Code"></asp:CompareValidator>
+                    </td>
+                    <td id="tdscheme" runat="server" visible="true">
+                        <td align="right">
+                            <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Select Scheme Name:"></asp:Label>
+                        </td>
+                        <td>
+                            <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbField">
+                            <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlSelectSchemeNAV"
+                                CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select Scheme" Operator="NotEqual"
+                                ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                        </td>
+                    </td>
+                </tr>
+                <tr id="trNavCategory" runat="server" visible="false">
+                    <td align="left" class="leftField">
+                        <asp:Label ID="lblNAVCategory" runat="server" CssClass="FieldName" Text="Category:"></asp:Label>
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlNAVCategory" runat="server" AutoPostBack="true" CssClass="cmbField"
+                            OnSelectedIndexChanged="ddlNAVCategory_OnSelectedIndexChanged">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <%--<tr id="trNavSubCategory" runat="server">
+                <td align="right">
+                    <asp:Label ID="lblNAVSubCategory" runat="server" CssClass="FieldName" 
+                        Text="Sub Category:"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlNAVSubCategory" runat="server" AutoPostBack="true" 
+                        CssClass="cmbField" 
+                        OnSelectedIndexChanged="ddlNAVSubCategory_OnSelectedIndexChanged">
+                    </asp:DropDownList>
+                </td>
+            </tr>--%>
+                <tr id="trSelectSchemeNAV" runat="server">
+                </tr>
+                <%-- <tr id="trbtnSubmit" runat="server">
+                                <td>
+                                </td>
+                                <td>
+                                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="OnClick_Submit"
+                                        Text="Submit" ValidationGroup="vgbtnSubmit" />
+                                </td>
+                            </tr>--%>
+            </table>
+        </td>
+    </tr>
     <tr>
         <td colspan="6">
             <table>
@@ -178,18 +259,11 @@
     </tr>
     <tr>
         <td>
-            <%-- <asp:ImageButton ID="btnCommissionMIS" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnCommissionMIS_OnClick"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px"></asp:ImageButton>--%>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <telerik:RadGrid ID="gvCommissionMIS" Visible="false" runat="server" GridLines="None" AutoGenerateColumns="False"
-                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                EnableViewState="false" Skin="Telerik" OnNeedDataSource="gvCommissionMIS_OnNeedDataSource"
-                EnableEmbeddedSkins="false" Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                ExportSettings-ExportOnlyData="true">
+            <telerik:RadGrid ID="gvCommissionMIS" Visible="false" runat="server" GridLines="None"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
+                ShowStatusBar="True" ShowFooter="true" EnableViewState="false" Skin="Telerik"
+                OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
+                Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                     FileName="MF Commission MIS Category Wise" Excel-Format="ExcelML">
                 </ExportSettings>
@@ -240,7 +314,8 @@
 <table runat="server" id="tblCommissionMIS" width="95%">
     <tr>
         <td>
-            <asp:Panel Visible="false" ID="pnlCommissionMIS" ScrollBars="Horizontal" Width="100%" runat="server">
+            <asp:Panel Visible="false" ID="pnlCommissionMIS" ScrollBars="Horizontal" Width="100%"
+                runat="server">
                 <div runat="server" id="divCommissionMIS" style="margin: 2px; width: 640px;">
                     <telerik:RadGrid ID="gvMISCommission" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
@@ -253,16 +328,15 @@
                         <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                             GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true" Width="100%"
                             AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
-                            
                             <Columns>
                                 <telerik:GridBoundColumn HeaderText="AMC" HeaderTooltip="AMC" DataField="AMCName"
-                                    UniqueName="AMCName" SortExpression="AMCName" FooterText="Grand Total:" AllowFiltering="true" AutoPostBackOnFilter="true"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                    UniqueName="AMCName" SortExpression="AMCName" FooterText="Grand Total:" AllowFiltering="true"
+                                    AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderText="Scheme" HeaderTooltip="Scheme" DataField="SchemeName" HeaderStyle-Width="350px"
-                                    UniqueName="SchemeName" SortExpression="SchemeName" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                <telerik:GridBoundColumn HeaderText="Scheme" HeaderTooltip="Scheme" DataField="SchemeName"
+                                    HeaderStyle-Width="350px" UniqueName="SchemeName" SortExpression="SchemeName"
+                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderText="Transaction Classification" HeaderTooltip="Transaction Classification Name"
@@ -313,7 +387,7 @@
                         </ClientSettings>
                     </telerik:RadGrid>
                 </div>
-               <%-- <div runat="server" id="divCommissionMIS" style="margin: 2px; width: 640px;">
+                <%-- <div runat="server" id="divCommissionMIS" style="margin: 2px; width: 640px;">
                     <telerik:RadGrid Visible="false" ID="gvMISCommission" runat="server" CssClass="RadGrid" GridLines="None"
                         Width="100%" AllowPaging="True" PageSize="15" AllowSorting="True" AutoGenerateColumns="false"
                         ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
@@ -375,11 +449,12 @@
 <table runat="server" id="tblZoneClusterWiseMIS" width="100%">
     <tr>
         <td>
-            <asp:Panel ID="pnlZoneClusterWiseMIS" Visible="false" ScrollBars="Horizontal" Height="440px" runat="server">
+            <asp:Panel ID="pnlZoneClusterWiseMIS" Visible="false" ScrollBars="Horizontal" Height="440px"
+                runat="server">
                 <div runat="server" id="divZoneClusterWiseMIS" style="margin: 2px; width: 440px;">
-                    <telerik:RadGrid Visible="false" ID="gvZoneClusterWiseCommissionMIS" runat="server" GridLines="None"
-                        AutoGenerateColumns="False" AllowSorting="true" ShowStatusBar="True" ShowFooter="true"
-                        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                    <telerik:RadGrid Visible="false" ID="gvZoneClusterWiseCommissionMIS" runat="server"
+                        GridLines="None" AutoGenerateColumns="False" AllowSorting="true" ShowStatusBar="True"
+                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         OnNeedDataSource="gvZoneClusterWiseCommissionMIS_OnNeedDataSource" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" enab ExportSettings-ExportOnlyData="true">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -480,6 +555,8 @@
 </table>
 <asp:HiddenField ID="hidDateType" Value="" runat="server" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
+<asp:HiddenField ID="hdnScheme" runat="server" />
+<asp:HiddenField ID="hdnAMC" runat="server" />
 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
 <asp:HiddenField ID="hdnMISType" runat="server" />
 <asp:HiddenField ID="hdnFromDate" runat="server" />

@@ -23,16 +23,21 @@ using System.Text;
 using iTextSharp.text.html.simpleparser;
 using VoCustomerPortfolio;
 using BoCustomerPortfolio;
+using BoProductMaster;
+using VoProductMaster;
 using BoCommon;
 using System.Configuration;
 using Telerik.Web.UI;
 using VoUser;
+using System.Web.UI.WebControls;
+using BoWerpAdmin;
 
 namespace WealthERP.Advisor
 {
     public partial class AdvisorMISCommission : System.Web.UI.UserControl
     {
         AdvisorMISBo advisorMISBo = new AdvisorMISBo();
+        ProductMFBo productMFBo = new ProductMFBo();
         string path = string.Empty;
         DataSet dsMISCommission=new DataSet();
         UserVo userVo = new UserVo();
@@ -40,7 +45,8 @@ namespace WealthERP.Advisor
         DateTime dtTo = new DateTime();
         DateTime dtFrom = new DateTime();
         AdvisorVo advisorVo = new AdvisorVo();
-
+        int amccode = 0;
+        int Schemecode = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -71,6 +77,13 @@ namespace WealthERP.Advisor
             //    CompareValidator2.ErrorMessage = "";
             //}
         }
+
+
+        public void ddlMISType_SelectedIndexChanged(object a, EventArgs b)
+        {
+            trAMCSelection.Visible = true;
+            BindAMC();
+        }
         /// <summary>
         /// Binding Period Dropdown From Xml File
         /// </summary>        
@@ -87,6 +100,132 @@ namespace WealthERP.Advisor
             ddlPeriod.Items.Remove(15);
             ddlPeriod.SelectedIndex = 0;
         }
+        private void SetParameter()
+        {
+            //if (ddlSelectMutualFund.SelectedIndex != 0)
+            //{
+            //    amccode = ddlSelectMutualFund.SelectedValue;
+            //    //ddlSelectMutualFund
+            //    //hdnAMC.Value = ddlAMC.SelectedValue;
+            //    //ViewState["AMCDropDown"] = hdnAMC.Value;
+            //}
+            ////else if (ViewState["AMCDropDown"] != null)
+            ////{
+            ////    hdnAMC.Value = ViewState["AMCDropDown"].ToString();
+            ////}
+            //else
+            //{
+            //    hdnAMC.Value = "0";
+            //}
+            //if (ddlScheme.SelectedIndex != 0)
+            //{
+            //    hdnScheme.Value = ddlScheme.SelectedValue;
+            //    ViewState["DropdownScheme"] = hdnScheme.Value;
+            //}
+            ////else if (ViewState["CategoryDropDown"] != null)
+            ////{
+            ////    hdnCategory.Value = ViewState["CategoryDropDown"].ToString();
+            ////}
+            //else
+            //{
+            //    hdnScheme.Value = "0";
+            //}
+        }
+
+        protected void ddlNAVCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            //BindNavSubCategory();
+            LoadAllSchemeNAV();
+            //gvMFRecord.DataSource = null;
+            //gvMFRecord.DataBind();
+        }
+        private void LoadAllSchemeList(int amcCode)
+        {
+            //PriceBo priceBo = new PriceBo();
+            //DataSet dsLoadAllScheme = new DataSet();
+            //DataTable dtLoadAllScheme = new DataTable();
+            ////if (ddlAmcCode.SelectedIndex != 0 && ddlFactCategory.SelectedIndex == 0)
+            ////{
+            ////    amcCode = int.Parse(ddlAmcCode.SelectedValue.ToString());
+            ////    categoryCode = ddlFactCategory.SelectedValue;
+            ////    dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+            ////    dtLoadAllScheme = dsLoadAllScheme.Tables[0];
+            ////}
+            ////if (ddlAmcCode.SelectedIndex != 0 && ddlFactCategory.SelectedIndex != 0)
+            ////{
+            ////    amcCode = int.Parse(ddlAmcCode.SelectedValue.ToString());
+            ////    categoryCode = ddlFactCategory.SelectedValue;
+            ////    dsLoadAllScheme = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+            ////    dtLoadAllScheme = dsLoadAllScheme.Tables[0];
+            ////}
+            //if (dtLoadAllScheme.Rows.Count > 0)
+            //{
+            //    ddlSchemeList.DataSource = dtLoadAllScheme;
+            //    ddlSchemeList.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
+            //    ddlSchemeList.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
+            //    ddlSchemeList.DataBind();
+            //    ddlSchemeList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            //}
+            //else
+            //{
+            //    ddlSchemeList.Items.Clear();
+            //    ddlSchemeList.DataSource = null;
+            //    ddlSchemeList.DataBind();
+            //    ddlSchemeList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            //}
+
+        }
+
+        protected void ddlSelectMutualFund_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadAllSchemeNAV();
+         //   tdscheme.Visible = true;
+            //gvMFRecord.DataSource = null;
+            //gvMFRecord.DataBind();
+        }
+        public void LoadAllSchemeNAV()
+        {
+            
+                PriceBo priceBo = new PriceBo();
+                DataSet dsLoadAllSchemeNAV;
+                DataTable dtLoadAllSchemeNAV = new DataTable();
+                int amcCode;
+                string categoryCode;
+                //if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex == 0)
+                //{
+                amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+                categoryCode = ddlNAVCategory.SelectedValue;
+                dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode,"ALL");
+                dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+
+                //    }
+                // if (ddlSelectMutualFund.SelectedIndex != 0 && ddlNAVCategory.SelectedIndex != 0)
+                //{
+                //    amcCode = int.Parse(ddlSelectMutualFund.SelectedValue.ToString());
+                //    categoryCode = ddlNAVCategory.SelectedValue;
+                //    //subCategory = ddlNAVSubCategory.SelectedValue;
+                //    dsLoadAllSchemeNAV = priceBo.GetSchemeListCategoryConcatenation(amcCode, categoryCode);
+                //    dtLoadAllSchemeNAV = dsLoadAllSchemeNAV.Tables[0];
+                //}
+                if (dtLoadAllSchemeNAV.Rows.Count > 0)
+                {
+                    ddlSelectSchemeNAV.DataSource = dtLoadAllSchemeNAV;
+                    ddlSelectSchemeNAV.DataTextField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanName"].ToString();
+                    ddlSelectSchemeNAV.DataValueField = dtLoadAllSchemeNAV.Columns["PASP_SchemePlanCode"].ToString();
+                    ddlSelectSchemeNAV.DataBind();
+                    ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All Scheme", "0"));
+                }
+                else
+                {
+                    ddlSelectSchemeNAV.Items.Clear();
+                    ddlSelectSchemeNAV.DataSource = null;
+                    ddlSelectSchemeNAV.DataBind();
+                    ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+                }
+                //ddlSelectSchemeNAV.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+           
+        }
+
         public void BindCommissionMISGridCategoryWise()
         {
             DataTable dtMIS;
@@ -181,9 +320,48 @@ namespace WealthERP.Advisor
                 ErrorMessage.InnerText = "No Records Found...!";
             }           
         }
+
+
+        private void BindAMC()
+        {
+            DataSet dsProductAmc;
+            DataTable dtProductAMC;
+            try
+            {
+                dsProductAmc = productMFBo.GetProductAmc();
+                if (dsProductAmc.Tables[0].Rows.Count > 0)
+                {
+                    dtProductAMC = dsProductAmc.Tables[0];
+                    ddlSelectMutualFund.DataSource = dtProductAMC;
+                    ddlSelectMutualFund.DataTextField = dtProductAMC.Columns["PA_AMCName"].ToString();
+                    ddlSelectMutualFund.DataValueField = dtProductAMC.Columns["PA_AMCCode"].ToString();
+                    ddlSelectMutualFund.DataBind();
+                }
+                ddlSelectMutualFund.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdviserRMMFSystematicMIS.ascx:BindBranchDropDown()");
+
+                object[] objects = new object[3];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public void BindMISCommissionGrid()
         {
-           DataSet dsALLMISCommission = advisorMISBo.GetCommissionMIS(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()));
+           //SetParameter();
+           DataSet dsALLMISCommission = advisorMISBo.GetCommissionMIS(advisorVo.advisorId, hdnMISType.Value.ToString(), DateTime.Parse(hdnFromDate.Value.ToString()), DateTime.Parse(hdnToDate.Value.ToString()), Convert.ToInt32(ddlSelectMutualFund.SelectedValue), Convert.ToInt32(ddlSelectSchemeNAV.SelectedValue));
            if (dsALLMISCommission.Tables[0].Rows.Count > 0)
             {
                 imgMISCommission.Visible = false;

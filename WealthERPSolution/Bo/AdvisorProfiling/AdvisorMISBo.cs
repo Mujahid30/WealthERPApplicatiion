@@ -1003,13 +1003,13 @@ namespace BoAdvisorProfiling
         }
 
 
-        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All,  out int i)
+        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All,  out int i,int IsAssociates,int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsMfDashBoard;
             try
             {
-                dsMfDashBoard = MISDao.GetMFDashBoard( userType,  adviserId,  rmId,  branchId,  branchHeadId,  All,  out i);
+                dsMfDashBoard = MISDao.GetMFDashBoard( userType,  adviserId,  rmId,  branchId,  branchHeadId,  All,  out i,IsAssociates,AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1033,13 +1033,13 @@ namespace BoAdvisorProfiling
             return dsCategoryList;
         }
 
-        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsAMCTransactionDeatails;
             try
             {
-                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType,AdviserId,rmId,branchId,branchHeadId,all,FromDate,Todate);
+                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType,AdviserId,rmId,branchId,branchHeadId,all,FromDate,Todate,AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1064,13 +1064,13 @@ namespace BoAdvisorProfiling
             return dsAMCTransactionDeatails;
         }
 
-        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode, string Category)
+        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode, string Category, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsSchemeTransactionDeatails;
             try
             {
-                dsSchemeTransactionDeatails = MISDao.GetSchemeTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AmcCode, Category);
+                dsSchemeTransactionDeatails = MISDao.GetSchemeTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AmcCode, Category,AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1095,13 +1095,13 @@ namespace BoAdvisorProfiling
             return dsSchemeTransactionDeatails;
         }
 
-        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsBranchTransactionDeatails;
             try
             {
-                dsBranchTransactionDeatails = MISDao.GetBranchTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate);
+                dsBranchTransactionDeatails = MISDao.GetBranchTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1126,13 +1126,13 @@ namespace BoAdvisorProfiling
             return dsBranchTransactionDeatails;
         }
 
-        public DataSet GetFolioTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int SchemeCode)
+        public DataSet GetFolioTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int SchemeCode, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsFolioTransactionDeatails;
             try
             {
-                dsFolioTransactionDeatails = MISDao.GetFolioTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, SchemeCode);
+                dsFolioTransactionDeatails = MISDao.GetFolioTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, SchemeCode,AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1157,13 +1157,13 @@ namespace BoAdvisorProfiling
             return dsFolioTransactionDeatails;
         }
 
-        public DataSet GetCategoryTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,string Category)
+        public DataSet GetCategoryTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsCategoryTransactionDeatails;
             try
             {
-                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate,Category);
+                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate,Category,AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1188,13 +1188,13 @@ namespace BoAdvisorProfiling
             return dsCategoryTransactionDeatails;
         }
 
-        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsRMTransactionDeatails;
             try
             {
-                dsRMTransactionDeatails = MISDao.GetRMTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate);
+                dsRMTransactionDeatails = MISDao.GetRMTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate,AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1234,14 +1234,14 @@ namespace BoAdvisorProfiling
             return dsAllClusterTransactionDeatails;
         }
 
-        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo,int AMC,int Schemecode)
         {
 
             DataSet dsGetMISCommission = null;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsGetMISCommission = MISDao.GetCommissionMIS(adviserId, misType, dtFrom, dtTo);
+                dsGetMISCommission = MISDao.GetCommissionMIS(adviserId, misType, dtFrom, dtTo, AMC, Schemecode);
             }
             catch (BaseApplicationException Ex)
             {

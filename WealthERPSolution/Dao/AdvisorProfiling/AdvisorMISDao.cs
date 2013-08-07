@@ -1542,7 +1542,7 @@ namespace DaoAdvisorProfiling
 
             return latestValuationDate;
         }
-        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All, out int i)
+        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All, out int i, int IsAssociates, int AgentId)
         {
             Database db;
             DbCommand getMFDashBoardCmd;
@@ -1551,10 +1551,10 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMFDashBoardCmd = db.GetStoredProcCommand("SP_GetMFDashBoard");
-
-
                 db.AddInParameter(getMFDashBoardCmd, "@UserType", DbType.String, userType);
                 db.AddInParameter(getMFDashBoardCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getMFDashBoardCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getMFDashBoardCmd, "@IsAssociates", DbType.Int32, IsAssociates);
                 db.AddInParameter(getMFDashBoardCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(getMFDashBoardCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getMFDashBoardCmd, "@BranchId", DbType.Int32, branchId);
@@ -1606,7 +1606,7 @@ namespace DaoAdvisorProfiling
             }
             return dsGetCategoryList;
         }
-        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetAMCTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
         {
             Database db;
             DbCommand AMCTransactionDeatailsCmd;
@@ -1620,6 +1620,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(AMCTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(AMCTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(AMCTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(AMCTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 db.AddInParameter(AMCTransactionDeatailsCmd, "@all", DbType.Int32, all);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(AMCTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
@@ -1658,7 +1659,7 @@ namespace DaoAdvisorProfiling
             }
             return dsAMCTransactionDeatails;
         }
-        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode, string Category)
+        public DataSet GetSchemeTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AmcCode, string Category,int AgentId)
         {
             Database db;
             DbCommand GetSchemeTransactionDeatailsCmd;
@@ -1685,6 +1686,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@amcCode", DbType.Int32, DBNull.Value);
+                if (AgentId != 0)
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                else
+                    db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
                 if (!string.IsNullOrEmpty(Category))
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@Category", DbType.String, Category);
                 else
@@ -1714,7 +1719,7 @@ namespace DaoAdvisorProfiling
             }
             return dsSchemeTransactionDeatails;
         }
-        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
         {
             Database db;
             DbCommand GetBranchTransactionDeatailsCmd;
@@ -1728,6 +1733,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(GetBranchTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(GetBranchTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(GetBranchTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetBranchTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 db.AddInParameter(GetBranchTransactionDeatailsCmd, "@all", DbType.Int32, all);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(GetBranchTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
@@ -1762,7 +1768,7 @@ namespace DaoAdvisorProfiling
             }
             return dsBranchTransactionDeatails;
         }
-        public DataSet GetFolioTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int SchemeCode)
+        public DataSet GetFolioTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int SchemeCode,int AgentId)
         {
             Database db;
             DbCommand GetFolioTransactionDeatailsCmd;
@@ -1776,6 +1782,10 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(GetFolioTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(GetFolioTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(GetFolioTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                if(AgentId!=0)
+                db.AddInParameter(GetFolioTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                else
+                 db.AddInParameter(GetFolioTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32,DBNull.Value);
                 db.AddInParameter(GetFolioTransactionDeatailsCmd, "@all", DbType.Int32, all);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(GetFolioTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
@@ -1815,7 +1825,7 @@ namespace DaoAdvisorProfiling
             }
             return dsFolioTransactionDeatails;
         }
-        public DataSet GetCategoryTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category)
+        public DataSet GetCategoryTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, string Category,int AgentId)
         {
             Database db;
             DbCommand GetCategoryTransactionDeatailsCmd;
@@ -1829,6 +1839,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@all", DbType.Int32, all);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(GetCategoryTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
@@ -1879,7 +1890,7 @@ namespace DaoAdvisorProfiling
         /// <param name="FromDate"></param>
         /// <param name="Todate"></param>
         /// <returns></returns>
-        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate)
+        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
         {
             Database db;
             DbCommand getRMTransactionDeatailsCmd;
@@ -1893,6 +1904,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getRMTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(getRMTransactionDeatailsCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(getRMTransactionDeatailsCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getRMTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 db.AddInParameter(getRMTransactionDeatailsCmd, "@all", DbType.Int32, all);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(getRMTransactionDeatailsCmd, "@FromDate", DbType.DateTime, FromDate);
@@ -1969,7 +1981,7 @@ namespace DaoAdvisorProfiling
         }
 
 
-        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo,int AMC,int SchemeCode)
         {
             Database db;
             DbCommand getMISCommissionCmd;
@@ -1982,6 +1994,14 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getMISCommissionCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getMISCommissionCmd, "@FromDate", DbType.Date, dtFrom);
                 db.AddInParameter(getMISCommissionCmd, "@ToDate", DbType.Date, dtTo);
+                if(SchemeCode!=0)
+                db.AddInParameter(getMISCommissionCmd, "@SchemeCode", DbType.Int32, SchemeCode);
+                else
+                db.AddInParameter(getMISCommissionCmd, "@SchemeCode", DbType.Int32, DBNull.Value);
+                if(AMC!=0)
+                db.AddInParameter(getMISCommissionCmd, "@AmcCode", DbType.Int32, AMC);
+                else
+                db.AddInParameter(getMISCommissionCmd, "@AmcCode", DbType.Int32, DBNull.Value);
                 getMISCommissionCmd.CommandTimeout = 60 * 60;
                 dsGetMISCommission = db.ExecuteDataSet(getMISCommissionCmd);
 

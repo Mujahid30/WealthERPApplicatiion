@@ -39,7 +39,7 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdZoneClusterCommissionMIS;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdscheme;
         /// <summary>
         /// imgZoneClusterCommissionMIS control.
         /// </summary>
@@ -400,5 +400,31 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;
+        protected global::System.Web.UI.WebControls.HiddenField hdnScheme;
+
+        /// <summary>
+        /// hdnAMC control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAMC;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC;
+        protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAMCScheme;
+        protected global::System.Web.UI.WebControls.Label lblScheme;
+        protected global::System.Web.UI.WebControls.Label lblAMC;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectMutualFund;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectSchemeNAV;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNAVCategory;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trAMCSelection;
+        
     }
 }
