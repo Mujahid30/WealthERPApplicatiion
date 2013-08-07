@@ -2798,7 +2798,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Order_List")
                 {
                     Session["UserType"] = "Associates";
-                 //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
                 }
                 else if (e.Item.Value == "OrderMIS")
                 {
@@ -2873,12 +2873,12 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF MIS")
                 {
                     Session["UserType"] = "Associates";
-                    //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MutualFundMIS','login');", true);
                 }
                 else if (e.Item.Value == "MFDashboard")
                 {
                     Session["UserType"] = "Associates";
-                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "CustomerSignUp")
                 {
@@ -2924,7 +2924,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MFTurnOverMIS")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TurnOverDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Loan MIS")
                 {
