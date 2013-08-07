@@ -23,7 +23,7 @@
     </tr>
 </table>
 <table width="100%">
-    <tr visible="false">
+    <tr>
         <td>
             <br />
             <asp:Label ID="lblbranch" runat="server" Font-Bold="true" Font-Size="Small" CssClass="FieldName"
@@ -32,6 +32,13 @@
                 CssClass="cmbField" Style="vertical-align: middle" AutoPostBack="true" 
                 onselectedindexchanged="ddlBMBranch_SelectedIndexChanged">
             </asp:DropDownList>
+        </td>
+    </tr>
+        <tr id="trErrorMessage" align="center" style="width: 100%" runat="server">
+        <td align="center" style="width: 100%">
+            <div class="failure-msg" style="text-align: center" align="center">
+                No  Records found!!!!
+            </div>
         </td>
     </tr>
     <tr>

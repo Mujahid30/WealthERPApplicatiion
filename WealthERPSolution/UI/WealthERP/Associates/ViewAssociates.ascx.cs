@@ -42,18 +42,18 @@ namespace WealthERP.Associates
                 if (currentUserRole == "admin" || currentUserRole == "ops")
                 {
                     BindBranchDropDown(advisorVo.advisorId);
-                    BindAssociatesGrid();
+                    BindAssociatesGrid(advisorVo.advisorId, true, false, false);
                 }
                 else if (currentUserRole == "bm")
                 {
                     BindBranchDropDown(rmVo.RMId);
                     if (ddlBMBranch.Items.Count > 1)
                     {
-                        BindAssociatesGrid();
+                        BindAssociatesGrid(rmVo.RMId, false, true, false);
                     }
                     else
                     {
-                        BindAssociatesGrid();
+                        BindAssociatesGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
                     }
                 }
 
@@ -99,7 +99,7 @@ namespace WealthERP.Associates
             }
         }
 
-        private void BindAssociatesGrid()
+        private void BindAssociatesGrid(int id, bool isAdviser, bool isBranchHead, bool isBranchId)
         {
             associateVoList = new List<AssociatesVO>();
             AssociatesVO associateVo = new AssociatesVO();
@@ -107,7 +107,7 @@ namespace WealthERP.Associates
             DataTable dtViewAssociates = new DataTable(); 
             DataRow dr;
             //dsViewAssociates = associatesBo.GetViewAssociates(advisorVo.advisorId);
-            associateVoList = associatesBo.GetViewAssociates(advisorVo.advisorId);
+            associateVoList = associatesBo.GetViewAssociates(id, isAdviser, isBranchHead, isBranchId, currentUserRole);
             string format = "dd/MM/yyyy hh:mm tt";
             if (associateVoList != null)
             {
@@ -152,10 +152,12 @@ namespace WealthERP.Associates
                         dr["AA_Mobile"] = associateVo.Mobile;
                     dtViewAssociates.Rows.Add(dr);
                 }
+                pnlAssociatesView.Visible = true;
                 gvViewAssociates.DataSource = dtViewAssociates;
                 gvViewAssociates.DataBind();
                 gvViewAssociates.Visible = true;
                 imgExportAssociates.Visible = true;
+                trErrorMessage.Visible = false;
                 if (Cache["gvViewAssociates + '" + advisorVo.advisorId + "'"] == null)
                 {
                     Cache.Insert("gvViewAssociates + '" + advisorVo.advisorId + "'", dtViewAssociates);
@@ -170,10 +172,10 @@ namespace WealthERP.Associates
 
             else
             {
-                gvViewAssociates.Visible = true;
-                gvViewAssociates.DataSource = null;
-                gvViewAssociates.DataBind();
+                trErrorMessage.Visible = true;
+                gvViewAssociates.Visible = false;
                 imgExportAssociates.Visible = false;
+                pnlAssociatesView.Visible = false;
             }
             //if (dtViewAssociates == null)
             //{
@@ -250,32 +252,32 @@ namespace WealthERP.Associates
                 if (currentUserRole == "admin" || currentUserRole == "ops")
                 {
                     if (ddlBMBranch.Items.Count > 1)
-                        //BindGridview(advisorVo.advisorId, true, false, false);
-                        BindAssociatesGrid();
+                       BindAssociatesGrid(advisorVo.advisorId, true, false, false);
+                        //BindAssociatesGrid();
                     else
-                        //BindGridview(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
-                        BindAssociatesGrid();
+                        BindAssociatesGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
+                        //BindAssociatesGrid();
                 }
                 else if (currentUserRole == "bm")
                 {
 
                     if (ddlBMBranch.Items.Count > 1)
                     {
-                        //BindGridview(rmVo.RMId, false, true, false);
-                        BindAssociatesGrid();
+                        BindAssociatesGrid(rmVo.RMId, false, true, false);
+                        //BindAssociatesGrid();
                     }
                     else
                     {
-                        //BindGridview(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
-                        BindAssociatesGrid();
+                        BindAssociatesGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
+                        //BindAssociatesGrid();
                     }
                 }
 
             }
             else
             {
-                //BindGridview(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
-                BindAssociatesGrid();
+                BindAssociatesGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true);
+                //BindAssociatesGrid();
 
             }
         }
