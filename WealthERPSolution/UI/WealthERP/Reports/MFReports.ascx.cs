@@ -228,7 +228,7 @@ namespace WealthERP.Reports
                 //GetRequestStatusList(151586, Convert.ToDateTime("2013-05-08"));
                 if (userVo.UserType!="SuperAdmin")
                 {
-                    ddlAdviser.Visible = false;
+                    trAdviserSelection.Visible = false;
                       if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
                     {
                         path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -652,7 +652,7 @@ namespace WealthERP.Reports
                 }
                 else if (userVo.UserType == "SuperAdmin")
                 {
-                    ddlAdviser.Visible = true;
+                    trAdviserSelection.Visible = true;
                     RadTabStrip2.Visible = false;
                     tabViewAndEmailReports.Visible = false;
 
