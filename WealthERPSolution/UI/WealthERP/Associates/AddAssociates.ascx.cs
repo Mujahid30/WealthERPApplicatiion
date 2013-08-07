@@ -663,7 +663,8 @@ namespace WealthERP.Associates
             ddlstatus1.Enabled = true;
             //lnlStep3.Enabled = false;
             btnSubmitAddStage1.Visible = true;
-
+            lblReasonStage1.Visible = false;
+            ddlReasonStage1.Visible = false;
 
         }
 
@@ -777,8 +778,8 @@ namespace WealthERP.Associates
                 ddlstatus1.DataValueField = ds.Tables[1].Columns["XS_StatusCode"].ToString();
                 ddlstatus1.DataTextField = ds.Tables[1].Columns["XS_Status"].ToString();
                 ddlstatus1.DataBind();
-                ddlstatus1.Items.Insert(0, new ListItem("Select", "Select"));
-                ddlstatus1.Items.RemoveAt(4);
+                ddlstatus1.SelectedValue = "IP";
+                ddlstatus1.Items.RemoveAt(3);
 
                 ddlstatus2.DataSource = ds.Tables[1];
                 ddlstatus2.DataValueField = ds.Tables[1].Columns["XS_StatusCode"].ToString();

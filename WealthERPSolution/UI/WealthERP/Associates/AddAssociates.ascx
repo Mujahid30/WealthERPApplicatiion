@@ -472,10 +472,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button ID="btnSave" runat="server" Text="Save" CssClass="PCGButton" ValidationGroup="Submit"
-                                    OnClick="btnSave_Click" />
+                               
                             </td>
                             <td>
+                             <asp:Button ID="btnSave" runat="server" Text="Generate Request" CssClass="PCGLongButton" ValidationGroup="Submit"
+                                    OnClick="btnSave_Click" />
                             </td>
                             <td class="leftLabel">
                                 <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request No.:" CssClass="FieldName"></asp:Label>
@@ -496,7 +497,7 @@
                             </td>
                             <td colspan="4">
                                 <div class="ISAAccountMsg" align="center" id="divStep1SuccMsg" runat="server" visible="false">
-                                    Request Created Successfully, Please update the status.
+                                    Request Created Successfully.Please update the status.
                                 </div>
                             </td>
                             <td colspan="2">
@@ -508,7 +509,7 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlstatus1" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                                    CssClass="cmbField" Enabled="false" OnSelectedIndexChanged="ddlstatus1_SelectedIndexChanged">
+                                    CssClass="cmbField"  OnSelectedIndexChanged="ddlstatus1_SelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="rfvddlStatusStage1" runat="server" CssClass="rfvPCG"
@@ -517,10 +518,10 @@
                                 </asp:RequiredFieldValidator>
                             </td>
                             <td class="leftLabel">
-                                <asp:Label ID="lblReasonStage1" runat="server" Text="Reason:" CssClass="FieldName"></asp:Label>
+                                <asp:Label ID="lblReasonStage1" runat="server" Text="Reason:" CssClass="FieldName" Visible="false"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:DropDownList ID="ddlReasonStage1" runat="server" CssClass="cmbField" Enabled="false">
+                                <asp:DropDownList ID="ddlReasonStage1" runat="server" CssClass="cmbField" Visible="false">
                                 </asp:DropDownList>
                             </td>
                             <td colspan="4">
@@ -537,10 +538,10 @@
                             <td class="leftLabel">
                                 <asp:Button ID="btnSubmitAddStage1" runat="server" Text="Submit" ValidationGroup="vgBtnSubmitQueue"
                                     CausesValidation="true" CssClass="PCGButton" OnClick="btnSubmitAddStage1_Click"
-                                    Visible="false" />
+                                    Visible="true" />
                             </td>
                             <td class="rightDataFourColumn" colspan="3">
-                                <div class="ISAAccountMsg" align="center" id="divGotoStep2msg" runat="server" visible="false">
+                                <div class="ISAAccountMsg" align="center" id="divAssociateAdd" runat="server"  visible="false">
                                     Please add associates details.
                                 </div>
                             </td>
@@ -575,7 +576,7 @@
                         <div class="fltlft">
                             &nbsp;
                             <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtStage2" runat="server" Text="Detailed Information/Codegeneration"
+                            <asp:Label ID="txtStage2" runat="server" Text="Profiling"
                                 CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
@@ -602,7 +603,7 @@
                         <tr>
                             <td class="leftLabel">
                                 <td colspan="4">
-                                    <asp:LinkButton runat="server" ID="lnlStep2" CssClass="LinkButtons" Text="GoTo Detailed section"
+                                    <asp:LinkButton runat="server" ID="lnlStep2" CssClass="LinkButtons" Text="Enter Associate Profile"
                                         OnClick="lnlStep2_Click" Enabled="false"></asp:LinkButton>
                                 </td>
                                 <td colspan="2">
