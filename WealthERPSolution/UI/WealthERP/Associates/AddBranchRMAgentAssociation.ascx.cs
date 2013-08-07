@@ -314,21 +314,39 @@ namespace WealthERP.Associates
         {
             if (ddlUserType.SelectedIndex != 0)
             {
-                if(ddlUserType.SelectedValue=="BM")
+                if (ddlUserType.SelectedValue == "BM")
+                {
                     BindBranchDropDown();
+                    lblNoOfCodes.Visible = false;
+                    txtNoOfCodes.Visible = false;
+                    btnAddCode.Visible = false;
+                }
                 else if (ddlUserType.SelectedValue == "RM")
+                {
                     BindRMDropDown();
+                    lblNoOfCodes.Visible = false;
+                    txtNoOfCodes.Visible = false;
+                    btnAddCode.Visible = false;
+                }
                 else if (ddlUserType.SelectedValue == "Associates")
+                {
                     BindAgentList();
+                }
             }
         }
 
         protected void ddlSelectType_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
             if (ddlSelectType.SelectedIndex != 0 && ddlUserType.SelectedValue == "Associates")
             {
                 GetAgentCode(int.Parse(ddlSelectType.SelectedValue));
+            }
+            else
+            {
+                lblNoOfCodes.Visible = false;
+                txtNoOfCodes.Visible = false;
+                btnAddCode.Visible = false;
             }
         }
 
@@ -336,7 +354,7 @@ namespace WealthERP.Associates
         {
             string code = string.Empty;
             code = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(associates);
-            if (code != null)
+            if (!string.IsNullOrEmpty(code))
             {
                 txtAgentCode.Text = code;
                 txtAgentCode.Enabled = false;
