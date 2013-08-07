@@ -143,12 +143,14 @@
             url: "ControlHost.aspx/CheckPANNoAvailabilityForAssociates",
             data: "{ 'PanNumber': '" + $("#<%=txtPanNum.ClientID %>").val() + "','adviserId': '" + $("#<%=hdnAdviserID.ClientID %>").val() + "' }",
             error: function(xhr, status, error) {
-                
+
             },
             success: function(msg) {
+               
                 if (msg.d) {
 
                     $("#<%= hidValidCheck.ClientID %>").val("1");
+                    $("#spnLoginStatus").html("");
                 }
                 else {
 
