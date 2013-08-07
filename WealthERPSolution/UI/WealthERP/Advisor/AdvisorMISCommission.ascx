@@ -204,7 +204,7 @@
                         </td>
                         <td>
                             <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbField">
-                            <asp:ListItem Text="All" Value="0"></asp:ListItem>
+                                <asp:ListItem Text="All" Value="0"></asp:ListItem>
                             </asp:DropDownList>
                             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlSelectSchemeNAV"
                                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="Please Select Scheme" Operator="NotEqual"
@@ -294,7 +294,16 @@
                             ShowFilterIcon="false">
                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="BrokerageAmt" DataField="Brokerage" AllowFiltering="false"
+                        <%--<telerik:GridTemplateColumn HeaderText="Brokerage Amount" AllowFiltering="false" UniqueName="BrokerageAmt" DataField="Brokerage"
+                            DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle />
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkBrokerage" runat="server" CssClass="cmbField" Text='<%# Eval("BrokerageAmt") %>'
+                                    OnClick="lnkBrokerage_Click">
+                                </asp:LinkButton>
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>--%>
+                       <telerik:GridBoundColumn UniqueName="BrokerageAmt" DataField="Brokerage" AllowFiltering="false"
                             HeaderText="Brokerage Amount" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" />
                         </telerik:GridBoundColumn>

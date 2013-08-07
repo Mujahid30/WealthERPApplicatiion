@@ -81,8 +81,20 @@ namespace WealthERP.Advisor
 
         public void ddlMISType_SelectedIndexChanged(object a, EventArgs b)
         {
-            trAMCSelection.Visible = true;
-            BindAMC();
+            if (ddlMISType.SelectedValue == "AMC_Folio_Type_AllMIS")
+            {
+                trAMCSelection.Visible = true;
+                BindAMC();
+            }
+            else if (ddlMISType.SelectedValue == "Category Wise")
+            {
+                trAMCSelection.Visible = false;
+
+            }
+            else if (ddlMISType.SelectedValue == "Zone_Cluster_Wise")
+            {
+                trAMCSelection.Visible = false;
+            }
         }
         /// <summary>
         /// Binding Period Dropdown From Xml File
@@ -457,13 +469,15 @@ namespace WealthERP.Advisor
                 pnlCommissionMIS.Visible = true;
                 tblCommissionMIS.Visible = true;
                 tblZoneClusterWiseMIS.Visible = false;
+                trAMCSelection.Visible = true;
                 BindMISCommissionGrid();
+                
                 gvCommissionMIS.Visible = false;
             }
             else if (hdnMISType.Value == "Category Wise")
             {
                 hdnRecordCount.Value = "1";
-
+                trAMCSelection.Visible = false;
                 GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
                 column.CurrentFilterFunction = GridKnownFunction.Contains;
                 column.CurrentFilterValue = null;
@@ -490,6 +504,7 @@ namespace WealthERP.Advisor
                 pnlCommissionMIS.Visible = false;
                 tblCommissionMIS.Visible = false;
                 tblZoneClusterWiseMIS.Visible = true;
+                trAMCSelection.Visible = false;
                 //tdZoneClusterCommissionMIS.Visible = true;
                 BindMISCommissionGridZoneCluster();
             }
