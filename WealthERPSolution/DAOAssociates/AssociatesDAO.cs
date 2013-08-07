@@ -105,7 +105,7 @@ namespace DAOAssociates
             return associatesIds;
         }
 
-        public List<AssociatesVO> GetViewAssociates(int adviserId)
+        public List<AssociatesVO> GetViewAssociates(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole)
         {
             List<AssociatesVO> associatesVoList = null;
             AssociatesVO associatesVo;
@@ -117,7 +117,12 @@ namespace DAOAssociates
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 viewAssociatesCmd = db.GetStoredProcCommand("SPROC_GetViewAssociates");
-                db.AddInParameter(viewAssociatesCmd, "@AdviserId", DbType.Int32, adviserId);
+                //db.AddInParameter(viewAssociatesCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(viewAssociatesCmd, "@id", DbType.Int16, Convert.ToInt32(id));
+                db.AddInParameter(viewAssociatesCmd, "@isAdviser", DbType.Int16, Convert.ToInt16(isAdviser));
+                db.AddInParameter(viewAssociatesCmd, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
+                db.AddInParameter(viewAssociatesCmd, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
+                db.AddInParameter(viewAssociatesCmd, "@currentUserRole", DbType.String, currentUserRole);
                 ds=db.ExecuteDataSet(viewAssociatesCmd);
 
                 if (ds.Tables[0].Rows.Count > 0)
@@ -166,7 +171,7 @@ namespace DAOAssociates
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetViewAssociates()");
                 object[] objects = new object[1];
-                objects[0] = adviserId;
+                objects[0] = id;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -466,9 +471,9 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AAAR_Registrationumber", DbType.String, DBNull.Value);
                 if (!string.IsNullOrEmpty(associatesVo.assetGroupCode.ToString().Trim()))
-                    db.AddInParameter(UpdateAssociatesCmd, "@PAG_assetGroupCode", DbType.String, associatesVo.assetGroupCode);
+                    db.AddInParameter(UpdateAssociatesCmd, "@assetGroupCodes", DbType.String, associatesVo.assetGroupCode);
                 else
-                    db.AddInParameter(UpdateAssociatesCmd, "@PAG_assetGroupCode", DbType.String, DBNull.Value);
+                    db.AddInParameter(UpdateAssociatesCmd, "@assetGroupCodes", DbType.String, DBNull.Value);
                 if (associatesVo.StartDate != DateTime.MinValue)
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_StartDate", DbType.DateTime, associatesVo.StartDate);
                 else
