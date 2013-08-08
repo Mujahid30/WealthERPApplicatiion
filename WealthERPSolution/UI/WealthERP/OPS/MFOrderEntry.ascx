@@ -221,7 +221,7 @@
           <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbField" AutoPostBack="false">
+            <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbLongField" AutoPostBack="false">
             </asp:DropDownList>
         </td>
     </tr>

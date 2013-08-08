@@ -94,7 +94,7 @@ namespace WealthERP.OPS
             {
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
-                BindAssociate(userType);
+                BindAgentDropList(userType);
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
@@ -200,22 +200,26 @@ namespace WealthERP.OPS
             ddlARNNo.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
-        private void BindAssociate(string userRole)
+        private void BindAgentDropList(string userRole)
         {
-            DataTable dtAssociateList=new DataTable();
-            if (userRole.ToLower() == "rm")
-                dtAssociateList = associatesBo.GetRMAssociatesList(rmVo.RMId);
-            else if (userRole.ToLower() == "ops" || userRole.ToLower() == "advisor")
-                dtAssociateList = associatesBo.GetAssociatesList(advisorVo.advisorId);
-
-            if (dtAssociateList.Rows.Count > 0)
+            DataTable dtAgentListList=new DataTable();
+            if (userRole.ToLower() == "ops" || userRole.ToLower() == "advisor")
             {
-                ddlAssociate.DataSource = dtAssociateList;
-                ddlAssociate.DataValueField = dtAssociateList.Columns["AA_AdviserAssociateId"].ToString();
-                ddlAssociate.DataTextField = dtAssociateList.Columns["AA_ContactPersonName"].ToString();
+                dtAgentListList = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, "admin");
+            }
+            else if (userRole=="rm")
+            {
+                dtAgentListList = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, userRole);
+            }
+
+            if (dtAgentListList.Rows.Count > 0)
+            {
+                ddlAssociate.DataSource = dtAgentListList;
+                ddlAssociate.DataValueField = dtAgentListList.Columns["AgentId"].ToString();
+                ddlAssociate.DataTextField = dtAgentListList.Columns["AgentName"].ToString();
                 ddlAssociate.DataBind();
             }
-            ddlAssociate.Items.Insert(0, new ListItem("Select", "0"));
+            ddlAssociate.Items.Insert(0, new ListItem("Select(AgentId-Name-AgentCode)", "0"));
         }
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
@@ -279,8 +283,8 @@ namespace WealthERP.OPS
                 if (mforderVo != null && orderVo != null)
                 {
                     SetEditViewMode(false);
-                    if (mforderVo.AssociateId != 0)
-                        ddlAssociate.SelectedValue = mforderVo.AssociateId.ToString();
+                    if (orderVo.AgentId != 0)
+                        ddlAssociate.SelectedValue = orderVo.AgentId.ToString(); 
                     if (mforderVo.ARNNo != null)
                         ddlARNNo.SelectedValue = mforderVo.ARNNo;
                     orderId = orderVo.OrderId;
@@ -548,8 +552,8 @@ namespace WealthERP.OPS
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
                     lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
                     hdnType.Value = mforderVo.TransactionCode;
-                    if (mforderVo.AssociateId!=0)
-                      ddlAssociate.SelectedValue = mforderVo.AssociateId.ToString();
+                    if (orderVo.AgentId != 0)
+                        ddlAssociate.SelectedValue = orderVo.AgentId.ToString();
                     if (mforderVo.ARNNo != null)
                         ddlARNNo.SelectedValue = mforderVo.ARNNo;
 
@@ -1983,7 +1987,7 @@ namespace WealthERP.OPS
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
             if (ddlAssociate.SelectedIndex != 0)
-                mforderVo.AssociateId = Convert.ToInt32(ddlAssociate.SelectedValue);
+                mforderVo.AgentId = Convert.ToInt32(ddlAssociate.SelectedValue);
 
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
@@ -2358,7 +2362,7 @@ namespace WealthERP.OPS
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
 
             if (ddlAssociate.SelectedIndex != 0)
-                mforderVo.AssociateId = Convert.ToInt32(ddlAssociate.SelectedValue);
+                orderVo.AgentId = Convert.ToInt32(ddlAssociate.SelectedValue);
         }
 
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)
