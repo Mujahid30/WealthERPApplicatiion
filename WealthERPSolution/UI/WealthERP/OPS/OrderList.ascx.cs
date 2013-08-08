@@ -531,6 +531,17 @@ namespace WealthERP.OPS
                         orderVo.PaymentDate = DateTime.Parse(dr["CO_PaymentDate"].ToString());
                     else
                         orderVo.PaymentDate = DateTime.MinValue;
+
+                    if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
+                    {
+                        orderVo.AgentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
+                    {
+                        mforderVo.AgentCode = dr["AAC_AgentCode"].ToString();
+                    }
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
                         mforderVo.FutureTriggerCondition = dr["CMFOD_FutureTriggerCondition"].ToString();
                     else
@@ -605,10 +616,7 @@ namespace WealthERP.OPS
                         mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
                     else
                         mforderVo.Units = 0;
-                    if (!string.IsNullOrEmpty(dr["AA_AdviserAssociateId"].ToString()))
-                    {
-                        mforderVo.AssociateId = Convert.ToInt32(dr["AA_AdviserAssociateId"].ToString());
-                    }
+                   
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
                     {
                         mforderVo.ARNNo = Convert.ToString(dr["CMFOD_ARNNo"]);
