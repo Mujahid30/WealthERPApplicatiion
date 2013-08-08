@@ -1130,9 +1130,10 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindGridTrailCommission(DateTime convertedFromDate, DateTime convertedToDate)
         {
+            SetParameter();
             DataSet dsTrailCommissionDetails = new DataSet();
             DataSet ds = new DataSet();
-            int rmID = 0;
+            int rmID = 0;           
             int AdviserId = 0;
             if (userType == "advisor" || userType == "ops")
             {
@@ -1165,7 +1166,7 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
-                }
+              }
                 if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
                 {
                     dsTrailCommissionDetails.Tables[0].Columns.Add("Conditioning");
