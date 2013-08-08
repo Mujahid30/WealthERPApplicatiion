@@ -269,23 +269,35 @@ namespace WealthERP.Advisor
 
                 if(advisorBranchVo.AssociateCategoryId != 0)
                     ddlAssociateCategory.SelectedValue = advisorBranchVo.AssociateCategoryId.ToString();
-                ddlBranchAssociateType.SelectedValue = advisorBranchVo.BranchTypeCode.ToString();
+
+                if (advisorBranchVo.BranchTypeCode.ToString()!=null )
+                    ddlBranchAssociateType.Items[advisorBranchVo.BranchTypeCode].Selected = true;
+
+
+                //for (int i = 0; i < ddlBranchAssociateType.Items.Count; i++)
+                //{
+                //    if (ddlBranchAssociateType.Items[i].Value == advisorBranchVo.BranchTypeCode.ToString())
+                //    {
+                //        ddlBranchAssociateType.Items[i].Selected = true;
+                //    }
+                //}
+              //  ddlBranchAssociateType.SelectedValue = advisorBranchVo.BranchTypeCode.ToString();
                 if (branchRMDependendency == true)
                 {
                     ddlBranchAssociateType.Enabled = false;
  
                 }
-                txtAgentCode.Text = advisorBranchVo.AdviserAgentCode.ToString();
-                txtBranchCode.Text = advisorBranchVo.BranchCode.ToString();
-                txtBranchName.Text = advisorBranchVo.BranchName.ToString();
-                txtEmail.Text = advisorBranchVo.Email.ToString();
+                txtAgentCode.Text = advisorBranchVo.AdviserAgentCode;
+                txtBranchCode.Text = advisorBranchVo.BranchCode;
+                txtBranchName.Text = advisorBranchVo.BranchName ;
+                txtEmail.Text = advisorBranchVo.Email ;
                 txtFax.Text = advisorBranchVo.Fax.ToString();
                 txtIsdFax.Text = advisorBranchVo.FaxIsd.ToString();
                 txtIsdPhone2.Text = advisorBranchVo.Phone2Isd.ToString();
                 txtIsdPhone1.Text = advisorBranchVo.Phone1Isd.ToString();
-                txtLine1.Text = advisorBranchVo.AddressLine1.ToString();
-                txtLine2.Text = advisorBranchVo.AddressLine2.ToString();
-                txtLine3.Text = advisorBranchVo.AddressLine3.ToString();
+                txtLine1.Text = advisorBranchVo.AddressLine1;
+                txtLine2.Text = advisorBranchVo.AddressLine2 ;
+                txtLine3.Text = advisorBranchVo.AddressLine3 ;
                 txtPhone1.Text = advisorBranchVo.Phone1Number.ToString();
                 txtPhone2.Text = advisorBranchVo.Phone2Number.ToString();
                 txtPinCode.Text = advisorBranchVo.PinCode.ToString();
@@ -294,26 +306,40 @@ namespace WealthERP.Advisor
                 txtStdPhone2.Text = advisorBranchVo.Phone2Std.ToString();
                 txtCity.Text = advisorBranchVo.City.ToString();
                 ddlCountry.Items.Clear();
-                if (!string.IsNullOrEmpty(advisorBranchVo.Country.ToString().Trim()))
-                    ddlCountry.Items.Add(advisorBranchVo.Country.ToString());
+                if (!string.IsNullOrEmpty(advisorBranchVo.Country))
+                    ddlCountry.Items.Add(advisorBranchVo.Country);
                 else
                     ddlCountry.Items.Add("India");
-                ddlState.SelectedValue = advisorBranchVo.State.ToString().Trim();
+
+
+
+                if (!string.IsNullOrEmpty(advisorBranchVo.State))
+                {
+                    ddlState.SelectedValue = advisorBranchVo.State;                   
+                }
+                //ddlState.SelectedValue = advisorBranchVo.State.ToString().Trim();
                 showRM();
-                ddlRmlist.SelectedValue = advisorBranchVo.BranchHeadId.ToString();
-               ddlZOneCluster.Text = advisorBranchVo.ZoneClusterType.ToString();
+     
+                if (!string.IsNullOrEmpty(advisorBranchVo.BranchHeadId.ToString().Trim()))
+                 ddlRmlist.SelectedValue = advisorBranchVo.BranchHeadId.ToString();
+
+
+                if (!string.IsNullOrEmpty(advisorBranchVo.ZoneClusterType))
+                  ddlZOneCluster.Text = advisorBranchVo.ZoneClusterType;
+
                 //ddlZOneCluster.Items.FindByText(advisorBranchVo.ZoneClusterType.ToString()).Selected = true;
                 ddlZOneCluster_SelectedIndexChanged(this, null);
-                                 
-                for (int i = 0; i <  ddlSelectedZC.Items.Count;i++ )
-                {
-                    if (ddlSelectedZC.Items[i].Text == advisorBranchVo.ZoneClusterName.ToString())
-                    {
-                        ddlSelectedZC.Items.FindByText(advisorBranchVo.ZoneClusterName.ToString()).Selected = true;
-                        break;
-                    }
+                
+                //for (int i = 0; i <  ddlSelectedZC.Items.Count;i++ )
+                //{
+                    ddlSelectedZC.SelectedValue = advisorBranchVo.ZoneClusterId.ToString(); ;
+                    //if (ddlSelectedZC.Items[i].Text == advisorBranchVo.ZoneClusterId)
+                    //{
+                    //    ddlSelectedZC.Items.FindByText(advisorBranchVo.ZoneClusterName).Selected = true;
+                    //    break;
+                    //}
 
-                }
+                //}
                 txtAgentCode.Enabled = false;
                 txtBranchCode.Enabled = true;
                 txtBranchName.Enabled = true;

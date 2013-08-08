@@ -241,13 +241,14 @@ namespace WealthERP.Advisor
                     if (advisorBranchVo.ZoneClusterType!=null)
                     lb1ZC.Text = "Branch/Associate" + " " + advisorBranchVo.ZoneClusterType.ToString()+":";
                     lb1SZC.Text = advisorBranchVo.ZoneClusterName;
-                    if (advisorBranchVo.State == "")
+                    if (advisorBranchVo.State == "" || advisorBranchVo.State == null )
                     {
                         lblState.Text = "";
                     }
                     else
+                    {
                         lblState.Text = XMLBo.GetStateName(path, advisorBranchVo.State.ToString());
-                    
+                    }
                     if (advisorBranchVo.BranchType != "Associate")
                     {
                         CommSharingStructureHdr.Visible = false;

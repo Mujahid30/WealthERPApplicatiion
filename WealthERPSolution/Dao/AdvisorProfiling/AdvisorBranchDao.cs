@@ -1166,17 +1166,40 @@ namespace DaoAdvisorProfiling
                     advisorBranchVo.City = dr["AB_City"].ToString();
                     advisorBranchVo.Country = dr["AB_Country"].ToString();
                     advisorBranchVo.Email = dr["AB_Email"].ToString();
-                    advisorBranchVo.Fax = int.Parse(dr["AB_Fax"].ToString());
+                    if (!string.IsNullOrEmpty(dr["AB_Fax"].ToString()))
+                        advisorBranchVo.Fax = int.Parse(dr["AB_Fax"].ToString());
+                      if (!string.IsNullOrEmpty(dr["AB_FaxISD"].ToString()))
                     advisorBranchVo.FaxIsd = int.Parse(dr["AB_FaxISD"].ToString());
-                    advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
-                    advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
-                    advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AB_FaxSTD"].ToString()))
+                   advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
+
+                   
+                    if (!string.IsNullOrEmpty(dr["AB_Phone1ISD"].ToString()))
+                         advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
+                    
+                    if (!string.IsNullOrEmpty(dr["AB_Phone1"].ToString()))
+                       advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
+                     
+                    if (!string.IsNullOrEmpty(dr["AB_Phone1STD"].ToString()))
                     advisorBranchVo.Phone1Std = int.Parse(dr["AB_Phone1STD"].ToString());
+                     
+                    if (!string.IsNullOrEmpty(dr["AB_Phone2ISD"].ToString()))
                     advisorBranchVo.Phone2Isd = int.Parse(dr["AB_Phone2ISD"].ToString());
+                    
+                    if (!string.IsNullOrEmpty(dr["AB_Phone2"].ToString()))
                     advisorBranchVo.Phone2Number = int.Parse(dr["AB_Phone2"].ToString());
+                    
+                    if (!string.IsNullOrEmpty(dr["AB_Phone2STD"].ToString()))
                     advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
+
+                    
+                    if (!string.IsNullOrEmpty(dr["AB_PinCode"].ToString()))
                     advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
+                    
+                    if (!string.IsNullOrEmpty(dr["AB_State"].ToString()))
                     advisorBranchVo.State = dr["AB_State"].ToString();
+
                     if (!string.IsNullOrEmpty(dr["AZOC_ZoneClusterId"].ToString()))
                         advisorBranchVo.ZoneClusterId = Convert.ToInt32(dr["AZOC_ZoneClusterId"].ToString());
                     if (!string.IsNullOrEmpty(dr["AZOC_Type"].ToString()))
