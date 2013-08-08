@@ -190,7 +190,7 @@ namespace DaoOps
             }
         }
 
-        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds,out int orderId)
+        public bool AddLifeInsuranceOrder(LifeInsuranceOrderVo lifeInsuranceOrdervo, string nomineeAssociationIds, out int orderId)
         {
             Database db;
             DbCommand LifeInsuranceOrderCmd;
@@ -286,7 +286,7 @@ namespace DaoOps
                 {
                     orderId = int.Parse(db.GetParameterValue(LifeInsuranceOrderCmd, "@orderId").ToString());
                     bResult = true;
-                }                   
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -954,38 +954,38 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbOrder = db.GetStoredProcCommand("SP_GetOrderList");
-                if (advisorId!=0)
-                db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, advisorId);
+                if (advisorId != 0)
+                    db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, advisorId);
                 else
-                db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64,DBNull.Value);
-                if (AgentId!=0)
-                db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, AgentId);
+                    db.AddInParameter(dbOrder, "@A_AdviserId", DbType.Int64, DBNull.Value);
+                if (AgentId != 0)
+                    db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, AgentId);
                 else
-                 db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, DBNull.Value);
-                if (rmId!="")
-                db.AddInParameter(dbOrder, "@RmId", DbType.String, rmId);
+                    db.AddInParameter(dbOrder, "@AAC_AdviserAgentId", DbType.Int64, DBNull.Value);
+                if (rmId != "")
+                    db.AddInParameter(dbOrder, "@RmId", DbType.String, rmId);
                 else
-                db.AddInParameter(dbOrder, "@RmId", DbType.String,DBNull.Value );
-                if (branchId!="")
-                db.AddInParameter(dbOrder, "@BranchId", DbType.String, branchId);
+                    db.AddInParameter(dbOrder, "@RmId", DbType.String, DBNull.Value);
+                if (branchId != "")
+                    db.AddInParameter(dbOrder, "@BranchId", DbType.String, branchId);
                 else
-                db.AddInParameter(dbOrder, "@BranchId", DbType.String, DBNull.Value);
+                    db.AddInParameter(dbOrder, "@BranchId", DbType.String, DBNull.Value);
                 db.AddInParameter(dbOrder, "@Fromdate", DbType.DateTime, fromDate);
                 db.AddInParameter(dbOrder, "@Todate", DbType.DateTime, toDate);
                 db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);
-                if (SubBrokerCode!="0")
-                db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, SubBrokerCode);
+                if (SubBrokerCode != "0")
+                    db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, SubBrokerCode);
                 else
-                db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, DBNull.Value);
+                    db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, DBNull.Value);
                 if (SubBrokerName != "0")
-                db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
+                    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
                 else
-                db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, DBNull.Value);
+                    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, DBNull.Value);
                 db.AddInParameter(dbOrder, "@status", DbType.String, status);
-                if (customerId!="")
-                db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
+                if (customerId != "")
+                    db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
                 else
-                db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, DBNull.Value);
+                    db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, DBNull.Value);
                 if (orderType == "All")
                 {
                     db.AddInParameter(dbOrder, "@orderType", DbType.String, null);
@@ -994,9 +994,9 @@ namespace DaoOps
                 {
                     db.AddInParameter(dbOrder, "@orderType", DbType.String, orderType);
                 }
-                    dsOrder = db.ExecuteDataSet(dbOrder);
-                    dtOrder = dsOrder.Tables[0];
-                   
+                dsOrder = db.ExecuteDataSet(dbOrder);
+                dtOrder = dsOrder.Tables[0];
+
             }
             catch (BaseApplicationException ex)
             {
@@ -1213,8 +1213,8 @@ namespace DaoOps
                 else
                     db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, DBNull.Value);
                 db.AddInParameter(dbOrder, "@RMId", DbType.Int32, rmId);
-                db.AddInParameter(dbOrder, "@BranchId ", DbType.Int32, branchId);             
-                db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);              
+                db.AddInParameter(dbOrder, "@BranchId ", DbType.Int32, branchId);
+                db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);
                 dsOrder = db.ExecuteDataSet(dbOrder);
                 dtOrder = dsOrder.Tables[0];
 
@@ -1283,5 +1283,38 @@ namespace DaoOps
             }
             return dtOrder;
         }
+
+        public DataTable GetAllAgentListForOrder(int id, string UserRole)
+        {
+            DataSet dsAgentList = null;
+            Database db;
+            DbCommand cmdAgentList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdAgentList = db.GetStoredProcCommand("SPROC_GetAllAgentListForOrder");
+                db.AddInParameter(cmdAgentList, "@id", DbType.Int64, id);
+                db.AddInParameter(cmdAgentList, "@UserRole", DbType.String, UserRole);
+                dsAgentList = db.ExecuteDataSet(cmdAgentList);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderDao.cs:GetAllAgentListForOrder()");
+                object[] objects = new object[1];
+                objects[0] = id;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAgentList.Tables[0];
+        }
+
     }
 }
