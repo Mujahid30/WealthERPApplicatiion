@@ -580,8 +580,8 @@ namespace WealthERP.Associates
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            //if (Validation())
-            //{
+            if (Validation())
+            {
                 Random id = new Random();
                 string password = id.Next(10000, 99999).ToString();
 
@@ -625,18 +625,27 @@ namespace WealthERP.Associates
                 SetAccsessMode();
                 //txtRequestNumber.Text = associatesVo.AdviserAssociateId.ToString();
                 divStep1SuccMsg.Visible = true;
-            //}
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Pan Number Already Exists');", true);
+            }
         }
 
         private bool Validation()
         {
-            bool result = true;
-            int adviserId = (int)Session["adviserId"];
+            bool result = false;
+            //int adviserId = (int)Session["adviserId"];
             //if (associatesBo.PANNumberDuplicateCheck(adviserId, txtPanNum.Text.ToString(), associatesVo.AdviserAssociateId))
             //{
             //    result = false;
             //    lblPanDuplicate.Visible = true;
             //}
+            if (hidValidCheck.Value != "0")
+            {
+                result = true;
+            }
+            
             return result;
         }
 
