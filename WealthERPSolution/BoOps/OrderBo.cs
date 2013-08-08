@@ -710,6 +710,7 @@ namespace BoOps
             }
             return dtOrderAccociates;
         }
+
         public DataTable GetSubBrokerCode(int advisorId, int rmId, int branchId, string usertype)
         {
             DataTable dtOrder = null;
@@ -739,6 +740,7 @@ namespace BoOps
             }
             return dtOrder;
         }
+
         public DataTable GetSubBrokerName(int advisorId, int rmId, int branchId, string usertype)
         {
             DataTable dtOrder = null;
@@ -767,6 +769,38 @@ namespace BoOps
                 throw exBase;
             }
             return dtOrder;
+        }
+
+        public DataTable GetAllAgentListForOrder(int id, string UserRole)
+        {
+
+            DataTable dtOrder = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtOrder = orderDao.GetAllAgentListForOrder(id,UserRole);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetAllAgentListForOrder()");
+
+                object[] objects = new object[1];
+                objects[0] = id;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtOrder;
+
         }
     }
 }
