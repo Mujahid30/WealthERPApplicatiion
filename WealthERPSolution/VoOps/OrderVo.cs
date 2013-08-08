@@ -30,6 +30,8 @@ namespace VoOps
         private int m_AssociationId;
         private string m_AssociationType;
         private int m_IsCustomerApprovalApplicable;
+        public int AgentId { get; set; }
+        public string AgentCode { get; set; }
 
         #endregion
 
