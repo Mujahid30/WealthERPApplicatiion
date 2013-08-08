@@ -65,8 +65,8 @@ namespace WealthERP.BusinessMIS
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
-                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateCustomerName";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
@@ -284,11 +284,11 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
                 }
-                //else if (Session[SessionContents.CurrentUserRole].ToString() == "associates")
-                //{
-                //    txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
-                //    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateGroupCustomerName";
-                //}
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "associates")
+                {
+                    txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+                }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
@@ -347,11 +347,11 @@ namespace WealthERP.BusinessMIS
                     txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
 
                 }
-                //else if (Session[SessionContents.CurrentUserRole].ToString() == "associates")
-                //{
-                //    txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
-                //    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateCustomerName";
-                //}
+                else if (Session[SessionContents.CurrentUserRole].ToString() == "associates")
+                {
+                    txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
