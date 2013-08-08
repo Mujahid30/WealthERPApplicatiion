@@ -39,12 +39,12 @@ namespace BoOps
         }
 
 
-        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo)
+        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo,int userId)
         {
             List<int> orderIds = new List<int>();
             try
             {
-                orderIds = mfOrderDao.CreateOrderMFDetails(orderVo, mforderVo);
+                orderIds = mfOrderDao.CreateOrderMFDetails(orderVo, mforderVo,userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -67,11 +67,11 @@ namespace BoOps
             return dsGetMFOrderMIS;
         }
 
-        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo)
+        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
         {
             try
             {
-                mfOrderDao.UpdateCustomerMFOrderDetails(orderVo, mforderVo);
+                mfOrderDao.UpdateCustomerMFOrderDetails(orderVo, mforderVo,userId);
             }
             catch (BaseApplicationException Ex)
             {

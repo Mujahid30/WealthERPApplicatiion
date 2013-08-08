@@ -52,7 +52,7 @@ namespace DaoOps
 
 
         
-        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo)
+        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
         {
             List<int> orderIds = new List<int>();
             int OrderId;
@@ -173,6 +173,8 @@ namespace DaoOps
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
 
+                db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
@@ -233,7 +235,7 @@ namespace DaoOps
             return dsGetCustomerMFOrderMIS;
         }
 
-        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo)
+        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
         {
             Database db;
             DbCommand UpdateMFOrderTrackingCmd;
@@ -351,6 +353,8 @@ namespace DaoOps
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, orderVo.AgentId);
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
+
+                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
 
                  db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
             }

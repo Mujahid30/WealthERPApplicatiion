@@ -41,7 +41,7 @@ namespace WealthERP.OPS
         OrderVo orderVo = new OrderVo();
         RMVo rmVo = new RMVo();
         AssociatesBo associatesBo = new AssociatesBo();
-
+        UserVo userVo;
 
         string path;
         DataTable dtBankName = new DataTable();
@@ -69,6 +69,7 @@ namespace WealthERP.OPS
 
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
+            userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
             orderNumber = orderNumber + 1;
@@ -1807,7 +1808,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo);
+            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
             rgvOrderSteps.Visible = true;
             orderId = int.Parse(OrderIds[0].ToString());
             Session["CO_OrderId"] = orderId;
@@ -2006,7 +2007,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>(); ;
             SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo);
+            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo,userVo.UserId);
             rgvOrderSteps.Visible = false;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
@@ -2187,7 +2188,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>();
             UpdateMFOrderDetails();
-            mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo);
+            mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
             SetEditViewMode(true);
             imgBtnRefereshBank.Enabled = false;
             btnUpdate.Visible = false;
