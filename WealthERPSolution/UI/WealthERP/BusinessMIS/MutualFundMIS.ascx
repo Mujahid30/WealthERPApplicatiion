@@ -24,13 +24,14 @@
 <script type="text/javascript" language="javascript">
     function CheckValuationDate() {
         var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
-        var txtDate = document.getElementById("<%=txtDate.ClientID %>").value;
+        var txtDate = document.getElementById('ctrl_MutualFundMIS_txtDate_dateInput_text').value ;
         txtDate = new Date(txtDate);
+       
         valuationDate = new Date(valuationDate);
         txtDate.setHours(0, 0, 0, 0);
         valuationDate.setHours(0, 0, 0, 0);
 
-
+     
         if (txtDate <= valuationDate) {
             return true;
         }
