@@ -491,6 +491,13 @@
     <Compile Include="Advisor\AddRM.ascx.designer.cs">
       <DependentUpon>AddRM.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AddStaff.ascx.cs">
+      <DependentUpon>AddStaff.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AddStaff.ascx.designer.cs">
+      <DependentUpon>AddStaff.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\AdviserAssociateCategorySetup.ascx.cs">
       <DependentUpon>AdviserAssociateCategorySetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3986,6 +3993,7 @@
   <ItemGroup>
     <Content Include="Advisor\AddCustomerFinancialPlanningGoalSetup.ascx" />
     <Content Include="Advisor\AddRM.ascx" />
+    <Content Include="Advisor\AddStaff.ascx" />
     <Content Include="Advisor\AdviserAssociateCategorySetup.ascx" />
     <Content Include="Advisor\AdviserCustomer.ascx" />
     <Content Include="Advisor\AdviserCustomerManualSMS.ascx" />

@@ -1621,4 +1621,8 @@
     <value>Advisor//ProductgroupSetup.ascx</value>
     <comment>Advisor//ProductgroupSetup.ascx</comment>
   </data>
+  <data name="AddStaff" xml:space="preserve">
+    <value>Advisor//AddStaff.ascx</value>
+    <comment>Advisor//AddStaff.ascx</comment>
+  </data>
 </root>
