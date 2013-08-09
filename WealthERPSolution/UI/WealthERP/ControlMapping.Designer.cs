@@ -2077,6 +2077,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//MFTurnOverMISSales.ascx.
+        /// </summary>
+        internal static string MFTurnOverMISSales {
+            get {
+                return ResourceManager.GetString("MFTurnOverMISSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Research//ModelPortfolioSetup.ascx.
         /// </summary>
         internal static string ModelPortfolioSetup {
