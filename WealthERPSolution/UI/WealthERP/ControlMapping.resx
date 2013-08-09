@@ -1625,6 +1625,10 @@
     <value>Advisor//AddStaff.ascx</value>
     <comment>Advisor//AddStaff.ascx</comment>
   </data>
+  <data name="AssociateCustomerList" xml:space="preserve">
+    <value>Advisor//AssociateCustomerList.ascx</value>
+    <comment>Advisor//AssociateCustomerList.ascx</comment>
+  </data>
   <data name="MFTurnOverMISSales" xml:space="preserve">
     <value>Advisor//MFTurnOverMISSales.ascx</value>
     <comment>Advisor//MFTurnOverMISSales.ascx</comment>

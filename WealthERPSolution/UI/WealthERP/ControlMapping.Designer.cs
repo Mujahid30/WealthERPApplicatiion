@@ -628,6 +628,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//AssociateCustomerList.ascx.
+        /// </summary>
+        internal static string AssociateCustomerList {
+            get {
+                return ResourceManager.GetString("AssociateCustomerList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Research//Assumptions.ascx.
         /// </summary>
         internal static string Assumptions {

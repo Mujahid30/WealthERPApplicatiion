@@ -687,6 +687,13 @@
     <Compile Include="Advisor\AssociateCategory.ascx.designer.cs">
       <DependentUpon>AssociateCategory.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\AssociateCustomerList.ascx.cs">
+      <DependentUpon>AssociateCustomerList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AssociateCustomerList.ascx.designer.cs">
+      <DependentUpon>AssociateCustomerList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\BMBranchAssociation.ascx.cs">
       <DependentUpon>BMBranchAssociation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4026,6 +4033,7 @@
     <Content Include="Advisor\AdvisorMISCommission.ascx" />
     <Content Include="Advisor\AdvisorRMCustGroupDashboard.ascx" />
     <Content Include="Advisor\AssociateCategory.ascx" />
+    <Content Include="Advisor\AssociateCustomerList.ascx" />
     <Content Include="Advisor\BMCustomer.ascx" />
     <Content Include="Advisor\BMStaffView.ascx" />
     <Content Include="Advisor\CustomerAssociationSetup.ascx" />
