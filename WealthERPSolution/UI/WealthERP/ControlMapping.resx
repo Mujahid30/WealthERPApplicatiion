@@ -1625,4 +1625,8 @@
     <value>Advisor//AddStaff.ascx</value>
     <comment>Advisor//AddStaff.ascx</comment>
   </data>
+  <data name="ViewStaff" xml:space="preserve">
+    <value>Advisor//ViewStaff.ascx</value>
+    <comment>Advisor//ViewStaff.ascx</comment>
+  </data>
 </root>

@@ -1058,6 +1058,13 @@
     <Compile Include="Advisor\ViewRMDetails.ascx.designer.cs">
       <DependentUpon>ViewRMDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\ViewStaff.ascx.cs">
+      <DependentUpon>ViewStaff.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\ViewStaff.ascx.designer.cs">
+      <DependentUpon>ViewStaff.ascx</DependentUpon>
+    </Compile>
     <Compile Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx.cs">
       <DependentUpon>CustomerCategorySetup.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4031,6 +4038,7 @@
     <Content Include="Advisor\RMAMCSchemewiseMIS.ascx" />
     <Content Include="Advisor\RMAMCWiseMIS.ascx" />
     <Content Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx" />
+    <Content Include="Advisor\ViewStaff.ascx" />
     <Content Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx" />
     <Content Include="Alerts\AlertDashboard.ascx" />
     <Content Include="Alerts\CustomerEQAlerts.ascx" />
