@@ -36,6 +36,7 @@ namespace VoUser
         private string m_AAC_AgentCode;
         public Int32 HierarchyId { get; set; }
         public Int32 ReportingManagerId { get; set; }
+        public Int32 BranchId { get; set; }
 
         #endregion Fields
 
