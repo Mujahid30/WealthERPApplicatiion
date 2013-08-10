@@ -119,7 +119,7 @@
     
     <tr>
         <td style="padding-top:8px;">
-            <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" Height="440px" runat="server">
+            <asp:Panel ID="pnlZoneCluster" ScrollBars="Horizontal" runat="server">
                 <div runat="server" id="divZoneCluster" style="margin: 2px; width: 640px;">
                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                         <ContentTemplate>
@@ -133,7 +133,7 @@
                                 </ExportSettings>
                                 <MasterTableView ShowGroupFooter="true" EditMode="EditForms" GroupLoadMode="Client"
                                     CommandItemSettings-ShowRefreshButton="false" DataKeyNames="AB_BranchId">
-                                    <GroupByExpressions>
+                                    <%--<GroupByExpressions>
                                         <telerik:GridGroupByExpression>
                                             <GroupByFields>
                                                 <telerik:GridGroupByField FieldName="ZoneName" />
@@ -142,7 +142,7 @@
                                                 <telerik:GridGroupByField FieldName="ZoneName" FieldAlias="Zone" />
                                             </SelectFields>
                                         </telerik:GridGroupByExpression>
-                                    </GroupByExpressions>
+                                    </GroupByExpressions>--%>
                                     <Columns>
                                         <telerik:GridBoundColumn UniqueName="AB_BranchId" HeaderStyle-Width="120px" HeaderText="Zone"
                                             DataField="AB_BranchId" SortExpression="AB_BranchId" AllowFiltering="true" ShowFilterIcon="false"
