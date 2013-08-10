@@ -3445,6 +3445,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//ViewStaffDashBoard.ascx.
+        /// </summary>
+        internal static string ViewStaffDashBoard {
+            get {
+                return ResourceManager.GetString("ViewStaffDashBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//ViewUploadHistory.ascx.
         /// </summary>
         internal static string ViewUploadHistorySA {

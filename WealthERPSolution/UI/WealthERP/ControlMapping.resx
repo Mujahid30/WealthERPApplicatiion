@@ -1637,4 +1637,8 @@
     <value>Advisor//ViewStaff.ascx</value>
     <comment>Advisor//ViewStaff.ascx</comment>
   </data>
+  <data name="ViewStaffDashBoard" xml:space="preserve">
+    <value>Advisor//ViewStaffDashBoard.ascx</value>
+    <comment>Advisor//ViewStaffDashBoard.ascx</comment>
+  </data>
 </root>
