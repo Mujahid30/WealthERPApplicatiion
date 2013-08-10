@@ -17,6 +17,7 @@ using BoCustomerPortfolio;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using BoAdvisorProfiling;
+using WealthERP.Base;
 
 namespace WealthERP.Customer
 {
@@ -45,8 +46,13 @@ namespace WealthERP.Customer
                 SessionBo.CheckSession();
                 path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
                 advisorVo = (AdvisorVo)Session["advisorVo"];
+                userVo = (UserVo)Session["userVo"];
                 rmVo = (RMVo)Session["rmVo"];
                 bmID = rmVo.RMId;
+             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+             {
+                 btnCustomerProfile.Visible = false;
+             }
                 if (Request.QueryString["page"] != null)
                 {
                     page = Request.QueryString["page"];
@@ -405,6 +411,7 @@ namespace WealthERP.Customer
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();
+                    customerVo.Mobile1 =Convert.ToInt64(txtMobileNumber.Text.ToString());
                     customerVo.Dob = DateTime.MinValue;
                     customerVo.RBIApprovalDate = DateTime.MinValue;
                     customerVo.CommencementDate = DateTime.MinValue;

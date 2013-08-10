@@ -225,6 +225,24 @@
                 ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
         </td>
     </tr>
+      <tr>
+        <td class="leftField">
+            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Mobile No:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="3">
+            <asp:TextBox ID="txtMobileNumber" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <br />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
+                ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$">
+            </asp:RegularExpressionValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
+                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server"
+                ValidationGroup="btnSubmit" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>
+        </td>
+    </tr>
     <tr>
         <td colspan="2">
             &nbsp;
