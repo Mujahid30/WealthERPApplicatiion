@@ -37,6 +37,7 @@ namespace VoUser
         public Int32 HierarchyRoleId { get; set; }
         public Int32 ReportingManagerId { get; set; }
         public Int32 BranchId { get; set; }
+        public bool IsAssociateUser { get; set; }
 
         #endregion Fields
 
