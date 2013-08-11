@@ -1338,6 +1338,143 @@ namespace BoAdvisorProfiling
             }
             return dsPlanOpsStaffAddStatus;
         }
+
+        public DataTable GetAdviserTeamList()
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataTable dtAdviserTeamList;
+            try
+            {
+                dtAdviserTeamList = advisorStaffDao.GetAdviserTeamList(); ;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTeamList()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAdviserTeamList;
+
+        }
+
+        public DataTable GetAdviserTeamTitleList(int teamId, int adviserId)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataTable dtAdviserTeamTitleList;
+            try
+            {
+                dtAdviserTeamTitleList = advisorStaffDao.GetAdviserTeamTitleList(teamId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTeamList()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAdviserTeamTitleList;
+
+        }
+
+        public DataSet GetAdviserTitleReportingLevel(int titleId, int adviserId)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataSet dsAdviserTitleReportingLevel;
+            try
+            {
+                dsAdviserTitleReportingLevel = advisorStaffDao.GetAdviserTitleReportingLevel(titleId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTitleReportingLevel()");
+                object[] objects = new object[1];
+                objects[0] = titleId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTitleReportingLevel;
+
+        }
+
+        public DataTable GetAdviserReportingManagerList(int roleId, int adviserId)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataSet dsReportingManagerList;
+            try
+            {
+                dsReportingManagerList = advisorStaffDao.GetAdviserReportingManagerList(roleId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserReportingManagerList()");
+                object[] objects = new object[1];
+                objects[0] = roleId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsReportingManagerList.Tables[0];
+        }
+
+        public DataSet GetAdviserBranchList(int adviserId, string userType)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataSet dsAdviserBranchList;
+            try
+            {
+                dsAdviserBranchList = advisorStaffDao.GetAdviserBranchList(adviserId, userType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserBranchList()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = userType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserBranchList;
+        }
     }
 
 }
