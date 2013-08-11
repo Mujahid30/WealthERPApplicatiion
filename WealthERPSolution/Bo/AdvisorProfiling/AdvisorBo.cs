@@ -12,7 +12,6 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoEmailSMS;
 using System.Collections;
 
-
 namespace BoAdvisorProfiling
 {
     public class AdvisorBo
@@ -1836,6 +1835,7 @@ namespace BoAdvisorProfiling
             }
             //return dsValuationDetails;
         }
+
         /// <summary>
         /// Get StaffUser Customer List
         /// </summary>
@@ -1848,17 +1848,17 @@ namespace BoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId,int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             AdvisorDao advisorDao = new AdvisorDao();
 
             genDictParent = new Dictionary<string, string>();
-            genDictRM = new Dictionary<string, string>();         
-            genDictReassignRM=new Dictionary<string, string>();  
+            genDictRM = new Dictionary<string, string>();
+            genDictReassignRM = new Dictionary<string, string>();
             try
             {
-                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId,UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1883,6 +1883,55 @@ namespace BoAdvisorProfiling
                 throw exBase;
             }
             return customerList;
+        }
+
+        /// <summary>
+        /// Get StaffUser Customer List
+        /// </summary>
+        /// <param name="adviserId"> </param>
+        /// <param name="rmId"></param>
+        /// <param name="UserRole"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictRM"></param>
+        /// <param name="genDictReassignRM"></param>
+        /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
+        public DataSet GetAssociateCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        {
+            DataSet dsCustList = null;
+            AdvisorDao advisorDao = new AdvisorDao();
+
+            genDictParent = new Dictionary<string, string>();
+            genDictRM = new Dictionary<string, string>();         
+            genDictReassignRM=new Dictionary<string, string>();  
+            try
+            {
+                dsCustList = advisorDao.GetAssociateCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBo.cs:GetAssociateCustomerList()");
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = genDictParent;
+                objects[2] = genDictRM;
+                objects[3] = genDictReassignRM;
+                objects[4] = rmId;
+                objects[5] = UserRole;
+                objects[6] = branchHeadId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCustList;
         }
 
         public AdvisorVo GetAssociateAdviserUser(int userId)

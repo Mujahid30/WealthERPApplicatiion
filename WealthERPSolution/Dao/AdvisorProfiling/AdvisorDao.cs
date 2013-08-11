@@ -11,8 +11,6 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections;
 using VoSuperAdmin;
 
-
-
 namespace DaoAdvisorProfiling
 {
     public class AdvisorDao
@@ -2955,6 +2953,65 @@ namespace DaoAdvisorProfiling
                 throw Ex;
             }
             //return dsValuationDetails;
+        }
+
+        /// <summary>
+        /// Get StaffUser Customer List
+        /// </summary>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="UserRole"></param>
+        /// <param name="branchHeadId"></param>       
+        /// <param name="genDictParent"></param>
+        /// <param name="genDictRM"></param>
+        /// <param name="genDictReassignRM"></param>
+        /// <returns>Will return the list of the customers from the data base accroding to the parameters assigned</returns>
+        public DataSet GetAssociateCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        {
+            Database db;
+            DbCommand getCustomerListCmd;
+            DataSet dsCustList;
+            genDictParent = new Dictionary<string, string>();
+            genDictRM = new Dictionary<string, string>();
+            genDictReassignRM = new Dictionary<string, string>();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerListCmd = db.GetStoredProcCommand("SPROC_GetStaffUserAssociateCustomerList");
+                db.AddInParameter(getCustomerListCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
+                db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
+                db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                getCustomerListCmd.CommandTimeout = 60 * 60;
+                dsCustList = db.ExecuteDataSet(getCustomerListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorDao.cs:GetAssociateCustomerList()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = genDictParent;
+                objects[2] = genDictRM;
+                objects[3] = genDictReassignRM;
+                objects[4] = rmId;
+                objects[5] = UserRole;
+                objects[6] = branchHeadId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCustList;
         }
 
         /// <summary>
