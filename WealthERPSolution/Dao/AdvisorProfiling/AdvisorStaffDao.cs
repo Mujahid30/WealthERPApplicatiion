@@ -223,8 +223,18 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(createRMCmd, "@IsPurelyResearchStaff", DbType.Int16, 0);
 
-                db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 10);
-                db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 10);
+                if (rmVo.BranchId != 0)
+                    db.AddInParameter(createRMCmd, "@BranchId", DbType.Int32, rmVo.BranchId);
+                if (rmVo.HierarchyRoleId != 0)
+                    db.AddInParameter(createRMCmd, "@HierarchyRoleId", DbType.Int32, rmVo.HierarchyRoleId);
+                if (rmVo.ReportingManagerId != 0)
+                    db.AddInParameter(createRMCmd, "@ReportingManagerId", DbType.Int32, rmVo.ReportingManagerId);
+                if (rmVo.IsAssociateUser)
+                    db.AddInParameter(createRMCmd, "@IsAssociateUser", DbType.Int16, 1);
+
+                db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
+                db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
+              
 
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
                 {
@@ -917,6 +927,13 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AdviserAgentId", DbType.String, "");
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_UserType", DbType.String, rmVo.RMRole);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
+
+                if (rmVo.BranchId != 0)
+                    db.AddInParameter(updateAdvisorStaffCmd, "@AB_StaffBranchId", DbType.Int32, rmVo.BranchId);
+                if (rmVo.HierarchyRoleId != 0)
+                    db.AddInParameter(updateAdvisorStaffCmd, "@AH_HierarchyId", DbType.Int32, rmVo.HierarchyRoleId);
+                if (rmVo.ReportingManagerId != 0)
+                    db.AddInParameter(updateAdvisorStaffCmd, "@AR_ReportingManagerId", DbType.Int32, rmVo.ReportingManagerId);
 
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
 
@@ -2415,5 +2432,178 @@ namespace DaoAdvisorProfiling
             }
             return dsPlanOpsStaffAddStatus;
         }
+
+        public DataTable GetAdviserTeamList()
+        {
+            Database db;
+            DbCommand adviserTeamListCmd;
+            DataSet dsAdviserTeamList;
+            
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                adviserTeamListCmd = db.GetStoredProcCommand("SPROC_GetAdviserTeamList");
+                dsAdviserTeamList = db.ExecuteDataSet(adviserTeamListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTeamList()");
+                object[] objects = new object[1];              
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTeamList.Tables[0];
+ 
+        }
+
+        public DataTable GetAdviserTeamTitleList(int teamId, int adviserId)
+        {
+            Database db;
+            DbCommand adviserTeamTitleListCmd;
+            DataSet dsAdviserTeamTitleList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                adviserTeamTitleListCmd = db.GetStoredProcCommand("SPROC_GetAdviserTeamTitleList");
+                db.AddInParameter(adviserTeamTitleListCmd, "@TeamId", DbType.Int32, teamId);
+                db.AddInParameter(adviserTeamTitleListCmd, "@AdviserId", DbType.Int32, adviserId);
+                dsAdviserTeamTitleList = db.ExecuteDataSet(adviserTeamTitleListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTeamTitleList()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTeamTitleList.Tables[0];
+
+        }
+
+        public DataSet GetAdviserTitleReportingLevel(int titleId, int adviserId)
+        {
+            Database db;
+            DbCommand adviserTitleReportingLevelCmd;
+            DataSet dsAdviserTitleReportingLevel;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                adviserTitleReportingLevelCmd = db.GetStoredProcCommand("SPROC_GetAdviserTitleReportingLevel");
+                db.AddInParameter(adviserTitleReportingLevelCmd, "@TitleId", DbType.Int32, titleId);
+                db.AddInParameter(adviserTitleReportingLevelCmd, "@AdviserId", DbType.Int32, adviserId);
+                dsAdviserTitleReportingLevel = db.ExecuteDataSet(adviserTitleReportingLevelCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserTitleReportingLevel()");
+                object[] objects = new object[1];
+                objects[0] = titleId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserTitleReportingLevel;
+
+        }
+
+        public DataSet GetAdviserReportingManagerList(int roleId, int adviserId)
+        {
+            Database db;
+            DbCommand reportingManagerListCmd;
+            DataSet dsReportingManagerList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                reportingManagerListCmd = db.GetStoredProcCommand("SPROC_GetReportingManagerList");
+                db.AddInParameter(reportingManagerListCmd, "@RoleId", DbType.Int32, roleId);
+                db.AddInParameter(reportingManagerListCmd, "@AdviserId", DbType.Int32, adviserId);
+                dsReportingManagerList = db.ExecuteDataSet(reportingManagerListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetAdviserReportingManagerList()");
+                object[] objects = new object[1];
+                objects[0] = roleId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsReportingManagerList;
+
+        }
+
+        public DataSet GetAdviserBranchList(int adviserId, string userType)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetAdviserBranchList");
+                db.AddInParameter(cmd, "@Id", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@userType", DbType.String, userType);
+
+                ds = db.ExecuteDataSet(cmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "UploadCommonDao.cs:GetAdviserBranchList()");
+
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+       
+
+
     }
 }
