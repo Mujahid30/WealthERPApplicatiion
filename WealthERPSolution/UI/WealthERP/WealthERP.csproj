@@ -1002,6 +1002,13 @@
     <Compile Include="Advisor\RMUserDetails.ascx.designer.cs">
       <DependentUpon>RMUserDetails.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\SalesDashBoard.ascx.cs">
+      <DependentUpon>SalesDashBoard.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\SalesDashBoard.ascx.designer.cs">
+      <DependentUpon>SalesDashBoard.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\UserLoginMessage.ascx.cs">
       <DependentUpon>UserLoginMessage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4060,6 +4067,7 @@
     <Content Include="Advisor\RMAMCSchemewiseMIS.ascx" />
     <Content Include="Advisor\RMAMCWiseMIS.ascx" />
     <Content Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx" />
+    <Content Include="Advisor\SalesDashBoard.ascx" />
     <Content Include="Advisor\ViewStaff.ascx" />
     <Content Include="Advisor\ViewStaffDashBoard.ascx" />
     <Content Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx" />

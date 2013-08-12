@@ -2878,6 +2878,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//SalesDashBoard.ascx.
+        /// </summary>
+        internal static string SalesDashBoard {
+            get {
+                return ResourceManager.GetString("SalesDashBoard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Research//SchemeMappingToModelPortfolio.ascx.
         /// </summary>
         internal static string SchemeMappingToModelPortfolio {
