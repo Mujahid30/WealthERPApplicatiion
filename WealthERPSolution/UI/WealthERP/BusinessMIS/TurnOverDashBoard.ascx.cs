@@ -50,7 +50,9 @@ namespace WealthERP.BusinessMIS
             dtTurnoverTreeNode.Columns.Add("TreeNode2", typeof(Int32));
 
             dtTurnoverTreeNode.Columns.Add("TreeNodeText2", typeof(String));
+            dtTurnoverTreeNode.Columns.Add("TreeNode3", typeof(Int32));
 
+            dtTurnoverTreeNode.Columns.Add("TreeNodeText3", typeof(String));
 
             //For Turnover 2012 is Tree Node Id in Sub Table in XML...
             int treeSubNodeId = 2012;
@@ -75,21 +77,30 @@ namespace WealthERP.BusinessMIS
                     count++;
                     drTurnoverTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
                     drTurnoverTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                    
+                    //count = 0;
+                    //drTurnoverTreeNode = dtTurnoverTreeNode.NewRow();
+                }
+               else if (count == 2)
+                {
+                    
+                    drTurnoverTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                    drTurnoverTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
                     count = 0;
                     drTurnoverTreeNode = dtTurnoverTreeNode.NewRow();
-
+               }
                 }
-              
 
-            }
+            
             rptTurnoverTree.DataSource = dtTurnoverTreeNode;
             rptTurnoverTree.DataBind();
         }
         protected void rptTurnoverTree_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             LinkButton lnkbtn1 = e.Item.FindControl("lnkTurnoverTreeNode1") as LinkButton;
+                        LinkButton lnkbtn2 = e.Item.FindControl("lnkTurnoverTreeNode2") as LinkButton;
+            LinkButton lnkbtn3 = e.Item.FindControl("lnkTurnoverTreeNode3") as LinkButton;
 
-            LinkButton lnkbtn2 = e.Item.FindControl("lnkTurnoverTreeNode2") as LinkButton;
 
             if (e.CommandName == "Tree_Navi_Row1")
             {
@@ -117,7 +128,20 @@ namespace WealthERP.BusinessMIS
 
 
             }
+            if (e.CommandName == "Tree_Navi_Row3")
+            {
 
+                if (lnkbtn3.CommandArgument == "3031")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTurnOverMISSales','login');", true);
+                }
+                if (lnkbtn3.CommandArgument == "3031")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTurnOverMISSales','login');", true);
+                }
+
+
+            }
 
             //if (e.CommandName == "Tree_Navi_Row3")
             //{
