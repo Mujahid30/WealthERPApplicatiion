@@ -1532,13 +1532,13 @@ namespace BoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public DataSet GetProductDetailFromMFOrder(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetProductDetailFromMFOrder(string agentcode,string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetProductDetailFromMFOrder;
             try
             {
-                dsGetProductDetailFromMFOrder = MISDao.GetProductDetailFromMFOrder(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
+                dsGetProductDetailFromMFOrder = MISDao.GetProductDetailFromMFOrder(agentcode,userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
             }
             catch (BaseApplicationException Ex)
             {

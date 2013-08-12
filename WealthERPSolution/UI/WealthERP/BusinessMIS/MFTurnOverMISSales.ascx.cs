@@ -28,6 +28,7 @@ namespace WealthERP.BusinessMIS
         DateTime dtTo = new DateTime();
         DateBo dtBo = new DateBo();
         DateTime dtFrom = new DateTime();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
 
         string path = string.Empty;
         int advisorId = 0;
@@ -58,6 +59,7 @@ namespace WealthERP.BusinessMIS
                 userType = "associates";
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
 
             advisorId = advisorVo.advisorId;
             int RMId = rmVo.RMId;
@@ -127,7 +129,7 @@ namespace WealthERP.BusinessMIS
             int SchemeCode = 0;
             int SchemeCodeOld = 0;
             DataSet dsGetProductDetailFromMFOrder = new DataSet();
-            dsGetProductDetailFromMFOrder = adviserMFMIS.GetProductDetailFromMFOrder(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value),int.Parse(hdnAgentId.Value));
+            dsGetProductDetailFromMFOrder = adviserMFMIS.GetProductDetailFromMFOrder(associateuserheirarchyVo.AgentCode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
 
             DataTable dtGetProductDetailFromMFOrder = new DataTable();
             dtGetProductDetailFromMFOrder.Columns.Add("AMC");

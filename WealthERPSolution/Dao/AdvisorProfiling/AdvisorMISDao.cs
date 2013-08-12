@@ -2393,7 +2393,7 @@ namespace DaoAdvisorProfiling
             return dsGetCommissionReconMis;
         }
 
-        public DataSet GetProductDetailFromMFOrder(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetProductDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             Database db;
             DbCommand GetSchemeTransactionDeatailsCmd;
@@ -2402,6 +2402,7 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSchemeTransactionDeatailsCmd = db.GetStoredProcCommand("SPROC_GetProductDetailFromMFOrder");
+                db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@agentcode", DbType.String, agentcode);
                 db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@UserType", DbType.String, userType);
                 db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@adviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@RMId", DbType.Int32, rmId);
