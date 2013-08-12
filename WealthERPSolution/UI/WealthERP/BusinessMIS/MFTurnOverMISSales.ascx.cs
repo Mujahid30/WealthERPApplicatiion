@@ -13,5 +13,15 @@ namespace WealthERP.BusinessMIS
         {
 
         }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gvAmcWise_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+        }
     }
 }
