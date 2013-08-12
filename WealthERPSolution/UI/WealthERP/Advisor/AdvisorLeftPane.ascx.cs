@@ -558,7 +558,10 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Staff")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
+                    //----------For Existing WERP---------------------------
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
+                    //----------For Existing SBI Zone,Cluster,Channel,Team...---------------------------
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewStaff','login');", true);
                 }
                 else if (e.Item.Value == "Add Staff")
                 {
@@ -1275,7 +1278,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Staff")
                 {
                     Session[SessionContents.CurrentUserRole] = "BM";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewRM", "loadcontrol('ViewRM','login');", true);
+                    //----------For Existing WERP---------------------------
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
+                    //----------For Existing SBI Zone,Cluster,Channel,Team...---------------------------
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewStaff','login');", true);
                 }
                 else if (e.Item.Value == "CustomerList")
                 {
