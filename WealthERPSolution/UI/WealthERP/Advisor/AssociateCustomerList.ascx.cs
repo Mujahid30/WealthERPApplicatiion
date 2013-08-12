@@ -118,7 +118,7 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                custList = adviserBo.GetAssociateCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+             //   custList = adviserBo.GetAssociateCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
                 //foreach(cust in custList){
                 //} 
                 //if (custList == null)
