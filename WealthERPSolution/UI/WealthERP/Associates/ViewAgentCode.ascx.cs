@@ -83,5 +83,15 @@ namespace WealthERP.Associates
             gvAgentCodeView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvAgentCodeView.MasterTableView.ExportToExcel();
         }
+        protected void LnkRQ_Click(object sender, EventArgs e)
+        {
+            GridDataItem gvRow = ((GridDataItem)(((LinkButton)sender).Parent.Parent));
+
+            int selectedRow = gvRow.ItemIndex + 1;
+            int AgentId = int.Parse(gvAgentCodeView.MasterTableView.DataKeyValues[selectedRow - 1]["AAC_AdviserAgentId"].ToString());
+            string SubBrokerCode = gvAgentCodeView.MasterTableView.DataKeyValues[selectedRow - 1]["AAC_AgentCode"].ToString();
+            int Id = int.Parse(gvAgentCodeView.MasterTableView.DataKeyValues[selectedRow - 1]["Id"].ToString());
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddBranchRMAgentAssociation", "loadcontrol('AddBranchRMAgentAssociation','?AgentId=" + AgentId + "&stepCode=" + SubBrokerCode + "&statusCode=" + Id + "');", true);
+        }
     }
 }

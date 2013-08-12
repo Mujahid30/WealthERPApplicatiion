@@ -9,7 +9,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            View Agent Code
+                            View Code Master
                         </td>
                         <td align="right" style="padding-bottom: 2px;">
                         </td>
@@ -25,10 +25,10 @@
         </td>
     </tr>
 </table>
-<table width="40%">
+<table width="100%%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlAgentCodeView" runat="server"  Width="48%"
+            <asp:Panel ID="pnlAgentCodeView" runat="server" ScrollBars="Horizontal"  Width="98%"
                 Visible="true">
                 <table>
                     <tr>
@@ -42,11 +42,20 @@
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="ViewAssociates" Excel-Format="ExcelML">
                                     </ExportSettings>
-                                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                    <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="AAC_AgentCode,AAC_AdviserAgentId,Id"
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
                                         GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
-                                         <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Associate Code" DataField="AAC_AgentCode"
+                                       <%--  <telerik:GridTemplateColumn HeaderText="Id" ItemStyle-HorizontalAlign="Right"
+                                                HeaderStyle-Width="80px" AllowFiltering="true" DataField="AAC_AdviserAgentId"
+                                                ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="LnkRQ" runat="server" CssClass="CmbField" OnClick="LnkRQ_Click"
+                                                        Text='<%#Eval("AAC_AdviserAgentId") %>'>
+                                                    </asp:LinkButton>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>--%>
+                                         <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Code" DataField="AAC_AgentCode"
                                                 UniqueName="AAC_AgentCode" SortExpression="AAC_AgentCode" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -61,6 +70,31 @@
                                                 UniqueName="AAC_UserType" SortExpression="AAC_UserType" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="Titles" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Title" UniqueName="Titles">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ChannelName" SortExpression="ChannelName" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Channel" UniqueName="ChannelName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Circle Manager" UniqueName="CircleManager">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Area Manager" UniqueName="AreaManager">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ZonalManagerName" SortExpression="ZonalManagerName" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Zone Manager" UniqueName="ZonalManagerName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                         </Columns>
                                     </MasterTableView>
