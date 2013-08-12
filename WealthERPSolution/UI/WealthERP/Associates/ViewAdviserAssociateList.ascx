@@ -9,7 +9,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            View Associates List
+                            View SubBroker List
                         </td>
                         <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
                             <asp:ImageButton ID="imgViewAssoList" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -25,7 +25,7 @@
 <table width="100%">
     <tr>
         <td colspan="4">
-            <asp:Panel ID="pnlAdviserAssociateList" runat="server" Width="98%"
+            <asp:Panel ID="pnlAdviserAssociateList" runat="server" ScrollBars="Horizontal" Width="98%"
                 Visible="true">
                 <table>
                     <tr>
@@ -77,16 +77,12 @@
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Branch" DataField="AB_BranchName"
-                                                UniqueName="AB_BranchName" SortExpression="AB_BranchName" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="RM" DataField="RMName"
+                                           
+                                            <%--<telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="RM" DataField="RMName"
                                                 UniqueName="RMName" SortExpression="RMName" AutoPostBackOnFilter="true"
                                                 AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                            </telerik:GridBoundColumn>--%>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Mobile" DataField="AA_Mobile"
                                                 UniqueName="AA_Mobile" SortExpression="AA_Mobile" AutoPostBackOnFilter="true"
                                                 AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -100,9 +96,40 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Address" DataField="Address"
                                                 UniqueName="Address" SortExpression="Address" AutoPostBackOnFilter="true"
-                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                 <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Office" DataField="AB_BranchName"
+                                                UniqueName="AB_BranchName" SortExpression="AB_BranchName" AutoPostBackOnFilter="true"
+                                                AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn DataField="Titles" SortExpression="Titles" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Title" UniqueName="Titles">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="AssociatesName" SortExpression="AssociatesName" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Channel" UniqueName="AssociatesName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Circle Manager" UniqueName="CircleManager">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Area Manager" UniqueName="AreaManager">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            <telerik:GridBoundColumn DataField="ZonalManagerName" SortExpression="ZonalManagerName" AutoPostBackOnFilter="true"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
+                                                HeaderText="Zone Manager" UniqueName="ZonalManagerName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                            
                                         </Columns>
                                     </MasterTableView>
                                     <HeaderStyle Width="150px" />
