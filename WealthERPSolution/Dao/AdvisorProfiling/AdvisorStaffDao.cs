@@ -2432,6 +2432,43 @@ namespace DaoAdvisorProfiling
             }
             return dsPlanOpsStaffAddStatus;
         }
+        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole,int AdviserId)
+        {
+            DataSet dsViewStaff;
+            Database db;
+            DbCommand ViewStaffCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                ViewStaffCmd = db.GetStoredProcCommand("SPROC_BindStaffGridWithTeamChanelDetails");
+                db.AddInParameter(ViewStaffCmd, "@id", DbType.Int32, Convert.ToInt32(id));
+                db.AddInParameter(ViewStaffCmd, "@AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(ViewStaffCmd, "@isAdviser", DbType.Int16, Convert.ToInt16(isAdviser));
+                db.AddInParameter(ViewStaffCmd, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
+                db.AddInParameter(ViewStaffCmd, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
+                db.AddInParameter(ViewStaffCmd, "@currentUserRole", DbType.String, currentUserRole);
+                dsViewStaff = db.ExecuteDataSet(ViewStaffCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorStaffBo.cs:GetViewAssociates()");
+                object[] objects = new object[1];
+                objects[0] = id;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsViewStaff;
+        }
 
         public DataTable GetAdviserTeamList()
         {
