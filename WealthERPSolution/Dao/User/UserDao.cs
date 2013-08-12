@@ -347,7 +347,7 @@ namespace DaoUser
                 db.AddInParameter(updateUserCmd, "@U_Email", DbType.String, userVo.Email);
                 db.AddInParameter(updateUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(updateUserCmd, "@U_Password", DbType.String, userVo.Password);
-                if (!string.IsNullOrEmpty(userVo.PasswordSaltValue.Trim()))
+                if (!string.IsNullOrEmpty(userVo.PasswordSaltValue))
                 db.AddInParameter(updateUserCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(updateUserCmd, "@U_IsTempPassword", DbType.String, userVo.IsTempPassword);
                 db.ExecuteNonQuery(updateUserCmd);
