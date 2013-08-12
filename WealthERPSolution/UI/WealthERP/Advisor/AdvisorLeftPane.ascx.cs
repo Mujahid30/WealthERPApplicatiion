@@ -2777,7 +2777,7 @@ namespace WealthERP.Advisor
             {
                 if (e.Item.Value == "RM Home")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "ViewAssociates")
                 {

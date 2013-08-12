@@ -682,7 +682,7 @@ namespace WealthERP.General
                                             Session["refreshTheme"] = true;
                                             Session[SessionContents.CurrentUserRole] = "Associates";
                                             Session[SessionContents.UserTopRole] = "Associates";
-                                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMDashBoard','login');", true);
+                                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SalesDashBoard','login');", true);
 
                                         }
                                     }
