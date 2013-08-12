@@ -88,8 +88,8 @@ namespace WealthERP.Advisor
                 adviserId = adviserVo.advisorId;
             }
             if (currUserRole == "associates") {
-                //agentCode = Session[SessionContents.AssociatesLogin_AssociatesHierarchy].ToString().ToLower();
-                ass = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                agentCode = assocUsrHeirVo.AgentCode;
             }
             if (!IsPostBack) {
                 BindCustomerGrid();
