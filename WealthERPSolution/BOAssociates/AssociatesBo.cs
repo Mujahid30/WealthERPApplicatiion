@@ -190,12 +190,12 @@ namespace BOAssociates
             }
             return result;
         }
-        public DataSet GetAgentCodeAndType(int adviserId)
+        public DataSet GetAgentCodeAndType(int adviserId,string usertype,string agentcode)
         {
             DataSet ds;
             try
             {
-                ds = associatesDao.GetAgentCodeAndType(adviserId);
+                ds = associatesDao.GetAgentCodeAndType(adviserId, usertype, agentcode);
             }
             catch (BaseApplicationException Ex)
             {

@@ -21,6 +21,8 @@ namespace WealthERP.Associates
     {
         AdvisorVo advisorVo = new AdvisorVo();
         AssociatesBo associatesBo = new AssociatesBo();
+        AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         UserVo userVo = new UserVo();
         string userType;
 
@@ -28,9 +30,15 @@ namespace WealthERP.Associates
         {
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
-
+            associateuserheirarchyVo=(AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+            associatesVo = (AssociatesVO)Session["associatesVo"];
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+            {
+                userType = "associates";
+                
+            }
             BindAgentCodeList();
 
         }
@@ -39,7 +47,7 @@ namespace WealthERP.Associates
         {
             DataSet dsGetAgentCodeAndType;
             DataTable dtGetAgentCodeAndType;
-            dsGetAgentCodeAndType = associatesBo.GetAgentCodeAndType(advisorVo.advisorId);
+            dsGetAgentCodeAndType = associatesBo.GetAgentCodeAndType(advisorVo.advisorId, userVo.UserType, associateuserheirarchyVo.AgentCode);
             dtGetAgentCodeAndType = dsGetAgentCodeAndType.Tables[0];
             if (dtGetAgentCodeAndType == null)
             {

@@ -611,16 +611,19 @@ namespace DAOAssociates
 
         }
 
-        public DataSet GetAgentCodeAndType(int adviserId)
+        public DataSet GetAgentCodeAndType(int adviserId,string Usertype,string agentcode)
         {
             DataSet dsAgentCodeAndTypeList;
             Database db;
             DbCommand getAgentCodeAndTypecmd;
             try
-            {
+            {   
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAgentCodeAndTypecmd = db.GetStoredProcCommand("SPROC_GetAgentCodeAndType");
                 db.AddInParameter(getAgentCodeAndTypecmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAgentCodeAndTypecmd, "@usertype", DbType.String, Usertype);
+                db.AddInParameter(getAgentCodeAndTypecmd, "@agentcode", DbType.String, agentcode);
+
                 dsAgentCodeAndTypeList = db.ExecuteDataSet(getAgentCodeAndTypecmd);
             }
             catch (BaseApplicationException Ex)
