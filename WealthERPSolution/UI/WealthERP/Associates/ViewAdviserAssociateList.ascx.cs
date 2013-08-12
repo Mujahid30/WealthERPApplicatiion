@@ -24,6 +24,7 @@ namespace WealthERP.Associates
         AdvisorVo advisorVo = new AdvisorVo();
         AssociatesBo associatesBo = new AssociatesBo();
         AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         UserVo userVo = new UserVo();
         RMVo rmVo = new RMVo();
         string userType;
@@ -36,6 +37,8 @@ namespace WealthERP.Associates
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+            
             imgViewAssoList.Visible = false;
             if (!IsPostBack)
             {
@@ -48,7 +51,7 @@ namespace WealthERP.Associates
         {
             DataSet dsGetAdviserAssociateList;
             DataTable dtGetAdviserAssociateList;
-            dsGetAdviserAssociateList = associatesBo.GetAdviserAssociateList(advisorVo.advisorId);
+            dsGetAdviserAssociateList = associatesBo.GetAdviserAssociateList(advisorVo.advisorId, userVo.UserType,associateuserheirarchyVo.AgentCode);
             dtGetAdviserAssociateList = dsGetAdviserAssociateList.Tables[0];
             if (dtGetAdviserAssociateList == null)
             {

@@ -293,12 +293,12 @@ namespace BOAssociates
             }
             return associatesVo;
         }
-        public DataSet GetAdviserAssociateList(int adviserId)
+        public DataSet GetAdviserAssociateList(int adviserId,string Usertype,string agentcode)
         {
             DataSet dsGetAssociateCodeList;
             try
             {
-                dsGetAssociateCodeList = associatesDao.GetAdviserAssociateList(adviserId);
+                dsGetAssociateCodeList = associatesDao.GetAdviserAssociateList(adviserId, Usertype, agentcode);
             }
             catch (BaseApplicationException Ex)
             {
