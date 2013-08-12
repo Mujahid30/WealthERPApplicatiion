@@ -24,14 +24,13 @@
 <script type="text/javascript" language="javascript">
     function CheckValuationDate() {
         var valuationDate = document.getElementById("<%=hdnValuationDate.ClientID %>").value;
-        var txtDate = document.getElementById('ctrl_MutualFundMIS_txtDate_dateInput_text').value ;
-        txtDate = new Date(txtDate);
-       
+        var txtDate = document.getElementById('ctrl_MutualFundMIS_txtDate_dateInput_text').value;
+        var datearray = txtDate.split("/");
+        var newdate = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+        txtDate = new Date(newdate);
         valuationDate = new Date(valuationDate);
         txtDate.setHours(0, 0, 0, 0);
         valuationDate.setHours(0, 0, 0, 0);
-
-     
         if (txtDate <= valuationDate) {
             return true;
         }
