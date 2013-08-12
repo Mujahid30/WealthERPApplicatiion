@@ -14,6 +14,15 @@ namespace WealthERP.Associates {
     public partial class AddBranchRMAgentAssociation {
         
         /// <summary>
+        /// RadStyleSheetManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
+        
+        /// <summary>
         /// scptMgr control.
         /// </summary>
         /// <remarks>
@@ -104,31 +113,31 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// lblNoOfCodes control.
+        /// lblPanDuplicate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoOfCodes;
+        protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
         
         /// <summary>
-        /// txtNoOfCodes control.
+        /// tableGrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNoOfCodes;
+        protected global::System.Web.UI.HtmlControls.HtmlTable tableGrid;
         
         /// <summary>
-        /// btnAddCode control.
+        /// gvChildCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddCode;
+        protected global::Telerik.Web.UI.RadGrid gvChildCode;
         
         /// <summary>
         /// btnSubmit control.

@@ -1,5 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddBranchRMAgentAssociation.ascx.cs"
     Inherits="WealthERP.Associates.AddBranchRMAgentAssociation" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="scptMgr" runat="server">
 </telerik:RadScriptManager>
 <table width="100%">
@@ -9,7 +13,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            Add Associates/Agent Code
+                            Add SubBroker Code
                         </td>
                     </tr>
                 </table>
@@ -51,7 +55,6 @@
                 <asp:ListItem Text="Associates" Value="Associates"></asp:ListItem>
                 <asp:ListItem Text="BM" Value="BM"></asp:ListItem>
                 <asp:ListItem Text="RM" Value="RM"></asp:ListItem>
-               
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddlUserType"
@@ -63,7 +66,7 @@
         </td>
         <td class="rightField">
             <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                onselectedindexchanged="ddlSelectType_SelectedIndexChanged">
+                OnSelectedIndexChanged="ddlSelectType_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlSelectType"
@@ -91,19 +94,95 @@
                 ValidationGroup="Submit" ErrorMessage="Please enter an Code" Display="Dynamic"
                 runat="server" CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+            <asp:Label ID="lblPanDuplicate" runat="server" CssClass="Error" Text="SubBroker Code already exists"></asp:Label>
         </td>
-        
     </tr>
-    <tr>
-    <td class="leftField">
-            <asp:Label ID="lblNoOfCodes" CssClass="FieldName" runat="server" Text="AddMultiple Codes:" Visible="false"></asp:Label>
+    <%--<tr>
+        <td class="leftField">
+            <asp:Label ID="lblNoOfCodes" CssClass="FieldName" runat="server" Text="AddMultiple Codes:"
+                Visible="false"></asp:Label>
         </td>
-    <td>
-    <asp:TextBox ID="txtNoOfCodes" runat="server" CssClass="txtField" Visible="false"></asp:TextBox>
-    </td>
-    <td>
-        <asp:Button ID="btnAddCode" runat="server" Text="AddCode" CssClass="PCGButton" Visible="false"
-                ValidationGroup="Submit" onclick="btnAddCode_Click" />
+        <td>
+            <asp:TextBox ID="txtNoOfCodes" runat="server" CssClass="txtField" Visible="false"></asp:TextBox>
+        </td>
+        <td>
+            <asp:Button ID="btnAddCode" runat="server" Text="AddCode" CssClass="PCGButton" Visible="false"
+                ValidationGroup="Submit" OnClick="btnAddCode_Click" />
+        </td>
+    </tr>--%>
+    <tr>
+        <td>
+        </td>
+        <td>
+            <table id="tableGrid" runat="server" width="100%">
+                <tr>
+                    <td>
+                        <telerik:RadGrid ID="gvChildCode" runat="server" Skin="Telerik" CssClass="RadGrid"
+                            GridLines="None" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="False"
+                            ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
+                            OnItemCommand="gvChildCode_ItemCommand" OnItemDataBound="gvChildCode_ItemDataBound"
+                            OnNeedDataSource="gvChildCode_OnNeedDataSource" Visible="false" AllowAutomaticUpdates="false"
+                            HorizontalAlign="NotSet" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode">
+                            <MasterTableView CommandItemDisplay="Top" EditMode="PopUp" DataKeyNames="AAC_AdviserAgentId,AAC_AdviserAgentIdParent,AAC_AgentCode"
+                                CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add child codes">
+                                <Columns>
+                                    <telerik:GridBoundColumn UniqueName="AAC_AgentCode" HeaderText="Child Code"
+                                        DataField="AAC_AgentCode">
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
+                                        UpdateText="Edit">
+                                    </telerik:GridEditCommandColumn>
+                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete the code?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete">
+                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    </telerik:GridButtonColumn>
+                                </Columns>
+                                <EditFormSettings InsertCaption="Add" FormTableStyle-HorizontalAlign="Center" CaptionFormatString="Edit"
+                                    FormCaptionStyle-CssClass="TableBackground" PopUpSettings-Modal="true" PopUpSettings-ZIndex="20"
+                                    EditFormType="Template" FormCaptionStyle-Width="100%" PopUpSettings-Height="150px"
+                                    PopUpSettings-Width="300px">
+                                    <FormTemplate>
+                                        <table>
+                                            <tr id="trRiskClassTxt" runat="server">
+                                                <td class="leftField">
+                                                    <asp:Label ID="lblChildCode" runat="server" Text="Child Code :" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" onkeypress="return keyPress(this, event)">
+                                                    <asp:TextBox ID="txtChildCode" CssClass="txtField" Text='<%# Bind( "AAC_AgentCode") %>'
+                                                        runat="server">
+                                                    </asp:TextBox><span id="Span6" class="spnRequiredField">*</span>
+                                                </td>
+                                                <td>
+                                                    <asp:RequiredFieldValidator ID="rfvChildcode" ControlToValidate="txtChildCode" ErrorMessage="<br />Please Enter Child Code "
+                                                        Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="Button1">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right" colspan="2">
+                                                    <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                        ValidationGroup="Button1" CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                    </asp:Button>&nbsp;
+                                                    <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CommandName="Cancel"></asp:Button>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FormTemplate>
+                                </EditFormSettings>
+                            </MasterTableView>
+                            <ClientSettings>
+                                <ClientEvents />
+                            </ClientSettings>
+                        </telerik:RadGrid>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>

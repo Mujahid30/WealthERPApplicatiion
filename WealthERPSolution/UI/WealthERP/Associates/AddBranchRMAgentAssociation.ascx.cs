@@ -14,6 +14,7 @@ using BoCommon;
 using VOAssociates;
 using BOAssociates;
 using BoAdvisorProfiling;
+using Telerik.Web.UI;
 
 namespace WealthERP.Associates
 {
@@ -39,6 +40,7 @@ namespace WealthERP.Associates
             associatesVo = (AssociatesVO)Session["associatesVo"];
             if(!IsPostBack)
             {
+                lblPanDuplicate.Visible = false;
                 BindAgentList();
                 if (Request.QueryString["AssociationId"] != null)
                 {
@@ -88,6 +90,7 @@ namespace WealthERP.Associates
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             AssociatesVO associatesVo = new AssociatesVO();
+            lblPanDuplicate.Visible = false;
             bool result = false;
             if (Request.QueryString["AgentId"]!= null)
             {
@@ -198,7 +201,7 @@ namespace WealthERP.Associates
                 if (associatesBo.CodeduplicateCheck(adviserId, txtAgentCode.Text.ToString()))
                 {
                     result = false;
-                    //lblPanDuplicate.Visible = true;
+                    lblPanDuplicate.Visible = true;
                 }
             }
 
@@ -317,50 +320,66 @@ namespace WealthERP.Associates
                 if (ddlUserType.SelectedValue == "BM")
                 {
                     BindBranchDropDown();
-                    lblNoOfCodes.Visible = false;
-                    txtNoOfCodes.Visible = false;
-                    btnAddCode.Visible = false;
+                    gvChildCode.Visible = false;
+                    txtAgentCode.Enabled = true;
+                    txtAgentCode.Text = "";
                 }
                 else if (ddlUserType.SelectedValue == "RM")
                 {
                     BindRMDropDown();
-                    lblNoOfCodes.Visible = false;
-                    txtNoOfCodes.Visible = false;
-                    btnAddCode.Visible = false;
+                    gvChildCode.Visible = false;
+                    txtAgentCode.Enabled = true;
+                    txtAgentCode.Text = "";
                 }
                 else if (ddlUserType.SelectedValue == "Associates")
                 {
                     BindAgentList();
+                    txtAgentCode.Enabled = true;
+                    txtAgentCode.Text = "";
                 }
             }
         }
 
         protected void ddlSelectType_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            if (ddlSelectType.SelectedIndex != 0 && ddlUserType.SelectedValue == "Associates")
+            int PagentId = 0;
+            if(ddlSelectType.SelectedIndex!=0)
             {
                 GetAgentCode(int.Parse(ddlSelectType.SelectedValue));
+                if (Session["Code"] != null && Session["PagentId"] != null)
+                {
+                    PagentId = (int)Session["PagentId"];
+                    txtAgentCode.Text = Session["Code"].ToString();
+                    txtAgentCode.Enabled = false;
+                }
+                if (ddlUserType.SelectedValue == "Associates")
+                {
+                       BindChildCodeGrid(PagentId);
+                        gvChildCode.Visible = true;
+                        btnSubmit.Visible = false;
+                }
+                else if (ddlUserType.SelectedValue == "RM" && ddlUserType.SelectedValue == "BM")
+                {
+                    gvChildCode.Visible = false;
+                }
             }
-            else
-            {
-                lblNoOfCodes.Visible = false;
-                txtNoOfCodes.Visible = false;
-                btnAddCode.Visible = false;
-            }
+            //else if()
+            
         }
 
-        private void GetAgentCode(int associates)
+        private void GetAgentCode(int id)
         {
+            DataTable dt;
             string code = string.Empty;
-            code = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(associates);
-            if (!string.IsNullOrEmpty(code))
+            int PagentId=0;
+            dt = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(id);
+            if (dt.Rows.Count>0)
             {
-                txtAgentCode.Text = code;
-                txtAgentCode.Enabled = false;
-                btnAddCode.Visible = true;
-                lblNoOfCodes.Visible = true;
-                txtNoOfCodes.Visible = true;
+                code = dt.Rows[0]["AAC_AgentCode"].ToString();
+                Session["Code"] = code;
+                PagentId = int.Parse(dt.Rows[0]["AAC_AdviserAgentId"].ToString());
+                Session["PagentId"] = PagentId;
+                
             }
             else
             {
@@ -369,13 +388,105 @@ namespace WealthERP.Associates
             }
         }
 
+        private void BindChildCodeGrid(int PagentId)
+        {
+            DataTable dtChildCodeList;
+            dtChildCodeList = associatesBo.GetAgentChildCodeList(PagentId);
+            //dtChildCodeList = dsChildCodeList.Tables[0];
+            ViewState["ChildCodeList"] = dtChildCodeList;
+            if (dtChildCodeList != null)
+            {
+                gvChildCode.DataSource = dtChildCodeList;
+                gvChildCode.DataBind();
+            }
+        }
+
         protected void btnAddCode_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtNoOfCodes.Text))
+            //if (!string.IsNullOrEmpty(txtNoOfCodes.Text))
+            //{
+            //    int count = int.Parse(txtNoOfCodes.Text);
+            //    Session["AgentCodeCount"] = count;
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PopUpScript", "showpopup();", true);
+            //}
+        }
+        protected void gvChildCode_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dt = new DataTable();
+            if (ViewState["ChildCodeList"] != null)
             {
-                int count = int.Parse(txtNoOfCodes.Text);
-                Session["AgentCodeCount"] = count;
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "PopUpScript", "showpopup();", true);
+                dt = (DataTable)ViewState["ChildCodeList"];
+                gvChildCode.DataSource = dt;
+            }
+
+        }
+        protected void gvChildCode_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            int PagentId=0;
+            int childAgentId = 0;
+            string ChildCode = string.Empty;
+            AssociatesVO associatesVo = new AssociatesVO();
+            if(Session["PagentId"]!=null)
+                PagentId = (int)Session["PagentId"];
+
+            associatesVo.AAC_UserType = "Associates";
+            associatesVo.AAC_CreatedBy = userVo.UserId;
+            associatesVo.AAC_ModifiedBy = userVo.UserId;
+
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                //strExternalCodeToBeEdited = Session["extCodeTobeEdited"].ToString();
+                associatesVo.AAC_AdviserAgentId = int.Parse(gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
+                AdvisorBo advisorBo = new AdvisorBo();
+                bool isUpdated = false;
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
+                ChildCode = txtChildCode.Text;
+                isUpdated = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId,'U');
+
+            }
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                bool isDeleted = false;
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                //TableCell strChildCodeForDelete = dataItem["AAC_AdviserAgentId"];
+                childAgentId = int.Parse(gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AdviserAgentId"].ToString());
+                isDeleted = associatesBo.DeleteChildAgentCode(childAgentId);
+                if (isDeleted)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Record has been deleted successfully !!');", true);
+                }
+            }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                bool isInserted = false;
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
+                ChildCode = txtChildCode.Text;
+                isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I');
+            }
+            BindChildCodeGrid(PagentId);
+        }
+
+        protected void gvChildCode_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
+                TextBox txtChildCode = (TextBox)item.FindControl("txtChildCode");
+            }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                LinkButton buttonDelete = dataItem["deleteColumn"].Controls[0] as LinkButton;
+            }
+
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                string strExtType = gvChildCode.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AAC_AgentCode"].ToString();
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
             }
         }
     }
