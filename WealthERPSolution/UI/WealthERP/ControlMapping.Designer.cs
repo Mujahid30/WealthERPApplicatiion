@@ -2086,7 +2086,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Advisor//MFTurnOverMISSales.ascx.
+        ///   Looks up a localized string similar to BusinessMIS//MFTurnOverMISSales.ascx.
         /// </summary>
         internal static string MFTurnOverMISSales {
             get {
