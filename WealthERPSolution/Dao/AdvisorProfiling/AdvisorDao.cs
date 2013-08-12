@@ -438,6 +438,9 @@ namespace DaoAdvisorProfiling
                         advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
                     if (dr["A_IsMultiBranch"].ToString() != "" && dr["A_IsMultiBranch"].ToString() != null)
                         advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
+                    if (dr["A_AgentCodeBased"].ToString() != "" && dr["A_AgentCodeBased"].ToString() != null)
+                        advisorVo.A_AgentCodeBased = int.Parse(dr["A_AgentCodeBased"].ToString());
+
                     if (dr["A_IsAssociateModel"].ToString() != "" && dr["A_IsAssociateModel"].ToString() != null)
                         advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
                     if (dr["A_Phone1STD"] != null && dr["A_Phone1STD"].ToString() != "")
@@ -1445,7 +1448,9 @@ namespace DaoAdvisorProfiling
                         advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
                     if (dr["A_IsAssociateModel"] != DBNull.Value)
                         advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
-
+                    if (dr["A_AgentCodeBased"] != DBNull.Value)
+                        advisorVo.A_AgentCodeBased = int.Parse(dr["A_AgentCodeBased"].ToString());
+                    
                     if (dr["A_Phone1STD"] != DBNull.Value && dr["A_Phone1STD"].ToString() != string.Empty)
                         advisorVo.Phone1Std = int.Parse(dr["A_Phone1STD"].ToString());
                     if (dr["A_Phone2STD"] != DBNull.Value && dr["A_Phone2STD"].ToString() != string.Empty)
@@ -3298,6 +3303,8 @@ namespace DaoAdvisorProfiling
                         advisorVo.MobileNumber = Convert.ToInt64(dr["A_ContactPersonMobile"].ToString());
                     if (dr["A_IsMultiBranch"] != DBNull.Value)
                         advisorVo.MultiBranch = int.Parse(dr["A_IsMultiBranch"].ToString());
+                    if (dr["A_AgentCodeBased"] != DBNull.Value)
+                        advisorVo.A_AgentCodeBased = int.Parse(dr["A_AgentCodeBased"].ToString());
                     if (dr["A_IsAssociateModel"] != DBNull.Value)
                         advisorVo.Associates = int.Parse(dr["A_IsAssociateModel"].ToString());
 

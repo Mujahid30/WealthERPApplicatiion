@@ -59,7 +59,7 @@ namespace VoUser
         private bool m_IsLoginWidgetEnable;
         private bool s_IsISASubscribed;
         private DateTime s_lastlogin;
-    
+        public int A_AgentCodeBased { get; set; }
 
         #endregion Fields
 
