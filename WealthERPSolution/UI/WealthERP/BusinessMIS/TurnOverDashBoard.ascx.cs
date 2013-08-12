@@ -98,8 +98,8 @@ namespace WealthERP.BusinessMIS
         protected void rptTurnoverTree_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             LinkButton lnkbtn1 = e.Item.FindControl("lnkTurnoverTreeNode1") as LinkButton;
-                        LinkButton lnkbtn2 = e.Item.FindControl("lnkTurnoverTreeNode2") as LinkButton;
-            LinkButton lnkbtn3 = e.Item.FindControl("lnkTurnoverTreeNode3") as LinkButton;
+            LinkButton lnkbtn2 = e.Item.FindControl("lnkTurnoverTreeNode2") as LinkButton;
+            LinkButton lnkbtn3 = e.Item.FindControl("lnkOrderTurnOver") as LinkButton;
 
 
             if (e.CommandName == "Tree_Navi_Row1")
