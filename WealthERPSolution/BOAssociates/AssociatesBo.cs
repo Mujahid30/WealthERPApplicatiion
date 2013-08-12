@@ -358,12 +358,13 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public string GetAgentCodeFromAgentPaaingAssociateId(int assiciateId)
+        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId)
         {
-            string code;
+            DataTable dtGetAgentdetails;
+            //string code;
             try
             {
-                code = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId);
+                dtGetAgentdetails = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -381,7 +382,7 @@ namespace BOAssociates
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return code;
+            return dtGetAgentdetails;
         }
         public bool AddAgentChildCode(AssociatesVO associatesVo, string code)
         {
@@ -396,6 +397,45 @@ namespace BOAssociates
             }
             return bResult;
         }
+        public DataTable GetAgentChildCodeList(int PagentId)
+        {
+            DataTable dtChildCodeList;
+            //string code;
+            try
+            {
+                dtChildCodeList = associatesDao.GetAgentChildCodeList(PagentId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateBo.cs:GetAgentChildCodeList(PagentId)");
+                object[] objects = new object[1];
+                objects[0] = PagentId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtChildCodeList;
+        }
+        public bool EditAddChildAgentCodeList(AssociatesVO associatesVo, string ChildCode, int PagentId, char flag)
+        {
+            bool result = false; ;
+            result = associatesDao.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, flag);
+            return result;
+        }
+        public bool DeleteChildAgentCode(int childAgentId)
+        {
+            bool result = false; ;
+            result = associatesDao.DeleteChildAgentCode(childAgentId);
+            return result;
+        }
+
 
         public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int userId,int adviserId)
         {
