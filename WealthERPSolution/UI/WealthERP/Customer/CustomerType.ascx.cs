@@ -440,11 +440,13 @@ namespace WealthERP.Customer
                         if (page == "Entry")
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderEntry','?CustomerId=" + familyVo.CustomerId + " ');", true);
+                            
                         }
                         else
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
+                        //trSumbitSuccess.Visible = true;
                         MakeReadonlyControls();
-                        trSumbitSuccess.Visible = true;
+                      
                     }
 
                 }
@@ -485,6 +487,7 @@ namespace WealthERP.Customer
             txtEmail.Enabled = false;
             btnSubmit.Enabled = false;
             btnCustomerProfile.Enabled = false;
+            trBtnSaveMsg.Visible = true;
  
         }
 

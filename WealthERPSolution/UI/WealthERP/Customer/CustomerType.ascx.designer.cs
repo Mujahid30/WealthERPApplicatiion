@@ -23,22 +23,22 @@ namespace WealthERP.Customer {
         protected global::System.Web.UI.ScriptManager ScriptManager1;
         
         /// <summary>
-        /// trSumbitSuccess control.
+        /// trBtnSaveMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSaveMsg;
         
         /// <summary>
-        /// divMsgSuccess control.
+        /// lblbtnSaveMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divMsgSuccess;
+        protected global::System.Web.UI.WebControls.Label lblbtnSaveMsg;
         
         /// <summary>
         /// lblCustomerType control.

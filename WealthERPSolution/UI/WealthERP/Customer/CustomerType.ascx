@@ -51,16 +51,23 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground">
-    <tr id="trSumbitSuccess" runat="server" visible="false">
+<%--<table width="100%" class="TableBackground">
+    <tr id="trSumbitSuccess" runat="server" visible="true">
         <td align="center" colspan="2">
             <div class="success-msg" id="divMsgSuccess" runat="server" align="center">
                 Customer Added Sucessfully
             </div>
         </td>
     </tr>
-</table>
+</table>--%>
 <table class="TableBackground" style="width: 100%">
+    <tr id="trBtnSaveMsg" runat="server" visible="false">
+        <td class="leftField">
+        </td>
+        <td>        
+       <asp:Label ID="lblbtnSaveMsg" runat="server" Text="Customer Added Successfully" CssClass="FieldName" Font-Size="Medium"></asp:Label>
+        </td>
+    </tr>
     <tr>
         <td>
             &nbsp;
@@ -225,7 +232,7 @@
                 ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="revPCG"></asp:RegularExpressionValidator>
         </td>
     </tr>
-      <tr>
+    <tr>
         <td class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Mobile No:"></asp:Label>
         </td>
