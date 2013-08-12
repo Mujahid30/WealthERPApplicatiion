@@ -13,7 +13,7 @@
                         </td>
                         <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
                           <asp:ImageButton ID="imgExportAssociates" runat="server" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
+                                 AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
                                 Width="25px" Visible="false"  OnClick="imgExportAssociates_Click" />
                         </td>
                     </tr>
