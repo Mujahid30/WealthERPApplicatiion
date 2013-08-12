@@ -541,13 +541,13 @@ namespace BoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string SubBrokerName)
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode,string AgentCode)
         { 
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype,AgentId,SubBrokerCode,SubBrokerName);
+                dtOrder = orderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype,AgentId,SubBrokerCode,AgentCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -741,13 +741,13 @@ namespace BoOps
             return dtOrder;
         }
 
-        public DataTable GetSubBrokerName(int advisorId, int rmId, int branchId, string usertype)
+        public DataTable GetSubBrokerAgentCode(string AgentCode)
         {
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetSubBrokerName(advisorId, rmId, branchId, usertype);
+                dtOrder = orderDao.GetSubBrokerAgentCode(AgentCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -758,10 +758,10 @@ namespace BoOps
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "OrderBo.cs:GetSubBrokerName()");
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSubBrokerAgentCode()");
 
                 object[] objects = new object[1];
-                objects[0] = advisorId;
+                objects[0] = AgentCode;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -770,7 +770,6 @@ namespace BoOps
             }
             return dtOrder;
         }
-
         public DataTable GetAllAgentListForOrder(int id, string UserRole)
         {
 

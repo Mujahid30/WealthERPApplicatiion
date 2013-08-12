@@ -30,6 +30,7 @@ namespace WealthERP.OPS
         RMVo rmVo = new RMVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         AdvisorVo advisorVo;
         string userType;
         int customerId = 0;
@@ -37,6 +38,7 @@ namespace WealthERP.OPS
         int IsAssociate;
         int bmID;
         int rmId;
+        string AgentCode;
         string customerType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,34 +46,60 @@ namespace WealthERP.OPS
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
             associatesVo = (AssociatesVO)Session["associatesVo"];
+
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            {
                 userType = "advisor";
+                // userType = "admin";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+            }
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+            {
                 userType = "bm";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+            }
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+            {
                 userType = "rm";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+            }
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                txtIndividualCustomer_autoCompleteExtender.ContextKey = associatesVo.AAC_AdviserAgentId.ToString();
-                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAssociateCustomerName";
+                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                if (associateuserheirarchyVo.AgentCode != null)
+                {
+                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                }
+                else
+                    AgentCode = "0";
+                txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
             rmVo = (RMVo)Session[SessionContents.RmVo];
             bmID = rmVo.RMId;
             rmId = rmVo.RMId;
-           
+
             gvOrderList.Visible = false;
             trExportFilteredDupData.Visible = false;
             if (!IsPostBack)
             {
+                DateTime fromDate = DateTime.Now.AddDays(-1);
+                txtFromDate.SelectedDate = fromDate;
+                txtToDate.SelectedDate = DateTime.Now;
                 if (userType == "advisor" || userType == "rm")
                 {
                     BindBranchDropDown();
+                    AgentCode = "0";
                     BindRMDropDown();
-                    BindSubBrokerCode();
-                    BindSubBrokerName();
+                    BindSubBrokerCode(userType);
+                    //BindSubBrokerName();
                     if (userType == "rm")
                     {
+                        trRMbranch.Visible = true;
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
                         ddlRM.Enabled = false;
@@ -87,6 +115,8 @@ namespace WealthERP.OPS
                 }
                 else if (userType == "bm")
                 {
+                    AgentCode = "0";
+                    trRMbranch.Visible = true;
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
                 }
@@ -106,15 +136,19 @@ namespace WealthERP.OPS
                     ddlRM.Enabled = false;
                 }
 
-                lblselectCustomer.Visible = false;
-                txtIndividualCustomer.Visible = false;
+                lblselectCustomer.Visible = true;
+                txtIndividualCustomer.Visible = true;
                 if (userType == "associates")
                 {
+                    //BindSubBrokerName();
+                    //BindSubBrokerCode();
                     BindBranchDropDown();
                     BindRMDropDown();
+                    BindSubBrokerAgentCode(AgentCode);
+                    //trBrokerCodeName.Visible = false;
                     AgentId = associatesVo.AAC_AdviserAgentId;
-                    ddlCustomerType.Visible = false;
-                    lblSelectTypeOfCustomer.Visible = false;
+                    //ddlCustomerType.Visible = false;
+                    //lblSelectTypeOfCustomer.Visible = false;
                     trRMbranch.Visible = false;
                     lblselectCustomer.Visible = true;
                     txtIndividualCustomer.Visible = true;
@@ -171,32 +205,63 @@ namespace WealthERP.OPS
                 ddlOrderStatus.DataBind();
             }
         }
-        protected void BindSubBrokerCode()
+        protected void BindSubBrokerCode(string userType)
         {
-            DataTable dtSubbrokerCode;
-            dtSubbrokerCode = orderbo.GetSubBrokerCode(advisorVo.advisorId, rmId, bmID, userType);
-            if (dtSubbrokerCode.Rows.Count > 0)     
+            DataTable dtSubbrokerCode = new DataTable();
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin")
             {
-                ddlSubBrokerCode.DataSource = dtSubbrokerCode;
-                ddlSubBrokerCode.DataValueField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
-                ddlSubBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
-                ddlSubBrokerCode.DataBind();
+                dtSubbrokerCode = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, "admin");
+              
             }
-            ddlSubBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            else if (userType == "rm" || userType == "bm")
+            {
+                dtSubbrokerCode = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, userType);
+              
+                //dtSubbrokerCode = orderbo.GetSubBrokerCode(advisorVo.advisorId, rmId, bmID, userType);
+            }
+            //else if (userType == "associates")
+            //{
+            //    dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(AgentCode);
+            //}
+            if (dtSubbrokerCode.Rows.Count != 0)
+            {
+                ddlBrokerCode.DataSource = dtSubbrokerCode;
+                ddlBrokerCode.DataValueField = dtSubbrokerCode.Columns["AgentId"].ToString();
+                ddlBrokerCode.DataTextField = dtSubbrokerCode.Columns["AgentName"].ToString();
+                ddlBrokerCode.DataBind();
+            }
+            ddlBrokerCode.Items.Insert(0, new ListItem("Select(SubBroker Code-Name-Type)All", "0"));
+            //ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
-        protected void BindSubBrokerName()
+        protected void BindSubBrokerAgentCode(string AgentCode)
         {
-            DataTable dtSubbrokerName;
-            dtSubbrokerName = orderbo.GetSubBrokerName(advisorVo.advisorId, rmId, bmID, userType);         
-            if (dtSubbrokerName.Rows.Count > 0)
+            DataTable dtSubbrokerCode = new DataTable();
+
+            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(AgentCode);
+
+            if (dtSubbrokerCode.Rows.Count > 0)
             {
-                ddlSubBrokerName.DataSource = dtSubbrokerName;
-                ddlSubBrokerName.DataValueField = dtSubbrokerName.Columns["AA_ContactPersonName"].ToString();
-                ddlSubBrokerName.DataTextField = dtSubbrokerName.Columns["AA_ContactPersonName"].ToString();
-                ddlSubBrokerName.DataBind();
+                ddlBrokerCode.DataSource = dtSubbrokerCode;
+                ddlBrokerCode.DataValueField = dtSubbrokerCode.Columns["ACC_AgentId"].ToString();
+                ddlBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
+                ddlBrokerCode.DataBind();
             }
-            ddlSubBrokerName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+            ddlBrokerCode.Items.Insert(0, new ListItem("All", "0"));
+
         }
+        //protected void BindSubBrokerName()
+        //{
+        //    DataTable dtSubbrokerName;
+        //    dtSubbrokerName = orderbo.GetSubBrokerName(advisorVo.advisorId, rmId, bmID, userType);         
+        //    if (dtSubbrokerName.Rows.Count > 0)
+        //    {
+        //        ddlSubBrokerName.DataSource = dtSubbrokerName;
+        //        ddlSubBrokerName.DataValueField = dtSubbrokerName.Columns["AA_ContactPersonName"].ToString();
+        //        ddlSubBrokerName.DataTextField = dtSubbrokerName.Columns["AA_ContactPersonName"].ToString();
+        //        ddlSubBrokerName.DataBind();
+        //    }
+        //    //ddlSubBrokerName.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        //}
 
         private void BindBranchDropDown()
         {
@@ -228,7 +293,8 @@ namespace WealthERP.OPS
                 BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
             }
         }
-
+        protected void ddlZonal_SelectedIndexChanged(object sender, EventArgs e)
+        { }
         private void BindRMforBranchDropdown(int branchId, int branchHeadId)
         {
             DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
@@ -275,13 +341,13 @@ namespace WealthERP.OPS
             else
                 hdnRMId.Value = "";
 
-            if (txtFrom.Text != "")
-                hdnFromdate.Value = DateTime.Parse(txtFrom.Text).ToString();
+            if (txtFromDate.SelectedDate.ToString() != "")
+                hdnFromdate.Value = DateTime.Parse(txtFromDate.SelectedDate.ToString()).ToString();
             else
                 hdnFromdate.Value = DateTime.MinValue.ToString();
 
-            if (txtTo.Text != "")
-                hdnTodate.Value = DateTime.Parse(txtTo.Text).ToString();
+            if (txtToDate.SelectedDate.ToString() != "")
+                hdnTodate.Value = DateTime.Parse(txtToDate.SelectedDate.ToString()).ToString();
             else
                 hdnTodate.Value = DateTime.MinValue.ToString();
 
@@ -292,30 +358,55 @@ namespace WealthERP.OPS
         }
         private void SetParameterSubbroker()
         {
-            if (ddlSubBrokerCode.SelectedIndex != 0)
-            {
-                hdnSubBrokerCode.Value = ddlSubBrokerCode.SelectedValue.ToString();
-                ViewState["SubBrokerCode"] = hdnSubBrokerCode.Value;
-            }           
-            else
-            {
-                hdnSubBrokerCode.Value = "0";
-            }
-            if (ddlSubBrokerName.SelectedIndex != 0)
-            {
-                hdnSubBrokerName.Value = ddlSubBrokerName.SelectedItem.ToString();
-                ViewState["SubBrokerName"] = hdnSubBrokerName.Value;
-            }
-           else
-            {
-                hdnSubBrokerName.Value = "0";
-            }
+          
+                if (ddlBrokerCode.SelectedIndex != 0)
+                {
+                    hdnSubBrokerCode.Value = ddlBrokerCode.SelectedValue.ToString();
+                    ViewState["SubBrokerCode"] = hdnSubBrokerCode.Value;
+                }
+                else
+                {
+                    hdnSubBrokerCode.Value = "0";
+                }
+
+                if (userType == "advisor" || userType == "rm" || userType == "bm")
+                {
+                    AgentCode = "0";
+                    AgentId = 0;
+                }
+                else if (userType == "associates")
+                {
+                    AgentId = associatesVo.AAC_AdviserAgentId;
+                }
+            //{
+            //    if (ddlBrokerCode.SelectedIndex != 0)
+            //    {
+            //        hdnAgentCode.Value = ddlBrokerCode.SelectedValue.ToString();
+            //        ViewState["hdnAgentCode"] = hdnAgentCode.Value;
+            //    }
+            //    else
+            //    {
+            //        hdnAgentCode.Value = "0";
+            //    }
+            //}
+            // if (ddlSubBrokerName.SelectedIndex!=0)
+            // {
+            //     hdnSubBrokerName.Value = ddlSubBrokerName.SelectedItem.ToString();
+            //     ViewState["SubBrokerName"] = hdnSubBrokerName.Value;
+            // }
+            //else
+            // {
+            //     hdnSubBrokerName.Value = "0";
+            // }
         }
         protected void BindGvOrderList()
         {
+            //  if (userType != "associates")
+            // {
             SetParameterSubbroker();
+            // }
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, AgentId,hdnSubBrokerCode.Value,hdnSubBrokerName.Value);
+            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, AgentId, hdnSubBrokerCode.Value, AgentCode);
             if (dtOrder.Rows.Count > 0)
             {
                 trExportFilteredDupData.Visible = true;
@@ -616,7 +707,7 @@ namespace WealthERP.OPS
                         mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
                     else
                         mforderVo.Units = 0;
-                   
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
                     {
                         mforderVo.ARNNo = Convert.ToString(dr["CMFOD_ARNNo"]);
@@ -652,137 +743,138 @@ namespace WealthERP.OPS
         }
         protected void ddlCustomerType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtIndividualCustomer.Text = string.Empty;
-            txtIndividualCustomer.Enabled = true;
-            hdnIndividualOrGroup.Value = ddlCustomerType.SelectedItem.Value;
-            rquiredFieldValidatorIndivudialCustomer.Visible = true;
-            if (ddlCustomerType.SelectedItem.Value == "0")
-            {
+            //    txtIndividualCustomer.Text = string.Empty;
+            //    txtIndividualCustomer.Enabled = true;
+            //    hdnIndividualOrGroup.Value = ddlCustomerType.SelectedItem.Value;
+            //    rquiredFieldValidatorIndivudialCustomer.Visible = true;
+            //    if (ddlCustomerType.SelectedItem.Value == "0")
+            //    {
 
-                customerType = "GROUP";
-                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                {
-                    if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
-                    }
-                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllGroupCustomers";
-                    }
-                    else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                    }
-                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMGroupCustomers";
-                    }
-                }
+            //        customerType = "GROUP";
+            //        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            //        {
+            //            txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            //            txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+            //        }
+            //        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            //        {
+            //            if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllGroupCustomers";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMGroupCustomers";
+            //            }
+            //        }
 
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
-                    }
-                    if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllGroupCustomers";
-                    }
-                    if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
-                    }
-                    if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMGroupCustomers";
-                    }
-                }
-                lblselectCustomer.Visible = true;
-                txtIndividualCustomer.Visible = true;
-            }
-            else if (ddlCustomerType.SelectedItem.Value == "1")
-            {
-                customerType = "IND";
+            //        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            //        {
+            //            if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
+            //            }
+            //            if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllGroupCustomers";
+            //            }
+            //            if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetParentCustomerName";
+            //            }
+            //            if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMGroupCustomers";
+            //            }
+            //        }
+            //        lblselectCustomer.Visible = true;
+            //        txtIndividualCustomer.Visible = true;
+            //    }
+            //    else if (ddlCustomerType.SelectedItem.Value == "1")
+            //    {
+            //        customerType = "IND";
 
-                //rquiredFieldValidatorIndivudialCustomer.Visible = true;
-                if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
-                {
-                    txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                    txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+            //        //rquiredFieldValidatorIndivudialCustomer.Visible = true;
+            //        if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
+            //        {
+            //            txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            //            txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
 
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
-                {
-                    if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
-                    }
-                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-                    {
+            //        }
+            //        else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
+            //        {
+            //            if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+            //            {
 
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
-                    }
-                    else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                    }
-                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMIndividualCustomers";
-                    }
-                }
-                else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
-                {
-                    if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
-                    }
-                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
-                    }
-                    else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
-                    }
-                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
-                    {
-                        txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
-                        txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMIndividualCustomers";
-                    }
-                }
-                lblselectCustomer.Visible = true;
-                txtIndividualCustomer.Visible = true;
-            }
-            else
-            {
-                txtIndividualCustomer.Enabled = false;
-                hdnCustomerId.Value = null;
-                lblselectCustomer.Visible = false;
-                txtIndividualCustomer.Visible = false;
-            }
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMIndividualCustomers";
+            //            }
+            //        }
+            //        else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
+            //        {
+            //            if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = rmVo.RMId.ToString();
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetBMIndividualCustomerNames";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetPerticularBranchsAllIndividualCustomers";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex == 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetMemberCustomerName";
+            //            }
+            //            else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex != 0))
+            //            {
+            //                txtIndividualCustomer_autoCompleteExtender.ContextKey = ddlBranch.SelectedValue + '~' + ddlRM.SelectedValue;
+            //                txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAllBranchAndRMIndividualCustomers";
+            //            }
+            //        }
+            //        lblselectCustomer.Visible = true;
+            //        txtIndividualCustomer.Visible = true;
+            //    }
+            //    else
+            //    {
+            //        txtIndividualCustomer.Enabled = false;
+            //        hdnCustomerId.Value = null;
+            //        lblselectCustomer.Visible = false;
+            //        txtIndividualCustomer.Visible = false;
+            //    }
+            //}
         }
     }
 }

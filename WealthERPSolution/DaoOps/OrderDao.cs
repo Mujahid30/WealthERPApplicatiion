@@ -944,7 +944,7 @@ namespace DaoOps
             return dtDemateDetails;
         }
 
-        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string SubBrokerName)
+        public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode,string AgentCode)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -977,10 +977,14 @@ namespace DaoOps
                     db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, SubBrokerCode);
                 else
                     db.AddInParameter(dbOrder, "@SubBrokerCode", DbType.String, DBNull.Value);
-                if (SubBrokerName != "0")
-                    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
+                if (AgentCode != "0")
+                    db.AddInParameter(dbOrder, "@AgentCode", DbType.String, AgentCode);
                 else
-                    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, DBNull.Value);
+                    db.AddInParameter(dbOrder, "@AgentCode", DbType.String, DBNull.Value);
+                //if (SubBrokerName != "0")
+                //    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
+                //else
+                //    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, DBNull.Value);
                 db.AddInParameter(dbOrder, "@status", DbType.String, status);
                 if (customerId != "")
                     db.AddInParameter(dbOrder, "@C_CustomerId", DbType.String, customerId);
@@ -1238,10 +1242,9 @@ namespace DaoOps
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dtOrder;
+            return dtOrder;   
         }
-
-        public DataTable GetSubBrokerName(int advisorId, int rmId, int branchId, string usertype)
+        public DataTable GetSubBrokerAgentCode(string AgentCode)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -1250,16 +1253,14 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbOrder = db.GetStoredProcCommand("SP_BindSubBrokerName");
-                if (advisorId != 0)
-                    db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, advisorId);
+                dbOrder = db.GetStoredProcCommand("SP_BindBrokerAgentCode");
+                if (AgentCode!=null)
+                db.AddInParameter(dbOrder, "@AgentCode", DbType.String ,AgentCode);
                 else
-                    db.AddInParameter(dbOrder, "@AdviserId", DbType.Int64, DBNull.Value);
-                db.AddInParameter(dbOrder, "@RMId", DbType.Int32, rmId);
-                db.AddInParameter(dbOrder, "@BranchId ", DbType.Int32, branchId);
-                db.AddInParameter(dbOrder, "@UserType", DbType.String, usertype);
-                dsOrder = db.ExecuteDataSet(dbOrder);
+                db.AddInParameter(dbOrder, "@AgentCode", DbType.String, DBNull.Value);
+                dsOrder = db.ExecuteDataSet(dbOrder);               
                 dtOrder = dsOrder.Tables[0];
+        
 
             }
             catch (BaseApplicationException ex)
@@ -1271,10 +1272,10 @@ namespace DaoOps
                 BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "OrderDao.cs:GetSubBrokerName()");
+                FunctionInfo.Add("Method", "OrderDao.cs:GetSubBrokerAgentCode()");
 
                 object[] objects = new object[1];
-                objects[0] = advisorId;
+                objects[0] = AgentCode;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1283,6 +1284,7 @@ namespace DaoOps
             }
             return dtOrder;
         }
+       
 
         public DataTable GetAllAgentListForOrder(int id, string UserRole)
         {
