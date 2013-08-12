@@ -857,21 +857,53 @@
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar6_ItemClick"
                         AllowCollapseAllItems="true" ExpandMode="SingleExpandedItem">
                         <Items>
-                            <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates">
+                            <telerik:RadPanelItem runat="server" Text="Sales" Value="Associates">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Dashboard" Value="RM Home">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile" Visible="true">
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
+                                        <Items>                                          
+                                            <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Branch/Association" Value="Branch/Association">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Branch Association" Value="View Branch Association">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>                                           
+                                            <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Associates List" Value="ViewAssociatess">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications">
+                                            <telerik:RadPanelItem runat="server" Text="Alert Notifications" Value="Alert Notifications"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form">
+                                            <telerik:RadPanelItem runat="server" Text="FP Offline Form" Value="FP Offline Form"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Reports" Value="Customer_Report">
+                                            <telerik:RadPanelItem runat="server" Text="Reports" Value="Customer_Report" Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -894,10 +926,11 @@
                                             <telerik:RadPanelItem runat="server" Text="MF TurnOver MIS" Value="MFTurnOverMIS"
                                                 Vissble="true">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS">
+                                            <telerik:RadPanelItem runat="server" Text="MF Commission MIS" Value="MF Commission MIS"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer SignUp" Value="CustomerSignUp"
-                                                Vissble="true">
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                             <%------------------New Tree View--------------%>
                                         </Items>
@@ -917,34 +950,39 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transactions" Value="Transactions">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Returns & Analytics" Value="Returns_Analytics">
+                                    <telerik:RadPanelItem runat="server" Text="Returns & Analytics" Value="Returns_Analytics"
+                                        Visible="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Asset Allocation MIS" Value="Asset_Allocation_MIS"
-                                                Vissble="true">
+                                                Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Equity Allocation" Value="Equity MIS">
+                                            <telerik:RadPanelItem runat="server" Text="Equity Allocation" Value="Equity MIS"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Returns" Value="Performance_Allocation"
-                                                Vissble="true">
+                                                Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="MF SIP Projection" Value="MF_SIP_Projection">
+                                            <telerik:RadPanelItem runat="server" Text="MF SIP Projection" Value="MF_SIP_Projection"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <%------------------New Tree View--------------%>
-                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
+                                    <telerik:RadPanelItem runat="server" Text="Message" Value="Message" Visible="false">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose">
+                                            <telerik:RadPanelItem runat="server" Text="Compose" Value="Compose" Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
+                                            <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox" Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox">
+                                            <telerik:RadPanelItem runat="server" Text="Outbox" Value="Outbox" Visible="false">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS">
+                                            <telerik:RadPanelItem runat="server" Text="Customized SMS" Value="Customized SMS"
+                                                Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
