@@ -970,6 +970,46 @@ namespace DAOAssociates
             return associatesVo;
         }
 
+        public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int UserId,int adviserId)
+        {
+            AssociatesUserHeirarchyVo associatesUserHeirarchyVo = new AssociatesUserHeirarchyVo();
+            Database db;
+            DbCommand getAssociateUserCmd;
+            DataSet getAssociateUserDs;
+            // DataTable table;
+            DataRow dr;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAssociateUserCmd = db.GetStoredProcCommand("SPROC_GetAssociateUserHeirarchy");
+                db.AddInParameter(getAssociateUserCmd, "@U_UserId", DbType.Int32, UserId);
+                db.AddInParameter(getAssociateUserCmd, "@adviserId", DbType.Int32, adviserId);
+                
+                getAssociateUserDs = db.ExecuteDataSet(getAssociateUserCmd);
+                if (getAssociateUserDs.Tables[0].Rows.Count > 0)
+                {
+                    // table = getAdvisorStaffDs.Tables["AdviserRM"];
+                    dr = getAssociateUserDs.Tables[0].Rows[0];
+                    associatesUserHeirarchyVo.UserTitle = dr["UserTitle"].ToString();
+                    associatesUserHeirarchyVo.AdviserAgentId = int.Parse((dr["AAC_AdviserAgentId"].ToString()));
+                    associatesUserHeirarchyVo.UserId = int.Parse((dr["U_UserId"].ToString()));
+                    associatesUserHeirarchyVo.UserTitleId = int.Parse(dr["UserTitleId"].ToString());
+                    associatesUserHeirarchyVo.AgentCode = dr["AAC_AgentCode"].ToString();
+                    associatesUserHeirarchyVo.RMId =  int.Parse(dr["AR_RMId"].ToString());                    
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {               
+
+            }
+            return associatesUserHeirarchyVo;
+        }
+
         public DataSet GetAdviserAssociateList(int adviserId)
         {
             Database db;

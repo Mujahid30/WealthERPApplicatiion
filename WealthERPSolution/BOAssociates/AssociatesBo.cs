@@ -396,5 +396,21 @@ namespace BOAssociates
             }
             return bResult;
         }
+
+        public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int userId,int adviserId)
+        {
+            AssociatesUserHeirarchyVo associatesUserHeirarchyVo = new AssociatesUserHeirarchyVo();
+            try
+            {
+                associatesUserHeirarchyVo = associatesDao.GetAssociateUserHeirarchy(userId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return associatesUserHeirarchyVo;
+        }
+
+        
     }
 }

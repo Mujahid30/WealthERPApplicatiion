@@ -35,6 +35,7 @@ namespace WealthERP.General
         AdviserPreferenceBo adviserPreferenceBo = new AdviserPreferenceBo();
         AssociatesBo associatesBo = new AssociatesBo();
         AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesUserHeirarchyVo associatesUserHeirarchyVo = new AssociatesUserHeirarchyVo();
         AdvisorVo advisorVo = new AdvisorVo();
         string strUserTheme;
         string currentPageUrl;
@@ -638,7 +639,9 @@ namespace WealthERP.General
                                     bool breakLoopIfIPFailed = false;
                                     Session[SessionContents.CurrentUserRole] = "Associates";
                                     associatesVo = associatesBo.GetAssociateUser(userVo.UserId);
-                                    Session["associatesVo"] = associatesVo; ;
+                                    associatesUserHeirarchyVo = associatesBo.GetAssociateUserHeirarchy(userVo.UserId,advisorVo.advisorId);
+                                    Session["associatesVo"] = associatesVo;
+                                    Session["associatesUserHeirarchyVo "] = associatesUserHeirarchyVo;
                                     Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(associatesVo.RMId);
                                     //advisorVo = (AdvisorVo)Session["advisorVo"];
                                     rmVo = (RMVo)Session["rmVo"];
