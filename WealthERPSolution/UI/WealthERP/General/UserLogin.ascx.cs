@@ -641,7 +641,7 @@ namespace WealthERP.General
                                     associatesVo = associatesBo.GetAssociateUser(userVo.UserId);
                                     associatesUserHeirarchyVo = associatesBo.GetAssociateUserHeirarchy(userVo.UserId,advisorVo.advisorId);
                                     Session["associatesVo"] = associatesVo;
-                                    Session["associatesUserHeirarchyVo "] = associatesUserHeirarchyVo;
+                                    Session["associatesUserHeirarchyVo"] = associatesUserHeirarchyVo;
                                     Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(associatesVo.RMId);
                                     //advisorVo = (AdvisorVo)Session["advisorVo"];
                                     rmVo = (RMVo)Session["rmVo"];
