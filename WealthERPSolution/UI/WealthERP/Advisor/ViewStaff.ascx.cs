@@ -14,6 +14,7 @@ using BoCommon;
 using System.Configuration;
 using BoUploads;
 using BoAdvisorProfiling;
+using VOAssociates;
 
 namespace WealthERP.Advisor
 {
@@ -26,6 +27,10 @@ namespace WealthERP.Advisor
         string userType;
         string currentUserRole;
         int adviserId = 0;
+        string agentCode = "";
+
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -35,6 +40,9 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             adviserId = advisorVo.advisorId;
             currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
+            associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+
             if (!IsPostBack)
             {
                 if (currentUserRole == "admin" || currentUserRole == "ops")
@@ -54,6 +62,13 @@ namespace WealthERP.Advisor
                         BindStaffGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true, adviserId);
                     }
                 }
+                else if (currentUserRole == "associates")
+                {
+                    BindBranchDropDown(advisorVo.advisorId);
+                    agentCode = associateuserheirarchyVo.AgentCode;
+                    BindStaffGrid(rmVo.RMId, false, true, false, adviserId);
+
+                }
 
 
             }
@@ -63,8 +78,6 @@ namespace WealthERP.Advisor
         {
             try
             {
-
-
                 UploadCommonBo uploadCommonBo = new UploadCommonBo();
                 DataSet ds = uploadCommonBo.GetAdviserBranchList(id, currentUserRole);
 
@@ -100,7 +113,7 @@ namespace WealthERP.Advisor
         {
             DataSet dsViewStaff;
             DataTable dtViewStaff = new DataTable();
-            dsViewStaff = advisorStaffBo.BindStaffGridWithTeamChanelDetails(id, isAdviser, isBranchHead, isBranchId, currentUserRole, adviserId);
+            dsViewStaff = advisorStaffBo.BindStaffGridWithTeamChanelDetails(id, isAdviser, isBranchHead, isBranchId, currentUserRole, adviserId, agentCode);
             dtViewStaff = dsViewStaff.Tables[0];
             if (dtViewStaff != null)
             {

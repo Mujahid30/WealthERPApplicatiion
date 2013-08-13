@@ -1347,13 +1347,13 @@ namespace BoAdvisorProfiling
         /// <param name="isBranchId"></param>
         /// <param name="currentUserRole"></param>
         /// <returns></returns>
-        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole,int adviserId)
+        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole,int adviserId,string agentCode)
         {
             DataSet dsPlanOpsStaffAddStatus;
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
             try
             {
-                dsPlanOpsStaffAddStatus = advisorStaffDao.BindStaffGridWithTeamChanelDetails(id, isAdviser, isBranchHead, isBranchId, currentUserRole, adviserId);
+                dsPlanOpsStaffAddStatus = advisorStaffDao.BindStaffGridWithTeamChanelDetails(id, isAdviser, isBranchHead, isBranchId, currentUserRole, adviserId,agentCode);
             }
             catch (BaseApplicationException Ex)
             {

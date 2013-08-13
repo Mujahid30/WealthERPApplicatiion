@@ -2448,7 +2448,7 @@ namespace DaoAdvisorProfiling
             }
             return dsPlanOpsStaffAddStatus;
         }
-        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole,int AdviserId)
+        public DataSet BindStaffGridWithTeamChanelDetails(int id, bool isAdviser, bool isBranchHead, bool isBranchId, string currentUserRole,int AdviserId,string agentCode)
         {
             DataSet dsViewStaff;
             Database db;
@@ -2463,6 +2463,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(ViewStaffCmd, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
                 db.AddInParameter(ViewStaffCmd, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
                 db.AddInParameter(ViewStaffCmd, "@currentUserRole", DbType.String, currentUserRole);
+                db.AddInParameter(ViewStaffCmd, "@agentCode", DbType.String, agentCode);                
                 dsViewStaff = db.ExecuteDataSet(ViewStaffCmd);
             }
             catch (BaseApplicationException Ex)
