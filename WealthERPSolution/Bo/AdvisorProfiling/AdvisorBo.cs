@@ -1849,7 +1849,7 @@ namespace BoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId, int AgentId, string UserRole, int branchHeadId, string agentCode, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             AdvisorDao advisorDao = new AdvisorDao();
@@ -1859,7 +1859,7 @@ namespace BoAdvisorProfiling
             genDictReassignRM = new Dictionary<string, string>();
             try
             {
-                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = advisorDao.GetStaffUserCustomerList(adviserId, rmId, AgentId, UserRole, branchHeadId, agentCode, out genDictParent, out genDictRM, out genDictReassignRM);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1870,7 +1870,7 @@ namespace BoAdvisorProfiling
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBo.cs:GetStaffUserCustomerList()");
-                object[] objects = new object[3];
+                object[] objects = new object[8];
                 objects[0] = adviserId;
                 objects[1] = genDictParent;
                 objects[2] = genDictRM;
@@ -1878,6 +1878,7 @@ namespace BoAdvisorProfiling
                 objects[4] = rmId;
                 objects[5] = UserRole;
                 objects[6] = branchHeadId;
+                objects[7] = agentCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

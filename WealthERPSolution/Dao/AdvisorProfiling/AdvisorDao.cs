@@ -3019,7 +3019,7 @@ namespace DaoAdvisorProfiling
         /// <param name="genDictRM"></param>
         /// <param name="genDictReassignRM"></param>
         /// <returns>will return the list of the customers from the data base accroding to the parameters assigned</returns>
-        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId,int AgentId, string UserRole, int branchHeadId, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
+        public List<CustomerVo> GetStaffUserCustomerList(int adviserId, int rmId,int AgentId, string UserRole, int branchHeadId, string agentCode, out Dictionary<string, string> genDictParent, out Dictionary<string, string> genDictRM, out Dictionary<string, string> genDictReassignRM)
         {
             List<CustomerVo> customerList = null;
             CustomerVo customerVo;
@@ -3037,7 +3037,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@UserRole", DbType.String, UserRole);
                 db.AddInParameter(getCustomerListCmd, "@AR_RMId", DbType.Int32, rmId);
                 db.AddInParameter(getCustomerListCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
-                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);                     
+                db.AddInParameter(getCustomerListCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                if (UserRole == "associates") { db.AddInParameter(getCustomerListCmd, "@agentCode", DbType.String, agentCode); }       
                 getCustomerListCmd.CommandTimeout = 60 * 60;
                 getCustomerDs = db.ExecuteDataSet(getCustomerListCmd);
               
@@ -3222,14 +3223,15 @@ namespace DaoAdvisorProfiling
 
                 FunctionInfo.Add("Method", "AdvisorDao.cs:GetStaffUserCustomerList()");
 
-                object[] objects = new object[3];
+                object[] objects = new object[8];
                 objects[0] = adviserId;
                 objects[1] = genDictParent;
                 objects[2] = genDictRM;
                 objects[3] = genDictReassignRM;
                 objects[4] = rmId;
                 objects[5] = UserRole;
-                objects[6] = branchHeadId;                
+                objects[6] = branchHeadId; 
+                objects[7] =  agentCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
