@@ -141,7 +141,7 @@ namespace WealthERP.Advisor
 
             rmVo.Email = txtEmail.Text.ToString();
 
-
+            rmUserVo.UserType = "Associates";
             rmVo.FirstName = txtFirstName.Text.ToString();
             rmVo.LastName = txtLastName.Text.ToString();
 
@@ -338,7 +338,7 @@ namespace WealthERP.Advisor
                 ddlReportingMgr.Enabled = true;
 
                 txtMobileNumber.Enabled = true;
-                txtEmail.Enabled = false;
+                txtEmail.Enabled = true;
 
                 txtPhDirectISD.Enabled = true;
                 txtPhDirectPhoneNumber.Enabled = true;
@@ -410,7 +410,7 @@ namespace WealthERP.Advisor
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
                 rmStaffVo.RMId = Convert.ToInt32(hidRMid.Value);
-                userBo.UpdateUser(rmUserVo);
+                //userBo.UpdateUser(rmUserVo);
                 advisorStaffBo.UpdateStaff(rmStaffVo);
                 ControlViewEditMode(true);
                 divMsgSuccess.InnerText = "Staff updated Sucessfully";
@@ -517,7 +517,7 @@ namespace WealthERP.Advisor
             {
                 ControlViewEditMode(true);
             }
-            else if (action == "View")
+            else if (action == "Edit")
             {
                 ControlViewEditMode(false);
             }

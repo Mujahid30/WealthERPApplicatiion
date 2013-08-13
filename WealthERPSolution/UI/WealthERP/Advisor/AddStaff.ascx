@@ -361,7 +361,7 @@
                     <asp:TextBox ID="txtEmail" runat="server" CssClass="txtField"></asp:TextBox>
                     <span id="Span2" class="spnRequiredField">*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     <asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?"
-                        CssClass="cmbField" />
+                        CssClass="cmbField" Visible="false" />
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtEmail"
                         ValidationGroup="btnSubmit" ErrorMessage="Please enter an Email ID" Display="Dynamic"
