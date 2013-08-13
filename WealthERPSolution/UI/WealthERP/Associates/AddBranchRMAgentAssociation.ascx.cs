@@ -345,8 +345,9 @@ namespace WealthERP.Associates
             int PagentId = 0;
             if(ddlSelectType.SelectedIndex!=0)
             {
+                lblPanDuplicate.Visible = false;
                 GetAgentCode(int.Parse(ddlSelectType.SelectedValue));
-                if (Session["Code"] != null && Session["PagentId"] != null)
+                if (!string.IsNullOrEmpty(Session["Code"].ToString()) && !string.IsNullOrEmpty(Session["PagentId"].ToString()))
                 {
                     PagentId = (int)Session["PagentId"];
                     txtAgentCode.Text = Session["Code"].ToString();
@@ -354,9 +355,19 @@ namespace WealthERP.Associates
                 }
                 if (ddlUserType.SelectedValue == "Associates")
                 {
-                       BindChildCodeGrid(PagentId);
+                    if (!string.IsNullOrEmpty(Session["Code"].ToString()) && !string.IsNullOrEmpty(Session["PagentId"].ToString()))
+                    {
+                        BindChildCodeGrid((int)Session["PagentId"]);
                         gvChildCode.Visible = true;
                         btnSubmit.Visible = false;
+                    }
+                    else
+                    {
+                        btnSubmit.Visible = true;
+                        gvChildCode.Visible = false;
+                        txtAgentCode.Text = "";
+                        txtAgentCode.Enabled = true;
+                    }
                 }
                 else if (ddlUserType.SelectedValue == "RM" && ddlUserType.SelectedValue == "BM")
                 {
@@ -394,11 +405,12 @@ namespace WealthERP.Associates
             dtChildCodeList = associatesBo.GetAgentChildCodeList(PagentId);
             //dtChildCodeList = dsChildCodeList.Tables[0];
             ViewState["ChildCodeList"] = dtChildCodeList;
-            if (dtChildCodeList != null)
+            if (dtChildCodeList!=null)
             {
                 gvChildCode.DataSource = dtChildCodeList;
                 gvChildCode.DataBind();
             }
+
         }
 
         protected void btnAddCode_Click(object sender, EventArgs e)

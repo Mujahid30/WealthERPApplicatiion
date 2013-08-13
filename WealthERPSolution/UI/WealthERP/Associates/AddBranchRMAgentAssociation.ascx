@@ -53,8 +53,8 @@
                 OnSelectedIndexChanged="ddlUserType_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
                 <asp:ListItem Text="Associates" Value="Associates"></asp:ListItem>
-                <asp:ListItem Text="BM" Value="BM"></asp:ListItem>
-                <asp:ListItem Text="RM" Value="RM"></asp:ListItem>
+                <asp:ListItem Text="Branch" Value="BM"></asp:ListItem>
+                <asp:ListItem Text="Employee" Value="RM"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddlUserType"
