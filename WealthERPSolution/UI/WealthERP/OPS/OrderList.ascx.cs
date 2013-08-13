@@ -246,7 +246,7 @@ namespace WealthERP.OPS
                 ddlBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
                 ddlBrokerCode.DataBind();
             }
-            ddlBrokerCode.Items.Insert(0, new ListItem("All", "0"));
+             ddlBrokerCode.Items.Insert(0, new ListItem("All", "0"));
 
         }
         //protected void BindSubBrokerName()
@@ -358,26 +358,38 @@ namespace WealthERP.OPS
         }
         private void SetParameterSubbroker()
         {
-          
+            if (userType == "advisor" || userType == "rm" || userType == "bm")
+            {
+                hdnAgentCode.Value = "0";
+                hdnAgentId.Value = "0";
                 if (ddlBrokerCode.SelectedIndex != 0)
                 {
-                    hdnSubBrokerCode.Value = ddlBrokerCode.SelectedValue.ToString();
+                    hdnSubBrokerCode.Value = ddlBrokerCode.SelectedItem.Value.ToString();
                     ViewState["SubBrokerCode"] = hdnSubBrokerCode.Value;
                 }
                 else
                 {
                     hdnSubBrokerCode.Value = "0";
+                }               
+            }
+            else if (userType == "associates")
+            {
+               
+                if (ddlBrokerCode.SelectedIndex != 0)
+                {
+                    hdnAgentCode.Value = ddlBrokerCode.SelectedItem.ToString();
+                    hdnAgentId.Value = ddlBrokerCode.SelectedItem.Value.ToString(); 
+                    
                 }
+                else
+                {
+                    hdnAgentCode.Value = AgentCode;
+                    hdnAgentId.Value ="0";
+                    //AgentId = int.Parse(ddlBrokerCode.SelectedItem.Value.ToString());
+                }
+                //AgentCode = ddlBrokerCode.SelectedValue.ToString();
 
-                if (userType == "advisor" || userType == "rm" || userType == "bm")
-                {
-                    AgentCode = "0";
-                    AgentId = 0;
-                }
-                else if (userType == "associates")
-                {
-                    AgentId = associatesVo.AAC_AdviserAgentId;
-                }
+            }
             //{
             //    if (ddlBrokerCode.SelectedIndex != 0)
             //    {
@@ -406,7 +418,7 @@ namespace WealthERP.OPS
             SetParameterSubbroker();
             // }
             DataTable dtOrder = new DataTable();
-            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, AgentId, hdnSubBrokerCode.Value, AgentCode);
+            dtOrder = orderbo.GetOrderList(advisorVo.advisorId, hdnRMId.Value, hdnBranchId.Value, Convert.ToDateTime(hdnTodate.Value), Convert.ToDateTime(hdnFromdate.Value), hdnOrderStatus.Value, hdnCustomerId.Value, hdnOrderType.Value, userType, int.Parse(hdnAgentId.Value), hdnSubBrokerCode.Value, hdnAgentCode.Value);
             if (dtOrder.Rows.Count > 0)
             {
                 trExportFilteredDupData.Visible = true;

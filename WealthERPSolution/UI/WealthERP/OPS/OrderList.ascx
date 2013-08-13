@@ -221,7 +221,7 @@
         </td>
         <td align="left">
             <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="All" Value="0"></asp:ListItem>
+              <%--  <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>--%>
             </asp:DropDownList>
         </td>
         <td>

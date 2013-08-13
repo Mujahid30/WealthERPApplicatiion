@@ -980,7 +980,7 @@ namespace DaoOps
                 if (AgentCode != "0")
                     db.AddInParameter(dbOrder, "@AgentCode", DbType.String, AgentCode);
                 else
-                    db.AddInParameter(dbOrder, "@AgentCode", DbType.String, DBNull.Value);
+                  db.AddInParameter(dbOrder, "@AgentCode", DbType.String, DBNull.Value);
                 //if (SubBrokerName != "0")
                 //    db.AddInParameter(dbOrder, "@SubBrokerName", DbType.String, SubBrokerName);
                 //else
