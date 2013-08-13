@@ -60,7 +60,7 @@ namespace WealthERP.BusinessMIS
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-            if (userVo.UserType == "Advisor" || userVo.UserType == "Ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 Agentcode = string.Empty;
             }

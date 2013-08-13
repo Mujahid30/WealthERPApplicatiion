@@ -42,7 +42,7 @@ namespace WealthERP.Associates
               imgViewAssoList.Visible = false;
             if (!IsPostBack)
             {
-                if (userVo.UserType == "Advisor" || userVo.UserType == "Ops")
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     Agentcode = string.Empty;
                 }

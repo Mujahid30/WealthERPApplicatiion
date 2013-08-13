@@ -40,7 +40,7 @@ namespace WealthERP.Associates
                 userType = "associates";
                 
             }
-            if (userVo.UserType == "Advisor" || userVo.UserType == "Ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 Agentcode = string.Empty;
             }
