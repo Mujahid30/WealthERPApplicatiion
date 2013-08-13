@@ -1482,5 +1482,25 @@ namespace DAOAssociates
             }
             return result;
         }
+
+        public DataSet GetAdviserHierarchyStaffList(int branchId, int hierarchyRoleId)
+        {
+            Database db;
+            DataSet dsAdviserHierarchyStaffList;
+            DbCommand getAdviserHierarchyStaffListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAdviserHierarchyStaffListcmd = db.GetStoredProcCommand("SPROC_GetAdviserHierarchyStaffList");
+                db.AddInParameter(getAdviserHierarchyStaffListcmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(getAdviserHierarchyStaffListcmd, "@HierarchyRoleId", DbType.String, hierarchyRoleId);
+                dsAdviserHierarchyStaffList = db.ExecuteDataSet(getAdviserHierarchyStaffListcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAdviserHierarchyStaffList;
+        }
     }
 }

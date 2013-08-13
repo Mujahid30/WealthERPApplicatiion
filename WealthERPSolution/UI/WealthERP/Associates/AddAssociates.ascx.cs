@@ -129,7 +129,7 @@ namespace WealthERP.Associates
                 if (userType == "advisor")
                 {
                     BindBranchDropDown();
-                    BindRMDropDown();
+                    //BindRMDropDown();
                 }
                 if (userType == "bm")
                 {
@@ -568,15 +568,39 @@ namespace WealthERP.Associates
         }
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBranch.SelectedIndex == 0)
+            if (ddlBranch.SelectedIndex != 0)
             {
-                BindRMforBranchDropdown(0, bmID);
+                BindStaffDropList(int.Parse(ddlBranch.SelectedValue.ToString()),7);
             }
             else
             {
-                BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
+                ddlRM.DataSource = null;
+                ddlRM.DataBind();
             }
 
+            //if (ddlBranch.SelectedIndex == 0)
+            //{
+            //    BindRMforBranchDropdown(0, bmID);
+            //}
+            //else
+            //{
+            //    BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
+            //}
+
+        }
+
+        private void BindStaffDropList(int branchId, int hierarchyId)
+        {
+
+            DataSet ds = associatesBo.GetAdviserHierarchyStaffList(branchId, hierarchyId);
+            if (ds != null)
+            {
+                ddlRM.DataSource = ds.Tables[0]; ;
+                ddlRM.DataValueField = ds.Tables[0].Columns["AR_RMId"].ToString();
+                ddlRM.DataTextField = ds.Tables[0].Columns["AR_RMName"].ToString();
+                ddlRM.DataBind();
+            }
+            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {

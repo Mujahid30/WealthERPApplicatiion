@@ -400,7 +400,7 @@
                                 </asp:CompareValidator>
                             </td>
                             <td align="right">
-                                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
+                                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="Channel Manager:"></asp:Label>
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"

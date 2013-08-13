@@ -451,6 +451,21 @@ namespace BOAssociates
             return associatesUserHeirarchyVo;
         }
 
+        public DataSet GetAdviserHierarchyStaffList(int branchId, int hierarchyRoleId)
+        {
+            AssociatesDAO associatesDao = new AssociatesDAO();
+            DataSet dsAdviserHierarchyStaffList = new DataSet();
+            try
+            {
+                dsAdviserHierarchyStaffList = associatesDao.GetAdviserHierarchyStaffList(branchId, hierarchyRoleId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsAdviserHierarchyStaffList;
+
+        }
         
     }
 }
