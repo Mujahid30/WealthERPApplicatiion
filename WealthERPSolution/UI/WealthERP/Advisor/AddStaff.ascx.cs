@@ -83,7 +83,7 @@ namespace WealthERP.Advisor
             if (ddlBranch.SelectedIndex != 0 || ddlBranch.SelectedIndex != -1)
                 rmStaffVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
 
-            rmStaffVo.HierarchyRoleId = Convert.ToInt32(ddlRportingRole.SelectedValue);
+            rmStaffVo.HierarchyRoleId = Convert.ToInt32(ddlTitleList.SelectedValue);
             rmStaffVo.ReportingManagerId = Convert.ToInt32(ddlReportingMgr.SelectedValue);
             rmStaffVo.MiddleName = txtMiddleName.Text.ToString();
             rmStaffVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
