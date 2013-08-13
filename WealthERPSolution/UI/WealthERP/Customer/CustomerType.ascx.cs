@@ -411,7 +411,12 @@ namespace WealthERP.Customer
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();
-                    customerVo.Mobile1 =Convert.ToInt64(txtMobileNumber.Text.ToString());
+                    if (!string.IsNullOrEmpty(txtMobileNumber.Text.ToString()))
+                    {
+                        customerVo.Mobile1 = Convert.ToInt64(txtMobileNumber.Text.ToString());
+                    }
+                    else
+                        customerVo.Mobile1 = 0;
                     customerVo.Dob = DateTime.MinValue;
                     customerVo.RBIApprovalDate = DateTime.MinValue;
                     customerVo.CommencementDate = DateTime.MinValue;

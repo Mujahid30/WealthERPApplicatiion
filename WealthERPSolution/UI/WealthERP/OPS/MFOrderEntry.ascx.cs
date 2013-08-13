@@ -307,7 +307,7 @@ namespace WealthERP.OPS
                 ddlAssociate.DataTextField = dtAgentListList.Columns["AgentName"].ToString();
                 ddlAssociate.DataBind();
             }
-            ddlAssociate.Items.Insert(0, new ListItem("Select(SubBroker Code-Name-Type)", "0"));
+            ddlAssociate.Items.Insert(0, new ListItem("Select(SubBroker Code/Name/Type)", "0"));
         }
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
@@ -521,7 +521,10 @@ namespace WealthERP.OPS
                         //    ddlFolioNumber.SelectedValue = "";
                     }
                     txtReceivedDate.Enabled = false;
-                    txtReceivedDate.SelectedDate = orderVo.ApplicationReceivedDate;
+                    if (!string.IsNullOrEmpty(txtReceivedDate.SelectedDate.ToString()))
+                       txtReceivedDate.SelectedDate = orderVo.ApplicationReceivedDate;
+                    else
+                        orderVo.ApplicationReceivedDate = DateTime.MinValue;
                     txtApplicationNumber.Enabled = false;
                     txtApplicationNumber.Text = orderVo.ApplicationNumber;
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
@@ -1926,7 +1929,12 @@ namespace WealthERP.OPS
             mforderVo.RMName = lblGetRM.Text;
             mforderVo.PanNo = lblgetPan.Text;
             mforderVo.TransactionCode = ddltransType.SelectedValue;
-            orderVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
+            if (!string.IsNullOrEmpty(txtReceivedDate.SelectedDate.ToString().Trim()))
+            {
+                orderVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
+            }
+            else
+                orderVo.ApplicationReceivedDate = DateTime.MinValue;
             orderVo.ApplicationNumber = txtApplicationNumber.Text;
             if (ddlAMCList.SelectedIndex != 0)
                 mforderVo.Amccode = int.Parse(ddlAMCList.SelectedValue);
@@ -2297,7 +2305,10 @@ namespace WealthERP.OPS
             mforderVo.RMName = lblGetRM.Text;
             mforderVo.PanNo = lblgetPan.Text;
             mforderVo.TransactionCode = ddltransType.SelectedValue;
-            orderVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
+            if (!string.IsNullOrEmpty(txtReceivedDate.SelectedDate.ToString()))
+                orderVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
+            else
+                orderVo.ApplicationReceivedDate = DateTime.MinValue;
             orderVo.ApplicationNumber = txtApplicationNumber.Text;
             if (ddlAMCList.SelectedIndex != -1)
                 mforderVo.Amccode = int.Parse(ddlAMCList.SelectedValue);

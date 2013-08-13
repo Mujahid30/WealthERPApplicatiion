@@ -223,7 +223,11 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbLongField" AutoPostBack="false">
             </asp:DropDownList>
-        </td>
+        
+                  <asp:CompareValidator ID="ddlAssociate_CompareValidator2" runat="server" ControlToValidate="ddlAssociate"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a associate"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select(SubBroker Code/Name/Type)"></asp:CompareValidator>
+                </td>
     </tr>
     <tr id="trIsa" runat="server">
         <td class="leftField" style="width: 20%">

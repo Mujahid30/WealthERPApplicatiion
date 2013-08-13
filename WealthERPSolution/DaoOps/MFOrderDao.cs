@@ -84,7 +84,12 @@ namespace DaoOps
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_FutureTriggerCondition", DbType.String, DBNull.Value);
                 db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationNumber", DbType.String, orderVo.ApplicationNumber);
-                db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
+                //db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
+                if (orderVo.ApplicationReceivedDate != DateTime.MinValue)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
+                
                 db.AddInParameter(createMFOrderTrackingCmd, "@CP_portfolioId", DbType.Int32, mforderVo.portfolioId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PaymentMode", DbType.String, orderVo.PaymentMode);
                 if (!string.IsNullOrEmpty(orderVo.ChequeNumber.ToString().Trim()))
@@ -268,7 +273,11 @@ namespace DaoOps
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_FutureTriggerCondition", DbType.String, DBNull.Value);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@ApplicationNumber", DbType.String, orderVo.ApplicationNumber);
-                db.AddInParameter(UpdateMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
+                if (orderVo.ApplicationReceivedDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
+                //db.AddInParameter(UpdateMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CP_portfolioId", DbType.Int32, mforderVo.portfolioId);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@PaymentMode", DbType.String, orderVo.PaymentMode);
                 if (!string.IsNullOrEmpty(orderVo.ChequeNumber.ToString().Trim()))
