@@ -29,6 +29,7 @@ namespace WealthERP.Associates
         RMVo rmVo = new RMVo();
         string userType;
         string currentUserRole;
+        String Agentcode;
         protected void Page_Load(object sender, EventArgs e)
         {
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -38,10 +39,16 @@ namespace WealthERP.Associates
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-            
-            imgViewAssoList.Visible = false;
+              imgViewAssoList.Visible = false;
             if (!IsPostBack)
             {
+                if (userVo.UserType == "Advisor" || userVo.UserType == "Ops")
+                {
+                    Agentcode = string.Empty;
+                }
+                else
+
+                    Agentcode = associateuserheirarchyVo.AgentCode;
                 GetAdviserAssociateList();
                 
             }
@@ -51,7 +58,7 @@ namespace WealthERP.Associates
         {
             DataSet dsGetAdviserAssociateList;
             DataTable dtGetAdviserAssociateList;
-            dsGetAdviserAssociateList = associatesBo.GetAdviserAssociateList(advisorVo.advisorId, userVo.UserType,associateuserheirarchyVo.AgentCode);
+            dsGetAdviserAssociateList = associatesBo.GetAdviserAssociateList(advisorVo.advisorId, userVo.UserType, Agentcode);
             dtGetAdviserAssociateList = dsGetAdviserAssociateList.Tables[0];
             if (dtGetAdviserAssociateList == null)
             {

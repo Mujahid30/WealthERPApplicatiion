@@ -25,6 +25,7 @@ namespace WealthERP.Associates
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         UserVo userVo = new UserVo();
         string userType;
+        string Agentcode;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -39,6 +40,14 @@ namespace WealthERP.Associates
                 userType = "associates";
                 
             }
+            if (userVo.UserType == "Advisor" || userVo.UserType == "Ops")
+            {
+                Agentcode = string.Empty;
+            }
+            else
+
+                Agentcode = associateuserheirarchyVo.AgentCode;
+            
             BindAgentCodeList();
 
         }
@@ -47,7 +56,7 @@ namespace WealthERP.Associates
         {
             DataSet dsGetAgentCodeAndType;
             DataTable dtGetAgentCodeAndType;
-            dsGetAgentCodeAndType = associatesBo.GetAgentCodeAndType(advisorVo.advisorId, userVo.UserType, associateuserheirarchyVo.AgentCode);
+            dsGetAgentCodeAndType = associatesBo.GetAgentCodeAndType(advisorVo.advisorId, userVo.UserType, Agentcode);
             dtGetAgentCodeAndType = dsGetAgentCodeAndType.Tables[0];
             if (dtGetAgentCodeAndType == null)
             {
