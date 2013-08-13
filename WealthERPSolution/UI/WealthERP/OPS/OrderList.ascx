@@ -93,6 +93,11 @@
                 </DateInput>
             </telerik:RadDatePicker>
         </td>
+        <td>
+            <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFromDate" CssClass="rfvPCG"
+                ErrorMessage="<br />Please select a  Date" Display="Dynamic" runat="server" InitialValue=""
+                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+        </td>
         <td align="right">
             <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To Date:"></asp:Label>
         </td>
@@ -107,6 +112,11 @@
                     <%--  <ClientEvents OnLoad="onLoadRadTimePicker2"> </ClientEvents>--%>
                 </DateInput>
             </telerik:RadDatePicker>
+        </td>
+        <td>
+            <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtToDate" CssClass="rfvPCG"
+                ErrorMessage="<br />Please select a Date" Display="Dynamic" runat="server" InitialValue=""
+                ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td>
             <asp:CompareValidator ID="dateCompareValidator" runat="server" ControlToValidate="txtToDate"
@@ -189,6 +199,8 @@
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>
+        <td>
+        </td>
         <td class="leftField">
             <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer:"></asp:Label>
         </td>
@@ -221,7 +233,7 @@
         </td>
         <td align="left">
             <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
-              <%--  <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>--%>
+                <%--  <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>--%>
             </asp:DropDownList>
         </td>
         <td>
@@ -258,7 +270,7 @@
                 <asp:ListItem Text="All" Value="0"></asp:ListItem>
             </asp:DropDownList>
         </td>--%>
-    <%-- </tr>--%>   
+    <%-- </tr>--%>
     <tr>
         <td colspan="2" align="left">
         </td>
@@ -333,7 +345,7 @@
                             <telerik:GridBoundColumn DataField="CMFOD_OrderNumber" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="70px" FilterControlWidth="50px">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top"/>
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="true" HeaderText="Order Date" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
@@ -342,18 +354,19 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
-                                UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AreaManager" AllowFiltering="true" HeaderText="Area Manager"
-                                UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn  Visible="false" DataField="CircleManager" AllowFiltering="true" HeaderText="Channel Manager"
-                                UniqueName="CircleManager" SortExpression="CircleManager" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                            <telerik:GridBoundColumn Visible="false" DataField="CircleManager" AllowFiltering="true"
+                                HeaderText="Channel Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Name" AllowFiltering="true" HeaderText="Customer"
