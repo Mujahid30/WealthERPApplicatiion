@@ -280,7 +280,7 @@ namespace WealthERP.OPS
                 ddlAssociate.DataTextField = dtAgentListList.Columns["AAC_AgentCode"].ToString();
                 ddlAssociate.DataBind();
             }
-            ddlAssociate.Items.Insert(0, new ListItem("All", "0"));
+            ddlAssociate.Items.Insert(0, new ListItem("Select", "0"));
         }
 
       
