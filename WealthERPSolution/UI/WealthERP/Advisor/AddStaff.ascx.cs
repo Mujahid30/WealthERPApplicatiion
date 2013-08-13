@@ -46,12 +46,25 @@ namespace WealthERP.Advisor
             string userType = string.Empty;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "admin";
+            //int rmId=0;
+            string action=string.Empty;
             if (!Page.IsPostBack)
             {
-               
+                if (Request.QueryString["RmId"] != null)
+                    hidRMid.Value = Request.QueryString["RmId"];
+                if (Request.QueryString["action"] != null)
+                    action = Request.QueryString["action"].ToString();
+
                 BindTeamDropList();
                 BindBranchDropList(userType);
-                ControlInitialState();
+                if (!string.IsNullOrEmpty(hidRMid.Value.ToString()) && !string.IsNullOrEmpty(action))
+                {
+                    ShowRMDetails(Convert.ToInt32(hidRMid.Value ), action);
+                }
+                else
+                {
+                    ControlInitialState();
+                }
             }
 
         }
@@ -72,12 +85,12 @@ namespace WealthERP.Advisor
 
             rmStaffVo.HierarchyRoleId = Convert.ToInt32(ddlRportingRole.SelectedValue);
             rmStaffVo.ReportingManagerId = Convert.ToInt32(ddlReportingMgr.SelectedValue);
-            rmVo.MiddleName = txtMiddleName.Text.ToString();
-            rmVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
+            rmStaffVo.MiddleName = txtMiddleName.Text.ToString();
+            rmStaffVo.Mobile = Convert.ToInt64(txtMobileNumber.Text.ToString());
             if (!string.IsNullOrEmpty(txtPhDirectISD.Text.Trim()))
-            rmVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
+                rmStaffVo.OfficePhoneDirectIsd = int.Parse(txtPhDirectISD.Text.ToString());
             if (!string.IsNullOrEmpty(txtPhDirectPhoneNumber.Text.Trim()))
-            rmVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
+                rmStaffVo.OfficePhoneDirectNumber = int.Parse(txtPhDirectPhoneNumber.Text.ToString());
 
             if (!string.IsNullOrEmpty(txtPhExtISD.Text.Trim()))
                 rmStaffVo.OfficePhoneExtIsd = int.Parse(txtPhExtISD.Text.Trim());
@@ -214,12 +227,12 @@ namespace WealthERP.Advisor
 
         }
 
-        private void BindReportingManager(int roleId)
+        private void BindReportingManager(int hierarchayRoleId)
         {
             DataTable dtReportingManagerList = new DataTable();
-            if (roleId != 0)
+            if (hierarchayRoleId != 0)
             {
-                dtReportingManagerList = advisorStaffBo.GetAdviserReportingManagerList(roleId, advisorVo.advisorId);
+                dtReportingManagerList = advisorStaffBo.GetAdviserReportingManagerList(hierarchayRoleId, advisorVo.advisorId);
                 ddlReportingMgr.DataSource = dtReportingManagerList;
                 ddlReportingMgr.DataValueField = dtReportingManagerList.Columns["AR_RMId"].ToString();
                 ddlReportingMgr.DataTextField = dtReportingManagerList.Columns["AR_RMName"].ToString();
@@ -431,6 +444,65 @@ namespace WealthERP.Advisor
             txtFaxISD.Text = string.Empty;
             txtExtSTD.Text = string.Empty;
             ddlChannel.Enabled = false;
+
+        }
+
+        private void ShowRMDetails(int rmId, string action)
+        {
+            rmStaffVo = advisorStaffBo.GetAdvisorStaffDetails(rmId);
+           BindTeamTitleDropList(rmStaffVo.HierarchyTeamId);
+           BindTitleApplicableLevelAndChannel(rmStaffVo.HierarchyTitleId);
+           BindReportingManager(rmStaffVo.HierarchyRoleId);
+
+           txtFirstName.Text = rmStaffVo.FirstName;
+           txtMiddleName.Text=rmStaffVo.MiddleName;
+           txtLastName.Text=rmStaffVo.LastName;
+           txtStaffcode.Text= rmStaffVo.StaffCode;
+           ddlBranch.SelectedValue = rmStaffVo.BranchId.ToString();
+
+
+           ddlTeamList.SelectedValue = rmStaffVo.HierarchyTeamId.ToString();
+           ddlTitleList.SelectedValue = rmStaffVo.HierarchyTitleId.ToString();
+           ddlRportingRole.SelectedValue = rmStaffVo.HierarchyRoleId.ToString();
+           ddlReportingMgr.SelectedValue = rmStaffVo.ReportingManagerId.ToString();
+           
+
+           txtMobileNumber.Text = rmStaffVo.Mobile.ToString();
+           txtEmail.Text = rmStaffVo.Email.ToString();
+
+           if (rmStaffVo.OfficePhoneDirectIsd != 0)
+               txtPhDirectISD.Text = rmStaffVo.OfficePhoneDirectIsd.ToString();
+           if (rmStaffVo.OfficePhoneDirectNumber != 0)
+               txtPhDirectPhoneNumber.Text = rmStaffVo.OfficePhoneDirectNumber.ToString();
+           if (rmStaffVo.OfficePhoneExtIsd != 0)
+           txtPhExtISD.Text = rmStaffVo.OfficePhoneExtIsd.ToString();
+           if (rmStaffVo.OfficePhoneExtNumber != 0)
+           txtPhExtPhoneNumber.Text=rmStaffVo.OfficePhoneExtNumber.ToString();
+           if (rmStaffVo.OfficePhoneExtStd != 0)
+           txtExtSTD.Text=rmStaffVo.OfficePhoneExtStd.ToString();
+           if (rmStaffVo.ResPhoneIsd != 0)
+           txtPhResiISD.Text=rmStaffVo.ResPhoneIsd.ToString();
+           if (rmStaffVo.ResPhoneNumber != 0)
+           txtPhResiPhoneNumber.Text = rmStaffVo.ResPhoneNumber.ToString();
+           if (rmStaffVo.ResPhoneStd != 0)
+           txtResiSTD.Text=rmStaffVo.ResPhoneStd.ToString();
+           if (rmStaffVo.OfficePhoneDirectStd != 0)
+           txtPhDirectSTD.Text= rmStaffVo.OfficePhoneDirectStd.ToString();
+           if (rmStaffVo.Fax != 0)
+           txtFaxNumber.Text=rmStaffVo.Fax.ToString();
+           if (rmStaffVo.FaxIsd != 0)
+           txtFaxISD.Text= rmStaffVo.FaxIsd.ToString();
+           if (rmStaffVo.FaxStd != 0)
+           txtExtSTD.Text=rmStaffVo.FaxStd.ToString();
+           if (action == "View")
+           {
+               ControlViewEditMode(true);
+           }
+           else if (action == "View")
+           {
+               ControlViewEditMode(false);
+           }
+
 
         }
     }
