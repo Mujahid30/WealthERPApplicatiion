@@ -870,14 +870,14 @@ namespace DaoAdvisorProfiling
                     if (!string.IsNullOrEmpty(dr["AB_StaffBranchId"].ToString()))
                         rmVo.BranchId = Convert.ToInt32(dr["AB_StaffBranchId"].ToString());
 
-                    if (!string.IsNullOrEmpty(dr["AH_HierarchyId"].ToString()))
-                        rmVo.HierarchyRoleId = Convert.ToInt32(dr["AH_HierarchyId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["AH_ReportingRoleId"].ToString()))
+                        rmVo.HierarchyRoleId = Convert.ToInt32(dr["AH_ReportingRoleId"].ToString());
 
                     if (!string.IsNullOrEmpty(dr["AR_ReportingManagerId"].ToString()))
                         rmVo.ReportingManagerId = Convert.ToInt32(dr["AR_ReportingManagerId"].ToString());
 
-                    if (!string.IsNullOrEmpty(dr["AH_TitleId"].ToString()))
-                        rmVo.HierarchyTitleId = Convert.ToInt16(dr["AH_TitleId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["AH_HierarchyTitleId"].ToString()))
+                        rmVo.HierarchyTitleId = Convert.ToInt16(dr["AH_HierarchyTitleId"].ToString());
 
                     if (!string.IsNullOrEmpty(dr["AH_TeamId"].ToString()))
                           rmVo.HierarchyTeamId = Convert.ToInt16(dr["AH_TeamId"].ToString());
