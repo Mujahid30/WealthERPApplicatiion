@@ -54,6 +54,9 @@ namespace WealthERP.Advisor
         int ParentId;
         int adviserId;
         int AgentId;
+        string AgentCode;
+        AssociatesUserHeirarchyVo assocUsrHeirVo;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -90,6 +93,8 @@ namespace WealthERP.Advisor
                 UserRole = "associates";
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 branchHeadId = rmVo.RMId;
+                assocUsrHeirVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                AgentCode = assocUsrHeirVo.AgentCode;
             }
             if (userVo.UserType == "SuperAdmin")
             {
@@ -254,7 +259,7 @@ namespace WealthERP.Advisor
             RMVo customerRMVo = new RMVo();
             try
             {
-                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserId, rmId,AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
                 if (customerList == null)
                 {
                     DivCustomerList.Visible = false;
@@ -423,7 +428,7 @@ namespace WealthERP.Advisor
                     if (customer.ToLower().Trim() == "find customer" || customer.ToLower().Trim() == "")
                         customer = string.Empty;
                 }
-                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, out genDictParent, out genDictRM, out genDictReassignRM);
+                customerList = adviserBo.GetStaffUserCustomerList(adviserVo.advisorId, rmId,AgentId, UserRole, branchHeadId, AgentCode, out genDictParent, out genDictRM, out genDictReassignRM);
 
                 if (customerList == null)
                 {
