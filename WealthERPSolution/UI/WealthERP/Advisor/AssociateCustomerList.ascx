@@ -26,7 +26,7 @@
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="imgExportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                Visible="true" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
                                 OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
                                 Width="25px">
                             </asp:ImageButton>
@@ -71,7 +71,7 @@
                         </telerik:GridDateTimeColumn>
                         <telerik:GridDateTimeColumn DataField="AA_EndDate"
                             DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
-                            HeaderText="Till" SortExpression="AA_EndDate"  UniqueName="AA_EndDate">
+                            HeaderText="To" SortExpression="AA_EndDate"  UniqueName="AA_EndDate">
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                         </telerik:GridDateTimeColumn>
                     </Columns>
