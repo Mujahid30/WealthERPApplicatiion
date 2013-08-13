@@ -1341,7 +1341,7 @@ namespace DAOAssociates
             return bResult;
         }
 
-        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId)
+        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId,string type)
         {
             DataSet ds;
             Database db;
@@ -1352,7 +1352,8 @@ namespace DAOAssociates
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getcmd = db.GetStoredProcCommand("SPROC_GetAgentCodeFromAgentPaaingAssociateId");
-                db.AddInParameter(getcmd, "@assiciateId", DbType.Int32, assiciateId);
+                db.AddInParameter(getcmd, "@Id", DbType.Int32, assiciateId);
+                db.AddInParameter(getcmd, "@type", DbType.String, type);
                 ds = db.ExecuteDataSet(getcmd);
                 if (ds.Tables.Count > 0)
                     dt = ds.Tables[0];
@@ -1501,6 +1502,40 @@ namespace DAOAssociates
                 throw Ex;
             }
             return dsAdviserHierarchyStaffList;
+        }
+
+        public DataTable GetSalesListToAddCode(int AdviserId)
+        {
+            DataSet dsSalesListToAddCode;
+            DataTable dtSalesListToAddCode = new DataTable();
+            Database db;
+            DbCommand getSalesListToAddCodecmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSalesListToAddCodecmd = db.GetStoredProcCommand("SPROC_GetSalesListToAddCode");
+                db.AddInParameter(getSalesListToAddCodecmd, "@AdviserId", DbType.String, AdviserId);
+                dsSalesListToAddCode = db.ExecuteDataSet(getSalesListToAddCodecmd);
+                if (dsSalesListToAddCode.Tables.Count > 0)
+                    dtSalesListToAddCode = dsSalesListToAddCode.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateBo.cs:GetSalesListToAddCode(AdviserId)");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSalesListToAddCode;
         }
     }
 }
