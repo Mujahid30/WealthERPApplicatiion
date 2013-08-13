@@ -33,6 +33,28 @@
         cursor: hand;
     }
 </style>
+
+<script language="JavaScript" type="text/jscript">
+    function ValidatereportingManager(source, arguments) {
+        arguments.IsValid = false;
+
+        var ddlReportingManager = document.getElementById("ddlReportingMgr").value;
+        var minHierarchyRoleId = document.getElementById("hidMinHierarchyTitleId").value;
+        alert(ddlReportingManager);
+        alert(minHierarchyRoleId);
+        if (minHierarchyRoleId == ddlReportingManager) {
+            arguments.IsValid = true;
+            
+        } else if (minHierarchyRoleId != ddlReportingManager && ddlReportingManager == 0) {
+        arguments.IsValid = false;
+
+    }
+
+    return;
+    }
+</script>
+
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -197,9 +219,13 @@
                     <asp:DropDownList ID="ddlReportingMgr" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
                     <span id="Span8" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Please Select Reporting Manager"
+                   <%-- <asp:CustomValidator ControlToValidate="ddlReportingMgr" ID="cus" runat="server"
+                        ErrorMessage="Please Select Reporting Manager" ClientValidationFunction="ValidatereportingManager" Display="Dynamic"
+                        ValidationGroup="btnSubmit">
+                    </asp:CustomValidator>--%>
+                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Please Select Reporting Manager"
                         CssClass="rfvPCG" ControlToValidate="ddlReportingMgr" ValidationGroup="btnSubmit"
-                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
+                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>--%>
                 </td>
                 <td colspan="2">
                     &nbsp;&nbsp;
@@ -363,6 +389,7 @@
         </table>
         <div>
             <asp:HiddenField ID="hidRMid" runat="server" />
+            <asp:HiddenField ID="hidMinHierarchyTitleId" runat="server" />
         </div>
     </ContentTemplate>
     <Triggers>
