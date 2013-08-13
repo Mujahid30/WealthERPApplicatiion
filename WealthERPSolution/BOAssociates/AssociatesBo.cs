@@ -79,7 +79,7 @@ namespace BOAssociates
         }
         public DataSet GetAdviserAssociatesDetails(int associateId)
         {
-            DataSet dsAssociatesDetails; 
+            DataSet dsAssociatesDetails;
             try
             {
                 dsAssociatesDetails = associatesDao.GetAdviserAssociatesDetails(associateId);
@@ -119,7 +119,7 @@ namespace BOAssociates
             bool bResult = false;
             try
             {
-                bResult=associatesDao.UpdateAdviserAssociates(associatesVo);
+                bResult = associatesDao.UpdateAdviserAssociates(associatesVo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -182,7 +182,7 @@ namespace BOAssociates
             bool result = false;
             try
             {
-                result = associatesDao.CreateAdviserAgentCode(associatesVo,agentId);
+                result = associatesDao.CreateAdviserAgentCode(associatesVo, agentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -190,7 +190,7 @@ namespace BOAssociates
             }
             return result;
         }
-        public DataSet GetAgentCodeAndType(int adviserId,string usertype,string agentcode)
+        public DataSet GetAgentCodeAndType(int adviserId, string usertype, string agentcode)
         {
             DataSet ds;
             try
@@ -217,7 +217,7 @@ namespace BOAssociates
             }
             return ds;
         }
-        public void UpdateAssociatesWorkFlowStatusDetails(int AssociateId, string Status, string StepCode, string StatusReason,string comments)
+        public void UpdateAssociatesWorkFlowStatusDetails(int AssociateId, string Status, string StepCode, string StatusReason, string comments)
         {
             try
             {
@@ -293,7 +293,7 @@ namespace BOAssociates
             }
             return associatesVo;
         }
-        public DataSet GetAdviserAssociateList(int adviserId,string Usertype,string agentcode)
+        public DataSet GetAdviserAssociateList(int adviserId, string Usertype, string agentcode)
         {
             DataSet dsGetAssociateCodeList;
             try
@@ -358,13 +358,13 @@ namespace BOAssociates
             }
             return bResult;
         }
-        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId)
+        public DataTable GetAgentCodeFromAgentPaaingAssociateId(int assiciateId,string type)
         {
             DataTable dtGetAgentdetails;
             //string code;
             try
             {
-                dtGetAgentdetails = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId);
+                dtGetAgentdetails = associatesDao.GetAgentCodeFromAgentPaaingAssociateId(assiciateId,type);
             }
             catch (BaseApplicationException Ex)
             {
@@ -437,7 +437,7 @@ namespace BOAssociates
         }
 
 
-        public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int userId,int adviserId)
+        public AssociatesUserHeirarchyVo GetAssociateUserHeirarchy(int userId, int adviserId)
         {
             AssociatesUserHeirarchyVo associatesUserHeirarchyVo = new AssociatesUserHeirarchyVo();
             try
@@ -466,6 +466,32 @@ namespace BOAssociates
             return dsAdviserHierarchyStaffList;
 
         }
-        
+
+        public DataTable GetSalesListToAddCode(int AdviserId)
+        {
+            DataTable dtChildCodeList;
+            try
+            {
+                dtChildCodeList = associatesDao.GetSalesListToAddCode(AdviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateBo.cs:GetSalesListToAddCode(AdviserId)");
+                object[] objects = new object[1];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtChildCodeList;
+        }
+
     }
 }
