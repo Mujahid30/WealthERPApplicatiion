@@ -282,8 +282,9 @@ namespace WealthERP.Associates
         {
             try
             {
-                AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
-                DataTable dt = advisorStaffBo.GetAdviserRM(advisorVo.advisorId);
+                //AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
+                //DataTable dt = advisorStaffBo.GetAdviserRM(advisorVo.advisorId);
+                DataTable dt = associatesBo.GetSalesListToAddCode(advisorVo.advisorId);
                 if (dt.Rows.Count > 0)
                 {
                     ddlSelectType.DataSource = dt;
@@ -346,7 +347,7 @@ namespace WealthERP.Associates
             if(ddlSelectType.SelectedIndex!=0)
             {
                 lblPanDuplicate.Visible = false;
-                GetAgentCode(int.Parse(ddlSelectType.SelectedValue));
+                GetAgentCode(int.Parse(ddlSelectType.SelectedValue),ddlUserType.SelectedValue);
                 if (!string.IsNullOrEmpty(Session["Code"].ToString()) && !string.IsNullOrEmpty(Session["PagentId"].ToString()))
                 {
                     PagentId = (int)Session["PagentId"];
@@ -369,21 +370,32 @@ namespace WealthERP.Associates
                         txtAgentCode.Enabled = true;
                     }
                 }
-                else if (ddlUserType.SelectedValue == "RM" && ddlUserType.SelectedValue == "BM")
+                else if (ddlUserType.SelectedValue == "RM" || ddlUserType.SelectedValue == "BM")
                 {
                     gvChildCode.Visible = false;
+                    if (!string.IsNullOrEmpty(Session["Code"].ToString()) && !string.IsNullOrEmpty(Session["PagentId"].ToString()))
+                    {
+                        btnSubmit.Visible = false;
+                    }
+                    else
+                    {
+                        btnSubmit.Visible = true;
+                        txtAgentCode.Text = "";
+                        txtAgentCode.Enabled = true;
+                    }
+                    
                 }
             }
             //else if()
             
         }
 
-        private void GetAgentCode(int id)
+        private void GetAgentCode(int id,string type)
         {
             DataTable dt;
             string code = string.Empty;
             int PagentId=0;
-            dt = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(id);
+            dt = associatesBo.GetAgentCodeFromAgentPaaingAssociateId(id, type);
             if (dt.Rows.Count>0)
             {
                 code = dt.Rows[0]["AAC_AgentCode"].ToString();
@@ -396,6 +408,8 @@ namespace WealthERP.Associates
             {
                 txtAgentCode.Text = "";
                 txtAgentCode.Enabled = true;
+                Session["Code"] = "";
+                Session["PagentId"] = "";
             }
         }
 
