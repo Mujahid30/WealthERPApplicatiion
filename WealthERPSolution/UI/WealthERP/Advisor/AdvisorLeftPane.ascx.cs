@@ -637,6 +637,16 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
                 }
+                else if (e.Item.Value == "Hierarchy_Setup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Hierarchy_Setup','login');", true);
+                }
+
+                //else if (e.Item.Value == "Product Group setup")
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductgroupSetup','login');", true);
+                //}
+
                 else if (e.Item.Value == "Alert Configuration")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertDashBoard','login');", true);
@@ -1961,6 +1971,7 @@ namespace WealthERP.Advisor
                     if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
                     {
                         flag = tempView.Find(Item.Value);
+                        
                         if (flag == -1)
                         {
                             Item.Visible = false;

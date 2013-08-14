@@ -71,6 +71,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
                                             </telerik:RadPanelItem>
+                                            <%--<telerik:RadPanelItem runat="server" Text="Product Group setup" Value="Product Group setup">
+                                            </telerik:RadPanelItem>--%>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Content" Value="Content" PostBack="false">
