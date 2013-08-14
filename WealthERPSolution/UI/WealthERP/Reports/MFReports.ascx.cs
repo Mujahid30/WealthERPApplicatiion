@@ -26,7 +26,7 @@ namespace WealthERP.Reports
     public partial class MFReports : System.Web.UI.UserControl
     {
         SuperAdminOpsBo superAdminOpsBo = new SuperAdminOpsBo();
-
+        DataTable dtAdviserList = new DataTable();
         RMVo rmVo = new RMVo();
         CustomerBo customerBo = new CustomerBo();
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
@@ -1012,7 +1012,7 @@ namespace WealthERP.Reports
 
         protected void BindAdviserDropDownList()
         {
-            DataTable dtAdviserList = new DataTable();
+            
             dtAdviserList = superAdminOpsBo.BindAdviserForUpload();
 
             if (dtAdviserList.Rows.Count > 0)
@@ -1363,8 +1363,11 @@ namespace WealthERP.Reports
                     }
                 }
             }
-            if (ddlAdviser.SelectedIndex!=0)
-            Session["SAReportsAdviserID"] =Convert.ToInt32(ddlAdviser.SelectedValue);
+            if (ddlAdviser.SelectedIndex != 0)
+            {
+                Session["SAReportsAdviserID"] = Convert.ToInt32(ddlAdviser.SelectedValue);
+                Session["SAReportsAdviserOrgName"] = ddlAdviser.SelectedItem;
+            }
         }
 
         private void GetLatestValuationDate()
