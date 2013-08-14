@@ -881,6 +881,9 @@ namespace DaoAdvisorProfiling
 
                     if (!string.IsNullOrEmpty(dr["AH_TeamId"].ToString()))
                           rmVo.HierarchyTeamId = Convert.ToInt16(dr["AH_TeamId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
+                         rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
                     
                 }
                 
