@@ -376,8 +376,8 @@
         </td>
         <td class="rightField" style="width: 20%">
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                OnSelectedDateChanged="txtOrderDate_DateChanged">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" AutoPostBack="true"
+                 OnSelectedDateChanged="txtOrderDate_DateChanged">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
                 </Calendar>

@@ -220,42 +220,7 @@ namespace WealthERP.OPS
 
             //ShowHideFields(1);
         }
-        protected void txtOrderDate_DateChanged(object sender, EventArgs e)
-        {
-            string ddlTrxnType = "";
-            DateTime dt = Convert.ToDateTime(txtOrderDate.SelectedDate);
-            //if (ddlTransactionType.SelectedItem.Value == "Sell")
-            //{
-            //    ddlTrxnType = "SEL";
-            //}
-          if (ddltransType.SelectedItem.Value == "Buy")
-            {
-                ddlTrxnType = "BUY";
-            }          
-          
-            DataSet dsNavDetails = new DataSet();
-            dsNavDetails = customerPortfolioBo.GetMFSchemePlanPurchaseDateAndValue(schemePlanCode, dt, ddlTrxnType);
-
-            if (dsNavDetails != null)
-            {
-                if (dsNavDetails.Tables[0].Rows.Count > 0)
-                {
-                    foreach (DataRow drNavDetails in dsNavDetails.Tables[0].Rows)
-                    {
-                        if (drNavDetails["PSP_RepurchasePrice"].ToString() != null && drNavDetails["PSP_RepurchasePrice"].ToString() != "")
-                        {
-                            txtNAV.Text = drNavDetails["PSP_RepurchasePrice"].ToString();
-                            lblNavAsOnDate.Text = Convert.ToDateTime(drNavDetails["PSP_Date"]).ToShortDateString();
-                        }
-                    }
-                }
-                else
-                {
-                    txtNAV.Text = "0";
-                    lblNavAsOnDate.Text = "Not Available";
-                }
-            }
-        }
+     
         private void BindARNNo(int adviserId)
         {
             DataSet dsArnNo = mfOrderBo.GetARNNo(adviserId);
@@ -1896,7 +1861,42 @@ namespace WealthERP.OPS
                     BindFolioNumber(0);
             }
         }
+        protected void txtOrderDate_DateChanged(object sender,EventArgs e)
+        {
+            string ddlTrxnType = "";
+            DateTime dt = Convert.ToDateTime(txtOrderDate.SelectedDate);
+            //if (ddlTransactionType.SelectedItem.Value == "Sell")
+            //{
+            //    ddlTrxnType = "SEL";
+            //}
+            if (ddltransType.SelectedItem.Value == "BUY")
+            {
+                ddlTrxnType = "BUY";
+            }
+            schemePlanCode = int.Parse(hdnSchemeCode.Value);
+            DataSet dsNavDetails = new DataSet();
+            dsNavDetails = customerPortfolioBo.GetMFSchemePlanPurchaseDateAndValue(schemePlanCode, dt, ddlTrxnType);
 
+            if (dsNavDetails != null)
+            {
+                if (dsNavDetails.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow drNavDetails in dsNavDetails.Tables[0].Rows)
+                    {
+                        if (drNavDetails["PSP_RepurchasePrice"].ToString() != null && drNavDetails["PSP_RepurchasePrice"].ToString() != "")
+                        {
+                            txtNAV.Text = drNavDetails["PSP_RepurchasePrice"].ToString();
+                            lblNavAsOnDate.Text = Convert.ToDateTime(drNavDetails["PSP_Date"]).ToShortDateString();
+                        }
+                    }
+                }
+                else
+                {
+                    txtNAV.Text = "0";
+                    lblNavAsOnDate.Text = "Not Available";
+                }
+            }
+        }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
