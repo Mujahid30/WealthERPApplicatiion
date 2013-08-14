@@ -51,15 +51,27 @@ namespace WealthERP.Advisor
             if (!Page.IsPostBack)
             {
                 if (Request.QueryString["RmId"] != null)
+                {
                     hidRMid.Value = Request.QueryString["RmId"];
-                if (Request.QueryString["action"] != null)
                     action = Request.QueryString["action"].ToString();
-
+                    //Testing data
+                    //hidRMid.Value = "3845";
+                    //action = "View";
+                }
                 BindTeamDropList();
                 BindBranchDropList(userType);
+
                 if (!string.IsNullOrEmpty(hidRMid.Value.ToString()) && !string.IsNullOrEmpty(action))
                 {
-                    ShowRMDetails(Convert.ToInt32(hidRMid.Value), action);
+                    ShowRMDetails(Convert.ToInt32(hidRMid.Value));
+                    if (action == "View")
+                    {
+                        ControlViewEditMode(true);
+                    }
+                    else if (action == "Edit")
+                    {
+                        ControlViewEditMode(false);
+                    }
                 }
                 else
                 {
@@ -322,6 +334,8 @@ namespace WealthERP.Advisor
 
                 lnkAddNewStaff.Visible = false;
                 lnkEditStaff.Visible = true;
+
+
             }
             else
             {
@@ -360,6 +374,8 @@ namespace WealthERP.Advisor
                 lnkAddNewStaff.Visible = true;
                 lnkEditStaff.Visible = false;
 
+
+
             }
 
         }
@@ -378,7 +394,7 @@ namespace WealthERP.Advisor
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (ddlTitleList.SelectedValue != hidMinHierarchyTitleId.Value.ToString() && ddlReportingMgr.SelectedIndex == 0)
+            if (ddlTitleList.SelectedValue != hidMinHierarchyTitleId.Value.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Reporting Manager!');", true);
                 return;
@@ -390,7 +406,7 @@ namespace WealthERP.Advisor
                 rmUserVo = CollectAdviserStaffUserData();
                 rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
                 hidRMid.Value = rmIds[0].ToString();
-                userBo.CreateRoleAssociation(rmIds[1], 1009);
+                //userBo.CreateRoleAssociation(rmIds[1], 1009);
                 ControlViewEditMode(true);
                 divMsgSuccess.InnerText = " Staff Added Sucessfully";
                 trSuccessMsg.Visible = true;
@@ -400,7 +416,7 @@ namespace WealthERP.Advisor
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (ddlTitleList.SelectedValue != hidMinHierarchyTitleId.ToString() && ddlReportingMgr.SelectedIndex == 0)
+            if (ddlTitleList.SelectedValue != hidMinHierarchyTitleId.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Reporting Manager!');", true);
                 return;
@@ -464,9 +480,12 @@ namespace WealthERP.Advisor
             txtExtSTD.Text = string.Empty;
             ddlChannel.Enabled = false;
 
+            imgBtnReferesh.Enabled = false;
+            imgAddAgentCode.Enabled = false;
+
         }
 
-        private void ShowRMDetails(int rmId, string action)
+        private void ShowRMDetails(int rmId)
         {
             rmStaffVo = advisorStaffBo.GetAdvisorStaffDetails(rmId);
             BindTeamTitleDropList(rmStaffVo.HierarchyTeamId);
@@ -513,16 +532,33 @@ namespace WealthERP.Advisor
                 txtFaxISD.Text = rmStaffVo.FaxIsd.ToString();
             if (rmStaffVo.FaxStd != 0)
                 txtExtSTD.Text = rmStaffVo.FaxStd.ToString();
-            if (action == "View")
+            if (!string.IsNullOrEmpty(rmStaffVo.AAC_AgentCode))
             {
-                ControlViewEditMode(true);
+                lblAgentCode.Text = rmStaffVo.AAC_AgentCode;
+                imgBtnReferesh.Visible = false;
+                imgAddAgentCode.Visible = false;
             }
-            else if (action == "Edit")
+            else
             {
-                ControlViewEditMode(false);
+                lblAgentCode.Text = "N/A";
+                imgBtnReferesh.Enabled = true;
+                imgAddAgentCode.Enabled = true;
             }
-
 
         }
+
+        protected void imgBtnReferesh_OnClick(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(hidRMid.Value))
+            {
+                ShowRMDetails(Convert.ToInt32(hidRMid.Value));
+            }
+        }
+        //protected void imgAddAgentCode_OnClick(object sender, EventArgs e)
+        //{
+        //    string queryString = "?userType=RM&rmId=" + hidRMid.Value;
+        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "window.open('PopUp.aspx?PageId=AddBranchRMAgentAssociation"',+"'" + queryString + "'" + ", 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');", true);
+        //}
+
     }
 }

@@ -44,16 +44,23 @@
         alert(minHierarchyRoleId);
         if (minHierarchyRoleId == ddlReportingManager) {
             arguments.IsValid = true;
-            
-        } else if (minHierarchyRoleId != ddlReportingManager && ddlReportingManager == 0) {
-        arguments.IsValid = false;
 
+        } else if (minHierarchyRoleId != ddlReportingManager && ddlReportingManager == 0) {
+            arguments.IsValid = false;
+
+        }
+
+        return;
     }
 
-    return;
+
+    function OpenAgentCodePagePopup() {
+        var rmId = document.getElementById("<%= hidRMid.ClientID %>").value;
+        var myurl = "PopUp.aspx?PageId=AddBranchRMAgentAssociation &rmId="+rmId;
+        window.open(myurl, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        return false;
     }
 </script>
-
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
@@ -114,36 +121,18 @@
                     <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFirstName" ErrorMessage="<br />Please Enter the Name"
                         Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnSubmit">
                     </asp:RequiredFieldValidator>
-                    <%--<cc1:TextBoxWatermarkExtender ID="txtFirstName_TextBoxWatermarkExtender" runat="server"
-                Enabled="True" TargetControlID="txtFirstName" WatermarkText="Firstname">
-            </cc1:TextBoxWatermarkExtender>--%>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblMiddleName" runat="server" CssClass="FieldName" Text="Middle Name:"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="txtMiddleName" runat="server" CssClass="txtField"></asp:TextBox>
-                    &nbsp;&nbsp;
-                    <%-- <cc1:TextBoxWatermarkExtender ID="txtMiddleName_TextBoxWatermarkExtender" runat="server"
-                Enabled="True" TargetControlID="txtMiddleName" WatermarkText="MiddleName">
-            </cc1:TextBoxWatermarkExtender>--%>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblLastName" runat="server" CssClass="FieldName" Text="Last Name:"></asp:Label>
                 </td>
                 <td>
                     <asp:TextBox ID="txtLastName" runat="server" CssClass="txtField"></asp:TextBox>
-                    <%-- <cc1:TextBoxWatermarkExtender ID="txtLastName_TextBoxWatermarkExtender" runat="server"
-                Enabled="True" TargetControlID="txtLastName" WatermarkText="LastName">
-            </cc1:TextBoxWatermarkExtender>--%>
-                </td>
-            </tr>
-            <tr>
-                <td class="leftField">
-                    <asp:Label ID="lb1StaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
-                </td>
-                <td colspan="5">
-                    <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
             </tr>
             <tr id="trTeamTitle" runat="server">
@@ -171,17 +160,31 @@
                         CssClass="rfvPCG" ControlToValidate="ddlTitleList" ValidationGroup="btnSubmit"
                         Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
-                <td colspan="2">
-                    &nbsp;&nbsp;
-                </td>
-            </tr>
-            <tr>
                 <td class="leftLabel">
                     <asp:Label ID="lblChannel" runat="server" Text="Channel:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
                     <asp:DropDownList ID="ddlChannel" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
+                </td>
+            </tr>
+            <tr>
+                <td class="leftLabel">
+                    <asp:Label ID="lblReportingRole" runat="server" Text="Reporting to Role:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlRportingRole" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlRportingRole_SelectedIndexChanged">
+                    </asp:DropDownList>
+                    <span id="Span7" class="spnRequiredField">*</span>
+                </td>
+                <td class="leftLabel">
+                    <asp:Label ID="Label2" runat="server" Text="Reporting Manager:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlReportingMgr" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                    <span id="Span8" class="spnRequiredField">*</span>
                 </td>
                 <td class="leftLabel">
                     <asp:Label ID="lblBranch" runat="server" Text="Branch:" CssClass="FieldName"></asp:Label>
@@ -195,40 +198,32 @@
                         Display="Dynamic">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td colspan="2">
-                    &nbsp;&nbsp;
+            </tr>
+            <tr id="tr2" runat="server" visible="true">
+                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Staff Role and Code Deatils
+                    </div>
                 </td>
             </tr>
             <tr>
-                <td class="leftLabel">
-                    <asp:Label ID="lblReportingRole" runat="server" Text="Reporting to Role:" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="lb1StaffCode" runat="server" CssClass="FieldName" Text="Staff Code:"></asp:Label>
                 </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddlRportingRole" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlRportingRole_SelectedIndexChanged">
-                    </asp:DropDownList>
-                    <span id="Span7" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Reporting Role"
-                        CssClass="rfvPCG" ControlToValidate="ddlRportingRole" ValidationGroup="btnSubmit"
-                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
+                <td>
+                    <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
                 </td>
-                <td class="leftLabel">
-                    <asp:Label ID="Label2" runat="server" Text="Reporting Manager:" CssClass="FieldName"></asp:Label>
+                <td class="leftField">
+                    <asp:Label ID="lblAgentCodeL" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
                 </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddlReportingMgr" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <span id="Span8" class="spnRequiredField">*</span>
-                   <%-- <asp:CustomValidator ControlToValidate="ddlReportingMgr" ID="cus" runat="server"
-                        ErrorMessage="Please Select Reporting Manager" ClientValidationFunction="ValidatereportingManager" Display="Dynamic"
-                        ValidationGroup="btnSubmit">
-                    </asp:CustomValidator>--%>
-                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Please Select Reporting Manager"
-                        CssClass="rfvPCG" ControlToValidate="ddlReportingMgr" ValidationGroup="btnSubmit"
-                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>--%>
-                </td>
-                <td colspan="2">
-                    &nbsp;&nbsp;
+                <td colspan="3">
+                    <asp:Label ID="lblAgentCode" runat="server" CssClass="txtField" Text=""></asp:Label>
+                    <asp:ImageButton ID="imgAddAgentCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                        AlternateText="Add" runat="server" ToolTip="Click here to add staff agent code"
+                        OnClientClick="return OpenAgentCodePagePopup();" Height="15px" Width="15px"></asp:ImageButton>
+                    <asp:ImageButton ID="imgBtnReferesh" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
+                        runat="server" ToolTip="Click here to refresh agent code" OnClick="imgBtnReferesh_OnClick"
+                        Height="15px" Width="25px"></asp:ImageButton>
                 </td>
             </tr>
             <tr id="tr1" runat="server" visible="true">
