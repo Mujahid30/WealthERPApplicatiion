@@ -43,7 +43,7 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (Session[SessionContents.BranchLogoPath] != null)
                 sourcePath = Session[SessionContents.BranchLogoPath].ToString();
-
+            
             if (!IsPostBack)
             {
                 if (Session["customerVo"] != null)
@@ -404,6 +404,11 @@ namespace WealthERP.Advisor
 
                     Session.Remove("NodeType");
                 }
+            }
+
+            if (advisorVo.A_AgentCodeBased == 1)
+            {
+                RadPanelBar2.Visible = false;
             }
         }
 
