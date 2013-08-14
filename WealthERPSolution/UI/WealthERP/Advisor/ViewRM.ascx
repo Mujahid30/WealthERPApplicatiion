@@ -162,7 +162,7 @@
                     <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
+                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="false">
                                 <%--<ItemTemplate>
                                     <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
                                         OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
@@ -174,7 +174,7 @@
                                 <%-- <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">--%>
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik" 
                                         AllowCustomText="true" Width="120px" AutoPostBack="true">
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">

@@ -78,7 +78,7 @@
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="ChannelName" SortExpression="ChannelName" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                HeaderText="Channel" UniqueName="ChannelName">
+                                                HeaderText="Channel Manager" UniqueName="ChannelName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"

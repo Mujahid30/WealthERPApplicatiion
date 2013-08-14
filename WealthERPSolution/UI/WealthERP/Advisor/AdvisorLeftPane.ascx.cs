@@ -568,14 +568,23 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Staff")
                 {
+                    if (advisorVo.A_AgentCodeBased == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewStaffDashBoard','login');", true);
+                    }
                     //----------For Existing WERP---------------------------
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewRM','login');", true);
+                    
                     //----------For Existing SBI Zone,Cluster,Channel,Team...---------------------------
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewStaff','login');", true);
+             
                 }
                 else if (e.Item.Value == "Add Staff")
                 {
-                    if (advisorVo.A_AgentCodeBased==0)
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
+                    if (advisorVo.A_AgentCodeBased == 0)
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
                     else
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddStaff','login');", true);
@@ -637,16 +646,6 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CuCustomerAssociationSetup','login');", true);
                 }
-                else if (e.Item.Value == "Hierarchy_Setup")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('Hierarchy_Setup','login');", true);
-                }
-
-                //else if (e.Item.Value == "Product Group setup")
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductgroupSetup','login');", true);
-                //}
-
                 else if (e.Item.Value == "Alert Configuration")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMAlertDashBoard','login');", true);
@@ -1971,7 +1970,6 @@ namespace WealthERP.Advisor
                     if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
                     {
                         flag = tempView.Find(Item.Value);
-                        
                         if (flag == -1)
                         {
                             Item.Visible = false;

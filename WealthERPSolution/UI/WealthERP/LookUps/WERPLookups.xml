@@ -2836,6 +2836,7 @@
     <TreeNode	TreeNodeCode="1011" TreeNodeText="AUM Holdings" Deleted="False"	/>
     <TreeNode	TreeNodeCode="1012" TreeNodeText="Queries" Deleted="False"	/>
     <TreeNode	TreeNodeCode="1013" TreeNodeText="Returns And Analytics" Deleted="False"	/>
+    <TreeNode	TreeNodeCode="1014" TreeNodeText="Organization" Deleted="False"	/>
   </SuperAdminTreeNode>
 
   <SuperAdminTreeSubNode>
@@ -2855,6 +2856,8 @@
     <TreeSubNode	TreeNodeCode="1012" TreeSubNodeCode="2014" TreeSubNodeText="Transactions" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1010" TreeSubNodeCode="2015" TreeSubNodeText="Commission" Deleted="False"	/>
     <TreeSubNode	TreeNodeCode="1013" TreeSubNodeCode="2016" TreeSubNodeText="Performance And Allocation" Deleted="False"	/>
+    <TreeSubNode	TreeNodeCode="1014" TreeSubNodeCode="2017" TreeSubNodeText="Staff" Deleted="False"	/>
+
   </SuperAdminTreeSubNode>
 
   <SuperAdminTreeSubSubNode>
@@ -2893,7 +2896,10 @@
     <TreeSubSubNode	TreeSubNodeCode="2016" TreeSubSubNodeCode="3028" TreeSubSubNodeText="EQ Returns" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3029" TreeSubSubNodeText="Auto SIP Exceptions" Path="~/Images/1044_prin.jpg" Category="MF" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2015" TreeSubSubNodeCode="3030" TreeSubSubNodeText="Expected Commission MIS" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
-    
+    <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3031" TreeSubSubNodeText="Staff List" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+
+    <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3032" TreeSubSubNodeText="Sales Hierarcy" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+
   </SuperAdminTreeSubSubNode>
   
   <UserRole>
