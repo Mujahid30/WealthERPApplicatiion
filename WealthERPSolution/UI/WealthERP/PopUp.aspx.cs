@@ -27,6 +27,8 @@ namespace WealthERP
             string linkId = "";
             string AddMFFolioLinkId = "";
             string AddMFOrderEntryLinkId = "";
+            string userType = string.Empty;
+            string rmId = string.Empty;
 
             if (Request.QueryString["PageId"] != null)
                 pageID = Request.QueryString["PageId"].ToString();
@@ -36,6 +38,16 @@ namespace WealthERP
                 linkId = Request.QueryString["LinkId"].ToString();
                 Session["LinkAction"] = linkId;
             }
+
+            if (Request.QueryString["userType"] != null)
+            {
+                userType = Request.QueryString["userType"].ToString();
+            }
+            if (Request.QueryString["rmId"] != null)
+            {
+                rmId = Request.QueryString["rmId"].ToString();
+            }
+            
 
             if (Request.QueryString["AddMFFolioLinkId"] != null)
             {
@@ -48,6 +60,11 @@ namespace WealthERP
                 AddMFFolioLinkId = Request.QueryString["AddMFOrderEntryLinkId"].ToString();
                 Session["AddMFOrderEntryLinkIdLinkAction"] = AddMFOrderEntryLinkId;
             }
+            //if (pageID.Contains("AddBranchRMAgentAssociation"))
+            //{
+            //    string userType = Request.QueryString["userType"].ToString();
+            //    pageID = "AddBranchRMAgentAssociation";
+            //}
            
             path = Getpagepath(pageID.Trim());           
             UserControl uc1 = new UserControl();
@@ -69,8 +86,13 @@ namespace WealthERP
                     string action = Request.QueryString["action"].ToString();
                     uc1.ID = "ctrl_" + pageID.Trim() + "-" + bankId + "-" + action;
                 }
-               
+
             }
+            else if (pageID.Trim() == "AddBranchRMAgentAssociation")
+            {
+                uc1.ID = "ctrl_" + pageID.Trim() + "-" + userType + "-" + rmId;
+            }
+
 
 
            
