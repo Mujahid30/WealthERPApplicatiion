@@ -218,7 +218,7 @@ namespace WealthERP.Reports
                 rdoCustomerGroup.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
 
                 rdoCustomerIndivisual.Attributes.Add("onClick", "javascript:ChangeGroupOrSelf(value);");
-                if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
+                if (Session["advisorVo"]!=null)
                     advisorVo = (AdvisorVo)Session["advisorVo"];
 
                 
@@ -232,8 +232,12 @@ namespace WealthERP.Reports
                       if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
                     {
                         path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                        if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
-                            rmVo = (RMVo)Session[SessionContents.RmVo];
+                          //issue may be 
+                        if (Session[SessionContents.RmVo] != null)
+                        {
+                            if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
+                                rmVo = (RMVo)Session[SessionContents.RmVo];
+                        }
 
                         if (Session["UserType"] != null)
                         {
@@ -242,30 +246,31 @@ namespace WealthERP.Reports
                             imgBtnrgHoldings.Visible = false;
                         }
 
-
-                        if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
+                        if (Session["UserType"] != null)
                         {
-                            if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
-                                customerVo = (CustomerVo)Session["CustomerVo"];
-                            CustomerLogin = true;
-                            hndCustomerLogin.Value = "true";
-                            Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-                            //old code
-                            //tabpnlEmailReports.Visible = false;
+                            if (Session["UserType"].ToString().Trim() == "Customer" && strFromCustomerDashBoard == true)
+                            {
+                                if (!string.IsNullOrEmpty(Session["CustomerVo"].ToString()))
+                                    customerVo = (CustomerVo)Session["CustomerVo"];
+                                CustomerLogin = true;
+                                hndCustomerLogin.Value = "true";
+                                Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+                                //old code
+                                //tabpnlEmailReports.Visible = false;
 
-                            //new gr
-                            RadTabStrip2.Tabs[1].Visible = false;
-                            RadTabStrip2.Tabs[2].Visible = false;
+                                //new gr
+                                RadTabStrip2.Tabs[1].Visible = false;
+                                RadTabStrip2.Tabs[2].Visible = false;
 
 
+                            }
+                            else
+                            {
+                                hndCustomerLogin.Value = "false";
+                                Session["hndCustomerLogin"] = hndCustomerLogin.Value;
+
+                            }
                         }
-                        else
-                        {
-                            hndCustomerLogin.Value = "false";
-                            Session["hndCustomerLogin"] = hndCustomerLogin.Value;
-
-                        }
-
 
                         BindPeriodDropDown();
 
@@ -725,7 +730,8 @@ namespace WealthERP.Reports
                            
                                 //new gr
                                 RadTabStrip2.Tabs[1].Visible = true;
-                                dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                                if (ddlAdviser.SelectedIndex!=0)
+                                dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(ddlAdviser.SelectedValue.ToString()));
                                 imgBtnrgHoldings.Visible = true;
                             
                            
@@ -761,9 +767,9 @@ namespace WealthERP.Reports
 
 
                             //imgBtnrgHoldings.Visible = false;
-                            if (Cache["gvRequestStatus" + advisorVo.advisorId] != null)
+                            if (Cache["gvRequestStatus" + ddlAdviser.SelectedValue] != null)
                             {
-                                Cache.Remove("gvRequestStatus" + advisorVo.advisorId);
+                                Cache.Remove("gvRequestStatus" + ddlAdviser.SelectedValue);
                             }
                             pnlGvRequestStatus.Visible = false;
 
@@ -895,7 +901,8 @@ namespace WealthERP.Reports
                             tabViewAndEmailReports.SelectedIndex = 0;
 
                             //ShowFolios();
-                            advisorId = advisorVo.advisorId;
+                            if (ddlAdviser.SelectedIndex!=0)
+                            advisorId =Convert.ToInt32(ddlAdviser.SelectedValue);
                             //---------------------------------- Old code to get last Valuation date from History----
                             //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId, "MF");
                             //hdnValuationDate.Value = LatestValuationdate.ToString();
@@ -945,8 +952,9 @@ namespace WealthERP.Reports
                         {
                             
                                 hidBMLogin.Value = "False";
-                                txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                                txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                                if (advisorVo==null)
+                                txtCustomer_autoCompleteExtender.ContextKey =  ddlAdviser.SelectedValue;
+                                txtParentCustomer_autoCompleteExtender.ContextKey = ddlAdviser.SelectedValue;
                                 txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                                 txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
@@ -1033,7 +1041,7 @@ namespace WealthERP.Reports
 
 
             if (ddlAdviser.SelectedValue != "Select")
-                advisorVo.advisorId = Convert.ToInt32(ddlAdviser.SelectedValue);
+                advisorId = Convert.ToInt32(ddlAdviser.SelectedValue);
 
             if (Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlViewReports$btnViewReport"] != "View Report" && Request.Form["ctrl_MFReports$tabViewAndEmailReports$tabpnlEmailReports$btnEmailReport"] != "Email Report")
             {
@@ -1098,7 +1106,7 @@ namespace WealthERP.Reports
                     DataTable dtGroupCustomerList = new DataTable();
                     //dtGroupCustomerList = customerBo.GetParentCustomerName("BULKMAIL", int.Parse(rmVo.RMId.ToString()));
                    
-                        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorVo.advisorId.ToString()));
+                        dtGroupCustomerList = customerBo.GetAdviserGroupCustomerName("BULKMAIL", int.Parse(advisorId.ToString()));
                         imgBtnrgHoldings.Visible = true;
                     
 
@@ -1319,8 +1327,8 @@ namespace WealthERP.Reports
                 {
                   
                         hidBMLogin.Value = "False";
-                        txtCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
-                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
+                        txtCustomer_autoCompleteExtender.ContextKey = advisorId.ToString();
+                        txtParentCustomer_autoCompleteExtender.ContextKey = advisorId.ToString();
                         txtCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserGroupCustomerName";
 
@@ -1355,6 +1363,8 @@ namespace WealthERP.Reports
                     }
                 }
             }
+            if (ddlAdviser.SelectedIndex!=0)
+            Session["SAReportsAdviserID"] =Convert.ToInt32(ddlAdviser.SelectedValue);
         }
 
         private void GetLatestValuationDate()
@@ -1369,7 +1379,15 @@ namespace WealthERP.Reports
             {
                 portfolioBo = new PortfolioBo();
                 advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-                adviserId = advisorVo.advisorId;
+                if (advisorVo != null)
+                    adviserId = advisorVo.advisorId;
+                else
+                {
+                    if (ddlAdviser.SelectedIndex != 0)
+                    {
+                        adviserId = Convert.ToInt32(ddlAdviser.SelectedValue);
+                    }
+                }
                 if (portfolioBo.GetLatestValuationDate(adviserId, Constants.MF.ToString()) != null)
                 {
                     MFValuationDate = DateTime.Parse(portfolioBo.GetLatestValuationDate(adviserId, Constants.MF.ToString()).ToString());
