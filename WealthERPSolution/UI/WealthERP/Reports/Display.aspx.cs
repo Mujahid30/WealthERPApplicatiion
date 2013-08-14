@@ -58,7 +58,7 @@ namespace WealthERP.Reports
         double totalHoldingInvestedCost;
         double totalHoldingAbsoluteReturn;
 
-
+        UserVo userVo = new UserVo();
         RiskProfileBo riskprofilebo = new RiskProfileBo();
         RMVo customerRMVo = new RMVo();
         MFReportVo mfReport = new MFReportVo();
@@ -147,6 +147,7 @@ namespace WealthERP.Reports
 
         protected void Page_Init(object sender, EventArgs e)
         {
+            userVo = (UserVo)Session["UserVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             string mfPageClientId = "ctrl_MFReports$";
             if (Session["rmVo"] != null)
@@ -1035,13 +1036,20 @@ namespace WealthERP.Reports
         private void DisplayReport(FPOfflineFormVo report)
         {
             RMVo rmVo = (RMVo)Session["rmVo"];
+
             try
             {
                 FinancialPlanningReportsBo financialPlanningReportsBo = new FinancialPlanningReportsBo();
                 report = (FPOfflineFormVo)Session["reportParams"];
                 crmain.Load(Server.MapPath("FPOfflineForm.rpt"));
 
-                DataSet dsFPQuestionnaire = financialPlanningReportsBo.GetFPQuestionnaire(report, advisorVo.advisorId);
+                DataSet dsFPQuestionnaire;
+                if (userVo.UserType != "SuperAdmin")
+                    dsFPQuestionnaire = financialPlanningReportsBo.GetFPQuestionnaire(report, advisorVo.advisorId);
+                else
+                    dsFPQuestionnaire = financialPlanningReportsBo.GetFPQuestionnaire(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+
+
                 DataTable dtFPQuestionnaire = dsFPQuestionnaire.Tables[0];
                 if (dtFPQuestionnaire.Rows.Count > 0)
                 {
@@ -2831,7 +2839,12 @@ namespace WealthERP.Reports
                         crmain.Load(Server.MapPath("MultiiAssetReport.rpt"));
 
 
-                        DataSet dsEquitySectorwise = portfolioReports.GetPortfolioSummary(report, advisorVo.advisorId);
+                        DataSet dsEquitySectorwise;
+                        if (userVo.UserType != "SuperAdmin")
+                            dsEquitySectorwise = portfolioReports.GetPortfolioSummary(report, advisorVo.advisorId);
+                        else
+                            dsEquitySectorwise = portfolioReports.GetPortfolioSummary(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+
                         DataTable dtEquitySectorwise = dsEquitySectorwise.Tables[0];
                         if (dtEquitySectorwise.Rows.Count > 0)
                         {
@@ -2886,9 +2899,12 @@ namespace WealthERP.Reports
 
                         //crmain.SetDatabaseLogon("sa", "pcg123#", "122.166.49.39", "wealtherpQA");
                         crmain.Load(Server.MapPath("MFComprehensiveNetworth.rpt"));
+                        DataSet ds;
+                        if (userVo.UserType != "SuperAdmin")
+                            ds = portfolioReports.GetComprehensiveNetworthSummary(report, advisorVo.advisorId);
+                        else
+                            ds = portfolioReports.GetComprehensiveNetworthSummary(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
 
-
-                        DataSet ds = portfolioReports.GetComprehensiveNetworthSummary(report, advisorVo.advisorId);
                         DataTable dt = ds.Tables[0];
                         if (dt.Rows.Count > 0)
                         {
@@ -2937,8 +2953,12 @@ namespace WealthERP.Reports
                         break;
 
                     case "ASSET_ALLOCATION_REPORT":
+                        DataSet dsAssetAllocation;
+                        if (userVo.UserType != "SuperAdmin")
+                            dsAssetAllocation = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
+                        else
+                            dsAssetAllocation = portfolioReports.GetCustomerAssetAllocationDetails(report, Convert.ToInt32(Session["SAReportsAdviserID"]), report.SubType);
 
-                        DataSet dsAssetAllocation = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
                         DataTable dtAssetSummary = dsAssetAllocation.Tables[0];
                         DataTable dtAssetDetails = dsAssetAllocation.Tables[1];
 
@@ -3029,7 +3049,13 @@ namespace WealthERP.Reports
 
                     case "INVESTMENT_SUMMARY_REPORT":
 
-                        DataSet dsInvestmentDetails = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
+                        DataSet dsInvestmentDetails;
+                        if (userVo.UserType != "SuperAdmin")
+                            dsInvestmentDetails = portfolioReports.GetCustomerAssetAllocationDetails(report, advisorVo.advisorId, report.SubType);
+                        else
+                            dsInvestmentDetails = portfolioReports.GetCustomerAssetAllocationDetails(report, Convert.ToInt32(Session["SAReportsAdviserID"]), report.SubType);
+
+
                         DataTable dtInvestmentSummary = dsInvestmentDetails.Tables[0];
                         DataTable dtInvestmentDetails = dsInvestmentDetails.Tables[1];
 
@@ -3132,7 +3158,7 @@ namespace WealthERP.Reports
                     customerVo = (CustomerVo)Session["CusVo"];
                 else if (Session["customerVo"] != null)
                     customerVo = (CustomerVo)Session["customerVo"];
-               
+
 
                 switch (report.SubType)
                 {
@@ -3140,7 +3166,12 @@ namespace WealthERP.Reports
                     case "EQUITY_SECTOR_WISE":
 
                         crmain.Load(Server.MapPath("EqSectorwise.rpt"));
-                        DataTable dtEquitySectorwise = equityReports.GetEquityScripwiseSummary(report, advisorVo.advisorId);
+                        DataTable dtEquitySectorwise;
+                        if (userVo.UserType != "SuperAdmin")
+                            dtEquitySectorwise = equityReports.GetEquityScripwiseSummary(report, advisorVo.advisorId);
+                        else
+                            dtEquitySectorwise = equityReports.GetEquityScripwiseSummary(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+
                         if (dtEquitySectorwise.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtEquitySectorwise);
@@ -3152,22 +3183,22 @@ namespace WealthERP.Reports
                             AssignReportViewerProperties();
                             string Headername;
                             //  string GroupHead =Convert.ToInt32(ViewState["GroupHead"]).ToString();                       
-                           
-                         if ((report.CustomerIds==equityReport.GroupHead)||!String.IsNullOrEmpty(equityReport.GroupHead))
+
+                            if ((report.CustomerIds == equityReport.GroupHead) || !String.IsNullOrEmpty(equityReport.GroupHead))
                             {
                                 Headername = "Sectorwise Summary Report";
-                                crmain.SetParameterValue("Header", Headername);                             
+                                crmain.SetParameterValue("Header", Headername);
                             }
-                         //if (!String.IsNullOrEmpty(equityReport.CustomerIds))
-                         //{
-                         //    Headername = "Sectorwise Summary Report";
-                         //    crmain.SetParameterValue("Header", Headername);
-                         //}
-                         else
-                         {
-                             Headername = "Sectorwise Summary Report";
-                             crmain.SetParameterValue("Header", Headername);
-                         }
+                            //if (!String.IsNullOrEmpty(equityReport.CustomerIds))
+                            //{
+                            //    Headername = "Sectorwise Summary Report";
+                            //    crmain.SetParameterValue("Header", Headername);
+                            //}
+                            else
+                            {
+                                Headername = "Sectorwise Summary Report";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
                             lblClosingBalanceNote.Visible = false;
                             if (Request.QueryString["mail"] == "2")
                             {
@@ -3187,7 +3218,11 @@ namespace WealthERP.Reports
 
                     case "EQUITY_TRANSACTION_WISE":
                         crmain.Load(Server.MapPath("EquityTransactionWise.rpt"));
-                        DataTable dtEquitytransactionwise = equityReports.GetEquityTransaction(report, advisorVo.advisorId);
+                        DataTable dtEquitytransactionwise;
+                        if (userVo.UserType != "SuperAdmin")
+                        dtEquitytransactionwise = equityReports.GetEquityTransaction(report, advisorVo.advisorId);
+                        else
+                            dtEquitytransactionwise = equityReports.GetEquityTransaction(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
                         if (dtEquitytransactionwise.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtEquitytransactionwise);
@@ -3198,18 +3233,18 @@ namespace WealthERP.Reports
                             lblClosingBalanceNote.Visible = false;
                             string Headername;
                             Session["customerVo"] = customerVo;
-                         
-                            
-                            
+
+
+
                             // if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             //if (!String.IsNullOrEmpty(equityReport.GroupHead))
                             //{
-                            if (report.CustomerIds == equityReport.GroupHead||!String.IsNullOrEmpty(equityReport.GroupHead))
-                                {
-                                    Headername = "Equity Transaction Report";
-                                    crmain.SetParameterValue("Header", Headername);
-                                }
-                           // }
+                            if (report.CustomerIds == equityReport.GroupHead || !String.IsNullOrEmpty(equityReport.GroupHead))
+                            {
+                                Headername = "Equity Transaction Report";
+                                crmain.SetParameterValue("Header", Headername);
+                            }
+                            // }
                             else
                             {
                                 Headername = "Equity Transaction Report";
@@ -3234,8 +3269,12 @@ namespace WealthERP.Reports
 
                     case "EQUITY_HOLDING_WISE":
                         crmain.Load(Server.MapPath("EquityHoldingWise.rpt"));
+                        DataSet dsEquityholdingwise;
+                        if (userVo.UserType != "SuperAdmin")
+                        dsEquityholdingwise = equityReports.GetEquityHolding(report, advisorVo.advisorId);
+                        else
+                            dsEquityholdingwise = equityReports.GetEquityHolding(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
 
-                        DataSet dsEquityholdingwise = equityReports.GetEquityHolding(report, advisorVo.advisorId);
                         DataTable dtEquityholdingwise = dsEquityholdingwise.Tables[0];
                         //crmain.Load(Server.MapPath("AbsoluteReturn.rpt"));
                         DataTable dtabsoluteReturn = dsEquityholdingwise.Tables[1];
@@ -3338,7 +3377,11 @@ namespace WealthERP.Reports
 
                     case "EQ_PORTFOLIO_RETURNS_REPORT":
 
-                        DataTable dtEquityPortfolioTransactions = equityReports.GetCustomerPortfolioEquityTransactions(report, advisorVo.advisorId);
+                        DataTable dtEquityPortfolioTransactions;
+                        if (userVo.UserType != "SuperAdmin")
+                        dtEquityPortfolioTransactions = equityReports.GetCustomerPortfolioEquityTransactions(report, advisorVo.advisorId);
+                        else
+                            dtEquityPortfolioTransactions = equityReports.GetCustomerPortfolioEquityTransactions(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
 
                         if (dtEquityPortfolioTransactions.Rows.Count > 0)
                         {
@@ -3402,7 +3445,6 @@ namespace WealthERP.Reports
         /// <param name="report"></param>
         private void DisplayReport(MFReportVo report)
         {
-
             try
             {
                 MFReportsBo mfReports = new MFReportsBo();
@@ -3498,8 +3540,11 @@ namespace WealthERP.Reports
 
                     case "CATEGORY_WISE":
                         crmain.Load(Server.MapPath("MFFundSummary.rpt"));
-
-                        DataSet dsMFFundSummary = mfReports.GetMFFundSummaryReport(report, advisorVo.advisorId);
+                        DataSet dsMFFundSummary;
+                        if (userVo.UserType != "SuperAdmin")
+                            dsMFFundSummary = mfReports.GetMFFundSummaryReport(report, advisorVo.advisorId);
+                        else
+                            dsMFFundSummary = mfReports.GetMFFundSummaryReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
                         if (dsMFFundSummary.Tables[0].Rows.Count > 0 || dsMFFundSummary.Tables[1].Rows.Count > 0)
                         {
                             crmain.Subreports["OpenPositionReport"].Database.Tables[0].SetDataSource(dsMFFundSummary.Tables[0]);
@@ -3676,8 +3721,13 @@ namespace WealthERP.Reports
 
                     case "RETURNS_PORTFOLIO":
                         DataTable dtReturnsPortfolio;
+                        DataSet dsReturnsPortfolioHoldings;
                         crmain.Load(Server.MapPath("MFReturns.rpt"));
-                        DataSet dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        if (userVo.UserType != "SuperAdmin")
+                            dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, advisorVo.advisorId);
+                        else
+                            dsReturnsPortfolioHoldings = mfReports.GetReturnSummaryReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+
                         dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[0];
                         DataTable dtPortfolioXIRR = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
                         dtReturnsPortfolio = dsReturnsPortfolioHoldings.Tables[1];
@@ -3714,8 +3764,11 @@ namespace WealthERP.Reports
                     case "COMPREHENSIVE":
                         //crmain.Load(Server.MapPath("MFPortfolioAnalytics.rpt"));
                         crmain.Load(Server.MapPath("ComprehensiveMFReport.rpt"));
-
-                        DataSet dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+                        DataSet dsReturnsPortfolio;
+                        if (userVo.UserType != "SuperAdmin")
+                            dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, advisorVo.advisorId);
+                        else
+                            dsReturnsPortfolio = mfReports.GetPortfolioAnalyticsReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
                         dtReturnsPortfolio = dsReturnsPortfolio.Tables[0];
                         //dtReturnsPortfolio.Columns.Add("FolioStartDate");
                         DataTable dtPortfolioXIRRComp = customerPortfolioBo.GetCustomerPortfolioLabelXIRR(report.PortfolioIds);
@@ -3759,8 +3812,11 @@ namespace WealthERP.Reports
                         break;
                     case "COMPOSITION_REPORT":
                         crmain.Load(Server.MapPath("SchemePerformance.rpt"));
-                        DataSet dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
-
+                        DataSet dsCustomerPortfolioComposition;
+                        if (userVo.UserType != "SuperAdmin")
+                            dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, advisorVo.advisorId);
+                        else
+                            dsCustomerPortfolioComposition = mfReports.GetPortfolioCompositionReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
                         if (dsCustomerPortfolioComposition.Tables[0].Rows.Count > 0)
                         {
                             //crmain.SetDataSource(dsCustomerPortfolioComposition.Tables[0]);
@@ -3794,7 +3850,13 @@ namespace WealthERP.Reports
                     //Added Three more cases for Display three new report : Author-Pramod
                     case "RETURNS_PORTFOLIO_REALIZED":
                         crmain.Load(Server.MapPath("MFReturnsRealized.rpt"));
-                        DataTable dtReturnsREPortfolio = mfReports.GetMFReturnRESummaryReport(report, advisorVo.advisorId);
+                        DataTable dtReturnsREPortfolio;
+                        if (userVo.UserType != "SuperAdmin")
+                            dtReturnsREPortfolio = mfReports.GetMFReturnRESummaryReport(report, advisorVo.advisorId);
+                        else
+                            dtReturnsREPortfolio = mfReports.GetMFReturnRESummaryReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
+
+
                         if (dtReturnsREPortfolio.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtReturnsREPortfolio);
@@ -3823,7 +3885,13 @@ namespace WealthERP.Reports
 
                     case "REALIZED_REPORT":
                         crmain.Load(Server.MapPath("MFRealized.rpt"));
-                        DataTable dtMFRealized = mfReports.GetMFRealizedReport(report, advisorVo.advisorId);
+
+                        DataTable dtMFRealized;
+                        if (userVo.UserType != "SuperAdmin")
+
+                            dtMFRealized = mfReports.GetMFRealizedReport(report, advisorVo.advisorId);
+                        else
+                            dtMFRealized = mfReports.GetMFRealizedReport(report, Convert.ToInt32(Session["SAReportsAdviserID"]));
                         if (dtMFRealized.Rows.Count > 0)
                         {
                             crmain.SetDataSource(dtMFRealized);
@@ -4081,6 +4149,12 @@ namespace WealthERP.Reports
 
         private void GetReportParameters()
         {
+            int adviserId = 0;
+            if (userVo.UserType != "SuperAdmin")
+                adviserId = advisorVo.advisorId;
+            else
+                adviserId = Convert.ToInt32(Session["SAReportsAdviserID"]);
+
             CalculateDateRange(out dtFrom, out dtTo);
             if (CurrentReportType == ReportType.EquityReports)
             {
@@ -4202,18 +4276,20 @@ namespace WealthERP.Reports
                 else
                     financialPlanning.isProspect = 0;
                 financialPlanning.CustomerId = customerVo.CustomerId.ToString();
-                financialPlanning.advisorId = advisorVo.advisorId;
-
+                //financialPlanning.advisorId = advisorVo.advisorId;
+                financialPlanning.advisorId = adviserId;
                 Session["reportParams"] = financialPlanning;
             }
             else if (CurrentReportType == ReportType.FPOfflineForm)
             {
-                fpOfflineForm.advisorId = advisorVo.advisorId;
+                //fpOfflineForm.advisorId = advisorVo.advisorId;
+                fpOfflineForm.advisorId = adviserId;
                 Session["reportParams"] = fpOfflineForm;
             }
             else if (CurrentReportType == ReportType.OrderTransactionSlip)
             {
-                orderTransaction.advisorId = advisorVo.advisorId;
+                //orderTransaction.advisorId = advisorVo.advisorId;
+                orderTransaction.advisorId = adviserId;
                 orderVo = (OrderVo)Session["orderVo"];
                 if (orderVo != null)
                 {
@@ -4725,6 +4801,11 @@ namespace WealthERP.Reports
             bool isMailSent = false;
             RMVo rmVo = (RMVo)Session["rmVo"];
             string logoPath = "";
+            int adviserId = 0;
+            if (userVo.UserType != "SuperAdmin")
+                adviserId = advisorVo.advisorId;
+            else
+                adviserId = Convert.ToInt32(Session["SAReportsAdviserID"]);
 
             string senderName = rmVo.FirstName + " " + rmVo.LastName;
 
@@ -4807,7 +4888,8 @@ namespace WealthERP.Reports
 
                 EmailSMSBo emailSMSBo = new EmailSMSBo();
                 EmailVo emailVo = new EmailVo();
-                emailVo.AdviserId = advisorVo.advisorId;
+                //emailVo.AdviserId = advisorVo.advisorId;
+                emailVo.AdviserId = adviserId;
                 emailVo.AttachmentPath = reportFileName;
                 if (Session["CusVo"] != null)
                     emailVo.CustomerId = ((CustomerVo)Session["CusVo"]).CustomerId;
