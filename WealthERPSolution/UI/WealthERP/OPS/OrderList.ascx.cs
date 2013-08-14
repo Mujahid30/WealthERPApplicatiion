@@ -39,6 +39,7 @@ namespace WealthERP.OPS
         int bmID;
         int rmId;
         string AgentCode;
+        string UserTitle;
         string customerType = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,13 +70,26 @@ namespace WealthERP.OPS
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
             {
                 userType = "associates";
-                associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-                if (associateuserheirarchyVo.AgentCode != null)
+                if (UserTitle =="SubBroker")
                 {
-                    AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
                 }
                 else
-                    AgentCode = "0";
+                {
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.AgentCode != null)
+                    {
+                        AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    }
+                    else
+                        AgentCode = "0";
+                }
                 txtIndividualCustomer_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                 txtIndividualCustomer_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
             }
