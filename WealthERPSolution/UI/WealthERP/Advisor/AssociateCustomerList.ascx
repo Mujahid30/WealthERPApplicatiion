@@ -64,6 +64,11 @@
                             HeaderStyle-Width="90px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn DataField="Titles" UniqueName="Titles" HeaderText="Title"
+                            AutoPostBackOnFilter="true" SortExpression="Titles" ShowFilterIcon="false" AllowFiltering="true"
+                            HeaderStyle-Width="90px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
+                            <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                        </telerik:GridBoundColumn>
                         <telerik:GridDateTimeColumn DataField="AA_StartDate" ReadOnly="true"
                             DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px"
                             HeaderText="From" SortExpression="AA_StartDate" UniqueName="AA_StartDate">
