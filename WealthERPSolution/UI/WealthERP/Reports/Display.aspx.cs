@@ -3456,17 +3456,19 @@ namespace WealthERP.Reports
                     customerVo = (CustomerVo)Session["customerVo"];
 
                 //Customer Individual LogIn...
-                if (Session["hndCustomerLogin"].ToString() == "true")
+                if (Session["hndCustomerLogin"] != null)
                 {
-                    if (ViewState["CustomerId"] == null && Request.Form["ctrl_MFReports$hdnCustomerId1"] != null)
-                        ViewState["CustomerId"] = Request.Form["ctrl_MFReports$hdnCustomerId1"];
+                    if (Session["hndCustomerLogin"].ToString() == "true")
+                    {
+                        if (ViewState["CustomerId"] == null && Request.Form["ctrl_MFReports$hdnCustomerId1"] != null)
+                            ViewState["CustomerId"] = Request.Form["ctrl_MFReports$hdnCustomerId1"];
 
-                    customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
-                    Session["customerVo"] = customerVo;
+                        customerVo = customerBo.GetCustomer(int.Parse(ViewState["CustomerId"].ToString()));
+                        Session["customerVo"] = customerVo;
 
 
+                    }
                 }
-
 
                 switch (report.SubType)
                 {
@@ -4078,7 +4080,13 @@ namespace WealthERP.Reports
 
                 crmain.SetParameterValue("CustomerAddress", formatstring);
                 crmain.SetParameterValue("CustomerEmail", "Email :  " + customerVo.Email);
-                crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+
+                if (userVo.UserType != "SuperAdmin")
+                    crmain.SetParameterValue("Organization", advisorVo.OrganizationName);
+                else
+                    crmain.SetParameterValue("Organization", Session["SAReportsAdviserOrgName"].ToString());
+
+                
 
 
 
