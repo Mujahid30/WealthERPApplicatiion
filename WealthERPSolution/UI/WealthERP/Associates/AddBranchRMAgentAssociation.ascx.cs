@@ -42,6 +42,15 @@ namespace WealthERP.Associates
             {
                 lblPanDuplicate.Visible = false;
                 BindAgentList();
+                if (Request.QueryString["rmId"] != null)
+                {
+                    ddlUserType.SelectedValue = "RM";
+                    BindRMDropDown();
+                    ddlSelectType.SelectedValue = Request.QueryString["rmId"];
+                    ddlUserType.Enabled = false;
+                    ddlSelectType.Enabled = false;
+
+                }
                 if (Request.QueryString["AssociationId"] != null)
                 {
                     
@@ -52,6 +61,7 @@ namespace WealthERP.Associates
                     ddlSelectType.SelectedValue = associationId.ToString();
 
                 }
+                
                 if (Request.QueryString["StaffRole"] != null)
                 {
                     ddlUserType.Text = Request.QueryString["StaffRole"].ToString();
