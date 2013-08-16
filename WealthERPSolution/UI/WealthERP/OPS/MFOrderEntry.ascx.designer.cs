@@ -155,6 +155,8 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
+
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
         
         /// <summary>
@@ -246,6 +248,8 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlsearch;
+
         protected global::System.Web.UI.WebControls.DropDownList ddlAssociate;
 
         /// <summary>
@@ -265,6 +269,9 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsa;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trpan;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trCust;
+
         
         /// <summary>
         /// lblIsa control.
