@@ -157,10 +157,24 @@ namespace WealthERP.Advisor
                         BindStaffGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true, adviserId);
                     }
                 }
+                else if (currentUserRole == "associates")
+                {
+                  
+                    agentCode = associateuserheirarchyVo.AgentCode;
+                    if (ddlBMBranch.Items.Count > 1)
+                    {
+                    
+                        BindStaffGrid(0, false, false, true, adviserId);
+                    }
+                }
 
             }
             else
             {
+                if (currentUserRole == "associates")
+                {
+                    agentCode = associateuserheirarchyVo.AgentCode;
+                }
                 BindStaffGrid(Convert.ToInt32(ddlBMBranch.SelectedValue.ToString()), false, false, true, adviserId);
 
             }
