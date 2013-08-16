@@ -97,12 +97,12 @@
                                                 HeaderText="Title" UniqueName="Titles">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="120px" DataField="BranchList" SortExpression="BranchList" AutoPostBackOnFilter="true"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="120px"  DataField="BranchList" SortExpression="BranchList" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Office" UniqueName="Branch">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ReportingManagerName" SortExpression="ReportingManagerName"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" Visible="false" DataField="ReportingManagerName" SortExpression="ReportingManagerName"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Reporting To" UniqueName="ReportingManagerName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
