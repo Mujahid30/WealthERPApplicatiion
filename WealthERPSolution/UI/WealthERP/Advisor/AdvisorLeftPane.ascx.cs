@@ -842,9 +842,18 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
-                }
+                    if (advisorVo.A_AgentCodeBased == 0)
+                    {
+                        Session["UserType"] = "adviser";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
+
+                    }
+                    else
+                    {
+                        Session["UserType"] = "adviser";
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
+                    }
+                                    }
                 else if (e.Item.Value == "LI_Order")
                 {
                     Session["UserType"] = "adviser";
@@ -852,7 +861,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Order_List")
                 {
-                    Session["UserType"] = "adviser";
+                         Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderList','login');", true);
                 }
                 else if (e.Item.Value == "OrderMIS")
