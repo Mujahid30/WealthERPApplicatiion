@@ -119,8 +119,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="View Customer Association" Value="ViewCustomerAssociation">
-                                                    </telerik:RadPanelItem>
+                                                     
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
@@ -135,6 +134,8 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Customer Association" Value="View_Customer_Association">
+                                                    </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add FP Prospect" Value="Add FP Prospect">
@@ -205,6 +206,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
+                                                    </telerik:RadPanelItem>
+                                                      <telerik:RadPanelItem runat="server" Text="Customer Association Recon" Value="Customer_Association_Recon">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -706,6 +709,9 @@
                                                     <telerik:RadPanelItem runat="server" Text="MFOrder Recon" Value="OrderMIS">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
+                                                    </telerik:RadPanelItem>
+                                                    
+                                                      <telerik:RadPanelItem runat="server" Text="Customer Association Recon" Value="Customer_Association_Recon">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

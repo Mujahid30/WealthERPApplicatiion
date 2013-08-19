@@ -525,7 +525,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HierarchySetup','login');", true);
                 }
-                else if (e.Item.Value == "ViewCustomerAssociation")
+                else if (e.Item.Value == "View_Customer_Association")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssociateCustomerList','login');", true);
@@ -546,6 +546,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Setup IP pool")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserIPPool','login');", true);
+                }
+
+                else if (e.Item.Value == "Customer_Association_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SubBrokerCustomerAssociationSync','login');", true);
                 }
                 else if (e.Item.Value == "RepositoryCategory")
                 {
@@ -1535,6 +1540,10 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "ISA_Folio_Mapp")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerISAFolioMapping','login');", true);
+                }
+                else if (e.Item.Value == "Customer_Association_Recon")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SubBrokerCustomerAssociationSync','login');", true);
                 }
                 else if (e.Item.Value == "Add Customer")
                 {
@@ -2838,7 +2847,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "Associates";
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "ViewCustomerAssociation")
+                else if (e.Item.Value == "View_Customer_Association")
                 {
                     Session["UserType"] = "Associates";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssociateCustomerList','login');", true);
