@@ -25,6 +25,8 @@ using BoProductMaster;
 using VoProductMaster;
 using VOAssociates;
 using BOAssociates;
+using BoOps;
+using VoOps;
 using Telerik.Web.UI.GridExcelBuilder;
 
 namespace WealthERP.CustomerPortfolio
@@ -40,6 +42,7 @@ namespace WealthERP.CustomerPortfolio
         ProductMFBo productMFBo = new ProductMFBo();
         CustomerBo customerBo = new CustomerBo();
         CustomerVo customerVo = new CustomerVo();
+        OrderBo orderbo = new OrderBo();
         UserVo userVo = new UserVo();
         int GroupHead = 0;
         int customerId = 0;
@@ -48,6 +51,7 @@ namespace WealthERP.CustomerPortfolio
         List<MFTransactionVo> mfBalanceList = null;
         MFTransactionVo mfBalanceVo = new MFTransactionVo();
         AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         DateTime dtTo = new DateTime();
         DateBo dtBo = new DateBo();
         DateTime dtFrom = new DateTime();
@@ -73,6 +77,8 @@ namespace WealthERP.CustomerPortfolio
         double unitsForMerge;
         double amountForMerge = 0;
         int AgentId;
+        string AgentCode;
+        string UserTitle;
         int IsAssociates;
         DateTime transactionDateForMerge;
 
@@ -94,7 +100,32 @@ namespace WealthERP.CustomerPortfolio
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                     userType = "rm";
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
                     userType = "associates";
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.UserTitle == "SubBroker")
+                    {
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                        {
+                            AgentCode = "0";
+                        }
+                    }
+                    else
+                    {
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                        {
+                            AgentCode = "0";
+                        }
+                    }
+                }
                 else if (Session["IsCustomerDrillDown"] != null)
                 {
                     userType = "Customer";
@@ -147,7 +178,11 @@ namespace WealthERP.CustomerPortfolio
                     //tdGroupHead.Visible = false;
                     //lblGroupHead.Visible = false;
                     //txtParentCustomer.Visible = false;
-
+                    if (userType == "associates")
+                    {
+                        trZCCS.Visible = true;
+                        BindSubBrokerAgentCode(AgentCode);
+                    }
 
 
                     if (Session[SessionContents.CurrentUserRole].ToString() == "RM")
@@ -235,7 +270,22 @@ namespace WealthERP.CustomerPortfolio
             }
         }
 
+        protected void BindSubBrokerAgentCode(string AgentCode)
+        {
+            DataTable dtSubbrokerCode = new DataTable();
 
+            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(AgentCode);
+
+            if (dtSubbrokerCode.Rows.Count > 0)
+            {
+                ddlBrokerCode.DataSource = dtSubbrokerCode;
+                ddlBrokerCode.DataValueField = dtSubbrokerCode.Columns["ACC_AgentId"].ToString();
+                ddlBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
+                ddlBrokerCode.DataBind();
+            }
+            ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+
+        }
 
         protected void btnAutoMatch_Click(object sender, EventArgs e)
         {
@@ -271,7 +321,7 @@ namespace WealthERP.CustomerPortfolio
             }
 
 
-            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 0, folionoForMerge, schemeplancodeForMerge, transactionnoForMerge,unitsForMerge,amountForMerge,transactionDateForMerge,advisorVo.advisorId);
+            isMergeCompleted = customerTransactionBo.MergeTrailDetailsWithTransaction(accountIdForMerge, trailIdForMerge, transactionIdForMerge, isMergeComplete, 0, folionoForMerge, schemeplancodeForMerge, transactionnoForMerge, unitsForMerge, amountForMerge, transactionDateForMerge, advisorVo.advisorId);
             if (isMergeCompleted == false)
                 Response.Write(@"<script language='javascript'>alert('Error updating Trail Data for: \n" + accountIdForMerge + "');</script>");
             else
@@ -315,7 +365,7 @@ namespace WealthERP.CustomerPortfolio
             radwindowForManualMerge.VisibleOnPageLoad = true;
             DataSet dsTransactionForMerge = new DataSet();
 
-        
+
 
             foreach (GridDataItem item in this.gvTrail.Items)
             {
@@ -338,7 +388,7 @@ namespace WealthERP.CustomerPortfolio
             Session["transactionnoForMerge"] = transactionnoForMerge;
 
 
-            dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge,trailIdForMerge,folionoForMerge,schemeplancodeForMerge,transactionnoForMerge,advisorVo.advisorId);
+            dsTransactionForMerge = customerTransactionBo.GetTransactionDetailsForTrail(accountIdForMerge, trailIdForMerge, folionoForMerge, schemeplancodeForMerge, transactionnoForMerge, advisorVo.advisorId);
 
 
             if (Cache["TrnxToBeMergedDetails" + userVo.UserId + userType] == null)
@@ -688,6 +738,21 @@ namespace WealthERP.CustomerPortfolio
             {
                 hdnCategory.Value = "0";
             }
+          if (userType == "associates")
+           {
+            if (ddlBrokerCode.SelectedIndex != 0)
+            {
+                hdnAgentCode.Value = ddlBrokerCode.SelectedItem.ToString();
+                //hdnAgentId.Value = ddlBrokerCode.SelectedItem.Value.ToString();
+
+            }
+            else
+            {
+                hdnAgentCode.Value = AgentCode;
+                //hdnAgentId.Value = "0";
+                //AgentId = int.Parse(ddlBrokerCode.SelectedItem.Value.ToString());
+            }
+           }
         }
         private void BindGrid(DateTime convertedFromDate, DateTime convertedToDate)
         {
@@ -727,16 +792,17 @@ namespace WealthERP.CustomerPortfolio
                 IsAssociates = 0;
             }
             else if (userType == "rm")
-            {   rmID = rmVo.RMId;
+            {
+                rmID = rmVo.RMId;
                 IsAssociates = 0;
             }
             else if (userType == "associates")
             {
-                AgentId = associatesVo.AAC_AdviserAgentId;
+                AgentId = 0;
                 IsAssociates = 1;
             }
 
-            schemePlanCode =Convert.ToInt32(ViewState["SchemePlanCode"]);
+            schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
 
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
@@ -744,16 +810,16 @@ namespace WealthERP.CustomerPortfolio
             {//pramod
                 if (rbtnGroup.Checked)
                 {
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value,IsAssociates,AgentId);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId, hdnAgentCode.Value);
                 }
                 else if (Convert.ToString(Session["IsCustomerDrillDown"]) == "Yes")
                 {
                     customerId = customerVo.CustomerId;
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value,IsAssociates, AgentId);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, true, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId, hdnAgentCode.Value);
                 }
                 else
                 {
-                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value,IsAssociates,AgentId);
+                    mfTransactionList = customerTransactionBo.GetRMCustomerMFTransactions(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, false, schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId, hdnAgentCode.Value);
                 }
 
                 if (mfTransactionList.Count != 0)
@@ -904,7 +970,7 @@ namespace WealthERP.CustomerPortfolio
                 AgentId = associatesVo.AAC_AdviserAgentId;
                 IsAssociates = 1;
             }
-            
+
 
 
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
@@ -913,16 +979,16 @@ namespace WealthERP.CustomerPortfolio
             {//pramod
                 if (rbtnGroup.Checked)
                 {
-                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value,IsAssociates, AgentId);
+                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
                 }
                 else if (Session["IsCustomerDrillDown"] == "Yes")
                 {
                     customerId = customerVo.CustomerId;
-                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value,IsAssociates, AgentId);
+                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
                 }
                 else
                 {
-                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value,IsAssociates, AgentId);
+                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
                 }
                 if (mfBalanceList.Count != 0)
                 {
@@ -1133,7 +1199,7 @@ namespace WealthERP.CustomerPortfolio
             SetParameter();
             DataSet dsTrailCommissionDetails = new DataSet();
             DataSet ds = new DataSet();
-            int rmID = 0;           
+            int rmID = 0;
             int AdviserId = 0;
             if (userType == "advisor" || userType == "ops")
             {
@@ -1147,7 +1213,7 @@ namespace WealthERP.CustomerPortfolio
             }
             else if (userType == "associates")
             {
-                AgentId = associatesVo.AAC_AdviserAgentId ;
+                AgentId = associatesVo.AAC_AdviserAgentId;
                 IsAssociates = 1;
             }
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
@@ -1166,18 +1232,18 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
-              }
+                }
                 if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
                 {
                     dsTrailCommissionDetails.Tables[0].Columns.Add("Conditioning");
-                    int i=0;
-                    foreach(DataRow dr in dsTrailCommissionDetails.Tables[0].Rows)
+                    int i = 0;
+                    foreach (DataRow dr in dsTrailCommissionDetails.Tables[0].Rows)
                     {
                         if (!string.IsNullOrEmpty(dsTrailCommissionDetails.Tables[0].Rows[i]["CMFT_MFTransId"].ToString()))
-                        dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"]="Matched";
+                            dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"] = "Matched";
                         else
                             dsTrailCommissionDetails.Tables[0].Rows[i]["Conditioning"] = "Not Matched";
-                    i++;
+                        i++;
                     }
 
 
@@ -1295,7 +1361,7 @@ namespace WealthERP.CustomerPortfolio
                     gvTrail.MasterTableView.Rebind();
                 }
             }
-        }  
+        }
 
         protected void RCBForTrailCondiotining_SelectedIndexChanged(object o, Telerik.Web.UI.RadComboBoxSelectedIndexChangedEventArgs e)
         {
@@ -1336,7 +1402,7 @@ namespace WealthERP.CustomerPortfolio
             gvTrail.Visible = true;
 
             string rcbType = string.Empty;
-          
+
             DataTable dtrr = new DataTable();
             dtTrailstransactionDetails = (DataSet)Cache["ViewTrailCommissionDetails" + advisorVo.advisorId.ToString()];
             if (dtTrailstransactionDetails != null)
@@ -1353,7 +1419,7 @@ namespace WealthERP.CustomerPortfolio
                 else
                 {
                     gvTrail.DataSource = dtrr;
-                 
+
                 }
             }
         }

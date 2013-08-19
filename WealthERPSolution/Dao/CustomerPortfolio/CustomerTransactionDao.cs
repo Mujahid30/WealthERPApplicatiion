@@ -2325,7 +2325,7 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category,int IsAssociates,int AgentId)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category,int IsAssociates,int AgentId,string AgentCode)
         {
             DataSet ds = null;
             Database db;
@@ -2360,7 +2360,10 @@ namespace DaoCustomerPortfolio
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, DBNull.Value);
 
-
+                if (AgentCode != "0")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AgentCode", DbType.String, AgentCode);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AgentCode", DbType.String, DBNull.Value);
                 if (GroupHeadId != 0)
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, GroupHeadId);
