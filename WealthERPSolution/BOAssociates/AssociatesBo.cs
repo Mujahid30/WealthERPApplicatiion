@@ -320,6 +320,21 @@ namespace BOAssociates
             return associatesVo;
         }
 
+        public int SynchronizeCustomerAssociation(int AdviserId, string Type, int UId)
+        {
+            int result = 0;
+            try
+            {
+                result = associatesDao.SynchronizeCustomerAssociation(AdviserId, Type, UId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+
+        }
+
         public DataTable GetRMAssociatesList(int rmId)
         {
             DataTable dtGetAgentlist;

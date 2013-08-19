@@ -1012,7 +1012,27 @@ namespace DAOAssociates
             }
             return associatesUserHeirarchyVo;
         }
+        public int SynchronizeCustomerAssociation(int AdviserId, string Type, int UId)
+        {
+            Database db;            
+            DbCommand getSynchcmd;
+            int Result;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSynchcmd = db.GetStoredProcCommand("SPROC_SynchronizeCustomerSubbrokerAssociation");
+                db.AddInParameter(getSynchcmd, "@A_AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getSynchcmd, "@Type", DbType.String, Type);
+                db.AddInParameter(getSynchcmd, "@userId", DbType.Int32, UId);
+               Result= db.ExecuteNonQuery(getSynchcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return Result;
 
+        }
         public DataSet GetAdviserAssociateList(int adviserId,string Usertype,string agentcode)
         {
             Database db;
