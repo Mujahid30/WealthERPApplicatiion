@@ -1649,4 +1649,8 @@
     <value>Advisor//StaffDashBoard.ascx</value>
     <comment>Advisor//StaffDashBoard.ascx</comment>
   </data>
+  <data name="SubBrokerCustomerAssociationSync" xml:space="preserve">
+    <value>Advisor//SubBrokerCustomerAssociationSync.ascx</value>
+    <comment>Advisor//SubBrokerCustomerAssociationSync.ascx</comment>
+  </data>
 </root>

@@ -2932,6 +2932,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advisor//SubBrokerCustomerAssociationSync.ascx.
+        /// </summary>
+        internal static string SubBrokerCustomerAssociationSync {
+            get {
+                return ResourceManager.GetString("SubBrokerCustomerAssociationSync", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SuperAdmin//Subscription.ascx.
         /// </summary>
         internal static string Subscription {

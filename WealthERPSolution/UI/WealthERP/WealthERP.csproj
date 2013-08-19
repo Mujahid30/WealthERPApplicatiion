@@ -1016,6 +1016,13 @@
     <Compile Include="Advisor\StaffDashBoard.ascx.designer.cs">
       <DependentUpon>StaffDashBoard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Advisor\SubBrokerCustomerAssociationSync.ascx.cs">
+      <DependentUpon>SubBrokerCustomerAssociationSync.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\SubBrokerCustomerAssociationSync.ascx.designer.cs">
+      <DependentUpon>SubBrokerCustomerAssociationSync.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Advisor\UserLoginMessage.ascx.cs">
       <DependentUpon>UserLoginMessage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -4076,6 +4083,7 @@
     <Content Include="Advisor\RMCustomerAMCSchemewiseMIS.ascx" />
     <Content Include="Advisor\SalesDashBoard.ascx" />
     <Content Include="Advisor\StaffDashBoard.ascx" />
+    <Content Include="Advisor\SubBrokerCustomerAssociationSync.ascx" />
     <Content Include="Advisor\ViewStaff.ascx" />
     <Content Include="Advisor\ViewStaffDashBoard.ascx" />
     <Content Include="AdvsierPreferenceSettings\CustomerCategorySetup.ascx" />
@@ -6001,6 +6009,7 @@
     <Content Include="bin\DanLudwig.Controls.AspAjax.ListBox.dll" />
     <Content Include="bin\DaoAdvisorProfiling.dll" />
     <Content Include="bin\DaoAdvisorProfiling.pdb" />
+    <Content Include="bin\DaoAlerts.pdb" />
     <Content Include="bin\DaoCommisionManagement.dll" />
     <Content Include="bin\DaoCommisionManagement.pdb" />
     <Content Include="bin\DaoCommon.dll" />
