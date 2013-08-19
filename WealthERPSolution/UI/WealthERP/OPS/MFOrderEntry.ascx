@@ -171,6 +171,9 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false">
             </asp:DropDownList>
+            <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td colspan="2">
         </td>
@@ -270,7 +273,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                onclientClick="ShowIsa()" AutoPostBack="True">
+                OnTextChanged="OnAssociateTextchanged" AutoPostBack="True">
             </asp:TextBox><span id="Span7" class="spnRequiredField">*</span>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" TargetControlID="txtAssociateSearch"
                 WatermarkText="Enter few chars of Agent code" runat="server" EnableViewState="false">
@@ -280,7 +283,7 @@
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                UseContextKey="True" OnClientItemSelected="" DelimiterCharacters=""
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
                 ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
