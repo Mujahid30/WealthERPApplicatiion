@@ -2898,7 +2898,7 @@
     <TreeSubSubNode	TreeSubNodeCode="2015" TreeSubSubNodeCode="3030" TreeSubSubNodeText="Expected Commission MIS" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
     <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3031" TreeSubSubNodeText="Staff List" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
 
-    <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3032" TreeSubSubNodeText="Sales Hierarcy" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
+    <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3032" TreeSubSubNodeText="Sales Hierarchy" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
 
   </SuperAdminTreeSubSubNode>
   

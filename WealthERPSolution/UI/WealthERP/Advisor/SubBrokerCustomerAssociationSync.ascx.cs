@@ -34,8 +34,8 @@ namespace WealthERP.Advisor
         protected void btnGo_Click(object sender, EventArgs e)
         {
      int Result = AssBo.SynchronizeCustomerAssociation(advisorVo.advisorId, ddSource.SelectedValue, userVo.UserId);
-          
-        
+
+     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Associations added successfully');", true);
          
         }
 

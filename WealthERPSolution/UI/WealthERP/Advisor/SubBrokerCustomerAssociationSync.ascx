@@ -18,8 +18,8 @@
     
      <table width="100%">
      <tr>
-     <td class="leftLabel">
-                    <asp:Label ID="lblSource" runat="server" Text="Select Source" CssClass="FieldName"></asp:Label>
+     <td  align="right">
+                    <asp:Label ID="lblSource" runat="server" Text="Select Source:" CssClass="FieldName"></asp:Label>
                 </td>
    <td class="rightData">
                     <asp:DropDownList ID="ddSource" runat="server" CssClass="cmbField" AutoPostBack="false">

@@ -877,7 +877,7 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Dashboard" Value="RM Home">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile" Visible="true">
+                                    <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile" Visible="false">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
                                         <Items>                                          

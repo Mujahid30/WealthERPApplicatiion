@@ -8,7 +8,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            View Staff
+                            Sales Hierarchy
                         </td>
                         <td align="right" id="tdExport" runat="server" style="padding-bottom: 2px;">
                             <asp:ImageButton ID="imgViewStaff" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
