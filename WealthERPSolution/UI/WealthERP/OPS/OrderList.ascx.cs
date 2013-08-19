@@ -637,7 +637,12 @@ namespace WealthERP.OPS
                     orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
                     mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
                     orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
-                    orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+                    if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString()))
+                    {
+                        orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+                    }
+                    else 
+                    orderVo.ApplicationReceivedDate = DateTime.MinValue;
                     mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
                     orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
