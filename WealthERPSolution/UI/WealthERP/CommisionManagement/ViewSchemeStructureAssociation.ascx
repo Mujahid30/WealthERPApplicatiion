@@ -39,28 +39,28 @@
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true">
             <Columns>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="SchemePlan Name" DataField="PASP_SchemePlanName"
+                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Scheme Plan" DataField="PASP_SchemePlanName"
                     UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Validity Start" DataField="ACSTSM_ValidityStart"
-                    UniqueName="ACSTSM_ValidityStart" SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                <telerik:GridBoundColumn  HeaderStyle-Width="40px" HeaderText="Validity Start" DataField="ACSTSM_ValidityStart"
+                 HeaderStyle-HorizontalAlign="Center"   UniqueName="ACSTSM_ValidityStart" SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}" >
+                    <ItemStyle HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Validity End" DataField="ACSTSM_ValidityEnd"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="ACSTSM_ValidityEnd" SortExpression="ACSTSM_ValidityEnd"
+                <telerik:GridBoundColumn HeaderStyle-Width="40px" HeaderText="Validity End" DataField="ACSTSM_ValidityEnd"
+                    HeaderStyle-HorizontalAlign="Center" UniqueName="ACSTSM_ValidityEnd" SortExpression="ACSTSM_ValidityEnd"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    FooterStyle-HorizontalAlign="Right" DataFormatString="{0:dd/MM/yyyy}">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="CommissionStructure Name"
-                    DataField="ACSM_CommissionStructureName" HeaderStyle-HorizontalAlign="Right"
+                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Commission Structure"
+                    DataField="ACSM_CommissionStructureName" HeaderStyle-HorizontalAlign="left"
                     UniqueName="ACSM_CommissionStructureName" SortExpression="ACSM_CommissionStructureName"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
