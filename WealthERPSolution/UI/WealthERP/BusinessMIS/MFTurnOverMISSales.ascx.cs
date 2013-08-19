@@ -60,7 +60,8 @@ namespace WealthERP.BusinessMIS
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops"
+                || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
             {
                 Agentcode = string.Empty;
             }
@@ -316,14 +317,23 @@ namespace WealthERP.BusinessMIS
                 gvProduct.Visible = true;
                 pnlProduct.Visible = true;
                 this.gvProduct.GroupingSettings.RetainGroupFootersVisibility = true;
-                if (Cache["gvProduct" + userVo.UserId] == null)
+                //if (Cache["gvProduct" + userVo.UserId] == null)
+                //{
+                //    Cache.Insert("gvProduct" + userVo.UserId, dtGetProductDetailFromMFOrder);
+                //}
+                //else
+                //{
+                //    Cache.Remove("gvProduct" + userVo.UserId);
+                //    Cache.Insert("gvProduct" + userVo.UserId, dtGetProductDetailFromMFOrder);
+                //}
+                if (Cache["gvProduct" + advisorVo.advisorId] == null)
                 {
-                    Cache.Insert("gvProduct" + userVo.UserId, dtGetProductDetailFromMFOrder);
+                    Cache.Insert("gvProduct" + advisorVo.advisorId, dtGetProductDetailFromMFOrder);
                 }
                 else
                 {
-                    Cache.Remove("gvProduct" + userVo.UserId);
-                    Cache.Insert("gvProduct" + userVo.UserId, dtGetProductDetailFromMFOrder);
+                    Cache.Remove("gvProduct" + advisorVo.advisorId);
+                    Cache.Insert("gvProduct" + advisorVo.advisorId, dtGetProductDetailFromMFOrder);
                 }
 
             }
@@ -355,7 +365,8 @@ namespace WealthERP.BusinessMIS
             else if (userType == "associates")
             {
                 hdnAgentId.Value = associatesVo.AAC_AdviserAgentId.ToString();
-                hdnadviserId.Value = "0";
+                Agentcode = associateuserheirarchyVo.AgentCode;
+                hdnadviserId.Value = advisorVo.advisorId.ToString();
                 hdnbranchHeadId.Value = "0";
                 hdnbranchId.Value = "0";
                 hdnrmId.Value = "0";
@@ -404,10 +415,14 @@ namespace WealthERP.BusinessMIS
 
         protected void gvProduct_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
+            //DataTable dtGetProductDetailFromMFOrder = new DataTable();
+            //dtGetProductDetailFromMFOrder = (DataTable)Cache["gvProduct" + userVo.UserId.ToString()];
+            //gvProduct.DataSource = dtGetProductDetailFromMFOrder;
+            //gvProduct.Visible = true;
             DataTable dtGetProductDetailFromMFOrder = new DataTable();
-            dtGetProductDetailFromMFOrder = (DataTable)Cache["gvProduct" + userVo.UserId.ToString()];
-            gvProduct.DataSource = dtGetProductDetailFromMFOrder;
+            dtGetProductDetailFromMFOrder = (DataTable)Cache["gvProduct" + advisorVo.advisorId];
             gvProduct.Visible = true;
+            this.gvProduct.DataSource = dtGetProductDetailFromMFOrder;
         }
 
     }
