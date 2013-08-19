@@ -32,6 +32,8 @@ namespace WealthERP.CommisionManagement
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session["rmVo"];
 
+            ibtExportSummary.Visible = false;
+
             if (!IsPostBack) {
                 pnlGrid.Visible = false;
 
@@ -153,6 +155,7 @@ namespace WealthERP.CommisionManagement
             BindStructureRuleGrid();
             //gvCommMgmt.Visible = true;
             pnlGrid.Visible = true;
+            ibtExportSummary.Visible = true;
         }
 
         protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)

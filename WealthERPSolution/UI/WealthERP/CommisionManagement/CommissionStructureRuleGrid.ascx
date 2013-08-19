@@ -113,7 +113,7 @@
                             <td align="left">
                                 Commission Structure Grid
                             </td>
-                            <td align=right>
+                            <td align=right >
                                 <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExportSummary_OnClick"
                                     Height="25px" Width="25px"></asp:ImageButton>
