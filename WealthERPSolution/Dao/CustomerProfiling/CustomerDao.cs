@@ -5384,7 +5384,7 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        public DataTable GetAgentId(string txtAssociateSearch)
+        public DataTable GetAgentId(int adviserid, int agentid)
         {
 
             Database db;
@@ -5396,9 +5396,10 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 //To retreive data from the table 
-                cmdGetGroupCustomerNames = db.GetStoredProcCommand("SP_GETagentId");
-                db.AddInParameter(cmdGetGroupCustomerNames, "@agentcode", DbType.String, txtAssociateSearch);
-               
+                cmdGetGroupCustomerNames = db.GetStoredProcCommand("SP_GETagentcode");
+                db.AddInParameter(cmdGetGroupCustomerNames, "@adviserid", DbType.Int32, adviserid);
+                db.AddInParameter(cmdGetGroupCustomerNames, "@agentId", DbType.Int32, agentid);
+
                 dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 
@@ -5417,7 +5418,51 @@ namespace DaoCustomerProfiling
 
                 object[] objects = new object[1];
 
-                objects[0] = txtAssociateSearch;
+                objects[0] = adviserid;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
+        public DataTable GetAssociateName(int adviserid, string agentcode)
+        {
+
+            Database db;
+            DbCommand cmdGetGroupCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetGroupCustomerNames = db.GetStoredProcCommand("GetAssociateName");
+                db.AddInParameter(cmdGetGroupCustomerNames, "@adviserid", DbType.Int32, adviserid);
+                db.AddInParameter(cmdGetGroupCustomerNames, "@agentcode", DbType.String, agentcode);
+
+                dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = adviserid;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
