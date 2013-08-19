@@ -245,7 +245,7 @@ namespace WealthERP.CustomerPortfolio
         /// <returns></returns>
         [WebMethod]
         public string[] GetAdviserCustomerName(string prefixText, int count, string contextKey)
-        {
+      {
             CustomerBo customerBo = new CustomerBo();
             DataTable dtCustomerName = new DataTable();
             int i = 0;
@@ -262,7 +262,25 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+        [WebMethod]
+        public string[] GetAdviserCustomerPan(string prefixText, int count, string contextKey)
+       {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
 
+            dtCustomerName = customerBo.GetAdviserCustomerPan(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_PANNum"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
 
         /// <summary>
         /// Get Advisor Group Customer Names
@@ -505,6 +523,25 @@ namespace WealthERP.CustomerPortfolio
             {
 
                 string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["C_FirstName"].ToString(), dr["C_CustomerId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
+        [WebMethod]
+        public string[] GetAgentCodeAssociateDetails(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtCustomerName = customerBo.GetAgentCodeAssociateDetails(prefixText, int.Parse(contextKey));
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AAC_Agentcode"].ToString(), dr["A_Adviserid"].ToString());
                 names.Add(item);
             }
             return names.ToArray();

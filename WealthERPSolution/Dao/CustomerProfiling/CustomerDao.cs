@@ -2797,6 +2797,49 @@ namespace DaoCustomerProfiling
         /// <param name="prefixText"></param>
         /// <param name="rmId"></param>
         /// <returns></returns>
+        public DataTable GetAgentCodeAssociateDetails(string prefixText, int Adviserid)
+        {
+
+            Database db;
+            DbCommand cmdGetAgentCodeAssociateDetails;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetAgentCodeAssociateDetails = db.GetStoredProcCommand("GetAgentCodeAssociateDetails");
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@A_AdviserId", DbType.Int32, Adviserid);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
         public DataTable GetCustomerName(string prefixText, int rmId)
         {
 
@@ -2847,6 +2890,49 @@ namespace DaoCustomerProfiling
         /// <param name="prefixText"></param>
         /// <param name="adviserId"></param>
         /// <returns></returns>
+        public DataTable GetAdviserCustomerPan(string prefixText, int adviserId)
+        {
+
+            Database db;
+            DbCommand cmdGetCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetIndividualCustomerPan");
+                db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
         public DataTable GetAdviserCustomerName(string prefixText, int adviserId)
         {
 
@@ -5298,6 +5384,48 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-        
+        public DataTable GetAgentId(string txtAssociateSearch)
+        {
+
+            Database db;
+            DbCommand cmdGetGroupCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetGroupCustomerNames = db.GetStoredProcCommand("SP_GETagentId");
+                db.AddInParameter(cmdGetGroupCustomerNames, "@agentcode", DbType.String, txtAssociateSearch);
+               
+                dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetAdviserCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = txtAssociateSearch;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
     }
 }

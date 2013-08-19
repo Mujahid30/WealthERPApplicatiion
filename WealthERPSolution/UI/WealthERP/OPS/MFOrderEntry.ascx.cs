@@ -72,6 +72,7 @@ namespace WealthERP.OPS
         string userType = string.Empty;
         string mail = string.Empty;
         string AgentCode;
+        DataTable AgentId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -119,7 +120,7 @@ namespace WealthERP.OPS
             {
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
-                BindAgentDropList(userType);
+                //BindAgentDropList(userType);
                 //BindSearchDropdownList(sender, e);
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
                 trpan.Visible = false;
@@ -146,8 +147,10 @@ namespace WealthERP.OPS
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
                     txtCustomerName_autoCompleteExtender.ServiceMethod = "GetAdviserCustomerName";
+                    AutoCompleteExtender1.ContextKey = advisorVo.advisorId.ToString();
                    AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
-
+                   AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                   AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
@@ -253,31 +256,31 @@ namespace WealthERP.OPS
         }
 
 
-        private void BindAgentDropList(string userRole)
-        {
-            DataTable dtAgentListList = new DataTable();
-            if (userRole.ToLower() == "ops" || userRole.ToLower() == "advisor")
-            {
-                dtAgentListList = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, "admin");
-            }
-            else if (userRole == "rm")
-            {
-                dtAgentListList = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, userRole);
-            }
-            //else if (userRole == "associates")
-            //{
-            //    dtAgentListList = orderbo.GetSubBrokerAgentCode(AgentCode);
-            //}
+        //private void BindAgentDropList(string userRole)
+        //{
+        //    DataTable dtAgentListList = new DataTable();
+        //    if (userRole.ToLower() == "ops" || userRole.ToLower() == "advisor")
+        //    {
+        //        dtAgentListList = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, "admin");
+        //    }
+        //    else if (userRole == "rm")
+        //    {
+        //        dtAgentListList = orderbo.GetAllAgentListForOrder(advisorVo.advisorId, userRole);
+        //    }
+        //    //else if (userRole == "associates")
+        //    //{
+        //    //    dtAgentListList = orderbo.GetSubBrokerAgentCode(AgentCode);
+        //    //}
 
-            if (dtAgentListList.Rows.Count > 0)
-            {
-                ddlAssociate.DataSource = dtAgentListList;
-                ddlAssociate.DataValueField = dtAgentListList.Columns["AgentId"].ToString();
-                ddlAssociate.DataTextField = dtAgentListList.Columns["AgentName"].ToString();
-                ddlAssociate.DataBind();
-            }
-            ddlAssociate.Items.Insert(0, new ListItem("Select(SubBroker Code/Name/Type)", "0"));
-        }
+        //    if (dtAgentListList.Rows.Count > 0)
+        //    {
+        //        ddlAssociate.DataSource = dtAgentListList;
+        //        ddlAssociate.DataValueField = dtAgentListList.Columns["AgentId"].ToString();
+        //        ddlAssociate.DataTextField = dtAgentListList.Columns["AgentName"].ToString();
+        //        ddlAssociate.DataBind();
+        //    }
+        //    ddlAssociate.Items.Insert(0, new ListItem("Select(SubBroker Code/Name/Type)", "0"));
+        //}
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         {
@@ -1195,6 +1198,10 @@ namespace WealthERP.OPS
                 lblgetPan.Text = customerVo.PANNum;
                 hdnCustomerId.Value = txtCustomerId.Value;
                 customerId = int.Parse(txtCustomerId.Value);
+                if (!string.IsNullOrEmpty(txtPansearch.Text) && string.IsNullOrEmpty(txtAssociateSearch.Text))
+                    lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
+                if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
+                    lblAssociatetext.Text = rmVo.FirstName + ' ' + rmVo.MiddleName + ' ' + rmVo.LastName;
                 BindBank(customerId);
                 //BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
@@ -1303,7 +1310,7 @@ namespace WealthERP.OPS
             txtendDateSIP.SelectedDate = null;
             txtstartDateSTP.SelectedDate = null;
             txtendDateSTP.SelectedDate = null;
-
+            
             lblGetLine1.Text = "";
             lblGetLine2.Text = "";
             lblGetline3.Text = "";
@@ -1460,7 +1467,7 @@ namespace WealthERP.OPS
             spnAMC.Visible = true; spnScheme.Visible = true;
             CompareValidator1.Visible = true; CompareValidator2.Visible = true;
 
-            if (txtCustomerName.Text == "")
+            if ((string.IsNullOrEmpty(txtPansearch.Text) && string.IsNullOrEmpty(txtCustomerName.Text)))
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select a customer');", true);
             else
             {
@@ -2150,8 +2157,10 @@ namespace WealthERP.OPS
             }
             if (ddlARNNo.SelectedIndex != 0)
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
-            if (ddlAssociate.SelectedIndex != 0)
-                mforderVo.AgentId = Convert.ToInt32(ddlAssociate.SelectedValue);
+            if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                AgentId=customerBo.GetAgentId(txtAssociateSearch.Text);
+            mforderVo.AgentId =  int.Parse(AgentId.Rows[0][0].ToString());
+                    //Convert.ToInt32(ddlAssociate.SelectedValue);
 
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
@@ -2240,7 +2249,7 @@ namespace WealthERP.OPS
 
                 btnSubmit.Enabled = false;
                 btnAddMore.Visible = false;
-                ddlAssociate.Enabled = false;
+                //ddlAssociate.Enabled = false;
 
             }
             else

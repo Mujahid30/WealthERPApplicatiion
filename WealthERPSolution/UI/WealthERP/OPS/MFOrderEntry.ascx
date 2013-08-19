@@ -8,9 +8,9 @@
 
 <script type="text/javascript" language="javascript">
     function GetCustomerId(source, eventArgs) {
-        alert('Hi');
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
 
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+        
         return false;
     }
 
@@ -181,7 +181,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True">
+                AutoPostBack="True" onclientClick="ShowIsa()" >
             </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -200,13 +200,13 @@
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG"  ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblgetcust" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="label2" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:Label ID="Label2" runat="server" Text="" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="2">
         </td>
@@ -266,7 +266,7 @@
     </tr>
     <tr>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
+            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtAssociateSearch" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -289,13 +289,17 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+         <td class="rightField" style="width: 20%">
+         <asp:Label ID="lblAssociatetext" runat="server" Text="" CssClass="FieldName"></asp:Label>
+        
+         </td>
+        <%--<td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbLongField" AutoPostBack="false">
             </asp:DropDownList>
             <asp:CompareValidator ID="ddlAssociate_CompareValidator2" runat="server" ControlToValidate="ddlAssociate"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a associate"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select(SubBroker Code/Name/Type)"></asp:CompareValidator>
-        </td>
+        </td>--%>
     </tr>
     <tr id="trIsa" runat="server">
         <td class="leftField" style="width: 20%">

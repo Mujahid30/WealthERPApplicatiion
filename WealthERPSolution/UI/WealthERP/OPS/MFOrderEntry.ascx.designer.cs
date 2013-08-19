@@ -120,16 +120,20 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomer;
+        protected global::System.Web.UI.WebControls.Label lblAssociatetext;
+
         
         /// <summary>
         /// txtCustomerName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
+        /// To modify move field declaration from designer file to code-behind file.lblgetcust
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCustomerName;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtPansearch;
+        protected global::System.Web.UI.WebControls.TextBox txtAssociateSearch;
+
         /// <summary>
         /// btnImgAddCustomer control.
         /// </summary>
@@ -156,6 +160,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender2;
 
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
         
@@ -176,7 +181,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRM;
-        
+        protected global::System.Web.UI.WebControls.Label lblgetcust;
+
         /// <summary>
         /// lblGetRM control.
         /// </summary>
