@@ -158,7 +158,7 @@ namespace WealthERP.Advisor
             gvAssocCustList.ExportSettings.IgnorePaging = true;
             gvAssocCustList.ExportSettings.HideStructureColumns = true;
             gvAssocCustList.ExportSettings.ExportOnlyData = true;
-            gvAssocCustList.ExportSettings.FileName = "Customer List";
+            gvAssocCustList.ExportSettings.FileName = "AssociateCustomerList";
             gvAssocCustList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvAssocCustList.MasterTableView.ExportToExcel();
         }
