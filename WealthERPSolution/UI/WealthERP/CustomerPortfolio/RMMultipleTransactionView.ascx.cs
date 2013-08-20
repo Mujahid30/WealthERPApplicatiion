@@ -203,8 +203,9 @@ namespace WealthERP.CustomerPortfolio
 
                     }
 
-                    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null)
-                    {
+                    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null )
+                    {                       
+
                         int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                         int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
                         PasssedFolioValue = accountId;
@@ -212,12 +213,26 @@ namespace WealthERP.CustomerPortfolio
                         string fromdate = "01-01-1990";
                         txtFromDate.SelectedDate = DateTime.Parse(fromdate);
                         ViewState["SchemePlanCode"] = SchemePlanCode;
-
                         BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                   
                     }
                     else
                     {
                         BindLastTradeDate();
+
+                        // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
+                        if (Session["gvMFTransactions"] != null)
+                        {
+                            Panel2.Visible = true ;
+                            Panel1.Visible = true;
+                            gvMFTransactions.Visible = true;
+                            string fromdate = "01-01-1990";
+                            txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                            gvMFTransactions.DataSource = (DataTable)Session["gvMFTransactions"];
+                            gvMFTransactions.DataBind();
+                            Session.Remove("gvMFTransactions");
+                        }                      
+                        
                     }
                     if (Session["tranDates"] != null)
                     {
@@ -921,6 +936,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     gvMFTransactions.CurrentPageIndex = 0;
                     gvMFTransactions.DataSource = dtMFTransactions;
+                    Session["gvMFTransactions"] = dtMFTransactions;
                     gvMFTransactions.DataBind();
                     Panel2.Visible = true;
                     ErrorMessage.Visible = false;
