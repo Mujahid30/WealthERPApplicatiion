@@ -546,6 +546,25 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+        [WebMethod]
+        public string[] GetAgentCodeAssociateDetailsForAssociates(string prefixText, int count, string contextKey)
+        {
+            CustomerBo customerBo = new CustomerBo();
+            DataTable dtCustomerName = new DataTable();
+            int i = 0;
+            List<string> names = new List<string>();
+
+            dtCustomerName = customerBo.GetAgentCodeAssociateDetailsForAssociates(prefixText,contextKey);
+            //string[] customerNameList = new string[dtCustomerName.Rows.Count];
+
+            foreach (DataRow dr in dtCustomerName.Rows)
+            {
+
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["AAC_Agentcode"].ToString(), dr["ACC_AgentId"].ToString());
+                names.Add(item);
+            }
+            return names.ToArray();
+        }
     }
 
 }
