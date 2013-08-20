@@ -5472,5 +5472,48 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public DataTable GetAgentCodeAssociateDetailsForAssociates(string prefixText, string agentcode)
+        {
+
+            Database db;
+            DbCommand cmdGetAgentCodeAssociateDetails;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetAgentCodeAssociateDetails = db.GetStoredProcCommand("GetAgentCodeAssociateDetailsForAssociates");
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@prefixText", DbType.String, prefixText);
+                db.AddInParameter(cmdGetAgentCodeAssociateDetails, "@agentcode", DbType.String, agentcode);
+                dsCustomerNames = db.ExecuteDataSet(cmdGetAgentCodeAssociateDetails);
+                dtCustomerNames = dsCustomerNames.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerName()");
+
+
+                object[] objects = new object[1];
+
+                objects[0] = prefixText;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dtCustomerNames;
+        }
     }
 }
