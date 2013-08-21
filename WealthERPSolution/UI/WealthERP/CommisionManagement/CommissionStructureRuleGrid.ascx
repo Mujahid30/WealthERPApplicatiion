@@ -111,7 +111,7 @@
                     <table width="100%">
                         <tr>
                             <td align="left">
-                                Commission Structure Grid
+                                Receivable Structures
                             </td>
                             <td align=right >
                                 <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -179,6 +179,14 @@
                     </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
+                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName" Visible="true"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="false" Enabled="False" Visible="true">
+                        <asp:ListItem>All</asp:ListItem>
+                    </asp:DropDownList>
+                </td>
+                <td class="leftLabel">
                     <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -188,15 +196,7 @@
                         <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                     </asp:DropDownList>
                 </td>
-                <%--<td class="leftLabel">
-                    <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category" CssClass="FieldName" Visible="False"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddSubCategory" runat="server" CssClass="cmbField" AutoPostBack="false" 
-                        Enabled="False" Visible="False">
-                        <asp:ListItem>All</asp:ListItem>
-                    </asp:DropDownList>
-                </td>--%>
+                
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <%--<td class="leftLabel">
@@ -291,7 +291,7 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="SubCategory" 
                                                     HeaderStyle-Width="150px" HeaderText="SubCategory" ShowFilterIcon="false" 
-                                                    UniqueName="cmSubCategory" Visible="false">
+                                                    UniqueName="cmSubCategory" Visible="true">
                                                     <%--<HeaderStyle Width="150px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" 
                                                         Wrap="false" />
@@ -315,8 +315,6 @@
                                             <%--<HeaderStyle Width="100px" />--%>
                                         </MasterTableView>                                        
                                         <ClientSettings>
-                                            <%--<Scrolling AllowScroll="true" UseStaticHeaders="True" ScrollHeight="200px"></Scrolling>--%>
-                                            <ClientEvents OnGridCreated="GridCreated" />
                                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                             <Resizing AllowColumnResize="true" />                                          
                                         </ClientSettings>
