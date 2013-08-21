@@ -500,7 +500,7 @@
             <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbLongField" width="400px" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
@@ -653,7 +653,7 @@
                 CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtPaymentNumber" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength=6 CssClass="txtField"></asp:TextBox>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPIDate" runat="server" Text="Payment Instrument Date:" CssClass="FieldName"></asp:Label>
@@ -661,7 +661,7 @@
         <td class="rightField" style="width: 20%">
             <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                ShowAnimation-Type="Fade"  MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -672,6 +672,9 @@
             <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                <%--<asp:CompareValidator ID="CVPaymentdate2" runat="server" ErrorMessage="<br/>Payment date cannot be greater than order date"
+                 ControlToValidate="txtPaymentInstDate"  CssClass="cvPCG" Operator="LessThanEqual" Display="Dynamic"
+               Type="date"></asp:CompareValidator>--%>
             <%--<asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than or equal to Order Date"
                 Type="Date" ControlToValidate="txtPaymentInstDate" ControlToCompare="txtOrderDate"
                 Operator="LessThanEqual" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>--%>

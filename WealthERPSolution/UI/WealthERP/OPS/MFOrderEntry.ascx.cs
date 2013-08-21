@@ -117,8 +117,11 @@ namespace WealthERP.OPS
             lblRM.Visible = false;
             lblGetRM.Visible = false;
             cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
+            //
             if (!IsPostBack)
             {
+                //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
+
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
                 //BindAgentDropList(userType);
@@ -354,9 +357,19 @@ namespace WealthERP.OPS
                     //    ddlAssociate.SelectedValue = orderVo.AgentId.ToString();
                     {
                         AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(orderVo.AgentId.ToString()));
-                        txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+                        if (AgentId.Rows.Count > 0)
+                        {
+                            txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+                        }
+                        else
+                            txtAssociateSearch.Text = string.Empty;
                         Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                        lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        if (Agentname.Rows.Count > 0)
+                        {
+                            lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        }
+                        lblAssociatetext.Text = string.Empty;
+
                     }
                     if (mforderVo.ARNNo != null)
                         ddlARNNo.SelectedValue = mforderVo.ARNNo;
@@ -619,7 +632,7 @@ namespace WealthERP.OPS
                 {
                     ddlsearch.SelectedItem.Value = "0";
                     ddlsearch.Enabled = false;
-                    
+
                     SetEditViewMode(true);
                     orderId = orderVo.OrderId;
                     txtCustomerName.Enabled = false;
@@ -641,9 +654,15 @@ namespace WealthERP.OPS
                     //ddlAssociate.SelectedValue = orderVo.AgentId.ToString();
                     {
                         AgentId = customerBo.GetAgentId(advisorVo.advisorId, int.Parse(orderVo.AgentId.ToString()));
-                        txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
-                        Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                        lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        if (AgentId.Rows.Count > 0)
+                        {
+                            txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
+                        }
+                       Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                       if (Agentname.Rows.Count > 0)
+                       {
+                           lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                       }
                     }
                     if (mforderVo.ARNNo != null)
                         ddlARNNo.SelectedValue = mforderVo.ARNNo;
@@ -1227,7 +1246,7 @@ namespace WealthERP.OPS
                 else
                     lblAssociatetext.Text = "";
             }
-        
+
         }
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
@@ -1246,9 +1265,9 @@ namespace WealthERP.OPS
                 lblgetPan.Text = customerVo.PANNum;
                 hdnCustomerId.Value = txtCustomerId.Value;
                 customerId = int.Parse(txtCustomerId.Value);
-                if (ddlsearch.SelectedItem.Value=="2")
+                if (ddlsearch.SelectedItem.Value == "2")
                     lblgetcust.Text = customerVo.FirstName + ' ' + customerVo.MiddleName + ' ' + customerVo.LastName;
-                
+
                 //= rmVo.FirstName + ' ' + rmVo.MiddleName + ' ' + rmVo.LastName;
                 BindBank(customerId);
                 //BindPortfolioDropdown(customerId);
@@ -1324,12 +1343,12 @@ namespace WealthERP.OPS
             txtCustomerName.Text = "";
             txtPansearch.Text = "";
             lblgetcust.Text = "";
-//            txtCustomerId_ValueChanged1( );
+            //            txtCustomerId_ValueChanged1( );
         }
         private void ClearAllFields()
         {
 
-            
+
             ddltransType.SelectedIndex = 0;
             txtReceivedDate.SelectedDate = null;
             txtApplicationNumber.Text = "";
@@ -2217,7 +2236,12 @@ namespace WealthERP.OPS
                 mforderVo.ARNNo = ddlARNNo.SelectedItem.Text;
             if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-            mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
+            if (AgentId.Rows.Count > 0)
+            {
+                mforderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
+            }
+            else
+                mforderVo.AgentId = 0;
             //Convert.ToInt32(ddlAssociate.SelectedValue);
 
             Session["orderVo"] = orderVo;
@@ -2598,7 +2622,12 @@ namespace WealthERP.OPS
             {
 
                 AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                orderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
+                if (AgentId.Rows.Count > 0)
+                {
+                    orderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
+                }
+                else
+                    orderVo.AgentId = 0;
             }
             //if (ddlAssociate.SelectedIndex != 0)
             //    orderVo.AgentId = Convert.ToInt32(ddlAssociate.SelectedValue);
