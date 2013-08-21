@@ -1653,4 +1653,8 @@
     <value>Advisor//SubBrokerCustomerAssociationSync.ascx</value>
     <comment>Advisor//SubBrokerCustomerAssociationSync.ascx</comment>
   </data>
+  <data name="FixedIncomeOrderEntry" xml:space="preserve">
+    <value>OPS//FixedIncomeOrderEntry.ascx</value>
+    <comment>OPS//FixedIncomeOrderEntry.ascx</comment>
+  </data>
 </root>

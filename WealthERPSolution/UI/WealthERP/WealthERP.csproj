@@ -2616,6 +2616,13 @@
     <Compile Include="OPS\CustomerOrderList.ascx.designer.cs">
       <DependentUpon>CustomerOrderList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OPS\FixedIncomeOrderEntry.ascx.cs">
+      <DependentUpon>FixedIncomeOrderEntry.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\FixedIncomeOrderEntry.ascx.designer.cs">
+      <DependentUpon>FixedIncomeOrderEntry.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\LifeInsuranceOrderEntry.ascx.cs">
       <DependentUpon>LifeInsuranceOrderEntry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6417,6 +6424,7 @@
     <Content Include="OPS\BondsOrderEntry.ascx" />
     <Content Include="OPS\CustomerGeneralInsuranceOrder.ascx" />
     <Content Include="OPS\CustomerOrderList.ascx" />
+    <Content Include="OPS\FixedIncomeOrderEntry.ascx" />
     <Content Include="OPS\LifeInsuranceOrderEntry.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
     <Content Include="OPS\MFOrderEntry.ascx" />

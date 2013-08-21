@@ -1618,6 +1618,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//FixedIncomeOrderEntry.ascx.
+        /// </summary>
+        internal static string FixedIncomeOrderEntry {
+            get {
+                return ResourceManager.GetString("FixedIncomeOrderEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General//ForgotPassword.ascx.
         /// </summary>
         internal static string ForgotPassword {
