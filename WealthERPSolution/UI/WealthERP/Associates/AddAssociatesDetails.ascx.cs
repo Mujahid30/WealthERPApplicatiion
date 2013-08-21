@@ -169,6 +169,7 @@ namespace WealthERP.Associates
             //chkMf.Enabled = false;
             //chlIpo.Enabled = false;
             //chkfd.Enabled = false;
+            chkModules.Enabled = false;
 
         }
 
