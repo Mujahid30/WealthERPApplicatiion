@@ -125,6 +125,7 @@ namespace WealthERP.Associates
                     ddlstatus1.Enabled = false;
                     lnlStep2.Enabled = false;
                     ddlstatus2.Enabled = true;
+                    
                 }
                 if (userType == "advisor")
                 {
@@ -203,6 +204,7 @@ namespace WealthERP.Associates
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AB_BranchId"].ToString()))
                                     ddlBranch.SelectedValue = drISARequestDetails["AB_BranchId"].ToString();
 
+                                BindStaffDropList(Convert.ToInt32(ddlBranch.SelectedValue.ToString()), 7);
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["WWFSM_StepName"].ToString()))
                                 {
