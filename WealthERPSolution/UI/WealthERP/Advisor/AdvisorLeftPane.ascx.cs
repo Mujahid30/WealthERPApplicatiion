@@ -2366,6 +2366,94 @@ namespace WealthERP.Advisor
                     }
                 }
             }
+            else if (userRole == "Associates")
+            {
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[0]);
+                tempView.Sort = "WTN_TreeNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[0].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[0].Columns["WTN_TreeNode"] };
+                foreach (RadPanelItem Item in RadPanelBar6.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 2 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                            //if (dr[2].ToString().ToLower() == "content" || dr[2].ToString().ToLower() == "message" || dr[2].ToString().ToLower() == "order")
+                            //{
+                            //    Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            //}
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[1]);
+                tempView.Sort = "WTSN_TreeSubNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[1].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[1].Columns["WTSN_TreeSubNode"] };
+                foreach (RadPanelItem Item in RadPanelBar6.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                            //if (dr[2].ToString() == "Goal MIS"
+                            //    || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
+                            //    || dr[2].ToString() == "MF Turnover MIS"
+                            //    || dr[2].ToString() == "ISA Status" || dr[2].ToString() == "MF Dashboard"
+                            //    || dr[2].ToString() == "ISA Folio Mapping" || dr[2].ToString() == "Customer Accounts Compare" || dr[2].ToString() == "Returns" || dr[2].ToString() == "Customer SignUp")
+                            //{
+                            //    Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            //}
+                        }
+                    }
+                }
+
+                flag = 0;
+                tempView = new DataView(dsAdminTreeNodes.Tables[2]);
+                tempView.Sort = "WTSSN_TreeSubSubNode";
+                //Setting Primary key for the datatable inorder to find a value based on the key
+                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
+                foreach (RadPanelItem Item in RadPanelBar6.GetAllItems())
+                {
+                    if (Item.Level != 0 && Item.Level != 1 && Item.Level != 2)
+                    {
+                        flag = tempView.Find(Item.Value);
+                        if (flag == -1)
+                        {
+                            Item.Visible = false;
+                        }
+                        else
+                        {
+                            dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
+                            Item.Text = dr[2].ToString();
+                            //if (dr[2].ToString() == "Login History" || dr[2].ToString() == "MF NP & Tranx Compare")
+                            //{
+                            //    Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            //}
+
+                        }
+                    }
+                }
+            }
+          
+           
+            
         }
 
         private void SetAdminTreeNodesForPlans(DataSet dsAdminTreeNodes)
@@ -2734,6 +2822,58 @@ namespace WealthERP.Advisor
                                 case "Staff User Management":
                                     Item.Visible = false;
                                     break;
+                            }
+                        }
+                    }
+                }
+                if (userVo.RoleList.Contains("Associates"))
+                {
+                    flag = 0;
+                    tempView = new DataView(dsAdminTreeNodes.Tables[0]);
+                    tempView.Sort = "WTN_TreeNode";
+
+                    foreach (RadPanelItem Item in RadPanelBar6.GetAllItems())
+                    {
+                        if (Item.Level != 0 && Item.Level != 2 && Item.Level != 3)
+                        {
+                            flag = tempView.Find(Item.Value);
+                            if (flag == -1)
+                            {
+                                Item.Visible = false;
+                            }
+                        }
+                    }
+
+                    flag = 0;
+                    tempView = new DataView(dsAdminTreeNodes.Tables[1]);
+                    tempView.Sort = "WTSN_TreeSubNode";
+
+                    foreach (RadPanelItem Item in RadPanelBar6.GetAllItems())
+                    {
+                        if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
+                        {
+                            flag = tempView.Find(Item.Value);
+                            if (flag == -1)
+                            {
+                                Item.Visible = false;
+                                //Item.Owner.Items.Remove(Item);
+                            }
+                        }
+                    }
+
+                    flag = 0;
+                    tempView = new DataView(dsAdminTreeNodes.Tables[2]);
+                    tempView.Sort = "WTSSN_TreeSubSubNode";
+
+                    foreach (RadPanelItem Item in RadPanelBar6.GetAllItems())
+                    {
+                        if (Item.Level != 0 && Item.Level != 1 && Item.Level != 2)
+                        {
+                            flag = tempView.Find(Item.Value);
+                            if (flag == -1)
+                            {
+                                Item.Visible = false;
+                                //Item.Owner.Items.Remove(Item);
                             }
                         }
                     }

@@ -57,6 +57,8 @@ namespace VoCustomerPortfolio
         private double m_Balance;
         private DateTime m_CreatedOn;
         private string m_OriginalTransactionNumber;
+        public int AgentId { get; set; }
+        public string m_AgentCode;
         #endregion Fields
 
         #region Properties
@@ -65,7 +67,11 @@ namespace VoCustomerPortfolio
             get { return m_PortfolioName; }
             set { m_PortfolioName = value; }
         }
-
+        public string AgentCode
+        {
+            get { return m_AgentCode; }
+            set { m_AgentCode = value; }
+        }
         public string AMCName
         {
             get { return m_AMCName; }

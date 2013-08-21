@@ -145,6 +145,23 @@
         </td>
     </tr>
     <tr>
+      <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblAssociateSearch" runat="server" CssClass="FieldName" Text="SubBroker Code:"></asp:Label>
+      </td>
+       <td class="rightField" colspan="3">
+            <asp:TextBox ID="txtSubBrokerCode" runat="server" CssClass="txtField" MaxLength="18"></asp:TextBox>
+            <div id="Div1" runat="server" class="dvInLine">
+               <%-- <span id="Span8" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtPrice"
+                    ErrorMessage="<br />Please enter the SubBroker Code" CssClass="Error" Display="Dynamic" runat="server"
+                    InitialValue="">
+                </asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtPrice"
+                    Display="Dynamic" runat="server" ErrorMessage="Not acceptable format" CssClass="Error" ValidationExpression="^\d*(\.(\d{0,4}))?$"></asp:RegularExpressionValidator>--%>
+            </div> 
+            </td> 
+    </tr>
+    <tr>
         <td colspan="4">
             &nbsp;
         </td>

@@ -104,6 +104,7 @@ namespace WealthERP.CustomerPortfolio
                 lblTransactionType.Text = mfTransactionVo.TransactionType.ToString();
                 lblFolioNumber.Text = mfTransactionVo.Folio.ToString();
                 txtTransactionDate.Text = mfTransactionVo.TransactionDate.ToShortDateString().ToString();
+                txtSubBrokerCode.Text = mfTransactionVo.AgentCode.ToString();
                 if (mfTransactionVo.TransactionClassificationCode == "DVR" || mfTransactionVo.TransactionClassificationCode == "DVP")
                 {
                     trDividendRate.Visible = true;
@@ -220,6 +221,7 @@ namespace WealthERP.CustomerPortfolio
                 mfTransactionVo.Price = float.Parse(txtPrice.Text.ToString());
                 mfTransactionVo.NAV = float.Parse(txtNAV.Text.ToString());
                 mfTransactionVo.Amount = float.Parse(txtAmount.Text.ToString());
+                mfTransactionVo.AgentCode = txtSubBrokerCode.Text.ToString();
                 if (txtSTT.Text != "")
                     mfTransactionVo.STT = float.Parse(txtSTT.Text.ToString());
 
@@ -266,6 +268,7 @@ namespace WealthERP.CustomerPortfolio
                 txtPrice.Enabled = false;
                 txtSTT.Enabled = false;
                 txtUnits.Enabled = false;
+                txtSubBrokerCode.Enabled = false;
                 btnSubmit.Visible = false;
 
                 // Hide the Validation Divs
@@ -295,6 +298,7 @@ namespace WealthERP.CustomerPortfolio
                 txtPrice.Enabled = true;
                 txtSTT.Enabled = true;
                 txtUnits.Enabled = true;
+                txtSubBrokerCode.Enabled = true;
                 btnSubmit.Visible = true;
 
                 // Un-Hide the Validation Divs

@@ -1048,12 +1048,13 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createMFTransactionCmd, "@XES_SourceCode", DbType.String, mfTransactionVo.Source);
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_SwitchSourceTrxId", DbType.Int32, mfTransactionVo.SwitchSourceTrxId);
                 db.AddInParameter(createMFTransactionCmd, "@WMTT_TransactionClassificationCode", DbType.String, mfTransactionVo.TransactionClassificationCode);
+                db.AddInParameter(createMFTransactionCmd, "@CMFT_SubBrokerCode", DbType.String, mfTransactionVo.AgentCode);
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_CreatedBy", DbType.Int32, userId);
-                db.AddOutParameter(createMFTransactionCmd, "CMFT_MFTransId", DbType.Int32, 50000);
+                db.AddOutParameter(createMFTransactionCmd, "@CMFT_MFTransId", DbType.Int32, 50000);
 
                 if (db.ExecuteNonQuery(createMFTransactionCmd) != 0)
-                    transactionId = int.Parse(db.GetParameterValue(createMFTransactionCmd, "CMFT_MFTransId").ToString());
+                    transactionId = int.Parse(db.GetParameterValue(createMFTransactionCmd, "@CMFT_MFTransId").ToString());
 
 
             }
@@ -1935,6 +1936,7 @@ namespace DaoCustomerPortfolio
                     mfTransactionVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                     mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
                     mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
+                    mfTransactionVo.AgentCode = dr["CMFT_SubBrokerCode"].ToString();
                     if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
                     {
                         mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
@@ -2005,6 +2007,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFTransactionCmd, "@XES_SourceCode", DbType.String, mfTransactionVo.Source);
                 db.AddInParameter(updateMFTransactionCmd, "@CMFT_SwitchSourceTrxId", DbType.String, mfTransactionVo.SwitchSourceTrxId);
                 db.AddInParameter(updateMFTransactionCmd, "@WMTT_TransactionClassificationCode", DbType.String, mfTransactionVo.TransactionClassificationCode);
+                db.AddInParameter(updateMFTransactionCmd, "@CMFT_SubBrokerCode", DbType.String, mfTransactionVo.AgentCode);
                 db.AddInParameter(updateMFTransactionCmd, "@CMFT_ModifiedBy", DbType.String, userId);
 
 
@@ -2499,7 +2502,7 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
                         mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
                         mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
-                        mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();                      
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
                         if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)

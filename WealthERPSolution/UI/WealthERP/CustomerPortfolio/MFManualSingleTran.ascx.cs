@@ -44,7 +44,8 @@ namespace WealthERP.CustomerPortfolio
         int amcCode;
         int accountId;
         string categoryCode;
-
+        DataTable AgentId;
+        DataTable Agentname;
         int flag = 0;
         //string categoryName;
         int transactionId;
@@ -69,7 +70,11 @@ namespace WealthERP.CustomerPortfolio
                 portfolioId = int.Parse(Session[SessionContents.PortfolioId].ToString());
                
                 Label19.Text = "Purchase Price :";
-                
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
+                    //AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
+                    //AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
+                } 
                 
                 if (!IsPostBack)
                 {
@@ -549,7 +554,10 @@ namespace WealthERP.CustomerPortfolio
                     mfTransactionVo.TransactionDate = DateTime.Parse(txtTransactionDate.Text);//ddlTransactionDateDay.SelectedItem.Value + "/" + ddlTransactionDateMonth.SelectedItem.Value + "/" + ddlTransactionDateYear.SelectedItem.Value
                     mfTransactionVo.Source = "WP";
                     mfTransactionVo.IsSourceManual = 1;
-
+                    //if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                    //AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                    //mfTransactionVo.AgentCode = AgentId.Rows[0][2].ToString();
+                    mfTransactionVo.AgentCode = TxtsubBrokerCode.Text.ToString();
 
                     if (ddlTransactionType.SelectedItem.Value == "Buy")
                     {
