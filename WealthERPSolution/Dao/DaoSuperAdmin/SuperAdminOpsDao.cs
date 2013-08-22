@@ -721,6 +721,9 @@ namespace DaoSuperAdmin
                 db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmd, "@FromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(cmd, "@ToDate", DbType.DateTime, toDate);
+
+                cmd.CommandTimeout = 60 * 60;
+                
                 ds = db.ExecuteDataSet(cmd);
 
             }
