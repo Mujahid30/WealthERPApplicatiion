@@ -198,11 +198,11 @@
                 <td class="rightField" id="td2" runat="server">
                     <asp:TextBox ID="TxtsubBrokerCode" runat="server" CssClass="txtField" MaxLength="18" 
                         AutoPostBack="true"></asp:TextBox>
-                    <span id="Span17" class="spnRequiredField">*</span>
+                    <%--<span id="Span17" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="TxtsubBrokerCode"
                         CssClass="rfvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Please enter the SubBroker Code"
                         Display="Dynamic" runat="server" InitialValue="">
-                    </asp:RequiredFieldValidator>
+                    </asp:RequiredFieldValidator>--%>
                 </td>
             </tr>
            <%-- <tr>

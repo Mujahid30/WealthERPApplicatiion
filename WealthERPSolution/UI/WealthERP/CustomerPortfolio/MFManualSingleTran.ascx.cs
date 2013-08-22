@@ -1020,7 +1020,7 @@ namespace WealthERP.CustomerPortfolio
             hashtable.Add("AmountPur", txtAmtPurchased.Text);
             hashtable.Add("AMC", ddlAMC.SelectedValue);
             hashtable.Add("Category", ddlCategory.SelectedValue);
-
+            hashtable.Add("SubBrokerCode", TxtsubBrokerCode.Text);
             Session["MFManualSingleTranHT"] = hashtable;
         }
 
@@ -1055,6 +1055,7 @@ namespace WealthERP.CustomerPortfolio
                 txtUnitsAlloted.Text = hashtable["UnitsAllotted"].ToString();
                 txtSTT.Text = hashtable["STT"].ToString();
                 txtAmtPurchased.Text = hashtable["AmountPur"].ToString();
+                TxtsubBrokerCode.Text = hashtable["SubBrokerCode"].ToString();
             }
             Session["MFManualSingleTranHT"] = null;
             txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = txtSwitchSchemeCode.Value;
