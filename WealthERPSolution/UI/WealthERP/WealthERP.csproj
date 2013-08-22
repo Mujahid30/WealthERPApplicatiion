@@ -2679,6 +2679,20 @@
     <Compile Include="OPS\OrderRecon.ascx.designer.cs">
       <DependentUpon>OrderRecon.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OPS\ProductOrderDetailsMF.ascx.cs">
+      <DependentUpon>ProductOrderDetailsMF.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\ProductOrderDetailsMF.ascx.designer.cs">
+      <DependentUpon>ProductOrderDetailsMF.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OPS\ProductOrderMaster.ascx.cs">
+      <DependentUpon>ProductOrderMaster.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\ProductOrderMaster.ascx.designer.cs">
+      <DependentUpon>ProductOrderMaster.ascx</DependentUpon>
+    </Compile>
     <Compile Include="PopUp.aspx.cs">
       <DependentUpon>PopUp.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6433,6 +6447,8 @@
     <Content Include="OPS\OrderList.ascx" />
     <Content Include="OPS\OrderMIS.ascx" />
     <Content Include="OPS\OrderRecon.ascx" />
+    <Content Include="OPS\ProductOrderDetailsMF.ascx" />
+    <Content Include="OPS\ProductOrderMaster.ascx" />
     <Content Include="PopUp.aspx" />
     <Content Include="Admin\Download.ascx" />
     <Content Include="Admin\GoldPriceList.ascx" />

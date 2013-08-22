@@ -2446,6 +2446,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OPS//ProductOrderDetailsMF.ascx.
+        /// </summary>
+        internal static string ProductOrderDetailsMF {
+            get {
+                return ResourceManager.GetString("ProductOrderDetailsMF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OPS//ProductOrderMaster.ascx.
+        /// </summary>
+        internal static string ProductOrderMaster {
+            get {
+                return ResourceManager.GetString("ProductOrderMaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FP//ProspectList.ascx.
         /// </summary>
         internal static string ProspectList {

@@ -1657,4 +1657,12 @@
     <value>OPS//FixedIncomeOrderEntry.ascx</value>
     <comment>OPS//FixedIncomeOrderEntry.ascx</comment>
   </data>
+  <data name="ProductOrderDetailsMF" xml:space="preserve">
+    <value>OPS//ProductOrderDetailsMF.ascx</value>
+    <comment>OPS//ProductOrderDetailsMF.ascx</comment>
+  </data>
+  <data name="ProductOrderMaster" xml:space="preserve">
+    <value>OPS//ProductOrderMaster.ascx</value>
+    <comment>OPS//ProductOrderMaster.ascx</comment>
+  </data>
 </root>
