@@ -201,7 +201,7 @@ namespace WealthERP.CustomerPortfolio {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFolioNumber;
-        
+        protected global::System.Web.UI.WebControls.TextBox txtAssociateCode;
         /// <summary>
         /// rfvFolioNumber control.
         /// </summary>

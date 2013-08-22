@@ -403,9 +403,12 @@
             <asp:Label ID="lblAssociateCode" runat="server" CssClass="FieldName" Text="SubBroker Code:"></asp:Label>
         </td>
         <td class="rightField">
+            <asp:TextBox ID="txtAssociateCode" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+       <%-- <td class="rightField">
             <asp:DropDownList ID="ddlAssociateCode" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-        </td>
+        </td>--%>
         <td></td>
     </tr>
     <tr visible="false">

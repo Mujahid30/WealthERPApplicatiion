@@ -29,7 +29,8 @@ namespace WealthERP.CustomerPortfolio
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
         CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
-        ProductMFBo productMfBo = new ProductMFBo();
+        CustomerBo customerBo = new CustomerBo();
+       ProductMFBo productMfBo = new ProductMFBo();
         AssetBo assetBo = new AssetBo();
         UserVo userVo = new UserVo();
         CustomerVo customerVo = new CustomerVo();
@@ -99,7 +100,7 @@ namespace WealthERP.CustomerPortfolio
                     {
 
                         BindDropDowns(path);
-                        BindAssociateCode();
+                        //BindAssociateCode();
                         if (Request.QueryString["action"] != "" && Request.QueryString["action"] != null)
                         {
                             if (Request.QueryString["action"].Trim() == "Edit")
@@ -181,15 +182,28 @@ namespace WealthERP.CustomerPortfolio
 
         private void BindAssociateCode()
         {
-            DataSet ds = associatesBo.BindAssociateCodeList(advisorVo.advisorId);
-            if (ds != null)
+            if(!string.IsNullOrEmpty(txtAssociateCode.Text))
             {
-                ddlAssociateCode.DataSource = ds;
-                ddlAssociateCode.DataValueField = ds.Tables[0].Columns["AAC_AdviserAgentId"].ToString();
-                ddlAssociateCode.DataTextField = ds.Tables[0].Columns["AAC_AgentCode"].ToString();
-                ddlAssociateCode.DataBind();
+            customerAccountsVo.AssociateCode=txtAssociateCode.Text;
             }
-            ddlAssociateCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            else
+                customerAccountsVo.AssociateCode = string.Empty;
+            //if (AgentId.Rows.Count > 0)
+            //{
+            //    customerAccountsVo.AdviserAgentId = int.Parse(AgentId.Rows[0][1].ToString());
+               
+            //}
+            //else
+            //    customerAccountsVo.AdviserAgentId = 0;
+            //DataSet ds = associatesBo.BindAssociateCodeList(advisorVo.advisorId);
+            //if (ds != null)
+            //{
+            //    ddlAssociateCode.DataSource = ds;
+            //    ddlAssociateCode.DataValueField = ds.Tables[0].Columns["AAC_AdviserAgentId"].ToString();
+            //    ddlAssociateCode.DataTextField = ds.Tables[0].Columns["AAC_AgentCode"].ToString();
+            //    ddlAssociateCode.DataBind();
+            //}
+            //ddlAssociateCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
         }
 
         protected void SetCustomerNameInInvestorTextBox()
@@ -1017,15 +1031,16 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.AccountOpeningDate = DateTime.Parse(txtAccountDate.SelectedDate.ToString());
 
                     customerAccountsVo.AMCCode = int.Parse(ddlProductAmc.SelectedItem.Value.ToString());
-                    if (ddlAssociateCode.SelectedIndex != 0)
-                    {
-                        customerAccountsVo.AdviserAgentId = int.Parse(ddlAssociateCode.SelectedValue);
-                        customerAccountsVo.AssociateCode = ddlAssociateCode.SelectedItem.Text;
-                    }
-                    else
-                    {
-                        customerAccountsVo.AdviserAgentId = 0;
-                    }
+                    BindAssociateCode();
+                    //if (ddlAssociateCode.SelectedIndex != 0)
+                    //{
+                    //    customerAccountsVo.AdviserAgentId = int.Parse(ddlAssociateCode.SelectedValue);
+                    //    customerAccountsVo.AssociateCode = ddlAssociateCode.SelectedItem.Text;
+                    //}
+                    //else
+                    //{
+                    //    customerAccountsVo.AdviserAgentId = 0;
+                    //}
                     accountId = customerAccountBo.CreateCustomerMFAccount(customerAccountsVo, userVo.UserId);
                     if (accountId == 1)
                     {
