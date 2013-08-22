@@ -118,13 +118,23 @@
                         </asp:DropDownList>
                     </td>
                     <td style="width: 1%">
-                    &nbsp;&nbsp;&nbsp
+                        &nbsp;&nbsp;&nbsp
                     </td>
                     <td align="right" valign="top" class="leftLabel">
                         <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="RM:"></asp:Label>
                     </td>
                     <td valign="top" class="rightData">
                         <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" Style="vertical-align: middle">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr id="trZCCS" runat="server" visible="false">
+                    <td align="right">
+                        <asp:Label ID="lblBrokerCode" runat="server" Text="Sub Broker Code:" CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td align="left">
+                        <asp:DropDownList ID="ddlBrokerCode" runat="server" CssClass="cmbField">
+                            <%--  <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>--%>
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -375,7 +385,7 @@
                     AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
                     Skin="Telerik" EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
-                    AllowFilteringByColumn="true" onItemCommand="rgvMultiProductMIS_ItemCommand"
+                    AllowFilteringByColumn="true" OnItemCommand="rgvMultiProductMIS_ItemCommand"
                     OnNeedDataSource="gvCustomerFolioMerge_NeedDataSource">
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                     </ExportSettings>
@@ -394,7 +404,7 @@
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName"
-                                HeaderStyle-Width="200px" SortExpression="CustomerName" AllowFiltering="true"
+                                HeaderStyle-Width="150px" SortExpression="CustomerName" AllowFiltering="true"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
@@ -410,15 +420,14 @@
                             </asp:LinkButton>
                               </ItemTemplate>
                         </telerik:GridTemplateColumn>--%>
-                        <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" HeaderStyle-Width="50px"
-                             AllowFiltering="false"   SortExpression="Count" ItemStyle-HorizontalAlign="left"
-                            DataField="Count" FooterStyle-HorizontalAlign="Right"   >
-                            <ItemTemplate >
-                                <asp:LinkButton ID="lnkMF" runat="server" Text='<%#Eval("Count")%>' 
-                                    CommandName="Redirect"  ></asp:LinkButton>
-                            </ItemTemplate>
-                        </telerik:GridTemplateColumn>
-                        <%-- <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" Groupable="False"
+                            <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" HeaderStyle-Width="50px"
+                                AllowFiltering="false" SortExpression="Count" ItemStyle-HorizontalAlign="left"
+                                DataField="Count" FooterStyle-HorizontalAlign="Right">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkMF" runat="server" Text='<%#Eval("Count")%>' CommandName="Redirect"></asp:LinkButton>
+                                </ItemTemplate>
+                            </telerik:GridTemplateColumn>
+                            <%-- <telerik:GridTemplateColumn UniqueName="Count" HeaderText="Folios" Groupable="False"
                             ItemStyle-Wrap="false" AllowFiltering="true"  SortExpression="Count" ItemStyle-HorizontalAlign="Right"
                             DataField="Count" FooterStyle-HorizontalAlign="Right">
                             <ItemTemplate >
@@ -436,22 +445,24 @@
                                     </asp:LinkButton>
                             </ItemTemplate>
                             </telerik:GridBoundColumn>--%>
-                            
                             <telerik:GridBoundColumn UniqueName="FolioName" HeaderText="Folio Name" DataField="FolioName"
                                 HeaderStyle-Width="100px" SortExpression="FolioName" AllowFiltering="true" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
-                              </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="CMFA_BROKERCODE" HeaderText="SubBrokerCode" DataField="CMFA_BROKERCODE"
-                                HeaderStyle-Width="50px" SortExpression="CMFA_BROKERCODE" AllowFiltering="true" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true">
-                                 
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="CMFA_SubBrokerCode" HeaderText="SubBrokerCode"
+                                DataField="CMFA_SubBrokerCode" HeaderStyle-Width="120px" SortExpression="CMFA_SubBrokerCode"
+                                AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus"
                                 HeaderStyle-Width="100px" SortExpression="mergerstatus" AllowFiltering="true"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
+                            <%-- <telerik:GridBoundColumn UniqueName="CMFA_BROKERCODE" HeaderText="BrokerCode"
+                                DataField="CMFA_BROKERCODE" HeaderStyle-Width="50px" SortExpression="CMFA_BROKERCODE"
+                                AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn UniqueName="processId" HeaderText="Process Id" DataField="processId"
                                 HeaderStyle-Width="108px" SortExpression="processId" AllowFiltering="true" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
@@ -543,13 +554,14 @@
         <td></td>
     </tr>
   </table>--%>
-  <asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnbranchId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnbranchHeadId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAll" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnrmId" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnAgentId" runat="server" Visible="false" />
+<asp:HiddenField ID="hdnAgentCode" runat="server" Visible="false" />
 <asp:HiddenField ID="hdnIsassociate" runat="server" Visible="false" />
-<asp:HiddenField ID="hdnadviserId" runat="server" />  
+<asp:HiddenField ID="hdnadviserId" runat="server" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" Value="0" OnValueChanged="txtPickCustomer_TextChanged" />
 <%--<asp:HiddenField ID="hdnCurrentPage" runat="server" />--%>
 <asp:Button ID="btnCustomerSearch" runat="server" Text="" BorderStyle="None" BackColor="Transparent" />

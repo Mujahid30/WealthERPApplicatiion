@@ -3061,7 +3061,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF Folios")
                 {
                     Session["UserType"] = "Associates";
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorCustomerAccounts','login');", true);
                 }
                 else if (e.Item.Value == "Manage Portfolio")
                 {

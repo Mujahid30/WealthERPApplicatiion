@@ -29,6 +29,8 @@ using VoAdvisorProfiling;
 using BoUploads;
 using VOAssociates;
 using BOAssociates;
+using BoOps;
+using VoOps;
 using Telerik.Web.UI;
 
 
@@ -46,9 +48,12 @@ namespace WealthERP.Advisor
         int customerPortfolioID = 0;
         int isBankAssociatedWithOtherTransactions = 0;
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
+        OrderBo orderbo = new OrderBo();
         RMVo rmVo = new RMVo();
         AssociatesVO associatesVo = new AssociatesVO();
+
         //protected override void OnInit(EventArgs e)
         //{
         //    try
@@ -101,6 +106,9 @@ namespace WealthERP.Advisor
         //}
         int advisorId = 0;
         String userType;
+        string AgentCode;
+        string UserTitle;
+        int IsAgentCodeBased;
         int rmId = 0;
         int bmID = 0;
         int all = 0;
@@ -119,43 +127,122 @@ namespace WealthERP.Advisor
             associatesVo = (AssociatesVO)Session["associatesVo"];
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
 
-            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
-                userType = "advisor";
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-                userType = "rm";
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
-                userType = "bm";
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
-                userType = "associates";
-            else
-                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-
+            if (adviserVo.A_AgentCodeBased == 0)
+            {
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                    userType = "advisor";
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                    userType = "rm";
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                    userType = "bm";
+                else
+                    userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+            }
+            else if (adviserVo.A_AgentCodeBased == 1)
+            {
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
+                    userType = "advisor";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                {
+                    userType = "rm";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                {
+                    userType = "bm";
+                }
+                else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
+                    userType = "associates";
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.UserTitle == "SubBroker")
+                    {
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                        {
+                            AgentCode = "0";
+                        }
+                    }
+                    else
+                    {
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                        {
+                            AgentCode = "0";
+                        }
+                    }
+                }
+                else
+                {
+                    userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+                }
+            }
             advisorId = adviserVo.advisorId;
+            IsAgentCodeBased = adviserVo.A_AgentCodeBased;
             //int RMId = rmVo.RMId;
             rmId = rmVo.RMId;
             bmID = rmVo.RMId;
 
             if (!IsPostBack)
             {
-                if (userType == "advisor" || userType == "rm")
+                if (IsAgentCodeBased == 0)
                 {
-                    BindBranchDropDown();
-                    BindRMDropDown();
-                    if (userType == "rm")
+                    if (userType == "advisor" || userType == "rm")
                     {
-                        ddlBranch.Enabled = false;
-                        ddlRM.SelectedValue = rmVo.RMId.ToString();
-                        ddlRM.Enabled = false;
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                        if (userType == "rm")
+                        {
+                            ddlBranch.Enabled = false;
+                            ddlRM.SelectedValue = rmVo.RMId.ToString();
+                            ddlRM.Enabled = false;
+                            trAction.Visible = false;
+                            Label1.Visible = false;
+                        }
+                    }
+                    if (userType == "bm")
+                    {
+                        BindBranchForBMDropDown();
+                        BindRMforBranchDropdown(0, bmID);
                         trAction.Visible = false;
                         Label1.Visible = false;
                     }
                 }
-                if (userType == "bm") 
+                else if (IsAgentCodeBased==1)
                 {
-                    BindBranchForBMDropDown();
-                    BindRMforBranchDropdown(0, bmID);
-                    trAction.Visible = false;
-                    Label1.Visible = false;                  
+                    if (userType == "advisor" || userType == "rm")
+                    {
+                        BindCustomer();
+                        BindBranchDropDown();
+                        BindRMDropDown();
+                        trAction.Visible = true;
+                        Label1.Visible = true;
+                        trBranchRM.Visible = false;
+                        tdGoBtn.Visible = false;
+                        if (userType == "rm")
+                        {
+                            ddlBranch.Enabled = false;
+                            ddlRM.SelectedValue = rmVo.RMId.ToString();
+                            ddlRM.Enabled = false;
+                            trAction.Visible = false;
+                            Label1.Visible = false;
+                        }
+                    }
+                    if (userType == "bm")
+                    {
+                        //BindCustomer();
+                        BindBranchForBMDropDown();
+                        BindRMforBranchDropdown(0, bmID);
+                        trAction.Visible = false;
+                        Label1.Visible = false;
+                    }
                 }
                 if (userType == "associates")
                 {
@@ -164,7 +251,9 @@ namespace WealthERP.Advisor
                     trAction.Visible = true;
                     Label1.Visible = true;
                     ddlBranch.Visible = false;
-                    btnGo.Visible = false;
+                    tdGoBtn.Visible = false;
+                    //btnGo.Visible = false;
+                    BindSubBrokerAgentCode(AgentCode);
                     BindCustomer();
                     //BindBranchDropDown();
                     //BindRMDropDown();
@@ -221,6 +310,22 @@ namespace WealthERP.Advisor
             {
                 BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
             }
+
+        }
+        protected void BindSubBrokerAgentCode(string AgentCode)
+        {
+            DataTable dtSubbrokerCode = new DataTable();
+
+            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(AgentCode);
+
+            if (dtSubbrokerCode.Rows.Count > 0)
+            {
+                ddlBrokerCode.DataSource = dtSubbrokerCode;
+                ddlBrokerCode.DataValueField = dtSubbrokerCode.Columns["ACC_AgentId"].ToString();
+                ddlBrokerCode.DataTextField = dtSubbrokerCode.Columns["AAC_AgentCode"].ToString();
+                ddlBrokerCode.DataBind();
+            }
+            ddlBrokerCode.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
 
         }
         private void BindRMDropDown()
@@ -367,24 +472,39 @@ namespace WealthERP.Advisor
         protected void btnGo_Click(object sender, EventArgs e)
         {
             SetParameters();
-            if (userType == "rm"||userType=="bm")
+            //if(IsAgentCodeBased==0)
+            //{
+            if (IsAgentCodeBased == 0)
             {
-                BindCustomer();
-                trAction.Visible = false;
-                Label1.Visible = false;
+                if (userType == "rm" || userType == "bm")
+                {
+                    BindCustomer();
+                    trAction.Visible = false;
+                    Label1.Visible = false;
+                }
+                else
+                {
+                    BindCustomer();
+                    trAction.Visible = true;
+                    Label1.Visible = true;
+                }
             }
-           else if (userType == "associates")
+            else if (IsAgentCodeBased == 1)
             {
-                BindCustomer();
-                trAction.Visible = false;
-                Label1.Visible = false;
+                if (userType == "bm")
+                {
+                    BindCustomer();
+                    trAction.Visible = false;
+                    Label1.Visible = false;
+                }
             }
-            else
-            {
-                BindCustomer();
-                trAction.Visible = true;
-                Label1.Visible = true;
-            }
+           
+             //else if(IsAgentCodeBased==1)
+             //{ if (userType == "advisor"||userType == "rm"||userType=="bm")
+             //{  
+             //    btnGo.Visible
+             //}
+             //}
             //Label1.Visible = true;
             //trAction.Visible = true;
 
@@ -402,96 +522,220 @@ namespace WealthERP.Advisor
         }
         private void SetParameters()
         {
-            if (userType == "advisor")
+            if (IsAgentCodeBased == 0)
             {
-                hdnIsassociate.Value = "0";
-                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                if (userType == "advisor")
                 {
-                    hdnadviserId.Value = advisorId.ToString();
-                    hdnAll.Value = "0";
-                    hdnAgentId.Value = "0";
-                    hdnbranchId.Value = "0";
-                    hdnrmId.Value = "0";
-                   
-                }
-                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-                {
-                    hdnadviserId.Value = advisorId.ToString();
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
-                    hdnAgentId.Value = "0";
-                    hdnAll.Value = "1";
-                    hdnrmId.Value = "0";                    
-                }
-                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
-                {
-                    hdnadviserId.Value = advisorId.ToString();
-                    hdnbranchId.Value = "0";
-                    hdnAgentId.Value = "0";
-                    hdnAll.Value = "2";
-                    hdnrmId.Value = ddlRM.SelectedValue; ;
-                }
-                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
-                {
-                    hdnadviserId.Value = advisorId.ToString();
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
-                    hdnrmId.Value = ddlRM.SelectedValue;
-                    hdnAgentId.Value = "0";
-                    hdnAll.Value = "3";
-                }
-            }
-            else if (userType == "rm")
-            {
-                hdnIsassociate.Value = "0";
-                hdnrmId.Value = rmVo.RMId.ToString();
-                hdnAgentId.Value = "0";
-                hdnAll.Value = "0";
-            }
-            else if (userType == "bm")
-            {
                     hdnIsassociate.Value = "0";
-                if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
-                {
+                    if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnAll.Value = "0";
+                        hdnAgentId.Value = "0";
+                        hdnbranchId.Value = "0";
+                        hdnrmId.Value = "0";
 
-                    hdnbranchHeadId.Value = bmID.ToString();
-                    hdnbranchId.Value = "0";
+                    }
+                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "1";
+                        hdnrmId.Value = "0";
+                    }
+                    else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchId.Value = "0";
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "2";
+                        hdnrmId.Value = ddlRM.SelectedValue; ;
+                    }
+                    else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "3";
+                    }
+                }
+                else if (userType == "rm")
+                {
+                    hdnIsassociate.Value = "0";
+                    hdnrmId.Value = rmVo.RMId.ToString();
                     hdnAgentId.Value = "0";
                     hdnAll.Value = "0";
-                    hdnrmId.Value = "0";
                 }
-                else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                else if (userType == "bm")
                 {
-                    hdnbranchHeadId.Value = bmID.ToString();
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
-                    hdnAgentId.Value = "0";
-                    hdnAll.Value = "1";
-                    hdnrmId.Value = "0";
+                    hdnIsassociate.Value = "0";
+                    if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                    {
+
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = "0";
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "0";
+                        hdnrmId.Value = "0";
+                    }
+                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                    {
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "1";
+                        hdnrmId.Value = "0";
+                    }
+                    else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                    {
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = "0";
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "2";
+                        hdnrmId.Value = ddlRM.SelectedValue; ;
+                    }
+                    else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                    {
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "3";
+                    }
                 }
-                else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
-                {
-                    hdnbranchHeadId.Value = bmID.ToString();
+
+                if (hdnbranchHeadId.Value == "")
+                    hdnbranchHeadId.Value = "0";
+
+                if (hdnbranchId.Value == "")
                     hdnbranchId.Value = "0";
-                    hdnAgentId.Value = "0";
-                    hdnAll.Value = "2";
-                    hdnrmId.Value = ddlRM.SelectedValue; ;
-                }
-                else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+
+                if (hdnadviserId.Value == "")
+                    hdnadviserId.Value = "0";
+
+                if (hdnrmId.Value == "")
+                    hdnrmId.Value = "0";
+            }
+                else if (IsAgentCodeBased == 1)
                 {
-                    hdnbranchHeadId.Value = bmID.ToString();
-                    hdnbranchId.Value = ddlBranch.SelectedValue;
-                    hdnrmId.Value = ddlRM.SelectedValue;
+                    if (userType == "associates")
+                    {
+                        if (ddlBrokerCode.SelectedIndex != 0)
+                        {
+                            hdnAgentCode.Value = ddlBrokerCode.SelectedItem.ToString();
+                          
+
+                        }
+                        else
+                        {
+                            hdnAgentCode.Value =AgentCode;                           
+                        }
+                        hdnIsassociate.Value = "1";
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnAgentId.Value = "0";
+                        hdnbranchHeadId.Value = "0";
+                        hdnbranchId.Value = "0";
+                        hdnrmId.Value = "0";
+                        hdnAll.Value = "0";
+                    }
+                    if (userType == "advisor")
+                    {
+                        if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                        {
+                            hdnadviserId.Value = advisorId.ToString();
+                            hdnAll.Value = "0";
+                            hdnAgentId.Value = "0";
+                            hdnbranchId.Value = "0";
+                            hdnAgentCode.Value = "0";
+                            hdnrmId.Value = "0";
+
+                        }
+                        else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                        {
+                            hdnadviserId.Value = advisorId.ToString();
+                            hdnbranchId.Value = ddlBranch.SelectedValue;
+                            hdnAgentId.Value = "0";
+                            hdnAll.Value = "1";
+                            hdnAgentCode.Value = "0";
+                            hdnrmId.Value = "0";
+                        }
+                        else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                        {
+                            hdnadviserId.Value = advisorId.ToString();
+                            hdnbranchId.Value = "0";
+                            hdnAgentId.Value = "0";
+                            hdnAll.Value = "2";
+                            hdnAgentCode.Value = "0";
+                            hdnrmId.Value = ddlRM.SelectedValue; ;
+                        }
+                        else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                        {
+                            hdnadviserId.Value = advisorId.ToString();
+                            hdnbranchId.Value = ddlBranch.SelectedValue;
+                            hdnrmId.Value = ddlRM.SelectedValue;
+                            hdnAgentId.Value = "0";
+                            hdnAll.Value = "3";
+                            hdnAgentCode.Value = "0";
+                        }
+                    }
+                if(userType == "rm")
+                {
+                    hdnrmId.Value = rmVo.RMId.ToString();
+                    hdnadviserId.Value = "0";
+                    hdnbranchId.Value = "0";
+                    hdnAgentCode.Value = "0";
+                    hdnbranchHeadId.Value = "0";
+                    hdnAll.Value = "0";
                     hdnAgentId.Value = "0";
-                    hdnAll.Value = "3";
                 }
-            }
-            else if (userType == "associates")
-            {
-                hdnIsassociate.Value = "1";
-                hdnAgentId.Value =associatesVo.AAC_AdviserAgentId.ToString();
-                hdnbranchHeadId.Value = "0";
-                hdnbranchId.Value = "0";
-                hdnrmId.Value = "0";
-                hdnAll.Value = "0";
-            }
+                if (userType == "bm")
+                {
+                    if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = "0";
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "0";
+                        hdnrmId.Value = "0";
+                        hdnAgentCode.Value = "0";
+                    }
+                    else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "1";
+                        hdnrmId.Value = "0";
+                        hdnAgentCode.Value = "0";
+                    }
+                    else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = "0";
+                        hdnAgentId.Value = "0";
+                        hdnAll.Value = "2";
+                        hdnAgentCode.Value = "0";
+                        hdnrmId.Value = ddlRM.SelectedValue; ;
+                    }
+                    else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                    {
+                        hdnadviserId.Value = advisorId.ToString();
+                        hdnbranchHeadId.Value = bmID.ToString();
+                        hdnbranchId.Value = ddlBranch.SelectedValue;
+                        hdnrmId.Value = ddlRM.SelectedValue;
+                        hdnAgentId.Value = "0";
+                        hdnAgentCode.Value = "0";
+                        hdnadviserId.Value = "0";
+                        hdnAll.Value = "3";
+                    }
+                }
+                }
+
             if (hdnbranchHeadId.Value == "")
                 hdnbranchHeadId.Value = "0";
 
@@ -503,8 +747,7 @@ namespace WealthERP.Advisor
 
             if (hdnrmId.Value == "")
                 hdnrmId.Value = "0";
-        }
-
+            }
         private void BindCustomer()
         {
            
@@ -520,7 +763,7 @@ namespace WealthERP.Advisor
                 //    hdnCurrentPage.Value = "";
                 //}
 
-                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(int.Parse(hdnadviserId.Value),int.Parse(hdnIsassociate.Value),int.Parse(hdnAgentId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value));
+                dsCustomerFolio = adviserBranchBo.GetAdviserCustomerFolioMerge(int.Parse(hdnadviserId.Value),int.Parse(hdnAgentId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value),userType,IsAgentCodeBased,hdnAgentCode.Value);
 
                 //if (hdnFolioFilter.Value != "")
                 //    dsCustomerFolio = adviserBranchBo.FilterFolioNumber(adviserVo.advisorId, mypager.CurrentPage, hdnFolioFilter.Value.ToString(), out count);
@@ -540,6 +783,7 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("Nominee");
                 dtCustomerFolio.Columns.Add("ModeOfHolding");
                 dtCustomerFolio.Columns.Add("CMFA_BROKERCODE");
+                dtCustomerFolio.Columns.Add("CMFA_SubBrokerCode");
                if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
                     btnExportFilteredData.Visible = true;
@@ -571,6 +815,7 @@ namespace WealthERP.Advisor
                         else
                             drCustomerFolio["FolioName"] = "";
                         drCustomerFolio["CMFA_BROKERCODE"] = dtCustomer.Rows[i]["CMFA_BROKERCODE"];
+                        drCustomerFolio["CMFA_SubBrokerCode"] = dtCustomer.Rows[i]["CMFA_SubBrokerCode"];
                         drCustomerFolio["portfilionumber"] = dtCustomer.Rows[i]["portfilionumber"];
                         drCustomerFolio["mergerstatus"] = dtCustomer.Rows[i]["mergerstatus"];
                         drCustomerFolio["Nominee"] = dtCustomer.Rows[i]["Nominee"];
