@@ -828,6 +828,7 @@ namespace WealthERP.CustomerPortfolio
         txtSwicthSchemeSearch.Text="";
         txtDividentRate.Text = "";
         lblScheme.Text = "";
+        TxtsubBrokerCode.Text = "";
         ddlPortfolio.SelectedIndex = 0;
         lblSchemeName.Visible = false;
 

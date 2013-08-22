@@ -109,10 +109,12 @@ namespace WealthERP.OPS
                     BindBranchDropDown();
                     AgentCode = "0";
                     BindRMDropDown();
+                    trZCCS.Visible = false;
                     BindSubBrokerCode(userType);
                     //BindSubBrokerName();
                     if (userType == "rm")
                     {
+                        trZCCS.Visible = false;
                         trRMbranch.Visible = true;
                         ddlBranch.Enabled = false;
                         ddlRM.SelectedValue = rmVo.RMId.ToString();
@@ -129,6 +131,7 @@ namespace WealthERP.OPS
                 }
                 else if (userType == "bm")
                 {
+                    trZCCS.Visible = false;
                     AgentCode = "0";
                     trRMbranch.Visible = true;
                     BindBranchForBMDropDown();
@@ -339,7 +342,7 @@ namespace WealthERP.OPS
         protected void btnGo_Click(object sender, EventArgs e)
         {
             Cache.Remove("OrderList" + advisorVo.advisorId);
-            SetParameters();
+          //  SetParameters();
             BindGvOrderList();
         }
 
@@ -365,10 +368,14 @@ namespace WealthERP.OPS
             else
                 hdnTodate.Value = DateTime.MinValue.ToString();
 
-            if (ddlOrderStatus.SelectedIndex == 0)
-                hdnOrderStatus.Value = "OMIP";
+            if (ddlOrderStatus.SelectedIndex != 0)
+            {
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue.ToString();
+            }
             else
-                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+            {
+                hdnOrderStatus.Value = "OMIP";
+            }
         }
         private void SetParameterSubbroker()
         {
@@ -429,6 +436,7 @@ namespace WealthERP.OPS
         {
             //  if (userType != "associates")
             // {
+            SetParameters();
             SetParameterSubbroker();
             // }
             DataTable dtOrder = new DataTable();
@@ -436,10 +444,6 @@ namespace WealthERP.OPS
             if (dtOrder.Rows.Count > 0)
             {
                 trExportFilteredDupData.Visible = true;
-                gvOrderList.DataSource = dtOrder;
-                gvOrderList.DataBind();
-                gvOrderList.Visible = true;
-
                 if (Cache["OrderList" + advisorVo.advisorId] == null)
                 {
                     Cache.Insert("OrderList" + advisorVo.advisorId, dtOrder);
@@ -449,11 +453,13 @@ namespace WealthERP.OPS
                     Cache.Remove("OrderList" + advisorVo.advisorId);
                     Cache.Insert("OrderList" + advisorVo.advisorId, dtOrder);
                 }
-
+                gvOrderList.DataSource = dtOrder;
+                gvOrderList.DataBind();
+                gvOrderList.Visible = true;
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
                 pnlOrderList.Visible = true;
-                btnExportFilteredDupData.Visible = true;
+              //  btnExportFilteredDupData.Visible = true;
             }
             else
             {
