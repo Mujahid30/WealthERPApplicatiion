@@ -202,9 +202,10 @@ namespace WealthERP.Associates
 
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AB_BranchId"].ToString()))
+                                {
                                     ddlBranch.SelectedValue = drISARequestDetails["AB_BranchId"].ToString();
-
-                                BindStaffDropList(Convert.ToInt32(ddlBranch.SelectedValue.ToString()), 7);
+                                    BindStaffDropList(Convert.ToInt32(drISARequestDetails["AB_BranchId"].ToString()), 7);
+                                }
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["WWFSM_StepName"].ToString()))
                                 {
@@ -759,8 +760,7 @@ namespace WealthERP.Associates
         protected void ddlstatus1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if ((ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "DO") ||
-                (ddlstatus1.SelectedIndex != 0 && ddlstatus1.SelectedValue == "IP"))
+            if ((ddlstatus1.SelectedValue == "DO") ||(ddlstatus1.SelectedValue == "IP"))
             {
                 lnlStep2.Enabled = true;
                 associatesVo.StatusCode = ddlstatus1.SelectedValue;
