@@ -368,16 +368,23 @@ namespace WealthERP.OPS
                         {
                             lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
                         }
+                        else
                         lblAssociatetext.Text = string.Empty;
 
                     }
                     if (mforderVo.ARNNo != null)
-                        ddlARNNo.SelectedValue = mforderVo.ARNNo;
+                        trCust.Visible = true;
+                        ddlARNNo.SelectedItem.Value = mforderVo.ARNNo;
                     orderId = orderVo.OrderId;
+                    ddlsearch.SelectedItem.Value = "1";
                     ddlsearch.Enabled = true;
+                    //ddlAmcSchemeList.Text
                     txtAssociateSearch.Enabled = true;
                     txtCustomerName.Enabled = true;
+                    txtCustomerName.Visible = true;
                     txtCustomerName.Text = mforderVo.CustomerName;
+                    lblgetPan.Visible = true;
+                   
                     if (orderVo.CustomerId != 0)
                         hdnCustomerId.Value = orderVo.CustomerId.ToString();
                     BindPortfolioDropdown(orderVo.CustomerId);
@@ -427,7 +434,7 @@ namespace WealthERP.OPS
                         BindCategory();
                         ddlCategory.SelectedValue = mforderVo.category;
                         BindPortfolioDropdown(orderVo.CustomerId);
-                        ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
+                        ddlPortfolio.SelectedItem.Value = mforderVo.portfolioId.ToString();
                         BindScheme(0);
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
@@ -584,7 +591,7 @@ namespace WealthERP.OPS
                         txtPaymentInstDate.SelectedDate = null;
                     BindBank(orderVo.CustomerId);
                     if (orderVo.CustBankAccId != 0)
-                        ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+                        ddlBankName.SelectedItem.Value = orderVo.CustBankAccId.ToString();
                     else
                         ddlBankName.SelectedValue = "Select";
 
@@ -632,7 +639,15 @@ namespace WealthERP.OPS
                 {
                     ddlsearch.SelectedItem.Value = "0";
                     ddlsearch.Enabled = false;
-
+                    txtAssociateSearch.Text = orderVo.AgentCode;
+                    trCust.Visible = true;
+                    ddlsearch.SelectedItem.Value = "1";
+                    Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                    if (Agentname.Rows.Count > 0)
+                    {
+                        lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                    }
+                    //lblAssociatetext.Text;
                     SetEditViewMode(true);
                     orderId = orderVo.OrderId;
                     txtCustomerName.Enabled = false;
