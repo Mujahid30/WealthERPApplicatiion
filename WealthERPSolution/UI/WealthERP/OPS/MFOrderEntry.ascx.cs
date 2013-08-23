@@ -117,7 +117,7 @@ namespace WealthERP.OPS
             lblRM.Visible = false;
             lblGetRM.Visible = false;
             cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
-            //
+            //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
             if (!IsPostBack)
             {
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
@@ -187,7 +187,7 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = customerVo.BranchName;
                     lblGetRM.Text = customerVo.RMName;
                     lblgetPan.Text = customerVo.PANNum;
-                    // BindPortfolioDropdown(customerId);
+                    BindPortfolioDropdown(customerId);
                 }
                 cvAppRcvDate.ValueToCompare = DateTime.Today.ToShortDateString();
                 cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
@@ -380,7 +380,7 @@ namespace WealthERP.OPS
                     txtCustomerName.Text = mforderVo.CustomerName;
                     if (orderVo.CustomerId != 0)
                         hdnCustomerId.Value = orderVo.CustomerId.ToString();
-                    // BindPortfolioDropdown(orderVo.CustomerId);
+                    BindPortfolioDropdown(orderVo.CustomerId);
                     customerVo = customerBo.GetCustomer(orderVo.CustomerId);
                     lblGetBranch.Text = mforderVo.BMName;
                     lblGetRM.Text = mforderVo.RMName;
@@ -426,8 +426,8 @@ namespace WealthERP.OPS
                         ddlAMCList.SelectedValue = mforderVo.Amccode.ToString();
                         BindCategory();
                         ddlCategory.SelectedValue = mforderVo.category;
-                        // BindPortfolioDropdown(orderVo.CustomerId);
-                        //ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
+                        BindPortfolioDropdown(orderVo.CustomerId);
+                        ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
                         BindScheme(0);
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
@@ -639,7 +639,7 @@ namespace WealthERP.OPS
                     txtCustomerName.Text = mforderVo.CustomerName;
                     if (orderVo.CustomerId != 0)
                         hdnCustomerId.Value = orderVo.CustomerId.ToString();
-                    //  BindPortfolioDropdown(orderVo.CustomerId);
+                    BindPortfolioDropdown(orderVo.CustomerId);
                     txtAssociateSearch.Enabled = false;
                     customerVo = customerBo.GetCustomer(orderVo.CustomerId);
                     lblGetBranch.Text = mforderVo.BMName;
@@ -777,8 +777,8 @@ namespace WealthERP.OPS
                         ddlAMCList.SelectedValue = mforderVo.Amccode.ToString();
                         BindCategory();
                         ddlCategory.SelectedValue = mforderVo.category;
-                        //  BindPortfolioDropdown(mforderVo.CustomerId);
-                        //  ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
+                        BindPortfolioDropdown(mforderVo.CustomerId);
+                        ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
                         BindScheme(0);
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
@@ -1270,7 +1270,7 @@ namespace WealthERP.OPS
 
                 //= rmVo.FirstName + ' ' + rmVo.MiddleName + ' ' + rmVo.LastName;
                 BindBank(customerId);
-                //BindPortfolioDropdown(customerId);
+                BindPortfolioDropdown(customerId);
                 ddltransType.SelectedIndex = 0;
                 BindISAList();
                 btnreport.Visible = true;
@@ -1327,15 +1327,15 @@ namespace WealthERP.OPS
         }
         private void BindPortfolioDropdown(int customerId)
         {
-            //DataSet ds = portfolioBo.GetCustomerPortfolio(customerId);
-            //if (ds.Tables[0].Rows.Count > 0)
-            //{
-            //    ddlPortfolio.DataSource = ds;
-            //    ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
-            //    ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
-            //    ddlPortfolio.DataBind();
-            //    hdnPortfolioId.Value = ddlPortfolio.SelectedValue;
-            //}
+            DataSet ds = portfolioBo.GetCustomerPortfolio(customerId);
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                ddlPortfolio.DataSource = ds;
+                ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
+                ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
+                ddlPortfolio.DataBind();
+                hdnPortfolioId.Value = ddlPortfolio.SelectedValue;
+            }
         }
         public void clearPancustomerDetails()
         {
@@ -2094,7 +2094,7 @@ namespace WealthERP.OPS
                 mforderVo.SchemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
-            //mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
+            mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
             if (ddlFolioNumber.SelectedIndex != -1)
                 mforderVo.accountid = int.Parse(ddlFolioNumber.SelectedValue);
             else

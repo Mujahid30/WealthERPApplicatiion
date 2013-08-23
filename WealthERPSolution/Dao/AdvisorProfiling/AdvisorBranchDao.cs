@@ -24,7 +24,7 @@ namespace DaoAdvisorProfiling
         {
 
             int branchId = 0; ;
-            int ZCId=0;
+            int ZCId = 0;
             Database db;
             DbCommand createAdvisorBranchCmd;
             try
@@ -76,7 +76,7 @@ namespace DaoAdvisorProfiling
                 else
                     db.AddInParameter(createAdvisorBranchCmd, "@AB_IsHeadBranch", DbType.Int32, DBNull.Value);
                 db.AddOutParameter(createAdvisorBranchCmd, "BranchId", DbType.Int32, 5000);
-                                     
+
                 //added for Zone cluster Id insertion
                 if (advisorBranchVo.ZoneClusterId == 0)
                 {
@@ -360,7 +360,7 @@ namespace DaoAdvisorProfiling
 
         }
         public DataTable GetZoneClusterAssociation(int adviserId)
-        {            
+        {
             Database db;
             DbCommand getZoneClusterIdCmd;
             DataTable dtZoneCluster;
@@ -1088,8 +1088,8 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorBranchCmd, "@AZOC_ZoneClusterId", DbType.Int32, advisorBranchVo.ZoneClusterId);
                 }
                 db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AgentCode", DbType.String, advisorBranchVo.AdviserAgentCode);
-               
-              //  db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AdviserAgentId", DbType.Int32, 0);
+
+                //  db.AddInParameter(updateAdvisorBranchCmd, "@AAC_AdviserAgentId", DbType.Int32, 0);
 
 
                 if (db.ExecuteNonQuery(updateAdvisorBranchCmd) != 0)
@@ -1168,37 +1168,37 @@ namespace DaoAdvisorProfiling
                     advisorBranchVo.Email = dr["AB_Email"].ToString();
                     if (!string.IsNullOrEmpty(dr["AB_Fax"].ToString()))
                         advisorBranchVo.Fax = int.Parse(dr["AB_Fax"].ToString());
-                      if (!string.IsNullOrEmpty(dr["AB_FaxISD"].ToString()))
-                    advisorBranchVo.FaxIsd = int.Parse(dr["AB_FaxISD"].ToString());
+                    if (!string.IsNullOrEmpty(dr["AB_FaxISD"].ToString()))
+                        advisorBranchVo.FaxIsd = int.Parse(dr["AB_FaxISD"].ToString());
 
                     if (!string.IsNullOrEmpty(dr["AB_FaxSTD"].ToString()))
-                   advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
+                        advisorBranchVo.FaxStd = int.Parse(dr["AB_FaxSTD"].ToString());
 
-                   
+
                     if (!string.IsNullOrEmpty(dr["AB_Phone1ISD"].ToString()))
-                         advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
-                    
-                    if (!string.IsNullOrEmpty(dr["AB_Phone1"].ToString()))
-                       advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
-                     
-                    if (!string.IsNullOrEmpty(dr["AB_Phone1STD"].ToString()))
-                    advisorBranchVo.Phone1Std = int.Parse(dr["AB_Phone1STD"].ToString());
-                     
-                    if (!string.IsNullOrEmpty(dr["AB_Phone2ISD"].ToString()))
-                    advisorBranchVo.Phone2Isd = int.Parse(dr["AB_Phone2ISD"].ToString());
-                    
-                    if (!string.IsNullOrEmpty(dr["AB_Phone2"].ToString()))
-                    advisorBranchVo.Phone2Number = int.Parse(dr["AB_Phone2"].ToString());
-                    
-                    if (!string.IsNullOrEmpty(dr["AB_Phone2STD"].ToString()))
-                    advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
+                        advisorBranchVo.Phone1Isd = int.Parse(dr["AB_Phone1ISD"].ToString());
 
-                    
+                    if (!string.IsNullOrEmpty(dr["AB_Phone1"].ToString()))
+                        advisorBranchVo.Phone1Number = int.Parse(dr["AB_Phone1"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AB_Phone1STD"].ToString()))
+                        advisorBranchVo.Phone1Std = int.Parse(dr["AB_Phone1STD"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AB_Phone2ISD"].ToString()))
+                        advisorBranchVo.Phone2Isd = int.Parse(dr["AB_Phone2ISD"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AB_Phone2"].ToString()))
+                        advisorBranchVo.Phone2Number = int.Parse(dr["AB_Phone2"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["AB_Phone2STD"].ToString()))
+                        advisorBranchVo.Phone2Std = int.Parse(dr["AB_Phone2STD"].ToString());
+
+
                     if (!string.IsNullOrEmpty(dr["AB_PinCode"].ToString()))
-                    advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
-                    
+                        advisorBranchVo.PinCode = int.Parse(dr["AB_PinCode"].ToString());
+
                     if (!string.IsNullOrEmpty(dr["AB_State"].ToString()))
-                    advisorBranchVo.State = dr["AB_State"].ToString();
+                        advisorBranchVo.State = dr["AB_State"].ToString();
 
                     if (!string.IsNullOrEmpty(dr["AZOC_ZoneClusterId"].ToString()))
                         advisorBranchVo.ZoneClusterId = Convert.ToInt32(dr["AZOC_ZoneClusterId"].ToString());
@@ -2298,7 +2298,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, adviserId);
             else
                 db.AddInParameter(getCustomerListCmd, "@AdviserID", DbType.Int32, DBNull.Value);
-           
+
             if (rmId != 0)
                 db.AddInParameter(getCustomerListCmd, "@RMId", DbType.Int32, rmId);
             else
@@ -2324,7 +2324,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, All);
             else
                 db.AddInParameter(getCustomerListCmd, "@all", DbType.Int32, 0);
-          
+
             //db.AddInParameter(getCustomerListCmd, "@currentPage", DbType.Int32, currentPage);
 
             //if (custNameFilter != "")
@@ -2599,7 +2599,72 @@ namespace DaoAdvisorProfiling
             }
             return ds;
         }
+        public DataSet GetRMRoleForAgentBased(int adviserid)
+        {
+            Database db;
+            DbCommand getBranchsRMCmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBranchsRMCmd = db.GetStoredProcCommand("SP_GetRMRoleForAgentBased");
+                db.AddInParameter(getBranchsRMCmd, "@adviserid", DbType.Int16, adviserid);
+                ds = db.ExecuteDataSet(getBranchsRMCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAllRMsWithOutBMRole()");
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+        public DataSet GetBMRoleForAgentBased(int adviserid)
+        {
+            Database db;
+            DbCommand getBranchsRMCmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBranchsRMCmd = db.GetStoredProcCommand("SP_GetBMRoleForAgentBased");
+                db.AddInParameter(getBranchsRMCmd, "@adviserid", DbType.Int16, adviserid);
+                ds = db.ExecuteDataSet(getBranchsRMCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAllRMsWithOutBMRole()");
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
     }
+
 
 
 }

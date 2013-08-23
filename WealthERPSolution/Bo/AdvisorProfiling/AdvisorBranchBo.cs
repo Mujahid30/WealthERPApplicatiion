@@ -1761,5 +1761,95 @@ namespace BoAdvisorProfiling
 
         }
 
+        public DataSet GetdefaultRMforAgentcode(int branchId, int branchHeadId)
+        {
+
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = advisorBranchDao.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchsRMForBMDp()");
+                object[] objects = new object[3];
+                objects[0] = branchId;
+                objects[1] = branchHeadId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+
+
+        }
+        public DataSet GetRMRoleForAgentBased(int adviserid)
+        {
+
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = advisorBranchDao.GetRMRoleForAgentBased(adviserid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchsRMForBMDp()");
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+
+
+        }
+        public DataSet GetBMRoleForAgentBased(int adviserid)
+        {
+
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = advisorBranchDao.GetBMRoleForAgentBased(adviserid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchBo.cs:GetBranchsRMForBMDp()");
+                object[] objects = new object[3];
+                objects[0] = adviserid;
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+
+
+        }
     }
 }

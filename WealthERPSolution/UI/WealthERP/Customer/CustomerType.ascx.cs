@@ -49,10 +49,10 @@ namespace WealthERP.Customer
                 userVo = (UserVo)Session["userVo"];
                 rmVo = (RMVo)Session["rmVo"];
                 bmID = rmVo.RMId;
-             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
-             {
-                 btnCustomerProfile.Visible = false;
-             }
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
+                    btnCustomerProfile.Visible = false;
+                }
                 if (Request.QueryString["page"] != null)
                 {
                     page = Request.QueryString["page"];
@@ -68,7 +68,7 @@ namespace WealthERP.Customer
                     BindRMforBranchDropdown(0, 0);
                     //BindListBranch(rmVo.RMId, "rm");
                     BindSubTypeDropDown();
-                    
+
                 }
 
             }
@@ -181,7 +181,7 @@ namespace WealthERP.Customer
             int adviserId = (int)Session["adviserId"];
             try
             {
-                if(customerBo.PANNumberDuplicateCheck(adviserId,txtPanNumber.Text.ToString(),customerVo.CustomerId))
+                if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
                 {
                     result = false;
                     lblPanDuplicate.Visible = true;
@@ -275,7 +275,7 @@ namespace WealthERP.Customer
                 ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
                 ddlCustomerSubType.DataBind();
                 ddlCustomerSubType.Items.Insert(0, new ListItem("Select", "Select"));
-                
+
                 //txtFirstName.Visible = true;
                 //txtMiddleName.Visible = true;
                 //txtLastName.Visible = true;
@@ -373,7 +373,7 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
-                        if (ddlSalutation.SelectedIndex==0)
+                        if (ddlSalutation.SelectedIndex == 0)
                         {
                             customerVo.Salutation = "";
                         }
@@ -381,7 +381,7 @@ namespace WealthERP.Customer
                         {
                             customerVo.Salutation = ddlSalutation.SelectedValue.ToString();
                         }
-                        
+
                         userVo.FirstName = txtFirstName.Text.ToString();
                         userVo.MiddleName = txtMiddleName.Text.ToString();
                         userVo.LastName = txtLastName.Text.ToString();
@@ -398,7 +398,7 @@ namespace WealthERP.Customer
                         userVo.FirstName = txtCompanyName.Text.ToString();
                     }
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
-                   
+
                     //if (chkprospect.Checked)
                     //{
                     //    customerVo.IsProspect = 1;
@@ -432,7 +432,7 @@ namespace WealthERP.Customer
                     customerVo.ViaSMS = 1;
                     customerIds = customerBo.CreateCompleteCustomer(customerVo, userVo, customerPortfolioVo, tempUserVo.UserId);
                     Session["Customer"] = "Customer";
-                    
+
                     if (customerIds != null)
                     {
                         CustomerFamilyVo familyVo = new CustomerFamilyVo();
@@ -441,17 +441,17 @@ namespace WealthERP.Customer
                         familyVo.CustomerId = customerIds[1];
                         familyVo.Relationship = "SELF";
                         familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
-                        
+
                         if (page == "Entry")
                         {
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderEntry','?CustomerId=" + familyVo.CustomerId + " ');", true);
-                            
+
                         }
                         else
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AdviserCustomer','none');", true);
                         //trSumbitSuccess.Visible = true;
                         MakeReadonlyControls();
-                      
+
                     }
 
                 }
@@ -493,7 +493,7 @@ namespace WealthERP.Customer
             btnSubmit.Enabled = false;
             btnCustomerProfile.Enabled = false;
             trBtnSaveMsg.Visible = true;
- 
+
         }
 
         protected void btnCustomerProfile_Click(object sender, EventArgs e)
@@ -541,7 +541,7 @@ namespace WealthERP.Customer
                         //customerVo.FirstName = txtLastName.Text.ToString();
                         userVo.LastName = txtCompanyName.Text.ToString();
                     }
-                    
+
                     //customerVo.CustomerId = customerBo.GenerateId();
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
                     customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
@@ -583,7 +583,7 @@ namespace WealthERP.Customer
                     else if (rbtnIndividual.Checked)
                     {
                         //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('CustomerIndividualAdd','none');", true);
-                        Response.Redirect("ControlHost.aspx?pageid=EditCustomerIndividualProfile&RmId=" + customerVo.RmId + "&action=" + "Edit" +"", false);
+                        Response.Redirect("ControlHost.aspx?pageid=EditCustomerIndividualProfile&RmId=" + customerVo.RmId + "&action=" + "Edit" + "", false);
                     }
                 }
                 else
@@ -642,21 +642,46 @@ namespace WealthERP.Customer
         //}
         private void BindListBranch()
         {
-            UploadCommonBo uploadCommonBo = new UploadCommonBo();
-            DataSet ds = uploadCommonBo.GetAdviserBranchList(advisorVo.advisorId, "adviser");
-            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            if (advisorVo.A_AgentCodeBased != 1)
             {
-                ddlAdviserBranchList.DataSource = ds.Tables[0];
-                ddlAdviserBranchList.DataTextField = "AB_BranchName";
-                ddlAdviserBranchList.DataValueField = "AB_BranchId";
-                ddlAdviserBranchList.DataBind();
-                ddlAdviserBranchList.Items.Insert(0, new ListItem("Select", "Select"));
+                UploadCommonBo uploadCommonBo = new UploadCommonBo();
+                DataSet ds = uploadCommonBo.GetAdviserBranchList(advisorVo.advisorId, "adviser");
+                if (ds != null && ds.Tables[0].Rows.Count > 0)
+                {
+                    ddlAdviserBranchList.DataSource = ds.Tables[0];
+                    ddlAdviserBranchList.DataTextField = "AB_BranchName";
+                    ddlAdviserBranchList.DataValueField = "AB_BranchId";
+                    ddlAdviserBranchList.DataBind();
+                    ddlAdviserBranchList.Items.Insert(0, new ListItem("Select", "Select"));
+                }
+                else
+                {
+                    ddlAdviserBranchList.Items.Insert(0, new ListItem("No Branches Available to Associate", "No Branches Available to Associate"));
+                    ddlAdviserBranchList_CompareValidator2.ValueToCompare = "No Branches Available to Associate";
+                    ddlAdviserBranchList_CompareValidator2.ErrorMessage = "Cannot Add Customer Without a Branch";
+                }
             }
             else
             {
-                ddlAdviserBranchList.Items.Insert(0, new ListItem("No Branches Available to Associate", "No Branches Available to Associate"));
-                ddlAdviserBranchList_CompareValidator2.ValueToCompare = "No Branches Available to Associate";
-                ddlAdviserBranchList_CompareValidator2.ErrorMessage = "Cannot Add Customer Without a Branch";
+                DataSet BMDs = new DataSet();
+                DataTable BMList = new DataTable();
+                //BMList.Columns.Add("AB_BranchId");
+                //BMList.Columns.Add("AB_BranchName");
+                BMDs = advisorBranchBo.GetBMRoleForAgentBased(advisorVo.advisorId);
+
+                if (BMDs.Tables[0].Rows.Count > 0)
+                {
+                    ddlAdviserBranchList.DataSource = BMDs;
+                    ddlAdviserBranchList.DataValueField = BMDs.Tables[0].Columns["AB_BranchId"].ToString();
+                    ddlAdviserBranchList.DataTextField = BMDs.Tables[0].Columns["AB_BranchName"].ToString();
+                    ddlAdviserBranchList.DataBind();
+                    ddlAdviserBranchList.Enabled = false;
+                }
+                else
+                {
+                    ddlAdviseRMList.Enabled = false;
+                }
+            
             }
         }
 
@@ -665,68 +690,91 @@ namespace WealthERP.Customer
 
             try
             {
-
-                DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
-                if (ds.Tables[0].Rows.Count > 0)
+                if (advisorVo.A_AgentCodeBased != 1)
                 {
-                    ddlAdviseRMList.DataSource = ds.Tables[0];
-                    ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
-                    ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
-                    ddlAdviseRMList.DataBind();
-                    ddlAdviseRMList.Items.Remove("No RM Available");
-                    ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                    CompareValidator2.ValueToCompare = "Select";
-                    CompareValidator2.ErrorMessage = "Please select a RM";
-                }
-                else
-                {
-                    if (!IsPostBack)
+                    DataSet ds = advisorBranchBo.GetAllRMsWithOutBMRole(branchId, branchHeadId);
+                    if (ds.Tables[0].Rows.Count > 0)
                     {
+                        ddlAdviseRMList.DataSource = ds.Tables[0];
+                        ddlAdviseRMList.DataValueField = ds.Tables[0].Columns["RmID"].ToString();
+                        ddlAdviseRMList.DataTextField = ds.Tables[0].Columns["RMName"].ToString();
+                        ddlAdviseRMList.DataBind();
+                        ddlAdviseRMList.Items.Remove("No RM Available");
                         ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
                         CompareValidator2.ValueToCompare = "Select";
                         CompareValidator2.ErrorMessage = "Please select a RM";
-
                     }
                     else
                     {
-                        if (rbtnNonIndividual.Checked == true)
+                        if (!IsPostBack)
                         {
-                            if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
-                            {
-                                ddlAdviseRMList.Items.Clear();
-                                ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                                CompareValidator2.ValueToCompare = "Select";
-                                CompareValidator2.ErrorMessage = "Please select a RM";
-                            }
-                            else
-                            {
-                                ddlAdviseRMList.Items.Clear();
-                                ddlAdviseRMList.Items.Remove("Select");
-                                ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
-                                CompareValidator2.ValueToCompare = "No RM Available";
-                                CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
+                            ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                            CompareValidator2.ValueToCompare = "Select";
+                            CompareValidator2.ErrorMessage = "Please select a RM";
 
-
-                            }
                         }
                         else
                         {
-                            if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
+                            if (rbtnNonIndividual.Checked == true)
                             {
-                                ddlAdviseRMList.Items.Clear();
-                                ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
-                                CompareValidator2.ValueToCompare = "Select";
-                                CompareValidator2.ErrorMessage = "Please select a RM";
+                                if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
+                                {
+                                    ddlAdviseRMList.Items.Clear();
+                                    ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                                    CompareValidator2.ValueToCompare = "Select";
+                                    CompareValidator2.ErrorMessage = "Please select a RM";
+                                }
+                                else
+                                {
+                                    ddlAdviseRMList.Items.Clear();
+                                    ddlAdviseRMList.Items.Remove("Select");
+                                    ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
+                                    CompareValidator2.ValueToCompare = "No RM Available";
+                                    CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
+
+
+                                }
                             }
                             else
                             {
-                                ddlAdviseRMList.Items.Clear();
-                                ddlAdviseRMList.Items.Remove("Select");
-                                ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
-                                CompareValidator2.ValueToCompare = "No RM Available";
-                                CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
+                                if ((IsPostBack) && (ddlAdviserBranchList.SelectedIndex == 0))
+                                {
+                                    ddlAdviseRMList.Items.Clear();
+                                    ddlAdviseRMList.Items.Insert(0, new ListItem("Select", "Select"));
+                                    CompareValidator2.ValueToCompare = "Select";
+                                    CompareValidator2.ErrorMessage = "Please select a RM";
+                                }
+                                else
+                                {
+                                    ddlAdviseRMList.Items.Clear();
+                                    ddlAdviseRMList.Items.Remove("Select");
+                                    ddlAdviseRMList.Items.Insert(0, new ListItem("No RM Available", "No RM Available"));
+                                    CompareValidator2.ValueToCompare = "No RM Available";
+                                    CompareValidator2.ErrorMessage = "Cannot Add Customer Without a RM";
+                                }
                             }
                         }
+                    }
+                }
+                else
+                {
+                    DataSet Rmds = new DataSet();
+                    //DataTable Rmlist = Rmds.Tables[0];
+                    //Rmlist.Columns.Add("RmID");
+                    //Rmlist.Columns.Add("RMName");
+                    Rmds = advisorBranchBo.GetRMRoleForAgentBased(advisorVo.advisorId);
+
+                    if (Rmds.Tables[0].Rows.Count > 0)
+                    {
+                        ddlAdviseRMList.DataSource = Rmds;
+                        ddlAdviseRMList.DataValueField = Rmds.Tables[0].Columns["RmID"].ToString();
+                        ddlAdviseRMList.DataTextField = Rmds.Tables[0].Columns["RMName"].ToString();
+                        ddlAdviseRMList.DataBind();
+                        ddlAdviseRMList.Enabled = false;
+                    }
+                    else
+                    {
+                        ddlAdviseRMList.Enabled = false;
                     }
                 }
 

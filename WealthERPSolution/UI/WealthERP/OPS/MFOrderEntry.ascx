@@ -287,7 +287,7 @@
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
                 ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
@@ -529,13 +529,13 @@
         <td class="style1" id="tdtxtNAV" runat="server">
             <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <%-- <td class="leftField" style="width: 20%">
+         <td class="leftField" style="width: 20%" visible="false">
             <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+        <td class="rightField" style="width: 20%" visible="false">
             <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-        </td>--%>
+        </td>
     </tr>
     <tr id="trOrderType" runat="server">
         <td class="leftField" style="width: 20%">
@@ -673,8 +673,8 @@
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                 <%--<asp:CompareValidator ID="CVPaymentdate2" runat="server" ErrorMessage="<br/>Payment date cannot be greater than order date"
-                 ControlToValidate="txtPaymentInstDate"  CssClass="cvPCG" Operator="LessThanEqual" Display="Dynamic"
-               Type="date"></asp:CompareValidator>--%>
+                 ControlToValidate="txtPaymentInstDate" ValidationGroup="MFSubmit" CssClass="cvPCG" Operator="LessThanEqual" Display="Dynamic"
+               Type="Date"></asp:CompareValidator>--%>
             <%--<asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than or equal to Order Date"
                 Type="Date" ControlToValidate="txtPaymentInstDate" ControlToCompare="txtOrderDate"
                 Operator="LessThanEqual" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>--%>
