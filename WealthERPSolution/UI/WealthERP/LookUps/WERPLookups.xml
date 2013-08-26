@@ -2500,7 +2500,8 @@
     <XMLExternalSourceFileType XESFT_FileTypeId="36" XESFT_AssetGroup="MF" XESFT_FileType="TrailCommission" XESFT_FileExtension="xls" XES_SourceCode="SU" WUXFT_XMLFileTypeId="32" Deleted="False" />
     <XMLExternalSourceFileType XESFT_FileTypeId="37" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="KA" WUXFT_XMLFileTypeId="27" Deleted="False" />
     <XMLExternalSourceFileType XESFT_FileTypeId="38" XESFT_AssetGroup="MF" XESFT_FileType="Systematic" XESFT_FileExtension="xls" XES_SourceCode="SU" WUXFT_XMLFileTypeId="34" Deleted="False" />
-
+    <XMLExternalSourceFileType XESFT_FileTypeId="39" XESFT_AssetGroup="FI" XESFT_FileType="Link" XESFT_FileExtension="xls" XES_SourceCode="LK" WUXFT_XMLFileTypeId="33" Deleted="False" />
+    <XMLExternalSourceFileType XESFT_FileTypeId="40" XESFT_AssetGroup="FI" XESFT_FileType="Link" XESFT_FileExtension="dbf" XES_SourceCode="LK" WUXFT_XMLFileTypeId="33" Deleted="False"/>
   </Upload_Fileype>
 
   <WERPPortfolioTypes>
