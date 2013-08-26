@@ -77,10 +77,14 @@ namespace WealthERP.BusinessMIS
             if (!IsPostBack)
             {
                 pnlProduct.Visible = false;
+                pnlMember.Visible = false;
+                pnlOrganization.Visible = false;
                 rbtnPickDate.Checked = true;
                 rbtnPickPeriod.Checked = false;
                 divDateRange.Visible = true;
                 divDatePeriod.Visible = false;
+                trPnlOrganization.Visible = false;
+                trMember.Visible = false;
                 txtFromDate.SelectedDate = DateTime.Now;
                 txtToDate.SelectedDate = DateTime.Now;
             }
@@ -118,18 +122,429 @@ namespace WealthERP.BusinessMIS
 
         protected void lnkBtnSubBrokerCustomer_Click(object sender, EventArgs e)
         {
+            SetParameters();
+            BindMember();
+            trPnlProduct.Visible = false;
+            trPnlOrganization.Visible = false;
+            trMember.Visible = true;
+        }
 
+        private void BindMember()
+        {
+            int agentId = 0;
+            int agentIdOld = 0;
+            DataSet dsGetMemberDetailFromMFOrder = new DataSet();
+            dsGetMemberDetailFromMFOrder = adviserMFMIS.GetMemberDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
+
+            DataTable dtGetMemberDetailFromMFOrder = new DataTable();
+            dtGetMemberDetailFromMFOrder.Columns.Add("AgenId");
+            dtGetMemberDetailFromMFOrder.Columns.Add("CustomerName");
+            dtGetMemberDetailFromMFOrder.Columns.Add("SubBrokerCode");
+            dtGetMemberDetailFromMFOrder.Columns.Add("SubBrokerName");
+            dtGetMemberDetailFromMFOrder.Columns.Add("Folio");
+            dtGetMemberDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("BUYAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SELCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SELAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SIPCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SIPAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("STBCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("STBAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SWBCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SWBAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SWPCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("SWPAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("ABYCount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("ABYAmount", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("GrossRedemption", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("GrossInvestment", typeof(double));
+            dtGetMemberDetailFromMFOrder.Columns.Add("Net", typeof(double));
+
+            //--------------------Default Value ------------------
+
+            #region Data Table Default value
+
+            dtGetMemberDetailFromMFOrder.Columns["GrossRedemption"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["GrossInvestment"].DefaultValue = 0;
+
+            dtGetMemberDetailFromMFOrder.Columns["Net"].DefaultValue = 0;
+
+            dtGetMemberDetailFromMFOrder.Columns["BUYCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["BUYAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SELCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SELAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SWPCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SWPAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["ABYCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["ABYAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SIPCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SIPAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["STBCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["STBAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SWBCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFOrder.Columns["SWBAmount"].DefaultValue = 0;
+
+            #endregion
+
+
+
+            DataRow drGetMemberDetailFromMFOrder;
+            DataRow[] drOrderMemberWise;
+            if (dsGetMemberDetailFromMFOrder.Tables[0] != null)
+            {
+                DataTable dtGetMemberOrderTransaction = dsGetMemberDetailFromMFOrder.Tables[0];
+
+                foreach (DataRow drMemberOrderTransaction in dtGetMemberOrderTransaction.Rows)
+                {
+
+                    Int32.TryParse(drMemberOrderTransaction["AgenId"].ToString(), out agentId);
+
+                    if (agentId != agentIdOld)
+                    { //go for another row to find new customer
+                        agentIdOld = agentId;
+                        drGetMemberDetailFromMFOrder = dtGetMemberDetailFromMFOrder.NewRow();
+                        if (agentId != 0)
+                        { // add row in manual datatable within this brace end
+                            drOrderMemberWise = dtGetMemberOrderTransaction.Select("AgenId=" + agentId.ToString());
+                            drGetMemberDetailFromMFOrder["AgenId"] = drMemberOrderTransaction["AgenId"].ToString();
+                            drGetMemberDetailFromMFOrder["CustomerName"] = drMemberOrderTransaction["CustomerName"].ToString();
+                            drGetMemberDetailFromMFOrder["SubBrokerCode"] = drMemberOrderTransaction["SubBrokerCode"].ToString();
+                            drGetMemberDetailFromMFOrder["SubBrokerName"] = drMemberOrderTransaction["AssociatesName"].ToString();
+
+                            drGetMemberDetailFromMFOrder["Folio"] = drMemberOrderTransaction["CMFA_FolioNum"].ToString();
+                            if (drOrderMemberWise.Count() > 0)
+                            {
+                                foreach (DataRow dr in drOrderMemberWise)
+                                {
+
+                                    string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                    switch (transactiontype)
+                                    {
+                                        case "BUY":
+                                            {
+                                                drGetMemberDetailFromMFOrder["BUYCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["BUYAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SEL":
+                                            {
+                                                drGetMemberDetailFromMFOrder["SELCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossRedemption"] = double.Parse(drGetMemberDetailFromMFOrder["GrossRedemption"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["SELAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+
+                                        case "SIP":
+                                            {
+                                                drGetMemberDetailFromMFOrder["SIPCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["SIPAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "STB":
+                                            {
+                                                drGetMemberDetailFromMFOrder["STBCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["STBAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetMemberDetailFromMFOrder["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["SWBAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetMemberDetailFromMFOrder["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossRedemption"] = double.Parse(drGetMemberDetailFromMFOrder["GrossRedemption"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["SWPAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "ABY":
+                                            {
+                                                drGetMemberDetailFromMFOrder["ABYCount"] = dr["TrnsCount"].ToString();
+                                                drGetMemberDetailFromMFOrder["ABYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetMemberDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetMemberDetailFromMFOrder["ABYAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                    }
+
+                                }
+                            }
+
+                            drGetMemberDetailFromMFOrder["Net"] = double.Parse(drGetMemberDetailFromMFOrder["GrossInvestment"].ToString()) - double.Parse(drGetMemberDetailFromMFOrder["GrossRedemption"].ToString());
+
+
+                            dtGetMemberDetailFromMFOrder.Rows.Add(drGetMemberDetailFromMFOrder);
+                        }//*
+
+                    }//**
+
+                }//***
+                gvMember.DataSource = dtGetMemberDetailFromMFOrder;
+                gvMember.DataBind();
+                pnlMember.Visible = true;
+                gvMember.Visible = true;
+                //btnExpMember.Visible = true;
+                //btnExpOrganization.Visible = false;
+                //btnExpProduct.Visible = false;
+                this.gvMember.GroupingSettings.RetainGroupFootersVisibility = true;
+                if (Cache["gvMember" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("gvMember" + advisorVo.advisorId, dtGetMemberDetailFromMFOrder);
+                }
+                else
+                {
+                    Cache.Remove("gvMember" + advisorVo.advisorId);
+                    Cache.Insert("gvMember" + advisorVo.advisorId, dtGetMemberDetailFromMFOrder);
+                }
+            }
         }
 
         protected void lnkBtnOrganization_Click(object sender, EventArgs e)
         {
+            SetParameters();
+            BindOrganizationGrid();
+            trPnlProduct.Visible = false;
+            trPnlOrganization.Visible = true;
+            trMember.Visible = false;
+        }
 
+        private void BindOrganizationGrid()
+        {
+            int agentId = 0;
+            int agentIdOld = 0;
+            DataSet dsGetOrganizationDetailFromMFOrder = new DataSet();
+            dsGetOrganizationDetailFromMFOrder = adviserMFMIS.GetOrganizationDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
+
+            DataTable dtGetOrganizationDetailFromMFOrder = new DataTable();
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("AgenId");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("ZonalManagerName");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("AreaManager");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("CircleManager");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("ChannelMgr");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("CustomerName");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("BUYAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SELCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SELAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SIPCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SIPAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("STBCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("STBAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SWBCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SWBAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SWPCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("SWPAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("ABYCount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("ABYAmount", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("GrossRedemption", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("GrossInvestment", typeof(double));
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("Net", typeof(double));
+
+            //--------------------Default Value ------------------
+
+            #region Data Table Default value
+
+            dtGetOrganizationDetailFromMFOrder.Columns["GrossRedemption"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["GrossInvestment"].DefaultValue = 0;
+
+            dtGetOrganizationDetailFromMFOrder.Columns["Net"].DefaultValue = 0;
+
+            dtGetOrganizationDetailFromMFOrder.Columns["BUYCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["BUYAmount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SELCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SELAmount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SWPCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SWPAmount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["ABYCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["ABYAmount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SIPCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SIPAmount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["STBCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["STBAmount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SWBCount"].DefaultValue = 0;
+            dtGetOrganizationDetailFromMFOrder.Columns["SWBAmount"].DefaultValue = 0;
+
+            #endregion
+
+
+
+            DataRow drGetOrganizationDetailFromMFOrder;
+            DataRow[] drOrderOrgWise;
+            if (dsGetOrganizationDetailFromMFOrder.Tables[0] != null)
+            {
+                DataTable dtGetOrgOrderTransaction = dsGetOrganizationDetailFromMFOrder.Tables[0];
+
+                foreach (DataRow drOrgOrderTransaction in dtGetOrgOrderTransaction.Rows)
+                {
+
+                    Int32.TryParse(drOrgOrderTransaction["AgenId"].ToString(), out agentId);
+
+                    if (agentId != agentIdOld)
+                    { //go for another row to find new customer
+                        agentIdOld = agentId;
+                        drGetOrganizationDetailFromMFOrder = dtGetOrganizationDetailFromMFOrder.NewRow();
+                        if (agentId != 0)
+                        { // add row in manual datatable within this brace end
+                            drOrderOrgWise = dtGetOrgOrderTransaction.Select("AgenId=" + agentId.ToString());
+                            drGetOrganizationDetailFromMFOrder["AgenId"] = drOrgOrderTransaction["AgenId"].ToString();
+                            drGetOrganizationDetailFromMFOrder["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
+                            drGetOrganizationDetailFromMFOrder["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
+                            drGetOrganizationDetailFromMFOrder["CircleManager"] = drOrgOrderTransaction["CircleManager"].ToString();
+
+                            drGetOrganizationDetailFromMFOrder["ChannelMgr"] = drOrgOrderTransaction["ChannelMgr"].ToString();
+                            drGetOrganizationDetailFromMFOrder["CustomerName"] = drOrgOrderTransaction["CustomerName"].ToString();
+                            if (drOrderOrgWise.Count() > 0)
+                            {
+                                foreach (DataRow dr in drOrderOrgWise)
+                                {
+
+                                    string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                    switch (transactiontype)
+                                    {
+                                        case "BUY":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["BUYCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["BUYAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SEL":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["SELCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["SELAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+
+                                        case "SIP":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["SIPCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["SIPAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "STB":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["STBCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["STBAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["SWBAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["SWPAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "ABY":
+                                            {
+                                                drGetOrganizationDetailFromMFOrder["ABYCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromMFOrder["ABYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromMFOrder["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromMFOrder["ABYAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                    }
+
+                                }
+                            }
+
+                            drGetOrganizationDetailFromMFOrder["Net"] = double.Parse(drGetOrganizationDetailFromMFOrder["GrossInvestment"].ToString()) - double.Parse(drGetOrganizationDetailFromMFOrder["GrossRedemption"].ToString());
+
+
+                            dtGetOrganizationDetailFromMFOrder.Rows.Add(drGetOrganizationDetailFromMFOrder);
+                        }//*
+
+                    }//**
+
+                }//***
+                gvOrganization.DataSource = dtGetOrganizationDetailFromMFOrder;
+                gvOrganization.DataBind();
+                pnlProduct.Visible = true;
+                //btnExpOrganization.Visible = true;
+                //btnExpProduct.Visible = false;
+                //btnExpMember.Visible = false;
+                gvOrganization.Visible = true;
+                pnlOrganization.Visible = true;
+                this.gvOrganization.GroupingSettings.RetainGroupFootersVisibility = true;
+                if (Cache["gvOrganization" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("gvOrganization" + advisorVo.advisorId, dtGetOrganizationDetailFromMFOrder);
+                }
+                else
+                {
+                    Cache.Remove("gvOrganization" + advisorVo.advisorId);
+                    Cache.Insert("gvOrganization" + advisorVo.advisorId, dtGetOrganizationDetailFromMFOrder);
+                }
+
+            }
         }
 
         protected void lnkBtnProduct_Click(object sender, EventArgs e)
         {
             SetParameters();
             BindProductGrid();
+            trPnlProduct.Visible = true;
+            trPnlOrganization.Visible = false;
+            trMember.Visible = false;
         }
 
         private void BindProductGrid()
@@ -243,7 +658,7 @@ namespace WealthERP.BusinessMIS
                                                 }
                                                 break;
                                             }
-                                     
+
                                         case "SIP":
                                             {
                                                 drGetProductDetailFromMFOrder["SIPCount"] = dr["TrnsCount"].ToString();
@@ -313,7 +728,9 @@ namespace WealthERP.BusinessMIS
                 gvProduct.DataSource = dtGetProductDetailFromMFOrder;
                 gvProduct.DataBind();
                 pnlProduct.Visible = true;
-                //btnProduct.Visible = true;
+                //btnExpOrganization.Visible = false;
+                //btnExpProduct.Visible = true;
+                //btnExpMember.Visible = false;
                 gvProduct.Visible = true;
                 pnlProduct.Visible = true;
                 this.gvProduct.GroupingSettings.RetainGroupFootersVisibility = true;
@@ -402,7 +819,7 @@ namespace WealthERP.BusinessMIS
             }
 
         }
-        protected void btnProduct_Click(object sender, ImageClickEventArgs e)
+        protected void btnExpProduct_Click(object sender, ImageClickEventArgs e)
         {
             gvProduct.ExportSettings.OpenInNewWindow = true;
             gvProduct.ExportSettings.IgnorePaging = true;
@@ -412,18 +829,49 @@ namespace WealthERP.BusinessMIS
             }
             gvProduct.MasterTableView.ExportToExcel();
         }
+        protected void btnExpOrganization_Click(object sender, ImageClickEventArgs e)
+        {
+            gvOrganization.ExportSettings.OpenInNewWindow = true;
+            gvOrganization.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvOrganization.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvOrganization.MasterTableView.ExportToExcel();
+        }
+        protected void btnExpMember_Click(object sender, ImageClickEventArgs e)
+        {
+            gvMember.ExportSettings.OpenInNewWindow = true;
+            gvMember.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMember.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMember.MasterTableView.ExportToExcel();
+        }
 
         protected void gvProduct_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
-            //DataTable dtGetProductDetailFromMFOrder = new DataTable();
-            //dtGetProductDetailFromMFOrder = (DataTable)Cache["gvProduct" + userVo.UserId.ToString()];
-            //gvProduct.DataSource = dtGetProductDetailFromMFOrder;
-            //gvProduct.Visible = true;
             DataTable dtGetProductDetailFromMFOrder = new DataTable();
             dtGetProductDetailFromMFOrder = (DataTable)Cache["gvProduct" + advisorVo.advisorId];
             gvProduct.Visible = true;
             this.gvProduct.DataSource = dtGetProductDetailFromMFOrder;
         }
-
+        protected void gvOrganization_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtGetOrganizationDetailFromMFOrder = new DataTable();
+            dtGetOrganizationDetailFromMFOrder = (DataTable)Cache["gvOrganization" + advisorVo.advisorId];
+            gvOrganization.Visible = true;
+            this.gvOrganization.DataSource = dtGetOrganizationDetailFromMFOrder;
+        }
+        protected void gvMember_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+           
+                DataTable dtGetMemberDetailFromMFOrder = new DataTable();
+                dtGetMemberDetailFromMFOrder = (DataTable)Cache["gvMember" + advisorVo.advisorId];
+                gvMember.Visible = true;
+                this.gvMember.DataSource = dtGetMemberDetailFromMFOrder;
+         
+        }
     }
 }
