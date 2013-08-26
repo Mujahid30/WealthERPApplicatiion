@@ -12,15 +12,11 @@ namespace VoCommisionManagement
         public string ProductType { get; set; }
         //public bool IsMonetary { get; set; }
         public string AssetCategory { get; set; }
-        public string Issuer { get; set; }
-        public string ApplicableLevelCode { get; set; }
+        public string Issuer { get; set; }      
 
         public DateTime ValidityStartDate { get; set; }
         public DateTime ValidityEndDate { get; set; }
-
-        public bool IsServiceTaxReduced { get; set; }
-        public bool IsTDSReduced { get; set; }
-        public bool IsOtherTaxReduced { get; set; }
+       
         public bool IsClawBackApplicable { get; set; }
 
         public bool IsArchived { get; set; }
@@ -28,9 +24,7 @@ namespace VoCommisionManagement
 
         public string CommissionStructureName { get; set; }
         public bool IsNonMonetaryReward { get; set; }
-        public string AdviserCityGroupCode { get; set; }
        
-        public string ReceivableFrequency { get; set; }
         public string StructureNote { get; set; }
 
         public int StructureMasterCreatedBy { get; set; }
@@ -48,6 +42,15 @@ namespace VoCommisionManagement
         public Int32 CommissionStructureRuleId { get; set; }
         public string CommissionType { get; set; }
         public string CustomerType { get; set; }
+
+        public string ApplicableLevelCode { get; set; }
+        public string AdviserCityGroupCode { get; set; }
+
+        public bool IsServiceTaxReduced { get; set; }
+        public bool IsTDSReduced { get; set; }
+        public bool IsOtherTaxReduced { get; set; }
+
+        public string ReceivableFrequency { get; set; }
 
         public decimal MinInvestmentAmount { get; set; }
         public decimal MaxInvestmentAmount { get; set; }
