@@ -65,19 +65,16 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
-                db.AddInParameter(cmdCreateCommissionStructure, "@WCAL_ApplicableLevelCode", DbType.String, commissionStructureMasterVo.ApplicableLevelCode);
+                
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ValidityStartDate", DbType.Date, commissionStructureMasterVo.ValidityStartDate);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ValidityEndDate", DbType.Date, commissionStructureMasterVo.ValidityEndDate);
-                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_IsServiceTaxReduced", DbType.Int16, commissionStructureMasterVo.IsServiceTaxReduced);
-                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_IsTDSReduced", DbType.Int16, commissionStructureMasterVo.IsTDSReduced);
-                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_IsOtherTaxReduced", DbType.Int16, commissionStructureMasterVo.IsOtherTaxReduced);
+                
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_IsNonMonetaryReward", DbType.Int16, commissionStructureMasterVo.IsNonMonetaryReward);
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_IsClawBackApplicable", DbType.Int16, commissionStructureMasterVo.IsClawBackApplicable);
-                db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_ReceivableFrequency", DbType.String, commissionStructureMasterVo.ReceivableFrequency);
+                
                 db.AddInParameter(cmdCreateCommissionStructure, "@ACSM_Note", DbType.String, commissionStructureMasterVo.StructureNote);
                 db.AddInParameter(cmdCreateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
-                if (!string.IsNullOrEmpty(commissionStructureMasterVo.AdviserCityGroupCode))
-                    db.AddInParameter(cmdCreateCommissionStructure, "@ACG_CityGroupID", DbType.String, commissionStructureMasterVo.AdviserCityGroupCode);
+                
                 db.AddInParameter(cmdCreateCommissionStructure, "@UserId", DbType.String, userId);
                 db.AddOutParameter(cmdCreateCommissionStructure, "@CommissionStructureId", DbType.Int64, 1000000);
                 db.ExecuteNonQuery(cmdCreateCommissionStructure);
@@ -153,6 +150,14 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_CommissionStructureId", DbType.Int64, commissionStructureRuleVo.CommissionStructureId);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
+
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACG_CityGroupID", DbType.String, commissionStructureRuleVo.AdviserCityGroupCode);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@WCAL_ApplicableLevelCode", DbType.String, commissionStructureRuleVo.ApplicableLevelCode);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_ReceivableRuleFrequency", DbType.String, commissionStructureRuleVo.ReceivableFrequency);
+
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsServiceTaxReduced", DbType.Int16, commissionStructureRuleVo.IsServiceTaxReduced);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_IsTDSReduced", DbType.Int16, commissionStructureRuleVo.IsTDSReduced);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSM_IsOtherTaxReduced", DbType.Int16, commissionStructureRuleVo.IsOtherTaxReduced);
 
                 if (commissionStructureRuleVo.MinInvestmentAmount != 0)
                 {
@@ -467,18 +472,14 @@ namespace DaoCommisionManagement
                     commissionStructureMasterVo.AssetCategory = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     commissionStructureMasterVo.CommissionStructureName = dr["ACSM_CommissionStructureName"].ToString();
                     commissionStructureMasterVo.Issuer = dr["ACSM_Issuer"].ToString();
-                    commissionStructureMasterVo.ApplicableLevelCode = dr["WCAL_ApplicableLevelCode"].ToString();
+                   
                     commissionStructureMasterVo.ValidityStartDate = Convert.ToDateTime(dr["ACSM_ValidityStartDate"].ToString());
                     commissionStructureMasterVo.ValidityEndDate = Convert.ToDateTime(dr["ACSM_ValidityEndDate"].ToString());
 
-                    commissionStructureMasterVo.IsServiceTaxReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsServiceTaxReduced"].ToString()));
-                    commissionStructureMasterVo.IsTDSReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsTDSReduced"].ToString()));
-                    commissionStructureMasterVo.IsOtherTaxReduced = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsOtherTaxReduced"].ToString()));
+                    
                     commissionStructureMasterVo.IsNonMonetaryReward = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsNonMonetaryReward"].ToString()));
                     commissionStructureMasterVo.IsClawBackApplicable = Convert.ToBoolean(Convert.ToInt16(dr["ACSM_IsClawBackApplicable"].ToString()));
 
-                    commissionStructureMasterVo.ReceivableFrequency = dr["ACSM_ReceivableFrequency"].ToString();
-                    commissionStructureMasterVo.AdviserCityGroupCode = dr["ACG_CityGroupID"].ToString();
                     commissionStructureMasterVo.StructureNote = dr["ACSM_Note"].ToString();
                 }
                 StringBuilder strSubCategoryCode = new StringBuilder();
@@ -529,19 +530,16 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructure, "@PAIC_AssetInstrumentCategoryCode", DbType.String, commissionStructureMasterVo.AssetCategory);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_CommissionStructureName", DbType.String, commissionStructureMasterVo.CommissionStructureName);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Issuer", DbType.Int32, Convert.ToUInt32(commissionStructureMasterVo.Issuer.ToString()));
-                db.AddInParameter(cmdUpdateCommissionStructure, "@WCAL_ApplicableLevelCode", DbType.String, commissionStructureMasterVo.ApplicableLevelCode);
+                
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ValidityStartDate", DbType.Date, commissionStructureMasterVo.ValidityStartDate);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ValidityEndDate", DbType.Date, commissionStructureMasterVo.ValidityEndDate);
-                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsServiceTaxReduced", DbType.Int16, commissionStructureMasterVo.IsServiceTaxReduced);
-                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsTDSReduced", DbType.Int16, commissionStructureMasterVo.IsTDSReduced);
-                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsOtherTaxReduced", DbType.Int16, commissionStructureMasterVo.IsOtherTaxReduced);
+            
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsNonMonetaryReward", DbType.Int16, commissionStructureMasterVo.IsNonMonetaryReward);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_IsClawBackApplicable", DbType.Int16, commissionStructureMasterVo.IsClawBackApplicable);
-                db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_ReceivableFrequency", DbType.String, commissionStructureMasterVo.ReceivableFrequency);
+               
                 db.AddInParameter(cmdUpdateCommissionStructure, "@ACSM_Note", DbType.String, commissionStructureMasterVo.StructureNote);
                 db.AddInParameter(cmdUpdateCommissionStructure, "@AssetSubGroupCode", DbType.String, Convert.ToString(commissionStructureMasterVo.AssetSubCategory));
-                if (!string.IsNullOrEmpty(commissionStructureMasterVo.AdviserCityGroupCode))
-                db.AddInParameter(cmdUpdateCommissionStructure, "@ACG_CityGroupID", DbType.String, commissionStructureMasterVo.AdviserCityGroupCode);
+
                 
                 db.AddInParameter(cmdUpdateCommissionStructure, "@UserId", DbType.String, userId);
                 db.ExecuteNonQuery(cmdUpdateCommissionStructure);
@@ -579,6 +577,14 @@ namespace DaoCommisionManagement
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSM_CommissionStructureRuleId", DbType.Int64, commissionStructureRuleVo.CommissionStructureRuleId);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCT_CommissionTypeCode", DbType.String, commissionStructureRuleVo.CommissionType);
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@XCC_CustomerCategoryCode", DbType.String, commissionStructureRuleVo.CustomerType);
+
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACG_CityGroupID", DbType.String, commissionStructureRuleVo.AdviserCityGroupCode);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@WCAL_ApplicableLevelCode", DbType.String, commissionStructureRuleVo.ApplicableLevelCode);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_ReceivableRuleFrequency", DbType.String, commissionStructureRuleVo.ReceivableFrequency);
+
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsServiceTaxReduced", DbType.Int16, commissionStructureRuleVo.IsServiceTaxReduced);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsTDSReduced", DbType.Int16, commissionStructureRuleVo.IsTDSReduced);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_IsOtherTaxReduced", DbType.Int16, commissionStructureRuleVo.IsOtherTaxReduced);
 
                 if (commissionStructureRuleVo.MinInvestmentAmount != 0)
                 {
