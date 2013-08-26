@@ -642,8 +642,8 @@ namespace WealthERP.Advisor
                     }
                     if (userType == "advisor")
                     {
-                        if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
-                        {
+                        //if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
+                        //{
                             hdnadviserId.Value = advisorId.ToString();
                             hdnAll.Value = "0";
                             hdnAgentId.Value = "0";
@@ -651,35 +651,46 @@ namespace WealthERP.Advisor
                             hdnAgentCode.Value = "0";
                             hdnrmId.Value = "0";
 
-                        }
-                        else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
-                        {
-                            hdnadviserId.Value = advisorId.ToString();
-                            hdnbranchId.Value = ddlBranch.SelectedValue;
-                            hdnAgentId.Value = "0";
-                            hdnAll.Value = "1";
-                            hdnAgentCode.Value = "0";
-                            hdnrmId.Value = "0";
-                        }
-                        else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
-                        {
-                            hdnadviserId.Value = advisorId.ToString();
-                            hdnbranchId.Value = "0";
-                            hdnAgentId.Value = "0";
-                            hdnAll.Value = "2";
-                            hdnAgentCode.Value = "0";
-                            hdnrmId.Value = ddlRM.SelectedValue; ;
-                        }
-                        else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
-                        {
-                            hdnadviserId.Value = advisorId.ToString();
-                            hdnbranchId.Value = ddlBranch.SelectedValue;
-                            hdnrmId.Value = ddlRM.SelectedValue;
-                            hdnAgentId.Value = "0";
-                            hdnAll.Value = "3";
-                            hdnAgentCode.Value = "0";
-                        }
+                        //}
+                        //else if ((ddlBranch.SelectedIndex != 0) && (ddlRM.SelectedIndex == 0))
+                        //{
+                        //    hdnadviserId.Value = advisorId.ToString();
+                        //    hdnbranchId.Value = ddlBranch.SelectedValue;
+                        //    hdnAgentId.Value = "0";
+                        //    hdnAll.Value = "1";
+                        //    hdnAgentCode.Value = "0";
+                        //    hdnrmId.Value = "0";
+                        //}
+                        //else if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex != 0)
+                        //{
+                        //    hdnadviserId.Value = advisorId.ToString();
+                        //    hdnbranchId.Value = "0";
+                        //    hdnAgentId.Value = "0";
+                        //    hdnAll.Value = "2";
+                        //    hdnAgentCode.Value = "0";
+                        //    hdnrmId.Value = ddlRM.SelectedValue; ;
+                        //}
+                        //else if (ddlBranch.SelectedIndex != 0 && ddlRM.SelectedIndex != 0)
+                        //{
+                        //    hdnadviserId.Value = advisorId.ToString();
+                        //    hdnAll.Value = "0";
+                        //    hdnAgentId.Value = "0";
+                        //    hdnbranchId.Value = "0";
+                        //    hdnAgentCode.Value = "0";
+                        //    hdnrmId.Value = "0";
+                        //}
+                        
                     }
+                    //else
+                    //{
+                    //    if (ddlBranch.SelectedIndex <= 0 && ddlRM.SelectedIndex <= 0)
+                    //    hdnadviserId.Value = advisorId.ToString();
+                    //    hdnAll.Value = "0";
+                    //    hdnAgentId.Value = "0";
+                    //    hdnbranchId.Value = "0";
+                    //    hdnAgentCode.Value = "0";
+                    //    hdnrmId.Value = "0";
+                    //}
                 if(userType == "rm")
                 {
                     hdnrmId.Value = rmVo.RMId.ToString();
@@ -730,7 +741,7 @@ namespace WealthERP.Advisor
                         hdnrmId.Value = ddlRM.SelectedValue;
                         hdnAgentId.Value = "0";
                         hdnAgentCode.Value = "0";
-                        hdnadviserId.Value = "0";
+                        //hdnadviserId.Value = "0";
                         hdnAll.Value = "3";
                     }
                 }
