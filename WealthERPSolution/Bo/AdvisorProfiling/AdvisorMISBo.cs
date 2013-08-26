@@ -1531,7 +1531,20 @@ namespace BoAdvisorProfiling
             }
             return dsGetCommissionReconMis;
         }
-
+        /// <summary>
+        /// Display Product wise transaction done from Oder Table
+        /// </summary>
+        /// <param name="agentcode"></param>
+        /// <param name="userType"></param>
+        /// <param name="AdviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="all"></param>
+        /// <param name="FromDate"></param>
+        /// <param name="Todate"></param>
+        /// <param name="AgentId"></param>
+        /// <returns></returns>
         public DataSet GetProductDetailFromMFOrder(string agentcode,string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -1561,6 +1574,81 @@ namespace BoAdvisorProfiling
                 throw exBase;
             }
             return dsGetProductDetailFromMFOrder;
+        }
+        /// <summary>
+        /// Display Organization wise transaction done from Oder Table
+        /// </summary>
+        /// <param name="Agentcode"></param>
+        /// <param name="userType"></param>
+        /// <param name="adviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="all"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="ToDate"></param>
+        /// <param name="agentId"></param>
+        /// <returns></returns>
+        public DataSet GetOrganizationDetailFromMFOrder(string Agentcode, string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime ToDate, int agentId)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsGetOrgDetailFromMFOrder;
+            try
+            {
+                dsGetOrgDetailFromMFOrder = MISDao.GetOrganizationDetailFromMFOrder(Agentcode, userType, adviserId, rmId, branchId, branchHeadId, all, fromDate, ToDate, agentId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetOrganizationDetailFromMFOrder()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetOrgDetailFromMFOrder;
+        }
+
+        public DataSet GetMemberDetailFromMFOrder(string Agentcode, string userType, int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime ToDate, int agentId)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            DataSet dsGetMemberDetailFromMFOrder;
+            try
+            {
+                dsGetMemberDetailFromMFOrder = MISDao.GetMemberDetailFromMFOrder(Agentcode, userType, adviserId, rmId, branchId, branchHeadId, all, fromDate, ToDate, agentId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetMemberDetailFromMFOrder()");
+
+                object[] objects = new object[3];
+                objects[0] = adviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMemberDetailFromMFOrder;
         }
     }
 }
