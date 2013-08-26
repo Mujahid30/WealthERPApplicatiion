@@ -298,7 +298,7 @@
                     </asp:DropDownList>
                     <span id="Span7" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
-                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate"
+                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate" Display="Dynamic"
                         InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td align="left">
@@ -316,29 +316,20 @@
                     <span id="Span6" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
-                        CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnStrAddUpdate"
+                        CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnStrAddUpdate" Display="Dynamic"
                         InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
-                    <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName"></asp:Label>
-                </td>
+                </td> 
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <span id="Span9" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Select ApplicableLevel"
-                        CssClass="rfvPCG" ControlToValidate="ddlCommissionApplicableLevel" ValidationGroup="btnStrAddUpdate"
-                        InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
-                <td rowspan="6" colspan="2" class="rightDataTwoColumn">
+                <td rowspan="5" class="rightDataTwoColumn">
                     <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CheckBoxes="true" CssClass="txtField"
                         Width="220px" Height="200px">
                     </telerik:RadListBox>
-                    <asp:CustomValidator ControlToValidate="rlbAssetSubCategory" ID="cus" runat="server"
-                        ErrorMessage="Select a checkbox" ClientValidationFunction="validateSubCategory"
-                        ValidationGroup="btnStrAddUpdate">
-                    </asp:CustomValidator>
+                    
                 </td>
+               
             </tr>
             <tr>
                 <td class="leftLabel">
@@ -385,63 +376,32 @@
                         ID="CompareValidator2" Operator="GreaterThan" Type="Date" runat="server" />
                 </td>
             </tr>
+            
             <tr>
                 <td class="leftLabel">
                     <asp:Label ID="lblStructureName" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightDataTwoColumn" colspan="2">
-                    <asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" Style="width: 80% !Important"></asp:TextBox>
+                <td class="rightDataThreeColumn" colspan="3">
+                    <asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" Style="width: 70% !Important"></asp:TextBox>
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtStructureName"
                         ErrorMessage="<br />Structure name required" Display="Dynamic" CssClass="rfvPCG"
                         runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td class="rightDataThreeColumn">
-                    <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server" />
-                    <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField"></asp:Label>
-                </td>
+                
             </tr>
             <tr>
                 <td class="leftLabel">
-                    <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes:" CssClass="FieldName"></asp:Label>
+                    <asp:Label ID="lblOptions" runat="server" Text="Options:" CssClass="FieldName"></asp:Label>
                 </td>
-                <td class="rightDataThreeColumn" colspan="2">
-                    <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
-                        RepeatDirection="Horizontal">
-                        <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
-                        <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
-                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
-                    </asp:CheckBoxList>
-                </td>
-                <td class="rightData">
+                <td class="rightDataThreeColumn" colspan="3">
+                    <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server" />
+                    <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField"></asp:Label>
                     <asp:CheckBox ID="chkMoneytaryReward" Text="" runat="server" />
                     <asp:Label ID="Label1" runat="server" Text="Is non moneytary reward" CssClass="txtField"></asp:Label>
                 </td>
-                <td class="leftLabel">
-                </td>
-                <td class="rightData">
-                </td>
-            </tr>
-            <tr>
-                <td class="leftLabel">
-                    <asp:Label ID="lblAppCityGroup" runat="server" Text="App for city group:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddlAppCityGroup" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                </td>
-                <td class="leftLabel">
-                    <asp:Label ID="lblReceivableFrequency" runat="server" Text="Receivable Fre:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddlReceivableFrequency" runat="server" CssClass="cmbField">
-                    </asp:DropDownList>
-                    <span id="Span5" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
-                        CssClass="rfvPCG" ControlToValidate="ddlReceivableFrequency" ValidationGroup="btnStrAddUpdate"
-                        InitialValue="0"></asp:RequiredFieldValidator>
-                </td>
+
             </tr>
             <tr>
                 <td class="leftLabel">
@@ -454,11 +414,12 @@
                         ValidationGroup="btnStrAddUpdate" OnClick="btnStructureSubmit_Click" />
                     <asp:Button ID="btnStructureUpdate" CssClass="PCGButton" Text="Update" runat="server"
                         OnClick="btnStructureUpdate_Click" ValidationGroup="btnStrAddUpdate" />
-                     <asp:Button ID="btnMapToscheme" CssClass="PCGMediumButton" Text="Map Scheme" runat="server"
+                    <asp:Button ID="btnMapToscheme" CssClass="PCGMediumButton" Text="Map Scheme" runat="server"
                         OnClick="btnMapToscheme_Click" ValidationGroup="btnStrAddUpdate" />
                 </td>
             </tr>
         </table>
+        
         <table id="tblCommissionStructureRule" runat="server" width="100%">
             <tr id="trStepTwoHeading" runat="server">
                 <td class="tdSectionHeading">
@@ -501,7 +462,9 @@
                             </ExportSettings>
                             <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                 EditMode="EditForms" CommandItemSettings-AddNewRecordText="Create New Commission Structure Rule"
-                                DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency">
+                                DataKeyNames="ACSR_CommissionStructureRuleId,ACSR_MinTenure,WCT_CommissionTypeCode,XCT_CustomerTypeCode,ACSR_TenureUnit,
+                                ACSR_TransactionType,WCU_UnitCode,WCCO_CalculatedOnCode,ACSM_AUMFrequency,ACSR_MaxTenure,ACSR_SIPFrequency,ACG_CityGroupID,
+                                ACSR_ReceivableRuleFrequency,WCAL_ApplicableLevelCode,ACSR_IsServiceTaxReduced,ACSR_IsTDSReduced,ACSM_IsOtherTaxReduced">
                                 <Columns>
                                     <telerik:GridEditCommandColumn>
                                     </telerik:GridEditCommandColumn>
@@ -605,6 +568,44 @@
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
+                                                    <asp:Label ID="lblAppCityGroup" runat="server" Text="App for city group:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:DropDownList ID="ddlAppCityGroup" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td class="leftLabel">
+                                                    <asp:Label ID="lblReceivableFrequency" runat="server" Text="Receivable Fre:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:DropDownList ID="ddlReceivableFrequency" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
+                                                    <span id="Span5" class="spnRequiredField">*</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftLabel">
+                                                    <asp:Label ID="lblCommissionApplicableLevel" runat="server" Text="Level:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:DropDownList ID="ddlCommissionApplicableLevel" runat="server" CssClass="cmbField">
+                                                    </asp:DropDownList>
+                                                    <span id="Span9" class="spnRequiredField">*</span>
+                                                </td>
+                                                <td class="leftLabel">
+                                                    <asp:Label ID="lblApplyTaxes" runat="server" Text="Apply Taxes:" CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:CheckBoxList ID="chkListApplyTax" runat="server" CssClass="txtField" RepeatLayout="Flow"
+                                                        RepeatDirection="Horizontal">
+                                                        <asp:ListItem Text="Service Tax" Value="ServiceTax"></asp:ListItem>
+                                                        <asp:ListItem Text="TDS" Value="TDS"></asp:ListItem>
+                                                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
+                                                    </asp:CheckBoxList>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftLabel">
                                                     <asp:Label ID="lblMinInvestmentAmount" runat="server" Text="Min Investment Amount:"
                                                         CssClass="FieldName"></asp:Label>
                                                 </td>
@@ -662,7 +663,6 @@
                                                         <%-- <asp:ListItem Text="Days" Value="Days"></asp:ListItem>--%>
                                                         <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
                                                         <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
-                                                        
                                                     </asp:DropDownList>
                                                 </td>
                                             </tr>
@@ -781,6 +781,12 @@
                                                         ControlToValidate="txtAUMFor" ClientValidationFunction="ValidateAUMFrequency"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
                                                     </asp:CustomValidator>
+                                                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
+                                                        CssClass="rfvPCG" ControlToValidate="ddlReceivableFrequency" ValidationGroup="btnSubmitRule"
+                                                        InitialValue="0"></asp:RequiredFieldValidator>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Select ApplicableLevel"
+                                                        CssClass="rfvPCG" ControlToValidate="ddlCommissionApplicableLevel" ValidationGroup="btnSubmitRule"
+                                                        InitialValue="0"></asp:RequiredFieldValidator>--%>
                                                 </td>
                                             </tr>
                                         </table>

@@ -87,11 +87,7 @@ namespace WealthERP.Receivable
             ddlProductType.DataTextField = dsLookupData.Tables[0].Columns["PAG_AssetGroupName"].ToString();
             ddlProductType.DataBind();
 
-            ddlCommissionApplicableLevel.DataSource = dsLookupData.Tables[1];
-            ddlCommissionApplicableLevel.DataValueField = dsLookupData.Tables[1].Columns["WCAL_ApplicableLEvelCode"].ToString();
-            ddlCommissionApplicableLevel.DataTextField = dsLookupData.Tables[1].Columns["WCAL_ApplicableLEvel"].ToString();
-            ddlCommissionApplicableLevel.DataBind();
-            ddlCommissionApplicableLevel.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+           
 
             //ddlCommissionType.DataSource = dsLookupData.Tables[2];
             //ddlCommissionType.DataValueField = dsLookupData.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
@@ -108,31 +104,22 @@ namespace WealthERP.Receivable
             //ddlCommisionCalOn.DataTextField = dsLookupData.Tables[4].Columns["WCCO_CalculatedOn"].ToString();
             //ddlCommisionCalOn.DataBind();
 
-            ddlReceivableFrequency.DataSource = dsLookupData.Tables[5];
-            ddlReceivableFrequency.DataValueField = dsLookupData.Tables[5].Columns["XF_FrequencyCode"].ToString();
-            ddlReceivableFrequency.DataTextField = dsLookupData.Tables[5].Columns["XF_Frequency"].ToString();
-            ddlReceivableFrequency.DataBind();
-            ddlReceivableFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-            
+           
+
 
             ddlIssuer.DataSource = dsLookupData.Tables[6];
             ddlIssuer.DataValueField = dsLookupData.Tables[6].Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataTextField = dsLookupData.Tables[6].Columns["PA_AMCName"].ToString();
             ddlIssuer.DataBind();
             ddlIssuer.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-
-            ddlAppCityGroup.DataSource = dsLookupData.Tables[7];
-            ddlAppCityGroup.DataValueField = dsLookupData.Tables[7].Columns["ACG_CityGroupID"].ToString();
-            ddlAppCityGroup.DataTextField = dsLookupData.Tables[7].Columns["ACG_CityGroupName"].ToString();
-            ddlAppCityGroup.DataBind();
-            ddlAppCityGroup.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+           
 
             ddlCategory.DataSource = dsLookupData.Tables[8];
             ddlCategory.DataValueField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
             ddlCategory.DataTextField = dsLookupData.Tables[8].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
             ddlCategory.DataBind();
             ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
-            
+
 
 
             //ddlInvestorType.DataSource = dsLookupData.Tables[9];
@@ -152,8 +139,8 @@ namespace WealthERP.Receivable
 
                 ddlCategory.SelectedValue = "MFDT";
             }
-            ddlReceivableFrequency.SelectedValue = "MN";
- 
+            //ddlReceivableFrequency.SelectedValue = "MN";
+
         }
         //protected void SetStructureRuleControlDefaultValues(string commType)
         //{
@@ -170,7 +157,7 @@ namespace WealthERP.Receivable
                 commissionStructureMasterVo.ProductType = ddlProductType.SelectedValue;
                 commissionStructureMasterVo.AssetCategory = ddlCategory.SelectedValue;
                 commissionStructureMasterVo.Issuer = ddlIssuer.SelectedValue;
-                commissionStructureMasterVo.ApplicableLevelCode = ddlCommissionApplicableLevel.SelectedValue;
+
                 commissionStructureMasterVo.ValidityStartDate = Convert.ToDateTime(txtValidityFrom.Text);
                 commissionStructureMasterVo.ValidityEndDate = Convert.ToDateTime(txtValidityTo.Text);
                 commissionStructureMasterVo.CommissionStructureName = txtStructureName.Text.Trim();
@@ -178,16 +165,12 @@ namespace WealthERP.Receivable
                 //receivableStructureMasterVo.CommissionTypeCode = ddlCommissionType.SelectedValue;
                 commissionStructureMasterVo.IsClawBackApplicable = chkHasClawBackOption.Checked;
                 commissionStructureMasterVo.IsNonMonetaryReward = chkMoneytaryReward.Checked;
-                commissionStructureMasterVo.IsServiceTaxReduced = chkListApplyTax.Items[1].Selected;
-                commissionStructureMasterVo.IsTDSReduced = chkListApplyTax.Items[2].Selected;
-                commissionStructureMasterVo.IsOtherTaxReduced = chkListApplyTax.Items[2].Selected;
 
                 //receivableStructureMasterVo.IsStructureFromIssuer = bool.Parse(chk.Checked.ToString());
                 //receivableStructureMasterVo.RecurringiSIPFrequency=ddl
 
-                commissionStructureMasterVo.ReceivableFrequency = ddlReceivableFrequency.SelectedValue;
                 commissionStructureMasterVo.StructureNote = txtNote.Text.Trim();
-                commissionStructureMasterVo.AdviserCityGroupCode = ddlAppCityGroup.SelectedValue;
+
 
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
@@ -243,11 +226,12 @@ namespace WealthERP.Receivable
                 return;
             }
         }
+
         protected void btnMapToscheme_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('CommissionStructureToSchemeMapping','ID=" + hidCommissionStructureName.Value + "');", true);
         }
-        
+
 
         protected void btnStructureUpdate_Click(object sender, EventArgs e)
         {
@@ -286,7 +270,30 @@ namespace WealthERP.Receivable
                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
                 DropDownList ddlSIPFrequency = (DropDownList)editform.FindControl("ddlSIPFrequency");
 
+                DropDownList ddlAppCityGroup = (DropDownList)e.Item.FindControl("ddlAppCityGroup");
+                DropDownList ddlReceivableFrequency = (DropDownList)e.Item.FindControl("ddlReceivableFrequency");
+                DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
+                CheckBoxList chkListApplyTax = (CheckBoxList)editform.FindControl("chkListApplyTax");
 
+                ddlCommissionApplicableLevel.DataSource = dsCommissionLookup.Tables[1];
+                ddlCommissionApplicableLevel.DataValueField = dsCommissionLookup.Tables[1].Columns["WCAL_ApplicableLEvelCode"].ToString();
+                ddlCommissionApplicableLevel.DataTextField = dsCommissionLookup.Tables[1].Columns["WCAL_ApplicableLEvel"].ToString();
+                ddlCommissionApplicableLevel.DataBind();
+                ddlCommissionApplicableLevel.SelectedValue = "TR";
+                //ddlCommissionApplicableLevel.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+                ddlAppCityGroup.DataSource = dsCommissionLookup.Tables[7];
+                ddlAppCityGroup.DataValueField = dsCommissionLookup.Tables[7].Columns["ACG_CityGroupID"].ToString();
+                ddlAppCityGroup.DataTextField = dsCommissionLookup.Tables[7].Columns["ACG_CityGroupName"].ToString();
+                ddlAppCityGroup.DataBind();
+                ddlAppCityGroup.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
+                ddlReceivableFrequency.DataSource = dsCommissionLookup.Tables[5];
+                ddlReceivableFrequency.DataValueField = dsCommissionLookup.Tables[5].Columns["XF_FrequencyCode"].ToString();
+                ddlReceivableFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
+                ddlReceivableFrequency.DataBind();
+                //ddlReceivableFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+                ddlReceivableFrequency.SelectedValue = "MN";
 
                 ddlCommissionType.DataSource = dsCommissionLookup.Tables[2];
                 ddlCommissionType.DataValueField = dsCommissionLookup.Tables[2].Columns["WCT_CommissionTypeCode"].ToString();
@@ -326,6 +333,31 @@ namespace WealthERP.Receivable
                     string strBrokargeUnit = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCU_UnitCode"].ToString();
                     string strCalculatedOn = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCCO_CalculatedOnCode"].ToString();
                     string strAUMFrequency = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_AUMFrequency"].ToString();
+
+                    string strCityGroupID = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACG_CityGroupID"].ToString();
+                    string strReceivableRuleFrequency = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_ReceivableRuleFrequency"].ToString();
+                    string strApplicableLevelCode = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCAL_ApplicableLevelCode"].ToString();
+                    string strIsServiceTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsServiceTaxReduced"].ToString();
+                    string strIsTDSReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_IsTDSReduced"].ToString();
+                    string strIsOtherTaxReduced = RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSM_IsOtherTaxReduced"].ToString();
+
+
+                    
+                    ddlAppCityGroup.SelectedValue=strCityGroupID;
+                    ddlReceivableFrequency.SelectedValue=strReceivableRuleFrequency;
+                    ddlCommissionApplicableLevel.SelectedValue = strApplicableLevelCode;
+
+                    foreach (ListItem chkItems in chkListApplyTax.Items)
+                    {
+                        if (chkItems.Value == "ServiceTax" & strIsServiceTaxReduced=="1")
+                            chkItems.Selected = true;
+                        else if (chkItems.Value == "TDS" & strIsTDSReduced == "1")
+                            chkItems.Selected = true;
+                        else if (chkItems.Value == "Others" & strIsOtherTaxReduced == "1")
+                            chkItems.Selected = true;
+                    }
+                    
+
 
                     ddlCommissionType.SelectedValue = strCommissionType;
                     ddlInvestorType.SelectedValue = strCustomerCategory;
@@ -494,9 +526,29 @@ namespace WealthERP.Receivable
                 TextBox txtMinNumberOfApplication = (TextBox)e.Item.FindControl("txtMinNumberOfApplication");
                 TextBox txtStruRuleComment = (TextBox)e.Item.FindControl("txtStruRuleComment");
 
+                DropDownList ddlAppCityGroup = (DropDownList)e.Item.FindControl("ddlAppCityGroup");
+                DropDownList ddlReceivableFrequency = (DropDownList)e.Item.FindControl("ddlReceivableFrequency");
+                DropDownList ddlCommissionApplicableLevel = (DropDownList)e.Item.FindControl("ddlCommissionApplicableLevel");
+                CheckBoxList chkListApplyTax = (CheckBoxList)e.Item.FindControl("chkListApplyTax");
+
+
                 commissionStructureRuleVo.CommissionStructureId = Convert.ToInt32(hidCommissionStructureName.Value);
                 commissionStructureRuleVo.CommissionType = ddlCommissionType.SelectedValue;
                 commissionStructureRuleVo.CustomerType = ddlInvestorType.SelectedValue;
+
+                commissionStructureRuleVo.AdviserCityGroupCode = ddlAppCityGroup.SelectedValue;
+                commissionStructureRuleVo.ReceivableFrequency = ddlReceivableFrequency.SelectedValue;
+                commissionStructureRuleVo.ApplicableLevelCode = ddlCommissionApplicableLevel.SelectedValue;
+
+
+                if(chkListApplyTax.Items[0].Selected)
+                 commissionStructureRuleVo.IsServiceTaxReduced=true;
+                if(chkListApplyTax.Items[1].Selected)
+                 commissionStructureRuleVo.IsTDSReduced=true;
+                if (chkListApplyTax.Items[2].Selected)
+                 commissionStructureRuleVo.IsOtherTaxReduced = true;
+
+
 
                 if (!string.IsNullOrEmpty(txtMinInvestmentAmount.Text.Trim()))
                     commissionStructureRuleVo.MinInvestmentAmount = Convert.ToDecimal(txtMinInvestmentAmount.Text.Trim());
@@ -744,10 +796,10 @@ namespace WealthERP.Receivable
             {
                 commissionStructureMasterVo = commisionReceivableBo.GetCommissionStructureMaster(structureId);
                 BindSubcategoryListBox(commissionStructureMasterVo.AssetCategory);
-                ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;                
+                ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
-                 item.Checked = false;
+                    item.Checked = false;
                 }
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
@@ -755,20 +807,18 @@ namespace WealthERP.Receivable
                     {
                         item.Checked = true;
                     }
-                    
+
                 }
                 ddlIssuer.SelectedValue = commissionStructureMasterVo.Issuer;
-                ddlCommissionApplicableLevel.SelectedValue = commissionStructureMasterVo.ApplicableLevelCode;
+
                 txtValidityFrom.Text = commissionStructureMasterVo.ValidityStartDate.ToShortDateString();
                 txtValidityTo.Text = commissionStructureMasterVo.ValidityEndDate.ToShortDateString();
                 txtStructureName.Text = commissionStructureMasterVo.CommissionStructureName;
                 chkHasClawBackOption.Checked = commissionStructureMasterVo.IsClawBackApplicable;
                 chkMoneytaryReward.Checked = commissionStructureMasterVo.IsNonMonetaryReward;
-                chkListApplyTax.Items[0].Selected = commissionStructureMasterVo.IsServiceTaxReduced;
-                chkListApplyTax.Items[1].Selected = commissionStructureMasterVo.IsTDSReduced;
-                chkListApplyTax.Items[2].Selected = commissionStructureMasterVo.IsOtherTaxReduced;
-                ddlAppCityGroup.SelectedValue = commissionStructureMasterVo.AdviserCityGroupCode;
-                ddlReceivableFrequency.SelectedValue = commissionStructureMasterVo.ReceivableFrequency;
+                //chkListApplyTax.Items[0].Selected = commissionStructureMasterVo.IsServiceTaxReduced;
+                //chkListApplyTax.Items[1].Selected = commissionStructureMasterVo.IsTDSReduced;
+                //chkListApplyTax.Items[2].Selected = commissionStructureMasterVo.IsOtherTaxReduced;
                 txtNote.Text = commissionStructureMasterVo.StructureNote;
                 hidCommissionStructureName.Value = structureId.ToString();
                 CommissionStructureControlsEnable(false);
@@ -798,15 +848,15 @@ namespace WealthERP.Receivable
                 ddlCategory.Enabled = true;
                 rlbAssetSubCategory.Enabled = true;
                 ddlIssuer.Enabled = true;
-                ddlCommissionApplicableLevel.Enabled = true;
+                //ddlCommissionApplicableLevel.Enabled = true;
                 txtValidityFrom.Enabled = true;
                 txtValidityTo.Enabled = true;
                 txtStructureName.Enabled = true;
                 chkHasClawBackOption.Enabled = true;
                 chkMoneytaryReward.Enabled = true;
-                chkListApplyTax.Enabled = true;
-                ddlAppCityGroup.Enabled = true;
-                ddlReceivableFrequency.Enabled = true;
+                //chkListApplyTax.Enabled = true;
+                //ddlAppCityGroup.Enabled = true;
+                //ddlReceivableFrequency.Enabled = true;
                 txtNote.Enabled = true;
 
                 lnkEditStructure.Text = "View";
@@ -820,15 +870,15 @@ namespace WealthERP.Receivable
                 ddlCategory.Enabled = false;
                 rlbAssetSubCategory.Enabled = false;
                 ddlIssuer.Enabled = false;
-                ddlCommissionApplicableLevel.Enabled = false;
+                //ddlCommissionApplicableLevel.Enabled = false;
                 txtValidityFrom.Enabled = false;
                 txtValidityTo.Enabled = false;
                 txtStructureName.Enabled = false;
                 chkHasClawBackOption.Enabled = false;
                 chkMoneytaryReward.Enabled = false;
-                chkListApplyTax.Enabled = false;
-                ddlAppCityGroup.Enabled = false;
-                ddlReceivableFrequency.Enabled = false;
+                //chkListApplyTax.Enabled = false;
+                //ddlAppCityGroup.Enabled = false;
+                //ddlReceivableFrequency.Enabled = false;
                 txtNote.Enabled = false;
 
                 lnkEditStructure.Visible = true;
@@ -863,25 +913,25 @@ namespace WealthERP.Receivable
             ddlCategory.SelectedIndex = 0;
             rlbAssetSubCategory.Items.Clear();
             ddlIssuer.SelectedIndex = 0;
-            ddlCommissionApplicableLevel.SelectedIndex = 0;
+            //ddlCommissionApplicableLevel.SelectedIndex = 0;
             txtValidityFrom.Text = string.Empty;
             txtValidityTo.Text = string.Empty;
             txtStructureName.Text = string.Empty;
             chkHasClawBackOption.Checked = false;
             chkMoneytaryReward.Checked = false;
-            foreach (ListItem item in chkListApplyTax.Items)
-            {
-                item.Selected = false;
-            }
-            ddlAppCityGroup.SelectedIndex = 0;
-            ddlReceivableFrequency.SelectedIndex = 0;
+            //foreach (ListItem item in chkListApplyTax.Items)
+            //{
+            //    item.Selected = false;
+            //}
+            //ddlAppCityGroup.SelectedIndex = 0;
+            //ddlReceivableFrequency.SelectedIndex = 0;
             txtNote.Text = string.Empty;
             CommissionStructureControlsEnable(true);
             btnStructureSubmit.Visible = true;
             btnStructureUpdate.Visible = false;
             lnkEditStructure.Visible = false;
             lnkAddNewStructure.Visible = false;
-            BindSubcategoryListBox(ddlCategory.SelectedValue);
+           
 
             if (Cache[userVo.UserId.ToString() + "CommissionStructureRule"] != null)
                 Cache.Remove(userVo.UserId.ToString() + "CommissionStructureRule");
@@ -894,6 +944,7 @@ namespace WealthERP.Receivable
             btnMapToscheme.Visible = false;
 
             SetStructureMasterControlDefaultValues("MF");
+            BindSubcategoryListBox(ddlCategory.SelectedValue);
         }
 
         private void BindCommissionStructureRuleBlankRow()
