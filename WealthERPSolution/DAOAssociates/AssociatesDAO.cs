@@ -1668,7 +1668,7 @@ namespace DAOAssociates
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate)
+        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate,int All)
         {
             Database db;
             DbCommand GetProductDetailFromMFOrderCmd;
@@ -1682,6 +1682,7 @@ namespace DAOAssociates
                 db.AddInParameter(GetProductDetailFromMFOrderCmd, "@RMId", DbType.Int32, rmId);
                 db.AddInParameter(GetProductDetailFromMFOrderCmd, "@branchHeadId", DbType.Int32, branchHeadId);
                 db.AddInParameter(GetProductDetailFromMFOrderCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetProductDetailFromMFOrderCmd, "@all", DbType.Int32, All);
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(GetProductDetailFromMFOrderCmd, "@FromDate", DbType.DateTime, FromDate);
                 else
@@ -1718,6 +1719,59 @@ namespace DAOAssociates
                 throw exBase;
             }
             return dsProductDetailFromMFOrder;
+        }
+
+        public DataSet GetOrganizationDetailFromTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate, int All)
+        {
+            Database db;
+            DbCommand GetOrganizationDetailFromMFOrderCmd;
+            DataSet dsOrganizationDetailFromMFOrder;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrganizationDetailFromMFOrderCmd = db.GetStoredProcCommand("SPROC_GetOrganizationDetailsFromMFTransaction");
+                db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@BranchId", DbType.Int32, branchId);
+                db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@all", DbType.Int32, All);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                if (!string.IsNullOrEmpty(agentcode))
+                    db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@agentcode", DbType.String, agentcode);
+                else
+                    db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@agentcode", DbType.String, DBNull.Value);
+                GetOrganizationDetailFromMFOrderCmd.CommandTimeout = 60 * 60;
+                dsOrganizationDetailFromMFOrder = db.ExecuteDataSet(GetOrganizationDetailFromMFOrderCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetOrganizationDetailFromTransaction()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrganizationDetailFromMFOrder;
         }
     }
 }
