@@ -1557,5 +1557,167 @@ namespace DAOAssociates
             }
             return dtSalesListToAddCode;
         }
+
+        public DataTable GetAssociatesSubBrokerCodeList(int adviserId)
+        {
+            DataSet dsAssociatesSubBrokerCodeList;
+            DataTable dtAssociatesSubBrokerCodeList;
+            Database db;
+            DbCommand getAssociatesSubBrokerCodeListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getAssociatesSubBrokerCodeListcmd = db.GetStoredProcCommand("SPROC_GetAssociatesSubBrokerCodeList");
+                db.AddInParameter(getAssociatesSubBrokerCodeListcmd, "@adviserId", DbType.Int32, adviserId);
+                dsAssociatesSubBrokerCodeList = db.ExecuteDataSet(getAssociatesSubBrokerCodeListcmd);
+                dtAssociatesSubBrokerCodeList = dsAssociatesSubBrokerCodeList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociatesDAO.cs:GetRMAssociatesList()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAssociatesSubBrokerCodeList;
+        }
+        public DataTable GetSalesSubBrokerCodeList(int adviserId)
+        {
+            DataSet dsSalesSubBrokerCodeList;
+            DataTable dtSalesSubBrokerCodeList;
+            Database db;
+            DbCommand getSalesSubBrokerCodeListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSalesSubBrokerCodeListcmd = db.GetStoredProcCommand("SPROC_GetSalesSubBrokerCodeList");
+                db.AddInParameter(getSalesSubBrokerCodeListcmd, "@adviserId", DbType.Int32, adviserId);
+                dsSalesSubBrokerCodeList = db.ExecuteDataSet(getSalesSubBrokerCodeListcmd);
+                dtSalesSubBrokerCodeList = dsSalesSubBrokerCodeList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociatesDAO.cs:GetSalesSubBrokerCodeList()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSalesSubBrokerCodeList;
+        }
+        public DataTable GetBranchSubBrokerCodeList(int adviserId)
+        {
+            DataSet dsBranchSubBrokerCodeList;
+            DataTable dtbranchSubBrokerCodeList;
+            Database db;
+            DbCommand getBranchSubBrokerCodeListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getBranchSubBrokerCodeListcmd = db.GetStoredProcCommand("SPROC_GetBranchSubBrokerCodeList");
+                db.AddInParameter(getBranchSubBrokerCodeListcmd, "@adviserId", DbType.Int32, adviserId);
+                dsBranchSubBrokerCodeList = db.ExecuteDataSet(getBranchSubBrokerCodeListcmd);
+                dtbranchSubBrokerCodeList = dsBranchSubBrokerCodeList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociatesDAO.cs:GetBranchSubBrokerCodeList()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtbranchSubBrokerCodeList;
+        }
+        /// <summary>
+        ///  Transaction Product details
+        /// </summary>
+        /// <param name="agentcode"></param>
+        /// <param name="userType"></param>
+        /// <param name="AdviserId"></param>
+        /// <param name="rmId"></param>
+        /// <param name="branchId"></param>
+        /// <param name="branchHeadId"></param>
+        /// <param name="all"></param>
+        /// <param name="FromDate"></param>
+        /// <param name="Todate"></param>
+        /// <param name="AgentId"></param>
+        /// <returns></returns>
+        public DataSet GetProductDetailsFromMFTransaction(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, DateTime FromDate, DateTime Todate)
+        {
+            Database db;
+            DbCommand GetProductDetailFromMFOrderCmd;
+            DataSet dsProductDetailFromMFOrder;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetProductDetailFromMFOrderCmd = db.GetStoredProcCommand("SPROC_GetProductDetailsFromMFTransaction");
+                db.AddInParameter(GetProductDetailFromMFOrderCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetProductDetailFromMFOrderCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetProductDetailFromMFOrderCmd, "@RMId", DbType.Int32, rmId);
+                db.AddInParameter(GetProductDetailFromMFOrderCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                db.AddInParameter(GetProductDetailFromMFOrderCmd, "@BranchId", DbType.Int32, branchId);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetProductDetailFromMFOrderCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetProductDetailFromMFOrderCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                if (!string.IsNullOrEmpty(agentcode))
+                    db.AddInParameter(GetProductDetailFromMFOrderCmd, "@agentcode", DbType.String, agentcode);
+                else
+                    db.AddInParameter(GetProductDetailFromMFOrderCmd, "@agentcode", DbType.String, DBNull.Value);
+                GetProductDetailFromMFOrderCmd.CommandTimeout = 60 * 60;
+                dsProductDetailFromMFOrder = db.ExecuteDataSet(GetProductDetailFromMFOrderCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetProductDetailsFromMFTransaction()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                objects[1] = rmId;
+                objects[2] = branchId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsProductDetailFromMFOrder;
+        }
     }
 }
