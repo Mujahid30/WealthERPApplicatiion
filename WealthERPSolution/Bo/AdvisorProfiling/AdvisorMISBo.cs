@@ -1501,13 +1501,13 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-        public DataSet GetCommissionReconMis( int AdviserId, int schemeid, DateTime FromDate, DateTime Todate,string category)
+        public DataSet GetCommissionReconMis( int AdviserId, int schemeid, DateTime FromDate, DateTime Todate,string category,int subbrokercode )
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
             try
             {
-                dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category);
+                dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category, subbrokercode);
             }
             catch (BaseApplicationException Ex)
             {

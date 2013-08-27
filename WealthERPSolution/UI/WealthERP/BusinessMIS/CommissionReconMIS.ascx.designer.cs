@@ -20,10 +20,14 @@ namespace WealthERP.BusinessMIS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlUserType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
+
         protected global::System.Web.UI.WebControls.HiddenField hdnFromDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnschemeId;
         protected global::System.Web.UI.WebControls.HiddenField hdnCategory;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSBbrokercode;
 
         protected global::Telerik.Web.UI.RadStyleSheetManager RadStyleSheetManager1;
         

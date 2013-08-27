@@ -17,6 +17,7 @@ using Telerik.Web.UI;
 using BoCommon;
 using BoAdvisorProfiling;
 using System.Configuration;
+using BOAssociates;
 
 
 
@@ -29,6 +30,8 @@ namespace WealthERP.BusinessMIS
         AdvisorVo advisorVo = new AdvisorVo();
         UserVo userVo = new UserVo();
         AdvisorMISBo adviserMFMIS = new AdvisorMISBo();
+        AssociatesBo associatesBo = new AssociatesBo();
+
 
         string categoryCode = string.Empty;
         int amcCode = 0;
@@ -41,10 +44,74 @@ namespace WealthERP.BusinessMIS
             {
                 BindMutualFundDropDowns();
                 BindNAVCategory();
+                int day = 1;
                 gvCommissionReconMIs.Visible = false;
+                txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
+                txtTo.SelectedDate = DateTime.Now;
             }
         }
+        protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlUserType.SelectedIndex != 0)
+            {
+                if (ddlUserType.SelectedValue == "BM")
+                {
+                    BindBranchSubBrokerCode();
+                }
+                else if (ddlUserType.SelectedValue == "RM")
+                {
+                    BindSalesSubBrokerCode();
+                }
+                else if (ddlUserType.SelectedValue == "Associates")
+                {
+                    BindAssociatesSubBrokerCode();
+                }
+            }
+        }
+        private void BindAssociatesSubBrokerCode()
+        {
+            DataSet ds;
+            DataTable dt;
+            dt = associatesBo.GetAssociatesSubBrokerCodeList(advisorVo.advisorId);
+            if (dt.Rows.Count > 0)
+            {
+                ddlSelectType.DataSource = dt;
+                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
+                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
+                ddlSelectType.DataBind();
+            }
+            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
+        }
 
+        private void BindSalesSubBrokerCode()
+        {
+            DataSet ds;
+            DataTable dt;
+            dt = associatesBo.GetSalesSubBrokerCodeList(advisorVo.advisorId);
+            if (dt.Rows.Count > 0)
+            {
+                ddlSelectType.DataSource = dt;
+                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
+                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
+                ddlSelectType.DataBind();
+            }
+            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        }
+
+        private void BindBranchSubBrokerCode()
+        {
+            DataSet ds;
+            DataTable dt;
+            dt = associatesBo.GetBranchSubBrokerCodeList(advisorVo.advisorId);
+            if (dt.Rows.Count > 0)
+            {
+                ddlSelectType.DataSource = dt;
+                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
+                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
+                ddlSelectType.DataBind();
+            }
+            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        }
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
@@ -120,14 +187,14 @@ namespace WealthERP.BusinessMIS
                 ddlScheme.DataTextField = dtLoadAllScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataValueField = dtLoadAllScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
             }
             else
             {
                 ddlScheme.Items.Clear();
                 ddlScheme.DataSource = null;
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
             }
 
         }
@@ -143,6 +210,8 @@ namespace WealthERP.BusinessMIS
                     hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
                 if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
                     hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
+                if (string.IsNullOrEmpty(ddlSelectType.SelectedItem.Value.ToString()) != true)
+                    hdnSBbrokercode.Value = ddlSelectType.SelectedItem.Value.ToString();
             
             //}
 
@@ -153,8 +222,8 @@ namespace WealthERP.BusinessMIS
             SetParameters();
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
-        
-            ds = adviserMFMIS.GetCommissionReconMis(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value);
+
+            ds = adviserMFMIS.GetCommissionReconMis(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, int.Parse(hdnSBbrokercode.Value));
             if (ds.Tables[0] != null)
             {
                 gvCommissionReconMIs.Visible = true;

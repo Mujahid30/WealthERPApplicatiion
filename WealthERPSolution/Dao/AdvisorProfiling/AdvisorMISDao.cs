@@ -2355,7 +2355,7 @@ namespace DaoAdvisorProfiling
             }
             return AMCSchemewiseMIS;
         }
-        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category)
+        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, int subbrokercode)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2370,18 +2370,22 @@ namespace DaoAdvisorProfiling
                 if (FromDate != DateTime.MinValue)
                     db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, FromDate);
                 else
-                    FromDate = DateTime.MinValue;
+                    db.AddInParameter(getCommissionReconMisCmd, "@FromDate", DbType.DateTime, DateTime.MinValue); 
 
                 if (Todate != DateTime.MinValue)
                     db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, Todate);
                 else
-                    Todate = DateTime.MinValue;
+                    db.AddInParameter(getCommissionReconMisCmd, "@ToDate", DbType.DateTime, DateTime.MinValue); 
 
                 if (!string.IsNullOrEmpty(category))
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
-
+                if (subbrokercode != 0)
+                    db.AddInParameter(getCommissionReconMisCmd, "@subbrokercode", DbType.Int32, subbrokercode);
+                else
+                    db.AddInParameter(getCommissionReconMisCmd, "@subbrokercode", DbType.Int32, 0);
+                    
                 getCommissionReconMisCmd.CommandTimeout = 60 * 60;
                 dsGetCommissionReconMis = db.ExecuteDataSet(getCommissionReconMisCmd);
             }
