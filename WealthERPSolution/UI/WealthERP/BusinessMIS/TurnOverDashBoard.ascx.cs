@@ -11,6 +11,7 @@ using BoCommon;
 using System.Configuration;
 using BoCustomerPortfolio;
 using System.Data;
+using System.Web.UI.HtmlControls;
 
 namespace WealthERP.BusinessMIS
 {
@@ -45,7 +46,7 @@ namespace WealthERP.BusinessMIS
 
             dtTurnoverTreeNode.Columns.Add("TreeNodeText1", typeof(String));
 
-        
+
 
             dtTurnoverTreeNode.Columns.Add("TreeNode2", typeof(Int32));
 
@@ -68,7 +69,7 @@ namespace WealthERP.BusinessMIS
                     count++;
                     drTurnoverTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
                     drTurnoverTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                
+
                     dtTurnoverTreeNode.Rows.Add(drTurnoverTreeNode);
 
                 }
@@ -77,21 +78,21 @@ namespace WealthERP.BusinessMIS
                     count++;
                     drTurnoverTreeNode["TreeNode2"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
                     drTurnoverTreeNode["TreeNodeText2"] = drSubSubNode["TreeSubSubNodeText"].ToString();
-                    
+
                     //count = 0;
                     //drTurnoverTreeNode = dtTurnoverTreeNode.NewRow();
                 }
-               else if (count == 2)
+                else if (count == 2)
                 {
-                    
+
                     drTurnoverTreeNode["TreeNode3"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
                     drTurnoverTreeNode["TreeNodeText3"] = drSubSubNode["TreeSubSubNodeText"].ToString();
                     count = 0;
                     drTurnoverTreeNode = dtTurnoverTreeNode.NewRow();
-               }
                 }
+            }
 
-            
+
             rptTurnoverTree.DataSource = dtTurnoverTreeNode;
             rptTurnoverTree.DataBind();
         }
@@ -107,17 +108,23 @@ namespace WealthERP.BusinessMIS
 
                 if (lnkbtn1.CommandArgument == "3018")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTurnOverMIS','login');", true);
+                    if (advisorVo.A_AgentCodeBased == 1)
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTransactionTurnOverMIS','login');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTurnOverMIS','login');", true);
                 }
                 if (lnkbtn1.CommandArgument == "3018")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTurnOverMIS','login');", true);
+                    if (advisorVo.A_AgentCodeBased == 1)
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTransactionTurnOverMIS','login');", true);
+                    else
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('MFTurnOverMIS','login');", true);
                 }
             }
             if (e.CommandName == "Tree_Navi_Row2")
             {
 
-                if ( lnkbtn2.CommandArgument == "3019")
+                if (lnkbtn2.CommandArgument == "3019")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadOrder", "loadcontrol('EquityTurnover','login');", true);
                 }
