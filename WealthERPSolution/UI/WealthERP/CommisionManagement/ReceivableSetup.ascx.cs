@@ -266,7 +266,7 @@ namespace WealthERP.Receivable
 
                 DropDownList ddlBrokerageUnit = (DropDownList)editform.FindControl("ddlBrokerageUnit");
                 DropDownList ddlCommisionCalOn = (DropDownList)editform.FindControl("ddlCommisionCalOn");
-                DropDownList ddlAUMFrequency = (DropDownList)editform.FindControl("ddlAUMFrequency");
+                //DropDownList ddlAUMFrequency = (DropDownList)editform.FindControl("ddlAUMFrequency");
                 CheckBoxList chkListTtansactionType = (CheckBoxList)editform.FindControl("chkListTtansactionType");
                 DropDownList ddlSIPFrequency = (DropDownList)editform.FindControl("ddlSIPFrequency");
 
@@ -365,7 +365,7 @@ namespace WealthERP.Receivable
                     ddlInvestAgeTenure.SelectedValue = "Months";
                     ddlBrokerageUnit.SelectedValue = strBrokargeUnit;
                     ddlCommisionCalOn.SelectedValue = strCalculatedOn;
-                    ddlAUMFrequency.SelectedValue = strAUMFrequency;
+                    //ddlAUMFrequency.SelectedValue = strAUMFrequency;
 
                     foreach (ListItem chkItems in chkListTtansactionType.Items)
                     {
@@ -422,12 +422,12 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_UpdateCommand(object source, GridCommandEventArgs e)
         {
-            bool isPageValid = false;
+            bool isPageValid = true;
             /*******************COLLECT DATA********************/
             commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
 
             /*******************UI VALIDATION********************/
-            isPageValid = ValidatePage(commissionStructureRuleVo);
+            //isPageValid = ValidatePage(commissionStructureRuleVo);
             if (isPageValid)
             {
                 commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
@@ -450,14 +450,14 @@ namespace WealthERP.Receivable
 
         protected void RadGridStructureRule_InsertCommand(object source, GridCommandEventArgs e)
         {
-            bool isPageValid = false;
+            bool isPageValid = true;
             try
             {
                 /*******************COLLECT DATA********************/
                 commissionStructureRuleVo = CollectDataForCommissionStructureRule(e);
 
                 /*******************UI VALIDATION********************/
-                isPageValid = ValidatePage(commissionStructureRuleVo);
+                //isPageValid = ValidatePage(commissionStructureRuleVo);
 
                 /*******************DUPLICATE CHECK********************/
                 //bool isValidRule = true;
@@ -520,8 +520,8 @@ namespace WealthERP.Receivable
                 DropDownList ddlBrokerageUnit = (DropDownList)e.Item.FindControl("ddlBrokerageUnit");
 
                 DropDownList ddlCommisionCalOn = (DropDownList)e.Item.FindControl("ddlCommisionCalOn");
-                TextBox txtAUMFor = (TextBox)e.Item.FindControl("txtAUMFor");
-                DropDownList ddlAUMFrequency = (DropDownList)e.Item.FindControl("ddlAUMFrequency");
+                //TextBox txtAUMFor = (TextBox)e.Item.FindControl("txtAUMFor");
+                //DropDownList ddlAUMFrequency = (DropDownList)e.Item.FindControl("ddlAUMFrequency");
 
                 TextBox txtMinNumberOfApplication = (TextBox)e.Item.FindControl("txtMinNumberOfApplication");
                 TextBox txtStruRuleComment = (TextBox)e.Item.FindControl("txtStruRuleComment");
@@ -597,12 +597,12 @@ namespace WealthERP.Receivable
                 }
 
                 commissionStructureRuleVo.CalculatedOnCode = ddlCommisionCalOn.SelectedValue;
-                if (ddlCommisionCalOn.SelectedValue == "AGAM" || ddlCommisionCalOn.SelectedValue == "AUM" || ddlCommisionCalOn.SelectedValue == "CLAM")
-                {
-                    if (!string.IsNullOrEmpty(txtAUMFor.Text.Trim()))
-                        commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
-                    commissionStructureRuleVo.AUMFrequency = ddlAUMFrequency.SelectedValue;
-                }
+                //if (ddlCommisionCalOn.SelectedValue == "AGAM" || ddlCommisionCalOn.SelectedValue == "AUM" || ddlCommisionCalOn.SelectedValue == "CLAM")
+                //{
+                //    if (!string.IsNullOrEmpty(txtAUMFor.Text.Trim()))
+                //        commissionStructureRuleVo.AUMMonth = Convert.ToDecimal(txtAUMFor.Text.Trim());
+                //    //commissionStructureRuleVo.AUMFrequency = ddlAUMFrequency.SelectedValue;
+                //}
 
                 if (!string.IsNullOrEmpty(txtMinNumberOfApplication.Text.Trim()))
                     commissionStructureRuleVo.MinNumberofApplications = Convert.ToInt16(txtMinNumberOfApplication.Text.Trim());
@@ -796,6 +796,7 @@ namespace WealthERP.Receivable
             {
                 commissionStructureMasterVo = commisionReceivableBo.GetCommissionStructureMaster(structureId);
                 BindSubcategoryListBox(commissionStructureMasterVo.AssetCategory);
+                ddlProductType.SelectedValue = commissionStructureMasterVo.ProductType;
                 ddlCategory.SelectedValue = commissionStructureMasterVo.AssetCategory;
                 foreach (RadListBoxItem item in rlbAssetSubCategory.Items)
                 {
@@ -845,6 +846,7 @@ namespace WealthERP.Receivable
         {
             if (enable)
             {
+                ddlProductType.Enabled = false;
                 ddlCategory.Enabled = true;
                 rlbAssetSubCategory.Enabled = true;
                 ddlIssuer.Enabled = true;
@@ -867,6 +869,7 @@ namespace WealthERP.Receivable
             }
             else
             {
+                ddlProductType.Enabled = false;
                 ddlCategory.Enabled = false;
                 rlbAssetSubCategory.Enabled = false;
                 ddlIssuer.Enabled = false;

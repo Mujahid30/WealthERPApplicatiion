@@ -34,40 +34,9 @@
 </script>
 
 <script language="JavaScript" type="text/jscript">
-    function Validate(source, args) {
+    
 
-        var txt1 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestmentAmount').value;
-        var txt2 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestmentAmount').value;
-        var txt3 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinTenure').value;
-        var txt4 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxTenure').value;
-        var txt5 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinInvestAge').value;
-        var txt6 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMaxInvestAge').value;
-        var txt7 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtBrokerageValue').value;
-        var txt8 = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinNumberOfApplication').value; rtrt
-        alert(txt8.value);
-        if ((txt1.value == "") && (txt2.value == "") && (txt3.value == "") && (txt4.value == "") && (txt5.value == "") && (txt6.value == "") && (txt7.value == "") && (txt8.value == "")) {
-            args.IsValid = false;
-        }
-        else
-            args.IsValid = true;
-
-    }
-
-    function ValidateAUMFrequency(source, args) {
-
-        var ddlCalculated = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_ddlCommisionCalOn').value;
-        var txtAMUFor = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtAUMFor').value;
-        if (ddlCalculated == 'AGAM' || ddlCalculated == 'AUM' || ddlCalculated == 'CLAM') {
-            if (txtAMUFor == '') {
-                args.IsValid = false;
-                return false;
-            }
-            else {
-                args.IsValid = true;
-            }
-        }
-    }
-
+    
 
     function InvestmentAmountValidation(source, args) {
         args.IsValid = false;
@@ -110,24 +79,7 @@
             args.IsValid = true;
     }
 
-    function validateSubCategory(source, arguments) {
-        arguments.IsValid = false;
 
-        var checklist = document.getElementById("rlbAssetSubCategory");
-        if (checklist == null) return;
-
-        var elements = checklist.getElementsByTagName("INPUT");
-        if (elements == null) return;
-
-        var checkBoxCount = 0;
-        for (i = 0; i < elements.length; i++) {
-            if (elements[i].checked) checkBoxCount++;
-        }
-        arguments.IsValid = (checkBoxCount > 0);
-    }
-
-    
-    
 </script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
@@ -298,8 +250,8 @@
                     </asp:DropDownList>
                     <span id="Span7" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
-                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate" Display="Dynamic"
-                        InitialValue="0"></asp:RequiredFieldValidator>
+                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnStrAddUpdate"
+                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td align="left">
                     <asp:Label ID="lblSubCategory" runat="server" Text="Sub Category:" CssClass="FieldName"></asp:Label>
@@ -316,20 +268,18 @@
                     <span id="Span6" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Issuer"
-                        CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnStrAddUpdate" Display="Dynamic"
-                        InitialValue="0"></asp:RequiredFieldValidator>
+                        CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="btnStrAddUpdate"
+                        Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
-                </td> 
+                </td>
                 <td class="rightData">
                 </td>
                 <td rowspan="5" class="rightDataTwoColumn">
                     <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CheckBoxes="true" CssClass="txtField"
                         Width="220px" Height="200px">
                     </telerik:RadListBox>
-                    
                 </td>
-               
             </tr>
             <tr>
                 <td class="leftLabel">
@@ -376,7 +326,6 @@
                         ID="CompareValidator2" Operator="GreaterThan" Type="Date" runat="server" />
                 </td>
             </tr>
-            
             <tr>
                 <td class="leftLabel">
                     <asp:Label ID="lblStructureName" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
@@ -389,7 +338,6 @@
                         runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
                     </asp:RequiredFieldValidator>
                 </td>
-                
             </tr>
             <tr>
                 <td class="leftLabel">
@@ -401,7 +349,6 @@
                     <asp:CheckBox ID="chkMoneytaryReward" Text="" runat="server" />
                     <asp:Label ID="Label1" runat="server" Text="Is non moneytary reward" CssClass="txtField"></asp:Label>
                 </td>
-
             </tr>
             <tr>
                 <td class="leftLabel">
@@ -419,7 +366,6 @@
                 </td>
             </tr>
         </table>
-        
         <table id="tblCommissionStructureRule" runat="server" width="100%">
             <tr id="trStepTwoHeading" runat="server">
                 <td class="tdSectionHeading">
@@ -639,6 +585,7 @@
                                                     <asp:TextBox ID="txtMaxTenure" Text='<%# Bind( "ACSR_MaxTenure") %>' runat="server"
                                                         CssClass="txtField"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlTenureFrequency" runat="server" CssClass="cmbField" Style="width: 100px !Important">
+                                                        <asp:ListItem Text="Day" Value="Day"></asp:ListItem>
                                                         <asp:ListItem Text="Month" Value="Month"></asp:ListItem>
                                                         <asp:ListItem Text="Installment" Value="Installment"></asp:ListItem>
                                                         <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
@@ -673,9 +620,11 @@
                                                 <td class="rightData">
                                                     <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                         RepeatLayout="Flow" RepeatDirection="Horizontal">
-                                                        <asp:ListItem Text="BUY" Value="BUY"></asp:ListItem>
-                                                        <asp:ListItem Text="SELL" Value="SELL"></asp:ListItem>
+                                                        <asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
+                                                        <asp:ListItem Text="STP Buy" Value="STPBUY"></asp:ListItem>
+                                                        <asp:ListItem Text="Switch Buy" Value="SWITCHBUY"></asp:ListItem>
+                                                        <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>
                                                     </asp:CheckBoxList>
                                                 </td>
                                                 <td class="leftLabel">
@@ -709,22 +658,20 @@
                                             </tr>
                                             <tr>
                                                 <td class="leftLabel">
-                                                    <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
+                                                    <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
+                                                        CssClass="FieldName"></asp:Label>
+                                                    <br />
+                                                    <span id="Span4" class="spnRequiredField">&nbsp;</span>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField">
-                                                    </asp:DropDownList>
+                                                    <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
+                                                        runat="server" CssClass="txtField"></asp:TextBox>
                                                 </td>
                                                 <td class="leftLabel">
-                                                    <asp:Label ID="lblAUMFor" runat="server" Text="AUM for:" CssClass="FieldName"></asp:Label>
+                                                    <asp:Label ID="lblCalculatedOn" runat="server" Text="Calculated On:" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData" colspan="2">
-                                                    <asp:TextBox ID="txtAUMFor" Text='<%# Bind( "ACSR_AUMMonth") %>' runat="server" CssClass="txtField"
-                                                        Style="width: 70px !Important"></asp:TextBox>
-                                                    <asp:DropDownList ID="ddlAUMFrequency" runat="server" CssClass="cmbField" Style="width: 70px !Important">
-                                                        <asp:ListItem Text="Month" Value="Month"></asp:ListItem>
-                                                        <asp:ListItem Text="Quarter" Value="Quarter"></asp:ListItem>
-                                                        <asp:ListItem Text="Year" Value="Year"></asp:ListItem>
+                                                    <asp:DropDownList ID="ddlCommisionCalOn" runat="server" CssClass="cmbField">
                                                     </asp:DropDownList>
                                                 </td>
                                             </tr>
@@ -736,19 +683,12 @@
                                                     <asp:TextBox ID="txtStruRuleComment" runat="server" CssClass="txtField" Text='<%# Bind( "ACSR_Comment") %>'
                                                         TextMode="MultiLine"></asp:TextBox>
                                                 </td>
-                                                <td class="leftLabel">
-                                                    <asp:Label ID="lblMinNumberOfApplication" runat="server" Text="Min number of applications:"
-                                                        CssClass="FieldName"></asp:Label>
-                                                    <br />
-                                                    <span id="Span4" class="spnRequiredField">&nbsp;</span>
+                                                <td>
                                                 </td>
                                                 <td class="rightData" colspan="2">
-                                                    <asp:TextBox ID="txtMinNumberOfApplication" Text='<%# Bind( "ACSR_MinNumberOfApplications") %>'
-                                                        runat="server" CssClass="txtField"></asp:TextBox>
-                                                    <br />
                                                     <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                         CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                        CausesValidation="true" OnClientClick="return ValidateAUMFrequency()"></asp:Button>&nbsp;
+                                                        CausesValidation="true" ></asp:Button>&nbsp;
                                                     <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" ValidationGroup="btnSubmitRule"
                                                         runat="server" CausesValidation="false" CommandName="Cancel"></asp:Button>
                                                 </td>
@@ -777,11 +717,8 @@
                                                     <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
                                                         ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Display="Dynamic"
                                                         ValidationGroup="btnSubmitRule" />
-                                                    <asp:CustomValidator ID="CustomValidator5" runat="server" Text="AUM for Required"
-                                                        ControlToValidate="txtAUMFor" ClientValidationFunction="ValidateAUMFrequency"
-                                                        ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
-                                                    </asp:CustomValidator>
-                                                   <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
+                                                    
+                                                    <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
                                                         CssClass="rfvPCG" ControlToValidate="ddlReceivableFrequency" ValidationGroup="btnSubmitRule"
                                                         InitialValue="0"></asp:RequiredFieldValidator>
                                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Select ApplicableLevel"
