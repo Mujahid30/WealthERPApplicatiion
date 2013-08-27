@@ -104,38 +104,26 @@
 
 <asp:UpdatePanel ID="upCMGrid" runat="server">
     <ContentTemplate>
-    <table width="100%">
-        <tr>
-            <td>
-                <div class="divPageHeading">
-                    <table width="100%">
-                        <tr>
-                            <td align="left">
-                                Receivable Structures
-                            </td>
-                            <td align=right >
-                                <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExportSummary_OnClick"
-                                    Height="25px" Width="25px"></asp:ImageButton>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-    </table>
-                
-    <%--<table width="100%">
-        <tr id="trStepOneHeading" runat="server">
-            <td class="tdSectionHeading">
-                <div class="divSectionHeading" style="vertical-align: text-bottom">                        
-                    <div class="fltlft">                           
-                        <asp:Label ID="Label2" runat="server" Text="Filter Section"></asp:Label>
-                    </div>                       
-                </div>
-            </td>
-        </tr>
-    </table>--%>
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="divPageHeading">
+                        <table width="100%">
+                            <tr>
+                                <td align="left">
+                                    Receivable Structures
+                                </td>
+                                <td align=right >
+                                    <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExportSummary_OnClick"
+                                        Height="25px" Width="25px"></asp:ImageButton>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
         
         <table width="100%">
             <tr>
@@ -196,19 +184,8 @@
                         <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
                     </asp:DropDownList>
                 </td>
-                
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-                <%--<td class="leftLabel">
-                    <asp:Label ID="lblStatus" runat="server" Text="Status" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddStatus" runat="server" CssClass="cmbField" AutoPostBack="false">
-                        <asp:ListItem Value="All">All</asp:ListItem>
-                        <asp:ListItem Value="Active">Active</asp:ListItem>
-                        <asp:ListItem Value="Inactive">Inactive</asp:ListItem>
-                    </asp:DropDownList>
-                </td>--%>           
             </tr>
             <tr>
                 <td>
@@ -221,15 +198,6 @@
         </table>
         
         <table id="tblCommissionStructureRule" runat="server" width="100%">
-            <%--<tr id="trStepTwoHeading" runat="server">
-                <td class="tdSectionHeading">
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        <div class="fltlft" style="width: 200px;">
-                            <asp:Label ID="lblStage" runat="server" Text="Structure Details"></asp:Label>
-                        </div>
-                    </div>
-                </td>
-            </tr>--%>
             <tr>
                 <td>
                     <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
@@ -237,11 +205,10 @@
                             <tr>
                                 <td>
                                     <telerik:RadGrid ID="gvCommMgmt" AllowSorting="true" runat="server" AllowAutomaticInserts="false"
-                                        EnableLoadOnDemand="True" AllowPaging="True" AutoGenerateColumns="False" 
+                                        EnableLoadOnDemand="True" AllowPaging="true" AutoGenerateColumns="false" 
                                         EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-                                        EnableViewState="true" ShowStatusBar="true" Skin="Telerik" 
-                                        onpageindexchanged="gvCommMgmt_PageIndexChanged" 
-                                        OnNeedDataSource="gvCommMgmt_OnNeedDataSource" 
+                                        EnableViewState="true" ShowStatusBar="true" Skin="Telerik" AllowFilteringByColumn="true"
+                                        onpageindexchanged="gvCommMgmt_PageIndexChanged" OnNeedDataSource="gvCommMgmt_OnNeedDataSource" 
                                         onitemdatabound="gvCommMgmt_ItemDataBound">
                                         
                                         <HeaderContextMenu EnableEmbeddedSkins="False"></HeaderContextMenu>
@@ -266,53 +233,50 @@
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
                                                 <telerik:GridBoundColumn DataField="Name" HeaderStyle-Width="160px" 
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Name" UniqueName="cmRuleName" SortExpression="Name">
-                                                    <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="160px" 
                                                         Wrap="false" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="Product" HeaderStyle-Width="100px" 
+                                                <telerik:GridBoundColumn DataField="Product" HeaderStyle-Width="100px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Product" UniqueName="cmProdType" SortExpression="Product">
-                                                    <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
                                                         Wrap="false" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn DataField="Issuer" HeaderStyle-Width="200px" 
+                                                <telerik:GridBoundColumn DataField="Issuer" HeaderStyle-Width="200px"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Issuer" UniqueName="cmIssuer" SortExpression="Issuer">
-                                                    <%--<HeaderStyle Width="200px" />--%>
-                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="200px" 
-                                                        Wrap="true" />
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="200px" Wrap="true" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn DataField="Category" HeaderStyle-Width="100px" 
-                                                    HeaderText="Category" ShowFilterIcon="false" UniqueName="cmCategory" SortExpression="Category">
-                                                    <%--<HeaderStyle Width="100px" />--%>
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                    HeaderText="Category" UniqueName="cmCategory" SortExpression="Category">
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
                                                         Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="SubCategory" 
-                                                    HeaderStyle-Width="150px" HeaderText="SubCategory" ShowFilterIcon="false" 
+                                                    HeaderStyle-Width="150px" HeaderText="SubCategory"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" 
                                                     UniqueName="cmSubCategory" Visible="true">
-                                                    <%--<HeaderStyle Width="150px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" 
                                                         Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridDateTimeColumn DataField="ValidFrom" 
-                                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
+                                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px"
+                                                    CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Valid From" SortExpression="ValidFrom" UniqueName="cmValidFrom">
-                                                    <%--<HeaderStyle Width="100px" />--%>
                                                     <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
                                                         Wrap="false" />
                                                 </telerik:GridDateTimeColumn>
                                                 <telerik:GridDateTimeColumn DataField="ValidTill" 
                                                     DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
+                                                    CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Valid Till" UniqueName="cmValidTill"  SortExpression="ValidTill">
-                                                    <%--<HeaderStyle Width="100px" />--%>
-                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
-                                                        Wrap="false" />
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                 </telerik:GridDateTimeColumn>
                                             </Columns>
                                             <PagerStyle AlwaysVisible="True" />
-                                            <%--<HeaderStyle Width="100px" />--%>
                                         </MasterTableView>                                        
                                         <ClientSettings>
                                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
