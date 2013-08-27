@@ -2086,6 +2086,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//MFTransactionTurnOverMIS.ascx.
+        /// </summary>
+        internal static string MFTransactionTurnOverMIS {
+            get {
+                return ResourceManager.GetString("MFTransactionTurnOverMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//MFTurnOverMIS.ascx.
         /// </summary>
         internal static string MFTurnOverMIS {
@@ -2919,6 +2928,15 @@ namespace WealthERP {
         internal static string SchemeMappingToModelPortfolio {
             get {
                 return ResourceManager.GetString("SchemeMappingToModelPortfolio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CommisionManagement//SchemeStructureRuleAssociation.ascx.
+        /// </summary>
+        internal static string SchemeStructureRuleAssociation {
+            get {
+                return ResourceManager.GetString("SchemeStructureRuleAssociation", resourceCulture);
             }
         }
         

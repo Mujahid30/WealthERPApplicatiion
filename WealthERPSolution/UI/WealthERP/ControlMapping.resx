@@ -1665,4 +1665,12 @@
     <value>OPS//ProductOrderMaster.ascx</value>
     <comment>OPS//ProductOrderMaster.ascx</comment>
   </data>
+  <data name="MFTransactionTurnOverMIS" xml:space="preserve">
+    <value>BusinessMIS//MFTransactionTurnOverMIS.ascx</value>
+    <comment>BusinessMIS//MFTransactionTurnOverMIS.ascx</comment>
+  </data>
+  <data name="SchemeStructureRuleAssociation" xml:space="preserve">
+    <value>CommisionManagement//SchemeStructureRuleAssociation.ascx</value>
+    <comment>CommisionManagement//SchemeStructureRuleAssociation.ascx</comment>
+  </data>
 </root>
