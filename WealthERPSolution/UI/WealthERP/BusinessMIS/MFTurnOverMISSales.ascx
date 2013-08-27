@@ -115,7 +115,7 @@
                 <td>
                     <asp:Panel ID="pnlProduct" ScrollBars="Horizontal" runat="server">
                         <div runat="server" id="dvProduct" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvProduct" runat="server" GridLines="None" AutoGenerateColumns="false"
+                            <telerik:RadGrid ID="gvProduct" runat="server" GridLines="None" AutoGenerateColumns="false" PageSize="15" AllowPaging="True"
                                 AllowSorting="true" ShowStatusBar="true" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
                                 Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
                                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvProduct_OnNeedDataSource">
@@ -141,7 +141,7 @@
                                         <telerik:GridBoundColumn HeaderTooltip="Scheme" HeaderText="Scheme" DataField="Scheme"
                                             HeaderStyle-Width="350px" UniqueName="Scheme" SortExpression="Scheme" AutoPostBackOnFilter="true"
                                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            Aggregate="Count" FooterText="Row Count : ">
+                                            Aggregate="Count">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="SubCategory" HeaderTooltip="SubCategory" DataField="SubCategory"
@@ -283,7 +283,7 @@
                 <td>
                     <asp:Panel ID="pnlOrganization" ScrollBars="Horizontal" runat="server">
                         <div runat="server" id="divOrganization" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvOrganization" runat="server" GridLines="None" AutoGenerateColumns="false"
+                            <telerik:RadGrid ID="gvOrganization" runat="server" GridLines="None" AutoGenerateColumns="false" PageSize="15" AllowPaging="True"
                                 AllowSorting="true" ShowStatusBar="true" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
                                 Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
                                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource" >
@@ -311,7 +311,7 @@
                                         <telerik:GridBoundColumn HeaderTooltip="CircleManager" HeaderText="CircleManager"
                                             DataField="CircleManager" HeaderStyle-Width="350px" UniqueName="CircleManager"
                                             SortExpression="CircleManager" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count" FooterText="Row Count : ">
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="ChannelMgr" HeaderTooltip="ChannelMgr" DataField="ChannelMgr"
@@ -458,7 +458,7 @@
                 <td>
                     <asp:Panel ID="pnlMember" ScrollBars="Horizontal" runat="server">
                         <div runat="server" id="divMember" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvMember" runat="server" GridLines="None" AutoGenerateColumns="false"
+                            <telerik:RadGrid ID="gvMember" runat="server" GridLines="None" AutoGenerateColumns="false" PageSize="15" AllowPaging="True"
                                 AllowSorting="true" ShowStatusBar="true" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
                                 Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
                                 EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
@@ -486,7 +486,7 @@
                                         <telerik:GridBoundColumn HeaderTooltip="SubBroker Name" HeaderText="SubBroker Name"
                                             DataField="SubBrokerName" HeaderStyle-Width="80px" UniqueName="SubBrokerName"
                                             SortExpression="SubBrokerName" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count" FooterText="Row Count : ">
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="Folio No." HeaderTooltip="Folio No." DataField="Folio"
