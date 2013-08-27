@@ -50,9 +50,7 @@ namespace WealthERP.CommisionManagement
             foreach (RadListBoxItem item in itemList) {
                 i++;
                 strSubcatsList += item.Value;
-                if (i < nCount) {
-                    strSubcatsList += ",";
-                }
+                if (i < nCount) { strSubcatsList += ","; }
             }
 
             return strSubcatsList;
@@ -69,9 +67,12 @@ namespace WealthERP.CommisionManagement
                     hdnStructValidTill.Value = row["ACSM_ValidityEndDate"].ToString();
                     hdnIssuerId.Value = row["PA_AMCCode"].ToString();
                     hdnCategoryId.Value = row["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    
-                    txtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
-                    txtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
+
+                    lbtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
+                    lbtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
+                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
+                    //txtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
+                    //txtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
                     txtProductName.Text = row["PAG_AssetGroupName"].ToString();
                     txtProductName.ToolTip = row["PAG_AssetGroupName"].ToString();
                     txtCategory.Text = row["PAIC_AssetInstrumentCategoryName"].ToString();
@@ -201,7 +202,11 @@ namespace WealthERP.CommisionManagement
         protected void gvMappedSchemes_PageIndexChanged(object sender, GridPageChangedEventArgs e)
         {
             gvMappedSchemes.CurrentPageIndex = e.NewPageIndex;
-            //CreateMappedSchemeGrid();
+        }
+
+        protected void gvMappedSchemes_PageSizeChanged(object sender, GridPageSizeChangedEventArgs e)
+        {
+            //gvMappedSchemes.PageSize = e.NewPageSize;
         }
 
         private void SetFetchSchemesDatePickControls() 
@@ -304,6 +309,11 @@ namespace WealthERP.CommisionManagement
             BindMappedSchemesToList();
         }
 
+        protected void lbtStructureName_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + this.hdnStructId.Value + "');", true);
+        }
+
         protected void gvMappedSchemes_UpdateCommand(object sender, GridCommandEventArgs e)
         {
             GridEditableItem item = (GridEditableItem)e.Item;
@@ -313,10 +323,7 @@ namespace WealthERP.CommisionManagement
 
             //check whether it is not associated
             int retVal = commisionReceivableBo.updateStructureToSchemeMapping(setupId, newDate);
-            if (retVal < 1)
-            {
-                return;
-            }
+            if (retVal < 1) { return; }
 
             CreateMappedSchemeGrid();
         }

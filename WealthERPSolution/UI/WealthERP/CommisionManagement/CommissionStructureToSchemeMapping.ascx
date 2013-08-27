@@ -179,7 +179,8 @@
                 <asp:Label ID="lblStructName" runat="server" Text="Structure:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightData">
-                <asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="True" />                
+                <asp:LinkButton ID="lbtStructureName" runat="server" CssClass="txtField" AutoPostBack="True" OnClick="lbtStructureName_Click">StructureName</asp:LinkButton>
+                <%--<asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="True" />--%>                
             </td>
             <td class="leftLabel">
                 <asp:Label ID="lblProductName" runat="server" Text="Product: " CssClass="FieldName"></asp:Label></td>
@@ -187,9 +188,9 @@
                 <asp:TextBox ID="txtProductName" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="True" /></td>
             <td class="leftLabel">
                 <asp:Label ID="lblSubcats" runat="server" Text="Sub-Category: " CssClass="FieldName"></asp:Label></td>     
-            <td rowspan="2">
+            <td rowspan="4">
                 <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CssClass="cmbField" 
-                    Width="200px" Height="25px" AutoPostBack="True">
+                    Width="200px" Height="90px" AutoPostBack="True">
                     <ButtonSettings TransferButtons="All"></ButtonSettings>
                 </telerik:RadListBox></td>
        </tr>
@@ -218,6 +219,14 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>     
        </tr>
+       <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+       </tr>
     </table>
          
    <%-- <table width="100%">
@@ -239,11 +248,11 @@
                         <tr>
                             <td>
                                 <telerik:RadGrid ID="gvMappedSchemes" AllowSorting="false" runat="server" AllowAutomaticInserts="false" 
-                                    AllowPaging="True" AutoGenerateColumns="False"
+                                    AllowPaging="True" AutoGenerateColumns="False" AllowFilteringByColumn="true" enableloadondemand="true"
                                     EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-                                    EnableViewState="true" ShowStatusBar="true" Skin="Telerik" 
-                                    onneeddatasource="gvMappedSchemes_NeedDataSource" OnItemCreated="gvMappedSchemes_OnItemCreated"
-                                    onpageindexchanged="gvMappedSchemes_PageIndexChanged" onupdatecommand="gvMappedSchemes_UpdateCommand">
+                                    EnableViewState="true" ShowStatusBar="true" Skin="Telerik" OnPageSizeChanged="gvMappedSchemes_PageSizeChanged"
+                                    OnNeedDataSource="gvMappedSchemes_NeedDataSource" OnItemCreated="gvMappedSchemes_OnItemCreated"
+                                    OnPageIndexChanged="gvMappedSchemes_PageIndexChanged" OnUpdateCommand="gvMappedSchemes_UpdateCommand">
                                     <HeaderContextMenu EnableEmbeddedSkins="False"></HeaderContextMenu>
 
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MappedSchemes"
@@ -256,17 +265,20 @@
                                             <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" HeaderStyle-Width="50px">
                                                 <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
                                             </telerik:GridEditCommandColumn>
-                                            <telerik:GridBoundColumn DataField="Name" HeaderStyle-Width="400px" 
+                                            <telerik:GridBoundColumn DataField="Name" HeaderStyle-Width="400px"
+                                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
                                                 HeaderText="Scheme Name" UniqueName="structSchemeName" ReadOnly="true">
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="400px" Wrap="false" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridDateTimeColumn DataField="ValidFrom" ReadOnly="true"
                                                 DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px"
+                                                CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                 HeaderText="Valid From" SortExpression="ValidFrom" UniqueName="schemeValidFrom">
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                             </telerik:GridDateTimeColumn>
                                             <telerik:GridDateTimeColumn DataField="ValidTill"
-                                                DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
+                                                DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px"
+                                                CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true" 
                                                 HeaderText="Valid Till" UniqueName="schemeValidTill">
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                             </telerik:GridDateTimeColumn>
@@ -274,11 +286,10 @@
                                         <PagerStyle AlwaysVisible="True" />
                                     </MasterTableView>                                        
                                     <ClientSettings>
-                                        <ClientEvents OnGridCreated="GridCreated" />
                                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                                         <Resizing AllowColumnResize="true" />                                          
                                     </ClientSettings>
-                                    <FilterMenu EnableEmbeddedSkins="False"></FilterMenu>
+                                    <%--<FilterMenu EnableEmbeddedSkins="False"></FilterMenu>--%>
                                 </telerik:RadGrid>
                             </td>
                         </tr>
