@@ -132,6 +132,7 @@ namespace WealthERP.BusinessMIS
                 if (ddlCategory.SelectedIndex != 0)
                 {
                     LoadAllSchemeList(amcCode);
+                    GdBind_Click(sender,e);
                 }
 
             }

@@ -74,7 +74,8 @@
             <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
-        <td colspan="2"></td>
+        <td colspan="2">
+        </td>
     </tr>
     <%--    <tr id="trNavCategory" runat="server">
         <td align="left" class="leftField">
@@ -100,48 +101,51 @@
     </tr>--%>
     <tr>
         <td id="tdFromDate" runat="server">
-<%--            <td align="Left">
---%>                <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
-            </td>
-            <td align="left">
-                <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
-                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                    </DateInput>
-                </telerik:RadDatePicker>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFrom"
-                    CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
-            </td>
-<%--        </td>
+            <%--            <td align="Left">
+--%>
+            <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
+        <td align="left">
+            <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput1" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFrom"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        </td>
+        <%--        </td>
 --        <td id="tdToDate" runat="server">--%>
-            <td align="left">
-                <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="To Date:"></asp:Label>
-            </td>
-            <td align="left">
-                <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
-                    Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
-                    </DateInput>
-                </telerik:RadDatePicker>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
-                    CssClass="rfvPCG" ErrorMessage="<br />Please select a to Date" Display="Dynamic"
-                    runat="server" InitialValue="" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
-            </td>
-<%--        </td>
---%>        <td align="left" style="padding-right: 50px">
+        <td align="left">
+            <asp:Label ID="Label11" runat="server" CssClass="FieldName" Text="To Date:"></asp:Label>
+        </td>
+        <td align="left">
+            <telerik:RadDatePicker ID="txtTo" CssClass="txtTo" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput ID="DateInput2" runat="server" DisplayDateFormat="dd/MM/yyyy" DateFormat="dd/MM/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select a to Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="vgbtnSubmit"> </asp:RequiredFieldValidator>
+        </td>
+        <%--        </td>
+--%>
+        <td align="left" style="padding-right: 50px">
             <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" OnClick="GdBind_Click"
                 Text="GO" ValidationGroup="vgbtnSubmit" />
         </td>
-        <td></td>
+        <td>
+        </td>
     </tr>
     <tr>
         <td align="right">
@@ -214,6 +218,12 @@
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Transaction Date" DataField="TransactionDate"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="TransactionDate" SortExpression="UPFRONT"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="300px" HeaderText="Scheme" DataField="SCHEMEPLANNAME"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="SCHEMEPLANNAME" SortExpression="SCHEMEPLANNAME"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -226,7 +236,13 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Broker Value" DataField="BROKERAGEVALUE"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Sub-Brokercode" DataField="subbroker"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="subbroker" SortExpression="subbroker"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Brokerage Value(%)" DataField="BROKERAGEVALUE"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="BROKERAGEVALUE" SortExpression="BROKERAGEVALUE"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
@@ -234,12 +250,6 @@
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="ExpectedAmt" DataField="UPFRONT"
                     HeaderStyle-HorizontalAlign="Right" UniqueName="UPFRONT" SortExpression="UPFRONT"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Sub-Brokercode" DataField="subbroker"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="subbroker" SortExpression="subbroker"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
