@@ -1038,5 +1038,35 @@ namespace DaoCommisionManagement
                 throw exBase;
             }
         }
+
+        public DataSet GetStructureScheme(int adviserId)
+        {
+            DataSet dsStructureScheme = new DataSet();
+            Database db;
+            DbCommand cmdStructureScheme;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdStructureScheme = db.GetStoredProcCommand("SP_GetStuctSchemeAssoc");
+                db.AddInParameter(cmdStructureScheme, "@adviserId", DbType.Int32, adviserId);
+                dsStructureScheme = db.ExecuteDataSet(cmdStructureScheme);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetStructureScheme(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsStructureScheme;
+        }
     }
 }
