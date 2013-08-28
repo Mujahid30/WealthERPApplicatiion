@@ -15,25 +15,6 @@ namespace BoWerpAdmin
 {
     public class PriceBo
     {
-
-        public DataTable GetStructureoverScheme()
-        {
-            DataTable dtStructure = new DataTable();
-            DataSet dSStructure = new DataSet();
-            PriceDao priceDao = new PriceDao();
-            try
-            {
-                dSStructure = priceDao.GetStructureScheme();
-                dtStructure = dSStructure.Tables[0];
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dtStructure;
-        }
-
-
         public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             PriceDao PriceObj = new PriceDao();
@@ -71,7 +52,6 @@ namespace BoWerpAdmin
             return PriceObj.GetAMFIRecord(Flag, StartDate, EndDate, Search, amfiCode, schemeCode,selectAllCode,All,CategoryCode);
 
         }
-
 
         public int GetAMFICount(string Flag, DateTime StartDate, DateTime EndDate, String Search, int CurrentPage, int amfiCode, int schemeCode, int selectAllCode)
         {
