@@ -669,6 +669,31 @@ namespace BoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        } 
+
+        public DataSet GetStructureScheme(int adviserId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                return commisionReceivableDao.GetStructureScheme(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetStructureScheme(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }
