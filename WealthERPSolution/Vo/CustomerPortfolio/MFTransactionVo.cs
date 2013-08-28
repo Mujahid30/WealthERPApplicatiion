@@ -59,6 +59,8 @@ namespace VoCustomerPortfolio
         private string m_OriginalTransactionNumber;
         public int AgentId { get; set; }
         public string m_AgentCode;
+        private string m_Area;
+        private string m_EUIN;
         #endregion Fields
 
         #region Properties
@@ -300,6 +302,18 @@ namespace VoCustomerPortfolio
         {
             get { return m_OriginalTransactionNumber; }
             set { m_OriginalTransactionNumber = value; }
+        }
+        public string Area
+        {
+            get { return m_Area; }
+            set { m_Area = value; }
+
+        }
+        public string EUIN
+        {
+            get { return m_EUIN; }
+            set { m_EUIN = value; }
+
         }
 
         #endregion Properties

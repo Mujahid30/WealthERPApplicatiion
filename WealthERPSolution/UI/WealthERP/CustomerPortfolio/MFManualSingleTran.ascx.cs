@@ -558,6 +558,8 @@ namespace WealthERP.CustomerPortfolio
                     //AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
                     //mfTransactionVo.AgentCode = AgentId.Rows[0][2].ToString();
                     mfTransactionVo.AgentCode = TxtsubBrokerCode.Text.ToString();
+                    mfTransactionVo.Area = txtArea.Text.Trim().ToString();
+                    mfTransactionVo.EUIN = txtEUIN.Text.ToString();
 
                     if (ddlTransactionType.SelectedItem.Value == "Buy")
                     {

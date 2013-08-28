@@ -675,6 +675,18 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
+                                                          <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_Area"
+                                                            FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                          <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_EUIN" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN"
+                                                            FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="TransactionStatus" HeaderText="Transaction Status"
                                                             AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="TransactionStatus"
                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="TransactionStatus"

@@ -1049,6 +1049,8 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_SwitchSourceTrxId", DbType.Int32, mfTransactionVo.SwitchSourceTrxId);
                 db.AddInParameter(createMFTransactionCmd, "@WMTT_TransactionClassificationCode", DbType.String, mfTransactionVo.TransactionClassificationCode);
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_SubBrokerCode", DbType.String, mfTransactionVo.AgentCode);
+                db.AddInParameter(createMFTransactionCmd, "@CMFT_Area", DbType.String, mfTransactionVo.Area);
+                db.AddInParameter(createMFTransactionCmd, "@CMFT_EUIN", DbType.String, mfTransactionVo.EUIN);
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFTransactionCmd, "@CMFT_CreatedBy", DbType.Int32, userId);
                 db.AddOutParameter(createMFTransactionCmd, "@CMFT_MFTransId", DbType.Int32, 50000);
@@ -2505,6 +2507,22 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();                      
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
+                        if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.EUIN = dr["CMFT_EUIN"].ToString();
+                        }
+                        else
+                        {
+                            mfTransactionVo.EUIN = "N/A";
+                        }
+                       if(dr["CMFT_Area"].ToString() != null && dr["CMFT_Area"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.Area = dr["CMFT_Area"].ToString();
+                        }
+                        else
+                        {
+                            mfTransactionVo.Area = "N/A";
+                        }
                         if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
                         {
                             mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();

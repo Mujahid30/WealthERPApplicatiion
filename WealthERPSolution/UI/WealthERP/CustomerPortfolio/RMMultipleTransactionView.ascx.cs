@@ -861,6 +861,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
                     dtMFTransactions.Columns.Add("CreatedOn");
                     dtMFTransactions.Columns.Add("CMFT_ExternalBrokerageAmount", typeof(double));
+                    dtMFTransactions.Columns.Add("CMFT_Area");
+                    dtMFTransactions.Columns.Add("CMFT_EUIN");
                     DataRow drMFTransaction;
                     for (int i = 0; i < mfTransactionList.Count; i++)
                     {
@@ -910,6 +912,8 @@ namespace WealthERP.CustomerPortfolio
                         drMFTransaction[16] = mfTransactionVo.SubCategoryName;
                         drMFTransaction[17] = mfTransactionVo.CreatedOn;
                         drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
+                        drMFTransaction["CMFT_Area"]=mfTransactionVo.Area.ToString();
+                        drMFTransaction["CMFT_EUIN"] = mfTransactionVo.EUIN.ToString();
 
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }
