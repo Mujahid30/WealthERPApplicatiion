@@ -1014,6 +1014,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
                 }
+                else if (e.Item.Value == "Map_scheme")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1924,6 +1929,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "ops";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
+                }
+                else if (e.Item.Value == "Map_scheme")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','login');", true);
                 }
 
             }
