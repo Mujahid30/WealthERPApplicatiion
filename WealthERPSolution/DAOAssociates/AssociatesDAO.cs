@@ -583,7 +583,7 @@ namespace DAOAssociates
             return dtAssociatesList;
         }
 
-        public bool CreateAdviserAgentCode(AssociatesVO associatesVo, int agentId)
+        public bool CreateAdviserAgentCode(AssociatesVO associatesVo, int agentId, int adviserId)
         {
             bool result = false;
             Database db;
@@ -599,6 +599,7 @@ namespace DAOAssociates
                 db.AddInParameter(createAdviserAgentCodecmd, "@AAC_ModifiedBy", DbType.Int32, associatesVo.AAC_ModifiedBy);
                 db.AddInParameter(createAdviserAgentCodecmd, "@BranchId", DbType.Int32, associatesVo.BranchId);
                 db.AddInParameter(createAdviserAgentCodecmd, "@RmId", DbType.Int32, associatesVo.RMId);
+                db.AddInParameter(createAdviserAgentCodecmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createAdviserAgentCodecmd, "@AssociatesId", DbType.Int32, associatesVo.AdviserAssociateId);
                 db.ExecuteNonQuery(createAdviserAgentCodecmd);
                 result = true;

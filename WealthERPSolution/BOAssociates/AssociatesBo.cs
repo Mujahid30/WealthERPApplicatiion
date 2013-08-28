@@ -177,12 +177,12 @@ namespace BOAssociates
             }
             return dtGetAgentlist;
         }
-        public bool CreateAdviserAgentCode(AssociatesVO associatesVo, int agentId)
+        public bool CreateAdviserAgentCode(AssociatesVO associatesVo, int agentId, int adviserId)
         {
             bool result = false;
             try
             {
-                result = associatesDao.CreateAdviserAgentCode(associatesVo, agentId);
+                result = associatesDao.CreateAdviserAgentCode(associatesVo, agentId, adviserId);
             }
             catch (BaseApplicationException Ex)
             {

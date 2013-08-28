@@ -143,8 +143,6 @@ namespace WealthERP.Associates
                 associatesVo.AAC_AgentCode = null;
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
-
-            
         
 
             if (Session["agentCodelist"] != null)
@@ -162,7 +160,7 @@ namespace WealthERP.Associates
             {
                 if (Validation())
                 {
-                    result = associatesBo.CreateAdviserAgentCode(associatesVo, agentId);
+                    result = associatesBo.CreateAdviserAgentCode(associatesVo, agentId,advisorVo.advisorId);
                     if (Request.QueryString["AssociationId"] != null)
                     {
                         int associationId = int.Parse(Request.QueryString["AssociationId"]);
