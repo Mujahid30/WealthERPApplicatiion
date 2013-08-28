@@ -883,7 +883,7 @@ namespace WealthERP.Associates
             //associatesVo.AAC_AgentCode = txtAgentCode.Text;
             associatesVo.AAC_CreatedBy = userVo.UserId;
             associatesVo.AAC_ModifiedBy = userVo.UserId;
-            associatesBo.CreateAdviserAgentCode(associatesVo, agentId);
+            associatesBo.CreateAdviserAgentCode(associatesVo, agentId,advisorVo.advisorId);
         }
 
         protected void btnSubmitAddStage2_Click(object sender, EventArgs e)
