@@ -1,9 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ViewSchemeStructureAssociation.ascx.cs"
     Inherits="WealthERP.CommisionManagement.ViewSchemeStructureAssociation" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
-<telerik:RadScriptManager ID="scptMgr" runat="server">
-</telerik:RadScriptManager>
+
+<style type="text/css">
+    .nowrap
+    {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+</style>
+
+<asp:ScriptManager ID="scrptMgr" runat="server">
+    <Services>
+        <asp:ServiceReference Path="AutoComplete.asmx" />
+    </Services>
+</asp:ScriptManager>
+
+<asp:UpdatePanel ID="upCMGrid" runat="server">
+    <ContentTemplate>
 <table width="100%">
     <tr>
         <td>
@@ -25,44 +39,46 @@
     </tr>
 </table>
 <br />
-<div style="width: 100%; overflow: scroll;">
-    <telerik:RadGrid ID="RadGrid1" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
+<div style="width: 100%;>
+    <telerik:RadGrid ID="rgvSchemeToStruct" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="10" AllowSorting="true" AllowPaging="true" ShowStatusBar="True" ShowFooter="true" OnItemDataBound="rgvSchemeToStruct_ItemDataBound"
+        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" OnNeedDataSource="rgvSchemeToStruct_NeedDataSource"
         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
         EnableHeaderContextFilterMenu="true">
-        <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
-                    filename="Company/Sector" excel-format="ExcelML">--%>
-        <%-- </exportsettings>--%>
-        <ExportSettings excel-format="ExcelML">   </ExportSettings>
+        <ExportSettings excel-format="ExcelML"></ExportSettings>
         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-            GroupLoadMode="Client" ShowGroupFooter="true">
-            <Columns>
-                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Scheme Plan" DataField="PASP_SchemePlanName"
-                    UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+            GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="StructureId">
+            <Columns>                
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Scheme Plan" DataField="PASP_SchemePlanName"
+                    UniqueName="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName" FilterControlWidth="60%"
+                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" >
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn  HeaderStyle-Width="40px" HeaderText="Validity Start" DataField="ACSTSM_ValidityStart"
-                 HeaderStyle-HorizontalAlign="Center"   UniqueName="ACSTSM_ValidityStart" SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:dd/MM/yyyy}" >
+                <telerik:GridTemplateColumn HeaderStyle-Width="120px" HeaderText="Commission Structure"
+                    HeaderStyle-HorizontalAlign="left" DataField="ACSM_CommissionStructureName"
+                    UniqueName="ACSM_CommissionStructureName" SortExpression="ACSM_CommissionStructureName"
+                    CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true" FilterControlWidth="60%"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="lbtStruct" runat="server" OnClick="lbtStruct_Click"
+                            AutoPostBack="true" CssClass="" Width="300px" EnableEmbeddedSkins="false">                            
+                        </asp:LinkButton>
+                    </ItemTemplate>                
+                </telerik:GridTemplateColumn>
+                <telerik:GridDateTimeColumn  HeaderStyle-Width="40px" HeaderText="Validity Start" DataField="ACSTSM_ValidityStart"
+                 HeaderStyle-HorizontalAlign="Center"   UniqueName="ACSTSM_ValidityStart" SortExpression="ACSTSM_ValidityStart"
+                    CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true" DataFormatString="{0:dd/MM/yyyy}" >
                     <ItemStyle HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="40px" HeaderText="Validity End" DataField="ACSTSM_ValidityEnd"
+                </telerik:GridDateTimeColumn>
+                <telerik:GridDateTimeColumn HeaderStyle-Width="40px" HeaderText="Validity End" DataField="ACSTSM_ValidityEnd"
                     HeaderStyle-HorizontalAlign="Center" UniqueName="ACSTSM_ValidityEnd" SortExpression="ACSTSM_ValidityEnd"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:dd/MM/yyyy}">
                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Commission Structure"
-                    DataField="ACSM_CommissionStructureName" HeaderStyle-HorizontalAlign="left"
-                    UniqueName="ACSM_CommissionStructureName" SortExpression="ACSM_CommissionStructureName"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
+                </telerik:GridDateTimeColumn>
             </Columns>
+            <PagerStyle AlwaysVisible="True" />
         </MasterTableView>
         <HeaderStyle Width="150px" />
         <ClientSettings>
@@ -70,4 +86,11 @@
             <Resizing AllowColumnResize="true" />
         </ClientSettings>
     </telerik:RadGrid>
-</div>
+    </div>
+    </ContentTemplate>
+    <Triggers>
+        <asp:PostBackTrigger ControlID="ibtExportSummary" />
+    </Triggers>
+</asp:UpdatePanel>
+
+
