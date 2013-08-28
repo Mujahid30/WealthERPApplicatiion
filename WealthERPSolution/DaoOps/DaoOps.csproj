@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BondOrderDao.cs" />
+    <Compile Include="FIOrderDao.cs" />
     <Compile Include="LIOrderDao.cs" />
     <Compile Include="MFOrderDao.cs" />
     <Compile Include="OperationDao.cs" />

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="BondOrderVo.cs" />
     <Compile Include="LifeInsuranceOrderVo.cs" />
+    <Compile Include="FIOrderVo.cs" />
     <Compile Include="MFOrderVo.cs" />
     <Compile Include="OperationVo.cs" />
     <Compile Include="OrderVo.cs" />
