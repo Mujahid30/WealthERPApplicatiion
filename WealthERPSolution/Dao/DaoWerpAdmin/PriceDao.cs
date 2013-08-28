@@ -17,26 +17,6 @@ namespace DaoWerpAdmin
 {
     public class PriceDao
     {
-
-        public DataSet GetStructureScheme()
-        {
-            DataSet dsStructureScheme = new DataSet();
-            Database db;
-            DbCommand CmdStructureScheme;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                CmdStructureScheme = db.GetStoredProcCommand("Sp_GetComStructureoverscheme");
-                dsStructureScheme = db.ExecuteDataSet(CmdStructureScheme);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            return dsStructureScheme;
-        }
-
-
         public DataSet GetEquityRecord(string Flag, DateTime StartDate, DateTime EndDate, String Search)
         {
             DataSet ds;
