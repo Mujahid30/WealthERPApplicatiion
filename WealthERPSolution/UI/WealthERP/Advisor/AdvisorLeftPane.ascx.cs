@@ -979,7 +979,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeStructureRuleAssociation','none');", true);
                 }
                 else if (e.Item.Value == "View_Payable_Structure")
                 {
@@ -1353,7 +1353,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "OrderEntry")
                 {
-                   
+
                     if (advisorVo.A_AgentCodeBased == 1)
                     {
                         Session["UserType"] = "bm";
@@ -1364,7 +1364,7 @@ namespace WealthERP.Advisor
                         Session["UserType"] = "bm";
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                     }
-                    
+
                 }
                 else if (e.Item.Value == "LI_Order")
                 {
@@ -2461,9 +2461,9 @@ namespace WealthERP.Advisor
                     }
                 }
             }
-          
-           
-            
+
+
+
         }
 
         private void SetAdminTreeNodesForPlans(DataSet dsAdminTreeNodes)
@@ -3090,11 +3090,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Transactions")
                 {
-                  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','login');", true);
                 }
                 else if (e.Item.Value == "Add MF Transactions")
                 {
-                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "UnderConstruction", "loadcontrol('UnderConstruction','login');", true);
                 }
                 else if (e.Item.Value == "View EQ Transactions")
                 {
