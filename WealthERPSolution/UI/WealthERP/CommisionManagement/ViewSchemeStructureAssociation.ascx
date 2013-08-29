@@ -39,14 +39,14 @@
     </tr>
 </table>
 <br />
-<div style="width: 100%;>
+<div>
     <telerik:RadGrid ID="rgvSchemeToStruct" runat="server" GridLines="None" AutoGenerateColumns="False"
-        PageSize="10" AllowSorting="true" AllowPaging="true" ShowStatusBar="True" ShowFooter="true" OnItemDataBound="rgvSchemeToStruct_ItemDataBound"
+        AllowSorting="true" AllowPaging="true" ShowStatusBar="True" ShowFooter="true" OnItemDataBound="rgvSchemeToStruct_ItemDataBound"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true" OnNeedDataSource="rgvSchemeToStruct_NeedDataSource"
         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
         EnableHeaderContextFilterMenu="true">
         <ExportSettings excel-format="ExcelML"></ExportSettings>
-        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+        <MasterTableView Width="100%" AllowMultiColumnSorting="true" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
             GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="StructureId">
             <Columns>                
@@ -58,7 +58,7 @@
                 <telerik:GridTemplateColumn HeaderStyle-Width="120px" HeaderText="Commission Structure"
                     HeaderStyle-HorizontalAlign="left" DataField="ACSM_CommissionStructureName"
                     UniqueName="ACSM_CommissionStructureName" SortExpression="ACSM_CommissionStructureName"
-                    CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true" FilterControlWidth="60%"
+                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" FilterControlWidth="60%"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemTemplate>
                         <asp:LinkButton ID="lbtStruct" runat="server" OnClick="lbtStruct_Click"
@@ -82,9 +82,10 @@
         </MasterTableView>
         <HeaderStyle Width="150px" />
         <ClientSettings>
-            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+            <Selecting AllowRowSelect="true" EnableDragToSelectRows="true" />
             <Resizing AllowColumnResize="true" />
         </ClientSettings>
+        <FilterMenu EnableEmbeddedSkins="false"></FilterMenu>
     </telerik:RadGrid>
     </div>
     </ContentTemplate>
