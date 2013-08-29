@@ -104,6 +104,39 @@ namespace DaoCommisionManagement
 
         }
 
+        //Gets all the structures under adviser
+        public DataSet GetAdviserCommissionStructureRules(int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SP_GetAllStructList");
+                db.AddInParameter(cmdGetCommissionStructureRules, "@A_AdviserId", DbType.Int32, adviserId);
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableDao.cs:GetAdviserCommissionStructureRules(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
 
         public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
         {
