@@ -252,22 +252,18 @@
                                                 <telerik:GridBoundColumn DataField="Category" HeaderStyle-Width="100px" 
                                                     CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Category" UniqueName="cmCategory" SortExpression="Category">
-                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
-                                                        Wrap="false" />
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn AutoPostBackOnFilter="true" DataField="SubCategory" 
-                                                    HeaderStyle-Width="150px" HeaderText="SubCategory"
-                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" 
+                                                <telerik:GridBoundColumn DataField="SubCategory" HeaderStyle-Width="150px" HeaderText="SubCategory"
+                                                    CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     UniqueName="cmSubCategory" Visible="true">
-                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" 
-                                                        Wrap="false" />
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="150px" Wrap="false" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridDateTimeColumn DataField="ValidFrom" 
                                                     DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px"
                                                     CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                     HeaderText="Valid From" SortExpression="ValidFrom" UniqueName="cmValidFrom">
-                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" 
-                                                        Wrap="false" />
+                                                    <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                 </telerik:GridDateTimeColumn>
                                                 <telerik:GridDateTimeColumn DataField="ValidTill" 
                                                     DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
