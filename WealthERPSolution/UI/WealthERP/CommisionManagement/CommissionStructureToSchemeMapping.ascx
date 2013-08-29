@@ -162,35 +162,25 @@
             </td>
         </tr>
     </table>
-    <%--<table width="100%">
-        <tr id="trStepOneHeading" runat="server">
-            <td class="tdSectionHeading">
-                <div class="divSectionHeading" style="vertical-align: text-bottom">                        
-                    <div class="fltlft">                           
-                        <asp:Label ID="lblStructDetails" runat="server" Text="Structure Details"></asp:Label>
-                    </div>                       
-                </div>
-            </td>
-        </tr>
-    </table>--%>
+
     <table width="100%">
        <tr>
             <td class="leftLabel">
                 <asp:Label ID="lblStructName" runat="server" Text="Structure:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightData">
-                <asp:LinkButton ID="lbtStructureName" runat="server" CssClass="txtField" AutoPostBack="True" OnClick="lbtStructureName_Click">StructureName</asp:LinkButton>
-                <%--<asp:TextBox ID="txtStructureName" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="True" />--%>                
+                <asp:LinkButton ID="lbtStructureName" runat="server" CssClass="txtField" AutoPostBack="True" OnClick="lbtStructureName_Click" Visible="false">StructureName</asp:LinkButton>
+                <asp:DropDownList ID="ddlStructs" runat="server" Visible="false" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlStructs_SelectedIndexChanged"></asp:DropDownList>
             </td>
             <td class="leftLabel">
                 <asp:Label ID="lblProductName" runat="server" Text="Product: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtProductName" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="True" /></td>
+                <asp:TextBox ID="txtProductName" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="true" /></td>
             <td class="leftLabel">
                 <asp:Label ID="lblSubcats" runat="server" Text="Sub-Category: " CssClass="FieldName"></asp:Label></td>     
             <td rowspan="4">
                 <telerik:RadListBox ID="rlbAssetSubCategory" runat="server" CssClass="cmbField" 
-                    Width="200px" Height="90px" AutoPostBack="True">
+                    Width="200px" Height="90px" AutoPostBack="true">
                     <ButtonSettings TransferButtons="All"></ButtonSettings>
                 </telerik:RadListBox></td>
        </tr>
@@ -198,11 +188,11 @@
             <td class="leftLabel">
                 <asp:Label ID="lblCategory" runat="server" Text="Category: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtCategory" runat="server" CssClass="txtField" Enabled="false"  /></td>
+                <asp:TextBox ID="txtCategory" runat="server" CssClass="txtField" Enabled="false" AutoPostBack="true" /></td>
             <td class="leftLabel">
                 <asp:Label ID="lblIssuerName" runat="server" Text="Issuer: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField" Enabled="false"  /></td>
+                <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField" Enabled="false"  AutoPostBack="true"/></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>     
        </tr>
@@ -210,11 +200,11 @@
             <td class="leftLabel">
                 <asp:Label ID="lblStructValidFrom" runat="server" Text="Validity From: " CssClass="FieldName"></asp:Label></td>
             <td class="rightData">
-                <asp:TextBox ID="txtValidFrom" runat="server" Enabled="false" CssClass="txtField"></asp:TextBox></td>
+                <asp:TextBox ID="txtValidFrom" runat="server" Enabled="false" CssClass="txtField" AutoPostBack="true"></asp:TextBox></td>
             <td class="leftLabel">
                 <asp:Label ID="lblStrucValidTo" runat="server" Text="Valid To: " CssClass="FieldName"></asp:Label></td>           
             <td class="rightData">
-                <asp:TextBox ID="txtValidTo" runat="server" Enabled="false" CssClass="txtField"></asp:TextBox></td>
+                <asp:TextBox ID="txtValidTo" runat="server" Enabled="false" CssClass="txtField" AutoPostBack="true"></asp:TextBox></td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>     
@@ -228,22 +218,11 @@
             <td>&nbsp;</td>
        </tr>
     </table>
-         
-   <%-- <table width="100%">
-        <tr id="tr1" runat="server">
-            <td class="tdSectionHeading">
-                <div class="divSectionHeading" style="vertical-align: text-bottom">                        
-                    <div class="fltlft">                           
-                        <asp:Label ID="lblSchemes" runat="server" Text="Associated Schemes"></asp:Label>
-                    </div>                       
-                </div>
-            </td>
-        </tr>        
-    </table>--%>
+
     <table id="tblCommissionStructureRule" runat="server" width="100%">
         <tr>
             <td>
-                <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="None">
+                <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="None" Visible="false">
                     <table width="60%">
                         <tr>
                             <td>
@@ -298,29 +277,16 @@
             </td>
         </tr>
     </table>
-    <table width="33%">
-        <tr>
-            <td class="leftLabel"><asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes"></asp:Label></td>
-            <td class="rightData">
-                <asp:Button ID="btnAddNewSchemes" runat="server" Text="New Schemes" OnClick="btnAddNewSchemes_Click" CssClass="PCGButton wide-button" /></td>
-        </tr>
-    </table>
-    <%--<table width="100%">
-        <tr id="tr2" runat="server">
-            <td class="tdSectionHeading" colspan="6">
-                <div class="divSectionHeading" style="vertical-align: text-bottom">                        
-                    <div class="fltlft">                           
-                        <asp:Label ID="lblAddNewSchemes" runat="server" Text="Add New Schemes"></asp:Label>
-                    </div>
-                    <div class="divViewEdit">
-                        <asp:LinkButton ID="lnkAddNewSchemes" Text="Add" runat="server" CssClass="LinkButtons"
-                            OnClick="lnkAddNewSchemes_Click">
-                        </asp:LinkButton>
-                    </div>                     
-                </div>
-            </td>
-        </tr>
-    </table>--%>
+    <asp:Panel ID="pnlAddSchemesButton" runat="server" Visible="false">
+        <table width="33%">
+            <tr>
+                <td class="leftLabel"><asp:Label ID="lblAddNewSchemes" runat="server" CssClass="FieldName" Text="Add Schemes"></asp:Label></td>
+                <td class="rightData">
+                    <asp:Button ID="btnAddNewSchemes" runat="server" Text="New Schemes" OnClick="btnAddNewSchemes_Click" CssClass="PCGButton wide-button" /></td>
+            </tr>
+        </table>
+    </asp:Panel>
+
     <asp:Panel ID="pnlAddSchemes" runat="server" Visible="false">
         <table width="100%">
             <tr>

@@ -23,6 +23,7 @@ namespace WealthERP.CommisionManagement
         UserVo userVo;
         AdvisorVo advisorVo;
         RMVo rmVo;
+        bool isRedirect;
         CommisionReceivableBo commisionReceivableBo = new CommisionReceivableBo();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -31,16 +32,65 @@ namespace WealthERP.CommisionManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             rmVo = (RMVo)Session["rmVo"];
+            isRedirect = false;
 
             if (!IsPostBack) {
-                pnlGrid.Visible = false;
-                
-                if (Request.QueryString["ID"] != null) {
+                if (Request.QueryString["ID"] != null)
+                {
+                    isRedirect = true;
                     hdnStructId.Value = Request.QueryString["ID"].Trim();
+                    lbtStructureName.Visible = true;
                     SetStructureDetails();
                     CreateMappedSchemeGrid();
-                }                
+                }
+                else
+                {
+                    Cache.Remove(userVo.UserId.ToString() + "MappedSchemes");
+                    isRedirect = false;
+                    getAllStructures();
+                    ddlStructs.Visible = true;
+                }
             }
+        }
+
+        private void getAllStructures() 
+        {
+            DataSet dsAllStructs;
+            try
+            {
+                dsAllStructs = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId);
+                DataRow drStructs = dsAllStructs.Tables[0].NewRow();
+                drStructs["ACSM_CommissionStructureId"] = 0;
+                drStructs["ACSM_CommissionStructureName"] = "-SELECT-";
+                dsAllStructs.Tables[0].Rows.InsertAt(drStructs, 0);
+                ddlStructs.DataTextField = dsAllStructs.Tables[0].Columns["ACSM_CommissionStructureName"].ToString();
+                ddlStructs.DataValueField = dsAllStructs.Tables[0].Columns["ACSM_CommissionStructureId"].ToString();
+                ddlStructs.DataSource = dsAllStructs.Tables[0];
+                ddlStructs.DataBind();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionStructureToSchemeMapping.ascx.cs:getAllStructures()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        protected void ddlStructs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (int.Parse(ddlStructs.SelectedValue) == 0) { return; }
+
+            hdnStructId.Value = this.ddlStructs.SelectedValue.ToString();
+            SetStructureDetails();
+            CreateMappedSchemeGrid();
+            pnlGrid.Visible = true;
         }
 
         private string convertSubcatListToCSV(List<RadListBoxItem> itemList)
@@ -70,9 +120,6 @@ namespace WealthERP.CommisionManagement
 
                     lbtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
                     lbtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
-                        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=" + structureId + "');", true);
-                    //txtStructureName.Text = row["ACSM_CommissionStructureName"].ToString();
-                    //txtStructureName.ToolTip = row["ACSM_CommissionStructureName"].ToString();
                     txtProductName.Text = row["PAG_AssetGroupName"].ToString();
                     txtProductName.ToolTip = row["PAG_AssetGroupName"].ToString();
                     txtCategory.Text = row["PAIC_AssetInstrumentCategoryName"].ToString();
@@ -122,6 +169,7 @@ namespace WealthERP.CommisionManagement
                 gvMappedSchemes.DataBind();
                 Cache.Insert(userVo.UserId.ToString() + "MappedSchemes", dsMappedSchemes.Tables[0]);
                 pnlGrid.Visible = true;
+                pnlAddSchemesButton.Visible = true;
             }
             catch (BaseApplicationException Ex)
             {

@@ -122,6 +122,15 @@ namespace WealthERP.CommisionManagement {
         protected global::System.Web.UI.WebControls.LinkButton lbtStructureName;
         
         /// <summary>
+        /// ddlStructs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStructs;
+        
+        /// <summary>
         /// lblProductName control.
         /// </summary>
         /// <remarks>
@@ -255,6 +264,15 @@ namespace WealthERP.CommisionManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvMappedSchemes;
+        
+        /// <summary>
+        /// pnlAddSchemesButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlAddSchemesButton;
         
         /// <summary>
         /// lblAddNewSchemes control.
