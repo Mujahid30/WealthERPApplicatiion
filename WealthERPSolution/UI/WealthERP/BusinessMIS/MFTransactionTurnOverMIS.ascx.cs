@@ -49,8 +49,6 @@ namespace WealthERP.BusinessMIS
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-                userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
@@ -61,7 +59,7 @@ namespace WealthERP.BusinessMIS
             if (userType == "associates")
             {
                 Agentcode = associateuserheirarchyVo.AgentCode;
-                trSelectType.Visible = false;
+                //trSelectType.Visible = false;
             }
             advisorId = advisorVo.advisorId;
             int RMId = rmVo.RMId;
@@ -78,6 +76,7 @@ namespace WealthERP.BusinessMIS
                 txtToDate.SelectedDate = DateTime.Now;
                 trPnlProduct.Visible = false;
                 trPnlOrganization.Visible = false;
+                trMember.Visible = false;
             }
         }
 
@@ -85,8 +84,10 @@ namespace WealthERP.BusinessMIS
         {
             SetParameters();
             BindProductGrid();
+            lblMFMISType.Text = "PRODUCT";
             trPnlProduct.Visible = true;
             trPnlOrganization.Visible = false;
+            trMember.Visible = false;
         }
 
         private void BindProductGrid()
@@ -537,47 +538,53 @@ namespace WealthERP.BusinessMIS
             if (userType == "advisor")
             {
                 hdnadviserId.Value = advisorVo.advisorId.ToString();
-                if (ddlSelectType.SelectedIndex != 0)
-                {
-                    hdnsubBrokerCode.Value = ddlSelectType.SelectedItem.Text;
-                    hdnAll.Value = "0";
-                }
-                else
-                {
-                    hdnsubBrokerCode.Value = " ";
-                    hdnAll.Value = "1";
-                }
+                //if (ddlSelectType.SelectedIndex != 0)
+                //{
+                //    hdnsubBrokerCode.Value = ddlSelectType.SelectedItem.Text;
+                //    hdnAll.Value = "0";
+                //}
+                //else
+                //{
+                //    hdnsubBrokerCode.Value = " ";
+                //    hdnAll.Value = "1";
+                //}
+                hdnAll.Value = "1";
+                hdnsubBrokerCode.Value = null;
                 hdnbranchId.Value = "0";
                 hdnrmId.Value = "0";
             }
             else if (userType == "rm")
             {
                 hdnrmId.Value = rmVo.RMId.ToString();
-                if (ddlSelectType.SelectedIndex != 0)
-                {
-                    hdnsubBrokerCode.Value = ddlSelectType.SelectedItem.Text;
-                    hdnAll.Value = "0";
-                }
-                else
-                {
-                    hdnsubBrokerCode.Value = "0";
-                    hdnAll.Value = "1";
-                }
+                //if (ddlSelectType.SelectedIndex != 0)
+                //{
+                //    hdnsubBrokerCode.Value = ddlSelectType.SelectedItem.Text;
+                //    hdnAll.Value = "0";
+                //}
+                //else
+                //{
+                //    hdnsubBrokerCode.Value = "0";
+                //    hdnAll.Value = "1";
+                //}
+                hdnAll.Value = "1";
+                hdnsubBrokerCode.Value = null;
                 hdnAgentId.Value = "0";
             }
             else if (userType == "bm")
             {
                 hdnbranchHeadId.Value = bmID.ToString();
-                if (ddlSelectType.SelectedIndex != 0)
-                {
-                    hdnsubBrokerCode.Value = ddlSelectType.SelectedItem.Text;
-                    hdnAll.Value = "0";
-                }
-                else
-                {
-                    hdnsubBrokerCode.Value = "0";
-                    hdnAll.Value = "1";
-                }
+                //if (ddlSelectType.SelectedIndex != 0)
+                //{
+                //    hdnsubBrokerCode.Value = ddlSelectType.SelectedItem.Text;
+                //    hdnAll.Value = "0";
+                //}
+                //else
+                //{
+                //    hdnsubBrokerCode.Value = "0";
+                //    hdnAll.Value = "1";
+                //}
+                hdnAll.Value = "1";
+                hdnsubBrokerCode.Value = null;
                 hdnrmId.Value = "0";
                 hdnAgentId.Value = "0";
             }
@@ -647,69 +654,69 @@ namespace WealthERP.BusinessMIS
             ddlPeriod.Items.RemoveAt(15);
         }
 
-        protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlUserType.SelectedIndex != 0)
-            {
-                if (ddlUserType.SelectedValue == "BM")
-                {
-                    BindBranchSubBrokerCode();
-                }
-                else if (ddlUserType.SelectedValue == "RM")
-                {
-                    BindSalesSubBrokerCode();
-                }
-                else if (ddlUserType.SelectedValue == "Associates")
-                {
-                    BindAssociatesSubBrokerCode();
-                }
-            }
-        }
+        //protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlUserType.SelectedIndex != 0)
+        //    {
+        //        if (ddlUserType.SelectedValue == "BM")
+        //        {
+        //            BindBranchSubBrokerCode();
+        //        }
+        //        else if (ddlUserType.SelectedValue == "RM")
+        //        {
+        //            BindSalesSubBrokerCode();
+        //        }
+        //        else if (ddlUserType.SelectedValue == "Associates")
+        //        {
+        //            BindAssociatesSubBrokerCode();
+        //        }
+        //    }
+        //}
 
-        private void BindAssociatesSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetAssociatesSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-        }
+        //private void BindAssociatesSubBrokerCode()
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    dt = associatesBo.GetAssociatesSubBrokerCodeList(advisorVo.advisorId);
+        //    if (dt.Rows.Count > 0)
+        //    {
+        //        ddlSelectType.DataSource = dt;
+        //        ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
+        //        ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
+        //        ddlSelectType.DataBind();
+        //    }
+        //    ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        //}
 
-        private void BindSalesSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetSalesSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-        }
+        //private void BindSalesSubBrokerCode()
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    dt = associatesBo.GetSalesSubBrokerCodeList(advisorVo.advisorId);
+        //    if (dt.Rows.Count > 0)
+        //    {
+        //        ddlSelectType.DataSource = dt;
+        //        ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
+        //        ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
+        //        ddlSelectType.DataBind();
+        //    }
+        //    ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        //}
 
-        private void BindBranchSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetBranchSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-        }
+        //private void BindBranchSubBrokerCode()
+        //{
+        //    DataSet ds;
+        //    DataTable dt;
+        //    dt = associatesBo.GetBranchSubBrokerCodeList(advisorVo.advisorId);
+        //    if (dt.Rows.Count > 0)
+        //    {
+        //        ddlSelectType.DataSource = dt;
+        //        ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
+        //        ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
+        //        ddlSelectType.DataBind();
+        //    }
+        //    ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+        //}
         protected void gvProduct_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dtGetProductDetailFromMFOrder = new DataTable();
@@ -719,13 +726,13 @@ namespace WealthERP.BusinessMIS
         }
         private void BindOrganizationGrid()
         {
-            int agentId = 0;
-            int agentIdOld = 0;
+            int customerId = 0;
+            int customerIdOld = 0;
             DataSet dsGetOrganizationDetailFromMFOrder = new DataSet();
             dsGetOrganizationDetailFromMFOrder = associatesBo.GetOrganizationDetailFromTransaction(hdnsubBrokerCode.Value, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAll.Value));
 
             DataTable dtGetOrganizationDetailFromMFOrder = new DataTable();
-            dtGetOrganizationDetailFromMFOrder.Columns.Add("AgenId");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("customerId");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("ZonalManagerName");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("AreaManager");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("CircleManager");
@@ -849,17 +856,18 @@ namespace WealthERP.BusinessMIS
 
                 foreach (DataRow drOrgOrderTransaction in dtGetOrgOrderTransaction.Rows)
                 {
+                    Int32.TryParse(drOrgOrderTransaction["C_CustomerId"].ToString(), out customerId);
 
-                    Int32.TryParse(drOrgOrderTransaction["AgenId"].ToString(), out agentId);
-
-                    if (agentId != agentIdOld)
+                    if (customerId != customerIdOld)
                     { //go for another row to find new customer
-                        agentIdOld = agentId;
+                        customerIdOld = customerId;
                         drGetOrganizationDetailFromMFOrder = dtGetOrganizationDetailFromMFOrder.NewRow();
-                        if (agentId != 0)
+                        if (customerId != 0)
                         { // add row in manual datatable within this brace end
-                            drOrderOrgWise = dtGetOrgOrderTransaction.Select("AgenId=" + agentId.ToString());
-                            drGetOrganizationDetailFromMFOrder["AgenId"] = drOrgOrderTransaction["AgenId"].ToString();
+                            drOrderOrgWise = dtGetOrgOrderTransaction.Select("C_CustomerId=" + customerId.ToString());
+                            drGetOrganizationDetailFromMFOrder["customerId"] = drOrgOrderTransaction["C_CustomerId"].ToString();
+                            //drOrderOrgWise = dtGetOrgOrderTransaction.Select("AgenId=" + agentId.ToString());
+                            //drGetOrganizationDetailFromMFOrder["AgenId"] = drOrgOrderTransaction["AgenId"].ToString();
                             drGetOrganizationDetailFromMFOrder["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
                             drGetOrganizationDetailFromMFOrder["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
                             drGetOrganizationDetailFromMFOrder["CircleManager"] = drOrgOrderTransaction["CircleManager"].ToString();
@@ -1169,13 +1177,464 @@ namespace WealthERP.BusinessMIS
         {
             SetParameters();
             BindOrganizationGrid();
+            lblMFMISType.Text = "ORGANIZATION";
             trPnlProduct.Visible = false;
             trPnlOrganization.Visible = true;
+            trMember.Visible = false;
         }
 
         protected void lnkBtnSubBrokerCustomer_Click(object sender, EventArgs e)
         {
+            SetParameters();
+            BindMember();
+            lblMFMISType.Text = "CUSTOMER/FOLIO";
+            trPnlProduct.Visible = false;
+            trPnlOrganization.Visible = false;
+            trMember.Visible = true;
+        }
 
+        private void BindMember()
+        {
+            int accountId = 0;
+            int accountIdOld = 0;
+            DataSet dsGetMemberDetailFromMFTrnx = new DataSet();
+            dsGetMemberDetailFromMFTrnx = associatesBo.GetMemberDetailFromTransaction(hdnsubBrokerCode.Value, userType, int.Parse(hdnadviserId.Value),int.Parse(hdnbranchHeadId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value));
+
+            DataTable dtGetMemberDetailFromMFTrnx = new DataTable();
+            dtGetMemberDetailFromMFTrnx.Columns.Add("AccountId");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("CustomerName");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SubBrokerCode");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("Channel");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("Folio");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BUYCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BUYAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SELCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SELAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DVRCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DVRAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DVPCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DVPAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SIPCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SIPAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BCICount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BCIAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BCOCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BCOAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("STBCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("STBAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("STSCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("STSAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SWBCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SWBAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SWPCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SWPAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SWSCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SWSAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("PRJCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("PRJAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("ABYCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("ABYAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BIRCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BIRAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BNSCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("BNSAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("CNICount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("CNIAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("CNOCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("CNOAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DSICount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DSIAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DSOCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DSOAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("HLDCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("HLDAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("NFOCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("NFOAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("RRJCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("RRJAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SRJCount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("SRJAmount", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("GrossRedemption", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("GrossInvestment", typeof(double));
+            dtGetMemberDetailFromMFTrnx.Columns.Add("Net", typeof(double));
+
+            //--------------------Default Value ------------------
+
+            #region Data Table Default value
+
+            dtGetMemberDetailFromMFTrnx.Columns["GrossRedemption"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["GrossInvestment"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["Net"].DefaultValue = 0;
+
+            dtGetMemberDetailFromMFTrnx.Columns["ABYCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["ABYAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BIRCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BIRAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BNSCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BNSAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["CNICount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["CNIAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["CNOCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["CNOAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DSICount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DSIAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DSOCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DSOAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["HLDCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["HLDAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["NFOCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["NFOAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["RRJCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["RRJAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SRJCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SRJAmount"].DefaultValue = 0;
+
+            dtGetMemberDetailFromMFTrnx.Columns["DVRCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DVRAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DVPCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["DVPAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SIPCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SIPAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BCICount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BCIAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BCOCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["BCOAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["STBCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["STBAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["STSCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["STSAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SWBCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SWBAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SWPCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SWPAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SWSCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["SWSAmount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["PRJCount"].DefaultValue = 0;
+            dtGetMemberDetailFromMFTrnx.Columns["PRJAmount"].DefaultValue = 0;
+
+            #endregion
+
+
+
+            DataRow drGetOrganizationDetailFromTrnx;
+            DataRow[] drOrderOrgWise;
+            if (dsGetMemberDetailFromMFTrnx.Tables[0] != null)
+            {
+                DataTable dtGetOrgOrderTransaction = dsGetMemberDetailFromMFTrnx.Tables[0];
+
+                foreach (DataRow drOrgOrderTransaction in dtGetOrgOrderTransaction.Rows)
+                {
+
+                    Int32.TryParse(drOrgOrderTransaction["CMFA_AccountId"].ToString(), out accountId);
+
+                    if (accountId != accountIdOld)
+                    { //go for another row to find new customer
+                        accountIdOld = accountId;
+                        drGetOrganizationDetailFromTrnx = dtGetMemberDetailFromMFTrnx.NewRow();
+                        if (accountId != 0)
+                        { // add row in manual datatable within this brace end
+                            drOrderOrgWise = dtGetOrgOrderTransaction.Select("CMFA_AccountId=" + accountId.ToString());
+                            drGetOrganizationDetailFromTrnx["AccountId"] = drOrgOrderTransaction["CMFA_AccountId"].ToString();
+                            drGetOrganizationDetailFromTrnx["CustomerName"] = drOrgOrderTransaction["CustomerName"].ToString();
+                            drGetOrganizationDetailFromTrnx["SubBrokerCode"] = drOrgOrderTransaction["CMFT_SubBrokerCode"].ToString();
+                            drGetOrganizationDetailFromTrnx["Channel"] = drOrgOrderTransaction["AR_StaffName"].ToString();
+
+                            drGetOrganizationDetailFromTrnx["Folio"] = drOrgOrderTransaction["CMFA_FolioNum"].ToString();
+                            if (drOrderOrgWise.Count() > 0)
+                            {
+                                foreach (DataRow dr in drOrderOrgWise)
+                                {
+
+                                    string transactiontype = dr["WMTT_TransactionClassificationCode"].ToString();
+                                    switch (transactiontype)
+                                    {
+                                        case "BUY":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["BUYCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["BUYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["BUYAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SEL":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["SELCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["SELAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["SELAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "DVR":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["DVRCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["DVRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["DVRAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "DVP":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["DVPCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["DVPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        case "SIP":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["SIPCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["SIPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["SIPAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "BCI":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["BCICount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["BCIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["BCIAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "BCO":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["BCOCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["BCOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["BCOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "STB":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["STBCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["STBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["STBAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "STS":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["STSCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["STSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["STSAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWB":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["SWBCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["SWBAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["SWBAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWP":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["SWPCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["SWPAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["SWPAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "SWS":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["SWSCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["SWSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["SWSAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "PRJ":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["PRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["PRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                break;
+                                            }
+                                        #region newly added
+                                        case "ABY":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["ABYCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["ABYAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["ABYAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "BIR":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["BIRCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["BIRAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["BIRAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "BNS":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["BNSCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["BNSAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["BNSAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "CNI":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["CNICount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["CNIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["CNIAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "CNO":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["CNOCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["CNOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["CNOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "DSI":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["DSICount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["DSIAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["DSIAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "DSO":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["DSOCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["DSOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["DSOAmount"].ToString());
+                                                }
+                                                break;
+                                            }
+                                        case "HLD":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["HLDCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["HLDAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["HLDAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "NFO":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["NFOCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["NFOAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["NFOAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+
+
+                                        case "RRJ":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["RRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["RRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossInvestment"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossInvestment"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["RRJAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        case "SRJ":
+                                            {
+                                                drGetOrganizationDetailFromTrnx["SRJCount"] = dr["TrnsCount"].ToString();
+                                                drGetOrganizationDetailFromTrnx["SRJAmount"] = Math.Round(double.Parse(dr["TrnsAmount"].ToString()), 2);
+
+                                                if (dr["WMTT_GrossRedemption"].ToString() == "1")
+                                                {
+                                                    drGetOrganizationDetailFromTrnx["GrossRedemption"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString()) + double.Parse(drGetOrganizationDetailFromTrnx["SRJAmount"].ToString());
+                                                }
+
+                                                break;
+                                            }
+                                        #endregion
+                                    }
+
+                                }
+                            }
+
+                            drGetOrganizationDetailFromTrnx["Net"] = double.Parse(drGetOrganizationDetailFromTrnx["GrossInvestment"].ToString()) - double.Parse(drGetOrganizationDetailFromTrnx["GrossRedemption"].ToString());
+
+
+                            dtGetMemberDetailFromMFTrnx.Rows.Add(drGetOrganizationDetailFromTrnx);
+                        }//*
+
+                    }//**
+
+                }//***
+                gvMember.DataSource = dtGetMemberDetailFromMFTrnx;
+                gvMember.DataBind();
+                pnlMember.Visible = true;
+                gvMember.Visible = true;
+                pnlOrganization.Visible = false;
+                pnlProduct.Visible = false;
+                this.gvMember.GroupingSettings.RetainGroupFootersVisibility = true;
+                if (Cache["gvMember" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("gvMember" + advisorVo.advisorId, dtGetMemberDetailFromMFTrnx);
+                }
+                else
+                {
+                    Cache.Remove("gvMember" + advisorVo.advisorId);
+                    Cache.Insert("gvMember" + advisorVo.advisorId, dtGetMemberDetailFromMFTrnx);
+                }
+
+            }
         }
         protected void gvOrganization_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -1183,6 +1642,15 @@ namespace WealthERP.BusinessMIS
             dtGetOrganizationDetailFromMFOrder = (DataTable)Cache["gvOrganization" + advisorVo.advisorId];
             gvOrganization.Visible = true;
             this.gvOrganization.DataSource = dtGetOrganizationDetailFromMFOrder;
+        }
+        protected void gvMember_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtGetMemberDetailFromMFTrnx = new DataTable();
+            dtGetMemberDetailFromMFTrnx = (DataTable)Cache["gvMember" + advisorVo.advisorId];
+            gvMember.Visible = true;
+            this.gvMember.DataSource = dtGetMemberDetailFromMFTrnx;
+
         }
     }
 }
