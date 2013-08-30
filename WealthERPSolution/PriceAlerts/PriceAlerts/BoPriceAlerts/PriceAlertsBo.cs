@@ -23,26 +23,26 @@ namespace BoPriceAlerts
             {
                 dsPriceDetails = priceAlertsDao.GetDailyPriceDetails(dbName);
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
             catch (Exception Ex)
             {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
+                //BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                //NameValueCollection FunctionInfo = new NameValueCollection();
 
-                FunctionInfo.Add("Method", "PriceAlertsBo.cs:GetDailyPriceDetails(string dbName)");
+                //FunctionInfo.Add("Method", "PriceAlertsBo.cs:GetDailyPriceDetails(string dbName)");
 
 
-                object[] objects = new object[1];
-                objects[0] = dbName;
-               
+                //object[] objects = new object[1];
+                //objects[0] = dbName;
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
+
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                //exBase.AdditionalInformation = FunctionInfo;
+                //ExceptionManager.Publish(exBase);
+                //throw exBase;
 
             }
             return dsPriceDetails;
