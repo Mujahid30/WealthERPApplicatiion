@@ -28,6 +28,7 @@ namespace WealthERP.Base
         public const string ExtractTypeEQTransaction = "EQT";
         public const string ExtractTypeMFSystematic = "MFSS";
         public const string ExtractTypeMFFolio = "MFFO";
+        public const string ExtractTypeFIHoldings = "Link";
 
 
         // External File Types
@@ -41,6 +42,7 @@ namespace WealthERP.Base
         public const string UploadExternalTypeODIN = "ODIN";
         public const string UploadExternalTypeOdinNSE = "ODNSE";
         public const string UploadExternalTypeOdinBSE = "ODBSE";
+        public const string UploadExternalTypeFixedIncome = "LK";
 
         // File Type
         public const string UploadFileTypeProfile = "Profile";
@@ -121,7 +123,8 @@ namespace WealthERP.Base
             DeutscheTransaction = 17,
             DeutscheProfile = 18,
             IIFLTransaction=19,
-            ODINTransaction=20
+            ODINTransaction=20,
+            FILinkHolding=33
 
         }
 
