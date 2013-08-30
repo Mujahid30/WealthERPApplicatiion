@@ -1819,5 +1819,66 @@ namespace DAOAssociates
             }
             return dsGetMemberDetailFromTranx;
         }
+
+        public DataSet BindChannelList(int AdviserId)
+        {
+            Database db;
+            DbCommand ChannelListCmd;
+            DataSet dsChannelList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                ChannelListCmd = db.GetStoredProcCommand("SPROC_BindChannelList");                
+                db.AddInParameter(ChannelListCmd, "@adviserId", DbType.Int32, AdviserId);
+
+                dsChannelList = db.ExecuteDataSet(ChannelListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }            
+            return dsChannelList;
+        }
+
+        public DataSet BindTitleList(int channelId, int AdviserId)
+        {
+            Database db;
+            DbCommand TitleListCmd;
+            DataSet dsTitleList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                TitleListCmd = db.GetStoredProcCommand("SPROC_BindTitleList");
+                db.AddInParameter(TitleListCmd, "@channelId", DbType.Int32, channelId);
+                db.AddInParameter(TitleListCmd, "@adviserId", DbType.Int32, AdviserId);
+
+                dsTitleList = db.ExecuteDataSet(TitleListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsTitleList;
+        }
+        public DataSet BindSubBrokerList(int searchId, int AdviserId, string searchType)
+        {
+            Database db;
+            DbCommand SubBrokerListCmd;
+            DataSet dsSubBrokerList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                SubBrokerListCmd = db.GetStoredProcCommand("SPROC_BindSubBrokerList");
+                db.AddInParameter(SubBrokerListCmd, "@searchId", DbType.Int32, searchId);
+                db.AddInParameter(SubBrokerListCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(SubBrokerListCmd, "@searchType", DbType.String, searchType);
+                dsSubBrokerList = db.ExecuteDataSet(SubBrokerListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsSubBrokerList;
+        }
     }
 }

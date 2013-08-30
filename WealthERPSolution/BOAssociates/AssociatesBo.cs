@@ -668,5 +668,37 @@ namespace BOAssociates
             return dsGetMemberDetailFromTransaction;
         }
 
+
+        public DataSet BindChannelList(int AdviserId)
+        {
+            DataSet dsBindChannelList;
+
+            dsBindChannelList = associatesDao.BindChannelList(AdviserId);
+            return dsBindChannelList;
+        }
+
+        public DataSet BindTitlesList(int channelId, int AdviserId)
+        {
+            DataSet dsBindTitleList;
+
+            dsBindTitleList = associatesDao.BindTitleList(channelId, AdviserId);
+            return dsBindTitleList;
+        }
+        public DataSet BindTitlesList(int AdviserId)
+        {
+            DataSet dsBindTitleList;
+
+            dsBindTitleList = associatesDao.BindTitleList(0, AdviserId);
+            return dsBindTitleList;
+        }
+        public DataSet BindSubBrokerList(int searchId, int AdviserId,string searchType)
+        {
+            DataSet dsBindSubBrokerList;
+
+            dsBindSubBrokerList = associatesDao.BindSubBrokerList(searchId, AdviserId, searchType);
+            return dsBindSubBrokerList;
+        }
+        
+
     }
 }
