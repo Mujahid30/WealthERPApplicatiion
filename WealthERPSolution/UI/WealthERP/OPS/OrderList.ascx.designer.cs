@@ -282,7 +282,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlOrderList;
-        
+        protected global::System.Web.UI.WebControls.Panel pnlFiOrderList;
         /// <summary>
         /// trExportFilteredDupData control.
         /// </summary>
@@ -300,7 +300,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvOrderList;
-        
+
+        protected global::Telerik.Web.UI.RadGrid gvFIOrderList;
         /// <summary>
         /// hdnBranchId control.
         /// </summary>

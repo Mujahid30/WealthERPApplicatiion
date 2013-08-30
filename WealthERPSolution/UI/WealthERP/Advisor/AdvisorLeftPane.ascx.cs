@@ -520,6 +520,16 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
                 }
+                else if (e.Item.Value == "ProductOrderMaster")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderMaster','login');", true);
+                }
+                else if (e.Item.Value == "FixedIncomeOrderEntry")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('FixedIncomeOrderEntry','login');", true);
+                }
                 else if (e.Item.Value == "Hierarchy_Setup")
                 {
                     Session["UserType"] = "adviser";

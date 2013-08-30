@@ -173,6 +173,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Operations" Value="Operations">
                                         <Items>
+                                          <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster"> </telerik:RadPanelItem> 
                                             <telerik:RadPanelItem runat="server" Text="Upload" Value="Upload">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Start Upload" Value="Start_Upload">
@@ -260,6 +261,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Repository" Value="Repository">
                                                     </telerik:RadPanelItem>
                                                 </Items>
+                                            </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="FixedIncomeOrderEntry" Value="FixedIncomeOrderEntry">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

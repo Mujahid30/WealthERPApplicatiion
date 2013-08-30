@@ -13,7 +13,7 @@ namespace DaoOps
 {
     public class MFOrderDao : OrderDao
     {
-               
+        FIOrderDao mfOrderDao = new FIOrderDao(); 
         public int GetOrderNumber()
         {
             DataSet dsOrderNumber;
