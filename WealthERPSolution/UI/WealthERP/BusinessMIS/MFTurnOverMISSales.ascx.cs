@@ -51,8 +51,6 @@ namespace WealthERP.BusinessMIS
 
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "advisor";
-            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
-                userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
@@ -124,6 +122,7 @@ namespace WealthERP.BusinessMIS
         {
             SetParameters();
             BindMember();
+            lblMFMISType.Text = "CUSTOMER/FOLIO";
             trPnlProduct.Visible = false;
             trPnlOrganization.Visible = false;
             trMember.Visible = true;
@@ -131,13 +130,14 @@ namespace WealthERP.BusinessMIS
 
         private void BindMember()
         {
-            int agentId = 0;
-            int agentIdOld = 0;
+            int customerId = 0;
+            int customerIdOld = 0;
             DataSet dsGetMemberDetailFromMFOrder = new DataSet();
             dsGetMemberDetailFromMFOrder = adviserMFMIS.GetMemberDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
 
             DataTable dtGetMemberDetailFromMFOrder = new DataTable();
-            dtGetMemberDetailFromMFOrder.Columns.Add("AgenId");
+            dtGetMemberDetailFromMFOrder.Columns.Add("customerId");
+            dtGetMemberDetailFromMFOrder.Columns.Add("OrderNo");
             dtGetMemberDetailFromMFOrder.Columns.Add("CustomerName");
             dtGetMemberDetailFromMFOrder.Columns.Add("SubBrokerCode");
             dtGetMemberDetailFromMFOrder.Columns.Add("SubBrokerName");
@@ -197,16 +197,17 @@ namespace WealthERP.BusinessMIS
                 foreach (DataRow drMemberOrderTransaction in dtGetMemberOrderTransaction.Rows)
                 {
 
-                    Int32.TryParse(drMemberOrderTransaction["AgenId"].ToString(), out agentId);
+                    Int32.TryParse(drMemberOrderTransaction["C_CustomerId"].ToString(), out customerId);
 
-                    if (agentId != agentIdOld)
+                    if (customerId != customerIdOld)
                     { //go for another row to find new customer
-                        agentIdOld = agentId;
+                        customerIdOld = customerId;
                         drGetMemberDetailFromMFOrder = dtGetMemberDetailFromMFOrder.NewRow();
-                        if (agentId != 0)
+                        if (customerId != 0)
                         { // add row in manual datatable within this brace end
-                            drOrderMemberWise = dtGetMemberOrderTransaction.Select("AgenId=" + agentId.ToString());
-                            drGetMemberDetailFromMFOrder["AgenId"] = drMemberOrderTransaction["AgenId"].ToString();
+                            drOrderMemberWise = dtGetMemberOrderTransaction.Select("C_CustomerId=" + customerId.ToString());
+                            drGetMemberDetailFromMFOrder["customerId"] = drMemberOrderTransaction["C_CustomerId"].ToString();
+                            drGetMemberDetailFromMFOrder["OrderNo"] = drMemberOrderTransaction["CMFOD_OrderNumber"].ToString();
                             drGetMemberDetailFromMFOrder["CustomerName"] = drMemberOrderTransaction["CustomerName"].ToString();
                             drGetMemberDetailFromMFOrder["SubBrokerCode"] = drMemberOrderTransaction["SubBrokerCode"].ToString();
                             drGetMemberDetailFromMFOrder["SubBrokerName"] = drMemberOrderTransaction["AssociatesName"].ToString();
@@ -331,6 +332,7 @@ namespace WealthERP.BusinessMIS
         {
             SetParameters();
             BindOrganizationGrid();
+            lblMFMISType.Text = "ORGANIZATION";
             trPnlProduct.Visible = false;
             trPnlOrganization.Visible = true;
             trMember.Visible = false;
@@ -338,17 +340,18 @@ namespace WealthERP.BusinessMIS
 
         private void BindOrganizationGrid()
         {
-            int agentId = 0;
-            int agentIdOld = 0;
+            int customerId = 0;
+            int customerIdOld = 0;
             DataSet dsGetOrganizationDetailFromMFOrder = new DataSet();
             dsGetOrganizationDetailFromMFOrder = adviserMFMIS.GetOrganizationDetailFromMFOrder(Agentcode, userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), int.Parse(hdnAgentId.Value));
 
             DataTable dtGetOrganizationDetailFromMFOrder = new DataTable();
-            dtGetOrganizationDetailFromMFOrder.Columns.Add("AgenId");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("customerId");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("ZonalManagerName");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("AreaManager");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("CircleManager");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("ChannelMgr");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("OrderNo");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("CustomerName");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
             dtGetOrganizationDetailFromMFOrder.Columns.Add("BUYAmount", typeof(double));
@@ -405,21 +408,22 @@ namespace WealthERP.BusinessMIS
                 foreach (DataRow drOrgOrderTransaction in dtGetOrgOrderTransaction.Rows)
                 {
 
-                    Int32.TryParse(drOrgOrderTransaction["AgenId"].ToString(), out agentId);
+                    Int32.TryParse(drOrgOrderTransaction["C_CustomerId"].ToString(), out customerId);
 
-                    if (agentId != agentIdOld)
+                    if (customerId != customerIdOld)
                     { //go for another row to find new customer
-                        agentIdOld = agentId;
+                        customerIdOld = customerId;
                         drGetOrganizationDetailFromMFOrder = dtGetOrganizationDetailFromMFOrder.NewRow();
-                        if (agentId != 0)
+                        if (customerId != 0)
                         { // add row in manual datatable within this brace end
-                            drOrderOrgWise = dtGetOrgOrderTransaction.Select("AgenId=" + agentId.ToString());
-                            drGetOrganizationDetailFromMFOrder["AgenId"] = drOrgOrderTransaction["AgenId"].ToString();
+                            drOrderOrgWise = dtGetOrgOrderTransaction.Select("C_CustomerId=" + customerId.ToString());
+                            drGetOrganizationDetailFromMFOrder["customerId"] = drOrgOrderTransaction["C_CustomerId"].ToString();
                             drGetOrganizationDetailFromMFOrder["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
                             drGetOrganizationDetailFromMFOrder["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
                             drGetOrganizationDetailFromMFOrder["CircleManager"] = drOrgOrderTransaction["CircleManager"].ToString();
 
                             drGetOrganizationDetailFromMFOrder["ChannelMgr"] = drOrgOrderTransaction["ChannelMgr"].ToString();
+                            drGetOrganizationDetailFromMFOrder["OrderNo"] = drOrgOrderTransaction["CMFOD_OrderNumber"].ToString();
                             drGetOrganizationDetailFromMFOrder["CustomerName"] = drOrgOrderTransaction["CustomerName"].ToString();
                             if (drOrderOrgWise.Count() > 0)
                             {
@@ -542,6 +546,7 @@ namespace WealthERP.BusinessMIS
         {
             SetParameters();
             BindProductGrid();
+            lblMFMISType.Text = "PRODUCT";
             trPnlProduct.Visible = true;
             trPnlOrganization.Visible = false;
             trMember.Visible = false;

@@ -25,10 +25,10 @@
                                         Height="25px" Width="25px" OnClick="btnExpProduct_Click"></asp:ImageButton>
                                     <asp:ImageButton ID="btnExpOrganization" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                        Height="25px" Width="25px" OnClick="btnExpOrganization_Click" ></asp:ImageButton>
+                                        Height="25px" Width="25px" OnClick="btnExpOrganization_Click"></asp:ImageButton>
                                     <asp:ImageButton ID="btnExpMember" ImageUrl="~/Images/Export_Excel.png" Visible="false"
                                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
-                                        Height="25px" Width="25px" OnClick="btnExpMember_Click" ></asp:ImageButton>
+                                        Height="25px" Width="25px" OnClick="btnExpMember_Click"></asp:ImageButton>
                                 </td>
                             </tr>
                         </table>
@@ -101,7 +101,7 @@
          </td>--%>
                 <td>
                     <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
-                    <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="SUBBROKER/CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
+                    <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
                         runat="server" OnClick="lnkBtnSubBrokerCustomer_Click" ValidationGroup="vgBtnGo"></asp:LinkButton>
                     <span>|</span>
                     <asp:LinkButton ID="lnkBtnOrganization" Text="ORGANIZATION" CssClass="LinkButtonsWithoutUnderLine"
@@ -111,14 +111,33 @@
                         runat="server" OnClick="lnkBtnProduct_Click" ValidationGroup="vgBtnGo"></asp:LinkButton>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <div id="dvSectionHeading" runat="server" class="divSectionHeading" style="vertical-align: middle;
+                        margin: 2px; padding-top: 2px;">
+                        <table width="100%" cellspacing="0" cellpadding="0" style="padding-top: 0px;">
+                            <tr>
+                                <td style="width: 33%" align="left">
+                                    <asp:Label ID="lblMFMISType" runat="server" CssClass="LinkButtons"></asp:Label>
+                                </td>
+                                <td style="width: 34%">
+                                </td>
+                                <td style="width: 33%">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
             <tr id="trPnlProduct" runat="server">
                 <td>
                     <asp:Panel ID="pnlProduct" ScrollBars="Horizontal" runat="server">
                         <div runat="server" id="dvProduct" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvProduct" runat="server" GridLines="None" AutoGenerateColumns="false" PageSize="15" AllowPaging="True"
-                                AllowSorting="true" ShowStatusBar="true" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                                Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
-                                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvProduct_OnNeedDataSource">
+                            <telerik:RadGrid ID="gvProduct" runat="server" GridLines="None" AutoGenerateColumns="false"
+                                PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
+                                Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
+                                EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvProduct_OnNeedDataSource">
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                     FileName="Product Details" Excel-Format="ExcelML">
                                 </ExportSettings>
@@ -283,14 +302,15 @@
                 <td>
                     <asp:Panel ID="pnlOrganization" ScrollBars="Horizontal" runat="server">
                         <div runat="server" id="divOrganization" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvOrganization" runat="server" GridLines="None" AutoGenerateColumns="false" PageSize="15" AllowPaging="True"
-                                AllowSorting="true" ShowStatusBar="true" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                                Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
-                                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource" >
+                            <telerik:RadGrid ID="gvOrganization" runat="server" GridLines="None" AutoGenerateColumns="false"
+                                PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
+                                Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
+                                EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource">
                                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                     FileName="Product Details" Excel-Format="ExcelML">
                                 </ExportSettings>
-                                <MasterTableView DataKeyNames="AgenId" Width="100%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="customerId" Width="100%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                                     ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                                     <Columns>
@@ -309,14 +329,19 @@
                                             <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderTooltip="CircleManager" HeaderText="CircleManager"
-                                            DataField="CircleManager" HeaderStyle-Width="350px" UniqueName="CircleManager"
+                                            DataField="CircleManager" UniqueName="CircleManager"
                                             SortExpression="CircleManager" AutoPostBackOnFilter="true" AllowFiltering="true"
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Count">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn HeaderText="ChannelMgr" HeaderTooltip="ChannelMgr" DataField="ChannelMgr"
-                                            UniqueName="ChannelMgr" SortExpression="ChannelMgr" AutoPostBackOnFilter="true"
+                                        <telerik:GridBoundColumn HeaderText="ChannelManager" HeaderTooltip="ChannelManager"
+                                            DataField="ChannelMgr" UniqueName="ChannelMgr" SortExpression="ChannelMgr" AutoPostBackOnFilter="true"
                                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn HeaderText="Order No." HeaderTooltip="Order Number" DataField="OrderNo"
+                                            UniqueName="OrderNo" SortExpression="OrderNo" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="CustomerName" HeaderTooltip="CustomerName" DataField="CustomerName"
@@ -458,20 +483,26 @@
                 <td>
                     <asp:Panel ID="pnlMember" ScrollBars="Horizontal" runat="server">
                         <div runat="server" id="divMember" style="margin: 2px; width: 640px;">
-                            <telerik:RadGrid ID="gvMember" runat="server" GridLines="None" AutoGenerateColumns="false" PageSize="15" AllowPaging="True"
-                                AllowSorting="true" ShowStatusBar="true" ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false"
-                                Width="120%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
-                                EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
-                                <exportsettings hidestructurecolumns="true" exportonlydata="true" IgnorePaging="true"
-                                    filename="Scheme Details" excel-format="ExcelML">
-                                </exportsettings>
-                                <MasterTableView DataKeyNames="AgenId" Width="100%" AllowMultiColumnSorting="True"
+                            <telerik:RadGrid ID="gvMember" runat="server" GridLines="None" AutoGenerateColumns="false"
+                                PageSize="15" AllowPaging="True" AllowSorting="true" ShowStatusBar="true" ShowFooter="true"
+                                Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
+                                EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
+                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                                    FileName="Scheme Details" Excel-Format="ExcelML">
+                                </ExportSettings>
+                                <MasterTableView DataKeyNames="customerId" Width="100%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                                     ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                                     <Columns>
                                         <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                             DataField="action" FooterText="Grand Total:" Visible="false">
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn HeaderText="Order No." HeaderTooltip="Order Number" DataField="OrderNo"
+                                            UniqueName="OrderNo" SortExpression="OrderNo" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn HeaderText="CustomerName" HeaderTooltip="CustomerName" DataField="CustomerName"
                                             UniqueName="CustomerName" SortExpression="CustomerName" AutoPostBackOnFilter="true"
                                             AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
