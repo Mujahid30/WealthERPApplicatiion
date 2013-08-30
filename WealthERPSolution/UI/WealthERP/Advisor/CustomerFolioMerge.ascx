@@ -403,6 +403,27 @@
                                 AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
+                                UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AreaManager" AllowFiltering="true" HeaderText="Area Manager"
+                                UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <%-- <telerik:GridBoundColumn Visible="false" DataField="CircleManager" AllowFiltering="true"
+                                HeaderText="Channel Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>--%>
+                            <telerik:GridBoundColumn DataField="ChannelName" AllowFiltering="true" HeaderText="Channel"
+                                UniqueName="ChannelName" SortExpression="ChannelName" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName"
                                 HeaderStyle-Width="150px" SortExpression="CustomerName" AllowFiltering="true"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -453,6 +474,11 @@
                             <telerik:GridBoundColumn UniqueName="CMFA_SubBrokerCode" HeaderText="SubBrokerCode"
                                 DataField="CMFA_SubBrokerCode" HeaderStyle-Width="120px" SortExpression="CMFA_SubBrokerCode"
                                 AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="AssociatesName" AllowFiltering="true" HeaderText="SubBroker Name"
+                                Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="mergerstatus" HeaderText="Merged To" DataField="mergerstatus"
                                 HeaderStyle-Width="100px" SortExpression="mergerstatus" AllowFiltering="true"

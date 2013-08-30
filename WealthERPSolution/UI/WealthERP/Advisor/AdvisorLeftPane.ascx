@@ -157,6 +157,12 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Product" Value="Product" PostBack="false">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text=" MFOrder Entry" Value="OrderEntry">
@@ -185,10 +191,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Rules"
-                                                        Value="Receivable_Scheme_Structure_Association">
+                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
+                                                    <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
                                                     </telerik:RadPanelItem>
@@ -655,6 +660,12 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Product" Value="Product">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
                                         <Items>
                                             <%--<telerik:RadPanelItem runat="server" Text="Order Query/MIS"
@@ -683,17 +694,16 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Commission" Value="Commissions">
-                                                 <Items>
+                                                <Items>
                                                     <telerik:RadPanelItem runat="server" Text="View Receivable Rules" Value="View_Receivable_structure">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Add Receivable Structure" Value="Receivable_Strucrure_setup">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Scheme Structure Association" Value="View_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Rules"
-                                                        Value="Receivable_Scheme_Structure_Association">
+                                                    <telerik:RadPanelItem runat="server" Text="View Scheme Rules" Value="Receivable_Scheme_Structure_Association">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
+                                                    <telerik:RadPanelItem runat="server" Text="Map Scheme To Rule" Value="Map_scheme">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Payable Structure" Value="View_Payable_Structure">
                                                     </telerik:RadPanelItem>

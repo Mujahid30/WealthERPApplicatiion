@@ -120,5 +120,26 @@ namespace WealthERP.SuperAdmin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnSchemePlanCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMC;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeMappingType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlExternalSource;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMappingType;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAMC;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCategory;
+        protected global::System.Web.UI.WebControls.HiddenField hdnType;
+        protected global::System.Web.UI.WebControls.HiddenField hdnExternalSource;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trShemeMapping;
+        protected global::System.Web.UI.WebControls.Panel pnlgvScheme;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExternalsource;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeexternalType;
+        protected global::Telerik.Web.UI.RadGrid gvCamsKarvy;
+        protected global::Telerik.Web.UI.RadGrid gvTempleton;
+        protected global::Telerik.Web.UI.RadGrid gvCams;
+        protected global::System.Web.UI.WebControls.Panel pnlCams;
+        protected global::System.Web.UI.WebControls.Panel pnltempleton;
+        protected global::System.Web.UI.WebControls.Panel pnlCamsKarvy;
+        protected global::System.Web.UI.WebControls.TextBox txtsourceflag;
+        
     }
 }

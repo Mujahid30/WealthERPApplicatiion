@@ -499,18 +499,18 @@
                                             <%--  <asp:ListItem Text="SubBroker Code" Value="0" Selected="true"></asp:ListItem>--%>
                                         </asp:DropDownList>
                                     </td>
-                                    </tr>
-                                    <td>
-                                        &nbsp;
-                                    </td>
-                                    <tr>
-                                        <td>
-                                            <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
-                                                ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMMultipleTransactionView_btnGo', 'S');"
-                                                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
-                                        </td>
-                                    </tr>
                                 </tr>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <tr>
+                                    <td>
+                                        <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
+                                            ValidationGroup="btnGo" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RMMultipleTransactionView_btnGo', 'S');"
+                                            onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RMMultipleTransactionView_btnGo', 'S');" />
+                                    </td>
+                                </tr>
+                            </tr>
                         </table>
                     </td>
                 </tr>
@@ -555,7 +555,7 @@
                                     <td>
                                         <div id="dvTransactionsView" runat="server" style="margin: 2px; width: 640px;">
                                             <telerik:RadGrid ID="gvMFTransactions" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
+                                                allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
                                                 OnPreRender="gvMFTransactions_PreRender" AllowPaging="True" ShowStatusBar="True"
                                                 OnExcelMLExportStylesCreated="gvMFTransactions_OnExcelMLExportStylesCreated"
                                                 OnExcelMLExportRowCreated="gvMFTransactions_OnExcelMLExportRowCreated" OnItemCommand="gvMFTransactions_OnItemCommand"
@@ -586,11 +586,37 @@
                                                             AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
+                                                            UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="AreaManager" AllowFiltering="true" HeaderText="Area Manager"
+                                                            UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <%-- <telerik:GridBoundColumn Visible="false" DataField="CircleManager" AllowFiltering="true"
+                                HeaderText="Channel Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>--%>
+                                                        <telerik:GridBoundColumn DataField="ChannelName" AllowFiltering="true" HeaderText="Channel"
+                                                            UniqueName="ChannelName" SortExpression="ChannelName" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"
                                                             AllowFiltering="true" SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false"
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode"
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="AssociatesName" AllowFiltering="true" HeaderText="SubBroker Name"
+                                                            Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
                                                             SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -675,16 +701,14 @@
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                          <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="true"
-                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false"
-                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_Area"
-                                                            FooterStyle-HorizontalAlign="Left">
+                                                        <telerik:GridBoundColumn DataField="CMFT_Area" HeaderText="Area" AllowFiltering="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_Area" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            AutoPostBackOnFilter="true" UniqueName="CMFT_Area" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                          <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="true"
-                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_EUIN" ShowFilterIcon="false"
-                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN"
-                                                            FooterStyle-HorizontalAlign="Left">
+                                                        <telerik:GridBoundColumn DataField="CMFT_EUIN" HeaderText="EUIN" AllowFiltering="true"
+                                                            HeaderStyle-Wrap="false" SortExpression="CMFT_EUIN" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                            AutoPostBackOnFilter="true" UniqueName="CMFT_EUIN" FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="TransactionStatus" HeaderText="Transaction Status"
@@ -753,7 +777,7 @@
                                     <td>
                                         <div id="dvBalanceView" runat="server" style="margin: 2px; width: 640px;">
                                             <telerik:RadGrid ID="gvBalanceView" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                                AllowFiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
+                                                allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
                                                 AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvBalanceView_OnNeedDataSource"
                                                 OnItemDataBound="gvBalanceView_ItemDataBound" ShowFooter="true" Skin="Telerik"
                                                 EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
@@ -776,6 +800,38 @@
                                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Customer Name"
                                                             FooterStyle-HorizontalAlign="Left">
                                                             <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                         <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
+                                                            UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="AreaManager" AllowFiltering="true" HeaderText="Area Manager"
+                                                            UniqueName="AreaManager" SortExpression="AreaManager" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <%-- <telerik:GridBoundColumn Visible="false" DataField="CircleManager" AllowFiltering="true"
+                                HeaderText="Channel Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>--%>
+                                                        <telerik:GridBoundColumn DataField="ChannelName" AllowFiltering="true" HeaderText="Channel"
+                                                            UniqueName="ChannelName" SortExpression="ChannelName" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="CMFT_SubBrokerCode" HeaderText="Sub-Broker Code"
+                                                            AllowFiltering="true" SortExpression="CMFT_SubBrokerCode" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFT_SubBrokerCode"
+                                                            FooterStyle-HorizontalAlign="Left">
+                                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                        </telerik:GridBoundColumn>
+                                                        <telerik:GridBoundColumn DataField="AssociatesName" AllowFiltering="true" HeaderText="SubBroker Name"
+                                                            Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
+                                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
+                                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
                                                         <telerik:GridBoundColumn DataField="Folio Number" HeaderText="Folio No." AllowFiltering="true"
                                                             SortExpression="Folio Number" ShowFilterIcon="false" CurrentFilterFunction="Contains"

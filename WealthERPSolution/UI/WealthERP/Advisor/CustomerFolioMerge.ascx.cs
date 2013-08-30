@@ -316,7 +316,7 @@ namespace WealthERP.Advisor
         {
             DataTable dtSubbrokerCode = new DataTable();
 
-            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(AgentCode);
+            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(adviserVo.advisorId, AgentCode);
 
             if (dtSubbrokerCode.Rows.Count > 0)
             {
@@ -524,8 +524,13 @@ namespace WealthERP.Advisor
         {
             if (IsAgentCodeBased == 0)
             {
+                gvCustomerFolioMerge.Columns[2].Visible = false;
+                gvCustomerFolioMerge.Columns[3].Visible = false;
+                gvCustomerFolioMerge.Columns[4].Visible = false;
+                gvCustomerFolioMerge.Columns[10].Visible = false;
                 if (userType == "advisor")
                 {
+
                     hdnIsassociate.Value = "0";
                     if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
                     {
@@ -795,6 +800,10 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("ModeOfHolding");
                 dtCustomerFolio.Columns.Add("CMFA_BROKERCODE");
                 dtCustomerFolio.Columns.Add("CMFA_SubBrokerCode");
+                dtCustomerFolio.Columns.Add("ZonalManagerName");
+                dtCustomerFolio.Columns.Add("AreaManager");
+                dtCustomerFolio.Columns.Add("AssociatesName");
+                dtCustomerFolio.Columns.Add("ChannelName");
                if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
                     btnExportFilteredData.Visible = true;
@@ -831,6 +840,13 @@ namespace WealthERP.Advisor
                         drCustomerFolio["mergerstatus"] = dtCustomer.Rows[i]["mergerstatus"];
                         drCustomerFolio["Nominee"] = dtCustomer.Rows[i]["Nominee"];
                         drCustomerFolio["ModeOfHolding"] = dtCustomer.Rows[i]["ModeOfHolding"];
+                        if (IsAgentCodeBased == 1)
+                        {
+                            drCustomerFolio["ZonalManagerName"] = dtCustomer.Rows[i]["ZonalManagerName"];
+                            drCustomerFolio["AreaManager"] = dtCustomer.Rows[i]["AreaManager"];
+                            drCustomerFolio["AssociatesName"] = dtCustomer.Rows[i]["AssociatesName"];
+                            drCustomerFolio["ChannelName"] = dtCustomer.Rows[i]["ChannelName"];
+                        }
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
                     }                 
                         if (Cache["gvCustomerFolioMerge" + adviserVo.advisorId] == null)

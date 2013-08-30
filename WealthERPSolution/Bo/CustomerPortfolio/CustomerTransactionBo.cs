@@ -1415,14 +1415,14 @@ namespace BoCustomerPortfolio
 
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int IsAssociates, int AgentId,string AgentCode)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
             try
             {
 
-                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId, isCustomerTransactionOnly, SchemePlanCode, AmcCode, Category, IsAssociates, AgentId, AgentCode);
+                mfTransactionsList = customerTransactionDao.GetRMCustomerMFTransactions(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId, isCustomerTransactionOnly, SchemePlanCode, AmcCode, Category,A_AgentCodeBased,AgentCode, UserType);
 
             }
             catch (BaseApplicationException Ex)
@@ -1929,14 +1929,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int IsAssociates, int AgentId)
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfBalanceList = new List<MFTransactionVo>();
             try
             {
 
-                mfBalanceList = customerTransactionDao.GetRMCustomerMFBalance(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId,AmcCode,Category,IsAssociates,AgentId);
+                mfBalanceList = customerTransactionDao.GetRMCustomerMFBalance(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId, AmcCode, Category, A_AgentCodeBased, AgentCode, UserType);
 
             }
             catch (BaseApplicationException Ex)
@@ -2069,6 +2069,34 @@ namespace BoCustomerPortfolio
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
+            }
+            return ds;
+        }
+        public DataSet GetMFTransactionType()
+        {
+            DataSet ds;
+            CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
+            try
+            {
+
+                ds = customerTransactionDao.GetMFTransactionType();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetTransactionType()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
             }
             return ds;
         }

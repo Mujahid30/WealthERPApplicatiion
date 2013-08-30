@@ -741,13 +741,13 @@ namespace BoOps
             return dtOrder;
         }
 
-        public DataTable GetSubBrokerAgentCode(string AgentCode)
+        public DataTable GetSubBrokerAgentCode(int adviserId, string AgentCode)
         {
             DataTable dtOrder = null;
             OrderDao orderDao = new OrderDao();
             try
             {
-                dtOrder = orderDao.GetSubBrokerAgentCode(AgentCode);
+                dtOrder = orderDao.GetSubBrokerAgentCode(adviserId,AgentCode);
             }
             catch (BaseApplicationException Ex)
             {

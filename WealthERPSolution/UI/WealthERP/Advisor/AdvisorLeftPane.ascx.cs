@@ -793,7 +793,10 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }
-
+                else if (e.Item.Value == "Scheme_DataTrans_Mapping")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddSchemeMapping','login')", true);
+                }
 
                 else if (e.Item.Value == "Start_Upload")
                 {
@@ -1934,6 +1937,10 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','login');", true);
+                }
+                else if (e.Item.Value == "Scheme_DataTrans_Mapping")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddSchemeMapping','login')", true);
                 }
 
             }

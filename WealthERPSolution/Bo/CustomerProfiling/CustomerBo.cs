@@ -72,10 +72,11 @@ namespace BoCustomerProfiling
         {
             bool Isfixed = false;
             CustomerDao customerDao = new CustomerDao();
-            try {
+            try
+            {
                 Isfixed = customerDao.GetFixedMapped(explist);
             }
-             catch (BaseApplicationException Ex)
+            catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
@@ -141,6 +142,63 @@ namespace BoCustomerProfiling
                 FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeDetails()");
                 object[] objects = new object[1];
                 objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetSchemeDetails;
+        }
+        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type)
+        {
+            DataSet dsGetSchemeDetails = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsGetSchemeDetails = customerDao.GetSchemeMapDetails(ExternalType, AmcCode, Category, Type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeMapDetails()");
+                object[] objects = new object[1];
+                objects[0] = ExternalType;
+                objects[1] = AmcCode;
+                objects[2] = Category;
+                objects[3] = Type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsGetSchemeDetails;
+        }
+        public DataSet GetDataTransMapDetails(string ExternalType)
+        {
+            DataSet dsGetSchemeDetails = new DataSet();
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dsGetSchemeDetails = customerDao.GetDataTransMapDetails(ExternalType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetDataTransMapDetails()");
+                object[] objects = new object[1];
+                objects[0] = ExternalType;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -261,11 +319,11 @@ namespace BoCustomerProfiling
         public bool ChckBussinessDate(DateTime chckdate)
         {
             CustomerDao customerDao = new CustomerDao();
-            bool isCorrect=false;
+            bool isCorrect = false;
             try
             {
-              isCorrect=customerDao.ChckBussinessDate(chckdate);
-                
+                isCorrect = customerDao.ChckBussinessDate(chckdate);
+
 
             }
             catch (BaseApplicationException Ex)
@@ -1642,13 +1700,13 @@ namespace BoCustomerProfiling
             }
         }
 
-        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType,DateTime createdDate ,DateTime editedDate,DateTime deletedDate)
+        public bool InsertProductAMCSchemeMappingDetalis(int schemePlanCode, string externalCode, string externalType, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             bool isInserted = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
-              isInserted=customerDao.InsertProductAMCSchemeMappingDetalis(schemePlanCode, externalCode, externalType, createdDate , editedDate, deletedDate);
+                isInserted = customerDao.InsertProductAMCSchemeMappingDetalis(schemePlanCode, externalCode, externalType, createdDate, editedDate, deletedDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1676,7 +1734,7 @@ namespace BoCustomerProfiling
             }
             return expiryAge;
         }
-        public DataSet GetAllCustomersAssumptions(int customerId,int adviserId)
+        public DataSet GetAllCustomersAssumptions(int customerId, int adviserId)
         {
             CustomerDao customerDao = new CustomerDao();
             DataSet dsGetAllCustomersAssumptions;
@@ -1718,15 +1776,15 @@ namespace BoCustomerProfiling
             }
             return dsSetDefaultPlanRetirementValueForCustomer;
         }
-        
-        
-        public DataSet GetCustomerTaxSlab(int CustomerID,int age, string Gender)
+
+
+        public DataSet GetCustomerTaxSlab(int CustomerID, int age, string Gender)
         {
             CustomerDao customerDao = new CustomerDao();
-            DataSet dsGetTaxSlab = new DataSet(); 
+            DataSet dsGetTaxSlab = new DataSet();
             try
             {
-                dsGetTaxSlab = customerDao.GetCustomerTaxSlab(CustomerID,age, Gender);
+                dsGetTaxSlab = customerDao.GetCustomerTaxSlab(CustomerID, age, Gender);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1958,7 +2016,7 @@ namespace BoCustomerProfiling
             }
             return bResult;
         }
-        public void CheckSpouseRelationship(int customerId, out bool spRelationExist,out bool spDobExist,out bool spAssumptionExist)
+        public void CheckSpouseRelationship(int customerId, out bool spRelationExist, out bool spDobExist, out bool spAssumptionExist)
         {
             bool spouseRelationExist = false;
             bool spouseDobExist = false;
@@ -1966,19 +2024,19 @@ namespace BoCustomerProfiling
             CustomerDao customerDao = new CustomerDao();
             try
             {
-               customerDao.CheckSpouseRelationship(customerId, out spouseRelationExist, out spouseDobExist, out spouseAssumptionExist);
-               if (!spouseRelationExist)
-                   spRelationExist = false;
-               else
-                   spRelationExist = true;
-               if (!spouseDobExist)
-                   spDobExist = false;
-               else
-                   spDobExist = true;
-               if (!spouseAssumptionExist)
-                   spAssumptionExist = false;
-               else
-                   spAssumptionExist = true;
+                customerDao.CheckSpouseRelationship(customerId, out spouseRelationExist, out spouseDobExist, out spouseAssumptionExist);
+                if (!spouseRelationExist)
+                    spRelationExist = false;
+                else
+                    spRelationExist = true;
+                if (!spouseDobExist)
+                    spDobExist = false;
+                else
+                    spDobExist = true;
+                if (!spouseAssumptionExist)
+                    spAssumptionExist = false;
+                else
+                    spAssumptionExist = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1996,7 +2054,7 @@ namespace BoCustomerProfiling
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            
+
 
         }
 
@@ -2039,7 +2097,7 @@ namespace BoCustomerProfiling
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetRMBranchGroupCustomerNames(contextKey,prefixText);
+                dtCustomerNames = customerDao.GetRMBranchGroupCustomerNames(contextKey, prefixText);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2445,16 +2503,16 @@ namespace BoCustomerProfiling
             bool isDeleted = false;
             try
             {
-                isDeleted = customerDao.DeleteMappedSchemeDetails(schemePlanCode, strExtCode, strExtName, createdDate , editedDate, deletedDate);
+                isDeleted = customerDao.DeleteMappedSchemeDetails(schemePlanCode, strExtCode, strExtName, createdDate, editedDate, deletedDate);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return isDeleted;            
+            return isDeleted;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode,string strExternalCodeToBeEdited, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isEdited = false;
@@ -2466,7 +2524,7 @@ namespace BoCustomerProfiling
             {
                 throw Ex;
             }
-            return isEdited;            
+            return isEdited;
         }
 
         public DataTable GetMemberRelationShip()
@@ -2523,7 +2581,7 @@ namespace BoCustomerProfiling
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
-            }          
+            }
         }
 
         public DataSet GetReasonAndStatus(string purpose)
@@ -2633,7 +2691,7 @@ namespace BoCustomerProfiling
             {
                 throw Ex;
             }
-            return isEdited;   
+            return isEdited;
         }
         public DataSet GetExceptionList()
         {
@@ -2692,7 +2750,7 @@ namespace BoCustomerProfiling
         public DataSet GetExceptionReportMismatchDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
         {
             DataSet dsGetExceptionReportMismatchDetails = new DataSet();
-            CustomerDao customerDao=new CustomerDao();
+            CustomerDao customerDao = new CustomerDao();
             try
             {
                 dsGetExceptionReportMismatchDetails = customerDao.GetExceptionReportMismatchDetails(userType, adviserId, rmId, CustomerId, branchheadId, branchId, All, isIndividualOrGroup, Explist, Exptype, Mismatch);
@@ -2731,10 +2789,10 @@ namespace BoCustomerProfiling
             }
             return dsGetExceptionReportMismatchDetails;
         }
-        public DataSet GetExceptionReportDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype,int Mismatch)
+        public DataSet GetExceptionReportDetails(string userType, int adviserId, int rmId, int CustomerId, int branchheadId, int branchId, int All, int isIndividualOrGroup, string Explist, string Exptype, int Mismatch)
         {
             DataSet dsGetExceptionReportDetails = new DataSet();
-            CustomerDao customerDao=new CustomerDao();
+            CustomerDao customerDao = new CustomerDao();
             try
             {
                 dsGetExceptionReportDetails = customerDao.GetExceptionReportDetails(userType, adviserId, rmId, CustomerId, branchheadId, branchId, All, isIndividualOrGroup, Explist, Exptype, Mismatch);
@@ -2817,33 +2875,33 @@ namespace BoCustomerProfiling
         public DataTable GetholdersName(int ISANumber)
         {
             DataTable dtGetholdersName = new DataTable();
-             CustomerDao customerDao = new CustomerDao();
-             try
-             {
-                 dtGetholdersName = customerDao.GetholdersName(ISANumber);
-             }
-             catch (BaseApplicationException Ex)
-             {
-                 throw Ex;
-             }
-             catch (Exception Ex)
-             {
-                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                 NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "CustomerBo.cs:GetISAHoldings(int accountId)");
-                 //object[] objects = new object[1];
-                 //objects[0] = accountId;
-                 //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                 exBase.AdditionalInformation = FunctionInfo;
-                 ExceptionManager.Publish(exBase);
-                 throw exBase;
-             }
-             return dtGetholdersName;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                dtGetholdersName = customerDao.GetholdersName(ISANumber);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerBo.cs:GetISAHoldings(int accountId)");
+                //object[] objects = new object[1];
+                //objects[0] = accountId;
+                //FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetholdersName;
         }
 
         public bool CheckIfISAAccountGenerated(string requestNumber)
         {
-            bool result = false;           
+            bool result = false;
             CustomerDao customerDao = new CustomerDao();
             try
             {
@@ -2863,29 +2921,29 @@ namespace BoCustomerProfiling
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetBMParentCustomers(prefixText, bmId,parentId);
+                dtCustomerNames = customerDao.GetBMParentCustomers(prefixText, bmId, parentId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-           
+
             return dtCustomerNames;
         }
-        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId,int parentId)
+        public DataTable GetAdviserAllCustomerForAssociations(string prefixText, int adviserId, int parentId)
         {
             CustomerDao customerDao = new CustomerDao();
 
             DataTable dtCustomerNames = new DataTable();
             try
             {
-                dtCustomerNames = customerDao.GetAdviserAllCustomerForAssociations(prefixText, adviserId,parentId);
+                dtCustomerNames = customerDao.GetAdviserAllCustomerForAssociations(prefixText, adviserId, parentId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-           
+
             return dtCustomerNames;
         }
         public DataTable GetAssociateCustomerName(string prefixText, int AgentId)
@@ -3080,6 +3138,90 @@ namespace BoCustomerProfiling
             }
             return dtCustomerNames;
         }
+        public bool InsertDataTranslateMappingDetalis(string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
+        {
+            bool isInserted = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                isInserted = customerDao.InsertDataTranslateMappingDetalis(TransactionHead, TransactionDescription, TransactionType, TransactionTypeFlag, TransactionClassificationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+        public bool EditDataTranslateMappingDetalis(string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
+        {
+            bool isUpdated = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                isUpdated = customerDao.EditDataTranslateMappingDetalis(TransactionHead, TransactionDescription, TransactionType, TransactionTypeFlag, TransactionClassificationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
+        }
+        public bool InsertCamsDataTranslateMappingDetalis(string TransactionType, string TransactionDescription, string TransactionClassificationCode)
+        {
+            bool isInserted = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                isInserted = customerDao.InsertCamsDataTranslateMappingDetalis(TransactionType, TransactionDescription, TransactionClassificationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+        public bool EditCamsDataTranslateMappingDetalis(string TransactionType, string TransactionDescription, string TransactionClassificationCode)
+        {
+            bool isUpdated = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                isUpdated = customerDao.EditCamsDataTranslateMappingDetalis(TransactionType, TransactionDescription, TransactionClassificationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
+        }
 
+        public bool InsertTempletonDataTranslateMappingDetalis(string TransactionType, string TransactionClassificationCode)
+        {
+            bool isInserted = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                isInserted = customerDao.InsertTempletonDataTranslateMappingDetalis(TransactionType,TransactionClassificationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+        public bool EditTempletonDataTranslateMappingDetalis(string TransactionType, string TransactionClassificationCode)
+        {
+            bool isUpdated = false;
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                isUpdated = customerDao.EditTempletonDataTranslateMappingDetalis(TransactionType, TransactionClassificationCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
+        }
     }
 }

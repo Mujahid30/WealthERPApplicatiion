@@ -2330,13 +2330,13 @@ namespace DaoCustomerPortfolio
         /// <param name="FolioNumber">MF Folio Number Search Parameter</param>
         /// <param name="PasssedFolioValue">Folio Value Search Parameter</param>
         /// <returns></returns>
-        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category,int IsAssociates,int AgentId,string AgentCode)
+        public List<MFTransactionVo> GetRMCustomerMFTransactions(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, bool isCustomerTransactionOnly, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased,string AgentCode,string UserType)
         {
             DataSet ds = null;
             Database db;
             DbCommand getRMCustomerMFTransactionsCmd;
             List<MFTransactionVo> mfTransactionsList = new List<MFTransactionVo>();
-            MFTransactionVo mfTransactionVo = new MFTransactionVo();
+            MFTransactionVo mfTransactionVo = new MFTransactionVo();           
             DataTable dtGetMFTransactions;
             //genDictTranType = new Dictionary<string, string>();
             //genDictCategory = new Dictionary<string, string>();
@@ -2387,6 +2387,7 @@ namespace DaoCustomerPortfolio
                 //{
                 //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@processId", DbType.Int32, DBNull.Value);
                 //}
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@UserType", DbType.String, UserType);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
@@ -2407,12 +2408,12 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
-               if (AgentId != 0)
-                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
-               else
-                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+               //if (AgentId != 0)
+               //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+               //else
+               //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
                //if (IsAssociates != 0)
-                   db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+               db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
                //else
                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, DBNull.Value);
                 //if (All != 0)
@@ -2507,6 +2508,41 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();                      
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
+                        if (A_AgentCodeBased == 1)
+                        {
+                            if (dr["ZonalManagerName"].ToString() != null && dr["ZonalManagerName"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.ZMName = dr["ZonalManagerName"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.ZMName = "N/A";
+                            }
+                            if (dr["AreaManager"].ToString() != null && dr["AreaManager"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.AName = dr["AreaManager"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.AName = "N/A";
+                            }
+                            if (dr["AssociatesName"].ToString() != null && dr["AssociatesName"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.SubbrokerName = dr["AssociatesName"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.SubbrokerName = "N/A";
+                            }
+                            if (dr["ChannelName"].ToString() != null && dr["ChannelName"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.Channel = dr["ChannelName"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.Channel = "N/A";
+                            }
+                        }
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
                             mfTransactionVo.EUIN = dr["CMFT_EUIN"].ToString();
@@ -4054,7 +4090,7 @@ namespace DaoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int IsAssociates, int AgentId)
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             DataSet ds = null;
             Database db;
@@ -4089,7 +4125,7 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
                 }
-
+                db.AddInParameter(getRMCustomerMFBalanceCmd, "@UserType", DbType.String,UserType);
                 db.AddInParameter(getRMCustomerMFBalanceCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFBalanceCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFBalanceCmd, "@Manage", DbType.Int32, Manage);
@@ -4097,6 +4133,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, AccountId);
                 else
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AccountId", DbType.String, DBNull.Value);
+                if (AgentCode != "0")
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AgentCode", DbType.String, AgentCode);
+                else
+                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AgentCode", DbType.String, DBNull.Value);
                 if (AmcCode != 0)
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@AmcCode", DbType.Int32, AmcCode);
                 else
@@ -4105,11 +4145,11 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFBalanceCmd, "@Category", DbType.String, DBNull.Value);
-                if (AgentId != 0)
-                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
-                else
-                    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-                db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+                //if (AgentId != 0)
+                //    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                //else
+                //    db.AddInParameter(getRMCustomerMFBalanceCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getRMCustomerMFBalanceCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
                 
                 getRMCustomerMFBalanceCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFBalanceCmd);
@@ -4137,6 +4177,14 @@ namespace DaoCustomerPortfolio
                         mfBalanceVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         mfBalanceVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         mfBalanceVo.AMCCode = int.Parse(dr["PA_AmcCode"].ToString());
+                        if (dr["CMFT_SubBrokerCode"].ToString() != null && dr["CMFT_SubBrokerCode"].ToString() != string.Empty)
+                        {
+                            mfBalanceVo.SubBrokerCode = dr["CMFT_SubBrokerCode"].ToString();
+                        }
+                        else
+                        {
+                            mfBalanceVo.SubBrokerCode = "N/A";
+                        }
                         if (dr["PA_AMCName"].ToString() != null && dr["PA_AMCName"].ToString()!=string.Empty)
                         {
                             mfBalanceVo.AMCName = dr["PA_AMCName"].ToString();
@@ -4144,6 +4192,41 @@ namespace DaoCustomerPortfolio
                         else
                         {
                             mfBalanceVo.AMCName = "N/A";
+                        }
+                        if (A_AgentCodeBased == 1)
+                        {
+                            if (dr["ZonalManagerName"].ToString() != null && dr["ZonalManagerName"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.ZMName = dr["ZonalManagerName"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.ZMName = "N/A";
+                            }
+                            if (dr["AreaManager"].ToString() != null && dr["AreaManager"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.AName = dr["AreaManager"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.AName = "N/A";
+                            }
+                            if (dr["AssociatesName"].ToString() != null && dr["AssociatesName"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.SubbrokerName = dr["AssociatesName"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.SubbrokerName = "N/A";
+                            }
+                            if (dr["ChannelName"].ToString() != null && dr["ChannelName"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.Channel = dr["ChannelName"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.Channel = "N/A";
+                            }
                         }
                         mfBalanceVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                         mfBalanceVo.Price = float.Parse(dr["CMFT_Price"].ToString());
@@ -4353,6 +4436,36 @@ namespace DaoCustomerPortfolio
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetTransactionType()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return ds;
+        }
+        public DataSet GetMFTransactionType()
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getTransactionTypeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getTransactionTypeCmd = db.GetStoredProcCommand("SP_GetMFTranscationType");
+                ds = db.ExecuteDataSet(getTransactionTypeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetMFTransactionType()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

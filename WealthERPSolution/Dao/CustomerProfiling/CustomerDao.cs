@@ -256,6 +256,78 @@ namespace DaoCustomerProfiling
             return getschemePlanCodeDs;
         }
 
+        public DataSet GetSchemeMapDetails(string ExternalType,int AmcCode,string Category,string Type)
+        {
+            CustomerVo customerVo = null;
+            Database db;
+            DbCommand getschemePlanCodeCmd;
+            DataSet getschemePlanCodeDs;
+           
+            try
+            {
+                customerVo = new CustomerVo();
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getschemePlanCodeCmd = db.GetStoredProcCommand("SP_BindSchemeDetails");
+                db.AddInParameter(getschemePlanCodeCmd, "@ExternalType", DbType.String, ExternalType);
+                db.AddInParameter(getschemePlanCodeCmd, "@AmcCode", DbType.Int32, AmcCode);
+                db.AddInParameter(getschemePlanCodeCmd, "@Category", DbType.String, Category);
+                db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.String,Type);
+                getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetSchemeMapDetails()");
+                object[] objects = new object[1];
+                objects[0] = ExternalType;
+                objects[1] = AmcCode;
+                objects[2] = Category;
+                objects[3] = Type;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getschemePlanCodeDs;
+        }
+        public DataSet GetDataTransMapDetails(string ExternalType)
+        {
+            CustomerVo customerVo = null;
+            Database db;
+            DbCommand getschemePlanCodeCmd;
+            DataSet getschemePlanCodeDs;
+           
+            try
+            {
+                customerVo = new CustomerVo();
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getschemePlanCodeCmd = db.GetStoredProcCommand("SP_BindDataTranslationMappingDetails");
+                db.AddInParameter(getschemePlanCodeCmd, "@ExtractType", DbType.String, ExternalType);               
+                getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetDataTransMapDetails()");
+                object[] objects = new object[1];
+                objects[0] = ExternalType;             
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return getschemePlanCodeDs;
+        }
         /// <summary>
         /// It gets completes Customer Details and Assigned it to CustomerVo
         /// </summary>
@@ -5514,6 +5586,164 @@ namespace DaoCustomerProfiling
 
             }
             return dtCustomerNames;
+        }
+        public bool InsertDataTranslateMappingDetalis(string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
+        {
+            bool isInserted = false;
+            Database db;
+            DbCommand cmdInsertDataTranslateMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_InsertKarvyDataTranslationMappingDetails");
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead", DbType.String, TransactionHead);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, TransactionDescription);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionType", DbType.String, TransactionType);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionTypeFlag", DbType.String, TransactionTypeFlag);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
+                isInserted = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+        public bool EditDataTranslateMappingDetalis(string TransactionHead, string TransactionDescription, string TransactionType, string TransactionTypeFlag, string TransactionClassificationCode)
+        {
+            bool isUpdated = false;
+            Database db;
+            DbCommand cmdInsertDataTranslateMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditKarvyDataTranslationMappingDetails");
+                if (TransactionHead!=null)
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead", DbType.String, TransactionHead);
+                else
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead",DbType.String, DBNull.Value);
+                if (TransactionDescription!=null)
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, TransactionDescription);
+                else
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, DBNull.Value);
+                if (TransactionType!=null)
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionType", DbType.String, TransactionType);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionType", DbType.String, DBNull.Value);
+                if (TransactionTypeFlag!=null)
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionTypeFlag", DbType.String, TransactionTypeFlag);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis,"@WKDTM_TransactionTypeFlag", DbType.String, DBNull.Value);
+                if(TransactionClassificationCode!=null)
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis,"@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                else
+                 db.AddInParameter(cmdInsertDataTranslateMappingDetalis,"@WMTT_TransactionClassificationCode", DbType.String, DBNull.Value);
+                db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
+                isUpdated = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
+        }
+        public bool InsertCamsDataTranslateMappingDetalis(string TransactionType, string TransactionDescription, string TransactionClassificationCode)
+        {
+            bool isInserted = false;
+            Database db;
+            DbCommand cmdInsertDataTranslateMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_InsertCamsDataTranslationMappingDetails");
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, TransactionType);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_TransactionNature", DbType.String, TransactionDescription);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
+                isInserted = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+        public bool EditCamsDataTranslateMappingDetalis(string TransactionType, string TransactionDescription, string TransactionClassificationCode)
+        {
+            bool isUpdated = false;
+            Database db;
+            DbCommand cmdInsertDataTranslateMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditCamsDataTranslationMappingDetails");
+                if (TransactionType != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, TransactionType);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, DBNull.Value);   
+                if (TransactionDescription != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_TransactionNature", DbType.String, TransactionDescription);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_TransactionNature", DbType.String, DBNull.Value);
+                if (TransactionClassificationCode != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, DBNull.Value);
+                db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
+                isUpdated = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
+        }
+        public bool InsertTempletonDataTranslateMappingDetalis(string TransactionType, string TransactionClassificationCode)
+        {
+            bool isInserted = false;
+            Database db;
+            DbCommand cmdInsertDataTranslateMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_InsertTempletonDataTranslationMappingDetails");
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WTTTDTM_TR_TYPE", DbType.String, TransactionType);
+                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
+                isInserted = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isInserted;
+        }
+        public bool EditTempletonDataTranslateMappingDetalis(string TransactionType, string TransactionClassificationCode)
+        {
+            bool isUpdated = false;
+            Database db;
+            DbCommand cmdInsertDataTranslateMappingDetalis;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditTempletonDataTranslationMappingDetails");
+                if (TransactionType != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WTTTDTM_TR_TYPE", DbType.String, TransactionType);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WTTTDTM_TR_TYPE", DbType.String, DBNull.Value);
+                if (TransactionClassificationCode != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                else
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, DBNull.Value);
+                db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
+                isUpdated = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return isUpdated;
         }
     }
 }

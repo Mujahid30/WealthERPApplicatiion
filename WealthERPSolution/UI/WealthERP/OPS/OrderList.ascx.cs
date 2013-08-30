@@ -254,7 +254,7 @@ namespace WealthERP.OPS
         {
             DataTable dtSubbrokerCode = new DataTable();
 
-            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(AgentCode);
+            dtSubbrokerCode = orderbo.GetSubBrokerAgentCode(advisorVo.advisorId,AgentCode);
 
             if (dtSubbrokerCode.Rows.Count > 0)
             {

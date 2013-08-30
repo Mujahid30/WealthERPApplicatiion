@@ -1244,7 +1244,7 @@ namespace DaoOps
             }
             return dtOrder;   
         }
-        public DataTable GetSubBrokerAgentCode(string AgentCode)
+        public DataTable GetSubBrokerAgentCode(int adviserId,string AgentCode)
         {
             DataSet dsOrder = null;
             DataTable dtOrder;
@@ -1254,6 +1254,10 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbOrder = db.GetStoredProcCommand("SP_BindBrokerAgentCode");
+                if (adviserId !=0)
+                    db.AddInParameter(dbOrder, "@AdviserID", DbType.Int32, adviserId);
+                else
+                    db.AddInParameter(dbOrder, "@AdviserID", DbType.String, DBNull.Value);
                 if (AgentCode!=null)
                 db.AddInParameter(dbOrder, "@AgentCode", DbType.String ,AgentCode);
                 else

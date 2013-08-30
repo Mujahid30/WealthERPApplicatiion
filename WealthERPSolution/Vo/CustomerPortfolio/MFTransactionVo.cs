@@ -61,6 +61,10 @@ namespace VoCustomerPortfolio
         public string m_AgentCode;
         private string m_Area;
         private string m_EUIN;
+        private string m_ZMName;
+        private string m_AName;
+        private string m_SubbrokerName;
+        private string m_Channel;
         #endregion Fields
 
         #region Properties
@@ -315,7 +319,32 @@ namespace VoCustomerPortfolio
             set { m_EUIN = value; }
 
         }
+        public string ZMName
+        {
+            get { return m_ZMName; }
+            set { m_ZMName = value; }
 
+        }
+
+        public string AName
+        {
+            get { return m_AName; }
+            set { m_AName = value; }
+
+        }
+        public string SubbrokerName
+        {
+            get { return m_SubbrokerName; }
+            set { m_SubbrokerName = value; }
+
+        }
+        public string Channel
+        {
+            get { return m_Channel; }
+            set { m_Channel = value; }
+
+        }
+       
         #endregion Properties
 
         #region ICloneable Members
