@@ -68,6 +68,21 @@ namespace WealthERP.BusinessMIS
                 }
             }
         }
+        //protected void ddlSelectTypeChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlSelectType.SelectedValue == "Associates")
+        //    {
+        //        BindAssociatesSubBrokerCode();
+        //    }
+        //    if (ddlSelectType.SelectedValue == "Branch")
+        //    {
+        //        BindAssociatesSubBrokerCode();
+        //    }
+        //    if (ddlSelectType.SelectedValue == "Employee")
+        //    {
+        //        BindAssociatesSubBrokerCode();
+        //    }
+        //}
         private void BindAssociatesSubBrokerCode()
         {
             DataSet ds;
@@ -117,11 +132,12 @@ namespace WealthERP.BusinessMIS
             if (ddlIssuer.SelectedIndex != 0)
             {
                 int amcCode = int.Parse(ddlIssuer.SelectedValue);
-
+                ddlCategory.SelectedIndex = 0;
                 LoadAllSchemeList(amcCode);
 
 
             }
+           
 
 
         }
@@ -131,8 +147,9 @@ namespace WealthERP.BusinessMIS
             {
                 if (ddlCategory.SelectedIndex != 0)
                 {
+                    int amcCode = int.Parse(ddlIssuer.SelectedValue);
                     LoadAllSchemeList(amcCode);
-                    GdBind_Click(sender,e);
+                    //GdBind_Click(sender,e);
                 }
 
             }
@@ -224,7 +241,7 @@ namespace WealthERP.BusinessMIS
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
 
-            ds = adviserMFMIS.GetCommissionReconMis(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, int.Parse(hdnSBbrokercode.Value));
+            ds = adviserMFMIS.GetCommissionReconMis(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value,int.Parse( hdnSBbrokercode.Value));
             if (ds.Tables[0] != null)
             {
                 gvCommissionReconMIs.Visible = true;
