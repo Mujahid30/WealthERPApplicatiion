@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using System.Data;
-using System.Data.Common;
 using System.Linq;
 using System.Text;
-using System.Collections.Specialized;
+using System.Data;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using System.Collections.Specialized;
 
 namespace DaoPriceAlerts
 {
@@ -21,6 +21,8 @@ namespace DaoPriceAlerts
             {
                 db = DatabaseFactory.CreateDatabase(dbName);
                 getDailyPriceDetails = db.GetStoredProcCommand("SP_GetPriceDetails");
+
+                getDailyPriceDetails.CommandTimeout = 60 * 60;
                 dsPriceDetails = db.ExecuteDataSet(getDailyPriceDetails);
             }
             catch (BaseApplicationException Ex)
