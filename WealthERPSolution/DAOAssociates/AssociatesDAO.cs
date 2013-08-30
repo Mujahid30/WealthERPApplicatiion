@@ -1696,7 +1696,6 @@ namespace DAOAssociates
                     db.AddInParameter(GetProductDetailFromMFOrderCmd, "@agentcode", DbType.String, agentcode);
                 else
                     db.AddInParameter(GetProductDetailFromMFOrderCmd, "@agentcode", DbType.String, DBNull.Value);
-                GetProductDetailFromMFOrderCmd.CommandTimeout = 60 * 60;
                 dsProductDetailFromMFOrder = db.ExecuteDataSet(GetProductDetailFromMFOrderCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1749,7 +1748,6 @@ namespace DAOAssociates
                     db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@agentcode", DbType.String, agentcode);
                 else
                     db.AddInParameter(GetOrganizationDetailFromMFOrderCmd, "@agentcode", DbType.String, DBNull.Value);
-                GetOrganizationDetailFromMFOrderCmd.CommandTimeout = 60 * 60;
                 dsOrganizationDetailFromMFOrder = db.ExecuteDataSet(GetOrganizationDetailFromMFOrderCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1773,6 +1771,53 @@ namespace DAOAssociates
                 throw exBase;
             }
             return dsOrganizationDetailFromMFOrder;
+        }
+
+        public DataSet GetMemberDetailFromTransaction(string agentcode, string userType, int AdviserId, int branchHeadId, DateTime FromDate, DateTime Todate)
+        {
+            Database db;
+            DbCommand GetMemberDetailFromTrnxCmd;
+            DataSet dsGetMemberDetailFromTranx;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetMemberDetailFromTrnxCmd = db.GetStoredProcCommand("SPROC_GetMemberDetailsFromMFTransaction");
+                db.AddInParameter(GetMemberDetailFromTrnxCmd, "@UserType", DbType.String, userType);
+                db.AddInParameter(GetMemberDetailFromTrnxCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetMemberDetailFromTrnxCmd, "@branchHeadId", DbType.Int32, branchHeadId);
+                if (FromDate != DateTime.MinValue)
+                    db.AddInParameter(GetMemberDetailFromTrnxCmd, "@FromDate", DbType.DateTime, FromDate);
+                else
+                    FromDate = DateTime.MinValue;
+                if (Todate != DateTime.MinValue)
+                    db.AddInParameter(GetMemberDetailFromTrnxCmd, "@ToDate", DbType.DateTime, Todate);
+                else
+                    Todate = DateTime.MinValue;
+                if (!string.IsNullOrEmpty(agentcode))
+                    db.AddInParameter(GetMemberDetailFromTrnxCmd, "@agentcode", DbType.String, agentcode);
+                else
+                    db.AddInParameter(GetMemberDetailFromTrnxCmd, "@agentcode", DbType.String, DBNull.Value);
+                dsGetMemberDetailFromTranx = db.ExecuteDataSet(GetMemberDetailFromTrnxCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetOrganizationDetailFromTransaction()");
+
+                object[] objects = new object[3];
+                objects[0] = AdviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMemberDetailFromTranx;
         }
     }
 }
