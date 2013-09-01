@@ -1673,4 +1673,8 @@
     <value>CommisionManagement//SchemeStructureRuleAssociation.ascx</value>
     <comment>CommisionManagement//SchemeStructureRuleAssociation.ascx</comment>
   </data>
+  <data name="CommissionReceivableRecon" xml:space="preserve">
+    <value>BusinessMIS//CommissionReceivableRecon.ascx</value>
+    <comment>BusinessMIS//CommissionReceivableRecon.ascx</comment>
+  </data>
 </root>

@@ -1280,6 +1280,13 @@
     <Compile Include="BusinessMIS\Commissiondashboard.ascx.designer.cs">
       <DependentUpon>Commissiondashboard.ascx</DependentUpon>
     </Compile>
+    <Compile Include="BusinessMIS\CommissionReceivableRecon.ascx.cs">
+      <DependentUpon>CommissionReceivableRecon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BusinessMIS\CommissionReceivableRecon.ascx.designer.cs">
+      <DependentUpon>CommissionReceivableRecon.ascx</DependentUpon>
+    </Compile>
     <Compile Include="BusinessMIS\CommissionReconMIS.ascx.cs">
       <DependentUpon>CommissionReconMIS.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6093,6 +6100,7 @@
     <Content Include="BusinessMIS\AssetAllocationMIS.ascx" />
     <Content Include="BusinessMIS\BusinessDashBoard.ascx" />
     <Content Include="BusinessMIS\Commissiondashboard.ascx" />
+    <Content Include="BusinessMIS\CommissionReceivableRecon.ascx" />
     <Content Include="BusinessMIS\CommissionReconMIS.ascx" />
     <Content Include="BusinessMIS\CustomerAUM.ascx" />
     <Content Include="BusinessMIS\CustomerEquityLedgerMIS.ascx" />

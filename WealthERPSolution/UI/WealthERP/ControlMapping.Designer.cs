@@ -790,6 +790,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BusinessMIS//CommissionReceivableRecon.ascx.
+        /// </summary>
+        internal static string CommissionReceivableRecon {
+            get {
+                return ResourceManager.GetString("CommissionReceivableRecon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//CommissionReconMIS.ascx.
         /// </summary>
         internal static string CommissionReconMIS {
