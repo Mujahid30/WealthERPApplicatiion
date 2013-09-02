@@ -69,7 +69,7 @@ namespace WealthERP.CommisionManagement
             RadGridSchemeRule.ExportSettings.IgnorePaging = true;
             RadGridSchemeRule.ExportSettings.HideStructureColumns = true;
             RadGridSchemeRule.ExportSettings.ExportOnlyData = true;
-            RadGridSchemeRule.ExportSettings.FileName = "SchemeStructureRule";
+            RadGridSchemeRule.ExportSettings.FileName = "ViewSchemeRule";
             RadGridSchemeRule.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             RadGridSchemeRule.MasterTableView.ExportToExcel();
 

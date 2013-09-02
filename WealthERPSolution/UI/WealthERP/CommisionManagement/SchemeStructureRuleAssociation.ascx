@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            View Scheme rules
+                            View Scheme Rules
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="ibtExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
@@ -52,14 +52,14 @@
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Validity Start Date" DataField="ACSTSM_ValidityStart"
-                    UniqueName="ACSTSM_ValidityStart" SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                   UniqueName="ACSTSM_ValidityStart" DataFormatString="{0:dd/MM/yyyy}" SortExpression="ACSTSM_ValidityStart" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Validity End Date" DataField="ACSTSM_ValidityEnd"
-                    UniqueName="ACSTSM_ValidityEnd" SortExpression="ACSTSM_ValidityEnd" AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    UniqueName="ACSTSM_ValidityEnd" DataFormatString="{0:dd/MM/yyyy}" SortExpression="ACSTSM_ValidityEnd" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Frequency" DataField="XF_Frequency"
                     UniqueName="XF_Frequency" SortExpression="XF_Frequency" AutoPostBackOnFilter="true"
@@ -71,97 +71,97 @@
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="IsServiceTaxReduced" DataField="ACSR_IsServiceTaxReduced"
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Is ServiceTax Reduced" DataField="ACSR_IsServiceTaxReduced"
                     UniqueName="ACSR_IsServiceTaxReduced" SortExpression="ACSR_IsServiceTaxReduced" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="IsTDSReduced" DataField="ACSR_IsTDSReduced"
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Is TDS Reduced" DataField="ACSR_IsTDSReduced"
                     UniqueName="ACSR_IsTDSReduced" SortExpression="ACSR_IsTDSReduced" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Is OtherTax Reduced" DataField="ACSM_IsOtherTaxReduced"
+                    UniqueName="ACSM_IsOtherTaxReduced" SortExpression="ACSM_IsOtherTaxReduced" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min. Invest Amount" DataField="ACSR_MinInvestmentAmount"
+                    UniqueName="ACSR_MinInvestmentAmount" SortExpression="ACSR_MinInvestmentAmount" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max. Invest Amount" DataField="ACSR_MaxInvestmentAmount"
+                    UniqueName="ACSR_MaxInvestmentAmount" SortExpression="ACSR_MaxInvestmentAmount" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min. Tenure" DataField="ACSR_MinTenure"
+                    UniqueName="ACSR_MinTenure" SortExpression="ACSR_MinTenure" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max. Tenure" DataField="ACSR_MaxTenure"
+                    UniqueName="ACSR_MaxTenure" SortExpression="ACSR_MaxTenure" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign ="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit"
+                    UniqueName="ACSR_TenureUnit " SortExpression="ACSR_TenureUnit" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="IsOtherTaxReduced " DataField="ACSM_IsOtherTaxReduced "
-                    UniqueName="ACSM_IsOtherTaxReduced " SortExpression="ACSM_IsOtherTaxReduced " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min Invest Amount " DataField="ACSR_MinInvestmentAmount "
-                    UniqueName="ACSR_MinInvestmentAmount " SortExpression="ACSR_MinInvestmentAmount " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min. Invest Age In Day" DataField="ACSR_MinInvestmentAgeInMonth"
+                    UniqueName="ACSR_MinInvestmentAgeInMonth" SortExpression="ACSR_MinInvestmentAgeInMonth" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max Invest Amount " DataField="ACSR_MaxInvestmentAmount "
-                    UniqueName="ACSR_MaxInvestmentAmount " SortExpression="ACSR_MaxInvestmentAmount " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min Tenure " DataField="ACSR_MinTenure "
-                    UniqueName="ACSR_MinTenure " SortExpression="ACSR_MinTenure " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max Tenure " DataField="ACSR_MaxTenure "
-                    UniqueName="ACSR_MaxTenure " SortExpression="ACSR_MaxTenure " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit "
-                    UniqueName="ACSR_TenureUnit " SortExpression="ACSR_TenureUnit " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min Invest Age In Day" DataField="ACSR_MinInvestmentAgeInMonth "
-                    UniqueName="ACSR_MinInvestmentAgeInMonth " SortExpression="ACSR_MinInvestmentAgeInMonth " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max Invest Age In Day" DataField="ACSR_MaxInvestmentAgeInMonth "
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max. Invest Age In Day" DataField="ACSR_MaxInvestmentAgeInMonth"
                     UniqueName="ACSR_MaxInvestmentAgeInMonth " SortExpression="ACSR_MaxInvestmentAgeInMonth " AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Transaction Type" DataField="ACSR_TransactionType"
+                    UniqueName="ACSR_TransactionType" SortExpression="ACSR_TransactionType" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Transaction Type" DataField="ACSR_TransactionType "
-                    UniqueName="ACSR_TransactionType " SortExpression="ACSR_TransactionType " AutoPostBackOnFilter="true"
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="SIP Trans Frequency" DataField="ACSR_SIPFrequency"
+                    UniqueName="ACSR_SIPFrequency" SortExpression="ACSR_SIPFrequency" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="SIP Trans Frequency" DataField="ACSR_SIPFrequency "
-                    UniqueName="ACSR_SIPFrequency " SortExpression="ACSR_SIPFrequency " AutoPostBackOnFilter="true"
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min. No Of Applications" DataField="ACSR_MinNumberOfApplications"
+                    UniqueName="ACSR_MinNumberOfApplications" SortExpression="ACSR_MinNumberOfApplications" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Value" DataField="ACSR_BrokerageValue"
+                    UniqueName="ACSR_BrokerageValue" SortExpression="ACSR_BrokerageValue" AutoPostBackOnFilter="true"
+                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Unit" DataField="WCU_Unit"
+                    UniqueName="WCU_Unit" SortExpression="WCU_Unit" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min No Of Applications" DataField="ACSR_MinNumberOfApplications "
-                    UniqueName="ACSR_MinNumberOfApplications " SortExpression="ACSR_MinNumberOfApplications " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Value" DataField="ACSR_BrokerageValue "
-                    UniqueName="ACSR_BrokerageValue " SortExpression="ACSR_BrokerageValue " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Brokerage Unit" DataField="WCU_Unit "
-                    UniqueName="WCU_Unit " SortExpression="WCU_Unit " AutoPostBackOnFilter="true"
-                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Calculated On" DataField="WCCO_CalculatedOn "
-                    UniqueName="WCCO_CalculatedOn " SortExpression="WCCO_CalculatedOn " AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Calculated On" DataField="WCCO_CalculatedOn"
+                    UniqueName="WCCO_CalculatedOn" SortExpression="WCCO_CalculatedOn" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                     
