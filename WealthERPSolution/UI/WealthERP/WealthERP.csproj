@@ -6557,6 +6557,8 @@
     <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\FixedIncomeUploadNew\FixedIncomeUploadNew.sln" />
+    <Content Include="UploadPackages\FixedIncomeUploadNew\FixedIncomeUploadNew\FixedIncomeUploadNew.dtproj.user" />
     <Content Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload.sln" />
     <Content Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeUpload.dtproj.user" />
     <Content Include="UploadPackages\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage\MFTransactionCommonUploadPackage.dtproj.user" />
@@ -7435,6 +7437,10 @@
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerp.dtsx" />
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerpEQTranTable.dtsx" />
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx" />
+    <None Include="UploadPackages\FixedIncomeUploadNew\FixedIncomeUploadNew\FICommonToNP.dtsx" />
+    <None Include="UploadPackages\FixedIncomeUploadNew\FixedIncomeUploadNew\FixedIncomeUploadNew.database" />
+    <None Include="UploadPackages\FixedIncomeUploadNew\FixedIncomeUploadNew\FixedIncomeUploadNew.dtproj" />
+    <None Include="UploadPackages\FixedIncomeUploadNew\FixedIncomeUploadNew\FI_XML_INPUT_BKUP_ToStaging.dtsx" />
     <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeInputToFixedIncomeNetPosition.dtsx" />
     <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeUpload.database" />
     <None Include="UploadPackages\FixedIncomeUpload\FixedIncomeUpload\FixedIncomeUpload.dtproj" />

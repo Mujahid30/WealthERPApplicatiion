@@ -1,0 +1,17 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{D183A3D8-5FD8-494B-B014-37F57B35E655}") = "FixedIncomeUploadNew", "FixedIncomeUploadNew\FixedIncomeUploadNew.dtproj", "{0A3153A7-803D-426C-AFE3-174BB74375D4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A3153A7-803D-426C-AFE3-174BB74375D4}.Development|Default.ActiveCfg = Development
+		{0A3153A7-803D-426C-AFE3-174BB74375D4}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
