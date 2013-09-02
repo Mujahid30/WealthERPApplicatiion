@@ -89,6 +89,36 @@ namespace WealthERP.BusinessMIS
             trPnlOrganization.Visible = false;
             trMember.Visible = false;
         }
+        protected void imgProduct_Click(object sender, ImageClickEventArgs e)
+        {
+            gvProduct.ExportSettings.OpenInNewWindow = true;
+            gvProduct.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvProduct.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvProduct.MasterTableView.ExportToExcel();
+        }
+        protected void imgOrganization_Click(object sender, ImageClickEventArgs e)
+        {
+            gvOrganization.ExportSettings.OpenInNewWindow = true;
+            gvOrganization.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvOrganization.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvOrganization.MasterTableView.ExportToExcel();
+        }
+        protected void imgMember_Click(object sender, ImageClickEventArgs e)
+        {
+            gvMember.ExportSettings.OpenInNewWindow = true;
+            gvMember.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvMember.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvMember.MasterTableView.ExportToExcel();
+        }
 
         private void BindProductGrid()
         {
@@ -519,6 +549,9 @@ namespace WealthERP.BusinessMIS
                 pnlProduct.Visible = true;
                 gvProduct.Visible = true;
                 pnlProduct.Visible = true;
+                imgProduct.Visible = true;
+                imgOrganization.Visible = false;
+                imgMember.Visible = false;
                 this.gvProduct.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["gvProduct" + advisorVo.advisorId] == null)
                 {
@@ -1159,6 +1192,9 @@ namespace WealthERP.BusinessMIS
                 //btnExpMember.Visible = false;
                 gvOrganization.Visible = true;
                 pnlOrganization.Visible = true;
+                imgProduct.Visible = false;
+                imgOrganization.Visible = true;
+                imgMember.Visible = false;
                 this.gvOrganization.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["gvOrganization" + advisorVo.advisorId] == null)
                 {
@@ -1623,6 +1659,9 @@ namespace WealthERP.BusinessMIS
                 gvMember.Visible = true;
                 pnlOrganization.Visible = false;
                 pnlProduct.Visible = false;
+                imgProduct.Visible = false;
+                imgOrganization.Visible = false;
+                imgMember.Visible = true;
                 this.gvMember.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["gvMember" + advisorVo.advisorId] == null)
                 {

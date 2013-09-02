@@ -32,6 +32,33 @@ namespace WealthERP.BusinessMIS {
         protected global::Telerik.Web.UI.RadScriptManager scptMgr;
         
         /// <summary>
+        /// imgProduct control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgProduct;
+        
+        /// <summary>
+        /// imgOrganization control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgOrganization;
+        
+        /// <summary>
+        /// imgMember control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgMember;
+        
+        /// <summary>
         /// Label2 control.
         /// </summary>
         /// <remarks>

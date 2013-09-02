@@ -15,6 +15,17 @@
                         <td align="left">
                             MF Transaction TurnOver MIS
                         </td>
+                        <td align="right">
+                            <asp:ImageButton ID="imgProduct" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
+                                Width="25px" Visible="false" OnClick="imgProduct_Click"></asp:ImageButton>
+                            <asp:ImageButton ID="imgOrganization" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
+                                Width="25px" Visible="false" OnClick="imgOrganization_Click"></asp:ImageButton>
+                            <asp:ImageButton ID="imgMember" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
+                                Width="25px" Visible="false" OnClick="imgMember_Click"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -66,12 +77,12 @@
                 <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName">From:</asp:Label>
                 <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                    </DateInput>
+                    <calendar id="Calendar1" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput id="DateInput1" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtFromDate"
                     CssClass="rfvPCG" ErrorMessage="<br />Please select a From Date" Display="Dynamic"
@@ -79,12 +90,12 @@
                 <asp:Label ID="lblToDate" runat="server" CssClass="FieldName">To:</asp:Label>
                 <telerik:RadDatePicker ID="txtToDate" CssClass="txtTo" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                        ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput ID="DateInput2" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                    </DateInput>
+                    <calendar id="Calendar2" runat="server" userowheadersasselectors="False" usecolumnheadersasselectors="False"
+                        viewselectortext="x" skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput id="DateInput2" runat="server" displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtToDate"
                     CssClass="rfvPCG" ErrorMessage="<br />Please select a To Date" Display="Dynamic"
@@ -105,7 +116,10 @@
             </div>
         </td>
     </tr>
-    <tr><td colspan="4"></td></tr>
+    <tr>
+        <td colspan="4">
+        </td>
+    </tr>
     <tr>
         <td colspan="4">
             <asp:Label ID="lblMis" runat="server" CssClass="FieldName" Text="Select MIS:"></asp:Label>
@@ -119,7 +133,10 @@
                 runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnProduct_Click"></asp:LinkButton>
         </td>
     </tr>
-    <tr><td colspan="4"></td></tr>
+    <tr>
+        <td colspan="4">
+        </td>
+    </tr>
 </table>
 <div id="dvSectionHeading" runat="server" class="divSectionHeading" style="vertical-align: middle;
     margin: 2px; padding-top: 2px;">
@@ -145,12 +162,12 @@
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvProduct_OnNeedDataSource">
-                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                            FileName="Product Details" Excel-Format="ExcelML">
-                        </ExportSettings>
-                        <MasterTableView DataKeyNames="SchemeCode" Width="100%" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
-                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
+                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                            filename="Product Details" excel-format="ExcelML">
+                        </exportsettings>
+                        <mastertableview datakeynames="SchemeCode" width="100%" allowmulticolumnsorting="True"
+                            autogeneratecolumns="false" commanditemdisplay="None" groupsdefaultexpanded="false"
+                            expandcollapsecolumn-groupable="true" grouploadmode="Client" showgroupfooter="true">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
@@ -532,12 +549,12 @@
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                        </MasterTableView>
-                        <HeaderStyle Width="150px" />
-                        <ClientSettings>
+                        </mastertableview>
+                        <headerstyle width="150px" />
+                        <clientsettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             <Resizing AllowColumnResize="true" />
-                        </ClientSettings>
+                        </clientsettings>
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>
@@ -552,12 +569,12 @@
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvOrganization_OnNeedDataSource">
-                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                            FileName="Product Details" Excel-Format="ExcelML">
-                        </ExportSettings>
-                        <MasterTableView DataKeyNames="customerId" Width="100%" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
-                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
+                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                            filename="Organization Details" excel-format="ExcelML">
+                        </exportsettings>
+                        <mastertableview datakeynames="customerId" width="100%" allowmulticolumnsorting="True"
+                            autogeneratecolumns="false" commanditemdisplay="None" groupsdefaultexpanded="false"
+                            expandcollapsecolumn-groupable="true" grouploadmode="Client" showgroupfooter="true">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
@@ -946,12 +963,12 @@
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                        </MasterTableView>
-                        <HeaderStyle Width="150px" />
-                        <ClientSettings>
+                        </mastertableview>
+                        <headerstyle width="150px" />
+                        <clientsettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             <Resizing AllowColumnResize="true" />
-                        </ClientSettings>
+                        </clientsettings>
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>
@@ -966,12 +983,12 @@
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
                         EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvMember_OnNeedDataSource">
-                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                            FileName="Scheme Details" Excel-Format="ExcelML">
-                        </ExportSettings>
-                        <MasterTableView DataKeyNames="AccountId" Width="100%" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
-                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
+                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                            filename="Member Details" excel-format="ExcelML">
+                        </exportsettings>
+                        <mastertableview datakeynames="AccountId" width="100%" allowmulticolumnsorting="True"
+                            autogeneratecolumns="false" commanditemdisplay="None" groupsdefaultexpanded="false"
+                            expandcollapsecolumn-groupable="true" grouploadmode="Client" showgroupfooter="true">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderStyle-Width="100px" AllowFiltering="false" UniqueName="action"
                                     DataField="action" FooterText="Grand Total:" Visible="false">
@@ -1355,12 +1372,12 @@
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
-                        </MasterTableView>
-                        <HeaderStyle Width="150px" />
-                        <ClientSettings>
+                        </mastertableview>
+                        <headerstyle width="150px" />
+                        <clientsettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                             <Resizing AllowColumnResize="true" />
-                        </ClientSettings>
+                        </clientsettings>
                     </telerik:RadGrid>
                 </div>
             </asp:Panel>
