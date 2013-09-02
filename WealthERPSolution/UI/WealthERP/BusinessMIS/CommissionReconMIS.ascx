@@ -254,6 +254,42 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Average Aum" DataField="AverageAum"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="AverageAum" SortExpression="AverageAum"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Total Days" DataField="TotalDays"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="TotalDays" SortExpression="TotalDays"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Aum Per Day" DataField="AumPerDay"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="AumPerDay" SortExpression="AumPerDay"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Trail Fee" DataField="TrailFee"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="TrailFee" SortExpression="TrailFee"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Trail Per Day" DataField="TrailPerDay"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="TrailPerDay" SortExpression="TrailPerDay"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                    </telerik:GridBoundColumn>
+                  <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Trail For Period" DataField="TrailForPeriod"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="TrailForPeriod" SortExpression="TrailForPeriod"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
         <ClientSettings>

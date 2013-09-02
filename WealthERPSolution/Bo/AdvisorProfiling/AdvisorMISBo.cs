@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao advisorMISDao = new AdvisorMISDao();
             try
             {
-                dsAdvisorMIS = advisorMISDao.GetMFMIS(userType, Id, dtFrom, dtTo,RMId, branchId, branchHeadId, all);
+                dsAdvisorMIS = advisorMISDao.GetMFMIS(userType, Id, dtFrom, dtTo, RMId, branchId, branchHeadId, all);
             }
             catch (BaseApplicationException Ex)
             {
@@ -131,7 +131,7 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-        
+
         /// <summary>
         /// For getting the AMC/Scheme wise MIS for RM for a valuation date
         /// </summary>
@@ -139,7 +139,7 @@ namespace BoAdvisorProfiling
         /// <param name="valuationDate"></param>
         /// <returns>Dataset of the report</returns>
         /// //Added one parameter(AllPageExportCount) for all page export.....
-        public DataSet GetAMCSchemewiseMISForRM(int rmid, DateTime valuationDate,int amcCode, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CategoryFilterVal, out int Count, int AllPageExportCount)
+        public DataSet GetAMCSchemewiseMISForRM(int rmid, DateTime valuationDate, int amcCode, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CategoryFilterVal, out int Count, int AllPageExportCount)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -177,7 +177,7 @@ namespace BoAdvisorProfiling
         /// <param name="rmid"></param>
         /// <param name="valuationDate"></param>
         /// <returns>Dataset of the generated report</returns>
-        public DataSet GetCustomerAMCSchemewiseMISForRM(int rmid, DateTime valuationDate, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, out int Count,int AllPageExportCount)
+        public DataSet GetCustomerAMCSchemewiseMISForRM(int rmid, DateTime valuationDate, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, out int Count, int AllPageExportCount)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -222,7 +222,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCwiseMISForRM(rmid, valuationDate,AMCSearchVal);
+                dsMIS = MISDao.GetAMCwiseMISForRM(rmid, valuationDate, AMCSearchVal);
             }
             catch (BaseApplicationException Ex)
             {
@@ -262,13 +262,13 @@ namespace BoAdvisorProfiling
         /// <param name="Count"></param>
         /// <param name="AllPageExportCount"></param>
         /// <returns></returns>
-        public DataSet GetAMCSchemewiseMISForAdviser(int adviserid,int branchid,int rmid, DateTime valuationDate,int amcCode, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CategoryFilterVal, out int Count,int AllPageExportCount)
+        public DataSet GetAMCSchemewiseMISForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int amcCode, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CategoryFilterVal, out int Count, int AllPageExportCount)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCSchemewiseMISForAdviser(adviserid,branchid,rmid, valuationDate,amcCode, CurrentPage, AMCSearchVal, SchemeSearchVal, CategoryFilterVal, out Count, AllPageExportCount);
+                dsMIS = MISDao.GetAMCSchemewiseMISForAdviser(adviserid, branchid, rmid, valuationDate, amcCode, CurrentPage, AMCSearchVal, SchemeSearchVal, CategoryFilterVal, out Count, AllPageExportCount);
             }
             catch (BaseApplicationException Ex)
             {
@@ -309,7 +309,7 @@ namespace BoAdvisorProfiling
         /// <param name="Count"></param>
         /// <param name="AllPageExportCount"></param>
         /// <returns></returns>
-        public DataSet GetCustomerAMCSchemewiseMISForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, out int Count,int AllPageExportCount)
+        public DataSet GetCustomerAMCSchemewiseMISForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int schemeplanid, int CurrentPage, string AMCSearchVal, string SchemeSearchVal, string CustomerName, string FolioNum, out int Count, int AllPageExportCount)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -356,7 +356,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao advisorMISDao = new AdvisorMISDao();
             try
             {
-                dsAdvisorMIS = advisorMISDao.GetMFMISAdviser(adviserid,branchid,rmid, dtFrom, dtTo);
+                dsAdvisorMIS = advisorMISDao.GetMFMISAdviser(adviserid, branchid, rmid, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -488,13 +488,13 @@ namespace BoAdvisorProfiling
 
 
         #region AUM MIS ForDateRange
-        public DataSet GetCustomerAMCSchemewiseAUMForRMForDateRange(int rmid, DateTime valuationDate, int SchemeCode,DateTime fromdate,DateTime todate)
+        public DataSet GetCustomerAMCSchemewiseAUMForRMForDateRange(int rmid, DateTime valuationDate, int SchemeCode, DateTime fromdate, DateTime todate)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForRMForDateRange(rmid, valuationDate, SchemeCode,fromdate,todate);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForRMForDateRange(rmid, valuationDate, SchemeCode, fromdate, todate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -520,12 +520,12 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        
+
 
         #endregion
 
 
-        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate,int SchemeCode)
+        public DataSet GetCustomerAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate, int SchemeCode)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -557,7 +557,7 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate,int AmcCode)
+        public DataSet GetAMCSchemewiseAUMForRM(int rmid, DateTime valuationDate, int AmcCode)
         {
             DataSet dsMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -744,7 +744,7 @@ namespace BoAdvisorProfiling
             }
             return dsBMMIS;
         }
-        
+
         public DataSet GetAMCwiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate)
         {
             DataSet dsAmsWiseAUM;
@@ -858,7 +858,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsBMMIS = MISDao.GetMISForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate, amcCode, schemeplanid,CurrentPage, AMCSearchVal,SchemeSearchVal,CustomerName, FolioNum,CategoryFilterVal, out Count, AllPageExportCount);
+                dsBMMIS = MISDao.GetMISForBM(rmid, branchID, branchHeadId, XWise, all, valuationDate, amcCode, schemeplanid, CurrentPage, AMCSearchVal, SchemeSearchVal, CustomerName, FolioNum, CategoryFilterVal, out Count, AllPageExportCount);
             }
             catch (BaseApplicationException Ex)
             {
@@ -939,27 +939,27 @@ namespace BoAdvisorProfiling
 
             return dsEQMIS;
         }
-        
 
-   /// <summary>
-   /// For getting the MIS wise transaction grid with total brokerage amount
-   /// </summary>
-   /// <param name="userId"></param>
-   /// <param name="misType"></param>
-   /// <param name="dtFrom"></param>
-   /// <param name="dtTo"></param>
-   /// <param name="currentPage"></param>
-   /// <param name="count"></param>
-   /// <param name="sumTotal"></param>
-   /// <returns></returns>
-        public DataSet GetMFMISCommission(int adviserId, string misType, DateTime dtFrom, DateTime dtTo,out double sumTotal)
+
+        /// <summary>
+        /// For getting the MIS wise transaction grid with total brokerage amount
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="misType"></param>
+        /// <param name="dtFrom"></param>
+        /// <param name="dtTo"></param>
+        /// <param name="currentPage"></param>
+        /// <param name="count"></param>
+        /// <param name="sumTotal"></param>
+        /// <returns></returns>
+        public DataSet GetMFMISCommission(int adviserId, string misType, DateTime dtFrom, DateTime dtTo, out double sumTotal)
         {
-           
+
             DataSet dsGetMISCommission = null;
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsGetMISCommission = MISDao.GetMFMISCommission(adviserId, misType, dtFrom, dtTo, out sumTotal);               
+                dsGetMISCommission = MISDao.GetMFMISCommission(adviserId, misType, dtFrom, dtTo, out sumTotal);
             }
             catch (BaseApplicationException Ex)
             {
@@ -985,7 +985,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetMISCommission;
         }
-        public DateTime GetLatestValuationDateFromHistory(int adviserId,string assetType)
+        public DateTime GetLatestValuationDateFromHistory(int adviserId, string assetType)
         {
 
             DateTime latestValuationDate = new DateTime();
@@ -998,18 +998,18 @@ namespace BoAdvisorProfiling
             {
                 throw Ex;
             }
-            
+
             return latestValuationDate;
         }
 
 
-        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All,  out int i,int IsAssociates,int AgentId)
+        public DataSet GetMFDashBoard(string userType, int adviserId, int rmId, int branchId, int branchHeadId, int All, out int i, int IsAssociates, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsMfDashBoard;
             try
             {
-                dsMfDashBoard = MISDao.GetMFDashBoard( userType,  adviserId,  rmId,  branchId,  branchHeadId,  All,  out i,IsAssociates,AgentId);
+                dsMfDashBoard = MISDao.GetMFDashBoard(userType, adviserId, rmId, branchId, branchHeadId, All, out i, IsAssociates, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1039,7 +1039,7 @@ namespace BoAdvisorProfiling
             DataSet dsAMCTransactionDeatails;
             try
             {
-                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType,AdviserId,rmId,branchId,branchHeadId,all,FromDate,Todate,AgentId);
+                dsAMCTransactionDeatails = MISDao.GetAMCTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1070,7 +1070,7 @@ namespace BoAdvisorProfiling
             DataSet dsSchemeTransactionDeatails;
             try
             {
-                dsSchemeTransactionDeatails = MISDao.GetSchemeTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AmcCode, Category,AgentId);
+                dsSchemeTransactionDeatails = MISDao.GetSchemeTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AmcCode, Category, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1095,7 +1095,7 @@ namespace BoAdvisorProfiling
             return dsSchemeTransactionDeatails;
         }
 
-        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
+        public DataSet GetBranchTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsBranchTransactionDeatails;
@@ -1132,7 +1132,7 @@ namespace BoAdvisorProfiling
             DataSet dsFolioTransactionDeatails;
             try
             {
-                dsFolioTransactionDeatails = MISDao.GetFolioTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, SchemeCode,AgentId);
+                dsFolioTransactionDeatails = MISDao.GetFolioTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, SchemeCode, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1163,7 +1163,7 @@ namespace BoAdvisorProfiling
             DataSet dsCategoryTransactionDeatails;
             try
             {
-                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate,Category,AgentId);
+                dsCategoryTransactionDeatails = MISDao.GetCategoryTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, Category, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1188,13 +1188,13 @@ namespace BoAdvisorProfiling
             return dsCategoryTransactionDeatails;
         }
 
-        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate,int AgentId)
+        public DataSet GetRMTransactionDeatails(string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsRMTransactionDeatails;
             try
             {
-                dsRMTransactionDeatails = MISDao.GetRMTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate,AgentId);
+                dsRMTransactionDeatails = MISDao.GetRMTransactionDeatails(userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1219,13 +1219,13 @@ namespace BoAdvisorProfiling
             return dsRMTransactionDeatails;
         }
 
-        public DataSet GetAllClusterTransactionDeatails(int adviserId,int rmId,int branchId,int branchHeadId,int all, DateTime fromDate, DateTime toDate,string categoryCode)
+        public DataSet GetAllClusterTransactionDeatails(int adviserId, int rmId, int branchId, int branchHeadId, int all, DateTime fromDate, DateTime toDate, string categoryCode)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsAllClusterTransactionDeatails;
             try
             {
-                dsAllClusterTransactionDeatails = MISDao.GetAllClusterTransactionDeatails(adviserId,rmId,branchId,branchHeadId,all, fromDate, toDate,categoryCode);
+                dsAllClusterTransactionDeatails = MISDao.GetAllClusterTransactionDeatails(adviserId, rmId, branchId, branchHeadId, all, fromDate, toDate, categoryCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1234,7 +1234,7 @@ namespace BoAdvisorProfiling
             return dsAllClusterTransactionDeatails;
         }
 
-        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo,int AMC,int Schemecode)
+        public DataSet GetCommissionMIS(int adviserId, string misType, DateTime dtFrom, DateTime dtTo, int AMC, int Schemecode)
         {
 
             DataSet dsGetMISCommission = null;
@@ -1403,7 +1403,7 @@ namespace BoAdvisorProfiling
         public DataSet validateDate(DateTime fromDate, DateTime toDate)
         {
             AdvisorMISDao advisorMISDao = new AdvisorMISDao();
-            DataSet dsValidateDate=new DataSet();
+            DataSet dsValidateDate = new DataSet();
             dsValidateDate = advisorMISDao.validateDate(fromDate, toDate);
             return dsValidateDate;
         }
@@ -1501,13 +1501,51 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-        public DataSet GetCommissionReconMis( int AdviserId, int schemeid, DateTime FromDate, DateTime Todate,string category,int subbrokercode )
+        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, int subbrokercode)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
+            DataTable dtstructure = new DataTable();
+            DataTable dtTrailSet = new DataTable();
+            
             try
             {
                 dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category, subbrokercode);
+                //for trail
+                if (dsGetCommissionReconMis.Tables.Count > 1 && dsGetCommissionReconMis.Tables[1].Rows.Count > 1 && dsGetCommissionReconMis.Tables[2].Rows.Count > 1)
+                {
+                    dtstructure = dsGetCommissionReconMis.Tables[1];
+                    dtTrailSet = dsGetCommissionReconMis.Tables[2];
+                    dtTrailSet.Columns.Add("AverageAum");
+                    dtTrailSet.Columns.Add("TotalDays");
+                    dtTrailSet.Columns.Add("AumPerDay");
+                    dtTrailSet.Columns.Add("TrailPerDay");
+                    dtTrailSet.Columns.Add("TrailForPeriod");
+                    foreach (DataRow drstructure in dtstructure.Rows)
+                    {
+                        foreach (DataRow drtrail in dtTrailSet.Rows)
+                        {
+                            if (drstructure["schemecode"].ToString() == drtrail["schemecode"].ToString())
+                            {
+                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
+                                drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
+                                drtrail["TrailPerDay"] = float.Parse(drtrail["TrailFee"].ToString()) / 365;
+                                drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                            }
+                            else
+                                drtrail["AverageAum"] = 0;
+                            drtrail["TotalDays"] = 0;
+                            drtrail["AumPerDay"] = 0;
+                            drtrail["TrailPerDay"] = 0;
+                            drtrail["TrailForPeriod"] = 0;
+
+                            dsGetCommissionReconMis.Tables[0].ImportRow(drtrail);
+                        }
+                        
+                    }
+
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1523,7 +1561,7 @@ namespace BoAdvisorProfiling
                 object[] objects = new object[2];
                 objects[0] = AdviserId;
                 objects[1] = schemeid;
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1545,13 +1583,13 @@ namespace BoAdvisorProfiling
         /// <param name="Todate"></param>
         /// <param name="AgentId"></param>
         /// <returns></returns>
-        public DataSet GetProductDetailFromMFOrder(string agentcode,string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
+        public DataSet GetProductDetailFromMFOrder(string agentcode, string userType, int AdviserId, int rmId, int branchId, int branchHeadId, int all, DateTime FromDate, DateTime Todate, int AgentId)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetProductDetailFromMFOrder;
             try
             {
-                dsGetProductDetailFromMFOrder = MISDao.GetProductDetailFromMFOrder(agentcode,userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
+                dsGetProductDetailFromMFOrder = MISDao.GetProductDetailFromMFOrder(agentcode, userType, AdviserId, rmId, branchId, branchHeadId, all, FromDate, Todate, AgentId);
             }
             catch (BaseApplicationException Ex)
             {
