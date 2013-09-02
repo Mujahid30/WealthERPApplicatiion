@@ -69,14 +69,16 @@
                             HeaderStyle-Width="90px" FilterControlWidth="90px" CurrentFilterFunction="Contains">
                             <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridDateTimeColumn DataField="AA_StartDate" ReadOnly="true"
-                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px"
-                            HeaderText="From" SortExpression="AA_StartDate" UniqueName="AA_StartDate">
+                        <telerik:GridDateTimeColumn DataField="AA_StartDate" ReadOnly="true" 
+                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" ShowFilterIcon="false" AllowFiltering="true" 
+                            AutoPostBackOnFilter="true" HeaderText="From" SortExpression="AA_StartDate" UniqueName="AA_StartDate" 
+                            CurrentFilterFunction="EqualTo" >
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                         </telerik:GridDateTimeColumn>
                         <telerik:GridDateTimeColumn DataField="AA_EndDate"
-                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" 
-                            HeaderText="To" SortExpression="AA_EndDate"  UniqueName="AA_EndDate">
+                            DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-Width="100px" ShowFilterIcon="false"
+                             CurrentFilterFunction="EqualTo" HeaderText="To" AllowFiltering="true" SortExpression="AA_EndDate" 
+                             UniqueName="AA_EndDate" AutoPostBackOnFilter="true" >
                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                         </telerik:GridDateTimeColumn>
                     </Columns>
@@ -90,7 +92,7 @@
             </telerik:RadGrid>
         </div>
     </ContentTemplate>
-    <Triggers>
+   <Triggers>
         <asp:PostBackTrigger ControlID="imgExportButton" />
     </Triggers>
 </asp:UpdatePanel>
