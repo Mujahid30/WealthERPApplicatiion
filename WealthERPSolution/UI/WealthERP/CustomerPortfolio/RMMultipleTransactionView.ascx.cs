@@ -1020,16 +1020,15 @@ namespace WealthERP.CustomerPortfolio
                 if (userType == "advisor" || userType == "ops")
                 {
                     AdviserId = advisorVo.advisorId;
-                    IsAssociates = 0;
-                    gvMFTransactions.Columns[2].Visible = false;
-                    gvMFTransactions.Columns[3].Visible = false;
-                    gvMFTransactions.Columns[4].Visible = false;
-                    gvMFTransactions.Columns[6].Visible = false;
+                    gvBalanceView.Columns[2].Visible = false;
+                    gvBalanceView.Columns[3].Visible = false;
+                    gvBalanceView.Columns[4].Visible = false;
+                    gvBalanceView.Columns[6].Visible = false;
                 }
                 else if (userType == "rm")
                 {
                     rmID = rmVo.RMId;
-                    IsAssociates = 0;
+                   
                 }
             }
               else if (advisorVo.A_AgentCodeBased == 1)
@@ -1043,10 +1042,7 @@ namespace WealthERP.CustomerPortfolio
                   else if (userType == "associates")
                   {
                       AdviserId = advisorVo.advisorId;
-                      
-
                   }
-
               }
 
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
@@ -1093,7 +1089,6 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("AreaManager");
                     dtMFBalance.Columns.Add("AssociatesName");
                     dtMFBalance.Columns.Add("ChannelName");
-
                     DataRow drMFBalance;
 
                     for (int i = 0; i < mfBalanceList.Count; i++)
@@ -1101,7 +1096,6 @@ namespace WealthERP.CustomerPortfolio
                         drMFBalance = dtMFBalance.NewRow();
                         mfBalanceVo = new MFTransactionVo();
                         mfBalanceVo = mfBalanceList[i];
-
                         drMFBalance["TransactionId"] = mfBalanceVo.TransactionId.ToString();
                         drMFBalance["Customer Name"] = mfBalanceVo.CustomerName.ToString();
                         drMFBalance["Folio Number"] = mfBalanceVo.Folio.ToString();
@@ -1290,20 +1284,39 @@ namespace WealthERP.CustomerPortfolio
             DataSet ds = new DataSet();
             int rmID = 0;
             int AdviserId = 0;
-            if (userType == "advisor" || userType == "ops")
+            if (advisorVo.A_AgentCodeBased == 0)
             {
-                AdviserId = advisorVo.advisorId;
-                IsAssociates = 0;
+                if (userType == "advisor" || userType == "ops")
+                {
+                    AdviserId = advisorVo.advisorId;
+                    IsAssociates = 0;
+                    gvTrail.Columns[4].Visible = false;
+                    gvTrail.Columns[5].Visible = false;
+                    gvTrail.Columns[6].Visible = false;
+                    gvTrail.Columns[7].Visible = false;
+                    gvTrail.Columns[8].Visible = false;
+                }
+                else if (userType == "rm")
+                {
+                    rmID = rmVo.RMId;
+                    IsAssociates = 0;
+                }
             }
-            else if (userType == "rm")
+            else if (advisorVo.A_AgentCodeBased == 1)
             {
-                rmID = rmVo.RMId;
-                IsAssociates = 0;
-            }
-            else if (userType == "associates")
-            {
-                AgentId = associatesVo.AAC_AdviserAgentId;
-                IsAssociates = 1;
+                if (userType == "advisor" || userType == "ops")
+                {
+                    AdviserId = advisorVo.advisorId;
+                    hdnAgentCode.Value = "0";
+
+                }
+                else if (userType == "associates")
+                {
+                    AdviserId = advisorVo.advisorId;
+
+
+                }
+
             }
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
@@ -1311,16 +1324,16 @@ namespace WealthERP.CustomerPortfolio
             {
                 if (rbtnGroup.Checked)
                 {
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 else if (Session["IsCustomerDrillDown"] == "Yes")
                 {
                     customerId = customerVo.CustomerId;
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 else
                 {
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, IsAssociates, AgentId);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
                 {

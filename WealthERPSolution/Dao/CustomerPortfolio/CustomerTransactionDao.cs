@@ -2641,7 +2641,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int IsAssociates, int AgentId)
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             DataSet ds = null;
             Database db;
@@ -2650,7 +2650,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
 
-                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SP_GetRMCustomerTrailCommission");
+                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("Sp_getrmcustomertrailcommissiontemp");
 
                 if (RMId != 0)
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@RMId", DbType.Int32, RMId);
@@ -2672,7 +2672,7 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@GroupHeadId", DbType.Int32, DBNull.Value);
                 }
 
-
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@UserType", DbType.String, UserType);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
@@ -2688,12 +2688,12 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, Category);
                 else
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Category", DbType.String, DBNull.Value);
-                if (AgentId != 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                if (AgentCode != "0")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AgentCode", DbType.String, AgentCode);
                 else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-             
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAssociate", DbType.Int32, IsAssociates);
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AgentCode", DbType.String, DBNull.Value);
+
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
                
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);

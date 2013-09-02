@@ -331,7 +331,7 @@ namespace WealthERP.CustomerPortfolio
             try
             {
                 Session["MFEditValue"] = "View";
-                btnDelete.Visible = true;
+                btnDelete.Visible = true;               
                 DataSet dsPortfolioType = new DataSet();
                dsPortfolioType = customerTransactionBo.GetPortfolioType(mfTransactionVo.Folio);
 
@@ -364,8 +364,9 @@ namespace WealthERP.CustomerPortfolio
                 txtUnits.Text = mfTransactionVo.Units.ToString("f4");
                 Session["MFEditValue"] = "Edit";
                 lnkEdit.Visible = false;
-               
+                btnSubmit.Visible = true;
                     btnDelete.Enabled = true;
+                    txtSubBrokerCode.Enabled = true;
              
                 //else if (btnCancel.Visible == true)
                 //{

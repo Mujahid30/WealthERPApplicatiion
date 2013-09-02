@@ -1384,15 +1384,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int IsAssociates, int AgentId)
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             DataSet ds = new DataSet();
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             try
             {
 
-                ds = customerTransactionDao.GetRMCustomerTrailCommission(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId, AmcCode,Category,IsAssociates,AgentId);
-
+                ds = customerTransactionDao.GetRMCustomerTrailCommission(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId, AmcCode, Category, A_AgentCodeBased, AgentCode, UserType);
             }
             catch (BaseApplicationException Ex)
             {
