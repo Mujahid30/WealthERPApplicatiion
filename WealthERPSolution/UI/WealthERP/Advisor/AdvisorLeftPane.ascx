@@ -167,13 +167,14 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text=" MFOrder Entry" Value="OrderEntry">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster"> </telerik:RadPanelItem> 
                                             <telerik:RadPanelItem runat="server" Text="Order List" Value="Order_List">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Operations" Value="Operations">
                                         <Items>
-                                          <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster"> </telerik:RadPanelItem> 
+                                          <telerik:RadPanelItem runat="server" Text="Add FD&54EC order" Value="ProductOrderMaster" Visible="false"> </telerik:RadPanelItem> 
                                             <telerik:RadPanelItem runat="server" Text="Upload" Value="Upload">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Start Upload" Value="Start_Upload">
