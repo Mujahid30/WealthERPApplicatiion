@@ -522,7 +522,7 @@ namespace WealthERP.OPS
                 ErrorMessage.Visible = false;
                 tblMessage.Visible = false;
                 pnlOrderList.Visible = true;
-              //  btnExportFilteredDupData.Visible = true;
+               btnExportFilteredDupData.Visible = true;
             }
             else
             {
