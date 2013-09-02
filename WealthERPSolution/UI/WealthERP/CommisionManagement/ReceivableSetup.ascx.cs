@@ -182,7 +182,7 @@ namespace WealthERP.Receivable
                 }
 
                 if (!string.IsNullOrEmpty(strSubCategoryCode.ToString()))
-                    strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
+                    strSubCategoryCode=strSubCategoryCode.Remove((strSubCategoryCode.Length - 1), 1);
 
                 commissionStructureMasterVo.AssetSubCategory = strSubCategoryCode;
 
@@ -321,6 +321,11 @@ namespace WealthERP.Receivable
                 ddlSIPFrequency.DataTextField = dsCommissionLookup.Tables[5].Columns["XF_Frequency"].ToString();
                 ddlSIPFrequency.DataBind();
                 ddlSIPFrequency.SelectedValue = "MN";
+
+                chkListTtansactionType.DataSource = dsCommissionLookup.Tables[10];
+                chkListTtansactionType.DataValueField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationCode"].ToString();
+                chkListTtansactionType.DataTextField = dsCommissionLookup.Tables[10].Columns["WMTT_TransactionClassificationName"].ToString();
+                chkListTtansactionType.DataBind();
 
                 if (e.Item.RowIndex != -1)
                 {
@@ -589,6 +594,8 @@ namespace WealthERP.Receivable
                             commissionStructureRuleVo.SIPFrequency = ddlSIPFrequency.SelectedValue;
                     }
                 }
+                if (!string.IsNullOrEmpty(commissionStructureRuleVo.TransactionType))
+                commissionStructureRuleVo.TransactionType=commissionStructureRuleVo.TransactionType.Remove((commissionStructureRuleVo.TransactionType.Length - 1), 1);
 
                 if (!string.IsNullOrEmpty(txtBrokerageValue.Text.Trim()))
                 {

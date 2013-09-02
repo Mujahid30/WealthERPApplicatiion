@@ -620,11 +620,11 @@
                                                 <td class="rightData">
                                                     <asp:CheckBoxList ID="chkListTtansactionType" runat="server" CssClass="txtField"
                                                         RepeatLayout="Flow" RepeatDirection="Horizontal">
-                                                        <asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
+                                                        <%--<asp:ListItem Text="Buy" Value="BUY"></asp:ListItem>
                                                         <asp:ListItem Text="SIP" Value="SIP"></asp:ListItem>
                                                         <asp:ListItem Text="STP Buy" Value="STPBUY"></asp:ListItem>
                                                         <asp:ListItem Text="Switch Buy" Value="SWITCHBUY"></asp:ListItem>
-                                                        <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>
+                                                        <asp:ListItem Text="Additional Purchase" Value="ADDPUR"></asp:ListItem>--%>
                                                     </asp:CheckBoxList>
                                                 </td>
                                                 <td class="leftLabel">
@@ -695,10 +695,10 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="5">
-                                                    <asp:CustomValidator ID="CustomValidator4" runat="server" Text="At least one rule is required"
+                                                    <%--<asp:CustomValidator ID="CustomValidator4" runat="server" Text="At least one rule is required"
                                                         ControlToValidate="txtBrokerageValue" ClientValidationFunction="InvestmentAmountValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
-                                                    </asp:CustomValidator>
+                                                    </asp:CustomValidator>--%>
                                                     <asp:CustomValidator ID="CustomValidator1" runat="server" Text="Min Invest Amount should be less than Max Invest"
                                                         ControlToValidate="txtMaxInvestmentAmount" ClientValidationFunction="InvestmentAmountValidation"
                                                         ValidateEmptyText="true" ValidationGroup="btnSubmitRule" Display="Dynamic" SetFocusOnError="true">
