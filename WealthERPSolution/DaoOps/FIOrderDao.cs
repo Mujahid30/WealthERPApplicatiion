@@ -24,7 +24,7 @@ namespace DaoOps
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getTaxStatuscmd = db.GetStoredProcCommand("Sp_GetTaxStatus");
-                db.AddInParameter(getTaxStatuscmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(getTaxStatuscmd, "@CustID", DbType.Int32, customerId);
 
                 dsOrderNumber = db.ExecuteDataSet(getTaxStatuscmd);
                 dtTaxStatus = dsOrderNumber.Tables[0];
@@ -49,7 +49,53 @@ namespace DaoOps
             }
             return TaxStatus;
         }
-
+        public bool UpdateFITransactionForSynch(int gvOrderId, String gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status, DateTime gvOrderDate)
+        {
+            Database db;
+            DbCommand updateMFTransactionForSynchCmd;
+            int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateMFTransactionForSynchCmd = db.GetStoredProcCommand("SP_UpdateFITransactionForSync");
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderId", DbType.Int32, gvOrderId);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@schemeCode", DbType.String, gvSchemeCode);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@accountId", DbType.Int32, gvaccountId);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@trxType", DbType.String, gvTrxType);
+                //db.AddInParameter(updateMFTransactionForSynchCmd, "@portfolioId", DbType.Int32, gvPortfolioId);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@amount", DbType.Double, gvAmount);
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderDate", DbType.DateTime, gvOrderDate);
+                db.AddOutParameter(updateMFTransactionForSynchCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateMFTransactionForSynchCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateMFTransactionForSynchCmd, "@IsSuccess").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:UpdateMFTransactionForSynch()");
+                object[] objects = new object[7];
+                objects[0] = gvOrderId;
+                objects[1] = gvSchemeCode;
+                objects[2] = gvaccountId;
+                objects[3] = gvTrxType;
+                objects[4] = gvPortfolioId;
+                objects[5] = gvAmount;
+                objects[6] = gvOrderDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
+        }
         public DataSet GetCustomerAssociates(int customerId)
         {
             DataSet dsCustomerAssociates = null;
@@ -122,6 +168,30 @@ namespace DaoOps
             }
             return orderNumber;
         }
+
+
+        public DataSet GetFIModeOfHolding()
+        {
+            DataSet dsGetFICategory;
+            Database db;
+            DbCommand getFICategorycmd;
+            try
+            {
+                //  Shantanu Dated :- 18thSept2012
+                //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
+                //then test the folio Add Screen also..
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getFICategorycmd = db.GetStoredProcCommand("SP_XMLModeOfHolding");
+                dsGetFICategory = db.ExecuteDataSet(getFICategorycmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetFICategory;
+        }
+
         public DataSet GetCustomerBank(int customerId)
         {
             DataSet dsGetCustomerBank;
@@ -192,7 +262,7 @@ namespace DaoOps
         }
 
 
-        public DataSet GetFIScheme(int AdviserID, int IssuerID)
+        public DataSet GetFIScheme(int AdviserID, string IssuerID)
         {
             DataSet dsGetFIIssuer;
             Database db;
@@ -206,7 +276,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getFIIssuercmd = db.GetStoredProcCommand("Sp_FIScheme");
                 db.AddInParameter(getFIIssuercmd, "@AdviserID", DbType.Int32, AdviserID);
-                db.AddInParameter(getFIIssuercmd, "@IssuerID", DbType.Int32, IssuerID);
+                db.AddInParameter(getFIIssuercmd, "@IssuerID", DbType.String, IssuerID);
                 dsGetFIIssuer = db.ExecuteDataSet(getFIIssuercmd);
             }
             catch (BaseApplicationException Ex)
@@ -347,7 +417,7 @@ namespace DaoOps
                 db.AddInParameter(createMFOrderTrackingCmd, "@Isclose", DbType.Int16, 0);
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, mforderVo.AssetInstrumentCategoryCode);
-                db.AddInParameter(createMFOrderTrackingCmd, "@PFIIM_IssuerId", DbType.Int16, mforderVo.IssuerId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@PFIIM_IssuerId", DbType.String, mforderVo.IssuerId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PFISM_SchemeId", DbType.Int16, mforderVo.SchemeId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PFISD_SeriesId", DbType.Int16, mforderVo.SeriesId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_TransactionType", DbType.String, mforderVo.TransactionType);
@@ -367,6 +437,9 @@ namespace DaoOps
 
                 //db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_MaturityDate", DbType.DateTime, mforderVo.MaturityDate);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_MaturityAmount", DbType.Double, mforderVo.MaturityAmount);
+
+                db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_DepCustBankAccId", DbType.Int32, mforderVo.DepCustBankAccId);
+
                 db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int16, mforderVo.AgentId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int16, userId );
                 
@@ -515,7 +588,75 @@ namespace DaoOps
             }
             return dsGetFISeries;
         }
+        public DataSet GetCustomerFIOrderDetails(int orderId)
+        {
+            DataSet dsGetCustomerMFOrderDetails;
+            Database db;
+            DbCommand getCustomerMFOrderDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustomerMFOrderDetailscmd = db.GetStoredProcCommand("SP_GetCustomerFIOrderDetails");
+                db.AddInParameter(getCustomerMFOrderDetailscmd, "@orderId", DbType.Int32, orderId);
+                dsGetCustomerMFOrderDetails = db.ExecuteDataSet(getCustomerMFOrderDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "FIorderDao.cs:GetOrderNumber()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetCustomerMFOrderDetails;
+        }
+        public DataSet GetCustomerFIOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId)
+        {
+            DataSet dsGetCustomerFIOrderMIS = null;
+            Database db;
+            DbCommand GetCustomerFIOrderMIScmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCustomerFIOrderMIScmd = db.GetStoredProcCommand("SP_GetCustomerFIOrderMIS");
+                db.AddInParameter(GetCustomerFIOrderMIScmd, "@adviserId", DbType.Int64, AdviserId);
+                db.AddInParameter(GetCustomerFIOrderMIScmd, "@fromdate", DbType.DateTime, dtFrom);
+                db.AddInParameter(GetCustomerFIOrderMIScmd, "@todate", DbType.DateTime, dtTo);
+                db.AddInParameter(GetCustomerFIOrderMIScmd, "@branchId", DbType.String, branchId);
+                db.AddInParameter(GetCustomerFIOrderMIScmd, "@rmId", DbType.String, rmId);
+                if (!string.IsNullOrEmpty(transactionType.ToString().Trim()))
+                    db.AddInParameter(GetCustomerFIOrderMIScmd, "@trxType", DbType.String, transactionType);
+                else
+                    db.AddInParameter(GetCustomerFIOrderMIScmd, "@trxType", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(status.ToString().Trim()))
+                    db.AddInParameter(GetCustomerFIOrderMIScmd, "@orderStatus", DbType.String, status);
+                else
+                    db.AddInParameter(GetCustomerFIOrderMIScmd, "@orderStatus", DbType.String, DBNull.Value);
+                db.AddInParameter(GetCustomerFIOrderMIScmd, "@ordertype", DbType.String, orderType);
+                //if (!string.IsNullOrEmpty(amcCode.ToString().Trim()))
+                //    db.AddInParameter(GetCustomerFIOrderMIScmd, "@amcCode", DbType.String, amcCode);
+                //else
+                //    db.AddInParameter(GetCustomerFIOrderMIScmd, "@amcCode", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(customerId.ToString().Trim()))
+                    db.AddInParameter(GetCustomerFIOrderMIScmd, "@customerId", DbType.String, customerId);
+                else
+                    db.AddInParameter(GetCustomerFIOrderMIScmd, "@customerId", DbType.String, DBNull.Value);
 
+                dsGetCustomerFIOrderMIS = db.ExecuteDataSet(GetCustomerFIOrderMIScmd);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            return dsGetCustomerFIOrderMIS;
+        }
         public DataSet GetFISeriesDetailssDetails(int SeriesID)
         {
             DataSet dsGetFISeriesDetailss;

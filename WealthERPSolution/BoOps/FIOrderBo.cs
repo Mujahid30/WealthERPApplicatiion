@@ -36,6 +36,37 @@ namespace BoOps
             }
             return orderNumber;
         }
+        public bool UpdateFITransaction(int gvOrderId, String  gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, DateTime gvOrderDate)
+        {
+            bool Result = false;
+            try
+            {
+                Result = mfOrderDao.UpdateFITransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, out Result, gvOrderDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "FIOrderBo.cs:UpdateFITransaction()");
+                object[] objects = new object[7];
+                objects[0] = gvOrderId;
+                objects[1] = gvSchemeCode;
+                objects[2] = gvaccountId;
+                objects[3] = gvTrxType;
+                objects[4] = gvPortfolioId;
+                objects[5] = gvAmount;
+                objects[6] = gvOrderDate;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return Result;
+        }
         public DataSet GetCustomerBank(int customerId)
         {
             DataSet dsGetCustomerBank;
@@ -49,7 +80,20 @@ namespace BoOps
             }
             return dsGetCustomerBank;
         }
+         public DataSet GetFIModeOfHolding()
+        {
+            DataSet dsGetFICategory;
+            try
+            {
+                dsGetFICategory = mfOrderDao.GetFIModeOfHolding();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetFICategory;
 
+        }
         public DataSet GetFICategory()
         {
             DataSet dsGetFICategory;
@@ -79,7 +123,7 @@ namespace BoOps
 
         }
 
-        public DataSet GetFIScheme(int AdviserID, int IssuerID)
+        public DataSet GetFIScheme(int AdviserID, string IssuerID)
         {
             DataSet dsGetFIScheme;
             try
@@ -118,6 +162,33 @@ namespace BoOps
                 throw (Ex);
             }
             return dsSeriesDetailssDetails;
+        }
+        public DataSet GetCustomerFIOrderDetails(int orderId)
+        {
+            DataSet dsGetCustomerMFOrderDetails;
+            try
+            {
+                dsGetCustomerMFOrderDetails = mfOrderDao.GetCustomerFIOrderDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetCustomerMFOrderDetails;
+        }
+        
+        public DataSet GetCustomerFIOrderMIS(int AdviserId, DateTime FromDate, DateTime ToDate, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId)
+        {
+            DataSet dsGetMFOrderMIS;
+            try
+            {
+                dsGetMFOrderMIS = mfOrderDao.GetCustomerFIOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode, customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetMFOrderMIS;
         }
         public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode)
         {

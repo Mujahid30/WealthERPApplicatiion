@@ -120,7 +120,7 @@
       <asp:DropDownList ID="DdlLoad" runat="server" CssClass="cmbField" OnSelectedIndexChanged="DdlLoad_Selectedindexchanged"
                 AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                <asp:ListItem Text="MutualFund" Value="1"></asp:ListItem>
+                <asp:ListItem Text="MutualFund" Value="1" Enabled="false" ></asp:ListItem>
                 <asp:ListItem Text="FixedIncome" Value="2"></asp:ListItem>
             </asp:DropDownList>
             
@@ -163,28 +163,20 @@
             </asp:DropDownList>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:"></asp:Label>
+            <asp:Label ID="lblARNNo" runat="server" CssClass="FieldName" Text="ARN No:" ></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false">
+            <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"  >
             </asp:DropDownList>
             <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                Operator="NotEqual"  ValueToCompare="Select"></asp:CompareValidator>
+               <%-- ValidationGroup="MFSubmit"--%>
         </td>
         <td >
         </td>
     </tr>
-    <tr id="trTaxStatus" runat="server">
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label5" runat="server" Text="Customer Tax status: " CssClass="FieldName"></asp:Label>
-        </td>
-        <td>
-        <asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" />                
-         </td>
-         <td colspan="3">
-        </td>
-    </tr>
+    
     <tr id="trpan" runat="server">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPansearch" runat="server" Text="Pan Number: " CssClass="FieldName"></asp:Label>
@@ -311,6 +303,16 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a associate"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select(SubBroker Code/Name/Type)"></asp:CompareValidator>
         </td>--%>
+    </tr>
+    <tr id="trTaxStatus" runat="server">
+        <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label5" runat="server" Text="Customer Tax status: " CssClass="FieldName" ></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" ReadOnly="true"   />                
+         </td>    
+         <td colspan="3">
+        </td>
     </tr>
     <tr id="trIsa" runat="server">
         <td class="leftField" style="width: 20%">

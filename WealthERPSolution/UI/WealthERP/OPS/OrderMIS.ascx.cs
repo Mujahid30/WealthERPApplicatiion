@@ -38,8 +38,10 @@ namespace WealthERP.OPS
         MFOrderBo mforderBo = new MFOrderBo();
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
-
+        FIOrderBo fiorderBo = new FIOrderBo();
         UserVo userVo = new UserVo();
+
+        FIOrderVo fiorderVo = new FIOrderVo();
 
         int portfolioId=0;
         int schemePlanCode;
@@ -356,6 +358,65 @@ namespace WealthERP.OPS
         //    ddlPortfolio.DataBind();
         //    //ddlPortfolio.SelectedValue = portfolioId.ToString();
         //}
+        private void BindFIMISGridView()
+        {
+            //DataTable dtBindGridView = new DataTable();
+            DataSet dsFIOrderMIS;
+            DataTable dtFIOrderMIS;
+            //dsFIOrderMIS = operationBo.GetFIOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
+            dsFIOrderMIS = fiorderBo.GetCustomerFIOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value);
+            dtFIOrderMIS = dsFIOrderMIS.Tables[0];
+            if (dtFIOrderMIS.Rows.Count > 0)
+            {
+                //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                gvCustomerFIOrderMIS.DataSource = dtFIOrderMIS;
+                gvCustomerFIOrderMIS.DataBind();
+                gvCustomerFIOrderMIS.Visible = true;
+                //this.GetPageCount();
+                if (ddlMISOrderStatus.SelectedValue == "OMIP")
+                {
+                    btnSync.Visible = true;
+                    btnMannualMatch.Visible = true;
+                }
+                else
+                {
+                    btnSync.Visible = false;
+                    btnMannualMatch.Visible = false;
+                }
+                if (Cache["FIOrderMIS" + advisorVo.advisorId] == null)
+                {
+                    Cache.Insert("FIOrderMIS" + userVo.UserId, dtFIOrderMIS);
+                }
+                else
+                {
+                    Cache.Remove("FIOrderMIS" + userVo.UserId);
+                    Cache.Insert("FIOrderMIS" + userVo.UserId, dtFIOrderMIS);
+                }
+                //btnSubmit.Visible = true;
+                ErrorMessage.Visible = false;
+                tblMessage.Visible = false;
+                Session["FIGridView"] = dtFIOrderMIS;
+
+                btnMForderRecon.Visible = true;
+                //imgBtnExport.Visible = true;
+            }
+            else
+            {
+                gvCustomerFIOrderMIS.Visible = false;
+                tblMessage.Visible = true;
+                //btnSubmit.Visible = false;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+                btnSync.Visible = false;
+                btnMannualMatch.Visible = false;
+
+                btnMForderRecon.Visible = false;
+                //imgBtnExport.Visible = false;
+            }
+
+
+
+        }
 
 
         private void BindMISGridView()
@@ -451,6 +512,26 @@ namespace WealthERP.OPS
 
         }
 
+        protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlProductType.SelectedIndex ==1)
+            {
+                trFITransType.Visible = false;
+                trMFTransType.Visible = true;
+
+            }
+            else
+            {
+                trFITransType.Visible = true ;
+                trMFTransType.Visible = false;
+            }
+            
+            gvCustomerOrderMIS.Visible = false;
+            gvCustomerFIOrderMIS.Visible = false;
+            tbgvMIS.Visible = false;
+           
+            hdnProductType.Value  = ddlProductType.SelectedValue;
+        }
         protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
         {
             int bmID = rmVo.RMId;
@@ -480,11 +561,89 @@ namespace WealthERP.OPS
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
+            if (hdnProductType.Value == "MF")
+            {
+                tbgvMIS.Visible = true;
+                gvCustomerOrderMIS.Visible = true;
+                gvCustomerFIOrderMIS.Visible = false;
+                SetParameters();
+                BindMISGridView();
+            }
+            else if (hdnProductType.Value == "FI")
+            {
+                tbgvMIS.Visible = true;
+                gvCustomerOrderMIS.Visible = false;
+                gvCustomerFIOrderMIS.Visible = true;
+                SetFIParameters();
+                BindFIMISGridView();
+            } 
 
-            gvCustomerOrderMIS.Visible = true; 
-            SetParameters();
-            BindMISGridView();
         }
+        private void SetFIParameters()
+        {
+            //if (ddlBranch.SelectedIndex != 0)
+            //    hdnBranchId.Value = ddlBranch.SelectedValue;
+            //else
+            //    
+            hdnBranchId.Value = "";
+
+            //if (ddlRM.SelectedIndex != 0)
+            //    hdnRMId.Value = ddlRM.SelectedValue;
+            //else
+            //   
+            hdnRMId.Value = "";
+
+
+            //if (ddlPortfolio.SelectedIndex != -1)
+            //    hdnPortFolio.Value = ddlPortfolio.SelectedValue;
+            //else
+            //    hdnPortFolio.Value = "";
+
+
+            if (ddlFITrxType.SelectedIndex != 0)
+                hdnTransactionType.Value = ddlFITrxType.SelectedValue;
+            else
+                hdnTransactionType.Value = "";
+
+            //if (txtReceivedDate.Text != "")
+            //    hdnARDate.Value = DateTime.Parse(txtReceivedDate.Text).ToString();
+            //else
+            //    hdnARDate.Value = DateTime.MinValue.ToString();
+
+            if (ddlMISOrderStatus.SelectedIndex != 0)
+                hdnOrdStatus.Value = ddlMISOrderStatus.SelectedValue;
+            else
+                hdnOrdStatus.Value = "OMIP";
+
+
+            if (ddlOrderType.SelectedIndex != -1)
+                hdnOrderType.Value = ddlOrderType.SelectedValue;
+            else
+                hdnOrderType.Value = "0";
+
+            //if (ddlAMC.SelectedIndex != 0)
+            //    hdnamcCode.Value = ddlAMC.SelectedValue;
+            //else
+                hdnamcCode.Value = "";
+
+            //if (txtOrderDate.Text != "")
+            //    hdnOrderDate.Value = DateTime.Parse(txtOrderDate.Text).ToString();
+            //else
+            //    hdnOrderDate.Value = DateTime.MinValue.ToString();
+            if (txtFrom.Text != "")
+                hdnFromdate.Value = DateTime.Parse(txtFrom.Text).ToString();
+            else
+                hdnFromdate.Value = DateTime.MinValue.ToString();
+
+            if (txtTo.Text != "")
+                hdnTodate.Value = DateTime.Parse(txtTo.Text).ToString();
+            else
+                hdnTodate.Value = DateTime.MinValue.ToString();
+
+
+
+        }
+
 
         private void SetParameters()
         {
@@ -669,7 +828,7 @@ namespace WealthERP.OPS
             double gvAmount = 0.0;
             DateTime gvOrderDate = DateTime.MinValue;
             bool result = false;
-            foreach (GridDataItem gvRow in gvCustomerOrderMIS.Items)
+            foreach (GridDataItem gvRow in gvCustomerFIOrderMIS.Items)
             {
 
                 CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
@@ -686,38 +845,108 @@ namespace WealthERP.OPS
             }
             else
             {
-                foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
-                    
+                if (hdnProductType.Value == "MF")
                 {
-                    if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
-                    {
-                        //CheckBox lnkOrderId = (CheckBox)sender;
-                        //GridDataItem gdi;
-                        //gdi = (GridDataItem)lnkOrderId.NamingContainer;
-                        int selectedRow = gdi.ItemIndex + 1;
-                        gvOrderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
-                        //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
-                        gvPortfolioId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString());
-                        gvSchemeCode = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
-                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
-                            gvaccountId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
-                        else
-                            gvaccountId = 0;
-                        gvTrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
-                        gvAmount = Convert.ToDouble(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
-                        gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
-                        result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
-                        if (result == true)
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
-                        else
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
-                    }
+                    result = MFAutoMatch();
+                    BindMISGridView();
                 }
-                BindMISGridView();
+                else if (hdnProductType.Value == "FI")
+                {
+                    result = FIAutoMatch();
+                    BindFIMISGridView();
+                }
+                if (result == true)
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
+               
             }
         }
+        private bool FIAutoMatch()
+        {
+            int gvOrderId = 0;
+            //int gvCustomerId = 0;
+            int gvPortfolioId = 0;
+            string gvSchemeCode ="";
+            int gvaccountId = 0;
+            string gvTrxType = "";
+            string CategoryCode = "";
+            double gvAmount = 0.0;
+            DateTime gvOrderDate = DateTime.MinValue;
+            bool result = false;
+            foreach (GridDataItem gdi in gvCustomerFIOrderMIS.Items)
+            {
+                if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
+                {
+                    //CheckBox lnkOrderId = (CheckBox)sender;
+                    //GridDataItem gdi;
+                    //gdi = (GridDataItem)lnkOrderId.NamingContainer;
+                    int selectedRow = gdi.ItemIndex + 1;
+                    gvOrderId = Convert.ToInt32(gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CFIOD_DetailsId"].ToString());
+                    //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
+                    //gvPortfolioId = Convert.ToInt32(gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString());
+                    gvSchemeCode = gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    //if (!string.IsNullOrEmpty(gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
+                       // gvaccountId =                         Convert.ToInt32(gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
+                 //   else
+                        gvaccountId = 0;
+                    //gvTrxType = gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
+                    //gvAmount = Convert.ToDouble(gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
+                    gvOrderDate = Convert.ToDateTime(gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
+                    result = fiorderBo.UpdateFITransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
+                    
+                }
+            }
+
+            return result;
 
 
+
+        }
+
+        private bool MFAutoMatch()
+        {
+            int gvOrderId = 0;
+            //int gvCustomerId = 0;
+            int gvPortfolioId = 0;
+            int gvSchemeCode = 0;
+            int gvaccountId = 0;
+            string gvTrxType = "";
+            double gvAmount = 0.0;
+            DateTime gvOrderDate = DateTime.MinValue;
+            bool result = false;
+            foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
+            {
+                if (((CheckBox)gdi.FindControl("cbRecons")).Checked == true)
+                {
+                    //CheckBox lnkOrderId = (CheckBox)sender;
+                    //GridDataItem gdi;
+                    //gdi = (GridDataItem)lnkOrderId.NamingContainer;
+                    int selectedRow = gdi.ItemIndex + 1;
+                    gvOrderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
+                    //gvCustomerId = Convert.ToInt32(gvMIS.DataKeys[gvRow.RowIndex].Values["C_CustomerId"].ToString());
+                    gvPortfolioId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CP_portfolioId"].ToString());
+                    gvSchemeCode = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
+                    if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
+                        gvaccountId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
+                    else
+                        gvaccountId = 0;
+                    gvTrxType = gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
+                    gvAmount = Convert.ToDouble(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_Amount"].ToString());
+                    gvOrderDate = Convert.ToDateTime(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderDate"].ToString());
+                    result = operationBo.UpdateMFTransaction(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
+                    //if (result == true)
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
+                    //else
+                    //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
+                }
+            }
+
+            return result;
+            
+
+
+        }
 
         //protected void btnExportExcel_Click(object sender, EventArgs e)
         //{
@@ -1460,6 +1689,155 @@ namespace WealthERP.OPS
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=View');", true);
 
         }
+
+
+        protected void lnkFIOrderNo_Click(object sender, EventArgs e)
+        {
+              
+            int index = 0;
+            DataSet dsGetFIOrderDetails;
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int orderId = int.Parse((gvCustomerFIOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()));
+            dsGetFIOrderDetails = fiorderBo.GetCustomerFIOrderDetails(orderId);
+
+            if (dsGetFIOrderDetails.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow dr in dsGetFIOrderDetails.Tables[0].Rows)
+                {
+                    orderVo.OrderId = int.Parse(dr["CO_OrderId"].ToString());
+                    orderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                    //orderVo.CustomerName = dr["Customer_Name"].ToString();
+                    //fiorderVo.RMName = dr["RM_Name"].ToString();
+                    //fiorderVo.BMName = dr["AB_BranchName"].ToString();
+                    //fiorderVo.PanNo = dr["C_PANNum"].ToString();
+                    //if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
+                    //    fiorderVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
+                    //else
+                    //    fiorderVo.Amccode = 0;
+                    //if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
+                    //    fiorderVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    //if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
+                    //    fiorderVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                    //fiorderVo.OrderNumber = int.Parse(dr["CFIOD_OrderNumber"].ToString());
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_Amount"].ToString().Trim()))
+                    //    fiorderVo.Amount = double.Parse(dr["CFIOD_Amount"].ToString());
+                    //else
+                    //    fiorderVo.Amount = 0;
+
+                    //if (int.Parse(dr["CFIA_accountid"].ToString()) != 0)
+                    //    fiorderVo.accountid = int.Parse(dr["CFIA_accountid"].ToString());
+                    //else
+                    //    fiorderVo.accountid = 0;
+                    //fiorderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                    //orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
+                    //fiorderVo.IsImmediate = int.Parse(dr["CFIOD_IsImmediate"].ToString());
+                    //orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
+                    //orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+                    //fiorderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
+                    orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
+                        orderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
+                    else
+                        orderVo.ChequeNumber = "";
+                    if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
+                        orderVo.PaymentDate = DateTime.Parse(dr["CO_PaymentDate"].ToString());
+                    else
+                        orderVo.PaymentDate = DateTime.MinValue;
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_FutureTriggerCondition"].ToString()))
+                    //    fiorderVo.FutureTriggerCondition = dr["CFIOD_FutureTriggerCondition"].ToString();
+                    //else
+                    //    fiorderVo.FutureTriggerCondition = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_FutureExecutionDate"].ToString()))
+                    //    fiorderVo.FutureExecutionDate = DateTime.Parse(dr["CFIOD_FutureExecutionDate"].ToString());
+                    //else
+                    //    fiorderVo.FutureExecutionDate = DateTime.MinValue;
+                    //if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
+                    //    fiorderVo.SchemePlanSwitch = int.Parse(dr["PASP_SchemePlanSwitch"].ToString());
+                    //else
+                    //    fiorderVo.SchemePlanSwitch = 0;
+                    //if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
+                    //    orderVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
+                    //else
+                    //    orderVo.CustBankAccId = 0;
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_BankName"].ToString()))
+                    //    fiorderVo.BankName = dr["CFIOD_BankName"].ToString();
+                    //else
+                    //    fiorderVo.BankName = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_BranchName"].ToString()))
+                    //    fiorderVo.BranchName = dr["CFIOD_BranchName"].ToString();
+                    //else
+                    //    fiorderVo.BranchName = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_AddrLine1"].ToString()))
+                    //    fiorderVo.AddrLine1 = dr["CFIOD_AddrLine1"].ToString();
+                    //else
+                    //    fiorderVo.AddrLine1 = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_AddrLine2"].ToString()))
+                    //    fiorderVo.AddrLine2 = dr["CFIOD_AddrLine2"].ToString();
+                    //else
+                    //    fiorderVo.AddrLine2 = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_AddrLine3"].ToString()))
+                    //    fiorderVo.AddrLine3 = dr["CFIOD_AddrLine3"].ToString();
+                    //else
+                    //    fiorderVo.AddrLine3 = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_City"].ToString()))
+                    //    fiorderVo.City = dr["CFIOD_City"].ToString();
+                    //else
+                    //    fiorderVo.City = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_State"].ToString()))
+                    //    fiorderVo.State = dr["CFIOD_State"].ToString();
+                    //else
+                    //    fiorderVo.State = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_Country"].ToString()))
+                    //    fiorderVo.Country = dr["CFIOD_Country"].ToString();
+                    //else
+                    //    fiorderVo.Country = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_PinCode"].ToString()))
+                    //    fiorderVo.Pincode = dr["CFIOD_PinCode"].ToString();
+                    //else
+                    //    fiorderVo.Pincode = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_LivingScince"].ToString()))
+                    //    fiorderVo.LivingSince = DateTime.Parse(dr["CFIOD_LivingScince"].ToString());
+                    //else
+                    //    fiorderVo.LivingSince = DateTime.MinValue;
+
+                    //if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
+                    //    fiorderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
+                    //else
+                    //    fiorderVo.FrequencyCode = "";
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_StartDate"].ToString()))
+                    //    fiorderVo.StartDate = DateTime.Parse(dr["CFIOD_StartDate"].ToString());
+                    //else
+                    //    fiorderVo.StartDate = DateTime.MinValue;
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_EndDate"].ToString()))
+                    //    fiorderVo.EndDate = DateTime.Parse(dr["CFIOD_EndDate"].ToString());
+                    //else
+                    //    fiorderVo.EndDate = DateTime.MinValue;
+
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_Units"].ToString()))
+                    //    fiorderVo.Units = double.Parse(dr["CFIOD_Units"].ToString());
+                    //else
+                    //    fiorderVo.Units = 0;
+                    //if (!string.IsNullOrEmpty(dr["CFIOD_ARNNo"].ToString()))
+                    //    fiorderVo.ARNNo = dr["CFIOD_ARNNo"].ToString();
+                    //else
+                    //    fiorderVo.ARNNo = "";
+
+                }
+                Session["orderVo"] = orderVo;
+                Session["fiorderVo"] = fiorderVo;
+            }
+            //****************Old Vo,Bo****************************************
+            //operationVo = operationBo.GetCustomerOrderTrackingDetails(orderId);
+            //Session["operationVo"] = operationVo;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ProductOrderMaster", "loadcontrol('ProductOrderMaster','action=View');", true);
+
+       
+
+
+            }
 
         protected void gvCustomerOrderMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {

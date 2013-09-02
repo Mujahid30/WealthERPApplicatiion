@@ -17,9 +17,9 @@ namespace VoOps
             get { return m_AssetInstrumentCategoryCode; }
             set { m_AssetInstrumentCategoryCode = value; }
         }
-        private int m_IssuerId;
+        private string m_IssuerId;
 
-        public int IssuerId
+        public string IssuerId
         {
             get { return m_IssuerId; }
             set { m_IssuerId = value; }
@@ -86,6 +86,14 @@ namespace VoOps
             get { return m_SeriesId; }
             set { m_SeriesId = value; }
         }
+        
+             private int m_DepCustBankAccId;
+
+             public int DepCustBankAccId
+        {
+            get { return m_DepCustBankAccId; }
+            set { m_DepCustBankAccId = value; }
+        }
         //private int m_NoOfBonds;
 
         //public int NoOfBonds
@@ -135,6 +143,7 @@ namespace VoOps
             get { return m_Privilidge; }
             set { m_Privilidge = value; }
         }
+     
 
         //private int m_OrderId;
 

@@ -183,7 +183,9 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAMC;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFITransType;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFTransType;
         /// <summary>
         /// lblBranch control.
         /// </summary>
@@ -201,7 +203,10 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBranch;
-        
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlProductType;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlFITrxType;
         /// <summary>
         /// lblOrderStatus control.
         /// </summary>
@@ -372,6 +377,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCustomerOrderMIS;
+
+        protected global::Telerik.Web.UI.RadGrid gvCustomerFIOrderMIS;
         
         /// <summary>
         /// btnSync control.
@@ -507,5 +514,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnCustomerId;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnProductType;
+
     }
 }
