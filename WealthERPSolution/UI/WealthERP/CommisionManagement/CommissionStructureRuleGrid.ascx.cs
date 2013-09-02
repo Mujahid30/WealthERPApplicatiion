@@ -171,7 +171,7 @@ namespace WealthERP.CommisionManagement
             gvCommMgmt.ExportSettings.IgnorePaging = true;
             gvCommMgmt.ExportSettings.HideStructureColumns = true;
             gvCommMgmt.ExportSettings.ExportOnlyData = true;
-            gvCommMgmt.ExportSettings.FileName = "CommissionStructureRule";
+            gvCommMgmt.ExportSettings.FileName = "ViewReceivableStructures";
             gvCommMgmt.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvCommMgmt.MasterTableView.ExportToExcel();
             //BindStructureRuleGrid();
