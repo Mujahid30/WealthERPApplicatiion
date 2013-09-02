@@ -70,6 +70,7 @@ namespace WealthERP.Associates
                     associatesVo = (AssociatesVO)Session["associatesVo"];
                     if(associatesVo!=null)
                         SetEditViewControls(associatesVo);
+                     head.InnerText="View Associates";
                 }
                 if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
                 {
@@ -77,6 +78,7 @@ namespace WealthERP.Associates
                     associatesVo = (AssociatesVO)Session["associatesVo"];
                     if (associatesVo != null)
                         SetEditViewControls(associatesVo);
+                    head.InnerText = "Edit Associates";
                 }
                
             }

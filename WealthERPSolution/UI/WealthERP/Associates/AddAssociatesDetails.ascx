@@ -10,7 +10,7 @@
             <div class="divPageHeading">
                 <table cellspacing="0" width="100%">
                     <tr>
-                        <td align="left">
+                        <td align="left" id="head" runat="server">
                             Add Associates
                         </td>
                     </tr>
