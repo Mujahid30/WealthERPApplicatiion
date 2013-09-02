@@ -96,7 +96,7 @@ namespace WealthERP.Associates
             gvAgentCodeView.ExportSettings.IgnorePaging = true;
             gvAgentCodeView.ExportSettings.HideStructureColumns = true;
             gvAgentCodeView.ExportSettings.ExportOnlyData = true;
-            gvAgentCodeView.ExportSettings.FileName = "AgentCode View";
+            gvAgentCodeView.ExportSettings.FileName = "View Code Master";
             gvAgentCodeView.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvAgentCodeView.MasterTableView.ExportToExcel();
         }
