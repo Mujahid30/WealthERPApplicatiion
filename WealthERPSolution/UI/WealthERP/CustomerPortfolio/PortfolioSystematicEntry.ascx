@@ -111,12 +111,13 @@
 <%--Javascript Calendar Controls - Required Files--%>
 <%--<asp:UpdatePanel ID="up1" runat="server">
     <ContentTemplate>--%>
+
 <script type="text/javascript">
     function ChkForMainPortFolio(source, args) {
 
         var hdnIsCustomerLogin = document.getElementById('ctrl_PortfolioSystematicEntry_hdnIsCustomerLogin').value;
         var hdnIsMainPortfolio = document.getElementById('ctrl_PortfolioSystematicEntry_hdnIsMainPortfolio').value;
-     
+
         if (hdnIsCustomerLogin == "Customer" && hdnIsMainPortfolio == "1") {
 
             args.IsValid = false;
@@ -127,6 +128,7 @@
 
     }    
 </script>
+
 <script type="text/javascript">
     function GetSchemeCode(source, eventArgs) {
 
@@ -190,10 +192,10 @@
             <asp:DropDownList ID="ddlportfolio" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlportfolio_SelectedIndexChanged"
                 AutoPostBack="true">
             </asp:DropDownList>
-              <br />
-                                <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server"  ValidationGroup="MFSubmit"
-                                    Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
-                                    ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
+            <br />
+            <asp:CustomValidator ID="cvCheckForManageOrUnManage" runat="server" ValidationGroup="MFSubmit"
+                Display="Dynamic" ClientValidationFunction="ChkForMainPortFolio" CssClass="revPCG"
+                ErrorMessage="CustomValidator">Permisssion denied for Manage Portfolio !!</asp:CustomValidator>
         </td>
         <td>
         </td>
@@ -573,7 +575,7 @@
         <td>
         </td>
     </tr>
-        <tr id="trCeaseDate" runat="server">
+    <tr id="trCeaseDate" runat="server">
         <td class="leftField" width="25%">
             <asp:Label ID="lblCeaseDate" runat="server" Text="Stopped Date: " CssClass="FieldName"></asp:Label>
         </td>
@@ -592,10 +594,9 @@
         <td>
         </td>
     </tr>
-    
-        <tr id="trRemarks" runat="server">
+    <tr id="trRemarks" runat="server">
         <td class="leftField" width="25%">
-            <asp:Label ID="Label2" runat="server" Text="Remarks: "  CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Remarks: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtRemarks" runat="server" CssClass="txtField" TextMode="MultiLine"></asp:TextBox>
@@ -603,7 +604,16 @@
         <td>
         </td>
     </tr>
-    
+    <tr id="trSubBroker" runat="server">
+        <td class="leftField" width="25%">
+            <asp:Label ID="lblSubbroker" runat="server" Text="SubBrokerCode: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtSubbrokerCode" runat="server" CssClass="txtField" MaxLength="10"></asp:TextBox>
+        </td>
+        <td>
+        </td>
+    </tr>
     <tr id="trSipAutoTranx" runat="server">
         <td width="25%" class="leftField">
             <asp:Label ID="Label1" runat="server" Text="Enable Auto Transaction Creation:" CssClass="FieldName"></asp:Label>
@@ -626,7 +636,7 @@
     </tr>
 </table>
 <asp:HiddenField ID="hdnddlPeriodSelection" runat="server" />
-  <asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
 <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />
 <%--    </ContentTemplate>
 </asp:UpdatePanel>--%>

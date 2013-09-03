@@ -62,7 +62,7 @@ namespace WealthERP.CustomerPortfolio
             userVo = (UserVo)Session[SessionContents.UserVo];
             if (!IsPostBack)
             {
-                
+
                 trSipAutoTranx.Visible = false;
                 //customerAccountsVo = (CustomerAccountsVo)Session["customerAccountVo"];
                 if (Session["systematicSetupVo"] != null)
@@ -163,8 +163,8 @@ namespace WealthERP.CustomerPortfolio
                     trSipChequeNo.Visible = true;
                     trPaymentMode.Visible = true;
                     trSystematicDate.Visible = false;
-                    
-                       
+
+
                 }
                 else if (ddlSystematicType.SelectedValue == "STP")
                 {
@@ -476,6 +476,7 @@ namespace WealthERP.CustomerPortfolio
                     txtRemarks.Text = "";
                     CeaseDate_CalendarExtender.Enabled = true;
                     CeaseDate_TextBoxWatermarkExtender.Enabled = true;
+                    txtSubbrokerCode.Text = "";
                 }
                 else
                 {
@@ -528,7 +529,7 @@ namespace WealthERP.CustomerPortfolio
                     else
                         ddlPaymentMode.SelectedValue = "ES";
 
-                    if (systematicSetupVo.Remarks!=null)
+                    if (systematicSetupVo.Remarks != null)
                         txtRemarks.Text = systematicSetupVo.Remarks;
                     else
                         txtRemarks.Text = "";
@@ -536,6 +537,10 @@ namespace WealthERP.CustomerPortfolio
                         txtCeaseDate.Text = systematicSetupVo.CeaseDate.ToShortDateString();
                     else
                         txtCeaseDate.Text = "dd/mm/yyyy";
+                    if (!string.IsNullOrEmpty(systematicSetupVo.SubBrokerCode))
+                        txtSubbrokerCode.Text = systematicSetupVo.SubBrokerCode;
+                    else
+                        txtSubbrokerCode.Text = "";
 
 
                 }
@@ -600,7 +605,7 @@ namespace WealthERP.CustomerPortfolio
                 else if (systematicSetupVo.PaymentModeCode == "ES")
                     ddlPaymentMode.SelectedValue = "ES";
 
-                if (systematicSetupVo.Remarks!=null)
+                if (systematicSetupVo.Remarks != null)
                     txtRemarks.Text = systematicSetupVo.Remarks;
                 else
                     txtRemarks.Text = "";
@@ -608,6 +613,10 @@ namespace WealthERP.CustomerPortfolio
                     txtCeaseDate.Text = systematicSetupVo.CeaseDate.ToShortDateString();
                 else
                     txtCeaseDate.Text = "dd/mm/yyyy";
+                if (!string.IsNullOrEmpty(systematicSetupVo.SubBrokerCode))
+                    txtSubbrokerCode.Text = systematicSetupVo.SubBrokerCode;
+                else
+                    txtSubbrokerCode.Text = "";
 
             }
 
@@ -643,7 +652,7 @@ namespace WealthERP.CustomerPortfolio
                 txtRemarks.Text = "";
                 CeaseDate_CalendarExtender.Enabled = true;
                 CeaseDate_TextBoxWatermarkExtender.Enabled = true;
-
+                txtSubbrokerCode.Text = "";
 
             }
 
@@ -680,6 +689,7 @@ namespace WealthERP.CustomerPortfolio
                 btnAddFolio.Visible = false;
                 txtCeaseDate.Enabled = false;
                 txtRemarks.Enabled = false;
+                txtSubbrokerCode.Enabled=false;
 
                 if (systematicSetupVo.SystematicTypeCode == "SIP")
                 {
@@ -771,9 +781,9 @@ namespace WealthERP.CustomerPortfolio
                 ddlPaymentMode.Visible = true;
                 txtCeaseDate.Enabled = true;
                 txtRemarks.Enabled = true;
-                
+
                 SipAutoTranx.Enabled = true;
-              
+                txtSubbrokerCode.Enabled = true;
 
 
             }
@@ -801,7 +811,7 @@ namespace WealthERP.CustomerPortfolio
                 txtRemarks.Enabled = true;
 
                 SipAutoTranx.Enabled = true;
-
+                txtSubbrokerCode.Enabled = true;
 
                 if ((systematicSetupVo.SystematicTypeCode == "SIP") || (systematicSetupVo.SystematicTypeCode == "STP"))
                 {
@@ -950,6 +960,10 @@ namespace WealthERP.CustomerPortfolio
                 systematicSetupVo.Remarks = txtRemarks.Text.ToString();
             else
                 systematicSetupVo.Remarks = "";
+            if (!string.IsNullOrEmpty(txtSubbrokerCode.Text))
+                systematicSetupVo.SubBrokerCode = txtSubbrokerCode.Text;
+            else
+                systematicSetupVo.SubBrokerCode = "";
 
             if (systematicSetupVo.SystematicTypeCode == "STP")
             {
@@ -1174,11 +1188,11 @@ namespace WealthERP.CustomerPortfolio
             DateTime endDate = new DateTime();
             if (ddlPeriodSelection.SelectedItem.Value == "DA")
             {
-                endDate = startDate.AddDays(period-1);
+                endDate = startDate.AddDays(period - 1);
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "MN")
             {
-                endDate = startDate.AddMonths((period-1));
+                endDate = startDate.AddMonths((period - 1));
             }
             else if (ddlPeriodSelection.SelectedItem.Value == "YR")
             {
