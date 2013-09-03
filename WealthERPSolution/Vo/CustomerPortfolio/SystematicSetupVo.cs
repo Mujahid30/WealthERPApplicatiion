@@ -39,6 +39,9 @@ namespace VoCustomerPortfolio
         private int m_IsAutoTransaction;
         private DateTime m_CeaseDate;
         private string m_Remarks;
+        private string m_SubBrokerCode;
+
+
 
         #endregion
 
@@ -182,19 +185,19 @@ namespace VoCustomerPortfolio
         }
         public int Period
         {
-            get { return m_period;}
-            set { m_period=value;}
+            get { return m_period; }
+            set { m_period = value; }
         }
         public string PeriodSelection
         {
             get { return m_PeriodSelection; }
-            set { m_PeriodSelection=value; }
+            set { m_PeriodSelection = value; }
 
         }
         public DateTime RegistrationDate
         {
-            get {  return m_RegistrationDate;}
-            set {   m_RegistrationDate=value;}
+            get { return m_RegistrationDate; }
+            set { m_RegistrationDate = value; }
         }
 
         public string Portfolio
@@ -214,10 +217,15 @@ namespace VoCustomerPortfolio
             set { m_CeaseDate = value; }
         }
 
-        public string  Remarks
+        public string Remarks
         {
             get { return m_Remarks; }
             set { m_Remarks = value; }
+        }
+        public string SubBrokerCode
+        {
+            get { return m_SubBrokerCode; }
+            set { m_SubBrokerCode = value; }
         }
 
         #endregion
