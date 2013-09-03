@@ -641,7 +641,9 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_MaxTenure", DbType.Int32, commissionStructureRuleVo.TenureMax);
                 }
 
-                if (!string.IsNullOrEmpty(commissionStructureRuleVo.TenureUnit))
+                if ((commissionStructureRuleVo.TenureMin == 0 && commissionStructureRuleVo.TenureMax == 0))
+                    db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TenureUnit", DbType.String, DBNull.Value);
+                 else
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_TenureUnit", DbType.String, commissionStructureRuleVo.TenureUnit);
 
 
