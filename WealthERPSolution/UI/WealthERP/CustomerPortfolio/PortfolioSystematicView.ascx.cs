@@ -191,6 +191,7 @@ namespace WealthERP.CustomerPortfolio
                     dtSystematicSetup.Columns.Add("Systematic Date");
                     dtSystematicSetup.Columns.Add("Amount",typeof (double));
                     dtSystematicSetup.Columns.Add("Frequency");
+                    dtSystematicSetup.Columns.Add("SubBrokerCode");
                     DataRow drSystematicSetup;
                     if (systematicSetupList != null)
                     {
@@ -209,6 +210,7 @@ namespace WealthERP.CustomerPortfolio
                             drSystematicSetup[6] = systematicSetupVo.SystematicDate.ToString();
                             drSystematicSetup[7] = systematicSetupVo.Amount;
                             drSystematicSetup[8] = systematicSetupVo.Frequency.ToString();//join
+                            drSystematicSetup["SubBrokerCode"] = systematicSetupVo.SubBrokerCode;
 
                             dtSystematicSetup.Rows.Add(drSystematicSetup);
                         }
