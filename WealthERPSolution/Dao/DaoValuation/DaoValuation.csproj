@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorDao.cs" />
+    <Compile Include="CommonEngineDao.cs" />
     <Compile Include="MFEngineDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
