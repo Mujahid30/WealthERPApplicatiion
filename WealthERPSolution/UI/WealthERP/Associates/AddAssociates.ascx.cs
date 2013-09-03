@@ -49,9 +49,9 @@ namespace WealthERP.Associates
             rmVo = (RMVo)Session[SessionContents.RmVo];
             userVo = (UserVo)Session["userVo"];
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
-            if (Session["associatesVo"] != null)
+            if (Session["TempAssociatesVo"] != null)
             {
-                associatesVo = (AssociatesVO)Session["associatesVo"];
+                associatesVo = (AssociatesVO)Session["TempAssociatesVo"];
             }
 
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -119,7 +119,7 @@ namespace WealthERP.Associates
                 if (Request.QueryString["page"] != null)
                 {
                     SetControls(associatesVo);
-                    associatesVo = (AssociatesVO)Session["associatesVo"];
+                    associatesVo = (AssociatesVO)Session["TempAssociatesVo"];
                     EnableCurrentStep(0);
                     requestId = associatesVo.AdviserAssociateId;
                     ddlstatus1.Enabled = false;
@@ -609,6 +609,7 @@ namespace WealthERP.Associates
         {
             if (Validation())
             {
+                userVo = new UserVo();
                 Random id = new Random();
                 string password = id.Next(10000, 99999).ToString();
 
@@ -632,7 +633,7 @@ namespace WealthERP.Associates
                     associatesVo.Mobile = 0;
                 associatesVo.RequestDate = DateTime.Now;
                 associatesVo.AAC_UserType = "Associates";
-                Session["AssociatesVo"] = associatesVo;
+                Session["TempAssociatesVo"] = associatesVo;
                 associatesIds = associatesBo.CreateCompleteAssociates(userVo, associatesVo, userVo.UserId);
                 associatesVo.UserId = associatesIds[0];
                 associatesVo.AdviserAssociateId = associatesIds[1];
@@ -678,9 +679,9 @@ namespace WealthERP.Associates
 
         private void AssignHeaderInfo()
         {
-            if (Session["AssociatesVo"] != null)
+            if (Session["TempAssociatesVo"] != null)
             {
-                associatesVo = (AssociatesVO)Session["AssociatesVo"];
+                associatesVo = (AssociatesVO)Session["TempAssociatesVo"];
                 txtAssoName.Text = associatesVo.ContactPersonName;
                 txtBMName.Text = associatesVo.BMName;
                 txtRMName.Text = associatesVo.RMNAme;
@@ -741,7 +742,7 @@ namespace WealthERP.Associates
                     associatesVo.UserId = int.Parse(dr["U_UserId"].ToString());
 
                 }
-                Session["associatesVo"] = associatesVo;
+                Session["TempAssociatesVo"] = associatesVo;
             }
         }
 
