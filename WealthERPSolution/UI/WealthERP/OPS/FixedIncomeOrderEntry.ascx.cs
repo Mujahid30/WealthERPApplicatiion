@@ -60,9 +60,10 @@ namespace WealthERP.OPS
         float fStorageBalance;
         float fMaxStorage;
         string linkAction = "";
-
-
-
+        DataRow drCustomerAssociates;
+        DataSet dsCustomerAssociates;
+        DataTable dtCustomerAssociates = new DataTable();
+        DataTable dtCustomerAssociatesRaw = new DataTable();
         //------------------
         //CustomerVo customerVo = new CustomerVo();
         CustomerAccountBo customerAccountBo = new CustomerAccountBo();
@@ -92,15 +93,78 @@ namespace WealthERP.OPS
                 FICategory();
                 FIIssuer(advisorVo.advisorId);
                 GetFIModeOfHolding();
+               
 
             }
             if (Session["customerid"] != null)
             {
                 customerid = Convert.ToInt32 (Session["customerid"]);
+                LoadNominees();
                GetCustomerAssociates(customerid);
             }
+
             
 
+        }
+        public void LoadNominees()
+        {
+            customerVo.CustomerId = customerid;
+            try
+            {
+                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+
+                dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                dtCustomerAssociates.Columns.Add("AssociationId");
+                dtCustomerAssociates.Columns.Add("Name");
+                dtCustomerAssociates.Columns.Add("Relationship");
+
+                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                {
+
+                    drCustomerAssociates = dtCustomerAssociates.NewRow();
+                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                }
+
+                if (dtCustomerAssociates.Rows.Count > 0)
+                {
+                    gvNominees.DataSource = dtCustomerAssociates;
+                    gvNominees.DataBind();
+                    gvNominees.Visible = true;
+
+                    trNoNominee.Visible = false;
+                    //trNomineeCaption.Visible = true;
+                    trNominees.Visible = true;
+                }
+                else
+                {
+                    trNoNominee.Visible = true;
+                    //trNomineeCaption.Visible = false;
+                    trNominees.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountAdd.ascx:LoadNominees()");
+                object[] objects = new object[1];
+                objects[0] = customerVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
         }
 
         private void TaxStatus()
@@ -538,9 +602,9 @@ namespace WealthERP.OPS
 
         private void GetCustomerAssociates(int customerid)
         {
-            DataSet dsAssociates = FiOrdBo.GetCustomerAssociates(customerid);
-            gvAssociation.DataSource = dsAssociates.Tables[0];
-            gvAssociation.DataBind();
+            //DataSet dsAssociates = FiOrdBo.GetCustomerAssociates(customerid);
+            //gvAssociation.DataSource = dsAssociates.Tables[0];
+            //gvAssociation.DataBind();
         }
         //protected void rgvOrderSteps_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         //{
@@ -583,19 +647,19 @@ namespace WealthERP.OPS
             if (dsDepoBank.Tables[0].Rows.Count > 0)
             {
 
-                ddlModeofHOlding.DataSource = dsDepoBank.Tables[0];
-                ddlModeofHOlding.DataValueField = dsDepoBank.Tables[0].Columns["XMOH_ModeOfHoldingCode"].ToString();
-                ddlModeofHOlding.DataTextField = dsDepoBank.Tables[0].Columns["XMOH_ModeOfHolding"].ToString();
-                ddlModeofHOlding.DataBind();
+                ddlModeofHOldingFI.DataSource = dsDepoBank.Tables[0];
+                ddlModeofHOldingFI.DataValueField = dsDepoBank.Tables[0].Columns["XMOH_ModeOfHoldingCode"].ToString();
+                ddlModeofHOldingFI.DataTextField = dsDepoBank.Tables[0].Columns["XMOH_ModeOfHolding"].ToString();
+                ddlModeofHOldingFI.DataBind();
 
-                ddlModeofHOlding.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlModeofHOldingFI.Items.Insert(0, new ListItem("Select", "Select"));
 
             }
             else
             {
-                ddlModeofHOlding.Items.Clear();
-                ddlModeofHOlding.DataSource = null;
-                ddlModeofHOlding.DataBind();
+                ddlModeofHOldingFI.Items.Clear();
+                ddlModeofHOldingFI.DataSource = null;
+                ddlModeofHOldingFI.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
@@ -617,6 +681,81 @@ namespace WealthERP.OPS
                 ddlIssuer.DataSource = null;
                 ddlIssuer.DataBind();
                 ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+        }
+        protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
+        {
+            customerVo.CustomerId = customerid;
+
+            try
+            {
+                if (rbtnYes.Checked)
+                {
+                    ddlModeofHOldingFI.Enabled = true;
+
+                    dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
+                    dtCustomerAssociates.Rows.Clear();
+                    dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
+
+                    dtCustomerAssociates.Columns.Clear();
+                    dtCustomerAssociates.Columns.Add("MemberCustomerId");
+                    dtCustomerAssociates.Columns.Add("AssociationId");
+                    dtCustomerAssociates.Columns.Add("Name");
+                    dtCustomerAssociates.Columns.Add("Relationship");
+
+                    foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
+                    {
+                        drCustomerAssociates = dtCustomerAssociates.NewRow();
+                        drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
+                        drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
+                        drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                        drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
+                        dtCustomerAssociates.Rows.Add(drCustomerAssociates);
+                    }
+
+                    if (dtCustomerAssociates.Rows.Count > 0)
+                    {
+                        trNoJointHolders.Visible = false;
+                        trJoinHolders.Visible = true;
+                        trJointHolderGrid.Visible = true;
+                        gvJointHoldersList.DataSource = dtCustomerAssociates;
+                        gvJointHoldersList.DataBind();
+                        gvJointHoldersList.Visible = true;
+                    }
+                    else
+                    {
+                        trNoJointHolders.Visible = true;
+                        trJoinHolders.Visible = false;
+                        trJointHolderGrid.Visible = false;
+                    }
+                    ddlModeofHOldingFI.SelectedIndex = 0;
+                }
+                else
+                {
+                    ddlModeofHOldingFI.SelectedValue = "SI";
+                    ddlModeofHOldingFI.Enabled = false;
+                    trJoinHolders.Visible = false;
+                    trJointHolderGrid.Visible = false;
+                    trNoJointHolders.Visible = false;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerAccountAdd.ascx:rbtnYes_CheckedChanged()");
+                object[] objects = new object[1];
+                objects[0] = customerVo;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
             }
         }
         private void FIScheme(int AdviserId, string IssuerID)

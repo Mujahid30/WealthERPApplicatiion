@@ -515,18 +515,18 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField" style="width: 20%">
+      <%--  <td class="leftField" style="width: 20%">
             <asp:Label ID="Label14" runat="server" Text="Mode of holding: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlModeofHOlding" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                 Width="150px">
-            </asp:DropDownList>
+            </asp:DropDownList>--%>
             <%-- <span id="Span1" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlAMCList"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an AMC"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>--%>
-        </td>
+       <%-- </td>--%>
     </tr>
     <%--   </tr>--%>
     <tr>
@@ -555,9 +555,122 @@
     </tr>
     <tr>
     </tr>
+     <tr id="trJoingHolding" runat="server">
+                <td class="leftField">
+                    <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
+                </td>
+                <td>
+                    <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                        Text="Yes" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
+                    <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                        Text="No" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" Checked="true" />
+                </td>
+            </tr>
+            <tr id="trModeOfHolding" runat="server">
+                <td class="leftField">
+                    <asp:Label ID="lblModeOfHolding" runat="server" CssClass="FieldName" Text="Mode Of Holding:"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="ddlModeofHOldingFI" runat="server" CssClass="cmbField">
+                    </asp:DropDownList>
+                    <span id="Span6" class="spnRequiredField">*</span>
+                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a Mode of Holding"
+                        ControlToValidate="ddlModeofHOldingFI" Operator="NotEqual" ValueToCompare="Select"
+                        Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
+                </td>
+            </tr>
+             
+           
+            <tr id="trJoinHolders" runat="server">
+                <td colspan="2">
+                    <asp:Label ID="lblJointHolders" runat="server" CssClass="HeaderTextSmall" Text="Joint Holders"></asp:Label>
+                    <hr />
+                </td>
+            </tr>
+            <tr id="trJointHolderGrid" runat="server">
+                <td colspan="2">
+                    <asp:GridView ID="gvJointHoldersList" runat="server" AutoGenerateColumns="False"
+                        Width="60%" CellPadding="4" DataKeyNames="MemberCustomerId, AssociationId" AllowSorting="True"
+                        ShowFooter="true" CssClass="GridViewStyle">
+                        <FooterStyle CssClass="FooterStyle" />
+                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                        <SelectedRowStyle CssClass="SelectedRowStyle" />
+                        <HeaderStyle CssClass="HeaderStyle" />
+                        <EditRowStyle CssClass="EditRowStyle" />
+                        <AlternatingRowStyle CssClass="AltRowStyle" />
+                        <RowStyle CssClass="RowStyle" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="Select">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkId" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Name" HeaderText="Name" />
+                            <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                        </Columns>
+                    </asp:GridView>
+                </td>
+            </tr>
+            <tr id="trNoJointHolders" runat="server" visible="false">
+                <td class="Message" colspan="2">
+                    <asp:Label ID="lblNoJointHolders" runat="server" Text="You have no Joint Holder"
+                        CssClass="FieldName"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    &nbsp;
+                </td>
+            </tr>
+            <tr id="trError" runat="server" visible="false">
+        <td colspan="2" class="SubmitCell">
+            <asp:Label ID="lblError" runat="server" CssClass="Error"></asp:Label>
+        </td>
+    </tr>
+            <tr id="trNomineeCaption" runat="server" visible="true">
+                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Nominees
+                    </div>
+                </td>
+            </tr>
+             
+           <tr id="trNominees" runat="server">
+                <td colspan="2">
+                    <asp:GridView ID="gvNominees" runat="server" AutoGenerateColumns="False" CellPadding="4"
+                        Width="60%" ShowFooter="true" DataKeyNames="MemberCustomerId, AssociationId"
+                        AllowSorting="True" CssClass="GridViewStyle">
+                        <FooterStyle CssClass="FooterStyle" />
+                        <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
+                        <SelectedRowStyle CssClass="SelectedRowStyle" />
+                        <HeaderStyle CssClass="HeaderStyle" />
+                        <EditRowStyle CssClass="EditRowStyle" />
+                        <AlternatingRowStyle CssClass="AltRowStyle" />
+                        <RowStyle CssClass="RowStyle" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="Select">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkId0" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:BoundField DataField="Name" HeaderText="Name" />
+                            <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
+                        </Columns>
+                    </asp:GridView>
+                </td>
+            </tr> 
+      <tr id="trNoNominee" runat="server" visible="false">
+                <td class="Message" colspan="2">
+                    <asp:Label ID="lblNoNominee" runat="server" Text="You have no Associations" CssClass="FieldName"></asp:Label>
+                </td>
+            </tr> 
 </table>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
-<table width="100%">
+
+ <%--<table width="100%">
+   
+            </table> --%>
+<%--<table width="100%">
     <tr>
         <td>
             <asp:GridView ID="gvAssociation" runat="server" CellPadding="4" CssClass="GridViewStyle"
@@ -601,7 +714,7 @@
                      <HeaderTemplate>
                             <asp:Label ID="LblSelect" runat="server" Text=""></asp:Label>
                             <br />
-                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
+                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />
     <%--  <input id="chkBoxAll" class="CheckField" name="CheckAllCustomer" value="Customer" type="checkbox" onclick="checkAllBoxes()"  />
                         </HeaderTemplate>
                         <ItemTemplate>
@@ -703,7 +816,7 @@
                     
                 </Columns>
             </asp:GridView> --%>
-</table>
+<%--</table> --%> 
 <%--
      <tr>
       <td>

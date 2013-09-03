@@ -29,6 +29,7 @@ using BOAssociates;
 using iTextSharp.text.pdf;
 using System.IO;
 using System.Resources;
+using System.Web.UI.HtmlControls;
 namespace WealthERP.OPS
 {
    
@@ -44,6 +45,8 @@ namespace WealthERP.OPS
         OperationBo operationBo = new OperationBo();
         MFOrderBo mfOrderBo = new MFOrderBo();
         ProductMFBo productMFBo = new ProductMFBo();
+        CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
+
         AssetBo assetBo = new AssetBo();
         PortfolioBo portfolioBo = new PortfolioBo();
         OrderBo orderbo = new OrderBo();
@@ -56,6 +59,7 @@ namespace WealthERP.OPS
         AssociatesVO associatesVo = new AssociatesVO();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+        CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         UserVo userVo;
         PriceBo priceBo = new PriceBo();
         string path;
@@ -3111,8 +3115,101 @@ namespace WealthERP.OPS
 //PAG_AssetGroupCode fil
 //XPM_PaymentModeCode 
 //CO_IsClose
-           
+            int i = 0;
+            UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
+
+            DropDownList ddlCategory = (DropDownList)FIControls.FindControl("ddlCategory");//ddlIssuer
+            DropDownList ddlIssuer = (DropDownList)FIControls.FindControl("ddlIssuer");
+            DropDownList ddlScheme = (DropDownList)FIControls.FindControl("ddlScheme");
+            DropDownList ddlSeries = (DropDownList)FIControls.FindControl("ddlSeries");
+            DropDownList ddltransType = (DropDownList)FIControls.FindControl("ddltransType");
+            TextBox txtSeries = (TextBox)FIControls.FindControl("txtSeries");
+            DropDownList ddlSchemeOption = (DropDownList)FIControls.FindControl("ddlSchemeOption");
+            DropDownList ddlFrequency = (DropDownList)FIControls.FindControl("ddlFrequency");
+
+            DropDownList ddlModeofHOlding = (DropDownList)FIControls.FindControl("ddlModeofHOlding");
+
+            Label lblGetOrderNo = (Label)FIControls.FindControl("lblGetOrderNo");
+            RadDatePicker txtOrderDate = (RadDatePicker)FIControls.FindControl("txtOrderDate");
+            TextBox txtApplicationNumber = (TextBox)FIControls.FindControl("txtApplicationNumber");
+            RadDatePicker txtApplicationDate = (RadDatePicker)FIControls.FindControl("txtApplicationDate");
+            TextBox txtExistDepositreceiptno = (TextBox)FIControls.FindControl("txtExistDepositreceiptno");
+            TextBox txtRenAmt = (TextBox)FIControls.FindControl("txtRenAmt");
+            RadDatePicker txtMaturDate = (RadDatePicker)FIControls.FindControl("txtMaturDate");
+            TextBox txtMatAmt = (TextBox)FIControls.FindControl("txtMatAmt");
+            TextBox txtPayAmt = (TextBox)FIControls.FindControl("txtPayAmt");
+            CheckBox ChkSeniorcitizens = (CheckBox)FIControls.FindControl("ChkSeniorcitizens");
+            CheckBox ChkWidow = (CheckBox)FIControls.FindControl("ChkWidow");
+            CheckBox ChkArmedForcePersonnel = (CheckBox)FIControls.FindControl("ChkArmedForcePersonnel");
+            CheckBox CHKExistingrelationship = (CheckBox)FIControls.FindControl("CHKExistingrelationship");
+            CheckBox ChkFirstholder = (CheckBox)FIControls.FindControl("ChkFirstholder");
+            CheckBox ChkEORS = (CheckBox)FIControls.FindControl("ChkEORS");
+            RadioButton rbtnYes = (RadioButton)FIControls.FindControl("rbtnYes");
+            RadioButton rbtnNo = (RadioButton)FIControls.FindControl("rbtnNo");
+            GridView gvJointHoldersList = (GridView)FIControls.FindControl("gvJointHoldersList");
+            //trError
+            HtmlTableRow trError = (HtmlTableRow)FIControls.FindControl("trError");
+            Label lblError = (Label)FIControls.FindControl("lblError");
+
+
+            if (rbtnNo.Checked)
+            {
+                customerAccountsVo.IsJointHolding = 0;
+            }
+            if (rbtnYes.Checked)
+            {
+                customerAccountsVo.IsJointHolding = 1;
+            }
+
+
+            if (gvJointHoldersList.Rows.Count > 0)
+            {
+                foreach (GridViewRow gvr in gvJointHoldersList.Rows)
+                {
+                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                    {
+                        i++;
+                        customerAccountAssociationVo.AssociationId = int.Parse(gvJointHoldersList.DataKeys[gvr.RowIndex].Values[1].ToString());
+                        customerAccountAssociationVo.AssociationType = "Joint Holder";
+                        customerAccountBo.CreateFixedIncomeAccountAssociation(customerAccountAssociationVo, userVo.UserId);
+                    }
+
+                }
+            }
+            else
+            {
+                i = -1;
+            }
+
+
+            if (rbtnYes.Checked)
+            {
+                if (i == 0)
+                {
+                    trError.Visible = true;
+                    lblError.Text = "Please select a Joint Holder";
+                    return;
+                    //blResult = false;
+                }
+                else
+                {
+                    trError.Visible = false;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
             orderVo.CustomerId = int.Parse(txtCustomerId.Value);
+
             orderVo.AssetGroup = "FI";
             if (!string.IsNullOrEmpty(txtPaymentNumber.Text.ToString().Trim()))
                 orderVo.ChequeNumber = txtPaymentNumber.Text;
@@ -3148,35 +3245,7 @@ namespace WealthERP.OPS
 
             fiorderVo.DepCustBankAccId = int.Parse(ddlDepoBank.SelectedValue);
 
-            UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
-                      
-            DropDownList ddlCategory = (DropDownList)FIControls.FindControl("ddlCategory");//ddlIssuer
-            DropDownList ddlIssuer = (DropDownList)FIControls.FindControl("ddlIssuer");                
-            DropDownList ddlScheme = (DropDownList)FIControls.FindControl("ddlScheme");                
-            DropDownList ddlSeries = (DropDownList)FIControls.FindControl("ddlSeries");
-            DropDownList ddltransType = (DropDownList)FIControls.FindControl("ddltransType");            
-            TextBox  txtSeries = (TextBox)FIControls.FindControl("txtSeries");  
-             DropDownList ddlSchemeOption = (DropDownList)FIControls.FindControl("ddlSchemeOption");            
-             DropDownList ddlFrequency = (DropDownList)FIControls.FindControl("ddlFrequency");
-
-             DropDownList ddlModeofHOlding = (DropDownList)FIControls.FindControl("ddlModeofHOlding");
-
-            Label   lblGetOrderNo = (Label)FIControls.FindControl("lblGetOrderNo");
-            RadDatePicker txtOrderDate = (RadDatePicker)FIControls.FindControl("txtOrderDate");  
-            TextBox  txtApplicationNumber = (TextBox)FIControls.FindControl("txtApplicationNumber");
-            RadDatePicker txtApplicationDate = (RadDatePicker)FIControls.FindControl("txtApplicationDate");  
-            TextBox  txtExistDepositreceiptno = (TextBox)FIControls.FindControl("txtExistDepositreceiptno");            
-            TextBox  txtRenAmt = (TextBox)FIControls.FindControl("txtRenAmt");
-            RadDatePicker txtMaturDate = (RadDatePicker)FIControls.FindControl("txtMaturDate");  
-            TextBox  txtMatAmt = (TextBox)FIControls.FindControl("txtMatAmt");
-            TextBox txtPayAmt = (TextBox)FIControls.FindControl("txtPayAmt");  
-         CheckBox ChkSeniorcitizens=(CheckBox)FIControls.FindControl("ChkSeniorcitizens");
-         CheckBox ChkWidow=(CheckBox)FIControls.FindControl("ChkWidow");
-         CheckBox ChkArmedForcePersonnel=(CheckBox)FIControls.FindControl("ChkArmedForcePersonnel");
-         CheckBox CHKExistingrelationship=(CheckBox)FIControls.FindControl("CHKExistingrelationship");
-         CheckBox ChkFirstholder=(CheckBox)FIControls.FindControl("ChkFirstholder");
-         CheckBox ChkEORS=(CheckBox)FIControls.FindControl("ChkEORS");
-
+           
             hdnFromdate.Value = txtOrderDate.SelectedDate.ToString() ;
             hdnTodate.Value = txtApplicationDate.SelectedDate.ToString() ;
             //mforderVo.OrderNumber
@@ -3233,7 +3302,7 @@ namespace WealthERP.OPS
             else
                 fiorderVo.AmountPayable = 0;
 
-            fiorderVo.ModeOfHolding = ddlModeofHOlding.SelectedValue;
+            fiorderVo.ModeOfHolding = "0"; //ddlModeofHOlding.SelectedValue;
             fiorderVo.Schemeoption = ddlSchemeOption.SelectedValue;
             if (!string.IsNullOrEmpty(txtExistDepositreceiptno.Text))
             fiorderVo.ExisitingDepositreceiptno = txtExistDepositreceiptno.Text;
@@ -3243,6 +3312,9 @@ namespace WealthERP.OPS
             fiorderVo.Frequency = ddlFrequency.SelectedValue; 
            // fiorderVo.Privilidge = "";
 
+
+
+          
 
         }
 

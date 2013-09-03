@@ -408,18 +408,18 @@ namespace DaoOps
                 //db.AddInParameter(createMFOrderTrackingCmd, "@PaymentDate", DbType.DateTime, orderVo.PaymentDate );
                 db.AddInParameter(createMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, orderVo.CustBankAccId);
 
-                db.AddInParameter(createMFOrderTrackingCmd, "@AA_AdviserAssociateId", DbType.Int16, orderVo.AssociationId);
-                db.AddInParameter(createMFOrderTrackingCmd, "@AAC_AdviserAgentId", DbType.Int16, orderVo.AgentId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@AA_AdviserAssociateId", DbType.Int32, orderVo.AssociationId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@AAC_AdviserAgentId", DbType.Int32, orderVo.AgentId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@AAC_AgentCode", DbType.String, orderVo.AgentCode);
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@AssetGroupCode", DbType.String, orderVo.AssetGroup);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PaymentMode", DbType.String, orderVo.PaymentMode);
-                db.AddInParameter(createMFOrderTrackingCmd, "@Isclose", DbType.Int16, 0);
+                db.AddInParameter(createMFOrderTrackingCmd, "@Isclose", DbType.Int32, 0);
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, mforderVo.AssetInstrumentCategoryCode);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PFIIM_IssuerId", DbType.String, mforderVo.IssuerId);
-                db.AddInParameter(createMFOrderTrackingCmd, "@PFISM_SchemeId", DbType.Int16, mforderVo.SchemeId);
-                db.AddInParameter(createMFOrderTrackingCmd, "@PFISD_SeriesId", DbType.Int16, mforderVo.SeriesId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@PFISM_SchemeId", DbType.Int32, mforderVo.SchemeId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@PFISD_SeriesId", DbType.Int32, mforderVo.SeriesId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_TransactionType", DbType.String, mforderVo.TransactionType);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_OrderNO", DbType.String, orderVo.OrderNumber);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_AmountPayable", DbType.Double, mforderVo.AmountPayable);
@@ -440,8 +440,8 @@ namespace DaoOps
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@CFIOD_DepCustBankAccId", DbType.Int32, mforderVo.DepCustBankAccId);
 
-                db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int16, mforderVo.AgentId);
-                db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int16, userId );
+                db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, mforderVo.AgentId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId );
                 
                 //CFIOD_AmountPayable
                 //db.AddInParameter(createMFOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
@@ -514,7 +514,7 @@ namespace DaoOps
                 //    db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_LivingScince", DbType.DateTime, mforderVo.LivingSince);
                 //else
                 //    db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_LivingScince", DbType.DateTime, DBNull.Value);
-                //db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_IsExecuted ", DbType.Int16, mforderVo.IsExecuted);
+                //db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_IsExecuted ", DbType.Int32, mforderVo.IsExecuted);
                 //if (mforderVo.FrequencyCode != null && mforderVo.FrequencyCode != "")
                 //    db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, mforderVo.FrequencyCode);
                 //else
