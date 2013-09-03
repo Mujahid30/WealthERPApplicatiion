@@ -72,6 +72,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(createSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
                 else
                     db.AddInParameter(createSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+                if (!string.IsNullOrEmpty(systematicSetupVo.SubBrokerCode))
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SubBrokerCode", DbType.String, systematicSetupVo.SubBrokerCode);
+                else
+                    db.AddInParameter(createSystematicSchemeSetupCmd, "@CMFSS_SubBrokerCode", DbType.String, DBNull.Value);
 
                 db.ExecuteNonQuery(createSystematicSchemeSetupCmd);
                 bResult = true;
@@ -155,6 +159,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
                 else
                     db.AddInParameter(updateSystematicSchemeSetupCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+                if (!string.IsNullOrEmpty(systematicSetupVo.SubBrokerCode))
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SubBrokerCode", DbType.String, systematicSetupVo.SubBrokerCode);
+                else
+                    db.AddInParameter(updateSystematicSchemeSetupCmd, "@CMFSS_SubBrokerCode", DbType.String, DBNull.Value);
                 db.ExecuteNonQuery(updateSystematicSchemeSetupCmd);
                 bResult = true;
 
@@ -269,6 +277,10 @@ namespace DaoCustomerPortfolio
                             systematicSetupVo.CeaseDate = DateTime.Parse(dr["CMFSS_CEASEDATE"].ToString());
                         else
                             systematicSetupVo.CeaseDate = DateTime.MinValue;
+                        if (!string.IsNullOrEmpty(dr["CMFSS_SubBrokerCode"].ToString()))
+                            systematicSetupVo.SubBrokerCode = dr["CMFSS_SubBrokerCode"].ToString();
+                        else
+                            systematicSetupVo.SubBrokerCode = "";
 
                         systematicSetupList.Add(systematicSetupVo);
                     }
@@ -375,6 +387,10 @@ namespace DaoCustomerPortfolio
                         systematicSetupVo.CeaseDate = DateTime.Parse(dr["CMFSS_CEASEDATE"].ToString());
                     else
                         systematicSetupVo.CeaseDate = DateTime.MinValue;
+                    if (!string.IsNullOrEmpty(dr["CMFSS_SubBrokerCode"].ToString()))
+                        systematicSetupVo.SubBrokerCode = dr["CMFSS_SubBrokerCode"].ToString();
+                    else
+                        systematicSetupVo.SubBrokerCode = "";
                     
 
                 }
