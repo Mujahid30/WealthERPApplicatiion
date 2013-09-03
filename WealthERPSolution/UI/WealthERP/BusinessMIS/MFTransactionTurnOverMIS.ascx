@@ -126,9 +126,9 @@
             <asp:LinkButton ID="lnkBtnSubBrokerCustomer" Text="CUSTOMER/FOLIO" CssClass="LinkButtonsWithoutUnderLine"
                 runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnSubBrokerCustomer_Click"></asp:LinkButton>
             <span>|</span>
-            <asp:LinkButton ID="lnkBtnOrganization" Text="ORGANIZATION" CssClass="LinkButtonsWithoutUnderLine"
+            <%--<asp:LinkButton ID="lnkBtnOrganization" Text="ORGANIZATION" CssClass="LinkButtonsWithoutUnderLine"
                 runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnOrganization_Click"></asp:LinkButton>
-            <span>|</span>
+            <span>|</span>--%>
             <asp:LinkButton ID="lnkBtnProduct" Text="PRODUCT" CssClass="LinkButtonsWithoutUnderLine"
                 runat="server" ValidationGroup="vgBtnGo" OnClick="lnkBtnProduct_Click"></asp:LinkButton>
         </td>
@@ -1006,6 +1006,12 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn HeaderTooltip="Channel" HeaderText="Channel" DataField="Channel"
                                     HeaderStyle-Width="80px" UniqueName="Channel" SortExpression="Channel" AutoPostBackOnFilter="true"
+                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Count">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn HeaderTooltip="Channel Manager" HeaderText="ChannelMgr" DataField="ChannelMgr"
+                                    HeaderStyle-Width="80px" UniqueName="ChannelMgr" SortExpression="Channel" AutoPostBackOnFilter="true"
                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     Aggregate="Count">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

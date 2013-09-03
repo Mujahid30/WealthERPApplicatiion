@@ -1240,6 +1240,7 @@ namespace WealthERP.BusinessMIS
             dtGetMemberDetailFromMFTrnx.Columns.Add("AccountId");
             dtGetMemberDetailFromMFTrnx.Columns.Add("CustomerName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("SubBrokerCode");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("ChannelMgr");
             dtGetMemberDetailFromMFTrnx.Columns.Add("Channel");
             dtGetMemberDetailFromMFTrnx.Columns.Add("Folio");
             dtGetMemberDetailFromMFTrnx.Columns.Add("BUYCount", typeof(double));
@@ -1373,7 +1374,8 @@ namespace WealthERP.BusinessMIS
                             drGetOrganizationDetailFromTrnx["AccountId"] = drOrgOrderTransaction["CMFA_AccountId"].ToString();
                             drGetOrganizationDetailFromTrnx["CustomerName"] = drOrgOrderTransaction["CustomerName"].ToString();
                             drGetOrganizationDetailFromTrnx["SubBrokerCode"] = drOrgOrderTransaction["CMFT_SubBrokerCode"].ToString();
-                            drGetOrganizationDetailFromTrnx["Channel"] = drOrgOrderTransaction["AR_StaffName"].ToString();
+                            drGetOrganizationDetailFromTrnx["ChannelMgr"] = drOrgOrderTransaction["AR_StaffName"].ToString();
+                            drGetOrganizationDetailFromTrnx["Channel"] = drOrgOrderTransaction["AH_ChannelName"].ToString();
 
                             drGetOrganizationDetailFromTrnx["Folio"] = drOrgOrderTransaction["CMFA_FolioNum"].ToString();
                             if (drOrderOrgWise.Count() > 0)
