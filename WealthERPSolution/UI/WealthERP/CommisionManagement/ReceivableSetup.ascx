@@ -34,9 +34,6 @@
 </script>
 
 <script language="JavaScript" type="text/jscript">
-    
-
-    
 
     function InvestmentAmountValidation(source, args) {
         args.IsValid = false;
@@ -45,8 +42,9 @@
         if (maxValue > minValue)
             args.IsValid = true;
 
-        if (minValue == "" && maxValue == "")
+        if ((minValue == "" && maxValue == "")||(minValue != "" && maxValue == ""))
             args.IsValid = true;
+       
     }
 
     //    function alertTest() {
@@ -56,6 +54,7 @@
     //            else
     //                alert("empty");
     //    }
+    
     function TenureValidation(source, args) {
         args.IsValid = false;
         var minValue = document.getElementById('ctrl_ReceivableSetup_RadGridStructureRule_ctl00_ctl02_ctl03_txtMinTenure').value;
@@ -64,7 +63,7 @@
         if (maxValue > minValue)
             args.IsValid = true;
 
-        if (minValue == "" && maxValue == "")
+        if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == ""))
             args.IsValid = true;
     }
 
@@ -75,7 +74,7 @@
         if (maxValue > minValue)
             args.IsValid = true;
 
-        if (minValue == "" && maxValue == "")
+        if ((minValue == "" && maxValue == "") || (minValue != "" && maxValue == ""))
             args.IsValid = true;
     }
 
@@ -689,7 +688,7 @@
                                                     <asp:Button ID="btnSubmitRule" ValidationGroup="btnSubmitRule" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
                                                         CssClass="PCGButton" runat="server" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                         CausesValidation="true" ></asp:Button>&nbsp;
-                                                    <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" ValidationGroup="btnSubmitRule"
+                                                    <asp:Button ID="Button2" CssClass="PCGButton" Text="Cancel" 
                                                         runat="server" CausesValidation="false" CommandName="Cancel"></asp:Button>
                                                 </td>
                                             </tr>
@@ -714,9 +713,9 @@
                                                     <asp:RequiredFieldValidator runat="server" ID="reqName" ValidationGroup="btnSubmitRule"
                                                         Display="Dynamic" ControlToValidate="txtBrokerageValue" ErrorMessage="Brokerage value is mandatory"
                                                         Text="" />
-                                                    <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
+                                                  <%--  <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="You must enter valid value in the following fields:"
                                                         ShowMessageBox="false" DisplayMode="BulletList" ShowSummary="true" Display="Dynamic"
-                                                        ValidationGroup="btnSubmitRule" />
+                                                        ValidationGroup="btnSubmitRule" />--%>
                                                     
                                                     <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select Frequency"
                                                         CssClass="rfvPCG" ControlToValidate="ddlReceivableFrequency" ValidationGroup="btnSubmitRule"
