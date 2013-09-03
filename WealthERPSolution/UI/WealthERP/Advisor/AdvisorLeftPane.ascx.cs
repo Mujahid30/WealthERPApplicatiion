@@ -1032,6 +1032,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','login');", true);
                 }
+                else if (e.Item.Value == "Commission_Receivable_Recon")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1832,11 +1837,13 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerExceptionHandling','login');", true);
                 }
+                
                 else if (e.Item.Value == "MFNP_Tranx_Compare")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFNPAndTransactionCompare','login');", true);
                 }
+                
                 else if (e.Item.Value == "Multi Asset Report")
                 {
                     Session["UserType"] = "adviser";
