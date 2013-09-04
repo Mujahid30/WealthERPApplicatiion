@@ -3422,5 +3422,84 @@ namespace BoUploads
 
         //-------------------------End Deutsche Trail Commission Uploads---------------------------------\\
 
+
+        #region FI Uploads
+        public bool FIInsertFromXMLToInputToBakToStag(int UploadProcessId,string packagePath,string fileName,string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(packagePath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = UploadProcessId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:FIInsertFromXMLToInputToBakToStag()");
+
+                object[] objects = new object[3];
+                objects[0] = UploadProcessId;
+                objects[2] = packagePath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+        }
+
+
+        public bool FIInsertFromStagingToNP(int UploadProcessId, string AccountId, object recordSetObject, string packagePath,string configPath)
+        {
+            bool IsProcessComplete = false;
+            try
+            {
+                Package standardTranPkg3 = App.LoadPackage(packagePath, null);
+
+                standardTranPkg3.Variables["varProcessId"].Value = UploadProcessId;
+
+                standardTranPkg3.ImportConfigurationFile(configPath);
+                DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
+                if (standardTranResult3.ToString() == "Success")
+                    IsProcessComplete = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CamsUploadsBo.cs:FIInsertFromXMLToInputToBakToStag()");
+
+                object[] objects = new object[3];
+                objects[0] = UploadProcessId;
+                objects[2] = packagePath;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return IsProcessComplete;
+
+        }
+        #endregion
+
     }
 }
