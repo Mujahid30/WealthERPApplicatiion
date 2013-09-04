@@ -7375,6 +7375,8 @@
     <None Include="UploadFiles\WERPMFTans.xls" />
     <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.database" />
     <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew.dtproj" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\FICommonToNP.dtsx" />
+    <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\FI_XML_INPUT_BKUP_ToStaging.dtsx" />
     <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadChecksCAMSProfileStaging.dtsx" />
     <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadDataTranslationChecksFirstStaging.dtsx" />
     <None Include="UploadPackages\CAMSProfileUploadPackageNew\CAMSProfileUploadPackageNew\UploadFolioDataFromCAMSStagingToCommonStaging.dtsx" />
