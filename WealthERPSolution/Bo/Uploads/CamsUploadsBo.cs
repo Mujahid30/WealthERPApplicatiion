@@ -3432,8 +3432,8 @@ namespace BoUploads
                 Package standardTranPkg3 = App.LoadPackage(packagePath, null);
 
                 standardTranPkg3.Variables["varProcessId"].Value = UploadProcessId;
-
-                standardTranPkg3.ImportConfigurationFile(configPath);
+                standardTranPkg3.Variables["varXMLFilePath"].Value = fileName;
+                //standardTranPkg3.ImportConfigurationFile(configPath);
                 DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
                 if (standardTranResult3.ToString() == "Success")
                     IsProcessComplete = true;
@@ -3471,7 +3471,7 @@ namespace BoUploads
 
                 standardTranPkg3.Variables["varProcessId"].Value = UploadProcessId;
 
-                standardTranPkg3.ImportConfigurationFile(configPath);
+                //standardTranPkg3.ImportConfigurationFile(configPath);
                 DTSExecResult standardTranResult3 = standardTranPkg3.Execute();
                 if (standardTranResult3.ToString() == "Success")
                     IsProcessComplete = true;
