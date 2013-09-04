@@ -82,7 +82,7 @@ namespace WealthERP.Uploads
         int UploadProcessId = 0;
         int portfolioId;
         int countCustCreated = 0;
-        int countFolioCreated = 0;       
+        int countFolioCreated = 0;
 
         string folioNum;
         string packagePath;
@@ -104,7 +104,7 @@ namespace WealthERP.Uploads
             Message_lbl.Visible = false;
 
             lblFileType.Visible = false;
-            
+
             string lastUploadDate = "";
             btn_Upload.Attributes.Add("onclick", "setTimeout(\"UpdateImg('Image1','/Images/Wait.gif');\",50);");
             this.Page.Culture = "en-US";
@@ -134,8 +134,8 @@ namespace WealthERP.Uploads
             {
                 trAdviserSelection.Visible = false;
                 adviserId = adviserVo.advisorId;
-                if (rmVo!=null)
-                rmId = rmVo.RMId;
+                if (rmVo != null)
+                    rmId = rmVo.RMId;
             }
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             lastUploadDate = uploadsCommonBo.GetLastUploadDate(adviserId);
@@ -143,7 +143,7 @@ namespace WealthERP.Uploads
             {
                 ddlUploadType.Items.Remove(ddlUploadType.Items.FindByValue("PMFF"));
                 ddlUploadType.Items.Remove(ddlUploadType.Items.FindByValue("P"));
-             
+
             }
 
 
@@ -194,7 +194,7 @@ namespace WealthERP.Uploads
                 {
                     BindAdviserDropDownList();
                 }
-                     BindListBranch(adviserId, "adviser");
+                BindListBranch(adviserId, "adviser");
 
             }
             divInputErrorList.Visible = false;
@@ -1750,7 +1750,7 @@ namespace WealthERP.Uploads
                                                 }
                                             }
                                         }
-                                        
+
                                         if (XmlCreated)
                                             XMLProgress = "Done";
                                         else
@@ -1816,106 +1816,106 @@ namespace WealthERP.Uploads
                                     bool SundaramSIPStagingResult = false;
                                     bool SundaramSIPCommonStagingToWERP = false;
 
-                                  
 
 
-                                        if (SundaramSIPInputResult)
+
+                                    if (SundaramSIPInputResult)
+                                    {
+                                        //processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                        //processlogVo.EndTime = DateTime.Now;
+                                        //SundaramSIPStagingCheckResult = uploadsCommonBo.InsertIntoXtrnlTableForSUSIP(UploadProcessId, fileName);
+                                        packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUxmlToInputToXtrnl.dtsx");
+                                        SundaramSIPStagingResult = camsUploadsBo.SundaramSIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
+                                        //SundaramSIPStagingCheckResult = true;
+                                        if (SundaramSIPStagingCheckResult)
+                                        {
+                                            packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUxtrnlToStagingAndCheck.dtsx");
+                                            SundaramSIPStagingResult = camsUploadsBo.SundaramSIPInsertToStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
+                                            if (SundaramSIPStagingResult)
                                             {
-                                                //processlogVo.IsInsertionToSecondStagingComplete = 1;
-                                                //processlogVo.EndTime = DateTime.Now;
-                                                //SundaramSIPStagingCheckResult = uploadsCommonBo.InsertIntoXtrnlTableForSUSIP(UploadProcessId, fileName);
-                                                packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUxmlToInputToXtrnl.dtsx");
-                                                SundaramSIPStagingResult = camsUploadsBo.SundaramSIPInsertToInputTrans(UploadProcessId, packagePath, fileName, configPath);
-                                                //SundaramSIPStagingCheckResult = true;
+                                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                SundaramSIPStagingCheckResult = true;
                                                 if (SundaramSIPStagingCheckResult)
                                                 {
-                                                    packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUxtrnlToStagingAndCheck.dtsx");
-                                                    SundaramSIPStagingResult = camsUploadsBo.SundaramSIPInsertToStagingTrans(adviserId, UploadProcessId, packagePath, configPath);
-                                                    if (SundaramSIPStagingResult)
+                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
+                                                    SundaramSIPCommonStagingChk = camsUploadsBo.TempletonSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "SU");
+                                                    processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "SU");
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    if (SundaramSIPCommonStagingChk)
                                                     {
-                                                        processlogVo.IsInsertionToFirstStagingComplete = 1;
-                                                        processlogVo.EndTime = DateTime.Now;
-                                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                        SundaramSIPStagingCheckResult = true;
-                                                        if (SundaramSIPStagingCheckResult)
+                                                        packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUcommonStagingToFinalTable.dtsx");
+                                                        SundaramSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(UploadProcessId, packagePath, configPath);
+
+                                                        if (SundaramSIPCommonStagingToWERP)
                                                         {
-                                                            processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                            processlogVo.IsInsertionToWERPComplete = 1;
                                                             processlogVo.EndTime = DateTime.Now;
-                                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                                                            packagePath = Server.MapPath("\\UploadPackages\\CAMSSystematicUploadPackageNew\\CAMSSystematicUploadPackageNew\\UploadSIPCommonStagingCheck.dtsx");
-                                                            SundaramSIPCommonStagingChk = camsUploadsBo.TempletonSIPCommonStagingChk(UploadProcessId, packagePath, configPath, "SU");
-                                                            processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "SU");
-                                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-                                                            if (SundaramSIPCommonStagingChk)
-                                                            {
-                                                                packagePath = Server.MapPath("\\UploadPackages\\SIPSundaramUpload\\SIPSundaramUpload\\SUcommonStagingToFinalTable.dtsx");
-                                                                SundaramSIPCommonStagingToWERP = camsUploadsBo.CamsSIPCommonStagingToWERP(UploadProcessId, packagePath, configPath);
-
-                                                                if (SundaramSIPCommonStagingToWERP)
-                                                                {
-                                                                    processlogVo.IsInsertionToWERPComplete = 1;
-                                                                    processlogVo.EndTime = DateTime.Now;
-                                                                }
-                                                            }
                                                         }
                                                     }
                                                 }
-                                           
-                                       
-                                   
-                                            processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "SU");
-                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
-
-                                            if (XmlCreated)
-                                                XMLProgress = "Done";
-                                            else
-                                                XMLProgress = "Failure";
-
-                                            if (SundaramSIPInputResult)
-                                            {
-                                                XtrnlInsertionProgress = "Done";
-                                                InputInsertionProgress = "Done";
                                             }
-                                            else
-                                            {
-                                                InputInsertionProgress = "Failure";
-                                                XtrnlInsertionProgress = "Failure";
-                                            }
-
-                                            if (SundaramSIPStagingResult)
-                                                FirstStagingInsertionProgress = "Done";
-                                            else
-                                                FirstStagingInsertionProgress = "Failure";
-
-                                            if (SundaramSIPCommonStagingChk)
-                                                SecondStagingInsertionProgress = "Done";
-                                            else
-                                                SecondStagingInsertionProgress = "Failure";
-
-                                            if (SundaramSIPCommonStagingChk && SundaramSIPCommonStagingToWERP)
-                                            {
-                                                WERPInsertionProgress = "Done";
-
-                                            }
-                                            else
-                                                WERPInsertionProgress = "Failure";
-
-                                            if (SundaramSIPCommonStagingToWERP)
-                                                XtrnlInsertionProgress = "Done";
-                                            else
-                                                XtrnlInsertionProgress = "Failure";
-
-                                            // Update Process Summary Text Boxes
-                                            txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
-                                            txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
-                                            txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
-                                            txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
-
-                                            txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
-
-                                            Session[SessionContents.ProcessLogVo] = processlogVo;
                                         }
+
+
+
+                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetUploadSystematicRejectCount(UploadProcessId, "SU");
+                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                        if (XmlCreated)
+                                            XMLProgress = "Done";
+                                        else
+                                            XMLProgress = "Failure";
+
+                                        if (SundaramSIPInputResult)
+                                        {
+                                            XtrnlInsertionProgress = "Done";
+                                            InputInsertionProgress = "Done";
+                                        }
+                                        else
+                                        {
+                                            InputInsertionProgress = "Failure";
+                                            XtrnlInsertionProgress = "Failure";
+                                        }
+
+                                        if (SundaramSIPStagingResult)
+                                            FirstStagingInsertionProgress = "Done";
+                                        else
+                                            FirstStagingInsertionProgress = "Failure";
+
+                                        if (SundaramSIPCommonStagingChk)
+                                            SecondStagingInsertionProgress = "Done";
+                                        else
+                                            SecondStagingInsertionProgress = "Failure";
+
+                                        if (SundaramSIPCommonStagingChk && SundaramSIPCommonStagingToWERP)
+                                        {
+                                            WERPInsertionProgress = "Done";
+
+                                        }
+                                        else
+                                            WERPInsertionProgress = "Failure";
+
+                                        if (SundaramSIPCommonStagingToWERP)
+                                            XtrnlInsertionProgress = "Done";
+                                        else
+                                            XtrnlInsertionProgress = "Failure";
+
+                                        // Update Process Summary Text Boxes
+                                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                                    }
                                     //}
                                 }
 
@@ -2608,7 +2608,7 @@ namespace WealthERP.Uploads
                                                 //if (TempletonTrailStagingCheckResult)
                                                 //{
                                                 packagePath = Server.MapPath("\\UploadPackages\\TrailCommisionUploadPackage\\TrailCommissionUpload\\TrailCommissionUpload\\commonStagingToTrailSetUp.dtsx");
-                                                KARVYTrailCommonStagingChk = camsUploadsBo.KARVYTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA",adviserId);
+                                                KARVYTrailCommonStagingChk = camsUploadsBo.KARVYTrailCommissionCommonStagingChk(UploadProcessId, packagePath, configPath, "KA", adviserId);
                                                 processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetUploadSystematicInsertCount(UploadProcessId, "KA");
                                                 updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
 
@@ -4330,6 +4330,128 @@ namespace WealthERP.Uploads
                                 #endregion MF CAMS Transaction Upload
 
 
+                                #region FIxed Income Upload
+
+                                //*****************************************************************************************************************************
+                                // FIxed Income Upload
+                                else
+                                    if (ddlUploadType.SelectedValue == "Link" && ddlListCompany.SelectedValue == "LK")
+                                    {
+                                        bool updateProcessLog = false;
+                                        bool camsTranWerpResult = false;
+                                        bool CommonTransChecks = false;
+                                        bool camsTranStagingCheckResult = false;
+                                        bool camsTranStagingResult = false;
+                                        bool camsTranInputResult = false;
+
+                                        string AccountId=string.Empty;
+                                        object recordSetObject=new object();
+
+                                        packagePath = Server.MapPath("\\UploadPackages\\FixedIncomeUploadNew\\FixedIncomeUploadNew\\FI_XML_INPUT_BKUP_ToStaging.dtsx");
+                                        camsTranInputResult = camsUploadsBo.FIInsertFromXMLToInputToBakToStag(UploadProcessId, packagePath, fileName, configPath);
+                                        if (camsTranInputResult)
+                                        {
+                                            processlogVo.IsInsertionToInputComplete = 1;
+                                            processlogVo.IsInsertionToXtrnlComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            processlogVo.XMLFileName = processlogVo.ProcessId.ToString() + ".xml";
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                            processlogVo.IsInsertionToXtrnlComplete = 1;
+                                            processlogVo.EndTime = DateTime.Now;
+                                            updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+
+                                            camsTranStagingResult = true;
+                                            if (camsTranStagingResult)
+                                            {
+                                                processlogVo.IsInsertionToFirstStagingComplete = 1;
+                                                processlogVo.EndTime = DateTime.Now;
+                                                updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                camsTranStagingCheckResult = true;
+                                                if (camsTranStagingCheckResult)
+                                                {
+
+                                                    processlogVo.IsInsertionToSecondStagingComplete = 1;
+                                                    processlogVo.EndTime = DateTime.Now;
+                                                    updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+
+                                                    CommonTransChecks = true;
+
+                                                    packagePath = Server.MapPath("\\UploadPackages\\FixedIncomeUploadNew\\FixedIncomeUploadNew\\FICommonToNP.dtsx");
+                                                    camsTranWerpResult = camsUploadsBo.FIInsertFromStagingToNP(UploadProcessId, AccountId, recordSetObject, packagePath, configPath);
+                                                    if (camsTranWerpResult)
+                                                    {
+                                                        processlogVo.IsInsertionToWERPComplete = 1;
+                                                        processlogVo.NoOfTransactionInserted = uploadsCommonBo.GetTransUploadCount(UploadProcessId, "LINK");
+                                                        processlogVo.NoOfRejectedRecords = uploadsCommonBo.GetTransUploadRejectCount(UploadProcessId, Contants.UploadExternalTypeCAMS);
+                                                        processlogVo.EndTime = DateTime.Now;
+                                                        processlogVo.NoOfInputRejects = uploadsCommonBo.GetUploadTransactionInputRejectCount(UploadProcessId, "LK");
+                                                        processlogVo.NoOfTransactionDuplicates = 0;
+                                                        updateProcessLog = uploadsCommonBo.UpdateUploadProcessLog(processlogVo);
+                                                    }
+                                                }
+                                            }
+
+
+                                        }
+
+                                        // Update Process Progress Monitoring Text Boxes
+                                        //txtProcessID.Text = processlogVo.ProcessId.ToString();
+
+                                        if (XmlCreated)
+                                            XMLProgress = "Done";
+                                        else
+                                            XMLProgress = "Failure";
+
+                                        if (camsTranInputResult)
+                                        {
+                                            XtrnlInsertionProgress = "Done";
+                                            InputInsertionProgress = "Done";
+                                        }
+                                        else
+                                        {
+                                            InputInsertionProgress = "Failure";
+                                            XtrnlInsertionProgress = "Failure";
+                                        }
+
+                                        if (camsTranStagingResult)
+                                            FirstStagingInsertionProgress = "Done";
+                                        else
+                                            FirstStagingInsertionProgress = "Failure";
+
+                                        if (camsTranStagingCheckResult)
+                                            SecondStagingInsertionProgress = "Done";
+                                        else
+                                            SecondStagingInsertionProgress = "Failure";
+
+                                        if (CommonTransChecks && camsTranWerpResult)
+                                        {
+                                            WERPInsertionProgress = "Done";
+
+                                        }
+                                        else
+                                            WERPInsertionProgress = "Failure";
+
+                                        if (camsTranWerpResult)
+                                            XtrnlInsertionProgress = "Done";
+                                        else
+                                            XtrnlInsertionProgress = "Failure";
+
+                                        // Update Process Summary Text Boxes
+                                        txtUploadStartTime.Text = processlogVo.StartTime.ToShortTimeString();
+                                        txtUploadEndTime.Text = processlogVo.EndTime.ToShortTimeString();
+                                        txtExternalTotalRecords.Text = processlogVo.NoOfTotalRecords.ToString();
+                                        txtUploadedRecords.Text = processlogVo.NoOfTransactionInserted.ToString();
+
+                                        txtRejectedRecords.Text = processlogVo.NoOfRejectedRecords.ToString();
+
+                                        Session[SessionContents.ProcessLogVo] = processlogVo;
+                                    }
+
+
+                                #endregion
+
                     }
                     else
                     {
@@ -4566,6 +4688,15 @@ namespace WealthERP.Uploads
 
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
             }
+            if (ddlUploadType.SelectedValue == Contants.ExtractTypeFIHoldings)
+            {   // MF FOLIO  Only
+                ddlListCompany.DataSource = GetFDGenericDictionary();
+                ddlListCompany.DataTextField = "Key";
+                ddlListCompany.DataValueField = "Value";
+                ddlListCompany.DataBind();
+                ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
+
+            }
             else
             {
                 ddlListCompany.Items.Clear();
@@ -4593,7 +4724,12 @@ namespace WealthERP.Uploads
             ModalPopupExtender1.Show();
         }
 
-
+        private static Dictionary<string, string> GetFDGenericDictionary()
+        {
+            Dictionary<string, string> genDictProfile = new Dictionary<string, string>();
+            genDictProfile.Add("Holdings/Allotment", "LK");
+            return genDictProfile;
+        }
 
         protected void btnExportExcel_Click(object sender, EventArgs e)
         {
@@ -5100,7 +5236,7 @@ namespace WealthERP.Uploads
                 else if (ddlUploadType.SelectedValue == "MFSS" && ddlListCompany.SelectedValue == "TN")
                 {
                     if (extension == "dbf")
-                    {                     
+                    {
                         string filename = "SUTP.dbf";
                         string filepath = Server.MapPath("UploadFiles");
 
@@ -5127,7 +5263,7 @@ namespace WealthERP.Uploads
                         //ValidationProgress = "Failure";
                     }
                     if (filereadflag == true)
-                    {                    
+                    {
                         //get all column nams for the selcted file type
                         dsColumnNames = uploadcommonBo.GetColumnNames(23);
 
@@ -7172,7 +7308,7 @@ namespace WealthERP.Uploads
                         if (ddlAction.SelectedValue != "NSE")
                             ds.Tables[0].Rows[0].Delete();
                         if (ddlAction.SelectedValue == "NSE")
-                            ds.Tables[0].Rows[ds.Tables[0].Rows.Count-1].Delete();
+                            ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1].Delete();
                         dsXML = ds;
 
                         string uploadtype = ddlAction.SelectedValue;
@@ -7559,6 +7695,50 @@ namespace WealthERP.Uploads
 
                         //Get filetypeid from XML
                         filetypeid = XMLBo.getUploadFiletypeCode(pathxml, "MF", "SU", Contants.UploadFileTypeProfile);
+                    }
+                }
+                #endregion
+
+                #region Fixed income upload
+                //Read File for Mf CAMS Transaction DBF Upload
+                if (ddlUploadType.SelectedValue == Contants.ExtractTypeFIHoldings && ddlListCompany.SelectedValue == Contants.UploadExternalTypeFixedIncome)
+                {
+                    if (extension == "dbf")
+                    {
+                        string filename = "FIHD.dbf";
+                        string filepath = Server.MapPath("UploadFiles");
+
+                        FileUpload.SaveAs(filepath + "\\" + filename);
+                        ds = readFile.ReadDBFFile(filepath, filename, out strFileReadError);
+                    }
+                    else if (extension == "xls" || extension == "xlsx")
+                    {
+                        string Filepath = Server.MapPath("UploadFiles") + "\\FIHoldingsXls.xls";
+                        FileUpload.SaveAs(Filepath);
+                        ds = readFile.ReadExcelfile(Filepath);
+                    }
+
+                    else
+                    {
+                        ValidationProgress = "Failure";
+                    }
+                    if (filereadflag == true)
+                    {
+                        //get all column nams for the selcted file type
+                        dsColumnNames = uploadcommonBo.GetColumnNames((int)Contants.UploadTypes.FILinkHolding);
+
+                        //Get werp Column Names for the selected type of file
+                        dsWerpColumnNames = uploadcommonBo.GetUploadWERPNameForExternalColumnNames((int)Contants.UploadTypes.FILinkHolding);
+
+                        dsXML = removeUnwantedDatafromXMLDs(ds, dsColumnNames, dsWerpColumnNames, 1);
+                        //Get XML after mapping, checking for columns
+                        dsXML = getXMLDs(ds, dsColumnNames, dsWerpColumnNames);
+
+                        //Get filetypeid from XML
+                        filetypeid = XMLBo.getUploadFiletypeCode(pathxml, Contants.FixedIncome, Contants.UploadExternalTypeFixedIncome, Contants.ExtractTypeFIHoldings);
+
+                        //Reject upload if there are any data error validations
+
                     }
                 }
                 #endregion
@@ -8183,8 +8363,8 @@ namespace WealthERP.Uploads
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedWERPProfile','?processId=" + processid + "&filetypeid=" + filetype + "');", true);
 
             }
-            else if (( filetype == (int)Contants.UploadTypes.KarvyProfile || filetype == (int)Contants.UploadTypes.TempletonProfile ||
-                filetype == (int)Contants.UploadTypes.DeutscheProfile  || filetype == 21)
+            else if ((filetype == (int)Contants.UploadTypes.KarvyProfile || filetype == (int)Contants.UploadTypes.TempletonProfile ||
+                filetype == (int)Contants.UploadTypes.DeutscheProfile || filetype == 21)
                 && (extracttype == "PO" || extracttype == "PAF"))
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RejectedMFFolio','?processId=" + processid + "&filetypeid=" + filetype + "&adviserId=" + adviserId + "&extractType=" + type + "&uploadDate=" + uploadDate + "&RTName=" + RTName + "');", true);
