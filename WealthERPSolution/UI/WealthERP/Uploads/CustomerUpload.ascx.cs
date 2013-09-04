@@ -4688,7 +4688,7 @@ namespace WealthERP.Uploads
 
                 ddlListCompany.Items.Insert(0, new ListItem("Select Source Type", "Select Source Type"));
             }
-            if (ddlUploadType.SelectedValue == Contants.ExtractTypeFIHoldings)
+            else if (ddlUploadType.SelectedValue == Contants.ExtractTypeFIHoldings)
             {   // MF FOLIO  Only
                 ddlListCompany.DataSource = GetFDGenericDictionary();
                 ddlListCompany.DataTextField = "Key";
