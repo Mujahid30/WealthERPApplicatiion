@@ -179,14 +179,16 @@ namespace WERP_REQUEST_PROCESSOR
             if (groupCustomerId != 0)
             {
                 customerPortfolioids = GetGroupCustomerAllPortfolio(groupCustomerId);
+                
             }
             else
             {
                 customerPortfolioids = GetCustomerAllPortfolio(customerId);
+
+                if (!string.IsNullOrEmpty(customerPortfolioids.ToString()))
+                    customerPortfolioids = customerPortfolioids.Remove(customerPortfolioids.Length - 1, 1);
             }
 
-            if (!string.IsNullOrEmpty(customerPortfolioids.ToString()))
-                customerPortfolioids = customerPortfolioids.Remove(customerPortfolioids.Length - 1, 1);
             mfReport.PortfolioIds = customerPortfolioids;
 
             return mfReport;
