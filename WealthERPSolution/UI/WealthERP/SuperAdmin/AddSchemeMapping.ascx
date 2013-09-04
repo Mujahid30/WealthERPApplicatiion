@@ -178,7 +178,7 @@
     <div>
         <asp:Panel ID="pnlgvScheme" Visible="false" runat="server" class="Landscape" ScrollBars="Horizontal">
             <telerik:RadGrid ID="gvSchemeDetails" runat="server" CssClass="RadGrid" GridLines="None"
-                Width="105%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                Width="102%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvSchemeDetails_ItemDataBound"
                 OnNeedDataSource="gvSchemeDetails_NeedDataSource" EnableEmbeddedSkins="false"
@@ -188,11 +188,16 @@
                 </ExportSettings>
                 <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode,PASP_SchemePlanName"
                     EditMode="PopUp" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false"
-                    Width="105%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
+                    Width="102%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Add/Update" UniqueName="editColumn" CancelText="Cancel"
                             UpdateText="Add/Update">
                         </telerik:GridEditCommandColumn>
+                         <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px" FilterControlWidth="50px"
+                            HeaderText="Type" DataField="Type" SortExpression="Type" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="300px"
                             HeaderText="Scheme Plan Name" DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
                             AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -209,26 +214,22 @@
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Visible="true" UniqueName="PAIC_AssetInstrumentCategoryName"
-                            HeaderStyle-Width="180px" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName"
+                            HeaderStyle-Width="120px" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName"
                             SortExpression="PAIC_AssetInstrumentCategoryName" AllowFiltering="true" ShowFilterIcon="false"
                             AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="External Code"
-                            HeaderStyle-Width="80px" DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode"
+                            HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode"
                             AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="External Type"
-                            HeaderStyle-Width="80px" DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType"
+                            HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType"
                             AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Visible="false" UniqueName="Type" HeaderStyle-Width="100px"
-                            HeaderText="Type" DataField="Type" SortExpression="Type" AllowFiltering="true"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
+                       
                         <%--  <telerik:GridTemplateColumn DataField="PASC_AMC_ExternalType" UniqueName="ShipCity"
                         InitializeTemplatesFirst="false" HeaderStyle-Width="100" HeaderText="Ship city">
                         <HeaderTemplate>
@@ -308,7 +309,9 @@
                                                 <td>
                                                     <%--                                                <asp:TextBox ID="txtExternalTypeForEditForm" Text='<%# Bind("PASC_AMC_ExternalType") %>' runat="server"></asp:TextBox>
 --%>
-                                                    <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlExternalType">
+                                                    <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlExternalType" AutoPostBack="true">
+                                                        <asp:ListItem Text="Select" Value="Select">
+                                                        </asp:ListItem>
                                                         <asp:ListItem Text="CAMS" Value="CAMS">
                                                         </asp:ListItem>
                                                        <%-- <asp:ListItem Text="Deutsche" Value="Deutsche" Enabled="false">

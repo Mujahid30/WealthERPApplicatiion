@@ -49,6 +49,7 @@ namespace WealthERP.BusinessMIS
         int AdviserID;
         UserVo userVo = new UserVo();
         int bmID;
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         DateTime LatestValuationdate = new DateTime();
         bool GridViewCultureFlag = true;
@@ -69,7 +70,7 @@ namespace WealthERP.BusinessMIS
         int AmcCode = 0;
         int SchemeCode = 0;
         string type;
-
+        string AgentCode;
         DateTime QSdtCurrentDate;
         DateTime QSdtPreviousDate;
 
@@ -101,74 +102,165 @@ namespace WealthERP.BusinessMIS
                 BindAMCWISEAUMDetails();
             }
 
-
-            if (advisorVo.advisorId == 1000)
+            if (advisorVo.A_AgentCodeBased == 0)
             {
-                //if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
-                //{
-                //    advisorId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
-                //    if (hfRmId.Value != "")
-                //    {
-                //        rmId = Convert.ToInt32(hfRmId.Value);
-                //    }
-                //}
-                //else
-                //{
-                advisorId = 1000;
-                //}
+                if (advisorVo.advisorId == 1000)
+                {
+                    //if (ddlAdviser.SelectedValue != "Select" && ddlAdviser.SelectedValue != "")
+                    //{
+                    //    advisorId = Convert.ToInt32(ddlAdviser.SelectedValue.ToString());
+                    //    if (hfRmId.Value != "")
+                    //    {
+                    //        rmId = Convert.ToInt32(hfRmId.Value);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    advisorId = 1000;
+                    //}
+                }
+                else
+                {
+
+                    bmID = rmVo.RMId;
+
+                    if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                        userType = "advisor";
+                    else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
+                        userType = "rm";
+                    else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                        userType = "bm";
+                    else
+                        userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+                    advisorId = advisorVo.advisorId;
+
+                }
             }
-            else
+            if (advisorVo.A_AgentCodeBased == 1)
             {
-
                 bmID = rmVo.RMId;
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                {
                     userType = "advisor";
+                    AgentCode = "0";
+                }
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "rm")
                     userType = "rm";
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                     userType = "bm";
                 else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                {
                     userType = "associates";
+                    associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
+                    if (associateuserheirarchyVo.UserTitle == "SubBroker")
+                    {
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                        {
+                            AgentCode = "0";
+                        }
+                    }
+                    else
+                    {
+                        if (associateuserheirarchyVo.AgentCode != null)
+                        {
+                            AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                        }
+                        else
+                        {
+                            AgentCode = "0";
+                        }
+                    }
+                }
                 else
                     userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
-                advisorId = advisorVo.advisorId;
-
             }
-
-
+            advisorId = advisorVo.advisorId;
             if (!IsPostBack)
             {
-                if (advisorId != 1000)
+                if (advisorVo.A_AgentCodeBased == 0)
                 {
-                    divDateDetails.Visible = true;
-                    divSelectionDetails.Visible = true;
-                    divAdviserList.Visible = false;
-                    if (userType == "advisor")
+                    if (advisorId != 1000)
                     {
-                        hidingConrolForRMAndBMLogin(userType);
-                        BindBranchDropDown();
-                        BindRMDropDown();
-                    }
-                    else if (userType == "rm")
-                    {
-                        hidingConrolForRMAndBMLogin(userType);
-                    }
-                    if (userType == "bm")
-                    {
-                        hidingConrolForRMAndBMLogin(userType);
-                        BindBranchForBMDropDown();
-                        bmID = rmVo.RMId;
-                        BindRMforBranchDropdown(0, bmID, 1);
+                        divDateDetails.Visible = true;
+                        divSelectionDetails.Visible = true;
+                        divAdviserList.Visible = false;
+                        if (userType == "advisor")
+                        {
+                           
+                            hidingConrolForRMAndBMLogin(userType);
+                            BindBranchDropDown();
+                            BindRMDropDown();
+                        }
+                        else if (userType == "rm")
+                        {
+                            hidingConrolForRMAndBMLogin(userType);
+                        }
+                        if (userType == "bm")
+                        {
+                            hidingConrolForRMAndBMLogin(userType);
+                            BindBranchForBMDropDown();
+                            bmID = rmVo.RMId;
+                            BindRMforBranchDropdown(0, bmID, 1);
 
-                        hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                            hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                        }
                     }
-                    if (userType == "associates")
+                    else
                     {
-                        hidingConrolForRMAndBMLogin(userType);
-                        BindBranchDropDown();
-                        BindRMDropDown();
+                        divAdviserList.Visible = true;
+                        BindAdviserDropDownList();
+
                     }
+                }
+                    if (advisorVo.A_AgentCodeBased == 1)
+                    {
+                        if (advisorId != 1000)
+                        {
+                            divDateDetails.Visible =true;
+                            divSelectionDetails.Visible = true;
+                            divAdviserList.Visible = false;
+                            if (userType == "advisor")
+                            {
+                                hidingConrolForRMAndBMLogin(userType);
+                                lblBranch.Visible = false;
+                                ddlBranch.Visible = false;
+                                ddlRM.Visible = false;
+                                lblRM.Visible = false;
+                                BindBranchDropDown();
+                                BindRMDropDown();
+                            }
+                            else if (userType == "rm")
+                            {
+                                hidingConrolForRMAndBMLogin(userType);
+                            }
+                            if (userType == "bm")
+                            {
+                                hidingConrolForRMAndBMLogin(userType);
+                                BindBranchForBMDropDown();
+                                bmID = rmVo.RMId;
+                                BindRMforBranchDropdown(0, bmID, 1);
+
+                                hdnbranchHeadId.Value = ddlBranch.SelectedValue;
+                            }
+                            if (userType == "associates")
+                            {
+                                hidingConrolForRMAndBMLogin(userType);
+                                BindBranchDropDown();
+                                BindRMDropDown();
+                            }
+                        }
+                        else
+                        {
+                            divAdviserList.Visible = true;
+                            BindAdviserDropDownList();
+                        }
+                    }
+                   
 
                     //LatestValuationdate = adviserMISBo.GetLatestValuationDateFromHistory(advisorId,"MF");
                     //hdnValuationDate.Value = LatestValuationdate.ToString("MM/dd/yyyy");  
@@ -196,13 +288,8 @@ namespace WealthERP.BusinessMIS
                             lblMFMISType.Text = "FOLIO WISE AUM";
                         }
                     }
-                }
-                else
-                {
-                    divAdviserList.Visible = true;
-                    BindAdviserDropDownList();
-
-                }
+                
+               
             }
 
 
@@ -210,6 +297,19 @@ namespace WealthERP.BusinessMIS
 
         }
 
+        protected void HideGridColumnonAgenetBasedCode()
+        {
+            if (advisorVo.A_AgentCodeBased == 0)
+            {
+                gvFolioWiseAUM.Columns[2].Visible = false;
+                gvFolioWiseAUM.Columns[3].Visible = false;
+                gvFolioWiseAUM.Columns[4].Visible = false;
+                gvFolioWiseAUM.Columns[5].Visible = false;
+                gvFolioWiseAUM.Columns[6].Visible = false;
+                gvFolioWiseAUM.Columns[7].Visible = false;
+            }
+        
+        }
         private void BindRMforBranchDropdown(int branchId, int branchHeadId, int all)
         {
             try
@@ -417,6 +517,7 @@ namespace WealthERP.BusinessMIS
 
         private void SetParameters()
         {
+                
             if (userType == "advisor")
             {
                 if (ddlBranch.SelectedIndex == 0 && ddlRM.SelectedIndex == 0)
@@ -474,9 +575,24 @@ namespace WealthERP.BusinessMIS
             }
             else if (userType == "associates")
             {
-                hdnAgentId.Value = associatesVo.AAC_AdviserAgentId.ToString();              
-                hdnAll.Value = "0";
+                hdnAgentId.Value = associatesVo.AAC_AdviserAgentId.ToString();
+                hdnbranchHeadId.Value = "0";
+                hdnbranchId.Value = "0";
+                hdnrmId.Value = "0";
+            }
+            else
+            {
+                if (hdnbranchHeadId.Value == "")
+                    hdnbranchHeadId.Value = "0";
 
+                if (hdnbranchId.Value == "")
+                    hdnbranchId.Value = "0";
+
+                if (hdnadviserId.Value == "")
+                    hdnadviserId.Value = "0";
+
+                if (hdnrmId.Value == "")
+                    hdnrmId.Value = "0";
             }
 
         }
@@ -690,7 +806,7 @@ namespace WealthERP.BusinessMIS
                     {
                         if (string.IsNullOrEmpty(hdnadviserId.Value))
                             hdnadviserId.Value = "0";
-                        dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode);
+                        dsMISReport = adviserMISBo.GetAUMForBM(advisorId,int.Parse(hdnrmId.Value),int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode,advisorVo.A_AgentCodeBased);
                     }
                     if (userType == "associates")
                     {
@@ -786,7 +902,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "bm")
                 {
-                    dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode);
+                    dsMISReport = adviserMISBo.GetAUMForBM(advisorId,int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode,advisorVo.A_AgentCodeBased);
 
                 }
                 else if (userType == "advisor")
@@ -832,8 +948,9 @@ namespace WealthERP.BusinessMIS
             divGvSchemeWiseAUM.Visible = false;
             divRgvFolioWiseAUM.Visible = false;
             divRgvSchemeWiseAUM.Visible = false;
-
-
+            HideGridColumnonAgenetBasedCode();
+            dtFromHldDate = Convert.ToDateTime(rdpFrom.SelectedDate);
+            dtTo = Convert.ToDateTime(rdpTo.SelectedDate);
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
             DataSet dsMISReport = null;
             hdnType.Value = "2";
@@ -844,6 +961,7 @@ namespace WealthERP.BusinessMIS
             //{
             //    int.TryParse(ddlRM.SelectedValue, out rmId);
             //}
+            
             Valuationdate = DateTime.Parse(txtDate.SelectedDate.ToString());
             if (advisorVo.advisorId != 1000)
             {
@@ -858,19 +976,20 @@ namespace WealthERP.BusinessMIS
                     //if (ddlRM.SelectedValue != "0")
                     //    rmId = int.Parse(ddlRM.SelectedValue);
 
-                    dsMISReport = adviserMISBo.GetAUMForBM(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuationdate, int.Parse(hdnType.Value), AmcCode, SchemeCode);
+                    dsMISReport = adviserMISBo.GetAUMForBM(advisorId,int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuationdate, int.Parse(hdnType.Value), AmcCode, SchemeCode, advisorVo.A_AgentCodeBased);
                 }
                 else if (userType == "advisor")
                 {
-                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate, SchemeCode);
+                    AgentCode = "0";
+                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate, SchemeCode,AgentCode,advisorVo.A_AgentCodeBased);
                 }
                 if (userType == "associates")
                 {
-                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAssociate(int.Parse(hdnAgentId.Value), Valuationdate, SchemeCode);
+                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAssociate(advisorId,Valuationdate, SchemeCode,AgentCode,advisorVo.A_AgentCodeBased);
                 }
             }
             else
-                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(ddlAdviser.SelectedValue), 0, 0, Valuationdate, SchemeCode);
+                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviser(int.Parse(ddlAdviser.SelectedValue), 0, 0, Valuationdate, SchemeCode, AgentCode, advisorVo.A_AgentCodeBased);
 
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
             {
@@ -930,7 +1049,7 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "bm")
                 {
-                    dsMISReport = adviserMISBo.GetAUMForBMForDateRange(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode, dtFromHldDate, dtToHldDate);
+                    dsMISReport = adviserMISBo.GetAUMForBMForDateRange(advisorId,int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode, dtFromHldDate, dtToHldDate,advisorVo.A_AgentCodeBased);
 
                 }
                 else if (userType == "advisor")
@@ -1002,15 +1121,15 @@ namespace WealthERP.BusinessMIS
                     //if (ddlRM.SelectedValue != "0")
                     //    rmId = int.Parse(ddlRM.SelectedValue);
 
-                    dsMISReport = adviserMISBo.GetAUMForBMForDateRange(int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuationdate, int.Parse(hdnType.Value), AmcCode, SchemeCode, dtFromHldDate, dtToHldDate);
+                    dsMISReport = adviserMISBo.GetAUMForBMForDateRange(advisorId,int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuationdate, int.Parse(hdnType.Value), AmcCode, SchemeCode, dtFromHldDate, dtToHldDate,advisorVo.A_AgentCodeBased);
                 }
-                else if (userType == "advisor")
+                else if (userType == "advisor"||userType=="associates")
                 {
-                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviserForDateRange(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate, SchemeCode, dtFromHldDate, dtToHldDate);
+                    dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviserForDateRange(advisorId, int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuationdate, SchemeCode, dtFromHldDate, dtToHldDate,AgentCode,advisorVo.A_AgentCodeBased,userType);
                 }
             }
             else
-                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviserForDateRange(int.Parse(ddlAdviser.SelectedValue), 0, 0, Valuationdate, SchemeCode, dtFromHldDate, dtToHldDate);
+                dsMISReport = adviserMISBo.GetCustomerAMCSchemewiseAUMForAdviserForDateRange(int.Parse(ddlAdviser.SelectedValue), 0, 0, Valuationdate, SchemeCode, dtFromHldDate, dtToHldDate, AgentCode, advisorVo.A_AgentCodeBased, userType);
 
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
             {

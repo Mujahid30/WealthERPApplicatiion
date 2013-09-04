@@ -56,6 +56,8 @@ namespace WealthERP.SuperAdmin
                 trShemeMapping.Visible = false;
                 trExternalsource.Visible = false;
                 pnlCamsKarvy.Visible = false;
+                pnlCams.Visible = false;
+                pnltempleton.Visible = false;
 
             }
             else
