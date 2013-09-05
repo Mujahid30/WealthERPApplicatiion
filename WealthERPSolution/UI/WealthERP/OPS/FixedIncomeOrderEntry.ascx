@@ -3,6 +3,8 @@
 <%--<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>--%>
 <%--<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>--%>
+ 
+
 <table runat="server" width="100%">
     <%--
   runat="server"--%>
@@ -35,7 +37,7 @@
     </tr>
     <tr id="SchemeSeries" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label5" runat="server" Text="Scheme/bond: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label5" runat="server" Text="Scheme/Bond: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -64,7 +66,7 @@
     
      <tr id="TRTransSer" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label1" runat="server" Text="Transaction type: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 20%">
             <asp:DropDownList ID="ddlTranstype" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -116,6 +118,7 @@
             <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                 Width="150px" OnSelectedIndexChanged="ddlFrequency_SelectedIndexChanged">
                 <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
+                <asp:ListItem Text="Monthly" Value="Monthly"></asp:ListItem>
                 <asp:ListItem Text="Quarterly" Value="Quarterly"></asp:ListItem>
                 <asp:ListItem Text="yearly" Value="yearly"></asp:ListItem>
                 <asp:ListItem Text="Half yearly" Value="Hfyearly"></asp:ListItem>
@@ -132,7 +135,7 @@
     
     <tr id="trDepPaypriv" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label21" runat="server" Text="Deposit payable to :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label21" runat="server" Text="Deposit payable to:" CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 20%">
             <asp:CheckBox ID="ChkFirstholder" runat="server" CssClass="txtField" Text="First holder">
@@ -142,23 +145,23 @@
         </td>
         <td style="width:5%"></td>  
         <td  align="right"  style="width: 10%">
-            <asp:Label ID="Label22" runat="server" Text="Privilidge :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label22" runat="server" Text="Privilege:" CssClass="FieldName"></asp:Label>
         </td>
        <%--  <td style="width:5%"></td>  --%>
         <td   style="width: 35%">
-            <asp:CheckBox ID="ChkSeniorcitizens" runat="server" CssClass="txtField" Text="Senior citizens">
+            <asp:CheckBox ID="ChkSeniorcitizens" runat="server" CssClass="txtField" Text="Senior Citizen">
             </asp:CheckBox>
             <asp:CheckBox ID="ChkWidow" runat="server" CssClass="txtField" Text="Widow"></asp:CheckBox>
             <asp:CheckBox ID="ChkArmedForcePersonnel" runat="server" CssClass="txtField" Text="Armed Force Personnel">
             </asp:CheckBox>
-            <asp:CheckBox ID="CHKExistingrelationship" runat="server" CssClass="txtField" Text="Existing relationship">
+            <asp:CheckBox ID="CHKExistingrelationship" runat="server" CssClass="txtField" Text="Existing Relationship">
             </asp:CheckBox>
         </td>
          
     </tr>
     <tr id="trOrder" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblOrderNumber" runat="server" Text="Order No.:" CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 20%">
             <asp:Label ID="lblGetOrderNo" runat="server" Text="" CssClass="txtField"></asp:Label>
@@ -167,7 +170,7 @@
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 35%">
+        <td   style="width: 35%">
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged">
@@ -195,7 +198,7 @@
     
     <tr id="trARDate" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblApplicationNumber" runat="server" Text="Application Number:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblApplicationNumber" runat="server" Text="Application No.:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
@@ -231,12 +234,16 @@
     
     <tr id="trPayAmt" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label8" runat="server" Text="Amount Payable :" CssClass="FieldName">           
+            <asp:Label ID="Label8" runat="server" Text="FD Amount:" CssClass="FieldName">           
             </asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPayAmt" runat="server" CssClass="txtField" OnTextChanged="OnPayAmtTextchanged"
                 AutoPostBack="True" />
+                 <span id="SpanPayAmt" runat="server" class="spnRequiredField">*</span>
+                 <asp:CompareValidator ID="CompareValidatorPayamt" runat="server" ControlToValidate="txtPayAmt"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Enter FD Amount"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td colspan="3" style="width: 60%">
         </td>
@@ -252,7 +259,7 @@
         </td>
          <td style="width:5%"></td>
         <td class="leftField" style="width: 10%">
-            <asp:Label ID="lblBranch" runat="server" Text="Renewal Amount: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblBranch" runat="server" Text="Renewal Amount: " CssClass="FieldName" OnTextChanged="OnPayAmtTextchanged"></asp:Label>
         </td>
         <td   style="width: 35%">
             <asp:TextBox ID="txtRenAmt" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -280,7 +287,7 @@
                 Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtMaturDate"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select Maturdate" Display="Dynamic"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select Maturity Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <%-- <asp:CompareValidator ID="cvOrderDate" runat="server" ControlToValidate="txtOrderDate"
                 CssClass="cvPCG" ErrorMessage="<br />Order date cannot be greater than or equal to Today"
@@ -288,7 +295,7 @@
         </td>
         <td style="width:5%"></td>
         <td align="right" style="width: 15%">
-            <asp:Label ID="Label20" runat="server" Text="Maturity Amount :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label20" runat="server" Text="Maturity Amount:" CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 30%">
             <asp:TextBox ID="txtMatAmt" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -500,18 +507,18 @@
     <tr>
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Joint holder/Nominee Details
+               Joint Holder/Nominee Details
             </div>
         </td>
     </tr>
     <tr>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label2" runat="server" Text="Pick:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text="Pick:" CssClass="FieldName" Visible="false" ></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:CheckBox ID="CheckBox2" runat="server" CssClass="txtField" Text="Joint Holder">
+            <asp:CheckBox ID="CheckBox2" runat="server" CssClass="txtField" Text="Joint Holder" Visible="false" >
             </asp:CheckBox>
-            <asp:CheckBox ID="CheckBox3" runat="server" CssClass="txtField" Text="Nominee"></asp:CheckBox>
+            <asp:CheckBox ID="CheckBox3" runat="server" CssClass="txtField" Text="Nominee" Visible="false" ></asp:CheckBox>
         </td>
     </tr>
     <tr>
@@ -529,41 +536,15 @@
        <%-- </td>--%>
     </tr>
     <%--   </tr>--%>
-    <tr>
-        <td colspan="5">
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-                Documents Submitted
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td align="right" style="vertical-align: middle">
-            <label class="cmbField">
-                Upload:
-            </label>
-        </td>
-        <td align="left" style="vertical-align: middle">
-            <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
-            <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None"
-                AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="false">
-            </telerik:RadUpload>
-            <asp:CustomValidator ID="Customvalidator1" ValidationGroup="VaultValidations" Font-Bold="true"
-                Font-Size="X-Small" ErrorMessage="Empty / Invalid File..!!!" ForeColor="Red"
-                runat="server" Display="Dynamic" ClientValidationFunction="validateRadUpload1"></asp:CustomValidator>
-            <asp:Label ID="lblFileUploaded" runat="server" CssClass="cmbField" Text=""></asp:Label>
-        </td>
-    </tr>
-    <tr>
-    </tr>
      <tr id="trJoingHolding" runat="server">
                 <td class="leftField">
                     <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
                 </td>
                 <td>
                     <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
-                        Text="Yes" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
+                        Text="Joint Holder" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
                     <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
-                        Text="No" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" Checked="true" />
+                        Text="Nominee" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" Checked="true" />
                 </td>
             </tr>
             <tr id="trModeOfHolding" runat="server">
@@ -583,8 +564,8 @@
            
             <tr id="trJoinHolders" runat="server">
                 <td colspan="2">
-                    <asp:Label ID="lblJointHolders" runat="server" CssClass="HeaderTextSmall" Text="Joint Holders"></asp:Label>
-                    <hr />
+                    <asp:Label ID="lblJointHolders" runat="server" CssClass="HeaderTextSmall" Text=""></asp:Label>
+                 <%--   <hr />--%>
                 </td>
             </tr>
             <tr id="trJointHolderGrid" runat="server">
@@ -664,6 +645,10 @@
                     <asp:Label ID="lblNoNominee" runat="server" Text="You have no Associations" CssClass="FieldName"></asp:Label>
                 </td>
             </tr> 
+   
+    <tr>
+    </tr>
+    
 </table>
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 
@@ -844,3 +829,6 @@
                             </td>
                             </tr> --%>
 <asp:HiddenField ID="hdnDefaulteInteresRate" runat="server" />
+<asp:HiddenField ID="hdnOrderId" runat="server" />
+<asp:HiddenField ID="hdnNewFileName" runat="server" />
+ 

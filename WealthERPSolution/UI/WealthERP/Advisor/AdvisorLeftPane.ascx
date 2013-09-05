@@ -946,8 +946,10 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Order" Value="OrderEntry">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="ProductOrderMaster" Value="ProductOrderMaster"> </telerik:RadPanelItem> 
                                             <telerik:RadPanelItem runat="server" Text="Order MIS" Value="Order_List">
                                             </telerik:RadPanelItem>
+                                             
                                             <telerik:RadPanelItem runat="server" Text="Order Recon" Value="OrderRecon" Visible="false">
                                             </telerik:RadPanelItem>
                                         </Items>

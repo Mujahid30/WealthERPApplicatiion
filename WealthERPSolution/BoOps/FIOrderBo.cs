@@ -7,6 +7,8 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using DaoOps;
 using VoOps;
+
+
 namespace BoOps
 {
     public class FIOrderBo : OrderBo
@@ -190,6 +192,31 @@ namespace BoOps
             }
             return dsGetMFOrderMIS;
         }
+        public void CreateCustomerAssociation(int OrderId, String nomineeAssociationIds, string associateType)
+        {
+            try
+            {
+
+                mfOrderDao.CreateCustomerAssociation(OrderId, nomineeAssociationIds, associateType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+        }
+        //public void CreateCustomerOrderDocument(CustomerProofUploadsVO CPUVo, int OrderId)
+        //{
+        //    try
+        //    {
+
+        //        mfOrderDao.CreateCustomerOrderDocument(CPUVo, OrderId);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //}
         public DataTable GetOrderList(int advisorId, string rmId, string branchId, DateTime toDate, DateTime fromDate, string status, string customerId, string orderType, string usertype, int AgentId, string SubBrokerCode, string AgentCode)
         {
             DataTable dtOrder = null;

@@ -8,6 +8,8 @@ using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using VoOps;
+ 
+
 
 namespace DaoOps
 {
@@ -238,6 +240,9 @@ namespace DaoOps
         }
 
 
+
+      
+
         public DataSet GetFIIssuer(int AdviserID)
         {
             DataSet dsGetFIIssuer;
@@ -245,9 +250,7 @@ namespace DaoOps
             DbCommand getFIIssuercmd;
             try
             {
-                //  Shantanu Dated :- 18thSept2012
-                //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
-                //then test the folio Add Screen also..
+                 
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getFIIssuercmd = db.GetStoredProcCommand("Sp_FIIssuer");
@@ -551,6 +554,7 @@ namespace DaoOps
                     OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
 
                     orderIds.Add(OrderId);
+
                 }
                 else
                 {
@@ -563,6 +567,42 @@ namespace DaoOps
                 throw Ex;
             }
             return orderIds;
+        }
+        public void CreateCustomerAssociation(int OrderId, String nomineeAssociationIds, string associateType)
+        {
+             
+            Database db;
+            DbCommand createMFOrderTrackingCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createMFOrderTrackingCmd = db.GetStoredProcCommand("SP_FICreateOrderAssociate");
+                db.AddInParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32,  OrderId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@nomineeAssociationIds", DbType.String, nomineeAssociationIds+",");
+                db.AddInParameter(createMFOrderTrackingCmd, "@associateType", DbType.String, associateType);
+                db.ExecuteNonQuery(createMFOrderTrackingCmd);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "FIOrderDao.cs:GetOrderList()");
+
+                object[] objects = new object[1];
+               // objects[0] = advisorId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
 
         public DataSet GetFISeries(int SchemeID)

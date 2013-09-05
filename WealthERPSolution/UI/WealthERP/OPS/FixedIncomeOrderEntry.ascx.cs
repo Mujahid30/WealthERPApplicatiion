@@ -36,7 +36,7 @@ namespace WealthERP.OPS
 {
     public partial class FixedIncomeOrderEntry : System.Web.UI.UserControl
     {
-        string path = "";
+        string imgPath = "";
         string TargetPath = "";
         string imageUploadPath = "";
         CustomerProofUploadsVO CPUVo = new CustomerProofUploadsVO();
@@ -71,29 +71,33 @@ namespace WealthERP.OPS
         AdvisorVo advisorVo;
         UserVo userVo;
         RMVo rmVo = new RMVo();
-        FIOrderVo FiOrdVO = new FIOrderVo();
-        FIOrderBo FiOrdBo = new FIOrderBo ();
+        FIOrderVo fiorderVo= new FIOrderVo();
+        FIOrderBo fiorderBo = new FIOrderBo ();
         int orderId;
         int orderNumber = 0;
         int customerid;
         string defaultInterestRate;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+           
             userVo = (UserVo)Session[SessionContents.UserVo];
+            repoBo = new RepositoryBo();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
                 rmVo = (RMVo)Session[SessionContents.RmVo];
-            orderNumber = FiOrdBo.GetOrderNumber();
+            orderNumber = fiorderBo.GetOrderNumber();
             orderNumber = orderNumber + 1;
             lblGetOrderNo.Text = orderNumber.ToString();
+            
+           
             if (!IsPostBack)
             {
                 FICategory();
                 FIIssuer(advisorVo.advisorId);
                 GetFIModeOfHolding();
-               
+                BindProofTypeDP();
+                fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
 
             }
             if (Session["customerid"] != null)
@@ -101,10 +105,91 @@ namespace WealthERP.OPS
                 customerid = Convert.ToInt32 (Session["customerid"]);
                 LoadNominees();
                GetCustomerAssociates(customerid);
+              
             }
 
             
 
+
+        }
+
+        //public void AddcLick(string[] args)
+        //{
+        //    bool blResult = false;
+        //    bool blZeroBalance = false;
+        //    bool blFileSizeExceeded = false;
+        //    hdnOrderId.Value = args.ToString() ;
+
+        //    if (fStorageBalance > 0)
+        //        blResult = UploadFile(out blZeroBalance, out blFileSizeExceeded);
+        //    else
+        //        blZeroBalance = false;
+
+
+
+        //    if (blZeroBalance)
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FIxedIncomeOrderEntry", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+        //    else
+        //    {
+        //        if (blResult)
+        //        {
+
+        //            // ResetControls();
+        //            //  if (string.IsNullOrEmpty(linkAction))
+        //            // {
+
+        //            // }
+        //            //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document uploaded Successfully!');", true);
+        //            // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
+        //        }
+        //        else
+        //        {
+        //            //if (blFileSizeExceeded)
+        //            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your Document file size exceeds the allowable 2 MB limit!');", true);
+        //            //else
+        //            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Error in uploading Document!');", true);
+        //        }
+        //    }
+
+        //}
+        protected void btnUploadImg_Click (object sender, EventArgs e)
+        {
+           // bool blResult = false;
+           // bool blZeroBalance = false;
+           // bool blFileSizeExceeded = false;
+           // fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
+           //if (fStorageBalance > 0)
+           //     blResult = UploadFile(out blZeroBalance, out blFileSizeExceeded);
+           //else
+           //    blZeroBalance = false ;
+
+             
+
+           // if (blZeroBalance)
+           //   ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FIxedIncomeOrderEntry", "alert('You do not have enough space. You have only " + fStorageBalance + " MB left in your account!');", true);
+           // else
+           // {
+           //     if (blResult)
+           //     {
+
+           //         // ResetControls();
+           //         //  if (string.IsNullOrEmpty(linkAction))
+           //         // {
+                   
+           //         // }
+           //    //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Document uploaded Successfully!');", true);
+           //         // ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CloseThePopUp", " CloseWindowsPopUp();", true);
+           //     }
+           //     else
+           //     {
+           //         //if (blFileSizeExceeded)
+           //         //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Sorry your Document file size exceeds the allowable 2 MB limit!');", true);
+           //         //else
+           //         //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "alert('Error in uploading Document!');", true);
+           //     }
+           // }
+
+            
         }
         public void LoadNominees()
         {
@@ -175,282 +260,288 @@ namespace WealthERP.OPS
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtPayAmt.Text))
+            if (!string.IsNullOrEmpty(txtPayAmt.Text) & trPayAmt.Visible==true)
             {
 
                 txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
             }
-
-        }
-        private bool UploadFile(out bool blZeroBalance, out bool blFileSizeExceeded)
-        {
-            // We need to see if the adviser has a folder in Vault path retrieved from the web.config
-            // Case 1: If not, then encode the adviser id and create a folder with the encoded id
-            // then create a folder for the repository category within the encoded folder
-            // then store the encoded advisor_adviserID + customerID + GUID + file name
-            // Case 2: If folder exists, check if the category folder exists. 
-            // If not then, create a folder with the category code and store the file as done above.
-            // If yes, then just store the file as done above.
-            // Once this is done, store the info in the DB with the file path.
-
-            string Temppath = System.Configuration.ConfigurationManager.AppSettings["UploadCustomerProofImages"];
-            string UploadedFileName = String.Empty;
-            bool blResult = false;
-            blZeroBalance = false;
-            blFileSizeExceeded = false;
-            string extension = String.Empty;
-            float fileSize = 0;
-
-            try
+            else  if (!string.IsNullOrEmpty(txtRenAmt.Text)& trPayAmt.Visible==false )
             {
-                //customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
 
-                //// Uploading of file mandatory during button submit
-                //if (radUploadProof.UploadedFiles.Count != 0)
-                //{
-                //    // Put this part under a transaction scope
-                //    using (TransactionScope scope1 = new TransactionScope())
-                //    {
-                //        UploadedFile file = radUploadProof.UploadedFiles[0];
-                //        fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
-                //        extension = file.GetExtension();
-
-                //        // If space is there to upload file
-                //        if (fStorageBalance >= fileSize)
-                //        {
-                //            if (fileSize <= 2)   // If upload file size is less than 2 MB then upload
-                //            {
-                //                // Check if directory for advisor exists, and if not then create a new directoty
-                //                if (Directory.Exists(Temppath))
-                //                {
-                //                    path = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
-                //                    if (!System.IO.Directory.Exists(path))
-                //                    {
-                //                        System.IO.Directory.CreateDirectory(path);
-                //                    }
-                //                }
-                //                else
-                //                {
-                //                    System.IO.Directory.CreateDirectory(Temppath);
-                //                    path = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
-                //                    if (!System.IO.Directory.Exists(path))
-                //                    {
-                //                        System.IO.Directory.CreateDirectory(path);
-                //                    }
-                //                    //path = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "\\";
-                //                }
-
-                //                strGuid = Guid.NewGuid().ToString();
-                //                string newFileName = SaveFileIntoServer(file, strGuid, path, customerVo.CustomerId);
-
-                //                // Update DB with details
-                //                CPUVo.CustomerId = customerVo.CustomerId;
-                //                CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
-                //                CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
-                //                CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-                //                CPUVo.ProofImage = path + "\\" + newFileName;
-
-                //                blResult = CreateDBReferrenceForProofUploads(CPUVo);
-
-                //                if (blResult)
-                //                {
-                //                    // Once the adding of Document is a success, then update the balance storage in advisor subscription table
-                //                    fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
-                //                    LoadImages();
-                //                }
-                //            }
-                //            else
-                //            {
-                //                blFileSizeExceeded = true;
-                //            }
-                //        }
-                //        else
-                //        {
-                //            blZeroBalance = true;
-                //        }
-
-                //        scope1.Complete();   // Commit the transaction scope if no errors
-                //    }
-                //}
-                //else
-                //{
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a document file to upload!');", true);
-                //}
+                txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                //object[] objects = new object[1];
-                //objects[0] = CPUVo;
-                //PageException(objects, Ex, "ViewCustomerProofs.ascx:AddClick()");
-            }
-            return blResult;
 
-            #region Old Code
-
-            //    FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, path);
-            //    PermissionSet ps = new PermissionSet(PermissionState.None);
-            //    ps.AddPermission(fp);
-            //    DirectoryInfo[] DI = new DirectoryInfo(path).GetDirectories("*.*", SearchOption.AllDirectories);
-            //    FileInfo[] FI = new DirectoryInfo(path).GetFiles("*.*", SearchOption.AllDirectories);
-
-            //    foreach (FileInfo F1 in FI)
-            //    {
-            //        DirSize += F1.Length;
-            //    }
-            //    //Converting in Mega bytes
-            //    DirSize = DirSize / 1048576;
-
-            //    #region Update Code 1
-
-            //    if (Session["ImagePath"] != null)
-            //    {
-            //        // If Uploaded File Exists
-            //        FileInfo fi = new FileInfo(Session["ImagePath"].ToString());
-            //        float alreadyUploadedFileSize = fi.Length;
-            //        alreadyUploadedFileSize = alreadyUploadedFileSize / 1048576;
-            //        DirSize = DirSize - alreadyUploadedFileSize;
-            //    }
-
-            //    #endregion
-
-            //    if ((fileSize < adviserVo.VaultSize) && (DirSize < adviserVo.VaultSize))
-            //    {
-            //        foreach (UploadedFile f in radUploadProof.UploadedFiles)
-            //        {
-            //            int l = (int)f.InputStream.Length;
-            //            byte[] bytes = new byte[l];
-            //            f.InputStream.Read(bytes, 0, l);
-
-            //            imageUploadPath = customerVo.CustomerId + "_" + guid + "_" + f.GetName();
-            //            if (btnSubmit.Text == "Submit")
-            //            {
-            //                // Submit part
-            //                if (extension != ".pdf")
-            //                {
-            //                    UploadImage(path, f, imageUploadPath);
-            //                }
-            //                else
-            //                {
-            //                    f.SaveAs(path + "\\" + imageUploadPath);
-            //                }
-            //            }
-
-            //            #region Update Code 2
-
-            //            else
-            //            {
-            //                if (extension != ".pdf")
-            //                {
-            //                    File.Delete(path + UploadedFileName);
-            //                    DataTable dtGetPerticularProofs = new DataTable();
-            //                    if (Session["ProofID"] != null)
-            //                    {
-            //                        int ProofIdToDelete = Convert.ToInt32(Session["ProofID"].ToString());
-            //                        dtGetPerticularProofs = GetUploadedImagePaths(ProofIdToDelete);
-            //                        string imageAttachmentPath = dtGetPerticularProofs.Rows[0]["CPU_Image"].ToString();
-            //                        if (customerBo.DeleteCustomerUploadedProofs(customerVo.CustomerId, ProofIdToDelete))
-            //                        {
-            //                            File.Delete(imageAttachmentPath);
-            //                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','login');", true);
-            //                        }
-            //                    }
-            //                }
-            //                f.SaveAs(path + "\\" + imageUploadPath);
-            //            }
-
-            //            #endregion
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your Document attachment size exceeds the allowable limit..!');", true);
-            //    }
-            //}
-
-            //CPUVo.CustomerId = customerVo.CustomerId;
-            //CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
-            //CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
-            //CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-            //if (imageUploadPath == "")
-            //    CPUVo.ProofImage = path + "\\" + UploadedFileName;
-            //else
-            //    CPUVo.ProofImage = path + "\\" + imageUploadPath;
-            //CreateDBReferrenceForProofUploads(CPUVo);
-
-            //LoadImages();
-            //Session["ImagePath"] = null;
-
-            #endregion
         }
-        private bool CreateDBReferrenceForProofUploads(CustomerProofUploadsVO CPUVo)
-        {
-            string createOrUpdate = "";
-            int proofUploadID = 0;
-            bool bStatus = false;
+        //private bool UploadFile(out bool blZeroBalance, out bool blFileSizeExceeded)
+        //{
+        //    // We need to see if the adviser has a folder in Vault imgPath retrieved from the web.config
+        //    // Case 1: If not, then encode the adviser id and create a folder with the encoded id
+        //    // then create a folder for the repository category within the encoded folder
+        //    // then store the encoded advisor_adviserID + customerID + GUID + file name
+        //    // Case 2: If folder exists, check if the category folder exists. 
+        //    // If not then, create a folder with the category code and store the file as done above.
+        //    // If yes, then just store the file as done above.
+        //    // Once this is done, store the info in the DB with the file imgPath.
 
-            //if (btnSubmit.Text.Trim().Equals("Submit"))
-            //{
-                createOrUpdate = "Submit";
-                if (CPUVo != null)
-                {
-                    bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID, createOrUpdate);
-                }
-            //}
-            //else if (btnSubmit.Text.Trim().Equals(Constants.Update.ToString()))
-            //{
-            //    createOrUpdate = Constants.Update.ToString();
-            //    proofUploadID = Convert.ToInt32(Session["ProofID"].ToString());
-            //    if (CPUVo != null)
-            //    {
-            //        bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID, createOrUpdate);
-            //    }
-            //}
+        //    string Temppath = System.Configuration.ConfigurationManager.AppSettings["UploadCustomerProofImages"];
+        //    string UploadedFileName = String.Empty;
+        //    bool blResult = false;
+        //    blZeroBalance = false;
+        //    blFileSizeExceeded = false;
+        //    string extension = String.Empty;
+        //    float fileSize = 0;
 
-            return bStatus;
-        }
+        //    try
+        //    {
+        //        customerVo.CustomerId = customerid;
+        //        customerVo = (CustomerVo)Session[SessionContents.CustomerVo];
 
-        private void UploadImage(string path, UploadedFile f, string imageUploadPath)
-        {
-            TargetPath = path;
+        //        // Uploading of file mandatory during button submit
+        //        if (radUploadProof.UploadedFiles.Count != 0)
+        //        {
+        //            // Put this part under a transaction scope
+        //            using (TransactionScope scope1 = new TransactionScope())
+        //            {
+        //                UploadedFile file = radUploadProof.UploadedFiles[0];
+        //                fileSize = float.Parse(file.ContentLength.ToString()) / 1048576; // Converting bytes to MB
+        //                extension = file.GetExtension();
 
-            UploadedFile jpeg_image_upload = f;
+        //                // If space is there to upload file
+        //                //saiif (fStorageBalance >= fileSize)
+        //                //sai{
+        //                    if (fileSize <= 2)   // If upload file size is less than 2 MB then upload
+        //                    {
+        //                        // Check if directory for advisor exists, and if not then create a new directoty
+        //                        if (Directory.Exists(Temppath))
+        //                        {
+        //                            imgPath = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
+        //                            if (!System.IO.Directory.Exists(imgPath))
+        //                            {
+        //                                System.IO.Directory.CreateDirectory(imgPath);
+        //                            }
+        //                        }
+        //                        else
+        //                        {
+        //                            System.IO.Directory.CreateDirectory(Temppath);
+        //                            imgPath = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
+        //                            if (!System.IO.Directory.Exists(imgPath))
+        //                            {
+        //                                System.IO.Directory.CreateDirectory(imgPath);
+        //                            }
+        //                            //imgPath = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "\\";
+        //                        }
 
-            // Retrieve the uploaded image
-            original_image = System.Drawing.Image.FromStream(jpeg_image_upload.InputStream);
-            original_image.Save(TargetPath + imageUploadPath);//"O_" + 
+        //                        strGuid = Guid.NewGuid().ToString();
+        //                        string newFileName = SaveFileIntoServer(file, strGuid, imgPath, customerVo.CustomerId);
 
-            int width = original_image.Width;
-            int height = original_image.Height;
-            //int new_width, new_height;
+        //                        // Update DB with details
+        //                        CPUVo.CustomerId = customerVo.CustomerId;
+        //                        CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
+        //                        CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
+        //                        //CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
+        //                        CPUVo.ProofImage = imgPath + "\\" + newFileName;
+                               
+        //                            blResult = CreateDBReferrenceForProofUploads(CPUVo);
 
-            //int target_width = 140;
-            //int target_height = 100;
+        //                        if (blResult)
+        //                        {
+        //                            // Once the adding of Document is a success, then update the balance storage in advisor subscription table
+        //                         //   fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
+        //                            LoadImages();
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        blFileSizeExceeded = true;
+        //                    }
+        //                //}
+        //                //else
+        //                //{
+        //                //    blZeroBalance = true;
+        //                //}
 
-            //CreateThumbnail(original_image, ref final_image, ref graphic, ref ms, jpeg_image_upload, width, height, target_width, target_height, "", true, false, out new_width, out new_height, imageUploadPath); // , out thumbnail_id
+        //                scope1.Complete();   // Commit the transaction scope if no errors
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a document file to upload!');", true);
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        //object[] objects = new object[1];
+        //        //objects[0] = CPUVo;
+        //        //PageException(objects, Ex, "ViewCustomerProofs.ascx:AddClick()");
+        //    }
+        //    return blResult;
 
-            //File.Delete(TargetPath + "O_" + System.IO.Path.GetFileName(jpeg_image_upload.FileName));
-        }
-        private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath, int intCustId)
-        {
-            string fileExtension = String.Empty;
-            fileExtension = file.GetExtension();
-            string strRenameFilename = file.GetName();
-            strRenameFilename = strRenameFilename.Replace(' ', '_');
-            string newFileName = intCustId + "_" + strGuid + "_" + strRenameFilename;
+        //    #region Old Code
 
-            // Save Document file in the path
-            if (fileExtension != ".pdf")
-                UploadImage(strPath, file, newFileName);
-            else
-                file.SaveAs(strPath + "\\" + newFileName);
+        //    //    FileIOPermission fp = new FileIOPermission(FileIOPermissionAccess.AllAccess, imgPath);
+        //    //    PermissionSet ps = new PermissionSet(PermissionState.None);
+        //    //    ps.AddPermission(fp);
+        //    //    DirectoryInfo[] DI = new DirectoryInfo(imgPath).GetDirectories("*.*", SearchOption.AllDirectories);
+        //    //    FileInfo[] FI = new DirectoryInfo(imgPath).GetFiles("*.*", SearchOption.AllDirectories);
 
-            return newFileName;
-        }
+        //    //    foreach (FileInfo F1 in FI)
+        //    //    {
+        //    //        DirSize += F1.Length;
+        //    //    }
+        //    //    //Converting in Mega bytes
+        //    //    DirSize = DirSize / 1048576;
+
+        //    //    #region Update Code 1
+
+        //    //    if (Session["ImagePath"] != null)
+        //    //    {
+        //    //        // If Uploaded File Exists
+        //    //        FileInfo fi = new FileInfo(Session["ImagePath"].ToString());
+        //    //        float alreadyUploadedFileSize = fi.Length;
+        //    //        alreadyUploadedFileSize = alreadyUploadedFileSize / 1048576;
+        //    //        DirSize = DirSize - alreadyUploadedFileSize;
+        //    //    }
+
+        //    //    #endregion
+
+        //    //    if ((fileSize < adviserVo.VaultSize) && (DirSize < adviserVo.VaultSize))
+        //    //    {
+        //    //        foreach (UploadedFile f in radUploadProof.UploadedFiles)
+        //    //        {
+        //    //            int l = (int)f.InputStream.Length;
+        //    //            byte[] bytes = new byte[l];
+        //    //            f.InputStream.Read(bytes, 0, l);
+
+        //    //            imageUploadPath = customerVo.CustomerId + "_" + guid + "_" + f.GetName();
+        //    //            if (btnSubmit.Text == "Submit")
+        //    //            {
+        //    //                // Submit part
+        //    //                if (extension != ".pdf")
+        //    //                {
+        //    //                    UploadImage(imgPath, f, imageUploadPath);
+        //    //                }
+        //    //                else
+        //    //                {
+        //    //                    f.SaveAs(imgPath + "\\" + imageUploadPath);
+        //    //                }
+        //    //            }
+
+        //    //            #region Update Code 2
+
+        //    //            else
+        //    //            {
+        //    //                if (extension != ".pdf")
+        //    //                {
+        //    //                    File.Delete(imgPath + UploadedFileName);
+        //    //                    DataTable dtGetPerticularProofs = new DataTable();
+        //    //                    if (Session["ProofID"] != null)
+        //    //                    {
+        //    //                        int ProofIdToDelete = Convert.ToInt32(Session["ProofID"].ToString());
+        //    //                        dtGetPerticularProofs = GetUploadedImagePaths(ProofIdToDelete);
+        //    //                        string imageAttachmentPath = dtGetPerticularProofs.Rows[0]["CPU_Image"].ToString();
+        //    //                        if (customerBo.DeleteCustomerUploadedProofs(customerVo.CustomerId, ProofIdToDelete))
+        //    //                        {
+        //    //                            File.Delete(imageAttachmentPath);
+        //    //                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewCustomerProofs", "loadcontrol('ViewCustomerProofs','login');", true);
+        //    //                        }
+        //    //                    }
+        //    //                }
+        //    //                f.SaveAs(imgPath + "\\" + imageUploadPath);
+        //    //            }
+
+        //    //            #endregion
+
+        //    //        }
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Sorry your Document attachment size exceeds the allowable limit..!');", true);
+        //    //    }
+        //    //}
+
+        //    //CPUVo.CustomerId = customerVo.CustomerId;
+        //    //CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
+        //    //CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
+        //    //CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
+        //    //if (imageUploadPath == "")
+        //    //    CPUVo.ProofImage = imgPath + "\\" + UploadedFileName;
+        //    //else
+        //    //    CPUVo.ProofImage = imgPath + "\\" + imageUploadPath;
+        //    //CreateDBReferrenceForProofUploads(CPUVo);
+
+        //    //LoadImages();
+        //    //Session["ImagePath"] = null;
+
+        //    #endregion
+        //}
+        //private bool CreateDBReferrenceForProofUploads(CustomerProofUploadsVO CPUVo)
+        //{
+        //    string createOrUpdate = "";
+        //    int proofUploadID = 0;
+        //    bool bStatus = false;
+
+        //    //if (btnSubmit.Text.Trim().Equals("Submit"))
+        //    //{
+        //        createOrUpdate = "Submit";
+        //        if (CPUVo != null &   hdnOrderId.Value != "0")
+        //        {
+        //             customerBo.CreateCustomerOrderDocument(CPUVo, Convert.ToInt32(hdnOrderId.Value));
+        //        }
+        //    //}
+        //    //else if (btnSubmit.Text.Trim().Equals(Constants.Update.ToString()))
+        //    //{
+        //    //    createOrUpdate = Constants.Update.ToString();
+        //    //    proofUploadID = Convert.ToInt32(Session["ProofID"].ToString());
+        //    //    if (CPUVo != null)
+        //    //    {
+        //    //        bStatus = customerBo.CreateCustomersProofUploads(CPUVo, proofUploadID, createOrUpdate);
+        //    //    }
+        //    //}
+
+        //    return bStatus;
+        //}
+
+        //private void UploadImage(string imgPath, UploadedFile f, string imageUploadPath)
+        //{
+        //    TargetPath = imgPath;
+
+        //    UploadedFile jpeg_image_upload = f;
+
+        //    // Retrieve the uploaded image
+        //    original_image = System.Drawing.Image.FromStream(jpeg_image_upload.InputStream);
+        //    original_image.Save(TargetPath + imageUploadPath);//"O_" + 
+
+        //    int width = original_image.Width;
+        //    int height = original_image.Height;
+        //    //int new_width, new_height;
+
+        //    //int target_width = 140;
+        //    //int target_height = 100;
+
+        //    //CreateThumbnail(original_image, ref final_image, ref graphic, ref ms, jpeg_image_upload, width, height, target_width, target_height, "", true, false, out new_width, out new_height, imageUploadPath); // , out thumbnail_id
+
+        //    //File.Delete(TargetPath + "O_" + System.IO.imgPath.GetFileName(jpeg_image_upload.FileName));
+        //}
+        //private string SaveFileIntoServer(UploadedFile file, string strGuid, string strPath, int intCustId)
+        //{
+        //    string fileExtension = String.Empty;
+        //    fileExtension = file.GetExtension();
+        //    string strRenameFilename = file.GetName();
+        //    strRenameFilename = strRenameFilename.Replace(' ', '_');
+        //    string newFileName = intCustId + "_" + strGuid + "_" + strRenameFilename;
+
+        //    // Save Document file in the imgPath
+        //    if (fileExtension != ".pdf")
+        //        UploadImage(strPath, file, newFileName);
+        //    else
+        //        file.SaveAs(strPath + "\\" + newFileName);
+
+        //    return newFileName;
+        //}
         //private void saveJpeg(string p, System.Drawing.Bitmap final_image, int p_3)
         //{
         //    // Encoder parameter for image quality
@@ -469,9 +560,134 @@ namespace WealthERP.OPS
 
         //    final_image.Save(p, jpegCodec, encoderParams);
         //}
-        //private void UploadImage(string path, UploadedFile f, string imageUploadPath)
+        private DataTable GetUploadedImagePaths(int ProofUploadId)
+        {
+            customerVo.CustomerId = customerid;
+            DataTable dtImages = new DataTable();
+            try
+            {
+                dtImages = customerBo.GetCustomerUploadedProofs(customerVo.CustomerId, ProofUploadId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetUploadedImagePaths()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dtImages;
+        }
+        private void LoadImages()
+        {
+            //string Temppath = "";
+            DataTable dtImages = new DataTable();
+            DataTable dtBindImages = new DataTable();
+            DataTable dtProofPurposes = new DataTable();
+            dtBindImages.Columns.Add("ProofUploadId");
+            dtBindImages.Columns.Add("ProofType");
+            dtBindImages.Columns.Add("ProofName");
+            dtBindImages.Columns.Add("ProofCopyType");
+            dtBindImages.Columns.Add("ProofImage");
+            dtBindImages.Columns.Add("ProofExtensions");
+            dtBindImages.Columns.Add("ProofFileName");
+
+            DataRow drBindImages = null;
+            dtImages = GetUploadedImagePaths(0);
+            System.Web.UI.WebControls.Image imageProof = new System.Web.UI.WebControls.Image();
+            System.Web.UI.WebControls.HyperLink hypPdf = new HyperLink();
+            string fileExt = "";
+
+            int i = 0;
+            //int fileCount = Directory.GetFiles(imgPath, "*.*", SearchOption.AllDirectories).Length;
+            string sourceDir = "";
+
+            //if (dtImages.Rows.Count > 0)
+            //{
+            //    foreach (DataRow drUploadImage in dtImages.Rows)
+            //    {
+            //        drBindImages = dtBindImages.NewRow();
+            //        drBindImages["ProofUploadId"] = drUploadImage["CPU_ProofUploadId"];
+            //        drBindImages["ProofType"] = drUploadImage["XPRT_ProofType"];
+            //        drBindImages["ProofName"] = drUploadImage["XP_ProofName"];
+            //        drBindImages["ProofCopyType"] = drUploadImage["XPCT_ProofCopyType"];
+            //        drBindImages["ProofImage"] = drUploadImage["CPU_Image"];
+            //        drBindImages["ProofExtensions"] = imgPath.GetExtension(drUploadImage["CPU_Image"].ToString());
+            //        drBindImages["ProofFileName"] = imgPath.GetFileName(drUploadImage["CPU_Image"].ToString());
+
+            //        dtBindImages.Rows.Add(drBindImages);
+            //    }
+
+            //    #region ??? Code
+
+            //    if (dtBindImages.Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in dtBindImages.Rows)
+            //        {
+            //            string fileTempPath = dr["ProofImage"].ToString();
+
+            //            string extension = imgPath.GetExtension(fileTempPath);
+            //            string fileName = imgPath.GetFileName(fileTempPath);
+            //            Session["FileExtension"] = extension;
+            //        }
+            //    }
+
+
+              //  #endregion
+
+            //    repProofImages.DataSource = dtBindImages;
+            //    repProofImages.DataBind();
+
+            //    if (Session["Button"] != "")
+            //    {
+            //        if (Session["Button"] == "Submit")
+            //        {
+            //            if (Session["LinkAction"] != null)
+            //            {
+            //                radPOCProof.SelectedIndex = 0;
+            //                multiPageView.SelectedIndex = 0;
+            //                //this.Close();
+            //            }
+            //            else
+            //            {
+            //                radPOCProof.SelectedIndex = 1;
+            //                multiPageView.SelectedIndex = 1;
+            //            }
+            //        }
+            //        else if (Session["Button"] == "Submit & Add More")
+            //        {
+            //            radPOCProof.TabIndex = 0;
+            //            multiPageView.TabIndex = 0;
+
+            //            BindProofTypeDP();
+            //            ddlProofType.SelectedIndex = 0;
+            //            BindProofCopy();
+            //            ddlProofCopyType.SelectedIndex = 0;
+            //            ddlProof.SelectedIndex = 0;
+            //            btnDelete.Visible = false;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    repProofImages.DataSource = null;
+            //    ChangeTelerikRadTab(0);
+            //}
+        }
+        //private void UploadImage(string imgPath, UploadedFile f, string imageUploadPath)
         //{
-        //    TargetPath = path;
+        //    TargetPath = imgPath;
 
         //    UploadedFile jpeg_image_upload = f;
 
@@ -488,18 +704,18 @@ namespace WealthERP.OPS
 
         //    //CreateThumbnail(original_image, ref final_image, ref graphic, ref ms, jpeg_image_upload, width, height, target_width, target_height, "", true, false, out new_width, out new_height, imageUploadPath); // , out thumbnail_id
 
-        //    //File.Delete(TargetPath + "O_" + System.IO.Path.GetFileName(jpeg_image_upload.FileName));
+        //    //File.Delete(TargetPath + "O_" + System.IO.imgPath.GetFileName(jpeg_image_upload.FileName));
         //}
         //private bool UploadFile(out bool blZeroBalance, out bool blFileSizeExceeded)
         //{
-        //    // We need to see if the adviser has a folder in Vault path retrieved from the web.config
+        //    // We need to see if the adviser has a folder in Vault imgPath retrieved from the web.config
         //    // Case 1: If not, then encode the adviser id and create a folder with the encoded id
         //    // then create a folder for the repository category within the encoded folder
         //    // then store the encoded advisor_adviserID + customerID + GUID + file name
         //    // Case 2: If folder exists, check if the category folder exists. 
         //    // If not then, create a folder with the category code and store the file as done above.
         //    // If yes, then just store the file as done above.
-        //    // Once this is done, store the info in the DB with the file path.
+        //    // Once this is done, store the info in the DB with the file imgPath.
 
         //    string Temppath = System.Configuration.ConfigurationManager.AppSettings["UploadCustomerProofImages"];
         //    string UploadedFileName = String.Empty;
@@ -531,39 +747,39 @@ namespace WealthERP.OPS
         //                        // Check if directory for advisor exists, and if not then create a new directoty
         //                        if (Directory.Exists(Temppath))
         //                        {
-        //                            path = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
-        //                            if (!System.IO.Directory.Exists(path))
+        //                            imgPath = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
+        //                            if (!System.IO.Directory.Exists(imgPath))
         //                            {
-        //                                System.IO.Directory.CreateDirectory(path);
+        //                                System.IO.Directory.CreateDirectory(imgPath);
         //                            }
         //                        }
         //                        else
         //                        {
         //                            System.IO.Directory.CreateDirectory(Temppath);
-        //                            path = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
-        //                            if (!System.IO.Directory.Exists(path))
+        //                            imgPath = Temppath + "\\advisor_" + rmVo.AdviserId + "\\";
+        //                            if (!System.IO.Directory.Exists(imgPath))
         //                            {
-        //                                System.IO.Directory.CreateDirectory(path);
+        //                                System.IO.Directory.CreateDirectory(imgPath);
         //                            }
-        //                            //path = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "\\";
+        //                            //imgPath = Server.MapPath("TempCustomerProof") + "\\advisor_" + rmVo.AdviserId + "\\";
         //                        }
 
         //                        strGuid = Guid.NewGuid().ToString();
-        //                        string newFileName = SaveFileIntoServer(file, strGuid, path, customerVo.CustomerId);
+        //                        string newFileName = SaveFileIntoServer(file, strGuid, imgPath, customerVo.CustomerId);
 
         //                        // Update DB with details
         //                        CPUVo.CustomerId = customerVo.CustomerId;
         //                        CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
         //                        CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
-        //                        CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
-        //                        CPUVo.ProofImage = path + "\\" + newFileName;
+        //                       // CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
+        //                        CPUVo.ProofImage = imgPath + "\\" + newFileName;
 
         //                        blResult = CreateDBReferrenceForProofUploads(CPUVo);
 
         //                        if (blResult)
         //                        {
         //                            // Once the adding of Document is a success, then update the balance storage in advisor subscription table
-        //                            fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
+        //                          //sai  fStorageBalance = UpdateAdvisorStorageBalance(fileSize, 0, fStorageBalance);
         //                            LoadImages();
         //                        }
         //                    }
@@ -597,23 +813,23 @@ namespace WealthERP.OPS
         //    }
         //    return blResult;
 
-           
+
         //}
 
         private void GetCustomerAssociates(int customerid)
         {
-            //DataSet dsAssociates = FiOrdBo.GetCustomerAssociates(customerid);
+            //DataSet dsAssociates = fiorderBo.GetCustomerAssociates(customerid);
             //gvAssociation.DataSource = dsAssociates.Tables[0];
             //gvAssociation.DataBind();
         }
         //protected void rgvOrderSteps_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         //{
-        //    //DataSet dsAssociates = FiOrdBo.GetCustomerAssociates(customerid);
+        //    //DataSet dsAssociates = fiorderBo.GetCustomerAssociates(customerid);
         //    //this.rgvCustGrid.DataSource = dsAssociates.Tables[0];
         ////}
         private void FICategory( )
         {
-            DataSet dsBankName = FiOrdBo.GetFICategory();
+            DataSet dsBankName = fiorderBo.GetFICategory();
 
     
 
@@ -641,7 +857,7 @@ namespace WealthERP.OPS
 
         private void GetFIModeOfHolding()
         {
-            DataSet dsDepoBank = FiOrdBo.GetFIModeOfHolding();
+            DataSet dsDepoBank = fiorderBo.GetFIModeOfHolding();
 
 
             if (dsDepoBank.Tables[0].Rows.Count > 0)
@@ -666,7 +882,7 @@ namespace WealthERP.OPS
 
         private void  FIIssuer(int AdviserId)
         {
-            DataSet dsIssuer = FiOrdBo.GetFIIssuer(AdviserId);
+            DataSet dsIssuer = fiorderBo.GetFIIssuer(AdviserId);
             if (dsIssuer.Tables[0].Rows.Count > 0)
             {
                 ddlIssuer .DataSource = dsIssuer;
@@ -760,7 +976,7 @@ namespace WealthERP.OPS
         }
         private void FIScheme(int AdviserId, string IssuerID)
         {
-            DataSet dsScheme = FiOrdBo.GetFIScheme(AdviserId, IssuerID);
+            DataSet dsScheme = fiorderBo.GetFIScheme(AdviserId, IssuerID);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlScheme.DataSource = dsScheme;
@@ -780,7 +996,7 @@ namespace WealthERP.OPS
         //FISeriesDetails
         private void FISeriesDetails(int SeriesID)
         {
-            DataSet dsScheme = FiOrdBo.GetFISeriesDetailssDetails(SeriesID);
+            DataSet dsScheme = fiorderBo.GetFISeriesDetailssDetails(SeriesID);
             DataTable dtSeriesDetails = dsScheme.Tables[0];
             string Tenure;
             string CouponType;
@@ -803,7 +1019,7 @@ namespace WealthERP.OPS
         }
         private void FISeries(int  SeriesID)
         {
-            DataSet dsScheme = FiOrdBo.GetFISeries(SeriesID);
+            DataSet dsScheme = fiorderBo.GetFISeries(SeriesID);
             if (dsScheme.Tables[0].Rows.Count > 0)
             {
                 ddlSeries.DataSource = dsScheme;
@@ -853,13 +1069,16 @@ namespace WealthERP.OPS
             if (ddlTranstype.SelectedValue == "Select")
             {
                 trDepRen.Visible = false;
+                trPayAmt.Visible = false;
             }
             else if (ddlTranstype.SelectedValue == "Renewal")
             {
                 trDepRen.Visible = true;
+                trPayAmt.Visible = false;
             }
             else if (ddlTranstype.SelectedValue == "New")
             {
+                trPayAmt.Visible = true;
                 trDepRen.Visible = false ;
             }
 
@@ -883,6 +1102,42 @@ namespace WealthERP.OPS
 
             if (ddlSeries.SelectedIndex != 0)
                 FISeriesDetails(Convert.ToInt32(ddlSeries.SelectedValue));
+        }
+        protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //if (ddlProofType.SelectedIndex != 0)
+            //    BindddlProof(Convert.ToInt32(ddlProofType.SelectedValue));
+        }
+
+        protected void BindddlProof(int proofTypeSelectedValue)
+        {
+            //DataTable dtDpProofsForTypes = new DataTable();
+            //dtDpProofsForTypes = customerBo.GetCustomerProofsForTypes(proofTypeSelectedValue);
+
+            //ddlProof.Items.Clear();
+            //ddlProof.SelectedValue = null;
+            //if (dtDpProofsForTypes.Rows.Count > 0)
+            //{
+            //    ddlProof.DataSource = dtDpProofsForTypes;
+            //    ddlProof.DataValueField = dtDpProofsForTypes.Columns["XP_ProofCode"].ToString();
+            //    ddlProof.DataTextField = dtDpProofsForTypes.Columns["XP_ProofName"].ToString();
+            //    ddlProof.DataBind();
+            //}
+            //ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+        private void BindProofTypeDP()
+        {
+            //DataTable dtDpProofTypes = new DataTable();
+            //dtDpProofTypes = customerBo.GetCustomerProofTypes();
+
+            //if (dtDpProofTypes.Rows.Count > 0)
+            //{
+            //    ddlProofType.DataSource = dtDpProofTypes;
+            //    ddlProofType.DataValueField = dtDpProofTypes.Columns["XPRT_ProofTypeCode"].ToString();
+            //    ddlProofType.DataTextField = dtDpProofTypes.Columns["XPRT_ProofType"].ToString();
+            //    ddlProofType.DataBind();
+            //}
+            //ddlProofType.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         protected void ddlBankName_SelectedIndexChanged(object sender, EventArgs e)

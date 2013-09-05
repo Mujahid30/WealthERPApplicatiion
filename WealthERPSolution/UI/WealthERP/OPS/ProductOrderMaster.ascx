@@ -15,6 +15,8 @@
 
         return false;
     }
+ 
+ 
     </script>
 
 <asp:ScriptManager ID="scrptMgr" runat="server">
@@ -159,7 +161,7 @@
                 AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                 <asp:ListItem Text="Customer" Value="1"></asp:ListItem>
-                <asp:ListItem Text="Pan" Value="2"></asp:ListItem>
+                <asp:ListItem Text="PAN" Value="2"></asp:ListItem>
             </asp:DropDownList>
         </td>
         <td class="leftField" style="width: 20%">
@@ -244,7 +246,7 @@
                 CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblPan" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPan" runat="server" Text="PAN" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:Label ID="lblgetPan" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -314,7 +316,7 @@
          <td colspan="3">
         </td>
     </tr>
-    <tr id="trIsa" runat="server">
+    <tr id="trIsa" runat="server"  >
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblIsa" runat="server" CssClass="FieldName" Text="ISA No:"></asp:Label>
         </td>
@@ -626,7 +628,7 @@
     </tr>
     <tr id="trPINo" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblPaymentNumber" runat="server" Text="Payment Instrument Number: "
+            <asp:Label ID="lblPaymentNumber" runat="server" Text="Payment instrument No.: "
                 CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
@@ -677,7 +679,7 @@
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblBranchName" runat="server" Text="Bank BranchName:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblBranchName" runat="server" Text="Bank Branch Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtBranchName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1010,13 +1012,73 @@
             </asp:DropDownList>
         </td>
     </tr>
+    <tr id="trDocumentSec" runat="server">
+        <td colspan="5">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                Documents Submitted
+            </div>
+        </td>
+    </tr>
+     <tr id="trProofType" runat="server">
+                    <td align="right" >
+                        <label class="FieldName">
+                            Proof type:
+                        </label>
+                    </td>
+                    <td align="left">
+                        <asp:DropDownList ID="ddlProofType" AutoPostBack="true" runat="server" CssClass="cmbField" 
+                        OnSelectedIndexChanged="ddlProofType_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    <%--    <asp:CompareValidator ID="cmpProof" runat="server" ValidationGroup="VaultValidations"
+                            ControlToValidate="ddlProof" ErrorMessage="Please select a Proof or Form" Operator="NotEqual"
+                            ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                        </asp:CompareValidator>--%>
+                    </td>
+                </tr>
+                
+                 <tr id="trProof" runat="server">
+                    <td align="right">
+                        <label class="FieldName">
+                            Proof :
+                        </label>
+                    </td>
+                    <td align="left">
+                        <asp:DropDownList ID="ddlProof" runat="server" CssClass="cmbField" >
+                        </asp:DropDownList>
+                     <%--   <asp:CompareValidator ID="cmpProofCopyType" runat="server" ValidationGroup="VaultValidations"
+                            ControlToValidate="ddlProofCopyType" ErrorMessage="Please select a copy type"
+                            Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                        </asp:CompareValidator>--%>
+                    </td>
+                </tr>
+                
+                
+    <tr id="trUpload" runat="server" >
+        <td align="right" style="vertical-align: middle">
+            <label class="FieldName">
+                Upload:
+            </label>
+        </td>
+        <td align="left" style="vertical-align: middle">
+            <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
+            <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None" AutoPostBack="false" 
+                AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="true">
+            </telerik:RadUpload>
+           <%-- <asp:CustomValidator ID="Customvalidator1" ValidationGroup="VaultValidations" Font-Bold="true"
+                Font-Size="X-Small" ErrorMessage="Empty / Invalid File..!!!" ForeColor="Red"
+                runat="server" Display="Dynamic" ClientValidationFunction="validateRadUpload1"></asp:CustomValidator>--%>
+            <asp:Label ID="lblFileUploaded" runat="server" CssClass="cmbField" Text=""></asp:Label>
+          <%--   <asp:Button ID="btnUploadImg" runat="server" Text="Submit" CssClass="PCGButton"  
+                OnClick="btnUploadImg_Click" />--%>
+        </td>
+    </tr>
     <tr id="trBtnSubmit" runat="server">
         <td align="left" colspan="3">
             <asp:Button ID="Button1" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
                 OnClick="btnSubmit_Click" />
             <asp:Button ID="Button2" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
                 ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />
-            <asp:Button ID="Button3" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit"
+            <asp:Button ID="Button3" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit" Visible="false" 
                 OnClick="btnUpdate_Click" />
         </td>
     </tr>
@@ -1025,6 +1087,14 @@
     
  </table>
 <%-- ValidationGroup="MFSubmit"--%>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
@@ -1134,7 +1204,7 @@
 <asp:HiddenField ID="hdnTodate" runat="server" />
 <asp:HiddenField ID="hdnFromdate" runat="server" />
  
-    <asp:Panel ID="pnlOrderList" runat="server" class="Landscape" Width="100%" Height="80%"
+    <%--<asp:Panel ID="pnlOrderList" runat="server" class="Landscape" Width="100%" Height="80%"
     ScrollBars="Horizontal" Visible="false">
     <table width="100%">
         <tr id="trExportFilteredDupData" runat="server">
@@ -1169,15 +1239,15 @@
                                             <%--<telerik:RadComboBoxItem ImageUrl="~/Images/DeleteRecord.png" Text="Delete" Value="Delete"
                                             runat="server"></telerik:RadComboBoxItem>--%>
                                             <%--OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"--%>
-                                        </Items>
+                                     <%--   </Items>
                                     </telerik:RadComboBox>
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridTemplateColumn>--%>
                             <%--<telerik:GridButtonColumn ButtonType="LinkButton" CommandName="Redirect" UniqueName="CO_OrderId"
                                 HeaderText="Order No." DataTextField="CO_OrderId" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridButtonColumn>--%>
-                            <telerik:GridBoundColumn DataField="CFIOD_OrderNO" AllowFiltering="true" HeaderText="Order No."
+                         <%--   <telerik:GridBoundColumn DataField="CFIOD_OrderNO" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CFIOD_OrderNO" SortExpression="CFIOD_OrderNO" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="85px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -1208,7 +1278,7 @@
                                 UniqueName="ChannelName" SortExpression="ChannelName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                            <%-- <telerik:GridBoundColumn DataField="Name" AllowFiltering="true" HeaderText="Customer"
                                 UniqueName="Name" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
@@ -1219,7 +1289,7 @@
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn DataField="PAG_AssetGroupName" AllowFiltering="true" HeaderText="Asset Name"
+                          <%--  <telerik:GridBoundColumn DataField="PAG_AssetGroupName" AllowFiltering="true" HeaderText="Asset Name"
                                 UniqueName="PAG_AssetGroupName" SortExpression="PAG_AssetGroupName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -1233,26 +1303,26 @@
                                 Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                            <%-- <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="SchemePlanName"
                                 AllowFiltering="true" SortExpression="PASP_SchemePlanName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanName"
                                 FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="250px">
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Category"
+                         <%--   <telerik:GridBoundColumn DataField="PAIC_AssetInstrumentCategoryName" HeaderText="Category"
                                 AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PAIC_AssetInstrumentCategoryName"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="PAIC_AssetInstrumentCategoryName" FooterStyle-HorizontalAlign="Left"
                                 HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                            <%-- <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
                                 AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="PAISC_AssetInstrumentSubCategoryName"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="100px" UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                            <telerik:GridBoundColumn DataField="CFIOD_AmountPayable" AllowFiltering="true" HeaderText="Amount"
+                        <%--    <telerik:GridBoundColumn DataField="CFIOD_AmountPayable" AllowFiltering="true" HeaderText="Amount"
                                 DataFormatString="{0:N0}" UniqueName="CFIOD_AmountPayable" SortExpression="CFIOD_AmountPayable"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">                                
@@ -1263,7 +1333,7 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="100px" UniqueName="CFIOD_MaturityAmount" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                               <%--<telerik:GridBoundColumn DataField="CO_PaymentDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="true" HeaderText="Payment Date" UniqueName="CO_PaymentDate" SortExpression="CO_PaymentDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
@@ -1377,7 +1447,7 @@
                                 UniqueName="XF_Frequency">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                        </Columns>
+                      <%--  </Columns>
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />
@@ -1387,4 +1457,4 @@
             </td>
         </tr>
     </table>
-</asp:Panel>
+</asp:Panel>--%> 

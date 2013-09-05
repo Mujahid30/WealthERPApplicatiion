@@ -611,6 +611,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        protected global::System.Web.UI.WebControls.Button btnUploadImg;
         
         /// <summary>
         /// trARDate control.
@@ -620,7 +621,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trARDate;
-        
+       
         /// <summary>
         /// lblApplicationNumber control.
         /// </summary>
@@ -862,7 +863,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadUpload radUploadProof;
+     
         
         /// <summary>
         /// Customvalidator1 control.
@@ -880,7 +881,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFileUploaded;
+       
         
         /// <summary>
         /// txtCustomerId control.
@@ -908,5 +909,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnDefaulteInteresRate;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderId;
     }
 }

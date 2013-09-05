@@ -4495,6 +4495,29 @@ namespace DaoCustomerProfiling
             }
             return bStatus;
         }
+        public void CreateCustomerOrderDocument(CustomerProofUploadsVO CPUVo, int OrderId)
+        {
+
+            Database db;
+            DbCommand getCustcmd;
+            try
+            {
+
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getCustcmd = db.GetStoredProcCommand("Sp_CreateCustomerOrderDocument");
+                db.AddInParameter(getCustcmd, "@orderid", DbType.Int32, OrderId);
+                db.AddInParameter(getCustcmd, "@ProofTypeCode", DbType.Int32, CPUVo.ProofTypeCode);
+                db.AddInParameter(getCustcmd, "@ProofCode", DbType.Int32, CPUVo.ProofCode);
+                db.AddInParameter(getCustcmd, "@image", DbType.Int32, CPUVo.ProofImage);
+                db.ExecuteNonQuery(getCustcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+
+        }
 
         public DataTable GetCustomerUploadedProofs(int customerId, int proofId)
         {

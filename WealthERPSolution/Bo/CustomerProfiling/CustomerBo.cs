@@ -2376,7 +2376,18 @@ namespace BoCustomerProfiling
             }
             return bStatus;
         }
-
+        public void CreateCustomerOrderDocument(CustomerProofUploadsVO CPUVo, int OrderId)
+        {
+            try
+            {
+                CustomerDao customerDao = new CustomerDao();
+                customerDao.CreateCustomerOrderDocument(CPUVo, OrderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
 
         public DataTable GetCustomerUploadedProofs(int customerId, int proofId)
         {

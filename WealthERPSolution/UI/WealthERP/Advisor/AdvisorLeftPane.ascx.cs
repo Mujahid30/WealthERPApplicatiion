@@ -872,6 +872,7 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                     }
                 }
+               
                 else if (e.Item.Value == "LI_Order")
                 {
                     Session["UserType"] = "adviser";
@@ -3056,6 +3057,11 @@ namespace WealthERP.Advisor
                         Session["UserType"] = "Associates";
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OrderDashBoard','login');", true);
                     }
+                }
+                else if (e.Item.Value == "ProductOrderMaster")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ProductOrderMaster','login');", true);
                 }
                 else if (e.Item.Value == "LI_Order")
                 {

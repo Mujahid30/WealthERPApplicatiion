@@ -50,7 +50,11 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow tr1;
-        
+        protected global::Telerik.Web.UI.RadUpload radUploadProof;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProofType;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlProof;
+        protected global::System.Web.UI.WebControls.Label lblFileUploaded;
         /// <summary>
         /// trCustSect control.
         /// </summary>
@@ -149,6 +153,15 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trpan;
+        
+            
+            
+             protected global::System.Web.UI.HtmlControls.HtmlTableRow trProofType;
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trProof;
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trUpload;
+
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trDocumentSec;
+
         
         /// <summary>
         /// lblPansearch control.
@@ -1544,7 +1557,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
-        
+        protected global::System.Web.UI.WebControls.Button Button1;
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -1552,7 +1565,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+       
         
         /// <summary>
         /// Button2 control.
