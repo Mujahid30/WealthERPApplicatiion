@@ -988,7 +988,7 @@
                                             <telerik:RadPanelItem runat="server" Text="Transactions" Value="Transactions">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS"
-                                                Visible="false">
+                                                Visible="true">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

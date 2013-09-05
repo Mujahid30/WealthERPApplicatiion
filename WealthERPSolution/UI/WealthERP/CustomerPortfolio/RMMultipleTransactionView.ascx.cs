@@ -823,7 +823,12 @@ namespace WealthERP.CustomerPortfolio
                     gvMFTransactions.Columns[3].Visible = false;
                     gvMFTransactions.Columns[4].Visible = false;
                     gvMFTransactions.Columns[5].Visible = false;
+                    gvMFTransactions.Columns[6].Visible = false;
                     gvMFTransactions.Columns[7].Visible = false;
+                    gvMFTransactions.Columns[8].Visible = false;
+                    gvMFTransactions.Columns[9].Visible = false;
+                    gvMFTransactions.Columns[10].Visible = false;
+                    gvMFTransactions.Columns[11].Visible = false;
                 }
                 else if (userType == "rm")
                 {
@@ -896,6 +901,10 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("AreaManager");
                     dtMFTransactions.Columns.Add("AssociatesName");
                     dtMFTransactions.Columns.Add("ChannelName");
+                    dtMFTransactions.Columns.Add("Titles");
+                    dtMFTransactions.Columns.Add("CircleManager");
+                    dtMFTransactions.Columns.Add("ReportingManagerName");
+                    dtMFTransactions.Columns.Add("UserType");
                     DataRow drMFTransaction;
                     for (int i = 0; i < mfTransactionList.Count; i++)
                     {
@@ -953,6 +962,10 @@ namespace WealthERP.CustomerPortfolio
                             drMFTransaction["AreaManager"] = mfTransactionVo.AName.ToString();
                             drMFTransaction["AssociatesName"] = mfTransactionVo.SubbrokerName.ToString();
                             drMFTransaction["ChannelName"] = mfTransactionVo.Channel.ToString();
+                            drMFTransaction["Titles"] = mfTransactionVo.Titles.ToString();
+                            drMFTransaction["CircleManager"] = mfTransactionVo.CircleManager.ToString();
+                            drMFTransaction["ReportingManagerName"] = mfTransactionVo.ReportingManagerName.ToString();
+                            drMFTransaction["UserType"] = mfTransactionVo.UserType.ToString();
                         }
 
                         dtMFTransactions.Rows.Add(drMFTransaction);
@@ -1023,7 +1036,12 @@ namespace WealthERP.CustomerPortfolio
                     gvBalanceView.Columns[2].Visible = false;
                     gvBalanceView.Columns[3].Visible = false;
                     gvBalanceView.Columns[4].Visible = false;
+                    gvBalanceView.Columns[5].Visible = false;
                     gvBalanceView.Columns[6].Visible = false;
+                    gvBalanceView.Columns[7].Visible = false;
+                    gvBalanceView.Columns[8].Visible = false;
+                    gvBalanceView.Columns[9].Visible = false;
+                    gvBalanceView.Columns[10].Visible = false;
                 }
                 else if (userType == "rm")
                 {
@@ -1085,10 +1103,14 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("NAV", typeof(double));
                     dtMFBalance.Columns.Add("Age");
                     dtMFBalance.Columns.Add("Balance", typeof(double));
-                     dtMFBalance.Columns.Add("ZonalManagerName");
+                    dtMFBalance.Columns.Add("ZonalManagerName");
                     dtMFBalance.Columns.Add("AreaManager");
                     dtMFBalance.Columns.Add("AssociatesName");
                     dtMFBalance.Columns.Add("ChannelName");
+                    dtMFBalance.Columns.Add("Titles");
+                    dtMFBalance.Columns.Add("CircleManager");
+                    dtMFBalance.Columns.Add("ReportingManagerName");
+                    dtMFBalance.Columns.Add("UserType");
                     DataRow drMFBalance;
 
                     for (int i = 0; i < mfBalanceList.Count; i++)
@@ -1133,6 +1155,10 @@ namespace WealthERP.CustomerPortfolio
                             drMFBalance["AreaManager"] = mfBalanceVo.AName.ToString();
                             drMFBalance["AssociatesName"] = mfBalanceVo.SubbrokerName.ToString();
                             drMFBalance["ChannelName"] = mfBalanceVo.Channel.ToString();
+                            drMFBalance["Titles"] = mfBalanceVo.Titles.ToString();
+                            drMFBalance["CircleManager"] = mfBalanceVo.CircleManager.ToString();
+                            drMFBalance["ReportingManagerName"] = mfBalanceVo.ReportingManagerName.ToString();
+                            drMFBalance["UserType"] = mfBalanceVo.UserType.ToString();
                         }
                         dtMFBalance.Rows.Add(drMFBalance);
                     }
@@ -1295,6 +1321,10 @@ namespace WealthERP.CustomerPortfolio
                     gvTrail.Columns[6].Visible = false;
                     gvTrail.Columns[7].Visible = false;
                     gvTrail.Columns[8].Visible = false;
+                    gvTrail.Columns[9].Visible = false;
+                    gvTrail.Columns[10].Visible = false;
+                    gvTrail.Columns[11].Visible = false;
+                    gvTrail.Columns[12].Visible = false;
                 }
                 else if (userType == "rm")
                 {

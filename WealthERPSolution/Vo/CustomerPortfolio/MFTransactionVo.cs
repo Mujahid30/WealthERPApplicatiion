@@ -65,6 +65,10 @@ namespace VoCustomerPortfolio
         private string m_AName;
         private string m_SubbrokerName;
         private string m_Channel;
+        private string m_Titles;
+        private string m_CircleManager;
+        private string m_ReportingManagerName;
+        private string m_UserType;
         #endregion Fields
 
         #region Properties
@@ -344,7 +348,32 @@ namespace VoCustomerPortfolio
             set { m_Channel = value; }
 
         }
-       
+
+        public string Titles
+        {
+            get { return m_Titles; }
+            set { m_Titles = value; }
+
+        }
+        public string CircleManager
+        {
+            get { return m_CircleManager; }
+            set { m_CircleManager = value; }
+
+        }
+        public string ReportingManagerName
+        {
+            get { return m_ReportingManagerName; }
+            set { m_ReportingManagerName = value; }
+
+        }
+        public string UserType
+        {
+            get { return m_UserType; }
+            set { m_UserType = value; }
+
+        }
+     
         #endregion Properties
 
         #region ICloneable Members

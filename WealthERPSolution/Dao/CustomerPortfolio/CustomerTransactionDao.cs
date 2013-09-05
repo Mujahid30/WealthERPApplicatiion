@@ -2534,7 +2534,7 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.SubbrokerName = "N/A";
                             }
-                            if (dr["ChannelName"].ToString() != null && dr["ChannelName"].ToString() != string.Empty)
+                            if  (dr["ChannelName"].ToString() != null && dr["ChannelName"].ToString() != string.Empty)
                             {
                                 mfTransactionVo.Channel = dr["ChannelName"].ToString();
                             }
@@ -2542,6 +2542,40 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.Channel = "N/A";
                             }
+                            
+                            if (dr["Titles"].ToString() != null && dr["Titles"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.Titles = dr["Titles"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.Titles = "N/A";
+                            }
+                            if (dr["CircleManager"].ToString() != null && dr["CircleManager"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.CircleManager = dr["CircleManager"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.CircleManager = "N/A";
+                            }
+                            if (dr["ReportingManagerName"].ToString() != null && dr["ReportingManagerName"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.ReportingManagerName = dr["ReportingManagerName"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.ReportingManagerName = "N/A";
+                            }
+                            if (dr["UserType"].ToString() != null && dr["UserType"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.UserType = dr["UserType"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.UserType = "N/A";
+                            }
+                           
                         }
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
@@ -4227,6 +4261,42 @@ namespace DaoCustomerPortfolio
                             {
                                 mfBalanceVo.Channel = "N/A";
                             }
+
+                            if (dr["Titles"].ToString() != null && dr["Titles"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.Titles = dr["Titles"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.Titles = "N/A";
+                            }
+                            if (dr["CircleManager"].ToString() != null && dr["CircleManager"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.CircleManager = dr["CircleManager"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.CircleManager = "N/A";
+                            }
+                            if (dr["ReportingManagerName"].ToString() != null && dr["ReportingManagerName"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.ReportingManagerName = dr["ReportingManagerName"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.ReportingManagerName = "N/A";
+                            }
+                            if (dr["UserType"].ToString() != null && dr["UserType"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.UserType = dr["UserType"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.UserType = "N/A";
+                            }
+
+
+
                         }
                         mfBalanceVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
                         mfBalanceVo.Price = float.Parse(dr["CMFT_Price"].ToString());

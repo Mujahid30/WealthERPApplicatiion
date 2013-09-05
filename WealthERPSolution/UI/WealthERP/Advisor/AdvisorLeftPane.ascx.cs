@@ -3174,7 +3174,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "MF systematic MIS")
                 {
                     Session["UserType"] = "Associates";
-                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserRMMFSystematicMIS','action=SIP_MIS');", true);
                 }
                 else if (e.Item.Value == "MF_SIP_Projection")
                 {
