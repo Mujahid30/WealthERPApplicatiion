@@ -336,6 +336,10 @@
                                 HeaderStyle-Width="80px" AutoPostBackOnFilter="true" UniqueName="FolioNumber">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="SubbrokerCode" HeaderText="SubBroker Code" ShowFilterIcon="false"
+                                HeaderStyle-Width="80px" AutoPostBackOnFilter="true" UniqueName="SubbrokerCode" SortExpression="SubbrokerCode">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
                             <%-- <telerik:GridBoundColumn DataField="CustomerName" HeaderText="Customer" ShowFilterIcon="false"
                                     AutoPostBackOnFilter="true" UniqueName="CustomerName" FooterText="Grand Total:"
                                     FooterStyle-HorizontalAlign="Right">

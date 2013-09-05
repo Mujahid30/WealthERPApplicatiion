@@ -1099,6 +1099,7 @@ namespace WealthERP.Advisor
 
                 dtSystematicDetails.Columns.Add("CeaseDate", typeof(DateTime));
                 dtSystematicDetails.Columns.Add("Remarks");
+                dtSystematicDetails.Columns.Add("SubbrokerCode");
 
                 DataRow drSystematicDetails;
                 foreach (DataRow dr in dtSystematicMIS1.Rows)
@@ -1140,7 +1141,7 @@ namespace WealthERP.Advisor
                     if (dr["CMFSS_CEASEDATE"] != "")
                         drSystematicDetails["CeaseDate"] = dr["CMFSS_CEASEDATE"];
                     drSystematicDetails["Remarks"] = dr["CMFSS_REMARKS"];
-
+                    drSystematicDetails["SubbrokerCode"] = dr["SubbrokerCode"];
 
                     dtSystematicDetails.Rows.Add(drSystematicDetails);
                 }
