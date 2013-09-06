@@ -443,12 +443,58 @@ namespace WealthERP.CustomerPortfolio
         {
             DataTable dtProcessLogDetails = new DataTable();
 
-            dtProcessLogDetails = (DataTable)Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()];
+            GridFilteringItem FilterItem = gvMFTransactions.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
+            //DateTime dt = Convert.ToDateTime(FilterItem.OwnerTableView.FilterExpression.Split());
+
+            string srt = FilterItem.OwnerTableView.FilterExpression;
+            if (!string.IsNullOrEmpty(srt))
+            {
+                string[] dt = srt.Split('\'');
+                string date = dt[1];
+                ViewState["date1"] = date;
+
+               
+            }
+
+            if(srt=="")
+            {
+                 RadDatePicker rdp = new RadDatePicker();
+                rdp = (RadDatePicker)FilterItem.FindControl("Datepk");
+                if (ViewState["date1"] != null)
+                    rdp.SelectedDate = null;
+                ViewState["date1"] = null;
+            }
+
+           dtProcessLogDetails = (DataTable)Cache["EquityTransactionDetails" + advisorVo.advisorId.ToString()];
             if (dtProcessLogDetails != null)
             {
                 gvMFTransactions.DataSource = dtProcessLogDetails;
             }
+ 
+            //FilterItem.OwnerTableView.FilterExpression =ViewState["date1"].ToString();
+            //GridColumn column = gvMFTransactions.MasterTableView.GetColumnSafe("Date");
+            //column.CurrentFilterValue = ViewState["date1"].ToString();
+            //column.FilterControlAltText=  ViewState["date1"].ToString();
+            
         }
+
+        protected void gvMFTransactions_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridFilteringItem)
+            {
+                GridFilteringItem item = (GridFilteringItem)e.Item;
+                
+
+                //TextBox txtFilter = item.Controls[4];
+                GridFilteringItem FilterItem = gvMFTransactions.MasterTableView.GetItems(GridItemType.FilteringItem)[0] as GridFilteringItem;
+
+                RadDatePicker rdp = new RadDatePicker();
+                rdp=(RadDatePicker)FilterItem.FindControl("Datepk");
+                if (ViewState["date1"]!=null)
+                rdp.SelectedDate =Convert.ToDateTime(ViewState["date1"].ToString());
+            }
+        } 
+
 
         public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
