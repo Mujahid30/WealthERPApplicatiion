@@ -312,9 +312,9 @@ namespace WealthERP.BusinessMIS
                 gvMember.DataBind();
                 pnlMember.Visible = true;
                 gvMember.Visible = true;
-                //btnExpMember.Visible = true;
-                //btnExpOrganization.Visible = false;
-                //btnExpProduct.Visible = false;
+                btnExpMember.Visible = true;
+                btnExpOrganization.Visible = false;
+                btnExpProduct.Visible = false;
                 this.gvMember.GroupingSettings.RetainGroupFootersVisibility = true;
                 if (Cache["gvMember" + advisorVo.advisorId] == null)
                 {
@@ -523,9 +523,9 @@ namespace WealthERP.BusinessMIS
                 gvOrganization.DataSource = dtGetOrganizationDetailFromMFOrder;
                 gvOrganization.DataBind();
                 pnlProduct.Visible = true;
-                //btnExpOrganization.Visible = true;
-                //btnExpProduct.Visible = false;
-                //btnExpMember.Visible = false;
+                btnExpOrganization.Visible = true;
+                btnExpProduct.Visible = false;
+                btnExpMember.Visible = false;
                 gvOrganization.Visible = true;
                 pnlOrganization.Visible = true;
                 this.gvOrganization.GroupingSettings.RetainGroupFootersVisibility = true;
@@ -733,9 +733,9 @@ namespace WealthERP.BusinessMIS
                 gvProduct.DataSource = dtGetProductDetailFromMFOrder;
                 gvProduct.DataBind();
                 pnlProduct.Visible = true;
-                //btnExpOrganization.Visible = false;
-                //btnExpProduct.Visible = true;
-                //btnExpMember.Visible = false;
+                btnExpOrganization.Visible = false;
+                btnExpProduct.Visible = true;
+                btnExpMember.Visible = false;
                 gvProduct.Visible = true;
                 pnlProduct.Visible = true;
                 this.gvProduct.GroupingSettings.RetainGroupFootersVisibility = true;
