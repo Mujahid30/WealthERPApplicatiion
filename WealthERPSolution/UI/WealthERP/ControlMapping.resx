@@ -1677,4 +1677,8 @@
     <value>BusinessMIS//CommissionReceivableRecon.ascx</value>
     <comment>BusinessMIS//CommissionReceivableRecon.ascx</comment>
   </data>
+  <data name="FixedIncomeReject" xml:space="preserve">
+    <value>Uploads//FixedIncomeReject.ascx</value>
+    <comment>Uploads//FixedIncomeReject.ascx</comment>
+  </data>
 </root>

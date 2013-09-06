@@ -1636,6 +1636,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uploads//FixedIncomeReject.ascx.
+        /// </summary>
+        internal static string FixedIncomeReject {
+            get {
+                return ResourceManager.GetString("FixedIncomeReject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General//ForgotPassword.ascx.
         /// </summary>
         internal static string ForgotPassword {

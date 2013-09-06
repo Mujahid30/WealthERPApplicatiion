@@ -3411,6 +3411,13 @@
     <Compile Include="Uploads\EquityMapToCustomers.aspx.designer.cs">
       <DependentUpon>EquityMapToCustomers.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Uploads\FixedIncomeReject.ascx.cs">
+      <DependentUpon>FixedIncomeReject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Uploads\FixedIncomeReject.ascx.designer.cs">
+      <DependentUpon>FixedIncomeReject.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Uploads\KarvyProfileFolioInputRejects.ascx.cs">
       <DependentUpon>KarvyProfileFolioInputRejects.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6590,6 +6597,7 @@
     <Content Include="Uploads\DeutscheProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\DeutscheTransInputRejects.ascx" />
     <Content Include="Uploads\EquityMapToCustomers.aspx" />
+    <Content Include="Uploads\FixedIncomeReject.ascx" />
     <Content Include="Uploads\KarvyProfileFolioInputRejects.ascx" />
     <Content Include="Uploads\KarvyTransInputRejects.ascx" />
     <Content Include="Uploads\MapToCustomers.aspx" />
