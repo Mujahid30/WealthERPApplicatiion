@@ -110,12 +110,12 @@ namespace BoOps
             return dsGetFICategory;
 
         }
-        public DataSet GetFIIssuer(int AdviserID)
+        public DataSet GetFIIssuer(int AdviserID, string CategoryCode)
         {
             DataSet dsGetFIIssuer;
             try
             {
-                dsGetFIIssuer = mfOrderDao.GetFIIssuer(AdviserID);
+                dsGetFIIssuer = mfOrderDao.GetFIIssuer(AdviserID, CategoryCode);
             }
             catch (BaseApplicationException Ex)
             {

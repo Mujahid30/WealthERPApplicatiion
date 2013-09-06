@@ -134,10 +134,12 @@ namespace WealthERP.OPS
  
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
+            repoBo = new RepositoryBo();
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
+        double a=    CompoundInterest(3000, 0.1, 4, 12/13);
             orderNumber = orderNumber + 1;
            //sai //sai  lblGetOrderNo.Text = orderNumber.ToString();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
@@ -304,6 +306,8 @@ namespace WealthERP.OPS
                 GetProductWiseControls();
                 pnlOrderSteps.Visible = false;
                 tr1.Visible = false;
+               
+                fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
                 //Session.Remove("ChildControl");
             }
             GetProductWiseControls();
@@ -499,7 +503,7 @@ namespace WealthERP.OPS
                             // Update DB with details
                             CPUVo.CustomerId = customerVo.CustomerId;
                             CPUVo.ProofTypeCode = Convert.ToInt32(ddlProofType.SelectedValue);
-                            CPUVo.ProofCode = Convert.ToInt32(ddlProof.SelectedValue);
+                            CPUVo.ProofCode = 0;// Convert.ToInt32(ddlProof.SelectedValue);
                             //CPUVo.ProofCopyTypeCode = ddlProofCopyType.SelectedValue;
                             CPUVo.ProofImage = imgPath + "\\" + newFileName;
 
@@ -527,7 +531,7 @@ namespace WealthERP.OPS
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a document file to upload!');", true);
+                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a document file to upload!');", true);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -678,6 +682,17 @@ namespace WealthERP.OPS
             }
             ddlProof.Items.Insert(0, new ListItem("Select", "Select"));
         }
+     private double    CompoundInterest(double principal,	double interestRate,	int timesPerYear,	double years)
+    {
+	// (1 + r/n)
+	double body = 1 + (interestRate / timesPerYear);
+    double i = Math.Round(Convert.ToDouble ( 13/ 12), 5);
+	// nt
+	double exponent = timesPerYear * 1.08333;
+
+	// P(1 + r/n)^nt
+	return principal * System.Math.Pow(body, exponent);
+    }
         private void UploadImage(string imgPath, UploadedFile f, string imageUploadPath)
         {
             TargetPath = imgPath;
@@ -731,7 +746,7 @@ namespace WealthERP.OPS
             bool blZeroBalance = false;
             bool blFileSizeExceeded = false;
           //  hdnOrderId.Value = args.ToString();
-            fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
+           fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
             if (fStorageBalance > 0)
                 blResult = UploadFile(out blZeroBalance, out blFileSizeExceeded);
             else

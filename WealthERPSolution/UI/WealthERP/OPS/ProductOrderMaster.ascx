@@ -246,7 +246,7 @@
                 CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblPan" runat="server" Text="PAN" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblPan" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:Label ID="lblgetPan" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -308,7 +308,7 @@
     </tr>
     <tr id="trTaxStatus" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label5" runat="server" Text="Customer Tax status: " CssClass="FieldName" ></asp:Label>
+            <asp:Label ID="Label5" runat="server" Text="Customer Tax Status: " CssClass="FieldName" ></asp:Label>
         </td>
         <td>
         <asp:TextBox ID="txtTax" runat="server" CssClass="txtField" AutoComplete="Off" ReadOnly="true"   />                
@@ -371,7 +371,7 @@
                             HeaderStyle-HorizontalAlign="Left" UniqueName="Customer">
                             <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn DataField="ModeOfHolding" HeaderText="Mode Of Holding" AllowFiltering="false"
+                        <telerik:GridBoundColumn DataField="ModeOfHolding" HeaderText="Mode Of Holding:" AllowFiltering="false"
                             HeaderStyle-HorizontalAlign="Left" UniqueName="ModeOfHolding">
                             <ItemStyle HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
@@ -628,7 +628,7 @@
     </tr>
     <tr id="trPINo" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblPaymentNumber" runat="server" Text="Payment instrument No.: "
+            <asp:Label ID="lblPaymentNumber" runat="server" Text="Payment Instrument No.:"
                 CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">

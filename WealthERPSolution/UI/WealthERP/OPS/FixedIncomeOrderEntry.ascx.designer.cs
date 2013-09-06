@@ -910,6 +910,6 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnDefaulteInteresRate;
 
-        protected global::System.Web.UI.WebControls.HiddenField hdnOrderId;
+        protected global::System.Web.UI.WebControls.HiddenField hdnFrequency;
     }
 }

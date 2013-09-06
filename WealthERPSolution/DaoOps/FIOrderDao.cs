@@ -241,9 +241,9 @@ namespace DaoOps
 
 
 
-      
 
-        public DataSet GetFIIssuer(int AdviserID)
+
+        public DataSet GetFIIssuer(int AdviserID, string CategoryCode)
         {
             DataSet dsGetFIIssuer;
             Database db;
@@ -255,6 +255,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getFIIssuercmd = db.GetStoredProcCommand("Sp_FIIssuer");
                 db.AddInParameter(getFIIssuercmd, "@AdviserID", DbType.Int32, AdviserID);
+                db.AddInParameter(getFIIssuercmd, "@CategoryCode", DbType.String, CategoryCode);
                 dsGetFIIssuer = db.ExecuteDataSet(getFIIssuercmd);
             }
             catch (BaseApplicationException Ex)

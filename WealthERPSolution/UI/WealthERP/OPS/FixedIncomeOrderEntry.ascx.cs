@@ -94,10 +94,10 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 FICategory();
-                FIIssuer(advisorVo.advisorId);
+               // FIIssuer(advisorVo.advisorId);
                 GetFIModeOfHolding();
                 BindProofTypeDP();
-                fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
+                //fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
 
             }
             if (Session["customerid"] != null)
@@ -260,10 +260,16 @@ namespace WealthERP.OPS
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
         {
+            if (hdnFrequency.Value == "0")
+                return;
+
+           int SchemePeriod= SchemePlan();
             if (!string.IsNullOrEmpty(txtPayAmt.Text) & trPayAmt.Visible==true)
             {
-
-                txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+                double Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
+                Maturityvalue = Math.Round(Maturityvalue, 3);
+                //Convert.ToDouble(Math.Round (SchemePeriod / 12,5))
+                txtMatAmt.Text = Maturityvalue.ToString(); // Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
             }
             else  if (!string.IsNullOrEmpty(txtRenAmt.Text)& trPayAmt.Visible==false )
             {
@@ -271,6 +277,60 @@ namespace WealthERP.OPS
                 txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
             }
 
+        }
+        private int SchemePlan()
+        {
+            string a = ddlSeries.SelectedItem.Text;
+
+
+            //String[] SchemePeriod = s.Split('-');
+
+
+            //string a = SchemePeriod[1];
+            string b = string.Empty;
+            int val=0;
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (Char.IsDigit(a[i]))
+                    b += a[i];
+            }
+            if (b.Length > 0)
+                val = int.Parse(b);
+
+
+
+
+          // int a = Convert.ToInt32(SchemePeriod[1]);
+
+          //  int b = Convert.ToInt32(SchemePeriod[1]);
+
+          //int c=  SchemePeriod[1].Substring(0, 2);
+
+       
+          //  int c;
+          //  if (b != 0)
+          //      // for 18-24
+          //      c = a - b;
+          //  else
+          //      c = a;
+
+            return val;
+            
+
+        }
+        private double CompoundInterest(double principal, double interestRate, int timesPerYear, double years)
+        {
+            //timesPerYear = 2; // Half yearly 2 // Monthly 12 //yearly 
+            // (1 + r/n)
+            double body = 1 + (interestRate / timesPerYear);
+           // body = Math.Round(body, 4);
+            double i = Convert.ToDouble(years / 12);
+           
+            // nt
+            double exponent = timesPerYear * i ;
+            double a =principal * System.Math.Pow(body, exponent);
+            // P(1 + r/n)^nt
+            return a;
         }
         //private bool UploadFile(out bool blZeroBalance, out bool blFileSizeExceeded)
         //{
@@ -882,7 +942,7 @@ namespace WealthERP.OPS
 
         private void  FIIssuer(int AdviserId)
         {
-            DataSet dsIssuer = fiorderBo.GetFIIssuer(AdviserId);
+            DataSet dsIssuer = fiorderBo.GetFIIssuer(AdviserId,ddlCategory.SelectedValue );
             if (dsIssuer.Tables[0].Rows.Count > 0)
             {
                 ddlIssuer .DataSource = dsIssuer;
@@ -1058,10 +1118,42 @@ namespace WealthERP.OPS
          
         protected void ddlSchemeOption_SelectedIndexChanged(object sender, EventArgs e)
         {
-        }
+           
+           
+         if (ddlSchemeOption.SelectedValue == "NonCummulative")
+            {
 
+
+            }
+            else
+            {
+
+            }
+        }
+       
         protected void ddlFrequency_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Half yearly 2 // Monthly 12 //yearly 
+            int Val=0 ;
+            if (ddlFrequency.SelectedValue == "Monthly")
+            {
+              Val = 12;
+
+            }
+            else if (ddlFrequency.SelectedValue == "Quarterly")
+            {
+                Val = 4;
+            }
+             else if (ddlFrequency.SelectedValue == "yearly")
+            {
+                  Val = 1;
+            }
+            else if (ddlFrequency.SelectedValue == "Hfyearly"){
+                  Val = 2;
+
+             }
+            hdnFrequency.Value = Val.ToString();
+
         }
 
         protected void ddlTranstype_SelectedIndexChanged(object sender, EventArgs e)
@@ -1085,7 +1177,23 @@ namespace WealthERP.OPS
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlCategory.SelectedIndex != 0)
+                FIIssuer(advisorVo.advisorId );
+            if (ddlCategory.SelectedValue == "")
+            {
+
+            }
+            else
+            {
+
+            }
         }
+
+        protected void SetEnabilityControls()
+        {
+
+        }
+        
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex !=0)

@@ -95,7 +95,7 @@
     </tr>
     <tr id="trSchemeOpFreq" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label16" runat="server" Text="Scheme option: " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label16" runat="server" Text="Scheme Option: " CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 20%">
             <asp:DropDownList ID="ddlSchemeOption" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -135,7 +135,7 @@
     
     <tr id="trDepPaypriv" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label21" runat="server" Text="Deposit payable to:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label21" runat="server" Text="Deposit Payable to:" CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 20%">
             <asp:CheckBox ID="ChkFirstholder" runat="server" CssClass="txtField" Text="First holder">
@@ -251,7 +251,7 @@
     
     <tr id="trDepRen" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblgetPan" runat="server" Text="Exisiting Deposit receipt no :" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblgetPan" runat="server" Text="Existing Deposit Receipt No.:" CssClass="FieldName"></asp:Label>
         </td>
         <td  style="width: 20%">
             <asp:TextBox ID="txtExistDepositreceiptno" runat="server" CssClass="txtField" AutoComplete="Off"
@@ -831,4 +831,5 @@
 <asp:HiddenField ID="hdnDefaulteInteresRate" runat="server" />
 <asp:HiddenField ID="hdnOrderId" runat="server" />
 <asp:HiddenField ID="hdnNewFileName" runat="server" />
+<asp:HiddenField ID="hdnFrequency" runat="server" />
  

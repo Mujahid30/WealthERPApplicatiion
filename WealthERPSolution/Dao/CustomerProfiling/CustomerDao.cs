@@ -4509,7 +4509,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(getCustcmd, "@orderid", DbType.Int32, OrderId);
                 db.AddInParameter(getCustcmd, "@ProofTypeCode", DbType.Int32, CPUVo.ProofTypeCode);
                 db.AddInParameter(getCustcmd, "@ProofCode", DbType.Int32, CPUVo.ProofCode);
-                db.AddInParameter(getCustcmd, "@image", DbType.Int32, CPUVo.ProofImage);
+                db.AddInParameter(getCustcmd, "@image", DbType.String, CPUVo.ProofImage);
                 db.ExecuteNonQuery(getCustcmd);
             }
             catch (BaseApplicationException Ex)
