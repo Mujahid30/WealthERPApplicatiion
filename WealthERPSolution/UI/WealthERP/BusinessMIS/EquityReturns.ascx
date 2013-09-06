@@ -64,7 +64,7 @@
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvEQReturns_OnNeedDataSource"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                        FileName="EQReturnsCustomerWise" Excel-Format="ExcelML">
+                                        FileName="EQReturnsCompanyWise" Excel-Format="ExcelML">
                                     </ExportSettings>
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
@@ -195,7 +195,7 @@
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvEqHldings_OnNeedDataSource"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                                        FileName="EQReturnsCompanyWise" Excel-Format="ExcelML">
+                                        FileName="EQReturnsCustomerWise" Excel-Format="ExcelML">
                                     </ExportSettings>
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
