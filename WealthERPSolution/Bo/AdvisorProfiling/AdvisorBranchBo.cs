@@ -1851,5 +1851,35 @@ namespace BoAdvisorProfiling
 
 
         }
+
+        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = advisorBranchDao.GetFolioSignUp(adviserId, dtFromDate, dtToDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
+
+        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        {
+            AdvisorBranchDao advisorBranchDao = new AdvisorBranchDao();
+            DataSet ds = new DataSet();
+            try
+            {
+                ds = advisorBranchDao.GetSIPSignUp(adviserId, dtFromDate, dtToDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return ds;
+        }
     }
 }
