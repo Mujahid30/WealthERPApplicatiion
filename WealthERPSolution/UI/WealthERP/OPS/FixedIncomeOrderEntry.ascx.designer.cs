@@ -911,5 +911,9 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.HiddenField hdnDefaulteInteresRate;
 
         protected global::System.Web.UI.WebControls.HiddenField hdnFrequency;
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnMintenure;
+        protected global::System.Web.UI.WebControls.HiddenField hdnMaxtenure;
+
     }
 }

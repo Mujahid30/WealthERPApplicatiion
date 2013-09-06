@@ -240,6 +240,40 @@ namespace DaoOps
         }
 
 
+        public void GetTenure(int seriesID,out int minTenure  , out int maxtenure)
+        {
+            DataSet dsGetFITenure;
+            Database db;
+            DbCommand getFITenurecmd;
+            minTenure = 0;
+            maxtenure = 0;
+            try
+            {
+                //  Shantanu Dated :- 18thSept2012
+                //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
+                //then test the folio Add Screen also..
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getFITenurecmd = db.GetStoredProcCommand("Sp_GetMinMaxTenure");
+                db.AddInParameter(getFITenurecmd, "@SeriesID", DbType.Int32, seriesID);
+                dsGetFITenure = db.ExecuteDataSet(getFITenurecmd);
+
+                if (dsGetFITenure.Tables[0].Rows.Count > 0)
+                {
+                    if (dsGetFITenure.Tables[0].Rows[0]["MinTenure"].ToString() != "")
+                        minTenure = Convert.ToInt32(dsGetFITenure.Tables[0].Rows[0]["MinTenure"].ToString());
+                    if (dsGetFITenure.Tables[0].Rows[0]["MaxTenure"].ToString()!="")
+                    maxtenure = Convert.ToInt32(dsGetFITenure.Tables[0].Rows[0]["MaxTenure"].ToString());
+                }
+               
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+             
+        }
+
 
 
 

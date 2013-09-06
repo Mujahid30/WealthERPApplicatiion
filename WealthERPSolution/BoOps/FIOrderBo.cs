@@ -13,13 +13,12 @@ namespace BoOps
 {
     public class FIOrderBo : OrderBo
     {
-        FIOrderDao mfOrderDao = new FIOrderDao();
-        public int GetOrderNumber()
+        FIOrderDao fiOrderDao = new FIOrderDao();
+         public void GetTenure(int seriesID,out int minTenure  , out int maxtenure)
         {
-            int orderNumber = 0;
             try
             {
-                orderNumber = mfOrderDao.GetOrderNumber();
+                fiOrderDao.GetTenure(seriesID, out minTenure, out maxtenure);
             }
             catch (BaseApplicationException Ex)
             {
@@ -29,7 +28,31 @@ namespace BoOps
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OperationBo.cs:GetOrderNumber()");
+                FunctionInfo.Add("Method", "FiOrderBo.cs:GetOrderNumber()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            
+        }
+        public int GetOrderNumber()
+        {
+            int orderNumber = 0;
+            try
+            {
+                orderNumber = fiOrderDao.GetOrderNumber();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "FiOrderBo.cs:GetOrderNumber()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -43,7 +66,7 @@ namespace BoOps
             bool Result = false;
             try
             {
-                Result = mfOrderDao.UpdateFITransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, out Result, gvOrderDate);
+                Result = fiOrderDao.UpdateFITransactionForSynch(gvOrderId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, out Result, gvOrderDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -74,7 +97,7 @@ namespace BoOps
             DataSet dsGetCustomerBank;
             try
             {
-                dsGetCustomerBank = mfOrderDao.GetCustomerBank(customerId);
+                dsGetCustomerBank = fiOrderDao.GetCustomerBank(customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -87,7 +110,7 @@ namespace BoOps
             DataSet dsGetFICategory;
             try
             {
-                dsGetFICategory = mfOrderDao.GetFIModeOfHolding();
+                dsGetFICategory = fiOrderDao.GetFIModeOfHolding();
             }
             catch (BaseApplicationException Ex)
             {
@@ -101,7 +124,7 @@ namespace BoOps
             DataSet dsGetFICategory;
             try
             {
-                dsGetFICategory = mfOrderDao.GetFICategory();
+                dsGetFICategory = fiOrderDao.GetFICategory();
             }
             catch (BaseApplicationException Ex)
             {
@@ -115,7 +138,7 @@ namespace BoOps
             DataSet dsGetFIIssuer;
             try
             {
-                dsGetFIIssuer = mfOrderDao.GetFIIssuer(AdviserID, CategoryCode);
+                dsGetFIIssuer = fiOrderDao.GetFIIssuer(AdviserID, CategoryCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -130,7 +153,7 @@ namespace BoOps
             DataSet dsGetFIScheme;
             try
             {
-                dsGetFIScheme = mfOrderDao.GetFIScheme(AdviserID, IssuerID);
+                dsGetFIScheme = fiOrderDao.GetFIScheme(AdviserID, IssuerID);
             }
             catch (BaseApplicationException Ex)
             {
@@ -143,7 +166,7 @@ namespace BoOps
             DataSet dsGetFISeries;
             try
             {
-                dsGetFISeries = mfOrderDao.GetFISeries(SchemeID);
+                dsGetFISeries = fiOrderDao.GetFISeries(SchemeID);
             }
             catch (BaseApplicationException Ex)
             {
@@ -157,7 +180,7 @@ namespace BoOps
             DataSet dsSeriesDetailssDetails;
             try
             {
-                dsSeriesDetailssDetails = mfOrderDao.GetFISeriesDetailssDetails(SchemeID);
+                dsSeriesDetailssDetails = fiOrderDao.GetFISeriesDetailssDetails(SchemeID);
             }
             catch (BaseApplicationException Ex)
             {
@@ -170,7 +193,7 @@ namespace BoOps
             DataSet dsGetCustomerMFOrderDetails;
             try
             {
-                dsGetCustomerMFOrderDetails = mfOrderDao.GetCustomerFIOrderDetails(orderId);
+                dsGetCustomerMFOrderDetails = fiOrderDao.GetCustomerFIOrderDetails(orderId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -184,7 +207,7 @@ namespace BoOps
             DataSet dsGetMFOrderMIS;
             try
             {
-                dsGetMFOrderMIS = mfOrderDao.GetCustomerFIOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode, customerId);
+                dsGetMFOrderMIS = fiOrderDao.GetCustomerFIOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode, customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -197,7 +220,7 @@ namespace BoOps
             try
             {
 
-                mfOrderDao.CreateCustomerAssociation(OrderId, nomineeAssociationIds, associateType);
+                fiOrderDao.CreateCustomerAssociation(OrderId, nomineeAssociationIds, associateType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -210,7 +233,7 @@ namespace BoOps
         //    try
         //    {
 
-        //        mfOrderDao.CreateCustomerOrderDocument(CPUVo, OrderId);
+        //        fiOrderDao.CreateCustomerOrderDocument(CPUVo, OrderId);
         //    }
         //    catch (BaseApplicationException Ex)
         //    {
@@ -223,7 +246,7 @@ namespace BoOps
            
             try
             {
-                dtOrder = mfOrderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype, AgentId, SubBrokerCode, AgentCode);
+                dtOrder = fiOrderDao.GetOrderList(advisorId, rmId, branchId, toDate, fromDate, status, customerId, orderType, usertype, AgentId, SubBrokerCode, AgentCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -252,7 +275,7 @@ namespace BoOps
             String StrTaxStatus;
             try
             {
-                StrTaxStatus = mfOrderDao.GetTaxStatus(customerId);
+                StrTaxStatus = fiOrderDao.GetTaxStatus(customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -269,7 +292,7 @@ namespace BoOps
             DataSet dsCustomerAssociates;
             try
             {
-                dsCustomerAssociates = mfOrderDao.GetCustomerAssociates(customerId);
+                dsCustomerAssociates = fiOrderDao.GetCustomerAssociates(customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -282,7 +305,7 @@ namespace BoOps
             List<int> orderIds = new List<int>();
             try
             {
-                orderIds = mfOrderDao.CreateOrderFIDetails(orderVo, fiorderVo, userId);
+                orderIds = fiOrderDao.CreateOrderFIDetails(orderVo, fiorderVo, userId);
             }
             catch (BaseApplicationException Ex)
             {

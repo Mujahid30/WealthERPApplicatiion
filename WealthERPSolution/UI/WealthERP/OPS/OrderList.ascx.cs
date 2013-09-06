@@ -556,10 +556,10 @@ namespace WealthERP.OPS
         protected void gvFIOrderList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             trExportFilteredDupData.Visible = true;
-            DataTable dtGIDetails = new DataTable();
-            dtGIDetails = (DataTable)Cache["FIOrderList" + advisorVo.advisorId];
-            gvOrderList.Visible = true;
-            this.gvOrderList.DataSource = dtGIDetails;
+            DataTable dtFIGIDetails = new DataTable();
+            dtFIGIDetails = (DataTable)Cache["FIOrderList" + advisorVo.advisorId];
+            gvFIOrderList.Visible = true;
+            this.gvFIOrderList.DataSource = dtFIGIDetails;
         }
         
 

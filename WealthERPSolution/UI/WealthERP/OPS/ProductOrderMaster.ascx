@@ -615,14 +615,14 @@
             <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox><span
-                id="Span5" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
+            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
+            <%--<span id="Span5" class="spnRequiredField">*</span>--%>
+          <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server"
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
-                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
         </td>
        
     </tr>
@@ -677,6 +677,7 @@
             <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblBranchName" runat="server" Text="Bank Branch Name:" CssClass="FieldName"></asp:Label>
@@ -701,7 +702,7 @@
            <%-- <asp:ImageButton ID="ImageButton2" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                 runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                 Height="15px" Width="25px"></asp:ImageButton>--%>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlBankName"
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlDepoBank"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>

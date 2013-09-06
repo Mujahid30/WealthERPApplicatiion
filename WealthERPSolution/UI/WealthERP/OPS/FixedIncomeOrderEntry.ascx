@@ -5,7 +5,7 @@
 <%--<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>--%>
  
 
-<table runat="server" width="100%">
+ <table runat="server" width="100%">
     <%--
   runat="server"--%>
     <tr id="trCatIss" runat="server">
@@ -231,20 +231,35 @@
         </td>
          
     </tr>
-    
-    <tr id="trPayAmt" runat="server">
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label8" runat="server" Text="FD Amount:" CssClass="FieldName">           
-            </asp:Label>
+  <%--  id="trPayAmt"--%>
+    <tr  runat="server">
+     <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label18" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtPayAmt" runat="server" CssClass="txtField" OnTextChanged="OnPayAmtTextchanged"
-                AutoPostBack="True" />
-                 <span id="SpanPayAmt" runat="server" class="spnRequiredField">*</span>
-                 <asp:CompareValidator ID="CompareValidatorPayamt" runat="server" ControlToValidate="txtPayAmt"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Enter FD Amount"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        <td  style="width: 20%">
+            <telerik:RadDatePicker ID="txtMaturDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                OnSelectedDateChanged="txtMaturDate_DateChanged"
+                AutoPostBack="true">
+                <Calendar ID="Calendar1" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <span id="SpantxtMaturDate" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidatorMaturDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+                Type="Date" ControlToValidate="txtMaturDate" CssClass="cvPCG" Operator="DataTypeCheck"
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtMaturDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select Maturity Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+            <%-- <asp:CompareValidator ID="cvOrderDate" runat="server" ControlToValidate="txtOrderDate"
+                CssClass="cvPCG" ErrorMessage="<br />Order date cannot be greater than or equal to Today"
+                ValueToCompare="" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>--%>
         </td>
+          
         <td colspan="3" style="width: 60%">
         </td>
     </tr>
@@ -268,30 +283,20 @@
         
     </tr>
     <tr id="trMatAmtDate" runat="server">
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label18" runat="server" Text="Maturity Date:" CssClass="FieldName"></asp:Label>
+         <td class="leftField" style="width: 20%">
+            <asp:Label ID="Label8" runat="server" Text="FD Amount:" CssClass="FieldName">           
+            </asp:Label>
         </td>
-        <td  style="width: 20%">
-            <telerik:RadDatePicker ID="txtMaturDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                AutoPostBack="true">
-                <Calendar ID="Calendar1" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
-                    ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
-            </telerik:RadDatePicker>
-            <span id="SpantxtMaturDate" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidatorMaturDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
-                Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtMaturDate"
+        <td class="rightField" style="width: 20%">
+            <asp:TextBox ID="txtPayAmt" runat="server" CssClass="txtField" OnTextChanged="OnPayAmtTextchanged"
+                AutoPostBack="True" />
+                 <span id="SpanPayAmt" runat="server" class="spnRequiredField">*</span>
+                 <asp:CompareValidator ID="CompareValidatorPayamt" runat="server" ControlToValidate="txtPayAmt"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Enter FD Amount"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMaturDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select Maturity Date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <%-- <asp:CompareValidator ID="cvOrderDate" runat="server" ControlToValidate="txtOrderDate"
-                CssClass="cvPCG" ErrorMessage="<br />Order date cannot be greater than or equal to Today"
-                ValueToCompare="" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>--%>
         </td>
         <td style="width:5%"></td>
         <td align="right" style="width: 15%">
@@ -303,7 +308,7 @@
         </td>
        
     </tr>
-    </table>
+    </table> 
     <table>
     
    
@@ -832,4 +837,5 @@
 <asp:HiddenField ID="hdnOrderId" runat="server" />
 <asp:HiddenField ID="hdnNewFileName" runat="server" />
 <asp:HiddenField ID="hdnFrequency" runat="server" />
- 
+ <asp:HiddenField ID="hdnMintenure" runat="server" />
+ <asp:HiddenField ID="hdnMaxtenure" runat="server" />

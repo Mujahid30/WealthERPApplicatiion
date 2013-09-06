@@ -82,6 +82,7 @@ namespace WealthERP.OPS
            
             userVo = (UserVo)Session[SessionContents.UserVo];
             repoBo = new RepositoryBo();
+          //  DifferenceBetDates();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
@@ -112,6 +113,38 @@ namespace WealthERP.OPS
 
 
         }
+         
+        protected void txtMaturDate_DateChanged(object sender, EventArgs e)
+        {
+            //int minTenure = 0;
+            //int maxTenure = 0;
+            //if (ddlSeries.SelectedValue != "0")
+            //    fiorderBo.GetTenure(Convert.ToInt32(ddlSeries.SelectedValue), out minTenure, out maxTenure);
+            if (hdnMintenure.Value != hdnMaxtenure.Value)
+            {
+               // txtMaturDate.Enabled = false;
+                DateTime dt = txtOrderDate.SelectedDate.Value;
+                dt = dt.AddMonths(Convert.ToInt32(hdnMaxtenure.Value));
+                if (txtMaturDate.SelectedDate.Value > dt.Date)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "FIxedIncomeOrderEntry", "alert('You cant select more than  " + dt.Date , true);
+                }
+
+            }
+           
+
+        }
+        private void DifferenceBetDates()
+        {
+            //if (txtMaturDate.SelectedDate.Value != null | txtOrderDate.SelectedDate.Value != null)
+            //{
+            //    DateTime d2 = txtMaturDate.SelectedDate.Value;
+            //    DateTime d1 = txtOrderDate.SelectedDate.Value;
+            //    int x = 12 * (d2.Year - d1.Year) + (d1.Month - d2.Month);
+            //}
+
+        }
+
 
         //public void AddcLick(string[] args)
         //{
@@ -260,22 +293,45 @@ namespace WealthERP.OPS
 
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
         {
-            if (hdnFrequency.Value == "0")
-                return;
-
-           int SchemePeriod= SchemePlan();
-            if (!string.IsNullOrEmpty(txtPayAmt.Text) & trPayAmt.Visible==true)
+            double Maturityvalue;
+            if (ddlSchemeOption .SelectedValue == "Cummulative")
             {
-                double Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
-                Maturityvalue = Math.Round(Maturityvalue, 3);
-                //Convert.ToDouble(Math.Round (SchemePeriod / 12,5))
-                txtMatAmt.Text = Maturityvalue.ToString(); // Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
-            }
-            else  if (!string.IsNullOrEmpty(txtRenAmt.Text)& trPayAmt.Visible==false )
-            {
+               
+                
+                if (hdnFrequency.Value == "0")
+                    return;
 
-                txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+                int SchemePeriod = Convert.ToInt32( hdnMaxtenure.Value);
+                if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
+                {
+                      Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
+                      Maturityvalue = Math.Round(Maturityvalue, 3);
+                    //Convert.ToDouble(Math.Round (SchemePeriod / 12,5))
+                    txtMatAmt.Text = Maturityvalue.ToString(); //
+                }
+                else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false & Label18.Visible == false)
+                {
+                      Maturityvalue = CompoundInterest(Convert.ToDouble(txtRenAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
+                      Maturityvalue = Math.Round(Maturityvalue, 3);
+
+                    txtMatAmt.Text = Maturityvalue.ToString();
+                    // Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+                }
             }
+            if (ddlSchemeOption.SelectedValue == "NonCummulative")
+            {
+                if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
+                {
+                    txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+
+                }
+                else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false  & Label18.Visible == false)
+                {
+                  txtRenAmt.Text=  Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+
+                }
+            }
+             
 
         }
         private int SchemePlan()
@@ -1122,7 +1178,8 @@ namespace WealthERP.OPS
            
          if (ddlSchemeOption.SelectedValue == "NonCummulative")
             {
-
+                ddlFrequency.Enabled = false;
+                ddlFrequency.SelectedIndex = 3;
 
             }
             else
@@ -1161,16 +1218,23 @@ namespace WealthERP.OPS
             if (ddlTranstype.SelectedValue == "Select")
             {
                 trDepRen.Visible = false;
-                trPayAmt.Visible = false;
+                //trPayAmt.Visible = false;
+                txtPayAmt.Visible =false ;
+                Label18.Visible = false;
+                
             }
             else if (ddlTranstype.SelectedValue == "Renewal")
             {
                 trDepRen.Visible = true;
-                trPayAmt.Visible = false;
+                ////trPayAmt.Visible = false;
+                txtPayAmt.Visible = false;
+                Label18.Visible = false;
             }
             else if (ddlTranstype.SelectedValue == "New")
             {
-                trPayAmt.Visible = true;
+                txtPayAmt.Visible = true;
+                Label18.Visible = true;
+                //trPayAmt.Visible = true;
                 trDepRen.Visible = false ;
             }
 
@@ -1207,9 +1271,18 @@ namespace WealthERP.OPS
 
         protected void ddlSeries_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int minTenure = 0;
+            int maxTenure = 0;
 
             if (ddlSeries.SelectedIndex != 0)
                 FISeriesDetails(Convert.ToInt32(ddlSeries.SelectedValue));
+
+            
+            if (ddlSeries.SelectedValue != "0")
+                fiorderBo.GetTenure(Convert.ToInt32(ddlSeries.SelectedValue), out minTenure, out maxTenure);
+
+            hdnMintenure.Value = minTenure.ToString();
+            hdnMaxtenure.Value = maxTenure.ToString();
         }
         protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1254,6 +1327,21 @@ namespace WealthERP.OPS
         }
         protected void txtOrderDate_DateChanged(object sender, EventArgs e)
         {
+            
+
+            if (hdnMintenure.Value == hdnMaxtenure.Value)
+            {
+                txtMaturDate.Enabled = false;
+                DateTime dt = txtOrderDate.SelectedDate.Value;
+                dt = dt.AddMonths(Convert.ToInt32 (hdnMaxtenure.Value));
+                txtMaturDate.SelectedDate = dt.Date;
+            }
+            else
+            {
+               
+
+                txtMaturDate.Enabled = true;
+            }
         }
 
         protected void txtApplicationDt_DateChanged(object sender, EventArgs e)

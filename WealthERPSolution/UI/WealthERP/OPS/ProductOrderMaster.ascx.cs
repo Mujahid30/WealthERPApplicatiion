@@ -348,6 +348,7 @@ namespace WealthERP.OPS
             //PlaceHolder1.Controls.Add(uc1);
             OnTaxStatus();
         }
+        
         private void BindProofTypeDP()
         {
             DataTable dtDpProofTypes = new DataTable();
