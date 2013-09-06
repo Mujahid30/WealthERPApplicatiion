@@ -22,16 +22,27 @@ namespace WealthERP.BusinessMIS
         DateTime dtFromDate=new DateTime();
         DateTime dtToDate = new DateTime();
 
+        string userType;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             adviserVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
+
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                userType = "associates";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+
             if (!IsPostBack)
             {
                 DataSet ds = new DataSet();
                 Cache["gvSchemeDetailsForMappinginSuperAdmin"] =ds;
-            
 
+                pnlFolio.Visible = false;
+                pnlSIP.Visible = false;
                 rdpFromDate.SelectedDate = DateTime.Now.AddMonths(-1);
                 rdpToDate.SelectedDate = DateTime.Now.Date;
             
@@ -51,7 +62,67 @@ namespace WealthERP.BusinessMIS
 
         protected void btnViewMIS_Click(object sender, EventArgs e)
         {
-            BindNewCustomerSignUpMIS();
+            if (ddlType.SelectedValue == "Customer")
+                BindNewCustomerSignUpMIS();
+            else if (ddlType.SelectedValue == "folio")
+            {
+                pnlFolio.Visible = true;
+                pnlSIP.Visible = false;
+                BindFolioSignUp();
+            }
+            else if (ddlType.SelectedValue == "SIP")
+            {
+                pnlFolio.Visible = false;
+                pnlSIP.Visible = true;
+                BindSIPSignUp();
+            }
+        }
+
+        private void BindSIPSignUp()
+        {
+            dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
+            dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
+            DataSet dsSIP;
+            dsSIP = advisorBranchBo.GetSIPSignUp(adviserVo.advisorId, dtFromDate, dtToDate);
+            DataTable dtSIP = dsSIP.Tables[0];
+            if (dtSIP == null)
+            {
+                gvSIP.DataSource = dtSIP;
+                gvSIP.DataBind();
+            }
+            else
+            {
+                gvSIP.DataSource = dtSIP;
+                gvSIP.DataBind();
+                if (Cache["gvSIP" + adviserVo.advisorId] == null)
+                {
+                    Cache.Insert("gvSIP" + adviserVo.advisorId, dtSIP);
+                }
+                else
+                {
+                    Cache.Remove("gvSIP" + adviserVo.advisorId);
+                    Cache.Insert("gvSIP" + adviserVo.advisorId, dtSIP);
+                }
+            }
+        }
+
+        private void BindFolioSignUp()
+        {
+            dtFromDate = Convert.ToDateTime(rdpFromDate.SelectedDate);
+            dtToDate = Convert.ToDateTime(rdpToDate.SelectedDate);
+            DataSet dsFolio;
+            dsFolio = advisorBranchBo.GetFolioSignUp(adviserVo.advisorId, dtFromDate, dtToDate);
+            DataTable dtFolio = dsFolio.Tables[0];
+            if (dtFolio == null)
+            {
+                gvFolio.DataSource = dtFolio;
+                gvFolio.DataBind();
+            }
+            else
+            {
+                gvFolio.DataSource = dtFolio;
+                gvFolio.DataBind();
+            }
         }
 
 
@@ -93,6 +164,22 @@ namespace WealthERP.BusinessMIS
             gvNewCustomerSignUpMIS.ExportSettings.FileName = "NEW customer Signup Details";
             gvNewCustomerSignUpMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvNewCustomerSignUpMIS.MasterTableView.ExportToExcel();
+        }
+        protected void gvSIP_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtSIP = new DataTable();
+            dtSIP = (DataTable)Cache["gvSIP" + adviserVo.advisorId];
+            gvSIP.Visible = true;
+            this.gvSIP.DataSource = dtSIP;
+        }
+        protected void gvFolio_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtFolio = new DataTable();
+            dtFolio = (DataTable)Cache["gvFolio" + adviserVo.advisorId];
+            gvFolio.Visible = true;
+            this.gvFolio.DataSource = dtFolio;
+
         }
 
         protected void gvNewCustomerSignUpMIS_ItemDataBound(object sender, GridItemEventArgs e)
