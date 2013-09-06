@@ -878,7 +878,7 @@ namespace WealthERP.BusinessMIS
             divGvFolioWiseAUM.Visible = false;
             divRgvFolioWiseAUM.Visible = false;
             divRgvSchemeWiseAUM.Visible = false;
-
+            HideGridColumnonAgenetBasedCode();
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
             DataSet dsMISReport = null;
             int rmId = 0;
@@ -907,16 +907,16 @@ namespace WealthERP.BusinessMIS
                 }
                 else if (userType == "advisor")
                 {
-                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date, AmcCode);
+                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(advisorId, int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date, AmcCode,AgentCode,advisorVo.A_AgentCodeBased);
 
                 }
                 if (userType == "associates")
                 {
-                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAssociate(int.Parse(hdnAgentId.Value), Valuation_Date, AmcCode);
+                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAssociate(advisorId, Valuation_Date, AmcCode,AgentCode,advisorVo.A_AgentCodeBased);
                 }
             }
             else
-                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(Convert.ToInt32(ddlAdviser.SelectedValue), 0, 0, Valuation_Date, AmcCode);
+                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviser(Convert.ToInt32(ddlAdviser.SelectedValue), 0, 0, Valuation_Date, AmcCode,AgentCode,advisorVo.A_AgentCodeBased);
 
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
             {
@@ -1023,7 +1023,7 @@ namespace WealthERP.BusinessMIS
             divGvFolioWiseAUM.Visible = false;
             divGvSchemeWiseAUM.Visible = false;
             divRgvFolioWiseAUM.Visible = false;
-
+            HideGridColumnonAgenetBasedCode();
             dtFromHldDate = Convert.ToDateTime(rdpFrom.SelectedDate);
             dtTo = Convert.ToDateTime(rdpTo.SelectedDate);
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
@@ -1052,14 +1052,14 @@ namespace WealthERP.BusinessMIS
                     dsMISReport = adviserMISBo.GetAUMForBMForDateRange(advisorId,int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), Valuation_Date, int.Parse(hdnType.Value), AmcCode, SchemeCode, dtFromHldDate, dtToHldDate,advisorVo.A_AgentCodeBased);
 
                 }
-                else if (userType == "advisor")
+                else if (userType == "advisor"|| userType=="associates")
                 {
-                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviserForDateRange(int.Parse(hdnadviserId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date, AmcCode, dtFromHldDate, dtToHldDate);
+                    dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviserForDateRange(advisorId, int.Parse(hdnbranchId.Value), int.Parse(hdnrmId.Value), Valuation_Date, AmcCode, dtFromHldDate, dtToHldDate,AgentCode,advisorVo.A_AgentCodeBased,userType);
 
                 }
             }
             else
-                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviserForDateRange(Convert.ToInt32(ddlAdviser.SelectedValue), 0, 0, Valuation_Date, AmcCode, dtFromHldDate, dtToHldDate);
+                dsMISReport = adviserMISBo.GetAMCSchemewiseAUMForAdviserForDateRange(Convert.ToInt32(ddlAdviser.SelectedValue), 0, 0, Valuation_Date, AmcCode, dtFromHldDate, dtToHldDate,AgentCode, advisorVo.A_AgentCodeBased, userType);
 
             if (dsMISReport.Tables.Count == 0 || dsMISReport.Tables[0].Rows.Count < 1)
             {
@@ -1094,7 +1094,7 @@ namespace WealthERP.BusinessMIS
             divGvFolioWiseAUM.Visible = false;
             divGvSchemeWiseAUM.Visible = false;
             divRgvSchemeWiseAUM.Visible = false;
-
+            HideGridColumnonAgenetBasedCode();
             AdvisorMISBo adviserMISBo = new AdvisorMISBo();
             DataSet dsMISReport = null;
             hdnType.Value = "2";

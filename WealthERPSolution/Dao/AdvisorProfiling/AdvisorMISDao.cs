@@ -1223,7 +1223,7 @@ namespace DaoAdvisorProfiling
 
         }
 
-        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode)
+        public DataSet GetAMCSchemewiseAUMForAdviser(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, string AgentCode, int IsAgentBasedCode)
         {
 
             Database db;
@@ -1247,6 +1247,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getLoanMICmd, "@AmcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(getLoanMICmd, "@AmcCode", DbType.Int32, DBNull.Value);
+                if (AgentCode !="0")
+                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getLoanMICmd, "@IsAgentBasedCode", DbType.Int32, IsAgentBasedCode);
                 getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -1314,7 +1319,7 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-        public DataSet GetAMCSchemewiseAUMForAdviserForDateRange(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, DateTime fromdate, DateTime todate)
+        public DataSet GetAMCSchemewiseAUMForAdviserForDateRange(int adviserid, int branchid, int rmid, DateTime valuationDate, int AmcCode, DateTime fromdate, DateTime todate, string AgentCode, int IsAgentBasedCode, string UserType)
         {
 
             Database db;
@@ -1348,6 +1353,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getLoanMICmd, "@todate", DbType.DateTime, todate);
                 else
                     db.AddInParameter(getLoanMICmd, "@todate", DbType.DateTime, DBNull.Value);
+                if (AgentCode != "0")
+                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, AgentCode);
+                else
+                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getLoanMICmd, "@IsAgentBasedCode", DbType.Int32, IsAgentBasedCode);
                 getLoanMICmd.CommandTimeout = 60 * 60;
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
@@ -2289,7 +2299,7 @@ namespace DaoAdvisorProfiling
             }
             return AMCSchemewiseMIS;
         }
-        public DataSet GetAMCSchemewiseAUMForAssociate(int AgentId, DateTime valuationDate, int AmcCode)
+        public DataSet GetAMCSchemewiseAUMForAssociate(int AdviserId, DateTime valuationDate, int AmcCode, string AgentCode, int IsAgentBasedCode)
         {
             Database db;
             DbCommand getLoanMICmd;
@@ -2298,12 +2308,17 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getLoanMICmd = db.GetStoredProcCommand("SP_GetAMCSchemewiseAUMForAssociate");
-                db.AddInParameter(getLoanMICmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
+                db.AddInParameter(getLoanMICmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
                 if (AmcCode != 0)
                     db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, DBNull.Value);
+                if (AgentCode !="0")
+                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, AgentCode);
+                else
+                   db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, DBNull.Value);
+                db.AddInParameter(getLoanMICmd, "@IsAgentBasedCode", DbType.Int32, IsAgentBasedCode);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
             catch (BaseApplicationException Ex)
@@ -2318,7 +2333,7 @@ namespace DaoAdvisorProfiling
                 FunctionInfo.Add("Method", "AdvisorMFDao.cs:GetAMCSchemewiseMISForAssociate()");
 
                 object[] objects = new object[5];
-                objects[0] = AgentId;
+                objects[0] = AgentCode;
                 objects[1] = valuationDate;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);

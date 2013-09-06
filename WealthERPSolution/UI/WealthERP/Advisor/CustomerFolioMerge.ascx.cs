@@ -527,6 +527,11 @@ namespace WealthERP.Advisor
                 gvCustomerFolioMerge.Columns[2].Visible = false;
                 gvCustomerFolioMerge.Columns[3].Visible = false;
                 gvCustomerFolioMerge.Columns[4].Visible = false;
+                gvCustomerFolioMerge.Columns[5].Visible = false;
+                gvCustomerFolioMerge.Columns[6].Visible=  false;
+                gvCustomerFolioMerge.Columns[7].Visible = false;
+                gvCustomerFolioMerge.Columns[8].Visible = false;
+                gvCustomerFolioMerge.Columns[9].Visible = false;
                 gvCustomerFolioMerge.Columns[10].Visible = false;
                 if (userType == "advisor")
                 {
@@ -804,6 +809,10 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("AreaManager");
                 dtCustomerFolio.Columns.Add("AssociatesName");
                 dtCustomerFolio.Columns.Add("ChannelName");
+                dtCustomerFolio.Columns.Add("Titles");
+                dtCustomerFolio.Columns.Add("CircleManager");
+                dtCustomerFolio.Columns.Add("ReportingManagerName");
+                dtCustomerFolio.Columns.Add("UserType");
                if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
                     btnExportFilteredData.Visible = true;
@@ -846,6 +855,10 @@ namespace WealthERP.Advisor
                             drCustomerFolio["AreaManager"] = dtCustomer.Rows[i]["AreaManager"];
                             drCustomerFolio["AssociatesName"] = dtCustomer.Rows[i]["AssociatesName"];
                             drCustomerFolio["ChannelName"] = dtCustomer.Rows[i]["ChannelName"];
+                            drCustomerFolio["Titles"] = dtCustomer.Rows[i]["Titles"];
+                            drCustomerFolio["CircleManager"] = dtCustomer.Rows[i]["CircleManager"];
+                            drCustomerFolio["ReportingManagerName"] = dtCustomer.Rows[i]["ReportingManagerName"];
+                            drCustomerFolio["UserType"] = dtCustomer.Rows[i]["UserType"];
                         }
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
                     }                 
