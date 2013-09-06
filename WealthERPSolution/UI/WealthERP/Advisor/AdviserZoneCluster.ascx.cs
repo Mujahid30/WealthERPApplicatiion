@@ -306,7 +306,15 @@ namespace WealthERP.Advisor
                 if (isUpdated == false)
                     Response.Write(@"<script language='javascript'>alert('The error updating Zone : \n" + zoneName + "');</script>");
                 else
-                    Response.Write(@"<script language='javascript'>alert('The Zone: \n" + zoneName + " updated successfully.');</script>");
+                    if (type == 1)
+                    {
+                        Response.Write(@"<script language='javascript'>alert('The Zone: \n" + zoneName + " updated successfully.');</script>");
+                    }
+                    else
+                    {
+                        Response.Write(@"<script language='javascript'>alert('The Cluster: \n" + zoneName + " updated successfully.');</script>");
+                    }
+           
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
