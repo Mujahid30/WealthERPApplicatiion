@@ -2663,6 +2663,47 @@ namespace DaoAdvisorProfiling
             }
             return ds;
         }
+        public DataSet GetFolioSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        {
+            Database db;
+            DbCommand getGetCmd;
+            DataSet dsGetFolio;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCmd = db.GetStoredProcCommand("SPROC_GetFolioSignUpDetails");
+                db.AddInParameter(getGetCmd, "@AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
+                db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
+                dsGetFolio = db.ExecuteDataSet(getGetCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetFolio;
+        }
+
+        public DataSet GetSIPSignUp(int adviserId, DateTime dtFromDate, DateTime dtToDate)
+        {
+            Database db;
+            DbCommand getGetCmd;
+            DataSet dsGetsip;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getGetCmd = db.GetStoredProcCommand("SPROC_GetSIPSignUpDetails");
+                db.AddInParameter(getGetCmd, "@AdviserID", DbType.Int32, adviserId);
+                db.AddInParameter(getGetCmd, "@FromDate", DbType.DateTime, dtFromDate);
+                db.AddInParameter(getGetCmd, "@ToDate", DbType.DateTime, dtToDate);
+                dsGetsip = db.ExecuteDataSet(getGetCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetsip;
+        }
     }
 
 
