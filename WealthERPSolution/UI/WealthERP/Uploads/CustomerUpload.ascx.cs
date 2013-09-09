@@ -4348,7 +4348,17 @@ namespace WealthERP.Uploads
                                         object recordSetObject=new object();
 
                                         packagePath = Server.MapPath("\\UploadPackages\\FixedIncomeUploadNew\\FixedIncomeUploadNew\\FI_XML_INPUT_BKUP_ToStaging.dtsx");
+
+                                        lblUploadProcessId.Text = UploadProcessId.ToString();
+                                        lblpackagePath.Text = packagePath;
+                                        lblfileName.Text = fileName;
+                                        lblconfigPath.Text = configPath;
+
                                         camsTranInputResult = camsUploadsBo.FIInsertFromXMLToInputToBakToStag(UploadProcessId, packagePath, fileName, configPath);
+
+
+
+
                                         if (camsTranInputResult)
                                         {
                                             processlogVo.IsInsertionToInputComplete = 1;

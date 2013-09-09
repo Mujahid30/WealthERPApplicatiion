@@ -707,6 +707,42 @@ namespace WealthERP.Uploads {
         protected global::System.Web.UI.WebControls.Button btn_ViewRjects;
         
         /// <summary>
+        /// lblUploadProcessId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUploadProcessId;
+        
+        /// <summary>
+        /// lblpackagePath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblpackagePath;
+        
+        /// <summary>
+        /// lblfileName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblfileName;
+        
+        /// <summary>
+        /// lblconfigPath control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblconfigPath;
+        
+        /// <summary>
         /// hdnUploadType control.
         /// </summary>
         /// <remarks>
