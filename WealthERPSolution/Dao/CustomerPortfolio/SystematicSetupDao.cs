@@ -526,7 +526,7 @@ namespace DaoCustomerPortfolio
         /// <param name="dtFrom"></param>
         /// <param name="dtTo"></param>
         /// <returns></returns>
-        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup,int Manage)
+        public DataSet GetAllSystematicMISData(string UserType, int AdviserId, int RmId, int CustomerId, int BranchHeadId, int BranchId, int All, string Category, string SysType, string AmcCode, string SchemePlanCode, string StartDate, string EndDate, DateTime dtFrom, DateTime dtTo, int isIndividualOrGroup, int Manage, string AgentCode)
         {
             DataSet dsGetSystematicMIS = new DataSet();
             Database db;
@@ -566,6 +566,10 @@ namespace DaoCustomerPortfolio
 
                 if(isIndividualOrGroup != 0)
                     db.AddInParameter(getSystemaicMISCmd, "@isIndividualOrGroup", DbType.Int16, isIndividualOrGroup);
+                if (!string.IsNullOrEmpty(AgentCode))
+                    db.AddInParameter(getSystemaicMISCmd, "@agentcode", DbType.String, SysType);
+                else
+                    db.AddInParameter(getSystemaicMISCmd, "@agentcode", DbType.String, DBNull.Value);
 
                 dsGetSystematicMIS = db.ExecuteDataSet(getSystemaicMISCmd);
 
