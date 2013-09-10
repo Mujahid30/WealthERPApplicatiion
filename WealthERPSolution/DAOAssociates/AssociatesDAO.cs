@@ -1034,7 +1034,7 @@ namespace DAOAssociates
             return Result;
 
         }
-        public DataSet GetAdviserAssociateList(int adviserId,string Usertype,string agentcode)
+        public DataSet GetAdviserAssociateList(int Id,string Usertype,string agentcode)
         {
             Database db;
             DataSet dsGetAdviserAssociateList;
@@ -1043,7 +1043,7 @@ namespace DAOAssociates
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserAssociateListcmd = db.GetStoredProcCommand("SPROC_GetAdviserAssociateList");
-                db.AddInParameter(getAdviserAssociateListcmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(getAdviserAssociateListcmd, "@adviserId", DbType.Int32, Id);
                 db.AddInParameter(getAdviserAssociateListcmd, "@Usertype", DbType.String, Usertype);
                 db.AddInParameter(getAdviserAssociateListcmd, "@agentcode", DbType.String, agentcode);
                 dsGetAdviserAssociateList = db.ExecuteDataSet(getAdviserAssociateListcmd);
