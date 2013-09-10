@@ -336,7 +336,8 @@ namespace DaoCustomerPortfolio
                         fixedincomeVo.IsInterestAccumulated = int.Parse(dr["CFINP_IsInterestAccumulated"].ToString());
                         fixedincomeVo.CurrentPrice = float.Parse(dr["CFINP_CurrentPrice"].ToString());
                         fixedincomeVo.CurrentValue = float.Parse(dr["CFINP_CurrentValue"].ToString());
-
+                        fixedincomeVo.AccountNum = dr["CFIA_AccountNum"].ToString();
+                        fixedincomeVo.DebtIssuerName = dr["XDI_DebtIssuerName"].ToString();
                         FixedIncomeList.Add(fixedincomeVo);
                     }
                 }
