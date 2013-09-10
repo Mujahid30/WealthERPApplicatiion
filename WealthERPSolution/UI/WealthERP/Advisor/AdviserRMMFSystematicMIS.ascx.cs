@@ -21,6 +21,7 @@ using System.Collections.Specialized;
 using System.Numeric;
 using VoAdvisorProfiling;
 using Telerik.Web.UI;
+using VOAssociates;
 
 
 namespace WealthERP.Advisor
@@ -65,6 +66,7 @@ namespace WealthERP.Advisor
         int isIndividualOrGroup = 0;
         int all;
         string customerType = string.Empty;
+        string Agentcode;
 
         private decimal totalSIPAmount = 0;
         private decimal totalSWPAmount = 0;
@@ -73,6 +75,7 @@ namespace WealthERP.Advisor
         private int totalNoOfSWP = 0;
         private int totalNoOfFreshSWP = 0;
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
+        AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
 
         string path;
         protected void Page_Load(object sender, EventArgs e)
@@ -86,6 +89,8 @@ namespace WealthERP.Advisor
                 userType = "rm";
             else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                userType = "associates";
             else
                 userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
 
@@ -101,6 +106,20 @@ namespace WealthERP.Advisor
             ErrorMessage.Visible = false;
             hdnRecordCount.Value = "1";
             //GetPageCount();
+            if (userType == "associates")
+            {
+                trBranchRM.Visible = false;
+                trCustType.Visible = false;
+                tdSelectCusto.Visible = false;
+                Agentcode = associateuserheirarchyVo.AgentCode;
+            }
+            else
+            {
+                trBranchRM.Visible = true;
+                trCustType.Visible = true;
+                tdSelectCusto.Visible = true;
+                Agentcode = string.Empty;
+            }
 
 
             if (!IsPostBack)
@@ -707,6 +726,12 @@ namespace WealthERP.Advisor
                     hdnAll.Value = "7";
                 }
             }
+            else if (userType == "associates")
+            {
+                hdnadviserId.Value = advisorVo.advisorId.ToString();
+                Agentcode = associateuserheirarchyVo.AgentCode;
+                hdnAll.Value = "0";
+            }
 
              ////Check Start Date and EndDate Selection.. 
             if (ddlDateFilter.SelectedValue == "StartDate")
@@ -902,9 +927,7 @@ namespace WealthERP.Advisor
             if (hdnrmId.Value == "")
                 hdnrmId.Value = "0";
 
-
-
-        }
+       }
         //*******************************alender Detail View******************************
         //private  void BindgvCalenderDetailView()
         //{
@@ -1077,7 +1100,7 @@ namespace WealthERP.Advisor
         private void BindgvSystematicMIS()
         {
             SetParameter();
-            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()));
+            dsBindGvSystematicMIS = systematicSetupBo.GetAllSystematicMISData(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnCustomerId.Value), int.Parse(hdnbranchheadId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnAll.Value), hdnCategory.Value, hdnSystematicType.Value, hdnamcCode.Value, hdnschemeCade.Value, hdnstartdate.Value, hdnendDate.Value, DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnTodate.Value), isIndividualOrGroup, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()),Agentcode);
             try
             {
                 dtSystematicMIS1 = dsBindGvSystematicMIS.Tables[0];

@@ -118,7 +118,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" width="10%">
+                    <td id="trCustType" runat="server" align="right" width="10%">
                         <asp:Label ID="lblGrpOrInd" runat="server" CssClass="FieldName" Text="MIS for :"></asp:Label>
                     </td>
                     <td id="tdSelectCusto" runat="server" align="left" width="10%">
@@ -583,3 +583,4 @@
 <asp:HiddenField ID="hdnTodate" runat="server" />
 <asp:HiddenField ID="hdnFromDate" runat="server" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
+<asp:HiddenField ID="hdnAgentCode" runat="server" />

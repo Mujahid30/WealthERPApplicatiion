@@ -95,6 +95,15 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.DropDownList ddlRM;
         
         /// <summary>
+        /// trCustType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell trCustType;
+        
+        /// <summary>
         /// lblGrpOrInd control.
         /// </summary>
         /// <remarks>
@@ -525,5 +534,14 @@ namespace WealthERP.Advisor {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnIndividualOrGroup;
+        
+        /// <summary>
+        /// hdnAgentCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnAgentCode;
     }
 }
