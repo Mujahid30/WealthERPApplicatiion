@@ -1240,9 +1240,13 @@ namespace WealthERP.BusinessMIS
             dtGetMemberDetailFromMFTrnx.Columns.Add("AccountId");
             dtGetMemberDetailFromMFTrnx.Columns.Add("CustomerName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("SubBrokerCode");
-            dtGetMemberDetailFromMFTrnx.Columns.Add("ChannelMgr");
-            dtGetMemberDetailFromMFTrnx.Columns.Add("Channel");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("AssociatesName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("Folio");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("ChannelName");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("Titles");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("CircleManager");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("AreaManager");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("ZonalManagerName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("BUYCount", typeof(double));
             dtGetMemberDetailFromMFTrnx.Columns.Add("BUYAmount", typeof(double));
             dtGetMemberDetailFromMFTrnx.Columns.Add("SELCount", typeof(double));
@@ -1374,8 +1378,12 @@ namespace WealthERP.BusinessMIS
                             drGetOrganizationDetailFromTrnx["AccountId"] = drOrgOrderTransaction["CMFA_AccountId"].ToString();
                             drGetOrganizationDetailFromTrnx["CustomerName"] = drOrgOrderTransaction["CustomerName"].ToString();
                             drGetOrganizationDetailFromTrnx["SubBrokerCode"] = drOrgOrderTransaction["CMFT_SubBrokerCode"].ToString();
-                            drGetOrganizationDetailFromTrnx["ChannelMgr"] = drOrgOrderTransaction["AR_StaffName"].ToString();
-                            drGetOrganizationDetailFromTrnx["Channel"] = drOrgOrderTransaction["AH_ChannelName"].ToString();
+                            drGetOrganizationDetailFromTrnx["AssociatesName"] = drOrgOrderTransaction["AssociatesName"].ToString();
+                            drGetOrganizationDetailFromTrnx["ChannelName"] = drOrgOrderTransaction["ChannelName"].ToString();
+                            drGetOrganizationDetailFromTrnx["Titles"] = drOrgOrderTransaction["Titles"].ToString();
+                            drGetOrganizationDetailFromTrnx["CircleManager"] = drOrgOrderTransaction["CircleManager"].ToString();
+                            drGetOrganizationDetailFromTrnx["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
+                            drGetOrganizationDetailFromTrnx["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
 
                             drGetOrganizationDetailFromTrnx["Folio"] = drOrgOrderTransaction["CMFA_FolioNum"].ToString();
                             if (drOrderOrgWise.Count() > 0)
