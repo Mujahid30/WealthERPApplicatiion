@@ -30,6 +30,8 @@ namespace WealthERP.Associates
         string userType;
         string currentUserRole;
         String Agentcode;
+        int Id;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             rmVo = (RMVo)Session[SessionContents.RmVo];
@@ -37,12 +39,22 @@ namespace WealthERP.Associates
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-            currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
+            //currentUserRole = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             associateuserheirarchyVo = (AssociatesUserHeirarchyVo)Session[SessionContents.AssociatesLogin_AssociatesHierarchy];
-              imgViewAssoList.Visible = false;
+            imgViewAssoList.Visible = false;
+            if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                userType = "advisor";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
+                userType = "bm";
+            else if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                userType = "associates";
+            else
+                userType = Session[SessionContents.CurrentUserRole].ToString().ToLower();
             if (!IsPostBack)
             {
-                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin"
+                    || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops"
+                    || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "bm")
                 {
                     Agentcode = string.Empty;
                 }
@@ -50,7 +62,7 @@ namespace WealthERP.Associates
 
                     Agentcode = associateuserheirarchyVo.AgentCode;
                 GetAdviserAssociateList();
-                
+
             }
         }
 
@@ -58,8 +70,15 @@ namespace WealthERP.Associates
         {
             DataSet dsGetAdviserAssociateList;
             DataTable dtGetAdviserAssociateList;
-            dsGetAdviserAssociateList = associatesBo.GetAdviserAssociateList(advisorVo.advisorId, userVo.UserType, Agentcode);
-            dtGetAdviserAssociateList = dsGetAdviserAssociateList.Tables[0];
+            if (userType == "advisor" || userType == "ops" || userType == "associates")
+                Id = advisorVo.advisorId;
+            else if (userType == "bm")
+                Id = rmVo.RMId;
+            dsGetAdviserAssociateList = associatesBo.GetAdviserAssociateList(Id, userType, Agentcode);
+            if (dsGetAdviserAssociateList.Tables.Count > 0)
+                dtGetAdviserAssociateList = dsGetAdviserAssociateList.Tables[0];
+            else
+                dtGetAdviserAssociateList = null;
             if (dtGetAdviserAssociateList == null)
             {
                 gvAdviserAssociateList.DataSource = dtGetAdviserAssociateList;
@@ -104,7 +123,7 @@ namespace WealthERP.Associates
             gvAdviserAssociateList.Visible = true;
 
             pnlAdviserAssociateList.Visible = true;
-           imgViewAssoList.Visible = true;
+            imgViewAssoList.Visible = true;
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
