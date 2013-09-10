@@ -41,8 +41,9 @@ namespace VoCustomerPortfolio
         private float m_Quantity;
         private string m_Remark;
 
-                
-        #endregion Fields
+        private string m_AccountNum;
+        private string m_DebtIssuerName;
+         #endregion Fields
 
 
         #region Properties
@@ -209,6 +210,18 @@ namespace VoCustomerPortfolio
             get { return m_Remark; }
             set { m_Remark = value; }
         }
+        public string AccountNum
+        {
+            get { return m_AccountNum; }
+            set { m_AccountNum = value; }
+        }
+        public string DebtIssuerName
+        {
+            get { return m_DebtIssuerName; }
+            set { m_DebtIssuerName = value; }
+        }
+
+
         #endregion Properties
     }
 }
