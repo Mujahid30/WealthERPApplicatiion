@@ -214,7 +214,8 @@ namespace WealthERP.CustomerPortfolio
                     dtFixedIncomePortfolio.Columns.Add("Current Value", typeof(decimal));
                     dtFixedIncomePortfolio.Columns.Add("Maturity Value", typeof(decimal));
                     dtFixedIncomePortfolio.Columns.Add("Purchase Value");
-
+                    dtFixedIncomePortfolio.Columns.Add("Account Number");
+                    dtFixedIncomePortfolio.Columns.Add("Debt Issuer Name");
                     DataRow drFixedIncomePortfolio;
 
                     for (int i = 0; i < fixedincomeList.Count; i++)
@@ -256,8 +257,10 @@ namespace WealthERP.CustomerPortfolio
                             drFixedIncomePortfolio[9] = decimal.Parse(fixedincomeVo.PurchaseValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
 
                         // drFixedIncomePortfolio[8] = String.Format("{0:n2}", decimal.Parse(fixedincomeVo.MaturityValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN")));
-
+                        drFixedIncomePortfolio[10] = fixedincomeVo.AccountNum.ToString();
+                        drFixedIncomePortfolio[11] = fixedincomeVo.DebtIssuerName.ToString();
                         dtFixedIncomePortfolio.Rows.Add(drFixedIncomePortfolio);
+                        
                     }
 
                     gvFixedIncomePortfolio.DataSource = dtFixedIncomePortfolio;
