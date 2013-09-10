@@ -2471,7 +2471,7 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, AgentId);
                 else
                     db.AddInParameter(GetSchemeTransactionDeatailsCmd, "@AAC_AdviserAgentId", DbType.Int32, DBNull.Value);
-                GetSchemeTransactionDeatailsCmd.CommandTimeout = 60 * 60;
+
                 dsSchemeTransactionDeatails = db.ExecuteDataSet(GetSchemeTransactionDeatailsCmd);
             }
             catch (BaseApplicationException Ex)
