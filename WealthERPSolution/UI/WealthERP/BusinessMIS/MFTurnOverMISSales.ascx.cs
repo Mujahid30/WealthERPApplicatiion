@@ -779,6 +779,7 @@ namespace WealthERP.BusinessMIS
             }
             else if (userType == "bm")
             {
+                hdnadviserId.Value = advisorVo.advisorId.ToString();
                 hdnbranchHeadId.Value = bmID.ToString();
                 hdnAll.Value = "0";
                 hdnrmId.Value = "0";
