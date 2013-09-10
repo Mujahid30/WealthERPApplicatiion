@@ -41,6 +41,24 @@ namespace WealthERP.BusinessMIS {
         protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
         
         /// <summary>
+        /// btnExportFolio control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFolio;
+        
+        /// <summary>
+        /// btnExportSIP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExportSIP;
+        
+        /// <summary>
         /// lblType control.
         /// </summary>
         /// <remarks>

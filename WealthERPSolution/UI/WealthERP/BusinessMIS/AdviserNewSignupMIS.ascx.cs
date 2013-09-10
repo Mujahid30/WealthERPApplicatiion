@@ -63,7 +63,11 @@ namespace WealthERP.BusinessMIS
         protected void btnViewMIS_Click(object sender, EventArgs e)
         {
             if (ddlType.SelectedValue == "Customer")
+            {
                 BindNewCustomerSignUpMIS();
+                pnlFolio.Visible = false;
+                pnlSIP.Visible = false;
+            }
             else if (ddlType.SelectedValue == "folio")
             {
                 pnlFolio.Visible = true;
@@ -94,6 +98,9 @@ namespace WealthERP.BusinessMIS
             {
                 gvSIP.DataSource = dtSIP;
                 gvSIP.DataBind();
+                btnExportFilteredData.Visible = false;
+                btnExportFolio.Visible = false;
+                btnExportSIP.Visible = true;
                 if (Cache["gvSIP" + adviserVo.advisorId] == null)
                 {
                     Cache.Insert("gvSIP" + adviserVo.advisorId, dtSIP);
@@ -122,6 +129,18 @@ namespace WealthERP.BusinessMIS
             {
                 gvFolio.DataSource = dtFolio;
                 gvFolio.DataBind();
+                btnExportFilteredData.Visible = false;
+                btnExportFolio.Visible = true;
+                btnExportSIP.Visible = false;
+                if (Cache["gvFolio" + adviserVo.advisorId] == null)
+                {
+                    Cache.Insert("gvFolio" + adviserVo.advisorId, dtFolio);
+                }
+                else
+                {
+                    Cache.Remove("gvFolio" + adviserVo.advisorId);
+                    Cache.Insert("gvFolio" + adviserVo.advisorId, dtFolio);
+                }
             }
         }
 
@@ -135,8 +154,12 @@ namespace WealthERP.BusinessMIS
             dsNEWSignupMISDetails = advisorBranchBo.GetNEWSignupMISDetails(adviserVo.advisorId,dtFromDate,dtToDate);
             gvNewCustomerSignUpMIS.DataSource = dsNEWSignupMISDetails;
             gvNewCustomerSignUpMIS.DataBind();
-            if (dsNEWSignupMISDetails.Tables[0].Rows.Count>0)
+            if (dsNEWSignupMISDetails.Tables[0].Rows.Count > 0)
+            {
                 btnExportFilteredData.Visible = true;
+                btnExportFolio.Visible = false ;
+                btnExportSIP.Visible = false;
+            }
             else
                 btnExportFilteredData.Visible = false;
             if (Cache["gvSchemeDetailsForMappinginSuperAdmin"] == null)
@@ -196,6 +219,28 @@ namespace WealthERP.BusinessMIS
                 }
 
             }
+        }
+
+        protected void btnExportFolio_Click(object sender, ImageClickEventArgs e)
+        {
+            gvFolio.ExportSettings.OpenInNewWindow = true;
+            gvFolio.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvFolio.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvFolio.MasterTableView.ExportToExcel();
+        }
+
+        protected void btnExportSIP_Click(object sender, ImageClickEventArgs e)
+        {
+            gvSIP.ExportSettings.OpenInNewWindow = true;
+            gvSIP.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvSIP.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvSIP.MasterTableView.ExportToExcel();
         }
     }
 }
