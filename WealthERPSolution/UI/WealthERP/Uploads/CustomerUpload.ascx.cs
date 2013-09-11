@@ -4347,10 +4347,10 @@ namespace WealthERP.Uploads
                                         string AccountId=string.Empty;
                                         object recordSetObject=new object();
 
-                                        configPath = Server.MapPath("\\UploadPackages\\FixedIncomeUploadNew\\FixedIncomeUploadNew\\configSSIS.dtsConfig");
+                                        configPath = Server.MapPath("\\UploadPackages\\FINEW\\FINEW\\FINEW\\configSSIS.dtsConfig");
 
 
-                                        packagePath = Server.MapPath("\\UploadPackages\\FixedIncomeUploadNew\\FixedIncomeUploadNew\\FI_XML_INPUT_BKUP_ToStaging.dtsx");
+                                        packagePath = Server.MapPath("\\UploadPackages\\FINEW\\FINEW\\FINEW\\FI_XML_INPUT_BKUP_ToStaging.dtsx");
 
                                         lblUploadProcessId.Text = UploadProcessId.ToString();
                                         lblpackagePath.Text = packagePath;
@@ -4391,7 +4391,7 @@ namespace WealthERP.Uploads
 
                                                     CommonTransChecks = true;
 
-                                                    packagePath = Server.MapPath("\\UploadPackages\\FixedIncomeUploadNew\\FixedIncomeUploadNew\\FICommonToNP.dtsx");
+                                                    packagePath = Server.MapPath("\\UploadPackages\\FINEW\\FINEW\\FINEW\\FICommonToNP.dtsx");
                                                     camsTranWerpResult = camsUploadsBo.FIInsertFromStagingToNP(UploadProcessId, AccountId, recordSetObject, packagePath, configPath);
                                                     if (camsTranWerpResult)
                                                     {
