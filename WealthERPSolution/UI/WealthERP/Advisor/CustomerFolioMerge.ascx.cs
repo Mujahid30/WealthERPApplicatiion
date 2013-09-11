@@ -533,6 +533,7 @@ namespace WealthERP.Advisor
                 gvCustomerFolioMerge.Columns[8].Visible = false;
                 gvCustomerFolioMerge.Columns[9].Visible = false;
                 gvCustomerFolioMerge.Columns[10].Visible = false;
+                DivCustomerFolio.Style.Add("width","1000px");
                 if (userType == "advisor")
                 {
 
@@ -630,6 +631,7 @@ namespace WealthERP.Advisor
             }
                 else if (IsAgentCodeBased == 1)
                 {
+                    DivCustomerFolio.Attributes.Add("width", "50%");
                     if (userType == "associates")
                     {
                         if (ddlBrokerCode.SelectedIndex != 0)

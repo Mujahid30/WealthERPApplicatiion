@@ -380,7 +380,7 @@
         </td>--%>
     <tr>
         <td>
-            <div id="DivCustomerFolio" style="width:52%;" visible="false" runat="server">
+            <div id="DivCustomerFolio" style="width:50%;" visible="false" runat="server">
                 <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
                     AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
@@ -456,7 +456,7 @@
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="AMCName" HeaderText="AMC" DataField="AMCName"
-                                HeaderStyle-Width="280px" SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false"
+                                HeaderStyle-Width="225px" SortExpression="AMCName" AllowFiltering="true" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true">
                                 <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
