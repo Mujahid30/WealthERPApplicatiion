@@ -1557,7 +1557,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
         /// <summary>
         /// Button1 control.
         /// </summary>
@@ -1574,7 +1574,7 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button btnAddMore;
         
         /// <summary>
         /// Button3 control.
@@ -1583,7 +1583,8 @@ namespace WealthERP.OPS {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
+
         
         /// <summary>
         /// pnlOrderSteps control.
@@ -1629,7 +1630,19 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnType;
+        protected global::System.Web.UI.WebControls.LinkButton lnlFIBack;
+
+         protected global::System.Web.UI.WebControls.LinkButton lnkBtnFIEdit;
+         protected global::System.Web.UI.WebControls.LinkButton lnkTest;
         
+         protected global::System.Web.UI.WebControls.LinkButton lnkDelete;
+         protected global::System.Web.UI.WebControls.Button btnViewReport;
+         protected global::System.Web.UI.WebControls.Button btnViewInPDF;
+         protected global::System.Web.UI.WebControls.Button btnreport;
+         protected global::System.Web.UI.WebControls.Button btnpdfReport;
+         protected global::System.Web.UI.WebControls.Button btnViewInDOC;
+         protected global::System.Web.UI.WebControls.Button btnViewInPDFNew;
+         protected global::System.Web.UI.WebControls.Button btnViewInDOCNew;
         /// <summary>
         /// hdnSchemeCode control.
         /// </summary>
@@ -1728,7 +1741,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnFromdate;
-        
+
+        protected global::System.Web.UI.WebControls.HiddenField hdnButtonAction;
         /// <summary>
         /// pnlOrderList control.
         /// </summary>

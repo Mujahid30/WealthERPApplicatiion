@@ -143,6 +143,13 @@ namespace VoOps
             get { return m_Privilidge; }
             set { m_Privilidge = value; }
         }
+        private string m_CODimage;
+
+        public string CODimage
+        {
+            get { return m_CODimage; }
+            set { m_CODimage = value; }
+        }
      
 
         //private int m_OrderId;

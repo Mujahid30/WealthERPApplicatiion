@@ -84,7 +84,7 @@ namespace WealthERP.OPS
         string userType = string.Empty;
         string mail = string.Empty;
         string AgentCode;
-        DataTable AgentId;
+        DataTable AgentId=new DataTable();
         DataTable Agentname;
         String TransType;
 
@@ -193,21 +193,14 @@ namespace WealthERP.OPS
                 if (Request.QueryString["action"] != null)
                 {
 
-                    //sai  lnlBack.Visible = true;
+                    //sai  lnlFIBack.Visible = true;
                     ViewForm = Request.QueryString["action"].ToString();
                     //sai  txtOrderDate.SelectedDate = orderVo.OrderDate;
                     //sai  lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
                     //sai  btnViewInPDFNew.Visible = false;
                     //sai  btnViewInDOCNew.Visible = false;
                 }
-                if (Request.QueryString["action"] != null)
-                {
-
-
-
-
-                }
-
+               
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
                     txtCustomerName_autoCompleteExtender.ContextKey = advisorVo.advisorId.ToString();
@@ -298,6 +291,7 @@ namespace WealthERP.OPS
 
             if (!IsPostBack)
             {
+                trProof.Visible = false;
                 trpan.Visible = false;
                 trCust.Visible = false;
                 PlaceHolder1.Visible = false;
@@ -347,12 +341,111 @@ namespace WealthERP.OPS
             //uc1.ID = "ctrl_" + pageID;
             //PlaceHolder1.Controls.Add(uc1);
             OnTaxStatus();
+            if (fiorderVo != null && orderVo != null)
+            {
+                if (ViewForm == "View")
+                {
+                   // SetControls("View", mforderVo, orderVo);
+                   // btnAddMore.Visible = false;
+                }
+                else if (ViewForm == "Edit")
+                {
+                   // SetControls("Edit", mforderVo, orderVo);
+                   // btnAddMore.Visible = false;
+                }
+                else if (ViewForm == "entry")
+                {
+                   // SetControls("Entry", mforderVo, orderVo);
+                }
+                else
+                {
+                    //cvAppRcvDate.ValueToCompare = DateTime.Now.ToShortDateString();
+                    //cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
+                    //cvFutureDate1.ValueToCompare = DateTime.Now.ToShortDateString();
+                }
+            }
+            else
+            {
+                SetControls("Entry", mforderVo, orderVo);
+
+            }
+            lnkBtnFIEdit.Visible = false;
+            lnlFIBack.Visible = false;
+            lnkDelete.Visible = false;
+            btnViewInPDFNew.Visible = false;
+            btnViewInDOCNew.Visible = false;
+            btnViewInDOC.Visible = false;
+            btnViewInPDF.Visible = false;
+            btnViewReport.Visible = false;
+
+            if (Request.QueryString["fiaction"] != null)
+            {
+                ViewForm = Request.QueryString["fiaction"].ToString();
+                DdlLoad.SelectedIndex = 2;
+                DdlLoad.Enabled = false;
+                DdlLoad_Selectedindexchanged(this, null);
+                btnUpdate.Visible = true;
+                btnSubmit.Visible = false;
+                //lnkTest.Click += new EventHandler(lnlFIBack_Click);
+
+                if (Session["orderVo"] != null && Session["fiorderVo"] != null)
+                {
+                    orderVo = (OrderVo)Session["orderVo"];
+                    fiorderVo = (FIOrderVo)Session["fiorderVo"];
+                }
+          
+
+                if (ViewForm == "View")
+                {
+
+                    SetFICOntrolsEnabilty(false);
+                   // lnkBtnFIEdit.Visible = true;
+                    btnAddMore.Visible = false;
+                   // lnlFIBack.Visible = true;
+
+                   // btnViewInPDFNew.Visible = false;
+                   // btnViewInDOCNew.Visible = false;
+
+
+
+
+                    lnkBtnFIEdit.Visible = true;
+                    lnlFIBack.Visible = true;
+                    lnkDelete.Visible = false;
+                    btnViewInPDFNew.Visible = false;
+                    btnViewInDOCNew.Visible = false;
+                    btnViewInDOC.Visible = false;
+                    btnViewInPDF.Visible = false;
+                    btnViewReport.Visible = false;
+
+                }
+                else if (ViewForm == "Edit")
+                {
+                    SetFICOntrolsEnabilty(true);
+
+                    lnkBtnFIEdit.Visible = false;
+                    lnlFIBack.Visible = true;
+                    lnkDelete.Visible = true;
+                    btnViewInPDFNew.Visible = false;
+                    btnViewInDOCNew.Visible = false;
+                    btnViewInDOC.Visible = false;
+                    btnViewInPDF.Visible = false;
+                    btnViewReport.Visible = false;
+                }
+
+
+            }
+
+         
+
+
+
         }
         
         private void BindProofTypeDP()
         {
             DataTable dtDpProofTypes = new DataTable();
-            dtDpProofTypes = customerBo.GetCustomerProofTypes();
+            dtDpProofTypes = fiorderBo.GetFIProof().Tables[0];
 
             if (dtDpProofTypes.Rows.Count > 0)
             {
@@ -1173,7 +1266,7 @@ namespace WealthERP.OPS
                         ddlARNNo.SelectedItem.Text = mforderVo.ARNNo;
                     else
                         ddlARNNo.SelectedIndex = 0;
-                    ////sai  lnlBack.Visible = true;
+                    ////sai  lnlFIBack.Visible = true;
                     ////sai lnkDelete.Visible = true;
                 }
             }
@@ -1454,16 +1547,16 @@ namespace WealthERP.OPS
                     btnImgAddCustomer.Visible = false;
                     if (userType == "bm")
                     {
-                        //sai lnkBtnEdit.Visible = false;
+                        //sai lnkBtnFIEdit.Visible = false;
                     }
                     else
                     {
-                        //sai lnkBtnEdit.Visible = true;
+                        //sai lnkBtnFIEdit.Visible = true;
                     }
                     if (Request.QueryString["FromPage"] != null)
                     {
-                        //sai lnkBtnEdit.Visible = false;
-                        //sai  lnlBack.Visible = true;
+                        //sai lnkBtnFIEdit.Visible = false;
+                        //sai  lnlFIBack.Visible = true;
                     }
                     //sai rgvOrderSteps.Visible = true;
                     //sai rgvOrderSteps.Enabled = true;
@@ -1810,7 +1903,7 @@ namespace WealthERP.OPS
                         ddlARNNo.SelectedItem.Text = mforderVo.ARNNo;
                     else
                         ddlARNNo.SelectedIndex = 0;
-                    ////sai  lnlBack.Visible = true;
+                    ////sai  lnlFIBack.Visible = true;
                     ////sai lnkDelete.Visible = true;
                 }
             }
@@ -2091,16 +2184,16 @@ namespace WealthERP.OPS
                     btnImgAddCustomer.Visible = false;
                     if (userType == "bm")
                     {
-                        //sai lnkBtnEdit.Visible = false;
+                        //sai lnkBtnFIEdit.Visible = false;
                     }
                     else
                     {
-                        //sai lnkBtnEdit.Visible = true;
+                        //sai lnkBtnFIEdit.Visible = true;
                     }
                     if (Request.QueryString["FromPage"] != null)
                     {
-                        //sai lnkBtnEdit.Visible = false;
-                        //sai  lnlBack.Visible = true;
+                        //sai lnkBtnFIEdit.Visible = false;
+                        //sai  lnlFIBack.Visible = true;
                     }
                     //sai rgvOrderSteps.Visible = true;
                     //sai rgvOrderSteps.Enabled = true;
@@ -2197,8 +2290,8 @@ namespace WealthERP.OPS
             //    trfutureDate.Visible = false;
             //    //sai
             //    ////sai rgvOrderSteps.Visible = false;
-            //    ////sai lnkBtnEdit.Visible = false;
-            //    ////sai  lnlBack.Visible = false;
+            //    ////sai lnkBtnFIEdit.Visible = false;
+            //    ////sai  lnlFIBack.Visible = false;
             //    //sai btnUpdate.Visible = false;
             //    //sai
             //    //sai lnkDelete.Visible = false;
@@ -2220,8 +2313,8 @@ namespace WealthERP.OPS
             //   //sai trfutureDate.Visible = false;
             //    //sai
             //    ////sai rgvOrderSteps.Visible = false;
-            //    ////sai lnkBtnEdit.Visible = false;
-            //    ////sai  lnlBack.Visible = false;
+            //    ////sai lnkBtnFIEdit.Visible = false;
+            //    ////sai  lnlFIBack.Visible = false;
             //   //sai //sai btnUpdate.Visible = false;
             ////sai  
             //    ////sai lnkDelete.Visible = false;
@@ -2693,6 +2786,7 @@ namespace WealthERP.OPS
         }
         private void ClearAllFields()
         {
+
             //sai
 
           //  ddltransType.SelectedIndex = 0;
@@ -3442,8 +3536,10 @@ namespace WealthERP.OPS
             {
                 orderVo.AssetGroup = "FI";
             }
+            hdnButtonAction.Value = "Submit";
             GetFICOntrolsValues();
             AddcLick();
+           
             // if (Session["MFTranstype"]  != null)
             //   Response.Write(Session["MFTranstype"] );
 
@@ -3483,8 +3579,8 @@ namespace WealthERP.OPS
             //BindOrderStepsGrid();
             //SetEditViewMode(true);
             ////sai btnSubmit.Visible = false;
-            ////sai lnkBtnEdit.Visible = true;
-            ////sai  lnlBack.Visible = false;
+            ////sai lnkBtnFIEdit.Visible = true;
+            ////sai  lnlFIBack.Visible = false;
             //imgBtnRefereshBank.Enabled = false;
             //btnViewReport.Visible = true;
             //btnViewInPDF.Visible = true;
@@ -3492,13 +3588,201 @@ namespace WealthERP.OPS
             ////sai  btnViewInPDFNew.Visible = false;
             ////sai  btnViewInDOCNew.Visible = false;
         }
-     
+        private void SetFICOntrolsEnabilty(bool Val)
+        {
+            string UploadedImage;
+            //UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
+
+            //Type typUserControl = null;
+            //typUserControl = FIControls.GetType();
+
+            ////System.Reflection.MethodInfo mthdUserControl = null;
+            ////mthdUserControl = typUserControl.GetMethod("PageLoad");
+            ////mthdUserControl.Invoke(FIControls, null); 
+            //DropDownList ddlCategory = (DropDownList)FIControls.FindControl("ddlCategory");//ddlIssuer         
+           
+            //DropDownList ddlIssuer = (DropDownList)FIControls.FindControl("ddlIssuer");
+            //DropDownList ddlScheme = (DropDownList)FIControls.FindControl("ddlScheme");
+            //DropDownList ddlSeries = (DropDownList)FIControls.FindControl("ddlSeries");
+            //DropDownList ddltransType = (DropDownList)FIControls.FindControl("ddltransType");
+            //TextBox txtSeries = (TextBox)FIControls.FindControl("txtSeries");
+            //DropDownList ddlSchemeOption = (DropDownList)FIControls.FindControl("ddlSchemeOption");
+            //DropDownList ddlFrequency = (DropDownList)FIControls.FindControl("ddlFrequency");
+
+            //DropDownList ddlModeofHOlding = (DropDownList)FIControls.FindControl("ddlModeofHOlding");
+
+            //Label lblGetOrderNo = (Label)FIControls.FindControl("lblGetOrderNo");
+            //RadDatePicker txtOrderDate = (RadDatePicker)FIControls.FindControl("txtOrderDate");
+            //TextBox txtApplicationNumber = (TextBox)FIControls.FindControl("txtApplicationNumber");
+            //RadDatePicker txtApplicationDate = (RadDatePicker)FIControls.FindControl("txtApplicationDate");
+            //TextBox txtExistDepositreceiptno = (TextBox)FIControls.FindControl("txtExistDepositreceiptno");
+            //TextBox txtRenAmt = (TextBox)FIControls.FindControl("txtRenAmt");
+            //RadDatePicker txtMaturDate = (RadDatePicker)FIControls.FindControl("txtMaturDate");
+            //TextBox txtMatAmt = (TextBox)FIControls.FindControl("txtMatAmt");
+            //TextBox txtPayAmt = (TextBox)FIControls.FindControl("txtPayAmt");
+            //CheckBox ChkSeniorcitizens = (CheckBox)FIControls.FindControl("ChkSeniorcitizens");
+            //CheckBox ChkWidow = (CheckBox)FIControls.FindControl("ChkWidow");
+            //CheckBox ChkArmedForcePersonnel = (CheckBox)FIControls.FindControl("ChkArmedForcePersonnel");
+            //CheckBox CHKExistingrelationship = (CheckBox)FIControls.FindControl("CHKExistingrelationship");
+            //CheckBox ChkFirstholder = (CheckBox)FIControls.FindControl("ChkFirstholder");
+            //CheckBox ChkEORS = (CheckBox)FIControls.FindControl("ChkEORS");
+            //RadioButton rbtnYes = (RadioButton)FIControls.FindControl("rbtnYes");
+            //RadioButton rbtnNo = (RadioButton)FIControls.FindControl("rbtnNo");
+            //GridView gvJointHoldersList = (GridView)FIControls.FindControl("gvJointHoldersList");
+            ////trError
+            //HtmlTableRow trError = (HtmlTableRow)FIControls.FindControl("trError");
+            //Label lblError = (Label)FIControls.FindControl("lblError");
+            //GridView gvNominees = (GridView)FIControls.FindControl("gvNominees");
+            //DropDownList ddlProof = (DropDownList)FIControls.FindControl("ddlProof");
+
+          //   txtCustomerId.Enabled=Val;
+            ddlsearch.Enabled = Val;
+            ddlPaymentMode.Enabled = Val;
+
+            txtPaymentNumber.Enabled = Val;
+            txtPaymentInstDate.Enabled = Val;
+            ddlBankName.Enabled = Val;
+            txtAssociateSearch.Enabled = Val;
+            ddlDepoBank.Enabled = Val;
+            txtCustomerName.Enabled = Val;
+            txtTax.Enabled = Val;
+            ddlBankName.Enabled = Val;
+            //txtAssociateSearch.Text = fiorderVo.AgentCode;
+            //OnAssociateTextchanged(this, null);
+
+            //txtOrderDate.Enabled = Val;
+            //txtApplicationDate.Enabled = Val;
+            //lblGetOrderNo.Enabled = Val;
+            //txtApplicationNumber.Enabled = Val;
+            //txtSeries.Enabled = Val;
+            //ddltransType.Enabled = Val;
+            //ddlCategory.Enabled = Val;
+            //ddlIssuer.Enabled = Val;
+            //txtExistDepositreceiptno.Enabled = Val;
+            //txtRenAmt.Enabled = Val;
+            //txtMaturDate.Enabled = Val;
+            //txtMatAmt.Enabled = Val;
+            //ddlScheme.Enabled = Val;
+            //ddlSeries.Enabled = Val;
+            //txtPayAmt.Enabled = Val;
+            //ddlSchemeOption.Enabled = Val;
+            //txtExistDepositreceiptno.Enabled = Val;
+            //ddlFrequency.Enabled = Val;
+
+            ddlsearch.SelectedIndex = 1;
+            ddlsearch_Selectedindexchanged(this, null);
+           txtCustomerId.Value = orderVo.CustomerId.ToString();
+          orderVo.CustomerId = int.Parse(txtCustomerId.Value);
+   
+          txtCustomerId_ValueChanged1(this, null);
+          if (customerVo != null)
+          {
+              txtCustomerName.Text = customerVo.FirstName.ToString();
+              txtTax.Text = customerVo.SubType.ToString();
+              ddlBankName.SelectedValue =orderVo.CustBankAccId.ToString()  ;
+              txtAssociateSearch.Text  = fiorderVo.AgentCode;
+              OnAssociateTextchanged(this, null);
+
+
+          }
+            orderVo.AssetGroup = "FI";
+
+            UploadedImage = fiorderVo.CODimage;
+          //  UploadedImage = Path.GetExtension(UploadedImage);
+            UploadedImage = Path.GetFileName(UploadedImage);
+            // radUploadProof.UploadedFiles[0].Equals(
+
+            //     UploadedFile jpeg_image_upload = f;
+            //jpeg_image_upload.InputStream
+            //uploader.getFileInputs().value = returnValue[i];
+            //UploadedFile file = 
+          //  radUploadProof.UploadedFiles[0]. = UploadedImage;
+             //drBindImages["ProofImage"] = drUploadImage["CPU_Image"];
+                  //  drBindImages["ProofExtensions"] = Path.GetExtension(drUploadImage["CPU_Image"].ToString());
+                   // drBindImages["ProofFileName"] = Path.GetFileName(drUploadImage["CPU_Image"].ToString());
+
+            
+            //if (!string.IsNullOrEmpty(txtPaymentNumber.Text.ToString().Trim()))
+            //  txtPaymentNumber.Text=  orderVo.pay  ;
+            //else
+            //    txtPaymentNumber.Text = "";
+
+            if (orderVo.PaymentDate != DateTime.MinValue)
+                txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
+            else
+                orderVo.PaymentDate = DateTime.MinValue;
+
+            if (!string.IsNullOrEmpty(orderVo.CustBankAccId.ToString()))
+            {
+                if (ddlBankName.SelectedValue != "Select")
+                 ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+                else
+                     ddlBankName.SelectedValue = "0";
+            }
+            else
+                orderVo.CustBankAccId = 0;
+            ddlBankName_SelectedIndexChanged(this, null);
+            ddlDepoBank.SelectedValue = fiorderVo.DepCustBankAccId.ToString();
+            //fiorderVo.DepCustBankAccId
+              //  fiorderVo.
+
+            if (!String.IsNullOrEmpty(txtAssociateSearch.Text))
+                AgentId = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+            if (AgentId.Rows.Count > 0)
+            {
+                fiorderVo.AgentId = int.Parse(AgentId.Rows[0][1].ToString());
+            }
+            else
+                fiorderVo.AgentId = 0;
+
+            //orderVo.AA_AdviserAssociateId = 0;
+            //orderVo.AAC_AdviserAgentId = 0;
+            //orderVo.AAC_AgentCode = "";
+            //orderVo.PaymentMode = "";
+
+            ddlDepoBank.SelectedValue = fiorderVo.DepCustBankAccId.ToString();
+            ddlDepoBank_SelectedIndexChanged(this, null);
+
+            //if (Convert.ToDateTime(hdnFromdate.Value) != DateTime.MinValue)
+            //    txtOrderDate.SelectedDate = Convert.ToDateTime(hdnFromdate.Value);
+            //else
+            //    txtOrderDate.SelectedDate = DateTime.MinValue;
+
+            //if (Convert.ToDateTime(hdnTodate.Value) == DateTime.MinValue)
+            //    txtApplicationDate.SelectedDate = Convert.ToDateTime(hdnFromdate.Value);
+            //else
+            //    txtApplicationDate.SelectedDate = DateTime.MinValue;
+            //sai
+       // txtApplicationDate.SelectedDate = Convert.ToDateTime ( hdnTodate.Value);
+            //mforderVo.OrderNumber
+         
+        }
         private void GetFICOntrolsValues()
         {
            // ScriptManager.RegisterClientScriptBlock(this.FindControl("FixedIncomeOrder"), this.GetType(), "Click", "click();", true);
             int i = 0;
-            
+            String BtnAction = "";
+
+
+
             UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
+
+
+            //Button btnUploadImg = (Button)FIControls.FindControl("btnUploadImg");
+           
+
+            //string[] arrParameter = new string[1];
+
+            //string Oid = orderId.ToString();
+
+            //arrParameter[0] = Oid;
+            ////arrParameter[1] = "567";
+            
+
+
+
+
+
 
             DropDownList ddlCategory = (DropDownList)FIControls.FindControl("ddlCategory");//ddlIssuer
             DropDownList ddlIssuer = (DropDownList)FIControls.FindControl("ddlIssuer");
@@ -3681,9 +3965,25 @@ namespace WealthERP.OPS
             //    }
             //}
               List<int> OrderIds = new List<int>();
-              OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId);
-              rgvOrderSteps.Enabled = true;
-            orderId = int.Parse(OrderIds[0].ToString());
+              if (hdnButtonAction.Value == "Submit")
+              {
+                  BtnAction = "Submit";
+                  rgvOrderSteps.Enabled = true;
+                  OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, BtnAction);
+                  orderId = int.Parse(OrderIds[0].ToString());
+              }
+              else
+              {
+                  BtnAction = "Update";
+                  rgvOrderSteps.Enabled = false ;
+                  OrderIds = fiorderBo.CreateOrderFIDetails(orderVo, fiorderVo, userVo.UserId, BtnAction);
+                  orderId = fiorderVo.OrderNumber;
+              }
+
+
+           
+             
+           
             Session["CO_OrderId"] = orderId;
             orderVo.OrderId = orderId;
 
@@ -3993,6 +4293,36 @@ namespace WealthERP.OPS
             Session["mforderVo"] = mforderVo;
 
         }
+        protected void lnkBtnEdit_Click(object sender, EventArgs e)
+        {
+            //SetEditViewMode(false);
+            //ViewForm = "Edit";
+            //lnkDelete.Visible = true;
+            //if (mforderVo != null && orderVo != null)
+            //{
+            //    mforderVo = (MFOrderVo)Session["mforderVo"];
+            //    orderVo = (OrderVo)Session["orderVo"];
+            //}
+            //if (mforderVo != null && orderVo != null)
+            //{
+            //    if (ViewForm == "Edit")
+            //    {
+            //        SetControls("Edit", mforderVo, orderVo);
+            //        lnlBack.Visible = true;
+            //    }
+            //}
+            //else
+            //{
+            //    SetControls("Entry", mforderVo, orderVo);
+            //}
+            //btnSubmit.Visible = false;
+            //rgvOrderSteps.Enabled = true;
+            //btnAddMore.Visible = false;
+            //btnUpdate.Visible = true;
+            //lnkBtnEdit.Visible = false;
+            //btnreport.Visible = true;
+            //btnpdfReport.Visible = true;
+        }
 
         //private void SaveOrderDetails()
         //{
@@ -4198,8 +4528,163 @@ namespace WealthERP.OPS
             lblGetBranch.Text = "";
             lblgetPan.Text = "";
         }
+        private DataTable GetUploadedImagePaths(int ProofUploadId)
+        {
+            customerVo.CustomerId =Convert.ToInt32 (txtCustomerId.Value);
+            DataTable dtImages = new DataTable();
+            try
+            {
+                dtImages = customerBo.GetCustomerUploadedProofs(customerVo.CustomerId, ProofUploadId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetUploadedImagePaths()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return dtImages;
+        }
+        private void LoadImages()
+        {
+            //string Temppath = "";
+            DataTable dtImages = new DataTable();
+            DataTable dtBindImages = new DataTable();
+            DataTable dtProofPurposes = new DataTable();
+            dtBindImages.Columns.Add("ProofUploadId");
+            dtBindImages.Columns.Add("ProofType");
+            dtBindImages.Columns.Add("ProofName");
+            dtBindImages.Columns.Add("ProofCopyType");
+            dtBindImages.Columns.Add("ProofImage");
+            dtBindImages.Columns.Add("ProofExtensions");
+            dtBindImages.Columns.Add("ProofFileName");
+
+            DataRow drBindImages = null;
+            dtImages = GetUploadedImagePaths(0);
+            System.Web.UI.WebControls.Image imageProof = new System.Web.UI.WebControls.Image();
+            System.Web.UI.WebControls.HyperLink hypPdf = new HyperLink();
+            string fileExt = "";
+
+            int i = 0;
+            //int fileCount = Directory.GetFiles(imgPath, "*.*", SearchOption.AllDirectories).Length;
+            string sourceDir = "";
+
+            //if (dtImages.Rows.Count > 0)
+            //{
+            //    foreach (DataRow drUploadImage in dtImages.Rows)
+            //    {
+            //        drBindImages = dtBindImages.NewRow();
+            //        drBindImages["ProofUploadId"] = drUploadImage["CPU_ProofUploadId"];
+            //        drBindImages["ProofType"] = drUploadImage["XPRT_ProofType"];
+            //        drBindImages["ProofName"] = drUploadImage["XP_ProofName"];
+            //        drBindImages["ProofCopyType"] = drUploadImage["XPCT_ProofCopyType"];
+            //        drBindImages["ProofImage"] = drUploadImage["CPU_Image"];
+            //        drBindImages["ProofExtensions"] = imgPath.GetExtension(drUploadImage["CPU_Image"].ToString());
+            //        drBindImages["ProofFileName"] = imgPath.GetFileName(drUploadImage["CPU_Image"].ToString());
+
+            //        dtBindImages.Rows.Add(drBindImages);
+            //    }
+
+            //    #region ??? Code
+
+            //    if (dtBindImages.Rows.Count > 0)
+            //    {
+            //        foreach (DataRow dr in dtBindImages.Rows)
+            //        {
+            //            string fileTempPath = dr["ProofImage"].ToString();
+
+            //            string extension = imgPath.GetExtension(fileTempPath);
+            //            string fileName = imgPath.GetFileName(fileTempPath);
+            //            Session["FileExtension"] = extension;
+            //        }
+            //    }
 
 
+            //  #endregion
+
+            //    repProofImages.DataSource = dtBindImages;
+            //    repProofImages.DataBind();
+
+            //    if (Session["Button"] != "")
+            //    {
+            //        if (Session["Button"] == "Submit")
+            //        {
+            //            if (Session["LinkAction"] != null)
+            //            {
+            //                radPOCProof.SelectedIndex = 0;
+            //                multiPageView.SelectedIndex = 0;
+            //                //this.Close();
+            //            }
+            //            else
+            //            {
+            //                radPOCProof.SelectedIndex = 1;
+            //                multiPageView.SelectedIndex = 1;
+            //            }
+            //        }
+            //        else if (Session["Button"] == "Submit & Add More")
+            //        {
+            //            radPOCProof.TabIndex = 0;
+            //            multiPageView.TabIndex = 0;
+
+            //            BindProofTypeDP();
+            //            ddlProofType.SelectedIndex = 0;
+            //            BindProofCopy();
+            //            ddlProofCopyType.SelectedIndex = 0;
+            //            ddlProof.SelectedIndex = 0;
+            //            btnDelete.Visible = false;
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    repProofImages.DataSource = null;
+            //    ChangeTelerikRadTab(0);
+            //}
+        }
+
+        protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
+        {
+            SetFICOntrolsEnabilty(true);
+            //SetEditViewMode(false);
+            //ViewForm = "Edit";
+            //lnkDelete.Visible = true;
+            //if (mforderVo != null && orderVo != null)
+            //{
+            //    mforderVo = (MFOrderVo)Session["mforderVo"];
+            //    orderVo = (OrderVo)Session["orderVo"];
+            //}
+            //if (mforderVo != null && orderVo != null)
+            //{
+            //    if (ViewForm == "Edit")
+            //    {
+            //        SetControls("Edit", mforderVo, orderVo);
+            //        lnlFIBack.Visible = true;
+            //    }
+            //}
+            //else
+            //{
+            //    SetControls("Entry", mforderVo, orderVo);
+            //}
+            //btnSubmit.Visible = false;
+            //rgvOrderSteps.Enabled = true;
+            //btnAddMore.Visible = false;
+            //btnUpdate.Visible = true;
+            //lnkBtnEdit.Visible = false;
+            //btnreport.Visible = true;
+            //btnpdfReport.Visible = true;
+        }
 
         public void SetEditViewMode(bool Bool)
         {
@@ -4324,59 +4809,61 @@ namespace WealthERP.OPS
 
         }
 
-        protected void lnkBtnEdit_Click(object sender, EventArgs e)
-        {
-            SetEditViewMode(false);
-            ViewForm = "Edit";
-           // //sai lnkDelete.Visible = true;
-            if (mforderVo != null && orderVo != null)
-            {
-                mforderVo = (MFOrderVo)Session["mforderVo"];
-                orderVo = (OrderVo)Session["orderVo"];
-            }
-            if (mforderVo != null && orderVo != null)
-            {
-                if (ViewForm == "Edit")
-                {
-                    SetControls("Edit", mforderVo, orderVo);
-                  //  //sai  lnlBack.Visible = true;
-                }
-            }
-            else
-            {
-                SetControls("Entry", mforderVo, orderVo);
-            }
-            ////sai btnSubmit.Visible = false;
-            ////sai rgvOrderSteps.Enabled = true;
-            //btnAddMore.Visible = false;
-            ////sai btnUpdate.Visible = true;
-            ////sai lnkBtnEdit.Visible = false;
-            //btnreport.Visible = true;
-            //btnpdfReport.Visible = true;
-        }
+        //protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
+        //{
+        //    SetEditViewMode(false);
+        //    ViewForm = "Edit";
+        //   // //sai lnkDelete.Visible = true;
+        //    if (mforderVo != null && orderVo != null)
+        //    {
+        //        mforderVo = (MFOrderVo)Session["mforderVo"];
+        //        orderVo = (OrderVo)Session["orderVo"];
+        //    }
+        //    if (mforderVo != null && orderVo != null)
+        //    {
+        //        if (ViewForm == "Edit")
+        //        {
+        //            SetControls("Edit", mforderVo, orderVo);
+        //          //  //sai  lnlFIBack.Visible = true;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        SetControls("Entry", mforderVo, orderVo);
+        //    }
+        //    ////sai btnSubmit.Visible = false;
+        //    ////sai rgvOrderSteps.Enabled = true;
+        //    //btnAddMore.Visible = false;
+        //    ////sai btnUpdate.Visible = true;
+        //    ////sai lnkBtnFIEdit.Visible = false;
+        //    //btnreport.Visible = true;
+        //    //btnpdfReport.Visible = true;
+        //}
 
-        protected void    lnlBack_Click(object sender, EventArgs e)
+        protected void lnlFIBack_Click(object sender, EventArgs e)
         {
             if (Request.QueryString["FromPage"] != null)
             {
-               // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerOrderList','none');", true);
+              Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerOrderList','none');", true);
             }
-            else if (Request.QueryString["action"] != null)
+            else if (Request.QueryString["fiaction"] != null)
             {
-              //  Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','none');", true);
+               Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','none');", true);
             }
         }
 
         protected void  btnUpdate_Click(object sender, EventArgs e)
         {
-            List<int> OrderIds = new List<int>();
-            UpdateMFOrderDetails();
-            mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
+            hdnButtonAction.Value = "Update";
+            GetFICOntrolsValues();
+            //List<int> OrderIds = new List<int>();
+            //UpdateMFOrderDetails();
+            //mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
             SetEditViewMode(true);
             imgBtnRefereshBank.Enabled = false;
-            ////sai btnUpdate.Visible = false;
-            ////sai  btnViewInPDFNew.Visible = false;
-            ////sai  btnViewInDOCNew.Visible = false;
+           btnUpdate.Visible = false;
+        //  btnViewInPDFNew.Visible = false;
+          //   btnViewInDOCNew.Visible = false;
         }
 
         private void UpdateMFOrderDetails()
@@ -4596,12 +5083,13 @@ namespace WealthERP.OPS
         }
         protected void   lnkDelete_Click(object sender, EventArgs e)
         {
-            if (mforderVo != null && orderVo != null)
+            if (fiorderVo != null && orderVo != null)
             {
                 orderId = orderVo.OrderId;
+               
                 if (orderId != 0)
                 {
-                    mfOrderBo.DeleteMFOrder(orderId);
+                    fiorderBo.DeleteFIOrder(orderId);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order has been deleted.');", true);
                     ClearAllFields();
 
@@ -4611,8 +5099,8 @@ namespace WealthERP.OPS
                     ////sai  txtOrderDate.SelectedDate = Convert.ToDateTime(DateTime.Today.ToShortDateString());
                     ////sai  lblGetOrderNo.Text = ((mfOrderBo.GetOrderNumber()) + 1).ToString();
                     //txtApplicationNumber.Enabled = true;
-                    ////sai lnkBtnEdit.Visible = false;
-                    ////sai  lnlBack.Visible = false;
+                    ////sai lnkBtnFIEdit.Visible = false;
+                    ////sai  lnlFIBack.Visible = false;
                     ////sai lnkDelete.Visible = false;
                     ////sai btnUpdate.Visible = false;
                     ////sai btnSubmit.Visible = true;

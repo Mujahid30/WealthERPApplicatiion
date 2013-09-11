@@ -596,7 +596,7 @@
                 <telerik:RadGrid ID="gvFIOrderList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AllowAutomaticInserts="false"
-                    OnNeedDataSource="gvFIOrderList_OnNeedDataSource">
+                    OnNeedDataSource="gvFIOrderList_OnNeedDataSource"  >
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <%--  OnItemDataBound="gvOrderList_ItemDataBound"--%>

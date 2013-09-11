@@ -559,10 +559,10 @@
                 <td>
                     <asp:DropDownList ID="ddlModeofHOldingFI" runat="server" CssClass="cmbField">
                     </asp:DropDownList>
-                    <span id="Span6" class="spnRequiredField">*</span>
+                    <%--<span id="Span6" class="spnRequiredField">*</span>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />Please select a Mode of Holding"
                         ControlToValidate="ddlModeofHOldingFI" Operator="NotEqual" ValueToCompare="Select"
-                        Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>
+                        Display="Dynamic" CssClass="cvPCG" SetFocusOnError="true"></asp:CompareValidator>--%>
                 </td>
             </tr>
              

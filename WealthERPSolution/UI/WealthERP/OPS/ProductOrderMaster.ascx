@@ -18,23 +18,7 @@
  
  
     </script>
-
-<asp:ScriptManager ID="scrptMgr" runat="server">
-</asp:ScriptManager>
-
-
- 
-     
-     
-   <%-- <script type="text/javascript" language="javascript">
-        function GetCustomerId(source, eventArgs) {
-
-            document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
-
-            return false;
-        }
---%>
-<script type="text/javascript" language="javascript">
+    <script type="text/javascript" language="javascript">
         function openpopupAddCustomer() {
             window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
             return false;
@@ -102,14 +86,94 @@
         document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
     }
 </script>
+
+<asp:ScriptManager ID="scrptMgr" runat="server">
+</asp:ScriptManager>
+
+
+ 
+     
+     
+   <%-- <script type="text/javascript" language="javascript">
+        function GetCustomerId(source, eventArgs) {
+
+            document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+
+            return false;
+        }
+--%>
+
+
   <table width="100%">
    
     <tr>
     <td align="left" >
-      <div class="divPageHeading" style="vertical-align: text-bottom">
+      <%--<div class="divPageHeading" style="vertical-align: text-bottom">
       Order Entry
-      </div>
+      </div>--%>
+       <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr runat="server" >
+                        <td align="left">
+                            Order Entry
+                        </td>
+                        <td align="right" >
+                        
+                        <%--   <asp:LinkButton ID="LinkButton1" runat="server"  CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>
+                        
+                         <asp:Button ID="Button2" runat="server"  CausesValidation="false" CssClass="DOCButton"
+                                Visible="true" OnClick ="lnlFIBack_Click" />--%>
+                        
+                        <%--<asp:LinkButton ID="lnkTest" runat="server"    CausesValidation="false"  Text="test"   OnClick ="lnlFIBack_Click"/>--%>
+                        
+                    <%--     <asp:Button ID="Button1" runat="server"  CssClass="DOCButton"
+                                Visible="true" OnClick ="lnlFIBack_Click" />--%>
+                                
+                        <%--<asp:LinkButton ID="lnkBtnnews" runat="server"    OnClick="lnkBtnEdit_Click"  Text="news" CssClass="LinkButtons" />--%>
+                            <asp:LinkButton ID="lnkBtnFIEdit" runat="server" CssClass="LinkButtons" Text="Edit" CausesValidation="false"
+                                OnClick="lnkBtnFIEdit_Click" ></asp:LinkButton>
+                            &nbsp; &nbsp;
+                            <asp:LinkButton runat="server" ID="lnlFIBack"  Text="Back" Visible="false" CausesValidation="false" CssClass="LinkButtons"
+                                OnClick ="lnlFIBack_Click"></asp:LinkButton>&nbsp; &nbsp;
+                            <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" Text="Delete" CausesValidation="false"
+                                OnClick="lnkDelete_Click" OnClientClick="javascript: return confirm('Are you sure you want to Delete the Order?')"></asp:LinkButton>&nbsp;
+                            &nbsp;
+                            <asp:Button ID="btnViewReport" runat="server" PostBackUrl="~/Reports/Display.aspx?mail=0"
+                                CssClass="CrystalButton" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
+                            <div id="div1" style="display: none;">
+                                <p class="tip">
+                                    Click here to view order details.
+                                </p>
+                            </div>
+                            <asp:Button ID="btnViewInPDF" runat="server" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
+                                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                            <asp:Button ID="btnreport" runat="server" CssClass="CrystalButton" Visible="false"
+                                OnClick="btnreport_Click" />
+                            <asp:Button ID="btnpdfReport" runat="server" CssClass="PDFButton" Visible="false"
+                                OnClick="btnpdfReport_Click" />
+                            <div id="div2" style="display: none;">
+                                <p class="tip">
+                                    Click here to view order details.
+                                </p>
+                            </div>
+                            <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
+                                OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
+                            <div id="div3" style="display: none;">
+                                <p class="tip">
+                                    Click here to view order details in word doc.</p>
+                            </div>
+                            <asp:Button ID="btnViewInPDFNew" runat="server" ValidationGroup="MFSubmit" CssClass="PDFButton"
+                                Visible="false" OnClientClick="return CustomerValidate('pdf')" PostBackUrl="~/Reports/Display.aspx?mail=2" />
+                            <asp:Button ID="btnViewInDOCNew" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
+                                Visible="false" OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
       </td>
+      </tr>
+      <tr>
+        
       </tr>
       </table>
 <table width="100%">
@@ -125,6 +189,8 @@
                 <asp:ListItem Text="MutualFund" Value="1" Enabled="false" ></asp:ListItem>
                 <asp:ListItem Text="FixedIncome" Value="2"></asp:ListItem>
             </asp:DropDownList>
+            
+          
             
     </div>
    
@@ -170,9 +236,9 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlARNNo" runat="server" CssClass="cmbField" AutoPostBack="false"  >
             </asp:DropDownList>
-            <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
+           <%-- <asp:CompareValidator ID="CompareValidator12" runat="server" ControlToValidate="ddlARNNo"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an ARN"
-                Operator="NotEqual"  ValueToCompare="Select"></asp:CompareValidator>
+                Operator="NotEqual"  ValueToCompare="Select"></asp:CompareValidator>--%>
                <%-- ValidationGroup="MFSubmit"--%>
         </td>
         <td >
@@ -1037,15 +1103,15 @@
                     </td>
                 </tr>
                 
-                 <tr id="trProof" runat="server">
+                 <tr id="trProof" runat="server" visible="false" >
                     <td align="right">
-                        <label class="FieldName">
+                       <%-- <label class="FieldName">
                             Proof :
-                        </label>
+                        </label>--%>
                     </td>
                     <td align="left">
-                        <asp:DropDownList ID="ddlProof" runat="server" CssClass="cmbField" >
-                        </asp:DropDownList>
+                       <%-- <asp:DropDownList ID="ddlProof" runat="server" CssClass="cmbField" >
+                        </asp:DropDownList>--%>
                      <%--   <asp:CompareValidator ID="cmpProofCopyType" runat="server" ValidationGroup="VaultValidations"
                             ControlToValidate="ddlProofCopyType" ErrorMessage="Please select a copy type"
                             Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic">
@@ -1062,7 +1128,7 @@
         </td>
         <td align="left" style="vertical-align: middle">
             <span style="font-size: xx-small">(Allowed extensions are: .jpg,.jpeg,.bmp,.png,.pdf)</span>
-            <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None" AutoPostBack="false" 
+            <telerik:RadUpload ID="radUploadProof" runat="server" ControlObjectsVisibility="None" AutoPostBack="true" 
                 AllowedFileExtensions=".jpg,.jpeg,.bmp,.png,.pdf" Skin="Telerik" EnableEmbeddedSkins="true">
             </telerik:RadUpload>
            <%-- <asp:CustomValidator ID="Customvalidator1" ValidationGroup="VaultValidations" Font-Bold="true"
@@ -1075,12 +1141,14 @@
     </tr>
     <tr id="trBtnSubmit" runat="server">
         <td align="left" colspan="3">
-            <asp:Button ID="Button1" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
                 OnClick="btnSubmit_Click" />
-            <asp:Button ID="Button2" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
+            <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
                 ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />
-            <asp:Button ID="Button3" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit" Visible="false" 
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit" Visible="false" 
                 OnClick="btnUpdate_Click" />
+                
+               
         </td>
     </tr>
     </table>
@@ -1195,7 +1263,7 @@
 
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 
-
+<asp:HiddenField ID="hdnButtonAction" runat="server" />
 
 <%--Vieing--%>
 

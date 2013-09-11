@@ -188,32 +188,46 @@ namespace BoOps
             }
             return dsSeriesDetailssDetails;
         }
-        public DataSet GetCustomerFIOrderDetails(int orderId)
+        public DataSet GetFIProof()
         {
-            DataSet dsGetCustomerMFOrderDetails;
+            DataSet dsGetCustomerFIOrderDetails;
             try
             {
-                dsGetCustomerMFOrderDetails = fiOrderDao.GetCustomerFIOrderDetails(orderId);
+                dsGetCustomerFIOrderDetails = fiOrderDao.GetFIProof( );
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return dsGetCustomerMFOrderDetails;
+            return dsGetCustomerFIOrderDetails;
+        }
+        
+        public DataSet GetCustomerFIOrderDetails(int orderId)
+        {
+            DataSet dsGetCustomerFIOrderDetails;
+            try
+            {
+                dsGetCustomerFIOrderDetails = fiOrderDao.GetCustomerFIOrderDetails(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetCustomerFIOrderDetails;
         }
         
         public DataSet GetCustomerFIOrderMIS(int AdviserId, DateTime FromDate, DateTime ToDate, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId)
         {
-            DataSet dsGetMFOrderMIS;
+            DataSet dsGetFIOrderMIS;
             try
             {
-                dsGetMFOrderMIS = fiOrderDao.GetCustomerFIOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode, customerId);
+                dsGetFIOrderMIS = fiOrderDao.GetCustomerFIOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode, customerId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
-            return dsGetMFOrderMIS;
+            return dsGetFIOrderMIS;
         }
         public void CreateCustomerAssociation(int OrderId, String nomineeAssociationIds, string associateType)
         {
@@ -286,6 +300,19 @@ namespace BoOps
 
 
         }
+        public bool DeleteFIOrder(int orderId)
+        {
+            bool bResult = false;
+            try
+            {
+                bResult = fiOrderDao.DeleteFIOrder (orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return bResult;
+        }
 
         public DataSet GetCustomerAssociates(int customerId)
         {
@@ -300,12 +327,12 @@ namespace BoOps
             }
             return dsCustomerAssociates;
         }
-        public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo fiorderVo, int userId)
+        public List<int> CreateOrderFIDetails(OrderVo orderVo, FIOrderVo fiorderVo, int userId,string Mode)
         {
             List<int> orderIds = new List<int>();
             try
             {
-                orderIds = fiOrderDao.CreateOrderFIDetails(orderVo, fiorderVo, userId);
+                orderIds = fiOrderDao.CreateOrderFIDetails(orderVo, fiorderVo, userId, Mode);
             }
             catch (BaseApplicationException Ex)
             {
