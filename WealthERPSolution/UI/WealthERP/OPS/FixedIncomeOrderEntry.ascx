@@ -85,7 +85,8 @@
             <asp:Label ID="Label15" runat="server" Text="Series Details: " CssClass="FieldName"></asp:Label>
         </td>
         <td   style="width: 35%">
-            <asp:TextBox ID="txtSeries" runat="server" CssClass="txtField" ReadOnly="true"></asp:TextBox>
+            <asp:TextBox ID="txtSeries" runat="server" CssClass="txtField" ReadOnly="true" Visible="false" ></asp:TextBox>
+             <asp:Label ID="Label10" runat="server"  CssClass="txtField"></asp:Label>
             <%-- <span id="Span1" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ControlToValidate="ddlAMCList"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an AMC"
@@ -120,7 +121,7 @@
                 <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Monthly" Value="Monthly"></asp:ListItem>
                 <asp:ListItem Text="Quarterly" Value="Quarterly"></asp:ListItem>
-                <asp:ListItem Text="yearly" Value="yearly"></asp:ListItem>
+                <asp:ListItem Text="yearly" Value="Yearly"></asp:ListItem>
                 <asp:ListItem Text="Half yearly" Value="Hfyearly"></asp:ListItem>
             </asp:DropDownList>
             <span id="SpanddlFrequency" runat="server" class="spnRequiredField">*</span>
@@ -259,8 +260,10 @@
                 CssClass="cvPCG" ErrorMessage="<br />Order date cannot be greater than or equal to Today"
                 ValueToCompare="" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>--%>
         </td>
-          
-        <td colspan="3" style="width: 60%">
+           <td style="width:5%"></td>
+           
+        <td colspan="2" style="width: 35%" align="center">
+        <asp:Label ID="Label11" runat="server" style="color: red"></asp:Label>
         </td>
     </tr>
     
@@ -294,8 +297,8 @@
                  <asp:CompareValidator ID="CompareValidatorPayamt" runat="server" ControlToValidate="txtPayAmt"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please Enter FD Amount"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMaturDate"
-                CssClass="rfvPCG" ErrorMessage="<br />Please select Maturity Date" Display="Dynamic"
+                  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtPayAmt"
+                CssClass="rfvPCG" ErrorMessage="<br />Please Enter FD Amount" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td style="width:5%"></td>
@@ -545,7 +548,7 @@
                 <td class="leftField">
                     <asp:Label ID="Label9" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
                 </td>
-                <td>
+                <td >
                     <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
                         Text="Joint Holder" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
                     <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"

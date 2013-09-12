@@ -633,6 +633,110 @@
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="CFIOD_TransactionType" HeaderText="Fresh/Renewal"
+                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CFIOD_TransactionType"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="CFIOD_TransactionType" FooterStyle-HorizontalAlign="Left"
+                                HeaderStyle-Width="100px">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            <telerik:GridBoundColumn DataField="PFIIM_IssuerName" HeaderText="Company Name"
+                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PFIIM_IssuerName"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="PFIIM_IssuerName" FooterStyle-HorizontalAlign="Left"
+                                HeaderStyle-Width="100px">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
+                              <telerik:GridBoundColumn DataField="PFISM_SchemeName" HeaderText="Scheme Name"
+                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PFISM_SchemeName"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="PFISM_SchemeName" FooterStyle-HorizontalAlign="Left"
+                                HeaderStyle-Width="100px">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
+                            <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderText="Applicati- No/Cheque No"
+                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CO_ApplicationNumber"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="100px" UniqueName="CO_ApplicationNumber" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="Name" AllowFiltering="true" HeaderText="Name of the applicant"
+                                UniqueName="Name" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                                   <telerik:GridBoundColumn DataField="CFIOD_AmountPayable" AllowFiltering="true" HeaderText="Deposit Amount"
+                                DataFormatString="{0:N0}" UniqueName="CFIOD_AmountPayable" SortExpression="CFIOD_AmountPayable"
+                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="XPM_PaymentModeCode" AllowFiltering="true" HeaderText="Mode of payment"
+                                UniqueName="XPM_PaymentModeCode" SortExpression="XPM_PaymentModeCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="Tenure" AllowFiltering="true" HeaderText="Tenure(in m-th)"
+                                UniqueName="Tenure" SortExpression="Tenure" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
+                                           <telerik:GridBoundColumn DataField="Cumulative/ N- Cumulative" AllowFiltering="true" HeaderText="CFIOD_SchemeOption"
+                                UniqueName="Cumulative/ N- Cumulative" SortExpression="Tenure" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                              <telerik:GridBoundColumn DataField="C_PANNum" AllowFiltering="true" HeaderText="Applicant PAN No"
+                                UniqueName="C_PANNum" SortExpression="C_PANNum" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
+                            
+                              <telerik:GridBoundColumn DataField="CFIOD_ExisitingDepositreceiptno" AllowFiltering="true" HeaderText="Folio No"
+                                UniqueName="CFIOD_ExisitingDepositreceiptno" SortExpression="CFIOD_ExisitingDepositreceiptno" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="CB_MICR" AllowFiltering="true" HeaderText="MICR"
+                                UniqueName="CB_MICR" SortExpression="CB_MICR" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="CO_ChequeNumber" AllowFiltering="true" HeaderText="Cheque No/DD No"
+                                UniqueName="CO_ChequeNumber" SortExpression="CO_ChequeNumber" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="WERPBM_BankName" AllowFiltering="true" HeaderText="Submitted Bank"
+                                UniqueName="WERPBM_BankName" SortExpression="WERPBM_BankName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="CB_BranchName" AllowFiltering="true" HeaderText="Submitted Bank Branch"
+                                UniqueName="CB_BranchName" SortExpression="CB_BranchName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
                             <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
                                 UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
@@ -654,16 +758,8 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="Name" AllowFiltering="true" HeaderText="Customer"
-                                UniqueName="Name" SortExpression="Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="C_PANNum" AllowFiltering="true" HeaderText="PAN"
-                                UniqueName="C_PANNum" SortExpression="C_PANNum" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                           
+                          
                             <telerik:GridBoundColumn DataField="PAG_AssetGroupName" AllowFiltering="true" HeaderText="Asset Name"
                                 UniqueName="PAG_AssetGroupName" SortExpression="PAG_AssetGroupName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px">
@@ -686,31 +782,16 @@
                                 HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CFIOD_AmountPayable" AllowFiltering="true" HeaderText="AmountPayable"
-                                DataFormatString="{0:N0}" UniqueName="CFIOD_AmountPayable" SortExpression="CFIOD_AmountPayable"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ChequeNumber" HeaderText="Cheque No." AllowFiltering="true"
-                                HeaderStyle-Wrap="false" SortExpression="CO_ChequeNumber" ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
-                                UniqueName="CO_ChequeNumber" FooterStyle-HorizontalAlign="Left">
-                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                     
+                           
                             <telerik:GridBoundColumn DataField="XS_Status" HeaderText="Status" AllowFiltering="true"
                                 HeaderStyle-Wrap="false" SortExpression="XS_Statust" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="100px" UniqueName="XS_Status"
                                 FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_ApplicationNumber" HeaderText="ApplicationNumber"
-                                AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CO_ApplicationNumber"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                HeaderStyle-Width="100px" UniqueName="CO_ApplicationNumber" FooterStyle-HorizontalAlign="Left">
-                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CFIOD_MaturityAmount" HeaderText="MaturityAmount"
+                            
+                           <%-- <telerik:GridBoundColumn DataField="CFIOD_MaturityAmount" HeaderText="MaturityAmount"
                                 AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CFIOD_MaturityAmount"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="100px" UniqueName="CFIOD_MaturityAmount" FooterStyle-HorizontalAlign="Left">
@@ -721,7 +802,7 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="100px" UniqueName="PFISD_defaultInterestRate" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

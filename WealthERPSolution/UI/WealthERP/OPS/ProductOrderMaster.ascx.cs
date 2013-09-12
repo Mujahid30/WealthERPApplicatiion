@@ -139,7 +139,7 @@ namespace WealthERP.OPS
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             orderNumber = mfOrderBo.GetOrderNumber();
-        double a=    CompoundInterest(3000, 0.1, 4, 12/13);
+     //   double a=    CompoundInterest(3000, 0.1, 4, 12/13);
             orderNumber = orderNumber + 1;
            //sai //sai  lblGetOrderNo.Text = orderNumber.ToString();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
@@ -179,6 +179,7 @@ namespace WealthERP.OPS
 
                    gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
+                LinkButtonsVisblity();
                 //BindAgentDropList(userType);
                 //BindSearchDropdownList(sender, e);
                 //sai  hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
@@ -302,6 +303,7 @@ namespace WealthERP.OPS
                 tr1.Visible = false;
                
                 fStorageBalance = repoBo.GetAdviserStorageValues(advisorVo.advisorId, out fMaxStorage);
+                ControlsEnablity();
                 //Session.Remove("ChildControl");
             }
             GetProductWiseControls();
@@ -369,15 +371,29 @@ namespace WealthERP.OPS
                 SetControls("Entry", mforderVo, orderVo);
 
             }
-            lnkBtnFIEdit.Visible = false;
-            lnlFIBack.Visible = false;
-            lnkDelete.Visible = false;
-            btnViewInPDFNew.Visible = false;
-            btnViewInDOCNew.Visible = false;
-            btnViewInDOC.Visible = false;
-            btnViewInPDF.Visible = false;
-            btnViewReport.Visible = false;
+            
 
+           
+         
+
+
+
+        }
+        private void LinkButtonsVisblity()
+        {
+
+            //lnkBtnFIEdit.Visible = false;
+            //lnlFIBack.Visible = false;
+            //lnkDelete.Visible = false;
+            //btnViewInPDFNew.Visible = false;
+            //btnViewInDOCNew.Visible = false;
+            //btnViewInDOC.Visible = false;
+            //btnViewInPDF.Visible = false;
+            //btnViewReport.Visible = false;
+
+        }
+        private void ControlsEnablity()
+        {
             if (Request.QueryString["fiaction"] != null)
             {
                 ViewForm = Request.QueryString["fiaction"].ToString();
@@ -393,18 +409,18 @@ namespace WealthERP.OPS
                     orderVo = (OrderVo)Session["orderVo"];
                     fiorderVo = (FIOrderVo)Session["fiorderVo"];
                 }
-          
+
 
                 if (ViewForm == "View")
                 {
-
-                    SetFICOntrolsEnabilty(false);
-                   // lnkBtnFIEdit.Visible = true;
+                    SetFICOntrolsEnablity(false);
+                    SetFICOntrols();
+                    // lnkBtnFIEdit.Visible = true;
                     btnAddMore.Visible = false;
-                   // lnlFIBack.Visible = true;
+                    // lnlFIBack.Visible = true;
 
-                   // btnViewInPDFNew.Visible = false;
-                   // btnViewInDOCNew.Visible = false;
+                    // btnViewInPDFNew.Visible = false;
+                    // btnViewInDOCNew.Visible = false;
 
 
 
@@ -421,7 +437,8 @@ namespace WealthERP.OPS
                 }
                 else if (ViewForm == "Edit")
                 {
-                    SetFICOntrolsEnabilty(true);
+                    SetFICOntrolsEnablity(true);
+                    SetFICOntrols();
 
                     lnkBtnFIEdit.Visible = false;
                     lnlFIBack.Visible = true;
@@ -435,8 +452,6 @@ namespace WealthERP.OPS
 
 
             }
-
-         
 
 
 
@@ -756,8 +771,8 @@ namespace WealthERP.OPS
         }
         protected void ddlProofType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlProofType.SelectedIndex != 0)
-                BindddlProof(Convert.ToInt32(ddlProofType.SelectedValue));
+          //  if (ddlProofType.SelectedIndex != 0)
+              //  BindddlProof(Convert.ToInt32(ddlProofType.SelectedValue));
         }
 
         protected void BindddlProof(int proofTypeSelectedValue)
@@ -3539,7 +3554,27 @@ namespace WealthERP.OPS
             hdnButtonAction.Value = "Submit";
             GetFICOntrolsValues();
             AddcLick();
-           
+            SetFICOntrolsEnablity(false);
+            SetFICOntrols( );
+            // lnkBtnFIEdit.Visible = true;
+            btnSubmit.Visible = false;
+            btnAddMore.Visible = false;
+            // lnlFIBack.Visible = true;
+
+            // btnViewInPDFNew.Visible = false;
+            // btnViewInDOCNew.Visible = false;
+
+
+
+            btnUpdate.Visible = false;
+            lnkBtnFIEdit.Visible = true;
+            lnlFIBack.Visible = false;
+            lnkDelete.Visible = false;
+            btnViewInPDFNew.Visible = false;
+            btnViewInDOCNew.Visible = false;
+            btnViewInDOC.Visible = false;
+            btnViewInPDF.Visible = false;
+            btnViewReport.Visible = false;
             // if (Session["MFTranstype"]  != null)
             //   Response.Write(Session["MFTranstype"] );
 
@@ -3588,7 +3623,21 @@ namespace WealthERP.OPS
             ////sai  btnViewInPDFNew.Visible = false;
             ////sai  btnViewInDOCNew.Visible = false;
         }
-        private void SetFICOntrolsEnabilty(bool Val)
+        private void SetFICOntrolsEnablity(bool Val)
+        {
+            ddlsearch.Enabled = Val;
+            ddlPaymentMode.Enabled = Val;
+
+            txtPaymentNumber.Enabled = Val;
+            txtPaymentInstDate.Enabled = Val;
+            ddlBankName.Enabled = Val;
+            txtAssociateSearch.Enabled = Val;
+            ddlDepoBank.Enabled = Val;
+            txtCustomerName.Enabled = Val;
+            txtTax.Enabled = Val;
+            ddlBankName.Enabled = Val;
+        }
+        private void SetFICOntrols()
         {
             string UploadedImage;
             //UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
@@ -3636,17 +3685,7 @@ namespace WealthERP.OPS
             //DropDownList ddlProof = (DropDownList)FIControls.FindControl("ddlProof");
 
           //   txtCustomerId.Enabled=Val;
-            ddlsearch.Enabled = Val;
-            ddlPaymentMode.Enabled = Val;
-
-            txtPaymentNumber.Enabled = Val;
-            txtPaymentInstDate.Enabled = Val;
-            ddlBankName.Enabled = Val;
-            txtAssociateSearch.Enabled = Val;
-            ddlDepoBank.Enabled = Val;
-            txtCustomerName.Enabled = Val;
-            txtTax.Enabled = Val;
-            ddlBankName.Enabled = Val;
+            
             //txtAssociateSearch.Text = fiorderVo.AgentCode;
             //OnAssociateTextchanged(this, null);
 
@@ -3677,8 +3716,8 @@ namespace WealthERP.OPS
           txtCustomerId_ValueChanged1(this, null);
           if (customerVo != null)
           {
-              txtCustomerName.Text = customerVo.FirstName.ToString();
-              txtTax.Text = customerVo.SubType.ToString();
+              txtCustomerName.Text = customerVo.FirstName;
+              txtTax.Text = customerVo.SubType;
               ddlBankName.SelectedValue =orderVo.CustBankAccId.ToString()  ;
               txtAssociateSearch.Text  = fiorderVo.AgentCode;
               OnAssociateTextchanged(this, null);
@@ -4515,18 +4554,21 @@ namespace WealthERP.OPS
 
         protected void btnAddMore_Click(object sender, EventArgs e)
         {
-            List<int> OrderIds = new List<int>(); ;
-            SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
-            //sai rgvOrderSteps.Visible = false;
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            btnSubmit_Click(this, null);
+            DdlLoad.SelectedIndex = 2;
+            DdlLoad_Selectedindexchanged(this,null);
+            //List<int> OrderIds = new List<int>(); ;
+            //SaveOrderDetails();
+            //OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
+            ////sai rgvOrderSteps.Visible = false;
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
-            ClearAllFields();
+            //ClearAllFields();
 
-            txtCustomerName.Text = "";
-            lblGetRM.Text = "";
-            lblGetBranch.Text = "";
-            lblgetPan.Text = "";
+            //txtCustomerName.Text = "";
+            //lblGetRM.Text = "";
+            //lblGetBranch.Text = "";
+            //lblgetPan.Text = "";
         }
         private DataTable GetUploadedImagePaths(int ProofUploadId)
         {
@@ -4656,7 +4698,33 @@ namespace WealthERP.OPS
 
         protected void lnkBtnFIEdit_Click(object sender, EventArgs e)
         {
-            SetFICOntrolsEnabilty(true);
+            btnUpdate.Visible = true;
+            ViewForm = "Edit";
+            SetFICOntrolsEnablity(true);
+            ShowTransactionType(1);
+            UserControl FIControls = (UserControl)this.FindControl("FixedIncomeOrder");
+            Type typUserControl = null;
+            typUserControl = FIControls.GetType();
+
+            System.Reflection.MethodInfo mthdUserControl = null;
+            mthdUserControl = typUserControl.GetMethod("SetControlsEnablity");
+            //object[] arrParameter = new object[1];
+            //arrParameter[0] = true;
+            //object[] arguments = new object[] { true };
+            mthdUserControl.Invoke(FIControls, null); 
+
+            //Button btnUploadImg = (Button)FIControls.FindControl("btnUploadImg");
+
+
+            //string[] arrParameter = new string[1];
+
+            //string Oid = orderId.ToString();
+
+            //arrParameter[0] = Oid;
+            ////arrParameter[1] = "567";
+            
+
+
             //SetEditViewMode(false);
             //ViewForm = "Edit";
             //lnkDelete.Visible = true;

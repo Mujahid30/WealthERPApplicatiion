@@ -130,15 +130,15 @@
                                 Visible="true" OnClick ="lnlFIBack_Click" />--%>
                                 
                         <%--<asp:LinkButton ID="lnkBtnnews" runat="server"    OnClick="lnkBtnEdit_Click"  Text="news" CssClass="LinkButtons" />--%>
-                            <asp:LinkButton ID="lnkBtnFIEdit" runat="server" CssClass="LinkButtons" Text="Edit" CausesValidation="false"
+                            <asp:LinkButton ID="lnkBtnFIEdit" runat="server" CssClass="LinkButtons" Text="Edit" CausesValidation="false" Visible="false"
                                 OnClick="lnkBtnFIEdit_Click" ></asp:LinkButton>
                             &nbsp; &nbsp;
                             <asp:LinkButton runat="server" ID="lnlFIBack"  Text="Back" Visible="false" CausesValidation="false" CssClass="LinkButtons"
                                 OnClick ="lnlFIBack_Click"></asp:LinkButton>&nbsp; &nbsp;
-                            <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" Text="Delete" CausesValidation="false"
+                            <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" Text="Delete" CausesValidation="false" Visible="false"
                                 OnClick="lnkDelete_Click" OnClientClick="javascript: return confirm('Are you sure you want to Delete the Order?')"></asp:LinkButton>&nbsp;
                             &nbsp;
-                            <asp:Button ID="btnViewReport" runat="server" PostBackUrl="~/Reports/Display.aspx?mail=0"
+                            <asp:Button ID="btnViewReport" runat="server" PostBackUrl="~/Reports/Display.aspx?mail=0" Visible="false"
                                 CssClass="CrystalButton" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('View')" />&nbsp;&nbsp;
                             <div id="div1" style="display: none;">
                                 <p class="tip">
@@ -146,7 +146,7 @@
                                 </p>
                             </div>
                             <asp:Button ID="btnViewInPDF" runat="server" ValidationGroup="MFSubmit" OnClientClick="return CustomerValidate('pdf')"
-                                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" />&nbsp;&nbsp;
+                                PostBackUrl="~/Reports/Display.aspx?mail=2" CssClass="PDFButton" Visible="false"/>&nbsp;&nbsp;
                             <asp:Button ID="btnreport" runat="server" CssClass="CrystalButton" Visible="false"
                                 OnClick="btnreport_Click" />
                             <asp:Button ID="btnpdfReport" runat="server" CssClass="PDFButton" Visible="false"
@@ -157,7 +157,7 @@
                                 </p>
                             </div>
                             <asp:Button ID="btnViewInDOC" runat="server" ValidationGroup="MFSubmit" CssClass="DOCButton"
-                                OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" />
+                                OnClientClick="return CustomerValidate('doc')" PostBackUrl="~/Reports/Display.aspx?mail=4" Visible="false"/>
                             <div id="div3" style="display: none;">
                                 <p class="tip">
                                     Click here to view order details in word doc.</p>
@@ -180,7 +180,8 @@
    
     <tr>
     <td align="center" >
-      <div class="divSectionHeading" style="vertical-align: text-bottom">
+  <%--  class="divSectionHeading"--%>
+      <div  style="vertical-align: text-bottom">
        <asp:Label ID="Label1" runat="server" Text="Select Product:" CssClass="FieldName">
     </asp:Label> 
       <asp:DropDownList ID="DdlLoad" runat="server" CssClass="cmbField" OnSelectedIndexChanged="DdlLoad_Selectedindexchanged"
@@ -199,8 +200,9 @@
        </tr>
        <tr id="tr1" runat="server">
         <td colspan="5">
-            <div class="divSectionHeading" style="vertical-align: text-bottom">
-               <asp:Label ID="Label6" runat="server" ></asp:Label>
+  <%--      class="divSectionHeading"--%>
+            <div  style="vertical-align: text-bottom">
+               <asp:Label ID="Label6" runat="server" Visible="false" ></asp:Label>
             </div>
         </td>
     </tr>
@@ -755,7 +757,7 @@
     
       <tr id="trDepositedBank" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label3" runat="server" Text="Bank name for payment of interest/redemption:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label3" runat="server" Text="Application Submitted at Bank name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlDepoBank" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -773,7 +775,7 @@
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="Label4" runat="server" Text="Deposited at Branch:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label4" runat="server" Text="Application Submitted at Branch:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtDepositedBranch" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1143,7 +1145,7 @@
         <td align="left" colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
                 OnClick="btnSubmit_Click" />
-            <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton"
+            <asp:Button ID="btnAddMore" runat="server" Text="Save & AddMore" CssClass="PCGMediumButton" Visible="false" 
                 ValidationGroup="MFSubmit" OnClick="btnAddMore_Click" />
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="MFSubmit" Visible="false" 
                 OnClick="btnUpdate_Click" />
@@ -1173,7 +1175,7 @@
             <td>
                 <telerik:RadGrid ID="rgvOrderSteps" runat="server" Skin="Telerik" CssClass="RadGrid"
                     Width="80%" GridLines="None" AllowPaging="True" PageSize="20" AllowSorting="false"
-                    AutoGenerateColumns="True" OnItemCreated="rgvOrderSteps_ItemCreated" ShowStatusBar="true"
+                    AutoGenerateColumns="false" OnItemCreated="rgvOrderSteps_ItemCreated" ShowStatusBar="true"
                     AllowAutomaticUpdates="false" HorizontalAlign="NotSet" DataKeyNames="CO_OrderId,WOS_OrderStepCode"
                     OnItemDataBound="rgvOrderSteps_ItemDataBound" OnItemCommand="rgvOrderSteps_ItemCommand"
                     OnNeedDataSource="rgvOrderSteps_NeedDataSource">
@@ -1189,7 +1191,7 @@
                             <telerik:GridTemplateColumn HeaderText="Stages" UniqueName="WOS_OrderStepCode" DataField="WOS_OrderStepCode"
                                 Visible="false" ReadOnly="True">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblOrderStepCode" runat="server" Text='<%#Eval("WOS_OrderStepCode")%>'></asp:Label>
+                                    <asp:Label ID="lblOrderStepCode" runat="server" Text='<%#Eval("WOS_OrderStepCode")%>' Visible="false" ></asp:Label>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <%-- <telerik:GridDropDownColumn UniqueName="DropDownColumnStatus" HeaderText="Status" 

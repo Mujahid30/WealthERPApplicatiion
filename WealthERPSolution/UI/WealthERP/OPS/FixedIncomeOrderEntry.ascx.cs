@@ -134,8 +134,30 @@ namespace WealthERP.OPS
 
 
         }
+        public void SetControlsEnablity()
+        {
+            ddlModeofHOldingFI.Enabled = true;
+            txtOrderDate.Enabled = true;
+            txtApplicationDate.Enabled = true;
+            lblGetOrderNo.Enabled = true;
+            txtApplicationNumber.Enabled = true;
+            txtSeries.Enabled = true;
+            ddlTranstype.Enabled = true;
+            ddlCategory.Enabled = true;
+            ddlIssuer.Enabled = true;
+            txtExistDepositreceiptno.Enabled = true;
+            txtRenAmt.Enabled = true;
+            txtMaturDate.Enabled = true;
+            txtMatAmt.Enabled = true;
+            ddlScheme.Enabled = true;
+            ddlSeries.Enabled = true;
+            txtPayAmt.Enabled = true;
+            ddlSchemeOption.Enabled = true;
+            txtExistDepositreceiptno.Enabled = true;
+            ddlFrequency.Enabled = true;
+        }
 
-        private void SetControls(bool Val)
+        private  void SetControls(bool Val)
         {
             ddlModeofHOldingFI.Enabled = Val;
             txtOrderDate.Enabled = Val;
@@ -464,24 +486,45 @@ namespace WealthERP.OPS
 
            
         }
+        private double SimpleInterest(double principal, double interestRate, double years)
+        {
+            //A = P(1 + rt)
 
+            //    double body = 1 + (interestRate / timesPerYear);
+             double i = Convert.ToDouble(years / 12);
+             double a =principal*(1+interestRate*i); //* System.Math.Pow(body, exponent);
+             return a;
+
+        }
         protected void OnPayAmtTextchanged(object sender, EventArgs e)
         {
             double Maturityvalue;
-            if (ddlSchemeOption .SelectedValue == "Cummulative")
+            if (hdnMaxtenure.Value == "")
+                return;
+            int SchemePeriod = Convert.ToInt32(hdnMaxtenure.Value);
+            if (ddlSchemeOption.SelectedValue == "NonCummulative")
             {
-               
-                
-                if (hdnFrequency.Value == "0")
-                    return;
 
-                int SchemePeriod = Convert.ToInt32( hdnMaxtenure.Value);
+
+                if (hdnFrequency.Value == "0" | hdnFrequency.Value == "")
+                {
+                    txtPayAmt.Text = "";
+                    txtMatAmt.Text = "";
+                    Label11.Visible = false;
+                    return;
+                }
+                else
+                {
+                    Label11.Visible = true;
+                }
+               
                 if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
                 {
                       Maturityvalue = CompoundInterest(Convert.ToDouble(txtPayAmt.Text), Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100, Convert.ToInt32(hdnFrequency.Value), SchemePeriod);
                       Maturityvalue = Math.Round(Maturityvalue, 3);
                     //Convert.ToDouble(Math.Round (SchemePeriod / 12,5))
                     txtMatAmt.Text = Maturityvalue.ToString(); //
+                    Label11.Text =ddlFrequency.SelectedValue +"-Earned Interest" +(Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
                 }
                 else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false & Label18.Visible == false)
                 {
@@ -489,23 +532,37 @@ namespace WealthERP.OPS
                       Maturityvalue = Math.Round(Maturityvalue, 3);
 
                     txtMatAmt.Text = Maturityvalue.ToString();
+                    Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtRenAmt.Text) - Maturityvalue).ToString();
+
                     // Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
                 }
             }
-            if (ddlSchemeOption.SelectedValue == "NonCummulative")
+            if (ddlSchemeOption.SelectedValue == "Cummulative")
             {
+                double i = Convert.ToDouble(SchemePeriod / 12);
                 if (!string.IsNullOrEmpty(txtPayAmt.Text) & txtPayAmt.Visible == true & Label18.Visible == true)
                 {
-                    txtMatAmt.Text = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+                  //  Maturityvalue = Convert.ToString(Convert.ToDouble(txtPayAmt.Text) + (Convert.ToDouble(txtPayAmt.Text) * (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100) * (i)));
+                   Maturityvalue= SimpleInterest(Convert.ToDouble(txtPayAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
+
+                    Maturityvalue = Math.Round(Maturityvalue, 3);
+                    txtMatAmt.Text = Maturityvalue.ToString();
+                    Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtPayAmt.Text) - Maturityvalue).ToString();
 
                 }
                 else if (!string.IsNullOrEmpty(txtRenAmt.Text) & txtPayAmt.Visible == false  & Label18.Visible == false)
                 {
-                  txtRenAmt.Text=  Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
+                    Maturityvalue = SimpleInterest(Convert.ToDouble(txtRenAmt.Text), (Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100), SchemePeriod);
+
+                    Maturityvalue = Math.Round(Maturityvalue, 3);
+                    txtMatAmt.Text = Maturityvalue.ToString();
+                    Label11.Text = ddlFrequency.SelectedValue + "-Earned Interest" + (Convert.ToDouble(txtRenAmt.Text) - Maturityvalue).ToString();
+
+                 // txtRenAmt.Text=  Convert.ToString(Convert.ToDouble(txtRenAmt.Text) + (Convert.ToDouble(txtRenAmt.Text) * Convert.ToDouble(hdnDefaulteInteresRate.Value) / 100));
 
                 }
             }
-             
+            
 
         }
         private int SchemePlan()
@@ -1299,6 +1356,7 @@ namespace WealthERP.OPS
                     hdnDefaulteInteresRate.Value  = dr["PFISD_defaultInterestRate"].ToString();
                   CouponType = dr["PFISD_CouponType"].ToString();
                   txtSeries.Text = "Tenure-" + Tenure + "/" + "InterestRate-" + hdnDefaulteInteresRate.Value + "/" + "InterestType-" + CouponType;
+                  Label10.Text = txtSeries.Text;
                 }
                                
                
@@ -1348,18 +1406,19 @@ namespace WealthERP.OPS
          
         protected void ddlSchemeOption_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+            ddlFrequency.SelectedIndex = 3;
            
          if (ddlSchemeOption.SelectedValue == "NonCummulative")
             {
-                ddlFrequency.Enabled = false;
-                ddlFrequency.SelectedIndex = 3;
+                ddlFrequency.Enabled = true ;
 
             }
             else
             {
-
+                ddlFrequency.Enabled = false;
+                
             }
+         OnPayAmtTextchanged(this, null);
         }
        
         protected void ddlFrequency_SelectedIndexChanged(object sender, EventArgs e)
@@ -1375,7 +1434,7 @@ namespace WealthERP.OPS
             {
                 Val = 4;
             }
-             else if (ddlFrequency.SelectedValue == "yearly")
+             else if (ddlFrequency.SelectedValue == "Yearly")
             {
                   Val = 1;
             }
@@ -1417,13 +1476,17 @@ namespace WealthERP.OPS
         {
             if (ddlCategory.SelectedIndex != 0)
                 FIIssuer(advisorVo.advisorId );
-            if (ddlCategory.SelectedValue == "")
+            if (ddlCategory.SelectedValue == "FICG")
             {
-
+                trSchemeOpFreq.Visible = false;
+                trDepPaypriv.Visible = false;
+                Label8.Text = "Capital Amount";
             }
             else
             {
-
+                trSchemeOpFreq.Visible = true;
+                trDepPaypriv.Visible = true;
+                Label8.Text = "FD Amount";
             }
         }
 
@@ -1439,7 +1502,7 @@ namespace WealthERP.OPS
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlScheme.SelectedIndex != 0)
+            if (ddlScheme.SelectedIndex >= 0)
                 FISeries(Convert.ToInt32(ddlScheme.SelectedValue));
         }
 
