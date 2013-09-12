@@ -123,12 +123,7 @@ namespace WealthERP.CommisionManagement
 
         protected void BindStructureRuleGrid()
         {
-            DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId,
-            ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(),
-            ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
-            //DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId,
-            //ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(),
-            //"all", int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
+            DataSet dsStructureRules = commisionReceivableBo.GetAdviserCommissionStructureRules(advisorVo.advisorId, ddProduct.SelectedValue.ToLower(), ddCategory.SelectedValue.ToLower(), ddSubCategory.SelectedValue.ToLower(), int.Parse(ddIssuer.SelectedValue), ddStatus.SelectedValue.ToLower());
 
             if (dsStructureRules.Tables[0].Rows.Count > 0)
                 ibtExportSummary.Visible = true;

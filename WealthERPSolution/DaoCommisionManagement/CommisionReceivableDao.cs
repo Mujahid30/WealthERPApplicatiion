@@ -447,22 +447,16 @@ namespace DaoCommisionManagement
             DbCommand cmdGetCommissionStructureRules;
             DataSet ds = null;
 
-            string parProd = product.ToLower().Equals("all") ? null : product;
-            string parCat = cat.ToLower().Equals("all") ? null : cat;
-            string parSubcat = subcat.ToLower().Equals("all") ? null : subcat;
-            string parValid = validity.ToLower().Equals("all") ? null : validity;
-            //For issuer, param dealt in SPROC
-
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_GetAdviserCommissionStructureRulesCM");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Product", DbType.String, parProd);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Category", DbType.String, parCat);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@SubCategory", DbType.String, parSubcat);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Issuer", DbType.Int32, issuer);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@Valid", DbType.String, parValid);
+                if (product.ToLower().Equals("all") == false) db.AddInParameter(cmdGetCommissionStructureRules, "@Product", DbType.String, product);
+                if (cat.ToLower().Equals("all") == false) db.AddInParameter(cmdGetCommissionStructureRules, "@Category", DbType.String, cat);
+                if (subcat.ToLower().Equals("all") == false) db.AddInParameter(cmdGetCommissionStructureRules, "@SubCategory", DbType.String, subcat);
+                if (issuer > 0) db.AddInParameter(cmdGetCommissionStructureRules, "@Issuer", DbType.Int32, issuer);
+                if (validity.ToLower().Equals("all") == false) db.AddInParameter(cmdGetCommissionStructureRules, "@Valid", DbType.String, validity);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)
