@@ -496,8 +496,20 @@ namespace BoValuation
                                                     dr3["CMFTB_DVRUnitsAllocation_Share"] = Math.Round(unitBalanceReturnOldSum, 4);
 
                                                     dr3["CMFTB_DVRUnits_Contributed"] = Math.Round(dvrUnitsContribution, 4);
-                                                    dr3["CMFTB_AvgCostBalRETURN"] = Math.Round(avgCostReturn, 4);
-                                                    dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()), 4);
+
+                                                    //added by gobinda
+                                                    if (avgCostReturn.ToString() != "Infinity")
+                                                    {
+                                                        if (avgCostReturn.ToString() != "-Infinity")
+                                                        {
+                                                            dr3["CMFTB_AvgCostBalRETURN"] = Math.Round(avgCostReturn, 4);
+                                                            dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()), 4);
+
+                                                        }
+                                                    }
+
+                                                    //dr3["CMFTB_AvgCostBalRETURN"] = Math.Round(avgCostReturn, 4);
+                                                    //dr3["CMFTB_TotalCostBalRETURN"] = Math.Round(avgCostReturn * double.Parse(dr3["CMFTB_UnitBalanceRETURN"].ToString()), 4);
                                                 }
                                                 else
                                                 {
