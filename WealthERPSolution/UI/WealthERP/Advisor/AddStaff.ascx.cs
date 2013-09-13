@@ -190,11 +190,12 @@ namespace WealthERP.Advisor
             {
                 dtAdviserTeamTitleList = advisorStaffBo.GetAdviserTeamTitleList(teamId, advisorVo.advisorId);
                 ddlTitleList.DataSource = dtAdviserTeamTitleList;
-                ddlTitleList.DataValueField = dtAdviserTeamTitleList.Columns["AH_TitleId"].ToString();
+                ddlTitleList.DataValueField = dtAdviserTeamTitleList.Columns["AH_Id"].ToString();
                 ddlTitleList.DataTextField = dtAdviserTeamTitleList.Columns["AH_HierarchyName"].ToString();
                 ddlTitleList.DataBind();
 
-                hidMinHierarchyTitleId.Value = dtAdviserTeamTitleList.Compute("min(AH_TitleId)", string.Empty).ToString();
+                hidMinHierarchyTitleId.Value = dtAdviserTeamTitleList.Compute("min(AH_Sequence)", string.Empty).ToString();
+                Session["StaffTeamList"] = dtAdviserTeamTitleList;
             }
             else
             {
@@ -394,7 +395,17 @@ namespace WealthERP.Advisor
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            if (ddlTitleList.SelectedValue != hidMinHierarchyTitleId.Value.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
+
+            DataTable dtTeamList = new DataTable();
+            if (Session["StaffTeamList"] != null)
+            {
+                dtTeamList = (DataTable)Session["StaffTeamList"];
+            }
+
+            int rowIndex = dtTeamList.Rows.IndexOf(dtTeamList.Select("AH_Id=" + ddlTitleList.SelectedValue.ToString())[0]);
+            string strD = Convert.ToString(dtTeamList.Rows[rowIndex]["AH_Sequence"]);
+
+            if (strD != hidMinHierarchyTitleId.Value.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Reporting Manager!');", true);
                 return;
@@ -410,6 +421,8 @@ namespace WealthERP.Advisor
                 ControlViewEditMode(true);
                 divMsgSuccess.InnerText = " Staff Added Sucessfully";
                 trSuccessMsg.Visible = true;
+                imgBtnReferesh.Enabled = true;
+                imgAddAgentCode.Enabled = true;
             }
 
         }
