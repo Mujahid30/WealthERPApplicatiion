@@ -2617,7 +2617,7 @@ namespace DaoAdvisorProfiling
             }
             return dsMemberTransactionDeatails;
         }
-        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, int subbrokercode, string commtype)
+        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype, string commtype)
         {
             Database db;
             DbCommand getCommissionReconMisCmd;
@@ -2643,10 +2643,10 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, category);
                 else
                     db.AddInParameter(getCommissionReconMisCmd, "@Category", DbType.String, DBNull.Value);
-                if (subbrokercode != 0)
-                    db.AddInParameter(getCommissionReconMisCmd, "@subbrokercode", DbType.Int32, subbrokercode);
+                if (!string.IsNullOrEmpty(recontype))
+                    db.AddInParameter(getCommissionReconMisCmd, "@recontype", DbType.String, recontype);
                 else
-                    db.AddInParameter(getCommissionReconMisCmd, "@subbrokercode", DbType.Int32, 0);
+                    db.AddInParameter(getCommissionReconMisCmd, "@recontype", DbType.Int32, DBNull.Value);
 
                 if (!string.IsNullOrEmpty(commtype))
                     db.AddInParameter(getCommissionReconMisCmd, "@commissiontype", DbType.String, commtype);
@@ -2661,6 +2661,98 @@ namespace DaoAdvisorProfiling
             }
 
             return dsGetCommissionReconMis;
+        }
+        public bool MarkReconStatus(int transId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdMarkReconStatus;
+            bool bResult = false;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdMarkReconStatus = db.GetStoredProcCommand("SPROC_MarkReconStatus");
+                db.AddInParameter(cmdMarkReconStatus, "@transId", DbType.Int32, transId);
+                db.AddOutParameter(cmdMarkReconStatus, "@count", DbType.Int32, 10);
+
+                ds = db.ExecuteDataSet(cmdMarkReconStatus);
+                //count = int.Parse(db.ExecuteScalar(cmdCodeduplicateCheck).ToString());
+                Object objCount = db.GetParameterValue(cmdMarkReconStatus, "@count");
+                if (objCount != DBNull.Value)
+                    count = int.Parse(db.GetParameterValue(cmdMarkReconStatus, "@count").ToString());
+                else
+                    count = 0;
+                if (count > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                objects[0] = transId;
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+        public bool SaveReceivableReconChanges(int transId,double adjust, double expectedamount)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdMarkReconStatus;
+            bool bResult = false;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdMarkReconStatus = db.GetStoredProcCommand("SaveReceivableReconChanges");
+                db.AddInParameter(cmdMarkReconStatus, "@transId", DbType.Int32, transId);
+                db.AddInParameter(cmdMarkReconStatus, "@adjust", DbType.Double, adjust);
+                db.AddInParameter(cmdMarkReconStatus, "@expectedamount", DbType.Double, expectedamount);
+                db.AddOutParameter(cmdMarkReconStatus, "@count", DbType.Int32, 10);
+
+                ds = db.ExecuteDataSet(cmdMarkReconStatus);
+                //count = int.Parse(db.ExecuteScalar(cmdCodeduplicateCheck).ToString());
+                Object objCount = db.GetParameterValue(cmdMarkReconStatus, "@count");
+                if (objCount != DBNull.Value)
+                    count = int.Parse(db.GetParameterValue(cmdMarkReconStatus, "@count").ToString());
+                else
+                    count = 0;
+                if (count > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                objects[0] = transId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
         }
     }
 }

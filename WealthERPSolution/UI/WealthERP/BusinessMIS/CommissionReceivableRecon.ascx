@@ -1,9 +1,35 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommissionReconMIS.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommissionReceivableRecon.ascx.cs"
     Inherits="WealthERP.BusinessMIS.CommissionReceivableRecon" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <telerik:RadStyleSheetManager ID="RadStyleSheetManager1" runat="server" />
 <telerik:RadScriptManager ID="scptMgr" runat="server">
 </telerik:RadScriptManager>
+
+<script language="javascript" type="text/javascript">
+    function checkAllBoxes() {
+
+        //get total number of rows in the gridview and do whatever
+        //you want with it..just grabbing it just cause
+        var gvControl = document.getElementById('<%= gvCommissionReceiveRecon.ClientID %>');
+
+        //this is the checkbox in the item template...this has to be the same name as the ID of it
+        var gvChkBoxControl = "chkId";
+
+        //this is the checkbox in the header template
+        var mainChkBox = document.getElementById("chkIdAll");
+
+        //get an array of input types in the gridview
+        var inputTypes = gvControl.getElementsByTagName("input");
+
+        for (var i = 0; i < inputTypes.length; i++) {
+            //if the input type is a checkbox and the id of it is what we set above
+            //then check or uncheck according to the main checkbox in the header template
+            if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
+                inputTypes[i].checked = mainChkBox.checked;
+        }
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -15,6 +41,24 @@
                         </td>
                     </tr>
                 </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReconComplete" runat="server" class="success-msg" align="center" visible="false">
+                Recon Status Marked closed
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <div id="msgReconClosed" runat="server" class="failure-msg" align="center" visible="false">
+                Recon staus Closed,So can't save changes
             </div>
         </td>
     </tr>
@@ -52,7 +96,7 @@
         </td>
     </tr>
     <tr id="trSelectType" runat="server">
-        <td align="left" class="leftField">
+        <%--        <td align="left" class="leftField">
             <asp:Label ID="lblSelectType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
         </td>
         <td align="right">
@@ -73,7 +117,7 @@
         <td align="right">
             <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
-        </td>
+        </td>--%>
         <td align="left" class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select Commission Type:"></asp:Label>
         </td>
@@ -88,12 +132,20 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an COmmission type"
                 Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td>
+        <td align="left" class="leftField">
+            <asp:Label ID="lblRecon" runat="server" CssClass="FieldName" Text="Recon Status:"></asp:Label>
+        </td>
+        <td align="right">
+            <asp:DropDownList ID="ddlReconStatus" runat="server" CssClass="cmbField" AutoPostBack="true">
+                <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
+                <asp:ListItem Text="Closed" Value="Closed"></asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td colspan="3">
         </td>
     </tr>
     <tr>
         <td id="tdFromDate" runat="server" align="left">
-            <%--            <td align="Left">--%>
             <asp:Label ID="Label10" Text="From Date:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td align="right">
@@ -142,16 +194,30 @@
 <div style="width: 100%; overflow: scroll;">
     <telerik:RadGrid ID="gvCommissionReceiveRecon" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-        Skin="Telerik" EnableEmbeddedSkins="false" Width="150%" AllowFilteringByColumn="true"
-        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-        EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvCommissionReceiveRecon_OnNeedDataSource">
+        Skin="Telerik" EnableViewState="true" EnableEmbeddedSkins="false" Width="150%"
+        AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
+        EnableHeaderContextMenu="true" OnItemDataBound="gvWERPTrans_ItemDataBound" EnableHeaderContextFilterMenu="true"
+        OnNeedDataSource="gvCommissionReceiveRecon_OnNeedDataSource">
         <%--<exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
                     filename="Company/Sector" excel-format="ExcelML">--%>
         <%-- </exportsettings>--%>
         <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
             CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-            GroupLoadMode="Client" ShowGroupFooter="true">
+            GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="CMFT_MFTransId">
             <Columns>
+                <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
+                    <HeaderTemplate>
+                        <input id="chkIdAll" name="chkIdAll" type="checkbox" onclick="checkAllBoxes()" />
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <asp:CheckBox ID="chkId" runat="server" />
+                        <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CMFT_MFTransId").ToString()%>' />
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:Button ID="btnSave" CssClass="FieldName" OnClick="btnSave_Click" runat="server"
+                            Text="Update Expected Amt" />
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="SchemePlan" DataField="schemeplanname"
                     UniqueName="schemeplanname" SortExpression="schemeplanname" AutoPostBackOnFilter="true"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
@@ -168,12 +234,6 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Amount" DataField="AMOUNT"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="AMOUNT" SortExpression="AMOUNT"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Transaction Type"
                     DataField="transactiontype" HeaderStyle-HorizontalAlign="Right" UniqueName="transactiontype"
                     SortExpression="transactiontype" AutoPostBackOnFilter="true" AllowFiltering="false"
@@ -186,82 +246,56 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Transaction Type"
-                    DataField="TRANSACTIONTYPE" HeaderStyle-HorizontalAlign="Right" UniqueName="TRANSACTIONTYPE"
-                    SortExpression="TRANSACTIONTYPE" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Current Value" DataField="currentvalue"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="currentvalue" SortExpression="currentvalue"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Amount Received"
+                    DataField="receivedamount" HeaderStyle-HorizontalAlign="Right" UniqueName="receivedamount"
+                    SortExpression="receivedamount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Transaction Date"
-                    DataField="TransactionDate" HeaderStyle-HorizontalAlign="Right" UniqueName="TransactionDate"
-                    SortExpression="UPFRONT" AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false"
-                    CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="300px" HeaderText="Scheme" DataField="SCHEMEPLANNAME"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="SCHEMEPLANNAME" SortExpression="SCHEMEPLANNAME"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Folio Number" DataField="FOLIONUM"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="FOLIONUM" SortExpression="FOLIONUM"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Sub-Brokercode" DataField="subbroker"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="subbroker" SortExpression="subbroker"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Brokerage Value(%)"
-                    DataField="BROKERAGEVALUE" HeaderStyle-HorizontalAlign="Right" UniqueName="BROKERAGEVALUE"
-                    SortExpression="BROKERAGEVALUE" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Amount Expected"
+                    DataField="expectedamount" HeaderStyle-HorizontalAlign="Right" UniqueName="expectedamount"
+                    SortExpression="expectedamount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="ExpectedAmt" DataField="UPFRONT"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="UPFRONT" SortExpression="UPFRONT"
+                <telerik:GridTemplateColumn HeaderStyle-Width="160px" HeaderText="Commission Adjustment Amount"
+                    DataField="CMFT_ReceivedCommissionAdjustment" SortExpression="CMFT_ReceivedCommissionAdjustment"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false">
+                    <ItemTemplate>
+                        <asp:TextBox ID="txtAdjustAmount" CssClass="txtField" runat="server" Text='<%# Eval("adjust").ToString()%>'></asp:TextBox>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox ID="txtAdjustAmountMultiple" CssClass="txtField" runat="server" />
+                    </FooterTemplate>
+                </telerik:GridTemplateColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Amount Difference"
+                    DataField="diff" HeaderStyle-HorizontalAlign="Right" UniqueName="diff" SortExpression="diff"
                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Average Aum" DataField="AverageAum"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="AverageAum" SortExpression="AverageAum"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Total Days" DataField="TotalDays"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="TotalDays" SortExpression="TotalDays"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Aum Per Day" DataField="AumPerDay"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="AumPerDay" SortExpression="AumPerDay"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Trail Fee" DataField="TrailFee"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="TrailFee" SortExpression="TrailFee"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Trail Per Day" DataField="TrailPerDay"
-                    HeaderStyle-HorizontalAlign="Right" UniqueName="TrailPerDay" SortExpression="TrailPerDay"
-                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Trail For Period"
-                    DataField="TrailForPeriod" HeaderStyle-HorizontalAlign="Right" UniqueName="TrailForPeriod"
-                    SortExpression="TrailForPeriod" AutoPostBackOnFilter="true" AllowFiltering="false"
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Commission Updated Expected Amount"
+                    DataField="UpdatedExpectedAmount" HeaderStyle-HorizontalAlign="Right" UniqueName="UpdatedExpectedAmount"
+                    SortExpression="UpdatedExpectedAmount" AutoPostBackOnFilter="true" AllowFiltering="false"
                     ShowFilterIcon="false" CurrentFilterFunction="Contains" FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Recon Status" DataField="ReconStatus"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="ReconStatus" SortExpression="ReconStatus"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="CalculatedDate" DataField="calculatedDate"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="calculatedDate" SortExpression="calculatedDate"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
@@ -275,5 +309,10 @@
     <asp:HiddenField ID="hdnCategory" runat="server" Visible="false" />
     <asp:HiddenField ID="hdnFromDate" runat="server" />
     <asp:HiddenField ID="hdnToDate" runat="server" />
-    <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
+    <asp:HiddenField ID="hdnrecon" runat="server" />
+</div>
+<div runat="server" id="divBtnActionSection" visible="false">
+    <asp:Button ID="btnUpload" OnClick="btnUpload_click" runat="server" Text="Mark Recon Status"
+        CssClass="PCGLongButton" />
+    <asp:Button ID="btngo" runat="server" CssClass="PCGLongButton" Text="Submit" OnClick="btnSubmit_click" />
 </div>

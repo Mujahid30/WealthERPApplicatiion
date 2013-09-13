@@ -43,6 +43,7 @@ namespace WealthERP.BusinessMIS
                 gvCommissionReceiveRecon.Visible = false;
                 txtFrom.SelectedDate = DateTime.Parse(day.ToString() + '/' + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
                 txtTo.SelectedDate = DateTime.Now;
+                divBtnActionSection.Visible = true;
             }
         }
         private void BindNAVCategory()
@@ -88,11 +89,17 @@ namespace WealthERP.BusinessMIS
                 hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
             if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
                 hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
-            if (string.IsNullOrEmpty(ddlSelectType.SelectedItem.Value.ToString()) != true)
-                hdnSBbrokercode.Value = ddlSelectType.SelectedItem.Value.ToString();
+            if (string.IsNullOrEmpty(ddlReconStatus.SelectedItem.Value.ToString()) != true)
+                hdnrecon.Value = ddlReconStatus.SelectedItem.Value.ToString();
 
             //}
 
+
+        }
+        protected void gvWERPTrans_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            { }
 
         }
         protected void GdBind_Click(Object sender, EventArgs e)
@@ -101,7 +108,7 @@ namespace WealthERP.BusinessMIS
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
 
-            ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, int.Parse(hdnSBbrokercode.Value),ddlCommType.SelectedValue);
+            ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue);
             if (ds.Tables[0] != null)
             {
                 gvCommissionReceiveRecon.Visible = true;
@@ -136,68 +143,130 @@ namespace WealthERP.BusinessMIS
             ddlIssuer.Items.Insert(0, new ListItem("Select AMC", "Select AMC Code"));
 
         }
-        protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
+        protected void btnUpload_click(object sender, EventArgs e)
         {
-            if (ddlUserType.SelectedIndex != 0)
+            int transid;
+            foreach (GridDataItem dr in gvCommissionReceiveRecon.Items)
             {
-                if (ddlUserType.SelectedValue == "BM")
+                if (dr["ReconStatus"].Text == "closed")
                 {
-                    BindBranchSubBrokerCode();
+                    msgReconClosed.Visible = true;
                 }
-                else if (ddlUserType.SelectedValue == "RM")
+                else
                 {
-                    BindSalesSubBrokerCode();
-                }
-                else if (ddlUserType.SelectedValue == "Associates")
-                {
-                    BindAssociatesSubBrokerCode();
+                    CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                    if (checkBox.Checked)
+                    {
+                        int selectedRow = 0;
+                        GridDataItem gdi;
+                        gdi = (GridDataItem)checkBox.NamingContainer;
+                        selectedRow = gdi.ItemIndex + 1;
+                        transid = int.Parse((gvCommissionReceiveRecon.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_MFTransId"].ToString()));
+                        bool result = adviserMFMIS.MarkReconStatus(transid);
+                        msgReconComplete.Visible = true;
+                        dr["ReconStatus"].Text = "closed";
+                    }
                 }
             }
         }
-        private void BindAssociatesSubBrokerCode()
+        protected void btnSubmit_click(object sender, EventArgs e)
         {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetAssociatesSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
+            bool blResult = false;
+            int transid;
+            double expectedamount;
+            double adjustedValue;
+            string adjustValue = string.Empty;
+            foreach (GridDataItem dr in gvCommissionReceiveRecon.Items)
             {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
+                if (dr["ReconStatus"].Text == "closed")
+                {
+                    msgReconClosed.Visible = true;
+                }
+                else
+                {
+                    CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                    if (checkBox.Checked)
+                    {
+                        int selectedRow = 0;
+                        GridDataItem gdi;
+                        gdi = (GridDataItem)checkBox.NamingContainer;
+                        selectedRow = gdi.ItemIndex + 1;
+                        transid = int.Parse((gvCommissionReceiveRecon.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_MFTransId"].ToString()));
+                        expectedamount = double.Parse(dr["expectedamount"].Text);
+                        GridFooterItem footerRow = (GridFooterItem)gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        if (((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text.Trim() == "")
+                        {
+                            adjustValue = ((TextBox)dr.FindControl("txtAdjustAmount")).Text;
+
+                        }
+                        else
+                        {
+                            adjustValue = ((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text;
+
+                        }
+                        blResult = adviserMFMIS.SaveReceivableReconChanges(transid, double.Parse(adjustValue), expectedamount);
+
+                    }
+                }
+
+
             }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
         }
 
-        private void BindSalesSubBrokerCode()
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetSalesSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
+            string adjustValue = string.Empty;
+
+            string UpdatedExpectedAmt = string.Empty;
+
+
+            GridFooterItem footerRow = (GridFooterItem)gvCommissionReceiveRecon.MasterTableView.GetItems(GridItemType.Footer)[0];
+            foreach (GridDataItem dr in gvCommissionReceiveRecon.Items)
             {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
+                if (dr["ReconStatus"].Text == "closed")
+                {
+                    msgReconClosed.Visible = true;
+                }
+                else
+                {
+                    if (((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text.Trim() == "")
+                    {
+                        adjustValue = ((TextBox)dr.FindControl("txtAdjustAmount")).Text;
+
+                    }
+                    else
+                    {
+                        adjustValue = ((TextBox)footerRow.FindControl("txtAdjustAmountMultiple")).Text;
+
+                    }
+                    CheckBox checkBox = (CheckBox)dr.FindControl("chkId");
+                    if (checkBox.Checked)
+                    {
+                        if (!(string.IsNullOrEmpty(dr["expectedamount"].Text)) & !string.IsNullOrEmpty(adjustValue))
+                        {
+                            UpdatedExpectedAmt = (double.Parse(dr["expectedamount"].Text) + double.Parse(adjustValue)).ToString();
+                            dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
+                        }
+                        else if (!(string.IsNullOrEmpty(dr["expectedamount"].Text)))
+                        {
+                            UpdatedExpectedAmt = (double.Parse(dr["expectedamount"].Text)).ToString();
+                            dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
+
+                        }
+                        else if (!string.IsNullOrEmpty(adjustValue))
+                        {
+                            UpdatedExpectedAmt = (double.Parse(adjustValue)).ToString();
+                            dr["UpdatedExpectedAmount"].Text = UpdatedExpectedAmt;
+                        }
+                    }
+
+
+                }
+
             }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
+
         }
 
-        private void BindBranchSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetBranchSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-        }
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
@@ -239,12 +308,31 @@ namespace WealthERP.BusinessMIS
             }
 
         }
+
         protected void gvCommissionReceiveRecon_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
             DataTable dt = new DataTable();
+            string rcbType = string.Empty;
             dt = (DataTable)Cache["gvCommissionReceiveRecon" + userVo.UserId];
-            gvCommissionReceiveRecon.DataSource = dt;
-            gvCommissionReceiveRecon.Visible = true;
+            if (ViewState["CommissionReceiveRecon"] != null)
+                rcbType = ViewState["CommissionReceiveRecon"].ToString();
+            if (!string.IsNullOrEmpty(rcbType))
+            {
+                DataView dvStaffList = new DataView(dt, "CommissionReceiveRecon = '" + rcbType + "'", "schemeplanname,transactiondate,amount,transactiontype,Age,currentvalue,expectedamount,calculatedDate,receivedamount,diff,ACSR_CommissionStructureRuleId,CMFT_MFTransId,CMFT_ReceivableExpectedAmount,CMFT_ReceivedCommissionAdjustment", DataViewRowState.CurrentRows);
+                // DataView dvStaffList = dtMIS.DefaultView;
+                gvCommissionReceiveRecon.DataSource = dvStaffList.ToTable();
+                gvCommissionReceiveRecon.Visible = true;
+
+            }
+            else
+            {
+                gvCommissionReceiveRecon.DataSource = dt;
+                gvCommissionReceiveRecon.Visible = true;
+
+            }
+
+
+
         }
     }
 }

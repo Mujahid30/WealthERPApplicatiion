@@ -1722,7 +1722,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetMemberDetailFromMFOrder;
         }
-        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, int subbrokercode,string commtype)
+        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype,string commtype)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
@@ -1731,7 +1731,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon(AdviserId, schemeid, FromDate, Todate, category, subbrokercode, commtype);
+                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon(AdviserId, schemeid, FromDate, Todate, category, recontype, commtype);
 
             }
             catch (Exception Ex)
@@ -1750,6 +1750,34 @@ namespace BoAdvisorProfiling
                 throw exBase;
             }
             return dsGetCommissionReconMis;
+        }
+        public bool MarkReconStatus(int transid)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            bool bResult = false;
+            try
+            {
+                bResult = MISDao.MarkReconStatus(transid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool SaveReceivableReconChanges(int transid, double adjust, double expectedamount)
+        {
+            AdvisorMISDao MISDao = new AdvisorMISDao();
+            bool bResult = false;
+            try
+            {
+                bResult = MISDao.SaveReceivableReconChanges(transid, adjust, expectedamount);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
         }
     }
 }
