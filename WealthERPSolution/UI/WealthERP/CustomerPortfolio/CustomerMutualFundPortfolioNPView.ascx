@@ -24,7 +24,7 @@
     <ContentTemplate>
         <table width="100%">
             <tr>
-                <td colspan="3" style="width: 100%;">
+                <td style="width: 100%;">
                     <div class="divPageHeading">
                         <table cellspacing="0" cellpadding="0" width="100%">
                             <tr>
@@ -71,11 +71,11 @@
                     <asp:DropDownList ID="ddlPortfolio" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPortfolio_SelectedIndexChanged">
                     </asp:DropDownList>
                 </td>
-                <td class="leftField" style="width: 10%">
+             <%-- <td class="leftField" style="width: 10%">
                     <asp:Label ID="lblDate" runat="server" Text="As on Date:" CssClass="FieldName"></asp:Label>
-                </td>
+                </td>--%>
                 <td class="rightField" style="width: 10%">
-                    <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName"> </asp:Label>
+                    <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
                 </td>
                 <td class="rightField" style="width: 15%">
                     <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnGo_Click" />
@@ -277,6 +277,10 @@
                                                                 <telerik:GridBoundColumn SortExpression="Weighted NAV" HeaderStyle-Width="77px" UniqueName="Weighted_NAV"
                                                                     HeaderText="Weighted NAV" DataField="Weighted NAV" AllowFiltering="false" DataFormatString="{0:N4}"
                                                                     FooterStyle-HorizontalAlign="Right">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
+                                                                  <telerik:GridBoundColumn UniqueName="CMFNP_ValuationDate" HeaderText="Valuation As On" DataField="CMFNP_ValuationDate"
+                                                                    AllowFiltering="false"  FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                                 <%-- <telerik:GridBoundColumn HeaderStyle-Width="77px" SortExpression="weightage returns" UniqueName="Annualized_Return" HeaderText="Annualized Return (%)"
@@ -497,6 +501,10 @@
                                                                     AllowFiltering="false">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                  <telerik:GridBoundColumn UniqueName="CMFNP_ValuationDate" HeaderText="Valuation As On" DataField="CMFNP_ValuationDate"
+                                                                    AllowFiltering="false"  FooterStyle-HorizontalAlign="Right">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
                                                             </Columns>
                                                         </MasterTableView>
                                                         <HeaderStyle Width="150px" />
@@ -660,6 +668,10 @@
                                                                 </telerik:GridBoundColumn>
                                                                 <telerik:GridBoundColumn HeaderStyle-Width="63px" UniqueName="XIRR" HeaderText="XIRR (%)"
                                                                     DataField="XIRR" AllowFiltering="false" DataFormatString="{0:N2}">
+                                                                    <ItemStyle HorizontalAlign="Right" />
+                                                                </telerik:GridBoundColumn>
+                                                                  <telerik:GridBoundColumn UniqueName="CMFNP_ValuationDate" HeaderText="Valuation As On" DataField="CMFNP_ValuationDate"
+                                                                    AllowFiltering="false"  FooterStyle-HorizontalAlign="Right">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
                                                             </Columns>
@@ -955,7 +967,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="7">
+                <td>
                     <asp:Panel ID="pnlTax" runat="server" Style="padding: 5px 0 0 2px;">
                         <telerik:RadTabStrip ID="RadTabStrip2" runat="server" EnableTheming="True" Skin="Telerik"
                             EnableEmbeddedSkins="False" Width="100%" MultiPageID="TaxTabs" SelectedIndex="0"
@@ -1104,6 +1116,10 @@
                                                                     AllowFiltering="false" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                <telerik:GridBoundColumn UniqueName="CMFNP_ValuationDate" HeaderText="Valuation As On" DataField="CMFNP_ValuationDate"
+                                                                    AllowFiltering="false"  FooterStyle-HorizontalAlign="Right">
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </telerik:GridBoundColumn>
                                                             </Columns>
                                                         </MasterTableView>
                                                         <ClientSettings>
@@ -1237,6 +1253,10 @@
                                                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" Aggregate="Sum">
                                                                     <ItemStyle HorizontalAlign="Right" />
                                                                 </telerik:GridBoundColumn>
+                                                                  <telerik:GridBoundColumn UniqueName="CMFNP_ValuationDate" HeaderText="Valuation As On" DataField="CMFNP_ValuationDate"
+                                                                    AllowFiltering="false"  FooterStyle-HorizontalAlign="Right">
+                                                                    <ItemStyle HorizontalAlign="Center" />
+                                                                </telerik:GridBoundColumn>
                                                             </Columns>
                                                         </MasterTableView>
                                                         <ClientSettings>
@@ -1257,7 +1277,7 @@
         </table>
         <table>
             <tr id="trNote" runat="server"  visible="false">
-                <td colspan="2">
+                <td>
                     <div id="Div3" class="Note">
                         <p>
                             <span style="font-weight: bold">Note:</span><br />                          

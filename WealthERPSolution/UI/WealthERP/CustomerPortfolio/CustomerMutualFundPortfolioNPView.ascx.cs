@@ -105,19 +105,19 @@ namespace WealthERP.CustomerPortfolio
             rgTaxRealized_Init(sender, e);
         }
 
-        private void GetMFPortfolioList(string strValuationDate)
+        private void GetMFPortfolioList()
         {
             intPortfolioListCount = 0;
 
             try
             {
-                //genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
-                DateTime dtValDate = DateTime.Parse(strValuationDate);
-                if (!dtValDate.Equals(DateTime.MinValue))
-                {
-                    mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId, strValuationDate);
+                genDict = (Dictionary<string, DateTime>)Session[SessionContents.ValuationDate];
+               // DateTime dtValDate = DateTime.Parse(strValuationDate);
+                //if (!dtValDate.Equals(DateTime.MinValue))
+                //{
+                    mfPortfolioNetPositionList = customerPortfolioBo.GetCustomerMFNetPositions(customerVo.CustomerId, portfolioId);
                     Session["mfPortfolioList"] = mfPortfolioNetPositionList;
-                }
+                //}
                 if (mfPortfolioNetPositionList != null)
                 {
                     intPortfolioListCount = mfPortfolioNetPositionList.Count;
@@ -634,6 +634,8 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drMFPortfolioRealized[16] = mfVo.FolioStartDate.ToString("D");
                 drMFPortfolioRealized[17] = mfVo.InvestmentStartDate.ToShortDateString();
+            drMFPortfolioRealized["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
+
 
         }
 
@@ -740,6 +742,8 @@ namespace WealthERP.CustomerPortfolio
                     drMFPortfolioAll[25] = "N/A";
                 else
                     drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
+                drMFPortfolioAll["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
+
 
             }
             else
@@ -777,40 +781,8 @@ namespace WealthERP.CustomerPortfolio
                     drMFPortfolioAll[25] = "0";
                 else
                     drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
+                drMFPortfolioAll["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
 
-                //drMFPortfolioAll[5] = "N/A";
-                //drMFPortfolioAll[6] = "N/A";
-                //drMFPortfolioAll[7] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-                //drMFPortfolioAll[8] = "N/A";
-                //drMFPortfolioAll[9] = "N/A";
-                //drMFPortfolioAll[10] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-                //drMFPortfolioAll[11] = "N/A";
-                //drMFPortfolioAll[12] = "N/A";
-                //drMFPortfolioAll[13] = "N/A";
-                //drMFPortfolioAll[14] = "N/A";
-                //drMFPortfolioAll[15] = "N/A";
-                //drMFPortfolioAll[16] = "N/A";
-                //drMFPortfolioAll[17] = "N/A";
-                //drMFPortfolioAll[18] = "N/A";
-                //drMFPortfolioAll[19] = "N/A";
-                //drMFPortfolioAll[20] = mfVo.AMCCode;
-                //drMFPortfolioAll[21] = mfVo.SchemePlanCode;
-                //drMFPortfolioAll[22] = mfVo.AssetInstrumentSubCategoryName;
-                //if (mfVo.FolioStartDate == DateTime.MinValue)
-                //    drMFPortfolioAll[23] = "N/A";
-                //else
-                //    //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
-                //    drMFPortfolioAll[23] = mfVo.FolioStartDate.ToShortDateString();
-
-                //if (mfVo.InvestmentStartDate == DateTime.MinValue)
-                //    drMFPortfolioAll[24] = "N/A";
-                //else
-                //    //drMFPortfolioAll[23] = mfVo.FolioStartDate.ToString("D");
-                //    drMFPortfolioAll[24] = mfVo.InvestmentStartDate.ToShortDateString();
-                //if (mfVo.NavDate == DateTime.MinValue)
-                //    drMFPortfolioAll[25] = "N/A";
-                //else
-                //    drMFPortfolioAll[25] = mfVo.NavDate.ToShortDateString();
             }
         }
 
@@ -913,6 +885,8 @@ namespace WealthERP.CustomerPortfolio
                     drMFPortfolioHoldings[24] = mfVo.WeightageDays;
                 else
                     drMFPortfolioHoldings[24] = "0";
+                drMFPortfolioHoldings["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
+                
             }
             else
             {
@@ -987,6 +961,12 @@ namespace WealthERP.CustomerPortfolio
                 //drMFPortfolioHoldings[22] = "N/A";
                 //drMFPortfolioHoldings[23] = "N/A";
                 //drMFPortfolioHoldings[24] = "N/A";
+                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "N/A";
+                drMFPortfolioHoldings[22] = "N/A";
+                drMFPortfolioHoldings[23] = "N/A";
+                drMFPortfolioHoldings[24] = "N/A";
+                drMFPortfolioHoldings["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
+
             }
         }
 
@@ -1052,6 +1032,7 @@ namespace WealthERP.CustomerPortfolio
                     drTaxHoldings[17] = "N/A";
                 else
                     drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
+                drTaxHoldings["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
 
             }
 
@@ -1081,34 +1062,6 @@ namespace WealthERP.CustomerPortfolio
                     drTaxHoldings[17] = "0";
                 else
                     drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
-
-
-
-
-                //drTaxHoldings[5] = mfVo.NetHoldings.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
-                //drTaxHoldings[6] = "N/A";
-                //drTaxHoldings[7] = mfVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
-                //drTaxHoldings[8] = "N/A";
-                //drTaxHoldings[9] = "N/A";
-                //drTaxHoldings[10] = "N/A";
-                //drTaxHoldings[11] = "N/A";
-                //drTaxHoldings[12] = mfVo.AMCCode;
-                //drTaxHoldings[13] = mfVo.SchemePlanCode;
-                //drTaxHoldings[14] = mfVo.AssetInstrumentSubCategoryName;
-                //if (mfVo.FolioStartDate == DateTime.MinValue)
-                //    drTaxHoldings[15] = "0.00";
-                //else
-                //    //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
-                //    drTaxHoldings[15] = mfVo.FolioStartDate.ToShortDateString();
-                //if (mfVo.InvestmentStartDate == DateTime.MinValue)
-                //    drTaxHoldings[16] = "N/A";
-                //else
-                //    //drTaxHoldings[15] = mfVo.FolioStartDate.ToString("D");
-                //    drTaxHoldings[16] = mfVo.InvestmentStartDate.ToShortDateString();
-                //if (mfVo.NavDate == DateTime.MinValue)
-                //    drTaxHoldings[17] = "N/A";
-                //else
-                //    drTaxHoldings[17] = mfVo.NavDate.ToShortDateString();
             }
         }
 
@@ -1164,6 +1117,7 @@ namespace WealthERP.CustomerPortfolio
             else
                 //drTaxRealized[14] = mfVo.FolioStartDate.ToString("D");
                 drTaxRealized[15] = mfVo.InvestmentStartDate.ToShortDateString();
+            drTaxRealized["CMFNP_ValuationDate"] = mfVo.ValuationDate.ToShortDateString();
 
         }
 
@@ -1225,6 +1179,8 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsHoldings.Columns.Add("weightage returns", typeof(double));
             dtReturnsHoldings.Columns.Add("Weighted NAV", typeof(double));
             dtReturnsHoldings.Columns.Add("Weighted Days");
+            dtReturnsHoldings.Columns.Add("CMFNP_ValuationDate");
+         
         }
 
         private void ReturnsAllDataTableCreation(DataTable dtReturnsAll)
@@ -1255,6 +1211,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsAll.Columns.Add("FolioStartDate");
             dtReturnsAll.Columns.Add("InvestmentStartDate");
             dtReturnsAll.Columns.Add("CMFNP_NAVDate");
+            dtReturnsAll.Columns.Add("CMFNP_ValuationDate");
         }
 
         private void ReturnsRealizedDataTableCreation(DataTable dtReturnsRealized)
@@ -1277,6 +1234,7 @@ namespace WealthERP.CustomerPortfolio
             dtReturnsRealized.Columns.Add("SubCategoryName");
             dtReturnsRealized.Columns.Add("FolioStartDate");
             dtReturnsRealized.Columns.Add("InvestmentStartDate");
+            dtReturnsRealized.Columns.Add("CMFNP_ValuationDate");
         }
 
         private void TaxHoldingsDataTableCreation(DataTable dtTaxHoldings)
@@ -1299,6 +1257,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxHoldings.Columns.Add("FolioStartDate");
             dtTaxHoldings.Columns.Add("InvestmentStartDate");
             dtTaxHoldings.Columns.Add("CMFNP_NAVDate");
+            dtTaxHoldings.Columns.Add("CMFNP_ValuationDate");
         }
 
         private void TaxRealizedDataTableCreation(DataTable dtTaxRealized)
@@ -1319,6 +1278,7 @@ namespace WealthERP.CustomerPortfolio
             dtTaxRealized.Columns.Add("UnitsSold", typeof(double));
             dtTaxRealized.Columns.Add("FolioStartDate");
             dtTaxRealized.Columns.Add("InvestmentStartDate");
+            dtTaxRealized.Columns.Add("CMFNP_ValuationDate");
         }
 
         private void BindPerformaceChart()
@@ -2501,7 +2461,7 @@ namespace WealthERP.CustomerPortfolio
         {
             portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
             CalculatePortfolioXIRR(portfolioId);
-            GetMFPortfolioList(lblPickDate.Text);
+            GetMFPortfolioList();
             SetTaxGridsNull();
             SetReturnsGridsNull();
             if (ddlDisplayType.SelectedIndex == 0)
