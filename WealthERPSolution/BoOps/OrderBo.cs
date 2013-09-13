@@ -571,6 +571,36 @@ namespace BoOps
             return dtOrder;
         }
 
+        public DateTime GetServerTime()
+        {
+            DateTime Dt = DateTime.MinValue;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                Dt = orderDao.GetServerTime( );
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:Get GetServerTime()");
+
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return Dt;
+
+        }
+
         public DataTable GetOrderStatus(string orderStepCode, int orderId)
         {
             DataTable dtOrderStatus = null;

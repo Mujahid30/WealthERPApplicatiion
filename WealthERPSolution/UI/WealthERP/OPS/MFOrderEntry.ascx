@@ -421,17 +421,20 @@
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
+                    <SpecialDays>
+           <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />
+       </SpecialDays>
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+          <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
                 Display="Dynamic" CssClass="cvPCG" ValidationGroup="MFSubmit" ErrorMessage="<br />Application Received date must be less than or equal to Today"
-                Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
+                Operator="LessThanEqual" Type="Date"></asp:CompareValidator>--%>
         </td>
     </tr>
     <%--  <span id="Span7" class="spnRequiredField">*</span>--%>
@@ -453,9 +456,12 @@
         <td class="rightField" style="width: 20%">
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged">
+                AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged" >
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
+                    Skin="Telerik" EnableEmbeddedSkins="false" runat="server"  >
+                    <SpecialDays>
+           <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />
+       </SpecialDays>
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -495,12 +501,13 @@
             </asp:DropDownList>
         </td>
     </tr>
+    
     <tr id="trOrderDate" runat="server">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbLongField" width="400px" AutoPostBack="true"
+            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" width="400px" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
@@ -514,6 +521,31 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4">
+           <%-- <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
+            <asp:TextBox ID="txtSearchScheme" runat="server" Style="width: 500px;" CssClass="txtField"
+                AutoComplete="Off" AutoPostBack="true">
+            </asp:TextBox>
+            <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
+                TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
+            <span id="Span9" class="spnRequiredField">*<br />
+            </span>--%>
+            <%--<asp:RequiredFieldValidator ID="rfvtxtSearchScheme" ControlToValidate="txtSearchScheme"
+                ErrorMessage="<br />Please select a Scheme" Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="MFSubmit">
+            </asp:RequiredFieldValidator>--%>
+            <%--<span style='font-size: 8px; font-weight: normal' class='FieldName'>Enter
+                                        few characters of Scheme Name.</span>--%>
         </td>
     </tr>
     <tr id="trOrderNo" runat="server">
@@ -640,14 +672,15 @@
             <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Cheque" Value="CQ" Selected="True"></asp:ListItem>
+            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" AutoPostBack="true" > 
+                  <asp:ListItem Text="Select" Value="Select"  ></asp:ListItem>
+                <asp:ListItem Text="Cheque" Value="CQ"  ></asp:ListItem>
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
-    <tr id="trPINo" runat="server">
+    <tr id="trPINo" runat="server" Visible ="false">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPaymentNumber" runat="server" Text="Payment Instrument Number: "
                 CssClass="FieldName"></asp:Label>

@@ -926,6 +926,22 @@ namespace WealthERP.Advisor
         }
         protected void gvCustomerList_PreRender(object sender, EventArgs e)
         {
+            if (UserRole == "associates")
+            {
+                foreach (GridColumn column in gvCustomerList.Columns)
+                {
+                    if (column.UniqueName == "CustomerId" | column.UniqueName == "Cust_Comp_Name" | column.UniqueName == "PANNumber" | column.UniqueName == "Action")
+                    {
+                        column.Visible = true;
+
+                    }
+                    else
+                    {
+                        column.Visible = false;
+                    }
+                }
+                gvCustomerList.Rebind();
+            }
             if (!IsPostBack)
             {
                 gvCustomerList.MasterTableView.FilterExpression = "([Cust_Comp_Name] LIKE \'%" + customer.Trim() + "%\') ";
@@ -938,6 +954,7 @@ namespace WealthERP.Advisor
             {
                 RefreshCombos();
             }
+            
 
         }
 

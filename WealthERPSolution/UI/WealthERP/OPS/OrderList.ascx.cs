@@ -17,6 +17,7 @@ using System.Collections.Specialized;
 using VOAssociates;
 using BOAssociates;
 using VoOps;
+using System.Collections;
 
 namespace WealthERP.OPS
 {
@@ -43,13 +44,19 @@ namespace WealthERP.OPS
         string AgentCode;
         string UserTitle;
         string customerType = string.Empty;
+        Hashtable mfParameters ;
+        int btnConunt = 1;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
             associatesVo = (AssociatesVO)Session["associatesVo"];
-
+           
+            //else
+            //{
+            //    Session.Remove("mfParametersHT");
+            //}
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
             {
                 userType = "advisor";
@@ -181,7 +188,57 @@ namespace WealthERP.OPS
                 gvFIOrderList.Visible = false;
 
             }
+            if (Request.QueryString["Mfaction"] != null)
+            {
+                if (Session["mfParametersHT"] != null )
+                {
+                    btnConunt = 2;
+                    SetMfParameters();
+                    btnGo_Click(this, null);
+                    //Session.Remove("mfParametersHT");
+                    Request.QueryString["Mfaction"].Remove(0);
+
+                    return;
+                }
+
+            }
+          
         }
+        private void SetMfParameters()
+        {
+               mfParameters = new Hashtable();
+
+               mfParameters = (Hashtable)Session["mfParametersHT"];
+                ddlBranch.SelectedIndex = Convert.ToInt32(mfParameters["BranchId"]);
+                ddlRM.SelectedIndex = Convert.ToInt32(mfParameters["RMId"]);
+
+                txtFromDate.SelectedDate = Convert.ToDateTime(mfParameters["Fromdate"]);
+                txtToDate.SelectedDate = Convert.ToDateTime(mfParameters["Todate"]);
+                BindOrderStatus();
+                ddlOrderStatus.SelectedIndex = Convert.ToInt32(mfParameters["OrderStatus"]);
+              
+                
+                txtIndividualCustomer.Text = mfParameters["Custname"].ToString();
+                userType = mfParameters["userType"].ToString();
+           
+                hdnCustomerId.Value = mfParameters["CustId"].ToString();
+                if (userType == "associates")
+                {
+                    AgentCode = mfParameters["AgentCode"].ToString();
+                    BindSubBrokerAgentCode(AgentCode);
+                }
+                else
+                {
+                    BindSubBrokerCode(userType);
+                    trZCCS.Visible = false;
+                }
+
+                //ddlBrokerCode.SelectedItem.Value = mfParameters["SubBrokerCodeAdv"].ToString();
+                ddlBrokerCode.SelectedIndex = Convert.ToInt32(mfParameters["SubBrokerCode"]);
+                //hdnAgentCode.Value = mfParameters["AgentCode"].ToString();
+                //hdnAgentId.Value = mfParameters["AgentId"].ToString();
+           
+                    }
         private void BindBranchForBMDropDown()
         {
             try
@@ -229,6 +286,7 @@ namespace WealthERP.OPS
                 ddlOrderStatus.DataTextField = dtOrderStatus.Columns["XS_Status"].ToString();
                 ddlOrderStatus.DataBind();
             }
+            ddlOrderStatus.Items.Insert(0, "All");
         }
         protected void BindSubBrokerCode(string userType)
         {
@@ -351,6 +409,7 @@ namespace WealthERP.OPS
         {
             Cache.Remove("OrderList" + advisorVo.advisorId);
             Cache.Remove("FIOrderList" + advisorVo.advisorId);
+            Session.Remove("mfParametersHT");
           //  SetParameters();
             if (hdnOrderType.Value == "FI")
             {
@@ -409,7 +468,31 @@ namespace WealthERP.OPS
                 //ErrorMessage.InnerText = "No Records Found...!";
                 //pnlOrderList.Visible = false;
             }
+            
         }
+        private void FillHashtable()
+    {
+        mfParameters = new Hashtable();
+        mfParameters.Add("BranchId", ddlBranch.SelectedIndex);
+        mfParameters.Add("RMId", ddlRM.SelectedIndex);
+        mfParameters.Add("Fromdate", txtFromDate.SelectedDate);
+        mfParameters.Add("Todate", txtToDate.SelectedDate);
+        mfParameters.Add("OrderStatus", ddlOrderStatus.SelectedIndex);
+        mfParameters.Add("SubBrokerCode", ddlBrokerCode.SelectedIndex);
+            
+        mfParameters.Add("SubBrokerCodeAdv", ddlBrokerCode.SelectedItem.Value);
+        mfParameters.Add("userType", userType);
+
+        mfParameters.Add("AgentCode", AgentCode);
+        mfParameters.Add("Custname", txtIndividualCustomer.Text);
+
+        mfParameters.Add("CustId", hdnCustomerId.Value);
+        //mfParameters.Add("AgentId", hdnAgentId.Value);
+        Session["mfParametersHT"] = mfParameters;
+ 
+    }
+
+ 
 
         private void SetParameters()
         {
@@ -439,7 +522,8 @@ namespace WealthERP.OPS
             }
             else
             {
-                hdnOrderStatus.Value = "OMIP";
+               // hdnOrderStatus.Value = "OMIP";
+                hdnOrderStatus.Value =string.Empty;
             }
         }
         private void SetParameterSubbroker()
@@ -535,6 +619,7 @@ namespace WealthERP.OPS
                 ErrorMessage.InnerText = "No Records Found...!";
                 pnlOrderList.Visible = false;
             }
+            FillHashtable();
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
@@ -779,6 +864,7 @@ namespace WealthERP.OPS
         {
             try
             {
+                btnConunt = 1;
                 RadComboBox ddlAction = (RadComboBox)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
@@ -828,6 +914,7 @@ namespace WealthERP.OPS
                 {
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
                 }
+                FillHashtable();
             }
             catch (BaseApplicationException Ex)
             {

@@ -117,10 +117,12 @@ namespace WealthERP.OPS
             lblRM.Visible = false;
             lblGetRM.Visible = false;
             cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
+            
             //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
             if (!IsPostBack)
             {
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
+               
 
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
@@ -177,6 +179,7 @@ namespace WealthERP.OPS
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
                 }
+              //  txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = txtSchemeCode.Value;
                 if (Request.QueryString["CustomerId"] != null)
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
@@ -189,7 +192,7 @@ namespace WealthERP.OPS
                     lblgetPan.Text = customerVo.PANNum;
                     BindPortfolioDropdown(customerId);
                 }
-                cvAppRcvDate.ValueToCompare = DateTime.Today.ToShortDateString();
+                //sai cvAppRcvDate.ValueToCompare = DateTime.Today.ToShortDateString();
                 cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
                 BindAMC(0);
                 BindScheme(0);
@@ -232,9 +235,27 @@ namespace WealthERP.OPS
                 }
 
             }
-
-
+         CheckDates();
+            
+           // if (txtReceivedDate.SelectedDate==DateTi)
+           //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
+        }
+        private void CheckDates()
+        {
+            DateTime  dt = orderbo.GetServerTime();
+
+            txtOrderDate.MaxDate = dt;
+            txtReceivedDate.FocusedDate = dt;
+            
+
+        }
+
+        protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
+        {
+            schemePlanCode = int.Parse(txtSchemeCode.Value);
+            txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
+       //     BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue));
         }
 
         private void BindARNNo(int adviserId)
@@ -308,7 +329,7 @@ namespace WealthERP.OPS
                     //ddlRM.SelectedIndex = 0;
                     txtCustomerName.Text = "";
                     ddltransType.SelectedIndex = 0;
-                    txtReceivedDate.SelectedDate = null;
+                  //sai  txtReceivedDate.SelectedDate = null;
                     txtApplicationNumber.Text = "";
                     ddlAMCList.SelectedIndex = 0;
                     ddlCategory.SelectedIndex = 0;
@@ -1365,7 +1386,7 @@ namespace WealthERP.OPS
 
 
             ddltransType.SelectedIndex = 0;
-            txtReceivedDate.SelectedDate = null;
+            //sai  txtReceivedDate.SelectedDate = null;
             txtApplicationNumber.Text = "";
             BindAMC(0);
             ddlAMCList.SelectedIndex = 0;
@@ -1566,6 +1587,7 @@ namespace WealthERP.OPS
                 {
 
                     ShowTransactionType(1);
+                    
                     if (ddltransType.SelectedValue == "BUY")
                     {
                         BindAMC(0);
@@ -1667,6 +1689,14 @@ namespace WealthERP.OPS
             }
             //btnViewInPDFNew.Visible = true;
             //btnViewInDOCNew.Visible = true;
+            if (ddlPaymentMode.SelectedValue == "CQ")
+            {
+                trPINo.Visible = true;
+            }
+            else
+            {
+                trPINo.Visible = false ;
+            }
         }
 
 
@@ -1952,7 +1982,19 @@ namespace WealthERP.OPS
                 ddlSchemeSwitch.Items.Insert(0, new ListItem("Select", "Select"));
             }
         }
-
+        protected void ddlPaymentMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPaymentMode.SelectedValue == "CQ")
+            {
+                trPINo.Visible = true;
+                txtPaymentInstDate.MaxDate = txtOrderDate.MaxDate;
+            }
+            else
+            {
+                trPINo.Visible = false ;
+            }
+        }
+        
         protected void ddlAMCList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAMCList.SelectedIndex != 0)
@@ -2443,13 +2485,17 @@ namespace WealthERP.OPS
 
         protected void lnlBack_Click(object sender, EventArgs e)
         {
+            string Mfaction=string.Empty ;
             if (Request.QueryString["FromPage"] != null)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerOrderList','none');", true);
             }
             else if (Request.QueryString["action"] != null)
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','none');", true);
+                Mfaction = "MF";
+                //"loadcontrol('ProductOrderMaster','fiaction=Edit');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','Mfaction=MF');", true);
+               // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','Mfaction=MF');", true);
             }
         }
 

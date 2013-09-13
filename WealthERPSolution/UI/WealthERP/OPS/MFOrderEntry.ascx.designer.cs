@@ -30,7 +30,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
-        
+        protected global::System.Web.UI.WebControls.HiddenField txtSchemeCode;
         /// <summary>
         /// lnlBack control.
         /// </summary>
@@ -66,6 +66,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnViewInPDF;
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSwitchSchemeCode_AutoCompleteExtender;
         
         /// <summary>
         /// btnreport control.
