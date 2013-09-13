@@ -698,7 +698,56 @@ namespace BOAssociates
             dsBindSubBrokerList = associatesDao.BindSubBrokerList(searchId, AdviserId, searchType);
             return dsBindSubBrokerList;
         }
-        
+
+        public DataTable GetStateList()
+        {
+            DataTable dtStateList;
+            try
+            {
+                dtStateList = associatesDao.GetStateList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetStateList()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtStateList;
+        }
+
+        public DataTable GetCityList(string stateId,int flag)
+        {
+            DataTable dtCityList;
+            try
+            {
+                dtCityList = associatesDao.GetCityList(stateId, flag);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetCityList()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtCityList;
+        }
 
     }
 }
