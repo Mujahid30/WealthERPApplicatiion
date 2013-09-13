@@ -364,8 +364,8 @@
                             <asp:Label ID="lblStageName" runat="server" Text="Associate Request" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
-                            <asp:Label ID="lblResponsibility" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="lblResponsibilityName" runat="server" Text="BM;OPS" CssClass="txtField"></asp:Label>
+                            <%--<asp:Label ID="lblResponsibility" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblResponsibilityName" runat="server" Text="BM;OPS" CssClass="txtField"></asp:Label>--%>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblStatus" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
@@ -497,7 +497,7 @@
                             </td>
                             <td colspan="4">
                                 <div class="ISAAccountMsg" align="center" id="divStep1SuccMsg" runat="server" visible="false">
-                                    Request Created Successfully.Please update the status.
+                                    Request Created Successfully. Please update the status.
                                 </div>
                             </td>
                             <td colspan="2">
@@ -580,8 +580,8 @@
                                 CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
-                            <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtResponsibility2" runat="server" Text="Ops/BM" CssClass="txtField"></asp:Label>
+                           <%-- <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtResponsibility2" runat="server" Text="Ops/BM" CssClass="txtField"></asp:Label>--%>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="Label1" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>
@@ -698,7 +698,7 @@
                             &nbsp;
                         </div>
                         <div class="divSectionHeadingNumber fltlftStep">
-                            3
+                           3 
                         </div>
                         <%--<div class="fltlftStep">
                             &nbsp; Step &nbsp;
@@ -709,8 +709,8 @@
                             <asp:Label ID="txtStage3" runat="server" Text="Verification" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
-                            <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtResponsibility3" runat="server" Text="Ops" CssClass="txtField"></asp:Label>
+                          <%--  <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="txtResponsibility3" runat="server" Text="Ops" CssClass="txtField"></asp:Label>--%>
                         </div>
                         <div class="fltlft">
                             <asp:Label ID="lblStatus3" runat="server" Text="Status:" CssClass="FieldName"></asp:Label>

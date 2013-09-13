@@ -359,11 +359,15 @@ namespace WealthERP.Associates
                 case 3:
                     if (statusCode == "DO")
                     {
-                        lblStepStatus3.Visible = false;
-                        ddlStepstatus3.Visible = false;
+                        lblStepStatus3.Visible = true;
+                        ddlStepstatus3.Visible = true;
+                        lblReasonStep3.Visible = false;
+                        ddlReasonStep3.Visible = false;
                     }
                     else
                     {
+                        lblStepStatus3.Visible = true;
+                        ddlStepstatus3.Visible = true;
                         lblReasonStep3.Visible = true;
                         ddlReasonStep3.Visible = true;
                     }
@@ -918,7 +922,7 @@ namespace WealthERP.Associates
         protected void lnkAgentCode_Click(object sender, EventArgs e)
         {
             int associationId = 0;
-            if (txtGenerateReqstNum.Text != null)
+            if (!string.IsNullOrEmpty(txtGenerateReqstNum.Text))
                 associationId = int.Parse(txtGenerateReqstNum.Text);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranchRMAgentAssociation','?AssociationId=" + associationId + "');", true);
         }
