@@ -64,13 +64,16 @@ namespace WealthERP.Associates
                 BindRelationship();
                 BindAssetCategory();
                 BindMaritalStatus();
+                BindCity(0);
                 if (viewAction == "View")
                 {
-                    SetEnableDisable();
+                    SetEnableDisable(0);
                     associatesVo = (AssociatesVO)Session["associatesVo"];
                     if(associatesVo!=null)
                         SetEditViewControls(associatesVo);
                      head.InnerText="View Associates";
+                     lnkBtnEdit.Visible = true;
+                     lnlBack.Visible = true;
                 }
                 if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
                 {
@@ -79,6 +82,8 @@ namespace WealthERP.Associates
                     if (associatesVo != null)
                         SetEditViewControls(associatesVo);
                     head.InnerText = "Edit Associates";
+                    lnkBtnEdit.Visible = false;
+                    lnlBack.Visible = true;
                 }
                
             }
@@ -94,84 +99,166 @@ namespace WealthERP.Associates
             ddlMaritalStatus.Items.Insert(0, new ListItem("Select", "Selec"));
         }
 
-        private void SetEnableDisable()
+        private void SetEnableDisable(int flag)
         {
-            txtBranch.Enabled = false;
-            btnSubmit.Visible = false;
-            txtRM.Enabled = false;
-            txtAMFINo.Enabled = false;
-            txtStartDate.Enabled = false;
-            txtEndDate.Enabled = false;
-            txtAssociateExpDate.Enabled = false;
-            txtResPhoneNoStd.Enabled = false;
-            txtResPhoneNo.Enabled = false;
-            txtResFaxStd.Enabled = false;
-            txtResFax.Enabled = false;
-            txtOfcPhoneNoStd.Enabled = false;
-            txtOfcPhoneNo.Enabled = false;
-            txtOfcFaxStd.Enabled = false;
-            txtOfcFax.Enabled = false;
-            txtMobile1.Enabled = false;
-            txtEmail.Enabled = false;
-            txtCorLine1.Enabled = false;
-            txtCorLine2.Enabled = false;
-            txtCorLine3.Enabled = false;
-            txtCorCity.Enabled = false;
-            txtCorPin.Enabled = false;
-            ddlCorState.Enabled = false;
-            txtCorCountry.Enabled = false;
+            if (flag == 0)
+            {
+                txtBranch.Enabled = false;
+                btnSubmit.Visible = false;
+                txtRM.Enabled = false;
+                txtAMFINo.Enabled = false;
+                txtStartDate.Enabled = false;
+                txtEndDate.Enabled = false;
+                txtAssociateExpDate.Enabled = false;
+                txtResPhoneNoStd.Enabled = false;
+                txtResPhoneNo.Enabled = false;
+                txtResFaxStd.Enabled = false;
+                txtResFax.Enabled = false;
+                txtOfcPhoneNoStd.Enabled = false;
+                txtOfcPhoneNo.Enabled = false;
+                txtOfcFaxStd.Enabled = false;
+                txtOfcFax.Enabled = false;
+                txtMobile1.Enabled = false;
+                txtEmail.Enabled = false;
+                txtCorLine1.Enabled = false;
+                txtCorLine2.Enabled = false;
+                txtCorLine3.Enabled = false;
+                ddlCorCity.Enabled = false;
+                txtCorPin.Enabled = false;
+                ddlCorState.Enabled = false;
+                txtCorCountry.Enabled = false;
 
-            txtPermAdrLine1.Enabled = false;
-            txtPermAdrLine2.Enabled = false;
-            txtPermAdrLine3.Enabled = false;
-            txtPermAdrCity.Enabled = false;
-            txtPermAdrPinCode.Enabled = false;
-            ddlPermAdrState.Enabled = false;
-            txtPermAdrCountry.Enabled = false;
+                txtPermAdrLine1.Enabled = false;
+                txtPermAdrLine2.Enabled = false;
+                txtPermAdrLine3.Enabled = false;
+                ddlPermAdrCity.Enabled = false;
+                txtPermAdrPinCode.Enabled = false;
+                ddlPermAdrState.Enabled = false;
+                txtPermAdrCountry.Enabled = false;
 
-            ddlMaritalStatus.Enabled = false;
-            ddlQualification.Enabled = false;
-            ddlGender.Enabled = false;
-            txtDOB.Enabled = false;
+                ddlMaritalStatus.Enabled = false;
+                ddlQualification.Enabled = false;
+                ddlGender.Enabled = false;
+                txtDOB.Enabled = false;
 
-            ddlBankName.Enabled = false;
-            ddlAccountType.Enabled = false;
-            txtAccountNumber.Enabled = false;
-            txtBankAdrLine1.Enabled = false;
-            txtBankAdrLine2.Enabled = false;
-            txtBankAdrLine3.Enabled = false;
-            txtBankAdrCity.Enabled = false;
-            ddlBankAdrState.Enabled = false;
-            txtBankAdrPinCode.Enabled = false;
+                ddlBankName.Enabled = false;
+                ddlAccountType.Enabled = false;
+                txtAccountNumber.Enabled = false;
+                txtBankAdrLine1.Enabled = false;
+                txtBankAdrLine2.Enabled = false;
+                txtBankAdrLine3.Enabled = false;
+                ddlBankAdrCity.Enabled = false;
+                ddlBankAdrState.Enabled = false;
+                txtBankAdrPinCode.Enabled = false;
 
-            txtMicr.Enabled = false;
-            txtIfsc.Enabled = false;
-            ddlCategory.Enabled = false;
-            txtRegNo.Enabled = false;
-            txtRegExpDate.Enabled = false;
+                txtMicr.Enabled = false;
+                txtIfsc.Enabled = false;
+                ddlCategory.Enabled = false;
+                txtRegNo.Enabled = false;
+                txtRegExpDate.Enabled = false;
 
 
-            txtNomineeName.Enabled = false;
-            ddlNomineeRel.Enabled = false;
-            txtNomineeAdress.Enabled = false;
-            txtNomineePhone.Enabled = false;
-            txtGurdiannName.Enabled = false;
-            ddlGuardianRel.Enabled = false;
-            txtGuardianAdress.Enabled = false;
-            txtGurdianPhone.Enabled = false;
+                txtNomineeName.Enabled = false;
+                ddlNomineeRel.Enabled = false;
+                txtNomineeAdress.Enabled = false;
+                txtNomineePhone.Enabled = false;
+                txtGurdiannName.Enabled = false;
+                ddlGuardianRel.Enabled = false;
+                txtGuardianAdress.Enabled = false;
+                txtGurdianPhone.Enabled = false;
 
-            ddlAdviserCategory.Enabled = false;
+                ddlAdviserCategory.Enabled = false;
 
-            txtNoBranches.Enabled = false;
-            txtNoofSales.Enabled = false;
-            txtNoofSubBrokers.Enabled = false;
-            txtNoofClients.Enabled = false;
+                txtNoBranches.Enabled = false;
+                txtNoofSales.Enabled = false;
+                txtNoofSubBrokers.Enabled = false;
+                txtNoofClients.Enabled = false;
 
-            //chkAssociates.Enabled = false;
-            //chkMf.Enabled = false;
-            //chlIpo.Enabled = false;
-            //chkfd.Enabled = false;
-            chkModules.Enabled = false;
+                //chkAssociates.Enabled = false;
+                //chkMf.Enabled = false;
+                //chlIpo.Enabled = false;
+                //chkfd.Enabled = false;
+                chkModules.Enabled = false;
+            }
+            else
+            {
+                txtBranch.Enabled = false;
+                btnSubmit.Visible = true;
+                txtRM.Enabled = false;
+                txtAMFINo.Enabled = true;
+                txtStartDate.Enabled = true;
+                txtEndDate.Enabled = true;
+                txtAssociateExpDate.Enabled = true;
+                txtResPhoneNoStd.Enabled = true;
+                txtResPhoneNo.Enabled = true;
+                txtResFaxStd.Enabled = true;
+                txtResFax.Enabled = true;
+                txtOfcPhoneNoStd.Enabled = true;
+                txtOfcPhoneNo.Enabled = true;
+                txtOfcFaxStd.Enabled = true;
+                txtOfcFax.Enabled = true;
+                txtMobile1.Enabled = true;
+                txtEmail.Enabled = true;
+                txtCorLine1.Enabled = true;
+                txtCorLine2.Enabled = true;
+                txtCorLine3.Enabled = true;
+                ddlCorCity.Enabled = true;
+                txtCorPin.Enabled = true;
+                ddlCorState.Enabled = true;
+                txtCorCountry.Enabled = true;
+
+                txtPermAdrLine1.Enabled = true;
+                txtPermAdrLine2.Enabled = true;
+                txtPermAdrLine3.Enabled = true;
+                ddlPermAdrCity.Enabled = true;
+                txtPermAdrPinCode.Enabled = true;
+                ddlPermAdrState.Enabled = true;
+                txtPermAdrCountry.Enabled = true;
+
+                ddlMaritalStatus.Enabled = true;
+                ddlQualification.Enabled = true;
+                ddlGender.Enabled = true;
+                txtDOB.Enabled = true;
+
+                ddlBankName.Enabled = true;
+                ddlAccountType.Enabled = true;
+                txtAccountNumber.Enabled = true;
+                txtBankAdrLine1.Enabled = true;
+                txtBankAdrLine2.Enabled = true;
+                txtBankAdrLine3.Enabled = true;
+                ddlBankAdrCity.Enabled = true;
+                ddlBankAdrState.Enabled = true;
+                txtBankAdrPinCode.Enabled = true;
+
+                txtMicr.Enabled = true;
+                txtIfsc.Enabled = true;
+                ddlCategory.Enabled = true;
+                txtRegNo.Enabled = true;
+                txtRegExpDate.Enabled = true;
+
+
+                txtNomineeName.Enabled = true;
+                ddlNomineeRel.Enabled = true;
+                txtNomineeAdress.Enabled = true;
+                txtNomineePhone.Enabled = true;
+                txtGurdiannName.Enabled = true;
+                ddlGuardianRel.Enabled = true;
+                txtGuardianAdress.Enabled = true;
+                txtGurdianPhone.Enabled = true;
+
+                ddlAdviserCategory.Enabled = true;
+
+                txtNoBranches.Enabled = true;
+                txtNoofSales.Enabled = true;
+                txtNoofSubBrokers.Enabled = true;
+                txtNoofClients.Enabled = true;
+
+                //chkAssociates.Enabled = false;
+                //chkMf.Enabled = false;
+                //chlIpo.Enabled = false;
+                //chkfd.Enabled = false;
+                chkModules.Enabled = true;
+            }
 
         }
 
@@ -217,14 +304,18 @@ namespace WealthERP.Associates
                 txtCorLine2.Text = associatesVo.CorrAdrLine2;
             if (associatesVo.CorrAdrLine3 != null)
                 txtCorLine3.Text = associatesVo.CorrAdrLine3;
-            if (associatesVo.CorrAdrCity != null)
-                txtCorCity.Text = associatesVo.CorrAdrCity;
+            //if (associatesVo.CorrAdrCity != null)
+            //    txtCorCity.Text = associatesVo.CorrAdrCity;
+            if (!string.IsNullOrEmpty(associatesVo.CorrAdrCity))
+                ddlCorCity.SelectedValue = associatesVo.CorrAdrCity;
             if (associatesVo.CorrAdrPinCode != null)
                 txtCorPin.Text = associatesVo.CorrAdrPinCode.ToString();
             if (!String.IsNullOrEmpty(associatesVo.CorrAdrState))
                 ddlCorState.SelectedValue = associatesVo.CorrAdrState;
             if (associatesVo.CorrAdrCountry != null)
                 txtCorCountry.Text = associatesVo.CorrAdrCountry;
+            if (associatesVo.PanNo != null)
+                txtPan.Text = associatesVo.PanNo;
 
             if (associatesVo.PerAdrLine1 != null)
                 txtPermAdrLine1.Text = associatesVo.PerAdrLine1;
@@ -232,11 +323,12 @@ namespace WealthERP.Associates
                 txtPermAdrLine2.Text = associatesVo.PerAdrLine2;
             if (associatesVo.PerAdrLine3 != null)
                 txtPermAdrLine3.Text = associatesVo.PerAdrLine3;
-            if (associatesVo.PerAdrCity != null)
-                txtPermAdrCity.Text = associatesVo.PerAdrCity;
+            //if (associatesVo.PerAdrCity != null)
+            //    txtPermAdrCity.Text = associatesVo.PerAdrCity;
             if (associatesVo.PerAdrPinCode != null)
                 txtPermAdrPinCode.Text = associatesVo.PerAdrPinCode.ToString();
-            if (associatesVo.PerAdrState != null)
+            //BindState();
+            if (!string.IsNullOrEmpty(associatesVo.PerAdrState))
                 ddlPermAdrState.SelectedValue = associatesVo.PerAdrState;
             if (associatesVo.PerAdrCountry != null)
                 txtPermAdrCountry.Text = associatesVo.PerAdrCountry;
@@ -262,9 +354,11 @@ namespace WealthERP.Associates
                 txtBankAdrLine2.Text = associatesVo.BranchAdrLine2;
             if (associatesVo.BranchAdrLine3 != null)
                 txtBankAdrLine3.Text = associatesVo.BranchAdrLine3;
-            if (associatesVo.BranchAdrCity != null)
-                txtBankAdrCity.Text = associatesVo.BranchAdrCity;
-            if (associatesVo.BranchAdrState != null)
+            //if (associatesVo.BranchAdrCity != null)
+            //    txtBankAdrCity.Text = associatesVo.BranchAdrCity;
+            if (!string.IsNullOrEmpty(associatesVo.BranchAdrCity))
+                ddlBankAdrCity.SelectedValue = associatesVo.BranchAdrCity;
+            if (!string.IsNullOrEmpty(associatesVo.BranchAdrState))
                 ddlBankAdrState.Text = associatesVo.BranchAdrState;
 
             if (associatesVo.MICR != null)
@@ -288,7 +382,7 @@ namespace WealthERP.Associates
                 txtNomineePhone.Text = associatesVo.NomineeTelNo.ToString();
             if (associatesVo.GuardianName != null)
                 txtGurdiannName.Text = associatesVo.GuardianName;
-            if (associatesVo.GuardianRelationship != null)
+            if (!string.IsNullOrEmpty(associatesVo.GuardianRelationship))
                 ddlGuardianRel.SelectedValue = associatesVo.GuardianRelationship;
             if (associatesVo.GuardianAddress != null)
                 txtGuardianAdress.Text = associatesVo.GuardianAddress;
@@ -383,24 +477,56 @@ namespace WealthERP.Associates
         private void BindState()
         {
             DataTable dtBankState = new DataTable();
-            dtBankState = XMLBo.GetStates(path);
+            //dtBankState = XMLBo.GetStates(path);
+            dtBankState = associatesBo.GetStateList();
             ddlBankAdrState.DataSource = dtBankState;
-            ddlBankAdrState.DataTextField = "StateName";
-            ddlBankAdrState.DataValueField = "StateCode";
+            ddlBankAdrState.DataTextField = "state_name";
+            ddlBankAdrState.DataValueField = "state_id";
             ddlBankAdrState.DataBind();
             ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
             //-------------------------------------------------------------------------------------
             ddlCorState.DataSource = dtBankState;
-            ddlCorState.DataTextField = "StateName";
-            ddlCorState.DataValueField = "StateCode";
+            ddlCorState.DataTextField = "state_name";
+            ddlCorState.DataValueField = "state_id";
             ddlCorState.DataBind();
             ddlCorState.Items.Insert(0, new ListItem("Select", "Select"));
             //-------------------------------------------------------------------------------------
             ddlPermAdrState.DataSource = dtBankState;
-            ddlPermAdrState.DataTextField = "StateName";
-            ddlPermAdrState.DataValueField = "StateCode";
+            ddlPermAdrState.DataTextField = "state_name";
+            ddlPermAdrState.DataValueField = "state_id";
             ddlPermAdrState.DataBind();
             ddlPermAdrState.Items.Insert(0, new ListItem("Select", "Select"));
+        }
+
+        private void BindCity(int flag)
+        {
+            string stateId = string.Empty;
+            DataTable dtBindCity;
+            if (ddlBankAdrState.SelectedIndex != 0)
+                stateId = ddlBankAdrState.SelectedValue;
+            else if (ddlCorState.SelectedIndex != 0)
+                stateId = ddlCorState.SelectedValue;
+            else if(ddlPermAdrState.SelectedIndex!=0)
+                stateId = ddlPermAdrState.SelectedValue;
+            dtBindCity = associatesBo.GetCityList(stateId, flag);
+            ddlBankAdrCity.DataSource = dtBindCity;
+            ddlBankAdrCity.DataTextField = "cityname";
+            ddlBankAdrCity.DataValueField = "cityid";
+            ddlBankAdrCity.DataBind();
+            ddlBankAdrCity.Items.Insert(0, new ListItem("Select", "Select"));
+            //-------------------------------------------------------------------------------------
+            
+            ddlCorCity.DataSource = dtBindCity;
+            ddlCorCity.DataTextField = "cityname";
+            ddlCorCity.DataValueField = "cityid";
+            ddlCorCity.DataBind();
+            ddlCorCity.Items.Insert(0, new ListItem("Select", "Select"));
+            //-------------------------------------------------------------------------------------
+            ddlPermAdrCity.DataSource = dtBindCity;
+            ddlPermAdrCity.DataTextField = "cityname";
+            ddlPermAdrCity.DataValueField = "cityid";
+            ddlPermAdrCity.DataBind();
+            ddlPermAdrCity.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
         private void BindBankName()
@@ -478,10 +604,13 @@ namespace WealthERP.Associates
                 associatesVo.CorrAdrLine3 = txtCorLine3.Text;
             else
                 associatesVo.CorrAdrLine3 = "";
-            if (txtCorCity.Text != null)
-                associatesVo.CorrAdrCity = txtCorCity.Text;
-            else
-                associatesVo.CorrAdrCity = "";
+            //if (txtCorCity.Text != null)
+            //    associatesVo.CorrAdrCity = txtCorCity.Text;
+            //else
+            //    associatesVo.CorrAdrCity = "";
+            if (ddlCorCity.SelectedIndex != 0)
+                associatesVo.CorrAdrCity = ddlCorCity.SelectedValue;
+
             if (!string.IsNullOrEmpty(txtCorPin.Text))
                 associatesVo.CorrAdrPinCode = int.Parse(txtCorPin.Text);
             else
@@ -511,10 +640,12 @@ namespace WealthERP.Associates
                 associatesVo.PerAdrLine3 = txtPermAdrLine3.Text;
             else
                 associatesVo.PerAdrLine3 = "";
-            if (txtPermAdrCity.Text != null)
-                associatesVo.PerAdrCity = txtCorCity.Text;
-            else
-                associatesVo.PerAdrCity = "";
+            //if (txtPermAdrCity.Text != null)
+            //    associatesVo.PerAdrCity = txtCorCity.Text;
+            //else
+            //    associatesVo.PerAdrCity = "";
+            if (ddlPermAdrCity.SelectedIndex != 0)
+                associatesVo.PerAdrCity = ddlPermAdrCity.SelectedValue;
             if (!string.IsNullOrEmpty(txtPermAdrPinCode.Text))
                 associatesVo.PerAdrPinCode = int.Parse(txtPermAdrPinCode.Text);
             else
@@ -572,10 +703,12 @@ namespace WealthERP.Associates
                 associatesVo.BranchAdrLine3 = txtBankAdrLine3.Text;
             else
                 associatesVo.BranchAdrLine3 = "";
-            if (txtBankAdrCity.Text != null)
-                associatesVo.BranchAdrCity = txtBankAdrCity.Text;
-            else
-                associatesVo.BranchAdrCity = "";
+            //if (txtBankAdrCity.Text != null)
+            //    associatesVo.BranchAdrCity = txtBankAdrCity.Text;
+            //else
+            //    associatesVo.BranchAdrCity = "";
+            if (ddlBankAdrCity.SelectedIndex != 0)
+                associatesVo.BranchAdrCity = ddlBankAdrCity.SelectedValue;
             if (ddlBankAdrState.SelectedIndex != 0)
                 associatesVo.BranchAdrState = ddlBankAdrState.SelectedValue;
             else
@@ -712,6 +845,59 @@ namespace WealthERP.Associates
                 }
             }
             return assetGroupCodes;
+        }
+
+        protected void lnkBtnEdit_Click(object sender, EventArgs e)
+        {
+            if (Session["associatesVo"] != null)
+            {
+                associatesVo = (AssociatesVO)Session["associatesVo"];
+                if (associatesVo != null)
+                    SetEnableDisable(1);
+            }
+        }
+
+        protected void lnlBack_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAdviserAssociateList');", true);
+        }
+
+        protected void chkAddressChk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkAddressChk.Checked == true)
+            {
+                txtPermAdrLine1.Text= txtCorLine1.Text;
+                txtPermAdrLine2.Text= txtCorLine2.Text;
+                txtPermAdrLine3.Text= txtCorLine3.Text;
+                ddlPermAdrState.SelectedValue = ddlCorState.SelectedValue;
+                if (ddlCorCity.SelectedIndex != 0)
+                {
+                    BindCity(1);
+                    ddlPermAdrState.SelectedValue = ddlCorCity.SelectedValue;
+                }
+                txtPermAdrPinCode.Text= txtCorPin.Text;
+                
+                txtPermAdrCountry.Text = txtCorCountry.Text;
+                
+            }
+        }
+
+        protected void ddlBankAdrState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlBankAdrState.SelectedIndex != 0)
+                BindCity(1);
+        }
+
+        protected void ddlPermAdrState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlPermAdrState.SelectedIndex != 0)
+                BindCity(1);
+        }
+
+        protected void ddlCorState_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlCorState.SelectedIndex != 0)
+                BindCity(1);
         }
     }
 }

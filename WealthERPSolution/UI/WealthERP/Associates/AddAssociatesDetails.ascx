@@ -13,6 +13,14 @@
                         <td align="left" id="head" runat="server">
                             Add Associates
                         </td>
+                        <td align="right">
+                        <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit" 
+                                onclick="lnkBtnEdit_Click"></asp:LinkButton>
+                            &nbsp; &nbsp;
+                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" 
+                                Visible="false" onclick="lnlBack_Click"
+                             ></asp:LinkButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -101,10 +109,16 @@
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
         </td>
         <td class="leftLabel" align="right">
-            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label></td>
+            <asp:Label ID="lblAdviserAgentCode" runat="server" Text="Adviser Agent Code: " CssClass="FieldName"></asp:Label>
+        </td>
         <td class="rightData">
-            <asp:TextBox ID="txtAdviserAgentCode" runat="server"  CssClass="txtField" Enabled="False"></asp:TextBox></td>
-        <td colspan="2">
+            <asp:TextBox ID="txtAdviserAgentCode" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
+        </td>
+        <td align="right">
+            <asp:Label ID="lblPanNo" runat="server" Text="PAN No: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtPan" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
         </td>
     </tr>
 </table>
@@ -145,8 +159,8 @@
                         <asp:Label ID="lblResNo" CssClass="FieldName" runat="server" Text="Telephone No.(Res):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtResPhoneNoIsd" runat="server" Width="30px" CssClass="txtField" Enabled="false"
-                            MaxLength="3">91</asp:TextBox>
+                        <asp:TextBox ID="txtResPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
+                            Enabled="false" MaxLength="3">91</asp:TextBox>
                         <asp:TextBox ID="txtResPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
                             MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtResPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
@@ -164,7 +178,8 @@
                         <asp:Label ID="lblResFax" CssClass="FieldName" runat="server" Text="Fax(Res):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtResFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3" Enabled="false">91</asp:TextBox>
+                        <asp:TextBox ID="txtResFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"
+                            Enabled="false">91</asp:TextBox>
                         <asp:TextBox ID="txtResFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtResFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtResFaxIsd_CompareValidator" ControlToValidate="txtResFaxIsd"
@@ -183,8 +198,8 @@
                         <asp:Label ID="lblPhoneOfc" CssClass="FieldName" runat="server" Text="Telephone No.(Off):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="30px" CssClass="txtField" Enabled="false"
-                            MaxLength="3">91</asp:TextBox>
+                        <asp:TextBox ID="txtOfcPhoneNoIsd" runat="server" Width="30px" CssClass="txtField"
+                            Enabled="false" MaxLength="3">91</asp:TextBox>
                         <asp:TextBox ID="txtOfcPhoneNoStd" runat="server" Width="30px" CssClass="txtField"
                             MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtOfcPhoneNo" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
@@ -202,7 +217,8 @@
                         <asp:Label ID="lblFaxOfc" CssClass="FieldName" runat="server" Text="Fax(Off):"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtOfcFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3" Enabled="false">91</asp:TextBox>
+                        <asp:TextBox ID="txtOfcFaxIsd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"
+                            Enabled="false">91</asp:TextBox>
                         <asp:TextBox ID="txtOfcFaxStd" runat="server" Width="30px" CssClass="txtField" MaxLength="3"></asp:TextBox>
                         <asp:TextBox ID="txtOfcFax" runat="server" Width="90px" CssClass="txtField" MaxLength="8"></asp:TextBox>
                         <asp:CompareValidator ID="txtOfcFaxIsd_CompareValidator" ControlToValidate="txtOfcFaxIsd"
@@ -273,11 +289,14 @@
                         <asp:TextBox ID="txtCorLine3" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblCorCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
+                        <asp:Label ID="lblCorstate" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:DropDownList ID="ddlCorState" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            onselectedindexchanged="ddlCorState_SelectedIndexChanged">
+                        </asp:DropDownList>
                     </td>
+                    
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -290,10 +309,11 @@
                             Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
+                        <asp:Label ID="lblCorCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlCorState" runat="server" CssClass="cmbField">
+                        <%--<asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlCorCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -304,6 +324,7 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtCorCountry" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
+                    
                 </tr>
                 <tr>
                     <td colspan="4">
@@ -317,8 +338,17 @@
                     </td>
                 </tr>
                 <tr>
+                <td colspan="4"></td>
+                </tr>
+                <tr>
                     <td colspan="4">
+                    <asp:CheckBox ID="chkAddressChk" runat="server" 
+                            Text="Is permanent addess is same as correspondes address?" CssClass="cmbField" 
+                             oncheckedchanged="chkAddressChk_CheckedChanged" AutoPostBack="true"/>
                     </td>
+                </tr>
+                <tr>
+                <td colspan="4"></td>
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -342,11 +372,14 @@
                         <asp:TextBox ID="txtPermAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblPermCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
+                        <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            onselectedindexchanged="ddlPermAdrState_SelectedIndexChanged">
+                        </asp:DropDownList>
                     </td>
+                    
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -359,10 +392,11 @@
                             Operator="DataTypeCheck" Type="Integer"></asp:CompareValidator>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
+                        <asp:Label ID="lblPermCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField">
+                        <%--<asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -516,18 +550,22 @@
                         <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
                     </td>
                     <td class="leftField">
-                        <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
-                    </td>
-                    <td class="rightField">
-                        <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField">
                         <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField" Width="150px">
+                        <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField" AutoPostBack="true"
+                            Width="150px" onselectedindexchanged="ddlBankAdrState_SelectedIndexChanged">
+                        </asp:DropDownList>
+                    </td>
+                   
+                </tr>
+                <tr>
+                     <td class="leftField">
+                        <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
+                    </td>
+                    <td class="rightField">
+                        <%--<asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlBankAdrCity" runat="server" CssClass="txtField" Width="150px">
                         </asp:DropDownList>
                     </td>
                     <td class="leftField">
@@ -766,14 +804,13 @@
                          <asp:CheckBox ID="chkEQ" runat="server" Text="EQ" CssClass="cmbField" value="EQ" />
                           <asp:CheckBox ID="chkDebt" runat="server" Text="Debt" CssClass="cmbField" value="Debt" />
                             <asp:CheckBox ID="chkPMS" runat="server" Text="PMS" CssClass="cmbField" value="PMS" />--%>
-                            
-                            <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName"  RepeatDirection="Horizontal">
+                        <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName" RepeatDirection="Horizontal">
                             <asp:ListItem Text="MF" Value="MF"></asp:ListItem>
-                            <asp:ListItem Text="IPO" Value="OT" ></asp:ListItem>
+                            <asp:ListItem Text="IPO" Value="OT"></asp:ListItem>
                             <asp:ListItem Text="FD" Value="FD"></asp:ListItem>
-                            <asp:ListItem Text="EQ" Value="DE"></asp:ListItem>                            
+                            <asp:ListItem Text="EQ" Value="DE"></asp:ListItem>
                             <asp:ListItem Text="Debt" Value="DT"></asp:ListItem>
-                            <asp:ListItem Text="PMS" Value="PM" ></asp:ListItem>                  
+                            <asp:ListItem Text="PMS" Value="PM"></asp:ListItem>
                         </asp:CheckBoxList>
                     </td>
                 </tr>
