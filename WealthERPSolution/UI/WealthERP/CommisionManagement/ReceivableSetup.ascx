@@ -343,8 +343,8 @@
                     <asp:Label ID="lblOptions" runat="server" Text="Options:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightDataThreeColumn" colspan="3">
-                    <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server" />
-                    <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField"></asp:Label>
+                    <asp:CheckBox ID="chkHasClawBackOption" Text="" runat="server"  Visible="false"/>
+                    <asp:Label ID="lblHasClawBackOption" runat="server" Text="Has claw back option" CssClass="txtField" Visible="false"></asp:Label>
                     <asp:CheckBox ID="chkMoneytaryReward" Text="" runat="server" />
                     <asp:Label ID="Label1" runat="server" Text="Is non moneytary reward" CssClass="txtField"></asp:Label>
                 </td>
