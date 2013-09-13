@@ -1880,5 +1880,74 @@ namespace DAOAssociates
             }
             return dsSubBrokerList;
         }
+
+        public DataTable GetStateList()
+        {
+            Database db;
+            DbCommand StateListCmd;
+            DataSet dsStateList;
+            DataTable dtStateList=new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                StateListCmd = db.GetStoredProcCommand("SPROC_GetStateList");
+                dsStateList = db.ExecuteDataSet(StateListCmd);
+                if (dsStateList.Tables.Count > 0)
+                    dtStateList = dsStateList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetStateList()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtStateList;
+        }
+
+        public DataTable GetCityList(string stateId, int flag)
+        {
+            Database db;
+            DbCommand CityListCmd;
+            DataSet dsCityList;
+            DataTable dtCityList=new DataTable();
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CityListCmd = db.GetStoredProcCommand("SPROC_GetCityList");
+                if(!string.IsNullOrEmpty(stateId))
+                    db.AddInParameter(CityListCmd, "@stateId", DbType.String, stateId);
+                else
+                    db.AddInParameter(CityListCmd, "@stateId", DbType.String, DBNull.Value);
+                db.AddInParameter(CityListCmd, "@flag", DbType.Int32, flag);
+                dsCityList = db.ExecuteDataSet(CityListCmd);
+                if (dsCityList.Tables.Count > 0)
+                    dtCityList = dsCityList.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetCityList()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtCityList;
+        }
     }
 }
