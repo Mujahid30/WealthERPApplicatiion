@@ -2308,16 +2308,16 @@ namespace DaoAdvisorProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getLoanMICmd = db.GetStoredProcCommand("SP_GetAMCSchemewiseAUMForAssociate");
-                db.AddInParameter(getLoanMICmd, "@A_AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(getLoanMICmd, "@AdviserID", DbType.Int32, AdviserId);
                 db.AddInParameter(getLoanMICmd, "@Valuation_Date", DbType.DateTime, valuationDate);
                 if (AmcCode != 0)
                     db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(getLoanMICmd, "@AMCCode", DbType.Int32, DBNull.Value);
                 if (AgentCode !="0")
-                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, AgentCode);
+                    db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.String, AgentCode);
                 else
-                   db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.Int32, DBNull.Value);
+                   db.AddInParameter(getLoanMICmd, "@AgentCode", DbType.String, DBNull.Value);
                 db.AddInParameter(getLoanMICmd, "@IsAgentBasedCode", DbType.Int32, IsAgentBasedCode);
                 AMCSchemewiseMIS = db.ExecuteDataSet(getLoanMICmd);
             }
