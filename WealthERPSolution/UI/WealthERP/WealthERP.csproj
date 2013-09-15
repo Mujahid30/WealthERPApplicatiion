@@ -6564,6 +6564,8 @@
     <Content Include="SuperAdmin\ViewUploadHistory.ascx" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.sln" />
     <Content Include="UploadPackages\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew\CAMSSystematicUploadPackageNew.dtproj.user" />
+    <Content Include="UploadPackages\FINEWTest\FINEWTest.sln" />
+    <Content Include="UploadPackages\FINEWTest\FINEWTest\FINEWTest.dtproj.user" />
     <Content Include="UploadPackages\FINEW\FINEW\FINEW.sln" />
     <Content Include="UploadPackages\FINEW\FINEW\FINEW\configSSIS.dtsConfig" />
     <Content Include="UploadPackages\FINEW\FINEW\FINEW\FINEW.dtproj.user" />
@@ -7450,6 +7452,9 @@
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerp.dtsx" />
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadEQTranStagingToWerpEQTranTable.dtsx" />
     <None Include="UploadPackages\EQTransactionUploadPackage\EQTransactionUploadPackage\EQTransactionUploadPackage\UploadTransactionDataFromEQStdFileToEQStdTranInput.dtsx" />
+    <None Include="UploadPackages\FINEWTest\FINEWTest\FINEWTest.database" />
+    <None Include="UploadPackages\FINEWTest\FINEWTest\FINEWTest.dtproj" />
+    <None Include="UploadPackages\FINEWTest\FINEWTest\XmlToInputFI.dtsx" />
     <None Include="UploadPackages\FINEW\FINEW\FINEW\bin\FICommonToNP.dtsx" />
     <None Include="UploadPackages\FINEW\FINEW\FINEW\bin\FI_XML_INPUT_BKUP_ToStaging.dtsx" />
     <None Include="UploadPackages\FINEW\FINEW\FINEW\FICommonToNP.dtsx" />
