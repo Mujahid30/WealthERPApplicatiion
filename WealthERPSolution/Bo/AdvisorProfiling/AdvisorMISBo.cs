@@ -1512,7 +1512,7 @@ namespace BoAdvisorProfiling
             {
                 dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category, Issuer);
                 //for trail
-                if (dsGetCommissionReconMis.Tables.Count > 1 && dsGetCommissionReconMis.Tables[1].Rows.Count > 1 && dsGetCommissionReconMis.Tables[2].Rows.Count > 1)
+                if (dsGetCommissionReconMis.Tables.Count >= 1 && dsGetCommissionReconMis.Tables[1].Rows.Count >= 1 && dsGetCommissionReconMis.Tables[2].Rows.Count >= 1)
                 {
                     dtstructure = dsGetCommissionReconMis.Tables[1];
                     dtTrailSet = dsGetCommissionReconMis.Tables[2];
