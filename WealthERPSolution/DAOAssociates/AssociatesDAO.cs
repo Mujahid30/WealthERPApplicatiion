@@ -301,7 +301,7 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_CorrAdrPinCode", DbType.Int32, DBNull.Value);
 
-                if (!string.IsNullOrEmpty(associatesVo.CorrAdrCity.ToString().Trim()))
+                if (!string.IsNullOrEmpty(associatesVo.CorrAdrCity))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_CorrAdrCity", DbType.String, associatesVo.CorrAdrCity);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_CorrAdrCity", DbType.String, DBNull.Value);
@@ -336,7 +336,7 @@ namespace DAOAssociates
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PerAdrPinCode", DbType.Int32, DBNull.Value);
 
-                if (!string.IsNullOrEmpty(associatesVo.PerAdrCity.ToString().Trim()))
+                if (!string.IsNullOrEmpty(associatesVo.PerAdrCity))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PerAdrCity", DbType.String, associatesVo.PerAdrCity);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_PerAdrCity", DbType.String, DBNull.Value);
@@ -409,7 +409,7 @@ namespace DAOAssociates
                 if (!string.IsNullOrEmpty(associatesVo.MaritalStatusCode.ToString().Trim()))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrCity", DbType.String, associatesVo.BranchAdrCity);
 
-                if (!string.IsNullOrEmpty(associatesVo.BranchAdrState.ToString().Trim()))
+                if (!string.IsNullOrEmpty(associatesVo.BranchAdrState))
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrState", DbType.String, associatesVo.BranchAdrState);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_BranchAdrState", DbType.String, DBNull.Value);
