@@ -60,6 +60,7 @@
         window.open(myurl, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
+    
 </script>
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -212,6 +213,16 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
+                    <span id="Span9" class="spnRequiredField">*</span>
+                    <br />
+                    <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtMobileNumber"
+                        Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
+                        ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$">
+                    </asp:RegularExpressionValidator>--%>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtStaffcode"
+                        ErrorMessage="Please enter Staff Code" Display="Dynamic" runat="server"
+                        ValidationGroup="btnSubmit" CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblAgentCodeL" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
