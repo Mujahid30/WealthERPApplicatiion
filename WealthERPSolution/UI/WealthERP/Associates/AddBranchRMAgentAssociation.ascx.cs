@@ -158,16 +158,20 @@ namespace WealthERP.Associates
             }
             else
             {
-                if (Validation())
+                if (Validation(txtAgentCode.Text))
                 {
                     result = associatesBo.CreateAdviserAgentCode(associatesVo, agentId,advisorVo.advisorId);
                     if (Request.QueryString["AssociationId"] != null)
                     {
                         int associationId = int.Parse(Request.QueryString["AssociationId"]);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('SubBroker code Added Successfully');", true);
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddAssociates", "loadcontrol('AddAssociates','?AssociationId=" + associationId + "&fromPage=" + "AddCode" + "');", true);
                     }
                     else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('SubBroker code Added Successfully');", true);
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewAgentCode", "loadcontrol('ViewAgentCode','login');", true);
+                    }
                 }
             }
 
@@ -200,16 +204,17 @@ namespace WealthERP.Associates
 
         }
 
-        private bool Validation()
+        private bool Validation(string agentCode)
         {
             bool result = true;
             int adviserId = advisorVo.advisorId;
             try
             {
-                if (associatesBo.CodeduplicateCheck(adviserId, txtAgentCode.Text.ToString()))
+                if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
                 {
                     result = false;
-                    lblPanDuplicate.Visible = true;
+                    //lblPanDuplicate.Visible = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('SubBroker Code already exists !!');", true);
                 }
             }
 
@@ -497,7 +502,10 @@ namespace WealthERP.Associates
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 TextBox txtChildCode = (TextBox)e.Item.FindControl("txtChildCode");
                 ChildCode = txtChildCode.Text;
-                isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I');
+                if (Validation(ChildCode))
+                {
+                    isInserted = associatesBo.EditAddChildAgentCodeList(associatesVo, ChildCode, PagentId, 'I');
+                }
             }
             BindChildCodeGrid(PagentId);
         }
