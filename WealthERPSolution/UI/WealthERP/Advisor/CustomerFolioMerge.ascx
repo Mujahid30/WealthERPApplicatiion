@@ -398,11 +398,6 @@
                                         runat="server" AutoPostBack="true" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn UniqueName="Group Head" HeaderText="Group Head" DataField="GroupHead"
-                                HeaderStyle-Width="100px" SortExpression="GroupHead" AllowFiltering="true" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true">
-                                <HeaderStyle></HeaderStyle>
-                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ZonalManagerName" AllowFiltering="true" HeaderText="Zonal Manager"
                                 UniqueName="ZonalManagerName" SortExpression="ZonalManagerName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
@@ -449,6 +444,11 @@
                                 Visible="true" UniqueName="AssociatesName" SortExpression="AssociatesName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="120px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn UniqueName="Group Head" HeaderText="Group Head" DataField="GroupHead"
+                                HeaderStyle-Width="100px" SortExpression="GroupHead" AllowFiltering="true" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true">
+                                <HeaderStyle></HeaderStyle>
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="CustomerName" HeaderText="Customer" DataField="CustomerName"
                                 HeaderStyle-Width="100px" SortExpression="CustomerName" AllowFiltering="true"
