@@ -93,6 +93,20 @@ namespace WealthERP.General
 
                 SetUser(userId,userVo,advisorVo,customerVo);
             }
+                //SBI Single Signon POC
+            else if (Page.Request.Headers["From_NAM"] != null || Page.Request.Headers["x-username"] != null || Page.Request.Headers["x-guid"] != null)
+            {
+                string headerValue1 = string.Empty, headerValue2 = string.Empty, headerValue3 = string.Empty;
+                if(Page.Request.Headers["From_NAM"] != null)
+                    headerValue1 = Page.Request.Headers["Name"];
+                if (Page.Request.Headers["x-username"] != null)
+                    headerValue2 = Page.Request.Headers["x-username"];
+                if (Page.Request.Headers["x-guid"] != null)
+                    headerValue3 = Page.Request.Headers["x-guid"];
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + headerValue1 + "UserName" + headerValue2 + "Password" + headerValue3 + "');", true);
+            }
+
 
         }
 
