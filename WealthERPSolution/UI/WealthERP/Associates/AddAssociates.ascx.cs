@@ -747,6 +747,7 @@ namespace WealthERP.Associates
 
                 }
                 Session["TempAssociatesVo"] = associatesVo;
+                Session["associatesVo"] = associatesVo;
             }
         }
 
