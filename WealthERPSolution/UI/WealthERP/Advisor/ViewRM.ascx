@@ -220,11 +220,11 @@
                                 UniqueName="ActiveLevel">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                           <%-- <telerik:GridBoundColumn DataField="StaffType" SortExpression="StaffType" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn Visible="false" DataField="AAC_AgentCode" SortExpression="AAC_AgentCode" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                HeaderText="Type" UniqueName="Type">
+                                HeaderText="SubBrokerCode" UniqueName="AAC_AgentCode">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="StaffRole" SortExpression="StaffRole" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                 HeaderText="Role" UniqueName="Role">
