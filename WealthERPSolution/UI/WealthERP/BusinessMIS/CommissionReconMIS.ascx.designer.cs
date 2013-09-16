@@ -19,9 +19,10 @@ namespace WealthERP.BusinessMIS {
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
+        /// </remarks>btnExportFilteredData
         protected global::System.Web.UI.WebControls.DropDownList ddlUserType;
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
+        protected global::System.Web.UI.WebControls.ImageButton btnExportFilteredData;
 
         protected global::System.Web.UI.WebControls.HiddenField hdnFromDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;

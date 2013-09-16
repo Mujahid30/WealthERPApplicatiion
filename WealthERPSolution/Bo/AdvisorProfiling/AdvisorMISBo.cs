@@ -1501,7 +1501,7 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, int subbrokercode)
+        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category,int Issuer)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
@@ -1510,7 +1510,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category, subbrokercode);
+                dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category, Issuer);
                 //for trail
                 if (dsGetCommissionReconMis.Tables.Count > 1 && dsGetCommissionReconMis.Tables[1].Rows.Count > 1 && dsGetCommissionReconMis.Tables[2].Rows.Count > 1)
                 {
@@ -1722,7 +1722,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetMemberDetailFromMFOrder;
         }
-        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype,string commtype)
+        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype,string commtype,int issuer)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
@@ -1731,7 +1731,7 @@ namespace BoAdvisorProfiling
 
             try
             {
-                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon(AdviserId, schemeid, FromDate, Todate, category, recontype, commtype);
+                dsGetCommissionReconMis = MISDao.GetCommissionReceivableRecon(AdviserId, schemeid, FromDate, Todate, category, recontype, commtype, issuer);
 
             }
             catch (Exception Ex)

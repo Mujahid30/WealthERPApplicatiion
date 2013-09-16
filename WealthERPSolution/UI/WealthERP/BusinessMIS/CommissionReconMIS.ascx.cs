@@ -44,89 +44,15 @@ namespace WealthERP.BusinessMIS
             {
                 BindMutualFundDropDowns();
                 BindNAVCategory();
+                LoadAllSchemeList(0);
                 int day = 1;
                 gvCommissionReconMIs.Visible = false;
                 txtFrom.SelectedDate = DateTime.Parse(day.ToString()+'/'+DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
                 txtTo.SelectedDate = DateTime.Now;
+                btnExportFilteredData.Visible = false;
             }
         }
-        protected void ddlUserType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlUserType.SelectedIndex != 0)
-            {
-                if (ddlUserType.SelectedValue == "BM")
-                {
-                    BindBranchSubBrokerCode();
-                }
-                else if (ddlUserType.SelectedValue == "RM")
-                {
-                    BindSalesSubBrokerCode();
-                }
-                else if (ddlUserType.SelectedValue == "Associates")
-                {
-                    BindAssociatesSubBrokerCode();
-                }
-            }
-        }
-        //protected void ddlSelectTypeChanged(object sender, EventArgs e)
-        //{
-        //    if (ddlSelectType.SelectedValue == "Associates")
-        //    {
-        //        BindAssociatesSubBrokerCode();
-        //    }
-        //    if (ddlSelectType.SelectedValue == "Branch")
-        //    {
-        //        BindAssociatesSubBrokerCode();
-        //    }
-        //    if (ddlSelectType.SelectedValue == "Employee")
-        //    {
-        //        BindAssociatesSubBrokerCode();
-        //    }
-        //}
-        private void BindAssociatesSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetAssociatesSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "0"));
-        }
-
-        private void BindSalesSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetSalesSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-        }
-
-        private void BindBranchSubBrokerCode()
-        {
-            DataSet ds;
-            DataTable dt;
-            dt = associatesBo.GetBranchSubBrokerCodeList(advisorVo.advisorId);
-            if (dt.Rows.Count > 0)
-            {
-                ddlSelectType.DataSource = dt;
-                ddlSelectType.DataValueField = dt.Columns["AAC_AdviserAgentId"].ToString();
-                ddlSelectType.DataTextField = dt.Columns["AAC_AgentCode"].ToString();
-                ddlSelectType.DataBind();
-            }
-            ddlSelectType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("All", "All"));
-        }
+        
         protected void ddlIssuer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlIssuer.SelectedIndex != 0)
@@ -165,7 +91,7 @@ namespace WealthERP.BusinessMIS
             ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
             ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataBind();
-            ddlIssuer.Items.Insert(0, new ListItem("Select AMC", "Select AMC Code"));
+            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
 
         }
         private void BindNAVCategory()
@@ -228,11 +154,23 @@ namespace WealthERP.BusinessMIS
                     hdnschemeId.Value = ddlScheme.SelectedItem.Value.ToString();
                 if (string.IsNullOrEmpty(ddlCategory.SelectedItem.Value.ToString()) != true)
                     hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
-                if (string.IsNullOrEmpty(ddlSelectType.SelectedItem.Value.ToString()) != true)
-                    hdnSBbrokercode.Value = ddlSelectType.SelectedItem.Value.ToString();
+                if (string.IsNullOrEmpty(ddlIssuer.SelectedItem.Value.ToString()) != true)
+                    hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
             
             //}
 
+
+        }
+        protected void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+
+            gvCommissionReconMIs.ExportSettings.OpenInNewWindow = true;
+            gvCommissionReconMIs.ExportSettings.IgnorePaging = true;
+            foreach (GridFilteringItem filter in gvCommissionReconMIs.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                filter.Visible = false;
+            }
+            gvCommissionReconMIs.MasterTableView.ExportToExcel();
 
         }
         protected void GdBind_Click(Object sender, EventArgs e)
@@ -241,9 +179,10 @@ namespace WealthERP.BusinessMIS
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
 
-            ds = adviserMFMIS.GetCommissionReconMis(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value,int.Parse( hdnSBbrokercode.Value));
+            ds = adviserMFMIS.GetCommissionReconMis(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, int.Parse(hdnSBbrokercode.Value));
             if (ds.Tables[0] != null)
             {
+                btnExportFilteredData.Visible = true;
                 gvCommissionReconMIs.Visible = true;
                 gvCommissionReconMIs.DataSource = ds.Tables[0];
                 DataTable dtGetAMCTransactionDeatails = new DataTable();

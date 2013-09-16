@@ -39,6 +39,7 @@ namespace WealthERP.BusinessMIS
             {
                 BindMutualFundDropDowns();
                 BindNAVCategory();
+                LoadAllSchemeList(0);
                 int day = 1;
                 gvCommissionReceiveRecon.Visible = false;
                 txtFrom.SelectedDate = DateTime.Parse(day.ToString() + '/' + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString());
@@ -91,6 +92,9 @@ namespace WealthERP.BusinessMIS
                 hdnCategory.Value = ddlCategory.SelectedItem.Value.ToString();
             if (string.IsNullOrEmpty(ddlReconStatus.SelectedItem.Value.ToString()) != true)
                 hdnrecon.Value = ddlReconStatus.SelectedItem.Value.ToString();
+            if (string.IsNullOrEmpty(ddlIssuer.SelectedItem.Value.ToString()) != true)
+                hdnSBbrokercode.Value = ddlIssuer.SelectedItem.Value.ToString();
+            
 
             //}
 
@@ -108,7 +112,7 @@ namespace WealthERP.BusinessMIS
             DataSet ds = new DataSet();
             //ds.ReadXml(Server.MapPath(@"\Sample.xml"));
 
-            ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue);
+            ds = adviserMFMIS.GetCommissionReceivableRecon(advisorVo.advisorId, int.Parse(hdnschemeId.Value), DateTime.Parse(hdnFromDate.Value), DateTime.Parse(hdnToDate.Value), hdnCategory.Value, hdnrecon.Value, ddlCommType.SelectedValue, int.Parse(hdnSBbrokercode.Value));
             if (ds.Tables[0] != null)
             {
                 gvCommissionReceiveRecon.Visible = true;
@@ -140,7 +144,7 @@ namespace WealthERP.BusinessMIS
             ddlIssuer.DataTextField = dtGetMutualFundList.Columns["PA_AMCName"].ToString();
             ddlIssuer.DataValueField = dtGetMutualFundList.Columns["PA_AMCCode"].ToString();
             ddlIssuer.DataBind();
-            ddlIssuer.Items.Insert(0, new ListItem("Select AMC", "Select AMC Code"));
+            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
 
         }
         protected void btnUpload_click(object sender, EventArgs e)

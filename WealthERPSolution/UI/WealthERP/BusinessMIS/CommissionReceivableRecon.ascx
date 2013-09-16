@@ -310,6 +310,7 @@
     <asp:HiddenField ID="hdnFromDate" runat="server" />
     <asp:HiddenField ID="hdnToDate" runat="server" />
     <asp:HiddenField ID="hdnrecon" runat="server" />
+        <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
 </div>
 <div runat="server" id="divBtnActionSection" visible="false">
     <asp:Button ID="btnUpload" OnClick="btnUpload_click" runat="server" Text="Mark Recon Status"

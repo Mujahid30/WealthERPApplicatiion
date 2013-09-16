@@ -25,6 +25,7 @@ namespace WealthERP.BusinessMIS
         protected global::System.Web.UI.WebControls.DropDownList ddlUserType;
         protected global::System.Web.UI.WebControls.DropDownList ddlSelectType;
         protected global::System.Web.UI.WebControls.DropDownList ddlCommType;
+        protected global::System.Web.UI.WebControls.HiddenField hdnSBbrokercode;
 
         protected global::System.Web.UI.WebControls.HiddenField hdnFromDate;
         protected global::System.Web.UI.WebControls.HiddenField hdnToDate;
