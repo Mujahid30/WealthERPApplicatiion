@@ -112,16 +112,14 @@
                                                 HeaderText="Team" UniqueName="AH_Teamname">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="AH_ChannelName" SortExpression="AH_ChannelName" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                                 HeaderText="Channel" UniqueName="AH_ChannelName">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"
                                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
-                                                HeaderText="Circle Manager" UniqueName="CircleManager">
+                                                HeaderText="Cluster Manager" UniqueName="CircleManager">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
@@ -129,9 +127,14 @@
                                                 HeaderText="Area Manager" UniqueName="AreaManager">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ZonalManagerName" SortExpression="ZonalManagerName"
+                                            <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ZonalManager" SortExpression="ZonalManagerName"
                                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                 AllowFiltering="true" HeaderText="Zone Manager" UniqueName="ZonalManagerName">
+                                                <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
+                                            </telerik:GridBoundColumn>
+                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="DeputyHead" SortExpression="DeputyHead"
+                                                AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                AllowFiltering="true" HeaderText="Deputy Head" UniqueName="DeputyHead">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="ar_rmid" SortExpression="ar_rmid" AutoPostBackOnFilter="true"
