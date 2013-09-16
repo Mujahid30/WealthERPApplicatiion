@@ -97,6 +97,8 @@ namespace WealthERP.General
             else if (Page.Request.Headers["From_NAM"] != null || Page.Request.Headers["x-username"] != null || Page.Request.Headers["x-guid"] != null)
             {
                 string headerValue1 = string.Empty, headerValue2 = string.Empty, headerValue3 = string.Empty;
+                string[] headerinfo = new string[10];
+                headerinfo=Page.Request.Headers.GetValues("From_NAM");
                 if (Page.Request.Headers["From_NAM"] != null)
                     headerValue1 = Page.Request.Headers["Name"];
                 else
@@ -109,8 +111,13 @@ namespace WealthERP.General
                     headerValue3 = Page.Request.Headers["x-guid"];
                 else
                     headerValue3 = "null";
+                
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + "From_NAM=" + headerValue1 + "x-username=" + headerValue2 + "x-guid=" + headerValue3 +  "x-username=" + headerinfo[0] + "');", true);
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + "From_NAM=" + headerValue1 + "x-username=" + headerValue2 + "x-guid=" + headerValue3 + "');", true);
+                foreach (string str in headerinfo)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + str + "');", true);
+                }
             }
 
 
