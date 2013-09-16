@@ -854,6 +854,7 @@ namespace WealthERP.Associates
                 associatesVo = (AssociatesVO)Session["associatesVo"];
                 if (associatesVo != null)
                     SetEnableDisable(1);
+                lnkBtnEdit.Visible = false;
             }
         }
 
