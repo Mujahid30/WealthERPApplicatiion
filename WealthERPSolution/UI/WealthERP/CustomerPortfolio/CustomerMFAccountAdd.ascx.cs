@@ -222,6 +222,7 @@ namespace WealthERP.CustomerPortfolio
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            txtAssociateCode.Text = customerAccountsVo.AssociateCode.ToString();
             BindCustomerBankList();
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
             if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
@@ -433,6 +434,7 @@ namespace WealthERP.CustomerPortfolio
             else
                 ddlModeOfHolding.Enabled = true;
 
+            txtAssociateCode.Text = customerAccountsVo.AssociateCode;
             txtPAddress1.Text = customerAccountsVo.CAddress1;
             txtPAddress2.Text = customerAccountsVo.CAddress2;
             txtPAddress3.Text = customerAccountsVo.CAddress3;
@@ -1154,6 +1156,7 @@ namespace WealthERP.CustomerPortfolio
                 Int32.TryParse(ddlBankList.SelectedValue, out BankId);
                 newAccountVo.BankId = BankId;
                 newAccountVo.Name = txtInvestorName.Text;
+                newAccountVo.AssociateCode = txtAssociateCode.Text;
                 if (oldaccount == txtFolioNumber.Text)
                 {
                     newAccountVo.AssetClass = "MF";

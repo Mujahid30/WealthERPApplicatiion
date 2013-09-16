@@ -3182,6 +3182,9 @@ namespace DaoCustomerPortfolio
                         if (dr["XMOH_ModeOfHoldingCode"].ToString() != string.Empty)
 
                             AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
+                        if (dr["CMFA_SubBrokerCode"].ToString() != string.Empty)
+
+                            AccountVo.AssociateCode = dr["XMOH_ModeOfHoldingCode"].ToString();
                         if (AccountVo.ModeOfHoldingCode == "JO")
                         {
                             drJointHolder = ds.Tables[2].Select("CMFA_AccountId=" + AccountVo.AccountId + "AND CMFAA_AssociationType =" + "'" + "Joint Holder" + "'");
@@ -3270,7 +3273,8 @@ namespace DaoCustomerPortfolio
                     AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
                     AccountVo.BankId = bankId;
                     AccountVo.Name = dr["CMFA_INV_NAME"].ToString();
-
+                    //if (dr["CMFA_SubBrokerCode"].ToString() != string.Empty)
+                        AccountVo.AssociateCode = dr["CMFA_SubBrokerCode"].ToString();
                     //newly added
                     AccountVo.CAddress1 = dr["CMGCXP_ADDRESS1"].ToString();
                     AccountVo.CAddress2 = dr["CMGCXP_ADDRESS2"].ToString();
@@ -3374,6 +3378,7 @@ namespace DaoCustomerPortfolio
 
                 #region newly added
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CP_PortfolioId", DbType.Int32, AccountVo.PortfolioId);
+                db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_SubBrokerCode", DbType.String, AccountVo.AssociateCode);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@PAG_AssetGroupCode", DbType.String, AccountVo.AssetClass);
 
 
