@@ -559,6 +559,10 @@ namespace VOAssociates
             set { m_AssociationExpairyDate = value; }
         }
 
+        public string EUIN { get; set; }
+        public string AssociateType { get; set; }
+        public string AssociateSubType { get; set; }
+
         #endregion
     }
 }
