@@ -5523,6 +5523,50 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
+         public int ChkAssociateCode(int adviserid, string agentcode )
+        {
+
+            Database db;
+            DbCommand cmdGetGroupCustomerNames;
+            DataSet dsCustomerNames;
+            DataTable dtCustomerNames;
+             int CountRecord=0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdGetGroupCustomerNames = db.GetStoredProcCommand("ChkAssociateCode");
+                db.AddInParameter(cmdGetGroupCustomerNames, "@adviserid", DbType.Int32, adviserid);
+                db.AddInParameter(cmdGetGroupCustomerNames, "@agentcode", DbType.String, agentcode);
+
+                dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
+                CountRecord = Convert.ToInt32 (dsCustomerNames.Tables[0].Rows[0][0]);
+
+               
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerDao.cs:ChkAssociateCode()");
+                object[] objects = new object[1];
+
+                objects[0] = adviserid;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return CountRecord;
+        }
         public DataTable GetAssociateName(int adviserid, string agentcode)
         {
 
@@ -5541,6 +5585,8 @@ namespace DaoCustomerProfiling
 
                 dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
+
+               
 
             }
             catch (BaseApplicationException Ex)

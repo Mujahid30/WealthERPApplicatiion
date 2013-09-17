@@ -181,6 +181,9 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+
+        //protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+
         
         /// <summary>
         /// lblRM control.
@@ -1863,7 +1866,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAmcCode;
-        
+
+        protected global::System.Web.UI.WebControls.HiddenField txtAgentId;
         /// <summary>
         /// hdnSchemeName control.
         /// </summary>

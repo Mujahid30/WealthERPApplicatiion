@@ -828,23 +828,49 @@ namespace WealthERP.OPS
             double gvAmount = 0.0;
             DateTime gvOrderDate = DateTime.MinValue;
             bool result = false;
-            foreach (GridDataItem gvRow in gvCustomerFIOrderMIS.Items)
+            if (hdnProductType.Value == "FI")
             {
-
-                CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
-                if (chk.Checked)
+                foreach (GridDataItem gvRow in gvCustomerFIOrderMIS.Items)
                 {
-                    i++;
-                }
 
+                    CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
+                    if (chk.Checked)
+                    {
+                        i++;
+                    }
+
+                }
+                if (i == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                    BindFIMISGridView();
+                    return;
+                }
             }
+            else if (hdnProductType.Value == "MF")
+            {
+                
+            foreach (GridDataItem gvRow in gvCustomerOrderMIS.Items)
+              {
+
+               CheckBox chk = (CheckBox)gvRow.FindControl("cbRecons");
+               if (chk.Checked)
+               {
+                   i++;
+               }
+               
+             }
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
                 BindMISGridView();
+                return;
             }
-            else
-            {
+
+            }
+            
+            
+           
                 if (hdnProductType.Value == "MF")
                 {
                     result = MFAutoMatch();
@@ -860,7 +886,7 @@ namespace WealthERP.OPS
                 else
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
                
-            }
+            
         }
         private bool FIAutoMatch()
         {

@@ -16,7 +16,19 @@
         
         return false;
     }
+    function GetAgentId(source, eventArgs) {
 
+        document.getElementById("<%= txtAgentId.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    }
+    function ValidateAssociateName() {
+//        var x = document.forms["form1"]["TextBoxName"].value;
+        document.getElementById("<%=  lblAssociatetext.ClientID %>").value = eventArgs.get_value();
+        document.getElementById("lblAssociatetext").innerHTML = "AgentCode Required";
+        return true;
+    }
+    
     function openpopupAddCustomer() {
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
@@ -313,7 +325,7 @@
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="" DelimiterCharacters=""
+                UseContextKey="True" OnClientItemSelected="GetAgentId" DelimiterCharacters=""
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
                 ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
@@ -323,8 +335,8 @@
             <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
         </td>
          <td class="rightField" style="width: 20%">
-         <asp:Label ID="lblAssociatetext" runat="server" Text="" CssClass="FieldName"></asp:Label>
-        
+         <asp:Label ID="lblAssociatetext" runat="server"  CssClass="FieldName"   Enabled="false"  ></asp:Label>
+         
          </td>
         <%--<td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbLongField" AutoPostBack="false">
@@ -442,11 +454,11 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a transaction type"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "
+        <td class="leftField" style="width: 30%" >
+            <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: " 
                 CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+        <td  class="rightField" style="width: 10%">
             <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
@@ -480,10 +492,10 @@
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <td class="leftField" style="width: 20%">
+        <td  class="leftField"  style="width: 20%">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+        <td class="rightField" style="width: 30%">
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged" >
@@ -533,30 +545,13 @@
     </tr>
     
     <tr id="trOrderDate" runat="server">
-        <td class="leftField" style="width: 20%">
+    
+     <td class="leftField" style="width: 20%">
             <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" width="400px" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
-            </asp:DropDownList>
-            <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
-                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        </td>
-        <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" AutoPostBack="true">
-            </asp:DropDownList>
-        </td>
-    </tr>
-    <tr runat="server" visible="false" >
-        <td colspan="4">
-            <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
-            <asp:TextBox ID="txtSearchScheme" runat="server" Style="width: 500px;" CssClass="txtField"
+          <td colspan="3">
+    <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
+            <asp:TextBox ID="txtSearchScheme" runat="server" Style="width: 300px;" CssClass="txtField"
                 AutoComplete="Off" AutoPostBack="True">
             </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender" runat="server"
@@ -572,6 +567,32 @@
                 UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
             <span id="Span9" class="spnRequiredField">*<br />
             </span>
+       </td>
+        
+       
+    </tr>
+    <tr id="Tr1" runat="server" visible="true" >
+     <td colspan="2">
+     </td> 
+       <td class="leftField" style="width: 20%">
+            <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" style="width: 20%">
+            <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" AutoPostBack="true">
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr runat="server" visible="false" >
+        
+            <td class="rightField" style="width: 20%" colspan="4">
+            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" width="400px" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
+            </asp:DropDownList>
+            <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+        
             <%--ServiceMethod="GetSchemeList"--%>
             <%--<asp:RequiredFieldValidator ID="rfvtxtSearchScheme" ControlToValidate="txtSearchScheme"
                 ErrorMessage="<br />Please select a Scheme" Display="Dynamic" runat="server"
@@ -1177,5 +1198,6 @@
 <asp:HiddenField ID="hdnBankName" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
 <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" />
+<asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 
  

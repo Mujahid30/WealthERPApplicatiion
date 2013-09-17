@@ -316,6 +316,40 @@ namespace BoCustomerProfiling
 
             return custUserId;
         }
+
+        public int ChkAssociateCode(int adviserid, string agentcode)
+        {
+            int CountRecord=0;
+
+            CustomerDao customerDao = new CustomerDao();
+            try
+            {
+                CountRecord = customerDao.ChkAssociateCode(adviserid, agentcode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBo.cs:ChkAssociateCode()");
+
+                object[] objects = new object[2];
+               
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return CountRecord;
+        }
         public bool ChckBussinessDate(DateTime chckdate)
         {
             CustomerDao customerDao = new CustomerDao();

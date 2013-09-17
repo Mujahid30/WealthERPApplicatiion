@@ -83,9 +83,9 @@ namespace WealthERP.OPS
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            orderNumber = mfOrderBo.GetOrderNumber();
-            orderNumber = orderNumber + 1;
-            lblGetOrderNo.Text = orderNumber.ToString();
+            //orderNumber = mfOrderBo.GetOrderNumber();
+            //orderNumber = orderNumber + 1;
+            //lblGetOrderNo.Text = orderNumber.ToString();
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!string.IsNullOrEmpty(Session[SessionContents.RmVo].ToString()))
@@ -123,7 +123,9 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
-               
+                orderNumber = mfOrderBo.GetOrderNumber();
+                orderNumber = orderNumber + 1;
+                lblGetOrderNo.Text = orderNumber.ToString();
 
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
@@ -139,16 +141,7 @@ namespace WealthERP.OPS
                 {
                     //BindSubBrokerAgentCode(AgentCode);
                 }
-                if (Request.QueryString["action"] != null)
-                {
-
-                    lnlBack.Visible = true;
-                    ViewForm = Request.QueryString["action"].ToString();
-                    txtOrderDate.SelectedDate = orderVo.OrderDate;
-                    lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
-                    btnViewInPDFNew.Visible = false;
-                    btnViewInDOCNew.Visible = false;
-                }
+               
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -208,7 +201,18 @@ namespace WealthERP.OPS
 
               
                // dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
+               
+           
+                if (Request.QueryString["action"] != null)
+                {
 
+                    lnlBack.Visible = true;
+                    ViewForm = Request.QueryString["action"].ToString();
+                    txtOrderDate.SelectedDate = orderVo.OrderDate;
+                    lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
+                    btnViewInPDFNew.Visible = false;
+                    btnViewInDOCNew.Visible = false;
+                }
 
                 if (mforderVo != null && orderVo != null)
                 {
@@ -239,8 +243,8 @@ namespace WealthERP.OPS
 
                 }
 
-            }
 
+            }
             bindSearchScehes();
             
            // if (txtReceivedDate.SelectedDate==DateTi)
@@ -264,7 +268,7 @@ namespace WealthERP.OPS
                     if (txtCustomerId.Value == "")
                     {
                         parameters = string.Empty;
-                        parameters = amcCode + '/' + categoryCode + '/' + 1 + '/' + 1;
+                        parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
 
@@ -275,7 +279,7 @@ namespace WealthERP.OPS
                     else
                     {
                         parameters = string.Empty;
-                        parameters = amcCode + '/' + categoryCode + '/' + Sflag + '/' + txtCustomerId.Value;
+                        parameters = amcCode + "/" + categoryCode + "/" + Sflag + "/" + txtCustomerId.Value;
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
 
@@ -300,7 +304,7 @@ namespace WealthERP.OPS
                     else
                     {
                         parameters = string.Empty;
-                        parameters = amcCode + '/' + categoryCode + '/' + Sflag + '/' + txtCustomerId.Value;
+                        parameters = amcCode + "/" + categoryCode + "/" + Sflag + "/" + txtCustomerId.Value;
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
                         //dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
@@ -372,8 +376,39 @@ namespace WealthERP.OPS
         protected void txtSchemeCode_ValueChanged(object sender, EventArgs e)
         {
             schemePlanCode = int.Parse(txtSchemeCode.Value);
-           // txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = schemePlanCode.ToString();
-       //     BindFolioDropDown(int.Parse(ddlportfolio.SelectedValue));
+            if (schemePlanCode != 0)
+            {
+                string transactionType = "";
+                int schemeCode = 0;
+                string FileName = "";
+                if (ddlAmcSchemeList.SelectedIndex != 0)
+                {
+                    schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
+                    hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
+                    hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
+                    categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
+                    ddlCategory.SelectedValue = categoryCode;
+                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                    {
+                        if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+                        {
+                            BindFolioNumber(1);
+                            DataSet dsGetAmountUnits;
+                            DataTable dtGetAmountUnits;
+                            dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode, int.Parse(txtCustomerId.Value));
+                            dtGetAmountUnits = dsGetAmountUnits.Tables[0];
+                            lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
+                            lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
+                            if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
+                            {
+                                BindSchemeSwitch();
+                            }
+                        }
+                    }
+                    else
+                        BindFolioNumber(0);
+                }
+            }
         }
 
         private void BindARNNo(int adviserId)
@@ -451,7 +486,8 @@ namespace WealthERP.OPS
                     txtApplicationNumber.Text = "";
                     ddlAMCList.SelectedIndex = 0;
                     ddlCategory.SelectedIndex = 0;
-                    //sai  ddlAmcSchemeList.SelectedIndex = 0;
+                    txtSchemeCode.Value = "0";
+                     ddlAmcSchemeList.SelectedIndex = 0;
                     //ddlPortfolio.SelectedIndex = -1;
                     ddlFolioNumber.SelectedIndex = 0;
                     txtOrderDate.SelectedDate = null;
@@ -542,7 +578,8 @@ namespace WealthERP.OPS
                         ShowTransactionType(3);
                         lblAMC.Visible = false; ddlAMCList.Visible = false;
                         lblCategory.Visible = false; ddlCategory.Visible = false;
-                        lblSearchScheme.Visible = false; ddlAmcSchemeList.Visible = false;
+                        lblSearchScheme.Visible = false;
+                        ddlAmcSchemeList.Visible = false;
                         lblFolioNumber.Visible = false; ddlFolioNumber.Visible = false;
                         spnAMC.Visible = false; spnScheme.Visible = false;
                         if (customerVo != null)
@@ -575,6 +612,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(orderVo.CustomerId);
                         ddlPortfolio.SelectedItem.Value = mforderVo.portfolioId.ToString();
                         BindScheme(0);
+                        txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
 
@@ -818,8 +856,10 @@ namespace WealthERP.OPS
                            lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
                        }
                     }
-                    if (mforderVo.ARNNo != null)
-                        ddlARNNo.SelectedValue = mforderVo.ARNNo;
+                    //BindARNNo(advisorVo.advisorId);
+                    //ddlARNNo.SelectedValue = "";
+                            if (mforderVo.ARNNo != null)
+                        ddlARNNo.SelectedItem.Value= mforderVo.ARNNo;
 
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY")
                     {
@@ -900,7 +940,8 @@ namespace WealthERP.OPS
                         ShowTransactionType(3);
                         lblAMC.Visible = false; ddlAMCList.Visible = false;
                         lblCategory.Visible = false; ddlCategory.Visible = false;
-                        lblSearchScheme.Visible = false; ddlAmcSchemeList.Visible = false;
+                        lblSearchScheme.Visible = false;
+                        ddlAmcSchemeList.Visible = false;
                         lblFolioNumber.Visible = false; ddlFolioNumber.Visible = false;
                         spnAMC.Visible = false; spnScheme.Visible = false;
                         if (customerVo != null)
@@ -934,6 +975,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(mforderVo.CustomerId);
                         ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
                         BindScheme(0);
+                        txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         BindSchemeSwitch();
@@ -1391,17 +1433,39 @@ namespace WealthERP.OPS
         {
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
-
+                int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
+                if (recCount == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+                    txtAssociateSearch.Text = string.Empty;
+                    return;
+                }
                 Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
                 if (Agentname.Rows.Count > 0)
                 {
                     lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
                 }
                 else
+                {
                     lblAssociatetext.Text = "";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
+
+                   // txtAssociateSearch.Text = "";
+                }
+                 
             }
 
         }
+
+        protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agentcode is not in existed list!');", true);
+
+            }
+        }
+
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
 
@@ -1511,6 +1575,7 @@ namespace WealthERP.OPS
             BindCategory();
             ddlCategory.SelectedIndex = 0;
             BindScheme(0);
+            txtSchemeCode.Value = "0";
             //sai ddlAmcSchemeList.SelectedIndex = 0;
             //ddlPortfolio.SelectedIndex = 0;
             BindFolioNumber(0);
@@ -1649,54 +1714,54 @@ namespace WealthERP.OPS
         }
         private void BindFolioNumber(int Fflag)
         {
-            //sai 
-            //DataSet dsgetfolioNo = new DataSet();
-            //DataTable dtgetfolioNo;
-            //try
-            //{
-            //    if (ddlAMCList.SelectedIndex != 0 && ddlAmcSchemeList.SelectedIndex != 0)
-            //    {
-            //        amcCode = int.Parse(ddlAMCList.SelectedValue);
-            //        schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
-            //        if (txtCustomerId.Value == "")
-            //            dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
-            //        else
-            //            if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
-            //                dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
-            //            else
-            //                dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
-            //    }
-            //    else
-            //    {
-            //        if (txtCustomerId.Value == "")
-            //            dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
-            //        else
-            //            if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
-            //                dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
-            //            else
-            //                dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
-            //    }
+             
+            DataSet dsgetfolioNo = new DataSet();
+            DataTable dtgetfolioNo;
+            try
+            {
+                if (ddlAMCList.SelectedIndex != 0 && txtSchemeCode.Value != "0")// ddlAmcSchemeList.SelectedIndex != 0)
+                {
+                    amcCode = int.Parse(ddlAMCList.SelectedValue);
+                    schemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
+                    if (txtCustomerId.Value == "")
+                        dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
+                    else
+                        if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                        else
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
+                }
+                else
+                {
+                    if (txtCustomerId.Value == "")
+                        dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
+                    else
+                        if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                        else
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
+                }
 
-            //    if (dsgetfolioNo.Tables[0].Rows.Count > 0)
-            //    {
-            //        dtgetfolioNo = dsgetfolioNo.Tables[0];
-            //        ddlFolioNumber.DataSource = dtgetfolioNo;
-            //        ddlFolioNumber.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
-            //        ddlFolioNumber.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
-            //        ddlFolioNumber.DataBind();
-            //        hdnAccountId.Value = ddlFolioNumber.SelectedItem.Text;
-            //    }
-            //    else
-            //    {
-            //        ddlFolioNumber.Items.Clear();
-            //        ddlFolioNumber.DataSource = null;
-            //        ddlFolioNumber.DataBind();
-            //    }
-            //}
-            //catch (BaseApplicationException Ex)
-            //{
-            //    throw (Ex);
-            //}
+                if (dsgetfolioNo.Tables[0].Rows.Count > 0)
+                {
+                    dtgetfolioNo = dsgetfolioNo.Tables[0];
+                    ddlFolioNumber.DataSource = dtgetfolioNo;
+                    ddlFolioNumber.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
+                    ddlFolioNumber.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
+                    ddlFolioNumber.DataBind();
+                    hdnAccountId.Value = ddlFolioNumber.SelectedItem.Text;
+                }
+                else
+                {
+                    ddlFolioNumber.Items.Clear();
+                    ddlFolioNumber.DataSource = null;
+                    ddlFolioNumber.DataBind();
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
         }
 
         protected void ddltransType_SelectedIndexChanged(object sender, EventArgs e)
@@ -2153,6 +2218,8 @@ namespace WealthERP.OPS
                 }
                 BindSchemeSwitch();
             }
+              
+            bindSearchScehes();
         }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -2244,7 +2311,8 @@ namespace WealthERP.OPS
             }
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
-        {
+        {   
+            
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
             OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
@@ -2287,8 +2355,9 @@ namespace WealthERP.OPS
             else
                 mforderVo.Amccode = 0;
             mforderVo.category = ddlCategory.SelectedValue;
-            if (ddlAmcSchemeList.SelectedIndex != 0)
-                mforderVo.SchemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
+           if ( txtSchemeCode.Value != "0")
+            //if (ddlAmcSchemeList.SelectedIndex != 0)
+               mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
             mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
@@ -2468,6 +2537,10 @@ namespace WealthERP.OPS
             lblGetRM.Text = "";
             lblGetBranch.Text = "";
             lblgetPan.Text = "";
+
+            orderNumber = mfOrderBo.GetOrderNumber();
+            orderNumber = orderNumber + 1;
+            lblGetOrderNo.Text = orderNumber.ToString();
         }
         public void SetEditViewMode(bool Bool)
         {
@@ -2643,6 +2716,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>();
             UpdateMFOrderDetails();
+            orderVo.AssetGroup = "MF";
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
             SetEditViewMode(true);
             imgBtnRefereshBank.Enabled = false;
@@ -2672,8 +2746,9 @@ namespace WealthERP.OPS
             else
                 mforderVo.Amccode = 0;
             mforderVo.category = ddlCategory.SelectedValue;
-            if (ddlAmcSchemeList.SelectedIndex != -1)
-                mforderVo.SchemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
+          if(  txtSchemeCode.Value != "0" )
+           // if (ddlAmcSchemeList.SelectedIndex != -1)
+              mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
             // mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
