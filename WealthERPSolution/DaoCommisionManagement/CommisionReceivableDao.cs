@@ -1130,5 +1130,34 @@ namespace DaoCommisionManagement
             }
             return dsSchemeStructureRule;
         }
+
+        public void deleteStructureToSchemeMapping(int setupId)
+        {
+            Database db;
+            DbCommand cmdUpdateSetup;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateSetup = db.GetStoredProcCommand("SPROC_DeleteStructureToSchemeMapping");
+                db.AddInParameter(cmdUpdateSetup, "@SetupId", DbType.Int32, setupId);
+                db.ExecuteDataSet(cmdUpdateSetup);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:deleteStructureToSchemeMapping(int setupId)");
+                object[] objects = new object[1];
+                objects[0] = setupId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
     }
 }
