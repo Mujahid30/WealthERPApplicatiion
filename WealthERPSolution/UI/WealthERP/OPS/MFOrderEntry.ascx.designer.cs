@@ -31,6 +31,8 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkBtnEdit;
         protected global::System.Web.UI.WebControls.HiddenField txtSchemeCode;
+
+        //protected global::System.Web.UI.WebControls.HiddenField txtSearchScheme;
         /// <summary>
         /// lnlBack control.
         /// </summary>
@@ -67,6 +69,7 @@ namespace WealthERP.OPS {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnViewInPDF;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtSwitchSchemeCode_AutoCompleteExtender;
+      
         
         /// <summary>
         /// btnreport control.
@@ -152,6 +155,8 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtCustomer_water;
+        protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtSearchScheme_TextBoxWatermarkExtender;
+          
         
         /// <summary>
         /// txtCustomerName_autoCompleteExtender control.
@@ -163,7 +168,10 @@ namespace WealthERP.OPS {
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender1;
         protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender2;
 
+        protected global::AjaxControlToolkit.AutoCompleteExtender txtSearchScheme_autoCompleteExtender;
         protected global::AjaxControlToolkit.AutoCompleteExtender txtCustomerName_autoCompleteExtender;
+        //protected global::AjaxControlToolkit.AutoCompleteExtender txtSwitchSchemeCode_AutoCompleteExtender;
+        
         
         /// <summary>
         /// RequiredFieldValidator2 control.

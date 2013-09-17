@@ -12,6 +12,8 @@ using BoProductMaster;
 using BoCustomerProfiling;
 using WealthERP.Base;
 using BoCustomerRiskProfiling;
+using BoOps;
+using BoProductMaster;
 
 namespace WealthERP.CustomerPortfolio
 {
@@ -44,6 +46,88 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+
+        //[WebMethod]
+        //public string[] GetMFSchemeNames(string prefixText, string contextKey)
+        ////int amcCode, string categoryCode, int Sflag, int customerId)
+        //{
+
+        //    string[] parts = contextKey.Split(',');
+
+
+
+
+
+
+
+
+        //}
+       [WebMethod]
+        public string[] GetSchemeName(string prefixText, string contextKey)
+            //int amcCode, string categoryCode, int Sflag, int customerId)
+       {
+            string[] parts = contextKey.Split('/');
+
+            int amcCode=Convert.ToInt32 (parts[0]);
+            string categoryCode=parts[1];
+            int Sflag = Convert.ToInt32 (parts[2]);
+            int customerId = Convert.ToInt32(parts[3]);
+
+            //foreach (string part in parts)
+            //{
+            //    Console.WriteLine(part);
+            //}
+
+            ProductMFBo productMFBo = new ProductMFBo();
+            DataTable dtSchemePlans;
+            List<string> names = new List<string>();
+            dtSchemePlans = productMFBo.GetSchemeName(amcCode, categoryCode, Sflag, customerId).Tables[0];
+          
+
+            foreach (DataRow dr in dtSchemePlans.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                names.Add(item);
+
+            }
+            return names.ToArray();
+        }
+
+
+
+
+        [WebMethod]
+        public string[] GetSchemeForOrderEntry(string prefixText, string contextKey)
+            //int amcCode, string categoryCode, int Sflag, int customerId)
+        {
+            string[] parts = contextKey.Split(',');
+
+            int amcCode=Convert.ToInt32 (parts[0]);
+            string categoryCode=parts[1];
+            int Sflag = Convert.ToInt32 (parts[2]);
+            int customerId = Convert.ToInt32(parts[3]);
+
+            //foreach (string part in parts)
+            //{
+            //    Console.WriteLine(part);
+            //}
+
+            OperationBo productMFBo = new OperationBo();
+            DataTable dtSchemePlans;
+            List<string> names = new List<string>();
+            dtSchemePlans = productMFBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, customerId).Tables[0];
+
+
+            foreach (DataRow dr in dtSchemePlans.Rows)
+            {
+                string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["PASP_SchemePlanName"].ToString(), dr["PASP_SchemePlanCode"].ToString());
+                names.Add(item);
+
+            }
+            return names.ToArray();
+        }
+
+
 
         [WebMethod]
         public string[] GetSwitchSchemeList(string prefixText, string contextKey)

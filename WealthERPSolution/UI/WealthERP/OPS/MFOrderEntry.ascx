@@ -4,6 +4,9 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
+<%--<Services>
+        <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
+    </Services>--%>
 </asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
@@ -21,10 +24,22 @@
 </script>
 
 <script type="text/javascript" language="javascript">
+     
     function openpopupAddBank() {
-        window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+       
+            window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+         
+    
+     
         return false;
     }
+//    function closepopupAddBank() {
+//        window.close('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+//        return false;
+////     window.close('
+////    for (var i = 0; i < popups.length; i++) {
+////        popups[i].close();
+//    }
 </script>
 
 <script type="text/javascript">
@@ -80,6 +95,21 @@
         document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
         document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
     }
+</script>
+<script type="text/javascript">
+    function GetSchemeCode(source, eventArgs) {
+
+        document.getElementById("<%= txtSchemeCode.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    };
+    function GetSwitchSchemeCode(source, eventArgs) {
+ 
+        document.getElementById("<%= txtSwitchSchemeCode.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    };
+
 </script>
 
 <table width="100%">
@@ -422,7 +452,7 @@
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                     <SpecialDays>
-           <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />
+          <%-- <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />--%>
        </SpecialDays>
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
@@ -458,10 +488,10 @@
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged" >
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false" runat="server"  >
-                    <SpecialDays>
+                    Skin="Telerik" EnableEmbeddedSkins="false"   >
+                   <%-- <SpecialDays>
            <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />
-       </SpecialDays>
+       </SpecialDays>--%>
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
@@ -523,23 +553,26 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <tr runat="server" visible="false" >
         <td colspan="4">
-           <%-- <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
+            <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
             <asp:TextBox ID="txtSearchScheme" runat="server" Style="width: 500px;" CssClass="txtField"
-                AutoComplete="Off" AutoPostBack="true">
+                AutoComplete="Off" AutoPostBack="True">
             </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
             </cc1:TextBoxWatermarkExtender>
+            
             <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
-                TargetControlID="txtSearchScheme" ServiceMethod="GetSchemeList" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                TargetControlID="txtSearchScheme"  ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                ServiceMethod="GetSchemeName"
                 MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
             <span id="Span9" class="spnRequiredField">*<br />
-            </span>--%>
+            </span>
+            <%--ServiceMethod="GetSchemeList"--%>
             <%--<asp:RequiredFieldValidator ID="rfvtxtSearchScheme" ControlToValidate="txtSearchScheme"
                 ErrorMessage="<br />Please select a Scheme" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="MFSubmit">
@@ -726,7 +759,7 @@
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px"></asp:ImageButton>
             <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
-                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick" OnClientClick="return closepopupAddBank()"
                 Height="15px" Width="25px"></asp:ImageButton>
             <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
@@ -1135,7 +1168,7 @@
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server" />
-<asp:HiddenField ID="hdnSchemeCode" runat="server" />
+<asp:HiddenField ID="hdnSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged"/> 
 <asp:HiddenField ID="hdnPortfolioId" runat="server" />
 <asp:HiddenField ID="hdnAccountId" runat="server" />
 <asp:HiddenField ID="hdnAmcCode" runat="server" />
@@ -1143,3 +1176,6 @@
 <asp:HiddenField ID="hdnSchemeSwitch" runat="server" />
 <asp:HiddenField ID="hdnBankName" runat="server" />
 <asp:HiddenField ID="hdnIsSubscripted" runat="server" />
+<asp:HiddenField ID="txtSwitchSchemeCode" runat="server" />
+
+ 
