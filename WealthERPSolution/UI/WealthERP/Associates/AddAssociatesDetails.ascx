@@ -14,12 +14,11 @@
                             Add Associates
                         </td>
                         <td align="right">
-                        <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit" 
-                                onclick="lnkBtnEdit_Click"></asp:LinkButton>
+                            <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit"
+                                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
                             &nbsp; &nbsp;
-                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" 
-                                Visible="false" onclick="lnlBack_Click"
-                             ></asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                                OnClick="lnlBack_Click"></asp:LinkButton>
                         </td>
                     </tr>
                 </table>
@@ -119,6 +118,44 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtPan" runat="server" CssClass="txtField" Enabled="False"></asp:TextBox>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftLabel" align="right">
+            <asp:Label ID="lblEUIN" runat="server" Text="EUIN: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtEUIN" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+        <td colspan="4">
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" style="width: 20%" align="right">
+            <asp:Label ID="lblAssociateType" runat="server" CssClass="FieldName" Text="Associate Type:"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:RadioButton ID="rbtnIndividual" runat="server" CssClass="txtField" Text="Individual" Checked="true"
+                GroupName="grpAssociateType" AutoPostBack="true" OnCheckedChanged="rbtnIndividual_CheckedChanged" />
+            &nbsp;&nbsp;
+            <asp:RadioButton ID="rbtnNonIndividual" runat="server" CssClass="txtField" Text="Non Individual"
+                GroupName="grpAssociateType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
+        </td>
+        <td colspan="4">
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField" align="right">
+            <asp:Label ID="lblAssociateSubType" runat="server" CssClass="FieldName" Text="Associate Sub Type:"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlAssociateSubType" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span2" class="spnRequiredField">*</span>
+            <br />
+            <asp:CompareValidator ID="CompareValidator8" runat="server" ControlToValidate="ddlAssociateSubType"
+                ErrorMessage="Please select a Sub-Type" Operator="NotEqual" ValueToCompare="Select"
+                CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
         </td>
     </tr>
 </table>
@@ -293,10 +330,9 @@
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlCorState" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            onselectedindexchanged="ddlCorState_SelectedIndexChanged">
+                            OnSelectedIndexChanged="ddlCorState_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
-                    
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -324,7 +360,6 @@
                     <td class="rightField">
                         <asp:TextBox ID="txtCorCountry" runat="server" CssClass="txtField"></asp:TextBox>
                     </td>
-                    
                 </tr>
                 <tr>
                     <td colspan="4">
@@ -338,17 +373,18 @@
                     </td>
                 </tr>
                 <tr>
-                <td colspan="4"></td>
-                </tr>
-                <tr>
                     <td colspan="4">
-                    <asp:CheckBox ID="chkAddressChk" runat="server" 
-                            Text="Is permanent addess is same as correspondes address?" CssClass="cmbField" 
-                             oncheckedchanged="chkAddressChk_CheckedChanged" AutoPostBack="true"/>
                     </td>
                 </tr>
                 <tr>
-                <td colspan="4"></td>
+                    <td colspan="4">
+                        <asp:CheckBox ID="chkAddressChk" runat="server" Text="Is permanent addess is same as correspondes address?"
+                            CssClass="cmbField" OnCheckedChanged="chkAddressChk_CheckedChanged" AutoPostBack="true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                    </td>
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -376,10 +412,9 @@
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            onselectedindexchanged="ddlPermAdrState_SelectedIndexChanged">
+                            OnSelectedIndexChanged="ddlPermAdrState_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
-                    
                 </tr>
                 <tr>
                     <td class="leftField">
@@ -554,13 +589,12 @@
                     </td>
                     <td class="rightField">
                         <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField" AutoPostBack="true"
-                            Width="150px" onselectedindexchanged="ddlBankAdrState_SelectedIndexChanged">
+                            Width="150px" OnSelectedIndexChanged="ddlBankAdrState_SelectedIndexChanged">
                         </asp:DropDownList>
                     </td>
-                   
                 </tr>
                 <tr>
-                     <td class="leftField">
+                    <td class="leftField">
                         <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">

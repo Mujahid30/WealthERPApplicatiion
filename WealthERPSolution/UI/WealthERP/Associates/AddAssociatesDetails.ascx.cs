@@ -65,6 +65,7 @@ namespace WealthERP.Associates
                 BindAssetCategory();
                 BindMaritalStatus();
                 BindCity(0);
+                BindSubTypeDropDown("IND");
                 if (viewAction == "View")
                 {
                     SetEnableDisable(0);
@@ -179,6 +180,10 @@ namespace WealthERP.Associates
                 //chlIpo.Enabled = false;
                 //chkfd.Enabled = false;
                 chkModules.Enabled = false;
+                txtEndDate.Enabled = false;
+                ddlAssociateSubType.Enabled = false;
+                rbtnIndividual.Enabled = false;
+                rbtnNonIndividual.Enabled = false;
             }
             else
             {
@@ -258,6 +263,10 @@ namespace WealthERP.Associates
                 //chlIpo.Enabled = false;
                 //chkfd.Enabled = false;
                 chkModules.Enabled = true;
+                txtEndDate.Enabled = true;
+                ddlAssociateSubType.Enabled = true;
+                rbtnIndividual.Enabled = true;
+                rbtnNonIndividual.Enabled = true;
             }
 
         }
@@ -403,6 +412,20 @@ namespace WealthERP.Associates
 
             if (associatesVo.AAC_AgentCode != null)
                 txtAdviserAgentCode.Text = associatesVo.AAC_AgentCode.Trim();
+            if (associatesVo.EUIN != null)
+                txtEUIN.Text = associatesVo.EUIN;
+            if (associatesVo.AssociateType == "IND")
+            {
+                rbtnIndividual.Checked = true;
+                BindSubTypeDropDown("IND");
+            }
+            if (associatesVo.AssociateType == "NIND")
+            {
+                rbtnNonIndividual.Checked = true;
+                BindSubTypeDropDown("NIND");
+            }
+            if (associatesVo.AssociateSubType != null)
+                ddlAssociateSubType.SelectedValue = associatesVo.AssociateSubType;
 
             //chkAssociates.Enabled = false;
             //chkMf.Enabled = false;
@@ -812,6 +835,14 @@ namespace WealthERP.Associates
                 associatesVo.NoOfClients = int.Parse(txtNoofClients.Text);
             else
                 associatesVo.NoOfClients = 0;
+            if (!string.IsNullOrEmpty(txtEUIN.Text))
+                associatesVo.EUIN = txtEUIN.Text;
+            if (rbtnIndividual.Checked == true)
+                associatesVo.AssociateType = "IND";
+            if(rbtnNonIndividual.Checked==true)
+                associatesVo.AssociateType = "NIND";
+            if (ddlAssociateSubType.SelectedIndex != 0)
+                associatesVo.AssociateSubType = ddlAssociateSubType.SelectedValue;
 
             
 
@@ -899,6 +930,25 @@ namespace WealthERP.Associates
         {
             if (ddlCorState.SelectedIndex != 0)
                 BindCity(1);
+        }
+        protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
+        {
+            BindSubTypeDropDown("IND");
+        }
+        protected void rbtnNonIndividual_CheckedChanged(object sender, EventArgs e)
+        {
+            BindSubTypeDropDown("NIND");
+        }
+
+        private void BindSubTypeDropDown(string type)
+        {
+            DataTable dt;
+            dt = XMLBo.GetCustomerSubType(path, type);
+            ddlAssociateSubType.DataSource = dt;
+            ddlAssociateSubType.DataTextField = "CustomerTypeName";
+            ddlAssociateSubType.DataValueField = "CustomerSubTypeCode";
+            ddlAssociateSubType.DataBind();
+            ddlAssociateSubType.Items.Insert(0, new ListItem("Select", "Select"));
         }
     }
 }
