@@ -376,6 +376,17 @@ namespace WealthERP.CommisionManagement
             CreateMappedSchemeGrid();
         }
 
+        protected void gvMappedSchemes_DeleteCommand(object sender, GridCommandEventArgs e)
+        {
+            GridEditableItem item = (GridEditableItem)e.Item;
+            int setupId = int.Parse(item.GetDataKeyValue("ACSTSM_SetupId").ToString());
+
+            //check whether it is not associated
+            commisionReceivableBo.deleteStructureToSchemeMapping(setupId);
+
+            CreateMappedSchemeGrid();
+        }
+
         protected void gvMappedSchemes_OnItemCreated(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridEditableItem && e.Item.IsInEditMode)

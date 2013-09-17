@@ -223,7 +223,7 @@
         <tr>
             <td>
                 <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="None" Visible="false">
-                    <table width="60%">
+                    <table width="75%">
                         <tr>
                             <td>
                                 <telerik:RadGrid ID="gvMappedSchemes" AllowSorting="false" runat="server" AllowAutomaticInserts="false" 
@@ -231,7 +231,8 @@
                                     EnableEmbeddedSkins="false" GridLines="none" ShowFooter="true" PagerStyle-AlwaysVisible="true"
                                     EnableViewState="true" ShowStatusBar="true" Skin="Telerik" OnPageSizeChanged="gvMappedSchemes_PageSizeChanged"
                                     OnNeedDataSource="gvMappedSchemes_NeedDataSource" OnItemCreated="gvMappedSchemes_OnItemCreated"
-                                    OnPageIndexChanged="gvMappedSchemes_PageIndexChanged" OnUpdateCommand="gvMappedSchemes_UpdateCommand">
+                                    OnPageIndexChanged="gvMappedSchemes_PageIndexChanged" OnUpdateCommand="gvMappedSchemes_UpdateCommand"
+                                    OnDeleteCommand="gvMappedSchemes_DeleteCommand">
                                     <HeaderContextMenu EnableEmbeddedSkins="False"></HeaderContextMenu>
 
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="MappedSchemes"
@@ -261,6 +262,11 @@
                                                 HeaderText="Valid Till" UniqueName="schemeValidTill">
                                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                             </telerik:GridDateTimeColumn>
+                                             <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" 
+                                             ConfirmText="Do you want to delete the mapping?" CommandName="Delete"
+                                             UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px">
+                                                <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
+                                            </telerik:GridButtonColumn>
                                         </Columns>
                                         <PagerStyle AlwaysVisible="True" />
                                     </MasterTableView>                                        
