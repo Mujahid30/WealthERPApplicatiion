@@ -614,7 +614,7 @@ namespace DAOAssociates
 
         public DataSet GetAgentCodeAndType(int adviserId,string Usertype,string agentcode)
         {
-            DataSet dsAgentCodeAndTypeList;
+            DataSet dsAgentCodeAndTypeList; 
             Database db;
             DbCommand getAgentCodeAndTypecmd;
             try
@@ -624,7 +624,7 @@ namespace DAOAssociates
                 db.AddInParameter(getAgentCodeAndTypecmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(getAgentCodeAndTypecmd, "@usertype", DbType.String, Usertype);
                 db.AddInParameter(getAgentCodeAndTypecmd, "@agentcode", DbType.String, agentcode);
-
+                getAgentCodeAndTypecmd.CommandTimeout = 60 * 60;
                 dsAgentCodeAndTypeList = db.ExecuteDataSet(getAgentCodeAndTypecmd);
             }
             catch (BaseApplicationException Ex)
