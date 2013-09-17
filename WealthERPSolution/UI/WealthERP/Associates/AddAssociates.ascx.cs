@@ -250,6 +250,16 @@ namespace WealthERP.Associates
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_StatusReason"].ToString()))
                                     ddlReasonStage2.SelectedValue = drISARequestDetails["AWFSD_StatusReason"].ToString();
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AAC_AgentCode"].ToString()))
+                                {
+                                    lnlStep2.Enabled = false;
+                                    lnkAgentCode.Enabled = false;
+                                }
+                                else
+                                {
+                                    lnlStep2.Enabled = false;
+                                    lnkAgentCode.Enabled = true;
+                                }
                                 ShowHideReasonDropListBasedOnStatus(drISARequestDetails["AWFSD_Status"].ToString(), 2);
 
                             }
@@ -412,11 +422,11 @@ namespace WealthERP.Associates
                         ddlstatus2.Enabled = true;
                         ddlReasonStage2.Enabled = true;
                         txtComments2.Enabled = true;
-                        lnlStep2.Enabled = true;
+                        //lnlStep2.Enabled = true;
                         btnSubmitAddStage2.Visible = true;
                         btnSubmitAddStage2.Enabled = true;
-                        lnkAgentCode.Enabled = true;
-                        lnlStep2.Enabled = true;
+                        //lnkAgentCode.Enabled = true;
+                        //lnlStep2.Enabled = true;
                     }
 
                     break;
