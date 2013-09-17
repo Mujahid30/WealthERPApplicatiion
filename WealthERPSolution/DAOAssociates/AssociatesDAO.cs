@@ -502,6 +502,18 @@ namespace DAOAssociates
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_NoOfClients", DbType.Int16, associatesVo.NoOfClients);
                 else
                     db.AddInParameter(UpdateAssociatesCmd, "@AA_NoOfClients", DbType.Int16, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.EUIN))
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_EUIN", DbType.String, associatesVo.EUIN);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@AA_EUIN", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.AssociateType))
+                    db.AddInParameter(UpdateAssociatesCmd, "@XCT_CustomerTypeCode", DbType.String, associatesVo.AssociateType);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@XCT_CustomerTypeCode", DbType.String, DBNull.Value);
+                if (!string.IsNullOrEmpty(associatesVo.AssociateSubType))
+                    db.AddInParameter(UpdateAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, associatesVo.AssociateSubType);
+                else
+                    db.AddInParameter(UpdateAssociatesCmd, "@XCST_CustomerSubTypeCode", DbType.String, DBNull.Value);
 
 
                 db.ExecuteNonQuery(UpdateAssociatesCmd);
@@ -1256,6 +1268,12 @@ namespace DAOAssociates
                         associatesVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
                     if (dr["AAC_UserType"] != DBNull.Value)
                         associatesVo.AAC_UserType = dr["AAC_UserType"].ToString();
+                    if (dr["AA_EUIN"] != DBNull.Value)
+                        associatesVo.EUIN = dr["AA_EUIN"].ToString();
+                    if (dr["XCT_CustomerTypeCode"] != DBNull.Value)
+                        associatesVo.AssociateType = dr["XCT_CustomerTypeCode"].ToString();
+                    if (dr["XCST_CustomerSubTypeCode"] != DBNull.Value)
+                        associatesVo.AssociateSubType = dr["XCST_CustomerSubTypeCode"].ToString();
 
                 }
             }
