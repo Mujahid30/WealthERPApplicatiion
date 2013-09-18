@@ -69,6 +69,7 @@ namespace VoCustomerPortfolio
         private string m_CircleManager;
         private string m_ReportingManagerName;
         private string m_UserType;
+        private string m_DeuptyHead;
         #endregion Fields
 
         #region Properties
@@ -373,6 +374,13 @@ namespace VoCustomerPortfolio
             set { m_UserType = value; }
 
         }
+          public string DeuptyHead
+        {
+            get { return m_DeuptyHead; }
+            set { m_DeuptyHead = value; }
+
+        }
+        
      
         #endregion Properties
 

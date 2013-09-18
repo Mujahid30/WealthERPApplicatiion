@@ -2575,6 +2575,14 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.UserType = "N/A";
                             }
+                            if (dr["DeputyHead"].ToString() != null && dr["DeputyHead"].ToString() != string.Empty)
+                            {
+                                mfTransactionVo.DeuptyHead = dr["DeputyHead"].ToString();
+                            }
+                            else
+                            {
+                                mfTransactionVo.DeuptyHead = "N/A";
+                            }
                            
                         }
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
@@ -4299,7 +4307,14 @@ namespace DaoCustomerPortfolio
                             {
                                 mfBalanceVo.UserType = "N/A";
                             }
-
+                            if (dr["DeputyHead"].ToString() != null && dr["DeputyHead"].ToString() != string.Empty)
+                            {
+                                mfBalanceVo.DeuptyHead = dr["DeputyHead"].ToString();
+                            }
+                            else
+                            {
+                                mfBalanceVo.DeuptyHead = "N/A";
+                            }
 
 
                         }

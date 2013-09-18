@@ -820,15 +820,15 @@ namespace WealthERP.CustomerPortfolio
                 {
                     AdviserId = advisorVo.advisorId;
                     IsAssociates = 0;
-                    gvMFTransactions.Columns[3].Visible = false;
-                    gvMFTransactions.Columns[4].Visible = false;
-                    gvMFTransactions.Columns[5].Visible = false;
-                    gvMFTransactions.Columns[6].Visible = false;
-                    gvMFTransactions.Columns[7].Visible = false;
-                    gvMFTransactions.Columns[8].Visible = false;
-                    gvMFTransactions.Columns[9].Visible = false;
-                    gvMFTransactions.Columns[10].Visible = false;
-                    gvMFTransactions.Columns[11].Visible = false;
+                    gvMFTransactions.Columns[20].Visible = false;
+                    gvMFTransactions.Columns[21].Visible = false;
+                    gvMFTransactions.Columns[22].Visible = false;
+                    gvMFTransactions.Columns[23].Visible = false;
+                    gvMFTransactions.Columns[24].Visible = false;
+                    gvMFTransactions.Columns[25].Visible = false;
+                    gvMFTransactions.Columns[26].Visible = false;
+                    gvMFTransactions.Columns[27].Visible = false;
+                    gvMFTransactions.Columns[28].Visible = false;
                 }
                 else if (userType == "rm")
                 {
@@ -905,6 +905,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("CircleManager");
                     dtMFTransactions.Columns.Add("ReportingManagerName");
                     dtMFTransactions.Columns.Add("UserType");
+                    dtMFTransactions.Columns.Add("DeuptyHead");
+                    
                     DataRow drMFTransaction;
                     for (int i = 0; i < mfTransactionList.Count; i++)
                     {
@@ -966,6 +968,7 @@ namespace WealthERP.CustomerPortfolio
                             drMFTransaction["CircleManager"] = mfTransactionVo.CircleManager.ToString();
                             drMFTransaction["ReportingManagerName"] = mfTransactionVo.ReportingManagerName.ToString();
                             drMFTransaction["UserType"] = mfTransactionVo.UserType.ToString();
+                            drMFTransaction["DeuptyHead"] = mfTransactionVo.DeuptyHead.ToString();
                         }
 
                         dtMFTransactions.Rows.Add(drMFTransaction);
@@ -1033,15 +1036,16 @@ namespace WealthERP.CustomerPortfolio
                 if (userType == "advisor" || userType == "ops")
                 {
                     AdviserId = advisorVo.advisorId;
-                    gvBalanceView.Columns[2].Visible = false;
-                    gvBalanceView.Columns[3].Visible = false;
-                    gvBalanceView.Columns[4].Visible = false;
-                    gvBalanceView.Columns[5].Visible = false;
-                    gvBalanceView.Columns[6].Visible = false;
-                    gvBalanceView.Columns[7].Visible = false;
-                    gvBalanceView.Columns[8].Visible = false;
-                    gvBalanceView.Columns[9].Visible = false;
-                    gvBalanceView.Columns[10].Visible = false;
+                    gvBalanceView.Columns[17].Visible = false;
+                    gvBalanceView.Columns[18].Visible = false;
+                    gvBalanceView.Columns[19].Visible = false;
+                    gvBalanceView.Columns[20].Visible = false;
+                    gvBalanceView.Columns[21].Visible = false;
+                    gvBalanceView.Columns[22].Visible = false;
+                    gvBalanceView.Columns[23].Visible = false;
+                    gvBalanceView.Columns[24].Visible = false;
+                    gvBalanceView.Columns[25].Visible = false;
+                    gvBalanceView.Columns[26].Visible = false;
                 }
                 else if (userType == "rm")
                 {
@@ -1111,6 +1115,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("CircleManager");
                     dtMFBalance.Columns.Add("ReportingManagerName");
                     dtMFBalance.Columns.Add("UserType");
+                    dtMFBalance.Columns.Add("DeuptyHead");
                     DataRow drMFBalance;
 
                     for (int i = 0; i < mfBalanceList.Count; i++)
@@ -1159,6 +1164,7 @@ namespace WealthERP.CustomerPortfolio
                             drMFBalance["CircleManager"] = mfBalanceVo.CircleManager.ToString();
                             drMFBalance["ReportingManagerName"] = mfBalanceVo.ReportingManagerName.ToString();
                             drMFBalance["UserType"] = mfBalanceVo.UserType.ToString();
+                            drMFBalance["DeuptyHead"] = mfBalanceVo.DeuptyHead.ToString();
                         }
                         dtMFBalance.Rows.Add(drMFBalance);
                     }
@@ -1316,15 +1322,16 @@ namespace WealthERP.CustomerPortfolio
                 {
                     AdviserId = advisorVo.advisorId;
                     IsAssociates = 0;
-                    gvTrail.Columns[4].Visible = false;
-                    gvTrail.Columns[5].Visible = false;
-                    gvTrail.Columns[6].Visible = false;
-                    gvTrail.Columns[7].Visible = false;
-                    gvTrail.Columns[8].Visible = false;
-                    gvTrail.Columns[9].Visible = false;
-                    gvTrail.Columns[10].Visible = false;
-                    gvTrail.Columns[11].Visible = false;
-                    gvTrail.Columns[12].Visible = false;
+                    gvTrail.Columns[25].Visible = false;
+                    gvTrail.Columns[26].Visible = false;
+                    gvTrail.Columns[27].Visible = false;
+                    gvTrail.Columns[28].Visible = false;
+                    gvTrail.Columns[29].Visible = false;
+                    gvTrail.Columns[30].Visible = false;
+                    gvTrail.Columns[31].Visible = false;
+                    gvTrail.Columns[32].Visible = false;
+                    gvTrail.Columns[33].Visible = false;
+                    gvTrail.Columns[34].Visible = false;
                 }
                 else if (userType == "rm")
                 {
