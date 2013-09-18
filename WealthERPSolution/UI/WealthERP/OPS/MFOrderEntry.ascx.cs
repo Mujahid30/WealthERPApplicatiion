@@ -103,6 +103,7 @@ namespace WealthERP.OPS
                 if (associateuserheirarchyVo.AgentCode != null)
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
+                    
                 }
                 else
                     AgentCode = "0";
@@ -126,6 +127,8 @@ namespace WealthERP.OPS
                 orderNumber = mfOrderBo.GetOrderNumber();
                 orderNumber = orderNumber + 1;
                 lblGetOrderNo.Text = orderNumber.ToString();
+                txtAssociateSearch.Text = AgentCode;
+                OnAssociateTextchanged(this, null);
 
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
@@ -191,6 +194,7 @@ namespace WealthERP.OPS
                 cvFutureDate1.ValueToCompare = DateTime.Today.ToShortDateString();
                 BindAMC(0);
                 BindScheme(0);
+                Sflag = 0;
                 //BindFolioNumber(0);
                 //BindOrderStatus();
                 BindCategory();
@@ -612,6 +616,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(orderVo.CustomerId);
                         ddlPortfolio.SelectedItem.Value = mforderVo.portfolioId.ToString();
                         BindScheme(0);
+                        Sflag = 0;
                         txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
@@ -761,6 +766,7 @@ namespace WealthERP.OPS
                     }
 
                     ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
+                    ddlPaymentMode_SelectedIndexChanged(this, null);
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
                     if (orderVo.PaymentDate != DateTime.MinValue)
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
@@ -975,6 +981,7 @@ namespace WealthERP.OPS
                         BindPortfolioDropdown(mforderVo.CustomerId);
                         ddlPortfolio.SelectedValue = mforderVo.portfolioId.ToString();
                         BindScheme(0);
+                        Sflag = 0;
                         txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
@@ -1057,6 +1064,7 @@ namespace WealthERP.OPS
                     }
 
                     ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
+                    ddlPaymentMode_SelectedIndexChanged(this, null);
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
                     if (orderVo.PaymentDate != DateTime.MinValue)
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
@@ -1575,6 +1583,7 @@ namespace WealthERP.OPS
             BindCategory();
             ddlCategory.SelectedIndex = 0;
             BindScheme(0);
+            Sflag = 0;
             txtSchemeCode.Value = "0";
             //sai ddlAmcSchemeList.SelectedIndex = 0;
             //ddlPortfolio.SelectedIndex = 0;
@@ -1787,6 +1796,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(0);
                         BindScheme(0);
+                        Sflag = 0;
                         //BindFolioNumber(0);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
@@ -1795,6 +1805,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(0);
                         BindScheme(0);
+                        Sflag = 0;
                         //BindFolioNumber(0);
                         trFrequency.Visible = true;
                         trSIPStartDate.Visible = true;
@@ -1803,6 +1814,7 @@ namespace WealthERP.OPS
                     {
                         BindAMC(1);
                         BindScheme(1);
+                        Sflag = 1;
                         //BindFolioNumber(1);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
@@ -1839,6 +1851,7 @@ namespace WealthERP.OPS
                     }
                     BindAMC(1);
                     BindScheme(1);
+                    Sflag = 1;
                     //BindFolioNumber(1);
 
                 }
@@ -2205,13 +2218,14 @@ namespace WealthERP.OPS
                 if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
                 {
                     BindScheme(0);
+                    Sflag = 0;
                     BindFolioNumber(0);
                 }
                 else
                 {
 
-                  
-                  
+
+                    Sflag = 1;
 
                    //sai BindScheme(1);
                     //BindFolioNumber(1);
@@ -2219,7 +2233,7 @@ namespace WealthERP.OPS
                 BindSchemeSwitch();
             }
               
-            bindSearchScehes();
+            //bindSearchScehes();
         }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -2231,11 +2245,18 @@ namespace WealthERP.OPS
                     amcCode = int.Parse(ddlAMCList.SelectedValue);
                     categoryCode = ddlCategory.SelectedValue;
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
+                    {
                         BindScheme(0);
+                        Sflag = 0;
+                    }
                     else
+                    {
                         BindScheme(1);
+                        Sflag = 1;
+                    }
                 }
             }
+            bindSearchScehes();
         }
 
         protected void ddlAmcSchemeList_SelectedIndexChanged(object sender, EventArgs e)
@@ -2273,7 +2294,13 @@ namespace WealthERP.OPS
         }
         protected void txtOrderDate_DateChanged(object sender, EventArgs e)
         {
+
             string ddlTrxnType = "";
+
+            if (txtOrderDate.SelectedDate ==null )
+            {
+                return;
+            }
             DateTime dt = Convert.ToDateTime(txtOrderDate.SelectedDate);
             //if (ddlTransactionType.SelectedItem.Value == "Sell")
             //{

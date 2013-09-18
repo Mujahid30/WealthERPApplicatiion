@@ -65,7 +65,7 @@ namespace WealthERP.CustomerPortfolio
        [WebMethod]
         public string[] GetSchemeName(string prefixText, string contextKey)
             //int amcCode, string categoryCode, int Sflag, int customerId)
-      {
+     {
             string[] parts = contextKey.Split('/');
 
             int amcCode=Convert.ToInt32 (parts[0]);
@@ -100,7 +100,7 @@ namespace WealthERP.CustomerPortfolio
         public string[] GetSchemeForOrderEntry(string prefixText, string contextKey)
             //int amcCode, string categoryCode, int Sflag, int customerId)
         {
-            string[] parts = contextKey.Split(',');
+            string[] parts = contextKey.Split('/');
 
             int amcCode=Convert.ToInt32 (parts[0]);
             string categoryCode=parts[1];

@@ -732,6 +732,14 @@
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
             </asp:DropDownList>
+            <span id="Span10" class="spnRequiredField">*</span>
+           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="ddlPaymentMode"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select Mode Of Payment" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
+                
+               <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode Of Payment"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trPINo" runat="server" Visible ="false">
@@ -741,6 +749,10 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength=6 CssClass="txtField"></asp:TextBox>
+            <span id="Span12" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
+                ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic" runat="server"
+                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPIDate" runat="server" Text="Payment Instrument Date:" CssClass="FieldName"></asp:Label>
@@ -756,7 +768,8 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <asp:CompareValidator ID="CVPaymentDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+            <span id="Span11" class="spnRequiredField">*</span>
+            <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
                 <%--<asp:CompareValidator ID="CVPaymentdate2" runat="server" ErrorMessage="<br/>Payment date cannot be greater than order date"
