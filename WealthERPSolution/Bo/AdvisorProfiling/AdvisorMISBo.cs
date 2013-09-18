@@ -1514,6 +1514,12 @@ namespace BoAdvisorProfiling
                 //for trail
                 if (dsGetCommissionReconMis.Tables.Count >= 1 && dsGetCommissionReconMis.Tables[1].Rows.Count >= 1 && dsGetCommissionReconMis.Tables[2].Rows.Count >= 1)
                 {
+
+                    dsGetCommissionReconMis.Tables[0].Columns.Add("AverageAum");
+                    dsGetCommissionReconMis.Tables[0].Columns.Add("TotalDays");
+                    dsGetCommissionReconMis.Tables[0].Columns.Add("AumPerDay");
+                    dsGetCommissionReconMis.Tables[0].Columns.Add("TrailPerDay");
+                    dsGetCommissionReconMis.Tables[0].Columns.Add("TrailForPeriod");
                     dtstructure = dsGetCommissionReconMis.Tables[1];
                     dtTrailSet = dsGetCommissionReconMis.Tables[2];
                     dtTrailSet.Columns.Add("AverageAum");
@@ -1521,65 +1527,79 @@ namespace BoAdvisorProfiling
                     dtTrailSet.Columns.Add("AumPerDay");
                     dtTrailSet.Columns.Add("TrailPerDay");
                     dtTrailSet.Columns.Add("TrailForPeriod");
-                    foreach (DataRow drstructure in dtstructure.Rows)
-                    {
-                        foreach (DataRow drtrail in dtTrailSet.Rows)
+                    //foreach (DataRow drfinal in dsGetCommissionReconMis.Tables[0].Rows)
+                    //{
+                        foreach (DataRow drstructure in dtstructure.Rows)
                         {
-
-                            if (drstructure["schemecode"].ToString() == drtrail["schemecode"].ToString())
+                            foreach (DataRow drtrail in dtTrailSet.Rows)
                             {
-                                if (!string.IsNullOrEmpty(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString()))
+
+                                if (drstructure["schemecode"].ToString() == drtrail["schemecode"].ToString())
                                 {
-                                    if (!string.IsNullOrEmpty(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                                    if (!string.IsNullOrEmpty(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString()))
                                     {
-                                        if (int.Parse(drtrail["CMFTB_Age"].ToString()) / 12 >= int.Parse(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString())
-                                            && (int.Parse(drtrail["CMFTB_Age"].ToString())) / 12 <= int.Parse(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                                        if (!string.IsNullOrEmpty(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                                        {
+                                            if (int.Parse(drtrail["CMFTB_Age"].ToString()) / 12 >= int.Parse(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString())
+                                                && (int.Parse(drtrail["CMFTB_Age"].ToString())) / 12 <= int.Parse(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                                            {
+                                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                                drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
+                                                drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
+
+                                                drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
+                                                //float.Parse(drtrail["TrailFee"].ToString()) / 365;
+                                                drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                                            }
+                                            else if (int.Parse(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()) == 0)
+                                            {
+                                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                                drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
+                                                drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
+                                                drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
+                                                drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                                            }
+
+                                        }
+                                        else if (int.Parse(drtrail["CMFTB_Age"].ToString()) / 12 >= int.Parse(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString()))
                                         {
                                             drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
                                             drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
                                             drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
-                                            drtrail["TrailPerDay"] = float.Parse(drtrail["TrailFee"].ToString()) / 365;
+                                            drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
                                             drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
                                         }
+                                        
 
                                     }
-                                    else if (int.Parse(drtrail["CMFTB_Age"].ToString()) / 12 >= int.Parse(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString()))
+                                    else
                                     {
                                         drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
                                         drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
                                         drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
-                                        drtrail["TrailPerDay"] = float.Parse(drtrail["TrailFee"].ToString()) / 365;
+                                        drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
                                         drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
                                     }
 
                                 }
+
                                 else
                                 {
-                                    drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
-                                    drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
-                                    drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
-                                    drtrail["TrailPerDay"] = float.Parse(drtrail["TrailFee"].ToString()) / 365;
-                                    drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                                    drtrail["AverageAum"] = 0;
+                                    drtrail["TotalDays"] = 0;
+                                    drtrail["AumPerDay"] = 0;
+                                    drtrail["TrailPerDay"] = 0;
+                                    drtrail["TrailForPeriod"] = 0;
+
+
                                 }
-
+                                dsGetCommissionReconMis.Tables[0].ImportRow(drtrail);
                             }
 
-                            else
-                            {
-                                drtrail["AverageAum"] = 0;
-                                drtrail["TotalDays"] = 0;
-                                drtrail["AumPerDay"] = 0;
-                                drtrail["TrailPerDay"] = 0;
-                                drtrail["TrailForPeriod"] = 0;
-
-                               
-                            }
-                            dsGetCommissionReconMis.Tables[0].ImportRow(drtrail);
                         }
-
                     }
-
-                }
+                //}
+                return dsGetCommissionReconMis;
             }
             catch (BaseApplicationException Ex)
             {
