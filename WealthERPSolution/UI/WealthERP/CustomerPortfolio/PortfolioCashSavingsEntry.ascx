@@ -1,6 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortfolioCashSavingsEntry.ascx.cs"
     Inherits="WealthERP.CustomerPortfolio.PortfolioCashSavingsEntry" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
 <script type="text/javascript">
     function checkDate(sender, args) {
@@ -24,7 +25,7 @@
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 <%--<asp:UpdatePanel ID="up1" runat="server">--%>
-    <ContentTemplate>
+<contenttemplate>
 <table style="width: 100%;">
     <tr>
         <td colspan="4" class="HeaderCell">
@@ -251,5 +252,104 @@
         </td>
     </tr>
 </table>
-    </ContentTemplate>
+</contenttemplate>
+ &nbsp;
+ &nbsp;
+ &nbsp;
+  <tr id="trNomineeCaption" runat="server" visible="true">
+        <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px;">
+            <div class="divSectionHeading" style="vertical-align:text-bottom;">
+                Cash and Saving Transaction
+            </div>
+        </td>
+    </tr>
+    &nbsp;
+ &nbsp;
+ &nbsp;
+ &nbsp;
+<div>
+   <%-- <asp:Label ID="Label2" runat="server" CssClass="" Text="Cash and Saving Transaction"></asp:Label>
+    <hr />--%>
+    <telerik:RadGrid ID="gvCashSavingTransaction" runat="server" GridLines="None" AutoGenerateColumns="False"
+        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" Skin="Telerik"
+        EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+        EnableViewState="true" ShowFooter="true">
+        <ExportSettings HideStructureColumns="true">
+        </ExportSettings>
+        <MasterTableView TableLayout="Auto" DataKeyNames="CCST_TransactionId" AllowFilteringByColumn="true"
+            Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
+            EditMode="InPlace">
+            <Columns>
+                <telerik:GridEditCommandColumn UpdateText="Update" UniqueName="EditCommandColumn"
+                    CancelText="Cancel" ButtonType="ImageButton" CancelImageUrl="../Images/Telerik/Cancel.gif"
+                    InsertImageUrl="../Images/Telerik/Update.gif" UpdateImageUrl="../Images/Telerik/Update.gif"
+                    EditImageUrl="../Images/Telerik/Edit.gif">
+                    <HeaderStyle Width="85px"></HeaderStyle>
+                </telerik:GridEditCommandColumn>
+                <telerik:GridBoundColumn DataField="CCST_Transactiondate" AllowFiltering="false"
+                    HeaderStyle-Width="80px" HeaderText="Transaction Date" UniqueName="CCST_Transactiondate"
+                    SortExpression="CCST_Transactiondate" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                    DataFormatString="{0:dd/MM/yyyy}">
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_Desc" HeaderText="Description" HeaderStyle-Width="70px"
+                    AllowFiltering="false" UniqueName="CCST_Desc" SortExpression="CCST_Desc" AutoPostBackOnFilter="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_ChequeNo" AllowFiltering="false" HeaderText="Cheque No."
+                    UniqueName="CCST_ChequeNo" SortExpression="CCST_ChequeNo" AutoPostBackOnFilter="true"
+                    HeaderStyle-Width="70px" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_IsWithdrwal" AllowFiltering="false" HeaderText="Withdrwal"
+                    HeaderStyle-Width="70px" UniqueName="CCST_IsWithdrwal" SortExpression="CCST_IsWithdrwal"
+                    AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="8px" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_Amount" AllowFiltering="false" HeaderText="Deposit Amount"
+                    HeaderStyle-Width="70px" UniqueName="" SortExpression="" AutoPostBackOnFilter="true"
+                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn DataField="CCST_AvailableBalance" AllowFiltering="false"
+                    HeaderText="Available Balance" HeaderStyle-Width="50px" UniqueName="CCST_AvailableBalance"
+                    SortExpression="CCST_AvailableBalance" AutoPostBackOnFilter="true" ShowFilterIcon="false"
+                    CurrentFilterFunction="Contains">
+                    <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
+            </Columns>
+            <EditFormSettings CaptionFormatString="Edit details for employee with ID {0}" CaptionDataField="FirstName">
+                <FormTableItemStyle Width="100%" Height="29px"></FormTableItemStyle>
+                <FormTableStyle GridLines="None" CellSpacing="0" CellPadding="2"></FormTableStyle>
+                <FormStyle Width="100%" BackColor="#eef2ea"></FormStyle>
+                <EditColumn ButtonType="ImageButton" />
+            </EditFormSettings>
+        </MasterTableView>
+        <ClientSettings>
+            <Resizing AllowColumnResize="false" />
+            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+        </ClientSettings>
+    </telerik:RadGrid>
+</div>
+<table>
+<tr>
+<td align="center">
+<div>
+<asp:Label ID="lable" runat="server" class="headrow" Text="Upload File :">
+</asp:Label>
+<asp:FileUpload ID="FileUploadTran" runat="server" />
+<asp:Button ID="btnUpload" runat="server" 
+            Height="21px" Text="Upload" Width="92px" onclick="btnUpload_Click"/>
+</div>
+</td>
+</tr>
+</table>
+<table width="100%">
+    <tr>
+        <td align="center">
+            <%--<asp:Button ID="Button1" runat="server" Text="Submit" OnClick="btnSubmit_Click"/>    --%>
+           <%-- <asp:Button ID="btnDelete" runat="server" Text="Delete" onclick="btnDelete_Click"/>--%>
+        </td>
+    </tr>
+</table>
 <%--</asp:UpdatePanel>--%>

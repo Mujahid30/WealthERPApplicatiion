@@ -128,7 +128,7 @@ namespace BoCommon
 
             try
             {
-                requestManagementDao.CreateBulkMailRequestRecord(bulkMailRequest);
+               // requestManagementDao.CreateBulkMailRequestRecord(bulkMailRequest);
 
             }
             catch (BaseApplicationException ex)

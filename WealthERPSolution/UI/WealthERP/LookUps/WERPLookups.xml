@@ -2900,7 +2900,7 @@
     <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3031" TreeSubSubNodeText="Staff List" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
 
     <TreeSubSubNode	TreeSubNodeCode="2017" TreeSubSubNodeCode="3032" TreeSubSubNodeText="Sales Hierarchy" Path="~/Images/Dashboard-Equity.png.png" Deleted="False"	/>
-
+    <TreeSubSubNode	TreeSubNodeCode="2009" TreeSubSubNodeCode="3033" TreeSubSubNodeText="Fixed Income Exceptions" Path="~/Images/Dashboard-MutualFund.png" Category="FI" Deleted="False"	/>
   </SuperAdminTreeSubSubNode>
   
   <UserRole>
@@ -2961,6 +2961,8 @@
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3023" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3029" Deleted="False" 	/>
     <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3029" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1000" TreeSubSubNodeCode="3033" Deleted="False" 	/>
+    <UserRoleToTreeAssociation	UserRoleId="1004" TreeSubSubNodeCode="3033" Deleted="False" 	/>
   </UserRoleToTreeAssociation>
 
     <!--<NewAdminTreeNode>

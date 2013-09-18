@@ -78,6 +78,9 @@ public class Encryption
         // encoding.
         byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
         byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
+         
+        //byte[] initVectorBytes = Encoding.UTF8.GetBytes(initVector);
+        //byte[] saltValueBytes = Encoding.UTF8.GetBytes(saltValue);
 
         // Convert our plaintext into a byte array.
         // Let us assume that plaintext contains UTF8-encoded characters.
@@ -131,9 +134,11 @@ public class Encryption
         memoryStream.Close();
         cryptoStream.Close();
 
+
+       // cipherTextBytes = cipherTextBytes("+"," ");
         // Convert encrypted data into a base64-encoded string.
         string cipherText = Convert.ToBase64String(cipherTextBytes);
-
+        cipherText=cipherText.Replace('+',' ');
         // Return encrypted string.
         return cipherText;
     }
@@ -193,12 +198,18 @@ public class Encryption
         // arrays. Let us assume that strings only contain ASCII codes.
         // If strings include Unicode characters, use Unicode, UTF7, or UTF8
         // encoding.
+       
         byte[] initVectorBytes = Encoding.ASCII.GetBytes(initVector);
         byte[] saltValueBytes = Encoding.ASCII.GetBytes(saltValue);
+        
+        //byte[] initVectorBytes = Encoding.UTF8.GetBytes(initVector);
+        //byte[] saltValueBytes = Encoding.UTF8.GetBytes(saltValue);
+        // Convert our ciphertext into a byte array.        
+       // cipherText = cipherText.Replace(" ", "+");
+        byte[] cipherTextBytes = Convert.FromBase64String(cipherText.Replace('+', ' '));
+       //  byte[] cipherTextBytes= System.Text.Encoding.Unicode.GetBytes(cipherText);
 
-        // Convert our ciphertext into a byte array.
-        cipherText = cipherText.Replace(" ", "+");
-        byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
+       
 
         // First, we must create a password, from which the key will be 
         // derived. This password will be generated from the specified 
@@ -231,10 +242,10 @@ public class Encryption
 
         // Define memory stream which will be used to hold encrypted data.
         MemoryStream memoryStream = new MemoryStream(cipherTextBytes);
-
+      //  TripleDES tdes = new TripleDESCryptoServiceProvider();
         // Define cryptographic stream (always use Read mode for encryption).
         CryptoStream cryptoStream = new CryptoStream(memoryStream,
-                                                      decryptor,
+                                                     decryptor,
                                                       CryptoStreamMode.Read);
 
         // Since at this point we don't know what the size of decrypted data

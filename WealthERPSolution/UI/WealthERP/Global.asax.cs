@@ -26,6 +26,7 @@ namespace WealthERP
         {
             //Response.Cache.SetCacheability(HttpCacheability.NoCache);
             //Response.Cache.SetNoStore();
+           // Response.Headers.Add("X-UA-Compatible", "IE=Edge");
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)

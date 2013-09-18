@@ -14,6 +14,9 @@ using System.Data;
 using System.Configuration;
 using BoCommon;
 using WealthERP.Base;
+using System.IO;
+using System.Data.SqlClient;
+using System.Text;
 
 
 namespace WealthERP.CustomerPortfolio
@@ -25,6 +28,7 @@ namespace WealthERP.CustomerPortfolio
         CashAndSavingsVo customerCashSavingsPortfolioVo = new CashAndSavingsVo();
         CashAndSavingsVo cashSavingsVo = new CashAndSavingsVo();
         CustomerAccountsVo customerAccountVo;
+        List<CustomerAccountsVo>TransactionList = new List<CustomerAccountsVo>();
         CustomerVo customerVo = new CustomerVo();
         UserVo userVo = new UserVo();
         AssetBo assetBo = new AssetBo();
@@ -84,6 +88,7 @@ namespace WealthERP.CustomerPortfolio
                     }
                     lnkBtnBack.Visible = true;
                 }
+                BindTransactionGrid();
             }
             catch (BaseApplicationException Ex)
             {
@@ -157,6 +162,31 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
+        private void BindTransactionGrid()
+        {
+            DataTable dtCSTransaction = new DataTable();
+
+            dtCSTransaction.Columns.Add("CCST_TransactionId");
+            dtCSTransaction.Columns.Add("CCST_Transactiondate");
+            dtCSTransaction.Columns.Add("CCST_Desc");
+            dtCSTransaction.Columns.Add("CCST_ChequeNo");
+            dtCSTransaction.Columns.Add("CCST_IsWithdrwal");// original costumer name from folio uploads
+            dtCSTransaction.Columns.Add("CCST_Amount");
+            dtCSTransaction.Columns.Add("CCST_AvailableBalance");
+
+
+            //DataRow drCSTransaction;
+
+            if (TransactionList.Count==0)
+            {
+
+                gvCashSavingTransaction.DataSource = dtCSTransaction;
+                gvCashSavingTransaction.DataBind();
+                //btnTransferFolio.Visible = false;
+                //btnMoveFolio.Visible = false;
+            }
+        
+        }
         //private void LoadEditableFields()
         //{
         //    CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
@@ -1123,5 +1153,58 @@ namespace WealthERP.CustomerPortfolio
         {
             Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('PortfolioCashSavingsView', 'none')", true);
         }
-    }
+
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+          //  String connectionstring = "";
+           // string fileName = "~C:Users/sony/Desktop/Book1.xlsx";
+            //string Path="~C:Users/sony/Desktop";
+            //string fileName=;
+            //if (FileUploadTran.HasFile)
+            //{    string fileName = Path.GetFileName(FileUploadTran.PostedFile.FileName);
+            //     string fileExtension = Path.GetExtension(FileUploadTran.PostedFile.FileName);
+            //        string fileLocation = Server.MapPath("~/" + fileName);
+            //        FileUploadTran.SaveAs(fileLocation);
+            //if (fileExtension == ".xls")
+            //  {
+            //      connectionstring =ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            //}
+            //else if (fileExtension == ".xlsx")
+            //{
+            //    connectionstring = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+                    
+            //}
+
+            //SqlConnection con = new SqlConnection(connectionstring);
+            //SqlCommand cmd = new SqlCommand();
+            //Stream fs = FileUploadTran.PostedFile.InputStream;
+            //BinaryReader br = new BinaryReader(fs);  //reads the   binary files
+            StringBuilder sbXMLString = new StringBuilder();
+            ReadExternalFile readFile = new ReadExternalFile();
+            string Filepath = Server.MapPath("UploadFiles") + "\\Book1.xlsx";
+            FileUploadTran.SaveAs(Filepath);
+            DataSet ds = readFile.ReadExcelfile(Filepath);
+
+            System.IO.StringWriter sw = new System.IO.StringWriter(sbXMLString);
+            ds.Tables[0].WriteXml(sw);
+
+            //DataTable dtupload = new DataTable();
+            //dtupload.Columns.Add("transactionId");
+            //dtupload.Columns.Add("transactionDate");
+            
+            //Byte[] bytes = br.ReadBytes((Int32)fs.Length); 
+            //cmd.CommandText = "insert into transactionuploadTable(transactionId,TransactionDate,InvesterName,Amount) values(@transactionId,@TransactionDate,@InvesterName,@Amount)";
+            ////cmd.Parameters.AddWithValue["@transactionId"]=FileUploadTran.FileName;
+            ////cmd.Parameters.AddWithValue("@TransactionDate");
+            //cmd.Parameters.AddWithValue("@InvesterName");
+            //cmd.Parameters.AddWithValue("@Amount");
+               // Amount
+            //cmd.Connection =con;
+            //con.Open();
+            ////cmd.ExecuteNonQuery();
+            //con.Close();
+
+            }
+        }
+    
 }

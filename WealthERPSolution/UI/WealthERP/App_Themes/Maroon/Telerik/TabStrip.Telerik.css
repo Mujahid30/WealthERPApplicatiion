@@ -49,7 +49,7 @@
 }
 
 .RadTabStripRight_Telerik .rtsLink,
-.RadTabStripRight_Telerik .rtsLI .rtsDisabled:hover { background-position: 100% 0; }
+.RadTabStripRight_Telerik .rtsLI .rtsDisabled:hover { background-position: 100% 08; }
 .RadTabStripRight_Telerik .rtsLink:hover { background-position: 100% -200px; }
 .RadTabStripRight_Telerik .rtsSelected,
 .RadTabStripRight_Telerik .rtsSelected:hover { background-position: 100% -400px; }
@@ -141,15 +141,27 @@
 
 
 
- div.RadTabStrip_Telerik {
-	background-image: url('TabStrip/rgCommandRow1.gif');
-}
- div.RadTabStrip_Telerik .rtsLink {
-	color: rgb(138, 7, 11);
-}
- div.RadTabStrip_Telerik .rtsDisabled {
-	color: rgb(119, 116, 116);
-}
- div.RadTabStrip_Telerik .rtsDisabled:hover {
-	color: rgb(119, 116, 116);
-}
+ div.RadTabStrip_Telerik {
+
+	background-image: url('TabStrip/rgCommandRow1.gif');
+
+}
+
+ div.RadTabStrip_Telerik .rtsLink {
+
+	color: rgb(138, 7, 11);
+
+}
+
+ div.RadTabStrip_Telerik .rtsDisabled {
+
+	color: rgb(119, 116, 116);
+
+}
+
+ div.RadTabStrip_Telerik .rtsDisabled:hover {
+
+	color: rgb(119, 116, 116);
+
+}
+

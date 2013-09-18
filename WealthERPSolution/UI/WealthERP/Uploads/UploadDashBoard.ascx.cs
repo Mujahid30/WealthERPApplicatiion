@@ -60,9 +60,11 @@ namespace WealthERP.Uploads
 
             DataRow[] drMFXmlTreeSubSubNode;
             DataRow[] drEQXmlTreeSubSubNode;
+            DataRow[] drFIXmlTreeSubSubNode;
 
             DataRow[] drMFXmlRoleToTreeSubSubNode;
             DataRow[] drEQXmlRoleToTreeSubSubNode;
+            DataRow[] drFIXmlRoleToTreeSubSubNode;
             
             DataRow drUploadTreeNode;
             DataTable dtUploadTreeNode = new DataTable();
@@ -93,18 +95,23 @@ namespace WealthERP.Uploads
             
             DataTable dtEQTreeNodes = new DataTable();
             dtEQTreeNodes = dtUploadTreeNode.Clone();
-
+            DataTable dtFITreeNodes = new DataTable();
+            dtFITreeNodes = dtUploadTreeNode.Clone();
+          
             //For upload 2009 is Tree Node Id in Sub Table in XML...
             int treeSubNodeId = 2009;
             DataTable dtSubtreeNodes = new DataTable();
             DataTable dtMFSubtreeNodes = new DataTable();
             DataTable dtEQSubtreeNodes = new DataTable();
+            DataTable dtFISubtreeNodes = new DataTable();
             dtSubtreeNodes = dsTreeNodes.Tables[2].Clone();
             dsTreeNodes.Tables[2].Select("Deleted=" + "false").CopyToDataTable(dtSubtreeNodes, LoadOption.Upsert);
             dtMFSubtreeNodes = dtSubtreeNodes.Clone();
             dtEQSubtreeNodes = dtSubtreeNodes.Clone();
+            dtFISubtreeNodes = dtSubtreeNodes.Clone();
             dtSubtreeNodes.Select("Category='" + "MF" +"'").CopyToDataTable(dtMFSubtreeNodes, LoadOption.OverwriteChanges);
             dtSubtreeNodes.Select("Category='" + "EQ" + "'").CopyToDataTable(dtEQSubtreeNodes, LoadOption.Upsert);
+            dtSubtreeNodes.Select("Category='" + "FI" + "'").CopyToDataTable(dtFISubtreeNodes, LoadOption.Upsert);
 
             drMFXmlTreeSubSubNode = dtMFSubtreeNodes.Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
 
@@ -252,8 +259,55 @@ namespace WealthERP.Uploads
                 rptTreenodeEQ.DataSource = dtEQTreeNodes;
 
                 rptTreenodeEQ.DataBind();
-            }
+          
 
+
+    //-----------------------FI---------------------------
+        
+        
+             drFIXmlTreeSubSubNode = dtFISubtreeNodes.Select("TreeSubNodeCode=" + treeSubNodeId.ToString());
+             count = 0;
+
+             DataRow drFIUploadTreeNode = dtFITreeNodes.NewRow();    
+             foreach (DataRow drSubSubNode in drFIXmlTreeSubSubNode)
+                {
+                    drFIXmlRoleToTreeSubSubNode = dtRoleAssociationTreeNode.Select("TreeSubSubNodeCode=" + drSubSubNode["TreeSubSubNodeCode"].ToString());
+                    roleCount = 0;
+                    if (drFIXmlRoleToTreeSubSubNode.Count() > 0)
+                    {
+                        foreach (DataRow drUserRole in drFIXmlRoleToTreeSubSubNode)
+                        {
+                            if ( int.Parse(drUserRole["UserRoleId"].ToString()) == roleId)
+                            {
+                                roleCount++;
+                                 break;
+                            }
+                        }
+                    }
+                    if (roleCount > 0)
+                    {
+                        if (count == 0)
+                        {
+
+                            count++;
+                            drFIUploadTreeNode["TreeNode1"] = drSubSubNode["TreeSubSubNodeCode"].ToString();
+                            drFIUploadTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
+                            drFIUploadTreeNode["Path1"] = drSubSubNode["Path"].ToString();
+                            dtFITreeNodes.Rows.Add(drFIUploadTreeNode);
+
+                        }
+                    }
+                    else
+                    {
+                        //break;
+                    }
+                  
+                    
+                }
+
+             rptTreenodeFI.DataSource = dtFITreeNodes;
+
+             rptTreenodeFI.DataBind();
 
             //dtUploadTreeSubSubNode = XMLBo.GetSuperAdminTreeSubSubNodes(path);
             //dtUploadTreeSubNode = XMLBo.GetSuperAdminTreeSubNodes(path);
@@ -328,6 +382,7 @@ namespace WealthERP.Uploads
             //rptTree.DataSource = dtUploadTreeNode.DefaultView.ToTable();
 
             //rptTree.DataBind();
+} 
 
         protected void rptMFTree_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -480,6 +535,22 @@ namespace WealthERP.Uploads
                 //}
 
             }
+        }
+        protected void rptTreenodeFI_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            LinkButton lnkbtn1 = e.Item.FindControl("lnkFITreeNode1") as LinkButton;
+
+            if (e.CommandName == "Tree_FI_Row1")
+            {
+
+                if (lnkbtn1.CommandArgument == "3033")
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('FixedIncomeReject','login');", true);
+                }
+            }
+        }
+        protected void rptTreenodeFI_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
         }
     }
 }
