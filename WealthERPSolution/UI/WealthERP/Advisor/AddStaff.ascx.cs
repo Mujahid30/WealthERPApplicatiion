@@ -92,7 +92,6 @@ namespace WealthERP.Advisor
 
             if (!string.IsNullOrEmpty(txtStaffcode.Text.Trim()))
                 rmStaffVo.StaffCode = txtStaffcode.Text;
-              ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Do You want to Add AgentCode!!');", true);
             if (ddlBranch.SelectedIndex != 0 || ddlBranch.SelectedIndex != -1)
                 rmStaffVo.BranchId = Convert.ToInt32(ddlBranch.SelectedValue);
 
@@ -191,7 +190,7 @@ namespace WealthERP.Advisor
             {
                 dtAdviserTeamTitleList = advisorStaffBo.GetAdviserTeamTitleList(teamId, advisorVo.advisorId);
                 ddlTitleList.DataSource = dtAdviserTeamTitleList;
-                ddlTitleList.DataValueField = dtAdviserTeamTitleList.Columns["AH_TitleId"].ToString();
+                ddlTitleList.DataValueField = dtAdviserTeamTitleList.Columns["AH_Id"].ToString();
                 ddlTitleList.DataTextField = dtAdviserTeamTitleList.Columns["AH_HierarchyName"].ToString();
                 ddlTitleList.DataBind();
 
@@ -216,7 +215,7 @@ namespace WealthERP.Advisor
             {
                 dsAdviserTitleChannelRole = advisorStaffBo.GetAdviserTitleReportingLevel(titleId, advisorVo.advisorId);
                 ddlRportingRole.DataSource = dsAdviserTitleChannelRole.Tables[1];
-                ddlRportingRole.DataValueField = dsAdviserTitleChannelRole.Tables[1].Columns["AH_TitleId"].ToString();
+                ddlRportingRole.DataValueField = dsAdviserTitleChannelRole.Tables[1].Columns["AH_Id"].ToString();
                 ddlRportingRole.DataTextField = dsAdviserTitleChannelRole.Tables[1].Columns["AH_HierarchyName"].ToString();
                 ddlRportingRole.DataBind();
             }
@@ -403,7 +402,7 @@ namespace WealthERP.Advisor
                 dtTeamList = (DataTable)Session["StaffTeamList"];
             }
 
-            int rowIndex = dtTeamList.Rows.IndexOf(dtTeamList.Select("AH_TitleId=" + ddlTitleList.SelectedValue.ToString())[0]);
+            int rowIndex = dtTeamList.Rows.IndexOf(dtTeamList.Select("AH_Id=" + ddlTitleList.SelectedValue.ToString())[0]);
             string strD = Convert.ToString(dtTeamList.Rows[rowIndex]["AH_Sequence"]);
 
             if (strD != hidMinHierarchyTitleId.Value.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
