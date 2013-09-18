@@ -1274,6 +1274,8 @@ namespace DAOAssociates
                         associatesVo.AssociateType = dr["XCT_CustomerTypeCode"].ToString();
                     if (dr["XCST_CustomerSubTypeCode"] != DBNull.Value)
                         associatesVo.AssociateSubType = dr["XCST_CustomerSubTypeCode"].ToString();
+                    if (dr["AssetCodes"] != DBNull.Value)
+                        associatesVo.assetGroupCode = dr["AssetCodes"].ToString();
 
                 }
             }
