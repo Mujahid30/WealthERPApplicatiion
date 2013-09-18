@@ -215,7 +215,7 @@
                         <asp:Label ID="lblPassword" runat="server" Text="Password:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField" TextMode="Password"></asp:TextBox>
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="txtField"  MaxLength="15" TextMode="Password"></asp:TextBox>
                         <span id="Span3" class="spnRequiredField">*<br />
                             <%--<asp:RequiredFieldValidator ID="reqtxtPassword" ValidationGroup="btnSave" ControlToValidate="txtPassword"
                 ErrorMessage="Please enter the password" Display="Dynamic" runat="server"

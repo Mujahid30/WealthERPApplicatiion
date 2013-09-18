@@ -49,7 +49,7 @@ namespace WealthERP.Advisor
                 adviserstaffsmtpvo = advstaffsmtpbo.GetSMTPCredentials(advrm.RMId);
                 txtEmail.Text = adviserstaffsmtpvo.Email;
                 if (!String.IsNullOrEmpty(adviserstaffsmtpvo.Password))
-                txtPassword.Attributes.Add("value", Encryption.Decrypt(adviserstaffsmtpvo.Password));
+                    txtPassword.Attributes.Add("value", Encryption.Decrypt(adviserstaffsmtpvo.Password));
                 txtSMTPHost.Text = adviserstaffsmtpvo.HostServer;
                 txtSMTPPort.Text = adviserstaffsmtpvo.Port;
                 txtSenderEmailAlias.Text = adviserstaffsmtpvo.SenderEmailAlias;
@@ -333,7 +333,7 @@ namespace WealthERP.Advisor
         protected void SetAdviserPreference()
         {
             advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(adviserVo.advisorId);
-           if (advisorPreferenceVo != null)
+            if (advisorPreferenceVo != null)
             {
                 txtWebSiteDomainName.Text = advisorPreferenceVo.WebSiteDomainName;
                 txtLogOutPageUrl.Text = advisorPreferenceVo.LoginWidgetLogOutPageURL;
@@ -358,8 +358,6 @@ namespace WealthERP.Advisor
 
         protected void btnSubmitPreference_Click(object sender, EventArgs e)
         {
-
-            string strCommand = "cmdPreference";
             bool isSuccess = false;
             if (rbLoginWidGetYes.Checked)
                 advisorPreferenceVo.IsLoginWidgetEnable = true;
@@ -369,7 +367,7 @@ namespace WealthERP.Advisor
             advisorPreferenceVo.LoginWidgetLogOutPageURL=txtLogOutPageUrl.Text;
             advisorPreferenceVo.BrowserTitleBarName = txtBrowserTitleBarName.Text;
             advisorPreferenceVo.GridPageSize =  int.Parse(txtGridPageSize.Text);
-            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId,strCommand);
+            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
             if (isSuccess)
             {
                 trSuccessMsg.Visible = true;
@@ -385,11 +383,10 @@ namespace WealthERP.Advisor
         }
         protected void btnSubmitPageSize_Click(object sender, EventArgs e)
         {
-            string strCommand = "cmdGridSize";
             bool isSuccess = false;
             if(!string.IsNullOrEmpty(txtGridPageSize.Text))
             advisorPreferenceVo.GridPageSize =int.Parse(txtGridPageSize.Text);
-            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId,strCommand);
+            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
             if (isSuccess)
             {
                 trMsg.Visible = true;

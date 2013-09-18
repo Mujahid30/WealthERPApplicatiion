@@ -1495,10 +1495,13 @@ namespace BoUploads
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
+
                 FunctionInfo.Add("Method", "RejectedRecordsBo.cs:UpdateMFTrasactionStaging()");
+
                 object[] objects = new object[2];
                 objects[0] = CMFTSId;
                 objects[1] = newScheme;
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1545,64 +1548,10 @@ namespace BoUploads
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+
             return dsWERPRejectedTransactions;
         }
-        public DataSet GetRejectedFixedIncomeStaging(int adviserId, int processId, DateTime fromDate, DateTime toDate, int rejectReasonCode)
-        {
-            DataSet dsGetWERPRejectedFixedIncome;
-            RejectedRecordsDao rejecetedRecords = new RejectedRecordsDao();
-            try
-            {
-                dsGetWERPRejectedFixedIncome = rejecetedRecords.GetRejectedFixedIncomeStaging(adviserId, processId, fromDate, toDate, rejectReasonCode);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:getWERPRejectedFixedIncome()");
-
-                object[] objects = new object[6];
-                objects[0] = processId;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-            return dsGetWERPRejectedFixedIncome;
-        }
-        public void DeleteWERPRejectedFixedIncome(int StagingID)
-        {
-            RejectedRecordsDao rejecetedRecordsDao = new RejectedRecordsDao();
-            try
-            {
-                rejecetedRecordsDao.DeleteWERPRejectedFixedIncome(StagingID);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RejectedRecordsBo.cs:DeleteWERPRejectedFixedIncome()");
-
-                object[] objects = new object[1];
-                objects[0] = StagingID;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
     }
 
     
