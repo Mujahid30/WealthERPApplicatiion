@@ -1554,7 +1554,7 @@ namespace BoAdvisorProfiling
                                             else if (int.Parse(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()) == 0)
                                             {
                                                 drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
-                                                drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
+                                                drtrail["TotalDays"] = Math.Abs(DateTime.Parse(drtrail["TransactionDate"].ToString()).Subtract(FromDate).Days);
                                                 drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
                                                 drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
                                                 drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
