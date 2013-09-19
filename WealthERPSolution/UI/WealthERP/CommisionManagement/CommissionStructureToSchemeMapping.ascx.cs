@@ -204,7 +204,7 @@ namespace WealthERP.CommisionManagement
                 DateTime validFrom = rdpPeriodStart.SelectedDate.Value;
                 DateTime validTill = rdpPeriodEnd.SelectedDate.Value;
 
-                DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
+                DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(advisorVo.advisorId, sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
                 rlbAvailSchemes.DataSource = dsAvailSchemes.Tables[0];
                 rlbAvailSchemes.DataValueField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
                 rlbAvailSchemes.DataTextField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanName"].ToString();

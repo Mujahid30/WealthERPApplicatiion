@@ -811,7 +811,7 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public DataSet GetAvailSchemes(int structId, int issuer, string prodType, string cat, string subCat, DateTime validFrom, DateTime validTill)
+        public DataSet GetAvailSchemes(int adviserId, int structId, int issuer, string prodType, string cat, string subCat, DateTime validFrom, DateTime validTill)
         {
             Database db;
             DbCommand cmdGetAvailSchemes;
@@ -821,6 +821,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetAvailSchemes = db.GetStoredProcCommand("SPROC_GetAvailableSchemes");
+                db.AddInParameter(cmdGetAvailSchemes, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetAvailSchemes, "@StructId", DbType.Int32, structId);
                 db.AddInParameter(cmdGetAvailSchemes, "@Issuer", DbType.Int32, issuer);
                 db.AddInParameter(cmdGetAvailSchemes, "@Product", DbType.String, prodType);
@@ -838,12 +839,13 @@ namespace DaoCommisionManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAvailSchemes(int issuer, string prodType, string cat, string subCat)");
-                object[] objects = new object[4];
-                objects[0] = issuer;
-                objects[1] = prodType;
-                objects[2] = cat;
-                objects[3] = subCat;
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetAvailSchemes(int adviserId, int structId, int issuer, string prodType, string cat, string subCat, DateTime validFrom, DateTime validTill)");
+                object[] objects = new object[5];
+                objects[0] = adviserId;
+                objects[1] = issuer;
+                objects[2] = prodType;
+                objects[3] = cat;
+                objects[4] = subCat;
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
