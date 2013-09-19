@@ -1685,4 +1685,8 @@
     <value>Advisor//AdviserVendorApp.ascx</value>
     <comment>Advisor//AdviserVendorApp.ascx</comment>
   </data>
+  <data name="AdviserVendorServices" xml:space="preserve">
+    <value>Advisor//AdviserVendorServices.ascx</value>
+    <comment>Advisor//AdviserVendorServices.ascx</comment>
+  </data>
 </root>

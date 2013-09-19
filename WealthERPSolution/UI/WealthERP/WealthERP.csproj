@@ -605,9 +605,17 @@
     </Compile>
     <Compile Include="Advisor\AdviserVendorApp.ascx.cs">
       <DependentUpon>AdviserVendorApp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Advisor\AdviserVendorApp.ascx.designer.cs">
       <DependentUpon>AdviserVendorApp.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Advisor\AdviserVendorServices.ascx.cs">
+      <DependentUpon>AdviserVendorServices.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Advisor\AdviserVendorServices.ascx.designer.cs">
+      <DependentUpon>AdviserVendorServices.ascx</DependentUpon>
     </Compile>
     <Compile Include="Advisor\AdviserZoneCluster.ascx.cs">
       <DependentUpon>AdviserZoneCluster.ascx</DependentUpon>
@@ -4113,6 +4121,7 @@
     <Content Include="Advisor\AdviserRMMFSystematicMIS.ascx" />
     <Content Include="Advisor\AdviserStaffSMTP.ascx" />
     <Content Include="Advisor\AdviserVendorApp.ascx" />
+    <Content Include="Advisor\AdviserVendorServices.ascx" />
     <Content Include="Advisor\AdviserZoneCluster.ascx" />
     <Content Include="Advisor\AdvisorMISCommission.ascx" />
     <Content Include="Advisor\AdvisorRMCustGroupDashboard.ascx" />
