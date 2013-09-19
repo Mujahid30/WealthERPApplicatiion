@@ -2466,7 +2466,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(ViewStaffCmd, "@isBranchHead", DbType.Int16, Convert.ToInt16(isBranchHead));
                 db.AddInParameter(ViewStaffCmd, "@isBranchId", DbType.Int16, Convert.ToInt16(isBranchId));
                 db.AddInParameter(ViewStaffCmd, "@currentUserRole", DbType.String, currentUserRole);
-                db.AddInParameter(ViewStaffCmd, "@agentCode", DbType.String, agentCode);                
+                db.AddInParameter(ViewStaffCmd, "@agentCode", DbType.String, agentCode);
+                ViewStaffCmd.CommandTimeout = 60 * 60;
                 dsViewStaff = db.ExecuteDataSet(ViewStaffCmd);
             }
             catch (BaseApplicationException Ex)
