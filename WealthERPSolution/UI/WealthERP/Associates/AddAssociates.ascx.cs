@@ -19,6 +19,10 @@ using VOAssociates;
 using BOAssociates;
 using BoCustomerProfiling;
 using BoUser;
+using PCGMailLib;
+using System.IO;
+using VoAdvisorProfiling;
+using System.Net.Mail;
 
 namespace WealthERP.Associates
 {
@@ -33,6 +37,7 @@ namespace WealthERP.Associates
         AssociatesBo associatesBo = new AssociatesBo();
         CustomerBo customerBo = new CustomerBo();
         UserBo userBo = new UserBo();
+        UserVo associateUserVo = new UserVo();
 
         List<int> associatesIds;
         string path = string.Empty;
@@ -245,6 +250,10 @@ namespace WealthERP.Associates
 
                             if (drISARequestDetails["WWFSM_StepCode"].ToString() == "ADETLS" && drISARequestDetails["AA_StepStatus"].ToString() != null)
                             {
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_ModifiedOn"].ToString()))
+                                    txtClosingDate2.Text = drISARequestDetails["AWFSD_ModifiedOn"].ToString();
+                                if (!String.IsNullOrEmpty(drISARequestDetails["WWFSM_StepName"].ToString()))
+                                    txtStatus2.Text = drISARequestDetails["WWFSM_StepName"].ToString();
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_Status"].ToString()))
                                     ddlstatus2.SelectedValue = drISARequestDetails["AWFSD_Status"].ToString();
 
@@ -268,6 +277,10 @@ namespace WealthERP.Associates
 
                             if (drISARequestDetails["WWFSM_StepCode"].ToString() == "ACGEN" && drISARequestDetails["AA_StepStatus"].ToString() != null)
                             {
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_ModifiedOn"].ToString()))
+                                    txtClosingDate3.Text = drISARequestDetails["AWFSD_ModifiedOn"].ToString();
+                                if (!String.IsNullOrEmpty(drISARequestDetails["WWFSM_StepName"].ToString()))
+                                    txtStatus3.Text = drISARequestDetails["WWFSM_StepName"].ToString();
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AWFSD_Status"].ToString()))
                                     ddlStepstatus3.SelectedValue = drISARequestDetails["AWFSD_Status"].ToString();
 
@@ -623,15 +636,15 @@ namespace WealthERP.Associates
         {
             if (Validation())
             {
-                userVo = new UserVo();
+                associateUserVo = new UserVo();
                 Random id = new Random();
                 string password = id.Next(10000, 99999).ToString();
 
-                userVo.Password = password;
-                userVo.LoginId = txtEmailId.Text.ToString();
-                userVo.FirstName = txtAssociateName.Text.ToString();
-                userVo.Email = txtEmailId.Text.ToString();
-                userVo.UserType = "Associates";
+                associateUserVo.Password = password;
+                associateUserVo.LoginId = txtEmailId.Text.ToString();
+                associateUserVo.FirstName = txtAssociateName.Text.ToString();
+                associateUserVo.Email = txtEmailId.Text.ToString();
+                associateUserVo.UserType = "Associates";
 
                 associatesVo.ContactPersonName = txtAssociateName.Text;
                 associatesVo.BranchId = int.Parse(ddlBranch.SelectedValue);
@@ -648,7 +661,8 @@ namespace WealthERP.Associates
                 associatesVo.RequestDate = DateTime.Now;
                 associatesVo.AAC_UserType = "Associates";
                 Session["TempAssociatesVo"] = associatesVo;
-                associatesIds = associatesBo.CreateCompleteAssociates(userVo, associatesVo, userVo.UserId);
+                Session["AssociateUserVo"] = associateUserVo;
+                associatesIds = associatesBo.CreateCompleteAssociates(associateUserVo, associatesVo, userVo.UserId);
                 associatesVo.UserId = associatesIds[0];
                 associatesVo.AdviserAssociateId = associatesIds[1];
                 txtGenerateReqstNum.Text = associatesVo.AdviserAssociateId.ToString();
@@ -944,6 +958,7 @@ namespace WealthERP.Associates
             {
                 lblReasonStep3.Visible = false;
                 ddlReasonStep3.Visible = false;
+                //chkMailSend.Visible = true;
             }
         }
 
@@ -957,11 +972,94 @@ namespace WealthERP.Associates
                     reason = ddlReasonStep3.SelectedValue;
                 comments = txtCommentStep3.Text;
                 associatesBo.UpdateAssociatesWorkFlowStatusDetails(int.Parse(txtGenerateReqstNum.Text), ddlStepstatus3.SelectedValue, "ACGEN", reason, comments);
-                //btnSubmitStep3.Visible = false;
-                //ddlStepstatus3.Enabled = true;
-                //ddlReasonStep3.Enabled = true;
+
+                //if (chkMailSend.Checked == true)
+                //{
+                //    SendMail();
+                //}
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewAssociates','');", true);
             }
         }
+
+        private bool SendMail()
+        {
+            Emailer emailer = new Emailer();
+            EmailMessage email = new EmailMessage();
+            string logoPath = string.Empty;
+            if (associateUserVo != null)
+            {
+
+                string userName = associateUserVo.FirstName + " " + associateUserVo.MiddleName + " " + associateUserVo.LastName;
+                email.GetAdviserRMAccountMail("Asso" + associateUserVo.UserId.ToString(), associateUserVo.OriginalPassword, userName);
+
+
+
+                email.Subject = email.Subject.Replace("WealthERP", advisorVo.OrganizationName);
+                email.Subject = email.Subject.Replace("MoneyTouch", advisorVo.OrganizationName);
+
+                email.Body = email.Body.Replace("[NAME]", userName);
+                email.Body = email.Body.Replace("[ORGANIZATION]", advisorVo.OrganizationName);
+                if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+                {
+                    email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://app.wealtherp.com/");
+                }
+                else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Citrus")
+                {
+                    email.Body = email.Body.Replace("[WEBSITE]", !string.IsNullOrEmpty(advisorVo.DomainName.Trim()) ? advisorVo.Website.Trim() : "https://www.citrusindiaonline.com/");
+                }
+                email.Body = email.Body.Replace("[CONTACTPERSON]", (!string.IsNullOrEmpty(advisorVo.ContactPersonFirstName.Trim()) ? advisorVo.ContactPersonFirstName.Trim() + " " : String.Empty) + (!string.IsNullOrEmpty(advisorVo.ContactPersonMiddleName) ? advisorVo.ContactPersonMiddleName.Trim() + " " : String.Empty) + (!string.IsNullOrEmpty(advisorVo.ContactPersonLastName) ? advisorVo.ContactPersonLastName.Trim() + " " : String.Empty));
+                email.Body = email.Body.Replace("[DESIGNATION]", advisorVo.Designation);
+                email.Body = email.Body.Replace("[PHONE]", advisorVo.Phone1Std.ToString() + "-" + advisorVo.Phone1Number.ToString());
+                email.Body = email.Body.Replace("[EMAIL]", advisorVo.Email);
+                email.Body = email.Body.Replace("[LOGO]", "<img src='cid:HDIImage' alt='Logo'>");
+
+                System.Net.Mail.AlternateView htmlView;
+                System.Net.Mail.AlternateView plainTextView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("Text view", null, "text/plain");
+                //System.Net.Mail.AlternateView htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString(hidBody.Value.Trim() + "<image src=cid:HDIImage>", null, "text/html");
+                htmlView = System.Net.Mail.AlternateView.CreateAlternateViewFromString("<html><body " + "style='font-family:Tahoma, Arial; font-size: 10pt;'><p>" + email.Body + "</p></body></html>", null, "text/html");
+                //Add image to HTML version
+                if (advisorVo != null)
+                    logoPath = "~/Images/" + advisorVo.LogoPath;
+                if (!File.Exists(Server.MapPath(logoPath)))
+                    logoPath = "~/Images/spacer.png";
+                //System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath("~/Images/") + @"\3DSYRW_4009.JPG", "image/jpeg");
+                System.Net.Mail.LinkedResource imageResource = new System.Net.Mail.LinkedResource(Server.MapPath(logoPath), "image/jpeg");
+                imageResource.ContentId = "HDIImage";
+                htmlView.LinkedResources.Add(imageResource);
+                //Add two views to message.
+                email.AlternateViews.Add(plainTextView);
+                email.AlternateViews.Add(htmlView);
+                email.To.Add(associateUserVo.Email);
+
+                AdviserStaffSMTPBo adviserStaffSMTPBo = new AdviserStaffSMTPBo();
+                AdviserStaffSMTPVo adviserStaffSMTPVo = adviserStaffSMTPBo.GetSMTPCredentials(((RMVo)Session["rmVo"]).RMId);
+                if (adviserStaffSMTPVo.HostServer != null && adviserStaffSMTPVo.HostServer != string.Empty)
+                {
+                    emailer.isDefaultCredentials = !Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired);
+
+                    if (!String.IsNullOrEmpty(adviserStaffSMTPVo.Password))
+                        emailer.smtpPassword = Encryption.Decrypt(adviserStaffSMTPVo.Password);
+                    emailer.smtpPort = int.Parse(adviserStaffSMTPVo.Port);
+                    emailer.smtpServer = adviserStaffSMTPVo.HostServer;
+                    emailer.smtpUserName = adviserStaffSMTPVo.Email;
+
+                    if (Convert.ToBoolean(adviserStaffSMTPVo.IsAuthenticationRequired))
+                    {
+                        if (ConfigurationSettings.AppSettings["HostName"].ToString() == "Wealtherp")
+                        {
+                            email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
+                        }
+                        else if (ConfigurationSettings.AppSettings["HostName"].ToString() == "MoneyTouch")
+                        {
+                            email.From = new MailAddress(emailer.smtpUserName, advisorVo.OrganizationName);
+                        }
+
+                    }
+                }
+            }
+            bool isMailSent = emailer.SendMail(email);
+            return isMailSent;
+        }
+
     }
 }

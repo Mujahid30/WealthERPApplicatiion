@@ -128,6 +128,7 @@
 
     
 </script>
+
 <script type="text/javascript">
     function chkPanExists() {
         $("#<%= hidValidCheck.ClientID %>").val("0");
@@ -146,7 +147,7 @@
 
             },
             success: function(msg) {
-               
+
                 if (msg.d) {
 
                     $("#<%= hidValidCheck.ClientID %>").val("1");
@@ -260,9 +261,6 @@
         padding-right: 5px;
     }
 </style>
-
-
-
 <table width="100%">
     <tr>
         <td colspan="3" style="width: 100%;">
@@ -437,10 +435,10 @@
                                 <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
                             </td>
                             <td class="rightData">
-                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper" onblur="return chkPanExists()"></asp:TextBox>
+                                <asp:TextBox ID="txtPanNum" runat="server" MaxLength="10" CssClass="txtFieldUpper"
+                                    onblur="return chkPanExists()"></asp:TextBox>
                                 <span id="spnLoginStatus"></span>
                                 <br />
-                                
                                 <asp:RegularExpressionValidator ID="revPANNum" ControlToValidate="txtPanNum" ValidationGroup="Submit"
                                     ErrorMessage="Not A Valid PAN" Display="Dynamic" runat="server" ValidationExpression="^[0-9a-zA-Z]+$"
                                     CssClass="revPCG"></asp:RegularExpressionValidator>
@@ -472,11 +470,10 @@
                         </tr>
                         <tr>
                             <td>
-                               
                             </td>
                             <td>
-                             <asp:Button ID="btnSave" runat="server" Text="Generate Request" CssClass="PCGLongButton" ValidationGroup="Submit"
-                                    OnClick="btnSave_Click" />
+                                <asp:Button ID="btnSave" runat="server" Text="Generate Request" CssClass="PCGLongButton"
+                                    ValidationGroup="Submit" OnClick="btnSave_Click" />
                             </td>
                             <td class="leftLabel">
                                 <asp:Label ID="lblGenerateReqstNum" runat="server" Text="Request No.:" CssClass="FieldName"></asp:Label>
@@ -509,7 +506,7 @@
                             </td>
                             <td>
                                 <asp:DropDownList ID="ddlstatus1" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                                    CssClass="cmbField"  OnSelectedIndexChanged="ddlstatus1_SelectedIndexChanged">
+                                    CssClass="cmbField" OnSelectedIndexChanged="ddlstatus1_SelectedIndexChanged">
                                 </asp:DropDownList>
                                 <br />
                                 <asp:RequiredFieldValidator ID="rfvddlStatusStage1" runat="server" CssClass="rfvPCG"
@@ -518,7 +515,8 @@
                                 </asp:RequiredFieldValidator>
                             </td>
                             <td class="leftLabel">
-                                <asp:Label ID="lblReasonStage1" runat="server" Text="Reason:" CssClass="FieldName" Visible="false"></asp:Label>
+                                <asp:Label ID="lblReasonStage1" runat="server" Text="Reason:" CssClass="FieldName"
+                                    Visible="false"></asp:Label>
                             </td>
                             <td class="rightData">
                                 <asp:DropDownList ID="ddlReasonStage1" runat="server" CssClass="cmbField" Visible="false">
@@ -541,7 +539,7 @@
                                     Visible="true" />
                             </td>
                             <td class="rightDataFourColumn" colspan="3">
-                                <div class="ISAAccountMsg" align="center" id="divAssociateAdd" runat="server"  visible="false">
+                                <div class="ISAAccountMsg" align="center" id="divAssociateAdd" runat="server" visible="false">
                                     Please add associates details.
                                 </div>
                             </td>
@@ -576,11 +574,10 @@
                         <div class="fltlft">
                             &nbsp;
                             <asp:Label ID="lblStage2" runat="server" Text="Stage:" CssClass="FieldName"></asp:Label>
-                            <asp:Label ID="txtStage2" runat="server" Text="Profiling"
-                                CssClass="txtField"></asp:Label>
+                            <asp:Label ID="txtStage2" runat="server" Text="Profiling" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
-                           <%-- <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <%-- <asp:Label ID="lblResponsibility2" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
                             <asp:Label ID="txtResponsibility2" runat="server" Text="Ops/BM" CssClass="txtField"></asp:Label>--%>
                         </div>
                         <div class="fltlft">
@@ -698,7 +695,7 @@
                             &nbsp;
                         </div>
                         <div class="divSectionHeadingNumber fltlftStep">
-                           3 
+                            3
                         </div>
                         <%--<div class="fltlftStep">
                             &nbsp; Step &nbsp;
@@ -709,7 +706,7 @@
                             <asp:Label ID="txtStage3" runat="server" Text="Verification" CssClass="txtField"></asp:Label>
                         </div>
                         <div class="fltlft">
-                          <%--  <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
+                            <%--  <asp:Label ID="lblResponsibility3" runat="server" Text="Responsibility:" CssClass="FieldName"></asp:Label>
                             <asp:Label ID="txtResponsibility3" runat="server" Text="Ops" CssClass="txtField"></asp:Label>--%>
                         </div>
                         <div class="fltlft">
@@ -755,7 +752,14 @@
                                 <asp:DropDownList ID="ddlReasonStep3" runat="server" CssClass="cmbField" Enabled="false">
                                 </asp:DropDownList>
                             </td>
-                            <td colspan="4">
+                            <td>
+                            </td>
+                            <td>
+                                <%--<asp:CheckBox ID="chkMailSend" Checked="false" runat="server" Text="Send Login info?" AutoPostBack="true"
+                                    CssClass="cmbField" Visible="false" />--%>
+                                <br />
+                            </td>
+                            <td colspan="2">
                             </td>
                         </tr>
                         <tr>
