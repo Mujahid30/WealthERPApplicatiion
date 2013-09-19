@@ -367,7 +367,7 @@ namespace WealthERP.Advisor
             advisorPreferenceVo.LoginWidgetLogOutPageURL=txtLogOutPageUrl.Text;
             advisorPreferenceVo.BrowserTitleBarName = txtBrowserTitleBarName.Text;
             advisorPreferenceVo.GridPageSize =  int.Parse(txtGridPageSize.Text);
-            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
+            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId,strCommand); 
             if (isSuccess)
             {
                 trSuccessMsg.Visible = true;
@@ -386,7 +386,7 @@ namespace WealthERP.Advisor
             bool isSuccess = false;
             if(!string.IsNullOrEmpty(txtGridPageSize.Text))
             advisorPreferenceVo.GridPageSize =int.Parse(txtGridPageSize.Text);
-            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId);
+            isSuccess = adviserPreferenceBo.AdviserPreferenceSetUp(advisorPreferenceVo, adviserVo.advisorId, userVo.UserId,strCommand);
             if (isSuccess)
             {
                 trMsg.Visible = true;
