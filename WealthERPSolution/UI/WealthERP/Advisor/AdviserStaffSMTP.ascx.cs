@@ -358,6 +358,7 @@ namespace WealthERP.Advisor
 
         protected void btnSubmitPreference_Click(object sender, EventArgs e)
         {
+            string strCommand = "cmdPreference";
             bool isSuccess = false;
             if (rbLoginWidGetYes.Checked)
                 advisorPreferenceVo.IsLoginWidgetEnable = true;
@@ -383,6 +384,7 @@ namespace WealthERP.Advisor
         }
         protected void btnSubmitPageSize_Click(object sender, EventArgs e)
         {
+            string strCommand = "cmdGridSize";
             bool isSuccess = false;
             if(!string.IsNullOrEmpty(txtGridPageSize.Text))
             advisorPreferenceVo.GridPageSize =int.Parse(txtGridPageSize.Text);
