@@ -329,8 +329,7 @@
                         <asp:Label ID="lblCorstate" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlCorState" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlCorState_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlCorState" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -348,9 +347,9 @@
                         <asp:Label ID="lblCorCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <%--<asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField"></asp:TextBox>--%>
-                        <asp:DropDownList ID="ddlCorCity" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
+                        <asp:TextBox ID="txtCorCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <%--<asp:DropDownList ID="ddlCorCity" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>--%>
                     </td>
                 </tr>
                 <tr>
@@ -411,8 +410,7 @@
                         <asp:Label ID="lblPermState" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            OnSelectedIndexChanged="ddlPermAdrState_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlPermAdrState" runat="server" CssClass="cmbField" >
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -430,9 +428,9 @@
                         <asp:Label ID="lblPermCity" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <%--<asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>--%>
-                        <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
-                        </asp:DropDownList>
+                        <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                       <%-- <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>--%>
                     </td>
                 </tr>
                 <tr>
@@ -588,8 +586,8 @@
                         <asp:Label ID="Label13" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField" AutoPostBack="true"
-                            Width="150px" OnSelectedIndexChanged="ddlBankAdrState_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlBankAdrState" runat="server" CssClass="txtField"
+                            Width="150px" >
                         </asp:DropDownList>
                     </td>
                 </tr>
@@ -598,9 +596,9 @@
                         <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <%--<asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField"></asp:TextBox>--%>
-                        <asp:DropDownList ID="ddlBankAdrCity" runat="server" CssClass="txtField" Width="150px">
-                        </asp:DropDownList>
+                        <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <%--<asp:DropDownList ID="ddlBankAdrCity" runat="server" CssClass="txtField" Width="150px">
+                        </asp:DropDownList>--%>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="lblPinCode" runat="server" Text="Pin Code:" CssClass="FieldName"></asp:Label>
@@ -840,11 +838,13 @@
                             <asp:CheckBox ID="chkPMS" runat="server" Text="PMS" CssClass="cmbField" value="PMS" />--%>
                         <asp:CheckBoxList ID="chkModules" runat="server" CssClass="FieldName" RepeatDirection="Horizontal">
                             <asp:ListItem Text="MF" Value="MF"></asp:ListItem>
-                            <asp:ListItem Text="IPO" Value="OT"></asp:ListItem>
+                            <asp:ListItem Text="IPO" Value="IP"></asp:ListItem>
                             <asp:ListItem Text="FD" Value="FD"></asp:ListItem>
                             <asp:ListItem Text="EQ" Value="DE"></asp:ListItem>
                             <asp:ListItem Text="Debt" Value="DT"></asp:ListItem>
                             <asp:ListItem Text="PMS" Value="PM"></asp:ListItem>
+                            <asp:ListItem Text="Insurance" Value="IN"></asp:ListItem>
+                            <asp:ListItem Text="Bond" Value="BO"></asp:ListItem>
                         </asp:CheckBoxList>
                     </td>
                 </tr>

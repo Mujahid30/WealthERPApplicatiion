@@ -64,7 +64,7 @@ namespace WealthERP.Associates
                 BindRelationship();
                 BindAssetCategory();
                 BindMaritalStatus();
-                BindCity(0);
+                //BindCity(0);
                 BindSubTypeDropDown("IND");
                 if (viewAction == "View")
                 {
@@ -124,7 +124,7 @@ namespace WealthERP.Associates
                 txtCorLine1.Enabled = false;
                 txtCorLine2.Enabled = false;
                 txtCorLine3.Enabled = false;
-                ddlCorCity.Enabled = false;
+                txtCorCity.Enabled = false;
                 txtCorPin.Enabled = false;
                 ddlCorState.Enabled = false;
                 txtCorCountry.Enabled = false;
@@ -132,7 +132,7 @@ namespace WealthERP.Associates
                 txtPermAdrLine1.Enabled = false;
                 txtPermAdrLine2.Enabled = false;
                 txtPermAdrLine3.Enabled = false;
-                ddlPermAdrCity.Enabled = false;
+                txtPermAdrCity.Enabled = false;
                 txtPermAdrPinCode.Enabled = false;
                 ddlPermAdrState.Enabled = false;
                 txtPermAdrCountry.Enabled = false;
@@ -148,7 +148,7 @@ namespace WealthERP.Associates
                 txtBankAdrLine1.Enabled = false;
                 txtBankAdrLine2.Enabled = false;
                 txtBankAdrLine3.Enabled = false;
-                ddlBankAdrCity.Enabled = false;
+                txtBankAdrCity.Enabled = false;
                 ddlBankAdrState.Enabled = false;
                 txtBankAdrPinCode.Enabled = false;
 
@@ -207,7 +207,7 @@ namespace WealthERP.Associates
                 txtCorLine1.Enabled = true;
                 txtCorLine2.Enabled = true;
                 txtCorLine3.Enabled = true;
-                ddlCorCity.Enabled = true;
+                txtCorCity.Enabled = true;
                 txtCorPin.Enabled = true;
                 ddlCorState.Enabled = true;
                 txtCorCountry.Enabled = true;
@@ -215,7 +215,7 @@ namespace WealthERP.Associates
                 txtPermAdrLine1.Enabled = true;
                 txtPermAdrLine2.Enabled = true;
                 txtPermAdrLine3.Enabled = true;
-                ddlPermAdrCity.Enabled = true;
+                txtPermAdrCity.Enabled = true;
                 txtPermAdrPinCode.Enabled = true;
                 ddlPermAdrState.Enabled = true;
                 txtPermAdrCountry.Enabled = true;
@@ -231,7 +231,7 @@ namespace WealthERP.Associates
                 txtBankAdrLine1.Enabled = true;
                 txtBankAdrLine2.Enabled = true;
                 txtBankAdrLine3.Enabled = true;
-                ddlBankAdrCity.Enabled = true;
+                txtBankAdrCity.Enabled = true;
                 ddlBankAdrState.Enabled = true;
                 txtBankAdrPinCode.Enabled = true;
 
@@ -313,10 +313,10 @@ namespace WealthERP.Associates
                 txtCorLine2.Text = associatesVo.CorrAdrLine2;
             if (associatesVo.CorrAdrLine3 != null)
                 txtCorLine3.Text = associatesVo.CorrAdrLine3;
-            //if (associatesVo.CorrAdrCity != null)
-            //    txtCorCity.Text = associatesVo.CorrAdrCity;
-            if (!string.IsNullOrEmpty(associatesVo.CorrAdrCity))
-                ddlCorCity.SelectedValue = associatesVo.CorrAdrCity;
+            if (associatesVo.CorrAdrCity != null)
+                txtCorCity.Text = associatesVo.CorrAdrCity;
+            //if (!string.IsNullOrEmpty(associatesVo.CorrAdrCity))
+            //    ddlCorCity.SelectedValue = associatesVo.CorrAdrCity;
             if (associatesVo.CorrAdrPinCode != null)
                 txtCorPin.Text = associatesVo.CorrAdrPinCode.ToString();
             if (!String.IsNullOrEmpty(associatesVo.CorrAdrState))
@@ -363,10 +363,10 @@ namespace WealthERP.Associates
                 txtBankAdrLine2.Text = associatesVo.BranchAdrLine2;
             if (associatesVo.BranchAdrLine3 != null)
                 txtBankAdrLine3.Text = associatesVo.BranchAdrLine3;
-            //if (associatesVo.BranchAdrCity != null)
-            //    txtBankAdrCity.Text = associatesVo.BranchAdrCity;
-            if (!string.IsNullOrEmpty(associatesVo.BranchAdrCity))
-                ddlBankAdrCity.SelectedValue = associatesVo.BranchAdrCity;
+            if (associatesVo.BranchAdrCity != null)
+                txtBankAdrCity.Text = associatesVo.BranchAdrCity;
+            //if (!string.IsNullOrEmpty(associatesVo.BranchAdrCity))
+            //    ddlBankAdrCity.SelectedValue = associatesVo.BranchAdrCity;
             if (!string.IsNullOrEmpty(associatesVo.BranchAdrState))
                 ddlBankAdrState.Text = associatesVo.BranchAdrState;
 
@@ -519,57 +519,57 @@ namespace WealthERP.Associates
         private void BindState()
         {
             DataTable dtBankState = new DataTable();
-            //dtBankState = XMLBo.GetStates(path);
-            dtBankState = associatesBo.GetStateList();
+            dtBankState = XMLBo.GetStates(path);
+            //dtBankState = associatesBo.GetStateList();
             ddlBankAdrState.DataSource = dtBankState;
-            ddlBankAdrState.DataTextField = "state_name";
-            ddlBankAdrState.DataValueField = "state_id";
+            ddlBankAdrState.DataTextField = "StateName";
+            ddlBankAdrState.DataValueField = "StateCode";
             ddlBankAdrState.DataBind();
             ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
             //-------------------------------------------------------------------------------------
             ddlCorState.DataSource = dtBankState;
-            ddlCorState.DataTextField = "state_name";
-            ddlCorState.DataValueField = "state_id";
+            ddlCorState.DataTextField = "StateName";
+            ddlCorState.DataValueField = "StateCode";
             ddlCorState.DataBind();
             ddlCorState.Items.Insert(0, new ListItem("Select", "Select"));
             //-------------------------------------------------------------------------------------
             ddlPermAdrState.DataSource = dtBankState;
-            ddlPermAdrState.DataTextField = "state_name";
-            ddlPermAdrState.DataValueField = "state_id";
+            ddlPermAdrState.DataTextField = "StateName";
+            ddlPermAdrState.DataValueField = "StateCode";
             ddlPermAdrState.DataBind();
             ddlPermAdrState.Items.Insert(0, new ListItem("Select", "Select"));
         }
 
-        private void BindCity(int flag)
-        {
-            string stateId = string.Empty;
-            DataTable dtBindCity;
-            if (ddlBankAdrState.SelectedIndex != 0)
-                stateId = ddlBankAdrState.SelectedValue;
-            else if (ddlCorState.SelectedIndex != 0)
-                stateId = ddlCorState.SelectedValue;
-            else if (ddlPermAdrState.SelectedIndex != 0)
-                stateId = ddlPermAdrState.SelectedValue;
-            dtBindCity = associatesBo.GetCityList(stateId, flag);
-            ddlBankAdrCity.DataSource = dtBindCity;
-            ddlBankAdrCity.DataTextField = "cityname";
-            ddlBankAdrCity.DataValueField = "cityid";
-            ddlBankAdrCity.DataBind();
-            ddlBankAdrCity.Items.Insert(0, new ListItem("Select", "Select"));
-            //-------------------------------------------------------------------------------------
+        //private void BindCity(int flag)
+        //{
+        //    string stateId = string.Empty;
+        //    DataTable dtBindCity;
+        //    if (ddlBankAdrState.SelectedIndex != 0)
+        //        stateId = ddlBankAdrState.SelectedValue;
+        //    else if (ddlCorState.SelectedIndex != 0)
+        //        stateId = ddlCorState.SelectedValue;
+        //    else if (ddlPermAdrState.SelectedIndex != 0)
+        //        stateId = ddlPermAdrState.SelectedValue;
+        //    dtBindCity = associatesBo.GetCityList(stateId, flag);
+        //    ddlBankAdrCity.DataSource = dtBindCity;
+        //    ddlBankAdrCity.DataTextField = "cityname";
+        //    ddlBankAdrCity.DataValueField = "cityid";
+        //    ddlBankAdrCity.DataBind();
+        //    ddlBankAdrCity.Items.Insert(0, new ListItem("Select", "Select"));
+        //    //-------------------------------------------------------------------------------------
 
-            ddlCorCity.DataSource = dtBindCity;
-            ddlCorCity.DataTextField = "cityname";
-            ddlCorCity.DataValueField = "cityid";
-            ddlCorCity.DataBind();
-            ddlCorCity.Items.Insert(0, new ListItem("Select", "Select"));
-            //-------------------------------------------------------------------------------------
-            ddlPermAdrCity.DataSource = dtBindCity;
-            ddlPermAdrCity.DataTextField = "cityname";
-            ddlPermAdrCity.DataValueField = "cityid";
-            ddlPermAdrCity.DataBind();
-            ddlPermAdrCity.Items.Insert(0, new ListItem("Select", "Select"));
-        }
+        //    ddlCorCity.DataSource = dtBindCity;
+        //    ddlCorCity.DataTextField = "cityname";
+        //    ddlCorCity.DataValueField = "cityid";
+        //    ddlCorCity.DataBind();
+        //    ddlCorCity.Items.Insert(0, new ListItem("Select", "Select"));
+        //    //-------------------------------------------------------------------------------------
+        //    ddlPermAdrCity.DataSource = dtBindCity;
+        //    ddlPermAdrCity.DataTextField = "cityname";
+        //    ddlPermAdrCity.DataValueField = "cityid";
+        //    ddlPermAdrCity.DataBind();
+        //    ddlPermAdrCity.Items.Insert(0, new ListItem("Select", "Select"));
+        //}
 
         private void BindBankName()
         {
@@ -646,12 +646,12 @@ namespace WealthERP.Associates
                 associatesVo.CorrAdrLine3 = txtCorLine3.Text;
             else
                 associatesVo.CorrAdrLine3 = "";
-            //if (txtCorCity.Text != null)
-            //    associatesVo.CorrAdrCity = txtCorCity.Text;
-            //else
-            //    associatesVo.CorrAdrCity = "";
-            if (ddlCorCity.SelectedIndex != 0)
-                associatesVo.CorrAdrCity = ddlCorCity.SelectedValue;
+            if (txtCorCity.Text != null)
+                associatesVo.CorrAdrCity = txtCorCity.Text;
+            else
+                associatesVo.CorrAdrCity = "";
+            //if (ddlCorCity.SelectedIndex != 0)
+            //    associatesVo.CorrAdrCity = ddlCorCity.SelectedValue;
 
             if (!string.IsNullOrEmpty(txtCorPin.Text))
                 associatesVo.CorrAdrPinCode = int.Parse(txtCorPin.Text);
@@ -682,12 +682,12 @@ namespace WealthERP.Associates
                 associatesVo.PerAdrLine3 = txtPermAdrLine3.Text;
             else
                 associatesVo.PerAdrLine3 = "";
-            //if (txtPermAdrCity.Text != null)
-            //    associatesVo.PerAdrCity = txtCorCity.Text;
-            //else
-            //    associatesVo.PerAdrCity = "";
-            if (ddlPermAdrCity.SelectedIndex != 0)
-                associatesVo.PerAdrCity = ddlPermAdrCity.SelectedValue;
+            if (txtPermAdrCity.Text != null)
+                associatesVo.PerAdrCity = txtCorCity.Text;
+            else
+                associatesVo.PerAdrCity = "";
+            //if (ddlPermAdrCity.SelectedIndex != 0)
+            //    associatesVo.PerAdrCity = ddlPermAdrCity.SelectedValue;
             if (!string.IsNullOrEmpty(txtPermAdrPinCode.Text))
                 associatesVo.PerAdrPinCode = int.Parse(txtPermAdrPinCode.Text);
             else
@@ -745,12 +745,12 @@ namespace WealthERP.Associates
                 associatesVo.BranchAdrLine3 = txtBankAdrLine3.Text;
             else
                 associatesVo.BranchAdrLine3 = "";
-            //if (txtBankAdrCity.Text != null)
-            //    associatesVo.BranchAdrCity = txtBankAdrCity.Text;
-            //else
-            //    associatesVo.BranchAdrCity = "";
-            if (ddlBankAdrCity.SelectedIndex != 0)
-                associatesVo.BranchAdrCity = ddlBankAdrCity.SelectedValue;
+            if (txtBankAdrCity.Text != null)
+                associatesVo.BranchAdrCity = txtBankAdrCity.Text;
+            else
+                associatesVo.BranchAdrCity = "";
+            //if (ddlBankAdrCity.SelectedIndex != 0)
+            //    associatesVo.BranchAdrCity = ddlBankAdrCity.SelectedValue;
             if (ddlBankAdrState.SelectedIndex != 0)
                 associatesVo.BranchAdrState = ddlBankAdrState.SelectedValue;
             else
@@ -921,11 +921,12 @@ namespace WealthERP.Associates
                 txtPermAdrLine2.Text = txtCorLine2.Text;
                 txtPermAdrLine3.Text = txtCorLine3.Text;
                 ddlPermAdrState.SelectedValue = ddlCorState.SelectedValue;
-                if (ddlCorCity.SelectedIndex != 0)
-                {
-                    BindCity(1);
-                    ddlPermAdrState.SelectedValue = ddlCorCity.SelectedValue;
-                }
+                txtPermAdrCity.Text = txtCorCity.Text;
+                //if (ddlCorCity.SelectedIndex != 0)
+                //{
+                //    BindCity(1);
+                //    ddlPermAdrState.SelectedValue = ddlCorCity.SelectedValue;
+                //}
                 txtPermAdrPinCode.Text = txtCorPin.Text;
 
                 txtPermAdrCountry.Text = txtCorCountry.Text;
@@ -933,23 +934,23 @@ namespace WealthERP.Associates
             }
         }
 
-        protected void ddlBankAdrState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlBankAdrState.SelectedIndex != 0)
-                BindCity(1);
-        }
+        //protected void ddlBankAdrState_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlBankAdrState.SelectedIndex != 0)
+        //        BindCity(1);
+        //}
 
-        protected void ddlPermAdrState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlPermAdrState.SelectedIndex != 0)
-                BindCity(1);
-        }
+        //protected void ddlPermAdrState_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlPermAdrState.SelectedIndex != 0)
+        //        BindCity(1);
+        //}
 
-        protected void ddlCorState_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlCorState.SelectedIndex != 0)
-                BindCity(1);
-        }
+        //protected void ddlCorState_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (ddlCorState.SelectedIndex != 0)
+        //        BindCity(1);
+        //}
         protected void rbtnIndividual_CheckedChanged(object sender, EventArgs e)
         {
             BindSubTypeDropDown("IND");

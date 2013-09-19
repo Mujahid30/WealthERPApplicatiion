@@ -788,13 +788,13 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.Label lblCorCity;
         
         /// <summary>
-        /// ddlCorCity control.
+        /// txtCorCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCorCity;
+        protected global::System.Web.UI.WebControls.TextBox txtCorCity;
         
         /// <summary>
         /// lblCorCountry control.
@@ -932,13 +932,13 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.Label lblPermCity;
         
         /// <summary>
-        /// ddlPermAdrCity control.
+        /// txtPermAdrCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPermAdrCity;
+        protected global::System.Web.UI.WebControls.TextBox txtPermAdrCity;
         
         /// <summary>
         /// lblPermCountry control.
@@ -1265,13 +1265,13 @@ namespace WealthERP.Associates {
         protected global::System.Web.UI.WebControls.Label lblCity;
         
         /// <summary>
-        /// ddlBankAdrCity control.
+        /// txtBankAdrCity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBankAdrCity;
+        protected global::System.Web.UI.WebControls.TextBox txtBankAdrCity;
         
         /// <summary>
         /// lblPinCode control.
