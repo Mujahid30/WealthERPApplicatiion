@@ -623,13 +623,25 @@ namespace WealthERP.OPS
         }
         protected void btnExportFilteredDupData_OnClick(object sender, ImageClickEventArgs e)
         {
+            //gvOrderList.ExportSettings.OpenInNewWindow = true;
+            //gvOrderList.ExportSettings.IgnorePaging = true;
+            //foreach (GridFilteringItem filter in gvOrderList.MasterTableView.GetItems(GridItemType.FilteringItem))
+            //{
+            //    filter.Visible = false;
+            //}
+            //gvOrderList.MasterTableView.ExportToCSV();
+
             gvOrderList.ExportSettings.OpenInNewWindow = true;
             gvOrderList.ExportSettings.IgnorePaging = true;
-            foreach (GridFilteringItem filter in gvOrderList.MasterTableView.GetItems(GridItemType.FilteringItem))
-            {
-                filter.Visible = false;
-            }
-            gvOrderList.MasterTableView.ExportToCSV();
+            gvOrderList.ExportSettings.HideStructureColumns = true;
+            gvOrderList.ExportSettings.ExportOnlyData = true;
+            //gvOrderList.ExportSettings.FileName = "Customer List";
+            gvOrderList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOrderList.MasterTableView.ExportToExcel();
+
+
+
+
         }
 
         protected void gvOrderList_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
