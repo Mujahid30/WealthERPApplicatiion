@@ -194,7 +194,7 @@
                         <table cellspacing="0" cellpadding="3" width="100%">
                             <tr>
                                 <td align="left">
-                                    Commission Receivable Structure Setup
+                                    Commission receivable Structure setup
                                 </td>
                             </tr>
                         </table>
@@ -212,7 +212,7 @@
                         </div>
                         <div class="fltlft">
                             &nbsp;
-                            <asp:Label ID="Label2" runat="server" Text="Commission Structure"></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text="Comission Structure"></asp:Label>
                         </div>
                         <div class="divViewEdit">
                             <asp:LinkButton ID="lnkAddNewStructure" Text="Add" runat="server" CssClass="LinkButtons"
@@ -301,7 +301,7 @@
                         runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
                     </asp:RequiredFieldValidator>
                 </td>
-                <td class="leftLabel">
+                <td class="leftLabel"> 
                     <asp:Label ID="lblValidityTo" runat="server" Text="To:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
@@ -432,27 +432,27 @@
                                         DataField="ACSR_MaxInvestmentAmount" DataFormatString="{0:N2}">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min Tenure (SIP)" DataField="ACSR_MinTenure">
+                                    <telerik:GridBoundColumn UniqueName="ACSR_MinTenure" HeaderText="Min Tenure" DataField="ACSR_MinTenure">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max Tenure (SIP)" DataField="ACSR_MaxTenure">
+                                    <telerik:GridBoundColumn UniqueName="ACSR_MaxTenure" HeaderText="Max Tenure" DataField="ACSR_MaxTenure">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="ACSR_TenureUnit" HeaderText="Tenure Unit" DataField="ACSR_TenureUnit">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAge" HeaderText="Min Invest Age"
-                                        DataField="ACSR_MinInvestmentAge">
+                                    <telerik:GridBoundColumn UniqueName="ACSR_MinInvestmentAgeInMonth" HeaderText="Min Invest Age(Month)"
+                                        DataField="ACSR_MinInvestmentAgeInMonth">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAge" HeaderText="Max Invest Age"
-                                        DataField="ACSR_MaxInvestmentAge">
+                                    <telerik:GridBoundColumn UniqueName="ACSR_MaxInvestmentAgeInMonth" HeaderText="Max Invest Age(Month)"
+                                        DataField="ACSR_MaxInvestmentAgeInMonth">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="ACSR_InvestmentAgeUnit" HeaderText="Invest Age Unit"
-                                        DataField="ACSR_InvestmentAgeUnit">
-                                        <HeaderStyle></HeaderStyle>
-                                    </telerik:GridBoundColumn>
+                                    <%--<telerik:GridBoundColumn UniqueName="ACSR_InvestmentAgeUnit" HeaderText="Invest Age Unit"
+                                                    DataField="ACSR_InvestmentAgeUnit">
+                                                    <HeaderStyle></HeaderStyle>
+                                                </telerik:GridBoundColumn>--%>
                                     <telerik:GridBoundColumn UniqueName="ACSR_TransactionType" HeaderText="Transaction Types"
                                         DataField="ACSR_TransactionType">
                                         <HeaderStyle></HeaderStyle>
@@ -596,17 +596,17 @@
                                                     <asp:Label ID="lblMinInvestAge" runat="server" Text="Min Investment age :" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData">
-                                                    <asp:TextBox ID="txtMinInvestAge" Text='<%# Bind( "ACSR_MinInvestmentAge") %>'
+                                                    <asp:TextBox ID="txtMinInvestAge" Text='<%# Bind( "ACSR_MinInvestmentAgeInMonth") %>'
                                                         runat="server" CssClass="txtField"></asp:TextBox>
                                                 </td>
                                                 <td class="leftLabel">
                                                     <asp:Label ID="lblMaxInvestAge" runat="server" Text="Max Investment age :" CssClass="FieldName"></asp:Label>
                                                 </td>
                                                 <td class="rightData" colspan="2">
-                                                    <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAge") %>'
+                                                    <asp:TextBox ID="txtMaxInvestAge" Text='<%# Bind( "ACSR_MaxInvestmentAgeInMonth") %>'
                                                         runat="server" CssClass="txtField"></asp:TextBox>
                                                     <asp:DropDownList ID="ddlInvestAgeTenure" runat="server" CssClass="cmbField" Style="width: 100px !Important">
-                                                         <asp:ListItem Text="Days" Value="Days"></asp:ListItem>
+                                                        <%-- <asp:ListItem Text="Days" Value="Days"></asp:ListItem>--%>
                                                         <asp:ListItem Text="Years" Value="Years"></asp:ListItem>
                                                         <asp:ListItem Text="Months" Value="Months"></asp:ListItem>
                                                     </asp:DropDownList>
