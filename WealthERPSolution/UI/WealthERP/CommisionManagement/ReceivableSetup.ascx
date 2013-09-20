@@ -194,7 +194,7 @@
                         <table cellspacing="0" cellpadding="3" width="100%">
                             <tr>
                                 <td align="left">
-                                    Commission receivable Structure setup
+                                    Commission Receivable Structure Setup
                                 </td>
                             </tr>
                         </table>
@@ -212,7 +212,7 @@
                         </div>
                         <div class="fltlft">
                             &nbsp;
-                            <asp:Label ID="Label2" runat="server" Text="Comission Structure"></asp:Label>
+                            <asp:Label ID="Label2" runat="server" Text="Commission Structure"></asp:Label>
                         </div>
                         <div class="divViewEdit">
                             <asp:LinkButton ID="lnkAddNewStructure" Text="Add" runat="server" CssClass="LinkButtons"
