@@ -12,49 +12,126 @@ using System.Collections.Specialized;
 
 namespace WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
 {
+    
     public class MFTransactionBalanceProcessBo
     {
-        AdviserMaintenanceBo adviserMaintenanceBo = new AdviserMaintenanceBo();
-        List<AdvisorVo> adviserVoList = new List<AdvisorVo>();
-        BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
-        MFEngineBo mfEngineBo = new MFEngineBo();
-        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
-        public void CreateMFTransactionBalanceForAllAdviser(int isForAllAdviser, int adviserId)
+        public enum ValuationLevel
         {
+            AllAdviser = 1,
+            Adviser = 2,
+            Customer = 3,
+            Account = 4
+        }
+        AdviserMaintenanceBo adviserMaintenanceBo = new AdviserMaintenanceBo();
+        MFEngineBo mfEngineBo;
+        CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
 
-            if (isForAllAdviser == 1)
+        public void ProcessMFTransactionBalance(int commonId1,int commonId2, ValuationLevel Level)
+        {
+            try
             {
-                adviserVoList = adviserMaintenanceBo.GetAdviserList();
-                for (int i = 0; i < adviserVoList.Count; i++)
+
+                switch (Level.ToString())
                 {
 
-                    try
-                    {
-                        int logId = 0;
-                        logId = CreateAdviserEODLog("MF_Balance", DateTime.Now, adviserVoList[i].advisorId);
-                        mfEngineBo.MFBalanceCreation(adviserVoList[i].advisorId, 0, valuationFor);
-                        UpdateAdviserEODLog("MF_Balance", 1, logId);
+                    case "AllAdviser":
+                        {
+                            mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Advisor);
+                            List<AdvisorVo> adviserVoList = new List<AdvisorVo>();  
+                            adviserVoList = adviserMaintenanceBo.GetAdviserList();
+                            BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
+                            for (int i = 0; i < adviserVoList.Count; i++)
+                            {
 
-                    }
-                    catch
-                    {
+                                try
+                                {
+                                    int logId = 0;
+                                    logId = CreateAdviserEODLog("MF_Balance", DateTime.Now, adviserVoList[i].advisorId);
+                                    mfEngineBo.MFBalanceCreation(commonId1, 0, valuationFor);
+                                    UpdateAdviserEODLog("MF_Balance", 1, logId);
+
+                                }
+                                catch
+                                {
 
 
-                    }
+                                }
+                               
+                            }
+                            break;
 
+                        }
+                    case "Adviser":
+                        {
+                            try
+                            {
+                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Advisor);
+                                BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Advisor;
+                                int logId = 0;
+                                logId = CreateAdviserEODLog("MF_Balance", DateTime.Now, commonId1);
+                                mfEngineBo.MFBalanceCreation(commonId1, 0, valuationFor);
+                                UpdateAdviserEODLog("MF_Balance", 1, logId);
+                            }
+                            catch
+                            {
+ 
+                            }
+                            break;
+                        }
+                    case "Customer":
+                        {
+                            try
+                            {
+                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Customer);
+                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.Advisor);
+                                BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.Customer;
+                                mfEngineBo.MFBalanceCreation(commonId1, 0, valuationFor);
+                            }
+                            catch
+                            {
+
+                            }
+                            break;
+                        }
+                    case "Account":
+                        {
+                            try
+                            {
+                                mfEngineBo = new MFEngineBo(BoValuation.MFEngineBo.ValuationLabel.AccountScheme);
+                                BoValuation.MFEngineBo.ValuationLabel valuationFor = BoValuation.MFEngineBo.ValuationLabel.AccountScheme;
+                                mfEngineBo.MFBalanceCreation(commonId1, commonId2, valuationFor);
+                            }
+                            catch
+                            {
+
+                            }
+                            break;
+                        }
                 }
-
             }
-            else
+            catch (BaseApplicationException Ex)
             {
-                int logId = 0;
-                logId = CreateAdviserEODLog("MF_Balance", DateTime.Now, adviserId);
-                mfEngineBo.MFBalanceCreation(adviserId, 0, valuationFor);
-                UpdateAdviserEODLog("MF_Balance", 1, logId);
+                //emailSMSBo.SendErrorExceptionMail(commonId, startFrom.ToString(),schemePlanCode, Ex.Message, "MFEngineBo.cs_MFBalanceCreation");
+                throw Ex;
             }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFEngineBo.cs:MFBalanceCreation()");
 
+                object[] objects = new object[3];
+                objects[0] = commonId1;
+                objects[1] = commonId1;
+                objects[2] = Level;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
+            }
         }
+
         private int CreateAdviserEODLog(string assetType, DateTime dt, int adviserId)
         {
             int LogId = 0;
