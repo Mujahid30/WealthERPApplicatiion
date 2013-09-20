@@ -96,28 +96,6 @@
         </td>
     </tr>
     <tr id="trSelectType" runat="server">
-        <%--        <td align="left" class="leftField">
-            <asp:Label ID="lblSelectType" runat="server" CssClass="FieldName" Text="Select Type:"></asp:Label>
-        </td>
-        <td align="right">
-            <asp:DropDownList ID="ddlUserType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlUserType_SelectedIndexChanged">
-                <asp:ListItem Text="Select" Value="Select" Selected="True"></asp:ListItem>
-                <asp:ListItem Text="Associates" Value="Associates"></asp:ListItem>
-                <asp:ListItem Text="Branch" Value="BM"></asp:ListItem>
-                <asp:ListItem Text="Employee" Value="RM"></asp:ListItem>
-            </asp:DropDownList>
-            <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddlUserType"
-                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an user type"
-                Operator="NotEqual" ValidationGroup="vgbtnSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        </td>
-        <td align="left" class="leftField">
-            <asp:Label ID="lblSelectCode" runat="server" CssClass="FieldName" Text="Select SubBrokerCode:"></asp:Label>
-        </td>
-        <td align="right">
-            <asp:DropDownList ID="ddlSelectType" runat="server" CssClass="cmbField" AutoPostBack="true">
-            </asp:DropDownList>
-        </td>--%>
         <td align="left" class="leftField">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Select Commission Type:"></asp:Label>
         </td>
@@ -298,6 +276,12 @@
                     FooterStyle-HorizontalAlign="Right">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
+                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Structure Name" DataField="structName"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="structName" SortExpression="structName"
+                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    FooterStyle-HorizontalAlign="Right">
+                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                </telerik:GridBoundColumn>
             </Columns>
         </MasterTableView>
         <ClientSettings>
@@ -310,7 +294,7 @@
     <asp:HiddenField ID="hdnFromDate" runat="server" />
     <asp:HiddenField ID="hdnToDate" runat="server" />
     <asp:HiddenField ID="hdnrecon" runat="server" />
-        <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
+    <asp:HiddenField ID="hdnSBbrokercode" runat="server" />
 </div>
 <div runat="server" id="divBtnActionSection" visible="false">
     <asp:Button ID="btnUpload" OnClick="btnUpload_click" runat="server" Text="Mark Recon Status"
