@@ -10,7 +10,7 @@ using WealthERP.Base;
 using BoCommon;
 using BoCommisionManagement;
 using VoCommisionManagement;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Microsoft.ApplicationBlocks.ExceptionManagement; 
 using System.Collections.Specialized;
 using Telerik.Web.UI;
 using System.Text;
@@ -204,7 +204,7 @@ namespace WealthERP.CommisionManagement
                 DateTime validFrom = rdpPeriodStart.SelectedDate.Value;
                 DateTime validTill = rdpPeriodEnd.SelectedDate.Value;
 
-                DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(advisorVo.advisorId, sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
+                DataSet dsAvailSchemes = commisionReceivableBo.GetAvailSchemes(sStructId, sIssuerId, sProduct, sCategory, sSubcats, validFrom, validTill);
                 rlbAvailSchemes.DataSource = dsAvailSchemes.Tables[0];
                 rlbAvailSchemes.DataValueField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanCode"].ToString();
                 rlbAvailSchemes.DataTextField = dsAvailSchemes.Tables[0].Columns["PASP_SchemePlanName"].ToString();
@@ -372,17 +372,6 @@ namespace WealthERP.CommisionManagement
             //check whether it is not associated
             int retVal = commisionReceivableBo.updateStructureToSchemeMapping(setupId, newDate);
             if (retVal < 1) { return; }
-
-            CreateMappedSchemeGrid();
-        }
-
-        protected void gvMappedSchemes_DeleteCommand(object sender, GridCommandEventArgs e)
-        {
-            GridEditableItem item = (GridEditableItem)e.Item;
-            int setupId = int.Parse(item.GetDataKeyValue("ACSTSM_SetupId").ToString());
-
-            //check whether it is not associated
-            commisionReceivableBo.deleteStructureToSchemeMapping(setupId);
 
             CreateMappedSchemeGrid();
         }
