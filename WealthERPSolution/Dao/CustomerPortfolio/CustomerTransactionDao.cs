@@ -2551,13 +2551,13 @@ namespace DaoCustomerPortfolio
                             {
                                 mfTransactionVo.Titles = "N/A";
                             }
-                            if (dr["CircleManager"].ToString() != null && dr["CircleManager"].ToString() != string.Empty)
+                            if (dr["ClusterManager"].ToString() != null && dr["ClusterManager"].ToString() != string.Empty)
                             {
-                                mfTransactionVo.CircleManager = dr["CircleManager"].ToString();
+                                mfTransactionVo.ClusterMgr = dr["ClusterManager"].ToString();
                             }
                             else
                             {
-                                mfTransactionVo.CircleManager = "N/A";
+                                mfTransactionVo.ClusterMgr = "N/A";
                             }
                             if (dr["ReportingManagerName"].ToString() != null && dr["ReportingManagerName"].ToString() != string.Empty)
                             {
@@ -4283,13 +4283,13 @@ namespace DaoCustomerPortfolio
                             {
                                 mfBalanceVo.Titles = "N/A";
                             }
-                            if (dr["CircleManager"].ToString() != null && dr["CircleManager"].ToString() != string.Empty)
+                            if (dr["ClusterManager"].ToString() != null && dr["ClusterManager"].ToString() != string.Empty)
                             {
-                                mfBalanceVo.CircleManager = dr["CircleManager"].ToString();
+                                mfBalanceVo.ClusterMgr = dr["ClusterManager"].ToString();
                             }
                             else
                             {
-                                mfBalanceVo.CircleManager = "N/A";
+                                mfBalanceVo.ClusterMgr = "N/A";
                             }
                             if (dr["ReportingManagerName"].ToString() != null && dr["ReportingManagerName"].ToString() != string.Empty)
                             {

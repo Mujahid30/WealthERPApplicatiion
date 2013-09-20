@@ -902,7 +902,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("AssociatesName");
                     dtMFTransactions.Columns.Add("ChannelName");
                     dtMFTransactions.Columns.Add("Titles");
-                    dtMFTransactions.Columns.Add("CircleManager");
+                    dtMFTransactions.Columns.Add("ClusterManager");
                     dtMFTransactions.Columns.Add("ReportingManagerName");
                     dtMFTransactions.Columns.Add("UserType");
                     dtMFTransactions.Columns.Add("DeuptyHead");
@@ -965,7 +965,7 @@ namespace WealthERP.CustomerPortfolio
                             drMFTransaction["AssociatesName"] = mfTransactionVo.SubbrokerName.ToString();
                             drMFTransaction["ChannelName"] = mfTransactionVo.Channel.ToString();
                             drMFTransaction["Titles"] = mfTransactionVo.Titles.ToString();
-                            drMFTransaction["CircleManager"] = mfTransactionVo.CircleManager.ToString();
+                            drMFTransaction["ClusterManager"] = mfTransactionVo.ClusterMgr .ToString();
                             drMFTransaction["ReportingManagerName"] = mfTransactionVo.ReportingManagerName.ToString();
                             drMFTransaction["UserType"] = mfTransactionVo.UserType.ToString();
                             drMFTransaction["DeuptyHead"] = mfTransactionVo.DeuptyHead.ToString();
@@ -1112,7 +1112,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("AssociatesName");
                     dtMFBalance.Columns.Add("ChannelName");
                     dtMFBalance.Columns.Add("Titles");
-                    dtMFBalance.Columns.Add("CircleManager");
+                    dtMFBalance.Columns.Add("ClusterManager");
                     dtMFBalance.Columns.Add("ReportingManagerName");
                     dtMFBalance.Columns.Add("UserType");
                     dtMFBalance.Columns.Add("DeuptyHead");
@@ -1161,7 +1161,7 @@ namespace WealthERP.CustomerPortfolio
                             drMFBalance["AssociatesName"] = mfBalanceVo.SubbrokerName.ToString();
                             drMFBalance["ChannelName"] = mfBalanceVo.Channel.ToString();
                             drMFBalance["Titles"] = mfBalanceVo.Titles.ToString();
-                            drMFBalance["CircleManager"] = mfBalanceVo.CircleManager.ToString();
+                            drMFBalance["ClusterManager"] = mfBalanceVo.ClusterMgr.ToString();
                             drMFBalance["ReportingManagerName"] = mfBalanceVo.ReportingManagerName.ToString();
                             drMFBalance["UserType"] = mfBalanceVo.UserType.ToString();
                             drMFBalance["DeuptyHead"] = mfBalanceVo.DeuptyHead.ToString();

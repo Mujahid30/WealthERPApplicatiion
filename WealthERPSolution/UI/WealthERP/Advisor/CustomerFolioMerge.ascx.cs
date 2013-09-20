@@ -524,16 +524,17 @@ namespace WealthERP.Advisor
         {
             if (IsAgentCodeBased == 0)
             {
-                gvCustomerFolioMerge.Columns[2].Visible = false;
-                gvCustomerFolioMerge.Columns[3].Visible = false;
-                gvCustomerFolioMerge.Columns[4].Visible = false;
-                gvCustomerFolioMerge.Columns[5].Visible = false;
-                gvCustomerFolioMerge.Columns[6].Visible=  false;
-                gvCustomerFolioMerge.Columns[7].Visible = false;
-                gvCustomerFolioMerge.Columns[8].Visible = false;
-                gvCustomerFolioMerge.Columns[9].Visible = false;
                 gvCustomerFolioMerge.Columns[10].Visible = false;
-                DivCustomerFolio.Style.Add("width","1000px");
+                gvCustomerFolioMerge.Columns[11].Visible = false;
+                gvCustomerFolioMerge.Columns[12].Visible = false;
+                gvCustomerFolioMerge.Columns[13].Visible = false;
+                gvCustomerFolioMerge.Columns[14].Visible=  false;
+                gvCustomerFolioMerge.Columns[15].Visible = false;
+                gvCustomerFolioMerge.Columns[16].Visible = false;
+                gvCustomerFolioMerge.Columns[17].Visible = false;
+                gvCustomerFolioMerge.Columns[18].Visible = false;
+                gvCustomerFolioMerge.Columns[19].Visible = false;
+                DivCustomerFolio.Style.Add("width","950px");
                 if (userType == "advisor")
                 {
 
@@ -815,6 +816,7 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("CircleManager");
                 dtCustomerFolio.Columns.Add("ReportingManagerName");
                 dtCustomerFolio.Columns.Add("UserType");
+                dtCustomerFolio.Columns.Add("DeuptyHead");
                if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
                     btnExportFilteredData.Visible = true;
@@ -861,6 +863,7 @@ namespace WealthERP.Advisor
                             drCustomerFolio["CircleManager"] = dtCustomer.Rows[i]["CircleManager"];
                             drCustomerFolio["ReportingManagerName"] = dtCustomer.Rows[i]["ReportingManagerName"];
                             drCustomerFolio["UserType"] = dtCustomer.Rows[i]["UserType"];
+                            drCustomerFolio["DeuptyHead"] = dtCustomer.Rows[i]["DeuptyHead"];
                         }
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
                     }                 

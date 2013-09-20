@@ -748,8 +748,8 @@
                                                             HeaderStyle-Width="120px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn Visible="true" DataField="CircleManager" AllowFiltering="true"
-                                                            HeaderText="Cluster Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                                        <telerik:GridBoundColumn Visible="true" DataField="ClusterManager" AllowFiltering="true"
+                                                            HeaderText="Cluster Manager" UniqueName="ClusterManager" SortExpression="ClusterManager"
                                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                                             HeaderStyle-Width="130px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -941,8 +941,8 @@
                                                             HeaderStyle-Width="120px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn Visible="true" DataField="CircleManager" AllowFiltering="true"
-                                                            HeaderText="Cluster Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                                        <telerik:GridBoundColumn Visible="true" DataField="ClusterManager" AllowFiltering="true"
+                                                            HeaderText="Cluster Manager" UniqueName="ClusterManager" SortExpression="ClusterManager"
                                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                                             HeaderStyle-Width="130px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -1186,8 +1186,8 @@
                                                             HeaderStyle-Width="120px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                         </telerik:GridBoundColumn>
-                                                        <telerik:GridBoundColumn Visible="true" DataField="CircleManager" AllowFiltering="true"
-                                                            HeaderText="Cluster Manager" UniqueName="CircleManager" SortExpression="CircleManager"
+                                                        <telerik:GridBoundColumn Visible="true" DataField="ClusterManager" AllowFiltering="true"
+                                                            HeaderText="Cluster Manager" UniqueName="ClusterManager" SortExpression="ClusterManager"
                                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                                             HeaderStyle-Width="130px">
                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
