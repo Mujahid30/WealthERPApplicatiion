@@ -380,7 +380,7 @@
         </td>--%>
     <tr>
         <td>
-            <div id="DivCustomerFolio" style="width: 50%;" visible="false" runat="server">
+            <div id="DivCustomerFolio" style="width: 47%;" visible="false" runat="server">
                 <telerik:RadGrid ID="gvCustomerFolioMerge" runat="server" CssClass="RadGrid" GridLines="None"
                     AllowPaging="True" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
