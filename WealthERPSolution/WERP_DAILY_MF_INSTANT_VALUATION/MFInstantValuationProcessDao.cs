@@ -104,7 +104,7 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
 
         }
 
-        public void UpdateInstantValuationFlag(int accountId,int schemeplanCode ,int flag)
+        public void UpdateInstantValuationFlag(int instantValuationId,int accountId,int schemeplanCode ,int flag)
         {
             Database db;
             DbCommand updateInstantValuationFlagCmd;
@@ -116,6 +116,7 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
                 db.AddInParameter(updateInstantValuationFlagCmd, "@CMFA_AccountId", DbType.Int32, accountId);
                 db.AddInParameter(updateInstantValuationFlagCmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplanCode);
                 db.AddInParameter(updateInstantValuationFlagCmd, "@Flag", DbType.Int16, flag);
+                db.AddInParameter(updateInstantValuationFlagCmd, "@MFAIV_Id", DbType.Int32, instantValuationId);
                 db.ExecuteNonQuery(updateInstantValuationFlagCmd);
             }
 

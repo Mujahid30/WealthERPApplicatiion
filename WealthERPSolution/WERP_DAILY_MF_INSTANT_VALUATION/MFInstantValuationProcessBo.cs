@@ -32,22 +32,23 @@ namespace WERP_DAILY_MF_INSTANT_VALUATION
             int flag;
             dtAccountList = mfInstantValuationProcessDao.GetMFAccountsForInstantValuation();
             DateTime valuationDate;
+            int instantValuationId = 0;
             foreach (DataRow dr in dtAccountList.Rows)
             {
 
                 try
                 {
                     valuationDate = mfInstantValuationProcessDao.GetMFLatestValuationDate("MF",Convert.ToInt16(dr["A_AdviserId"].ToString()));
-
+                    instantValuationId = Convert.ToInt32(dr["MFAIV_Id"].ToString());
                     mfInstantValuationBo.ProcessMFAccountScheme(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), valuationDate);
                     flag = 2;
-                    mfInstantValuationProcessDao.UpdateInstantValuationFlag(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()),flag);
+                    mfInstantValuationProcessDao.UpdateInstantValuationFlag(instantValuationId,int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), flag);
                     //Update the Account details As Processed and Ideal
                 }
                 catch (Exception Ex)
                 {
                     flag = 0;
-                    mfInstantValuationProcessDao.UpdateInstantValuationFlag(int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), flag);
+                    mfInstantValuationProcessDao.UpdateInstantValuationFlag(instantValuationId,int.Parse(dr["CMFA_AccountId"].ToString()), int.Parse(dr["PASP_SchemePlanCode"].ToString()), flag);
                      
                 }
 
