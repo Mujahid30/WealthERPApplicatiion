@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls; 
+using System.Web.UI.WebControls;
 using System.Data;
 using BoUser;
 using VoUser;
@@ -376,14 +376,10 @@ namespace WealthERP.Receivable
                     {
                         if (strInvestmentTransactionType.Contains(chkItems.Value))
                             chkItems.Selected = true;
-
                     }
                     ddlSIPFrequency.SelectedValue = strSIPFrequency;
                 }
-
             }
-
-
         }
 
         protected void RadGridStructureRule_DeleteCommand(object source, GridCommandEventArgs e)
@@ -567,23 +563,12 @@ namespace WealthERP.Receivable
                 if (!string.IsNullOrEmpty(txtMinTenure.Text.Trim()) || !string.IsNullOrEmpty(txtMaxTenure.Text.Trim()))
                     commissionStructureRuleVo.TenureUnit = ddlTenureFrequency.SelectedValue.ToString();
 
-                if (ddlInvestAgeTenure.SelectedValue == "Months")
-                {
-                    if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()))
-                        commissionStructureRuleVo.MinInvestmentAge = Convert.ToInt32(txtMinInvestAge.Text.Trim());
-                    if (!string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
-                        commissionStructureRuleVo.MaxInvestmentAge = Convert.ToInt32(txtMaxInvestAge.Text.Trim());
-                }
-                else if (ddlInvestAgeTenure.SelectedValue == "Years")
-                {
-                    if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()))
-                        commissionStructureRuleVo.MinInvestmentAge = Convert.ToInt32(txtMinInvestAge.Text.Trim()) * 12;
-                    if (!string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
-                        commissionStructureRuleVo.MaxInvestmentAge = Convert.ToInt32(txtMaxInvestAge.Text.Trim()) * 12;
-                }
-
+                if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()))
+                    commissionStructureRuleVo.MinInvestmentAge = Convert.ToInt32(txtMinInvestAge.Text.Trim());
+                if (!string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
+                    commissionStructureRuleVo.MaxInvestmentAge = Convert.ToInt32(txtMaxInvestAge.Text.Trim());
                 if (!string.IsNullOrEmpty(txtMinInvestAge.Text.Trim()) || !string.IsNullOrEmpty(txtMaxInvestAge.Text.Trim()))
-                commissionStructureRuleVo.InvestmentAgeUnit = "Months";
+                    commissionStructureRuleVo.InvestmentAgeUnit = ddlInvestAgeTenure.SelectedValue;
 
                 foreach (ListItem chkItems in chkListTtansactionType.Items)
                 {
@@ -704,11 +689,11 @@ namespace WealthERP.Receivable
                     }
                     /******Check for Investment Age ******/
 
-                    if ((!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAgeInMonth"].ToString()) && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAgeInMonth"].ToString()))
+                    if ((!string.IsNullOrEmpty(dr["ACSR_MinInvestmentAge"].ToString()) && !string.IsNullOrEmpty(dr["ACSR_MinInvestmentAge"].ToString()))
                         && (commissionStructureRuleVo.MinInvestmentAge != 0 && commissionStructureRuleVo.MaxInvestmentAge != 0))
                     {
-                        if ((commissionStructureRuleVo.MinInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAgeInMonth"].ToString())) && (commissionStructureRuleVo.MinInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAgeInMonth"].ToString()))
-                            || (commissionStructureRuleVo.MaxInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAgeInMonth"].ToString())) && (commissionStructureRuleVo.MaxInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAgeInMonth"].ToString())))
+                        if ((commissionStructureRuleVo.MinInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAge"].ToString())) && (commissionStructureRuleVo.MinInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAge"].ToString()))
+                            || (commissionStructureRuleVo.MaxInvestmentAge > Convert.ToDecimal(dr["ACSR_MinInvestmentAge"].ToString())) && (commissionStructureRuleVo.MaxInvestmentAge < Convert.ToDecimal(dr["ACSR_MaxInvestmentAge"].ToString())))
                         {
                             duplicateCheck.Add(true);
                         }
@@ -966,7 +951,7 @@ namespace WealthERP.Receivable
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules);
         }
 
-        private DataTable CreateCommissionStructureRuleDataTable()
+        private DataTable CreateCommissionStructureRuleDataTable() 
         {
             DataTable dtCommissionStructureRule = new DataTable();
             dtCommissionStructureRule.Columns.Add("WCT_CommissionType");
@@ -976,8 +961,9 @@ namespace WealthERP.Receivable
             dtCommissionStructureRule.Columns.Add("ACSR_MinTenure");
             dtCommissionStructureRule.Columns.Add("ACSR_MaxTenure");
             dtCommissionStructureRule.Columns.Add("ACSR_TenureUnit");
-            dtCommissionStructureRule.Columns.Add("ACSR_MinInvestmentAgeInMonth");
-            dtCommissionStructureRule.Columns.Add("ACSR_MaxInvestmentAgeInMonth");
+            dtCommissionStructureRule.Columns.Add("ACSR_MinInvestmentAge");
+            dtCommissionStructureRule.Columns.Add("ACSR_MaxInvestmentAge");
+            dtCommissionStructureRule.Columns.Add("ACSR_InvestmentAgeUnit");
             dtCommissionStructureRule.Columns.Add("ACSR_TransactionType");
             dtCommissionStructureRule.Columns.Add("ACSR_MinNumberOfApplications");
             dtCommissionStructureRule.Columns.Add("ACSR_BrokerageValue");
