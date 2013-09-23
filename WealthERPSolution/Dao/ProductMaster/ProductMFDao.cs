@@ -620,6 +620,46 @@ namespace DaoProductMaster
             }
             return amcCode;
         }
+        public string GetSChemeName(int schemePlanCode)
+        {
+            Database db;
+            DbCommand getSchemeNameCmd;
+            DataSet dsGetSchemeName;
+            DataRow dr;
+            string SchemeName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeNameCmd = db.GetStoredProcCommand("Sp_GetMfSchemeName");
+                db.AddInParameter(getSchemeNameCmd, "@SchemeCode", DbType.Int32, schemePlanCode);
+                dsGetSchemeName = db.ExecuteDataSet(getSchemeNameCmd);
+                dr = dsGetSchemeName.Tables[0].Rows[0];
+                SchemeName = dr["PASP_SchemePlanName"].ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "ProductMFBo.cs:GetAMCfromFolioNo()");
+
+
+                object[] objects = new object[0];
+
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return SchemeName;
+        }
+
         public string GetCategoryNameFromSChemeCode(int schemePlanCode)
         {
             Database db;

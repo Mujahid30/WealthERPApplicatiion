@@ -10,18 +10,27 @@
 </asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
+    
     function GetCustomerId(source, eventArgs) {
-
-        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+        isItemSelected = true;
         
+        document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
+       
         return false;
     }
-    function GetAgentId(source, eventArgs) {
+    function GetAgentId()  {
+        var Val,val1;
+        Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
 
-        document.getElementById("<%= txtAgentId.ClientID %>").value = eventArgs.get_value();
-
-        return false;
-    }
+        if (Val != "") {
+            val1 =  document.getElementById("<%= lblgetcust.ClientID %>").value;
+            if (val1 == "") {
+                document.getElementById("<%= txtPansearch.ClientID %>").Focus();
+            }
+        }
+          
+        
+    }   
     function ValidateAssociateName() {
 //        var x = document.forms["form1"]["TextBoxName"].value;
         document.getElementById("<%=  lblAssociatetext.ClientID %>").value = eventArgs.get_value();
@@ -33,7 +42,34 @@
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
+    
+   
 </script>
+<script type="text/javascript">
+
+    var isItemSelected = false;
+
+    //Handler for textbox blur event
+    function checkItemSelected(txtInput) {
+        txtInput.focus();
+        if (!isItemSelected) {
+            txtInput.focus();
+            alert("Please select Pan Number from the Pan list only");
+
+
+
+
+        }
+
+        txtInput.focus();
+        return false;
+//        else {
+////            //reset isItemSelected
+//            isItemSelected = false;
+//        }
+    }
+</script>
+
 
 <script type="text/javascript" language="javascript">
      
@@ -226,7 +262,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" >
+                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)" >
             </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -238,10 +274,10 @@
             </cc1:TextBoxWatermarkExtender>
             <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server" TargetControlID="txtPansearch"
                 ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" 
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
@@ -251,7 +287,7 @@
             <asp:Label ID="label2" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName" onclientClick="GetAgentId()"></asp:Label>
         </td>
         <td colspan="2">
         </td>
@@ -325,8 +361,9 @@
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="GetAgentId" DelimiterCharacters=""
+                UseContextKey="True"  DelimiterCharacters=""
                 Enabled="True" />
+              <%--  OnClientItemSelected="GetAgentId"--%>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
                 ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -561,12 +598,15 @@
             <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
                 TargetControlID="txtSearchScheme"  ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 ServiceMethod="GetSchemeName"
-                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="5" CompletionInterval="100"
+                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="1" CompletionInterval="10"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
             <span id="Span9" class="spnRequiredField">*<br />
             </span>
+             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtSearchScheme"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select Scheme" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
        </td>
         
        

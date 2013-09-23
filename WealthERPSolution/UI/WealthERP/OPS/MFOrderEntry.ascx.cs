@@ -385,12 +385,14 @@ namespace WealthERP.OPS
                 string transactionType = "";
                 int schemeCode = 0;
                 string FileName = "";
-                if (ddlAmcSchemeList.SelectedIndex != 0)
-                {
-                    schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
+                //if (ddlAmcSchemeList.SelectedIndex != 0)
+                //{
+                   // schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
                     hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
                     hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
                     categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
+                    
+                    txtSearchScheme.Text  = productMFBo.GetSChemeName(schemePlanCode);
                     ddlCategory.SelectedValue = categoryCode;
                     if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
                     {
@@ -408,10 +410,11 @@ namespace WealthERP.OPS
                                 BindSchemeSwitch();
                             }
                         }
-                    }
+                    //}
+                  
+                }
                     else
                         BindFolioNumber(0);
-                }
             }
         }
 
@@ -523,7 +526,7 @@ namespace WealthERP.OPS
                     txtstartDateSTP.SelectedDate = null;
                     txtendDateSTP.SelectedDate = null;
                     txtNewAmount.Text = "";
-                    ddlAssociate.SelectedIndex = 0;
+                //    ddlAssociate.SelectedIndex = 0;
                     ddlARNNo.SelectedIndex = 0;
                 }
             }
@@ -768,6 +771,10 @@ namespace WealthERP.OPS
                     ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
                     ddlPaymentMode_SelectedIndexChanged(this, null);
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
+
+                   
+
+                    
                     if (orderVo.PaymentDate != DateTime.MinValue)
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
                     else
@@ -811,6 +818,8 @@ namespace WealthERP.OPS
                         ddlARNNo.SelectedItem.Text = mforderVo.ARNNo;
                     else
                         ddlARNNo.SelectedIndex = 0;
+                    txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
+                    txtSchemeCode_ValueChanged(this, null);
                     lnlBack.Visible = true;
                     lnkDelete.Visible = true;
                 }
@@ -1115,6 +1124,8 @@ namespace WealthERP.OPS
                     rgvOrderSteps.Enabled = true;
                     BindOrderStepsGrid();
                     lnkDelete.Visible = false;
+                    txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
+                    txtSchemeCode_ValueChanged(this, null);
                     //btnViewReport.Visible = true;
                     //btnViewInPDF.Visible = true;
                     //btnViewInDOC.Visible = true;
@@ -1439,6 +1450,15 @@ namespace WealthERP.OPS
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
+            if (ddlsearch.SelectedValue == "2")
+            {
+                if (lblgetcust.Text == "")
+                {
+                    txtPansearch.Focus();
+                    txtAssociateSearch.Text = "";
+                    return;
+                }
+            }
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
                 int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
