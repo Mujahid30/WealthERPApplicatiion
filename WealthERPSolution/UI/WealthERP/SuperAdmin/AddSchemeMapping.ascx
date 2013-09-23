@@ -743,7 +743,7 @@
     </asp:Panel>
 </div>
 <div>
-    <asp:Label ID="lblNote" runat="server" CssClass="HeaderTextSmall" Text="Note: Please reprocess the upload details in order to completed the upload process"></asp:Label>
+    <asp:Label ID="lblNote" runat="server" CssClass="HeaderTextSmall" Text="Note: Please reprocess the upload details in order to complete the upload process"></asp:Label>
 </div>
 <br />
 <div>
