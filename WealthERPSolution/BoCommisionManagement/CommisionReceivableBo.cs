@@ -488,13 +488,13 @@ namespace BoCommisionManagement
 
         //DataSet GetAvailSchemes(int structId, int issuer, string prodType, string cat, string subCat)
 
-        public DataSet GetAvailSchemes(int structid, int issuer, string prodType, string cat, string subCat, DateTime from, DateTime till)
+        public DataSet GetAvailSchemes(int adviserId, int structid, int issuer, string prodType, string cat, string subCat, DateTime from, DateTime till)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsStructList;
             try
             {
-                dsStructList = commisionReceivableDao.GetAvailSchemes(structid, issuer, prodType, cat, subCat, from, till);
+                dsStructList = commisionReceivableDao.GetAvailSchemes(adviserId, structid, issuer, prodType, cat, subCat, from, till);
 
             }
             catch (BaseApplicationException Ex)
@@ -506,11 +506,12 @@ namespace BoCommisionManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommisionReceivableBo.cs:GetAvailSchemes(int issuer, string prodType, string cat, string subCat)");
-                object[] objects = new object[4];
-                objects[0] = issuer;
-                objects[1] = prodType;
-                objects[2] = cat;
-                objects[3] = subCat;
+                object[] objects = new object[5];
+                objects[0] = adviserId;
+                objects[1] = issuer;
+                objects[2] = prodType;
+                objects[3] = cat;
+                objects[4] = subCat;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -751,5 +752,30 @@ namespace BoCommisionManagement
             }
             return dsSchemeStructureRule;
         }
+
+        public void deleteStructureToSchemeMapping(int setupId)
+        {
+            CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            try
+            {
+                commisionReceivableDao.deleteStructureToSchemeMapping(setupId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommisionReceivableBo.cs:deleteStructureToSchemeMapping(int setupId)");
+                object[] objects = new object[1];
+                objects[0] = setupId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        } 
     }
 }
