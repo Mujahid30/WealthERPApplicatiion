@@ -66,18 +66,21 @@ namespace WealthERP.BusinessMIS
             {
                 BindNewCustomerSignUpMIS();
                 pnlFolio.Visible = false;
+                PnlCustomerWise.Visible = true;
                 pnlSIP.Visible = false;
             }
             else if (ddlType.SelectedValue == "folio")
             {
                 pnlFolio.Visible = true;
                 pnlSIP.Visible = false;
+                PnlCustomerWise.Visible = false;
                 BindFolioSignUp();
             }
             else if (ddlType.SelectedValue == "SIP")
             {
                 pnlFolio.Visible = false;
                 pnlSIP.Visible = true;
+                PnlCustomerWise.Visible = false;
                 BindSIPSignUp();
             }
         }

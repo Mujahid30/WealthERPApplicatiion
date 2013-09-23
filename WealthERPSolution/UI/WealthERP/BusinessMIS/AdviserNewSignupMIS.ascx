@@ -32,13 +32,11 @@
                                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                     OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                                 <asp:ImageButton Visible="false" ID="btnExportFolio" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                                    OnClientClick="setFormat('excel')" Height="20px" Width="25px" 
-                                    onclick="btnExportFolio_Click"></asp:ImageButton>
+                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                    Height="20px" Width="25px" OnClick="btnExportFolio_Click"></asp:ImageButton>
                                 <asp:ImageButton Visible="false" ID="btnExportSIP" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel"
-                                    OnClientClick="setFormat('excel')" Height="20px" Width="25px" 
-                                    onclick="btnExportSIP_Click"></asp:ImageButton>
+                                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClientClick="setFormat('excel')"
+                                    Height="20px" Width="25px" OnClick="btnExportSIP_Click"></asp:ImageButton>
                             </td>
                         </tr>
                     </table>
@@ -129,18 +127,25 @@
         </tr>
     </table>
     <br />
-    <div style="padding: 6px">
-        <telerik:RadGrid ID="gvNewCustomerSignUpMIS" runat="server" CssClass="RadGrid" GridLines="None"
-            Width="100%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
-            ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-            AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvNewCustomerSignUpMIS_NeedDataSource"
-            EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
-            AllowFilteringByColumn="true">
-            <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-            </ExportSettings>
-            <MasterTableView ShowFooter="true">
-                <Columns>
-                    <%--<telerik:GridBoundColumn UniqueName="ZoneName" HeaderStyle-Width="213px" HeaderText="Zone"
+    <table width="100%">
+        <tr>
+            <td colspan="1">
+                <asp:Panel ID="PnlCustomerWise" runat="server" Width="98%" ScrollBars="Horizontal" Visible="false">
+                    <table>
+                        <tr>
+                            <td>
+                               <%-- <div>--%>
+                                    <telerik:RadGrid ID="gvNewCustomerSignUpMIS" runat="server" CssClass="RadGrid" GridLines="None"
+                                        Width="120%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+                                        ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                                        AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="gvNewCustomerSignUpMIS_NeedDataSource"
+                                        EnableEmbeddedSkins="false" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
+                                        AllowFilteringByColumn="true">
+                                        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+                                        </ExportSettings>
+                                        <MasterTableView ShowFooter="true" Width="100%">
+                                            <Columns>
+                                                <%--<telerik:GridBoundColumn UniqueName="ZoneName" HeaderStyle-Width="213px" HeaderText="Zone"
                         DataField="ZoneName" SortExpression="ZoneName" AllowFiltering="true" ShowFilterIcon="false"
                         AutoPostBackOnFilter="true" FooterText="Grand Total :">
                         <HeaderStyle></HeaderStyle>
@@ -178,66 +183,79 @@
                         Aggregate="Sum" DataFormatString="{0:N0}" ItemStyle-HorizontalAlign="Right">
                         <HeaderStyle></HeaderStyle>
                     </telerik:GridBoundColumn>--%>
-                    <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="SubBrokerCode"
-                        HeaderStyle-HorizontalAlign="Right" UniqueName="SubBrokerCode" SortExpression="SubBrokerCode"
-                        AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                        FooterStyle-HorizontalAlign="Right">
-                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="UserType" DataField="UserType"
-                        UniqueName="UserType" SortExpression="UserType" AutoPostBackOnFilter="true" AllowFiltering="true"
-                        ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Titles" DataField="Titles"
-                        UniqueName="Titles" SortExpression="Titles" AutoPostBackOnFilter="true" AllowFiltering="true"
-                        ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="ChannelName" DataField="ChannelName"
-                        UniqueName="ChannelName" SortExpression="ChannelName" AutoPostBackOnFilter="true"
-                        AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="CircleManager" DataField="CircleManager"
-                        UniqueName="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"
-                        AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                        <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="AreaManager" DataField="AreaManager"
-                        UniqueName="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
-                        AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
-                        <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ZonalManagerName" DataField="ZonalManagerName"
-                        HeaderStyle-HorizontalAlign="Right" UniqueName="ZonalManagerName" SortExpression="ZonalManagerName"
-                        AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                        FooterStyle-HorizontalAlign="Right">
-                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                    <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalCustomer" DataField="CustCount"
-                        HeaderStyle-HorizontalAlign="Right" UniqueName="CustCount" SortExpression="CustCount"
-                        AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                        FooterStyle-HorizontalAlign="Right">
-                        <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                    </telerik:GridBoundColumn>
-                </Columns>
-            </MasterTableView>
-            <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                <Scrolling AllowScroll="false" />
-                <Resizing AllowColumnResize="true" />
-                <Selecting AllowRowSelect="true" />
-            </ClientSettings>
-        </telerik:RadGrid>
-    </div>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="SubBrokerCode" DataField="SubBrokerCode"
+                                                    HeaderStyle-HorizontalAlign="Right" UniqueName="SubBrokerCode" SortExpression="SubBrokerCode"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    FooterStyle-HorizontalAlign="Right">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="UserType" DataField="UserType"
+                                                    UniqueName="UserType" SortExpression="UserType" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="100px" HeaderText="Titles" DataField="Titles"
+                                                    UniqueName="Titles" SortExpression="Titles" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                                    ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="ChannelName" DataField="ChannelName"
+                                                    UniqueName="ChannelName" SortExpression="ChannelName" AutoPostBackOnFilter="true"
+                                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Cluster Manager" DataField="ClusterManager"
+                                                    UniqueName="ClusterManager" SortExpression="ClusterManager" AutoPostBackOnFilter="true"
+                                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="AreaManager" DataField="AreaManager"
+                                                    UniqueName="AreaManager" SortExpression="AreaManager" AutoPostBackOnFilter="true"
+                                                    AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                    <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ZonalManager" DataField="ZonalManagerName"
+                                                    HeaderStyle-HorizontalAlign="Right" UniqueName="ZonalManagerName" SortExpression="ZonalManagerName"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    FooterStyle-HorizontalAlign="Right">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Deputy Head" DataField="DeputyHead"
+                                                    HeaderStyle-HorizontalAlign="Right" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    FooterStyle-HorizontalAlign="Right">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalCustomer" DataField="CustCount"
+                                                    HeaderStyle-HorizontalAlign="Right" UniqueName="CustCount" SortExpression="CustCount"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    FooterStyle-HorizontalAlign="Right">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                            </Columns>
+                                        </MasterTableView>
+                                        <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                                            <Scrolling AllowScroll="false" />
+                                            <Resizing AllowColumnResize="true" />
+                                            <Selecting AllowRowSelect="true" />
+                                        </ClientSettings>
+                                    </telerik:RadGrid>
+                               <%-- </div>--%>
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
+            </td>
+        </tr>
+    </table>
     <table width="100%">
         <tr>
             <td colspan="4">
-                <asp:Panel ID="pnlFolio" runat="server" Width="98%" Visible="true">
+                <asp:Panel ID="pnlFolio" runat="server" Width="100%" Visible="false" ScrollBars="Horizontal">
                     <table>
                         <tr>
                             <td>
-                                <div runat="server" id="divFolio" style="margin: 2px; width: 640px;">
+                             <%--   <div runat="server" id="divFolio">--%>
                                     <telerik:RadGrid ID="gvFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
@@ -281,9 +299,15 @@
                                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ZonalManagerName" DataField="ZonalManagerName"
+                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="ZonalManager" DataField="ZonalManagerName"
                                                     HeaderStyle-HorizontalAlign="Right" UniqueName="ZonalManagerName" SortExpression="ZonalManagerName"
-                                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    FooterStyle-HorizontalAlign="Right">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
+                                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Deputy Head" DataField="DeputyHead"
+                                                    HeaderStyle-HorizontalAlign="Right" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     FooterStyle-HorizontalAlign="Right">
                                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
@@ -301,7 +325,7 @@
                                             <Resizing AllowColumnResize="true" />
                                         </ClientSettings>
                                     </telerik:RadGrid>
-                                </div>
+                               <%-- </div>--%>
                             </td>
                         </tr>
                     </table>
@@ -312,11 +336,11 @@
     <table width="100%">
         <tr>
             <td colspan="4">
-                <asp:Panel ID="pnlSIP" runat="server" Width="98%" Visible="true">
+                <asp:Panel ID="pnlSIP" runat="server" Width="98%" Visible="false" ScrollBars="Horizontal">
                     <table>
                         <tr>
                             <td>
-                                <div runat="server" id="divSIP" style="margin: 2px; width: 640px;">
+                              <%--  <div runat="server" id="divSIP" style="margin: 2px; width: 640px;">--%>
                                     <telerik:RadGrid ID="gvSIP" runat="server" GridLines="None" AutoGenerateColumns="False"
                                         PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
@@ -366,6 +390,12 @@
                                                     FooterStyle-HorizontalAlign="Right">
                                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
+                                                   <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Deputy Head" DataField="DeputyHead"
+                                                    HeaderStyle-HorizontalAlign="Right" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                                                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    FooterStyle-HorizontalAlign="Right">
+                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalSIP" DataField="TotalSIP"
                                                     HeaderStyle-HorizontalAlign="Right" UniqueName="TotalSIP" SortExpression="TotalSIP"
                                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
@@ -380,7 +410,7 @@
                                             <Resizing AllowColumnResize="true" />
                                         </ClientSettings>
                                     </telerik:RadGrid>
-                                </div>
+                               <%-- </div>--%>
                             </td>
                         </tr>
                     </table>

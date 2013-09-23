@@ -141,6 +141,13 @@ namespace WealthERP.BusinessMIS
             dtGetMemberDetailFromMFOrder.Columns.Add("CustomerName");
             dtGetMemberDetailFromMFOrder.Columns.Add("SubBrokerCode");
             dtGetMemberDetailFromMFOrder.Columns.Add("SubBrokerName");
+            dtGetMemberDetailFromMFOrder.Columns.Add("ChannelName");
+            dtGetMemberDetailFromMFOrder.Columns.Add("Titles");
+            dtGetMemberDetailFromMFOrder.Columns.Add("ZonalManagerName");
+            dtGetMemberDetailFromMFOrder.Columns.Add("AreaManager");
+            dtGetMemberDetailFromMFOrder.Columns.Add("ClusterManager");
+            dtGetMemberDetailFromMFOrder.Columns.Add("ChannelMgr");
+            dtGetMemberDetailFromMFOrder.Columns.Add("DeputyHead");
             dtGetMemberDetailFromMFOrder.Columns.Add("Folio");
             dtGetMemberDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
             dtGetMemberDetailFromMFOrder.Columns.Add("BUYAmount", typeof(double));
@@ -211,6 +218,12 @@ namespace WealthERP.BusinessMIS
                             drGetMemberDetailFromMFOrder["CustomerName"] = drMemberOrderTransaction["CustomerName"].ToString();
                             drGetMemberDetailFromMFOrder["SubBrokerCode"] = drMemberOrderTransaction["SubBrokerCode"].ToString();
                             drGetMemberDetailFromMFOrder["SubBrokerName"] = drMemberOrderTransaction["AssociatesName"].ToString();
+                            drGetMemberDetailFromMFOrder["ChannelName"] = drMemberOrderTransaction["ChannelName"].ToString();
+                            drGetMemberDetailFromMFOrder["Titles"] = drMemberOrderTransaction["Titles"].ToString();
+                            drGetMemberDetailFromMFOrder["ClusterManager"] = drMemberOrderTransaction["ClusterManager"].ToString();
+                            drGetMemberDetailFromMFOrder["AreaManager"] = drMemberOrderTransaction["AreaManager"].ToString();
+                            drGetMemberDetailFromMFOrder["ZonalManagerName"] = drMemberOrderTransaction["ZonalManagerName"].ToString();
+                            drGetMemberDetailFromMFOrder["DeputyHead"] = drMemberOrderTransaction["DeputyHead"].ToString();
 
                             drGetMemberDetailFromMFOrder["Folio"] = drMemberOrderTransaction["CMFA_FolioNum"].ToString();
                             if (drOrderMemberWise.Count() > 0)
@@ -349,8 +362,9 @@ namespace WealthERP.BusinessMIS
             dtGetOrganizationDetailFromMFOrder.Columns.Add("customerId");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("ZonalManagerName");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("AreaManager");
-            dtGetOrganizationDetailFromMFOrder.Columns.Add("CircleManager");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("ClusterManager");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("ChannelMgr");
+            dtGetOrganizationDetailFromMFOrder.Columns.Add("DeputyHead");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("OrderNo");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("CustomerName");
             dtGetOrganizationDetailFromMFOrder.Columns.Add("BUYCount", typeof(double));
@@ -420,7 +434,9 @@ namespace WealthERP.BusinessMIS
                             drGetOrganizationDetailFromMFOrder["customerId"] = drOrgOrderTransaction["C_CustomerId"].ToString();
                             drGetOrganizationDetailFromMFOrder["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
                             drGetOrganizationDetailFromMFOrder["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
-                            drGetOrganizationDetailFromMFOrder["CircleManager"] = drOrgOrderTransaction["CircleManager"].ToString();
+                            drGetOrganizationDetailFromMFOrder["ClusterManager"] = drOrgOrderTransaction["ClusterManager"].ToString();
+                            drGetOrganizationDetailFromMFOrder["DeputyHead"] = drOrgOrderTransaction["DeputyHead"].ToString();
+
 
                             drGetOrganizationDetailFromMFOrder["ChannelMgr"] = drOrgOrderTransaction["ChannelMgr"].ToString();
                             drGetOrganizationDetailFromMFOrder["OrderNo"] = drOrgOrderTransaction["CMFOD_OrderNumber"].ToString();

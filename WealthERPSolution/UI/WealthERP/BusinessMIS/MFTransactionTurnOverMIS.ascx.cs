@@ -1244,9 +1244,10 @@ namespace WealthERP.BusinessMIS
             dtGetMemberDetailFromMFTrnx.Columns.Add("Folio");
             dtGetMemberDetailFromMFTrnx.Columns.Add("ChannelName");
             dtGetMemberDetailFromMFTrnx.Columns.Add("Titles");
-            dtGetMemberDetailFromMFTrnx.Columns.Add("CircleManager");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("ClusterManager");
             dtGetMemberDetailFromMFTrnx.Columns.Add("AreaManager");
             dtGetMemberDetailFromMFTrnx.Columns.Add("ZonalManagerName");
+            dtGetMemberDetailFromMFTrnx.Columns.Add("DeputyHead");
             dtGetMemberDetailFromMFTrnx.Columns.Add("BUYCount", typeof(double));
             dtGetMemberDetailFromMFTrnx.Columns.Add("BUYAmount", typeof(double));
             dtGetMemberDetailFromMFTrnx.Columns.Add("SELCount", typeof(double));
@@ -1381,9 +1382,10 @@ namespace WealthERP.BusinessMIS
                             drGetOrganizationDetailFromTrnx["AssociatesName"] = drOrgOrderTransaction["AssociatesName"].ToString();
                             drGetOrganizationDetailFromTrnx["ChannelName"] = drOrgOrderTransaction["ChannelName"].ToString();
                             drGetOrganizationDetailFromTrnx["Titles"] = drOrgOrderTransaction["Titles"].ToString();
-                            drGetOrganizationDetailFromTrnx["CircleManager"] = drOrgOrderTransaction["CircleManager"].ToString();
+                            drGetOrganizationDetailFromTrnx["ClusterManager"] = drOrgOrderTransaction["ClusterManager"].ToString();
                             drGetOrganizationDetailFromTrnx["AreaManager"] = drOrgOrderTransaction["AreaManager"].ToString();
                             drGetOrganizationDetailFromTrnx["ZonalManagerName"] = drOrgOrderTransaction["ZonalManagerName"].ToString();
+                            drGetOrganizationDetailFromTrnx["DeputyHead"] = drOrgOrderTransaction["DeputyHead"].ToString();
 
                             drGetOrganizationDetailFromTrnx["Folio"] = drOrgOrderTransaction["CMFA_FolioNum"].ToString();
                             if (drOrderOrgWise.Count() > 0)
