@@ -427,7 +427,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, SchemeCode, AgentCode,IsAgentBasedCode);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, SchemeCode, AgentCode, IsAgentBasedCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -460,7 +460,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviserForDateRange(adviserid, branchid, rmid, valuationDate, SchemeCode, fromdate, todate,AgentCode,IsAgentBasedCode,UserType);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAdviserForDateRange(adviserid, branchid, rmid, valuationDate, SchemeCode, fromdate, todate, AgentCode, IsAgentBasedCode, UserType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -690,7 +690,7 @@ namespace BoAdvisorProfiling
             return dsMIS;
         }
 
-        public DataSet GetAUMForBM(int AdviserId ,int rmId, int branchId, int branchHeadId, DateTime Valuationdate, int type, int AmcCode, int SchemeCode,int @IsAgentBasedCode)
+        public DataSet GetAUMForBM(int AdviserId, int rmId, int branchId, int branchHeadId, DateTime Valuationdate, int type, int AmcCode, int SchemeCode, int @IsAgentBasedCode)
         {
             DataSet dsBMMIS;
             AdvisorMISDao MISDao = new AdvisorMISDao();
@@ -783,7 +783,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, AmcCode,AgentCode,IsAgentBasedCode);
+                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviser(adviserid, branchid, rmid, valuationDate, AmcCode, AgentCode, IsAgentBasedCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -825,7 +825,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviserForDateRange(adviserid, branchid, rmid, valuationDate, AmcCode, fromdate, todate,AgentCode, IsAgentBasedCode,UserType);
+                dsMIS = MISDao.GetAMCSchemewiseAUMForAdviserForDateRange(adviserid, branchid, rmid, valuationDate, AmcCode, fromdate, todate, AgentCode, IsAgentBasedCode, UserType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1476,7 +1476,7 @@ namespace BoAdvisorProfiling
             AdvisorMISDao MISDao = new AdvisorMISDao();
             try
             {
-                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAssociate(AdviserId,valuationDate, SchemeCode, AgentCode, IsAgentBasedCode);
+                dsMIS = MISDao.GetCustomerAMCSchemewiseAUMForAssociate(AdviserId, valuationDate, SchemeCode, AgentCode, IsAgentBasedCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1501,13 +1501,13 @@ namespace BoAdvisorProfiling
 
             return dsMIS;
         }
-        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category,int Issuer)
+        public DataSet GetCommissionReconMis(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, int Issuer)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
             DataTable dtstructure = new DataTable();
             DataTable dtTrailSet = new DataTable();
-
+            int Age = 0;
             try
             {
                 dsGetCommissionReconMis = MISDao.GetCommissionReconMis(AdviserId, schemeid, FromDate, Todate, category, Issuer);
@@ -1529,75 +1529,118 @@ namespace BoAdvisorProfiling
                     dtTrailSet.Columns.Add("TrailForPeriod");
                     //foreach (DataRow drfinal in dsGetCommissionReconMis.Tables[0].Rows)
                     //{
-                        foreach (DataRow drstructure in dtstructure.Rows)
+                    foreach (DataRow drstructure in dtstructure.Rows)
+                    {
+                        foreach (DataRow drtrail in dtTrailSet.Rows)
                         {
-                            foreach (DataRow drtrail in dtTrailSet.Rows)
+
+                            if (drstructure["schemecode"].ToString() == drtrail["schemecode"].ToString())
                             {
-
-                                if (drstructure["schemecode"].ToString() == drtrail["schemecode"].ToString())
+                                if (!string.IsNullOrEmpty(drstructure["ACSR_MinInvestmentAge"].ToString()))
                                 {
-                                    if (!string.IsNullOrEmpty(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString()))
+                                    if (!string.IsNullOrEmpty(drstructure["ACSR_MaxInvestmentAge"].ToString()))
                                     {
-                                        if (!string.IsNullOrEmpty(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                                        if (!string.IsNullOrEmpty(drstructure["AgeUnit"].ToString()))
                                         {
-                                            if (int.Parse(drtrail["CMFTB_Age"].ToString()) / 12 >= int.Parse(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString())
-                                                && (int.Parse(drtrail["CMFTB_Age"].ToString())) / 12 <= int.Parse(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()))
+                                            if (drstructure["AgeUnit"].ToString() == "Months")
                                             {
-                                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
-                                                drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
-                                                drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
-
-                                                drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
-                                                //float.Parse(drtrail["TrailFee"].ToString()) / 365;
-                                                drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                                                Age = int.Parse(drtrail["CMFTB_Age"].ToString()) / 12;
                                             }
-                                            else if (int.Parse(drstructure["ACSR_MaxInvestmentAgeInMonth"].ToString()) == 0)
+                                            else if (drstructure["AgeUnit"].ToString() == "Days")
                                             {
-                                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
-                                                drtrail["TotalDays"] = Math.Abs(DateTime.Parse(drtrail["TransactionDate"].ToString()).Subtract(FromDate).Days);
-                                                drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
-                                                drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
-                                                drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                                                Age = int.Parse(drtrail["CMFTB_Age"].ToString()) / 12;
                                             }
-
+                                            else if(drstructure["AgeUnit"].ToString() == "Years")
+                                            {
+                                                Age = int.Parse(drtrail["CMFTB_Age"].ToString()) / 365;
+                                            }
                                         }
-                                        else if (int.Parse(drtrail["CMFTB_Age"].ToString()) / 12 >= int.Parse(drstructure["ACSR_MinInvestmentAgeInMonth"].ToString()))
+                                        if (Age >= int.Parse(drstructure["ACSR_MinInvestmentAge"].ToString())
+                                            && Age <= int.Parse(drstructure["ACSR_MaxInvestmentAge"].ToString()))
                                         {
-                                            drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                            if (!string.IsNullOrEmpty(drtrail["UNITS"].ToString()) && (!string.IsNullOrEmpty((drtrail["cumNav"].ToString()))))
+                                            {
+                                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                            }
+                                            else
+                                            {
+                                                drtrail["AverageAum"] = 0;
+                                            }
                                             drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
+                                            drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
+
+                                            drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
+                                            //float.Parse(drtrail["TrailFee"].ToString()) / 365;
+                                            drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
+                                        }
+                                        else if (int.Parse(drstructure["ACSR_MaxInvestmentAge"].ToString()) == 0)
+                                        {
+                                            if (!string.IsNullOrEmpty(drtrail["UNITS"].ToString()) && (!string.IsNullOrEmpty((drtrail["cumNav"].ToString()))))
+                                            {
+                                                drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                            }
+                                            else
+                                            {
+                                                drtrail["AverageAum"] = 0;
+                                            }
+                                            drtrail["TotalDays"] = Math.Abs(DateTime.Parse(drtrail["TransactionDate"].ToString()).Subtract(FromDate).Days);
                                             drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
                                             drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
                                             drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
                                         }
-                                        
 
                                     }
-                                    else
+                                    else if (Age >= int.Parse(drstructure["ACSR_MinInvestmentAge"].ToString()))
                                     {
-                                        drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                        if (!string.IsNullOrEmpty(drtrail["UNITS"].ToString()) && (!string.IsNullOrEmpty((drtrail["cumNav"].ToString()))))
+                                        {
+                                            drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                        }
+                                        else
+                                        {
+                                            drtrail["AverageAum"] = 0;
+                                        }
                                         drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
                                         drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
                                         drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
                                         drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
                                     }
 
-                                }
 
+                                }
                                 else
                                 {
-                                    drtrail["AverageAum"] = 0;
-                                    drtrail["TotalDays"] = 0;
-                                    drtrail["AumPerDay"] = 0;
-                                    drtrail["TrailPerDay"] = 0;
-                                    drtrail["TrailForPeriod"] = 0;
-
-
+                                    if (!string.IsNullOrEmpty(drtrail["UNITS"].ToString()) && (!string.IsNullOrEmpty((drtrail["cumNav"].ToString()))))
+                                    {
+                                        drtrail["AverageAum"] = float.Parse(drtrail["UNITS"].ToString()) * float.Parse(drtrail["cumNav"].ToString());
+                                    }
+                                    else
+                                    {
+                                        drtrail["AverageAum"] = 0;
+                                    }
+                                    drtrail["TotalDays"] = Math.Abs(Todate.Subtract(FromDate).Days);
+                                    drtrail["AumPerDay"] = float.Parse(drtrail["AverageAum"].ToString()) / int.Parse(drtrail["TotalDays"].ToString());
+                                    drtrail["TrailPerDay"] = float.Parse(drstructure["ACSR_BrokerageValue"].ToString()) / 365;
+                                    drtrail["TrailForPeriod"] = float.Parse(drtrail["TrailPerDay"].ToString()) * int.Parse(drtrail["TotalDays"].ToString());
                                 }
-                                dsGetCommissionReconMis.Tables[0].ImportRow(drtrail);
+
                             }
 
+                            else
+                            {
+                                drtrail["AverageAum"] = 0;
+                                drtrail["TotalDays"] = 0;
+                                drtrail["AumPerDay"] = 0;
+                                drtrail["TrailPerDay"] = 0;
+                                drtrail["TrailForPeriod"] = 0;
+
+
+                            }
+                            dsGetCommissionReconMis.Tables[0].ImportRow(drtrail);
                         }
+
                     }
+                }
                 //}
                 return dsGetCommissionReconMis;
             }
@@ -1742,7 +1785,7 @@ namespace BoAdvisorProfiling
             }
             return dsGetMemberDetailFromMFOrder;
         }
-        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype,string commtype,int issuer)
+        public DataSet GetCommissionReceivableRecon(int AdviserId, int schemeid, DateTime FromDate, DateTime Todate, string category, string recontype, string commtype, int issuer)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetCommissionReconMis;
