@@ -813,9 +813,11 @@ namespace WealthERP.Advisor
                 dtCustomerFolio.Columns.Add("AssociatesName");
                 dtCustomerFolio.Columns.Add("ChannelName");
                 dtCustomerFolio.Columns.Add("Titles");
-                dtCustomerFolio.Columns.Add("CircleManager");
+                dtCustomerFolio.Columns.Add("ClusterManager");
                 dtCustomerFolio.Columns.Add("ReportingManagerName");
                 dtCustomerFolio.Columns.Add("UserType");
+                dtCustomerFolio.Columns.Add("DeuptyHead");
+                    
                 //dtCustomerFolio.Columns.Add("DeuptyHead");
                if(dsCustomerFolio.Tables[0].Rows.Count >0)
                 {
@@ -860,10 +862,10 @@ namespace WealthERP.Advisor
                             drCustomerFolio["AssociatesName"] = dtCustomer.Rows[i]["AssociatesName"];
                             drCustomerFolio["ChannelName"] = dtCustomer.Rows[i]["ChannelName"];
                             drCustomerFolio["Titles"] = dtCustomer.Rows[i]["Titles"];
-                            drCustomerFolio["CircleManager"] = dtCustomer.Rows[i]["ClusterManager"];
+                            drCustomerFolio["ClusterManager"] = dtCustomer.Rows[i]["ClusterManager"];
                             drCustomerFolio["ReportingManagerName"] = dtCustomer.Rows[i]["ReportingManagerName"];
                             drCustomerFolio["UserType"] = dtCustomer.Rows[i]["UserType"];
-                            //drCustomerFolio["DeuptyHead"] = dtCustomer.Rows[i]["DeputyHead"];
+                            drCustomerFolio["DeuptyHead"] = dtCustomer.Rows[i]["DeputyHead"];
                         }
                         dtCustomerFolio.Rows.Add(drCustomerFolio);
                     }                 

@@ -228,9 +228,9 @@
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalCustomer" DataField="CustCount"
                                                     HeaderStyle-HorizontalAlign="Right" UniqueName="CustCount" SortExpression="CustCount"
-                                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                    FooterStyle-HorizontalAlign="Right">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains">
+                                                   
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                             </Columns>
                                         </MasterTableView>
@@ -289,8 +289,8 @@
                                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="CircleManager" DataField="CircleManager"
-                                                    UniqueName="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"
+                                               <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Cluster Manager" DataField="ClusterManager"
+                                                    UniqueName="ClusterManager" SortExpression="ClusterManager" AutoPostBackOnFilter="true"
                                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
@@ -315,7 +315,7 @@
                                                     HeaderStyle-HorizontalAlign="Right" UniqueName="TotalFolio" SortExpression="TotalFolio"
                                                     AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     FooterStyle-HorizontalAlign="Right">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                             </Columns>
                                         </MasterTableView>
@@ -374,8 +374,8 @@
                                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="CircleManager" DataField="CircleManager"
-                                                    UniqueName="CircleManager" SortExpression="CircleManager" AutoPostBackOnFilter="true"
+                                               <telerik:GridBoundColumn HeaderStyle-Width="150px" HeaderText="Cluster Manager" DataField="ClusterManager"
+                                                    UniqueName="ClusterManager" SortExpression="ClusterManager" AutoPostBackOnFilter="true"
                                                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                                     <ItemStyle HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
@@ -394,7 +394,7 @@
                                                     HeaderStyle-HorizontalAlign="Right" UniqueName="DeputyHead" SortExpression="DeputyHead"
                                                     AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     FooterStyle-HorizontalAlign="Right">
-                                                    <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="TotalSIP" DataField="TotalSIP"
                                                     HeaderStyle-HorizontalAlign="Right" UniqueName="TotalSIP" SortExpression="TotalSIP"

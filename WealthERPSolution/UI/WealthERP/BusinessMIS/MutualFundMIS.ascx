@@ -343,9 +343,10 @@
                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="DeuptyHead" AllowFiltering="true" HeaderText="Deupty Head"
-                    UniqueName="DeuptyHead" SortExpression="DeuptyHead" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                 <telerik:GridBoundColumn HeaderStyle-Width="130px" HeaderText="Deputy Head" DataField="DeputyHead"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    >
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
@@ -434,7 +435,7 @@
                     DataFormatString="{0:N2}" Aggregate="Sum" FooterStyle-HorizontalAlign="Center">
                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn DataField="CMFA_SubBrokerCode" HeaderText="Sub-Broker Code"
+                <telerik:GridBoundColumn DataField="CMFA_SubBrokerCode" HeaderText="Sub-Broker Code"
                     AllowFiltering="true" SortExpression="CMFA_SubBrokerCode" ShowFilterIcon="false"
                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CMFA_SubBrokerCode"
                     FooterStyle-HorizontalAlign="Left">
@@ -482,9 +483,10 @@
                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
-                <telerik:GridBoundColumn DataField="DeuptyHead" AllowFiltering="true" HeaderText="Deupty Head"
-                    UniqueName="DeuptyHead" SortExpression="DeuptyHead" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                    AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
+                <telerik:GridBoundColumn HeaderStyle-Width="130px" HeaderText="Deputy Head" DataField="DeputyHead"
+                    HeaderStyle-HorizontalAlign="Right" UniqueName="DeputyHead" SortExpression="DeputyHead"
+                    AutoPostBackOnFilter="true" AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                    >
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
             </Columns>
