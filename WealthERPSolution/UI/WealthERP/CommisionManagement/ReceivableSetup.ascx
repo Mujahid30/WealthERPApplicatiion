@@ -321,8 +321,8 @@
                         runat="server" InitialValue="" ValidationGroup="btnStrAddUpdate">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ControlToCompare="txtValidityFrom" ControlToValidate="txtValidityTo"
-                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than Validity From"
-                        ID="CompareValidator2" Operator="GreaterThan" Type="Date" runat="server" />
+                        Display="Dynamic" CssClass="rfvPCG" ValidationGroup="btnStrAddUpdate" ErrorMessage="The Validity To must be greater than or equal to Validity From"
+                        ID="CompareValidator2" Operator="GreaterThanEqual" Type="Date" runat="server" />
                 </td>
             </tr>
             <tr>
