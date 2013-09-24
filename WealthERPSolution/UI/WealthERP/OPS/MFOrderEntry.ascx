@@ -54,6 +54,8 @@
         txtInput.focus();
         if (!isItemSelected) {
             txtInput.focus();
+            
+             document.getElementById("<%= lblgetcust.ClientID %>").Value="";
             alert("Please select Pan Number from the Pan list only");
 
 
@@ -262,7 +264,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)" >
+                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)" OnTextChanged="OnAssociateTextchanged1" >
             </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -825,7 +827,7 @@
             <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true" AppendDataBoundItems="true" 
                 OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>

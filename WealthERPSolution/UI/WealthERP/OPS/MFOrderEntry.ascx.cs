@@ -780,10 +780,28 @@ namespace WealthERP.OPS
                     else
                         txtPaymentInstDate.SelectedDate = null;
                     BindBank(orderVo.CustomerId);
-                    if (orderVo.CustBankAccId != 0)
-                        ddlBankName.SelectedItem.Value = orderVo.CustBankAccId.ToString();
+
+                    ListItem li = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
+                    if (li != null)
+                    {
+                        ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+
+                        // value found
+                    }
                     else
-                        ddlBankName.SelectedValue = "Select";
+                    {
+                        ddlBankName.SelectedIndex=0;
+
+                        //Value not found
+                    }
+                    //if (orderVo.CustBankAccId != 0)
+                    //  //  ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+                    //else
+                    //BindBank(orderVo.CustomerId);
+                    //if (orderVo.CustBankAccId != 0)
+                    //    ddlBankName.SelectedItem.Value = orderVo.CustBankAccId.ToString();
+                    //else
+                    //    ddlBankName.SelectedValue = "Select";
 
                     txtBranchName.Text = mforderVo.BranchName;
                     txtCorrAdrLine1.Text = mforderVo.AddrLine1;
@@ -1080,10 +1098,21 @@ namespace WealthERP.OPS
                     else
                         txtPaymentInstDate.SelectedDate = null;
                     BindBank(orderVo.CustomerId);
-                    if (orderVo.CustBankAccId != 0)
-                        ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
-                    else
-                        ddlBankName.SelectedValue = "";
+                      ListItem li = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
+                      if (li != null)
+                      {
+                          ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+
+                          // value found
+                      }
+                      else
+                      {
+                          ddlBankName.SelectedIndex = 0;
+                      }
+                    //if (orderVo.CustBankAccId != 0)
+                    //    ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+                    //else
+                    //    ddlBankName.SelectedValue = "";
                     txtBranchName.Text = mforderVo.BranchName;
                     //lblGetAvailableAmount.Text = ;
                     //lblGetAvailableUnits.Text = "";
@@ -1448,6 +1477,13 @@ namespace WealthERP.OPS
             }
 
         }
+        protected void OnAssociateTextchanged1(object sender, EventArgs e)
+        {
+            if (ddlsearch.SelectedValue == "2")
+            {
+                lblgetcust.Text = "";
+            }
+        }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
             if (ddlsearch.SelectedValue == "2")
@@ -1455,6 +1491,7 @@ namespace WealthERP.OPS
                 if (lblgetcust.Text == "")
                 {
                     txtPansearch.Focus();
+                 
                     txtAssociateSearch.Text = "";
                     return;
                 }
