@@ -16,6 +16,8 @@ using System.Configuration;
 using System.Net.Mail;
 using PCGMailLib;
 using System.IO;
+using VOAssociates;
+using BOAssociates;
 using WealthERP.Base;
 
 namespace WealthERP.Advisor
@@ -30,13 +32,16 @@ namespace WealthERP.Advisor
         RMVo rmVo = new RMVo();
         RMVo rmStaffVo;
         OneWayEncryption encryption = new OneWayEncryption();
-
+        AssociatesVO associatesVo = new AssociatesVO();
+        AssociatesBo associatesBo = new AssociatesBo();
         List<AdvisorBranchVo> advisorBranchList = null;
         List<int> rmIds;
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
         UserBo userBo = new UserBo();
-
+        String userType;
+        string agentCode = string.Empty;
+        int agentId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -47,6 +52,8 @@ namespace WealthERP.Advisor
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "admin";
             //int rmId=0;
+            associatesVo = (AssociatesVO)Session["associatesVo"];
+            HdnAdviserId.Value = advisorVo.advisorId.ToString();
             string action = string.Empty;
             if (!Page.IsPostBack)
             {
@@ -127,12 +134,15 @@ namespace WealthERP.Advisor
                 rmStaffVo.FaxIsd = int.Parse(txtFaxISD.Text.Trim());
             if (!string.IsNullOrEmpty(txtExtSTD.Text.Trim()))
                 rmStaffVo.FaxStd = int.Parse(txtExtSTD.Text.Trim());
-
+            if (!string.IsNullOrEmpty(txtEUIN.Text.Trim()))
+                rmStaffVo.EUIN = (txtEUIN.Text.Trim()).ToString();
             rmStaffVo.AdviserId = advisorVo.advisorId;
+            if (!string.IsNullOrEmpty(txtAgentCode.Text))
+                rmStaffVo.AAC_AgentCode = txtAgentCode.Text;
+            else
+                rmStaffVo.AAC_AgentCode = null;
             rmStaffVo.IsAssociateUser = true;
-
             return rmStaffVo;
-
         }
 
         private UserVo CollectAdviserStaffUserData()
@@ -159,6 +169,39 @@ namespace WealthERP.Advisor
 
             return rmUserVo;
 
+        }
+        private bool Validation(string agentCode)
+        {
+            bool result = true;
+            int adviserId = advisorVo.advisorId;
+            try
+            {
+                if (associatesBo.CodeduplicateCheck(adviserId, agentCode))
+                {
+                    result = false;
+                    //lblPanDuplicate.Visible = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Agent Code already exists !!');", true);
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddBranchRMAgentAssociation.ascx:Validation()");
+                object[] objects = new object[1];
+                objects[0] = result;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
         }
 
         private void BindBranchDropList(string userRole)
@@ -329,7 +372,8 @@ namespace WealthERP.Advisor
                 txtFaxNumber.Enabled = false;
                 txtFaxISD.Enabled = false;
                 txtExtSTD.Enabled = false;
-
+                txtEUIN.Enabled = false;
+                txtAgentCode.Enabled = false;
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = false;
 
@@ -368,7 +412,8 @@ namespace WealthERP.Advisor
                 txtFaxNumber.Enabled = true;
                 txtFaxISD.Enabled = true;
                 txtExtSTD.Enabled = true;
-
+                txtEUIN.Enabled = true;
+                txtAgentCode.Enabled = false;
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = true;
 
@@ -415,14 +460,20 @@ namespace WealthERP.Advisor
 
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
-                rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
-                hidRMid.Value = rmIds[0].ToString();
-                //userBo.CreateRoleAssociation(rmIds[1], 1009);
-                ControlViewEditMode(true);
-                divMsgSuccess.InnerText = " Staff Added Sucessfully";
-                trSuccessMsg.Visible = true;
-                imgBtnReferesh.Enabled = true;
-                imgAddAgentCode.Enabled = true;
+                if (Validation(txtAgentCode.Text))
+                {
+                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
+                    hidRMid.Value = rmIds[0].ToString();
+                    ControlViewEditMode(true);
+                    divMsgSuccess.InnerText = " Staff Added Sucessfully";
+                    trSuccessMsg.Visible = true;
+                }
+                //else
+                //{     //userBo.CreateRoleAssociation(rmIds[1], 1009);
+                    
+                //}
+                //imgBtnReferesh.Enabled = true;
+                //imgAddAgentCode.Enabled = true;
             }
 
         }
@@ -493,8 +544,8 @@ namespace WealthERP.Advisor
             txtExtSTD.Text = string.Empty;
             ddlChannel.Enabled = false;
 
-            imgBtnReferesh.Enabled = false;
-            imgAddAgentCode.Enabled = false;
+            //imgBtnReferesh.Enabled = false;
+            //imgAddAgentCode.Enabled = false;
 
         }
 
@@ -547,15 +598,15 @@ namespace WealthERP.Advisor
                 txtExtSTD.Text = rmStaffVo.FaxStd.ToString();
             if (!string.IsNullOrEmpty(rmStaffVo.AAC_AgentCode))
             {
-                lblAgentCode.Text = rmStaffVo.AAC_AgentCode;
-                imgBtnReferesh.Visible = false;
-                imgAddAgentCode.Visible = false;
+                //lblAgentCode.Text = rmStaffVo.AAC_AgentCode;
+                //imgBtnReferesh.Visible = false;
+                //imgAddAgentCode.Visible = false;
             }
             else
             {
-                lblAgentCode.Text = "N/A";
-                imgBtnReferesh.Enabled = true;
-                imgAddAgentCode.Enabled = true;
+                //lblAgentCode.Text = "N/A";
+                //imgBtnReferesh.Enabled = true;
+                //imgAddAgentCode.Enabled = true;
             }
 
         }

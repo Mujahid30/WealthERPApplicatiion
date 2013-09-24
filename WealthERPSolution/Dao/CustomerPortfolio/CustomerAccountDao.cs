@@ -1204,6 +1204,53 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
+        public bool CheckAgentCodeAvailability(int adviserId, string agentCode)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkAvailabilityCmd;
+            int count = 0;;
+            DataSet ds;
+            try
+                {
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            //Adding Data to the table 
+            chkAvailabilityCmd = db.GetStoredProcCommand("SPROC_CodeduplicateChack");
+            db.AddInParameter(chkAvailabilityCmd, "@A_AdviserId", DbType.Int32, adviserId);
+            db.AddInParameter(chkAvailabilityCmd, "@agentCode", DbType.String, agentCode);
+            db.AddOutParameter(chkAvailabilityCmd, "@count", DbType.Int32, 10);
+
+            ds = db.ExecuteDataSet(chkAvailabilityCmd);
+            //count = int.Parse(db.ExecuteScalar(cmdCodeduplicateCheck).ToString());
+            Object objCount = db.GetParameterValue(chkAvailabilityCmd, "@count");
+            if (objCount != DBNull.Value)
+                count = int.Parse(db.GetParameterValue(chkAvailabilityCmd, "@count").ToString());
+            else
+                count = 0;
+            if (count > 0)
+                bResult = true;
+        }
+             catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = agentCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+     
         public DataSet GetCustomerPropertyAccounts(int portfolioId, string assetGroup, string assetCategory, string assetSubCategory)
         {
 

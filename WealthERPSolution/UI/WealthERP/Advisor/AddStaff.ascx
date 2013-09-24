@@ -1,6 +1,12 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddStaff.ascx.cs" Inherits="WealthERP.Advisor.AddStaff" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddStaff.ascx.cs" Inherits="WealthERP.Advisor.AddStaff" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+<script src="../Scripts/jquery-1.2.3.js" type="text/javascript"></script>
 <script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
@@ -10,6 +16,45 @@
 <script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
 
 <script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="../Scripts/JScript.js"></script>
+
+<script type="text/javascript">
+    function checkInsuranceNoAvailability() {
+        if ($("#<%=txtAgentCode.ClientID %>").val() == "") {
+            $("#spnLoginStatus").html("");
+            return;
+        }
+        $("#spnLoginStatus").html("<img src='Images/loader.gif' />");
+        $.ajax({
+        type: "POST",
+        url: "ControlHost.aspx/CheckAgentCodeAvailability",
+            
+        data: "{'adviserId': '" + $("#<%=HdnAdviserId.ClientID %>").val() + "', 'agentcode': '" + $("#<%=txtAgentCode.ClientID %>").val() + "'}",
+           
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+          
+            success: function(msg) {
+                if (msg.d) {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("1");
+                    $("#spnLoginStatus").html("");
+                    document.getElementById("<%= btnSubmit.ClientID %>").disabled = false;
+                }
+                else {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("0");
+                    $("#spnLoginStatus").removeClass();
+                    alert("Agent Code is already Exists");
+                    document.getElementById("<%= btnSubmit.ClientID %>").disabled = true;
+                    return false;
+                }
+
+            }
+        });
+    }
+</script>
 
 <style type="text/css">
     .table
@@ -56,7 +101,7 @@
 
     function OpenAgentCodePagePopup() {
         var rmId = document.getElementById("<%= hidRMid.ClientID %>").value;
-        var myurl = "PopUp.aspx?PageId=AddBranchRMAgentAssociation &rmId="+rmId;
+        var myurl = "PopUp.aspx?PageId=AddBranchRMAgentAssociation &rmId=" + rmId;
         window.open(myurl, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
@@ -64,8 +109,7 @@
 
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
+
         <table width="100%">
             <tr>
                 <td colspan="6">
@@ -212,18 +256,35 @@
                 </td>
                 <td>
                     <asp:TextBox ID="txtStaffcode" runat="server" CssClass="txtField"></asp:TextBox>
+                    <span id="Span10" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtStaffcode"
+                        ErrorMessage="Please enter a StaffCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
                 </td>
                 <td class="leftField">
                     <asp:Label ID="lblAgentCodeL" runat="server" CssClass="FieldName" Text="Agent Code:"></asp:Label>
                 </td>
                 <td colspan="3">
-                    <asp:Label ID="lblAgentCode" runat="server" CssClass="txtField" Text=""></asp:Label>
-                    <asp:ImageButton ID="imgAddAgentCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                    <%--<asp:Label ID="lblAgentCode" runat="server" CssClass="txtField" Text=""></asp:Label>
+                    <td>--%>
+                    <asp:TextBox ID="txtAgentCode" onblur="return checkInsuranceNoAvailability()" runat="server"
+                        CssClass="txtField">
+                    </asp:TextBox>
+                    <span id="Span9" class="spnRequiredField">*</span>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtAgentCode"
+                        ErrorMessage="Please enter a AgentCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"
+                        CssClass="rfvPCG">
+                    </asp:RequiredFieldValidator>
+                </td>
+                <%--<asp:ImageButton ID="imgAddAgentCode" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                         AlternateText="Add" runat="server" ToolTip="Click here to add staff agent code"
                         OnClientClick="return OpenAgentCodePagePopup();" Height="15px" Width="15px"></asp:ImageButton>
                     <asp:ImageButton ID="imgBtnReferesh" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                         runat="server" ToolTip="Click here to refresh agent code" OnClick="imgBtnReferesh_OnClick"
-                        Height="15px" Width="25px"></asp:ImageButton>
+                        Height="15px" Width="25px"></asp:ImageButton>--%>
                 </td>
             </tr>
             <tr id="tr1" runat="server" visible="true">
@@ -349,6 +410,14 @@
                 </td>
             </tr>
             <tr>
+                <td class="leftField" id="td5" runat="server">
+                    <asp:Label ID="Label5" runat="server" Text="EUIN:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightField" id="td6" runat="server">
+                    <asp:TextBox ID="txtEUIN" runat="server" CssClass="txtField" AutoPostBack="true"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
                 <td class="leftField">
                     <asp:Label ID="lblEmail" runat="server" CssClass="FieldName" Text="Email Id :"></asp:Label>
                 </td>
@@ -385,9 +454,7 @@
         <div>
             <asp:HiddenField ID="hidRMid" runat="server" />
             <asp:HiddenField ID="hidMinHierarchyTitleId" runat="server" />
+            <asp:HiddenField ID="HdnAdviserId" runat="server" />
+            <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
         </div>
-    </ContentTemplate>
-    <Triggers>
-        <%-- <asp:PostBackTrigger ControlID="imgexportButton" />--%>
-    </Triggers>
-</asp:UpdatePanel>
+

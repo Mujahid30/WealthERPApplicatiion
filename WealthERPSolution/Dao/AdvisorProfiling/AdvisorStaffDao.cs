@@ -171,6 +171,7 @@ namespace DaoAdvisorProfiling
         {
             int rmId;
             int rmUserId;
+            int agentId;
             List<int> rmIds = new List<int>();
             Database db;
             DbCommand createRMCmd;
@@ -212,6 +213,10 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@AR_CTC", DbType.Double, rmVo.CTC);
                 db.AddInParameter(createRMCmd, "@U_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createRMCmd, "@U_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createRMCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
+                db.AddInParameter(createRMCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
+                db.AddInParameter(createRMCmd, "@AAC_AdviserAgentI", DbType.Int32, rmVo.AdviserAgentId);
+                db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32,0);
                 
                 if (isOpsIsChecked == true)
                     db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
@@ -234,6 +239,7 @@ namespace DaoAdvisorProfiling
 
                 db.AddOutParameter(createRMCmd, "@AR_RMId", DbType.Int32, 1000000);
                 db.AddOutParameter(createRMCmd, "@U_UserId", DbType.Int32, 1000000);
+                //db.AddOutParameter(createRMCmd, "@AAC_AdviserAgentId", DbType.Int32, 1000000);
               
 
                 if (db.ExecuteNonQuery(createRMCmd) != 0)
@@ -241,10 +247,12 @@ namespace DaoAdvisorProfiling
 
                     rmUserId = int.Parse(db.GetParameterValue(createRMCmd, "U_UserId").ToString());
                     rmId = int.Parse(db.GetParameterValue(createRMCmd, "AR_RMId").ToString());
+                    //agentId = int.Parse(db.GetParameterValue(createRMCmd, "AAC_AdviserAgentId").ToString());
 
 
                     rmIds.Add(rmUserId);
                     rmIds.Add(rmId);
+                    //rmIds.Add(agentId);
 
                 }
                 else
@@ -946,6 +954,7 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AdviserAgentId", DbType.String, "");
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_UserType", DbType.String, rmVo.RMRole);
                 db.AddInParameter(updateAdvisorStaffCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
+                db.AddInParameter(updateAdvisorStaffCmd, "@AR_EUIN", DbType.String, rmVo.EUIN);
 
                 if (rmVo.BranchId != 0)
                     db.AddInParameter(updateAdvisorStaffCmd, "@AB_StaffBranchId", DbType.Int32, rmVo.BranchId);

@@ -129,6 +129,13 @@ namespace WealthERP
             CustomerAccountDao checkAccDao = new CustomerAccountDao();
             return checkAccDao.CheckTradeNoAvailabilityAccount(TradeAccNo, BrokerCode, PortfolioId);
         }
+        [WebMethod]
+
+        public static bool CheckAgentCodeAvailability(int adviserId, string agentCode)
+        {
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckAgentCodeAvailability(adviserId, agentCode);
+        }
 
         [WebMethod]
         public static bool CheckTradeNoMFAvailability(string TradeAccNo, string BrokerCode, int PortfolioId)
