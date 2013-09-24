@@ -118,14 +118,14 @@
                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min. Invest Age In Day" DataField="ACSR_MinInvestmentAgeInMonth"
-                    UniqueName="ACSR_MinInvestmentAgeInMonth" SortExpression="ACSR_MinInvestmentAgeInMonth" AutoPostBackOnFilter="true"
+                 <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Min. Invest Age In Day" DataField="ACSR_MinInvestmentAge"
+                    UniqueName="ACSR_MinInvestmentAge" SortExpression="ACSR_MinInvestmentAge" AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
                 
-                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max. Invest Age In Day" DataField="ACSR_MaxInvestmentAgeInMonth"
-                    UniqueName="ACSR_MaxInvestmentAgeInMonth " SortExpression="ACSR_MaxInvestmentAgeInMonth " AutoPostBackOnFilter="true"
+                <telerik:GridBoundColumn HeaderStyle-Width="120px" HeaderText="Max. Invest Age In Day" DataField="ACSR_MaxInvestmentAge"
+                    UniqueName="ACSR_MaxInvestmentAge " SortExpression="ACSR_MaxInvestmentAge " AutoPostBackOnFilter="true"
                     AllowFiltering="true" ShowFilterIcon="false" CurrentFilterFunction="EqualTo">
                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                 </telerik:GridBoundColumn>
