@@ -250,11 +250,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOAssociates", "VOAssociate
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WERP_REQUEST_PROCESSOR", "WERP_REQUEST_PROCESSOR\WERP_REQUEST_PROCESSOR.csproj", "{D8E6FC5E-FBC5-434B-AC67-4EA828D437B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WERPCommonProject", "WERPCommonProject", "{ECDBB358-559F-43E2-99C9-F782CEB1741B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WERPOtherProject", "WERPOtherProject", "{2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ValuationJOBProject", "ValuationJOBProject", "{ADD709D8-FA3B-4245-9B87-B5313A06083A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BulkMailJOBProject", "BulkMailJOBProject", "{12DD3E39-E014-4C64-8C24-09CE008863E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherJOBProject", "OtherJOBProject", "{4B428E7B-A968-4113-AE99-186A48573FB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MutualfundJOBProject", "MutualfundJOBProject", "{C647B099-9127-48AF-AEB7-C74A141E733D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EquityJOBProject", "EquityJOBProject", "{C6755056-FE94-43C9-A463-3D9FB8ADC6B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NAVProject", "NAVProject", "{8827221A-E5D7-4E5E-AB4C-84CC43981A8F}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 104
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
+		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20Wealtherp
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Bo\\AdvisorProfiling\\BoAdvisorProfiling.csproj
 		SccProjectTopLevelParentUniqueName1 = WealthERPSolution.sln
@@ -421,6 +437,7 @@ Global
 		SccProjectName41 = UI/WealthERP
 		SccLocalPath41 = UI\\WealthERP
 		SccProjectUniqueName42 = Microsoft.ApplicationBlocks.ExceptionManagement\\Microsoft.ApplicationBlocks.ExceptionManagement.csproj
+		SccProjectTopLevelParentUniqueName42 = WealthERPSolution.sln
 		SccProjectName42 = Microsoft.ApplicationBlocks.ExceptionManagement
 		SccLocalPath42 = Microsoft.ApplicationBlocks.ExceptionManagement
 		SccProjectUniqueName43 = Bo\\Alerts\\BoAlerts\\BoAlerts.csproj
@@ -448,6 +465,7 @@ Global
 		SccProjectName48 = Vo/VoWerpAdmin
 		SccLocalPath48 = Vo\\VoWerpAdmin
 		SccProjectUniqueName49 = PCGMailLib\\PCGMailLib\\PCGMailLib.csproj
+		SccProjectTopLevelParentUniqueName49 = WealthERPSolution.sln
 		SccProjectName49 = PCGMailLib/PCGMailLib
 		SccLocalPath49 = PCGMailLib\\PCGMailLib
 		SccProjectUniqueName50 = Bo\\Uploads\\BoUploads.csproj
@@ -465,28 +483,35 @@ Global
 		SccProjectUniqueName53 = Bo\\BoReports\\BoReports.csproj
 		SccProjectTopLevelParentUniqueName53 = WealthERPSolution.sln
 		SccProjectName53 = Bo/BoReports
+		SccAuxPath53 = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath53 = Bo\\BoReports
 		SccProjectUniqueName54 = Dao\\DaoReports\\DaoReports.csproj
 		SccProjectTopLevelParentUniqueName54 = WealthERPSolution.sln
 		SccProjectName54 = Dao/DaoReports
+		SccAuxPath54 = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath54 = Dao\\DaoReports
 		SccProjectUniqueName55 = Vo\\VoReports\\VoReports.csproj
 		SccProjectTopLevelParentUniqueName55 = WealthERPSolution.sln
 		SccProjectName55 = Vo/VoReports
 		SccLocalPath55 = Vo\\VoReports
 		SccProjectUniqueName56 = AmpsysJobDaemon\\AmpsysJobDaemon.csproj
+		SccProjectTopLevelParentUniqueName56 = WealthERPSolution.sln
 		SccProjectName56 = AmpsysJobDaemon
 		SccLocalPath56 = AmpsysJobDaemon
 		SccProjectUniqueName57 = AmpsysDaemon\\AmpsysDaemon.csproj
+		SccProjectTopLevelParentUniqueName57 = WealthERPSolution.sln
 		SccProjectName57 = AmpsysDaemon
 		SccLocalPath57 = AmpsysDaemon
 		SccProjectUniqueName58 = EquitySpeculativeDeliveryFlagging\\EquitySpeculativeDeliveryFlagging.csproj
+		SccProjectTopLevelParentUniqueName58 = WealthERPSolution.sln
 		SccProjectName58 = EquitySpeculativeDeliveryFlagging
 		SccLocalPath58 = EquitySpeculativeDeliveryFlagging
 		SccProjectUniqueName59 = DailyAssetValuation\\DailyAssetValuation.csproj
+		SccProjectTopLevelParentUniqueName59 = WealthERPSolution.sln
 		SccProjectName59 = DailyAssetValuation
 		SccLocalPath59 = DailyAssetValuation
 		SccProjectUniqueName60 = MFTransactionCancellation\\MFTransactionCancellation.csproj
+		SccProjectTopLevelParentUniqueName60 = WealthERPSolution.sln
 		SccProjectName60 = MFTransactionCancellation
 		SccLocalPath60 = MFTransactionCancellation
 		SccProjectUniqueName61 = Vo\\VoEmailSMS\\VoEmailSMS.csproj
@@ -494,12 +519,15 @@ Global
 		SccProjectName61 = Vo/VoEmailSMS
 		SccLocalPath61 = Vo\\VoEmailSMS
 		SccProjectUniqueName62 = WealthERPDB\\WealthERPDB\\WealthERPDB.dbp
+		SccProjectTopLevelParentUniqueName62 = WealthERPSolution.sln
 		SccProjectName62 = WealthERPDB/WealthERPDB
 		SccLocalPath62 = WealthERPDB\\WealthERPDB
 		SccProjectUniqueName63 = NAV\\WERP_NAV_UPLOAD\\WERP_NAV_UPLOAD.csproj
+		SccProjectTopLevelParentUniqueName63 = WealthERPSolution.sln
 		SccProjectName63 = NAV/WERP_NAV_UPLOAD
 		SccLocalPath63 = NAV\\WERP_NAV_UPLOAD
 		SccProjectUniqueName64 = NAV\\WERP_COMMON\\WERP_COMMON.csproj
+		SccProjectTopLevelParentUniqueName64 = WealthERPSolution.sln
 		SccProjectName64 = NAV/WERP_COMMON
 		SccLocalPath64 = NAV\\WERP_COMMON
 		SccProjectUniqueName65 = Bo\\BoFPSuperlite\\BoFPSuperlite.csproj
@@ -515,6 +543,7 @@ Global
 		SccProjectName67 = Vo/VoFPSuperlite
 		SccLocalPath67 = Vo\\VoFPSuperlite
 		SccProjectUniqueName68 = NAV\\WERP_NAVAPP\\WERP_NAVAPP.csproj
+		SccProjectTopLevelParentUniqueName68 = WealthERPSolution.sln
 		SccProjectName68 = NAV/WERP_NAVAPP
 		SccLocalPath68 = NAV\\WERP_NAVAPP
 		SccProjectUniqueName69 = Bo\\BoSuperAdmin\\BoSuperAdmin.csproj
@@ -542,6 +571,7 @@ Global
 		SccProjectName74 = Vo/VoSuperAdmin
 		SccLocalPath74 = Vo\\VoSuperAdmin
 		SccProjectUniqueName75 = WealthERP_Login_Widget\\WealthERP_Login_Widget\\WealthERP_Login_Widget\\WealthERP_Login_Widget.csproj
+		SccProjectTopLevelParentUniqueName75 = WealthERPSolution.sln
 		SccProjectName75 = WealthERP_Login_Widget/WealthERP_Login_Widget/WealthERP_Login_Widget
 		SccLocalPath75 = WealthERP_Login_Widget\\WealthERP_Login_Widget\\WealthERP_Login_Widget
 		SccProjectUniqueName76 = VoResearch\\VoResearch.csproj
@@ -585,30 +615,39 @@ Global
 		SccProjectName85 = Bo/BoValuation
 		SccLocalPath85 = Bo\\BoValuation
 		SccProjectUniqueName86 = WERP_DAILY_MF_INSTANT_VALUATION\\WERP_DAILY_MF_INSTANT_VALUATION.csproj
+		SccProjectTopLevelParentUniqueName86 = WealthERPSolution.sln
 		SccProjectName86 = WERP_DAILY_MF_INSTANT_VALUATION
 		SccLocalPath86 = WERP_DAILY_MF_INSTANT_VALUATION
 		SccProjectUniqueName87 = WERP_DAILY_MF_NETPOSITION_VALUATION\\WERP_DAILY_MF_NETPOSITION_VALUATION.csproj
+		SccProjectTopLevelParentUniqueName87 = WealthERPSolution.sln
 		SccProjectName87 = WERP_DAILY_MF_NETPOSITION_VALUATION
 		SccLocalPath87 = WERP_DAILY_MF_NETPOSITION_VALUATION
 		SccProjectUniqueName88 = WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION\\WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION.csproj
+		SccProjectTopLevelParentUniqueName88 = WealthERPSolution.sln
 		SccProjectName88 = WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
 		SccLocalPath88 = WERP_DAILY_MF_TRANSACTION_BALANCE_VALUATION
 		SccProjectUniqueName89 = WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION\\WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION.csproj
+		SccProjectTopLevelParentUniqueName89 = WealthERPSolution.sln
 		SccProjectName89 = WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION
 		SccLocalPath89 = WERP_DAILY_MF_HISTORICAL_NETPOSITION_VALUATION
 		SccProjectUniqueName90 = WERP_DAILY_MF_GOLD_PRICE_UPDATE\\WERP_DAILY_MF_GOLD_PRICE_UPDATE.csproj
+		SccProjectTopLevelParentUniqueName90 = WealthERPSolution.sln
 		SccProjectName90 = WERP_DAILY_MF_GOLD_PRICE_UPDATE
 		SccLocalPath90 = WERP_DAILY_MF_GOLD_PRICE_UPDATE
 		SccProjectUniqueName91 = WERP_EMAIL_SMS_JOB\\WERP_EMAIL_SMS_JOB.csproj
+		SccProjectTopLevelParentUniqueName91 = WealthERPSolution.sln
 		SccProjectName91 = WERP_EMAIL_SMS_JOB
 		SccLocalPath91 = WERP_EMAIL_SMS_JOB
 		SccProjectUniqueName92 = WERP_DAILY_EQUITY_VALUATION\\WERP_DAILY_EQUITY_VALUATION.csproj
+		SccProjectTopLevelParentUniqueName92 = WealthERPSolution.sln
 		SccProjectName92 = WERP_DAILY_EQUITY_VALUATION
 		SccLocalPath92 = WERP_DAILY_EQUITY_VALUATION
 		SccProjectUniqueName93 = WERP_MF_Historical_ValuationQueue\\WERP_MF_Historical_ValuationQueue.csproj
+		SccProjectTopLevelParentUniqueName93 = WealthERPSolution.sln
 		SccProjectName93 = WERP_MF_Historical_ValuationQueue
 		SccLocalPath93 = WERP_MF_Historical_ValuationQueue
 		SccProjectUniqueName94 = WERP_CORPORATE_ACTION\\WERP_CORPORATE_ACTION.csproj
+		SccProjectTopLevelParentUniqueName94 = WealthERPSolution.sln
 		SccProjectName94 = WERP_CORPORATE_ACTION
 		SccLocalPath94 = WERP_CORPORATE_ACTION
 		SccProjectUniqueName95 = VoCommisionManagement\\VoCommisionManagement.csproj
@@ -624,9 +663,11 @@ Global
 		SccProjectName97 = BoCommisionManagement
 		SccLocalPath97 = BoCommisionManagement
 		SccProjectUniqueName98 = WERP_BULK_REPORT_GENERATION_QUEUE\\WERP_BULK_REPORT_GENERATION_QUEUE.csproj
+		SccProjectTopLevelParentUniqueName98 = WealthERPSolution.sln
 		SccProjectName98 = WERP_BULK_REPORT_GENERATION_QUEUE
 		SccLocalPath98 = WERP_BULK_REPORT_GENERATION_QUEUE
 		SccProjectUniqueName99 = WERP_BULK_MAIL_REQUEST_RENERATION\\WERP_BULK_MAIL_REQUEST_RENERATION.csproj
+		SccProjectTopLevelParentUniqueName99 = WealthERPSolution.sln
 		SccProjectName99 = WERP_BULK_MAIL_REQUEST_RENERATION
 		SccLocalPath99 = WERP_BULK_MAIL_REQUEST_RENERATION
 		SccProjectUniqueName100 = BOAssociates\\BOAssociates.csproj
@@ -642,6 +683,7 @@ Global
 		SccProjectName102 = VOAssociates
 		SccLocalPath102 = VOAssociates
 		SccProjectUniqueName103 = WERP_REQUEST_PROCESSOR\\WERP_REQUEST_PROCESSOR.csproj
+		SccProjectTopLevelParentUniqueName103 = WealthERPSolution.sln
 		SccProjectName103 = WERP_REQUEST_PROCESSOR
 		SccLocalPath103 = WERP_REQUEST_PROCESSOR
 	EndGlobalSection
@@ -1150,5 +1192,37 @@ Global
 		{EAD1D6B2-CECB-4617-AB08-0F7B5F8EE981} = {8B2BA92D-8D53-4320-AD85-5A3AFD36C0CB}
 		{BDC3E1C8-29A7-4311-8AEE-4901A0A13892} = {8B2BA92D-8D53-4320-AD85-5A3AFD36C0CB}
 		{4FD5B7DC-0CBA-41A6-82F9-6D14BE2F44C0} = {87F12C18-A4A6-4CD8-AD61-2598571DF999}
+		{CA477068-2337-4E11-B066-AC5B1ED36CCF} = {ECDBB358-559F-43E2-99C9-F782CEB1741B}
+		{3A1EBD31-CA3D-4A61-9CCA-9F6C6C8FFB01} = {ECDBB358-559F-43E2-99C9-F782CEB1741B}
+		{F0632133-F2F4-4BC3-9EE6-F4141B713186} = {ECDBB358-559F-43E2-99C9-F782CEB1741B}
+		{9F670724-D986-43FD-B9C5-F104F4DF1985} = {ECDBB358-559F-43E2-99C9-F782CEB1741B}
+		{144098F5-D58D-4BD9-B8AB-2F5B48502792} = {ECDBB358-559F-43E2-99C9-F782CEB1741B}
+		{ADD709D8-FA3B-4245-9B87-B5313A06083A} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{12DD3E39-E014-4C64-8C24-09CE008863E7} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{4B428E7B-A968-4113-AE99-186A48573FB3} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{C647B099-9127-48AF-AEB7-C74A141E733D} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{C6755056-FE94-43C9-A463-3D9FB8ADC6B3} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{8827221A-E5D7-4E5E-AB4C-84CC43981A8F} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{ABE2F5EA-B0DC-4F52-B61A-E88D89105620} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{2BD2D962-B093-49A7-AE99-883CAD3BF19A} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{D500EB95-B443-4DA5-A37B-8DC76EDB91AF} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{08809404-0373-45CF-9933-F37A6BBAC61F} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{42F990C8-068C-4D00-9477-18435A1A1C74} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{7AE92505-049B-4291-BBE2-501B84B3D185} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{335652EB-7C74-416B-AF78-6067E2B9982B} = {ADD709D8-FA3B-4245-9B87-B5313A06083A}
+		{12733CE5-FDF2-41D9-B4A9-9EBBB8FB964B} = {12DD3E39-E014-4C64-8C24-09CE008863E7}
+		{2DCB9AC9-B536-4763-A88A-37DBC8F312F2} = {12DD3E39-E014-4C64-8C24-09CE008863E7}
+		{D8E6FC5E-FBC5-434B-AC67-4EA828D437B6} = {4B428E7B-A968-4113-AE99-186A48573FB3}
+		{DC6BAD47-31F2-4D74-ADC4-84326C6632DC} = {4B428E7B-A968-4113-AE99-186A48573FB3}
+		{6EF6C693-59BB-48F9-8210-7826B0AE9E72} = {4B428E7B-A968-4113-AE99-186A48573FB3}
+		{F14C3949-A71A-4613-8C52-7E920AF491EC} = {4B428E7B-A968-4113-AE99-186A48573FB3}
+		{F44B0462-8B5F-42D8-A438-3ACB6D2DA78E} = {4B428E7B-A968-4113-AE99-186A48573FB3}
+		{11E1FD6E-2744-4AD5-A416-52742853B038} = {C647B099-9127-48AF-AEB7-C74A141E733D}
+		{60037F25-D99F-483A-988A-099DDC34AC71} = {C647B099-9127-48AF-AEB7-C74A141E733D}
+		{EEC464DF-AE0B-495E-8B3A-BDF4CAF624FC} = {C6755056-FE94-43C9-A463-3D9FB8ADC6B3}
+		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
+		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
+		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
+		{3C891F8A-FFD6-47F1-9F8C-05561BC83BEF} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
 	EndGlobalSection
 EndGlobal
