@@ -33,6 +33,7 @@ namespace VoUser
         private string m_MainBranch;
         private string m_BranchList;
         private int m_AdviserAgentId;
+        private string m_EUIN;
         private string m_AAC_AgentCode;
         public Int32 HierarchyRoleId { get; set; }
         public Int32 ReportingManagerId { get; set; }
@@ -175,6 +176,11 @@ namespace VoUser
         {
             get { return m_RoleList; }
             set { m_RoleList = value; }
+        }
+        public string EUIN
+        {
+            get { return m_EUIN; }
+            set { m_EUIN = value; }
         }
         public Int16 IsExternal { get; set; }
 
