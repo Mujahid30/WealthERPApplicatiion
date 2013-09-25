@@ -2669,8 +2669,53 @@ namespace DaoAdvisorProfiling
             return ds;
         }
 
-       
 
+        public bool EmailduplicateCheck(int adviserId, string email)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCodeduplicateCheck;
+            bool bResult = false;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //Adding Data to the table 
+                cmdCodeduplicateCheck = db.GetStoredProcCommand("SPROC_EmailduplicateChack");
+                db.AddInParameter(cmdCodeduplicateCheck, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmdCodeduplicateCheck, "@AR_Email", DbType.String, email);
+                db.AddOutParameter(cmdCodeduplicateCheck, "@count", DbType.Int32, 10);
+
+                ds = db.ExecuteDataSet(cmdCodeduplicateCheck);
+                //count = int.Parse(db.ExecuteScalar(cmdCodeduplicateCheck).ToString());
+                Object objCount = db.GetParameterValue(cmdCodeduplicateCheck, "@count");
+                if (objCount != DBNull.Value)
+                    count = int.Parse(db.GetParameterValue(cmdCodeduplicateCheck, "@count").ToString());
+                else
+                    count = 0;
+                if (count > 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:EmailduplicateChack()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = email;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
 
     }
 }

@@ -1510,6 +1510,20 @@ namespace BoAdvisorProfiling
             }
             return dsAdviserBranchList;
         }
+        public bool EmailduplicateCheck(int adviserId, string email)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            bool bResult = false;
+            try
+            {
+                bResult = advisorStaffDao.EmailduplicateCheck(adviserId, email);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
     }
 
 }

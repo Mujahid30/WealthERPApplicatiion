@@ -192,7 +192,7 @@ namespace WealthERP.Advisor
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AddBranchRMAgentAssociation.ascx:Validation()");
+                FunctionInfo.Add("Method", "AddStaff.ascx:Validation()");
                 object[] objects = new object[1];
                 objects[0] = result;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -203,7 +203,39 @@ namespace WealthERP.Advisor
             }
             return result;
         }
+        private bool EmailValidation(string email)
+        {
+            bool result = true;
+            int adviserId = advisorVo.advisorId;
+            try
+            {
+                if (advisorStaffBo.EmailduplicateCheck(adviserId, email))
+                {
+                    result = false;
+                    //lblPanDuplicate.Visible = true;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Email already exists !!');", true);
+                }
+            }
 
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AddStaff.ascx:Validation()");
+                object[] objects = new object[1];
+                objects[0] = result;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return result;
+        }
         private void BindBranchDropList(string userRole)
         {
             DataSet dsAdviserBranchList = new DataSet();
@@ -460,7 +492,7 @@ namespace WealthERP.Advisor
 
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
-                if (Validation(txtAgentCode.Text))
+                if (Validation(txtAgentCode.Text)&& EmailValidation(txtEmail.Text))
                 {
                     rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
                     hidRMid.Value = rmIds[0].ToString();
