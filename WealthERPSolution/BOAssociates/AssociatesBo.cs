@@ -466,13 +466,13 @@ namespace BOAssociates
             return associatesUserHeirarchyVo;
         }
 
-        public DataSet GetAdviserHierarchyStaffList(int branchId, int hierarchyRoleId)
+        public DataSet GetAdviserHierarchyStaffList(int hierarchyRoleId)
         {
             AssociatesDAO associatesDao = new AssociatesDAO();
             DataSet dsAdviserHierarchyStaffList = new DataSet();
             try
             {
-                dsAdviserHierarchyStaffList = associatesDao.GetAdviserHierarchyStaffList(branchId, hierarchyRoleId);
+                dsAdviserHierarchyStaffList = associatesDao.GetAdviserHierarchyStaffList(hierarchyRoleId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -748,6 +748,62 @@ namespace BOAssociates
             }
             return dtCityList;
         }
+
+        public DataTable GetAdviserHierarchyTitleList(int adviserId)
+        {
+            DataTable dtAdviserHierarchyTitleList;
+            try
+            {
+                dtAdviserHierarchyTitleList = associatesDao.GetAdviserHierarchyTitleList(adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateBo.cs:GetAdviserHierarchyTitleList()");
+                object[] objects = new object[0];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAdviserHierarchyTitleList;
+        }
+
+        public DataTable GetAdviserStaffBranchList(int staffId)
+        {
+           
+            DataTable dtAdviserStaffBranchList;
+
+            try
+            {
+                dtAdviserStaffBranchList = associatesDao.GetAdviserStaffBranchList(staffId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociatesBo.cs:GetAdviserStaffBranchList()");
+                object[] objects = new object[1];
+                objects[0] = staffId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAdviserStaffBranchList;
+
+        }
+
 
     }
 }

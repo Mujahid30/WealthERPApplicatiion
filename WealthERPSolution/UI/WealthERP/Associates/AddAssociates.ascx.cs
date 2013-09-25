@@ -132,16 +132,17 @@ namespace WealthERP.Associates
                     ddlstatus2.Enabled = true;
                     
                 }
-                if (userType == "advisor")
-                {
-                    BindBranchDropDown();
-                    //BindRMDropDown();
-                }
-                if (userType == "bm")
-                {
-                    BindBranchForBMDropDown();
-                    BindRMforBranchDropdown(0, bmID);
-                }
+                //if (userType == "advisor")
+                //{
+                //    BindBranchDropDown();
+                //    //BindRMDropDown();
+                //}
+                //if (userType == "bm")
+                //{
+                //    BindBranchForBMDropDown();
+                //    BindRMforBranchDropdown(0, bmID);
+                //}
+                BindHierarchyTitleDropList();
                 BindReasonAndStatus();
                 if (requestId != 0)
                 {
@@ -204,13 +205,25 @@ namespace WealthERP.Associates
 
 
                                 //------------****************************STEP 1***********************------------------------------\\
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AH_HierarchyId"].ToString()))
+                                {
+                                    ddlTitleList.SelectedValue = drISARequestDetails["AH_HierarchyId"].ToString();
+                                    BindStaffDropList(Convert.ToInt32(drISARequestDetails["AH_HierarchyId"].ToString()));
+                                }
 
+
+                                if (!String.IsNullOrEmpty(drISARequestDetails["AR_RMId"].ToString()))
+                                {
+                                    ddlRM.SelectedValue = drISARequestDetails["AR_RMId"].ToString();
+                                    BindStaffBranchDropList(Convert.ToInt32(drISARequestDetails["AR_RMId"].ToString()));
+                                }
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["AB_BranchId"].ToString()))
                                 {
                                     ddlBranch.SelectedValue = drISARequestDetails["AB_BranchId"].ToString();
-                                    BindStaffDropList(Convert.ToInt32(drISARequestDetails["AB_BranchId"].ToString()), 7);
+                                    //BindStaffBranchDropList(Convert.ToInt32(drISARequestDetails["AB_BranchId"].ToString()));
                                 }
+
 
                                 if (!String.IsNullOrEmpty(drISARequestDetails["WWFSM_StepName"].ToString()))
                                 {
@@ -316,6 +329,7 @@ namespace WealthERP.Associates
 
             ddlBranch.Enabled = false;
             ddlRM.Enabled = false;
+            ddlTitleList.Enabled = false;
 
             txtAssociateName.Enabled = false;
             txtPanNum.Enabled = false;
@@ -406,6 +420,7 @@ namespace WealthERP.Associates
                     {
                         ddlBranch.Enabled = false;
                         ddlRM.Enabled = false;
+                        ddlTitleList.Enabled = false;
 
                         txtAssociateName.Enabled = true;
                         txtPanNum.Enabled = true;
@@ -494,7 +509,7 @@ namespace WealthERP.Associates
                 throw exBase;
             }
         }
-        private void BindRMDropDown()
+        private void BindRMDropDown(int staffId)
         {
             try
             {
@@ -528,6 +543,8 @@ namespace WealthERP.Associates
                 throw exBase;
             }
         }
+
+     
         private void BindBranchForBMDropDown()
         {
             try
@@ -596,33 +613,19 @@ namespace WealthERP.Associates
                 throw exBase;
             }
         }
-        protected void ddlBranch_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlRM_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlBranch.SelectedIndex != 0)
+            if (ddlRM.SelectedIndex >0)
             {
-                BindStaffDropList(int.Parse(ddlBranch.SelectedValue.ToString()),7);
+                BindStaffBranchDropList(Convert.ToInt32(ddlRM.SelectedValue));
             }
-            else
-            {
-                ddlRM.DataSource = null;
-                ddlRM.DataBind();
-            }
-
-            //if (ddlBranch.SelectedIndex == 0)
-            //{
-            //    BindRMforBranchDropdown(0, bmID);
-            //}
-            //else
-            //{
-            //    BindRMforBranchDropdown(int.Parse(ddlBranch.SelectedValue.ToString()), 0);
-            //}
 
         }
 
-        private void BindStaffDropList(int branchId, int hierarchyId)
+        private void BindStaffDropList(int hierarchyId)
         {
 
-            DataSet ds = associatesBo.GetAdviserHierarchyStaffList(branchId, hierarchyId);
+            DataSet ds = associatesBo.GetAdviserHierarchyStaffList(hierarchyId);
             if (ds != null)
             {
                 ddlRM.DataSource = ds.Tables[0]; ;
@@ -630,8 +633,9 @@ namespace WealthERP.Associates
                 ddlRM.DataTextField = ds.Tables[0].Columns["AR_RMName"].ToString();
                 ddlRM.DataBind();
             }
-            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "Select"));
+            ddlRM.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
         }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             if (Validation())
@@ -719,6 +723,7 @@ namespace WealthERP.Associates
 
         private void SetAccsessMode()
         {
+            ddlTitleList.Enabled = false;
             ddlBranch.Enabled = false;
             ddlRM.Enabled = false;
             txtAssociateName.Enabled = false;
@@ -1059,6 +1064,39 @@ namespace WealthERP.Associates
             }
             bool isMailSent = emailer.SendMail(email);
             return isMailSent;
+        }
+
+        protected void ddlTitleList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlTitleList.SelectedIndex != -1)
+            {
+                BindStaffDropList(Convert.ToInt32(ddlTitleList.SelectedValue));
+            }
+
+        }
+
+        private void BindHierarchyTitleDropList()
+        {
+            DataTable dtAdviserHierachyTitleList = new DataTable();
+            dtAdviserHierachyTitleList = associatesBo.GetAdviserHierarchyTitleList(advisorVo.advisorId);
+            ddlTitleList.DataSource = dtAdviserHierachyTitleList;
+            ddlTitleList.DataValueField = dtAdviserHierachyTitleList.Columns["AH_Id"].ToString();
+            ddlTitleList.DataTextField = dtAdviserHierachyTitleList.Columns["AH_HierarchyName"].ToString();
+            ddlTitleList.DataBind();
+            ddlTitleList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+ 
+        }
+
+        private void BindStaffBranchDropList(int staffId)
+        {
+            DataTable dtAdviserStaffBranchList = new DataTable();
+            dtAdviserStaffBranchList = associatesBo.GetAdviserStaffBranchList(staffId);
+            ddlBranch.DataSource = dtAdviserStaffBranchList;
+            ddlBranch.DataValueField = dtAdviserStaffBranchList.Columns["AB_BranchId"].ToString();
+            ddlBranch.DataTextField = dtAdviserStaffBranchList.Columns["AB_BranchName"].ToString();
+            ddlBranch.DataBind();
+            ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
+
         }
 
     }

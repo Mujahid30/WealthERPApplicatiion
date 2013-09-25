@@ -383,25 +383,35 @@
                 <td align="right" class="SectionBody">
                     <table class="StepOneContentTable">
                         <tr>
-                            <td class="leftLabel" id="tdCustomerSelection1" runat="server">
-                                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+                            <td colspan="2">
                             </td>
-                            <td>
-                                <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="true"
-                                    CssClass="cmbField" OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
+                            <td colspan="4">
+                                <div class="ISAAccountMsg" align="center" id="divStep1SuccMsg" runat="server" visible="false">
+                                    Request Created Successfully. Please update the status.
+                                </div>
+                            </td>
+                            <td colspan="2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="leftLabel">
+                                <asp:Label ID="lblTitleList" runat="server" Text="Title:" CssClass="FieldName"></asp:Label>
+                            </td>
+                            <td class="rightData">
+                                <asp:DropDownList ID="ddlTitleList" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlTitleList_SelectedIndexChanged"
+                                    AutoPostBack="true">
                                 </asp:DropDownList>
-                                <span id="Span2" class="spnRequiredField">*</span>
-                                <br />
-                                <asp:CompareValidator ID="CompareValidator1" runat="server" ValidationGroup="Submit"
-                                    ControlToValidate="ddlBranch" ErrorMessage="Please select a Branch" Operator="NotEqual"
-                                    TextToCompare="Select" CssClass="cvPCG" Display="Dynamic">
-                                </asp:CompareValidator>
+                                <span id="Span5" class="spnRequiredField">*</span>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select Title"
+                                    CssClass="rfvPCG" ControlToValidate="ddlTitleList" ValidationGroup="Submit"
+                                    Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
                             </td>
-                            <td align="right">
-                                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="Channel Manager:"></asp:Label>
+                            
+                             <td align="right">
+                                <asp:Label ID="lblRM" runat="server" CssClass="FieldName" Text="Staff:"></asp:Label>
                             </td>
                             <td>
-                                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                <asp:DropDownList ID="ddlRM" runat="server" CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlRM_SelectedIndexChanged"
                                     Style="vertical-align: middle">
                                 </asp:DropDownList>
                                 <span id="Span1" class="spnRequiredField">*</span>
@@ -411,6 +421,22 @@
                                     CssClass="cvPCG" Display="Dynamic">
                                 </asp:CompareValidator>
                             </td>
+                            
+                            <td class="leftLabel" id="tdCustomerSelection1" runat="server">
+                                <asp:Label ID="lblBranch" runat="server" CssClass="FieldName" Text="Branch:"></asp:Label>
+                            </td>
+                            <td>
+                                <asp:DropDownList ID="ddlBranch" runat="server" Style="vertical-align: middle" AutoPostBack="false"
+                                    CssClass="cmbField">
+                                </asp:DropDownList>
+                                <span id="Span2" class="spnRequiredField">*</span>
+                                <br />
+                                <asp:CompareValidator ID="CompareValidator1" runat="server" ValidationGroup="Submit"
+                                    ControlToValidate="ddlBranch" ErrorMessage="Please select a Branch" Operator="NotEqual"
+                                    TextToCompare="Select" CssClass="cvPCG" Display="Dynamic">
+                                </asp:CompareValidator>
+                            </td>
+                           
                             <td align="right">
                                 <asp:Label ID="lblAssociateName" runat="server" CssClass="FieldName" Text="Name: "></asp:Label>
                             </td>
@@ -421,16 +447,8 @@
                                     ErrorMessage="<br />Please Enter Associate Name" Display="Dynamic" runat="server"
                                     CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                             </td>
-                            <td colspan="2">
-                            </td>
                         </tr>
                         <tr>
-                            <%--        <td>
-        </td>
-        <td>
-            <asp:CheckBox ID="chkAssociates" runat="server" Text="Associate" Checked="true" Enabled="false"
-                CssClass="cmbField" value="1004" />
-        </td>--%>
                             <td class="leftLabel">
                                 <asp:Label ID="lblPanNum" runat="server" Text="PAN:" CssClass="FieldName"></asp:Label>
                             </td>
@@ -487,17 +505,6 @@
                                 </asp:RequiredFieldValidator>
                             </td>
                             <td class="rightDataFourColumn" colspan="4">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                            </td>
-                            <td colspan="4">
-                                <div class="ISAAccountMsg" align="center" id="divStep1SuccMsg" runat="server" visible="false">
-                                    Request Created Successfully. Please update the status.
-                                </div>
-                            </td>
-                            <td colspan="2">
                             </td>
                         </tr>
                         <tr>

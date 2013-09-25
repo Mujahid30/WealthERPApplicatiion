@@ -1525,7 +1525,7 @@ namespace DAOAssociates
             return result;
         }
 
-        public DataSet GetAdviserHierarchyStaffList(int branchId, int hierarchyRoleId)
+        public DataSet GetAdviserHierarchyStaffList(int hierarchyRoleId)
         {
             Database db;
             DataSet dsAdviserHierarchyStaffList;
@@ -1534,7 +1534,6 @@ namespace DAOAssociates
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getAdviserHierarchyStaffListcmd = db.GetStoredProcCommand("SPROC_GetAdviserHierarchyStaffList");
-                db.AddInParameter(getAdviserHierarchyStaffListcmd, "@BranchId", DbType.Int32, branchId);
                 db.AddInParameter(getAdviserHierarchyStaffListcmd, "@HierarchyRoleId", DbType.String, hierarchyRoleId);
                 dsAdviserHierarchyStaffList = db.ExecuteDataSet(getAdviserHierarchyStaffListcmd);
             }
@@ -1968,6 +1967,72 @@ namespace DAOAssociates
                 throw exBase;
             }
             return dtCityList;
+        }
+
+        public DataTable GetAdviserHierarchyTitleList(int adviserId)
+        {
+            Database db;
+            DbCommand adviserHierarchyTitleListCmd;
+            DataSet dsAdviserHierarchyTitleList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                adviserHierarchyTitleListCmd = db.GetStoredProcCommand("SPROC_GetAdviserHierarchyTitleList");
+                db.AddInParameter(adviserHierarchyTitleListCmd, "@AdviserId", DbType.Int32, adviserId);
+                dsAdviserHierarchyTitleList = db.ExecuteDataSet(adviserHierarchyTitleListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociatesDAO.cs:GetAdviserHierarchyTitleList()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserHierarchyTitleList.Tables[0];
+
+        }
+
+        public DataTable GetAdviserStaffBranchList(int staffId)
+        {
+            Database db;
+            DbCommand adviserStaffBranchListCmd;
+            DataSet dsAdviserStaffBranchList;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                adviserStaffBranchListCmd = db.GetStoredProcCommand("SPROC_GetAdviserStaffBranchList");
+                db.AddInParameter(adviserStaffBranchListCmd, "@staffId", DbType.Int32, staffId);
+                dsAdviserStaffBranchList = db.ExecuteDataSet(adviserStaffBranchListCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociatesDAO.cs:GetAdviserStaffBranchList()");
+                object[] objects = new object[1];
+                objects[0] = staffId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserStaffBranchList.Tables[0];
+
         }
     }
 }
