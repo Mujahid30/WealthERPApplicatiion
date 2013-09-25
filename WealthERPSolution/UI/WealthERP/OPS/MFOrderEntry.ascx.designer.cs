@@ -833,6 +833,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.TextBox txtNAV;
         
         /// <summary>
+        /// CompareValidator15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator15;
+        
+        /// <summary>
         /// lblPortfolio control.
         /// </summary>
         /// <remarks>

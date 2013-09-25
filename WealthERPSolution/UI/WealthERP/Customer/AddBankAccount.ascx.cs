@@ -144,6 +144,9 @@ namespace WealthERP.Customer
         }
         public void BindPortfolio()
         {
+            if (customerVo.CustomerId == 0)
+                return;
+            
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
             ddlPortfolioId.DataSource = ds;
             ddlPortfolioId.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();

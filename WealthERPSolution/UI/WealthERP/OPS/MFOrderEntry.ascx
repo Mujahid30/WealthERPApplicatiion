@@ -12,13 +12,13 @@
 <script type="text/javascript" language="javascript">
     
     function GetCustomerId(source, eventArgs) {
-        isItemSelected = true;
-        
+         isItemSelected = true;
+//         document.getElementById("lblgetPan").innerHTML = "";
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
        
         return false;
     }
-    function GetAgentId()  {
+    function CheckPanno()  {
         var Val,val1;
         Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
 
@@ -28,9 +28,11 @@
                 document.getElementById("<%= txtPansearch.ClientID %>").Focus();
             }
         }
-          
-        
-    }   
+
+
+    }
+
+    
     function ValidateAssociateName() {
 //        var x = document.forms["form1"]["TextBoxName"].value;
         document.getElementById("<%=  lblAssociatetext.ClientID %>").value = eventArgs.get_value();
@@ -42,6 +44,7 @@
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
+
     
    
 </script>
@@ -69,6 +72,18 @@
 ////            //reset isItemSelected
 //            isItemSelected = false;
 //        }
+    }
+    function checkSchemeSelected(txtInput) {
+        txtInput.focus();
+        if (!isItemSelected) {
+            txtInput.focus();
+            document.getElementById("<%= txtSearchScheme.ClientID %>").Value = "";
+            alert("Please select Scheme from the Scheme list only");
+        }
+
+        txtInput.focus();
+        return false;
+       
     }
 </script>
 
@@ -289,7 +304,7 @@
             <asp:Label ID="label2" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName" onclientClick="GetAgentId()"></asp:Label>
+            <asp:Label ID="lblgetcust" runat="server" Text="" CssClass="FieldName" onclientClick="CheckPanno()"></asp:Label>
         </td>
         <td colspan="2">
         </td>
@@ -300,7 +315,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                onclientClick="ShowIsa()" AutoPostBack="True">
+                onclientClick="ShowIsa()" AutoPostBack="True" onblur="return checkItemSelected(this)">
             </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -365,7 +380,7 @@
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True"  DelimiterCharacters=""
                 Enabled="True" />
-              <%--  OnClientItemSelected="GetAgentId"--%>
+              <%--  OnClientItemSelected="CheckPanno"--%>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
                 ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -655,7 +670,11 @@
             <asp:Label ID="Label19" runat="server" Text="Purchase Price:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style1" id="tdtxtNAV" runat="server">
-            <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField" onkeypress="return onlyNumbers();" CausesValidation="true" ValidationGroup="MFSubmit" ></asp:TextBox>
+              <span id="Span13" class="spnRequiredField">*</span>
+           <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"
+                ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
+                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
         </td>
          <td class="leftField" style="width: 20%" visible="false">
             <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>

@@ -127,8 +127,11 @@ namespace WealthERP.OPS
                 orderNumber = mfOrderBo.GetOrderNumber();
                 orderNumber = orderNumber + 1;
                 lblGetOrderNo.Text = orderNumber.ToString();
-                txtAssociateSearch.Text = AgentCode;
-                OnAssociateTextchanged(this, null);
+                if (AgentCode != null)
+                {
+                    txtAssociateSearch.Text = AgentCode;
+                    OnAssociateTextchanged(this, null);
+                }
 
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
@@ -224,11 +227,14 @@ namespace WealthERP.OPS
                     {
                         SetControls("View", mforderVo, orderVo);
                         btnAddMore.Visible = false;
+                        ddlsearch.SelectedValue = "1";
+                       
                     }
                     else if (ViewForm == "Edit")
                     {
                         SetControls("Edit", mforderVo, orderVo);
                         btnAddMore.Visible = false;
+                        ddlsearch.SelectedValue = "1";
                     }
                     else if (ViewForm == "entry")
                     {
@@ -246,7 +252,8 @@ namespace WealthERP.OPS
                     SetControls("Entry", mforderVo, orderVo);
 
                 }
-
+               
+                //ddlsearch_Selectedindexchanged(this, null);
 
             }
             bindSearchScehes();
@@ -558,8 +565,8 @@ namespace WealthERP.OPS
                         trCust.Visible = true;
                         ddlARNNo.SelectedItem.Value = mforderVo.ARNNo;
                     orderId = orderVo.OrderId;
-                    ddlsearch.SelectedItem.Value = "1";
-                    ddlsearch.Enabled = true;
+                   
+                    //sai ddlsearch.Enabled = true;
                     //ddlAmcSchemeList.Text
                     txtAssociateSearch.Enabled = true;
                     txtCustomerName.Enabled = true;
@@ -697,7 +704,18 @@ namespace WealthERP.OPS
                     {
                         //BindFolioNumber(0);
                         if (mforderVo.accountid != 0)
-                            ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
+                        {
+                            ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
+                            if (li != null)
+                            {
+                                ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
+
+                                // value found
+                            }
+                             
+
+                           //sai ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
+                        }
                         //else
                         //    ddlFolioNumber.SelectedValue = "";
                     }
@@ -707,6 +725,13 @@ namespace WealthERP.OPS
                         if (mforderVo.accountid != 0)
                         {
                             BindFolioNumber(0);
+                            ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
+                            if (li != null)
+                            {
+                                ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
+
+                                // value found
+                            }
                             ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
                         }
                         //else
@@ -781,8 +806,8 @@ namespace WealthERP.OPS
                         txtPaymentInstDate.SelectedDate = null;
                     BindBank(orderVo.CustomerId);
 
-                    ListItem li = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
-                    if (li != null)
+                    ListItem liBank = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
+                    if (liBank != null)
                     {
                         ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
 
@@ -847,11 +872,11 @@ namespace WealthERP.OPS
             {
                 if (mforderVo != null && orderVo != null)
                 {
-                    ddlsearch.SelectedItem.Value = "0";
-                    ddlsearch.Enabled = false;
+                    //sai ddlsearch.SelectedItem.Value = "0";
+                    //sai ddlsearch.Enabled = false;
                     txtAssociateSearch.Text = orderVo.AgentCode;
                     trCust.Visible = true;
-                    ddlsearch.SelectedItem.Value = "1";
+                    //sai ddlsearch.SelectedItem.Value = "1";
                     Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
                     if (Agentname.Rows.Count > 0)
                     {
@@ -1161,6 +1186,7 @@ namespace WealthERP.OPS
 
                 }
             }
+            //sai ddlsearch.SelectedItem.Value = "1";
         }
         //private void BindOrderStatus()
         //{
@@ -1592,6 +1618,10 @@ namespace WealthERP.OPS
         private void BindBank(int customerId)
         {
             DataSet dsBankName = mfOrderBo.GetCustomerBank(customerId);
+
+            ddlBankName.Items.Clear();
+            ddlBankName.DataSource = null;
+
             if (dsBankName.Tables[0].Rows.Count > 0)
             {
                 ddlBankName.DataSource = dsBankName;
@@ -1600,13 +1630,13 @@ namespace WealthERP.OPS
                 ddlBankName.DataBind();
                 ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
             }
-            else
-            {
-                ddlBankName.Items.Clear();
-                ddlBankName.DataSource = null;
-                ddlBankName.DataBind();
-                ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
-            }
+            //else
+            //{
+            //    //ddlBankName.Items.Clear();
+            //    //ddlBankName.DataSource = null;
+            //    //ddlBankName.DataBind();
+            //    //ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+            //}
         }
         private void BindPortfolioDropdown(int customerId)
         {
@@ -1780,7 +1810,7 @@ namespace WealthERP.OPS
         }
         private void BindFolioNumber(int Fflag)
         {
-             
+
             DataSet dsgetfolioNo = new DataSet();
             DataTable dtgetfolioNo;
             try
@@ -1821,7 +1851,7 @@ namespace WealthERP.OPS
                 {
                     ddlFolioNumber.Items.Clear();
                     ddlFolioNumber.DataSource = null;
-                    ddlFolioNumber.DataBind();
+                    //ddlFolioNumber.DataBind();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1961,6 +1991,16 @@ namespace WealthERP.OPS
             else
             {
                 trPINo.Visible = false ;
+            }
+            if (advisorVo.A_AgentCodeBased == 1)
+            {
+                trGetAmount.Visible = false;
+                trRedeemed.Visible = false;
+            }
+            else
+            {
+                trGetAmount.Visible = true;
+                trRedeemed.Visible = true;
             }
         }
 
