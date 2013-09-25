@@ -1928,14 +1928,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
+        public List<MFTransactionVo> GetRMCustomerMFBalance(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId,int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfBalanceList = new List<MFTransactionVo>();
             try
             {
 
-                mfBalanceList = customerTransactionDao.GetRMCustomerMFBalance(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId, AmcCode, Category, A_AgentCodeBased, AgentCode, UserType);
+                mfBalanceList = customerTransactionDao.GetRMCustomerMFBalance(RMId, AdviserID, GroupHeadId, From, To, Manage, AccountId,SchemePlanCode, AmcCode, Category, A_AgentCodeBased, AgentCode, UserType);
 
             }
             catch (BaseApplicationException Ex)

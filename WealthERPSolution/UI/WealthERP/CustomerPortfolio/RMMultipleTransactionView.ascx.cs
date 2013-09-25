@@ -163,7 +163,7 @@ namespace WealthERP.CustomerPortfolio
                     //trRange.Visible = false;
 
                 }
-
+                lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
                 if (!IsPostBack)
                 {
 
@@ -224,7 +224,6 @@ namespace WealthERP.CustomerPortfolio
 
                     if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null )
                     {                       
-
                         int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                         int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
                         PasssedFolioValue = accountId;
@@ -232,7 +231,10 @@ namespace WealthERP.CustomerPortfolio
                         string fromdate = "01-01-1990";
                         txtFromDate.SelectedDate = DateTime.Parse(fromdate);
                         ViewState["SchemePlanCode"] = SchemePlanCode;
-                        BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                        ddlDisplayType.SelectedValue = "RHV";
+                        lbBack.Visible = true;
+                        BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                       // BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
                    
                     }
                     else
@@ -851,7 +853,8 @@ namespace WealthERP.CustomerPortfolio
                
             }
             }
-            schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+            schemePlanCode = 0;
+            //schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
 
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
@@ -1066,23 +1069,24 @@ namespace WealthERP.CustomerPortfolio
                       AdviserId = advisorVo.advisorId;
                   }
               }
-
+              //schemePlanCode = 0;
+              schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
             try
             {//pramod
                 if (rbtnGroup.Checked)
                 {
-                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
+                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 else if (Session["IsCustomerDrillDown"] == "Yes")
                 {
                     customerId = customerVo.CustomerId;
-                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
+                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 else
                 {
-                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
+                    mfBalanceList = customerTransactionBo.GetRMCustomerMFBalance(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 if (mfBalanceList.Count != 0)
                 {
@@ -1218,6 +1222,12 @@ namespace WealthERP.CustomerPortfolio
         {
             if (hdnExportType == "TV")
             {
+                DataTable dtTransactionDetails = new DataTable();
+                dtTransactionDetails = (DataTable)Cache["ViewTransaction" + userVo.UserId + userType]; 
+                gvMFTransactions.DataSource = dtTransactionDetails;
+                gvMFTransactions.Visible = true;
+
+                gvMFTransactions.DataSource = dtTransactionDetails;
                 gvMFTransactions.ExportSettings.OpenInNewWindow = true;
                 gvMFTransactions.ExportSettings.IgnorePaging = true;
                 gvMFTransactions.ExportSettings.HideStructureColumns = true;
@@ -1657,11 +1667,16 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void lbBack_Click(object sender, EventArgs e)
         {
-            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
-
+            
+          // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+           
         }
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
         {
+            //if (accountId == true)
+            //{
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
+            //}
             ExportGrid(hdnExportType.Value);
         }
         protected void btnbalncExport_Click(object sender, ImageClickEventArgs e)
