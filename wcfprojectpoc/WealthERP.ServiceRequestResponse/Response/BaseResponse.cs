@@ -10,6 +10,12 @@ namespace WealthERP.ServiceRequestResponse
     [MessageContract]
     public class BaseResponse
     {
-        public ServiceResultDTO ServiceResult { get; set; }
+        [MessageBodyMember(Order = 0)]
+        public ServiceResultDTO ServiceResultDTO { get; set; }
+       
+        public BaseResponse()
+        {
+            ServiceResultDTO = new ServiceResultDTO();
+        }
     }
 }

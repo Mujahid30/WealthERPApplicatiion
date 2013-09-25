@@ -14,7 +14,12 @@ namespace WealthERP.BusinessEntities
     public class ProductAMCListDTO
     {
         [DataMember(Order = 0)]      
-        public List<KeyValuePair<string, string>> ProductAMCList { get; set; } 
+        public List<KeyValuePair<string, string>> ProductAMCList { get; set; }
+
+        public ProductAMCListDTO()
+        {
+            ProductAMCList = new List<KeyValuePair<string, string>>();
+        }
 
     }
 }

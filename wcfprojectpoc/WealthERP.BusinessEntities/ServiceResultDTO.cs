@@ -19,5 +19,9 @@ namespace WealthERP.BusinessEntities
         [DataMember(Order = 1)]
         public string Message { get; set; }
 
+        public ServiceResultDTO()
+        {
+            IsSuccess = false;
+        }
     }
 }

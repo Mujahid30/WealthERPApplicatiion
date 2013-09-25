@@ -45,7 +45,6 @@ namespace WealthERP.ServiceFacade
         {
             WERPCommonLookupResponse response = new WERPCommonLookupResponse();
             CommisionReceivableBo boCommRecv = new CommisionReceivableBo();
-            ProductAMCListDTO prodAmcList = new ProductAMCListDTO();
 
             try
             {
@@ -53,14 +52,17 @@ namespace WealthERP.ServiceFacade
 
                 foreach (DataRow row in dsLookupData.Tables[0].Rows)
                 {
+                    if (response.ServiceResultDTO.IsSuccess == false) { response.ServiceResultDTO.IsSuccess = true; }
+
                     KeyValuePair<string, string> prodAmc = new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString());
-                    prodAmcList.ProductAMCList.Add(prodAmc);
+                    response.ProductAMCListDTO.ProductAMCList.Add(prodAmc);
                 }
+                
             }
             catch (Exception e)
             {
             }
-            response.ServiceResult.IsSuccess = true;
+            
             return response;
         }
 

@@ -15,6 +15,11 @@ namespace WealthERP.ServiceRequestResponse
         ///   Gets and Sets ProductAMCList
         /// </summary>
         [MessageBodyMember(Order = 0)]
-        public ProductAMCListDTO ProductAMCListResponse { get; set; }
+        public ProductAMCListDTO ProductAMCListDTO { get; set; }
+
+        public WERPCommonLookupResponse()
+        {
+            ProductAMCListDTO = new ProductAMCListDTO();
+        }
     }
 }
