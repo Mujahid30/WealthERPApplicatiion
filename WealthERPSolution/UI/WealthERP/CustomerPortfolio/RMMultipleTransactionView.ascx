@@ -911,7 +911,7 @@
                                                     <telerik:GridBoundColumn DataField="CurrentValue" HeaderText="Current Value" AllowFiltering="false"
                                                         SortExpression="CurrentValue" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                         HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CurrentValue"
-                                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n0}">
+                                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" Aggregate="Sum">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="Age" HeaderText="Age (Days)" AllowFiltering="false"

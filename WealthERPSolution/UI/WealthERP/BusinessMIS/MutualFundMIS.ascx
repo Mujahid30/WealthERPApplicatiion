@@ -181,7 +181,7 @@
                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="AUM" AutoPostBackOnFilter="true"
                     HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Wrap="false" />
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text='<%# Eval("AUM").ToString() %>' />
                     </ItemTemplate>
@@ -294,7 +294,7 @@
                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="AUM" AutoPostBackOnFilter="true"
                     HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Wrap="false" />
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text='<%# Eval("AUM").ToString() %>' />
                     </ItemTemplate>
@@ -441,7 +441,7 @@
                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="AUM" AutoPostBackOnFilter="true"
                     HeaderText="AUM" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
-                    <ItemStyle Wrap="false" />
+                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right"/>
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select" Text='<%# Eval("AUM").ToString() %>' />
                     </ItemTemplate>
