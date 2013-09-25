@@ -409,6 +409,7 @@ namespace WealthERP.Advisor
             if (advisorVo.A_AgentCodeBased == 1)
             {
                 RadPanelBar2.Visible = false;
+                RadPanelBar3.Visible = false;
             }
         }
 
