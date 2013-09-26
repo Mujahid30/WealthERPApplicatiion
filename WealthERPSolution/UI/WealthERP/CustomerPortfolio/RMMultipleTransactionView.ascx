@@ -909,9 +909,9 @@
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="CurrentValue" HeaderText="Current Value" AllowFiltering="false"
-                                                        SortExpression="CurrentValue" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                                        HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CurrentValue"
-                                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}" Aggregate="Sum">
+                                                        SortExpression="CurrentValue" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                                        HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="CurrentValue" Aggregate="Sum"
+                                                        FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n2}">
                                                         <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="Age" HeaderText="Age (Days)" AllowFiltering="false"
@@ -921,7 +921,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="Balance" HeaderText="Abs Rtn (%)" AllowFiltering="false"
                                                         DataFormatString="{0:n2}" HeaderStyle-Wrap="false" SortExpression="Return" ShowFilterIcon="false"
-                                                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Return"
+                                                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Return" 
                                                         FooterStyle-HorizontalAlign="Left">
                                                         <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>

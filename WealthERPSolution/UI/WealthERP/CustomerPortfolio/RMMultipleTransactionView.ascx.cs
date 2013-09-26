@@ -1098,7 +1098,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("Customer Name");
                     dtMFBalance.Columns.Add("Folio Number");
                     dtMFBalance.Columns.Add("Scheme Name");
-                    dtMFBalance.Columns.Add("CurrentValue");
+                    dtMFBalance.Columns.Add("CurrentValue",typeof(double));
                     dtMFBalance.Columns.Add("Transaction Type");
                     dtMFBalance.Columns.Add("Transaction Date", typeof(DateTime));
                     dtMFBalance.Columns.Add("Category");
@@ -1131,7 +1131,7 @@ namespace WealthERP.CustomerPortfolio
                         drMFBalance["Customer Name"] = mfBalanceVo.CustomerName.ToString();
                         drMFBalance["Folio Number"] = mfBalanceVo.Folio.ToString();
                         drMFBalance["Scheme Name"] = mfBalanceVo.SchemePlan.ToString();
-                        drMFBalance["CurrentValue"] = mfBalanceVo.CurrentValue.ToString();
+                        drMFBalance["CurrentValue"] = mfBalanceVo.CurrentValue.ToString("f2");;
                         drMFBalance["Transaction Type"] = mfBalanceVo.TransactionType.ToString(); ;
                         drMFBalance["Transaction Date"] = mfBalanceVo.TransactionDate.ToShortDateString().ToString();
                         drMFBalance["Category"] = mfBalanceVo.Category.ToString();
