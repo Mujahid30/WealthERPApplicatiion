@@ -545,6 +545,13 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
+             <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" TargetControlID="txtApplicationNumber"
+                ServiceMethod="GetAdviserCustomerPan" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" 
+                Enabled="True" />
         </td>
         <td  class="leftField"  style="width: 20%">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
@@ -780,14 +787,15 @@
             <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox><span
+            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true" ValidationGroup="MFSubmit" ></asp:TextBox><span
                 id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server"
+                 <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount" MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+            <%--<asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server"
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
-                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
@@ -795,7 +803,7 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" AutoPostBack="true" > 
                   <asp:ListItem Text="Select" Value="Select"  ></asp:ListItem>
-                <asp:ListItem Text="Cheque" Value="CQ" Selected="True"   ></asp:ListItem>
+                <asp:ListItem Text="Cheque" Value="CQ"      ></asp:ListItem>
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
             </asp:DropDownList>

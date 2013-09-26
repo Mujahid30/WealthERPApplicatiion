@@ -545,6 +545,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.TextBox txtApplicationNumber;
         
         /// <summary>
+        /// AutoCompleteExtender3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AutoCompleteExtender AutoCompleteExtender3;
+        
+        /// <summary>
         /// lblOrderDate control.
         /// </summary>
         /// <remarks>
@@ -1031,13 +1040,13 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
-        /// CompareValidator6 control.
+        /// RangeValidator2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
         
         /// <summary>
         /// lblMode control.

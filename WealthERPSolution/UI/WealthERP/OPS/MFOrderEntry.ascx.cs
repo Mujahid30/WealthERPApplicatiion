@@ -50,6 +50,7 @@ namespace WealthERP.OPS
         AssociatesVO associatesVo = new AssociatesVO();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
+        List<DataSet> applicationNoDup=new  List<DataSet>();
         UserVo userVo;
         PriceBo priceBo = new PriceBo();
         string path;
@@ -257,7 +258,10 @@ namespace WealthERP.OPS
 
             }
             bindSearchScehes();
-          
+
+        //    applicationNoDup = mfOrderBo.AplicationNODuplicates();
+       //     int result = applicationNoDup.Find(item => item > 20);
+
            // if (txtReceivedDate.SelectedDate==DateTi)
            //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
@@ -517,7 +521,8 @@ namespace WealthERP.OPS
                     txtFutureDate.SelectedDate = null;
                     txtFutureTrigger.Text = "";
                     txtAmount.Text = "";
-                    ddlPaymentMode.SelectedIndex = 0;
+                   // ddlPaymentMode.SelectedIndex = 0;
+                    ddlPaymentMode_SelectedIndexChanged(this, null);
                     txtPaymentNumber.Text = "";
                     txtPaymentInstDate.SelectedDate = null;
                     ddlBankName.SelectedIndex = 0;
@@ -749,7 +754,7 @@ namespace WealthERP.OPS
 
                                 // value found
                             }
-                            ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
+                          //  ddlFolioNumber.SelectedValue = mforderVo.accountid.ToString();
                         }
                         //else
                         //    ddlFolioNumber.SelectedValue = "";
@@ -819,12 +824,12 @@ namespace WealthERP.OPS
                         
                         // value found
                     }
-                    else
-                    {
-                        ddlPaymentMode.SelectedIndex = 0;
+                    //else
+                    //{
+                    //    ddlPaymentMode.SelectedIndex = 0;
 
-                        //Value not found
-                    }
+                    //    //Value not found
+                    //}
 
                     
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
@@ -845,12 +850,12 @@ namespace WealthERP.OPS
 
                         // value found
                     }
-                    else
-                    {
-                        ddlBankName.SelectedIndex=0;
+                    //else
+                    //{
+                    //    ddlBankName.SelectedIndex=-1;
 
-                        //Value not found
-                    }
+                    //    //Value not found
+                    //}
                     //if (orderVo.CustBankAccId != 0)
                     //  //  ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
                     //else
@@ -1722,7 +1727,7 @@ namespace WealthERP.OPS
             txtFutureDate.SelectedDate = null;
             txtFutureTrigger.Text = "";
             txtAmount.Text = "";
-            ddlPaymentMode.SelectedIndex = -1;
+         // sai  ddlPaymentMode.SelectedIndex = -1;
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             ddlBankName.SelectedIndex = -1;
@@ -2046,6 +2051,7 @@ namespace WealthERP.OPS
                 trGetAmount.Visible = true;
                 trRedeemed.Visible = true;
             }
+            ddlPaymentMode_SelectedIndexChanged(this, null);
            
         }
 
@@ -2355,6 +2361,7 @@ namespace WealthERP.OPS
         {
             if (ddlAMCList.SelectedIndex != 0)
             {
+                txtSearchScheme.Text = "";
                 hdnAmcCode.Value = ddlAMCList.SelectedItem.Text;
                 amcCode = int.Parse(ddlAMCList.SelectedValue);
                 if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
@@ -2375,7 +2382,7 @@ namespace WealthERP.OPS
                 BindSchemeSwitch();
             }
               
-            //bindSearchScehes();
+            bindSearchScehes();
         }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
