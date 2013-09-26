@@ -674,7 +674,8 @@
               <span id="Span13" class="spnRequiredField">*</span>
            <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"  
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
-                Type="Integer" Operator="DataTypeCheck"CssClass="cvPCG"></asp:CompareValidator>
+                Type="Integer" Operator="DataTypeCheck"CssClass="cvPCG"
+                </asp:CompareValidator>
                  <%--   <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtNAV" MaximumValue="100" MinimumValue="-100" Type="Double"></asp:RangeValidator>--%>
         </td>
          <td class="leftField" style="width: 20%" visible="false">
