@@ -893,6 +893,8 @@ namespace DaoAdvisorProfiling
 
                     if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
                          rmVo.AAC_AgentCode = dr["AAC_AgentCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AR_EUIN"].ToString()))
+                        rmVo.EUIN = dr["AR_EUIN"].ToString();
                     
                 }
                 

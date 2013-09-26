@@ -656,10 +656,13 @@ namespace WealthERP.Advisor
                 txtFaxNumber.Text = rmStaffVo.Fax.ToString();
             if (rmStaffVo.FaxIsd != 0)
                 txtFaxISD.Text = rmStaffVo.FaxIsd.ToString();
+            if (!string.IsNullOrEmpty(rmStaffVo.EUIN))
+                txtEUIN.Text = rmStaffVo.EUIN.ToString();
             if (rmStaffVo.FaxStd != 0)
                 txtExtSTD.Text = rmStaffVo.FaxStd.ToString();
             if (!string.IsNullOrEmpty(rmStaffVo.AAC_AgentCode))
             {
+                txtAgentCode.Text = rmStaffVo.AAC_AgentCode.ToString();
                 //lblAgentCode.Text = rmStaffVo.AAC_AgentCode;
                 //imgBtnReferesh.Visible = false;
                 //imgAddAgentCode.Visible = false;
