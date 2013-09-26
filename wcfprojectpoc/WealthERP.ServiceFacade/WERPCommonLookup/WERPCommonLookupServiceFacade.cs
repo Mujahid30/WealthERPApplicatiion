@@ -66,6 +66,31 @@ namespace WealthERP.ServiceFacade
             return response;
         }
 
+        WERPCommonLookupResponse IWerpCommonLookupContract.GetProductList(WERPCommonLookupRequest request)
+        {
+            WERPCommonLookupResponse response = new WERPCommonLookupResponse();
+            CommisionReceivableBo boCommRecv = new CommisionReceivableBo();
+
+            try
+            {
+                DataSet dsLookupData = boCommRecv.GetProductType();
+
+                foreach (DataRow row in dsLookupData.Tables[0].Rows)
+                {
+                    if (response.ServiceResultDTO.IsSuccess == false) { response.ServiceResultDTO.IsSuccess = true; }
+
+                    KeyValuePair<string, string> prodType = new KeyValuePair<string, string>(row["PAG_AssetGroupCode"].ToString(), row["PAG_AssetGroupName"].ToString());
+                    response.ProductListDTO.ProductList.Add(prodType);
+                }
+
+            }
+            catch (Exception e)
+            {
+            }
+
+            return response;
+        }
+
         #endregion
     }
 }

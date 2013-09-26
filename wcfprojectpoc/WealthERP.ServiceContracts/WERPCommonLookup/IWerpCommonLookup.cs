@@ -12,6 +12,14 @@ namespace WealthERP.ServiceContracts
     public interface IWerpCommonLookupContract
     {
         /// <summary>
+        ///   Gets the Product List.
+        /// </summary>
+        /// <param name="ProductType"> The Product Type Request. </param>
+        /// <returns> Product List Response </returns>
+        [OperationContract]
+        WERPCommonLookupResponse GetProductList(WERPCommonLookupRequest request);
+
+        /// <summary>
         ///   Gets the Product AMC List.
         /// </summary>
         /// <param name="ProductType"> The Product Type Request. </param>

@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductAMCSchemePlanListDTO.cs" />
+    <Compile Include="ProductListDTO.cs" />
     <Compile Include="ServiceResultDTO.cs" />
     <Compile Include="UserAccountDTO.cs" />
     <Compile Include="MFOrderManagementDTO.cs" />
