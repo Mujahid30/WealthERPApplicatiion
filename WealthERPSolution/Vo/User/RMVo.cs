@@ -41,6 +41,7 @@ namespace VoUser
         public Int16 HierarchyTitleId { get; set; }
         public Int16 HierarchyTeamId { get; set; }
         public bool IsAssociateUser { get; set; }
+        public String StaffBranchAssociation { get; set; }
 
         #endregion Fields
 

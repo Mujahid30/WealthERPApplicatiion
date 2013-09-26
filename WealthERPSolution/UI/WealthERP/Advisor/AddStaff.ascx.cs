@@ -19,6 +19,10 @@ using System.IO;
 using VOAssociates;
 using BOAssociates;
 using WealthERP.Base;
+using DanLudwig;
+using CrystalDecisions.CrystalReports.Engine;
+using System.Collections.Specialized;
+using Telerik.Web.UI;
 
 namespace WealthERP.Advisor
 {
@@ -67,7 +71,7 @@ namespace WealthERP.Advisor
                 }
                 BindTeamDropList();
                 BindBranchDropList(userType);
-
+                BindStaffBranchDrop(userType);
                 if (!string.IsNullOrEmpty(hidRMid.Value.ToString()) && !string.IsNullOrEmpty(action))
                 {
                     ShowRMDetails(Convert.ToInt32(hidRMid.Value));
@@ -90,7 +94,9 @@ namespace WealthERP.Advisor
 
         private RMVo CollectAdviserStaffData()
         {
+            
             rmStaffVo = new RMVo();
+            string AllBranchId=string.Empty;
             rmStaffVo.FirstName = txtFirstName.Text;
             if (!string.IsNullOrEmpty(txtMiddleName.Text.Trim()))
                 rmStaffVo.MiddleName = txtMiddleName.Text;
@@ -137,13 +143,21 @@ namespace WealthERP.Advisor
             if (!string.IsNullOrEmpty(txtEUIN.Text.Trim()))
                 rmStaffVo.EUIN = (txtEUIN.Text.Trim()).ToString();
             rmStaffVo.AdviserId = advisorVo.advisorId;
+
             if (!string.IsNullOrEmpty(txtAgentCode.Text))
                 rmStaffVo.AAC_AgentCode = txtAgentCode.Text;
             else
                 rmStaffVo.AAC_AgentCode = null;
+            
             rmStaffVo.IsAssociateUser = true;
+           foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+            {
+                AllBranchId = AllBranchId+ListItem.Value.ToString() + ",";
+
+            }
+            rmStaffVo.StaffBranchAssociation = AllBranchId;
             return rmStaffVo;
-        }
+            }
 
         private UserVo CollectAdviserStaffUserData()
         {
@@ -246,7 +260,16 @@ namespace WealthERP.Advisor
             ddlBranch.DataBind();
             ddlBranch.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--Select--", "0"));
         }
-
+        private void BindStaffBranchDrop(string userRole)
+        {
+            DataSet dsAdviserBranchList = new DataSet();
+            dsAdviserBranchList = advisorStaffBo.GetAdviserBranchList(advisorVo.advisorId, userRole);
+            LBStaffBranch.DataSource = dsAdviserBranchList;
+            LBStaffBranch.DataValueField = dsAdviserBranchList.Tables[0].Columns["AB_BranchId"].ToString(); ;
+            LBStaffBranch.DataTextField = dsAdviserBranchList.Tables[0].Columns["AB_BranchName"].ToString();
+            LBStaffBranch.DataBind();
+        
+        }
         private void BindTeamDropList()
         {
             DataTable dtAdviserTeamList = new DataTable();
@@ -371,7 +394,12 @@ namespace WealthERP.Advisor
             }
 
         }
-
+        protected void ListBoxSource_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
+        {
+            
+            LBStaffBranch.Items.Sort();
+           
+        }
         private void ControlViewEditMode(bool isViewMode)
         {
             if (isViewMode)
@@ -408,10 +436,11 @@ namespace WealthERP.Advisor
                 txtAgentCode.Enabled = false;
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = false;
-
+                
+                LBStaffBranch.Enabled = false;
                 lnkAddNewStaff.Visible = false;
                 lnkEditStaff.Visible = true;
-
+                RadListBoxDestination.Enabled = false;
 
             }
             else
@@ -421,8 +450,9 @@ namespace WealthERP.Advisor
                 txtLastName.Enabled = true;
                 txtStaffcode.Enabled = true;
 
-                trTeamTitle.Visible = true;
-
+                LBStaffBranch.Enabled = true;
+                 trTeamTitle.Visible = true;
+                 RadListBoxDestination.Enabled = true;
                 ddlBranch.Enabled = true;
                 ddlChannel.Enabled = false;
                 ddlRportingRole.Enabled = true;
@@ -642,7 +672,22 @@ namespace WealthERP.Advisor
             }
 
         }
+        private string GetAllSelectedCustomerID(DanLudwig.Controls.Web.ListBox CustomerSelectedListBox)
+        {
+            String AllBranchId = "";
+            // loop through all source items to find selected ones
+            for (int i = CustomerSelectedListBox.Items.Count - 1; i >= 0; i--)
+            {
+                ListItem TempItem = CustomerSelectedListBox.Items[i];
 
+                AllBranchId = AllBranchId + "," + TempItem.Value.ToString();
+
+
+            }
+            return AllBranchId;
+            
+
+        }
         protected void imgBtnReferesh_OnClick(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(hidRMid.Value))

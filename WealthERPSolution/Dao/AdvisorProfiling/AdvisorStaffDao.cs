@@ -217,7 +217,8 @@ namespace DaoAdvisorProfiling
                 db.AddInParameter(createRMCmd, "@AAC_AgentCode", DbType.String, rmVo.AAC_AgentCode);
                 db.AddInParameter(createRMCmd, "@AAC_AdviserAgentI", DbType.Int32, rmVo.AdviserAgentId);
                 db.AddInParameter(createRMCmd, "@AssociatesId", DbType.Int32,0);
-                
+                db.AddInParameter(createRMCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
+
                 if (isOpsIsChecked == true)
                     db.AddInParameter(createRMCmd, "@IsOpsOrRMStaff", DbType.Int16, 1);
                 else
@@ -962,9 +963,11 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorStaffCmd, "@AH_HierarchyId", DbType.Int32, rmVo.HierarchyRoleId);
                 if (rmVo.ReportingManagerId != 0)
                     db.AddInParameter(updateAdvisorStaffCmd, "@AR_ReportingManagerId", DbType.Int32, rmVo.ReportingManagerId);
-
+                if (!string.IsNullOrEmpty(rmVo.StaffBranchAssociation))
+                    db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
+                
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
-
+                   
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
