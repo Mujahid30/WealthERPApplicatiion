@@ -409,9 +409,15 @@ namespace WealthERP.OPS
                             DataSet dsGetAmountUnits;
                             DataTable dtGetAmountUnits;
                             dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode, int.Parse(txtCustomerId.Value));
-                            dtGetAmountUnits = dsGetAmountUnits.Tables[0];
-                            lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
-                            lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
+                            if (dsGetAmountUnits.Tables[0] != null)
+                            {
+                                if ((dsGetAmountUnits.Tables[0].Rows.Count > 0))
+                                {
+                                    dtGetAmountUnits = dsGetAmountUnits.Tables[0];
+                                    lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
+                                    lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
+                                }
+                            }
                             if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
                             {
                                 BindSchemeSwitch();
@@ -789,12 +795,27 @@ namespace WealthERP.OPS
 
                         //lblGetAvailableAmount.Text = operationVo.Amount.ToString();
                         //lblGetAvailableUnits.Text = operationVo.Units.ToString();
-                        lblAvailableAmount.Visible = false;
-                        lblAvailableUnits.Visible = false;
+                     //sai   lblAvailableAmount.Visible = false;
+                     //sai   lblAvailableUnits.Visible = false;
                     }
 
-                    ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
-                    ddlPaymentMode_SelectedIndexChanged(this, null);
+
+                    ListItem liPayMode = ddlPaymentMode.Items.FindByValue(orderVo.PaymentMode.ToString());
+                    if (liPayMode != null)
+                    {
+                        ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
+                        ddlPaymentMode_SelectedIndexChanged(this, null);
+                        
+                        // value found
+                    }
+                    else
+                    {
+                        ddlPaymentMode.SelectedIndex = 0;
+
+                        //Value not found
+                    }
+
+                    
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
 
                    
@@ -1999,8 +2020,8 @@ namespace WealthERP.OPS
             }
             else
             {
-                trGetAmount.Visible = true;
-                trRedeemed.Visible = true;
+                //trGetAmount.Visible = true;
+                //trRedeemed.Visible = true;
             }
         }
 
