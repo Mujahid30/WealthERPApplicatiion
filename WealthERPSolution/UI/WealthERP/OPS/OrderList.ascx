@@ -120,9 +120,11 @@
         </td>
         <td>
             <asp:CompareValidator ID="dateCompareValidator" runat="server" ControlToValidate="txtToDate" 
-                ControlToCompare="txtFromDate" Operator="GreaterThanEqual" Type="Date" Font-Size="Small"  ValidationGroup="MFSubmit" Display="Dynamic"
-                ErrorMessage="Todate Should be GreaterThan or Equal to FromDate" CssClass="rfvPCG">
+                ControlToCompare="txtFromDate" Operator="GreaterThanEqual" Type="Date"   ValidationGroup="MFSubmit" Display="Dynamic"
+                ErrorMessage="To date Should be Greater Than or Equal to From Date" CssClass="rfvPCG">
             </asp:CompareValidator>
+            
+            
         </td>
     </tr>
     <%-- <tr>

@@ -257,7 +257,7 @@ namespace WealthERP.OPS
 
             }
             bindSearchScehes();
-            
+          
            // if (txtReceivedDate.SelectedDate==DateTi)
            //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
@@ -688,6 +688,17 @@ namespace WealthERP.OPS
                         trScheme.Visible = false;
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
+                        trPINo.Visible = false;
+                        if (advisorVo.A_AgentCodeBased == 1)
+                        {
+                            trGetAmount.Visible = false;
+                            trRedeemed.Visible = false;
+                        }
+                        else
+                        {
+                            trGetAmount.Visible = false;
+                            trRedeemed.Visible = false;
+                        }
                     }
                     else if (ddltransType.SelectedValue == "SWP")
                     {
@@ -994,6 +1005,17 @@ namespace WealthERP.OPS
                         trScheme.Visible = false;
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
+                        trPINo.Visible = false;
+                        if (advisorVo.A_AgentCodeBased == 1)
+                        {
+                            trGetAmount.Visible = false;
+                            trRedeemed.Visible = false;
+                        }
+                        else
+                        {
+                            trGetAmount.Visible = false;
+                            trRedeemed.Visible = false;
+                        }
                     }
                     else if (ddltransType.SelectedValue == "SWP")
                     {
@@ -1955,6 +1977,7 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
                         trScheme.Visible = false;
+                        trPINo.Visible = false;
 
                     }
                     BindAMC(1);
@@ -2005,14 +2028,14 @@ namespace WealthERP.OPS
             }
             //btnViewInPDFNew.Visible = true;
             //btnViewInDOCNew.Visible = true;
-            if (ddlPaymentMode.SelectedValue == "CQ")
-            {
-                trPINo.Visible = true;
-            }
-            else
-            {
-                trPINo.Visible = false ;
-            }
+            //if (ddlPaymentMode.SelectedValue == "CQ")
+            //{
+            //    trPINo.Visible = true;
+            //}
+            //else
+            //{
+            //    trPINo.Visible = false ;
+            //}
             if (advisorVo.A_AgentCodeBased == 1)
             {
                 trGetAmount.Visible = false;
@@ -2020,9 +2043,10 @@ namespace WealthERP.OPS
             }
             else
             {
-                //trGetAmount.Visible = true;
-                //trRedeemed.Visible = true;
+                trGetAmount.Visible = true;
+                trRedeemed.Visible = true;
             }
+           
         }
 
 

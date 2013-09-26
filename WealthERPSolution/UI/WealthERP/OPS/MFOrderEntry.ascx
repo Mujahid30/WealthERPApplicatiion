@@ -670,11 +670,12 @@
             <asp:Label ID="Label19" runat="server" Text="Purchase Price:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style1" id="tdtxtNAV" runat="server">
-            <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField" onkeypress="return onlyNumbers();" CausesValidation="true" ValidationGroup="MFSubmit" ></asp:TextBox>
+            <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField" onkeypress="return onlyNumbers();" CausesValidation="true" ValidationGroup="MFSubmit"  ></asp:TextBox>
               <span id="Span13" class="spnRequiredField">*</span>
-           <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"
+           <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"  
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
-                Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                Type="Integer" Operator="DataTypeCheck"CssClass="cvPCG"></asp:CompareValidator>
+                 <%--   <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtNAV" MaximumValue="100" MinimumValue="-100" Type="Double"></asp:RangeValidator>--%>
         </td>
          <td class="leftField" style="width: 20%" visible="false">
             <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>
@@ -789,7 +790,7 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" AutoPostBack="true" > 
                   <asp:ListItem Text="Select" Value="Select"  ></asp:ListItem>
-                <asp:ListItem Text="Cheque" Value="CQ"  ></asp:ListItem>
+                <asp:ListItem Text="Cheque" Value="CQ" Selected="True"   ></asp:ListItem>
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
             </asp:DropDownList>
