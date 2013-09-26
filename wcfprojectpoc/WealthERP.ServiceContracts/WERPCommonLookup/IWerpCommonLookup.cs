@@ -35,6 +35,14 @@ namespace WealthERP.ServiceContracts
         /// <returns> Product Category List Response </returns>
         [OperationContract]
         ProductCategoryResponse GetProductCategoryList(ProductCategoryRequest request);
+
+        /// <summary>
+        ///   Gets the Product Sub Category List Product.
+        /// </summary>
+        /// <param name="productSubCategoryRequest"> Product SubCategory Request </param>
+        /// <returns> Product Category List Response </returns>
+        [OperationContract]
+        ProductSubCategoryResponse GetProductSubCategoryList(ProductSubCategoryRequest productSubCategoryRequest);
     }
 
 }

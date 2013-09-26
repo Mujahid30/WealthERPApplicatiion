@@ -105,6 +105,20 @@ namespace WealthERP.ServiceFacade
             }
             return response;
         }
+
+        ProductSubCategoryResponse IWerpCommonLookupContract.GetProductSubCategoryList(ProductSubCategoryRequest request)
+        {
+            ProductSubCategoryResponse response = new ProductSubCategoryResponse();
+            CommisionReceivableBo commBo = new CommisionReceivableBo();
+
+            DataSet dsCats = commBo.GetSubCategories(request.ProductCategoryCode);
+
+            foreach (DataRow row in dsCats.Tables[0].Rows)
+            {
+                response.ProductSubCategoryListDTO.ProductSubCategoryList.Add(new KeyValuePair<string, string>(row["PAISC_AssetInstrumentSubCategoryCode"].ToString(), row["PAISC_AssetInstrumentSubCategoryName"].ToString()));
+            }
+            return response;
+        }
         #endregion
     }
 }
