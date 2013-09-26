@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ProductAMCSchemePlanListDTO.cs" />
+    <Compile Include="ProductCategoryListDTO.cs" />
     <Compile Include="ProductListDTO.cs" />
     <Compile Include="ServiceResultDTO.cs" />
     <Compile Include="UserAccountDTO.cs" />

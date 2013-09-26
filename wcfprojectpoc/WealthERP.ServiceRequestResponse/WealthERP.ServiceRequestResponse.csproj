@@ -56,8 +56,10 @@
     <Compile Include="Request\BaseRequest.cs" />
     <Compile Include="Request\OrderManagement\OrderManagementRequest.cs" />
     <Compile Include="Request\WERPCommonLookup\WERPCommonLookupRequest.cs" />
+    <Compile Include="Request\WERPCommonLookup\ProductCategoryRequest.cs" />
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\OrderManagement\OrderManagementResponse.cs" />
+    <Compile Include="Response\WERPCommonLookup\ProductCategoryResponse.cs" />
     <Compile Include="Response\WERPCommonLookup\WERPCommonLookupResponse.cs" />
   </ItemGroup>
   <ItemGroup>

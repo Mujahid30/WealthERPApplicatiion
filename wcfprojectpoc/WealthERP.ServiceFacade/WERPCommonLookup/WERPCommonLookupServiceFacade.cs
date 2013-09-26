@@ -11,6 +11,8 @@ using BoCommisionManagement;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
+using WealthERP.ServiceRequestResponse.Response.WERPCommonLookup;
+using WealthERP.ServiceRequestResponse.Request.WERPCommonLookup;
 
 
 
@@ -91,6 +93,18 @@ namespace WealthERP.ServiceFacade
             return response;
         }
 
+        ProductCategoryResponse IWerpCommonLookupContract.GetProductCategoryList(ProductCategoryRequest request)
+        {
+            ProductCategoryResponse response = new ProductCategoryResponse();
+            CommisionReceivableBo commBo = new CommisionReceivableBo();
+
+            DataSet dsCats = commBo.GetCategories(request.ProductType);
+
+            foreach (DataRow row in dsCats.Tables[0].Rows) { 
+                response.ProductCategoryListDTO.ProductCategoryList.Add(new KeyValuePair<string, string>(row["PAIC_AssetInstrumentCategoryCode"].ToString(), row["PAIC_AssetInstrumentCategoryName"].ToString()));
+            }
+            return response;
+        }
         #endregion
     }
 }
