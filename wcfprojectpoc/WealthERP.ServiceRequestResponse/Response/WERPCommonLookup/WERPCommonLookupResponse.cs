@@ -25,6 +25,7 @@ namespace WealthERP.ServiceRequestResponse
 
         public WERPCommonLookupResponse()
         {
+            ProductAMCListDTO = new ProductAMCListDTO();
             ProductListDTO = new ProductListDTO();
         }
     }
