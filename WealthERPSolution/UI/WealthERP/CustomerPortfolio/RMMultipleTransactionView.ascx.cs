@@ -257,8 +257,8 @@ namespace WealthERP.CustomerPortfolio
                             ddlDisplayType.SelectedValue = "RHV";
                             lbBack.Visible = true;
                             BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                            Panel2.Visible = true;
-                            Panel1.Visible = false;
+                            Panel2.Visible = false;
+                            Panel1.Visible = true;
                             divTrail.Visible = false;
                         }
                        // BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
