@@ -81,7 +81,7 @@ namespace WealthERP.CustomerPortfolio
         string UserTitle;
         int IsAssociates;
         DateTime transactionDateForMerge;
-
+        string column;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -225,17 +225,72 @@ namespace WealthERP.CustomerPortfolio
                     if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null )
                     {                       
                         int accountId = int.Parse(Request.QueryString["folionum"].ToString());
-                        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());                        
                         PasssedFolioValue = accountId;
                         BindLastTradeDate();
                         string fromdate = "01-01-1990";
                         txtFromDate.SelectedDate = DateTime.Parse(fromdate);
                         ViewState["SchemePlanCode"] = SchemePlanCode;
-                        ddlDisplayType.SelectedValue = "RHV";
-                        lbBack.Visible = true;
-                        BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                      
+                        if (Request.QueryString["name"] != null)
+                        {
+                            column = Request.QueryString["name"].ToString();
+                            if (column == "Select1"||column=="SelectAmt")
+                            {
+                                ddlDisplayType.SelectedValue = "TV";
+                                BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                                Panel2.Visible = true;
+                                Panel1.Visible = false;
+                                divTrail.Visible = false;
+                            }
+                            else if (column == "Select2" || column == "SelectTrail")
+                            {
+                                ddlDisplayType.SelectedValue = "TCV";
+                                BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                                Panel2.Visible = false;
+                                Panel1.Visible = false;
+                                divTrail.Visible = true;
+                            }
+                        }
+                        else
+                        {
+                            ddlDisplayType.SelectedValue = "RHV";
+                            lbBack.Visible = true;
+                            BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                            Panel2.Visible = true;
+                            Panel1.Visible = false;
+                            divTrail.Visible = false;
+                        }
                        // BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
                    
+                    }
+                    if (Request.QueryString["CategoryCode"] != null)
+                    {
+                        string CategoryCode = Request.QueryString["CategoryCode"].ToString();
+                        BindLastTradeDate();
+                        string fromdate = "01-01-1990";
+                        txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                        ViewState["CategoryCode"] = CategoryCode;
+                        if (Request.QueryString["name"] != null)
+                        {
+                            column = Request.QueryString["name"].ToString();
+                            if (column == "SelectAmt")
+                            {
+                                ddlDisplayType.SelectedValue = "TV";
+                                BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                                Panel2.Visible = true;
+                                Panel1.Visible = false;
+                                divTrail.Visible = false;
+                            }
+                            else if (column == "SelectTrail")
+                            {
+                                ddlDisplayType.SelectedValue = "TCV";
+                                BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                                Panel2.Visible = false;
+                                Panel1.Visible = false;
+                                divTrail.Visible = true;
+                            }
+                        }
                     }
                     else
                     {
@@ -244,7 +299,7 @@ namespace WealthERP.CustomerPortfolio
                         // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
                         if (Session["gvMFTransactions"] != null)
                         {
-                            Panel2.Visible = true ;
+                            Panel2.Visible = true;
                             Panel1.Visible = true;
                             gvMFTransactions.Visible = true;
                             string fromdate = "01-01-1990";
@@ -252,8 +307,8 @@ namespace WealthERP.CustomerPortfolio
                             gvMFTransactions.DataSource = (DataTable)Session["gvMFTransactions"];
                             gvMFTransactions.DataBind();
                             Session.Remove("gvMFTransactions");
-                        }                      
-                        
+                        }
+
                     }
                     if (Session["tranDates"] != null)
                     {
@@ -853,9 +908,14 @@ namespace WealthERP.CustomerPortfolio
                
             }
             }
-            schemePlanCode = 0;
-            //schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
-
+            //schemePlanCode = 0;
+            schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+            //int categorycode = Convert.ToInt32(ViewState["CategoryCode"]);
+            if (column == "SelectAmt")
+            {
+                hdnCategory.Value = (ViewState["CategoryCode"]).ToString();
+            }
+                //Convert.ToString(categorycode).ToString();
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
             try
@@ -1365,22 +1425,27 @@ namespace WealthERP.CustomerPortfolio
                 }
 
             }
+            schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
+            if (column == "SelectTrail")
+            {
+                hdnCategory.Value = (ViewState["CategoryCode"]).ToString();
+            }
             if (!string.IsNullOrEmpty(txtParentCustomerId.Value.ToString().Trim()))
                 customerId = int.Parse(txtParentCustomerId.Value);
             try
             {
                 if (rbtnGroup.Checked)
                 {
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 else if (Session["IsCustomerDrillDown"] == "Yes")
                 {
                     customerId = customerVo.CustomerId;
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, customerId, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 else
                 {
-                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
+                    dsTrailCommissionDetails = customerTransactionBo.GetRMCustomerTrailCommission(rmID, AdviserId, 0, convertedFromDate, convertedToDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), PasssedFolioValue,schemePlanCode, int.Parse(hdnAMC.Value), hdnCategory.Value, advisorVo.A_AgentCodeBased, hdnAgentCode.Value, userType);
                 }
                 if (dsTrailCommissionDetails.Tables[0].Rows.Count != 0)
                 {

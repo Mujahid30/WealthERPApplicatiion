@@ -262,12 +262,12 @@
             <telerik:RadGrid ID="gvCommissionMIS" Visible="false" runat="server" GridLines="None"
                 AutoGenerateColumns="False" PageSize="10" AllowSorting="true" AllowPaging="True"
                 ShowStatusBar="True" ShowFooter="true" EnableViewState="false" Skin="Telerik"
-                OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false"
+                OnNeedDataSource="gvCommissionMIS_OnNeedDataSource" EnableEmbeddedSkins="false" OnItemCommand="gvCommissionMIS_OnItemCommand"
                 Width="80%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                     FileName="MF Commission MIS Category Wise" Excel-Format="ExcelML">
                 </ExportSettings>
-                <MasterTableView AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
+                <MasterTableView  DataKeyNames="CategoryCode" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="none">
                     <%--<CommandItemSettings ShowExportToWordButton="true" ShowExportToExcelButton="true"
                         ShowExportToCsvButton="true" ShowAddNewRecordButton="false" ShowRefreshButton="true" />--%>
                     <Columns>
@@ -303,14 +303,29 @@
                                 </asp:LinkButton>
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>--%>
-                       <telerik:GridBoundColumn UniqueName="BrokerageAmt" DataField="Brokerage" AllowFiltering="false"
+                        <telerik:GridTemplateColumn AllowFiltering="false" DataField="Brokerage" AutoPostBackOnFilter="true"
+                            HeaderText="Brokerage Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectAmt" Text='<%# Eval("Brokerage")%>' />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <%-- <telerik:GridBoundColumn UniqueName="BrokerageAmt" DataField="Brokerage" AllowFiltering="false"
                             HeaderText="Brokerage Amount" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
+                        </telerik:GridBoundColumn>--%>
+                        <telerik:GridTemplateColumn AllowFiltering="false" DataField="trailFee" AutoPostBackOnFilter="true"
+                            HeaderText="Trail Commission" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                            <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkprAmcT" runat="server" CommandName="SelectTrail" Text='<%# Eval("trailFee") %>' />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <%--    <telerik:GridBoundColumn UniqueName="TrailCommission" DataField="trailFee" AllowFiltering="false"
                             HeaderText="Trail Commission" DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                             <ItemStyle Width="20%" HorizontalAlign="Right" Wrap="false" />
-                        </telerik:GridBoundColumn>
+                        </telerik:GridBoundColumn>--%>
                     </Columns>
                 </MasterTableView>
                 <ClientSettings>
@@ -330,13 +345,15 @@
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                         Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         OnNeedDataSource="gvMISCommission_OnNeedDataSource" EnableHeaderContextMenu="true"
-                        EnableHeaderContextFilterMenu="true" AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
+                        OnItemCommand="gvMISCommission_OnItemCommand" EnableHeaderContextFilterMenu="true"
+                        AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Commission MIS Details" Excel-Format="ExcelML">
                         </ExportSettings>
-                        <MasterTableView GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-                            GroupLoadMode="Client" EditMode="EditForms" ShowGroupFooter="true" Width="100%"
-                            AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                        <MasterTableView DataKeyNames="AccountId,FolioNum,schemeCode" GroupsDefaultExpanded="false"
+                            ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" EditMode="EditForms"
+                            ShowGroupFooter="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                            CommandItemDisplay="None">
                             <Columns>
                                 <telerik:GridBoundColumn HeaderText="AMC" HeaderTooltip="AMC" DataField="AMCName"
                                     UniqueName="AMCName" SortExpression="AMCName" FooterText="Grand Total:" AllowFiltering="true"
@@ -373,20 +390,36 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Brokerage Amount"
+                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="Brokerage" AutoPostBackOnFilter="true"
+                                    HeaderText="Brokerage Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Select1" Text='<%# Eval("Brokerage").ToString() %>' />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <%-- <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Brokerage Amount"
                                     HeaderText="Brokerage Amount" DataField="Brokerage" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="Brokerage" SortExpression="Brokerage" AutoPostBackOnFilter="true"
                                     AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Trail Commission"
+                                </telerik:GridBoundColumn>--%>
+                                <telerik:GridTemplateColumn AllowFiltering="false" DataField="trailFee" AutoPostBackOnFilter="true"
+                                    HeaderText="Trail Commission" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
+                                    <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkprAmc1" runat="server" CommandName="Select2" Text='<%# Eval("trailFee").ToString() %>' />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <%--<telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderTooltip="Trail Commission"
                                     HeaderText="Trail Commission" DataField="trailFee" HeaderStyle-HorizontalAlign="Right"
                                     UniqueName="trailFee" SortExpression="trailFee" AutoPostBackOnFilter="true" AllowFiltering="false"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" DataFormatString="{0:N0}"
                                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                             </Columns>
                         </MasterTableView>
                         <HeaderStyle Width="150px" />

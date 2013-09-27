@@ -478,24 +478,24 @@ namespace WealthERP.Advisor
             {
                 hdnRecordCount.Value = "1";
                 trAMCSelection.Visible = false;
-                GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
-                column.CurrentFilterFunction = GridKnownFunction.Contains;
-                column.CurrentFilterValue = null;
-                gvCommissionMIS.MasterTableView.Rebind();
+                //GridColumn column = gvCommissionMIS.MasterTableView.GetColumnSafe("MISType");
+                //column.CurrentFilterFunction = GridKnownFunction.Contains;
+                //column.CurrentFilterValue = null;
+                //gvCommissionMIS.MasterTableView.Rebind();
 
-                gvCommissionMIS.MasterTableView.FilterExpression = null;
-                gvCommissionMIS.MasterTableView.SortExpressions.Clear();
-                gvCommissionMIS.MasterTableView.Rebind();
-                gvCommissionMIS.MasterTableView.ClearEditItems();
-                gvCommissionMIS.MasterTableView.IsItemInserted = false;
-                gvCommissionMIS.Rebind();
-
-                gvCommissionMIS.Visible = true;
+                //gvCommissionMIS.MasterTableView.FilterExpression = null;
+                //gvCommissionMIS.MasterTableView.SortExpressions.Clear();
+                //gvCommissionMIS.MasterTableView.Rebind();
+                //gvCommissionMIS.MasterTableView.ClearEditItems();
+                //gvCommissionMIS.MasterTableView.IsItemInserted = false;
+                //gvCommissionMIS.Rebind();
+                BindCommissionMISGridCategoryWise();
+                //gvCommissionMIS.Visible = true;
                 pnlCommissionMIS.Visible = false;
                 tblZoneClusterWiseMIS.Visible = false;
                 //tdCategoryWise.Visible = true;
                 //trCommissionMIS.Visible = false;
-                BindCommissionMISGridCategoryWise();
+               // BindCommissionMISGridCategoryWise();
 
             }
             else if (hdnMISType.Value == "Zone_Cluster_Wise")
@@ -629,6 +629,104 @@ namespace WealthERP.Advisor
             if (dtMIS != null)
             {
                 gvZoneClusterWiseCommissionMIS.Visible = true;
+            }
+        }
+        protected void gvMISCommission_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName.ToString() != "Filter")
+                {
+                    if (e.CommandName.ToString() != "Sort")
+                    {
+                        if (e.CommandName.ToString() != "Page")
+                        {
+                            if (e.CommandName.ToString() != "ChangePageSize")
+                            {
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
+                                int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("schemeCode").ToString());
+                                
+                                if (e.CommandName == "Select1")
+                                {
+                                    string name = "Select1";
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode +"&name=" + name +"", false);
+                                }
+                                if (e.CommandName == "Select2")
+                                {
+                                    string name = "Select2";
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioUnrealized_RowCommand()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+        protected void gvCommissionMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName.ToString() != "Filter")
+                {
+                    if (e.CommandName.ToString() != "Sort")
+                    {
+                        if (e.CommandName.ToString() != "Page")
+                        {
+                            if (e.CommandName.ToString() != "ChangePageSize")
+                            {
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                //int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
+                                //int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("schemeCode").ToString());
+                                string CategoryCode = (gvr.GetDataKeyValue("CategoryCode").ToString());
+                                if (e.CommandName == "SelectAmt")
+                                {
+                                    string name = "SelectAmt";
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode +  "&name=" + name + "", false);
+                                }
+                                if (e.CommandName == "SelectTrail")
+                                {
+                                    string name = "SelectTrail";
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode + "&name=" + name + "", false);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioUnrealized_RowCommand()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
             }
         }
     }

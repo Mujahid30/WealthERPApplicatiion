@@ -2683,7 +2683,7 @@ namespace DaoCustomerPortfolio
         }
 
 
-        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
+        public DataSet GetRMCustomerTrailCommission(int RMId, int AdviserID, int GroupHeadId, DateTime From, DateTime To, int Manage, int AccountId, int SchemePlanCode, int AmcCode, string Category, int A_AgentCodeBased, string AgentCode, string UserType)
         {
             DataSet ds = null;
             Database db;
@@ -2736,7 +2736,10 @@ namespace DaoCustomerPortfolio
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AgentCode", DbType.String, DBNull.Value);
 
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@IsAgentBasedCode", DbType.Int32, A_AgentCodeBased);
-               
+                if (SchemePlanCode != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
                 
