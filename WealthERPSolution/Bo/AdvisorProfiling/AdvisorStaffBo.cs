@@ -1524,6 +1524,21 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
+        public DataTable GetStaffBranchAssociation(string StaffBranch)
+        {
+            AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
+            DataTable bResult = new DataTable();
+            try
+            {
+                bResult = advisorStaffDao.GetStaffBranchAssociation(StaffBranch);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        
+        }
     }
 
 }

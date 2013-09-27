@@ -55,6 +55,9 @@ namespace WealthERP.Advisor
             string userType = string.Empty;
             if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 userType = "admin";
+            else
+                if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
+                    userType = "associates";
             //int rmId=0;
             associatesVo = (AssociatesVO)Session["associatesVo"];
             HdnAdviserId.Value = advisorVo.advisorId.ToString();
@@ -667,11 +670,20 @@ namespace WealthERP.Advisor
                 //imgBtnReferesh.Visible = false;
                 //imgAddAgentCode.Visible = false;
             }
+            
             else
             {
                 //lblAgentCode.Text = "N/A";
                 //imgBtnReferesh.Enabled = true;
                 //imgAddAgentCode.Enabled = true;
+            }
+            if (!string.IsNullOrEmpty(rmStaffVo.StaffBranchAssociation))
+            {
+                DataTable dt = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation);
+                RadListBoxDestination.DataSource = dt;
+                RadListBoxDestination.DataValueField = dt.Columns["StaffBranch"].ToString(); ;
+                RadListBoxDestination.DataTextField = dt.Columns["AB_BranchName"].ToString();
+                RadListBoxDestination.DataBind();
             }
 
         }

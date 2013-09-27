@@ -897,6 +897,14 @@ namespace DaoAdvisorProfiling
                         rmVo.EUIN = dr["AR_EUIN"].ToString();
                     
                 }
+                foreach (DataRow rdr in getAdvisorStaffDs.Tables[0].Rows)
+                {
+                    if (!string.IsNullOrEmpty(rdr["StaffBranchAssociation"].ToString()))
+                    {
+                        rmVo.StaffBranchAssociation = rmVo.StaffBranchAssociation + rdr["StaffBranchAssociation"].ToString() + ',';
+                    
+                    }
+                }
                 
                 
             }
@@ -2721,6 +2729,41 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
+        public DataTable GetStaffBranchAssociation(string StaffBranch)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdGetStaffBranchAssociation;
+            DataSet bResult = new DataSet();
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
 
+                cmdGetStaffBranchAssociation = db.GetStoredProcCommand("SP_GetStaffBranchTable");
+                db.AddInParameter(cmdGetStaffBranchAssociation, "@StaffBranch", DbType.String, StaffBranch);
+                bResult = db.ExecuteDataSet(cmdGetStaffBranchAssociation);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:EmailduplicateChack()");
+                object[] objects = new object[2];
+                //objects[0] = adviserId;
+                //objects[1] = email;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult.Tables[0];
+        }
     }
 }
