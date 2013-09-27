@@ -1340,6 +1340,7 @@ namespace WealthERP.CustomerPortfolio
             gdi = (GridDataItem)lnkView.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int transactionId = int.Parse((gvMFTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString()));
+            //int transactionId = int.Parse((gvBalanceView.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString()));
             mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
             Session["MFTransactionVo"] = mfTransactionVo;
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "RMCustomerIndividualDashboard", "loadcontrol('ViewMFTransaction','login');", true);

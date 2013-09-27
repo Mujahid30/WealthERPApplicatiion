@@ -586,7 +586,7 @@
                                                     <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
                                                         <ItemStyle Wrap="false" />
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
+                                                            <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details" 
                                                                 OnClick="lnkView_Click">
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -824,10 +824,10 @@
                                             <MasterTableView DataKeyNames="TransactionId" Width="100%" AllowMultiColumnSorting="True"
                                                 AutoGenerateColumns="false" CommandItemDisplay="None">
                                                 <Columns>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
+                                                    <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false" Visible="false">
                                                         <ItemStyle Wrap="false" />
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
+                                                            <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details" Visible="false"
                                                                 OnClick="lnkView_Click">
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
