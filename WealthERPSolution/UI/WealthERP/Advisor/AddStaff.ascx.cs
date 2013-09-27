@@ -679,11 +679,15 @@ namespace WealthERP.Advisor
             }
             if (!string.IsNullOrEmpty(rmStaffVo.StaffBranchAssociation))
             {
-                DataTable dt = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation);
-                RadListBoxDestination.DataSource = dt;
-                RadListBoxDestination.DataValueField = dt.Columns["StaffBranch"].ToString(); ;
-                RadListBoxDestination.DataTextField = dt.Columns["AB_BranchName"].ToString();
+                DataSet ds = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation,advisorVo.advisorId);
+                RadListBoxDestination.DataSource = ds.Tables[0];
+                RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString(); ;
+                RadListBoxDestination.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
                 RadListBoxDestination.DataBind();
+                LBStaffBranch.DataSource = ds.Tables[1];
+                LBStaffBranch.DataValueField = ds.Tables[1].Columns["AB_BranchId"].ToString(); ;
+                LBStaffBranch.DataTextField = ds.Tables[1].Columns["AB_BranchName"].ToString();
+                LBStaffBranch.DataBind();
             }
 
         }

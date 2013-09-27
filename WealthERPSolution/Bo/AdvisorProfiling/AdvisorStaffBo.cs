@@ -1524,13 +1524,13 @@ namespace BoAdvisorProfiling
             }
             return bResult;
         }
-        public DataTable GetStaffBranchAssociation(string StaffBranch)
+        public DataSet GetStaffBranchAssociation(string StaffBranch,int adviserid)
         {
             AdvisorStaffDao advisorStaffDao = new AdvisorStaffDao();
-            DataTable bResult = new DataTable();
+            DataSet bResult = new DataSet();
             try
             {
-                bResult = advisorStaffDao.GetStaffBranchAssociation(StaffBranch);
+                bResult = advisorStaffDao.GetStaffBranchAssociation(StaffBranch, adviserid);
             }
             catch (BaseApplicationException Ex)
             {

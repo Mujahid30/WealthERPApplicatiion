@@ -975,7 +975,8 @@ namespace DaoAdvisorProfiling
                     db.AddInParameter(updateAdvisorStaffCmd, "@AR_ReportingManagerId", DbType.Int32, rmVo.ReportingManagerId);
                 if (!string.IsNullOrEmpty(rmVo.StaffBranchAssociation))
                     db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String, rmVo.StaffBranchAssociation);
-                
+                else
+                    db.AddInParameter(updateAdvisorStaffCmd, "@staffbranch", DbType.String,null);
                 if (db.ExecuteNonQuery(updateAdvisorStaffCmd) != 0)
                    
                     bResult = true;
@@ -2729,7 +2730,7 @@ namespace DaoAdvisorProfiling
             }
             return bResult;
         }
-        public DataTable GetStaffBranchAssociation(string StaffBranch)
+        public DataSet GetStaffBranchAssociation(string StaffBranch, int adviserid)
         {
             Database db;
             DataSet ds;
@@ -2742,6 +2743,8 @@ namespace DaoAdvisorProfiling
 
                 cmdGetStaffBranchAssociation = db.GetStoredProcCommand("SP_GetStaffBranchTable");
                 db.AddInParameter(cmdGetStaffBranchAssociation, "@StaffBranch", DbType.String, StaffBranch);
+                db.AddInParameter(cmdGetStaffBranchAssociation, "@adviserid", DbType.String, adviserid);
+
                 bResult = db.ExecuteDataSet(cmdGetStaffBranchAssociation);
 
             }
@@ -2763,7 +2766,7 @@ namespace DaoAdvisorProfiling
                 throw exBase;
 
             }
-            return bResult.Tables[0];
+            return bResult;
         }
     }
 }
