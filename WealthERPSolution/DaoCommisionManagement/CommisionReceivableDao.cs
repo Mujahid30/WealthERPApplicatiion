@@ -171,7 +171,7 @@ namespace DaoCommisionManagement
             return ds;
         }
 
-        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
         {
             Database db;
             DbCommand cmdCreateCommissionStructureRule;
@@ -257,6 +257,7 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
 
                 db.AddInParameter(cmdCreateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
+                db.AddInParameter(cmdCreateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
 
                 db.ExecuteNonQuery(cmdCreateCommissionStructureRule);
 
@@ -592,7 +593,7 @@ namespace DaoCommisionManagement
 
         }
 
-        public void UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        public void UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string strRuleHash)
         {
             Database db;
             DbCommand cmdUpdateCommissionStructureRule;
@@ -678,6 +679,7 @@ namespace DaoCommisionManagement
                     db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_Comment", DbType.String, commissionStructureRuleVo.StructureRuleComment);
 
                 db.AddInParameter(cmdUpdateCommissionStructureRule, "@UsetId", DbType.Int32, userId);
+                db.AddInParameter(cmdUpdateCommissionStructureRule, "@ACSR_CommissionRuleHash", DbType.String, strRuleHash);
 
                 db.ExecuteNonQuery(cmdUpdateCommissionStructureRule);
 
@@ -1160,6 +1162,41 @@ namespace DaoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        public bool hasRule(int adviserId, string ruleHash)
+        {
+            Database db;
+            DbCommand cmdUpdateSetup;
+            DataSet dsRules;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdUpdateSetup = db.GetStoredProcCommand("SP_RuleExists");
+                db.AddInParameter(cmdUpdateSetup, "@ACSR_CommissionRuleHash", DbType.String, ruleHash);
+                db.AddInParameter(cmdUpdateSetup, "@A_AdviserId", DbType.Int32, adviserId);
+                dsRules = db.ExecuteDataSet(cmdUpdateSetup);
+            }
+            catch (BaseApplicationException Ex) {
+                throw Ex;
+            }
+            catch (Exception Ex) {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:bool hasRule(int adviserId, string ruleHash)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = ruleHash;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            if (dsRules.Tables[0].Rows.Count > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

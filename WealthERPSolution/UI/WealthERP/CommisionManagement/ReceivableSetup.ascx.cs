@@ -431,8 +431,14 @@ namespace WealthERP.Receivable
             //isPageValid = ValidatePage(commissionStructureRuleVo);
             if (isPageValid)
             {
+                string sbRuleHash = commisionReceivableBo.GetHash(commissionStructureRuleVo);
+                if (commisionReceivableBo.hasRule(commissionStructureRuleVo, sbRuleHash))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rule already exists');", true);
+                    return;
+                }
                 commissionStructureRuleVo.CommissionStructureRuleId = Convert.ToInt32(RadGridStructureRule.MasterTableView.DataKeyValues[e.Item.ItemIndex]["ACSR_CommissionStructureRuleId"].ToString());
-                commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
+                commisionReceivableBo.UpdateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash);
                 BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
             }
             else
@@ -465,7 +471,14 @@ namespace WealthERP.Receivable
 
                 if (isPageValid)
                 {
-                    commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId);
+                    string sbRuleHash = commisionReceivableBo.GetHash(commissionStructureRuleVo);
+                    if (commisionReceivableBo.hasRule(commissionStructureRuleVo, sbRuleHash))
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rule already exists');", true);
+                        return;
+                    }
+
+                    commisionReceivableBo.CreateCommissionStructureRule(commissionStructureRuleVo, userVo.UserId, sbRuleHash.ToString());
                     BindCommissionStructureRuleGrid(Convert.ToInt32(hidCommissionStructureName.Value));
                 }
                 else
@@ -601,6 +614,7 @@ namespace WealthERP.Receivable
 
                 if (!string.IsNullOrEmpty(txtStruRuleComment.Text.Trim()))
                     commissionStructureRuleVo.StructureRuleComment = txtStruRuleComment.Text.Trim();
+                commissionStructureRuleVo.AdviserId = rmVo.AdviserId;
             }
             catch (BaseApplicationException Ex)
             {

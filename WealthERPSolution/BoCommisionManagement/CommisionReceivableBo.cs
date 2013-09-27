@@ -128,12 +128,12 @@ namespace BoCommisionManagement
             return dsCommissionStructureRules;
         }
 
-        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        public void CreateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string ruleHash)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
-                commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId);
+                commisionReceivableDao.CreateCommissionStructureRule(commissionStructureRuleVo, userId, ruleHash);
                 
             }
             catch (BaseApplicationException Ex)
@@ -374,12 +374,12 @@ namespace BoCommisionManagement
 
         }
 
-        public void UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId)
+        public void UpdateCommissionStructureRule(CommissionStructureRuleVo commissionStructureRuleVo, int userId, string strRuleHash)
         {
             CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             try
             {
-                commisionReceivableDao.UpdateCommissionStructureRule(commissionStructureRuleVo, userId);
+                commisionReceivableDao.UpdateCommissionStructureRule(commissionStructureRuleVo, userId, strRuleHash);
 
             }
             catch (BaseApplicationException Ex)
@@ -776,6 +776,90 @@ namespace BoCommisionManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-        } 
+        }
+
+        public string GetHash(CommissionStructureRuleVo voComStrRule)
+        {
+            string strRule = "";
+
+            if (voComStrRule.AUMFrequency != null) strRule += voComStrRule.AUMFrequency.ToString();
+            if (voComStrRule.AUMMonth != null) strRule += voComStrRule.AUMMonth.ToString();
+            if (voComStrRule.AdviserCityGroupCode != null) strRule += voComStrRule.AdviserCityGroupCode.ToString();
+            if (voComStrRule.AdviserId != null) strRule += voComStrRule.AdviserId.ToString();
+            if (voComStrRule.ApplicableLevelCode != null) strRule += voComStrRule.ApplicableLevelCode.ToString();
+            if (voComStrRule.ArchivedOn != null) strRule += voComStrRule.ArchivedOn.ToString();
+            if (voComStrRule.AssetCategory != null) strRule += voComStrRule.AssetCategory.ToString();
+            if (voComStrRule.AssetSubCategory != null) strRule += voComStrRule.AssetSubCategory.ToString();
+            if (voComStrRule.BrokerageUnitCode != null) strRule += voComStrRule.BrokerageUnitCode.ToString();
+            if (voComStrRule.BrokerageValue != null) strRule += voComStrRule.BrokerageValue.ToString();
+            if (voComStrRule.CalculatedOnCode != null) strRule += voComStrRule.CalculatedOnCode.ToString();
+            if (voComStrRule.CommissionStructureId != null) strRule += voComStrRule.CommissionStructureId.ToString();
+            if (voComStrRule.CommissionStructureName != null) strRule += voComStrRule.CommissionStructureName.ToString();
+            if (voComStrRule.CommissionStructureRuleId != null) strRule += voComStrRule.CommissionStructureRuleId.ToString();
+            if (voComStrRule.CommissionType != null) strRule += voComStrRule.CommissionType.ToString();
+            if (voComStrRule.CustomerType != null) strRule += voComStrRule.CustomerType.ToString();
+            if (voComStrRule.InvestmentAgeUnit != null) strRule += voComStrRule.InvestmentAgeUnit.ToString();
+            if (voComStrRule.IsArchived != null) strRule += voComStrRule.IsArchived.ToString();
+            if (voComStrRule.IsClawBackApplicable != null) strRule += voComStrRule.IsClawBackApplicable.ToString();
+            if (voComStrRule.IsNonMonetaryReward != null) strRule += voComStrRule.IsNonMonetaryReward.ToString();
+            if (voComStrRule.IsOtherTaxReduced != null) strRule += voComStrRule.IsOtherTaxReduced.ToString();
+            if (voComStrRule.IsServiceTaxReduced != null) strRule += voComStrRule.IsServiceTaxReduced.ToString();
+            if (voComStrRule.IsTDSReduced != null) strRule += voComStrRule.IsTDSReduced.ToString();
+            if (voComStrRule.Issuer != null) strRule += voComStrRule.Issuer.ToString();
+            if (voComStrRule.MaxInvestmentAge != null) strRule += voComStrRule.MaxInvestmentAge.ToString();
+            if (voComStrRule.MaxInvestmentAmount != null) strRule += voComStrRule.MaxInvestmentAmount.ToString();
+            if (voComStrRule.MinInvestmentAge != null) strRule += voComStrRule.MinInvestmentAge.ToString();
+            if (voComStrRule.MinInvestmentAmount != null) strRule += voComStrRule.MinInvestmentAmount.ToString();
+            if (voComStrRule.MinNumberofApplications != null) strRule += voComStrRule.MinNumberofApplications.ToString();
+            if (voComStrRule.ProductType != null) strRule += voComStrRule.ProductType.ToString();
+            if (voComStrRule.ReceivableFrequency != null) strRule += voComStrRule.ReceivableFrequency.ToString();
+            if (voComStrRule.RuleCreatedBy != null) strRule += voComStrRule.RuleCreatedBy.ToString();
+            if (voComStrRule.RuleCreatedOn != null) strRule += voComStrRule.RuleCreatedOn.ToString();
+            if (voComStrRule.RuleModifiedBy != null) strRule += voComStrRule.RuleModifiedBy.ToString();
+            if (voComStrRule.RuleModifiedOn != null) strRule += voComStrRule.RuleModifiedOn.ToString();
+            if (voComStrRule.SIPFrequency != null) strRule += voComStrRule.SIPFrequency.ToString();
+            if (voComStrRule.StructureMasterCreatedBy != null) strRule += voComStrRule.StructureMasterCreatedBy.ToString();
+            if (voComStrRule.StructureMasterCreatedOn != null) strRule += voComStrRule.StructureMasterCreatedOn.ToString();
+            if (voComStrRule.StructureMasterModifiedBy != null) strRule += voComStrRule.StructureMasterModifiedBy.ToString();
+            if (voComStrRule.StructureMasterModifiedOn != null) strRule += voComStrRule.StructureMasterModifiedOn.ToString();
+            if (voComStrRule.StructureNote != null) strRule += voComStrRule.StructureNote.ToString();
+            if (voComStrRule.StructureRuleComment != null) strRule += voComStrRule.StructureRuleComment.ToString();
+            if (voComStrRule.TenureMax != null) strRule += voComStrRule.TenureMax.ToString();
+            if (voComStrRule.TenureMin != null) strRule += voComStrRule.TenureMin.ToString();
+            if (voComStrRule.TenureUnit != null) strRule += voComStrRule.TenureUnit.ToString();
+            if (voComStrRule.TransactionType != null) strRule += voComStrRule.TransactionType.ToString();
+            if (voComStrRule.ValidityEndDate != null) strRule += voComStrRule.ValidityEndDate.ToString();
+            if (voComStrRule.ValidityStartDate != null) strRule += voComStrRule.ValidityStartDate.ToString();
+
+            char[] chData = strRule.ToCharArray();
+            byte[] byData = new byte[chData.Length];
+
+            for (int i = 0; i < chData.Length; i++) byData[i] = (byte)chData[i];
+
+            System.Security.Cryptography.SHA1 sha1 = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+            return HexStringFromBytes(sha1.ComputeHash(byData));
+        }
+
+        /// <summary>
+        /// Convert an array of bytes to a string of hex digits
+        /// </summary>
+        /// <param name="bytes">array of bytes</param>
+        /// <returns>String of hex digits</returns>
+        private string HexStringFromBytes(byte[] bytes)
+        {
+            var sb = new StringBuilder();
+            foreach (byte b in bytes)
+            {
+                var hex = b.ToString("x2");
+                sb.Append(hex);
+            }
+            return sb.ToString();
+        }
+
+        public bool hasRule(CommissionStructureRuleVo commRule, string ruleHash)
+        {
+            CommisionReceivableDao daoCommRec = new CommisionReceivableDao();
+            return daoCommRec.hasRule(commRule.AdviserId, ruleHash);
+        }
     }
 }
