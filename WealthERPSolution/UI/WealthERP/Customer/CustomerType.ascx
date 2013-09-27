@@ -85,7 +85,7 @@
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
         </td>
     </tr>
-    <tr>
+    <tr id="trBranchlist" runat="server" >
         <td class="leftField">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
@@ -101,7 +101,7 @@
             </asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trRMlist" runat="server">
         <td class="leftField">
             <asp:Label ID="lblRMName" runat="server" CssClass="FieldName" Text="Select RM:"></asp:Label>
         </td>
@@ -242,12 +242,15 @@
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                ValidationGroup="btnSubmit" ValidationExpression="^\d{10,10}$">
+                 ValidationExpression="^\d{10,10}$">
             </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
-                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server"
-                ValidationGroup="btnSubmit" CssClass="rfvPCG">
+                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server" 
+                 CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
+            
+            
+            
         </td>
     </tr>
     <tr>

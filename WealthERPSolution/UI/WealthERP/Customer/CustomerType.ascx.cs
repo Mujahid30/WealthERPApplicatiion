@@ -68,7 +68,18 @@ namespace WealthERP.Customer
                     BindRMforBranchDropdown(0, 0);
                     //BindListBranch(rmVo.RMId, "rm");
                     BindSubTypeDropDown();
-
+                    String isMfRequested = Convert.ToString(Request.QueryString["MForderToCustomer"]);
+                    if (Session["MForderToCustomer"] != null)
+                    {
+                        trBranchlist.Visible = false;
+                        trRMlist.Visible = false;
+                        Session.Remove("MForderToCustomer");
+                    }
+                    else
+                    {
+                        trBranchlist.Visible = true;
+                        trRMlist.Visible = true ;
+                    }
                 }
 
             }

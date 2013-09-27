@@ -133,7 +133,7 @@ namespace WealthERP.OPS
                     txtAssociateSearch.Text = AgentCode;
                     OnAssociateTextchanged(this, null);
                 }
-
+          
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
                 //BindAgentDropList(userType);
@@ -148,7 +148,8 @@ namespace WealthERP.OPS
                 {
                     //BindSubBrokerAgentCode(AgentCode);
                 }
-               
+
+                CompareValidator6.ValueToCompare = hdnAplicationNo.Value;
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -257,7 +258,8 @@ namespace WealthERP.OPS
                 //ddlsearch_Selectedindexchanged(this, null);
 
             }
-            bindSearchScehes();
+            Session["MForderToCustomer"] = "Customer";
+            //bindSearchScehes();
 
         //    applicationNoDup = mfOrderBo.AplicationNODuplicates();
        //     int result = applicationNoDup.Find(item => item > 20);
@@ -1314,7 +1316,7 @@ namespace WealthERP.OPS
                 trAplNumber.Visible = false;
                 trOrderDate.Visible = false;
                 trOrderNo.Visible = false;
-                trOrderType.Visible = false;
+                //Sbi trOrderType.Visible = false;
                 //trrejectReason.Visible = false;
                 trfutureDate.Visible = false;
                 rgvOrderSteps.Visible = false;
@@ -1334,7 +1336,7 @@ namespace WealthERP.OPS
                 trAplNumber.Visible = true;
                 trOrderDate.Visible = true;
                 trOrderNo.Visible = true;
-                trOrderType.Visible = true;
+                //Sbi trOrderType.Visible = true;
                 //trrejectReason.Visible = false;
                 trfutureDate.Visible = false;
                 rgvOrderSteps.Visible = false;
@@ -1598,11 +1600,11 @@ namespace WealthERP.OPS
 
         protected void txtAgentId_ValueChanged1(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agentcode is not in existed list!');", true);
+            //if (string.IsNullOrEmpty(txtAgentId.Value.ToString().Trim()))
+            //{
+            //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agentcode is not in existed list!');", true);
 
-            }
+            //}
         }
 
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
@@ -1709,7 +1711,9 @@ namespace WealthERP.OPS
         private void ClearAllFields()
         {
 
-
+            txtAssociateSearch.Text = "";
+            txtSearchScheme.Text = "";
+            ddlARNNo.SelectedIndex = -1;
             ddltransType.SelectedIndex = 0;
             //sai  txtReceivedDate.SelectedDate = null;
             txtApplicationNumber.Text = "";
@@ -1916,7 +1920,7 @@ namespace WealthERP.OPS
             lblFolioNumber.Visible = true; ddlFolioNumber.Visible = true;
             spnAMC.Visible = true; spnScheme.Visible = true;
             CompareValidator1.Visible = true; CompareValidator2.Visible = true;
-
+            txtSearchScheme.Visible = true;  Span9.Visible = true;
             if ((string.IsNullOrEmpty(txtPansearch.Text) && string.IsNullOrEmpty(txtCustomerName.Text)))
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select a customer');", true);
             else
@@ -2026,6 +2030,9 @@ namespace WealthERP.OPS
                     lblFolioNumber.Visible = false; ddlFolioNumber.Visible = false;
                     spnAMC.Visible = false; spnScheme.Visible = false;
                     CompareValidator1.Visible = false; CompareValidator2.Visible = false;
+                    txtSearchScheme.Visible = false;
+                    RequiredFieldValidator9.Visible = false;
+                     Span9.Visible = false;
                 }
 
 
