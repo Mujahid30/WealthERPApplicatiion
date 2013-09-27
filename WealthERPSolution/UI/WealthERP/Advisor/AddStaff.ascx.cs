@@ -528,7 +528,7 @@ namespace WealthERP.Advisor
                 if (Validation(txtAgentCode.Text)&& EmailValidation(txtEmail.Text))
                 {
                     rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
-                    hidRMid.Value = rmIds[0].ToString();
+                    hidRMid.Value = rmIds[1].ToString();
                     ControlViewEditMode(true);
                     divMsgSuccess.InnerText = " Staff Added Sucessfully";
                     trSuccessMsg.Visible = true;
