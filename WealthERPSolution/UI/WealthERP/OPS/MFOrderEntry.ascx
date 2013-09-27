@@ -697,7 +697,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr id="trOrderType" runat="server">
+    <tr id="trOrderType" runat="server" visible="false">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblOrderType" runat="server" Text="Order Type:" CssClass="FieldName"></asp:Label>
         </td>
