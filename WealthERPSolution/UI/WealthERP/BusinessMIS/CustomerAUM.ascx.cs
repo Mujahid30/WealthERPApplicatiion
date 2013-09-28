@@ -890,7 +890,7 @@ namespace WealthERP.BusinessMIS
                         rgvMultiProductMIS.DataSource = dtGrpAssetNetHoldings;
                         ViewState["MultiProductMIS"] = dtGrpAssetNetHoldings;
                         rgvMultiProductMIS.DataBind();
-                        trLabelMessage.Visible = true;
+                        //trLabelMessage.Visible = true;
                         rgvMultiProductMIS.Visible = true;
                         //hdnCustomerId.Value = null;
                         btnMultiProductMIS.Visible = true;
