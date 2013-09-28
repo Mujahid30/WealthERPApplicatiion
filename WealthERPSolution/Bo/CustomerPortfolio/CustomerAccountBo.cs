@@ -2303,5 +2303,37 @@ namespace BoCustomerPortfolio
             return Amount;
 
         }
+
+
+        public bool CheckFolioDuplicate(int customerId, string folioNumber)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            bool isduplicate;
+           
+            try
+            {
+                isduplicate = customerAccountDao.CheckFolioDuplicate(customerId, folioNumber);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:CheckFolioDuplicate(int customerId, string folioNumber)");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = folioNumber;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isduplicate;
+
+        }
     }
 }

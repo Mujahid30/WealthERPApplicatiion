@@ -314,16 +314,24 @@ namespace WealthERP.OPS
                         //   dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1, 1);
 
                     }
-                    // txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-                    else
-                    {
+                    else {
                         parameters = string.Empty;
-                        parameters = amcCode + "/" + categoryCode + "/" + Sflag + "/" + txtCustomerId.Value;
+                        parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-                        txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
-
-                        //  dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
+                        txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
+ 
                     }
+                   
+                    // txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
+                    //else
+                    //{
+                    //    parameters = string.Empty;
+                    //    parameters = amcCode + "/" + categoryCode + "/" + Sflag + "/" + txtCustomerId.Value;
+                    //    txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
+                    //    txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
+
+                    //    //  dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
+                    //}
                 }
                 else if (ddlAMCList.SelectedIndex != 0)
                 {
@@ -2458,16 +2466,16 @@ namespace WealthERP.OPS
                 {
                     amcCode = int.Parse(ddlAMCList.SelectedValue);
                     categoryCode = ddlCategory.SelectedValue;
-                    if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
-                    {
-                        BindScheme(0);
-                        Sflag = 0;
-                    }
-                    else
-                    {
-                        BindScheme(1);
-                        Sflag = 1;
-                    }
+                    //if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "SIP")
+                    //{
+                    //    BindScheme(0);
+                    //    Sflag = 0;
+                    //}
+                    //else
+                    //{
+                    //    bindSearchScehes();
+                    //    Sflag = 1;
+                    //}
                 }
             }
             bindSearchScehes();
@@ -3273,14 +3281,24 @@ namespace WealthERP.OPS
         protected void btnOk_Click(object sender, EventArgs e)
         {
             int accountId;
+            
             CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
             customerAccountVo.CustomerId = int.Parse(txtCustomerId.Value);
             customerAccountVo.AccountNum = txtNewFolio.Text;
             customerAccountVo.AMCCode = int.Parse(ddlAMCList.SelectedValue);
-            accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
-            if (accountId != 0)
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
-            radwindowPopup.VisibleOnPageLoad = false;
+            if (!customerAccountBo.CheckFolioDuplicate(customerAccountVo.CustomerId, customerAccountVo.AccountNum))
+            {
+                accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
+                if (accountId != 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
+                    radwindowPopup.VisibleOnPageLoad = false;
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio alreday Exists !');", true);
+            }
 
         }
 

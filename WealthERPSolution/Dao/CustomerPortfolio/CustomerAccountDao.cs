@@ -3765,5 +3765,46 @@ namespace DaoCustomerPortfolio
 
             return bResult;
         }
+
+        public bool CheckFolioDuplicate(int customerId, string folioNumber)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand chkFolioDuplicateCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                chkFolioDuplicateCmd = db.GetStoredProcCommand("SPROC_CheckFolioDuplicate");
+                db.AddInParameter(chkFolioDuplicateCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(chkFolioDuplicateCmd, "@FolioNumber", DbType.String, folioNumber);
+                db.AddOutParameter(chkFolioDuplicateCmd, "@IsFolioExists", DbType.Int16, 100);
+
+                if (db.ExecuteNonQuery(chkFolioDuplicateCmd) != 0)
+
+                    bResult = ((int.Parse(db.GetParameterValue(chkFolioDuplicateCmd, "IsFolioExists").ToString()) == 1) ? true : false);
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:CheckFolioDuplicate(int customerId, string folioNumber)");
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = folioNumber;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+           
+            return bResult;
+        }
     }
 }

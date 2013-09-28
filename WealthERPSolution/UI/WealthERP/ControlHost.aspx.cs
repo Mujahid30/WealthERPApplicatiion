@@ -171,6 +171,13 @@ namespace WealthERP
             return checkAccDao.CheckGenInsuranceNoAvailabilityOnAdd(InsuranceNo, AdviserId);
         }
 
+        [WebMethod]
+        public static bool CheckFolioDuplicate(int customerId,string folioNumber)
+        {
+
+            CustomerAccountDao checkAccDao = new CustomerAccountDao();
+            return checkAccDao.CheckFolioDuplicate(customerId, folioNumber);
+        }
 
 
         private void AddSessionTrack()

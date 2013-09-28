@@ -178,6 +178,8 @@
 </script>
 
 <script type="text/javascript">
+
+    var isValidFolio = false;
     function GetSchemeCode(source, eventArgs) {
 
         document.getElementById("<%= txtSchemeCode.ClientID %>").value = eventArgs.get_value();
@@ -192,16 +194,79 @@
     };
 
     function GetFolioAccount(source, eventArgs) {
-
+        isValidFolio = true;
         document.getElementById("<%= hidFolioNumber.ClientID %>").value = eventArgs.get_value();
 
         return false;
     };
 
+    function ValidateFolioSelection(txtFolioNuber) {
+
+        var returnValue = true;
+        if (!isValidFolio) {
+           
+            if (txtFolioNuber.value != "") {
+                txtFolioNuber.focus();
+                alert("Please select valid folio");
+                txtFolioNuber.value = "";
+                returnValue = false;
+            }
+        }
+        return returnValue;
+       
+ 
+    }
+
 </script>
 
+<script type="text/javascript">
+    function checkFolioDuplicate() {        
+        $("#<%= hidValidCheck.ClientID %>").val("0");
+        alert("here..");
+        if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {
+            $("#spnExistingFolio").html("");
+            alert("here-null");
+            return;
+        }
+        $("#spnExistingFolio").html("<img src='Images/loader.gif' />");
+        alert("here1");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            url: "ControlHost.aspx/CheckFolioDuplicate",
+            data: "{ 'customerId': '" + $("#<%=txtCustomerId.ClientID %>").val() + "','folioNumber': '" + $("#<%=txtFolioNumber.ClientID %>").val() + "' }",
+            error: function(xhr, status, error) {
+                //                alert("Please select AMC!");
+            },
+            success: function(msg) {
+
+                if (msg.d) {
+
+                    $("#<%= hidValidCheck.ClientID %>").val("1");
+                    $("#spnExistingFolio").html("");
+                    alert("here-sucess");
+                }
+                else {
+
+
+                    $("#<%= hidValidCheck.ClientID %>").val("0");
+                    $("#spnExistingFolio").removeClass();
+                    alert("Folio Number Already Exists!");
+                    return false;
+                }
+            }
+
+        });
+    }
+   
+</script>
+
+
+
+
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
-    Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
+    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
     Title="Add New Folio">
     <ContentTemplate>
         <div style="padding: 20px">
@@ -219,7 +284,8 @@
                         <asp:Label ID="lblFolioNo" runat="server" Text="Folio Number: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
+                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField" ></asp:TextBox><br />
+                         <span id="spnNewFolioValidation"></span>
                         <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtNewFolio" ErrorMessage="Please enter folio name"
                             ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
@@ -239,6 +305,7 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
+
 <table width="100%">
     <tr>
         <td colspan="5">
@@ -701,10 +768,10 @@
             <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
-            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True">
+            <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" /> 
+            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)" AutoPostBack="true">
             </asp:TextBox>
+             <span id="spnExistingFolio"></span>
             <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add folio" OnClick="btnOpenPopup_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
@@ -1398,3 +1465,4 @@
 <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" />
 <asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:HiddenField ID="hdnAplicationNo" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
+<asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
