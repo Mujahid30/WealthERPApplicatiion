@@ -351,6 +351,48 @@ namespace DaoCustomerPortfolio
             }
             return isUpdate;
         }
+        public int CreateCustomerMFAccountBasic(CustomerAccountsVo customerAccountVo, int userId)
+        {
+             int accountId = 0;
+            Database db;
+            DbCommand createCustomerMFAccountCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCustomerMFAccountCmd = db.GetStoredProcCommand("SPROC_CreateCustomerMFAccountBasic");
+                db.AddInParameter(createCustomerMFAccountCmd, "@C_CustomerId", DbType.Int32, customerAccountVo.CustomerId);
+                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_FolioNum", DbType.String, customerAccountVo.AccountNum);
+                db.AddInParameter(createCustomerMFAccountCmd, "@PA_AMCCode", DbType.Int32, customerAccountVo.AMCCode);
+                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.Date, DateTime.Now);
+                db.AddInParameter(createCustomerMFAccountCmd, "@UserId", DbType.Int32, userId);
+               
+               
+                db.AddOutParameter(createCustomerMFAccountCmd, "@CMFA_AccountId", DbType.Int32, 5000);
+
+                if (db.ExecuteNonQuery(createCustomerMFAccountCmd) != 0)
+                    accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "CMFA_AccountId").ToString());
+            } 
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountDao.cs:CreateCustomerMFAccountBasic()");
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return accountId;
+        }
 
         public int CreateCustomerMFAccount(CustomerAccountsVo customerAccountVo, int userId)
         {

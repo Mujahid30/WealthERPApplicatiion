@@ -349,7 +349,7 @@ namespace DaoOps
             return dsScheme;
         }
 
-        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId, int IsaNo)
+        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId, int IsaNo,string prefixText)
         {
             DataSet dsfolio;
             Database db;
@@ -362,7 +362,8 @@ namespace DaoOps
                 db.AddInParameter(getdsfoliocmd, "@amcCode", DbType.Int32, amcCode);
                 db.AddInParameter(getdsfoliocmd, "@flag", DbType.Int16, Fflag);
                 db.AddInParameter(getdsfoliocmd, "@customerId", DbType.Int32, customerId);
-                 db.AddInParameter(getdsfoliocmd, "@IsaNo", DbType.Int32, IsaNo);
+                db.AddInParameter(getdsfoliocmd, "@IsaNo", DbType.Int32, IsaNo);
+                db.AddInParameter(getdsfoliocmd, "@PrefixText", DbType.String, prefixText);
                 getdsfoliocmd.CommandTimeout = 60 * 60;
                 dsfolio = db.ExecuteDataSet(getdsfoliocmd);
             }

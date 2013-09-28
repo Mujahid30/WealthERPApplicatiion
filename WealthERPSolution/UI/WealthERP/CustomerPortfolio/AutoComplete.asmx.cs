@@ -93,6 +93,39 @@ namespace WealthERP.CustomerPortfolio
             return names.ToArray();
         }
 
+       [WebMethod]
+       public string[] GetCustomerFolioAccount(string prefixText, string contextKey)
+       //int amcCode, string categoryCode, int Sflag, int customerId)
+       {
+           string[] parts = contextKey.Split('/');
+
+           int customerId = Convert.ToInt32(parts[0]);
+           int amcCode = Convert.ToInt32(parts[1]);
+           int schemeCode = Convert.ToInt32(parts[2]);
+           int flag = Convert.ToInt32(parts[3]);
+           int isaNo = Convert.ToInt32(parts[4]);
+
+           OperationBo opsBo = new OperationBo();
+           //foreach (string part in parts)
+           //{
+           //    Console.WriteLine(part);
+           //}
+
+
+           DataTable dtSchemePlans;
+           List<string> names = new List<string>();
+           dtSchemePlans = opsBo.GetFolioForOrderEntry(schemeCode, amcCode, flag, customerId, isaNo, prefixText).Tables[0];
+
+
+           foreach (DataRow dr in dtSchemePlans.Rows)
+           {
+               string item = AjaxControlToolkit.AutoCompleteExtender.CreateAutoCompleteItem(dr["CMFA_FolioNum"].ToString(), dr["CMFA_AccountId"].ToString());
+               names.Add(item);
+
+           }
+           return names.ToArray();
+       }
+
 
 
 
@@ -649,6 +682,9 @@ namespace WealthERP.CustomerPortfolio
             }
             return names.ToArray();
         }
+
+     
+
     }
 
 }

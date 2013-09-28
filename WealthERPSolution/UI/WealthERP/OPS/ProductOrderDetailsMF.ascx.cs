@@ -1849,7 +1849,7 @@ namespace WealthERP.OPS
                         //if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
                         //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
                         //else
-                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0,"");
                 }
                 else
                 {
@@ -1859,7 +1859,7 @@ namespace WealthERP.OPS
                         //if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
                         //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
                         //else isa implementation not done
-                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
+                            dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0,"");
                 }
 
                 if (dsgetfolioNo.Tables[0].Rows.Count > 0)

@@ -4,34 +4,34 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-<%--<Services>
+    <%--<Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
     </Services>--%>
 </asp:ScriptManager>
 
 <script type="text/javascript" language="javascript">
-    
+
     function GetCustomerId(source, eventArgs) {
-         isItemSelected = true;
-//         document.getElementById("lblgetPan").innerHTML = "";
+        isItemSelected = true;
+        //         document.getElementById("lblgetPan").innerHTML = "";
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
-       
+
         return false;
     }
 
-//    function GetAplicationNo(source, eventArgs) {
-//        isItemSelected = true;
-//        //         document.getElementById("lblgetPan").innerHTML = "";
-//        document.getElementById("<%= hdnAplicationNo.ClientID %>").value = eventArgs.get_value();
+    //    function GetAplicationNo(source, eventArgs) {
+    //        isItemSelected = true;
+    //        //         document.getElementById("lblgetPan").innerHTML = "";
+    //        document.getElementById("<%= hdnAplicationNo.ClientID %>").value = eventArgs.get_value();
 
-//        return false;
-//    }
-    function CheckPanno()  {
-        var Val,val1;
+    //        return false;
+    //    }
+    function CheckPanno() {
+        var Val, val1;
         Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
 
         if (Val != "") {
-            val1 =  document.getElementById("<%= lblgetcust.ClientID %>").value;
+            val1 = document.getElementById("<%= lblgetcust.ClientID %>").value;
             if (val1 == "") {
                 document.getElementById("<%= txtPansearch.ClientID %>").Focus();
             }
@@ -40,14 +40,14 @@
 
     }
 
-    
+
     function ValidateAssociateName() {
-//        var x = document.forms["form1"]["TextBoxName"].value;
+        //        var x = document.forms["form1"]["TextBoxName"].value;
         document.getElementById("<%=  lblAssociatetext.ClientID %>").value = eventArgs.get_value();
         document.getElementById("lblAssociatetext").innerHTML = "AgentCode Required";
         return true;
     }
-    
+
     function openpopupAddCustomer() {
         window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
@@ -56,6 +56,7 @@
     
    
 </script>
+
 <script type="text/javascript">
 
     var isItemSelected = false;
@@ -65,8 +66,8 @@
         txtInput.focus();
         if (!isItemSelected) {
             txtInput.focus();
-            
-             document.getElementById("<%= lblgetcust.ClientID %>").Value="";
+
+            document.getElementById("<%= lblgetcust.ClientID %>").Value = "";
             alert("Please select Pan Number from the Pan list only");
 
 
@@ -76,10 +77,10 @@
 
         txtInput.focus();
         return false;
-//        else {
-////            //reset isItemSelected
-//            isItemSelected = false;
-//        }
+        //        else {
+        ////            //reset isItemSelected
+        //            isItemSelected = false;
+        //        }
     }
     function checkSchemeSelected(txtInput) {
         txtInput.focus();
@@ -91,34 +92,33 @@
 
         txtInput.focus();
         return false;
-       
+
     }
 </script>
-
 
 <script type="text/javascript" language="javascript">
 
     function openpopupAddBank() {
-//        var url = "PopUp.aspx?PageId=AddBankAccount&parameter=MForderToCustomer";
-//        var win = window.open('', '', 'left=0px, top=0px, width=320px, height=270px, scrollbars=no, status =no, resizable=no');
-//        win.location.href = url;
-//        win = null;
-//        return false;
-        
+        //        var url = "PopUp.aspx?PageId=AddBankAccount&parameter=MForderToCustomer";
+        //        var win = window.open('', '', 'left=0px, top=0px, width=320px, height=270px, scrollbars=no, status =no, resizable=no');
+        //        win.location.href = url;
+        //        win = null;
+        //        return false;
 
-      window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-//         
-    
-     
+
+        window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        //         
+
+
         return false;
     }
-//    function closepopupAddBank() {
-//        window.close('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-//        return false;
-////     window.close('
-////    for (var i = 0; i < popups.length; i++) {
-////        popups[i].close();
-//    }
+    //    function closepopupAddBank() {
+    //        window.close('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+    //        return false;
+    ////     window.close('
+    ////    for (var i = 0; i < popups.length; i++) {
+    ////        popups[i].close();
+    //    }
 </script>
 
 <script type="text/javascript">
@@ -175,6 +175,7 @@
         document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
     }
 </script>
+
 <script type="text/javascript">
     function GetSchemeCode(source, eventArgs) {
 
@@ -183,13 +184,58 @@
         return false;
     };
     function GetSwitchSchemeCode(source, eventArgs) {
- 
+
         document.getElementById("<%= txtSwitchSchemeCode.ClientID %>").value = eventArgs.get_value();
 
         return false;
     };
 
+    function GetFolioAccount(source, eventArgs) {
+
+        document.getElementById("<%= hidFolioNumber.ClientID %>").value = eventArgs.get_value();
+
+        return false;
+    };
+
 </script>
+
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%" 
+Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="Add New Folio">
+<ContentTemplate>
+    <div style="padding: 20px">
+        <table width="100%">
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblAMCName" runat="server" Text="AMC Name: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Label ID="lblFolioAMC" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lblFolioNo" runat="server" Text="Folio Number: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
+                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtNewFolio" ErrorMessage="Please enter folio name"
+                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Button ID="btnSubmitFolio" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnOk_Click" ValidationGroup="vgOK"/>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                       <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false" OnClick="btnCancel_Click"/>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</ContentTemplate>
+</telerik:RadWindow>
+
 
 <table width="100%">
     <tr>
@@ -294,7 +340,8 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtPansearch" runat="server" CssClass="txtField" AutoComplete="Off"
-                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)" OnTextChanged="OnAssociateTextchanged1" >
+                AutoPostBack="True" onclientClick="ShowIsa()" onblur="return checkItemSelected(this)"
+                OnTextChanged="OnAssociateTextchanged1">
             </asp:TextBox><span id="Span1" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -309,11 +356,11 @@
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters="" 
+                UseContextKey="True" OnClientItemSelected="GetCustomerId" DelimiterCharacters=""
                 Enabled="True" />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtPansearch"
                 ErrorMessage="<br />Please Enter Pan number" Display="Dynamic" runat="server"
-                CssClass="rfvPCG"  ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="label2" runat="server" Text="Customer Name: " CssClass="FieldName"></asp:Label>
@@ -393,9 +440,8 @@
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="5" CompletionInterval="100"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
-                UseContextKey="True"  DelimiterCharacters=""
-                Enabled="True" />
-              <%--  OnClientItemSelected="CheckPanno"--%>
+                UseContextKey="True" DelimiterCharacters="" Enabled="True" />
+            <%--  OnClientItemSelected="CheckPanno"--%>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtAssociateSearch"
                 ErrorMessage="<br />Please Enter a agent code" Display="Dynamic" runat="server"
                 CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -403,10 +449,9 @@
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblAssociate" runat="server" CssClass="FieldName" Text="Associate:"></asp:Label>
         </td>
-         <td class="rightField" style="width: 20%">
-         <asp:Label ID="lblAssociatetext" runat="server"  CssClass="FieldName"   Enabled="false"  ></asp:Label>
-         
-         </td>
+        <td class="rightField" style="width: 20%">
+            <asp:Label ID="lblAssociatetext" runat="server" CssClass="FieldName" Enabled="false"></asp:Label>
+        </td>
         <%--<td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlAssociate" runat="server" CssClass="cmbLongField" AutoPostBack="false">
             </asp:DropDownList>
@@ -523,24 +568,24 @@
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a transaction type"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
-        <td class="leftField" style="width: 30%" >
-            <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: " 
+        <td class="leftField" style="width: 30%">
+            <asp:Label ID="lblReceivedDate" runat="server" Text="Application Received Date: "
                 CssClass="FieldName"></asp:Label>
         </td>
-        <td  class="rightField" style="width: 10%">
+        <td class="rightField" style="width: 10%">
             <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                     <SpecialDays>
-          <%-- <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />--%>
-       </SpecialDays>
+                        <%-- <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />--%>
+                    </SpecialDays>
                 </Calendar>
                 <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-          <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
+            <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
             <asp:CompareValidator ID="cvAppRcvDate" runat="server" ControlToValidate="txtReceivedDate"
@@ -560,27 +605,27 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtApplicationNumber" runat="server" CssClass="txtField"></asp:TextBox>
-           <%--  <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" TargetControlID="txtApplicationNumber"
+            <%--  <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender3" runat="server" TargetControlID="txtApplicationNumber"
                 ServiceMethod="GetAplicationNOs" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
                 MinimumPrefixLength="1" EnableCaching="False" CompletionSetCount="1" CompletionInterval="0"
                 CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetAplicationNOs" DelimiterCharacters="" 
                 Enabled="True" />--%>
-                  <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtApplicationNumber"
-                CssClass="cvPCG" ErrorMessage="<br />ApplicationNumber Exist"
-                ValueToCompare="" Operator="Equal" Type="String"></asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtApplicationNumber"
+                CssClass="cvPCG" ErrorMessage="<br />ApplicationNumber Exist" ValueToCompare=""
+                Operator="Equal" Type="String"></asp:CompareValidator>
         </td>
-        <td  class="leftField"  style="width: 20%">
+        <td class="leftField" style="width: 20%">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 30%">
             <telerik:RadDatePicker ID="txtOrderDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged" >
+                AutoPostBack="true" OnSelectedDateChanged="txtOrderDate_DateChanged">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false"   >
-                   <%-- <SpecialDays>
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                    <%-- <SpecialDays>
            <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />
        </SpecialDays>--%>
                 </Calendar>
@@ -622,59 +667,70 @@
             </asp:DropDownList>
         </td>
     </tr>
-    
     <tr id="trOrderDate" runat="server">
-    
-     <td class="leftField" style="width: 20%">
+        <td class="leftField" style="width: 20%">
             <asp:Label ID="lblSearchScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
         </td>
-          <td colspan="3">
-    <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
+        <td colspan="3">
+            <asp:HiddenField ID="txtSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
             <asp:TextBox ID="txtSearchScheme" runat="server" Style="width: 300px;" CssClass="txtField"
                 AutoComplete="Off" AutoPostBack="True">
             </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtSearchScheme_TextBoxWatermarkExtender" runat="server"
                 TargetControlID="txtSearchScheme" WatermarkText="Type the Scheme Name">
             </cc1:TextBoxWatermarkExtender>
-            
             <ajaxToolkit:AutoCompleteExtender ID="txtSearchScheme_autoCompleteExtender" runat="server"
-                TargetControlID="txtSearchScheme"  ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
-                ServiceMethod="GetSchemeName"
-                MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="1" CompletionInterval="1"
-                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                TargetControlID="txtSearchScheme" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                ServiceMethod="GetSchemeName" MinimumPrefixLength="1" EnableCaching="false" CompletionSetCount="1"
+                CompletionInterval="1" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetSchemeCode" />
             <span id="Span9" class="spnRequiredField" runat="server">*<br />
             </span>
-             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtSearchScheme"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="txtSearchScheme"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select Scheme" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-       </td>
-        
-       
+        </td>
     </tr>
-    <tr id="Tr1" runat="server" visible="true" >
-     <td colspan="2">
-     </td> 
-       <td class="leftField" style="width: 20%">
+    <tr id="Tr1" runat="server" visible="true">
+        <td colspan="2">
+        </td>
+        <td class="leftField" style="width: 20%">
             <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightField" style="width: 20%">
+        <td  class="rightField" style="width: 20%">
+            <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
+            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField"
+                AutoComplete="Off" AutoPostBack="True">
+            </asp:TextBox>
+             <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add folio" OnClick="btnOpenPopup_Click"
+                Height="15px" Width="15px"></asp:ImageButton>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtFolioNumber"
+                WatermarkText="Type the folio name">
+            </cc1:TextBoxWatermarkExtender>
+            <ajaxToolkit:AutoCompleteExtender ID="txtFolioNumber_autoCompleteExtender" runat="server" TargetControlID="txtFolioNumber"
+                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" ServiceMethod="GetCustomerFolioAccount"
+                MinimumPrefixLength="3" EnableCaching="false" CompletionSetCount="1" CompletionInterval="1"
+                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
+                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+                UseContextKey="true" OnClientItemSelected="GetFolioAccount" />
+           
+        </td>
+        <%-- <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
-        </td>
+        </td>--%>
     </tr>
-    <tr runat="server" visible="false" >
-        
-            <td class="rightField" style="width: 20%" colspan="4">
-            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" width="400px" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
+    <tr runat="server" visible="false">
+        <td class="rightField" style="width: 20%" colspan="4">
+            <asp:DropDownList ID="ddlAmcSchemeList" runat="server" CssClass="cmbField" Width="400px"
+                AutoPostBack="true" OnSelectedIndexChanged="ddlAmcSchemeList_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="spnScheme" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlAmcSchemeList"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a scheme"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
-        
             <%--ServiceMethod="GetSchemeList"--%>
             <%--<asp:RequiredFieldValidator ID="rfvtxtSearchScheme" ControlToValidate="txtSearchScheme"
                 ErrorMessage="<br />Please select a Scheme" Display="Dynamic" runat="server"
@@ -695,19 +751,22 @@
             <asp:Label ID="Label19" runat="server" Text="Purchase Price:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="style1" id="tdtxtNAV" runat="server" visible="false">
-            <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField" onkeypress="return onlyNumbers();" CausesValidation="true" ValidationGroup="MFSubmit"  ></asp:TextBox>
-              <span id="Span13" class="spnRequiredField">*</span>
-              <%--  <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"
+            <asp:TextBox ID="txtNAV" runat="server" CssClass="txtField" onkeypress="return onlyNumbers();"
+                CausesValidation="true" ValidationGroup="MFSubmit"></asp:TextBox>
+            <span id="Span13" class="spnRequiredField">*</span>
+            <%--  <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
                 Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
-                 <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtNAV" MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
-          <%-- <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"  
+            <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"
+                runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtNAV"
+                MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+            <%-- <asp:CompareValidator ID="CompareValidator15" ControlToValidate="txtNAV" runat="server"  
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
                 Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG">
                 </asp:CompareValidator>--%>
-                 <%--   <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtNAV" MaximumValue="100" MinimumValue="-100" Type="Double"></asp:RangeValidator>--%>
+            <%--   <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="RangeValidator" ControlToValidate="txtNAV" MaximumValue="100" MinimumValue="-100" Type="Double"></asp:RangeValidator>--%>
         </td>
-         <td class="leftField" style="width: 20%" visible="false">
+        <td class="leftField" style="width: 20%" visible="false">
             <asp:Label ID="lblPortfolio" runat="server" Text="Portfolio: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%" visible="false">
@@ -805,12 +864,14 @@
             <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true" ValidationGroup="MFSubmit" ></asp:TextBox><span
-                id="Span5" class="spnRequiredField">*</span>
+            <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField" CausesValidation="true"
+                ValidationGroup="MFSubmit"></asp:TextBox><span id="Span5" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtAmount"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select amount" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-                 <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="MFSubmit"  runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount" MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="MFSubmit"
+                runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtAmount"
+                MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
             <%--<asp:CompareValidator ID="CompareValidator6" ControlToValidate="txtAmount" runat="server"
                 ValidationGroup="MFSubmit" Display="Dynamic" ErrorMessage="<br />Please enter a numeric value"
                 Type="Double" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
@@ -819,33 +880,33 @@
             <asp:Label ID="lblMode" runat="server" Text="Mode Of Payment:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged" AutoPostBack="true" > 
-                  <asp:ListItem Text="Select" Value="Select"  ></asp:ListItem>
-                <asp:ListItem Text="Cheque" Value="CQ"      ></asp:ListItem>
+            <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlPaymentMode_SelectedIndexChanged"
+                AutoPostBack="true">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Cheque" Value="CQ"></asp:ListItem>
                 <asp:ListItem Text="Draft" Value="DF"></asp:ListItem>
                 <asp:ListItem Text="ECS" Value="ES"></asp:ListItem>
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
-           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="ddlPaymentMode"
+            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="ddlPaymentMode"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select Mode Of Payment" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>--%>
-                
-               <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"
+            <asp:CompareValidator ID="CompareValidator13" runat="server" ControlToValidate="ddlPaymentMode"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select  Mode Of Payment"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
         </td>
     </tr>
-    <tr id="trPINo" runat="server" Visible ="false">
+    <tr id="trPINo" runat="server" visible="false">
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPaymentNumber" runat="server" Text="Payment Instrument Number: "
                 CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength=6 CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtPaymentNumber" runat="server" MaxLength="6" CssClass="txtField"></asp:TextBox>
             <span id="Span12" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtPaymentNumber"
-                ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic" runat="server"
-                CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                ErrorMessage="<br />Please Enter a Payment Instrument No." Display="Dynamic"
+                runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblPIDate" runat="server" Text="Payment Instrument Date:" CssClass="FieldName"></asp:Label>
@@ -853,7 +914,7 @@
         <td class="rightField" style="width: 20%">
             <telerik:RadDatePicker ID="txtPaymentInstDate" CssClass="txtField" runat="server"
                 Culture="English (United States)" Skin="Telerik" EnableEmbeddedSkins="false"
-                ShowAnimation-Type="Fade"  MinDate="1900-01-01">
+                ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -865,7 +926,7 @@
             <asp:CompareValidator ID="CompareValidator14" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtPaymentInstDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
-                <%--<asp:CompareValidator ID="CVPaymentdate2" runat="server" ErrorMessage="<br/>Payment date cannot be greater than order date"
+            <%--<asp:CompareValidator ID="CVPaymentdate2" runat="server" ErrorMessage="<br/>Payment date cannot be greater than order date"
                  ControlToValidate="txtPaymentInstDate" ValidationGroup="MFSubmit" CssClass="cvPCG" Operator="LessThanEqual" Display="Dynamic"
                Type="Date"></asp:CompareValidator>--%>
             <%--<asp:CompareValidator ID="cvdate" runat="server" ErrorMessage="<br />Payment Instrument Date should be less than or equal to Order Date"
@@ -878,16 +939,16 @@
             <asp:Label ID="lblBankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true" AppendDataBoundItems="true" 
-                OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                AppendDataBoundItems="true" OnSelectedIndexChanged="ddlBankName_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
                 Height="15px" Width="15px"></asp:ImageButton>
             <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
-                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick" OnClientClick="return closepopupAddBank()"
-                Height="15px" Width="25px"></asp:ImageButton>
+                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                OnClientClick="return closepopupAddBank()" Height="15px" Width="25px"></asp:ImageButton>
             <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
@@ -1132,20 +1193,17 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCorrAdrLine1" runat="server" CssClass="txtField"></asp:TextBox>
-            <span
-                id="Span15" class="spnRequiredField">*</span>
+            <span id="Span15" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtCorrAdrLine1"
                 CssClass="rfvPCG" ErrorMessage="<br />Please Enter Details" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblAdrLine2" CssClass="FieldName" runat="server" Text="Line2(Street):"></asp:Label>
-            
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCorrAdrLine2" runat="server" CssClass="txtField"></asp:TextBox>
-             <span
-                id="Span16" class="spnRequiredField">*</span>
+            <span id="Span16" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator11" ControlToValidate="txtCorrAdrLine2"
                 CssClass="rfvPCG" ErrorMessage="<br />Please Enter Details" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -1157,8 +1215,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCorrAdrLine3" runat="server" CssClass="txtField"></asp:TextBox>
-             <span
-                id="Span17" class="spnRequiredField">*</span>
+            <span id="Span17" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtCorrAdrLine3"
                 CssClass="rfvPCG" ErrorMessage="<br />Please Enter Details" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -1176,7 +1233,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-               <asp:RequiredFieldValidator ID="RequiredFieldValidator16" ControlToValidate="txtLivingSince"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator16" ControlToValidate="txtLivingSince"
                 CssClass="rfvPCG" ErrorMessage="<br />Please Enter  a valid date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <asp:CompareValidator ID="txtLivingSince_CompareValidator" runat="server" ErrorMessage="<br/>Please enter a valid date."
@@ -1190,11 +1247,10 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCorrAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
-             <span
-                id="Span18" class="spnRequiredField">*</span>
+            <span id="Span18" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator13" ControlToValidate="txtCorrAdrCity"
-                CssClass="rfvPCG" ErrorMessage="<br />Please Enter City" Display="Dynamic"
-                runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+                CssClass="rfvPCG" ErrorMessage="<br />Please Enter City" Display="Dynamic" runat="server"
+                InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblAdrState" CssClass="FieldName" runat="server" Text="State:"></asp:Label>
@@ -1202,12 +1258,11 @@
         <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlCorrAdrState" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-             <span
-                id="Span20" class="spnRequiredField" >*</span>
+            <span id="Span20" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator15" ControlToValidate="ddlCorrAdrState"
-                CssClass="rfvPCG"   Display="Dynamic"  ErrorMessage="<br />Please enter State"
-                runat="server" InitialValue="Select" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-         <%--   <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlCorrAdrState"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="<br />Please enter State" runat="server"
+                InitialValue="Select" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+            <%--   <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlCorrAdrState"
                 runat="server" Display="Dynamic" ErrorMessage="<br />Please enter State"
                 Type="Integer" Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
         </td>
@@ -1218,8 +1273,7 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCorrAdrPinCode" runat="server" CssClass="txtField" MaxLength="6"></asp:TextBox>
-            <span
-                id="Span19" class="spnRequiredField">*</span>
+            <span id="Span19" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator14" ControlToValidate="txtCorrAdrPinCode"
                 CssClass="rfvPCG" ErrorMessage="<br />Please Enter PinCode" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
@@ -1332,7 +1386,7 @@
 <asp:HiddenField ID="txtCustomerId" runat="server" OnValueChanged="txtCustomerId_ValueChanged1" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" />
 <asp:HiddenField ID="hdnType" runat="server" />
-<asp:HiddenField ID="hdnSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged"/> 
+<asp:HiddenField ID="hdnSchemeCode" runat="server" OnValueChanged="txtSchemeCode_ValueChanged" />
 <asp:HiddenField ID="hdnPortfolioId" runat="server" />
 <asp:HiddenField ID="hdnAccountId" runat="server" />
 <asp:HiddenField ID="hdnAmcCode" runat="server" />
@@ -1343,6 +1397,3 @@
 <asp:HiddenField ID="txtSwitchSchemeCode" runat="server" />
 <asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:HiddenField ID="hdnAplicationNo" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
-
-
- 

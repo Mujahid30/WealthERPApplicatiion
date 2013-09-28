@@ -336,7 +336,42 @@ namespace BoCustomerPortfolio
             return accountId;
 
         }
+         
+        public int CreateCustomerMFAccountBasic(CustomerAccountsVo customerAccountVo, int userId)
+        {
+            CustomerAccountDao customerAccountDao = new CustomerAccountDao();
+            int accountId;
+            try
+            {
+                accountId = customerAccountDao.CreateCustomerMFAccountBasic(customerAccountVo, userId);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerAccountBo.cs:CreateCustomerMFAccountBasic()");
+
+
+                object[] objects = new object[2];
+                objects[0] = customerAccountVo;
+                objects[1] = userId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return accountId;
+
+        }
         public int CreateCustomerMFAccount(CustomerAccountsVo customerAccountVo, int userId)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
