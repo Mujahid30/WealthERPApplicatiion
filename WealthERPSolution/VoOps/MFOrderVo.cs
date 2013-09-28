@@ -18,6 +18,7 @@ namespace VoOps
         private string m_StatusReasonCode;
         private string m_TransactionCode;
         private int m_accountid;
+        private string m_FolioNumber;
         private int m_IsImmediate;
         private string m_SourceCode;
         private string m_FutureTriggerCondition;
@@ -90,6 +91,11 @@ namespace VoOps
         {
             get { return m_TransactionCode; }
             set { m_TransactionCode = value; }
+        }
+        public string FolioNumber
+        {
+            get { return m_FolioNumber; }
+            set { m_FolioNumber = value; }
         }
         public int accountid
         {

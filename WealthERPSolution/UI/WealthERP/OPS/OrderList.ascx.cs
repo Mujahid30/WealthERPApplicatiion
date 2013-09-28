@@ -1168,6 +1168,7 @@ namespace WealthERP.OPS
                 {
                     orderVo.OrderId = int.Parse(dr["CO_OrderId"].ToString());
                     orderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                    mforderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
                     mforderVo.CustomerName = dr["Customer_Name"].ToString();
                     mforderVo.RMName = dr["RM_Name"].ToString();
                     mforderVo.BMName = dr["AB_BranchName"].ToString();
@@ -1190,6 +1191,7 @@ namespace WealthERP.OPS
                         mforderVo.accountid = int.Parse(dr["CMFA_accountid"].ToString());
                     else
                         mforderVo.accountid = 0;
+                    mforderVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
                     mforderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
                     orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
                     mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());

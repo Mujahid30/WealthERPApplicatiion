@@ -26,7 +26,7 @@
 
     //        return false;
     //    }
-    
+
     function CheckPanno() {
         var Val, val1;
         Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
@@ -151,23 +151,23 @@
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
 
-//        if (hdn == "True") {
+        //        if (hdn == "True") {
 
-//            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
-//            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
+        //            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
+        //            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
 
-//        }
-//        else {
-//            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-//            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+        //        }
+        //        else {
+        //            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+        //            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
 
-//        }
+        //        }
 
     }
     function ShowInitialIsa() {
 
-//        document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-//        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+        //        document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+        //        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
 
     }
     function CheckSubscription() {
@@ -200,11 +200,12 @@
 
 </script>
 
-<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%" 
-Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None" Title="Add New Folio">
-<ContentTemplate>
-    <div style="padding: 20px">
-        <table width="100%">
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
+    Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
+    Title="Add New Folio">
+    <ContentTemplate>
+        <div style="padding: 20px">
+            <table width="100%">
                 <tr>
                     <td class="leftField" style="width: 10%">
                         <asp:Label ID="lblAMCName" runat="server" Text="AMC Name: " CssClass="FieldName"></asp:Label>
@@ -226,18 +227,18 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 </tr>
                 <tr>
                     <td class="leftField" style="width: 10%">
-                        <asp:Button ID="btnSubmitFolio" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnOk_Click" ValidationGroup="vgOK"/>
+                        <asp:Button ID="btnSubmitFolio" runat="server" Text="Submit" CssClass="PCGButton"
+                            OnClick="btnOk_Click" ValidationGroup="vgOK" />
                     </td>
                     <td class="rightField" style="width: 25%">
-                       <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false" OnClick="btnCancel_Click"/>
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
+                            OnClick="btnCancel_Click" />
                     </td>
                 </tr>
             </table>
-    </div>
-</ContentTemplate>
+        </div>
+    </ContentTemplate>
 </telerik:RadWindow>
-
-
 <table width="100%">
     <tr>
         <td colspan="5">
@@ -613,7 +614,7 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetAplicationNOs" DelimiterCharacters="" 
                 Enabled="True" />--%>
-                 <%-- <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtApplicationNumber"
+            <%-- <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtApplicationNumber"
                 CssClass="cvPCG" ErrorMessage="<br />ApplicationNumber Exist"
                 ValueToCompare="" Operator="Equal" Type="String"></asp:CompareValidator>--%>
         </td>
@@ -699,24 +700,23 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
         </td>
-        <td  class="rightField" style="width: 20%">
+        <td class="rightField" style="width: 20%">
             <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
-            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField"
-                AutoComplete="Off" AutoPostBack="True">
+            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" AutoComplete="Off"
+                AutoPostBack="True">
             </asp:TextBox>
-             <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+            <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add folio" OnClick="btnOpenPopup_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender3" runat="server" TargetControlID="txtFolioNumber"
                 WatermarkText="Type the folio name">
             </cc1:TextBoxWatermarkExtender>
-            <ajaxToolkit:AutoCompleteExtender ID="txtFolioNumber_autoCompleteExtender" runat="server" TargetControlID="txtFolioNumber"
-                ServicePath="~/CustomerPortfolio/AutoComplete.asmx" ServiceMethod="GetCustomerFolioAccount"
-                MinimumPrefixLength="3" EnableCaching="false" CompletionSetCount="1" CompletionInterval="1"
-                CompletionListCssClass="AutoCompleteExtender_CompletionList" CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem"
-                CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
+            <ajaxToolkit:AutoCompleteExtender ID="txtFolioNumber_autoCompleteExtender" runat="server"
+                TargetControlID="txtFolioNumber" ServicePath="~/CustomerPortfolio/AutoComplete.asmx"
+                ServiceMethod="GetCustomerFolioAccount" MinimumPrefixLength="3" EnableCaching="false"
+                CompletionSetCount="1" CompletionInterval="1" CompletionListCssClass="AutoCompleteExtender_CompletionList"
+                CompletionListItemCssClass="AutoCompleteExtender_CompletionListItem" CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="true" OnClientItemSelected="GetFolioAccount" />
-           
         </td>
         <%-- <td class="rightField" style="width: 20%">
             <asp:DropDownList ID="ddlFolioNumber" runat="server" CssClass="cmbField" AutoPostBack="true">

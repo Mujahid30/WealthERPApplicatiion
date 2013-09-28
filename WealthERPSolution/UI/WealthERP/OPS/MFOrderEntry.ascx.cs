@@ -50,7 +50,7 @@ namespace WealthERP.OPS
         AssociatesVO associatesVo = new AssociatesVO();
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AssociatesUserHeirarchyVo associateuserheirarchyVo = new AssociatesUserHeirarchyVo();
-        List<DataSet> applicationNoDup=new  List<DataSet>();
+        List<DataSet> applicationNoDup = new List<DataSet>();
         UserVo userVo;
         PriceBo priceBo = new PriceBo();
         string path;
@@ -79,7 +79,7 @@ namespace WealthERP.OPS
         protected void Page_Load(object sender, EventArgs e)
         {
 
-         //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+            //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -104,7 +104,7 @@ namespace WealthERP.OPS
                 if (associateuserheirarchyVo.AgentCode != null)
                 {
                     AgentCode = associateuserheirarchyVo.AgentCode.ToString();
-                    
+
                 }
                 else
                     AgentCode = "0";
@@ -133,32 +133,34 @@ namespace WealthERP.OPS
                     txtAssociateSearch.Text = AgentCode;
                     OnAssociateTextchanged(this, null);
                 }
-          
+
                 gvJointHoldersList.Visible = false;
                 BindARNNo(advisorVo.advisorId);
                 //BindAgentDropList(userType);
                 //BindSearchDropdownList(sender, e);
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
 
-                 if ( hdnIsSubscripted.Value == "True") {
-trIsa.Visible=true;
-trJointHoldersList.Visible=true;
-            //document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
-            //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
+                if (hdnIsSubscripted.Value == "True")
+                {
+                    trIsa.Visible = true;
+                    trJointHoldersList.Visible = true;
+                    //document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
+                    //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
 
-        }
-        else {
-                     trIsa.Visible=false;
-trJointHoldersList.Visible=false;
-            //document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-            //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+                }
+                else
+                {
+                    trIsa.Visible = false;
+                    trJointHoldersList.Visible = false;
+                    //document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+                    //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
 
-        }
+                }
 
 
                 trpan.Visible = false;
                 trCust.Visible = false;
-             //   ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
+                //   ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
 
                 ddlAMCList.Enabled = false;
                 if (userType == "associates")
@@ -166,7 +168,7 @@ trJointHoldersList.Visible=false;
                     //BindSubBrokerAgentCode(AgentCode);
                 }
 
-              //  CompareValidator6.ValueToCompare = hdnAplicationNo.Value;
+                //  CompareValidator6.ValueToCompare = hdnAplicationNo.Value;
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -176,7 +178,7 @@ trJointHoldersList.Visible=false;
                     AutoCompleteExtender1.ServiceMethod = "GetAdviserCustomerPan";
                     AutoCompleteExtender2.ContextKey = advisorVo.advisorId.ToString();
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetails";
-                   
+
                 }
                 else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                 {
@@ -199,12 +201,12 @@ trJointHoldersList.Visible=false;
                     AutoCompleteExtender2.ServiceMethod = "GetAgentCodeAssociateDetailsForAssociates";
 
                 }
-              //  txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = txtSchemeCode.Value;
+                //  txtSwitchSchemeCode_AutoCompleteExtender.ContextKey = txtSchemeCode.Value;
                 if (Request.QueryString["CustomerId"] != null)
                 {
                     customerId = Convert.ToInt32(Request.QueryString["CustomerId"]);
                     customerVo = customerBo.GetCustomer(customerId);
-
+                    txtCustomerId.Value = customerId.ToString();
                     hdnCustomerId.Value = customerVo.CustomerId.ToString();
                     txtCustomerName.Text = customerVo.FirstName + customerVo.MiddleName + customerVo.LastName;
                     lblGetBranch.Text = customerVo.BranchName;
@@ -225,13 +227,14 @@ trJointHoldersList.Visible=false;
                 ShowHideFields(1);
                 ShowTransactionType(0);
 
-              
-               // dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
-               
-           
+
+                // dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
+
+
                 if (Request.QueryString["action"] != null)
                 {
-
+                    txtCustomerId.Value = mforderVo.CustomerId.ToString();
+                    hdnCustomerId.Value = mforderVo.CustomerId.ToString();
                     lnlBack.Visible = true;
                     ViewForm = Request.QueryString["action"].ToString();
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
@@ -243,13 +246,13 @@ trJointHoldersList.Visible=false;
 
                 if (mforderVo != null && orderVo != null)
                 {
-                   
+
                     if (ViewForm == "View")
                     {
                         SetControls("View", mforderVo, orderVo);
                         btnAddMore.Visible = false;
                         ddlsearch.SelectedValue = "1";
-                       
+
                     }
                     else if (ViewForm == "Edit")
                     {
@@ -273,18 +276,18 @@ trJointHoldersList.Visible=false;
                     SetControls("Entry", mforderVo, orderVo);
 
                 }
-               
+
                 //ddlsearch_Selectedindexchanged(this, null);
 
             }
             Session["MForderToCustomer"] = "Customer";
             //bindSearchScehes();
 
-        //    applicationNoDup = mfOrderBo.AplicationNODuplicates();
-       //     int result = applicationNoDup.Find(item => item > 20);
+            //    applicationNoDup = mfOrderBo.AplicationNODuplicates();
+            //     int result = applicationNoDup.Find(item => item > 20);
 
-           // if (txtReceivedDate.SelectedDate==DateTi)
-           //txtReceivedDate.SelectedDate = DateTime.Now;
+            // if (txtReceivedDate.SelectedDate==DateTi)
+            //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
         }
         private void bindSearchScehes()
@@ -294,7 +297,7 @@ trJointHoldersList.Visible=false;
                 DataSet dsScheme = new DataSet();
                 DataTable dtScheme;
 
-                String parameters = string.Empty ;
+                String parameters = string.Empty;
                 //parameters = ddlAMCList.SelectedValue + '/' + ddlCategory.SelectedValue + '/' + 1 + '/' + txtCustomerId.Value;
 
                 if (ddlAMCList.SelectedIndex != 0 && ddlCategory.SelectedIndex != 0)
@@ -308,7 +311,7 @@ trJointHoldersList.Visible=false;
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
 
-                     //   dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1, 1);
+                        //   dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1, 1);
 
                     }
                     // txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
@@ -319,7 +322,7 @@ trJointHoldersList.Visible=false;
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeForOrderEntry";
 
-                      //  dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
+                        //  dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
                     }
                 }
                 else if (ddlAMCList.SelectedIndex != 0)
@@ -329,12 +332,12 @@ trJointHoldersList.Visible=false;
                     if (Sflag == 0)
                     {
                         parameters = string.Empty;
-                        parameters = amcCode.ToString()+"/"+categoryCode+"/"+"0"+"/"+"1";
+                        parameters = amcCode.ToString() + "/" + categoryCode + "/" + "0" + "/" + "1";
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
 
                         //txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeList";
-                    //    dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 0, 1);
+                        //    dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 0, 1);
 
                     }
                     else
@@ -383,36 +386,36 @@ trJointHoldersList.Visible=false;
             //    parameters = ddlAMCList.SelectedValue + '/'+ddlCategory.SelectedValue + '/'+1 + '/'+txtCustomerId.Value;
 
             //    txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
-              
+
 
             //    txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
             //}
-    
-    }
+
+        }
         private void CheckDates()
         {
-            DateTime  dt = orderbo.GetServerTime();
+            DateTime dt = orderbo.GetServerTime();
             ///RadCalendarDay calendarDay = new RadCalendarDay();
             RadDatePicker Rdt = new RadDatePicker();
             Rdt.DbSelectedDate = dt;
 
-             txtOrderDate.MaxDate =Convert.ToDateTime (Rdt.SelectedDate);
-             txtOrderDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            txtOrderDate.MaxDate = Convert.ToDateTime(Rdt.SelectedDate);
+            txtOrderDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtOrderDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
 
-         //   calendarDay.ItemStyle.BackColor = System.Drawing.Color.Red ;
-           // calendarDay.Date = dt.Date;
-          //  txtOrderDate.Calendar.SpecialDays.Add(calendarDay);
+            //   calendarDay.ItemStyle.BackColor = System.Drawing.Color.Red ;
+            // calendarDay.Date = dt.Date;
+            //  txtOrderDate.Calendar.SpecialDays.Add(calendarDay);
 
             txtReceivedDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtReceivedDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
 
 
-             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtPaymentInstDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
 
-           
-            
+
+
             //txtReceivedDate.Calendar.SpecialDays.Add(calendarDay);
             //txtOrderDate.Calendar.SpecialDays.Add(calendarDay);
         }
@@ -427,41 +430,41 @@ trJointHoldersList.Visible=false;
                 string FileName = "";
                 //if (ddlAmcSchemeList.SelectedIndex != 0)
                 //{
-                   // schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
-                  //Dbt  hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
-                  //dbt  hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
+                // schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
+                //Dbt  hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
+                //dbt  hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
                 hdnSchemeCode.Value = schemePlanCode.ToString();
-                    categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
-                    
-                    txtSearchScheme.Text  = productMFBo.GetSChemeName(schemePlanCode);
-                    ddlCategory.SelectedValue = categoryCode;
-                    if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
+
+                txtSearchScheme.Text = productMFBo.GetSChemeName(schemePlanCode);
+                ddlCategory.SelectedValue = categoryCode;
+                if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
+                {
+                    if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
                     {
-                        if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
+                        BindFolioNumberSearch(0);
+                        DataSet dsGetAmountUnits;
+                        DataTable dtGetAmountUnits;
+                        dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode, int.Parse(txtCustomerId.Value));
+                        if (dsGetAmountUnits.Tables[0] != null)
                         {
-                            BindFolioNumberSearch(0);
-                            DataSet dsGetAmountUnits;
-                            DataTable dtGetAmountUnits;
-                            dsGetAmountUnits = operationBo.GetAmountUnits(schemePlanCode, int.Parse(txtCustomerId.Value));
-                            if (dsGetAmountUnits.Tables[0] != null)
+                            if ((dsGetAmountUnits.Tables[0].Rows.Count > 0))
                             {
-                                if ((dsGetAmountUnits.Tables[0].Rows.Count > 0))
-                                {
-                                    dtGetAmountUnits = dsGetAmountUnits.Tables[0];
-                                    lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
-                                    lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
-                                }
-                            }
-                            if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
-                            {
-                                BindSchemeSwitch();
+                                dtGetAmountUnits = dsGetAmountUnits.Tables[0];
+                                lblGetAvailableAmount.Text = dtGetAmountUnits.Rows[0]["CMFNP_CurrentValue"].ToString();
+                                lblGetAvailableUnits.Text = dtGetAmountUnits.Rows[0]["CMFNP_NetHoldings"].ToString();
                             }
                         }
+                        if ((ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "Switch") && ddlAMCList.SelectedIndex != 0)
+                        {
+                            BindSchemeSwitch();
+                        }
+                    }
                     //}
-                  
+
                 }
-                    else
-                        BindFolioNumberSearch(0);
+                else
+                    BindFolioNumberSearch(0);
             }
         }
 
@@ -542,14 +545,14 @@ trJointHoldersList.Visible=false;
                     //ddlRM.SelectedIndex = 0;
                     txtCustomerName.Text = "";
                     ddltransType.SelectedIndex = 0;
-                  //sai  txtReceivedDate.SelectedDate = null;
+                    //sai  txtReceivedDate.SelectedDate = null;
                     txtApplicationNumber.Text = "";
                     ddlAMCList.SelectedIndex = 0;
                     ddlCategory.SelectedIndex = 0;
                     txtSchemeCode.Value = "0";
-                     ddlAmcSchemeList.SelectedIndex = 0;
+                    ddlAmcSchemeList.SelectedIndex = 0;
                     //ddlPortfolio.SelectedIndex = -1;
-                    txtFolioNumber.Text="";
+                    txtFolioNumber.Text = "";
                     txtOrderDate.SelectedDate = null;
                     lblGetOrderNo.Text = "";
                     //ddlOrderPendingReason.SelectedIndex = 0;
@@ -557,7 +560,7 @@ trJointHoldersList.Visible=false;
                     txtFutureDate.SelectedDate = null;
                     txtFutureTrigger.Text = "";
                     txtAmount.Text = "";
-                   // ddlPaymentMode.SelectedIndex = 0;
+                    // ddlPaymentMode.SelectedIndex = 0;
                     ddlPaymentMode_SelectedIndexChanged(this, null);
                     txtPaymentNumber.Text = "";
                     txtPaymentInstDate.SelectedDate = null;
@@ -580,7 +583,7 @@ trJointHoldersList.Visible=false;
                     txtstartDateSTP.SelectedDate = null;
                     txtendDateSTP.SelectedDate = null;
                     txtNewAmount.Text = "";
-                //    ddlAssociate.SelectedIndex = 0;
+                    //    ddlAssociate.SelectedIndex = 0;
                     ddlARNNo.SelectedIndex = 0;
                 }
             }
@@ -605,14 +608,14 @@ trJointHoldersList.Visible=false;
                             lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
                         }
                         else
-                        lblAssociatetext.Text = string.Empty;
+                            lblAssociatetext.Text = string.Empty;
 
                     }
                     if (mforderVo.ARNNo != null)
                         trCust.Visible = true;
-                        ddlARNNo.SelectedItem.Value = mforderVo.ARNNo;
+                    ddlARNNo.SelectedItem.Value = mforderVo.ARNNo;
                     orderId = orderVo.OrderId;
-                   
+
                     //sai ddlsearch.Enabled = true;
                     //ddlAmcSchemeList.Text
                     txtAssociateSearch.Enabled = true;
@@ -620,7 +623,7 @@ trJointHoldersList.Visible=false;
                     txtCustomerName.Visible = true;
                     txtCustomerName.Text = mforderVo.CustomerName;
                     lblgetPan.Visible = true;
-                   
+
                     if (orderVo.CustomerId != 0)
                         hdnCustomerId.Value = orderVo.CustomerId.ToString();
                     BindPortfolioDropdown(orderVo.CustomerId);
@@ -633,6 +636,7 @@ trJointHoldersList.Visible=false;
 
                     lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
                     hdnType.Value = mforderVo.TransactionCode;
+                    txtFolioNumber.Text = mforderVo.FolioNumber;
 
                     if (ddltransType.SelectedValue == "CAF")
                     {
@@ -641,7 +645,7 @@ trJointHoldersList.Visible=false;
                         lblCategory.Visible = false; ddlCategory.Visible = false;
                         lblSearchScheme.Visible = false;
                         ddlAmcSchemeList.Visible = false;
-                        lblFolioNumber.Visible = false; 
+                        lblFolioNumber.Visible = false;
                         txtFolioNumber.Visible = false;
                         spnAMC.Visible = false; spnScheme.Visible = false;
                         if (customerVo != null)
@@ -734,12 +738,12 @@ trJointHoldersList.Visible=false;
                         if (advisorVo.A_AgentCodeBased == 1)
                         {
                             trGetAmount.Visible = false;
-                           // trRedeemed.Visible = false;
+                            // trRedeemed.Visible = false;
                         }
                         else
                         {
                             trGetAmount.Visible = false;
-                          //  trRedeemed.Visible = false;
+                            //  trRedeemed.Visible = false;
                         }
                     }
                     else if (ddltransType.SelectedValue == "SWP")
@@ -762,37 +766,33 @@ trJointHoldersList.Visible=false;
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
                         //BindFolioNumber(0);
-                        if (mforderVo.accountid != 0)
-                        {
+                        
                             //ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
                             //if (li != null)
                             //{
-                                txtFolioNumber.Text= mforderVo.accountid.ToString();
+                            txtFolioNumber.Text = mforderVo.FolioNumber;
 
-                                // value found
+                            // value found
                             //}
-                             
 
-                           //sai txtFolioNumber.Text= mforderVo.accountid.ToString();
-                        }
+
+                            //sai txtFolioNumber.Text= mforderVo.accountid.ToString();
+                        
                         //else
                         //    txtFolioNumber.Text= "";
                     }
                     else
                     {
-
-                        if (mforderVo.accountid != 0)
-                        {
                             BindFolioNumberSearch(0);
                             //ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
                             //if (li != null)
                             //{
-                                txtFolioNumber.Text= mforderVo.accountid.ToString();
+                            txtFolioNumber.Text = mforderVo.FolioNumber;
 
-                                // value found
+                            // value found
                             //}
-                          //  txtFolioNumber.Text= mforderVo.accountid.ToString();
-                        }
+                            //  txtFolioNumber.Text= mforderVo.accountid.ToString();
+                       
                         //else
                         //    txtFolioNumber.Text= "";
                     }
@@ -848,8 +848,8 @@ trJointHoldersList.Visible=false;
 
                         //lblGetAvailableAmount.Text = operationVo.Amount.ToString();
                         //lblGetAvailableUnits.Text = operationVo.Units.ToString();
-                     //sai   lblAvailableAmount.Visible = false;
-                     //sai   lblAvailableUnits.Visible = false;
+                        //sai   lblAvailableAmount.Visible = false;
+                        //sai   lblAvailableUnits.Visible = false;
                     }
 
 
@@ -858,7 +858,7 @@ trJointHoldersList.Visible=false;
                     {
                         ddlPaymentMode.SelectedValue = orderVo.PaymentMode;
                         ddlPaymentMode_SelectedIndexChanged(this, null);
-                        
+
                         // value found
                     }
                     //else
@@ -868,12 +868,12 @@ trJointHoldersList.Visible=false;
                     //    //Value not found
                     //}
 
-                    
+
                     txtPaymentNumber.Text = orderVo.ChequeNumber;
 
-                   
 
-                    
+
+
                     if (orderVo.PaymentDate != DateTime.MinValue)
                         txtPaymentInstDate.SelectedDate = orderVo.PaymentDate;
                     else
@@ -939,6 +939,8 @@ trJointHoldersList.Visible=false;
                     txtSchemeCode_ValueChanged(this, null);
                     lnlBack.Visible = true;
                     lnkDelete.Visible = true;
+
+                    
                 }
             }
 
@@ -982,16 +984,16 @@ trJointHoldersList.Visible=false;
                         {
                             txtAssociateSearch.Text = AgentId.Rows[0][2].ToString();
                         }
-                       Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
-                       if (Agentname.Rows.Count > 0)
-                       {
-                           lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
-                       }
+                        Agentname = customerBo.GetAssociateName(advisorVo.advisorId, txtAssociateSearch.Text);
+                        if (Agentname.Rows.Count > 0)
+                        {
+                            lblAssociatetext.Text = Agentname.Rows[0][0].ToString();
+                        }
                     }
                     //BindARNNo(advisorVo.advisorId);
                     //ddlARNNo.SelectedValue = "";
-                            if (mforderVo.ARNNo != null)
-                        ddlARNNo.SelectedItem.Value= mforderVo.ARNNo;
+                    if (mforderVo.ARNNo != null)
+                        ddlARNNo.SelectedItem.Value = mforderVo.ARNNo;
 
                     if (ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "ABY")
                     {
@@ -1051,12 +1053,12 @@ trJointHoldersList.Visible=false;
                         if (advisorVo.A_AgentCodeBased == 1)
                         {
                             trGetAmount.Visible = false;
-                         //   trRedeemed.Visible = false;
+                            //   trRedeemed.Visible = false;
                         }
                         else
                         {
                             trGetAmount.Visible = false;
-                           // trRedeemed.Visible = false;
+                            // trRedeemed.Visible = false;
                         }
                     }
                     else if (ddltransType.SelectedValue == "SWP")
@@ -1129,19 +1131,18 @@ trJointHoldersList.Visible=false;
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
                         //BindFolioNumber(0);
-                        if (mforderVo.accountid != 0)
-                            txtFolioNumber.Text= mforderVo.accountid.ToString();
+                       
+                            txtFolioNumber.Text = mforderVo.FolioNumber;
                         //else
                         //    txtFolioNumber.Text= "";
                     }
                     else
                     {
 
-                        if (mforderVo.accountid != 0)
-                        {
+                       
                             //BindFolioNumberSearch(0);
-                            txtFolioNumber.Text= mforderVo.accountid.ToString();
-                        }
+                            txtFolioNumber.Text = mforderVo.FolioNumber;
+                      
                         //else
                         //    txtFolioNumber.Text= "";
                     }
@@ -1190,8 +1191,8 @@ trJointHoldersList.Visible=false;
                         }
                         else
                         {
-                          //  rbtUnit.Checked = true;
-                           // txtNewAmount.Text = "";
+                            //  rbtUnit.Checked = true;
+                            // txtNewAmount.Text = "";
                         }
 
                         lblAvailableAmount.Visible = false;
@@ -1208,17 +1209,17 @@ trJointHoldersList.Visible=false;
                     else
                         txtPaymentInstDate.SelectedDate = null;
                     BindBank(orderVo.CustomerId);
-                      ListItem li = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
-                      if (li != null)
-                      {
-                          ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
+                    ListItem li = ddlBankName.Items.FindByValue(orderVo.CustBankAccId.ToString());
+                    if (li != null)
+                    {
+                        ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
 
-                          // value found
-                      }
-                      else
-                      {
-                          ddlBankName.SelectedIndex = 0;
-                      }
+                        // value found
+                    }
+                    else
+                    {
+                        ddlBankName.SelectedIndex = 0;
+                    }
                     //if (orderVo.CustBankAccId != 0)
                     //    ddlBankName.SelectedValue = orderVo.CustBankAccId.ToString();
                     //else
@@ -1603,7 +1604,7 @@ trJointHoldersList.Visible=false;
                 if (lblgetcust.Text == "")
                 {
                     txtPansearch.Focus();
-                 
+
                     txtAssociateSearch.Text = "";
                     return;
                 }
@@ -1627,9 +1628,9 @@ trJointHoldersList.Visible=false;
                     lblAssociatetext.Text = "";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
 
-                   // txtAssociateSearch.Text = "";
+                    // txtAssociateSearch.Text = "";
                 }
-                 
+
             }
 
         }
@@ -1650,7 +1651,7 @@ trJointHoldersList.Visible=false;
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
                 //trJointHoldersList.Visible = false;
-              //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+                //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
@@ -1763,11 +1764,11 @@ trJointHoldersList.Visible=false;
             //sai ddlAmcSchemeList.SelectedIndex = 0;
             //ddlPortfolio.SelectedIndex = 0;
             BindFolioNumberSearch(0);
-           txtFolioNumber.Text="";
+            txtFolioNumber.Text = "";
             txtFutureDate.SelectedDate = null;
             txtFutureTrigger.Text = "";
             txtAmount.Text = "";
-         // sai  ddlPaymentMode.SelectedIndex = -1;
+            // sai  ddlPaymentMode.SelectedIndex = -1;
             txtPaymentNumber.Text = "";
             txtPaymentInstDate.SelectedDate = null;
             ddlBankName.SelectedIndex = -1;
@@ -1866,11 +1867,11 @@ trJointHoldersList.Visible=false;
                     {
                         //txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeList";
                         dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 0, 1);
-                       
+
                     }
                     else
                     {
-                       
+
                         dsScheme = operationBo.GetSchemeForOrderEntry(amcCode, categoryCode, Sflag, int.Parse(txtCustomerId.Value));
                     }
                 }
@@ -1903,34 +1904,34 @@ trJointHoldersList.Visible=false;
             DataSet dsgetfolioNo = new DataSet();
             DataTable dtgetfolioNo;
             string parameters = string.Empty;
-            int isaAccount=0;
+            int isaAccount = 0;
             try
             {
                 if (ddlAMCList.SelectedIndex != 0 && txtSchemeCode.Value != "0")// ddlAmcSchemeList.SelectedIndex != 0)
                 {
-                  
-                    if (ddlAMCList.SelectedValue!="Select")
-                    amcCode = int.Parse(ddlAMCList.SelectedValue);
+
+                    if (ddlAMCList.SelectedValue != "Select")
+                        amcCode = int.Parse(ddlAMCList.SelectedValue);
                     schemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
                     parameters = string.Empty;
-                    parameters = txtCustomerId.Value + "/" + amcCode + "/" + schemePlanCode + "/" + Fflag + "/" +isaAccount;
+                    parameters = txtCustomerId.Value + "/" + amcCode + "/" + schemePlanCode + "/" + Fflag + "/" + isaAccount;
                     txtFolioNumber_autoCompleteExtender.ContextKey = parameters;
                     txtFolioNumber_autoCompleteExtender.ServiceMethod = "GetCustomerFolioAccount";
 
                     //if (txtCustomerId.Value == "")
                     //    dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 1);
                     //else
-                        //if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
-                        //{
-                        //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
-                        //else
-                        //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
+                    //if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
+                    //{
+                    //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                    //else
+                    //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
                 }
                 else
                 {
 
                     if (ddlAMCList.SelectedValue != "Select")
-                    amcCode = int.Parse(ddlAMCList.SelectedValue);
+                        amcCode = int.Parse(ddlAMCList.SelectedValue);
                     schemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
                     parameters = string.Empty;
                     parameters = txtCustomerId.Value + "/" + amcCode + "/" + schemePlanCode + "/" + Fflag + "/" + isaAccount;
@@ -1940,10 +1941,10 @@ trJointHoldersList.Visible=false;
                     //if (txtCustomerId.Value == "")
                     //    dsgetfolioNo = productMFBo.GetFolioNumber(portfolioId, amcCode, 0);
                     //else
-                        //if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
-                        //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
-                        //else
-                        //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
+                    //if (ddlCustomerISAAccount.SelectedItem.Value != "Select")
+                    //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), int.Parse(ddlCustomerISAAccount.SelectedItem.Value));
+                    //else
+                    //    dsgetfolioNo = operationBo.GetFolioForOrderEntry(schemePlanCode, amcCode, Fflag, int.Parse(txtCustomerId.Value), 0);
                 }
 
                 //if (dsgetfolioNo.Tables[0].Rows.Count > 0)
@@ -1986,7 +1987,7 @@ trJointHoldersList.Visible=false;
                 {
 
                     ShowTransactionType(1);
-                    
+
                     if (ddltransType.SelectedValue == "BUY")
                     {
                         BindAMC(0);
@@ -2009,7 +2010,7 @@ trJointHoldersList.Visible=false;
                     {
                         BindAMC(0);
                         BindScheme(0);
-                        Sflag =0;
+                        Sflag = 0;
                         //BindFolioNumber(1);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
@@ -2089,7 +2090,7 @@ trJointHoldersList.Visible=false;
                     CompareValidator1.Visible = false; CompareValidator2.Visible = false;
                     txtSearchScheme.Visible = false;
                     RequiredFieldValidator9.Visible = false;
-                     Span9.Visible = false;
+                    Span9.Visible = false;
                 }
 
 
@@ -2108,15 +2109,15 @@ trJointHoldersList.Visible=false;
             if (advisorVo.A_AgentCodeBased == 1)
             {
                 trGetAmount.Visible = false;
-              //  trRedeemed.Visible = false;
+                //  trRedeemed.Visible = false;
             }
             else
             {
                 trGetAmount.Visible = true;
-              //  trRedeemed.Visible = true;
+                //  trRedeemed.Visible = true;
             }
             ddlPaymentMode_SelectedIndexChanged(this, null);
-           
+
         }
 
 
@@ -2417,10 +2418,10 @@ trJointHoldersList.Visible=false;
             }
             else
             {
-                trPINo.Visible = false ;
+                trPINo.Visible = false;
             }
         }
-        
+
         protected void ddlAMCList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAMCList.SelectedIndex != 0)
@@ -2440,12 +2441,12 @@ trJointHoldersList.Visible=false;
 
                     Sflag = 0;
 
-                   //sai BindScheme(1);
+                    //sai BindScheme(1);
                     //BindFolioNumber(1);
                 }
                 BindSchemeSwitch();
             }
-              
+
             bindSearchScehes();
         }
 
@@ -2510,7 +2511,7 @@ trJointHoldersList.Visible=false;
 
             string ddlTrxnType = "";
 
-            if (txtOrderDate.SelectedDate ==null )
+            if (txtOrderDate.SelectedDate == null)
             {
                 return;
             }
@@ -2551,8 +2552,8 @@ trJointHoldersList.Visible=false;
             }
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
-        {   
-            
+        {
+
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
             OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
@@ -2595,9 +2596,9 @@ trJointHoldersList.Visible=false;
             else
                 mforderVo.Amccode = 0;
             mforderVo.category = ddlCategory.SelectedValue;
-           if ( txtSchemeCode.Value != "0")
-            //if (ddlAmcSchemeList.SelectedIndex != 0)
-               mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
+            if (txtSchemeCode.Value != "0")
+                //if (ddlAmcSchemeList.SelectedIndex != 0)
+                mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
             mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
@@ -2846,6 +2847,7 @@ trJointHoldersList.Visible=false;
                 btnSubmit.Enabled = false;
                 btnAddMore.Visible = false;
                 //ddlAssociate.Enabled = false;
+                imgFolioAdd.Visible = false;
 
             }
             else
@@ -2906,6 +2908,7 @@ trJointHoldersList.Visible=false;
 
                 btnSubmit.Enabled = true;
                 btnAddMore.Visible = false;
+                imgFolioAdd.Visible = true;
                 //ddlAssociate.Enabled = true;
             }
 
@@ -2945,7 +2948,7 @@ trJointHoldersList.Visible=false;
 
         protected void lnlBack_Click(object sender, EventArgs e)
         {
-            string Mfaction=string.Empty ;
+            string Mfaction = string.Empty;
             if (Request.QueryString["FromPage"] != null)
             {
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerOrderList','none');", true);
@@ -2955,7 +2958,7 @@ trJointHoldersList.Visible=false;
                 Mfaction = "MF";
                 //"loadcontrol('ProductOrderMaster','fiaction=Edit');", true);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OrderList", "loadcontrol('OrderList','Mfaction=MF');", true);
-               // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','Mfaction=MF');", true);
+                // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OrderList','Mfaction=MF');", true);
             }
         }
 
@@ -2993,13 +2996,13 @@ trJointHoldersList.Visible=false;
             else
                 mforderVo.Amccode = 0;
             mforderVo.category = ddlCategory.SelectedValue;
-          if(  txtSchemeCode.Value != "0" )
-           // if (ddlAmcSchemeList.SelectedIndex != -1)
-              mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
+            if (txtSchemeCode.Value != "0")
+                // if (ddlAmcSchemeList.SelectedIndex != -1)
+                mforderVo.SchemePlanCode = int.Parse(txtSchemeCode.Value);//ddlAmcSchemeList.SelectedValue);
             else
                 mforderVo.SchemePlanCode = 0;
             // mforderVo.portfolioId = int.Parse(ddlPortfolio.SelectedValue);
-          if (!string.IsNullOrEmpty(hidFolioNumber.Value))
+            if (!string.IsNullOrEmpty(hidFolioNumber.Value))
                 mforderVo.accountid = int.Parse(hidFolioNumber.Value);
             else
                 mforderVo.accountid = 0;
@@ -3249,7 +3252,7 @@ trJointHoldersList.Visible=false;
 
         protected void btnOpenPopup_Click(object sender, ImageClickEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCustomerId.Value))
+            if (string.IsNullOrEmpty(txtCustomerId.Value) || txtCustomerId.Value=="0")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select customer first!');", true);
             }
@@ -3260,7 +3263,7 @@ trJointHoldersList.Visible=false;
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select AMC first!');", true);
-           
+
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
@@ -3274,9 +3277,9 @@ trJointHoldersList.Visible=false;
             customerAccountVo.CustomerId = int.Parse(txtCustomerId.Value);
             customerAccountVo.AccountNum = txtNewFolio.Text;
             customerAccountVo.AMCCode = int.Parse(ddlAMCList.SelectedValue);
-            accountId=customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
-            if (accountId!=0)
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
+            accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
+            if (accountId != 0)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Folio created successfully, now search for folio !');", true);
             radwindowPopup.VisibleOnPageLoad = false;
 
         }
