@@ -231,11 +231,11 @@ namespace WealthERP.CustomerPortfolio
                         string fromdate = "01-01-1990";
                         txtFromDate.SelectedDate = DateTime.Parse(fromdate);
                         ViewState["SchemePlanCode"] = SchemePlanCode;
-                      
+
                         if (Request.QueryString["name"] != null)
                         {
                             column = Request.QueryString["name"].ToString();
-                            if (column == "Select1"||column=="SelectAmt")
+                            if (column == "Select1" || column == "SelectAmt")
                             {
                                 ddlDisplayType.SelectedValue = "TV";
                                 BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
@@ -251,18 +251,24 @@ namespace WealthERP.CustomerPortfolio
                                 Panel1.Visible = false;
                                 divTrail.Visible = true;
                             }
+                            else if (column == "Select")
+                            {
+                                ddlDisplayType.SelectedValue = "RHV";
+                                lbBack.Visible = true;
+                                BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                                Panel2.Visible = false;
+                                Panel1.Visible = true;
+                                divTrail.Visible = false;
+                            }
                         }
                         else
                         {
-                            ddlDisplayType.SelectedValue = "RHV";
-                            lbBack.Visible = true;
-                            BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                            Panel2.Visible = false;
-                            Panel1.Visible = true;
+                            ddlDisplayType.SelectedValue = "TV";
+                            BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                            Panel2.Visible = true;
+                            Panel1.Visible = false;
                             divTrail.Visible = false;
                         }
-                       // BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                   
                     }
                     if (Request.QueryString["CategoryCode"] != null)
                     {
@@ -1157,6 +1163,8 @@ namespace WealthERP.CustomerPortfolio
                     dtMFBalance.Columns.Add("TransactionId");
                     dtMFBalance.Columns.Add("Customer Name");
                     dtMFBalance.Columns.Add("Folio Number");
+                    dtMFBalance.Columns.Add("AccountId");
+                    dtMFBalance.Columns.Add("SchemePlanCode");
                     dtMFBalance.Columns.Add("Scheme Name");
                     dtMFBalance.Columns.Add("CurrentValue",typeof(double));
                     dtMFBalance.Columns.Add("Transaction Type");
@@ -1190,9 +1198,17 @@ namespace WealthERP.CustomerPortfolio
                         drMFBalance["TransactionId"] = mfBalanceVo.TransactionId.ToString();
                         drMFBalance["Customer Name"] = mfBalanceVo.CustomerName.ToString();
                         drMFBalance["Folio Number"] = mfBalanceVo.Folio.ToString();
+                        drMFBalance["AccountId"] = mfBalanceVo.AccountId.ToString();
+                        drMFBalance["SchemePlanCode"] = mfBalanceVo.MFCode.ToString();
                         drMFBalance["Scheme Name"] = mfBalanceVo.SchemePlan.ToString();
-                        drMFBalance["CurrentValue"] = mfBalanceVo.CurrentValue.ToString("f2");;
-                        drMFBalance["Transaction Type"] = mfBalanceVo.TransactionType.ToString(); ;
+                        if (GridViewCultureFlag == true)
+                            drMFBalance["CurrentValue"] = decimal.Parse(mfBalanceVo.CurrentValue.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
+                        else
+                        {
+                            drMFBalance["CurrentValue"] = decimal.Parse(mfBalanceVo.CurrentValue.ToString());
+                        }
+                        //drMFBalance["CurrentValue"] = mfBalanceVo.CurrentValue.ToString("f3"); 
+                        drMFBalance["Transaction Type"] = mfBalanceVo.TransactionType.ToString();
                         drMFBalance["Transaction Date"] = mfBalanceVo.TransactionDate.ToShortDateString().ToString();
                         drMFBalance["Category"] = mfBalanceVo.Category.ToString();
                         drMFBalance["PAISC_AssetInstrumentSubCategoryName"] = mfBalanceVo.SubCategoryName.ToString();
@@ -1886,7 +1902,54 @@ namespace WealthERP.CustomerPortfolio
                 //e.Worksheet.AutoFilter.Range = e.Worksheet.AutoFilter.Range.Replace("R1", "R2");
             }
         }
+        protected void gvBalanceView_ItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+            try
+            {
+                if (e.CommandName.ToString() != "Filter")
+                {
+                    if (e.CommandName.ToString() != "Sort")
+                    {
+                        if (e.CommandName.ToString() != "Page")
+                        {
+                            if (e.CommandName.ToString() != "ChangePageSize")
+                            {
+                                GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
+                                int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
+                                if (e.CommandName == "SelectAmt")
+                                {
+                                    //string name = "SelectAmt";
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "", false);
+                                }
+                                //if (e.CommandName == "SelectTrail")
+                                //{
+                                //    string name = "SelectTrail";
+                                //    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&CategoryCode=" + CategoryCode + "&name=" + name + "", false);
+                                //}
+                            }
+                        }
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ViewEquityPortfolios.ascx:gvEquityPortfolioUnrealized_RowCommand()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
+            }
+        }
     }
 }
 
