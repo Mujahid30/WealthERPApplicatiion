@@ -79,7 +79,7 @@ namespace WealthERP.OPS
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+         //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
@@ -139,9 +139,26 @@ namespace WealthERP.OPS
                 //BindAgentDropList(userType);
                 //BindSearchDropdownList(sender, e);
                 hdnIsSubscripted.Value = advisorVo.IsISASubscribed.ToString();
+
+                 if ( hdnIsSubscripted.Value == "True") {
+trIsa.Visible=true;
+trJointHoldersList.Visible=true;
+            //document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
+            //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
+
+        }
+        else {
+                     trIsa.Visible=false;
+trJointHoldersList.Visible=false;
+            //document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+            //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+
+        }
+
+
                 trpan.Visible = false;
                 trCust.Visible = false;
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
+             //   ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
 
                 ddlAMCList.Enabled = false;
                 if (userType == "associates")
@@ -149,7 +166,7 @@ namespace WealthERP.OPS
                     //BindSubBrokerAgentCode(AgentCode);
                 }
 
-                CompareValidator6.ValueToCompare = hdnAplicationNo.Value;
+              //  CompareValidator6.ValueToCompare = hdnAplicationNo.Value;
 
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "admin" || Session[SessionContents.CurrentUserRole].ToString().ToLower() == "ops")
                 {
@@ -411,8 +428,9 @@ namespace WealthERP.OPS
                 //if (ddlAmcSchemeList.SelectedIndex != 0)
                 //{
                    // schemePlanCode = int.Parse(ddlAmcSchemeList.SelectedValue);
-                    hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
-                    hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
+                  //Dbt  hdnSchemeCode.Value = ddlAmcSchemeList.SelectedValue.ToString();
+                  //dbt  hdnSchemeName.Value = ddlAmcSchemeList.SelectedItem.Text;
+                hdnSchemeCode.Value = schemePlanCode.ToString();
                     categoryCode = productMFBo.GetCategoryNameFromSChemeCode(schemePlanCode);
                     
                     txtSearchScheme.Text  = productMFBo.GetSChemeName(schemePlanCode);
@@ -716,12 +734,12 @@ namespace WealthERP.OPS
                         if (advisorVo.A_AgentCodeBased == 1)
                         {
                             trGetAmount.Visible = false;
-                            trRedeemed.Visible = false;
+                           // trRedeemed.Visible = false;
                         }
                         else
                         {
                             trGetAmount.Visible = false;
-                            trRedeemed.Visible = false;
+                          //  trRedeemed.Visible = false;
                         }
                     }
                     else if (ddltransType.SelectedValue == "SWP")
@@ -813,8 +831,8 @@ namespace WealthERP.OPS
                         }
                         else
                         {
-                            rbtAmount.Checked = false;
-                            txtNewAmount.Text = "";
+                            //rbtAmount.Checked = false;
+                            //txtNewAmount.Text = "";
                         }
 
                         if (mforderVo.Units != 0)
@@ -824,8 +842,8 @@ namespace WealthERP.OPS
                         }
                         else
                         {
-                            rbtUnit.Checked = true;
-                            txtNewAmount.Text = "";
+                            //rbtUnit.Checked = true;
+                            //txtNewAmount.Text = "";
                         }
 
                         //lblGetAvailableAmount.Text = operationVo.Amount.ToString();
@@ -1033,12 +1051,12 @@ namespace WealthERP.OPS
                         if (advisorVo.A_AgentCodeBased == 1)
                         {
                             trGetAmount.Visible = false;
-                            trRedeemed.Visible = false;
+                         //   trRedeemed.Visible = false;
                         }
                         else
                         {
                             trGetAmount.Visible = false;
-                            trRedeemed.Visible = false;
+                           // trRedeemed.Visible = false;
                         }
                     }
                     else if (ddltransType.SelectedValue == "SWP")
@@ -1161,8 +1179,8 @@ namespace WealthERP.OPS
                         }
                         else
                         {
-                            rbtAmount.Checked = false;
-                            txtNewAmount.Text = "";
+                            //rbtAmount.Checked = false;
+                            //txtNewAmount.Text = "";
                         }
 
                         if (mforderVo.Units != 0)
@@ -1172,8 +1190,8 @@ namespace WealthERP.OPS
                         }
                         else
                         {
-                            rbtUnit.Checked = true;
-                            txtNewAmount.Text = "";
+                          //  rbtUnit.Checked = true;
+                           // txtNewAmount.Text = "";
                         }
 
                         lblAvailableAmount.Visible = false;
@@ -1632,7 +1650,7 @@ namespace WealthERP.OPS
             if (!string.IsNullOrEmpty(txtCustomerId.Value.ToString().Trim()))
             {
                 //trJointHoldersList.Visible = false;
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
+              //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
                 ddlAMCList.Enabled = true;
                 customerVo = customerBo.GetCustomer(int.Parse(txtCustomerId.Value));
@@ -1958,7 +1976,7 @@ namespace WealthERP.OPS
             lblFolioNumber.Visible = true; txtFolioNumber.Visible = true;
             spnAMC.Visible = true; spnScheme.Visible = true;
             CompareValidator1.Visible = true; CompareValidator2.Visible = true;
-            txtSearchScheme.Visible = true;  Span9.Visible = true;
+            txtSearchScheme.Visible = true; Span9.Visible = true; imgFolioAdd.Visible = true;
             if ((string.IsNullOrEmpty(txtPansearch.Text) && string.IsNullOrEmpty(txtCustomerName.Text)))
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please select a customer');", true);
             else
@@ -2066,6 +2084,7 @@ namespace WealthERP.OPS
                     lblCategory.Visible = false; ddlCategory.Visible = false;
                     lblSearchScheme.Visible = false; ddlAmcSchemeList.Visible = false;
                     lblFolioNumber.Visible = false; txtFolioNumber.Visible = false;
+                    imgFolioAdd.Visible = false;
                     spnAMC.Visible = false; spnScheme.Visible = false;
                     CompareValidator1.Visible = false; CompareValidator2.Visible = false;
                     txtSearchScheme.Visible = false;
@@ -2089,12 +2108,12 @@ namespace WealthERP.OPS
             if (advisorVo.A_AgentCodeBased == 1)
             {
                 trGetAmount.Visible = false;
-                trRedeemed.Visible = false;
+              //  trRedeemed.Visible = false;
             }
             else
             {
                 trGetAmount.Visible = true;
-                trRedeemed.Visible = true;
+              //  trRedeemed.Visible = true;
             }
             ddlPaymentMode_SelectedIndexChanged(this, null);
            
@@ -2820,6 +2839,10 @@ namespace WealthERP.OPS
                 ddlCorrAdrCountry.Enabled = false;
                 ddlARNNo.Enabled = false;
 
+                ddlsearch.Enabled = false;
+                txtAssociateSearch.Enabled = false;
+                txtSearchScheme.Enabled = false;
+
                 btnSubmit.Enabled = false;
                 btnAddMore.Visible = false;
                 //ddlAssociate.Enabled = false;
@@ -2827,6 +2850,9 @@ namespace WealthERP.OPS
             }
             else
             {
+                ddlsearch.Enabled = false;
+                txtAssociateSearch.Enabled = false;
+                txtSearchScheme.Enabled = false;
                 //txtOrederNumber.Enabled = true;
                 //txtOrderDate.Enabled = true;
                 //ddlBranch.Enabled = true;

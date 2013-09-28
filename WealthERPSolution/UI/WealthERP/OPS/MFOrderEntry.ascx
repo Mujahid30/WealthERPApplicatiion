@@ -26,6 +26,7 @@
 
     //        return false;
     //    }
+    
     function CheckPanno() {
         var Val, val1;
         Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
@@ -150,23 +151,23 @@
 
         var hdn = document.getElementById("<%=hdnIsSubscripted.ClientID%>").value;
 
-        if (hdn == "True") {
+//        if (hdn == "True") {
 
-            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
-            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
+//            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'visible';
+//            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'visible';
 
-        }
-        else {
-            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+//        }
+//        else {
+//            document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+//            document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
 
-        }
+//        }
 
     }
     function ShowInitialIsa() {
 
-        document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
-        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
+//        document.getElementById("<%= trIsa.ClientID %>").style.visibility = 'collapse';
+//        document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
 
     }
     function CheckSubscription() {
@@ -612,9 +613,9 @@ Width="500px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behavior
                 CompletionListHighlightedItemCssClass="AutoCompleteExtender_HighlightedItem"
                 UseContextKey="True" OnClientItemSelected="GetAplicationNOs" DelimiterCharacters="" 
                 Enabled="True" />--%>
-            <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtApplicationNumber"
-                CssClass="cvPCG" ErrorMessage="<br />ApplicationNumber Exist" ValueToCompare=""
-                Operator="Equal" Type="String"></asp:CompareValidator>
+                 <%-- <asp:CompareValidator ID="CompareValidator6" runat="server" ControlToValidate="txtApplicationNumber"
+                CssClass="cvPCG" ErrorMessage="<br />ApplicationNumber Exist"
+                ValueToCompare="" Operator="Equal" Type="String"></asp:CompareValidator>--%>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblOrderDate" runat="server" Text="Order Date:" CssClass="FieldName"></asp:Label>
