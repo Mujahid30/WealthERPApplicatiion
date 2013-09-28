@@ -20,7 +20,7 @@
                                 Width="25px" Visible="false" OnClick="imgMFReturns_Click"></asp:ImageButton>
                             <asp:ImageButton ID="imgScheme" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="20px"
-                                Width="25px" Visible="false" onclick="imgScheme_Click" ></asp:ImageButton>
+                                Width="25px" Visible="false" OnClick="imgScheme_Click"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -59,14 +59,15 @@
                                 <telerik:RadGrid ID="gvMfReturns" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                                    AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvMfReturns_OnNeedDataSource"
-                                    EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
+                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true"
+                                    OnNeedDataSource="gvMfReturns_OnNeedDataSource" EnableHeaderContextMenu="true"
+                                    EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="MFReturns" Excel-Format="ExcelML">
                                     </ExportSettings>
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-                                        GroupLoadMode="Client" ShowGroupFooter="true">
+                                        GroupLoadMode="Client" ShowGroupFooter="true" >
                                         <Columns>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="CustomerId" DataField="CustomerId"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CustomerId" SortExpression="CustomerId"
@@ -157,7 +158,7 @@
                             <div runat="server" id="divScheme" style="margin: 2px; width: 640px;">
                                 <telerik:RadGrid ID="gvMfReturnsScheme" runat="server" GridLines="None" AutoGenerateColumns="False"
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                                    Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true" OnItemCommand="gvMfReturns_ItemCommand"
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvMfReturnsScheme_OnNeedDataSource"
                                     EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
@@ -165,7 +166,7 @@
                                     </ExportSettings>
                                     <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None" GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true"
-                                        GroupLoadMode="Client" ShowGroupFooter="true">
+                                        GroupLoadMode="Client" ShowGroupFooter="true" DataKeyNames="accountno,schemecode">
                                         <Columns>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="CustomerId" DataField="CustomerId"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CustomerId" SortExpression="CustomerId"
@@ -214,12 +215,21 @@
                                                 DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
-                                            <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Current Value" DataField="CurrentValue"
+                                           <%-- <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Current Value" DataField="CurrentValue"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="CurrentValue" SortExpression="CurrentValue"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                 DataFormatString="{0:N0}" Aggregate="Sum" FooterStyle-HorizontalAlign="Right">
                                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                            </telerik:GridBoundColumn>
+                                            </telerik:GridBoundColumn>--%>
+                                            <telerik:GridTemplateColumn HeaderStyle-Width="80px" UniqueName="CurrentValue" HeaderText="Current Value"
+                                                Groupable="False" ItemStyle-Wrap="false" AllowFiltering="true" SortExpression="CurrentValue"
+                                                ItemStyle-HorizontalAlign="Right" DataField="CurrentValue" FooterStyle-HorizontalAlign="Right"
+                                                FooterText="Sum" Aggregate="Sum">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="lnkMF" runat="server" Text='<%# String.Format("{0:N0}", DataBinder.Eval(Container.DataItem, "CurrentValue")) %>'
+                                                        CommandName="Redirect"></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="80px" HeaderText="Profit/Loss" DataField="ProfitLoss"
                                                 HeaderStyle-HorizontalAlign="Right" UniqueName="ProfitLoss" SortExpression="ProfitLoss"
                                                 AutoPostBackOnFilter="true" AllowFiltering="false" ShowFilterIcon="false" CurrentFilterFunction="Contains"

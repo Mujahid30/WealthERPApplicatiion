@@ -1301,13 +1301,13 @@ namespace BoAdvisorProfiling
             return dsGetMISCommission;
         }
 
-        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate)
+        public DataSet GetMFReturnsDetails(string userType, int adviserid, int RmId, int branchId, int branchHeadId, int All, string strValuationDate,int customerid)
         {
             AdvisorMISDao MISDao = new AdvisorMISDao();
             DataSet dsGetReturns;
             try
             {
-                dsGetReturns = MISDao.GetMFReturnsDetails(userType, adviserid, RmId, branchId, branchHeadId, All, strValuationDate);
+                dsGetReturns = MISDao.GetMFReturnsDetails(userType, adviserid, RmId, branchId, branchHeadId, All, strValuationDate, customerid);
             }
             catch (BaseApplicationException Ex)
             {

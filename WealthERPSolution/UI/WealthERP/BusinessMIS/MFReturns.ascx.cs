@@ -35,6 +35,7 @@ namespace WealthERP.BusinessMIS
         int all = 0;
         int branchId = 0;
         int branchHeadId = 0;
+        int customerid = 0;
         string strValuationDate;
 
         public enum Constants
@@ -75,12 +76,39 @@ namespace WealthERP.BusinessMIS
             gvMfReturnsScheme.Visible = false;
             imgScheme.Visible = false;
             imgMFReturns.Visible = false;
-            //if (!IsPostBack)
-            //{
-                
-            //}
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["strCustomreId"] != null )
+                {
+                    ddlType.SelectedValue = "SchemeWise";
+                    SetParameters();
+                    GetLatestValuationDate();
+                    customerid = int.Parse(Request.QueryString["strCustomreId"].ToString());
+                    BindMFSchemeWise();
+                    gvMfReturnsScheme.Visible = true;
+                    //int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                    //int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                    //PasssedFolioValue = accountId;
+                    //BindLastTradeDate();
+                    //string fromdate = "01-01-1990";
+                    //txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                    //ViewState["SchemePlanCode"] = SchemePlanCode;
+                }
+            }
         }
-        
+        protected void gvMfReturns_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "Redirect")
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                string folionum = item.GetDataKeyValue("accountno").ToString();
+                string SchemePlanCode = item.GetDataKeyValue("schemecode").ToString();
+                Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folionum + "&SchemePlanCode=" + SchemePlanCode +  "", false);
+
+                
+
+            }
+        }
         private void BindMfReturnsGrid()
         {
             double totalinvestedCost = 0.0;
@@ -88,7 +116,8 @@ namespace WealthERP.BusinessMIS
             double totalPL = 0.0;
             DataSet dsMfReturns;
             DataTable dtMfReturns;
-            dsMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            customerid = 0;
+            dsMfReturns = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate, customerid);
             dtMfReturns = dsMfReturns.Tables[0];
             if (dtMfReturns == null)
             {
@@ -108,6 +137,8 @@ namespace WealthERP.BusinessMIS
                 dtMFReturnsNew.Columns.Add("CurrentValue", typeof(Double));
                 dtMFReturnsNew.Columns.Add("ProfitLoss", typeof(Double));
                 dtMFReturnsNew.Columns.Add("Percentage", typeof(Double));
+                
+
 
                 DataRow drMFReturnsNew;
                 foreach (DataRow dr in dtMfReturns.Rows)
@@ -140,6 +171,7 @@ namespace WealthERP.BusinessMIS
                         drMFReturnsNew["Percentage"] = Double.Parse(dr["Percentage"].ToString());
                     else
                         drMFReturnsNew["Percentage"] = 0;
+                   
 
                     dtMFReturnsNew.Rows.Add(drMFReturnsNew);
                 }
@@ -285,7 +317,7 @@ namespace WealthERP.BusinessMIS
             double totalPL = 0.0;
             DataSet dsMfReturnsScheme;
             DataTable dtMfReturnsScheme;
-            dsMfReturnsScheme = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate);
+            dsMfReturnsScheme = adviserMFMIS.GetMFReturnsDetails(userType, int.Parse(hdnadviserId.Value), int.Parse(hdnrmId.Value), int.Parse(hdnbranchId.Value), int.Parse(hdnbranchHeadId.Value), int.Parse(hdnAll.Value), strValuationDate, customerid);
             dtMfReturnsScheme = dsMfReturnsScheme.Tables[1];
             if (dtMfReturnsScheme == null)
             {
@@ -306,6 +338,8 @@ namespace WealthERP.BusinessMIS
                 dtMFReturnsSchemeNew.Columns.Add("CurrentValue", typeof(Double));
                 dtMFReturnsSchemeNew.Columns.Add("ProfitLoss", typeof(Double));
                 dtMFReturnsSchemeNew.Columns.Add("Percentage", typeof(Double));
+                dtMFReturnsSchemeNew.Columns.Add("accountno");
+                dtMFReturnsSchemeNew.Columns.Add("schemecode");
 
                 DataRow drMFReturnsSchemeNew;
                 foreach (DataRow dr in dtMfReturnsScheme.Rows)
@@ -339,7 +373,14 @@ namespace WealthERP.BusinessMIS
                         drMFReturnsSchemeNew["Percentage"] = Double.Parse(dr["Percentage"].ToString());
                     else
                         drMFReturnsSchemeNew["Percentage"] = 0;
-
+                    if (!string.IsNullOrEmpty(dr["accountno"].ToString().Trim()))
+                        drMFReturnsSchemeNew["accountno"] = int.Parse(dr["accountno"].ToString());
+                    else
+                        drMFReturnsSchemeNew["accountno"] = 0;
+                    if (!string.IsNullOrEmpty(dr["schemecode"].ToString().Trim()))
+                        drMFReturnsSchemeNew["schemecode"] = int.Parse(dr["schemecode"].ToString());
+                    else
+                        drMFReturnsSchemeNew["schemecode"] = 0;
                     dtMFReturnsSchemeNew.Rows.Add(drMFReturnsSchemeNew);
                 }
                 GridBoundColumn TotalPercentage = gvMfReturnsScheme.MasterTableView.Columns.FindByUniqueName("Percentage") as GridBoundColumn;
