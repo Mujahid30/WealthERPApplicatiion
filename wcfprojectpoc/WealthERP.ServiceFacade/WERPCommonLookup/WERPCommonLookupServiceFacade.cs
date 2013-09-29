@@ -43,21 +43,24 @@ namespace WealthERP.ServiceFacade
 
         #region IWerpCommonLookupContract Members
 
-        WERPCommonLookupResponse IWerpCommonLookupContract.GetProductAMCList(WERPCommonLookupRequest request)
+        ProductAmcResponse IWerpCommonLookupContract.GetProductAmcLists(ProductAmcRequest request)
         {
-            WERPCommonLookupResponse response = new WERPCommonLookupResponse();
+            ProductAmcResponse response = new ProductAmcResponse();
             CommisionReceivableBo boCommRecv = new CommisionReceivableBo();
 
             try
             {
-                DataSet dsLookupData = boCommRecv.GetProdAmc();
+                int amccode = 0;
+                if (request.ProductAmcCode != null) amccode = int.Parse(request.ProductAmcCode);
+
+                DataSet dsLookupData = boCommRecv.GetProdAmc(amccode);
 
                 foreach (DataRow row in dsLookupData.Tables[0].Rows)
                 {
                     if (response.ServiceResultDTO.IsSuccess == false) { response.ServiceResultDTO.IsSuccess = true; }
 
                     KeyValuePair<string, string> prodAmc = new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString());
-                    response.ProductAMCListDTO.ProductAMCList.Add(prodAmc);
+                    response.ProductAmcListDTO.ProductAMCList.Add(prodAmc);
                 }
                 
             }
