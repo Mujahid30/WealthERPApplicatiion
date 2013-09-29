@@ -103,7 +103,8 @@ namespace WealthERP.BusinessMIS
                 GridDataItem item = (GridDataItem)e.Item;
                 string folionum = item.GetDataKeyValue("accountno").ToString();
                 string SchemePlanCode = item.GetDataKeyValue("schemecode").ToString();
-                Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folionum + "&SchemePlanCode=" + SchemePlanCode +  "", false);
+                string name = "Select";
+                Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folionum + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
 
                 
 
