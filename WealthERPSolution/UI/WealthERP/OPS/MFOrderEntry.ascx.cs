@@ -314,14 +314,15 @@ namespace WealthERP.OPS
                         //   dsScheme = productMFBo.GetSchemeName(amcCode, categoryCode, 1, 1);
 
                     }
-                    else {
+                    else
+                    {
                         parameters = string.Empty;
                         parameters = (amcCode + "/" + categoryCode + "/" + 1 + "/" + 1);
                         txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                         txtSearchScheme_autoCompleteExtender.ServiceMethod = "GetSchemeName";
- 
+
                     }
-                   
+
                     // txtSearchScheme_autoCompleteExtender.ContextKey = parameters;
                     //else
                     //{
@@ -774,33 +775,33 @@ namespace WealthERP.OPS
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
                         //BindFolioNumber(0);
-                        
-                            //ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
-                            //if (li != null)
-                            //{
-                            txtFolioNumber.Text = mforderVo.FolioNumber;
 
-                            // value found
-                            //}
+                        //ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
+                        //if (li != null)
+                        //{
+                        txtFolioNumber.Text = mforderVo.FolioNumber;
+
+                        // value found
+                        //}
 
 
-                            //sai txtFolioNumber.Text= mforderVo.accountid.ToString();
-                        
+                        //sai txtFolioNumber.Text= mforderVo.accountid.ToString();
+
                         //else
                         //    txtFolioNumber.Text= "";
                     }
                     else
                     {
-                            BindFolioNumberSearch(0);
-                            //ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
-                            //if (li != null)
-                            //{
-                            txtFolioNumber.Text = mforderVo.FolioNumber;
+                        BindFolioNumberSearch(0);
+                        //ListItem li = ddlFolioNumber.Items.FindByValue(mforderVo.accountid.ToString());
+                        //if (li != null)
+                        //{
+                        txtFolioNumber.Text = mforderVo.FolioNumber;
 
-                            // value found
-                            //}
-                            //  txtFolioNumber.Text= mforderVo.accountid.ToString();
-                       
+                        // value found
+                        //}
+                        //  txtFolioNumber.Text= mforderVo.accountid.ToString();
+
                         //else
                         //    txtFolioNumber.Text= "";
                     }
@@ -948,7 +949,7 @@ namespace WealthERP.OPS
                     lnlBack.Visible = true;
                     lnkDelete.Visible = true;
 
-                    
+
                 }
             }
 
@@ -1139,18 +1140,18 @@ namespace WealthERP.OPS
                     if (ddltransType.SelectedValue == "SIP" || ddltransType.SelectedValue == "BUY" || ddltransType.SelectedValue == "CAF")
                     {
                         //BindFolioNumber(0);
-                       
-                            txtFolioNumber.Text = mforderVo.FolioNumber;
+
+                        txtFolioNumber.Text = mforderVo.FolioNumber;
                         //else
                         //    txtFolioNumber.Text= "";
                     }
                     else
                     {
 
-                       
-                            //BindFolioNumberSearch(0);
-                            txtFolioNumber.Text = mforderVo.FolioNumber;
-                      
+
+                        //BindFolioNumberSearch(0);
+                        txtFolioNumber.Text = mforderVo.FolioNumber;
+
                         //else
                         //    txtFolioNumber.Text= "";
                     }
@@ -3260,7 +3261,7 @@ namespace WealthERP.OPS
 
         protected void btnOpenPopup_Click(object sender, ImageClickEventArgs e)
         {
-            if (string.IsNullOrEmpty(txtCustomerId.Value) || txtCustomerId.Value=="0")
+            if (string.IsNullOrEmpty(txtCustomerId.Value) || txtCustomerId.Value == "0")
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select customer first!');", true);
             }
@@ -3281,12 +3282,12 @@ namespace WealthERP.OPS
         protected void btnOk_Click(object sender, EventArgs e)
         {
             int accountId;
-            
+
             CustomerAccountsVo customerAccountVo = new CustomerAccountsVo();
             customerAccountVo.CustomerId = int.Parse(txtCustomerId.Value);
             customerAccountVo.AccountNum = txtNewFolio.Text;
             customerAccountVo.AMCCode = int.Parse(ddlAMCList.SelectedValue);
-            if (!customerAccountBo.CheckFolioDuplicate(customerAccountVo.CustomerId, customerAccountVo.AccountNum))
+            if (!customerAccountBo.CheckFolioDuplicate(advisorVo.advisorId, customerAccountVo.AccountNum))
             {
                 accountId = customerAccountBo.CreateCustomerMFAccountBasic(customerAccountVo, userVo.UserId);
                 if (accountId != 0)

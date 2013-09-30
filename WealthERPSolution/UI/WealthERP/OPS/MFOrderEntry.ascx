@@ -204,13 +204,16 @@
 
         var returnValue = true;
         if (!isValidFolio) {
-           
+
             if (txtFolioNuber.value != "") {
                 txtFolioNuber.focus();
                 alert("Please select valid folio");
                 txtFolioNuber.value = "";
                 returnValue = false;
             }
+        } else {
+        if(txtFolioNuber.value != "")
+           alert("Valid folio found");
         }
         return returnValue;
        

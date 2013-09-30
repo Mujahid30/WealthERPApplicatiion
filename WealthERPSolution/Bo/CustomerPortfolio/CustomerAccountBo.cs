@@ -2305,14 +2305,14 @@ namespace BoCustomerPortfolio
         }
 
 
-        public bool CheckFolioDuplicate(int customerId, string folioNumber)
+        public bool CheckFolioDuplicate(int advisetId, string folioNumber)
         {
             CustomerAccountDao customerAccountDao = new CustomerAccountDao();
             bool isduplicate;
            
             try
             {
-                isduplicate = customerAccountDao.CheckFolioDuplicate(customerId, folioNumber);
+                isduplicate = customerAccountDao.CheckFolioDuplicate(advisetId, folioNumber);
             }
             catch (BaseApplicationException Ex)
             {
@@ -2325,7 +2325,7 @@ namespace BoCustomerPortfolio
 
                 FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:CheckFolioDuplicate(int customerId, string folioNumber)");
                 object[] objects = new object[2];
-                objects[0] = customerId;
+                objects[0] = advisetId;
                 objects[1] = folioNumber;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;

@@ -3766,7 +3766,7 @@ namespace DaoCustomerPortfolio
             return bResult;
         }
 
-        public bool CheckFolioDuplicate(int customerId, string folioNumber)
+        public bool CheckFolioDuplicate(int adviserId, string folioNumber)
         {
             bool bResult = false;
             Database db;
@@ -3775,7 +3775,7 @@ namespace DaoCustomerPortfolio
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 chkFolioDuplicateCmd = db.GetStoredProcCommand("SPROC_CheckFolioDuplicate");
-                db.AddInParameter(chkFolioDuplicateCmd, "@C_CustomerId", DbType.Int32, customerId);
+                db.AddInParameter(chkFolioDuplicateCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(chkFolioDuplicateCmd, "@FolioNumber", DbType.String, folioNumber);
                 db.AddOutParameter(chkFolioDuplicateCmd, "@IsFolioExists", DbType.Int16, 100);
 
@@ -3795,7 +3795,7 @@ namespace DaoCustomerPortfolio
 
                 FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:CheckFolioDuplicate(int customerId, string folioNumber)");
                 object[] objects = new object[2];
-                objects[0] = customerId;
+                objects[0] = adviserId;
                 objects[1] = folioNumber;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
