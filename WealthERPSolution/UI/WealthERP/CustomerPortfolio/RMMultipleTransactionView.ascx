@@ -87,7 +87,12 @@
         }
     }
 </script>
-
+<script language="javascript" type="text/javascript">
+function goBack()
+      {
+      window.history.back()
+      }
+    </script>
 <style type="text/css" media="print">
     ..noDisplay
     {
@@ -326,8 +331,12 @@
                                                 View MF Transaction
                                             </td>
                                             <td align="right">
-                                                &nbsp; &nbsp;
-                                                <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"></asp:LinkButton>
+                                              <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"></asp:LinkButton>
+                                                <%--<asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"
+                                                    Height="23px" Width="25px" CssClass="LinkButtons"></asp:LinkButton>--%>
+                                            </td>
+                                             <td align="right">
+                                                <asp:LinkButton runat="server" ID="lnkBackHolding" CssClass="LinkButtons" Text="Back" OnClientClick="goBack()" Visible="false"></asp:LinkButton>
                                                 <%--<asp:LinkButton ID="lbBack" runat="server" Text="Back" OnClick="lbBack_Click" Visible="false"
                                                     Height="23px" Width="25px" CssClass="LinkButtons"></asp:LinkButton>--%>
                                             </td>
@@ -624,13 +633,18 @@
                                                         AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
                                                         <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
+                                                     <telerik:GridBoundColumn DataField="Scheme Name" HeaderText="Scheme Name" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                                        SortExpression="Scheme Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                        AutoPostBackOnFilter="true" UniqueName="Scheme Name" FooterStyle-HorizontalAlign="Left">
+                                                        <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                    <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
                                                         HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                         <ItemStyle Wrap="false" />
                                                         <ItemTemplate>
                                                             <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
                                                         </ItemTemplate>
-                                                    </telerik:GridTemplateColumn>
+                                                    </telerik:GridTemplateColumn>--%>
                                                     <telerik:GridBoundColumn DataField="Transaction Type" HeaderText="Type" AllowFiltering="true"
                                                         HeaderStyle-Wrap="false" SortExpression="Transaction Type" ShowFilterIcon="false"
                                                         CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Transaction Type"
@@ -859,13 +873,18 @@
                                                     FooterStyle-HorizontalAlign="Left">
                                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
-                                                <telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
+                                                 <telerik:GridBoundColumn DataField="Scheme Name" HeaderText="Scheme Name" AllowFiltering="true" HeaderStyle-Wrap="false"
+                                                        SortExpression="Scheme Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                        AutoPostBackOnFilter="true" UniqueName="Scheme Name" FooterStyle-HorizontalAlign="Left">
+                                                        <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
                                                     HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                     <ItemStyle Wrap="false" />
                                                     <ItemTemplate>
                                                         <asp:LinkButton ID="lnkprAmc" runat="server" CommandName="Scheme" Text='<%# Eval("Scheme Name").ToString() %>' />
                                                     </ItemTemplate>
-                                                </telerik:GridTemplateColumn>
+                                                </telerik:GridTemplateColumn>--%>
                                                 <telerik:GridBoundColumn DataField="Category" HeaderText="Category" AllowFiltering="true"
                                                     HeaderStyle-Wrap="false" SortExpression="Category" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     AutoPostBackOnFilter="true" UniqueName="Category" FooterStyle-HorizontalAlign="Left">
@@ -917,7 +936,7 @@
                                                     Aggregate="Sum" FooterText=" " FooterStyle-HorizontalAlign="Right" FooterAggregateFormatString="{0:n3}">
                                                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                                     <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectAmt" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "CurrentValue")) %>'>
+                                                        <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "CurrentValue")) %>'>
                                                         </asp:LinkButton>
                                                         <%-- Text='<%#(Eval("CurrentValue","{0:n3}").ToString()) %>' />--%>
                                                     </ItemTemplate>

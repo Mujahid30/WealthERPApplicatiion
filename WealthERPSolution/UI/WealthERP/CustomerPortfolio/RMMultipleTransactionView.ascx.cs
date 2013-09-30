@@ -164,6 +164,8 @@ namespace WealthERP.CustomerPortfolio
 
                 }
                 lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
+                
+               
                 if (!IsPostBack)
                 {
 
@@ -221,112 +223,118 @@ namespace WealthERP.CustomerPortfolio
                         txtParentCustomer_autoCompleteExtender.ServiceMethod = "GetBMParentCustomerNames";
 
                     }
+                    BindLink();
+                    //if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null )
+                    //{                       
+                    //    int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                    //    int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());                        
+                    //    PasssedFolioValue = accountId;
+                    //    BindLastTradeDate();
+                    //    string fromdate = "01-01-1990";
+                    //    txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                    //    ViewState["SchemePlanCode"] = SchemePlanCode;
 
-                    if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null )
-                    {                       
-                        int accountId = int.Parse(Request.QueryString["folionum"].ToString());
-                        int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());                        
-                        PasssedFolioValue = accountId;
-                        BindLastTradeDate();
-                        string fromdate = "01-01-1990";
-                        txtFromDate.SelectedDate = DateTime.Parse(fromdate);
-                        ViewState["SchemePlanCode"] = SchemePlanCode;
+                    //    if (Request.QueryString["name"] != null)
+                    //    {
+                    //        column = Request.QueryString["name"].ToString();
+                    //        if (column == "Select1" || column == "SelectAmt")
+                    //        {
+                    //            ddlDisplayType.SelectedValue = "TV";
+                    //            BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    //            Panel2.Visible = true;
+                    //            Panel1.Visible = false;
+                    //            divTrail.Visible = false;
+                    //        }
+                    //        else if (column == "Select2" || column == "SelectTrail")
+                    //        {
+                    //            ddlDisplayType.SelectedValue = "TCV";
+                    //            BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    //            Panel2.Visible = false;
+                    //            Panel1.Visible = false;
+                    //            divTrail.Visible = true;
+                    //            hdnExportType.Value = "TCV";
+                    //        }
+                    //        else if (column == "Select")
+                    //        {
+                    //            ddlDisplayType.SelectedValue = "RHV";
+                    //            lbBack.Visible = true;
+                    //            BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    //            Panel2.Visible = false;
+                    //            Panel1.Visible = true;
+                    //            divTrail.Visible = false;
+                    //            hdnExportType.Value = "RHV";
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        ddlDisplayType.SelectedValue = "TV";
+                    //        BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    //        lnkBackHolding.Visible = true;
+                    //        Panel2.Visible = true;
+                    //        Panel1.Visible = false;
+                    //        divTrail.Visible = false;
+                    //        hdnExportType.Value = "TV";
+                    //    }
+                    //}
+                    //if (Request.QueryString["CategoryCode"] != null)
+                    //{
+                    //    string CategoryCode = Request.QueryString["CategoryCode"].ToString();
+                    //    BindLastTradeDate();
+                    //    string fromdate = "01-01-1990";
+                    //    txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                    //    ViewState["CategoryCode"] = CategoryCode;
+                    //    if (Request.QueryString["name"] != null)
+                    //    {
+                    //        column = Request.QueryString["name"].ToString();
+                    //        if (column == "SelectAmt")
+                    //        {
+                    //            ddlDisplayType.SelectedValue = "TV";
+                    //            BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    //            Panel2.Visible = true;
+                    //            Panel1.Visible = false;
+                    //            divTrail.Visible = false;
+                    //            hdnExportType.Value = "TV";
+                    //        }
+                    //        else if (column == "SelectTrail")
+                    //        {
+                    //            ddlDisplayType.SelectedValue = "TCV";
+                    //            BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    //            Panel2.Visible = false;
+                    //            Panel1.Visible = false;
+                    //            divTrail.Visible = true;
+                    //            hdnExportType.Value = "TCV";
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    BindLastTradeDate();
 
-                        if (Request.QueryString["name"] != null)
-                        {
-                            column = Request.QueryString["name"].ToString();
-                            if (column == "Select1" || column == "SelectAmt")
-                            {
-                                ddlDisplayType.SelectedValue = "TV";
-                                BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                                Panel2.Visible = true;
-                                Panel1.Visible = false;
-                                divTrail.Visible = false;
-                            }
-                            else if (column == "Select2" || column == "SelectTrail")
-                            {
-                                ddlDisplayType.SelectedValue = "TCV";
-                                BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                                Panel2.Visible = false;
-                                Panel1.Visible = false;
-                                divTrail.Visible = true;
-                            }
-                            else if (column == "Select")
-                            {
-                                ddlDisplayType.SelectedValue = "RHV";
-                                lbBack.Visible = true;
-                                BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                                Panel2.Visible = false;
-                                Panel1.Visible = true;
-                                divTrail.Visible = false;
-                            }
-                        }
-                        else
-                        {
-                            ddlDisplayType.SelectedValue = "TV";
-                            BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                            Panel2.Visible = true;
-                            Panel1.Visible = false;
-                            divTrail.Visible = false;
-                        }
-                    }
-                    if (Request.QueryString["CategoryCode"] != null)
-                    {
-                        string CategoryCode = Request.QueryString["CategoryCode"].ToString();
-                        BindLastTradeDate();
-                        string fromdate = "01-01-1990";
-                        txtFromDate.SelectedDate = DateTime.Parse(fromdate);
-                        ViewState["CategoryCode"] = CategoryCode;
-                        if (Request.QueryString["name"] != null)
-                        {
-                            column = Request.QueryString["name"].ToString();
-                            if (column == "SelectAmt")
-                            {
-                                ddlDisplayType.SelectedValue = "TV";
-                                BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                                Panel2.Visible = true;
-                                Panel1.Visible = false;
-                                divTrail.Visible = false;
-                            }
-                            else if (column == "SelectTrail")
-                            {
-                                ddlDisplayType.SelectedValue = "TCV";
-                                BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
-                                Panel2.Visible = false;
-                                Panel1.Visible = false;
-                                divTrail.Visible = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        BindLastTradeDate();
+                    //    // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
+                    //    if (Session["gvMFTransactions"] != null)
+                    //    {
+                    //        Panel2.Visible = true;
+                    //        Panel1.Visible = true;
+                    //        gvMFTransactions.Visible = true;
+                    //        string fromdate = "01-01-1990";
+                    //        txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                    //        gvMFTransactions.DataSource = (DataTable)Session["gvMFTransactions"];
+                    //        gvMFTransactions.DataBind();
+                    //        Session.Remove("gvMFTransactions");
+                    //    }
 
-                        // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
-                        if (Session["gvMFTransactions"] != null)
-                        {
-                            Panel2.Visible = true;
-                            Panel1.Visible = true;
-                            gvMFTransactions.Visible = true;
-                            string fromdate = "01-01-1990";
-                            txtFromDate.SelectedDate = DateTime.Parse(fromdate);
-                            gvMFTransactions.DataSource = (DataTable)Session["gvMFTransactions"];
-                            gvMFTransactions.DataBind();
-                            Session.Remove("gvMFTransactions");
-                        }
-
-                    }
-                    if (Session["tranDates"] != null)
-                    {
-                        ht = (Hashtable)Session["tranDates"];
-                        txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
-                        txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
-                        schemePlanCode = Convert.ToInt32(ht["SchemePlanCode"].ToString());
-                        PasssedFolioValue = Convert.ToInt32(ht["Account"].ToString());
-                        BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
-                        Session.Remove("tranDates");
-                        hdnExportType.Value = "TV";
-                    }
+                    //}
+                    //if (Session["tranDates"] != null)
+                    //{
+                    //    ht = (Hashtable)Session["tranDates"];
+                    //    txtFromDate.SelectedDate = DateTime.Parse(ht["From"].ToString());
+                    //    txtToDate.SelectedDate = DateTime.Parse(ht["To"].ToString());
+                    //    schemePlanCode = Convert.ToInt32(ht["SchemePlanCode"].ToString());
+                    //    PasssedFolioValue = Convert.ToInt32(ht["Account"].ToString());
+                    //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
+                    //    Session.Remove("tranDates");
+                    //    hdnExportType.Value = "TV";
+                    //}
 
                     //if (Session["tranDates"] != null)
                     //{
@@ -342,7 +350,7 @@ namespace WealthERP.CustomerPortfolio
                     //    txtToDate.SelectedDate = DateTime.Now;
                     //    BindGrid(DateTime.Parse((txtFromDate.SelectedDate).ToString()), DateTime.Parse((txtToDate.SelectedDate).ToString()));
                     //}
-
+                    lnkBackHolding.Attributes.Add("onClick", "javascript:Window.history.go(-2); return true;");
                     ErrorMessage.Visible = false;
                 }
                 //radwindowForManualMerge.Visible = false;
@@ -758,6 +766,112 @@ namespace WealthERP.CustomerPortfolio
 
 
         }
+
+        protected void BindLink()
+        {
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null)
+            {
+                int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                PasssedFolioValue = accountId;
+                BindLastTradeDate();
+                string fromdate = "01-01-1990";
+                txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                ViewState["SchemePlanCode"] = SchemePlanCode;
+
+                if (Request.QueryString["name"] != null)
+                {
+                    column = Request.QueryString["name"].ToString();
+                    if (column == "Select1" || column == "SelectAmt")
+                    {
+                        ddlDisplayType.SelectedValue = "TV";
+                        BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                        Panel2.Visible = true;
+                        Panel1.Visible = false;
+                        divTrail.Visible = false;
+                    }
+                    else if (column == "Select2" || column == "SelectTrail")
+                    {
+                        ddlDisplayType.SelectedValue = "TCV";
+                        BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                        Panel2.Visible = false;
+                        Panel1.Visible = false;
+                        divTrail.Visible = true;
+                        hdnExportType.Value = "TCV";
+                    }
+                    else if (column == "Select")
+                    {
+                        ddlDisplayType.SelectedValue = "RHV";
+                        lbBack.Visible = true;
+                        BindGridBalance(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                        Panel2.Visible = false;
+                        Panel1.Visible = true;
+                        divTrail.Visible = false;
+                        hdnExportType.Value = "RHV";
+                    }
+                }
+                else
+                {
+                    ddlDisplayType.SelectedValue = "TV";
+                    BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                    lnkBackHolding.Visible = true;
+                    Panel2.Visible = true;
+                    Panel1.Visible = false;
+                    divTrail.Visible = false;
+                    hdnExportType.Value = "TV";
+                }
+            }
+            if (Request.QueryString["CategoryCode"] != null)
+            {
+                string CategoryCode = Request.QueryString["CategoryCode"].ToString();
+                BindLastTradeDate();
+                string fromdate = "01-01-1990";
+                txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                ViewState["CategoryCode"] = CategoryCode;
+                if (Request.QueryString["name"] != null)
+                {
+                    column = Request.QueryString["name"].ToString();
+                    if (column == "SelectAmt")
+                    {
+                        ddlDisplayType.SelectedValue = "TV";
+                        BindGrid(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                        Panel2.Visible = true;
+                        Panel1.Visible = false;
+                        divTrail.Visible = false;
+                        hdnExportType.Value = "TV";
+                    }
+                    else if (column == "SelectTrail")
+                    {
+                        ddlDisplayType.SelectedValue = "TCV";
+                        BindGridTrailCommission(DateTime.Parse(fromdate), DateTime.Parse(txtToDate.SelectedDate.ToString()));
+                        Panel2.Visible = false;
+                        Panel1.Visible = false;
+                        divTrail.Visible = true;
+                        hdnExportType.Value = "TCV";
+                    }
+                }
+            }
+            else
+            {
+                BindLastTradeDate();
+
+                // this session to fil gvMFTransactions grid while clicking on back button->ViewMfTRansaction
+                if (Session["gvMFTransactions"] != null)
+                {
+                    Panel2.Visible = true;
+                    Panel1.Visible = true;
+                    gvMFTransactions.Visible = true;
+                    string fromdate = "01-01-1990";
+                    txtFromDate.SelectedDate = DateTime.Parse(fromdate);
+                    gvMFTransactions.DataSource = (DataTable)Session["gvMFTransactions"];
+                    gvMFTransactions.DataBind();
+                    Session.Remove("gvMFTransactions");
+                }
+
+            }
+        
+        }
+
         protected void TabClick(object sender, RadTabStripEventArgs e)
         {
 
@@ -1309,7 +1423,7 @@ namespace WealthERP.CustomerPortfolio
                 gvMFTransactions.ExportSettings.HideStructureColumns = true;
                 gvMFTransactions.ExportSettings.ExportOnlyData = true;
                 gvMFTransactions.ExportSettings.FileName = "View Transactions Details";
-                gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.Html;
+                gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
                 gvMFTransactions.MasterTableView.ExportToExcel();
             }
             if (hdnExportType == "RHV")
@@ -1365,32 +1479,32 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void gvMFTransactions_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            if (e.CommandName == "Scheme")
-            {
-                LinkButton lnkScheme = (LinkButton)e.Item.FindControl("lnkprAmc");
-                GridDataItem gdi;
-                gdi = (GridDataItem)lnkScheme.NamingContainer;
-                int selectedRow = gdi.ItemIndex + 1;
-                int transactionId = int.Parse((gvMFTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString()));
-                mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
-                int month = 0;
-                int amcCode = mfTransactionVo.AMCCode;
-                int schemeCode = mfTransactionVo.MFCode;
-                int year = 0;
+            //if (e.CommandName == "Scheme")
+            //{
+            //    LinkButton lnkScheme = (LinkButton)e.Item.FindControl("lnkprAmc");
+            //    GridDataItem gdi;
+            //    gdi = (GridDataItem)lnkScheme.NamingContainer;
+            //    int selectedRow = gdi.ItemIndex + 1;
+            //    int transactionId = int.Parse((gvMFTransactions.MasterTableView.DataKeyValues[selectedRow - 1]["TransactionId"].ToString()));
+            //    mfTransactionVo = customerTransactionBo.GetMFTransaction(transactionId);
+            //    int month = 0;
+            //    int amcCode = mfTransactionVo.AMCCode;
+            //    int schemeCode = mfTransactionVo.MFCode;
+            //    int year = 0;
 
-                if (DateTime.Now.Month != 1)
-                {
-                    month = DateTime.Now.Month - 1;
-                    year = DateTime.Now.Year;
-                }
-                else
-                {
-                    month = 12;
-                    year = DateTime.Now.Year - 1;
-                }
-                string schemeName = mfTransactionVo.SchemePlan;
-                Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
-            }
+            //    if (DateTime.Now.Month != 1)
+            //    {
+            //        month = DateTime.Now.Month - 1;
+            //        year = DateTime.Now.Year;
+            //    }
+            //    else
+            //    {
+            //        month = 12;
+            //        year = DateTime.Now.Year - 1;
+            //    }
+            //    string schemeName = mfTransactionVo.SchemePlan;
+            //    Response.Redirect("ControlHost.aspx?pageid=AdminPriceList&SchemeCode=" + schemeCode + "&Year=" + year + "&Month=" + month + "&SchemeName=" + schemeName + "&AMCCode=" + amcCode + "", false);
+            //}
         }
 
 
@@ -1749,15 +1863,22 @@ namespace WealthERP.CustomerPortfolio
         }
         protected void lbBack_Click(object sender, EventArgs e)
         {
-            
+           
           // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
            
+        }
+        protected void lnkBackHolding_Click(object sender, EventArgs e)
+        {
+            
+           
+            // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewMutualFundPortfolio','none');", true);
+
         }
         protected void btnTrnxExport_Click(object sender, ImageClickEventArgs e)
         {
             //if (accountId == true)
             //{
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Transaction all ready exist first delete Transactions !!');", true);
             //}
             ExportGrid(hdnExportType.Value);
         }
@@ -1918,7 +2039,7 @@ namespace WealthERP.CustomerPortfolio
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
-                                if (e.CommandName == "SelectAmt")
+                                if (e.CommandName == "SelectTransaction")
                                 {
                                     //string name = "SelectAmt";
                                     Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "", false);

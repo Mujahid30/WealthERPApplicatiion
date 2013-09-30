@@ -681,5 +681,6 @@ namespace WealthERP.CustomerPortfolio {
         protected global::System.Web.UI.WebControls.DropDownList ddlBrokerCode;
         protected global::System.Web.UI.WebControls.HiddenField hdnAgentCode;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trZCCS;
+        protected global::System.Web.UI.WebControls.LinkButton lnkBackHolding;
     }
 }
