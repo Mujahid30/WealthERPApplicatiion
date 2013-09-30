@@ -1323,7 +1323,8 @@ namespace WealthERP.BusinessMIS
                                 int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemePlanCode").ToString());
                                 if (e.CommandName == "Select")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "", false);
+                                    string name = "Select";
+                                    Response.Redirect("ControlHost.aspx?pageid=RMMultipleTransactionView&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&name=" + name + "", false);
                                 }
                             }
                         }
