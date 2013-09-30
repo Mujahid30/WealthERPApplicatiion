@@ -442,6 +442,35 @@ namespace DaoCommisionManagement
             return ds;
         }
 
+        public DataSet GetProdAmc(int amccode)
+        {
+            Database db;
+            DbCommand cmdGetProdAmc;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetProdAmc = db.GetStoredProcCommand("SP_GetProductAmc");
+                if (amccode > 0) db.AddInParameter(cmdGetProdAmc, "@PA_AMCCode", DbType.Int32, amccode);
+                ds = db.ExecuteDataSet(cmdGetProdAmc);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommissionManagementDao.cs:GetProdAmc()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
         public DataSet GetAdviserCommissionStructureRules(int adviserId, string product, string cat, string subcat, int issuer, string validity)
         {
             Database db;
