@@ -1309,7 +1309,7 @@ namespace WealthERP.CustomerPortfolio
                 gvMFTransactions.ExportSettings.HideStructureColumns = true;
                 gvMFTransactions.ExportSettings.ExportOnlyData = true;
                 gvMFTransactions.ExportSettings.FileName = "View Transactions Details";
-                gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvMFTransactions.ExportSettings.Excel.Format = GridExcelExportFormat.Html;
                 gvMFTransactions.MasterTableView.ExportToExcel();
             }
             if (hdnExportType == "RHV")

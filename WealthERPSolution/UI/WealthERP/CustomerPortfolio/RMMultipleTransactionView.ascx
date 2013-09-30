@@ -809,7 +809,8 @@
         <tr>
             <td style="padding-top: 20px">
                 <div id="Div1" runat="server">
-                    <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal" Visible="false">
+                    <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
+                        Visible="false">
                         <table width="100%" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td>
@@ -912,14 +913,16 @@
                                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
-                                                    HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains" Aggregate="Sum"
-                                                    FooterStyle-HorizontalAlign="Right">
+                                                    HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    Aggregate="Sum" FooterText=" " FooterStyle-HorizontalAlign="Right" FooterAggregateFormatString="{0:n3}">
                                                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                                     <ItemTemplate>
-                                                        <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectAmt" Text='<%# Eval("CurrentValue").ToString() %>' />
+                                                        <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectAmt" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "CurrentValue")) %>'>
+                                                        </asp:LinkButton>
+                                                        <%-- Text='<%#(Eval("CurrentValue","{0:n3}").ToString()) %>' />--%>
                                                     </ItemTemplate>
                                                 </telerik:GridTemplateColumn>
-                                               <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
+                                                <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
                                                     HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                     Aggregate="Sum" FooterStyle-HorizontalAlign="Right" HeaderStyle-Width="100px">
                                                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
@@ -1014,7 +1017,8 @@
         </tr>
         <tr>
             <td style="padding-top: 20px">
-                <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: scroll" visible="false">
+                <div id="divTrail" runat="server" style="margin: 2px; width: 100%; overflow: scroll"
+                    visible="false">
                     <%--    <asp:Panel ID="pnlTrail" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">--%>
                     <table width="100%" cellspacing="0" cellpadding="0">
                         <tr>
@@ -1278,6 +1282,12 @@
                         </td>
                     </tr>
                 </table>
+                <div style="margin: 6px" id="divNote" runat="server" class="Note">
+                    <label id="lbl" >
+                        Note:<br />
+                        1:To export excel the count should not exceed 8000 records. 
+                        </label>
+                </div>
                 <asp:HiddenField ID="hdnRecordCount" runat="server" Visible="false" />
                 <asp:HiddenField ID="hdnCurrentPage" runat="server" />
                 <asp:HiddenField ID="hdnCustomerNameSearch" runat="server" Visible="false" />
