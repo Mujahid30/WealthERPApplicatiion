@@ -1058,7 +1058,7 @@
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtstartDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblEndDateSIP" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
@@ -1075,7 +1075,11 @@
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit">
+                </asp:CompareValidator >
+             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>To date should be greater than from date."
+                Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="GreaterThan"
+                ControlToCompare="txtstartDateSIP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trSection2" runat="server">
@@ -1121,6 +1125,9 @@
             <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtNewAmount" runat="server"
                 Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="Double"
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+             <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="MFSubmit"
+                runat="server" ErrorMessage="<br />Please enter a valid amount" ControlToValidate="txtNewAmount"
+                MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
         </td>
     </tr>
     <tr id="trScheme" runat="server">
@@ -1128,7 +1135,7 @@
             <asp:Label ID="lblSchemeSwitch" runat="server" Text="To Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbLongField" >
             </asp:DropDownList>
             <span id="Span3" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSchemeSwitch"
@@ -1165,7 +1172,7 @@
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator5" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtstartDateSTP" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblendDateSTP" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
@@ -1182,7 +1189,10 @@
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtendDateSTP" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+              <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="<br/>To date should be greater than from date."
+                Type="Date" ControlToValidate="txtendDateSTP" CssClass="cvPCG" Operator="GreaterThan"
+                ControlToCompare="txtstartDateSTP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trSection3" runat="server">

@@ -692,6 +692,8 @@ namespace WealthERP.OPS
                         txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
+                        BindSchemeSwitch();
+                        ddlSchemeSwitch.SelectedValue = mforderVo.SchemePlanSwitch.ToString();
 
                     }
                     portfolioId = mforderVo.portfolioId;
@@ -1053,6 +1055,8 @@ namespace WealthERP.OPS
                             txtendDateSTP.SelectedDate = mforderVo.EndDate;
                         else
                             txtendDateSTP.SelectedDate = null;
+
+                        
                     }
                     else if (ddltransType.SelectedValue == "Sel")
                     {
@@ -1477,7 +1481,16 @@ namespace WealthERP.OPS
 
                 trSection2.Visible = false;
 
-                trGetAmount.Visible = true;
+                if (advisorVo.A_AgentCodeBased == 1)
+                {
+                    trGetAmount.Visible = false;
+                    // trRedeemed.Visible = false;
+                }
+                else
+                {
+                    trGetAmount.Visible = false;
+                    //  trRedeemed.Visible = false;
+                }
                 trRedeemed.Visible = true;
                 trScheme.Visible = true;
                 trFrequencySTP.Visible = true;
