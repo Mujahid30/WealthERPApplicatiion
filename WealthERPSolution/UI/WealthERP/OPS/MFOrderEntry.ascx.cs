@@ -646,6 +646,7 @@ namespace WealthERP.OPS
                     lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
                     hdnType.Value = mforderVo.TransactionCode;
                     txtFolioNumber.Text = mforderVo.FolioNumber;
+                    hidFolioNumber.Value = mforderVo.accountid.ToString();
 
                     if (ddltransType.SelectedValue == "CAF")
                     {
@@ -948,6 +949,7 @@ namespace WealthERP.OPS
                     txtSchemeCode_ValueChanged(this, null);
                     lnlBack.Visible = true;
                     lnkDelete.Visible = true;
+                    txtFolioNumber.Text = mforderVo.FolioNumber;
 
 
                 }
@@ -1278,6 +1280,8 @@ namespace WealthERP.OPS
                     //btnViewReport.Visible = true;
                     //btnViewInPDF.Visible = true;
                     //btnViewInDOC.Visible = true;
+                    txtFolioNumber.Text = mforderVo.FolioNumber;
+                    hidFolioNumber.Value = mforderVo.accountid.ToString();
 
                 }
             }
