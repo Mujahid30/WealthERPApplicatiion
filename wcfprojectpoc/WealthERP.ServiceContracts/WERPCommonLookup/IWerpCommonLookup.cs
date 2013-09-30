@@ -1,8 +1,5 @@
 ﻿using System.ServiceModel;
 using WealthERP.ServiceRequestResponse;
-using WealthERP.ServiceRequestResponse.Response.WERPCommonLookup;
-using WealthERP.ServiceRequestResponse.Request.WERPCommonLookup;
-
 
 namespace WealthERP.ServiceContracts
 {
@@ -26,7 +23,7 @@ namespace WealthERP.ServiceContracts
         /// <param name="ProductType"> The Product Type Request. </param>
         /// <returns> Product AMC List Response </returns>
         [OperationContract]
-        ProductAmcResponse GetProductAmcLists(ProductAmcRequest request);
+        ProductAmcResponse GetProductAmcList(ProductAmcRequest request);
 
         /// <summary>
         ///   Gets the Product Category List Product.

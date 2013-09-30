@@ -11,10 +11,6 @@ using BoCommisionManagement;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
-using WealthERP.ServiceRequestResponse.Response.WERPCommonLookup;
-using WealthERP.ServiceRequestResponse.Request.WERPCommonLookup;
-
-
 
 namespace WealthERP.ServiceFacade
 {
@@ -43,7 +39,7 @@ namespace WealthERP.ServiceFacade
 
         #region IWerpCommonLookupContract Members
 
-        ProductAmcResponse IWerpCommonLookupContract.GetProductAmcLists(ProductAmcRequest request)
+        ProductAmcResponse IWerpCommonLookupContract.GetProductAmcList(ProductAmcRequest request)
         {
             ProductAmcResponse response = new ProductAmcResponse();
             CommisionReceivableBo boCommRecv = new CommisionReceivableBo();

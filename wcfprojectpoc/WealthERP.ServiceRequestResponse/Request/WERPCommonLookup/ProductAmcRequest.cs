@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ServiceModel;
 
-namespace WealthERP.ServiceRequestResponse.Request.WERPCommonLookup
+namespace WealthERP.ServiceRequestResponse
 {
     /// <summary>
     ///   WERP Product AMC Request

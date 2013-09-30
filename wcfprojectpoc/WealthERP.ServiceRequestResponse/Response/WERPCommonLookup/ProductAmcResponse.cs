@@ -5,7 +5,7 @@ using System.Text;
 using System.ServiceModel;
 using WealthERP.BusinessEntities;
 
-namespace WealthERP.ServiceRequestResponse.Response.WERPCommonLookup
+namespace WealthERP.ServiceRequestResponse
 {
     /// <summary>
     ///   WERP Common Lookup  Request
