@@ -23,7 +23,7 @@
 .HeaderStyle th
 {
     padding: 5px;
-    color: #4B4726;
+    color: #ffffff;
 }
 .HeaderStyle a
 {
@@ -77,12 +77,12 @@
 {
     font-family: Verdana,tahoma;
     font-size: 11px;
-    background-color: #FFFED1;
+    background-color: #D9EBF7;
    
 }
 .AltRowStyle td
 {
-    background-color: #FFECA3;
+    background-color: #ffffff;
 }
 .SelectedRowStyle td
 {
