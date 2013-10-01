@@ -505,8 +505,27 @@ namespace WealthERP.Advisor
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (ValidateStaffReportingManager())
+            {
+                rmStaffVo = CollectAdviserStaffData();
+                rmUserVo = CollectAdviserStaffUserData();
+                if (Validation(txtAgentCode.Text)&& EmailValidation(txtEmail.Text))
+                {
+                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
+                    hidRMid.Value = rmIds[1].ToString();
+                    ControlViewEditMode(true);
+                    divMsgSuccess.InnerText = " Staff Added Sucessfully";
+                    trSuccessMsg.Visible = true;
+                }
+               
+            }
 
+        }
+
+        protected bool ValidateStaffReportingManager()
+        {
             DataTable dtTeamList = new DataTable();
+            bool validReportingMrg = true;
             if (Session["StaffTeamList"] != null)
             {
                 dtTeamList = (DataTable)Session["StaffTeamList"];
@@ -518,39 +537,15 @@ namespace WealthERP.Advisor
             if (strD != hidMinHierarchyTitleId.Value.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Reporting Manager!');", true);
-                return;
-            }
-            else
-            {
-
-                rmStaffVo = CollectAdviserStaffData();
-                rmUserVo = CollectAdviserStaffUserData();
-                if (Validation(txtAgentCode.Text)&& EmailValidation(txtEmail.Text))
-                {
-                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
-                    hidRMid.Value = rmIds[1].ToString();
-                    ControlViewEditMode(true);
-                    divMsgSuccess.InnerText = " Staff Added Sucessfully";
-                    trSuccessMsg.Visible = true;
-                }
-                //else
-                //{     //userBo.CreateRoleAssociation(rmIds[1], 1009);
-                    
-                //}
-                //imgBtnReferesh.Enabled = true;
-                //imgAddAgentCode.Enabled = true;
+                validReportingMrg = false;
             }
 
+            return validReportingMrg;
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (ddlTitleList.SelectedValue != hidMinHierarchyTitleId.ToString() && (ddlReportingMgr.SelectedIndex == 0 || ddlRportingRole.SelectedIndex == 0))
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please Select Reporting Manager!');", true);
-                return;
-            }
-            else
+           if(ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
