@@ -5,7 +5,7 @@
 .RadGrid_Telerik
 {
     border:1px solid #9cb6c5;
-    background:#fff;
+   background:#fff;
     color:#333;
 }
 
@@ -59,7 +59,7 @@
 
 .RadGrid_Telerik .rgHeaderDiv
 {
-	background:#ebeef6 0 -7750px repeat-x url('Grid/sprite.gif');
+	background:#006699 0 -7750px repeat-x url('Grid/sprite.gif');
 }
 .rgTwoLines .rgHeaderDiv
 {
@@ -70,22 +70,22 @@
 .RadGrid_Telerik th.rgResizeCol
 {
 	border:1px solid;
-	border-color:#fff #dcf2fc #3c7fb1 #8bbdde;
+	border-color:#fff #F9F9F9 #0B49AE #F9F9F9;
 	border-top:0;
-	background:0 -2300px repeat-x #a6d9f4 url('Grid/sprite.gif');
+	background:0 -2300px repeat-x #F9F9F9 url('Grid/sprite.gif');
 }
 
 .RadGrid_Telerik th.rgSorted
 {
-	border-bottom-color:#79b3d8;
-	background-color:#d9ecf6;
+	border-bottom-color:#F9F9F9;
+	background-color:#0B49AE;
 	background-position:0 -2600px;
 }
 
 .RadGrid_Telerik .rgHeader,
 .RadGrid_Telerik .rgHeader a
 {
-    color:#4B4726;
+    color:#fff;
 }
 
 /*rows*/
@@ -102,13 +102,13 @@
 .RadGrid_Telerik .rgRow td,
 .RadGrid_Telerik .rgAltRow td
 {
-	border-color:#fff #fff #fff #ededed;
+	border-color:#fff #fff #fff #006699;
 }
 
 .RadGrid_Telerik .rgRow .rgSorted,
 .RadGrid_Telerik .rgAltRow .rgSorted
 {
-	background-color:#f2f3f5;
+	background-color:#0B49AE;
 }
 
 .RadGrid_Telerik .rgSelectedRow .rgSorted,
@@ -130,27 +130,27 @@
 
 .RadGrid_Telerik .rgSelectedRow
 {
-    background:#abdbf5 0 -3900px repeat-x url('Grid/sprite.gif');
+    background:#0B48AD 0 -3900px repeat-x url('Grid/sprite.gif');
 }
-*+html .RadGrid_Telerik .rgSelectedRow .rgSorted{background-color:#abdbf5}
-* html .RadGrid_Telerik .rgSelectedRow .rgSorted{background-color:#abdbf5}
+*+html .RadGrid_Telerik .rgSelectedRow .rgSorted{background-color:#336699}
+* html .RadGrid_Telerik .rgSelectedRow .rgSorted{background-color:#336699}
 
 .RadGrid_Telerik .rgActiveRow,
 .RadGrid_Telerik .rgHoveredRow
 {
-    background:#d7f0fc 0 -2900px repeat-x url('Grid/sprite.gif');
+    background:#0B49AE 0 -2900px repeat-x url('Grid/sprite.gif');
 }
 *+html .RadGrid_Telerik .rgActiveRow .rgSorted,
-*+html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#d7f0fc}
+*+html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#0B49AE}
 * html .RadGrid_Telerik .rgActiveRow .rgSorted,
-* html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#d7f0fc}
+* html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#0B49AE}
 
 .RadGrid_Telerik .rgEditRow
 {
-	background:#FCDA5C 0 -4900px repeat-x url('Grid/sprite.gif');
+	background:#0B49AE 0 -4900px repeat-x url('Grid/sprite.gif');
 }
-*+html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#96cfee}
-* html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#96cfee}
+*+html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#3366cc}
+* html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#3366cc}
 
 .RadGrid_Telerik .rgSelectedRow td,
 .RadGrid_Telerik .rgActiveRow td,
@@ -165,7 +165,7 @@
 
 .RadGrid_Telerik .rgSelectedRow td
 {
-	background-color: #FCD64C !important;
+	background-color: #cfcfcf !important;
 	color: Black !important;
      font-weight: bold !important;
 }
@@ -173,12 +173,12 @@
 .RadGrid_Telerik .rgActiveRow td,
 .RadGrid_Telerik .rgHoveredRow td
 {
-	border-bottom-color:#99defd;
+	border-bottom-color:#3366cc;
 }
 
 .RadGrid_Telerik .rgEditRow td
 {
-	border-bottom-color:#96cfee;
+	border-bottom-color:#3366cc;
 }
 
 .RadGrid_Telerik .rgDrag
@@ -199,7 +199,7 @@
 .RadGrid_Telerik .rgFooter td
 {
 	border-top-width:1px;
-	border-color:#aec5d1 #e0e5f5 #fff #e0e5f5;
+	border-color:#3366cc #0B49AE #fff #336699;
 }
 
 /*status*/
@@ -207,7 +207,7 @@
 .RadGrid_Telerik .rgPager .rgStatus
 {
 	border:1px solid;
-	border-color:#aec5d1 #9cb6c5 #fff #9cb6c5;
+	border-color:#3366cc #0B49AE #fff #336699;
 	border-left:0;
 }
 
@@ -220,24 +220,24 @@
 
 .RadGrid_Telerik .rgPager
 {
-	background:#eff7fc;
+	background:#0B49AE;
 }
 
 .RadGrid_Telerik td.rgPagerCell
 {
 	border:1px solid;
-	border-color:#aec5d1 #fff #fff;
+	border-color:#cfcfcf #fff #fff;
 	border-right:0;
 }
 
 .RadGrid_Telerik .rgInfoPart
 {
-	color:#8a8a8a;
+	color:#fff;
 }
 
 .RadGrid_Telerik .rgInfoPart strong
 {
-	color:#4c4e54;
+	color:#fff;
 }
 
 .RadGrid_Telerik .rgPageFirst
@@ -275,9 +275,9 @@
 
 .RadGrid_Telerik .rgPager .rgPagerButton
 {
-	border-color:#a6d9f4;
-	background:#cfcfcf repeat-x 0 -1550px url('Grid/sprite.gif');
-	color:#000;
+	border-color:#3366cc;
+	background:#F9F9F9 repeat-x 0 -1550px url('Grid/sprite.gif');
+	color:#fff;
 	font:12px/12px "segoe ui",arial,sans-serif;
 }
 
@@ -309,7 +309,7 @@
 .RadGrid_Telerik .rgNumPart a.rgCurrentPage:hover
 {
 	background-position:100% -1450px;
-	color:#000;
+	color:#fff;
 }
 
 .RadGrid_Telerik .rgNumPart a.rgCurrentPage span,
@@ -348,12 +348,12 @@
 
 .RadGrid_Telerik .rgFilterRow
 {
-	background:#ebeef6;
+	background:#3366cc;
 }
 
 .RadGrid_Telerik .rgFilterRow td
 {
-    border-left:1px solid #ededed;
+    border-left:1px solid #3366cc;
     border-right:1px solid #fff;
 }
 
@@ -378,7 +378,7 @@
 	font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #16518A;    
+    color:#000000;    
 }
 
 /*filter context menu*/
@@ -387,7 +387,7 @@
 .RadMenu_Telerik .rgHCMFilter
 {
 	border-color:#707070;
-	background:#cfcfcf center -23px repeat-x url('FormDecorator/ButtonSprites.gif');
+	background:#3366cc center -23px repeat-x url('FormDecorator/ButtonSprites.gif');
 	color:#000;
 	font-family:"segoe ui",arial,sans-serif;
 }
@@ -395,9 +395,9 @@
 .RadMenu_Telerik .rgHCMClear:hover,
 .RadMenu_Telerik .rgHCMFilter:hover
 {
-	border-color:#3c7fb1;
+	border-color:#0B49AE;
 	background-position:center -67px;
-	background-color:#a7d9f5;
+	background-color:#336699;
 }
 
 /*grouping*/
@@ -405,15 +405,15 @@
 .RadGrid_Telerik .rgGroupPanel
 {
 	border:1px solid;
-	border-color:#eaedf6 #f2f5fa #9cb6c5;
+	border-color:#cfcfcf #0B49AE #cfcfcf;
 	/*background:#e6ebf5 0 -1900px repeat-x url('Grid/sprite.gif');*/
-	background-color:#FFFED1;
+	background-color:#0B49AE;
 }
 
 .RadGrid_Telerik .rgGroupPanel td
 {
 	border:0;
-	border-bottom:1px solid #f2f5fa;
+	border-bottom:1px solid #0B49AE;
 	padding:0;
 }
 
@@ -446,8 +446,8 @@
 .RadGrid_Telerik .rgGroupItem
 {
 	border:1px solid;
-	border-color:#8a929e #9298a1 #9298a1;
-	background:#e6ebf5 0 -7000px repeat-x url('Grid/sprite.gif');
+	border-color:#cfcfcf #3366cc #cfcfcf;
+	background:#cfcfcf 0 -7000px repeat-x url('Grid/sprite.gif');
 }
 
 .RadGrid_Telerik .rgGroupHeader
@@ -455,7 +455,7 @@
     background:0 -6489px repeat-x url('Grid/sprite.gif');
     
     line-height:21px;
-	color:Black;	
+	color:;	
  font-weight: BOLD;
 }
 
@@ -482,7 +482,7 @@
 .RadGrid_Telerik .rgGroupHeader .rgExpand,
 .RadGrid_Telerik .rgGroupHeader .rgCollapse
 {
-	background-color:#fff;
+	background-color:#3366cc;
 }
 
 .RadGrid_Telerik .rgGroupHeader td p,
@@ -495,7 +495,7 @@
 
 .RadGrid_Telerik .rgEditForm
 {
-	border-bottom:1px solid #ededed;
+	border-bottom:1px solid #336699;
 }
 
 .RadGrid_Telerik .rgUpdate
@@ -512,15 +512,15 @@
 
 .RadGrid_Telerik .rgDetailTable
 {
-	border-color:#ededed;
+	border-color:#0B49AE;
 }
 
 /*command row*/
 
 .RadGrid_Telerik .rgCommandRow
 {
-	background:#4e96aa 0 0 repeat-x url('Grid/rgCommandRow.gif');
-	color:#fff;
+	background:#F9F9F9 0 0 repeat-x url('Grid/rgCommandRow.gif');
+	color:#006699;
 }
 
 .RadGrid_Telerik .rgCommandCell
@@ -531,26 +531,26 @@
 
 .RadGrid_Telerik thead .rgCommandCell
 {
-	border-bottom:1px solid #FCD23C;
+	border-bottom:1px solid #0B49AE;
 }
 
 .RadGrid_Telerik tfoot .rgCommandCell,
 .RadGrid_Telerik .rgMasterTable>tbody>tr.rgCommandRow .rgCommandCell
 {
-	border-top:1px solid #3c7fb1;
+	border-top:1px solid #0B49AE;
 }
 
 .RadGrid_Telerik .rgCommandTable td
 {
 	border:0;
 	padding:2px 7px;
-	background-color: #FCDA5C;
+	background-color: #0B49AE;
 }
 
 .RadGrid_Telerik .rgCommandTable
 {
 	border:1px solid;
-	border-color:#FCDA5C #75a4b7 #95c3ce;
+	border-color:#0B49AE #3366cc #336699;
 }
 
 .RadGrid_Telerik .rgCommandRow a
@@ -624,9 +624,9 @@
 
 .GridToolTip_Telerik
 {
-	border:1px solid #767676;
+	border:1px solid #F9F9F9;
 	padding:3px;
-	background:#e4e5f0;
+	background:#336699;
 	color:#000;
 }
 
@@ -689,7 +689,7 @@
 
 	background-image: none;
 
-	background-color:#FCD23C;
+	background-color:#006699;
 
 }
 
@@ -698,7 +698,7 @@
 
 	background:transparent url('Grid/rgCommandRow.gif');
 
-	color: #4B4726;
+	color: #ffffff;
 
 	font-weight: BOLD;
 
@@ -706,7 +706,7 @@
 
  div.RadGrid_Telerik .rgHeader a {
 
-	color: #4B4726;
+	color: #ffffff;
 
 	font-weight: bold;
 
@@ -715,13 +715,13 @@
 
  div.RadGrid_Telerik .rgFilterRow td {
 
-	background-color: #FCD64C;
+	background-color: #D9EBF7;
 
 }
 
  div.RadGrid_Telerik .rgRow td {
 
-	background-color: #FFFED1;
+	background-color: #ffffff;
 
 	color: rgb(0, 0, 0);
 
@@ -729,7 +729,7 @@
 
  div.RadGrid_Telerik .rgAltRow td {
 
-	background-color: #FFECA3;
+	background-color: #d9ebf7;
 
 	color: rgb(0, 0, 0);
 
@@ -739,13 +739,13 @@
 
 	background-image: url('ImageHandler.ashx?mode=get&suite=aspnet-ajax&control=Grid&skin=Telerik&file=rgCommandRow.gif&t=1437799218');
 
-	color: Black;
+	color: #2475C7;
 
 }
 
  div.RadGrid_Telerik .rgPager {
 
-	background-color: #FCD23C;
+	background-color: #2475C7;
 
 }
 

@@ -7,7 +7,7 @@
 {
 	font:12px "segoe ui",arial,sans-serif;
 	border:solid 1px;
-	border-color:#FCDE75;
+	border-color:#006699;
 }
 
 /*textbox states*/
@@ -33,7 +33,7 @@ html body .RadInput_Hover_Telerik,
 html body .RadInput_Telerik .riFocused,
 html body .RadInput_Focused_Telerik
 {
-	border-color:#FCDE74 #FCDE75 #FCDE76 #FCDE77;
+	border-color:#006696 #006697 #006698 #006699;
 }
 
 html body .RadInput_Telerik .riRead,
@@ -54,7 +54,7 @@ html body .RadInput_Telerik .riError,
 html body .RadInput_Error_Telerik
 {
 	border-color:red;
-	background:#ffffff 100% -298px no-repeat url('Input/sprite.gif');
+	background:#006699 100% -298px no-repeat url('Input/sprite.gif');
 	color:red;
 }
 
@@ -62,7 +62,7 @@ html body .RadInput_Error_Telerik
 .RadForm.rfdTextbox .RadInput_Error_Telerik[type="text"]
 {
 	border-color:#3b81b2 #51a2db #54aceb #50a7e6;
-	background:#ffffff 100% -298px no-repeat url('Input/sprite.gif');
+	background:#006699 100% -298px no-repeat url('Input/sprite.gif');
 	color:#3b81b2;
 }
 

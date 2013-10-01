@@ -1,3 +1,7 @@
+/*sbi*/
+
+
+
 .RadTabStrip_Telerik .rtsLI,
 .RadTabStrip_Telerik .rtsLink
 {
@@ -8,13 +12,13 @@
 .RadTabStripLeft_Telerik .rtsSeparator,
 .RadTabStripRight_Telerik .rtsSeparator
 {
-	background: #8a9094;
+	background: #000000;
 }
 
 /* <disabled tabs> */
 .RadTabStrip_Telerik .rtsDisabled
 {
-	color: #ababab;
+	color: black;
 }
 /* </disabled tabs> */
 
@@ -24,23 +28,23 @@
 .RadTabStrip_Telerik .rtsPrevArrowDisabled,
 .RadTabStrip_Telerik .rtsNextArrowDisabled
 {
-	background-image: url('TabStrip/TabStripStates.png');
+	background-image: url('TabStrip/TabStripVStates.png');
 }
 /* </scrolling arrows> */
 
 /* <tab backgrounds> */
 
-.RadTabStripTop_Telerik .rtsLevel { background-color: transparent; }
-
+/*.RadTabStripTop_Telerik .rtsLevel { background-color: transparent; }
+*/
 .RadTabStripTop_Telerik .rtsLevel .rtsLink,
 .RadTabStripTop_Telerik .rtsLevel .rtsOut,
 .RadTabStripBottom_Telerik .rtsLevel .rtsLink,
 .RadTabStripBottom_Telerik .rtsLevel .rtsOut,
 .RadTabStripTop_Telerik_Baseline .rtsLevel,
-.RadTabStripBottom_Telerik_Baseline .rtsLevel { background-image: url('TabStrip/TabStripStates.png'); }
+.RadTabStripBottom_Telerik_Baseline .rtsLevel { background-image: url('TabStrip/TabStripVStates.png'); }
 
 .RadTabStripLeft_Telerik .rtsLink,
-.RadTabStripRight_Telerik .rtsLink { background-image: url('TabStrip/TabStripVStates.png'); }
+.RadTabStripRight_Telerik .rtsLink { background-image: url('TabStrip/TabStripStates.png');}
 
 .RadTabStripLeft_Telerik .rtsLast .rtsLink,
 .RadTabStripRight_Telerik .rtsLast .rtsLink
@@ -114,7 +118,7 @@
 
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel2,
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel3,
-.RadTabStrip_Telerik_SimpleSubItems .rtsLevel4 { background: #ffffff; }
+.RadTabStrip_Telerik_SimpleSubItems .rtsLevel4 { background: #D9EBF7; }
 
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel2 .rtsSelected,
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel3 .rtsSelected,
@@ -133,7 +137,7 @@
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel4 .rtsOut,
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel4 .rtsIn
 {
-	background: none;
+	background: #7ca644;
 }
 
 /* </simplistic sub-item styles> */

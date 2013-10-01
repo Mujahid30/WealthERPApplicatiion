@@ -1,6 +1,6 @@
 .RadPanelBar_Telerik
 {
-	background-color: #FFECA3 !important;
+	background-color: #FFFFFF !important;
 	background-image: none;
 }
 
@@ -24,7 +24,7 @@
 .RadPanelBar_Telerik .rpOut
 {
    background-image: url('PanelBar/rgCommandRow.gif');
-	border-color: #A6D9F4;
+	border-color: #FFFFFF;
 }
 
 .RadPanelBar_Telerik a.rpLink
@@ -48,7 +48,7 @@
 .RadPanelBar_Telerik a.rpLink:hover
 {
 	color: #0060ef;
-	background-color: #FFECA3 !important;
+	background-color: #ffffff !important;
 }
 
 .RadPanelBar_Telerik a.rpSelected,
@@ -59,7 +59,7 @@
 .RadPanelBar_Telerik a.rpDisabled:hover
 {
 	color: #bbb;
-	background-color: #FFECA3 !important;
+	background-color: #006699 !important;
 }
 
 .RadPanelBar_Telerik a.rpDisabled:hover .rpOut
@@ -226,7 +226,7 @@
 
 	background-image: none;
     
-	color: #747157;
+	color: #FFFFFF;
 
 }
 
@@ -234,7 +234,7 @@
 
 
 	background-image: none;
-	color: #747157;
+	color: #D9EBF7;
 
 	font-weight: bold;
 
@@ -252,7 +252,7 @@
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
 
     background-image: none !important;
-	color: #747157;
+	color: #006699;
 
 }
 
@@ -260,7 +260,7 @@
 
 	background-image: none;
 
-	background-color: #747157;
+	background-color: #006699;
 
 }
 
@@ -274,21 +274,21 @@
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink {
 
-	background-color: #FFECA3;
+	background-color: #006699;
 	color: rgb(0, 0, 0);
 
 }
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
 
-	background-color: #FFECA3;
+	background-color: #006699;
 
 }
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpSelected {
 
 	background-image: none !important;
-	color: #747157;
+	color: #006699;
 	font-weight: bold;
 
 }
@@ -304,13 +304,13 @@
 
 
     background-image: none !important;
-	background-color: #FFECA3;
+	background-color: #006699;
 
 }
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink .rpText {
 
-	background-color: #FFECA3;
+	background-color: #ffffff;
 	background-image: none !important;
 
 }
