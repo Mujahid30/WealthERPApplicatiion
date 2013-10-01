@@ -970,6 +970,12 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
                     }
+                    if (ddltransType.SelectedValue == "BUY")
+                    {
+                        txtFolioNumber.Enabled = false;
+                        imgFolioAdd.Enabled = false;
+                    }
+                   
                 }
             }
 
@@ -1308,6 +1314,11 @@ namespace WealthERP.OPS
                     {
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
+                    }
+                    if (ddltransType.SelectedValue == "BUY")
+                    {
+                        txtFolioNumber.Enabled = false;
+                        imgFolioAdd.Enabled = false;
                     }
 
                 }
@@ -2046,6 +2057,8 @@ namespace WealthERP.OPS
                         //BindFolioNumber(0);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
+                        txtFolioNumber.Enabled = false;
+                        imgFolioAdd.Enabled = false;
                     }
                     else if (ddltransType.SelectedValue == "SIP")
                     {

@@ -12,7 +12,7 @@
 <script type="text/javascript" language="javascript">
 
     function GetCustomerId(source, eventArgs) {
-      isItemSelected = true;
+        isItemSelected = true;
         //         document.getElementById("lblgetPan").innerHTML = "";
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
 
@@ -28,15 +28,15 @@
     //    }
 
     function CheckPanno() {
-//        var Val, val1;
-//        Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
+        //        var Val, val1;
+        //        Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
 
-//        if (Val != "") {
-//            val1 = document.getElementById("<%= lblgetcust.ClientID %>").value;
-//            if (val1 == "") {
-//                document.getElementById("<%= txtPansearch.ClientID %>").Focus();
-//            }
-//        }
+        //        if (Val != "") {
+        //            val1 = document.getElementById("<%= lblgetcust.ClientID %>").value;
+        //            if (val1 == "") {
+        //                document.getElementById("<%= txtPansearch.ClientID %>").Focus();
+        //            }
+        //        }
 
 
     }
@@ -61,7 +61,7 @@
 <script type="text/javascript">
 
     var isItemSelected = false;
-     
+
     //Handler for textbox blur event
     function checkItemSelected(txtPanNumber) {
         var returnValue = true;
@@ -75,9 +75,9 @@
             }
         }
         return returnValue;
-       
- 
- 
+
+
+
     }
     
 </script>
@@ -85,11 +85,11 @@
 <script type="text/javascript" language="javascript">
 
     function openpopupAddBank() {
-       
+
 
 
         window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-         
+
 
 
         return false;
@@ -193,18 +193,18 @@
                 returnValue = false;
             }
         } else {
-        if(txtFolioNuber.value != "")
-           alert("Valid folio found");
+            if (txtFolioNuber.value != "")
+                alert("Valid folio found");
         }
         return returnValue;
-       
- 
+
+
     }
 
 </script>
 
 <script type="text/javascript">
-    function checkFolioDuplicate() {        
+    function checkFolioDuplicate() {
         $("#<%= hidValidCheck.ClientID %>").val("0");
         alert("here..");
         if ($("#<%=txtFolioNumber.ClientID %>").val() == "") {
@@ -246,9 +246,6 @@
    
 </script>
 
-
-
-
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
     Title="Add New Folio">
@@ -268,8 +265,8 @@
                         <asp:Label ID="lblFolioNo" runat="server" Text="Folio Number: " CssClass="FieldName"></asp:Label>
                     </td>
                     <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField" ></asp:TextBox><br />
-                         <span id="spnNewFolioValidation"></span>
+                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
+                        <span id="spnNewFolioValidation"></span>
                         <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtNewFolio" ErrorMessage="Please enter folio name"
                             ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
                         </asp:RequiredFieldValidator>
@@ -289,7 +286,6 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-
 <table width="100%">
     <tr>
         <td colspan="5">
@@ -630,9 +626,9 @@
         </td>
         <td class="rightField" style="width: 10%">
             <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"  >
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false" >
+                    Skin="Telerik" EnableEmbeddedSkins="false">
                     <SpecialDays>
                         <%-- <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />--%>
                     </SpecialDays>
@@ -641,8 +637,8 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-               <span id="Span7" class="spnRequiredField">*</span>
- <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtReceivedDate"
+            <span id="Span7" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
@@ -722,7 +718,7 @@
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
@@ -759,10 +755,11 @@
             <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" /> 
-            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)" AutoPostBack="true">
+            <asp:HiddenField ID="hidFolioNumber" runat="server" OnValueChanged="hidFolioNumber_ValueChanged" />
+            <asp:TextBox ID="txtFolioNumber" runat="server" CssClass="txtField" onblur="return ValidateFolioSelection(this)"
+                AutoPostBack="true">
             </asp:TextBox>
-             <span id="spnExistingFolio"></span>
+            <span id="spnExistingFolio"></span>
             <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add folio" OnClick="btnOpenPopup_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
@@ -801,7 +798,8 @@
     </tr>
     <tr id="trOrderNo" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number:" CssClass="FieldName" Visible="false" ></asp:Label>
+            <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number:" CssClass="FieldName"
+                Visible="false"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
             <asp:Label ID="lblGetOrderNo" runat="server" Text="" CssClass="txtField" Visible="false"></asp:Label>
@@ -1061,7 +1059,7 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-               <%--<asp:CompareValidator ID="CompareValidator16" runat="server" CssClass="rfvPCG"
+            <%--<asp:CompareValidator ID="CompareValidator16" runat="server" CssClass="rfvPCG"
             ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
             Operator="DataTypeCheck" Type="Date">
             </asp:CompareValidator>  
@@ -1071,7 +1069,7 @@
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit">
                 </asp:CompareValidator >--%>
-             <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>To date should be greater than from date."
+            <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>To date should be greater than from date."
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ControlToCompare="txtstartDateSIP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
@@ -1119,7 +1117,7 @@
             <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtNewAmount" runat="server"
                 Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="Double"
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
-             <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="MFSubmit"
+            <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="MFSubmit"
                 runat="server" ErrorMessage="<br />Please enter a valid amount" ControlToValidate="txtNewAmount"
                 MaximumValue="2147483647" MinimumValue="1" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
         </td>
@@ -1129,7 +1127,7 @@
             <asp:Label ID="lblSchemeSwitch" runat="server" Text="To Scheme:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbLongField" >
+            <asp:DropDownList ID="ddlSchemeSwitch" runat="server" CssClass="cmbLongField">
             </asp:DropDownList>
             <span id="Span3" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidator10" runat="server" ControlToValidate="ddlSchemeSwitch"
@@ -1184,7 +1182,7 @@
             <asp:CompareValidator ID="CompareValidator7" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtendDateSTP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
-              <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="<br/>To date should be greater than from date."
+            <asp:CompareValidator ID="CompareValidator15" runat="server" ErrorMessage="<br/>To date should be greater than from date."
                 Type="Date" ControlToValidate="txtendDateSTP" CssClass="cvPCG" Operator="GreaterThan"
                 ControlToCompare="txtstartDateSTP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
