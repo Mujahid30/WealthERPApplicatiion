@@ -412,8 +412,8 @@ namespace WealthERP.OPS
                        associatesVo = (AssociatesVO)Session["associatesVo"];
                         userVo = (UserVo)Session[SessionContents.UserVo];
                       path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-                     orderNumber = mfOrderBo.GetOrderNumber();
-                      orderNumber = orderNumber + 1;
+                     //orderNumber = mfOrderBo.GetOrderNumber();
+                     // orderNumber = orderNumber + 1;
                     lblGetOrderNo.Text = orderNumber.ToString();
                       if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                           advisorVo = (AdvisorVo)Session["advisorVo"];

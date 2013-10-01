@@ -590,6 +590,15 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadDatePicker txtReceivedDate;
         
         /// <summary>
+        /// appRecidRequiredFieldValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator appRecidRequiredFieldValidator;
+        
+        /// <summary>
         /// trARDate control.
         /// </summary>
         /// <remarks>
@@ -1400,13 +1409,13 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadDatePicker txtendDateSIP;
         
         /// <summary>
-        /// CompareValidator4 control.
+        /// CompareValidator6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator4;
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
         
         /// <summary>
         /// trSection2 control.
@@ -1533,6 +1542,15 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator9;
+        
+        /// <summary>
+        /// RangeValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator3;
         
         /// <summary>
         /// trScheme control.
@@ -1668,6 +1686,15 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator7;
+        
+        /// <summary>
+        /// CompareValidator15 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator15;
         
         /// <summary>
         /// trSection3 control.
@@ -2343,7 +2370,7 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAplicationNo;
-
+        
         /// <summary>
         /// hidValidCheck control.
         /// </summary>
@@ -2352,6 +2379,5 @@ namespace WealthERP.OPS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hidValidCheck;
-        
     }
 }

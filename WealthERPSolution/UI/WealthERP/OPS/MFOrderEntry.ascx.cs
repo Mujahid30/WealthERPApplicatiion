@@ -125,8 +125,8 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
-                orderNumber = mfOrderBo.GetOrderNumber();
-                orderNumber = orderNumber + 1;
+                //orderNumber = mfOrderBo.GetOrderNumber();
+                //orderNumber = orderNumber + 1;
                 lblGetOrderNo.Text = orderNumber.ToString();
                 if (AgentCode != null)
                 {
@@ -252,6 +252,8 @@ namespace WealthERP.OPS
                         SetControls("View", mforderVo, orderVo);
                         btnAddMore.Visible = false;
                         ddlsearch.SelectedValue = "1";
+                        lblOrderNumber.Visible = true;
+                        lblGetOrderNo.Visible = true;
 
                     }
                     else if (ViewForm == "Edit")
@@ -259,6 +261,8 @@ namespace WealthERP.OPS
                         SetControls("Edit", mforderVo, orderVo);
                         btnAddMore.Visible = false;
                         ddlsearch.SelectedValue = "1";
+                        lblOrderNumber.Visible = true;
+                        lblGetOrderNo.Visible = true;
                     }
                     else if (ViewForm == "entry")
                     {
@@ -281,7 +285,7 @@ namespace WealthERP.OPS
 
             }
             Session["MForderToCustomer"] = "Customer";
-            //bindSearchScehes();
+            //bindSearchScheme();
 
             //    applicationNoDup = mfOrderBo.AplicationNODuplicates();
             //     int result = applicationNoDup.Find(item => item > 20);
@@ -290,7 +294,7 @@ namespace WealthERP.OPS
             //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
         }
-        private void bindSearchScehes()
+        private void bindSearchScheme()
         {
             try
             {
@@ -408,17 +412,22 @@ namespace WealthERP.OPS
             RadDatePicker Rdt = new RadDatePicker();
             Rdt.DbSelectedDate = dt;
 
+            txtReceivedDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            txtReceivedDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
+
+
+
             txtOrderDate.MaxDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtOrderDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtOrderDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
-
+            //DateTime recDt = txtReceivedDate.SelectedDate.Value ;
+            //txtOrderDate.SelectedDate = recDt.AddDays(3);
+            //txtOrderDate.Enabled = false;
             //   calendarDay.ItemStyle.BackColor = System.Drawing.Color.Red ;
             // calendarDay.Date = dt.Date;
             //  txtOrderDate.Calendar.SpecialDays.Add(calendarDay);
 
-            txtReceivedDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
-            txtReceivedDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
-
+           
 
             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtPaymentInstDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
@@ -643,7 +652,7 @@ namespace WealthERP.OPS
                     ddltransType.SelectedValue = mforderVo.TransactionCode;
                     txtOrderDate.SelectedDate = orderVo.OrderDate;
 
-                    lblGetOrderNo.Text = mforderVo.OrderNumber.ToString();
+                    lblGetOrderNo.Text = orderVo.OrderNumber.ToString();
                     hdnType.Value = mforderVo.TransactionCode;
                     txtFolioNumber.Text = mforderVo.FolioNumber;
                     hidFolioNumber.Value = mforderVo.accountid.ToString();
@@ -1621,20 +1630,21 @@ namespace WealthERP.OPS
             if (ddlsearch.SelectedValue == "2")
             {
                 lblgetcust.Text = "";
+                
             }
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
         {
-            if (ddlsearch.SelectedValue == "2")
-            {
-                if (lblgetcust.Text == "")
-                {
-                    txtPansearch.Focus();
+            //if (ddlsearch.SelectedValue == "2")
+            //{
+            //    if (lblgetcust.Text == "")
+            //    {
+            //        txtPansearch.Focus();
 
-                    txtAssociateSearch.Text = "";
-                    return;
-                }
-            }
+            //        txtAssociateSearch.Text = "";
+            //        return;
+            //    }
+            //}
             if (!string.IsNullOrEmpty(txtAssociateSearch.Text))
             {
                 int recCount = customerBo.ChkAssociateCode(advisorVo.advisorId, txtAssociateSearch.Text);
@@ -1654,7 +1664,7 @@ namespace WealthERP.OPS
                     lblAssociatetext.Text = "";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
 
-                    // txtAssociateSearch.Text = "";
+                     txtAssociateSearch.Text = "";
                 }
 
             }
@@ -2473,7 +2483,7 @@ namespace WealthERP.OPS
                 BindSchemeSwitch();
             }
 
-            bindSearchScehes();
+            bindSearchScheme();
         }
 
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -2491,12 +2501,12 @@ namespace WealthERP.OPS
                     //}
                     //else
                     //{
-                    //    bindSearchScehes();
+                    //    bindSearchScheme();
                     //    Sflag = 1;
                     //}
                 }
             }
-            bindSearchScehes();
+            bindSearchScheme();
         }
 
         protected void ddlAmcSchemeList_SelectedIndexChanged(object sender, EventArgs e)
@@ -2532,6 +2542,19 @@ namespace WealthERP.OPS
                     BindFolioNumberSearch(0);
             }
         }
+
+        protected void txtReceivedDate_DateChanged(object sender, EventArgs e)
+        {
+                if (txtReceivedDate.SelectedDate == null)
+            {
+             //   txtOrderDate.d = "";
+                return;
+            }
+
+                txtOrderDate.SelectedDate = Convert.ToDateTime(txtOrderDate.SelectedDate).AddDays(3); ;
+
+        }
+        
         protected void txtOrderDate_DateChanged(object sender, EventArgs e)
         {
 
@@ -2594,6 +2617,14 @@ namespace WealthERP.OPS
             lnkBtnEdit.Visible = true;
             lnlBack.Visible = false;
             imgBtnRefereshBank.Enabled = false;
+            orderNumber = mfOrderBo.GetOrderNumber(orderId);
+            lblGetOrderNo.Text = orderNumber.ToString();
+            lblOrderNumber.Visible = true;
+            lblGetOrderNo.Visible = true;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+
+           
+            
             //btnViewReport.Visible = true;
             //btnViewInPDF.Visible = true;
             //btnViewInDOC.Visible = true;
@@ -2795,7 +2826,13 @@ namespace WealthERP.OPS
             List<int> OrderIds = new List<int>(); ;
             SaveOrderDetails();
             OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
+            orderId = int.Parse(OrderIds[0].ToString());
             rgvOrderSteps.Visible = false;
+            orderNumber = mfOrderBo.GetOrderNumber(orderId);
+            lblOrderNumber.Visible = true;
+            lblGetOrderNo.Visible = true;
+            // orderNumber = orderNumber + 1;
+            lblGetOrderNo.Text = orderNumber.ToString();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
             ClearAllFields();
@@ -2805,20 +2842,20 @@ namespace WealthERP.OPS
             lblGetBranch.Text = "";
             lblgetPan.Text = "";
 
-            orderNumber = mfOrderBo.GetOrderNumber();
-            orderNumber = orderNumber + 1;
-            lblGetOrderNo.Text = orderNumber.ToString();
+          
         }
         public void SetEditViewMode(bool Bool)
         {
 
             if (Bool)
             {
-
+              
                 //txtOrederNumber.Enabled = false;
-                //txtOrderDate.Enabled = false;
+               // txtOrderDate.Enabled = false;
                 //ddlBranch.Enabled = false;
                 //ddlRM.Enabled = false;
+                lblOrderNumber.Visible = false;
+                lblGetOrderNo.Visible = false;
                 txtCustomerName.Enabled = false;
                 btnImgAddCustomer.Enabled = false;
                 ddltransType.Enabled = false;
@@ -2878,6 +2915,8 @@ namespace WealthERP.OPS
             }
             else
             {
+                //lblOrderNumber.Visible = true;
+                //lblGetOrderNo.Visible = true;
                 ddlsearch.Enabled = false;
                 txtAssociateSearch.Enabled = false;
                 txtSearchScheme.Enabled = false;
@@ -2955,7 +2994,9 @@ namespace WealthERP.OPS
             {
                 if (ViewForm == "Edit")
                 {
+
                     SetControls("Edit", mforderVo, orderVo);
+                    lblGetOrderNo.Text = orderId.ToString();
                     lnlBack.Visible = true;
                 }
             }
@@ -2992,6 +3033,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>();
             UpdateMFOrderDetails();
+           
             orderVo.AssetGroup = "MF";
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
             SetEditViewMode(true);
@@ -2999,6 +3041,8 @@ namespace WealthERP.OPS
             btnUpdate.Visible = false;
             btnViewInPDFNew.Visible = false;
             btnViewInDOCNew.Visible = false;
+            lblOrderNumber.Visible = true;
+            lblGetOrderNo.Visible = true;
         }
 
         private void UpdateMFOrderDetails()
@@ -3217,7 +3261,7 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = "";
                     lblgetPan.Text = "";
                     txtOrderDate.SelectedDate = Convert.ToDateTime(DateTime.Today.ToShortDateString());
-                    lblGetOrderNo.Text = ((mfOrderBo.GetOrderNumber()) + 1).ToString();
+               //     lblGetOrderNo.Text = ((mfOrderBo.GetOrderNumber()) + 1).ToString();
                     txtApplicationNumber.Enabled = true;
                     lnkBtnEdit.Visible = false;
                     lnlBack.Visible = false;
@@ -3231,6 +3275,8 @@ namespace WealthERP.OPS
                     btnImgAddCustomer.Visible = true;
                     txtCustomerName.Enabled = true;
                     txtCustomerName.Text = "";
+                    lblOrderNumber.Visible = false ;
+                    lblGetOrderNo.Visible = false;
 
                 }
 

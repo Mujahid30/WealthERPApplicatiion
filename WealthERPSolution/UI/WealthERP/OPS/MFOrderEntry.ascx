@@ -12,7 +12,7 @@
 <script type="text/javascript" language="javascript">
 
     function GetCustomerId(source, eventArgs) {
-        isItemSelected = true;
+      isItemSelected = true;
         //         document.getElementById("lblgetPan").innerHTML = "";
         document.getElementById("<%= txtCustomerId.ClientID %>").value = eventArgs.get_value();
 
@@ -28,15 +28,15 @@
     //    }
 
     function CheckPanno() {
-        var Val, val1;
-        Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
+//        var Val, val1;
+//        Val = document.getElementById("<%= txtPansearch.ClientID %>").value;
 
-        if (Val != "") {
-            val1 = document.getElementById("<%= lblgetcust.ClientID %>").value;
-            if (val1 == "") {
-                document.getElementById("<%= txtPansearch.ClientID %>").Focus();
-            }
-        }
+//        if (Val != "") {
+//            val1 = document.getElementById("<%= lblgetcust.ClientID %>").value;
+//            if (val1 == "") {
+//                document.getElementById("<%= txtPansearch.ClientID %>").Focus();
+//            }
+//        }
 
 
     }
@@ -61,54 +61,35 @@
 <script type="text/javascript">
 
     var isItemSelected = false;
-
+     
     //Handler for textbox blur event
-    function checkItemSelected(txtInput) {
-        txtInput.focus();
+    function checkItemSelected(txtPanNumber) {
+        var returnValue = true;
         if (!isItemSelected) {
-            txtInput.focus();
 
-            document.getElementById("<%= lblgetcust.ClientID %>").Value = "";
-            alert("Please select Pan Number from the Pan list only");
-
-
-
-
+            if (txtPanNumber.value != "") {
+                txtPanNumber.focus();
+                alert("Please select Pan Number from the Pan list only");
+                txtPanNumber.value = "";
+                returnValue = false;
+            }
         }
-
-        txtInput.focus();
-        return false;
-        //        else {
-        ////            //reset isItemSelected
-        //            isItemSelected = false;
-        //        }
+        return returnValue;
+       
+ 
+ 
     }
-    function checkSchemeSelected(txtInput) {
-        txtInput.focus();
-        if (!isItemSelected) {
-            txtInput.focus();
-            document.getElementById("<%= txtSearchScheme.ClientID %>").Value = "";
-            alert("Please select Scheme from the Scheme list only");
-        }
-
-        txtInput.focus();
-        return false;
-
-    }
+    
 </script>
 
 <script type="text/javascript" language="javascript">
 
     function openpopupAddBank() {
-        //        var url = "PopUp.aspx?PageId=AddBankAccount&parameter=MForderToCustomer";
-        //        var win = window.open('', '', 'left=0px, top=0px, width=320px, height=270px, scrollbars=no, status =no, resizable=no');
-        //        win.location.href = url;
-        //        win = null;
-        //        return false;
+       
 
 
         window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-        //         
+         
 
 
         return false;
@@ -449,7 +430,10 @@
         </td>
         <td class="rightField" style="width: 20%">
             <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtField" AutoComplete="Off"
-                onclientClick="ShowIsa()" AutoPostBack="True" onblur="return checkItemSelected(this)">
+                onclientClick="ShowIsa()" AutoPostBack="True">
+            
+                 
+                   <%--   onblur="return checkItemSelected(this)"--%>
             </asp:TextBox><span id="spnCustomer" class="spnRequiredField">*</span>
             <%--<asp:Button ID="btnAddCustomer" runat="server" Text="Add a Customer" CssClass="PCGMediumButton"
                 CausesValidation="true" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_OrderEntry_btnAddCustomer','S');"
@@ -646,9 +630,9 @@
         </td>
         <td class="rightField" style="width: 10%">
             <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"  >
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
+                    Skin="Telerik" EnableEmbeddedSkins="false" >
                     <SpecialDays>
                         <%-- <telerik:RadCalendarDay Repeatable="Today" ItemStyle-BackColor="Red" />--%>
                     </SpecialDays>
@@ -657,6 +641,10 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+               <span id="Span7" class="spnRequiredField">*</span>
+ <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtReceivedDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
+                Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
             <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -813,10 +801,10 @@
     </tr>
     <tr id="trOrderNo" runat="server">
         <td class="leftField" style="width: 20%">
-            <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblOrderNumber" runat="server" Text="Order Number:" CssClass="FieldName" Visible="false" ></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:Label ID="lblGetOrderNo" runat="server" Text="" CssClass="txtField"></asp:Label>
+            <asp:Label ID="lblGetOrderNo" runat="server" Text="" CssClass="txtField" Visible="false"></asp:Label>
         </td>
         <td align="right" id="tdLblNav" runat="server" visible="false">
             <asp:Label ID="Label19" runat="server" Text="Purchase Price:" CssClass="FieldName"></asp:Label>
@@ -1073,12 +1061,18 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+               <%--<asp:CompareValidator ID="CompareValidator16" runat="server" CssClass="rfvPCG"
+            ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
+            Operator="DataTypeCheck" Type="Date">
+            </asp:CompareValidator>  
+            
+            
             <asp:CompareValidator ID="CompareValidator4" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit">
-                </asp:CompareValidator >
+                </asp:CompareValidator >--%>
              <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>To date should be greater than from date."
-                Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="GreaterThan"
+                Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ControlToCompare="txtstartDateSIP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
     </tr>

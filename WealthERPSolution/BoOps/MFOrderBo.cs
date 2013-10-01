@@ -13,12 +13,12 @@ namespace BoOps
     public class MFOrderBo:OrderBo
     {
         MFOrderDao mfOrderDao = new MFOrderDao();
-        public int GetOrderNumber()
+        public int GetOrderNumber(int orderId)
         {
             int orderNumber = 0;
             try
             {
-                orderNumber = mfOrderDao.GetOrderNumber();
+                orderNumber = mfOrderDao.GetOrderNumber(orderId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -37,8 +37,19 @@ namespace BoOps
             }
             return orderNumber;
         }
-
-
+         public  DataTable   AplicationNODuplicates(string prefixText)
+        {
+            DataTable AplicationNODuplicates = new DataTable();
+            try
+            {
+                AplicationNODuplicates = mfOrderDao.AplicationNODuplicates( prefixText);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return AplicationNODuplicates;
+        }
         public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo,int userId)
         {
             List<int> orderIds = new List<int>();

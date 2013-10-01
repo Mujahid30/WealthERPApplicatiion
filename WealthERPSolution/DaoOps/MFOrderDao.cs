@@ -13,24 +13,25 @@ namespace DaoOps
 {
     public class MFOrderDao : OrderDao
     {
-        FIOrderDao mfOrderDao = new FIOrderDao(); 
-        public int GetOrderNumber()
+        FIOrderDao mfOrderDao = new FIOrderDao();
+        public int GetOrderNumber(int orderId)
         {
             DataSet dsOrderNumber;
             DataTable dtOrderNumber;
             int orderNumber = 0;
             Database db;
-            DbCommand getSchemeSwitchcmd;
+            DbCommand getOrdernocmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getSchemeSwitchcmd = db.GetStoredProcCommand("SP_GetOrderNumber");
-                dsOrderNumber = db.ExecuteDataSet(getSchemeSwitchcmd);
+                getOrdernocmd = db.GetStoredProcCommand("SP_GetOrderNumber");
+                db.AddInParameter(getOrdernocmd, "@CO_OrderId", DbType.Int32, orderId);
+                dsOrderNumber = db.ExecuteDataSet(getOrdernocmd);
                 dtOrderNumber = dsOrderNumber.Tables[0];
                 if (dtOrderNumber.Rows.Count > 0)
-                    orderNumber = int.Parse(dtOrderNumber.Rows[0]["CMFOD_OrderDetailsId"].ToString());
-                else
-                    orderNumber = 999;
+                    orderNumber = int.Parse(dtOrderNumber.Rows[0]["CMFOD_OrderNumber"].ToString());
+                //else
+                //    orderNumber = 999;
             }
             catch (BaseApplicationException Ex)
             {
@@ -51,7 +52,40 @@ namespace DaoOps
         }
 
 
-        
+        public DataTable AplicationNODuplicates(string prefixText)
+        {
+            DataTable DupAppNos = new DataTable();
+            Database db;
+            DbCommand DupAppNosCmd;
+            DataSet dsApplicationNo;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                DupAppNosCmd = db.GetStoredProcCommand("Sp_CheckAplicationNo");
+                db.AddInParameter(DupAppNosCmd, "@CO_ApplicationNumber", DbType.String, prefixText);
+                dsApplicationNo = db.ExecuteDataSet(DupAppNosCmd);
+                DupAppNos = dsApplicationNo.Tables[0];
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "MFOrderDao.cs:AplicationNODuplicates()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return DupAppNos;
+          
+
+        }
         public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
         {
             List<int> orderIds = new List<int>();
