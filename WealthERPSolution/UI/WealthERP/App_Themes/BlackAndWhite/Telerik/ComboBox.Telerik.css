@@ -126,7 +126,7 @@
 
 .RadComboBoxDropDown_Telerik .rcbItem em
 {
-	background: #e6e6e6;
+	background: #006699;
 }
 
 .RadComboBoxDropDown_Telerik .rcbHovered
@@ -163,7 +163,7 @@
 
 .RadComboBoxDropDown_Telerik .rcbMoreResults
 {
-	border-top-color: #d1d1d1;
+	border-top-color: #d1d1d1;	
 	background: #ffffff;
 }
 
