@@ -701,8 +701,7 @@ namespace WealthERP.OPS
                         txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
-                        BindSchemeSwitch();
-                        ddlSchemeSwitch.SelectedValue = mforderVo.SchemePlanSwitch.ToString();
+                        
 
                     }
                     portfolioId = mforderVo.portfolioId;
@@ -728,6 +727,10 @@ namespace WealthERP.OPS
                     }
                     else if (ddltransType.SelectedValue == "SWB")
                     {
+                        trFrequencySTP.Visible = false;
+                        trSTPStart.Visible = false;
+                        BindSchemeSwitch();
+                        ddlSchemeSwitch.SelectedValue = mforderVo.SchemePlanSwitch.ToString();
                         ShowTransactionType(2);
                         trScheme.Visible = true;
 
@@ -962,7 +965,11 @@ namespace WealthERP.OPS
                     lnkDelete.Visible = true;
                     txtFolioNumber.Text = mforderVo.FolioNumber;
 
-
+                    if (ddltransType.SelectedValue == "SWB")
+                    {
+                        trFrequencySTP.Visible = false;
+                        trSTPStart.Visible = false;
+                    }
                 }
             }
 
@@ -1042,6 +1049,8 @@ namespace WealthERP.OPS
                     }
                     else if (ddltransType.SelectedValue == "SWB")
                     {
+                        trFrequencySTP.Visible=false ;
+                        trSTPStart.Visible = false;
                         ShowTransactionType(2);
                         trScheme.Visible = true;
 
@@ -1295,6 +1304,11 @@ namespace WealthERP.OPS
                     //btnViewInDOC.Visible = true;
                     txtFolioNumber.Text = mforderVo.FolioNumber;
                     hidFolioNumber.Value = mforderVo.accountid.ToString();
+                    if (ddltransType.SelectedValue == "SWB")
+                    {
+                        trFrequencySTP.Visible = false;
+                        trSTPStart.Visible = false;
+                    }
 
                 }
             }
