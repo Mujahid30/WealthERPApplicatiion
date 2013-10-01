@@ -87,7 +87,7 @@
     <asp:DropDownList ID="ddlFilterSelection" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlFilterSelection_SelectedIndexChanged"
         CssClass="cmbField" Style="vertical-align: middle">
         <asp:ListItem Text="As on Date" Value="0"></asp:ListItem>
-        <asp:ListItem Text="Date Range" Value="1"></asp:ListItem>
+        <asp:ListItem Text="Date Range" Value="1" Enabled="false"></asp:ListItem>
     </asp:DropDownList>
     <telerik:RadDatePicker ID="txtDate" CssClass="txtTo" runat="server" Culture="English (United States)"
         Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
