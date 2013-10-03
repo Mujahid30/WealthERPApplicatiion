@@ -63,7 +63,7 @@
     <Compile Include="WerpErrorDto.cs" />
     <Compile Include="WerpCommonLookup\ProductSubCategoryListDTO.cs" />
     <Compile Include="WerpCommonLookup\ProductAMCSchemePlanListDTO.cs" />
-    <Compile Include="WerpCommonLookup\ProductCategoryListDTO.cs" />
+    <Compile Include="WerpCommonLookup\ProductCategoryListDto.cs" />
     <Compile Include="WerpCommonLookup\ProductListDto.cs" />
     <Compile Include="ServiceResultDTO.cs" />
     <Compile Include="UserAccountDTO.cs" />

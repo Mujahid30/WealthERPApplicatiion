@@ -114,5 +114,44 @@ namespace DaoCommon
             }
             return ds.Tables[0];
         }
+
+        /// <summary> 
+        /// Gets the list of Products</summary> 
+        /// <param name="AmcCode">ProductCode for the desired Product. EmptyString to return list of all Products</param>
+        /// <returns> 
+        /// DataTable containing Product list</returns>
+        public DataTable GetProductCategories(string ProductCode, string CategoryCode)
+        {
+            Database db;
+            DbCommand cmdGetCatCm;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCatCm = db.GetStoredProcCommand("SPROC_GetCategoryCM");
+                if (string.IsNullOrEmpty(ProductCode) == false) db.AddInParameter(cmdGetCatCm, "@PAG_AssetGroupCode", DbType.String, ProductCode);
+                if (string.IsNullOrEmpty(CategoryCode) == false) db.AddInParameter(cmdGetCatCm, "@PAIC_AssetInstrumentCategoryCode", DbType.String, CategoryCode);
+                ds = db.ExecuteDataSet(cmdGetCatCm);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductCategories(string ProductCode, string CategoryCode)");
+                object[] objects = new object[2];
+                objects[0] = ProductCode;
+                objects[1] = CategoryCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
     }
 }

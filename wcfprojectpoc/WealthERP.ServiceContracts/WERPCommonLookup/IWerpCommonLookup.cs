@@ -24,5 +24,13 @@ namespace WealthERP.ServiceContracts
         /// <returns> Product AMC List Response </returns>
         [OperationContract]
         ProductAmcLookupResponse GetProductAmcList(ProductAmcLookupRequest request);
+
+        /// <summary>
+        ///   Gets the Product Category List.
+        /// </summary>
+        /// <param name="ProductType"> The Product Type Request. </param>
+        /// <returns> Product AMC List Response </returns>
+        [OperationContract]
+        ProductCategoryLookupResponse GetProductCategoryList(ProductCategoryLookupRequest request);
     }
 }
