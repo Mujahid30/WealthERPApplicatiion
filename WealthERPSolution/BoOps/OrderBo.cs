@@ -831,5 +831,34 @@ namespace BoOps
             return dtOrder;
 
         }
+
+        public DataTable GetTradeDateListForOrder(DateTime date, int isPastDateList, int noOfDaysReq)
+        {
+            DataTable dtTradeDate = null;
+            OrderDao orderDao = new OrderDao();
+            try
+            {
+                dtTradeDate = orderDao.GetTradeDateListForOrder(date, isPastDateList, noOfDaysReq);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetTradeDateListForOrder(DateTime date, int isPastDateList, int noOfDaysReq))");
+                object[] objects = new object[3];
+                objects[0] = date;
+                objects[1] = isPastDateList;
+                objects[2] = noOfDaysReq;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtTradeDate;
+        }
     }
 }

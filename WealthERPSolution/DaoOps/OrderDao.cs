@@ -1357,5 +1357,42 @@ namespace DaoOps
             return dsAgentList.Tables[0];
         }
 
+        public DataTable GetTradeDateListForOrder(DateTime date, int isPastDateList, int noOfDaysReq)
+        {
+            DataSet dsTradeDate = null;
+            Database db;
+            DbCommand cmdTradeDate;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdTradeDate = db.GetStoredProcCommand("SPROC_GetTradeDateListForOrder");
+                db.AddInParameter(cmdTradeDate, "@Date", DbType.Date, date);
+                db.AddInParameter(cmdTradeDate, "@IsPastDateList", DbType.Int16, isPastDateList);
+                db.AddInParameter(cmdTradeDate, "@NoOfDaysReq", DbType.Int16, noOfDaysReq);
+                dsTradeDate = db.ExecuteDataSet(cmdTradeDate);
+            }
+            catch (BaseApplicationException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(ex.Message, ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderDao.cs:GetTradeDateListForOrder(DateTime date, int isPastDateList, int noOfDaysReq))");
+                object[] objects = new object[3];
+                objects[0] = date;
+                objects[1] = isPastDateList;
+                objects[2] = noOfDaysReq;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsTradeDate.Tables[0];
+        }
+
+
+
     }
 }
