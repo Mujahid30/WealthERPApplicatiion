@@ -1023,8 +1023,10 @@ namespace WealthERP.CustomerPortfolio
                 }
             else if (userType == "associates")
                 {
+                    gvMFTransactions.Columns[13].Visible=false;
+                    gvMFTransactions.Columns[14].Visible = false;   
                     AdviserId = advisorVo.advisorId;
-                            AgentId = 0;
+                    AgentId = 0;
                
             }
             }

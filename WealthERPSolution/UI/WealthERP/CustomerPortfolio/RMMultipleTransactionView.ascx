@@ -932,7 +932,7 @@ function goBack()
                                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                                 </telerik:GridBoundColumn>
                                                 <telerik:GridTemplateColumn AllowFiltering="false" DataField="CurrentValue" AutoPostBackOnFilter="true"
-                                                    HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                    HeaderText="Current Value" ShowFilterIcon="false" CurrentFilterFunction="Contains" SortExpression="CurrentValue"
                                                     Aggregate="Sum" FooterText=" " FooterStyle-HorizontalAlign="Right" FooterAggregateFormatString="{0:n3}">
                                                     <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                                     <ItemTemplate>
