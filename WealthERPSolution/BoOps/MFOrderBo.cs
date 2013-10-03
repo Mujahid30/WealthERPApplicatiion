@@ -7,6 +7,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using DaoOps;
 using VoOps;
+using VoCustomerPortfolio;
 
 namespace BoOps
 {
@@ -50,12 +51,12 @@ namespace BoOps
             }
             return AplicationNODuplicates;
         }
-        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo,int userId)
+        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo,int userId,SystematicSetupVo SystematicSetupVo)
         {
             List<int> orderIds = new List<int>();
             try
             {
-                orderIds = mfOrderDao.CreateOrderMFDetails(orderVo, mforderVo,userId);
+                orderIds = mfOrderDao.CreateOrderMFDetails(orderVo, mforderVo, userId, SystematicSetupVo);
             }
             catch (BaseApplicationException Ex)
             {
