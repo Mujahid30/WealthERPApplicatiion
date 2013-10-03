@@ -35,18 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BoCommisionManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WealthERPSolution\UI\WealthERP\bin\BoCommisionManagement.dll</HintPath>
-    </Reference>
-    <Reference Include="BoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WealthERPSolution\UI\WealthERP\bin\BoCommon.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WealthERPSolution\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -62,24 +50,38 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WealthERP.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WealthERP.BusinessEntities\bin\Debug\WealthERP.BusinessEntities.dll</HintPath>
-    </Reference>
-    <Reference Include="WealthERP.ServiceContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WealthERP.ServiceContracts\bin\Debug\WealthERP.ServiceContracts.dll</HintPath>
-    </Reference>
-    <Reference Include="WealthERP.ServiceRequestResponse, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WealthERP.ServiceRequestResponse\bin\Debug\WealthERP.ServiceRequestResponse.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseServiceFacade.cs" />
     <Compile Include="OrderManagement\OrderManagementServiceFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WERPCommonLookup\WERPCommonLookupServiceFacade.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\WealthERPSolution\BoCommisionManagement\BoCommisionManagement.csproj">
+      <Project>{DCAD67B1-A11C-489C-8F22-7A04FC6B8CBA}</Project>
+      <Name>BoCommisionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WealthERPSolution\Bo\Common\BoCommon\BoCommon.csproj">
+      <Project>{F034F6F7-2938-4126-921E-9847633F0624}</Project>
+      <Name>BoCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WealthERPSolution\Microsoft.ApplicationBlocks.ExceptionManagement\Microsoft.ApplicationBlocks.ExceptionManagement.csproj">
+      <Project>{CA477068-2337-4E11-B066-AC5B1ED36CCF}</Project>
+      <Name>Microsoft.ApplicationBlocks.ExceptionManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WealthERP.BusinessEntities\WealthERP.BusinessEntities.csproj">
+      <Project>{670432A9-4138-4EC4-96C9-0410D3BF3B49}</Project>
+      <Name>WealthERP.BusinessEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WealthERP.ServiceContracts\WealthERP.ServiceContracts.csproj">
+      <Project>{370EBDE6-C882-4913-8CF3-1B27CADEF738}</Project>
+      <Name>WealthERP.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WealthERP.ServiceRequestResponse\WealthERP.ServiceRequestResponse.csproj">
+      <Project>{9A00D147-EB1D-4BA0-90FF-A598F0014EDD}</Project>
+      <Name>WealthERP.ServiceRequestResponse</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

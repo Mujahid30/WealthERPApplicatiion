@@ -50,10 +50,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WealthERP.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WealthERP.BusinessEntities\bin\Debug\WealthERP.BusinessEntities.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +59,12 @@
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\OrderManagement\OrderManagementResponse.cs" />
     <Compile Include="Response\WERPCommonLookup\ProductAmcLookupResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WealthERP.BusinessEntities\WealthERP.BusinessEntities.csproj">
+      <Project>{670432A9-4138-4EC4-96C9-0410D3BF3B49}</Project>
+      <Name>WealthERP.BusinessEntities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

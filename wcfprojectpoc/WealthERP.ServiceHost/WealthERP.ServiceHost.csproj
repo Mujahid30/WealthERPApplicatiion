@@ -61,10 +61,6 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="WealthERP.ServiceFacade, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WealthERP.ServiceFacade\bin\Debug\WealthERP.ServiceFacade.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="OrderManagement\OrderManagementService.svc" />
@@ -73,6 +69,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WealthERP.ServiceFacade\WealthERP.ServiceFacade.csproj">
+      <Project>{512FCEB3-2420-4BB8-A2D8-DB9E94787F00}</Project>
+      <Name>WealthERP.ServiceFacade</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
