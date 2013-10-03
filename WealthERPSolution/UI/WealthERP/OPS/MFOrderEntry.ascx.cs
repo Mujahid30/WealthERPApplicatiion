@@ -75,9 +75,11 @@ namespace WealthERP.OPS
         string AgentCode;
         DataTable AgentId;
         DataTable Agentname;
-
+        SystematicSetupVo systematicSetupVo;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+        
 
             //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
@@ -427,7 +429,7 @@ namespace WealthERP.OPS
             // calendarDay.Date = dt.Date;
             //  txtOrderDate.Calendar.SpecialDays.Add(calendarDay);
 
-           
+
 
             txtPaymentInstDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
             txtPaymentInstDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
@@ -546,6 +548,15 @@ namespace WealthERP.OPS
         //    }
         //    ddlAssociate.Items.Insert(0, new ListItem("Select(SubBroker Code/Name/Type)", "0"));
         //}
+
+
+        protected void imgAddBank_OnClick(object sender, EventArgs e)
+        {
+            // window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+           // ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');", true);
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindBank(customerVo.CustomerId);
+        }
 
         protected void imgBtnRefereshBank_OnClick(object sender, EventArgs e)
         {
@@ -667,6 +678,8 @@ namespace WealthERP.OPS
                         lblFolioNumber.Visible = false;
                         txtFolioNumber.Visible = false;
                         spnAMC.Visible = false; spnScheme.Visible = false;
+                        txtSearchScheme.Visible = false;
+                        Span9.Visible = false;
                         if (customerVo != null)
                         {
                             lblGetLine1.Text = customerVo.Adr1Line1;
@@ -701,7 +714,7 @@ namespace WealthERP.OPS
                         txtSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
                         ddlAmcSchemeList.SelectedItem.Value = mforderVo.SchemePlanCode.ToString();
                         hdnSchemeCode.Value = mforderVo.SchemePlanCode.ToString();
-                        
+
 
                     }
                     portfolioId = mforderVo.portfolioId;
@@ -710,11 +723,27 @@ namespace WealthERP.OPS
                         ShowTransactionType(1);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
+
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
                     }
                     else if (ddltransType.SelectedValue == "SIP")
                     {
                         ShowTransactionType(1);
                         trFrequency.Visible = true;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
                         ddlFrequencySIP.SelectedValue = mforderVo.FrequencyCode;
                         if (mforderVo.StartDate != DateTime.MinValue)
                             txtstartDateSIP.SelectedDate = mforderVo.StartDate;
@@ -729,6 +758,14 @@ namespace WealthERP.OPS
                     {
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = mforderVo.SchemePlanSwitch.ToString();
                         ShowTransactionType(2);
@@ -741,6 +778,16 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
                         trScheme.Visible = true;
+
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
+
                         if (mforderVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = mforderVo.FrequencyCode;
                         if (mforderVo.StartDate != DateTime.MinValue)
@@ -759,6 +806,15 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
                         trPINo.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
+
                         if (advisorVo.A_AgentCodeBased == 1)
                         {
                             trGetAmount.Visible = false;
@@ -776,6 +832,14 @@ namespace WealthERP.OPS
                         trScheme.Visible = false;
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
                         if (mforderVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = mforderVo.FrequencyCode;
                         if (mforderVo.StartDate != DateTime.MinValue)
@@ -969,13 +1033,28 @@ namespace WealthERP.OPS
                     {
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
                     }
                     if (ddltransType.SelectedValue == "BUY")
                     {
                         txtFolioNumber.Enabled = false;
                         imgFolioAdd.Enabled = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
                     }
-                   
+
                 }
             }
 
@@ -1035,6 +1114,14 @@ namespace WealthERP.OPS
                         ShowTransactionType(1);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
                     }
                     else if (ddltransType.SelectedValue == "SIP")
                     {
@@ -1042,6 +1129,14 @@ namespace WealthERP.OPS
                         trFrequency.Visible = true;
                         trSIPStartDate.Visible = true;
                         ddlFrequencySIP.Enabled = false;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
                         ddlFrequencySIP.SelectedValue = mforderVo.FrequencyCode;
                         txtstartDateSIP.Enabled = false;
                         if (mforderVo.StartDate != DateTime.MinValue)
@@ -1055,10 +1150,20 @@ namespace WealthERP.OPS
                     }
                     else if (ddltransType.SelectedValue == "SWB")
                     {
-                        trFrequencySTP.Visible=false ;
+                        trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
                         ShowTransactionType(2);
                         trScheme.Visible = true;
+
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
+
 
                     }
                     else if (ddltransType.SelectedValue == "STB")
@@ -1067,6 +1172,15 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
                         trScheme.Visible = true;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
+
                         if (mforderVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = mforderVo.FrequencyCode;
                         else
@@ -1080,7 +1194,7 @@ namespace WealthERP.OPS
                         else
                             txtendDateSTP.SelectedDate = null;
 
-                        
+
                     }
                     else if (ddltransType.SelectedValue == "Sel")
                     {
@@ -1089,6 +1203,15 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
                         trPINo.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
+
                         if (advisorVo.A_AgentCodeBased == 1)
                         {
                             trGetAmount.Visible = false;
@@ -1106,6 +1229,15 @@ namespace WealthERP.OPS
                         trScheme.Visible = false;
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
+
+
                         if (mforderVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = mforderVo.FrequencyCode;
                         else
@@ -1128,6 +1260,8 @@ namespace WealthERP.OPS
                         ddlAmcSchemeList.Visible = false;
                         lblFolioNumber.Visible = false; txtFolioNumber.Visible = false;
                         spnAMC.Visible = false; spnScheme.Visible = false;
+                        txtSearchScheme.Visible = false;
+                        Span9.Visible = false;
                         if (customerVo != null)
                         {
                             lblGetLine1.Text = customerVo.Adr1Line1;
@@ -1469,6 +1603,16 @@ namespace WealthERP.OPS
                 trNewCity.Visible = false;
                 trNewPin.Visible = false;
 
+                // sip rows
+                trSystematicDateChk1.Visible = false;
+                trSystematicDateChk2.Visible = false;
+                trSystematicDateChk3.Visible = false;
+                trSystematicDate.Visible = false;
+                trRegistrationDate.Visible = false;
+                trCeaseDate.Visible = false;
+
+
+
                 trBtnSubmit.Visible = false;
             }
             else if (type == 1)
@@ -1563,6 +1707,14 @@ namespace WealthERP.OPS
                 trFrequencySTP.Visible = false;
                 trSTPStart.Visible = false;
 
+                trSystematicDateChk1.Visible = false;
+                trSystematicDateChk2.Visible = false;
+                trSystematicDateChk3.Visible = false;
+                trSystematicDate.Visible = false;
+                trRegistrationDate.Visible = false;
+                trCeaseDate.Visible = false;
+
+
                 trSection3.Visible = false;
 
                 trAddress1.Visible = true;
@@ -1655,7 +1807,7 @@ namespace WealthERP.OPS
             if (ddlsearch.SelectedValue == "2")
             {
                 lblgetcust.Text = "";
-                
+
             }
         }
         protected void OnAssociateTextchanged(object sender, EventArgs e)
@@ -1689,7 +1841,7 @@ namespace WealthERP.OPS
                     lblAssociatetext.Text = "";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Agent Code is invalid!');", true);
 
-                     txtAssociateSearch.Text = "";
+                    txtAssociateSearch.Text = "";
                 }
 
             }
@@ -1704,6 +1856,13 @@ namespace WealthERP.OPS
 
             //}
         }
+
+        protected void HiddenField1_ValueChanged1(object sender, EventArgs e)
+        {
+            customerVo = (CustomerVo)Session["customerVo"];
+            BindBank(customerVo.CustomerId);
+         }
+
 
         protected void txtCustomerId_ValueChanged1(object sender, EventArgs e)
         {
@@ -2057,6 +2216,15 @@ namespace WealthERP.OPS
                         //BindFolioNumber(0);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
+
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
                         txtFolioNumber.Enabled = false;
                         imgFolioAdd.Enabled = false;
                     }
@@ -2068,6 +2236,13 @@ namespace WealthERP.OPS
                         //BindFolioNumber(0);
                         trFrequency.Visible = true;
                         trSIPStartDate.Visible = true;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
                     }
                     else
                     {
@@ -2077,6 +2252,13 @@ namespace WealthERP.OPS
                         //BindFolioNumber(1);
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
                     }
                 }
                 else if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
@@ -2088,6 +2270,14 @@ namespace WealthERP.OPS
                         trScheme.Visible = true;
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
+
                     }
                     else if (ddltransType.SelectedValue == "STB")
                     {
@@ -2100,6 +2290,13 @@ namespace WealthERP.OPS
                         trScheme.Visible = false;
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
+
+                        trSystematicDateChk1.Visible = true;
+                        trSystematicDateChk2.Visible = true;
+                        trSystematicDateChk3.Visible = true;
+                        trSystematicDate.Visible = true;
+                        trRegistrationDate.Visible = true;
+                        trCeaseDate.Visible = true;
                     }
                     else
                     {
@@ -2107,6 +2304,13 @@ namespace WealthERP.OPS
                         trSTPStart.Visible = false;
                         trScheme.Visible = false;
                         trPINo.Visible = false;
+
+                        trSystematicDateChk1.Visible = false;
+                        trSystematicDateChk2.Visible = false;
+                        trSystematicDateChk3.Visible = false;
+                        trSystematicDate.Visible = false;
+                        trRegistrationDate.Visible = false;
+                        trCeaseDate.Visible = false;
 
                     }
                     BindAMC(0);
@@ -2572,16 +2776,16 @@ namespace WealthERP.OPS
 
         protected void txtReceivedDate_DateChanged(object sender, EventArgs e)
         {
-                if (txtReceivedDate.SelectedDate == null)
+            if (txtReceivedDate.SelectedDate == null)
             {
-             //   txtOrderDate.d = "";
+                //   txtOrderDate.d = "";
                 return;
             }
 
-                txtOrderDate.SelectedDate = Convert.ToDateTime(txtOrderDate.SelectedDate).AddDays(3); ;
+            txtOrderDate.SelectedDate = Convert.ToDateTime(txtOrderDate.SelectedDate).AddDays(3); ;
 
         }
-        
+
         protected void txtOrderDate_DateChanged(object sender, EventArgs e)
         {
 
@@ -2632,7 +2836,7 @@ namespace WealthERP.OPS
 
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
+            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
             rgvOrderSteps.Visible = true;
             orderId = int.Parse(OrderIds[0].ToString());
             Session["CO_OrderId"] = orderId;
@@ -2644,14 +2848,16 @@ namespace WealthERP.OPS
             lnkBtnEdit.Visible = true;
             lnlBack.Visible = false;
             imgBtnRefereshBank.Enabled = false;
+
             orderNumber = mfOrderBo.GetOrderNumber(orderId);
             lblGetOrderNo.Text = orderNumber.ToString();
             lblOrderNumber.Visible = true;
             lblGetOrderNo.Visible = true;
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
-           
-            
+
+
             //btnViewReport.Visible = true;
             //btnViewInPDF.Visible = true;
             //btnViewInDOC.Visible = true;
@@ -2833,12 +3039,89 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.AgentId = 0;
+            systematicSetupVo = new SystematicSetupVo();
             //Convert.ToInt32(ddlAssociate.SelectedValue);
+            systematicSetupVo.SystematicDate = 1;
+
+            if (!string.IsNullOrEmpty(txtPeriod.Text))
+                systematicSetupVo.Period = Convert.ToInt32(txtPeriod.Text);
+          
+
+            systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedValue;
+            if (!string.IsNullOrEmpty(txtRegistrationDate.Text.ToString().Trim()))
+
+                systematicSetupVo.RegistrationDate = DateTime.Parse(txtRegistrationDate.Text.ToString());
+            else
+                systematicSetupVo.RegistrationDate = DateTime.MinValue;
+
+
+            if (!string.IsNullOrEmpty(txtCeaseDate.Text.ToString().Trim()) && txtCeaseDate.Text != "dd/mm/yyyy")
+                systematicSetupVo.CeaseDate = DateTime.Parse(txtCeaseDate.Text.ToString());
+            else
+                systematicSetupVo.CeaseDate = DateTime.MinValue;
+
 
             Session["orderVo"] = orderVo;
             Session["mforderVo"] = mforderVo;
 
         }
+
+        protected void DatesofSystematicTrx(string tranxType)
+        {
+
+            foreach (ListItem chkItems in chkAsOnReportList.Items)
+            {
+                if (chkItems.Selected == true)
+                {
+                   
+                }
+            }
+          //  int i = 0;
+            //for (int i = 0; i < CheckBoxList1.Items.Count; i++)
+            //{
+            //    if (CheckBoxList1.Items[i].che == true)
+            //    {
+            //        //   YrStr += YrChkBox.Items[i].Value + ";";
+            //    }
+            //}
+            //CheckBox chkbxlst = (CheckBox)this.FindControl("chkDate11");
+            //foreach (ListItem li in chkbxlst.Items)
+            //{
+            //    if (li.Selected)
+            //    {
+            //        //drCatRole = dtCatRole.NewRow();
+            //        //drCatRole[0] = hdn.Value.Trim();
+            //        //drCatRole[1] = li.Value.Trim();
+            //        //dtCatRole.Rows.Add(drCatRole);
+            //    }
+            //}
+
+
+
+          
+
+
+
+            //            CheckBoxList cCheckBox = (CheckBoxList)this.FindControl("CheckBoxList1");
+
+            //           foreach (ListItem item in this.CheckBoxList1.Items)
+            //{
+            //    if (item.Selected)
+            //    {
+            //       // things.Add(item.Value);
+            //    }
+            //}
+
+            //foreach (ListItem li in cCheckBox.Items)
+            //{
+            //    if (li.Selected == true)
+            //    {
+            //       // Label1.Text += li.Text + "<br />";
+            //    }
+
+            //}
+        }
+
 
         protected void rbtnImmediate_CheckedChanged(object sender, EventArgs e)
         {
@@ -2852,7 +3135,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>(); ;
             SaveOrderDetails();
-            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
+            OrderIds = mfOrderBo.CreateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId, systematicSetupVo);
             orderId = int.Parse(OrderIds[0].ToString());
             rgvOrderSteps.Visible = false;
             orderNumber = mfOrderBo.GetOrderNumber(orderId);
@@ -2869,16 +3152,47 @@ namespace WealthERP.OPS
             lblGetBranch.Text = "";
             lblgetPan.Text = "";
 
-          
+
+        }
+        protected void ddlPeriodSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtendDateSIP.SelectedDate = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtstartDateSIP.SelectedDate.ToString()));
+        }
+
+        protected void txtPeriod_TextChanged(object sender, EventArgs e)
+        {
+            txtendDateSIP.SelectedDate = CalcEndDate(int.Parse(txtPeriod.Text.ToString()), DateTime.Parse(txtstartDateSIP.SelectedDate.ToString()));
+
+        }
+        private DateTime CalcEndDate(int period, DateTime startDate)
+        {
+            DateTime endDate = new DateTime();
+            if (ddlPeriodSelection.SelectedItem.Value == "DA")
+            {
+                endDate = startDate.AddDays(period - 1);
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "MN")
+            {
+                endDate = startDate.AddMonths((period - 1));
+            }
+            else if (ddlPeriodSelection.SelectedItem.Value == "YR")
+            {
+                period = period * 12;
+                endDate = startDate.AddMonths(period - 1);
+            }
+
+
+
+            return endDate;
         }
         public void SetEditViewMode(bool Bool)
         {
 
             if (Bool)
             {
-              
+
                 //txtOrederNumber.Enabled = false;
-               // txtOrderDate.Enabled = false;
+                // txtOrderDate.Enabled = false;
                 //ddlBranch.Enabled = false;
                 //ddlRM.Enabled = false;
                 lblOrderNumber.Visible = false;
@@ -2919,6 +3233,16 @@ namespace WealthERP.OPS
                 ddlFrequencySTP.Enabled = false;
                 txtstartDateSTP.Enabled = false;
                 txtendDateSTP.Enabled = false;
+
+                //sip
+                trSystematicDateChk1.Visible = false;
+                trSystematicDateChk2.Visible = false;
+                trSystematicDateChk3.Visible = false;
+                trSystematicDate.Visible = false;
+                trRegistrationDate.Visible = false;
+                trCeaseDate.Visible = false;
+
+
 
                 txtCorrAdrLine1.Enabled = false;
                 txtCorrAdrLine2.Enabled = false;
@@ -2988,6 +3312,17 @@ namespace WealthERP.OPS
                 txtstartDateSTP.Enabled = true;
                 txtendDateSTP.Enabled = true;
 
+
+
+                trSystematicDateChk1.Visible = true;
+                trSystematicDateChk2.Visible = true;
+                trSystematicDateChk3.Visible = true;
+                trSystematicDate.Visible = true;
+                trRegistrationDate.Visible = true;
+                trCeaseDate.Visible = true;
+
+
+
                 txtCorrAdrLine1.Enabled = true;
                 txtCorrAdrLine2.Enabled = true;
                 txtCorrAdrLine3.Enabled = true;
@@ -3012,6 +3347,8 @@ namespace WealthERP.OPS
             SetEditViewMode(false);
             ViewForm = "Edit";
             lnkDelete.Visible = true;
+           
+
             if (mforderVo != null && orderVo != null)
             {
                 mforderVo = (MFOrderVo)Session["mforderVo"];
@@ -3023,13 +3360,20 @@ namespace WealthERP.OPS
                 {
 
                     SetControls("Edit", mforderVo, orderVo);
-                    lblGetOrderNo.Text = orderId.ToString();
+                 //   lblGetOrderNo.Text = orderId.ToString();
                     lnlBack.Visible = true;
                 }
             }
             else
             {
                 SetControls("Entry", mforderVo, orderVo);
+            }
+            if (Request.QueryString["action"] ==null)
+            {
+                orderNumber = mfOrderBo.GetOrderNumber(orderId);
+                lblGetOrderNo.Text = orderNumber.ToString();
+                lblOrderNumber.Visible = true;
+                lblGetOrderNo.Visible = true;
             }
             btnSubmit.Visible = false;
             rgvOrderSteps.Enabled = true;
@@ -3060,7 +3404,7 @@ namespace WealthERP.OPS
         {
             List<int> OrderIds = new List<int>();
             UpdateMFOrderDetails();
-           
+
             orderVo.AssetGroup = "MF";
             mfOrderBo.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userVo.UserId);
             SetEditViewMode(true);
@@ -3087,8 +3431,9 @@ namespace WealthERP.OPS
                 orderVo.ApplicationReceivedDate = DateTime.Parse(txtReceivedDate.SelectedDate.ToString());
             else
                 orderVo.ApplicationReceivedDate = DateTime.MinValue;
+
             orderVo.ApplicationNumber = txtApplicationNumber.Text;
-            if (ddlAMCList.SelectedIndex != -1)
+            if (ddlAMCList.SelectedIndex != 0)
                 mforderVo.Amccode = int.Parse(ddlAMCList.SelectedValue);
             else
                 mforderVo.Amccode = 0;
@@ -3288,7 +3633,7 @@ namespace WealthERP.OPS
                     lblGetBranch.Text = "";
                     lblgetPan.Text = "";
                     txtOrderDate.SelectedDate = Convert.ToDateTime(DateTime.Today.ToShortDateString());
-               //     lblGetOrderNo.Text = ((mfOrderBo.GetOrderNumber()) + 1).ToString();
+                    //     lblGetOrderNo.Text = ((mfOrderBo.GetOrderNumber()) + 1).ToString();
                     txtApplicationNumber.Enabled = true;
                     lnkBtnEdit.Visible = false;
                     lnlBack.Visible = false;
@@ -3302,7 +3647,7 @@ namespace WealthERP.OPS
                     btnImgAddCustomer.Visible = true;
                     txtCustomerName.Enabled = true;
                     txtCustomerName.Text = "";
-                    lblOrderNumber.Visible = false ;
+                    lblOrderNumber.Visible = false;
                     lblGetOrderNo.Visible = false;
 
                 }

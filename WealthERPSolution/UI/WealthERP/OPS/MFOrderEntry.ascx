@@ -50,7 +50,7 @@
     }
 
     function openpopupAddCustomer() {
-        window.open('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
+        window.open('PopUp.aspx?AddMFCustLinkId=mf&pageID=CustomerType&', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
         return false;
     }
 
@@ -85,15 +85,17 @@
 <script type="text/javascript" language="javascript">
 
     function openpopupAddBank() {
-
-
-
         window.open('PopUp.aspx?PageId=AddBankAccount', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
-
-
-
         return false;
+
+        //        document.getElementById("<%= HiddenField1.ClientID %>").value = 1;
+
     }
+
+
+
+
+
     //    function closepopupAddBank() {
     //        window.close('PopUp.aspx?PageId=CustomerType', 'mywindow', 'width=750,height=500,scrollbars=yes,location=no')
     //        return false;
@@ -1001,14 +1003,19 @@
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:ImageButton ID="imgAddBank" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
-                AlternateText="Add" runat="server" ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()"
-                Height="15px" Width="15px"></asp:ImageButton>
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Bank"
+                OnClientClick="return openpopupAddBank()" Height="15px" Width="15px"></asp:ImageButton>
+            <%-- --%>
             <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
-                runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
+                  runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                 OnClientClick="return closepopupAddBank()" Height="15px" Width="25px"></asp:ImageButton>
-            <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
+            <asp:CompareValidator ID="CompareValidator18" runat="server" ControlToValidate="ddlBankName"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
+            <%--      
+            <asp:CompareValidator ID="CompareValidator11" runat="server" ControlToValidate="ddlBankName"
+                CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select a Bank"
+                Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>--%>
         </td>
         <td class="leftField" style="width: 20%">
             <asp:Label ID="lblBranchName" runat="server" Text="Bank BranchName:" CssClass="FieldName"></asp:Label>
@@ -1363,6 +1370,145 @@
             </asp:DropDownList>
         </td>
     </tr>
+    <tr id="trSystematicDateChk1" runat="server">
+        <td width="25%" class="leftField">
+            <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="3">
+            <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%">
+                <asp:CheckBox ID="chkDate1" Text="1" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate2" Text="2" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate3" Text="3" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate4" Text="4" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate5" Text="5" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate6" Text="6" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate7" Text="7" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate8" Text="8" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate9" Text="9" runat="server" CssClass="cmbField" Width="40px" />
+            </asp:CheckBoxList>
+        </td>
+    </tr>
+    <tr id="trSystematicDateChk2" runat="server">
+        <td>
+        </td>
+        <td colspan="3">
+            <asp:CheckBox ID="chkDate11" Text="11" runat="server" CssClass="cmbField" Width="40px"
+                AutoPostBack="true" CausesValidation="False" />
+            <asp:CheckBox ID="chkDate12" Text="12" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate13" Text="13" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate14" Text="14" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate15" Text="15" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate16" Text="16" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate17" Text="17" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate18" Text="18" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate19" Text="19" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate20" Text="20" runat="server" CssClass="cmbField" Width="40px" />
+        </td>
+    </tr>
+    <tr id="trSystematicDateChk3" runat="server">
+        <td>
+        </td>
+        <td colspan="3">
+            <asp:CheckBox ID="chkDate21" Text="21" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate22" Text="22" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate23" Text="23" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate24" Text="24" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate25" Text="25" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate26" Text="26" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate27" Text="27" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate28" Text="28" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate29" Text="29" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate30" Text="30" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate31" Text="31" runat="server" CssClass="cmbField" Width="40px" />
+        </td>
+    </tr>
+    <%--  <tr id="trSystematicDate" runat="server" visible="false" >
+        <td class="leftField">
+            <asp:Label ID="lblSystematicDateText" runat="server" Text="Date of Systematic Trx:"
+                CssClass="FieldName"></asp:Label>
+        </td>
+        <%--<td>
+            <asp:TextBox ID="txtSystematicDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:CompareValidator ID="cvSystematicDate" runat="server" ErrorMessage="<br />Please Enter Systematic Date between 1 to 31"
+                ValidationGroup="MFSubmit" ControlToValidate="txtSystematicDate" class="rfvPCG"
+                Operator="LessThan" Type="Integer" ValueToCompare="32" Display="Dynamic"></asp:CompareValidator>
+        </td>--%>
+    <%-- <td>
+        </td>
+    </tr>--%>
+    <tr id="trSystematicDate" runat="server">
+        <td class="leftField" width="25%">
+            <asp:Label ID="lblPeriod" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td colspan="3">
+            <asp:TextBox ID="txtPeriod" runat="server" CssClass="txtField" AutoPostBack="true"
+                ValidationGroup="MFSubmit" CausesValidation="true" OnTextChanged="txtPeriod_TextChanged"></asp:TextBox>
+            <span id="Span21" class="spnRequiredField">*</span>
+            <asp:DropDownList ID="ddlPeriodSelection" runat="server" AutoPostBack="true" CssClass="cmbField"
+                CausesValidation="true" ValidationGroup="MFSubmit" OnSelectedIndexChanged="ddlPeriodSelection_SelectedIndexChanged">
+                <%--<asp:ListItem>Select</asp:ListItem>  --%>
+                <asp:ListItem Text="Days" Value="DA"></asp:ListItem>
+                <asp:ListItem Text="Months" Value="MN"></asp:ListItem>
+                <asp:ListItem Text="Years" Value="YR"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:Label ID="lblUnits" runat="server" Text="&nbsp;&nbsp;(Units)" CssClass="FieldName"></asp:Label>
+            <%-- <span id="Span8" class="spnRequiredField">*</span>--%>
+            <%--<asp:Label ID="lblMonths" runat="server" Text="in Months" CssClass="txtField"></asp:Label>--%>
+            <asp:RequiredFieldValidator ID="rfvPeriod" ControlToValidate="txtPeriod" ErrorMessage="<br />Please Enter a Period"
+                Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="MFSubmit">
+            </asp:RequiredFieldValidator>&nbsp;&nbsp;
+            <asp:CompareValidator ID="CompareValidator_txtPeriod" runat="server" ControlToValidate="txtPeriod"
+                ErrorMessage="<br />Please Enter a numeric Value" Operator="DataTypeCheck" Type="Integer"
+                ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+            </asp:CompareValidator>
+            <asp:CompareValidator ID="CompareValidator4" runat="server" ControlToValidate="txtPeriod"
+                ErrorMessage="<br />Please update the  value" Operator="GreaterThan" Type="Integer"
+                ValueToCompare="0" CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit">
+            </asp:CompareValidator>
+        </td>
+    </tr>
+    <tr id="trRegistrationDate" runat="server">
+        <td class="leftField" width="25%">
+            <asp:Label ID="lblRegistrationDate" runat="server" Text="Registration Date in R&T system: "
+                CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtRegistrationDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="RegistrationDate_CalendarExtender" runat="server" TargetControlID="txtRegistrationDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="RegistrationDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtRegistrationDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:CompareValidator ID="CompareValidator16" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtRegistrationDate" Operator="DataTypeCheck"
+                CssClass="cvPCG" ValidationGroup="MFSubmit" Display="Dynamic"></asp:CompareValidator>
+        </td>
+        <td>
+            <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtRegistrationDate" ErrorMessage="Please select a Registration Date"
+                Display="Dynamic" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>--%>
+        </td>
+    </tr>
+    <tr id="trCeaseDate" runat="server">
+        <td class="leftField" width="25%">
+            <asp:Label ID="lblCeaseDate" runat="server" Text="Stopped Date: " CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtCeaseDate" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="CeaseDate_CalendarExtender" runat="server" TargetControlID="txtCeaseDate"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="CeaseDate_TextBoxWatermarkExtender" runat="server"
+                TargetControlID="txtCeaseDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
+            <asp:CompareValidator ID="CompareValidator17" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtCeaseDate" Operator="DataTypeCheck" SipChequeDate_CalendarExtender="cvPCG"
+                Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+        </td>
+        <td>
+        </td>
+    </tr>
     <tr id="trBtnSubmit" runat="server">
         <td align="left" colspan="3">
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="MFSubmit"
@@ -1471,3 +1617,4 @@
 <asp:HiddenField ID="txtAgentId" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:HiddenField ID="hdnAplicationNo" runat="server" OnValueChanged="txtAgentId_ValueChanged1" />
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
+<asp:HiddenField ID="HiddenField1" runat="server" OnValueChanged="HiddenField1_ValueChanged1" />

@@ -58,6 +58,13 @@ namespace WealthERP.Customer
                     page = Request.QueryString["page"];
                     btnCustomerProfile.Visible = false;
                 }
+                if (Request.QueryString["AddMFCustLinkId"] != null)
+                {
+                    trBranchlist.Visible = false;
+                    trRMlist.Visible = false;
+                    btnCustomerProfile.Visible = false;
+                   //  Session.Remove("AddMFCustLinkId");
+                }
                 if (!IsPostBack)
                 {
                     lblPanDuplicate.Visible = false;
@@ -68,18 +75,7 @@ namespace WealthERP.Customer
                     BindRMforBranchDropdown(0, 0);
                     //BindListBranch(rmVo.RMId, "rm");
                     BindSubTypeDropDown();
-                    String isMfRequested = Convert.ToString(Request.QueryString["MForderToCustomer"]);
-                    if (Session["MForderToCustomer"] != null)
-                    {
-                        trBranchlist.Visible = false;
-                        trRMlist.Visible = false;
-                        Session.Remove("MForderToCustomer");
-                    }
-                    else
-                    {
-                        trBranchlist.Visible = true;
-                        trRMlist.Visible = true ;
-                    }
+                    
                 }
 
             }
@@ -465,6 +461,11 @@ namespace WealthERP.Customer
 
                     }
 
+
+                }
+                if (Request.QueryString["AddMFCustLinkId"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "closePage", "window.close();", true);
                 }
 
             }

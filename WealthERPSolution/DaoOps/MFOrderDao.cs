@@ -8,6 +8,8 @@ using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using VoOps;
+using VoCustomerPortfolio;
+
 
 namespace DaoOps
 {
@@ -86,7 +88,7 @@ namespace DaoOps
           
 
         }
-        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
+        public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo)
         {
             List<int> orderIds = new List<int>();
             int OrderId;
@@ -213,6 +215,24 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+
+
+                //db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
+
+                //db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Tenure", DbType.Int32, systematicSetupVo.Period);
+
+                //db.AddInParameter(createMFOrderTrackingCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+
+                //if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
+                //    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
+                //else
+                //    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
+
+                //if (systematicSetupVo.CeaseDate != DateTime.MinValue)
+                //    db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
+                //else
+                //    db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
