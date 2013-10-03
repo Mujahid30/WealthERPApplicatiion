@@ -12,6 +12,8 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
 
+
+
 namespace WealthERP.ServiceFacade
 {
     /// <summary>
@@ -39,82 +41,35 @@ namespace WealthERP.ServiceFacade
 
         #region IWerpCommonLookupContract Members
 
-        ProductAmcResponse IWerpCommonLookupContract.GetProductAmcList(ProductAmcRequest request)
+        ProductAmcLookupResponse IWerpCommonLookupContract.GetProductAmcList(ProductAmcLookupRequest request)
         {
-            ProductAmcResponse response = new ProductAmcResponse();
+            ProductAmcLookupResponse response = new ProductAmcLookupResponse();
             CommisionReceivableBo boCommRecv = new CommisionReceivableBo();
 
             try
             {
-                int amccode = 0;
-                if (request.ProductAmcCode != null) amccode = int.Parse(request.ProductAmcCode);
+                DataSet dsLookupData;
 
-                DataSet dsLookupData = boCommRecv.GetProdAmc(amccode);
+                if (string.IsNullOrEmpty(request.AmcCode)) { dsLookupData = boCommRecv.GetProdAmc(); }
+                else { dsLookupData = boCommRecv.GetProdAmc(int.Parse(request.AmcCode)); }
 
-                foreach (DataRow row in dsLookupData.Tables[0].Rows)
-                {
-                    if (response.ServiceResultDTO.IsSuccess == false) { response.ServiceResultDTO.IsSuccess = true; }
-
-                    KeyValuePair<string, string> prodAmc = new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString());
-                    response.ProductAmcListDTO.ProductAMCList.Add(prodAmc);
+                foreach (DataRow row in dsLookupData.Tables[0].Rows) {
+                    response.ProductAmcListResponse.ProductAMCList.Add(new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
                 }
-                
+                response.ServiceResult.IsSuccess = true;
             }
-            catch (Exception e)
+            catch (DataException ex)
             {
+                response.ServiceResult.IsSuccess = false;
+                response.ServiceResult.Message = ex.Message;
             }
-            
-            return response;
-        }
-
-        WERPCommonLookupResponse IWerpCommonLookupContract.GetProductList(WERPCommonLookupRequest request)
-        {
-            WERPCommonLookupResponse response = new WERPCommonLookupResponse();
-            CommisionReceivableBo boCommRecv = new CommisionReceivableBo();
-
-            try
+            catch (Exception ex)
             {
-                DataSet dsLookupData = boCommRecv.GetProductType();
-
-                foreach (DataRow row in dsLookupData.Tables[0].Rows)
-                {
-                    if (response.ServiceResultDTO.IsSuccess == false) { response.ServiceResultDTO.IsSuccess = true; }
-
-                    KeyValuePair<string, string> prodType = new KeyValuePair<string, string>(row["PAG_AssetGroupCode"].ToString(), row["PAG_AssetGroupName"].ToString());
-                    response.ProductListDTO.ProductList.Add(prodType);
-                }
-
+                response.ServiceResult.IsSuccess = false;
+                response.ServiceResult.Message = ex.Message;
             }
-            catch (Exception e)
+            finally
             {
-            }
-
-            return response;
-        }
-
-        ProductCategoryResponse IWerpCommonLookupContract.GetProductCategoryList(ProductCategoryRequest request)
-        {
-            ProductCategoryResponse response = new ProductCategoryResponse();
-            CommisionReceivableBo commBo = new CommisionReceivableBo();
-
-            DataSet dsCats = commBo.GetCategories(request.ProductType);
-
-            foreach (DataRow row in dsCats.Tables[0].Rows) { 
-                response.ProductCategoryListDTO.ProductCategoryList.Add(new KeyValuePair<string, string>(row["PAIC_AssetInstrumentCategoryCode"].ToString(), row["PAIC_AssetInstrumentCategoryName"].ToString()));
-            }
-            return response;
-        }
-
-        ProductSubCategoryResponse IWerpCommonLookupContract.GetProductSubCategoryList(ProductSubCategoryRequest request)
-        {
-            ProductSubCategoryResponse response = new ProductSubCategoryResponse();
-            CommisionReceivableBo commBo = new CommisionReceivableBo();
-
-            DataSet dsCats = commBo.GetSubCategories(request.ProductCategoryCode);
-
-            foreach (DataRow row in dsCats.Tables[0].Rows)
-            {
-                response.ProductSubCategoryListDTO.ProductSubCategoryList.Add(new KeyValuePair<string, string>(row["PAISC_AssetInstrumentSubCategoryCode"].ToString(), row["PAISC_AssetInstrumentSubCategoryName"].ToString()));
             }
             return response;
         }

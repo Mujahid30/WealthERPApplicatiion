@@ -9,11 +9,13 @@ namespace WealthERP.ServiceRequestResponse
     /// </summary>
 
     [MessageContract(IsWrapped = false)]
-    public class WERPCommonLookupRequest : BaseRequest
+    public class ProductAmcLookupRequest : BaseRequest
     {
         /// <summary>
         ///   Gets and Sets ProductAMCList
         /// </summary>
-
+        /// 
+        [MessageBodyMember(Order = 0)]
+        public string AmcCode { get; set; }
     }
 }

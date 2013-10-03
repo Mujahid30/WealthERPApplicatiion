@@ -1,5 +1,7 @@
 ﻿using System.ServiceModel;
+
 using WealthERP.ServiceRequestResponse;
+
 
 namespace WealthERP.ServiceContracts
 {
@@ -10,36 +12,11 @@ namespace WealthERP.ServiceContracts
     public interface IWerpCommonLookupContract
     {
         /// <summary>
-        ///   Gets the Product List.
-        /// </summary>
-        /// <param name="ProductType"> The Product Type Request. </param>
-        /// <returns> Product List Response </returns>
-        [OperationContract]
-        WERPCommonLookupResponse GetProductList(WERPCommonLookupRequest request);
-
-        /// <summary>
         ///   Gets the Product AMC List.
         /// </summary>
         /// <param name="ProductType"> The Product Type Request. </param>
         /// <returns> Product AMC List Response </returns>
         [OperationContract]
-        ProductAmcResponse GetProductAmcList(ProductAmcRequest request);
-
-        /// <summary>
-        ///   Gets the Product Category List Product.
-        /// </summary>
-        /// <param name="ProductType"> The Product Type Request. </param>
-        /// <returns> Product Category List Response </returns>
-        [OperationContract]
-        ProductCategoryResponse GetProductCategoryList(ProductCategoryRequest request);
-
-        /// <summary>
-        ///   Gets the Product Sub Category List Product.
-        /// </summary>
-        /// <param name="productSubCategoryRequest"> Product SubCategory Request </param>
-        /// <returns> Product Category List Response </returns>
-        [OperationContract]
-        ProductSubCategoryResponse GetProductSubCategoryList(ProductSubCategoryRequest productSubCategoryRequest);
+        ProductAmcLookupResponse GetProductAmcList(ProductAmcLookupRequest request);
     }
-
 }

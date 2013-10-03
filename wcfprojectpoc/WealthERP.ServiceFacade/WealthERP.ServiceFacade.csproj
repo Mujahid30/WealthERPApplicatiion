@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -16,26 +16,6 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,15 +37,15 @@
   <ItemGroup>
     <Reference Include="BoCommisionManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WERP_CODE\UI\WealthERP\bin\BoCommisionManagement.dll</HintPath>
+      <HintPath>..\..\WealthERPSolution\UI\WealthERP\bin\BoCommisionManagement.dll</HintPath>
     </Reference>
     <Reference Include="BoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WERP_CODE\UI\WealthERP\bin\BoCommon.dll</HintPath>
+      <HintPath>..\..\WealthERPSolution\UI\WealthERP\bin\BoCommon.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\WERP_CODE\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll</HintPath>
+      <HintPath>..\..\WealthERPSolution\UI\WealthERP\bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -82,38 +62,24 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WealthERP.BusinessEntities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WealthERP.BusinessEntities\bin\Debug\WealthERP.BusinessEntities.dll</HintPath>
+    </Reference>
+    <Reference Include="WealthERP.ServiceContracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WealthERP.ServiceContracts\bin\Debug\WealthERP.ServiceContracts.dll</HintPath>
+    </Reference>
+    <Reference Include="WealthERP.ServiceRequestResponse, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WealthERP.ServiceRequestResponse\bin\Debug\WealthERP.ServiceRequestResponse.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseServiceFacade.cs" />
     <Compile Include="OrderManagement\OrderManagementServiceFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WERPCommonLookup\WERPCommonLookupServiceFacade.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WealthERP.BusinessEntities\WealthERP.BusinessEntities.csproj">
-      <Project>{670432A9-4138-4EC4-96C9-0410D3BF3B49}</Project>
-      <Name>WealthERP.BusinessEntities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WealthERP.ServiceContracts\WealthERP.ServiceContracts.csproj">
-      <Project>{370EBDE6-C882-4913-8CF3-1B27CADEF738}</Project>
-      <Name>WealthERP.ServiceContracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WealthERP.ServiceRequestResponse\WealthERP.ServiceRequestResponse.csproj">
-      <Project>{9A00D147-EB1D-4BA0-90FF-A598F0014EDD}</Project>
-      <Name>WealthERP.ServiceRequestResponse</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
