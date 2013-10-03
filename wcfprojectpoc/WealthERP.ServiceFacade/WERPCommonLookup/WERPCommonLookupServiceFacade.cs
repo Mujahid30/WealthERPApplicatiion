@@ -6,13 +6,9 @@ using System.ServiceModel;
 using WealthERP.ServiceRequestResponse;
 using WealthERP.BusinessEntities;
 using WealthERP.ServiceContracts;
-using BoCommon;
-using BoCommisionManagement;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
-
-
+using BoCommon;
 
 namespace WealthERP.ServiceFacade
 {
@@ -26,6 +22,12 @@ namespace WealthERP.ServiceFacade
     {
         private const string PERSONALSETTINGS_ERROR = "personalSettingsRequest";
         private const string PSR_SCREEN_REQUEST = "psrScreenRequest";
+        private CommonLookupBo BoCommonLookup;
+
+        public WERPCommonLookupServiceFacade()
+        {
+            BoCommonLookup = new CommonLookupBo();
+        }
 
         #region IWerpCommonLookupContract Members
 
@@ -41,32 +43,82 @@ namespace WealthERP.ServiceFacade
 
         #region IWerpCommonLookupContract Members
 
-        ProductAmcLookupResponse IWerpCommonLookupContract.GetProductAmcList(ProductAmcLookupRequest request)
+        //<summary>
+        //  Gets the list of Products
+        //</summary>
+        //<param name="ProductRequest"> The personal settings request. </param>
+        //<returns> ProductAmcLookupResponse </returns>
+        ProductLookupResponse IWerpCommonLookupContract.GetProductList(ProductLookupRequest ProductRequest)
         {
-            ProductAmcLookupResponse response = new ProductAmcLookupResponse();
-            CommisionReceivableBo boCommRecv = new CommisionReceivableBo();
+            ProductLookupResponse response = new ProductLookupResponse();
 
             try
             {
-                DataSet dsLookupData;
+                DataTable dtProductList;
 
-                if (string.IsNullOrEmpty(request.AmcCode)) { dsLookupData = boCommRecv.GetProdAmc(); }
-                else { dsLookupData = boCommRecv.GetProdAmc(int.Parse(request.AmcCode)); }
-
-                foreach (DataRow row in dsLookupData.Tables[0].Rows) {
-                    response.ProductAmcListResponse.ProductAMCList.Add(new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
+                if (string.IsNullOrEmpty(ProductRequest.ProductCode))  { 
+                    dtProductList = BoCommonLookup.GetProductList(); 
                 }
-                response.ServiceResult.IsSuccess = true;
+                else { 
+                    dtProductList = BoCommonLookup.GetProductList(ProductRequest.ProductCode.Trim()); 
+                }
+
+                foreach (DataRow row in dtProductList.Rows) {
+                    response.ProductListResponse.ProductList.Add(new KeyValuePair<string, string>(row["PAG_AssetGroupCode"].ToString(), row["PAG_AssetGroupName"].ToString()));
+                }
+                response.SetServiceResult(true, WerpErrorDto.E_SUCCESS, null);
+            }
+            catch (FormatException ex)
+            {
+                response.SetServiceResult(false, WerpErrorDto.E_INVALID_INPUT, ex.Message);
             }
             catch (DataException ex)
             {
-                response.ServiceResult.IsSuccess = false;
-                response.ServiceResult.Message = ex.Message;
+                response.SetServiceResult(false, WerpErrorDto.E_DATABASE, ex.Message);
             }
             catch (Exception ex)
             {
-                response.ServiceResult.IsSuccess = false;
-                response.ServiceResult.Message = ex.Message;
+                response.SetServiceResult(false, WerpErrorDto.E_GENERIC, ex.Message);
+            }
+            finally
+            {
+            }
+            return response;
+        }
+
+        //<summary>
+        //  Gets the list of Product AMC
+        //</summary>
+        //<param name="pAmcRequest"> The personal settings request. </param>
+        //<returns> ProductAmcLookupResponse </returns>
+        ProductAmcLookupResponse IWerpCommonLookupContract.GetProductAmcList(ProductAmcLookupRequest pAmcRequest)
+        {
+            ProductAmcLookupResponse response = new ProductAmcLookupResponse();
+
+            try
+            {
+                DataTable dtAmcData;
+
+                if (string.IsNullOrEmpty(pAmcRequest.AmcCode)) { dtAmcData = BoCommonLookup.GetProdAmc(); }
+                else { dtAmcData = BoCommonLookup.GetProdAmc(int.Parse(pAmcRequest.AmcCode)); }
+
+                foreach (DataRow row in dtAmcData.Rows)
+                {
+                    response.ProductAmcListResponse.ProductAMCList.Add(new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
+                }
+                response.SetServiceResult(true, WerpErrorDto.E_SUCCESS, null);
+            }
+            catch (FormatException ex)
+            {
+                response.SetServiceResult(false, WerpErrorDto.E_INVALID_INPUT, ex.Message);
+            }
+            catch (DataException ex)
+            {
+                response.SetServiceResult(false, WerpErrorDto.E_DATABASE, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                response.SetServiceResult(false, WerpErrorDto.E_GENERIC, ex.Message);
             }
             finally
             {

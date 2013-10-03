@@ -17,11 +17,18 @@ namespace WealthERP.BusinessEntities
         public bool  IsSuccess { get; set; }
 
         [DataMember(Order = 1)]
-        public string Message { get; set; }
+        public int Code { get; set; }
+
+        [DataMember(Order = 2)]
+        public string AppMessage { get; set; }
+
+        [DataMember(Order = 3)]
+        public string SystemMessage { get; set; }
 
         public ServiceResultDTO()
         {
             IsSuccess = false;
+            Code = -1;
         }
     }
 }

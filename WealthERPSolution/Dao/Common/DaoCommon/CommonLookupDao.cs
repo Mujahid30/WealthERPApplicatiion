@@ -44,5 +44,75 @@ namespace DaoCommon
             return dsSubcategory.Tables[0];
         }
 
+        /// <summary> 
+        /// Gets the list of AMC</summary> 
+        /// <param name="AmcCode">AMCCode for the desired AMC. '0' to return list of all AMCs</param>
+        /// <returns> 
+        /// DataTable containing AMC list</returns> 
+        public DataTable GetProductAmc(int AmcCode)
+        {
+            Database db;
+            DbCommand cmdGetProdAmc;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetProdAmc = db.GetStoredProcCommand("SP_GetProductAmc");
+                if (AmcCode > 0) db.AddInParameter(cmdGetProdAmc, "@PA_AMCCode", DbType.Int32, AmcCode);
+                ds = db.ExecuteDataSet(cmdGetProdAmc);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProdAmc(int AmcCode)");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
+
+        /// <summary> 
+        /// Gets the list of Products</summary> 
+        /// <param name="AmcCode">ProductCode for the desired Product. EmptyString to return list of all Products</param>
+        /// <returns> 
+        /// DataTable containing Product list</returns>
+        public DataTable GetProductList(string ProductCode)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetProductTypeCM");
+                if (string.IsNullOrEmpty(ProductCode) == false) db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductCode);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductList(string ProductCode)");
+                object[] objParams = new object[1];
+                objParams[0] = ProductCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
     }
 }

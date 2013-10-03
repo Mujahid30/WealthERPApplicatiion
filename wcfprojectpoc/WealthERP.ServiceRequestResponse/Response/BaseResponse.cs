@@ -17,5 +17,13 @@ namespace WealthERP.ServiceRequestResponse
         {
             ServiceResult = new ServiceResultDTO();
         }
+
+        public void SetServiceResult(bool IsSuccess, int AppCode, string SysErrMessage)
+        {
+            ServiceResult.IsSuccess = IsSuccess;
+            ServiceResult.Code = AppCode;
+            ServiceResult.AppMessage = WerpErrorDto.GetAppMessage(AppCode);
+            ServiceResult.SystemMessage = string.IsNullOrEmpty(SysErrMessage) ? "" : SysErrMessage;
+        }
     }
 }

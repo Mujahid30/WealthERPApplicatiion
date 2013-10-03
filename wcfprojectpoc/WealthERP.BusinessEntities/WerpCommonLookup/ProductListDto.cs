@@ -11,11 +11,12 @@ namespace WealthERP.BusinessEntities
     /// </summary>
     [DataContract]
     [Serializable]
-    public class ProductListDTO
+    public class ProductListDto
     {
         [DataMember(Order = 0)]
         public List<KeyValuePair<string, string>> ProductList { get; set; }
-        public ProductListDTO()
+        
+        public ProductListDto()
         {
             ProductList = new List<KeyValuePair<string, string>>();
         }

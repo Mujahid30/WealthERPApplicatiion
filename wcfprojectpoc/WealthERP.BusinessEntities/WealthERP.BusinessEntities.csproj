@@ -60,15 +60,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductSubCategoryListDTO.cs" />
-    <Compile Include="ProductAMCSchemePlanListDTO.cs" />
-    <Compile Include="ProductCategoryListDTO.cs" />
-    <Compile Include="ProductListDTO.cs" />
+    <Compile Include="WerpErrorDto.cs" />
+    <Compile Include="WerpCommonLookup\ProductSubCategoryListDTO.cs" />
+    <Compile Include="WerpCommonLookup\ProductAMCSchemePlanListDTO.cs" />
+    <Compile Include="WerpCommonLookup\ProductCategoryListDTO.cs" />
+    <Compile Include="WerpCommonLookup\ProductListDto.cs" />
     <Compile Include="ServiceResultDTO.cs" />
     <Compile Include="UserAccountDTO.cs" />
     <Compile Include="MFOrderManagementDTO.cs" />
     <Compile Include="OrderManagementDTO.cs" />
-    <Compile Include="ProductAmcListDto.cs" />
+    <Compile Include="WerpCommonLookup\ProductAmcListDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
