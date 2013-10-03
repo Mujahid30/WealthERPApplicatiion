@@ -22,10 +22,7 @@ using System.Configuration;
 using VoOps;
 using BoWerpAdmin;
 using VoCustomerPortfolio;
-using BoCustomerProfiling;
-using BoCustomerPortfolio;
 using VOAssociates;
-using BOAssociates;
 using iTextSharp.text.pdf;
 using System.IO;
 
@@ -83,6 +80,7 @@ namespace WealthERP.OPS
 
             //  ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowIsa();", true);
             SessionBo.CheckSession();
+
             associatesVo = (AssociatesVO)Session["associatesVo"];
             userVo = (UserVo)Session[SessionContents.UserVo];
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
@@ -120,12 +118,13 @@ namespace WealthERP.OPS
             lblBranch.Visible = false;
             lblRM.Visible = false;
             lblGetRM.Visible = false;
-            cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
-            CheckDates();
+
+            //CheckDates();
             //txtSearchScheme.Visible = false;
             //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
             if (!IsPostBack)
             {
+                RadDateControlBusinessDateValidation(ref txtReceivedDate, 3, DateTime.Now, 1);
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
                 //orderNumber = mfOrderBo.GetOrderNumber();
                 //orderNumber = orderNumber + 1;
@@ -158,8 +157,6 @@ namespace WealthERP.OPS
                     //document.getElementById("<%= trJointHoldersList.ClientID %>").style.visibility = 'collapse';
 
                 }
-
-
                 trpan.Visible = false;
                 trCust.Visible = false;
                 //   ScriptManager.RegisterStartupScript(Page, Page.GetType(), "confirm", " ShowInitialIsa();", true);
@@ -296,6 +293,11 @@ namespace WealthERP.OPS
             //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
         }
+
+        //private void RadDateControlBusinessDateValidation(ref RadDatePicker txtReceivedDate, int p, DateTime dateTime, int p_4)
+        //{
+        //    throw new NotImplementedException();
+        //}
         private void bindSearchScheme()
         {
             try
@@ -414,14 +416,15 @@ namespace WealthERP.OPS
             RadDatePicker Rdt = new RadDatePicker();
             Rdt.DbSelectedDate = dt;
 
-            txtReceivedDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
-            txtReceivedDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            //txtReceivedDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            //txtReceivedDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
 
 
 
-            txtOrderDate.MaxDate = Convert.ToDateTime(Rdt.SelectedDate);
-            txtOrderDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
-            txtOrderDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            //txtOrderDate.MaxDate = Convert.ToDateTime(Rdt.SelectedDate);
+            //txtOrderDate.SelectedDate = Convert.ToDateTime(Rdt.SelectedDate);
+            //txtOrderDate.FocusedDate = Convert.ToDateTime(Rdt.SelectedDate);
+
             //DateTime recDt = txtReceivedDate.SelectedDate.Value ;
             //txtOrderDate.SelectedDate = recDt.AddDays(3);
             //txtOrderDate.Enabled = false;
@@ -3737,6 +3740,44 @@ namespace WealthERP.OPS
             }
 
         }
+
+        protected void txtReceivedDate_SelectedDateChanged(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
+        {
+
+            RadDateControlBusinessDateValidation(ref txtOrderDate, 3, DateTime.Parse(txtReceivedDate.SelectedDate.ToString()), 0);
+        }
+
+        private void RadDateControlBusinessDateValidation(ref RadDatePicker rdtp, int noOfDays, DateTime dtDate, int isPastdateReq)
+        {
+            DataTable dtTradaDate = mfOrderBo.GetTradeDateListForOrder(dtDate, isPastdateReq, noOfDays);
+
+            DateTime dtMinDate = Convert.ToDateTime(dtTradaDate.Compute("min(WTD_Date)", string.Empty));
+            DateTime dtMaxDate = Convert.ToDateTime(dtTradaDate.Compute("max(WTD_Date)", string.Empty));
+        
+            rdtp.MinDate = dtMinDate;
+            rdtp.MaxDate = dtMaxDate;
+            DateTime dtTempIncrement;
+
+            while (dtMinDate < dtMaxDate)
+            {
+                dtTempIncrement = dtMinDate.AddDays(1);
+
+                DataRow[] foundRows = dtTradaDate.Select(String.Format("WTD_Date='{0}'", dtTempIncrement.ToString("O")));
+                    //dtTradaDate.Select("CONVERT(VARCHAR,WTD_Date,103)='" + dtTempIncrement.ToShortDateString() + "'");
+                if (foundRows.Count() == 0)
+                {
+                    RadCalendarDay holiday = new RadCalendarDay();
+                    holiday.Date = dtTempIncrement.Date;
+                    holiday.IsSelectable = false;
+                    holiday.IsDisabled = true;
+                    rdtp.Calendar.SpecialDays.Add(holiday);
+                }
+
+                dtMinDate = dtTempIncrement;
+            }
+
+        }
+
 
     }
 }

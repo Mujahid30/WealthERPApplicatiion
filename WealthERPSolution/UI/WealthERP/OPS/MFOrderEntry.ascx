@@ -352,6 +352,15 @@
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Customer Details
+                <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%" EnableViewState="true">
+                    <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE"></asp:ListItem>
+                    <asp:ListItem Text="Portfolio Return-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
+                    <asp:ListItem Text="Comprehensive" Value="COMPREHENSIVE"></asp:ListItem>
+                    <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
+                    <asp:ListItem Text="Eligible Capital Gains Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
+                    <asp:ListItem Text="Portfolio Composition" Value="COMPOSITION_REPORT"></asp:ListItem>
+                    <asp:ListItem Text="Realized" Value="REALIZED_REPORT"></asp:ListItem>
+                </asp:CheckBoxList>
             </div>
         </td>
     </tr>
@@ -628,7 +637,8 @@
         </td>
         <td class="rightField" style="width: 10%">
             <telerik:RadDatePicker ID="txtReceivedDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                AutoPostBack="true" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                MinDate="1900-01-01" OnSelectedDateChanged="txtReceivedDate_SelectedDateChanged">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                     <SpecialDays>
@@ -643,6 +653,8 @@
             <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+            <asp:RangeValidator runat="server" ID="rngOrderApplicationDate" ControlToValidate="txtReceivedDate"
+                Type="Date" CssClass="cvPCG" ErrorMessage="<br />Application date should not be less than 3 working days from current date" />
             <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -692,15 +704,16 @@
                 </DateInput>
             </telerik:RadDatePicker>
             <span id="Span6" class="spnRequiredField">*</span>
-            <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br/>Please enter a valid date."
+            <%--  <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtOrderDate" CssClass="cvPCG" Operator="DataTypeCheck"
-                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
+                ValueToCompare="" Display="Dynamic"></asp:CompareValidator>--%>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtOrderDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select order date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cvOrderDate" runat="server" ControlToValidate="txtOrderDate"
-                CssClass="cvPCG" ErrorMessage="<br />Order date cannot be greater than or equal to Today"
-                ValueToCompare="" Operator="LessThanEqual" Type="Date"></asp:CompareValidator>
+            <asp:CompareValidator ID="cvOrderDate" ControlToValidate="txtOrderDate" Operator="LessThanEqual"
+                Display="Dynamic" Type="Date" runat="server" ErrorMessage="Order date should not be later than 3 working days from application received date"
+                ValidationGroup="MFSubmit">
+            </asp:CompareValidator>
         </td>
     </tr>
     <tr id="trAplNumber" runat="server">
