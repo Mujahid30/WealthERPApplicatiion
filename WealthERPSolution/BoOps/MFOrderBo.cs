@@ -119,6 +119,19 @@ namespace BoOps
             return dsGetCustomerBank;
         }
 
+        public DataSet GetSipDetails(int orderID)
+        {
+            DataSet dsGetSip ;
+            try
+            {
+                dsGetSip = mfOrderDao.GetSipDetails(orderID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetSip;
+        }
         public DataTable GetBankBranch(int AccountId)
         {
             DataTable dtGetBankBranch;

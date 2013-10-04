@@ -1374,16 +1374,40 @@
     <tr id="trSystematicDateChk1" runat="server" visible="false">
         <td width="25%" class="leftField">
             <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
+              
         </td>
         <td colspan="3">
+        <asp:TextBox ID="txtSystematicdates" runat="server" CssClass="txtField"></asp:TextBox>
+            <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtSystematicdates"
+                Format="dd/MM/yyyy">
+            </cc1:CalendarExtender>
+            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server"
+                TargetControlID="txtRegistrationDate" WatermarkText="dd/mm/yyyy">
+            </cc1:TextBoxWatermarkExtender>
             
+           
+            
+            
+            
+            
+            
+            
+            <%--  <telerik:RadDatePicker ID="txtSystematicdates" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>--%>
         </td>
     </tr>
     <tr id="trSystematicDateChk2" runat="server">
         <td>
         </td>
         <td colspan="3">
-            <asp:CheckBox ID="chkDate11" Text="11" runat="server" CssClass="cmbField" Width="40px"
+           <%-- <asp:CheckBox ID="chkDate11" Text="11" runat="server" CssClass="cmbField" Width="40px"
                 AutoPostBack="true" CausesValidation="False" />
             <asp:CheckBox ID="chkDate12" Text="12" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate13" Text="13" runat="server" CssClass="cmbField" Width="40px" />
@@ -1393,14 +1417,16 @@
             <asp:CheckBox ID="chkDate17" Text="17" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate18" Text="18" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate19" Text="19" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate20" Text="20" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate20" Text="20" runat="server" CssClass="cmbField" Width="40px" />--%>
         </td>
     </tr>
     <tr id="trSystematicDateChk3" runat="server">
         <td>
         </td>
         <td colspan="3">
-            <asp:CheckBox ID="chkDate21" Text="21" runat="server" CssClass="cmbField" Width="40px" />
+        
+       
+           <%-- <asp:CheckBox ID="chkDate21" Text="21" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate22" Text="22" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate23" Text="23" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate24" Text="24" runat="server" CssClass="cmbField" Width="40px" />
@@ -1410,7 +1436,7 @@
             <asp:CheckBox ID="chkDate28" Text="28" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate29" Text="29" runat="server" CssClass="cmbField" Width="40px" />
             <asp:CheckBox ID="chkDate30" Text="30" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate31" Text="31" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate31" Text="31" runat="server" CssClass="cmbField" Width="40px" />--%>
         </td>
     </tr>
     <%--  <tr id="trSystematicDate" runat="server" visible="false" >

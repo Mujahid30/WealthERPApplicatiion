@@ -217,21 +217,21 @@ namespace DaoOps
                 db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
 
 
-                //db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
 
-                //db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Tenure", DbType.Int32, systematicSetupVo.Period);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Tenure", DbType.Int32, systematicSetupVo.Period);
 
-                //db.AddInParameter(createMFOrderTrackingCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+                db.AddInParameter(createMFOrderTrackingCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
 
-                //if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
-                //    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
-                //else
-                //    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
+                if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
 
-                //if (systematicSetupVo.CeaseDate != DateTime.MinValue)
-                //    db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
-                //else
-                //    db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+                if (systematicSetupVo.CeaseDate != DateTime.MinValue)
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
+                else
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
 
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
@@ -474,6 +474,28 @@ namespace DaoOps
                 getCustomerBankcmd = db.GetStoredProcCommand("SP_GetBankAccountDetails");
                 db.AddInParameter(getCustomerBankcmd, "@C_CustomerId", DbType.Int32, customerId);
                 dsGetCustomerBank = db.ExecuteDataSet(getCustomerBankcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetCustomerBank;
+        }
+        public DataSet GetSipDetails(int orderID)
+        {
+            DataSet dsGetCustomerBank;
+            Database db;
+            DbCommand getSipcmd;
+            try
+            {
+                //  Shantanu Dated :- 18thSept2012
+                //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
+                //then test the folio Add Screen also..
+
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSipcmd = db.GetStoredProcCommand("Sp_GetSipDetails");
+                db.AddInParameter(getSipcmd, "@Orderid", DbType.Int32, orderID);
+                dsGetCustomerBank = db.ExecuteDataSet(getSipcmd);
             }
             catch (BaseApplicationException Ex)
             {

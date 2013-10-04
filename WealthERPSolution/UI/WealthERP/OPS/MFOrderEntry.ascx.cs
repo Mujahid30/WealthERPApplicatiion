@@ -72,7 +72,7 @@ namespace WealthERP.OPS
         string AgentCode;
         DataTable AgentId;
         DataTable Agentname;
-        SystematicSetupVo systematicSetupVo;
+        SystematicSetupVo systematicSetupVo=   new SystematicSetupVo();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -124,6 +124,7 @@ namespace WealthERP.OPS
             //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
             if (!IsPostBack)
             {
+                Sipvisblity("");
                 RadDateControlBusinessDateValidation(ref txtReceivedDate, 3, DateTime.Now, 1);
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
                 //orderNumber = mfOrderBo.GetOrderNumber();
@@ -253,6 +254,7 @@ namespace WealthERP.OPS
                         ddlsearch.SelectedValue = "1";
                         lblOrderNumber.Visible = true;
                         lblGetOrderNo.Visible = true;
+                        Sipvisblity(hdnType.Value);
 
                     }
                     else if (ViewForm == "Edit")
@@ -262,6 +264,7 @@ namespace WealthERP.OPS
                         ddlsearch.SelectedValue = "1";
                         lblOrderNumber.Visible = true;
                         lblGetOrderNo.Visible = true;
+                        Sipvisblity(hdnType.Value);
                     }
                     else if (ViewForm == "entry")
                     {
@@ -728,24 +731,24 @@ namespace WealthERP.OPS
                         trSIPStartDate.Visible = false;
 
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
                     }
                     else if (ddltransType.SelectedValue == "SIP")
                     {
                         ShowTransactionType(1);
                         trFrequency.Visible = true;
 
-                        trSystematicDateChk1.Visible = true;
-                        trSystematicDateChk2.Visible = true;
-                        trSystematicDateChk3.Visible = true;
-                        trSystematicDate.Visible = true;
-                        trRegistrationDate.Visible = true;
-                        trCeaseDate.Visible = true;
+                        //trSystematicDateChk1.Visible = true;
+                        //trSystematicDateChk2.Visible = true;
+                        //trSystematicDateChk3.Visible = true;
+                        //trSystematicDate.Visible = true;
+                        //trRegistrationDate.Visible = true;
+                        //trCeaseDate.Visible = true;
 
                         ddlFrequencySIP.SelectedValue = mforderVo.FrequencyCode;
                         if (mforderVo.StartDate != DateTime.MinValue)
@@ -762,12 +765,12 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
                         BindSchemeSwitch();
                         ddlSchemeSwitch.SelectedValue = mforderVo.SchemePlanSwitch.ToString();
@@ -783,12 +786,12 @@ namespace WealthERP.OPS
                         trScheme.Visible = true;
 
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
 
                         if (mforderVo.FrequencyCode != "")
@@ -810,12 +813,12 @@ namespace WealthERP.OPS
                         trSTPStart.Visible = false;
                         trPINo.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
 
                         if (advisorVo.A_AgentCodeBased == 1)
@@ -836,12 +839,12 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
 
-                        trSystematicDateChk1.Visible = true;
-                        trSystematicDateChk2.Visible = true;
-                        trSystematicDateChk3.Visible = true;
-                        trSystematicDate.Visible = true;
-                        trRegistrationDate.Visible = true;
-                        trCeaseDate.Visible = true;
+                        //trSystematicDateChk1.Visible = true;
+                        //trSystematicDateChk2.Visible = true;
+                        //trSystematicDateChk3.Visible = true;
+                        //trSystematicDate.Visible = true;
+                        //trRegistrationDate.Visible = true;
+                        //trCeaseDate.Visible = true;
 
                         if (mforderVo.FrequencyCode != "")
                             ddlFrequencySTP.SelectedValue = mforderVo.FrequencyCode;
@@ -1037,12 +1040,12 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
                     }
                     if (ddltransType.SelectedValue == "BUY")
@@ -1050,12 +1053,12 @@ namespace WealthERP.OPS
                         txtFolioNumber.Enabled = false;
                         imgFolioAdd.Enabled = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
                     }
 
                 }
@@ -1118,12 +1121,12 @@ namespace WealthERP.OPS
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
                     }
                     else if (ddltransType.SelectedValue == "SIP")
@@ -1133,12 +1136,12 @@ namespace WealthERP.OPS
                         trSIPStartDate.Visible = true;
                         ddlFrequencySIP.Enabled = false;
 
-                        trSystematicDateChk1.Visible = true;
-                        trSystematicDateChk2.Visible = true;
-                        trSystematicDateChk3.Visible = true;
-                        trSystematicDate.Visible = true;
-                        trRegistrationDate.Visible = true;
-                        trCeaseDate.Visible = true;
+                        //trSystematicDateChk1.Visible = true;
+                        //trSystematicDateChk2.Visible = true;
+                        //trSystematicDateChk3.Visible = true;
+                        //trSystematicDate.Visible = true;
+                        //trRegistrationDate.Visible = true;
+                        //trCeaseDate.Visible = true;
 
                         ddlFrequencySIP.SelectedValue = mforderVo.FrequencyCode;
                         txtstartDateSIP.Enabled = false;
@@ -1159,12 +1162,12 @@ namespace WealthERP.OPS
                         trScheme.Visible = true;
 
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
 
 
@@ -1176,12 +1179,12 @@ namespace WealthERP.OPS
                         trSTPStart.Visible = true;
                         trScheme.Visible = true;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
 
                         if (mforderVo.FrequencyCode != "")
@@ -1207,12 +1210,12 @@ namespace WealthERP.OPS
                         trSTPStart.Visible = false;
                         trPINo.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
 
                         if (advisorVo.A_AgentCodeBased == 1)
@@ -1233,12 +1236,12 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
 
                         if (mforderVo.FrequencyCode != "")
@@ -1460,6 +1463,7 @@ namespace WealthERP.OPS
 
                 }
             }
+            GetSipDetails(hdnType.Value );
             //sai ddlsearch.SelectedItem.Value = "1";
         }
         //private void BindOrderStatus()
@@ -1477,6 +1481,44 @@ namespace WealthERP.OPS
         //    }
 
         //}
+
+        private void GetSipDetails(string transactionType)
+        {
+            if (transactionType=="SIP" | transactionType=="SWP" | transactionType=="STP")
+            {
+            DataSet dsSip;
+        
+            dsSip = mfOrderBo.GetSipDetails(orderVo.OrderId);
+            if (dsSip.Tables.Count > 0)
+            {               
+                foreach (DataRow dr in dsSip.Tables[0].Rows)
+                {
+
+                     //if ( txtSystematicdates.SelectedDate !=null )
+                     //{
+                     // //   txtSystematicdates.SelectedDate.Value.Day;
+                     //}
+
+
+                  
+                         txtPeriod.Text = dr["CMFSS_Tenure"].ToString();
+                         txtSystematicdates.Text = dr["CMFSS_SystematicDate"].ToString(); 
+                     ddlPeriodSelection.SelectedValue = dr["CMFSS_TenureCycle"].ToString();             
+                txtRegistrationDate.Text = dr["CMFSS_RegistrationDate"].ToString();
+                txtCeaseDate.Text = dr["CMFSS_CEASEDATE"].ToString();
+            
+
+
+                  
+                    
+                }
+            }
+           
+            }
+ 
+           
+
+        }
         private void BindCategory()
         {
             try
@@ -1607,12 +1649,12 @@ namespace WealthERP.OPS
                 trNewPin.Visible = false;
 
                 // sip rows
-                trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
-                trSystematicDate.Visible = false;
-                trRegistrationDate.Visible = false;
-                trCeaseDate.Visible = false;
+                //sai    trSystematicDateChk1.Visible = false ;;
+                // trSystematicDateChk2.Visible = false;
+                // trSystematicDateChk3.Visible = false;
+                // trSystematicDate.Visible = false;
+               // trRegistrationDate.Visible = false;
+                // trCeaseDate.Visible = false;
 
 
 
@@ -1710,12 +1752,12 @@ namespace WealthERP.OPS
                 trFrequencySTP.Visible = false;
                 trSTPStart.Visible = false;
 
-                trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
-                trSystematicDate.Visible = false;
-                trRegistrationDate.Visible = false;
-                trCeaseDate.Visible = false;
+                //sai    trSystematicDateChk1.Visible = false ;;
+                // trSystematicDateChk2.Visible = false;
+                // trSystematicDateChk3.Visible = false;
+                // trSystematicDate.Visible = false;
+               // trRegistrationDate.Visible = false;
+                // trCeaseDate.Visible = false;
 
 
                 trSection3.Visible = false;
@@ -2221,12 +2263,12 @@ namespace WealthERP.OPS
                         trSIPStartDate.Visible = false;
 
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
                         txtFolioNumber.Enabled = false;
                         imgFolioAdd.Enabled = false;
@@ -2240,12 +2282,6 @@ namespace WealthERP.OPS
                         trFrequency.Visible = true;
                         trSIPStartDate.Visible = true;
 
-                        trSystematicDateChk1.Visible = false ;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
                     }
                     else
                     {
@@ -2256,12 +2292,12 @@ namespace WealthERP.OPS
                         trFrequency.Visible = false;
                         trSIPStartDate.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
                     }
                 }
                 else if (ddltransType.SelectedValue == "Sel" || ddltransType.SelectedValue == "STB" || ddltransType.SelectedValue == "SWP" || ddltransType.SelectedValue == "SWB")
@@ -2274,12 +2310,12 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = false;
                         trSTPStart.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
                     }
                     else if (ddltransType.SelectedValue == "STB")
@@ -2294,11 +2330,11 @@ namespace WealthERP.OPS
                         trFrequencySTP.Visible = true;
                         trSTPStart.Visible = true;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
                         trCeaseDate.Visible = true;
                     }
                     else
@@ -2308,12 +2344,12 @@ namespace WealthERP.OPS
                         trScheme.Visible = false;
                         trPINo.Visible = false;
 
-                        trSystematicDateChk1.Visible = false;
-                        trSystematicDateChk2.Visible = false;
-                        trSystematicDateChk3.Visible = false;
-                        trSystematicDate.Visible = false;
-                        trRegistrationDate.Visible = false;
-                        trCeaseDate.Visible = false;
+                        //sai    trSystematicDateChk1.Visible = false ;;
+                        // trSystematicDateChk2.Visible = false;
+                        // trSystematicDateChk3.Visible = false;
+                        // trSystematicDate.Visible = false;
+                       // trRegistrationDate.Visible = false;
+                        // trCeaseDate.Visible = false;
 
                     }
                     BindAMC(0);
@@ -2387,6 +2423,32 @@ namespace WealthERP.OPS
                 //  trRedeemed.Visible = true;
             }
             ddlPaymentMode_SelectedIndexChanged(this, null);
+            Sipvisblity(hdnType.Value);
+        }
+
+        private void Sipvisblity(string transactiontype)
+        {
+
+            if (transactiontype == "SIP" | transactiontype == "SWP" | transactiontype == "STB")
+            {
+                trSystematicDateChk1.Visible = true;
+                trSystematicDateChk2.Visible = true;
+                trSystematicDateChk3.Visible = true;
+                trSystematicDate.Visible = true;
+                trRegistrationDate.Visible = true;
+                trCeaseDate.Visible = true;
+            }
+            else
+            {
+
+                  trSystematicDateChk1.Visible = false  ;
+                  trSystematicDateChk2.Visible = false;
+                  trSystematicDateChk3.Visible = false;
+                  trSystematicDate.Visible = false;
+                  trRegistrationDate.Visible = false;
+                  trCeaseDate.Visible = false;
+
+            }
 
         }
 
@@ -3042,18 +3104,21 @@ namespace WealthERP.OPS
             }
             else
                 mforderVo.AgentId = 0;
-            systematicSetupVo = new SystematicSetupVo();
+          
             //Convert.ToInt32(ddlAssociate.SelectedValue);
-            systematicSetupVo.SystematicDate = 1;
+
+            systematicSetupVo.SystematicDate = DateTime.Parse(txtSystematicdates.Text).Day;
+                //txtSystematicdates.SelectedDate.Value.Day;
+            
 
             if (!string.IsNullOrEmpty(txtPeriod.Text))
                 systematicSetupVo.Period = Convert.ToInt32(txtPeriod.Text);
           
 
             systematicSetupVo.PeriodSelection = ddlPeriodSelection.SelectedValue;
-            if (!string.IsNullOrEmpty(txtRegistrationDate.Text.ToString().Trim()))
+            if (!string.IsNullOrEmpty(txtRegistrationDate.Text))
 
-                systematicSetupVo.RegistrationDate = DateTime.Parse(txtRegistrationDate.Text.ToString());
+                systematicSetupVo.RegistrationDate = DateTime.Parse(txtRegistrationDate.Text);
             else
                 systematicSetupVo.RegistrationDate = DateTime.MinValue;
 
@@ -3069,63 +3134,7 @@ namespace WealthERP.OPS
 
         }
 
-        protected void DatesofSystematicTrx(string tranxType)
-        {
-
-            foreach (ListItem chkItems in chkAsOnReportList.Items)
-            {
-                if (chkItems.Selected == true)
-                {
-                   
-                }
-            }
-          //  int i = 0;
-            //for (int i = 0; i < CheckBoxList1.Items.Count; i++)
-            //{
-            //    if (CheckBoxList1.Items[i].che == true)
-            //    {
-            //        //   YrStr += YrChkBox.Items[i].Value + ";";
-            //    }
-            //}
-            //CheckBox chkbxlst = (CheckBox)this.FindControl("chkDate11");
-            //foreach (ListItem li in chkbxlst.Items)
-            //{
-            //    if (li.Selected)
-            //    {
-            //        //drCatRole = dtCatRole.NewRow();
-            //        //drCatRole[0] = hdn.Value.Trim();
-            //        //drCatRole[1] = li.Value.Trim();
-            //        //dtCatRole.Rows.Add(drCatRole);
-            //    }
-            //}
-
-
-
-          
-
-
-
-            //            CheckBoxList cCheckBox = (CheckBoxList)this.FindControl("CheckBoxList1");
-
-            //           foreach (ListItem item in this.CheckBoxList1.Items)
-            //{
-            //    if (item.Selected)
-            //    {
-            //       // things.Add(item.Value);
-            //    }
-            //}
-
-            //foreach (ListItem li in cCheckBox.Items)
-            //{
-            //    if (li.Selected == true)
-            //    {
-            //       // Label1.Text += li.Text + "<br />";
-            //    }
-
-            //}
-        }
-
-
+      
         protected void rbtnImmediate_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnImmediate.Checked)
@@ -3238,12 +3247,12 @@ namespace WealthERP.OPS
                 txtendDateSTP.Enabled = false;
 
                 //sip
-                trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
-                trSystematicDate.Visible = false;
-                trRegistrationDate.Visible = false;
-                trCeaseDate.Visible = false;
+                //sai    trSystematicDateChk1.Visible = false ;;
+                // trSystematicDateChk2.Visible = false;
+                // trSystematicDateChk3.Visible = false;
+                // trSystematicDate.Visible = false;
+               // trRegistrationDate.Visible = false;
+                // trCeaseDate.Visible = false;
 
 
 
@@ -3317,12 +3326,12 @@ namespace WealthERP.OPS
 
 
 
-                trSystematicDateChk1.Visible = false;
-                trSystematicDateChk2.Visible = false;
-                trSystematicDateChk3.Visible = false;
-                trSystematicDate.Visible = false;
-                trRegistrationDate.Visible = false;
-                trCeaseDate.Visible = false;
+                //sai    trSystematicDateChk1.Visible = false ;;
+                // trSystematicDateChk2.Visible = false;
+                // trSystematicDateChk3.Visible = false;
+                // trSystematicDate.Visible = false;
+               // trRegistrationDate.Visible = false;
+                // trCeaseDate.Visible = false;
 
 
 
