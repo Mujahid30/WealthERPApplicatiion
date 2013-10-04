@@ -352,15 +352,7 @@
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 Customer Details
-                <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%" EnableViewState="true">
-                    <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE"></asp:ListItem>
-                    <asp:ListItem Text="Portfolio Return-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
-                    <asp:ListItem Text="Comprehensive" Value="COMPREHENSIVE"></asp:ListItem>
-                    <asp:ListItem Text="Eligible Capital Gain Details" Value="ELIGIBLE_CAPITAL_GAIN_DETAILS"></asp:ListItem>
-                    <asp:ListItem Text="Eligible Capital Gains Summary" Value="ELIGIBLE_CAPITAL_GAIN_SUMMARY"></asp:ListItem>
-                    <asp:ListItem Text="Portfolio Composition" Value="COMPOSITION_REPORT"></asp:ListItem>
-                    <asp:ListItem Text="Realized" Value="REALIZED_REPORT"></asp:ListItem>
-                </asp:CheckBoxList>
+                
             </div>
         </td>
     </tr>
@@ -653,8 +645,7 @@
             <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtReceivedDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select an Application received Date"
                 Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:RangeValidator runat="server" ID="rngOrderApplicationDate" ControlToValidate="txtReceivedDate"
-                Type="Date" CssClass="cvPCG" ErrorMessage="<br />Application date should not be less than 3 working days from current date" />
+           
             <%--  <asp:CompareValidator ID="CVReceivedDate" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtReceivedDate" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValidationGroup="MFSubmit" ValueToCompare="" Display="Dynamic"></asp:CompareValidator>
@@ -710,10 +701,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtOrderDate"
                 CssClass="rfvPCG" ErrorMessage="<br />Please select order date" Display="Dynamic"
                 runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="cvOrderDate" ControlToValidate="txtOrderDate" Operator="LessThanEqual"
-                Display="Dynamic" Type="Date" runat="server" ErrorMessage="Order date should not be later than 3 working days from application received date"
-                ValidationGroup="MFSubmit">
-            </asp:CompareValidator>
+           
         </td>
     </tr>
     <tr id="trAplNumber" runat="server">
@@ -1383,22 +1371,12 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr id="trSystematicDateChk1" runat="server">
+    <tr id="trSystematicDateChk1" runat="server" visible="false">
         <td width="25%" class="leftField">
             <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
         </td>
         <td colspan="3">
-            <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%">
-                <asp:CheckBox ID="chkDate1" Text="1" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate2" Text="2" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate3" Text="3" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate4" Text="4" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate5" Text="5" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate6" Text="6" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate7" Text="7" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate8" Text="8" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate9" Text="9" runat="server" CssClass="cmbField" Width="40px" />
-            </asp:CheckBoxList>
+            
         </td>
     </tr>
     <tr id="trSystematicDateChk2" runat="server">
