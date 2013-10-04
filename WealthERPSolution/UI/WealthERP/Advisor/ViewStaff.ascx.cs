@@ -69,11 +69,9 @@ namespace WealthERP.Advisor
                     BindStaffGrid(rmVo.RMId, false, true, false, adviserId);
 
                 }
-
-
             }
-
         }
+
         private void BindBranchDropDown(int id)
         {
             try
@@ -209,6 +207,18 @@ namespace WealthERP.Advisor
 
             pnlViewStaff.Visible = true;
             imgViewStaff.Visible = true;
+        }
+
+        protected void rgvViewStaff_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (userVo.UserType == "Advisor") { return; }
+
+            if (e.Item is GridDataItem) {
+                GridDataItem item = (GridDataItem)e.Item;
+                RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
+                RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+                rbcItem.Visible = false;
+            }
         }
 
         protected void imgViewStaff_Click(object sender, ImageClickEventArgs e)

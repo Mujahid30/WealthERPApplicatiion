@@ -68,9 +68,6 @@ namespace WealthERP.Advisor
                 {
                     hidRMid.Value = Request.QueryString["RmId"];
                     action = Request.QueryString["action"].ToString();
-                    //Testing data
-                    //hidRMid.Value = "3845";
-                    //action = "View";
                 }
                 BindTeamDropList();
                 BindBranchDropList(userType);
@@ -93,6 +90,7 @@ namespace WealthERP.Advisor
                 }
             }
 
+            if(userVo.UserType != "Advisor") lnkEditStaff.Visible = false;
         }
 
         private RMVo CollectAdviserStaffData()

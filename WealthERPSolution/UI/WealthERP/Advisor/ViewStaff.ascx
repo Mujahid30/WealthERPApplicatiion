@@ -43,7 +43,7 @@
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" EnableHeaderContextMenu="true"
-                                    EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvAssociates_rgvViewStaff">
+                                    EnableHeaderContextFilterMenu="true" OnNeedDataSource="gvAssociates_rgvViewStaff" OnItemDataBound="rgvViewStaff_ItemDataBound">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="ViewStaffList" Excel-Format="ExcelML">
                                     </ExportSettings>
@@ -51,18 +51,15 @@
                                         AutoGenerateColumns="false" CommandItemDisplay="None" GroupsDefaultExpanded="false"
                                         ExpandCollapseColumn-Groupable="true" GroupLoadMode="Client" ShowGroupFooter="true">
                                         <Columns>
-                                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false">
+                                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" >
                                                 <ItemTemplate>
-                                                    <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                                    <telerik:RadComboBox ID="ddlMenu" UniqueName="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
                                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                                         AllowCustomText="true" Width="120px" AutoPostBack="true">
                                                         <Items>
-                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
-                                                            </telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png"
-                                                                runat="server"></telerik:RadComboBoxItem>
-                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit"
-                                                                runat="server"></telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true"></telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png" runat="server"></telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit" runat="server"></telerik:RadComboBoxItem>
                                                         </Items>
                                                     </telerik:RadComboBox>
                                                 </ItemTemplate>
