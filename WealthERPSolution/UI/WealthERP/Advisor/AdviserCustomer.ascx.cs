@@ -587,16 +587,8 @@ namespace WealthERP.Advisor
 
         protected void gvCustomerList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1)
-            {
+            if (e.Item is GridFilteringItem && e.Item.ItemIndex == -1) {
                 GridFilteringItem filterItem = (GridFilteringItem)e.Item;
-                #region Bind group drop down
-                // RadComboBox RadComboGroup = (RadComboBox)filterItem.FindControl("RadComboGroup");               
-                //RadComboGroup.DataSource = genDictParent;
-                //RadComboGroup.DataTextField = "Value";
-                //RadComboGroup.DataValueField = "Key";
-                //RadComboGroup.DataBind();
-                #endregion
                 RadComboBox RadComboRM = (RadComboBox)filterItem.FindControl("RadComboRM");
 
                 DataView view = new DataView();
@@ -605,22 +597,9 @@ namespace WealthERP.Advisor
                 RadComboRM.DataValueField = "Key";
                 RadComboRM.DataBind();
             }
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = (e.Item as GridDataItem);
-                // RadComboBox rcb = new RadComboBox();
-                DropDownList rcb = new DropDownList();
-                if (UserRole != "advisor")
-                {
-                    rcb = (DropDownList)e.Item.FindControl("ddlAction");
-                    if (rcb != null)
-                    {
-                        // rcb.Items.FindItemByValue("Delete Profile").Remove();
-                        rcb.Items.FindByText("Delete Profile").Enabled = false;
-                    }
-                }
 
-            }
+            if (userVo.UserType == "Advisor") { return; }
+            gvCustomerList.MasterTableView.GetColumn("Action").Visible = false;
         }
 
         protected void gvCustomerList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

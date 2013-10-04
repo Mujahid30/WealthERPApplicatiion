@@ -187,7 +187,7 @@
 <table width="100%" cellspacing="0" cellpadding="1">
     <tr>
         <td>
-            <div id="DivCustomerList" runat="server" style="width: 52.8%" visible="false">
+            <div id="DivCustomerList" runat="server" style="width: 52.8%; padding-left: 5px;" visible="false">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
