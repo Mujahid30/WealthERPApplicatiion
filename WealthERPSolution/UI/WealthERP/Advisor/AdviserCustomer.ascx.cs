@@ -25,6 +25,7 @@ using BoSuperAdmin;
 using VOAssociates;
 using BOAssociates;
 using Telerik.Web.UI;
+using System.Text.RegularExpressions;
 
 namespace WealthERP.Advisor
 {
@@ -299,7 +300,7 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["Group"] = customerVo.ParentCustomer.ToString();
                         }
-                        drCustomer["Cust_Comp_Name"] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        drCustomer["Cust_Comp_Name"] = cleanCustomerName(customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                         if (customerVo.PANNum != null)
                             drCustomer["PANNumber"] = customerVo.PANNum.ToString();
                         else
@@ -469,7 +470,7 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["Group"] = customerVo.ParentCustomer.ToString();
                         }
-                        drCustomer["Cust_Comp_Name"] = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
+                        drCustomer["Cust_Comp_Name"] = cleanCustomerName(customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString());
                         if (customerVo.PANNum != null)
                             drCustomer["PANNumber"] = customerVo.PANNum.ToString();
                         else
@@ -1314,6 +1315,10 @@ namespace WealthERP.Advisor
             }
         }
 
+        string cleanCustomerName(string str) {
+            string custName = str.Trim();            
+            return Regex.Replace(custName, @"([\s]+)", " "); 
+        }
     }
 
 }
