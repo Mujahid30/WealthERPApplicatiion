@@ -153,5 +153,48 @@ namespace DaoCommon
             }
             return ds.Tables[0];
         }
+
+        /// <summary> 
+        /// Gets the list of Product Sub-Categories</summary> 
+        /// <param name="ProductCode">ProductCode for the desired Product. EmptyString to return list of all Products</param>
+        /// <param name="CategoryCode">CategoryCode for the desired Category. EmptyString to return list of all Categories</param>
+        /// <param name="SubCategoryCode">SubCategoryCode for the desired SubCategory. EmptyString to return list of all SubCategories</param>
+        /// <returns> 
+        /// DataTable containing Product list</returns>
+        public DataTable GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetSubCategoryCM");
+                if (string.IsNullOrEmpty(ProductCode) == false) db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductCode);
+                if (string.IsNullOrEmpty(CategoryCode) == false) db.AddInParameter(cmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, CategoryCode);
+                if (string.IsNullOrEmpty(SubCategoryCode) == false) db.AddInParameter(cmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, SubCategoryCode);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objects = new object[3];
+                objects[0] = ProductCode;
+                objects[1] = CategoryCode;
+                objects[2] = SubCategoryCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
     }
 }

@@ -201,5 +201,43 @@ namespace BoCommon
             }
             return dt;
         }
+
+        /// <summary> 
+        /// Gets list of Product Categories</summary> 
+        /// <param name="ProductCode">ProductCode for the desired AMC. null to return list of all Products</param>
+        /// <param name="CategoryCode">CategoryCode for the desired Category. null to return list for all Categories</param>
+        /// <param name="SubCategoryCode">SubCategoryCode for the desired SubCategory. null to return list for all SubCategories</param>
+        /// <returns> 
+        /// DataTable containing AMC list</returns>
+        public DataTable GetProductSubCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)
+        {
+            DataTable dt;
+            try
+            {
+                ProductCode = string.IsNullOrEmpty(ProductCode) ? null : ProductCode.Trim();
+                CategoryCode = string.IsNullOrEmpty(CategoryCode) ? null : CategoryCode.Trim();
+                SubCategoryCode = string.IsNullOrEmpty(SubCategoryCode) ? null : SubCategoryCode.Trim();
+                dt = daoCommonLookup.GetProductSubCategories(ProductCode, CategoryCode, SubCategoryCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[3];
+                objParams[0] = ProductCode;
+                objParams[1] = CategoryCode;
+                objParams[2] = SubCategoryCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
     }
 }

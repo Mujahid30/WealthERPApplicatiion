@@ -61,8 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WerpErrorDto.cs" />
-    <Compile Include="WerpCommonLookup\ProductSubCategoryListDTO.cs" />
-    <Compile Include="WerpCommonLookup\ProductAMCSchemePlanListDTO.cs" />
+    <Compile Include="WerpCommonLookup\ProductSubCategoryListDto.cs" />
+    <Compile Include="WerpCommonLookup\ProductAmcSchemePlanListDto.cs" />
     <Compile Include="WerpCommonLookup\ProductCategoryListDto.cs" />
     <Compile Include="WerpCommonLookup\ProductListDto.cs" />
     <Compile Include="ServiceResultDTO.cs" />

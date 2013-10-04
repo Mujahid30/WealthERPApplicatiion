@@ -55,11 +55,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\BaseRequest.cs" />
     <Compile Include="Request\OrderManagement\OrderManagementRequest.cs" />
+    <Compile Include="Request\WERPCommonLookup\ProductAmcSchemePlanLookupRequest.cs" />
+    <Compile Include="Request\WERPCommonLookup\ProductSubCategoryLookupRequest.cs" />
     <Compile Include="Request\WERPCommonLookup\ProductCategoryLookupRequest.cs" />
     <Compile Include="Request\WERPCommonLookup\ProductLookupRequest.cs" />
     <Compile Include="Request\WERPCommonLookup\ProductAmcLookupRequest.cs" />
     <Compile Include="Response\BaseResponse.cs" />
     <Compile Include="Response\OrderManagement\OrderManagementResponse.cs" />
+    <Compile Include="Response\WERPCommonLookup\ProductAmcSchemePlanLookupResponse.cs" />
+    <Compile Include="Response\WERPCommonLookup\ProductSubCategoryLookupResponse.cs" />
     <Compile Include="Response\WERPCommonLookup\ProductCategoryLookupResponse.cs" />
     <Compile Include="Response\WERPCommonLookup\ProductLookupResponse.cs" />
     <Compile Include="Response\WERPCommonLookup\ProductAmcLookupResponse.cs" />
