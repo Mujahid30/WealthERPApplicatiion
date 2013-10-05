@@ -2422,10 +2422,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            //if (dr[2].ToString().ToLower() == "content" || dr[2].ToString().ToLower() == "message" || dr[2].ToString().ToLower() == "order")
-                            //{
-                            //    Item.Text += " <img id='img1' src='/Images/new.gif'/>";
-                            //}
+                            if (dr[2].ToString()== "Queries")
+                            {
+                                Item.Visible =false;
+                            }
                         }
                     }
                 }
@@ -2448,6 +2448,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
+                            if (dr[2].ToString() == "Add FD&54EC order" || dr[2].ToString()== "Customer AUM")
+                            {
+                                Item.Visible = false;
+                            }
                             //if (dr[2].ToString() == "Goal MIS"
                             //    || dr[2].ToString() == "FP Report" || dr[2].ToString() == "Asset Allocation MIS"
                             //    || dr[2].ToString() == "MF Turnover MIS"
@@ -2478,10 +2482,10 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[2].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            //if (dr[2].ToString() == "Login History" || dr[2].ToString() == "MF NP & Tranx Compare")
-                            //{
-                            //    Item.Text += " <img id='img1' src='/Images/new.gif'/>";
-                            //}
+                            if (dr[2].ToString() == "Login History" || dr[2].ToString() == "MF NP & Tranx Compare")
+                            {
+                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                            }
 
                         }
                     }
