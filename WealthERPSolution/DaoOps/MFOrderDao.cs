@@ -294,7 +294,7 @@ namespace DaoOps
             return dsGetCustomerMFOrderMIS;
         }
 
-        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
+        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo)
         {
             Database db;
             DbCommand UpdateMFOrderTrackingCmd;
@@ -321,7 +321,7 @@ namespace DaoOps
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@WMTT_TransactionClassificationCode", DbType.String, mforderVo.TransactionCode);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CO_OrderDate", DbType.DateTime, orderVo.OrderDate);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_IsImmediate", DbType.Int16, mforderVo.IsImmediate);
-                //db.AddInParameter(createMFOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
+                //db.AddInParameter(UpdateMFOrderTrackingCmd, "@SourceCode", DbType.String, operationVo.SourceCode);
                 if (!string.IsNullOrEmpty(mforderVo.FutureTriggerCondition.ToString().Trim()))
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_FutureTriggerCondition", DbType.String, mforderVo.FutureTriggerCondition);
                 else
@@ -418,6 +418,22 @@ namespace DaoOps
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
 
                  db.AddInParameter(UpdateMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+
+                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
+
+                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_Tenure", DbType.Int32, systematicSetupVo.Period);
+
+                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+
+                 if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
+                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
+                 else
+                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
+
+                 if (systematicSetupVo.CeaseDate != DateTime.MinValue)
+                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
+                 else
+                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
 
                  db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
             }

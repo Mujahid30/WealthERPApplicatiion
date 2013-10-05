@@ -288,7 +288,7 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
-<table width="100%">
+<table width="100%"  >
     <tr>
         <td colspan="5">
             <div class="divPageHeading">
@@ -616,7 +616,7 @@
                 <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
                 <asp:ListItem Text="STP" Value="STB"></asp:ListItem>
                 <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
-                <asp:ListItem Text="Change Of Address Form" Value="CAF"></asp:ListItem>
+                <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled="false"></asp:ListItem>
             </asp:DropDownList>
             <span id="spnTransType" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CVTrxType" runat="server" ControlToValidate="ddltransType"
@@ -1050,6 +1050,13 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+             <span id="Span22" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator17" ControlToValidate="txtstartDateSIP"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select an StartDate"
+                Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+           
+          
+                
             <asp:CompareValidator ID="CompareValidator3" runat="server" ErrorMessage="<br/>Please enter a valid date."
                 Type="Date" ControlToValidate="txtstartDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
@@ -1067,6 +1074,11 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
+             <span id="Span23" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator18" ControlToValidate="txtendDateSIP"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select an EndDate"
+                Display="Dynamic" runat="server" InitialValue="" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+           
             <%--<asp:CompareValidator ID="CompareValidator16" runat="server" CssClass="rfvPCG"
             ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
             Operator="DataTypeCheck" Type="Date">
@@ -1077,9 +1089,14 @@
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
                 ValueToCompare="" Display="Dynamic" ValidationGroup="MFSubmit">
                 </asp:CompareValidator >--%>
-            <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>To date should be greater than from date."
+                  <asp:CompareValidator ID="dateCompareValidator" runat="server" ControlToValidate="txtendDateSIP" 
+                ControlToCompare="txtstartDateSIP" Operator="GreaterThanEqual" Type="Date"   ValidationGroup="MFSubmit" Display="Dynamic"
+                ErrorMessage="To date Should be Greater Than or Equal to From Date" CssClass="rfvPCG">
+                 </asp:CompareValidator>
+            
+           <%-- <asp:CompareValidator ID="CompareValidator6" runat="server" ErrorMessage="<br/>To date should be greater than from date."
                 Type="Date" ControlToValidate="txtendDateSIP" CssClass="cvPCG" Operator="DataTypeCheck"
-                ControlToCompare="txtstartDateSIP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                ControlToCompare="txtstartDateSIP" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr id="trSection2" runat="server">
@@ -1382,15 +1399,20 @@
                 Format="dd/MM/yyyy">
             </cc1:CalendarExtender>
             <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender4" runat="server"
-                TargetControlID="txtRegistrationDate" WatermarkText="dd/mm/yyyy">
+                TargetControlID="txtSystematicdates" WatermarkText="dd/mm/yyyy">
             </cc1:TextBoxWatermarkExtender>
             
-           
+               <asp:RequiredFieldValidator ID="RequiredFieldValidator19" ControlToValidate="txtSystematicdates"
+                ValidationGroup="MFSubmit" ErrorMessage="<br />Please Enter Systematicdates" Display="Dynamic"
+                runat="server" CssClass="rfvPCG"> </asp:RequiredFieldValidator> 
+            
+             <asp:CompareValidator ID="CompareValidator8" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
+                Type="Date" ControlToValidate="txtSystematicdates" Operator="DataTypeCheck"
+                CssClass="cvPCG" ValidationGroup="MFSubmit" Display="Dynamic"></asp:CompareValidator>
             
             
-            
-            
-            
+             
+         
             
             <%--  <telerik:RadDatePicker ID="txtSystematicdates" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
@@ -1521,7 +1543,7 @@
             </cc1:TextBoxWatermarkExtender>
             <asp:CompareValidator ID="CompareValidator17" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                 Type="Date" ControlToValidate="txtCeaseDate" Operator="DataTypeCheck" SipChequeDate_CalendarExtender="cvPCG"
-                Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
+                Display="Dynamic" ValidationGroup="MFSubmit" CssClass="cvPCG"></asp:CompareValidator>
         </td>
         <td>
         </td>

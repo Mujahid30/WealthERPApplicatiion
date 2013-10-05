@@ -79,11 +79,11 @@ namespace BoOps
             return dsGetMFOrderMIS;
         }
 
-        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId)
+        public void UpdateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo)
         {
             try
             {
-                mfOrderDao.UpdateCustomerMFOrderDetails(orderVo, mforderVo,userId);
+                mfOrderDao.UpdateCustomerMFOrderDetails(orderVo, mforderVo, userId, systematicSetupVo);
             }
             catch (BaseApplicationException Ex)
             {
