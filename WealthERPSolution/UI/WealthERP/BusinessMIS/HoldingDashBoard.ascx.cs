@@ -108,9 +108,9 @@ namespace WealthERP.BusinessMIS
                             drHoldingsTreeNode = dtHoldingsTreeNode.NewRow();
                         }
                     }
-               
 
-
+                    if (roleId == 1009)
+                        break;
             }
             rptHoldingTree.DataSource = dtHoldingsTreeNode;
             rptHoldingTree.DataBind();
