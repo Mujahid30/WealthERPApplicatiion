@@ -319,7 +319,7 @@
                     OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode" Width="102%"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate" Width="102%"
                         AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
@@ -583,8 +583,7 @@
 <asp:HiddenField ID="hdnSubBrokerName" runat="server" />
 <asp:HiddenField ID="hdnMsgValue" runat="server" />
 <asp:HiddenField ID="hdnOrderStatus" runat="server" />
-<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click"
-    BorderStyle="None" BackColor="Transparent" />
+<asp:Button ID="hiddenassociation" runat="server" OnClick="hiddenassociation_Click" BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
 <asp:HiddenField ID="hdnOrderType" runat="server" />
@@ -602,7 +601,7 @@
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <%--  OnItemDataBound="gvOrderList_ItemDataBound"--%>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode" Width="102%"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate" Width="102%"
                         AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />

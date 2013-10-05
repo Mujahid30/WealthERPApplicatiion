@@ -35,6 +35,7 @@ namespace WealthERP.OPS
         FIOrderBo fiorderBo = new FIOrderBo();
         FIOrderVo fiorderVo = new FIOrderVo();
         AdvisorVo advisorVo;
+        UserVo userVo;
         string userType;
         int customerId = 0;
         int AgentId = 0;
@@ -52,6 +53,7 @@ namespace WealthERP.OPS
             advisorVo = (AdvisorVo)Session["advisorVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
             associatesVo = (AssociatesVO)Session["associatesVo"];
+            userVo = (UserVo)Session["userVo"];
            
             //else
             //{
@@ -200,9 +202,7 @@ namespace WealthERP.OPS
 
                     return;
                 }
-
             }
-          
         }
         private void SetMfParameters()
         {
@@ -663,45 +663,33 @@ namespace WealthERP.OPS
 
         protected void gvFIOrderList_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = (e.Item as GridDataItem);
-                RadComboBox rcb = new RadComboBox();
-                TemplateColumn tm = new TemplateColumn();
-                RadComboBox lbl = new RadComboBox();
-                if (userType == "bm")
-                {
+            if (userVo.UserType == "Advisor") return;
 
-                    rcb = (RadComboBox)e.Item.FindControl("ddlMenu");
-                    if (rcb != null)
-                    {
-                        rcb.Items.FindItemByValue("Edit").Remove();
-                    }
-                }
+            if ((e.Item is GridDataItem) == false) return;
 
+            GridDataItem item = (GridDataItem)e.Item;
+            DateTime orderDate = DateTime.Parse(gvFIOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderDate"].ToString());
 
-            }
+            //if (userVo.UserType == "Advisor" && orderDate.Date == DateTime.Now.Date) return;
+
+            RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
+            RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+            rbcItem.Visible = false;
         }
-        protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e)
-        {
-            if (e.Item is GridDataItem)
-            {
-                GridDataItem item = (e.Item as GridDataItem);
-                RadComboBox rcb = new RadComboBox();
-                TemplateColumn tm = new TemplateColumn();
-                RadComboBox lbl = new RadComboBox();
-                if (userType == "bm")
-                {
 
-                    rcb = (RadComboBox)e.Item.FindControl("ddlMenu");
-                    if (rcb != null)
-                    {
-                        rcb.Items.FindItemByValue("Edit").Remove();
-                    }
-                }
+        protected void gvOrderList_ItemDataBound(object sender, GridItemEventArgs e) {
+            if (userVo.UserType == "Advisor") return;
 
+            if ((e.Item is GridDataItem) == false) return;
+            
+            GridDataItem item = (GridDataItem)e.Item;
+            DateTime orderDate = DateTime.Parse(gvOrderList.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderDate"].ToString());
 
-            }
+            //if (userVo.UserType == "Advisor" && orderDate.Date == DateTime.Now.Date) return;
+
+            RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
+            RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+            rbcItem.Visible = false;
         }
 
         protected void gvFIOrderList_ItemCommand(object source, GridCommandEventArgs e)

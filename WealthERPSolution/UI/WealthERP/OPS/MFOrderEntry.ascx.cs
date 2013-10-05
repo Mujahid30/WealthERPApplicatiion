@@ -295,6 +295,17 @@ namespace WealthERP.OPS
             // if (txtReceivedDate.SelectedDate==DateTi)
             //txtReceivedDate.SelectedDate = DateTime.Now;
             //ShowHideFields(1);
+
+            if (userVo.UserType != "Advisor") { 
+                lnkBtnEdit.Visible = false;
+                lnkDelete.Visible = false;
+            }
+
+            if (orderVo != null) {
+                if (orderVo.OrderDate != null) {
+                    if (orderVo.OrderDate != DateTime.Now) { lnkBtnEdit.Visible = false; }
+                }
+            }
         }
 
         //private void RadDateControlBusinessDateValidation(ref RadDatePicker txtReceivedDate, int p, DateTime dateTime, int p_4)
@@ -3784,9 +3795,6 @@ namespace WealthERP.OPS
 
                 dtMinDate = dtTempIncrement;
             }
-
         }
-
-
     }
 }
