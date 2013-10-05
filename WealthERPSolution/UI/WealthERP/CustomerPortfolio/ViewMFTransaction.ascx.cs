@@ -61,6 +61,7 @@ namespace WealthERP.CustomerPortfolio
 
             }
 
+            if (userVo.UserType == "Advisor") lnkEdit.Visible = false;
         }
 
         private void LoadViewFields()
