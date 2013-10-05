@@ -32,31 +32,34 @@
                         <asp:Repeater ID="rptTurnoverTree" runat="server" OnItemCommand="rptTurnoverTree_ItemCommand"
                             OnItemDataBound="rptTurnoverTree_ItemDataBound">
                             <ItemTemplate>
-                                <tr>
-                                    <td id="td1" runat="server" align="center">
-                                        <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
-                                            <asp:LinkButton ID="lnkTurnoverTreeNode1" CssClass="LinkTextBig" Text='<%# Eval("TreeNodeText1").ToString() %>'
-                                                runat="server" Font-Underline="false" CommandName="Tree_Navi_Row1" CommandArgument='<%# Eval("TreeNode1").ToString() %>'>  
-                                            </asp:LinkButton>
-                                        </div>
-                                    </td>
-                                    <td id="td2" runat="server" align="center">
+                                <asp:Table runat="server">
+                                    <asp:TableRow>
+                                        <asp:TableCell id="td1" runat="server" align="center" visible="true">
+                                            <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
+                                                <asp:LinkButton ID="lnkTurnoverTreeNode1" CssClass="LinkTextBig" Text='<%# Eval("TreeNodeText1").ToString() %>'
+                                                    runat="server" Font-Underline="false" CommandName="Tree_Navi_Row1" CommandArgument='<%# Eval("TreeNode1").ToString() %>'>  
+                                                </asp:LinkButton>
+                                            </div>
+                                        </asp:TableCell>
+                                    <asp:TableCell id="td2" runat="server" align="center">
                                         <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
                                             <asp:LinkButton ID="lnkTurnoverTreeNode2" Font-Underline="false" CssClass="LinkTextBig"
                                                 Text='<%# Eval("TreeNodeText2").ToString() %>' runat="server" CommandName="Tree_Navi_Row2"
                                                 CommandArgument='<%# Eval("TreeNode2").ToString() %>'>  
                                             </asp:LinkButton>
                                         </div>
-                                    </td></tr>
-                                 <tr>
-                                      <td id="td3" runat="server" align="center">
+                                    </asp:TableCell>
+                                </asp:TableRow>
+                                <asp:TableRow>
+                                    <asp:TableCell id="td3" runat="server" align="center">
                                         <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
                                             <asp:LinkButton ID="lnkOrderTurnOver" Font-Underline="false" CssClass="LinkTextBig" Text='<%# Eval("TreeNodeText3").ToString() %>'
                                                 runat="server" CommandName="Tree_Navi_Row3" CommandArgument='<%# Eval("TreeNode3").ToString() %>'>  
                                             </asp:LinkButton>
                                         </div>
-                                    </td>
-                                </tr>
+                                    </asp:TableCell>
+                                </asp:TableRow>
+                            </asp:Table>
                             </ItemTemplate>
                             <FooterTemplate>
                             </FooterTemplate>
