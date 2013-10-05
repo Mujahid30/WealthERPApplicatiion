@@ -3818,8 +3818,11 @@ namespace WealthERP.OPS
 
         protected void txtReceivedDate_SelectedDateChanged(object sender, Telerik.Web.UI.Calendar.SelectedDateChangedEventArgs e)
         {
-
-            RadDateControlBusinessDateValidation(ref txtOrderDate, 3, DateTime.Parse(txtReceivedDate.SelectedDate.ToString()), 0);
+            
+            if(!string.IsNullOrEmpty(txtReceivedDate.SelectedDate.ToString()))
+            {
+                RadDateControlBusinessDateValidation(ref txtOrderDate, 3 , DateTime.Parse(txtReceivedDate.SelectedDate.ToString()), 0);
+            }
         }
 
         private void RadDateControlBusinessDateValidation(ref RadDatePicker rdtp, int noOfDays, DateTime dtDate, int isPastdateReq)
