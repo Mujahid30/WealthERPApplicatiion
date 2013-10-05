@@ -175,7 +175,7 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    <table style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="1"
+                                    <table runat="server" style="clear: both; z-index: 2500; text-align: right; float: right" cellpadding="1"
                                         cellspacing="1">
                                         <tr>
                                             <td id="tdSettings" style="vertical-align: baseline" runat="server">
@@ -291,7 +291,7 @@
                                                         <Items>
                                                             <%--<asp:MenuItem Text="Home" Value="Home" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>--%>
-                                                            <asp:MenuItem NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
+                                                            <asp:MenuItem   NavigateUrl="javascript:loadfrommenu('TransactBusinessOnlineLinks','login');"
                                                                 Text="Transact/Business online" Value="Transact/Business online" SeparatorImageUrl="~/Images/MenuSeparator.jpg">
                                                             </asp:MenuItem>
                                                             <asp:MenuItem NavigateUrl="javascript:loadfrommenu('ViewRepository','login');" Text="Repository"
@@ -665,22 +665,22 @@
                                 <asp:Label ID="lblBestViewed" Text="Best Viewed in Mozilla Firefox Version 8.0 and above"
                                     runat="server" CssClass="PCGWhiteText" Font-Size="X-Small"></asp:Label>
                             </td>
-                            <td>
+                            <%--<td>
                              <asp:LinkButton ID="lnkIECompatibilityView" target="_blank" href="Images/IECompatibility.jpg" CssClass="LinkButtons" runat="server" Text="For IE Click here">
                             </asp:LinkButton>
                             </td>
                             <td id="tdTermsCondition" runat="server">
                                 <a id="anchorTermsCondition" name="lnkTermsCondition" runat="server" href="~/WERPTermsandConditions.pdf"
                                     style="font-size: x-small" class="PCGWhiteText" target="_blank">Terms & Condition</a>
-                            </td>
-                            <td align="center" id="tdGodaddySeal" runat="server" visible="false">
+                            </td
+                            td align="center" id="tdGodaddySeal" runat="server" visible="false">
                                 <span id="siteseal">
 
                                     <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OB3Z92r1Re28pR7Rrwh09U9YkpYQ15o7Xc72vLCP3q87CHp3JBZidCm">
                                     </script>
 
                                 </span>
-                            </td>
+                            </td>--%>
                             <td align="right">
                                 <%--                            <span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=OWPyWbNsq7qPWzrss8sCH3weSSj3SjP21EhheOl4L7s2vBTlMzf"></script><br/><a style="font-family: arial; font-size: 9px" href="https://www.godaddy.com" target="_blank">Best Web Hosting</a></span>
 --%>

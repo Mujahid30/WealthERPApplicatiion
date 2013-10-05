@@ -117,7 +117,7 @@ namespace WealthERP
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             GeneralConfigurationVo generalconfigurationvo = new GeneralConfigurationVo();         
 
-            tdTermsCondition.Visible = false;
+            //tdTermsCondition.Visible = false;
             try
             {
                 lblDate.Text = DateTime.Now.ToLongDateString();
@@ -155,22 +155,22 @@ namespace WealthERP
                     {
                         userVo = (UserVo)(Session["userVo"]);
                         rmVo = (RMVo)(Session[SessionContents.RmVo]);
-                        tdTermsCondition.Visible = true;
+                        //tdTermsCondition.Visible = true;
                         if (userVo.UserType == "Advisor")
                         {
 
                           
-                            tdGodaddySeal.Visible = true;
+                            //tdGodaddySeal.Visible = true;
                         }
                         else
                         {
-                            tdTermsCondition.Visible = false;
+                            //tdTermsCondition.Visible = false;
                             
                         }
 
                         if ((!IsPostBack) && (userVo.UserType == "Customer"))
                         {
-                            tdTermsCondition.Visible = false;
+                            //tdTermsCondition.Visible = false;
                             tdDemo.Visible = false;
                             tdHelp.Visible = false;
                             lnkDemo.Visible = false;
@@ -318,6 +318,19 @@ namespace WealthERP
                 //{
                 //    BranchLogo.Style.Add("display", "none");
                 //}
+
+                if (userVo.UserType != "Advisor") {
+                    MenuItemCollection items = AdvisorMenu.Items;
+                    foreach (MenuItem item in items) {
+                        if (item.Value == @"Transact/Business online") { item.Text = ""; item.SeparatorImageUrl = null; }
+                        if (item.Value == @"Repository") { item.Text = ""; item.SeparatorImageUrl = null; }
+                        if (item.Value == @"Info links") { item.Text = ""; item.SeparatorImageUrl = null; }
+                        if (item.Value == @"Price List") { item.Text = ""; item.SeparatorImageUrl = null; }
+                        if (item.Value == @"Calculators") { item.Text = ""; item.SeparatorImageUrl = null; }
+                    }
+                    tdDemo.Visible = false;
+                    tdHelp.Visible = false;
+                }
             }
             catch (BaseApplicationException Ex)
             {

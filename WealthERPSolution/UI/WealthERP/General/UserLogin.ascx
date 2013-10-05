@@ -94,7 +94,7 @@
                                     </span>
                                 </td>
                             </tr>
-                            <tr id="trGodaddy" runat="server">
+                            <%--<tr id="trGodaddy" runat="server">
                                 <td align="right" colspan="2">
                                     <span id="siteseal">
 
@@ -103,7 +103,7 @@
 
                                     </span>
                                 </td>
-                            </tr>
+                            </tr>--%>
                         </table>
                     </td>
                 </tr>
