@@ -71,7 +71,10 @@ namespace WealthERP.BusinessMIS
                     drTurnoverTreeNode["TreeNodeText1"] = drSubSubNode["TreeSubSubNodeText"].ToString();
 
                     dtTurnoverTreeNode.Rows.Add(drTurnoverTreeNode);
-
+                    if (userVo.UserType == "Associates")
+                    {                      
+                        break;
+                    }
                 }
                 else if (count == 1)
                 {
@@ -166,16 +169,40 @@ namespace WealthERP.BusinessMIS
             //    }
 
             //}
+
+
         }
         protected void rptTurnoverTree_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            if (userVo.UserType == "Advisor") return;
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
 
-            TableCell td1 = e.Item.FindControl("td1") as TableCell;
-            TableCell td2 = e.Item.FindControl("td2") as TableCell;
+            //    ImageButton col0 = e.Item.FindControl("imgbtnTurnover1") as ImageButton;
+            //    ImageButton col1 = e.Item.FindControl("imgbtnTurnover2") as ImageButton;
+            //    ImageButton col2 = e.Item.FindControl("imgbtnTurnover3") as ImageButton;
+            //    ImageButton col3 = e.Item.FindControl("imgbtnTurnover4") as ImageButton;
+            //    if (col1.ImageUrl == "")
+            //    {
+            //        var a = e.Item.FindControl("td2");
+            //        a.Visible = false;
+            //    }
+            //    if (col0.ImageUrl == "")
+            //    {
+            //        var a = e.Item.FindControl("td1");
+            //        a.Visible = false;
+            //    }
+            //    if (col2.ImageUrl == "")
+            //    {
+            //        var a = e.Item.FindControl("td3");
+            //        a.Visible = false;
+            //    }
+            //    if (col3.ImageUrl == "")
+            //    {
+            //        var a = e.Item.FindControl("td4");
+            //        a.Visible = false;
+            //    }
 
-            if (td1 != null) td1.Visible = false;
-            if (td2 != null) td2.Visible = false;
+            //}
         }
     }
 }
