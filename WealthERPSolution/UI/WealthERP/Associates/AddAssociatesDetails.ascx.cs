@@ -76,9 +76,7 @@ namespace WealthERP.Associates
                     lnkBtnEdit.Visible = true;
                     lnlBack.Visible = true;
                 }
-                if (viewAction == "Edit" || viewAction == "EditFromRequestPage")
-                {
-                    //SetControls(associatesVo);
+                if (viewAction == "Edit" || viewAction == "EditFromRequestPage") {
                     associatesVo = (AssociatesVO)Session["associatesVo"];
                     if (associatesVo != null)
                         SetEditViewControls(associatesVo);
@@ -88,6 +86,7 @@ namespace WealthERP.Associates
                 }
 
             }
+            if (userVo.UserType != "Advisor") { lnkBtnEdit.Visible = false; }
         }
 
         private void BindMaritalStatus()

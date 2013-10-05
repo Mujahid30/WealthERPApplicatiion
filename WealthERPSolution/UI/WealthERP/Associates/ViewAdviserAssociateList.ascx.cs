@@ -154,5 +154,17 @@ namespace WealthERP.Associates
             associatesVo = associatesBo.GetAssociateVoList(assiciateId);
             Session["associatesVo"] = associatesVo;
         }
+
+        protected void gvAdviserAssociateList_ItemDataBound(Object sender, GridItemEventArgs e)
+        {
+            if (userVo.UserType == "Advisor") return;
+
+            if ((e.Item is GridDataItem) == false) return;
+
+            GridDataItem item = (GridDataItem)e.Item;
+            RadComboBox actions = (RadComboBox)item.FindControl("ddlMenu");
+            RadComboBoxItem rbcItem = actions.Items.FindItemByValue("Edit", true);
+            rbcItem.Visible = false;
+        }
     }
 }

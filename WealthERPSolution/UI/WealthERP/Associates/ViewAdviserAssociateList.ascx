@@ -35,7 +35,7 @@
                                     PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                                     AllowAutomaticInserts="false" ExportSettings-ExportOnlyData="true" OnNeedDataSource="gvAdviserAssociateList_OnNeedDataSource"
-                                    EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
+                                    EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" OnItemDataBound="gvAdviserAssociateList_ItemDataBound">
                                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                                         FileName="ViewAssociateList" Excel-Format="ExcelML">
                                     </ExportSettings>
