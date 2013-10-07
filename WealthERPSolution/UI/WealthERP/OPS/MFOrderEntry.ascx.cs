@@ -126,7 +126,7 @@ namespace WealthERP.OPS
             if (!IsPostBack)
             {
                 Sipvisblity("", "");
-                RadDateControlBusinessDateValidation(ref txtReceivedDate, 3, DateTime.Now, 1);
+              
                 //CVPaymentdate2.ValueToCompare = txtOrderDate.SelectedDate.ToString();
                 //orderNumber = mfOrderBo.GetOrderNumber();
                 //orderNumber = orderNumber + 1;
@@ -283,6 +283,9 @@ namespace WealthERP.OPS
                     SetControls("Entry", mforderVo, orderVo);
 
                 }
+                
+                if(string.IsNullOrEmpty(ViewForm))
+                    RadDateControlBusinessDateValidation(ref txtReceivedDate, 3, DateTime.Now, 1);
 
                 //ddlsearch_Selectedindexchanged(this, null);
 
