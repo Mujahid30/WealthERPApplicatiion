@@ -2630,6 +2630,34 @@
     <Compile Include="Messages\MessageOutbox.ascx.designer.cs">
       <DependentUpon>MessageOutbox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx.cs">
+      <DependentUpon>MFOrderPurchaseTransType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx.designer.cs">
+      <DependentUpon>MFOrderPurchaseTransType.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx.cs">
+      <DependentUpon>MFOrderRdemptionTransType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx.designer.cs">
+      <DependentUpon>MFOrderRdemptionTransType.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderManagement.ascx.cs">
+      <DependentUpon>MFOrderManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderManagement.ascx.designer.cs">
+      <DependentUpon>MFOrderManagement.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderSIPTransType.ascx.cs">
+      <DependentUpon>MFOrderSIPTransType.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderSIPTransType.ascx.designer.cs">
+      <DependentUpon>MFOrderSIPTransType.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\BondsOrderEntry.ascx.cs">
       <DependentUpon>BondsOrderEntry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2671,6 +2699,13 @@
     </Compile>
     <Compile Include="OPS\ManualOrderMapping.aspx.designer.cs">
       <DependentUpon>ManualOrderMapping.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OPS\MFOnlineSchemeManager.ascx.cs">
+      <DependentUpon>MFOnlineSchemeManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OPS\MFOnlineSchemeManager.ascx.designer.cs">
+      <DependentUpon>MFOnlineSchemeManager.ascx</DependentUpon>
     </Compile>
     <Compile Include="OPS\MFOrderEntry.ascx.cs">
       <DependentUpon>MFOrderEntry.ascx</DependentUpon>
@@ -6709,12 +6744,17 @@
     <Content Include="Messages\MessageCompose.ascx" />
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderManagement.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderSIPTransType.ascx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />
     <Content Include="OPS\CustomerGeneralInsuranceOrder.ascx" />
     <Content Include="OPS\CustomerOrderList.ascx" />
     <Content Include="OPS\FixedIncomeOrderEntry.ascx" />
     <Content Include="OPS\LifeInsuranceOrderEntry.ascx" />
     <Content Include="OPS\ManualOrderMapping.aspx" />
+    <Content Include="OPS\MFOnlineSchemeManager.ascx" />
     <Content Include="OPS\MFOrderEntry.ascx" />
     <Content Include="OPS\OrderDashBoard.ascx" />
     <Content Include="OPS\OrderEntry.ascx" />

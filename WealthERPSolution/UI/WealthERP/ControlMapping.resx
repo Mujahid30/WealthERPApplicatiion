@@ -1689,4 +1689,24 @@
     <value>Advisor//AdviserVendorServices.ascx</value>
     <comment>Advisor//AdviserVendorServices.ascx</comment>
   </data>
+  <data name="MFOrderManagement" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderManagement.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderManagement.ascx</comment>
+  </data>
+  <data name="MFOnlineSchemeManager" xml:space="preserve">
+    <value>OPS//MFOnlineSchemeManager.ascx</value>
+    <comment>OPS//MFOnlineSchemeManager.ascx</comment>
+  </data>
+  <data name="MFOrderPurchaseTransactionType" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx</comment>
+  </data>
+  <data name="MFOrderRdemptionTransType" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderRdemptionTransType.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderRdemptionTransType.ascx</comment>
+  </data>
+  <data name="MFOrderSIPTransType" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderSIPTransType.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderSIPTransType.ascx</comment>
+  </data>
 </root>
