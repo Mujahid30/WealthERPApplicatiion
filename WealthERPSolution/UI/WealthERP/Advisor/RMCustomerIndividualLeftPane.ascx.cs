@@ -1323,7 +1323,8 @@ namespace WealthERP.Advisor
                 }
                  
                 else if (e.Item.Value == "MF_Order")
-                {                  
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderPurchaseTransactionType','login');", true);                 
                 }
                 else if (e.Item.Value == "Bond_Order")
                 {
