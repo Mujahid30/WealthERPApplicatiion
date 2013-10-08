@@ -360,7 +360,7 @@ namespace DaoCommisionManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCatCm = db.GetStoredProcCommand("SPROC_GetCategoryCM");
-                db.AddInParameter(cmdGetCatCm, "@AssetGroupCode", DbType.String, prodType);
+                db.AddInParameter(cmdGetCatCm, "@PAG_AssetGroupCode", DbType.String, prodType);
                 ds = db.ExecuteDataSet(cmdGetCatCm);
             }
             catch (BaseApplicationException Ex)
