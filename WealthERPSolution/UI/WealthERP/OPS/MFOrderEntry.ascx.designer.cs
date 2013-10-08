@@ -1292,6 +1292,15 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator18;
         
         /// <summary>
+        /// RequiredFieldValidator22 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator22;
+        
+        /// <summary>
         /// lblBranchName control.
         /// </summary>
         /// <remarks>
@@ -1409,13 +1418,13 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator18;
         
         /// <summary>
-        /// CompareValidator6 control.
+        /// dateCompareValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator6;
+        protected global::System.Web.UI.WebControls.CompareValidator dateCompareValidator;
         
         /// <summary>
         /// trSection2 control.
@@ -1652,13 +1661,13 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadDatePicker txtstartDateSTP;
         
         /// <summary>
-        /// CompareValidator5 control.
+        /// RequiredFieldValidator20 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator20;
         
         /// <summary>
         /// lblendDateSTP control.
@@ -1679,13 +1688,13 @@ namespace WealthERP.OPS {
         protected global::Telerik.Web.UI.RadDatePicker txtendDateSTP;
         
         /// <summary>
-        /// CompareValidator7 control.
+        /// RequiredFieldValidator21 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator7;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator21;
         
         /// <summary>
         /// CompareValidator15 control.
@@ -2219,15 +2228,6 @@ namespace WealthERP.OPS {
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
         
         /// <summary>
-        /// TextBoxWatermarkExtender4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TextBoxWatermarkExtender TextBoxWatermarkExtender4;
-        
-        /// <summary>
         /// RequiredFieldValidator19 control.
         /// </summary>
         /// <remarks>
@@ -2237,13 +2237,13 @@ namespace WealthERP.OPS {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator19;
         
         /// <summary>
-        /// CompareValidator8 control.
+        /// RangeValidator4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator8;
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator4;
         
         /// <summary>
         /// trSystematicDateChk2 control.
