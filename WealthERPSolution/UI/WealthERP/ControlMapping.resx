@@ -1709,4 +1709,8 @@
     <value>OnlineOrderManagement//MFOrderSIPTransType.ascx</value>
     <comment>OnlineOrderManagement//MFOrderSIPTransType.ascx</comment>
   </data>
+  <data name="CustomerMFOrderBookList" xml:space="preserve">
+    <value>OnlineOrderManagement//CustomerMFOrderBookList.ascx</value>
+    <comment>OnlineOrderManagement//CustomerMFOrderBookList.ascx</comment>
+  </data>
 </root>
