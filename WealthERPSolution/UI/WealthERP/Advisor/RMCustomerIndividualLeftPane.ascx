@@ -7,14 +7,14 @@
 <script id="pagescript" type="text/javascript" language="javascript">
     function callSearch(searchtype) {
         var searchstring = document.getElementById('<%= txtFindCustomer.ClientID %>').value;
-        var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;       
+        var userRole = document.getElementById('<%=hdnUserRole.ClientID %>').value;
         if (userRole == 'RM')
             loadsearchcontrol('RMCustomer', 'RMCustomer', searchstring);
         else if (userRole == 'Adviser')
             loadsearchcontrol('AdviserCustomer', 'AdviserCustomer', searchstring);
         else if (userRole == 'BM')
             loadsearchcontrol('BMCustomer', 'BMCustomer', searchstring);
-       
+
     }
 </script>
 
@@ -102,7 +102,7 @@
                                             <telerik:RadPanelItem runat="server" Text="Add Bank Transaction/Balance" Value="Add Bank Details">
                                             </telerik:RadPanelItem>
                                         </Items>
-                                         <Items>
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="View Bank Transaction" Value="View Bank Transaction">
                                             </telerik:RadPanelItem>
                                         </Items>
@@ -119,25 +119,23 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    
                                     <telerik:RadPanelItem runat="server" Text="Advisor Notes" Value="Advisor Notes">
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                            <telerik:RadPanelItem runat="server"  Value="Customer_Order" Text="Product Order">
+                            <telerik:RadPanelItem runat="server" Value="Customer_Order" Text="Product Order">
                                 <Items>
-                                    <telerik:RadPanelItem runat="server" Text="Order Management" 
-                                    Value="Order_Approval_List" ImagePosition="Right">
+                                    <telerik:RadPanelItem runat="server" Text="Order Management" Value="Order_Approval_List"
+                                        ImagePosition="Right">
                                     </telerik:RadPanelItem>
-                                                                     
                                 </Items>
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Financial Planning" Value="Financial Planning">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Finance Profile" Value="Finance Profile">
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server"  ImagePosition="Right"
-                                        Text="Assumptions and Preferences" Value="Preferences">
+                                    <telerik:RadPanelItem runat="server" ImagePosition="Right" Text="Assumptions and Preferences"
+                                        Value="Preferences">
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Recommendation" Value="CustomerFPRecommendation">
                                     </telerik:RadPanelItem>
@@ -173,7 +171,17 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                             <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
+                            <telerik:RadPanelItem runat="server" Text="Online Order" Value="Online_Order">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="MF Order" Value="MF_Order">
+                                    </telerik:RadPanelItem>
+                                    <telerik:RadPanelItem runat="server" Text="Bond Order" Value="Bond_Order">
+                                    </telerik:RadPanelItem>
+                                     <telerik:RadPanelItem runat="server" Text="Order MIS" Value="Online_Order_MIS">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                            <telerik:RadPanelItem runat="server" Text="Insurance" Value="Insurance">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Life Insurance" Value="Life Insurance">
                                         <Items>
@@ -226,10 +234,10 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Govt. Savings" Value="Govt Savings">
-                                     <Items>
+                                        <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Govt. Savings" Value="Add Govt Savings">
                                             </telerik:RadPanelItem>
-                                     </Items>
+                                        </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Property" Value="Property">
                                         <Items>
@@ -261,7 +269,8 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Cash and Savings" Value="Cash and Savings" Visible="false">
+                                    <telerik:RadPanelItem runat="server" Text="Cash and Savings" Value="Cash and Savings"
+                                        Visible="false">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Add Cash and Savings" Value="Add Cash and Savings">
                                             </telerik:RadPanelItem>
@@ -269,7 +278,6 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                           
                             <telerik:RadPanelItem runat="server" Text="Liabilities Dashboard" Value="Liabilities">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Add Liability" Value="Add Liability">

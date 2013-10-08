@@ -1039,6 +1039,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionReceivableRecon','login');", true);
                 }
+                else if (e.Item.Value == "File_Generation")
+                {
+                    Session["UserType"] = "adviser";
+                    
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1960,6 +1965,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Scheme_DataTrans_Mapping")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddSchemeMapping','login')", true);
+                }
+                else if (e.Item.Value == "File_Generation")
+                {
+                    Session["UserType"] = "adviser";
+
                 }
 
             }

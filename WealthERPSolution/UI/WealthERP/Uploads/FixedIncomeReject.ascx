@@ -224,7 +224,7 @@
                 <telerik:RadGrid ID="gvWERPFI" runat="server" GridLines="None" AutoGenerateColumns="False"
                     AllowFiltering="true" PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True"
                     Skin="Telerik" OnItemDataBound="gvWERPFI_ItemDataBound" EnableEmbeddedSkins="false"
-                    Width="98%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
+                    Width="99%" AllowFilteringByColumn="true" AllowAutomaticInserts="false" EnableViewState="true"
                     ExportSettings-FileName="Fixed Income Reject Details" ShowFooter="true" OnNeedDataSource="gvWERPFI_OnNeedDataSource"
                     OnPreRender="gvWERPFI_PreRender">
                     <ExportSettings HideStructureColumns="true">
@@ -332,11 +332,11 @@
 <div runat="server" id="DivAction" visible="false">
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
-          <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click"
+          <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click" Visible="false"
                 runat="server" Text="Reprocess" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');"
                 onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />
             <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
-                OnClientClick="return ShowPopup()" />
+                OnClientClick="return ShowPopup()" Visible="false" />
            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
             <br />

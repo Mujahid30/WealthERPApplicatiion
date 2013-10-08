@@ -345,6 +345,13 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("Bank Details").Expanded = true;
                         //Session["IsDashboard"] = "false";
                     }
+                    else if (IsDashboard == "Online_Order")
+                    {
+                        RadPanelBar1.FindItemByValue("Profile Dashboard").Expanded = true;
+                        RadPanelBar1.FindItemByValue("Online Order").Selected = true;
+                        RadPanelBar1.FindItemByValue("Online Order").Expanded = true;
+                        //Session["IsDashboard"] = "false";
+                    }
                     else
                     {
                         RadPanelBar1.CollapseAllItems();
@@ -1313,6 +1320,16 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value.ToLower() == "inbox")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true); 
+                }
+                 
+                else if (e.Item.Value == "MF_Order")
+                {                  
+                }
+                else if (e.Item.Value == "Bond_Order")
+                {
+                }
+                else if (e.Item.Value == "Online_Order_MIS")
+                {
                 }
             }
             catch (BaseApplicationException Ex)

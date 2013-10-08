@@ -279,6 +279,80 @@ namespace WealthERP.Uploads
                 }
             }
         }
+        //protected void btnReprocess_Click(object sender, EventArgs e)
+        //{
+            //bool blResult = false;
+            //uploadsCommonBo = new UploadCommonBo();
+
+            //int countTransactionsInserted = 0;
+            //int countRejectedRecords = 0;
+            //string error = "";
+            //int processIdReprocessAll = 0;
+
+            //// BindGrid
+            //if (Request.QueryString["processId"] != null)
+            //{
+            //    ProcessId = Int32.Parse(Request.QueryString["processId"].ToString());
+            //    blResult = MFWERPTransactionWERPInsertion(ProcessId, out countTransactionsInserted, out countRejectedRecords);
+            //}
+            //else
+            //{
+            //    #region removed coz its taking all the processids
+            //    //DataSet ds = uploadsCommonBo.GetEquityTransactionStagingProcessId(adviserVo.advisorId);
+            //    #endregion
+
+            //    string StagingID = string.Empty;
+
+            //    foreach (GridDataItem gvr in this.gvWERPFI.Items)
+            //    {
+            //        if (((CheckBox)gvr.FindControl("chkBxWPTrans")).Checked == true)
+            //        {
+            //            StagingID += Convert.ToString(gvWERPFI.MasterTableView.DataKeyValues[gvr.ItemIndex]["ProcessId"]) + "~";
+
+            //        }
+            //    }
+
+            //    string[] a = StagingID.Split('~');
+
+
+            //    foreach (string word in a)
+
+
+            //    //foreach (DataRow dr in ds.Tables[0].Rows)
+            //    {
+            //        if (word != "")
+            //        {
+            //            //processIdReprocessAll = int.Parse(dr["ProcessId"].ToString());
+            //            processIdReprocessAll = int.Parse(word);
+            //            blResult = MFWERPTransactionWERPInsertion(processIdReprocessAll, out countTransactionsInserted, out countRejectedRecords);
+            //        }
+            //    }
+            //}
+            //if (blResult == false)
+            //{
+            //    error = error + "Error when reprocessing for the processid:" + processIdReprocessAll + ";";
+            //}
+
+            //if (blResult == true)
+            //{
+
+            //    NeedSource();
+            //    gvWERPFI.MasterTableView.Rebind();
+            //    msgReprocessComplete.Visible = true;
+            //    msgDelete.Visible = false;
+
+
+            //}
+            //else
+            //{
+            //    // Failure Message
+            //    //reprocessSucess.Visible = false;
+            //    msgReprocessincomplete.Visible = true;
+            //    //lblError.Text = "Reprocess Failure!";
+            //}
+
+            //BindEquityTransactionGrid(ProcessId);
+       // }
         protected void rcbContinents1_PreRender(object sender, EventArgs e)
         {
         }
@@ -352,9 +426,7 @@ namespace WealthERP.Uploads
            
             BindFixedIncomeGrid(ProcessId);
         }
-        protected void btnReprocess_Click(object sender, EventArgs e)
-        {
-        }
+      
        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
         {
         }

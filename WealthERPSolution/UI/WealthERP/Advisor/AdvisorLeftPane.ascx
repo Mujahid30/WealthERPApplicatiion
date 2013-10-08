@@ -184,7 +184,9 @@
                                             <telerik:RadPanelItem runat="server" Text="Add FD&54EC order" Value="ProductOrderMaster"
                                                 Visible="false">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
+                                            <telerik:RadPanelItem runat="server" Text="File Extraction" Value="File_Extraction">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Staff User Management" Value="Staff User Management">
                                                     </telerik:RadPanelItem>
@@ -240,7 +242,7 @@
                                                     <telerik:RadPanelItem runat="server" Text="Commission Receivable Recon" Value="Commission_Receivable_Recon">
                                                     </telerik:RadPanelItem>
                                                 </Items>
-                                            </telerik:RadPanelItem>                                           
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Associates" Value="Associates" Visible="false">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Request Associate" Value="AddAssociates">
@@ -696,6 +698,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Operations" Value="Operations">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="File Generation" Value="File_Generation">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Upload" Value="Upload">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Start Upload" Value="Start_Upload">
