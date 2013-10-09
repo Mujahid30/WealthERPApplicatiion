@@ -48,7 +48,7 @@
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
             <td id="tdTxtFromDate" runat="server">
-                <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
+                <telerik:RadDatePicker  ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
@@ -71,10 +71,10 @@
             <td id="tdlblToDate" runat="server">
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
             </td>
-            <td id="tdTxtToDate" runat="server">
+            <td id="tdTxtToDate" runat="server"> 
                 <telerik:RadDatePicker ID="txtTo" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    <Calendar def ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
