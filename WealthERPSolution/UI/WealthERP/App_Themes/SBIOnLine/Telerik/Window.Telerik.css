@@ -1,0 +1,258 @@
+/* RadWindow for ASP.NET AJAX Vista Skin */
+
+/* Window Background */
+
+/* Horiznotal */
+.RadWindow_Telerik .rwTopLeft,
+.RadWindow_Telerik .rwTopRight,
+.RadWindow_Telerik .rwTitlebar,
+.RadWindow_Telerik .rwFooterLeft,
+.RadWindow_Telerik .rwFooterRight,
+.RadWindow_Telerik .rwFooterCenter,
+.RadWindow_Telerik .rwTopResize,
+.RadWindow_Telerik .rwStatusbar div,
+.RadWindow_Telerik .rwStatusbar,
+.RadWindow_Telerik .rwPopupButton,
+.RadWindow_Telerik .rwPopupButton span,
+.RadWindow_Telerik.rwMinimizedWindow .rwCorner
+{
+    background-image: url('Window/WindowHorizontalSprites.gif');
+}
+
+/* Vertical */
+.RadWindow_Telerik .rwBodyLeft,
+.RadWindow_Telerik .rwBodyRight,
+.RadWindow_Telerik .rwStatusbarRow .rwCorner
+{
+	background-image: url('Window/WindowVerticalSprites.gif');
+}
+
+/* Window Shadows */
+
+/* Horiznotal */
+.RadWindow_Telerik .rwShadow .rwTopLeft,
+.RadWindow_Telerik .rwShadow .rwTopRight,
+.RadWindow_Telerik .rwShadow .rwTitlebar,
+.RadWindow_Telerik .rwShadow .rwFooterLeft,
+.RadWindow_Telerik .rwShadow .rwFooterRight,
+.RadWindow_Telerik .rwShadow .rwFooterCenter,
+.RadWindow_Telerik .rwShadow .rwTopResize,
+.RadWindow_Telerik .rwShadow .rwStatusbar div,
+.RadWindow_Telerik .rwShadow .rwStatusbar,
+.RadWindow_Telerik .rwShadow .rwPopupButton,
+.RadWindow_Telerik .rwShadow .rwPopupButton span,
+.RadWindow_Telerik .rwShadow .rwBodyLeft,
+.RadWindow_Telerik .rwShadow .rwBodyRight,
+.RadWindow_Telerik .rwShadow .rwStatusbarRow .rwBodyLeft,
+.RadWindow_Telerik .rwShadow .rwStatusbarRow .rwBodyRight
+{
+	background-image: url('Window/WindowHorizontalSprites.png');
+}
+
+/* Vertical */
+.RadWindow_Telerik .rwShadow .rwBodyLeft,
+.RadWindow_Telerik .rwShadow .rwBodyRight,
+.RadWindow_Telerik .rwShadow .rwStatusbarRow .rwBodyLeft,
+.RadWindow_Telerik .rwShadow .rwStatusbarRow .rwBodyRight
+{
+	background-image: url('Window/WindowVerticalSprites.png');
+}
+
+/* Shadows End */
+
+.RadWindow_Telerik .rwStatusbar input
+{
+    background-color: #ebf2f7;
+}
+
+.RadWindow_Telerik .rwControlButtons a
+{
+    background-image: url('Window/CommandButtonSprites.gif');
+}
+
+.RadWindow_Telerik a.rwIcon
+{
+	background-image: url('Window/WindowHorizontalSprites.gif');
+}
+
+div.RadWindow_Telerik .rwTitlebarControls em
+{
+	color: black;
+}
+
+/* 
+    This is a hack to achieve "Aero" look and feel for that particular skin.
+    It should be removed for the other skins, as the background coordinates
+    are specified in Window.css and are common for all skins*/
+
+.RadWindow_Telerik table .rwTitlebar,
+.RadWindow_Telerik table .rwTopResize,
+.rwMinimizedWindow.RadWindow_Telerik tr.rwTitleRow td.rwTitlebar,
+.rwMinimizedWindow.RadWindow_Telerik tr.rwTitleRow div.rwTopResize
+{
+	background: url('Window/AeroTitleBarBgr.gif') repeat-x !important;
+}
+
+.RadWindow_Telerik table .rwTitlebar,
+.RadWindow_Telerik table .rwTopLeft,
+.RadWindow_Telerik table .rwTopRight,
+.RadWindow_Telerik table .rwFooterLeft,
+.RadWindow_Telerik table .rwFooterRight,
+.RadWindow_Telerik table .rwFooterCenter,
+.RadWindow_Telerik table .rwBodyLeft,
+.RadWindow_Telerik table .rwBodyRight
+ {
+ 	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=65) !important;
+ 	opacity: .65 !important; 
+ }
+
+.RadWindow_Telerik.rwShadow table.rwShadow .rwTitlebar,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwTopLeft,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwTopRight,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwFooterLeft,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwFooterRight,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwFooterCenter,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwBodyLeft,
+.RadWindow_Telerik.rwShadow table.rwShadow .rwBodyRight
+ {
+ 	filter: none !important;
+ }
+
+.RadWindow_Telerik .rwShadow .rwTitlebar,
+.rwMinimizedWindow.RadWindow_Telerik .rwShadow tr.rwTitleRow td.rwTitlebar,
+.rwMinimizedWindow.RadWindow_Telerik .rwShadow tr.rwTitleRow div.rwTopResize
+{
+     background: url('Window/AeroTitleBarBgr.png') repeat-x 0 0 !important;
+}
+
+/* End of the "Aero" hack */
+
+/* overlay element should be minimized when the window is minimized */
+iframe.minimizedwindowoverlay_Telerik
+{
+	/* take into account the borders of the main <div> of the window when setting width / height */
+	width: 200px !important; 
+	height: 30px !important;
+}
+
+div.RadWindow_Telerik .rwDialogInput
+{
+	border-top: solid 1px #adb0b2;
+	border-right: solid 1px #dce2e6;
+	border-bottom: solid 1px #e6ecf0;
+	border-left: solid 1px #e6e9eb;
+}
+
+div.RadWindow_Telerik .rwDialogInput:hover
+{
+	border-top: solid 1px #6097bf;
+	border-right: solid 1px #bcd7eb;
+	border-bottom: solid 1px #cee3f2;
+	border-left: solid 1px #cadeed;
+	color: #575757;
+}
+
+/* set Window Vista "Aero" look and feel to the window */
+* html div.RadWindow.RadWindow_Telerik.rwNormalWindow.rwTransparentWindow td.rwCorner,
+* html div.RadWindow.RadWindow_Telerik.rwNormalWindow.rwTransparentWindow td.rwTitlebar,
+* html div.RadWindow.RadWindow_Telerik.rwTransparentWindow td.rwFooterCenter
+{
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+}
+
+div.RadWindow_Telerik td.rwWindowContent
+{
+    background-color: #ffffff;
+}
+
+/* Loading Indicators */
+div.RadWindow_Telerik tr td.rwLoading
+{
+    background-color: #f5f9fc;
+}
+
+/* When ShowContentDuringLoad="true" */
+div.RadWindow_Telerik td.rwWindowContent.rwLoading
+{
+    background-image: url('Common/loading.gif');
+}
+
+/* When ShowContentDuringLoad="false" */
+div.RadWindow_Telerik input.rwLoading
+{
+    background-image: url('Common/loading_small.gif');
+}
+
+div.RadWindow_Telerik.rwNoTitleBar div.rwTopResize
+{
+    background: none !important;
+}
+
+div.RadWindow_Telerik.rwNoTitleBar tr.rwTitleRow td.rwTitlebar
+{
+    background-image: url('Window/WindowHorizontalSprites.gif') !important;
+    background-position: 0 -288px !important;
+    background-repeat: repeat-x !important;
+}
+
+/* Shadow Control Buttons */
+
+.RadWindow_Telerik .rwShadow .rwControlButtons 
+{
+	margin: 5px -2px 0 0;
+}
+
+.RadWindow_Telerik .rwShadow .rwControlButtons 
+{
+	margin: 5px 0 0 0\9;
+}
+
+/* ctrl buttons when winodw is minimized */
+.RadWindow_Telerik.rwMinimizedWindowShadow .rwShadow .rwControlButtons 
+{
+	margin: 9px -8px 0 0;
+}
+
+.RadWindow_Telerik .rwShadow .rwControlButtons li
+{
+	float: left;
+	padding: 0;
+}
+
+.RadWindow_Telerik .rwShadow .rwControlButtons a
+{
+	width: 30px; 
+}
+
+.rwInactiveWindow .rwShadow .rwTopLeft,
+.rwInactiveWindow .rwShadow .rwTopRight,
+.rwInactiveWindow .rwShadow .rwTitlebar,
+.rwInactiveWindow .rwShadow .rwFooterLeft,
+.rwInactiveWindow .rwShadow .rwFooterRight,
+.rwInactiveWindow .rwShadow .rwFooterCenter,
+.rwInactiveWindow .rwShadow .rwTopResize,
+.rwInactiveWindow .rwShadow .rwStatusbar div,
+.rwInactiveWindow .rwShadow .rwStatusbar,
+.rwInactiveWindow .rwShadow .rwPopupButton,
+.rwInactiveWindow .rwShadow .rwPopupButton span,
+.rwInactiveWindow .rwShadow.rwMinimizedWindow .rwCorner
+{
+    background-image: url('Window/WindowHorizontalSprites.gif') !important;
+}
+
+.rwInactiveWindow .rwShadow .rwBodyLeft,
+.rwInactiveWindow .rwShadow .rwBodyRight,
+.rwInactiveWindow .rwShadow .rwStatusbarRow .rwCorner
+{
+	background-image: url('Window/WindowVerticalSprites.gif') !important;
+}
+
+.RadWindow_Telerik.rwInactiveWindow .rwShadow .rwTitlebar,
+.RadWindow_Telerik.rwInactiveWindow .rwShadow .rwTopResize,
+.RadWindow_Telerik.rwInactiveWindow .rwShadow tr.rwTitleRow td.rwTitlebar,
+.RadWindow_Telerik.rwInactiveWindow .rwShadow tr.rwTitleRow div.rwTopResize
+{
+     background-image: url('Window/AeroTitleBarBgr.gif') !important;
+     background-repeat: repeat-x !important;
+     background-position: 0 8px !important;
+}
