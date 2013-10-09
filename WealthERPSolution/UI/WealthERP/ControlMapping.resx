@@ -1697,7 +1697,7 @@
     <value>OPS//MFOnlineSchemeManager.ascx</value>
     <comment>OPS//MFOnlineSchemeManager.ascx</comment>
   </data>
-  <data name="MFOrderPurchaseTransactionType" xml:space="preserve">
+  <data name="MFOrderPurchaseTransType" xml:space="preserve">
     <value>OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx</value>
     <comment>OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx</comment>
   </data>
@@ -1712,5 +1712,9 @@
   <data name="CustomerMFOrderBookList" xml:space="preserve">
     <value>OnlineOrderManagement//CustomerMFOrderBookList.ascx</value>
     <comment>OnlineOrderManagement//CustomerMFOrderBookList.ascx</comment>
+  </data>
+  <data name="MFOrderAdditionalPurchase" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOrderAdditionalPurchase.ascx</value>
+    <comment>OnlineOrderManagement//MFOrderAdditionalPurchase.ascx</comment>
   </data>
 </root>

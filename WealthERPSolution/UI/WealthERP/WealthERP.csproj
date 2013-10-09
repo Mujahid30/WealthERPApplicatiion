@@ -2637,6 +2637,13 @@
     <Compile Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx.designer.cs">
       <DependentUpon>CustomerMFOrderBookList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx.cs">
+      <DependentUpon>MFOrderAdditionalPurchase.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx.designer.cs">
+      <DependentUpon>MFOrderAdditionalPurchase.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx.cs">
       <DependentUpon>MFOrderPurchaseTransType.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7433,6 +7440,7 @@
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
+    <Content Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderManagement.ascx" />

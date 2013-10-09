@@ -2104,6 +2104,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//MFOrderAdditionalPurchase.ascx.
+        /// </summary>
+        internal static string MFOrderAdditionalPurchase {
+            get {
+                return ResourceManager.GetString("MFOrderAdditionalPurchase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//MFOrderEntry.ascx.
         /// </summary>
         internal static string MFOrderEntry {
@@ -2124,9 +2133,9 @@ namespace WealthERP {
         /// <summary>
         ///   Looks up a localized string similar to OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx.
         /// </summary>
-        internal static string MFOrderPurchaseTransactionType {
+        internal static string MFOrderPurchaseTransType {
             get {
-                return ResourceManager.GetString("MFOrderPurchaseTransactionType", resourceCulture);
+                return ResourceManager.GetString("MFOrderPurchaseTransType", resourceCulture);
             }
         }
         
