@@ -38,6 +38,7 @@ namespace WealthERP.OnlineOrderManagement
             customerId = customerVO.CustomerId;
             if (!Page.IsPostBack)
             {
+                hdnAccount.Value = "0";
                 BindFolioAccount();
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtFrom.SelectedDate = fromDate.Date;
@@ -67,7 +68,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
                 ddlAccount.DataBind();
             }
-              ddlAccount.Items.Insert(0, new ListItem("All", "All"));
+              ddlAccount.Items.Insert(0, new ListItem("All", "0"));
         }
         /// <summary>
         /// Get Order Book MIS
@@ -83,7 +84,7 @@ namespace WealthERP.OnlineOrderManagement
              toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             // AccountId = int.Parse(ddlAccount.SelectedValue.ToString());
 
-            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(advisorVo.advisorId, customerId, int.Parse(hdnAccount.Value), fromDate, toDate);
+             dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(advisorVo.advisorId, customerId, 0, fromDate, toDate);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)
             {

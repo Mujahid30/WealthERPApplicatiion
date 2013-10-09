@@ -43,6 +43,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BOAssociates\bin\Debug\BOAssociates.dll</HintPath>
     </Reference>
+    <Reference Include="BoOnlineOrderManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoValuation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />

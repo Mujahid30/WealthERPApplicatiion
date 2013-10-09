@@ -3,9 +3,6 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
-<asp:ScriptManager ID="scptMgr" runat="server">
-</asp:ScriptManager>
-
 
 
 <table width="100%">
@@ -231,4 +228,4 @@
         </tr>
     </table>
 </asp:Panel>
- <asp:HiddenField ID="hdnAccount" runat="server" />
+ <asp:HiddenField ID="hdnAccount" runat="server" value="0"/>

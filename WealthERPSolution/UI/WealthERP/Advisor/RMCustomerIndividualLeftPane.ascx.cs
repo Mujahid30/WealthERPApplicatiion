@@ -1050,7 +1050,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Order_Approval_List")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProspect", "loadcontrol('CustomerOrderList','login')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProspect", "loadcontrol('MFOrderManagement','login')", true);
                 }
 
                 else if (e.Item.Value == "Financial Planning")
@@ -1324,7 +1324,7 @@ namespace WealthERP.Advisor
                  
                 else if (e.Item.Value == "MF_Order")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderPurchaseTransactionType','login');", true);                 
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderManagement','login');", true);
                 }
                 else if (e.Item.Value == "Bond_Order")
                 {

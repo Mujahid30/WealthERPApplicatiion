@@ -9,11 +9,14 @@ namespace WealthERP.OnlineOrderManagement
 {
     public partial class OnlineMFOrderManagement : System.Web.UI.UserControl
     {
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!Page.IsPostBack)
             {
-                ShowHideControls("Transact");
+                //ShowHideControls("Transact");
             }
 
 
