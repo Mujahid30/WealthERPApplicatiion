@@ -1698,7 +1698,7 @@
     <comment>OPS//MFOnlineSchemeManager.ascx</comment>
   </data>
   <data name="MFOrderPurchaseTransType" xml:space="preserve">
-    <value>OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx</value>
+    <value>OnlineOrderManagement//MFOrderPurchaseTransType.ascx</value>
     <comment>OnlineOrderManagement//MFOrderPurchaseTransactionType.ascx</comment>
   </data>
   <data name="MFOrderRdemptionTransType" xml:space="preserve">
