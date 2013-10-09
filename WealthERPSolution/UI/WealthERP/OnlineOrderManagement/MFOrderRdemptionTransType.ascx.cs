@@ -42,10 +42,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             CategoryBind(ddlAmc.SelectedValue);
+            SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
+            
         }
 
         protected void CategoryBind(string amccode)

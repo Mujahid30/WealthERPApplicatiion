@@ -38,11 +38,12 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        public void ddlAmc_OnSelectedIndexChanged()
+        public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             CategoryBind(ddlAmc.SelectedValue);
+            SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
         }
-        public void ddlCategory_OnSelectedIndexChanged()
+        public void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
         }
