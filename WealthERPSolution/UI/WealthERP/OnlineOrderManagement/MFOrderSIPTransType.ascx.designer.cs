@@ -131,13 +131,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.TextBox txtOfferDoc;
         
         /// <summary>
-        /// txtFactSheet control.
+        /// lnkFactSheet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFactSheet;
+        protected global::System.Web.UI.WebControls.LinkButton lnkFactSheet;
         
         /// <summary>
         /// txtLatestNAV control.
@@ -176,13 +176,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblDividendFreq;
         
         /// <summary>
-        /// txtOption control.
+        /// ddlOption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOption;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOption;
         
         /// <summary>
         /// txtDividendType control.
@@ -248,13 +248,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.TextBox txtAmount;
         
         /// <summary>
-        /// txtFrequency control.
+        /// ddlFrequency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFrequency;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFrequency;
         
         /// <summary>
         /// lblHolder control.
@@ -275,13 +275,22 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
-        /// txtHolder control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHolder;
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// ddlHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlHolder;
         
         /// <summary>
         /// txtStartDate control.
@@ -291,6 +300,33 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStartDate;
+        
+        /// <summary>
+        /// FrmDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender FrmDate;
+        
+        /// <summary>
+        /// txtEndDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEndDate;
+        
+        /// <summary>
+        /// CalendarExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
         
         /// <summary>
         /// lblAutoRenew control.
@@ -329,13 +365,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblMinAmountrequired;
         
         /// <summary>
-        /// txtNominee control.
+        /// ddlNominee control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNominee;
+        protected global::System.Web.UI.WebControls.DropDownList ddlNominee;
         
         /// <summary>
         /// txtMinAmtReqd control.

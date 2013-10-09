@@ -76,7 +76,7 @@
             <asp:TextBox ID="txtOfferDoc" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="LeftLabel">
-            <asp:TextBox ID="txtFactSheet" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:LinkButton ID="lnkFactSheet" runat="server" CssClass="txtField"></asp:LinkButton>
         </td>
         <td class="LeftLabel">
             <asp:TextBox ID="txtLatestNAV" runat="server" CssClass="txtField"></asp:TextBox>
@@ -87,21 +87,23 @@
             <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="leftlabel">
-            <asp:Label ID="lblDividendType" runat="server" Text="DividendType" CssClass="FieldName"></asp:Label>
+            <asp:Label Visible="false" ID="lblDividendType" runat="server" Text="DividendType" CssClass="FieldName"></asp:Label>
         </td>
         <td class="leftLabel">
-            <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
+            <asp:Label Visible="false" ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:TextBox ID="txtOption" runat="server" CssClass="txtField"></asp:TextBox>
+             <asp:DropDownList ID="ddlOption" runat="server" CssClass="cmbField" AutoPostBack="true"
+                >
+            </asp:DropDownList>
         </td>
         <td class="leftlabel">
-            <asp:Label ID="txtDividendType" Text="Dividend reinvestment" runat="server" CssClass="txtField"></asp:Label>
+            <asp:Label Visible="false" ID="txtDividendType" Text="Dividend reinvestment" runat="server" CssClass="txtField"></asp:Label>
         </td>
         <td class="leftLabel">
-            <asp:Label ID="txtDividendFrequency" Text="Monthly" runat="server" CssClass="txtField"></asp:Label>
+            <asp:Label Visible="false" ID="txtDividendFrequency" Text="Monthly" runat="server" CssClass="txtField"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -123,7 +125,7 @@
             <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="leftLabel">
-            <asp:TextBox ID="txtFrequency" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField"></asp:DropDownList>
         </td>
     </tr>
    
@@ -132,21 +134,25 @@
             <asp:Label ID="lblHolder" runat="server" Text="Holder:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="leftlabel">
-            
+            <asp:Label ID="Label3" runat="server" Text="Start Dt:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="leftLabel">
-            <asp:Label ID="Label3" runat="server" Text="Start Dt:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="End Dt:" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:TextBox ID="txtHolder" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:DropDownList ID="ddlHolder" runat="server" CssClass="cmbField"></asp:DropDownList>
         </td>
         <td class="leftlabel">
-           
+            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField"></asp:TextBox><cc1:CalendarExtender
+                    ID="FrmDate" TargetControlID="txtStartDate" runat="server"  Format="dd/MM/yyyy">
+                </cc1:CalendarExtender>
         </td>
         <td class="leftLabel">
-            <asp:TextBox ID="txtStartDate" runat="server" CssClass="txtField"></asp:TextBox>
+             <asp:TextBox ID="txtEndDate" runat="server" CssClass="txtField"></asp:TextBox><cc1:CalendarExtender
+                    ID="CalendarExtender1" TargetControlID="txtEndDate" runat="server"  Format="dd/MM/yyyy">
+                </cc1:CalendarExtender>
         </td>
     </tr>
     <tr>
@@ -185,13 +191,13 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:TextBox ID="txtNominee" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:DropDownList ID="ddlNominee" runat="server" CssClass="cmbField"></asp:DropDownList>
         </td>
         <td class="leftlabel">
             
         </td>
         <td class="leftLabel">
-            <asp:TextBox ID="txtMinAmtReqd" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox Enabled="false" ID="txtMinAmtReqd" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
     <tr>
