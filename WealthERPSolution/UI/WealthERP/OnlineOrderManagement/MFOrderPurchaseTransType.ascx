@@ -10,7 +10,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Additional Purchase
+                            New Purchase
                         </td>
                     </tr>
                 </table>
@@ -56,6 +56,28 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
                 CssClass="rfvPCG" ControlToValidate="ddlScheme" ValidationGroup="btnSubmit" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr>
+     <td class="leftLabel" align="left">
+            <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="leftLabel" align="left">
+            <asp:Label ID="lblDividendType" runat="server" Text="Dividend Type" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="leftLabel" align="left">
+            <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency" CssClass="FieldName"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+    <td class="rightData">
+         <asp:Label ID="lblOption1" runat="server" Text="Dividend" CssClass="FieldName"></asp:Label> 
+        </td>
+        <td class="rightData">
+           <asp:Label ID="lblDividendType2" runat="server" Text="Dividend ReInvestment" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+           <asp:Label ID="lblDividendFrequency2" runat="server" Text="Monthly" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
     <tr>
