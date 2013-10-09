@@ -239,5 +239,33 @@ namespace BoCommon
             }
             return dt;
         }
+        public DataTable GetAmcSchemeList(string Amccode, string Category)
+        {
+            DataTable dtSchemeList = new DataTable();
+            try
+            {
+               string ProductCode = string.IsNullOrEmpty(Amccode) ? null : Amccode.Trim();
+                string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
+                dtSchemeList = daoCommonLookup.GetAmcSchemeList(ProductCode, CategoryCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[3];
+                objParams[0] = Amccode;
+                objParams[1] = Category;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeList;
+        }
     }
 }
