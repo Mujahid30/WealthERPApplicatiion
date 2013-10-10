@@ -50,7 +50,7 @@ namespace WealthERP.OnlineOrderManagement
             AmcBind();
             LoadNominees();
             BindCategory();
-
+            BindModeOfHolding();
 
         }
         protected void AmcBind()
