@@ -20,8 +20,7 @@ namespace WealthERP.OnlineOrderManagement
     public partial class CustomerMFOrderBookList : System.Web.UI.UserControl
     {
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-        AdvisorVo advisorVo;
-        UserVo userVo;
+        AdvisorVo advisorVo;    
         CustomerVo customerVO = new CustomerVo();
         string userType;
         int customerId = 0;
@@ -33,17 +32,19 @@ namespace WealthERP.OnlineOrderManagement
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
-            userType = Session[SessionContents.CurrentUserRole].ToString();           
-            userVo = (UserVo)Session["userVo"];
+            userType = Session[SessionContents.CurrentUserRole].ToString();          
             customerId = customerVO.CustomerId;
+            BindFolioAccount();
             if (!Page.IsPostBack)
             {
                 hdnAccount.Value = "0";
-                BindFolioAccount();
+               
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtFrom.SelectedDate = fromDate.Date;
                 txtTo.SelectedDate = DateTime.Now;
+                
             }
+           
         }
 
         protected void btnViewOrder_Click(object sender, EventArgs e)
@@ -82,20 +83,20 @@ namespace WealthERP.OnlineOrderManagement
              fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
              if (txtTo.SelectedDate != null)
              toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            // AccountId = int.Parse(ddlAccount.SelectedValue.ToString());
+             //AccountId = int.Parse(ViewState["AccountDropDown"].ToString());
 
-             dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(advisorVo.advisorId, customerId, 0, fromDate, toDate);
+            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(advisorVo.advisorId, customerId, int.Parse(hdnAccount.Value), fromDate, toDate);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)
             {
                 if (Cache["OrderList" + advisorVo.advisorId] == null)
                 {
-                    Cache.Insert("OrderList" + advisorVo.advisorId, dsOrderBookMIS.Tables[0]);
+                    Cache.Insert("OrderList" + advisorVo.advisorId, dtOrderBookMIS);
                 }
                 else
                 {
                     Cache.Remove("OrderList" + advisorVo.advisorId);
-                    Cache.Insert("OrderList" + advisorVo.advisorId, dsOrderBookMIS.Tables[0]);
+                    Cache.Insert("OrderList" + advisorVo.advisorId, dtOrderBookMIS);
                 }
                 gvOrderBookMIS.DataSource = dtOrderBookMIS;
                 gvOrderBookMIS.DataBind();
@@ -106,7 +107,6 @@ namespace WealthERP.OnlineOrderManagement
                 }
             else
             {
-                gvOrderBookMIS.DataSource = null;
                 gvOrderBookMIS.Visible = false;
                 pnlOrderBook.Visible = false;
                 btnExport.Visible = false;
@@ -118,22 +118,21 @@ namespace WealthERP.OnlineOrderManagement
             {
                 hdnAccount.Value = ddlAccount.SelectedValue;
                 ViewState["AccountDropDown"] = hdnAccount.Value;
-            }            
+            }
             else
             {
                 hdnAccount.Value = "0";
             }
         }
-        protected void gvOrderBookMISt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        protected void gvOrderBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
 
             gvOrderBookMIS.Visible = true;
-            DataTable dtOrderBookMIS = new DataTable();
-           // dsOrderBookMIS = (DataSet)Cache["OrderList" + advisorVo.advisorId];
+            DataTable dtOrderBookMIS = new DataTable();          
             dtOrderBookMIS = (DataTable)Cache["OrderList" + advisorVo.advisorId.ToString()];
             if (dtOrderBookMIS != null)
             {
-                gvOrderBookMIS.DataSource = dtOrderBookMIS;
+                gvOrderBookMIS.DataSource = dtOrderBookMIS;                
                 gvOrderBookMIS.Visible = true;
             }
 
