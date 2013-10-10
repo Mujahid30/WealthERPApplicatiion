@@ -119,6 +119,7 @@
     <Reference Include="VoEmailSMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoFPSuperlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoMarketFeeds, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="VoOnlineOrderManagemnet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoProductMaster, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoReports, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="VoSupportData, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
@@ -2647,6 +2648,7 @@
     </Compile>
     <Compile Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx.cs">
       <DependentUpon>CustomerMFUnitHoldingList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx.designer.cs">
       <DependentUpon>CustomerMFUnitHoldingList.ascx</DependentUpon>
