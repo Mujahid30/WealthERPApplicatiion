@@ -1721,4 +1721,8 @@
     <value>OnlineOrderManagement//BondOrderManagement.ascx</value>
     <comment>OnlineOrderManagement//BondOrderManagement.ascx</comment>
   </data>
+  <data name="CustomerMFUnitHoldingList" xml:space="preserve">
+    <value>OnlineOrderManagement//CustomerMFUnitHoldingList.ascx</value>
+    <comment>OnlineOrderManagement//CustomerMFUnitHoldingList.ascx</comment>
+  </data>
 </root>

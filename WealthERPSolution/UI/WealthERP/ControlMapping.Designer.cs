@@ -1249,6 +1249,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//CustomerMFUnitHoldingList.ascx.
+        /// </summary>
+        internal static string CustomerMFUnitHoldingList {
+            get {
+                return ResourceManager.GetString("CustomerMFUnitHoldingList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//CustomerMutualFundPortfolioNPView.ascx.
         /// </summary>
         internal static string CustomerMutualFundPortfolioNPView {
