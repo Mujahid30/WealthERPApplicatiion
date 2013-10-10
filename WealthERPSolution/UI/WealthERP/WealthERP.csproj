@@ -2631,6 +2631,13 @@
     <Compile Include="Messages\MessageOutbox.ascx.designer.cs">
       <DependentUpon>MessageOutbox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.cs">
+      <DependentUpon>BondOrderManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.designer.cs">
+      <DependentUpon>BondOrderManagement.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx.cs">
       <DependentUpon>CustomerMFOrderBookList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7440,6 +7447,7 @@
     <Content Include="Messages\MessageCompose.ascx" />
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
+    <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />

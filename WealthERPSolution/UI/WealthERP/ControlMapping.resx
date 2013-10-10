@@ -1717,4 +1717,8 @@
     <value>OnlineOrderManagement//MFOrderAdditionalPurchase.ascx</value>
     <comment>OnlineOrderManagement//MFOrderAdditionalPurchase.ascx</comment>
   </data>
+  <data name="BondOrderManagement" xml:space="preserve">
+    <value>OnlineOrderManagement//BondOrderManagement.ascx</value>
+    <comment>OnlineOrderManagement//BondOrderManagement.ascx</comment>
+  </data>
 </root>

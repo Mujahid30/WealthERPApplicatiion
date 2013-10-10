@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OnlineBondOrderBo.cs" />
     <Compile Include="OnlineMFOrderBo.cs" />
     <Compile Include="OnlineOrderBo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
