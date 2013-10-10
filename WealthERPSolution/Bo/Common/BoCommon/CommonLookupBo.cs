@@ -239,6 +239,59 @@ namespace BoCommon
             }
             return dt;
         }
+
+        public DataTable GetAllSIPDataForOrder(int schemeCode)
+        {
+            DataTable dtAllSIPDataForOrder = new DataTable();
+            try
+            {
+                dtAllSIPDataForOrder = daoCommonLookup.GetAllSIPDataForOrder(schemeCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[3];
+                objParams[0] = schemeCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAllSIPDataForOrder;
+        }
+
+        public DataTable GetFolioNumberForSIP(int Amccode)
+        {
+            DataTable dtSchemeList = new DataTable();
+            try
+            {
+                dtSchemeList = daoCommonLookup.GetFolioNumberForSIP(Amccode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[3];
+                objParams[0] = Amccode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtSchemeList;
+        }
+
         public DataTable GetAmcSchemeList(int Amccode, string Category)
         {
             DataTable dtSchemeList = new DataTable();

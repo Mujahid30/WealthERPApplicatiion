@@ -196,6 +196,77 @@ namespace DaoCommon
             }
             return ds.Tables[0];
         }
+
+        public DataTable GetFolioNumberForSIP(int AmcCode)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsGetAmcSchemeList = null;
+            try {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetFolioNumberForSIP");
+               
+                    db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
+               
+              
+                dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objects = new object[3];
+                objects[0] = AmcCode;
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAmcSchemeList.Tables[0];
+        }
+
+
+        public DataTable GetAllSIPDataForOrder(int schemdCode)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsGetAmcSchemeList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SP_GetAllSIPDataForOrder");
+
+                db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemdCode);
+
+
+                dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objects = new object[3];
+                objects[0] = schemdCode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAmcSchemeList.Tables[0];
+        }
+
         public DataTable GetAmcSchemeList(int AmcCode, string Category)
         {
             Database db;
