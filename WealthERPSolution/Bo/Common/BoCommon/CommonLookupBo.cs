@@ -239,14 +239,13 @@ namespace BoCommon
             }
             return dt;
         }
-        public DataTable GetAmcSchemeList(string Amccode, string Category)
+        public DataTable GetAmcSchemeList(int Amccode, string Category)
         {
             DataTable dtSchemeList = new DataTable();
             try
             {
-               string ProductCode = string.IsNullOrEmpty(Amccode) ? null : Amccode.Trim();
-                string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
-                dtSchemeList = daoCommonLookup.GetAmcSchemeList(ProductCode, CategoryCode);
+                 string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
+                 dtSchemeList = daoCommonLookup.GetAmcSchemeList(Amccode, CategoryCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -266,6 +265,21 @@ namespace BoCommon
                 throw exBase;
             }
             return dtSchemeList;
+        }
+        public DataSet GetAllCategoryList()
+        {
+            DataSet dsGetAllCategoryList = new DataSet();
+            
+            try
+            {
+                dsGetAllCategoryList = daoCommonLookup.GetAllCategoryList();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+            return dsGetAllCategoryList;
         }
     }
 }

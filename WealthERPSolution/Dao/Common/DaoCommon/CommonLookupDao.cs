@@ -196,18 +196,22 @@ namespace DaoCommon
             }
             return ds.Tables[0];
         }
-        public DataTable GetAmcSchemeList(string AmcCode, string Category)
+        public DataTable GetAmcSchemeList(int AmcCode, string Category)
         {
             Database db;
             DbCommand cmd;
             DataSet dsGetAmcSchemeList = null;
             try {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmd = db.GetStoredProcCommand("SPROC_GetAmcSchemeList");
-                if (!string.IsNullOrEmpty(AmcCode))
-                    db.AddInParameter(cmd, "@AmcCode", DbType.String, AmcCode);
+                cmd = db.GetStoredProcCommand("SP_GetSchemeFromOverAllCategoryList");
+                if (AmcCode != 0)
+                    db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(cmd, "@amcCode", DbType.Int32, 0);
                 if (!string.IsNullOrEmpty(Category))
-                    db.AddInParameter(cmd, "@Category", DbType.String, Category);
+                    db.AddInParameter(cmd, "@categoryCode", DbType.String, Category);
+                else
+                    db.AddInParameter(cmd, "@categoryCode", DbType.String, DBNull.Value);
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -229,6 +233,23 @@ namespace DaoCommon
                 throw exBase;
             }
             return dsGetAmcSchemeList.Tables[0];
+        }
+        public DataSet GetAllCategoryList()
+        {
+            DataSet dsGetAllCategoryList = new DataSet();
+            Database db;
+            DbCommand CmdGetOverAllCategoryList;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdGetOverAllCategoryList = db.GetStoredProcCommand("SP_GetNavOverAllCategoryList");
+                dsGetAllCategoryList = db.ExecuteDataSet(CmdGetOverAllCategoryList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAllCategoryList;
         }
     }
 }
