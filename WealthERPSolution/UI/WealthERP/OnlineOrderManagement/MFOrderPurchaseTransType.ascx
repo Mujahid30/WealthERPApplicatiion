@@ -3,7 +3,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-script src="../Scripts/jquery.js" type="text/javascript"></script>
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
 <script type="text/javascript">
     function ShowPopup() {
@@ -150,7 +151,7 @@ script src="../Scripts/jquery.js" type="text/javascript"></script>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
                 CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
-                Display="Dynamic" InitialValue="0"></asp:RequiredFieldValidator>
+                Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lblScheme" runat="server" Text="Scheme" CssClass="FieldName"></asp:Label>
@@ -200,10 +201,7 @@ script src="../Scripts/jquery.js" type="text/javascript"></script>
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select Mode of Holding" Display="Dynamic" ControlToValidate="ddlMoh"
-                InitialValue="Select" ValidationGroup="btnSubmit">
-            </asp:RequiredFieldValidator>
+            
         </td>
         <td class="leftlabel">
             <asp:Label ID="lblAmt" runat="server" Text="Amount" CssClass="FieldName"></asp:Label>
@@ -236,7 +234,7 @@ script src="../Scripts/jquery.js" type="text/javascript"></script>
     <tr>
         <td>
         </td>
-        <td colspan="4">
+        <td colspan="5">
             <telerik:RadGrid Visible="false" ID="gvJoint2" runat="server" GridLines="None" AutoGenerateColumns="False"
                 PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
@@ -329,7 +327,7 @@ script src="../Scripts/jquery.js" type="text/javascript"></script>
         </td>
         <td>
             <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
-                CssClass="FieldName"></asp:Button>
+                CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
         </td>
     </tr>
 </table>

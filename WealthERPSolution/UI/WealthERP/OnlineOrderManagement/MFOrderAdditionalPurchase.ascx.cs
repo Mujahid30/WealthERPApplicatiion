@@ -41,11 +41,11 @@ namespace WealthERP.OnlineOrderManagement
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             CategoryBind(ddlAmc.SelectedValue);
-            SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
+            //SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
         }
         public void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
+            //SchemeBind(ddlAmc.SelectedValue, ddlCategory.SelectedValue);
         }
 
         protected void CategoryBind(string amccode)
@@ -62,17 +62,17 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void SchemeBind(string amccode, string category)
-        {
-            DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
-            if (dtScheme.Rows.Count > 0)
-            {
-                ddlScheme.DataSource = dtScheme;
-                ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
-                ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
-                ddlCategory.DataBind();
-            }
-        }
+        //protected void SchemeBind(string amccode, string category)
+        //{
+        //    DataTable dtScheme = new DataTable();
+        //    dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
+        //    if (dtScheme.Rows.Count > 0)
+        //    {
+        //        ddlScheme.DataSource = dtScheme;
+        //        ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
+        //        ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
+        //        ddlCategory.DataBind();
+        //    }
+        //}
     }
 }

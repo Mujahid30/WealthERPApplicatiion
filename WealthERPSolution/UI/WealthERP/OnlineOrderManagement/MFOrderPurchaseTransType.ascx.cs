@@ -44,6 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
+            userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
                 AmcBind();
@@ -152,16 +153,18 @@ namespace WealthERP.OnlineOrderManagement
             lblDividendType.Visible = true;
             lblMulti.Visible = true;
             lblMintxt.Visible = true;
-            if (lblDividendType.Text == "Dividend")
-            {
-                lblDivType.Visible = true;
-                lblDivTypeTxt.Visible = true;
-            }
-            else
-            {
-                lblDivType.Visible = false;
-                lblDivTypeTxt.Visible = false;
-            }
+            lblDivType.Visible = true;
+            //    lblDivTypeTxt.Visible = true;
+            //if (lblDividendType.Text == "Dividend")
+            //{
+            //    lblDivType.Visible = true;
+            //    lblDivTypeTxt.Visible = true;
+            //}
+            //else
+            //{
+            //    lblDivType.Visible = false;
+            //    lblDivTypeTxt.Visible = false;
+            //}
 
 
         }
@@ -193,10 +196,14 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataBind();
             }
         }
-        protected void OnClick_Submit()
+        protected void OnClick_Submit(object sender, EventArgs e)
         {
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
-            onlinemforderVo.Amount = double.Parse(txtAmt.ToString());
+            if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
+            {
+                onlinemforderVo.Amount = double.Parse(txtAmt.Text.ToString());
+            }
+            onlinemforderVo.Amount = 0.0;
             OrderId = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 
