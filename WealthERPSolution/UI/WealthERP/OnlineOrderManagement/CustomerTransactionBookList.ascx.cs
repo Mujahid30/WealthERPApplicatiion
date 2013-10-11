@@ -229,12 +229,14 @@ namespace WealthERP.OnlineOrderManagement
                     //ErrorMessage.Visible = false;
                     gvTransationBookMIS.Visible = true;
                     btnExport.Visible = true;
+                    trNoRecords.Visible = false;
                 }
                 else
                 {
                     gvTransationBookMIS.Visible = false;
                     //hdnRecordCount.Value = "0";
                     //ErrorMessage.Visible = true;
+                    trNoRecords.Visible = true;
                     pnlTransactionBook.Visible = false;
                     btnExport.Visible = false;
 
