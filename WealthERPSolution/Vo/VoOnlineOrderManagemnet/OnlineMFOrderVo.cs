@@ -15,7 +15,8 @@ namespace VoOnlineOrderManagemnet
         public  DateTime EndDate{set;get;}
         public  int SystematicDate{set;get;}            
         public  string SystematicDates{set;get;}
-
+        public string DividendType { set; get; }
+        public string TransactionType { set; get; }
         public string FrequencyCode { set; get; }
         
     }
