@@ -70,6 +70,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Vo\CustomerPortfolio\VoCustomerPortfolio.csproj">
+      <Project>{8250E435-88E6-4C95-824E-1BF111361708}</Project>
+      <Name>VoCustomerPortfolio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Vo\VoOnlineOrderManagemnet\VoOnlineOrderManagemnet.csproj">
       <Project>{134BE137-EEE8-4C91-9893-F39E11E0C73C}</Project>
       <Name>VoOnlineOrderManagemnet</Name>
