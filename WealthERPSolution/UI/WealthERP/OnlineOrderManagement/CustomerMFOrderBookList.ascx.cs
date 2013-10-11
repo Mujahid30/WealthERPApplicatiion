@@ -107,12 +107,14 @@ namespace WealthERP.OnlineOrderManagement
                 gvOrderBookMIS.Visible = true;
                 pnlOrderBook.Visible = true;
                 btnExport.Visible = true;
+                trNoRecords.Visible = false;
                
                 }
             else
             {
                 gvOrderBookMIS.Visible = false;
                 pnlOrderBook.Visible = false;
+                trNoRecords.Visible = true;
                 btnExport.Visible = false;
             }
         }

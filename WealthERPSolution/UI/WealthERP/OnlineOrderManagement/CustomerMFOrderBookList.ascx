@@ -100,6 +100,15 @@
         </tr>
     </table>
 </div>
+<table style="width: 100%" class="TableBackground">
+    <tr id="trNoRecords" runat="server" visible="false">
+        <td align="center">
+            <div id="divNoRecords" runat="server" class="failure-msg">
+                <asp:Label ID="lblNoRecords" Text="No Records found" runat="server"></asp:Label>
+            </div>
+        </td>
+    </tr>
+</table>
 <asp:Panel ID="pnlOrderBook" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
     Visible="false">
     <table width="100%">

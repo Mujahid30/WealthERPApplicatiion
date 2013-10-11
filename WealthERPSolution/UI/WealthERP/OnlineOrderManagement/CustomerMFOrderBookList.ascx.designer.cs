@@ -48,6 +48,7 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::Telerik.Web.UI.RadDatePicker txtTo;
         protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
         protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
 
     }
 }
