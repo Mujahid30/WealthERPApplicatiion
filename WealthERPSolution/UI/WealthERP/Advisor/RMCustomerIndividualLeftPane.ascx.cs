@@ -1560,6 +1560,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerTransactionBookList','none');", true);
                 }
+                else if (e.Item.Value == "SIPBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerSIPBookList','none');", true);
+                }
                 else if (e.Item.Value == "UnitHoldings")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFUnitHoldingList','none');", true);

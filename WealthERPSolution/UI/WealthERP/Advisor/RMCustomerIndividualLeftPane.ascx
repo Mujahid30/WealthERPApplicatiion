@@ -349,6 +349,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="TransactionBook" Value="TransactionBook">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="SIPBook" Value="SIPBook">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Holdings" Value="Holdings">
