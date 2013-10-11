@@ -2284,6 +2284,42 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//NCDIssueBooks.ascx.
+        /// </summary>
+        internal static string NCDIssueBooks {
+            get {
+                return ResourceManager.GetString("NCDIssueBooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//NCDIssueHoldings.ascx.
+        /// </summary>
+        internal static string NCDIssueHoldings {
+            get {
+                return ResourceManager.GetString("NCDIssueHoldings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//NCDIssueList.ascx.
+        /// </summary>
+        internal static string NCDIssueList {
+            get {
+                return ResourceManager.GetString("NCDIssueList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//NCDIssueTransact.ascx.
+        /// </summary>
+        internal static string NCDIssueTransact {
+            get {
+                return ResourceManager.GetString("NCDIssueTransact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CustomerPortfolio//NewDPAccountEntry.ascx.
         /// </summary>
         internal static string NewDPAccountEntry {

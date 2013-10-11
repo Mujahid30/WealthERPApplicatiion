@@ -1733,4 +1733,20 @@
     <value>OnlineOrderManagement//CustomerTransactionBookList.ascx</value>
     <comment>OnlineOrderManagement//CustomerTransactionBookList.ascx</comment>
   </data>
+  <data name="NCDIssueBooks" xml:space="preserve">
+    <value>OnlineOrderManagement//NCDIssueBooks.ascx</value>
+    <comment>OnlineOrderManagement//NCDIssueBooks.ascx</comment>
+  </data>
+  <data name="NCDIssueHoldings" xml:space="preserve">
+    <value>OnlineOrderManagement//NCDIssueHoldings.ascx</value>
+    <comment>OnlineOrderManagement//NCDIssueHoldings.ascx</comment>
+  </data>
+  <data name="NCDIssueList" xml:space="preserve">
+    <value>OnlineOrderManagement//NCDIssueList.ascx</value>
+    <comment>OnlineOrderManagement//NCDIssueList.ascx</comment>
+  </data>
+  <data name="NCDIssueTransact" xml:space="preserve">
+    <value>OnlineOrderManagement//NCDIssueTransact.ascx</value>
+    <comment>OnlineOrderManagement//NCDIssueTransact.ascx</comment>
+  </data>
 </root>

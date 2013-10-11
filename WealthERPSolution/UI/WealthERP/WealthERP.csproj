@@ -2702,6 +2702,34 @@
     <Compile Include="OnlineOrderManagement\MFOrderSIPTransType.ascx.designer.cs">
       <DependentUpon>MFOrderSIPTransType.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueBooks.ascx.cs">
+      <DependentUpon>NCDIssueBooks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueBooks.ascx.designer.cs">
+      <DependentUpon>NCDIssueBooks.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueHoldings.ascx.cs">
+      <DependentUpon>NCDIssueHoldings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueHoldings.ascx.designer.cs">
+      <DependentUpon>NCDIssueHoldings.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueList.ascx.cs">
+      <DependentUpon>NCDIssueList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueList.ascx.designer.cs">
+      <DependentUpon>NCDIssueList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueTransact.ascx.cs">
+      <DependentUpon>NCDIssueTransact.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssueTransact.ascx.designer.cs">
+      <DependentUpon>NCDIssueTransact.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\BondsOrderEntry.ascx.cs">
       <DependentUpon>BondsOrderEntry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7479,6 +7507,10 @@
     <Content Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderSIPTransType.ascx" />
+    <Content Include="OnlineOrderManagement\NCDIssueBooks.ascx" />
+    <Content Include="OnlineOrderManagement\NCDIssueHoldings.ascx" />
+    <Content Include="OnlineOrderManagement\NCDIssueList.ascx" />
+    <Content Include="OnlineOrderManagement\NCDIssueTransact.ascx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />
     <Content Include="OPS\CustomerGeneralInsuranceOrder.ascx" />
     <Content Include="OPS\CustomerOrderList.ascx" />
