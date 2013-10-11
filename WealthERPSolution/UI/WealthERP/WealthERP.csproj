@@ -43,7 +43,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BOAssociates\bin\Debug\BOAssociates.dll</HintPath>
     </Reference>
-    <Reference Include="BoOnlineOrderManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="BoValuation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Enterprise.Framework, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -3954,6 +3953,10 @@
     <ProjectReference Include="..\..\Bo\BoMarketDataPull\BoMarketDataPull.csproj">
       <Project>{11F67200-9287-465A-9A0C-2B7DE855D61D}</Project>
       <Name>BoMarketDataPull</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bo\BoOnlineOrderManagement\BoOnlineOrderManagement.csproj">
+      <Project>{895BD846-24E9-48CA-90EF-37FE761296FB}</Project>
+      <Name>BoOnlineOrderManagement</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Bo\BoReports\BoReports.csproj">
       <Project>{3F53C1DE-8C38-409F-8BB3-82D8FA9E63EF}</Project>
