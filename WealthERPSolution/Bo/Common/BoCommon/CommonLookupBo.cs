@@ -266,12 +266,12 @@ namespace BoCommon
             return dtAllSIPDataForOrder;
         }
 
-        public DataTable GetFolioNumberForSIP(int Amccode)
+        public DataTable GetFolioNumberForSIP(int Amccode,int CustomerId)
         {
             DataTable dtSchemeList = new DataTable();
             try
             {
-                dtSchemeList = daoCommonLookup.GetFolioNumberForSIP(Amccode);
+                dtSchemeList = daoCommonLookup.GetFolioNumberForSIP(Amccode, CustomerId);
             }
             catch (BaseApplicationException Ex)
             {
