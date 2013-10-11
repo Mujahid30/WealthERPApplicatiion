@@ -207,8 +207,10 @@ namespace WealthERP.OnlineOrderManagement
                  }
                 else
                 {
-                    rgUnitHolding.Visible = false;
-                    pnlMFUnitHolding.Visible = false;
+                    rgUnitHolding.DataSource = dtMFUnitHoplding;
+                    rgUnitHolding.DataBind();
+                    //rgUnitHolding.Visible = false;
+                    pnlMFUnitHolding.Visible = true;
                     btnExport.Visible = false;
                     trNoRecords.Visible = false;
 

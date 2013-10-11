@@ -155,6 +155,43 @@ namespace DaoOnlineOrderManagement
             }
             return OrderId;
         }
+        public DataSet GetSIPBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        {
+            DataSet dsSIPBookMIS;
+            Database db;
+            DbCommand GetSIPBookMISCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");
+                db.AddInParameter(GetSIPBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                if (AccountId != 0)
+                    db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, AccountId);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, DBNull.Value);
+                db.AddInParameter(GetSIPBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+                db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);                               
+                dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetSIPBookMIS()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSIPBookMIS;
+        }
 
     }
 }

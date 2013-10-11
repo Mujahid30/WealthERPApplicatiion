@@ -14,5 +14,35 @@ namespace WealthERP.OnlineOrderManagement
 
     public partial class CustomerSIPBookList
     {
+        protected global::System.Web.UI.ScriptManager scptMgr;
+
+        /// <summary>
+        /// lnkBtnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
+
+        /// <summary>
+        /// btnExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        protected global::Telerik.Web.UI.RadGrid gvSIPBookMIS;
+        protected global::System.Web.UI.WebControls.Panel pnlSIPBook;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnOrder;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAccount;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAccount;
+        protected global::Telerik.Web.UI.RadDatePicker txtFrom;
+        protected global::Telerik.Web.UI.RadDatePicker txtTo;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divNoRecords;
     }
 }

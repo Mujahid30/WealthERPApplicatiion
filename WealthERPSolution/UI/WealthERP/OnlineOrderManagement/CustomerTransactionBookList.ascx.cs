@@ -36,6 +36,7 @@ namespace WealthERP.OnlineOrderManagement
         DateTime toDate;
         static double totalAmount = 0;
         static double totalUnits = 0;
+        DataTable dtMFTransactions = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -233,11 +234,12 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    gvTransationBookMIS.Visible = false;
+                    gvTransationBookMIS.DataSource = dtMFTransactions;
+                    gvTransationBookMIS.DataBind();
                     //hdnRecordCount.Value = "0";
                     //ErrorMessage.Visible = true;
                     trNoRecords.Visible = true;
-                    pnlTransactionBook.Visible = false;
+                    pnlTransactionBook.Visible = true;
                     btnExport.Visible = false;
 
                 }                

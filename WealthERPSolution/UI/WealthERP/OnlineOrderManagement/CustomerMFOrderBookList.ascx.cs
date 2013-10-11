@@ -112,8 +112,10 @@ namespace WealthERP.OnlineOrderManagement
                 }
             else
             {
-                gvOrderBookMIS.Visible = false;
-                pnlOrderBook.Visible = false;
+                gvOrderBookMIS.DataSource = dtOrderBookMIS;
+                gvOrderBookMIS.DataBind();
+                //gvOrderBookMIS.Visible = false;
+                pnlOrderBook.Visible = true;
                 trNoRecords.Visible = true;
                 btnExport.Visible = false;
             }

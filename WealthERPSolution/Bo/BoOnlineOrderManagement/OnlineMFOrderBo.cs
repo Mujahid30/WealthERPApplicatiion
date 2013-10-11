@@ -114,5 +114,33 @@ namespace BoOnlineOrderManagement
             }
             return orderId;
         }
+        public DataSet GetSIPBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        {
+            DataSet dsSIPBookMIS = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(adviserId, CustomerId, AccountId, dtFrom, dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStepsDetails()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsSIPBookMIS;
+        }
     }
 }
