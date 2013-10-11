@@ -2631,6 +2631,20 @@
     <Compile Include="Messages\MessageOutbox.ascx.designer.cs">
       <DependentUpon>MessageOutbox.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineBottomHost.aspx.cs">
+      <DependentUpon>OnlineBottomHost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineBottomHost.aspx.designer.cs">
+      <DependentUpon>OnlineBottomHost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineMainHost.aspx.cs">
+      <DependentUpon>OnlineMainHost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineMainHost.aspx.designer.cs">
+      <DependentUpon>OnlineMainHost.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.cs">
       <DependentUpon>BondOrderManagement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2735,6 +2749,13 @@
     </Compile>
     <Compile Include="OnlineOrder\MFOnlineOrder.aspx.designer.cs">
       <DependentUpon>MFOnlineOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTopHost.aspx.cs">
+      <DependentUpon>OnlineTopHost.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineTopHost.aspx.designer.cs">
+      <DependentUpon>OnlineTopHost.aspx</DependentUpon>
     </Compile>
     <Compile Include="OPS\BondsOrderEntry.ascx.cs">
       <DependentUpon>BondsOrderEntry.ascx</DependentUpon>
@@ -7507,6 +7528,8 @@
     <Content Include="Messages\MessageCompose.ascx" />
     <Content Include="Messages\MessageInbox.ascx" />
     <Content Include="Messages\MessageOutbox.ascx" />
+    <Content Include="OnlineBottomHost.aspx" />
+    <Content Include="OnlineMainHost.aspx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
@@ -7522,6 +7545,7 @@
     <Content Include="OnlineOrderManagement\NCDIssueList.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueTransact.ascx" />
     <Content Include="OnlineOrder\MFOnlineOrder.aspx" />
+    <Content Include="OnlineTopHost.aspx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />
     <Content Include="OPS\CustomerGeneralInsuranceOrder.ascx" />
     <Content Include="OPS\CustomerOrderList.ascx" />
