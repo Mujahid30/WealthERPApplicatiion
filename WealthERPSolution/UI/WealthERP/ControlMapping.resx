@@ -1725,4 +1725,12 @@
     <value>OnlineOrderManagement//CustomerMFUnitHoldingList.ascx</value>
     <comment>OnlineOrderManagement//CustomerMFUnitHoldingList.ascx</comment>
   </data>
+  <data name="CustomerSIPBookList" xml:space="preserve">
+    <value>OnlineOrderManagement//CustomerSIPBookList.ascx</value>
+    <comment>OnlineOrderManagement//CustomerSIPBookList.ascx</comment>
+  </data>
+  <data name="CustomerTransactionBookList" xml:space="preserve">
+    <value>OnlineOrderManagement//CustomerTransactionBookList.ascx</value>
+    <comment>OnlineOrderManagement//CustomerTransactionBookList.ascx</comment>
+  </data>
 </root>

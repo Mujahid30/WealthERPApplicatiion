@@ -2653,6 +2653,20 @@
     <Compile Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx.designer.cs">
       <DependentUpon>CustomerMFUnitHoldingList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\CustomerSIPBookList.ascx.cs">
+      <DependentUpon>CustomerSIPBookList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\CustomerSIPBookList.ascx.designer.cs">
+      <DependentUpon>CustomerSIPBookList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\CustomerTransactionBookList.ascx.cs">
+      <DependentUpon>CustomerTransactionBookList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\CustomerTransactionBookList.ascx.designer.cs">
+      <DependentUpon>CustomerTransactionBookList.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx.cs">
       <DependentUpon>MFOrderAdditionalPurchase.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7458,6 +7472,8 @@
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
+    <Content Include="OnlineOrderManagement\CustomerSIPBookList.ascx" />
+    <Content Include="OnlineOrderManagement\CustomerTransactionBookList.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx" />

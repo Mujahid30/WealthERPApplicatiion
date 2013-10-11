@@ -1357,11 +1357,29 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//CustomerSIPBookList.ascx.
+        /// </summary>
+        internal static string CustomerSIPBookList {
+            get {
+                return ResourceManager.GetString("CustomerSIPBookList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alerts//CustomerTransactionalAlertManagement.ascx.
         /// </summary>
         internal static string CustomerTransactionalAlertManage {
             get {
                 return ResourceManager.GetString("CustomerTransactionalAlertManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//CustomerTransactionBookList.ascx.
+        /// </summary>
+        internal static string CustomerTransactionBookList {
+            get {
+                return ResourceManager.GetString("CustomerTransactionBookList", resourceCulture);
             }
         }
         
