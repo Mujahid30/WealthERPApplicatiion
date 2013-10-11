@@ -25,7 +25,7 @@ namespace WealthERP.Advisor
         CustomerBo customerBo = new CustomerBo();
         AdvisorVo advisorVo = new AdvisorVo();
         AdvisorBo advisorBo = new AdvisorBo();
-        
+
 
         List<string> roleList = new List<string>();
         int count;
@@ -53,7 +53,7 @@ namespace WealthERP.Advisor
             advisorVo = (AdvisorVo)Session["advisorVo"];
             bool isGrpHead = false;
 
-            Session["IsCustomerDrillDown"] = "Yes"; 
+            Session["IsCustomerDrillDown"] = "Yes";
 
             try
             {
@@ -84,19 +84,19 @@ namespace WealthERP.Advisor
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
                         hdnUserRole.Value = "BM";
-                        
+
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Admin" || Session[SessionContents.CurrentUserRole].ToString() == "Ops")
                     {
                         hdnUserRole.Value = "Adviser";
-                        
+
                     }
                     else if (Session[SessionContents.CurrentUserRole].ToString() == "Customer")
                     {
                         RadPanelBar1.FindItemByValue("Home").Visible = false;
                         txtFindCustomer.Visible = false;
                         btnSearchCustomer.Visible = false;
-                        
+
                     }
                     if (userVo.RoleList != null)
                     {
@@ -141,7 +141,7 @@ namespace WealthERP.Advisor
                         trCustRMDetailsDivider.Visible = true;
                         trMobileDetails.Visible = true;
                         lblClientInfo.Text = "Adviser/RM";
-                        
+
                         if (Middle != "")
                         {
                             lblCustomerDetails.Text = customerVo.FirstName.ToString() + " " + customerVo.MiddleName.ToString() + " " + customerVo.LastName.ToString();
@@ -208,7 +208,7 @@ namespace WealthERP.Advisor
 
                     //lblEmailIdValue.Text = customerVo.Email.ToString();
 
-                    
+
                     isGrpHead = customerBo.CheckCustomerGroupHead(customerVo.CustomerId);
                     if ((isGrpHead == true) || (ShowGroupOrNot == true))
                     {
@@ -243,7 +243,7 @@ namespace WealthERP.Advisor
                         RadPanelBar1.FindItemByValue("CusQuickLinks").Selected = true;
                         //Session["IsDashboard"] = "false";
                     }
-                     else if (IsDashboard == "portfolio")
+                    else if (IsDashboard == "portfolio")
                     {
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Selected = true;
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
@@ -438,7 +438,7 @@ namespace WealthERP.Advisor
 
 
                 }
-                
+
 
             }
             catch (BaseApplicationException Ex)
@@ -865,10 +865,10 @@ namespace WealthERP.Advisor
                 if (e.Item.Value == "Home")
                 {
                     Session["IsCustomerDrillDown"] = null;
-                    if(Session["FPDataSet"] != null)
-                     Session["FPDataSet"] = null;
-                    if(Session["UserType"] != null)
-                     Session["UserType"] = null;
+                    if (Session["FPDataSet"] != null)
+                        Session["FPDataSet"] = null;
+                    if (Session["UserType"] != null)
+                        Session["UserType"] = null;
                     Session["rmVo"] = advisorStaffBo.GetAdvisorStaff(userVo.UserId);
                     if (Session[SessionContents.CurrentUserRole].ToString() == "BM")
                     {
@@ -957,10 +957,10 @@ namespace WealthERP.Advisor
                             Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddProspectList", "loadcontrol('AddProspectList','login');", true);
                         }
-                        else if(customerVo.IsProspect == 0)
+                        else if (customerVo.IsProspect == 0)
                         {
                             Session.Remove("LinkAction");
-                            Session["action"]="View";
+                            Session["action"] = "View";
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "EditCustomerIndividualProfile", "loadcontrol('EditCustomerIndividualProfile','none');", true);
                         }
                         if (customerVo.IsProspect == 1)
@@ -968,7 +968,7 @@ namespace WealthERP.Advisor
                             Session[SessionContents.FPS_AddProspectListActionStatus] = "View";
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddProspectList", "loadcontrol('AddProspectList','none');", true);
                         }
-                        else if(customerVo.IsProspect == 0)
+                        else if (customerVo.IsProspect == 0)
                         {
                             //if (Session["ButtonConvertToCustomer"] != null)
                             //{
@@ -1066,8 +1066,8 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Finance Profile")
                 {
-                    if(SessionContents.FPS_CustomerPospect_ActionStatus != null)
-                    Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
+                    if (SessionContents.FPS_CustomerPospect_ActionStatus != null)
+                        Session.Remove(SessionContents.FPS_CustomerPospect_ActionStatus);
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerProspect", "loadcontrol('CustomerProspect','login')", true);
                 }
                 else if (e.Item.Value == "Preferences")
@@ -1319,9 +1319,9 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value.ToLower() == "inbox")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true); 
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MessageInbox','login');", true);
                 }
-                 
+
                 else if (e.Item.Value == "MF_Order")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderManagement','login');", true);
@@ -1388,7 +1388,7 @@ namespace WealthERP.Advisor
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
-                            if ( Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
+                            if (Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1414,7 +1414,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if(dr[2].ToString()=="Bank Details")
+                            if (dr[2].ToString() == "Bank Details")
                             {
                                 Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
@@ -1527,6 +1527,59 @@ namespace WealthERP.Advisor
                         //Item.Owner.Items.Remove(Item);
                     }
                 }
+            }
+        }
+
+        protected void RPBOnlineOrder_ItemClick(object sender, RadPanelBarEventArgs e)
+        {
+            RadPanelItem ItemClicked = e.Item;
+
+            try
+            {
+                if (e.Item.Value == "NewPurchase")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderPurchaseTransType','none');", true);
+                }
+                else if (e.Item.Value == "AdditionalPurchase")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderAdditionalPurchase','none');", true);
+                }
+                else if (e.Item.Value == "Redeem")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderRdemptionTransType','none');", true);
+                }
+                else if (e.Item.Value == "SIP")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('MFOrderSIPTransType','none');", true);
+                }
+                else if (e.Item.Value == "OrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFOrderBookList','none');", true);
+                }
+                else if (e.Item.Value == "TransactionBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerTransactionBookList','none');", true);
+                }
+                else if (e.Item.Value == "UnitHoldings")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                }
+             }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "RMCustomerIndividualLeftPane.ascx.cs:RadPanelBar1_ItemClick()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
     }

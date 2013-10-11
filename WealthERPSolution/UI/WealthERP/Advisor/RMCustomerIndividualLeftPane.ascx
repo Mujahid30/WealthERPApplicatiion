@@ -177,7 +177,7 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Bond Order" Value="Bond_Order">
                                     </telerik:RadPanelItem>
-                                     <telerik:RadPanelItem runat="server" Text="Order MIS" Value="Online_Order_MIS">
+                                    <telerik:RadPanelItem runat="server" Text="Order MIS" Value="Online_Order_MIS">
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
@@ -313,6 +313,51 @@
                             <telerik:RadPanelItem runat="server" Text="Message" Value="Message">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="Inbox" Value="Inbox">
+                                    </telerik:RadPanelItem>
+                                </Items>
+                            </telerik:RadPanelItem>
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
+                    </telerik:RadPanelBar>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <telerik:RadPanelBar ID="RPBOnlineOrder" runat="server" EnableEmbeddedSkins="false"
+                        ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RPBOnlineOrder_ItemClick"
+                        AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
+                        <Items>
+                            <telerik:RadPanelItem runat="server" Value="Profile Dashboard" Text="OnlineOrder">
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="MFOrder" Value="MFOrder">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Transact" Value="Transact">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="NewPurchase" Value="NewPurchase">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="AdditionalPurchase" Value="AdditionalPurchase">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Redeem" Value="Redeem">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="SIP" Value="SIP">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Books" Value="Books">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="OrderBook" Value="OrderBook">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="TransactionBook" Value="TransactionBook">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Holdings" Value="Holdings">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="UnitHoldings" Value="UnitHoldings">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                        </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
