@@ -100,6 +100,22 @@ namespace BoOnlineOrderManagement
             }
             return dt;
         }
+        public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
+        {
+            List<int> orderIds = new List<int>();
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+
+            try
+            {
+                orderIds = OnlineMFOrderDao.CreateOrderMFSipDetails(onlineMFOrderVo, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return orderIds;
+        }
+
         public int CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
         {
             OnlineMFOrderDao onlineOrderdao = new OnlineMFOrderDao();
@@ -142,5 +158,34 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
+
+        public DataSet GetSipDetails(int SchemeId, string frequency)
+        {
+            DataSet dsSipDetails = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsSipDetails = OnlineMFOrderDao.GetSipDetails(SchemeId, frequency);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSipDetails()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsSipDetails;
+        }
+
     }
 }

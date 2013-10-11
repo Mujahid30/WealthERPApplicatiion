@@ -15,6 +15,8 @@ using VoUser;
 using BoCustomerPortfolio;
 using System.Configuration;
 using BoProductMaster;
+using BoOnlineOrderManagement;
+using VoOnlineOrderManagemnet;
 
 
 namespace WealthERP.OnlineOrderManagement
@@ -38,6 +40,9 @@ namespace WealthERP.OnlineOrderManagement
         DataTable dtGetAllSIPDataForOrder;
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         ProductMFBo productMfBo = new ProductMFBo();
+        OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
+        OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,7 +51,7 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
-
+            customerVo = (CustomerVo)Session["CustomerVo"];
             AmcBind();
             LoadNominees();
             BindCategory();
@@ -132,11 +137,58 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
+        private void SaveOrderDetails()
+        {
+
+            onlineMFOrderVo.SchemePlanCode = int.Parse(ddlScheme.SelectedValue);
+            onlineMFOrderVo.AccountId = int.Parse(ddlFolio.SelectedValue); 
+            onlineMFOrderVo.SystematicTypeCode = "SIP";
+
+            if (!string.IsNullOrEmpty((txtStartDate.Text )))
+                onlineMFOrderVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
+
+
+            if (!string.IsNullOrEmpty((txtEndDate.Text)))            
+            onlineMFOrderVo.EndDate = Convert.ToDateTime(txtEndDate.Text);
+
+            onlineMFOrderVo.SystematicDate = 0;
+            onlineMFOrderVo.Amount = int.Parse(txtAmount.Text);
+            onlineMFOrderVo.SourceCode = "";
+            onlineMFOrderVo.FrequencyCode =ddlFrequency.SelectedValue;
+            onlineMFOrderVo.CustomerId =customerVo.CustomerId;
+            onlineMFOrderVo.SystematicDates ="";
+
+ 
+
+        }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+
+            List<int> OrderIds = new List<int>();
+            SaveOrderDetails();
+            OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo,userVo.UserId );
+        }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindSIPUIONSchemeSelection();
         }
 
+
+
+        protected void ddlFrequency_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            BindSIPDetailsONFrequencySelection(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
+        }
+        protected void BindSIPDetailsONFrequencySelection(string schemeId, string freq)
+        {
+            DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
+            if (dsSipDetails == null) return;
+            DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
+            txtMinAmtReqd.Text = dtSipDet["PASPSD_MinAmount"].ToString();
+            txtMultiplesThereAfter.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
+            txtCutOffTime.Text = dtSipDet["PASPD_CutOffTime"].ToString();
+
+        }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
 
@@ -148,6 +200,7 @@ namespace WealthERP.OnlineOrderManagement
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
             BindFrequency();
             BindAllControlsWithSIPData();
+            //ShowSipDates();
         }
 
         protected void BindFrequency()
@@ -190,12 +243,14 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ShowSipDates(string DelimitedDateVals)
         {
+            //string DelimitedDateVals = dtGetAllSIPDataForOrder.Row
             string[] dates = DelimitedDateVals.Split(';');
 
-            if (tdSipDates == null) return;
+            //if (tdSipDates == null) return;
             int i = 0;
             foreach (string date in dates)
             {
+                if(string.IsNullOrEmpty(date)) continue;
                 CheckBox chk = new CheckBox();
                 chk.ID = "chk_Sip_" + i;
                 chk.Text = date;
@@ -211,7 +266,7 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtgetfolioNo;
             try
             {
-                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue));
+                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue),customerVo.CustomerId);
 
                 if (dtgetfolioNo.Rows.Count > 0)
                 {

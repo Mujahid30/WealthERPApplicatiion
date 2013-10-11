@@ -4,7 +4,9 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
-
+<asp:ScriptManager ID="scrptMgr" runat="server">
+    
+</asp:ScriptManager>
 
 <table width="100%">
     <tr>
@@ -126,7 +128,7 @@
             <asp:Label Visible="false" ID="txtDividendFrequency" Text="Monthly" runat="server"
                 CssClass="txtField"></asp:Label>
         </td>
-        <td CssClass="FieldName" id="tdSipDates" runat="server">
+      <td class="FieldName" id="tdSipDates" runat="server">
             
         </td>
     </tr>
@@ -152,7 +154,12 @@
             <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="leftLabel">
-            <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField"  OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged">
+            <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+           <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
+             <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
+             <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
+             
             </asp:DropDownList>
         </td>
         <td>
@@ -286,7 +293,7 @@
         <td class="leftlabel">
         </td>
         <td class="leftLabel">
-            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="FieldName"></asp:Button>
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="FieldName" OnClick="btnSubmit_Click" ></asp:Button>
         </td>
         <td>
         </td>
