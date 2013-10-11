@@ -73,5 +73,46 @@ namespace BoOnlineOrderManagement
             }
             return dsFolioAccount;
         }
+        public DataTable GetControlDetails(int scheme)
+        {
+            DataTable dt = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dt = OnlineMFOrderDao.GetControlDetails(scheme);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStepsDetails()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dt;
+        }
+        public int CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
+        {
+            OnlineMFOrderDao onlineOrderdao = new OnlineMFOrderDao();
+            int orderId;
+            try
+            {
+                orderId = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return orderId;
+        }
     }
 }

@@ -20,25 +20,21 @@ namespace WealthERP.OnlineOrderManagement {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAmc;
-        
-        /// <summary>
-        /// lblCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCategory;
-        
-        /// <summary>
-        /// lblScheme control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScheme;
+                protected global::Telerik.Web.UI.RadGrid gvNominees;
+                protected global::System.Web.UI.WebControls.Label lblAmc;
+                protected global::System.Web.UI.WebControls.Button btnAddNominee;
+                protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivForNominee;
+                protected global::Telerik.Web.UI.RadWindow radwindowForNominee;
+                protected global::Telerik.Web.UI.RadGrid gvNominee2;
+                protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForNominee;
+                protected global::Telerik.Web.UI.RadGrid gvJointHoldersList;
+                protected global::System.Web.UI.WebControls.Button btnAddJointHolder;
+                protected global::System.Web.UI.HtmlControls.HtmlGenericControl DivForJH;
+                protected global::Telerik.Web.UI.RadWindow radwindowForJointHolder;
+                protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForJointHolder;
+                protected global::Telerik.Web.UI.RadGrid gvJoint2;
+                protected global::System.Web.UI.HtmlControls.HtmlTableRow trAddJointHolder;
+
         
         /// <summary>
         /// ddlAmc control.
@@ -59,6 +55,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
+        /// lblCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategory;
+        
+        /// <summary>
         /// ddlCategory control.
         /// </summary>
         /// <remarks>
@@ -75,6 +80,15 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        
+        /// <summary>
+        /// lblScheme control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblScheme;
         
         /// <summary>
         /// ddlScheme control.
@@ -122,58 +136,31 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblDividendFrequency;
         
         /// <summary>
-        /// lblOption1 control.
+        /// lbldftext control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOption1;
+        protected global::System.Web.UI.WebControls.Label lbldftext;
         
         /// <summary>
-        /// lblDividendType2 control.
+        /// lblDivType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDividendType2;
+        protected global::System.Web.UI.WebControls.Label lblDivType;
         
         /// <summary>
-        /// lblDividendFrequency2 control.
+        /// lblDivTypeTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDividendFrequency2;
-        
-        /// <summary>
-        /// lblOffer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOffer;
-        
-        /// <summary>
-        /// lblFact control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFact;
-        
-        /// <summary>
-        /// lblNav control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNav;
+        protected global::System.Web.UI.WebControls.TextBox lblDivTypeTxt;
         
         /// <summary>
         /// lblMoh control.
@@ -183,24 +170,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMoh;
-        
-        /// <summary>
-        /// lblAmt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAmt;
-        
-        /// <summary>
-        /// lblMin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMin;
         
         /// <summary>
         /// ddlMoh control.
@@ -221,6 +190,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
+        /// lblAmt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAmt;
+        
+        /// <summary>
         /// txtAmt control.
         /// </summary>
         /// <remarks>
@@ -228,6 +206,15 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAmt;
+        
+        /// <summary>
+        /// lblMin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMin;
         
         /// <summary>
         /// lblMintxt control.
@@ -248,6 +235,15 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblHolder;
         
         /// <summary>
+        /// imgAddNominee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton imgAddNominee;
+        
+        /// <summary>
         /// lblNominee control.
         /// </summary>
         /// <remarks>
@@ -255,15 +251,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblNominee;
-        
-        /// <summary>
-        /// lblMultiple control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMultiple;
         
         /// <summary>
         /// txtNominee control.
@@ -275,13 +262,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.TextBox txtNominee;
         
         /// <summary>
-        /// txtHolder control.
+        /// lblMultiple control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtHolder;
+        protected global::System.Web.UI.WebControls.Label lblMultiple;
         
         /// <summary>
         /// lblMulti control.
@@ -309,5 +296,32 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbltime;
+        
+        /// <summary>
+        /// lblNav control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNav;
+        
+        /// <summary>
+        /// lblOffer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOffer;
+        
+        /// <summary>
+        /// lblFact control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFact;
     }
 }
