@@ -4572,6 +4572,153 @@ namespace DaoCustomerPortfolio
             }
             return ds;
         }
+        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AccountId, int SchemePlanCode)
+        {
+            DataSet ds = null;
+            Database db;
+            DbCommand getRMCustomerMFTransactionsCmd;
+            List<MFTransactionVo> mfTransactionsBookList = new List<MFTransactionVo>();
+            MFTransactionVo mfTransactionVo = new MFTransactionVo();
+            DataTable dtGetMFTransactions;
+           
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SPROC_Onl_GetCustomerMFTransactionsBook");
+                if (AdviserID != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, AdviserID);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, DBNull.Value);
+                if (CustomerId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerId", DbType.Int32, CustomerId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerId", DbType.Int32, DBNull.Value);
+                }               
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
+                db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
+                if (AccountId != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
+                if (SchemePlanCode != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
 
+                getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
+                ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
+
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    dtGetMFTransactions = ds.Tables[0];
+                    mfTransactionsBookList = new List<MFTransactionVo>();
+                    foreach (DataRow dr in dtGetMFTransactions.Rows)
+                    {
+                        mfTransactionVo = new MFTransactionVo();
+
+                        if (dr["ADUL_ProcessId"].ToString() != null && dr["ADUL_ProcessId"].ToString() != string.Empty)
+                            mfTransactionVo.ProcessId = int.Parse(dr["ADUL_ProcessId"].ToString());
+                        else
+                            mfTransactionVo.ProcessId = 0;
+
+                        if (dr["CMFT_SubBrokerCode"].ToString() != null && dr["CMFT_SubBrokerCode"].ToString() != string.Empty)
+                            mfTransactionVo.SubBrokerCode = dr["CMFT_SubBrokerCode"].ToString();
+                        else
+                            mfTransactionVo.SubBrokerCode = "N/A";
+
+                        if (dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != null && dr["PAISC_AssetInstrumentSubCategoryName"].ToString() != string.Empty)
+                            mfTransactionVo.SubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        else
+                            mfTransactionVo.SubCategoryName = "N/A";
+
+                        mfTransactionVo.TransactionId = int.Parse(dr["CMFT_MFTransId"].ToString());
+                        mfTransactionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        mfTransactionVo.CustomerName = dr["Name"].ToString();
+                        mfTransactionVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
+                        mfTransactionVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        mfTransactionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        mfTransactionVo.AMCName = dr["PA_AMCName"].ToString();
+                        mfTransactionVo.MFCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        mfTransactionVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        mfTransactionVo.Category = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        mfTransactionVo.CategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfTransactionVo.BuySell = dr["CMFT_BuySell"].ToString();
+                        mfTransactionVo.DividendRate = float.Parse(dr["CMFT_DividendRate"].ToString());
+                        mfTransactionVo.TransactionDate = DateTime.Parse(dr["CMFT_TransactionDate"].ToString());
+                        mfTransactionVo.NAV = float.Parse(dr["CMFT_NAV"].ToString());
+                        mfTransactionVo.Price = float.Parse(dr["CMFT_Price"].ToString());
+                        mfTransactionVo.Amount = float.Parse(dr["CMFT_Amount"].ToString());
+                        mfTransactionVo.Units = float.Parse(dr["CMFT_Units"].ToString());
+                        mfTransactionVo.STT = float.Parse(dr["CMFT_STT"].ToString());
+                        mfTransactionVo.Source = dr["XES_SourceCode"].ToString();
+                        mfTransactionVo.SwitchSourceTrxId = int.Parse(dr["CMFT_SwitchSourceTrxId"].ToString());
+                        mfTransactionVo.TransactionClassificationCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                        mfTransactionVo.TransactionType = dr["WMTT_TransactionClassificationName"].ToString();
+                        mfTransactionVo.TransactionTrigger = dr["WMTT_Trigger"].ToString();
+                        mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
+                        mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
+                        mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());                       
+                        if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.EUIN = dr["CMFT_EUIN"].ToString();
+                        }
+                        else
+                        {
+                            mfTransactionVo.EUIN = "N/A";
+                        }
+                        if (dr["CMFT_Area"].ToString() != null && dr["CMFT_Area"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.Area = dr["CMFT_Area"].ToString();
+                        }
+                        else
+                        {
+                            mfTransactionVo.Area = "N/A";
+                        }
+                        if (dr["WTS_TransactionStatusCode"].ToString() != null && dr["WTS_TransactionStatusCode"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.TransactionStatus = dr["WTS_TransactionStatus"].ToString();
+                            mfTransactionVo.TransactionStatusCode = int.Parse(dr["WTS_TransactionStatusCode"].ToString());
+                        }
+                        else
+                        {
+                            mfTransactionVo.TransactionStatus = "OK";
+                            mfTransactionVo.TransactionStatusCode = 1;
+
+                        }
+                        if (!string.IsNullOrEmpty(dr["CMFT_ExternalBrokerageAmount"].ToString()))
+                            mfTransactionVo.BrokerageAmount = float.Parse(dr["CMFT_ExternalBrokerageAmount"].ToString());
+
+                        mfTransactionsBookList.Add(mfTransactionVo);
+                    }
+                }
+                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerTransactionDao.cs:GetRMCustomerMFTransactions()");
+                object[] objects = new object[3];               
+                objects[0] = From;
+                objects[1] = To;
+                objects[2] = Manage;              
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }            
+            return mfTransactionsBookList;
+        }
     }
 }

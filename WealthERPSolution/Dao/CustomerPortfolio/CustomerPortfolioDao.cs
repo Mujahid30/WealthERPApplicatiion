@@ -2180,6 +2180,202 @@ namespace DaoCustomerPortfolio
             }
             return dsGetBankDetailsForCustomer;
         }
+        public List<MFPortfolioNetPositionVo> GetOnlineUnitHolding(int customerId, int portfolioId)
+        {
+            List<MFPortfolioNetPositionVo> mfPortfolioNetPositionList = null;
+            MFPortfolioNetPositionVo mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
+            Database db;
+            DbCommand getMFPortfolioCmd;
+            DataSet dsGetMFPortfolio;
+            DataTable dtGetMFPortfolio;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMFPortfolioCmd = db.GetStoredProcCommand("SPROC_Onl_GetMFHolding");
+                db.AddInParameter(getMFPortfolioCmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getMFPortfolioCmd, "@portfolioId", DbType.Int32, portfolioId);               
+                dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
 
+                if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)
+                {
+                    dtGetMFPortfolio = dsGetMFPortfolio.Tables[0];
+                    mfPortfolioNetPositionList = new List<MFPortfolioNetPositionVo>();
+                    foreach (DataRow dr in dtGetMFPortfolio.Rows)
+                    {
+                        mfPortfNetPositionVo = new MFPortfolioNetPositionVo();
+                        mfPortfNetPositionVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        if (dr["PASP_SchemePlanCode"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        mfPortfNetPositionVo.SchemePlan = dr["PASP_SchemePlanName"].ToString();
+                        mfPortfNetPositionVo.AccountId = int.Parse(dr["CMFA_AccountId"].ToString());
+                        if (dr["CMFA_FolioNum"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
+                        mfPortfNetPositionVo.AssetInstrumentCategoryName = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        mfPortfNetPositionVo.AssetInstrumentCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfPortfNetPositionVo.AssetInstrumentSubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
+                        if (dr["PA_AMCCode"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        if (dr["CMFNP_MarketPrice"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.MarketPrice = double.Parse(dr["CMFNP_MarketPrice"].ToString());
+                        if (dr["CMFNP_MFNPId"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.MFPortfolioId = int.Parse(dr["CMFNP_MFNPId"].ToString());
+
+                        if (dr["CMFNP_ValuationDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ValuationDate = DateTime.Parse(dr["CMFNP_ValuationDate"].ToString());
+
+                        if (dr["CMFNP_NetHoldings"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.NetHoldings = double.Parse(dr["CMFNP_NetHoldings"].ToString());
+
+                        if (dr["CMFNP_SalesQuantity"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.SalesQuantity = double.Parse(dr["CMFNP_SalesQuantity"].ToString());
+
+                        if (dr["CMFNP_RedeemedAmount"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.RedeemedAmount = double.Parse(dr["CMFNP_RedeemedAmount"].ToString());
+
+                        if (dr["CMFNP_InvestedCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.InvestedCost = double.Parse(dr["CMFNP_InvestedCost"].ToString());
+
+                        if (dr["CMFNP_CurrentValue"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.CurrentValue = double.Parse(dr["CMFNP_CurrentValue"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllTotalPL = double.Parse(dr["CMFNP_RET_ALL_TotalPL"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_AbsReturn"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllAbsReturn = double.Parse(dr["CMFNP_RET_ALL_AbsReturn"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_TotalXIRR"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllTotalXIRR = double.Parse(dr["CMFNP_RET_ALL_TotalXIRR"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_DVRAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllDVRAmt = double.Parse(dr["CMFNP_RET_ALL_DVRAmt"].ToString());
+
+                        if (dr["CMFNP_RET_ALL_DVPAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllDVPAmt = double.Parse(dr["CMFNP_RET_ALL_DVPAmt"].ToString());
+
+                        if (dr["RET_All_Price"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllPrice = double.Parse(dr["RET_All_Price"].ToString());
+
+                        if (dr["RET_All_TotalDividends"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsAllTotalDividends = double.Parse(dr["RET_All_TotalDividends"].ToString());
+
+                        if (dr["RET_Realized_TotalDividends"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedTotalDividends = double.Parse(dr["RET_Realized_TotalDividends"].ToString());
+
+
+                        if (dr["CMFNP_InvestmentStartDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.InvestmentStartDate = DateTime.Parse(dr["CMFNP_InvestmentStartDate"].ToString());
+
+
+                        if (dr["CMFNP_RET_Hold_AcqCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldAcqCost = double.Parse(dr["CMFNP_RET_Hold_AcqCost"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldTotalPL = double.Parse(dr["CMFNP_RET_Hold_TotalPL"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_AbsReturn"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldAbsReturn = double.Parse(dr["CMFNP_RET_Hold_AbsReturn"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_PurchaseUnit"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldPurchaseUnit = double.Parse(dr["CMFNP_RET_Hold_PurchaseUnit"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_DVRUnits"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldDVRUnits = double.Parse(dr["CMFNP_RET_Hold_DVRUnits"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_DVPAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldDVPAmt = double.Parse(dr["CMFNP_RET_Hold_DVPAmt"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_XIRR"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsHoldXIRR = double.Parse(dr["CMFNP_RET_Hold_XIRR"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_InvestedCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedInvestedCost = double.Parse(dr["CMFNP_RET_Realized_InvestedCost"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_DVPAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedDVPAmt = double.Parse(dr["CMFNP_RET_Realized_DVPAmt"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_DVRAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedDVRAmt = double.Parse(dr["CMFNP_RET_Realized_DVRAmt"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedTotalPL = double.Parse(dr["CMFNP_RET_Realized_TotalPL"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_AbsReturn"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedAbsReturn = double.Parse(dr["CMFNP_RET_Realized_AbsReturn"].ToString());
+
+                        if (dr["CMFNP_RET_Realized_XIRR"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnsRealizedXIRR = double.Parse(dr["CMFNP_RET_Realized_XIRR"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_PurchaseUnits"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldPurchaseUnits = double.Parse(dr["CMFNP_TAX_Hold_PurchaseUnits"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_BalanceAmt"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldBalanceAmt = double.Parse(dr["CMFNP_TAX_Hold_BalanceAmt"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldTotalPL = double.Parse(dr["CMFNP_TAX_Hold_TotalPL"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_EligibleSTCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldEligibleSTCG = double.Parse(dr["CMFNP_TAX_Hold_EligibleSTCG"].ToString());
+
+                        if (dr["CMFNP_TAX_Hold_EligibleLTCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxHoldEligibleLTCG = double.Parse(dr["CMFNP_TAX_Hold_EligibleLTCG"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_TotalPL"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedTotalPL = double.Parse(dr["CMFNP_TAX_Realized_TotalPL"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_AcqCost"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedAcqCost = double.Parse(dr["CMFNP_TAX_Realized_AcqCost"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_STCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedSTCG = double.Parse(dr["CMFNP_TAX_Realized_STCG"].ToString());
+
+                        if (dr["CMFNP_TAX_Realized_LTCG"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.TaxRealizedLTCG = double.Parse(dr["CMFNP_TAX_Realized_LTCG"].ToString());
+                        //if (dr["CMFA_AccountOpeningDate"].ToString().Trim() != String.Empty)
+                        //    mfPortfNetPositionVo.FolioStartDate = DateTime.Parse(dr["CMFA_AccountOpeningDate"].ToString());
+                        if (dr["CMFNP_FolioSchemeStartDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.FolioStartDate = DateTime.Parse(dr["CMFNP_FolioSchemeStartDate"].ToString());
+
+                        if (dr["CMFNP_RET_Hold_DVRAmounts"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.ReturnHoldDVRAmounts = double.Parse(dr["CMFNP_RET_Hold_DVRAmounts"].ToString());
+
+                        if (dr["CMFNP_NAVDate"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.NavDate = DateTime.Parse(dr["CMFNP_NAVDate"].ToString());
+
+                        //newly added for wt nav , returns and days
+
+                        if (dr["CMFNP_RET_Hold_AnnualisedReturns"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.AnnualisedReturns = double.Parse(dr["CMFNP_RET_Hold_AnnualisedReturns"].ToString());
+                        if (dr["CMFNP_RET_Hold_WeightageNAV"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.WeightageNAV = double.Parse(dr["CMFNP_RET_Hold_WeightageNAV"].ToString());
+                        if (dr["CMFNP_RET_Hold_WeightageDays"].ToString().Trim() != String.Empty)
+                            mfPortfNetPositionVo.WeightageDays = Convert.ToInt32(dr["CMFNP_RET_Hold_WeightageDays"]);
+
+                        mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
+                    }
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CustomerPortfolioDao.cs:GetCustomerPortfolio(int customerId)");
+
+                object[] objects = new object[2];
+                objects[0] = customerId;
+                objects[1] = portfolioId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return mfPortfolioNetPositionList;
+        }
     }
 }
