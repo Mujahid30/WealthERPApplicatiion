@@ -61,6 +61,7 @@ namespace VoCustomerPortfolio
         public double AnnualisedReturns { get; set; }
         public double WeightageNAV { get; set; }
         public int WeightageDays { get; set; }
+        public string AmcName { get; set; }
         
     }
 }
