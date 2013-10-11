@@ -111,6 +111,7 @@ namespace WealthERP.OnlineOrderManagement
             lblMulti.Text = "";
             lbltime.Text = "";
             lbldftext.Text = "";
+            txtAmt.Text = "";
         }
         protected void GetControlDetails(int scheme)
         {
@@ -154,6 +155,7 @@ namespace WealthERP.OnlineOrderManagement
             lblMulti.Visible = true;
             lblMintxt.Visible = true;
             lblDivType.Visible = true;
+            
             //    lblDivTypeTxt.Visible = true;
             //if (lblDividendType.Text == "Dividend")
             //{
@@ -203,7 +205,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 onlinemforderVo.Amount = double.Parse(txtAmt.Text.ToString());
             }
+            else
             onlinemforderVo.Amount = 0.0;
+            onlinemforderVo.DividendType = ddlDivType.SelectedValue;
+            onlinemforderVo.TransactionType = "BUY";
             OrderId = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
 

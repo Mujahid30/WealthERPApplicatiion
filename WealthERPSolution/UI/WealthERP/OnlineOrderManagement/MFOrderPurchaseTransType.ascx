@@ -127,10 +127,10 @@
 </telerik:RadWindow>
 <table id="tbpurchase" width="100%">
     <tr>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
             </asp:DropDownList>
@@ -141,10 +141,10 @@
                 InitialValue="0" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
             </asp:DropDownList>
@@ -153,10 +153,10 @@
                 CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
                 Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblScheme" runat="server" Text="Scheme" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
             </asp:DropDownList>
@@ -166,22 +166,22 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
         </td>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
         </td>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblDivType" runat="server" Text="Dividend Type" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
                 <asp:ListItem>Dividend Reinvestement</asp:ListItem>
                 <asp:ListItem>Dividend Payout</asp:ListItem>
@@ -191,33 +191,33 @@
             ErrorMessage="Enter " Display="Dynamic" ControlToValidate="ddlDivType" InitialValue="Select"
             ValidationGroup="btnSubmit">
         </asp:RequiredFieldValidator>
-    </tr>
+        </tr>
     <tr>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblMoh" runat="server" Text="Mode of Holding:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:DropDownList ID="ddlMoh" runat="server" CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span3" class="spnRequiredField">*</span>
             <br />
             
         </td>
-        <td class="leftlabel">
+        <td class="leftField">
             <asp:Label ID="lblAmt" runat="server" Text="Amount" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-        <span id="Span4" class="spnRequiredField">*</span>
+        
         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
             ErrorMessage="Enter Amount" Display="Dynamic" ControlToValidate="txtAmt" InitialValue="Select"
             ValidationGroup="btnSubmit">
         </asp:RequiredFieldValidator>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblMin" runat="server" Text="Min Amount:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:Label ID="lblMintxt" runat="server" CssClass="txtField"></asp:Label>
         </td>
     </tr>
@@ -261,10 +261,10 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblNominee" runat="server" Text="Add Nominee :" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData" colspan="5">
+        <td class="rightField" colspan="5">
             <asp:ImageButton OnClick="imgAddNominee_Click" ImageUrl="~/Images/user_add.png" runat="server"
                 ToolTip="Click here to Add Nominee" Height="15px" Width="15px" ID="imgAddNominee"
                 Text="AddNominee"></asp:ImageButton>
@@ -300,25 +300,25 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblCutt" runat="server" Text="Cutt Off time" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:Label ID="lbltime" runat="server" Text="" CssClass="txtField"></asp:Label>
         </td>
-        <td class="LeftLabel">
+        <td class="leftField">
             <asp:Label ID="lblNav" runat="server" Text="Latest Nav" CssClass="FieldName"></asp:Label>
         </td>
-        <%--<td class="leftLabel">
+        <%--<td class="leftField">
             <asp:Label ID="lblOffer" runat="server" Text="Offer Doc" CssClass="FieldName"></asp:Label>
         </td>--%>
-        <td class="LeftLabel">
+        <td class="leftField">
             <asp:Label ID="lblFact" runat="server" Text="Fact Sheet" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="leftLabel">
+        <td class="leftField">
             <asp:Label ID="lblMultiple" runat="server" Text="Multiple There after:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightField">
             <asp:Label ID="lblMulti" runat="server" CssClass="txtField"></asp:Label>
         </td>
     </tr>

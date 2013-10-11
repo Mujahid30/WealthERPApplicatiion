@@ -59,6 +59,12 @@
         </td>
     </tr>
     <tr>
+    <td>
+    <asp:Label ID="lblfolio" Text="Folio:" CssClass="cmbField" runat="server"></asp:Label>
+    </td>
+     <td>
+        <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" ></asp:DropDownList>
+        </td>
         <td class="leftLabel">
             <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
         </td>

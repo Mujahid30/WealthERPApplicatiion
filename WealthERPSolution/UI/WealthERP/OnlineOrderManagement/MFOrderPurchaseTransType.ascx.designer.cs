@@ -71,7 +71,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
-        
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivType;
         /// <summary>
         /// RequiredFieldValidator5 control.
         /// </summary>
