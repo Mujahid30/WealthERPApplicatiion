@@ -253,10 +253,16 @@ div#MainDivLeft
     height: 100;
     overflow: auto;
 }
+/*for header*/
+.PCGRedBcknde
+{
+     /*background-color: #055187; */
+     background: url(Images/rgCommandRow.gif) repeat-x;
+}
 .PCGRedBcknd
 {
      /*background-color: #055187; */
-     background: url(Images/testSCBbackground.gif) repeat-x;
+     background: url(Images/testSCBbackground1.gif) repeat-x;
 }
 .PCGRedText
 {
@@ -318,9 +324,9 @@ div#MainDivLeft
 
 .hoverstyle
 {
-    color: #ffffff;
+    color: black;
     font-weight: bold;
-    background-color: #0B49AE;
+    background-color: #D5EDFC;
 }
 .sublevel1
 {
@@ -366,41 +372,53 @@ div#MainDivLeft
 
 .PCGButton
 {
-    background: url(Images/PCG_gradient_button1.jpeg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: #ffffff;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
-    height: 22px;
-    width: 69px;
-    cursor: pointer;
-    background-color:#006699;
+   background: blue;
+  background: -moz-linear-gradient(top,  #d2e7fc,  #fff);
+  background: -moz-linear-gradient(bottom,  #82cbf6,  #fff);
+  background: -moz-linear-gradient(middle,  #dbeeff,  #fff);
+  font-family:Arial;
+  width:60px;
+  border:1px solid;
+  border-color:#78918B;
+  border-radius:2px;
+ -moz-text-stroke-color:#acafbo;
+  color: black;
 }
 
 .PCGHoverButton
 {
-    background: url(Images/PCG_gradient_button.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: #ffffff;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
+     background: blue;
+  background: -moz-linear-gradient(top,  #d2e7fc,  #fff);
+  background: -moz-linear-gradient(bottom,  #82cbf6,  #fff);
+  background: -moz-linear-gradient(middle,  #dbeeff,  #fff);
+  font-family:Arial;
+  border:1px solid;
+  border-color:#78918B;
+  border-radius:2px;
+ -moz-text-stroke-color:#acafbo;
+  color: black;
     height: 22px;
     width: 69px;
     cursor: pointer;
-    background-color:#006699;
+    
 }
 
 .PCGMediumButton
 {
-    background: url(Images/PCG_gradient_button_medium.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: #ffffff;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
+    background: blue;
+  background: -moz-linear-gradient(top,  #d2e7fc,  #fff);
+  background: -moz-linear-gradient(bottom,  #82cbf6,  #fff);
+  background: -moz-linear-gradient(middle,  #dbeeff,  #fff);
+  font-family:Arial;
+   border:1px solid;
+  border-color:#78918B;
+  border-radius:2px;
+ -moz-text-stroke-color:#acafbo;
+  color: black;
     height: 22px;
     width: 125px;
     cursor: pointer;
-    background-color:#006699;
+   
 }
 .PCGHoverMediumButton
 {
@@ -908,27 +926,39 @@ p.tip
 
 .PCGLongButton
 {
-    background: url(Images/PCG_gradient_button_long.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color:#ffffff;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
+    background: blue;
+  background: -moz-linear-gradient(top,  #d2e7fc,  #fff);
+  background: -moz-linear-gradient(bottom,  #82cbf6,  #fff);
+  background: -moz-linear-gradient(middle,  #dbeeff,  #fff);
+  font-family:Arial;
+ 
+  border:1px solid;
+  border-color:#78918B;
+  border-radius:2px;
+ -moz-text-stroke-color:#acafbo;
+  color: black;
     height: 22px;
     width: 165px;
     cursor: pointer;
-    background-color:#006699;
+   
 }
 .PCGHoverLongButton
-{
-    background: url(Images/PCG_gradient_button_long_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: #ffffff;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
+{ 
+    background: blue;
+  background: -moz-linear-gradient(top,  #d2e7fc,  #fff);
+  background: -moz-linear-gradient(bottom,  #82cbf6,  #fff);
+  background: -moz-linear-gradient(middle,  #dbeeff,  #fff);
+  font-family:Arial;
+ 
+  border:1px solid;
+  border-color:#78918B;
+  border-radius:2px;
+ -moz-text-stroke-color:#acafbo;
+  color: black;
     height: 22px;
     width: 165px;
     cursor: pointer;
-    background-color:#006699;
+    
 }
 
 .PCGLongLongButton

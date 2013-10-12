@@ -234,6 +234,10 @@ div#MainDivLeft
     height: 100;
     overflow: auto;
 }
+.PCGRedBcknde
+{
+   background: url(Images/testSCBbackground.gif) repeat-x;
+}
 .PCGRedBcknd
 {
      /* background-color: #523C7D; */

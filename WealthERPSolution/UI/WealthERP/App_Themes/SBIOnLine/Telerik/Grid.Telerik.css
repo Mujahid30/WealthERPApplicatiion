@@ -70,7 +70,7 @@
 .RadGrid_Telerik th.rgResizeCol
 {
 	border:1px solid;
-	border-color:#fff #F9F9F9 #0B49AE #F9F9F9;
+	border-color:#fff #F9F9F9 #68bfe1 #F9F9F9;
 	border-top:0;
 	background:0 -2300px repeat-x #F9F9F9 url('Grid/sprite.gif');
 }
@@ -78,7 +78,7 @@
 .RadGrid_Telerik th.rgSorted
 {
 	border-bottom-color:#F9F9F9;
-	background-color:#0B49AE;
+	background-color:#68bfe1;
 	background-position:0 -2600px;
 }
 
@@ -108,7 +108,7 @@
 .RadGrid_Telerik .rgRow .rgSorted,
 .RadGrid_Telerik .rgAltRow .rgSorted
 {
-	background-color:#0B49AE;
+	background-color:#68bfe1;
 }
 
 .RadGrid_Telerik .rgSelectedRow .rgSorted,
@@ -138,16 +138,16 @@
 .RadGrid_Telerik .rgActiveRow,
 .RadGrid_Telerik .rgHoveredRow
 {
-    background:#0B49AE 0 -2900px repeat-x url('Grid/sprite.gif');
+    background:#68bfe1 0 -2900px repeat-x url('Grid/sprite.gif');
 }
 *+html .RadGrid_Telerik .rgActiveRow .rgSorted,
-*+html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#0B49AE}
+*+html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#68bfe1}
 * html .RadGrid_Telerik .rgActiveRow .rgSorted,
-* html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#0B49AE}
+* html .RadGrid_Telerik .rgHoveredRow .rgSorted{background-color:#68bfe1}
 
 .RadGrid_Telerik .rgEditRow
 {
-	background:#0B49AE 0 -4900px repeat-x url('Grid/sprite.gif');
+	background:#68bfe1 0 -4900px repeat-x url('Grid/sprite.gif');
 }
 *+html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#3366cc}
 * html .RadGrid_Telerik .rgEditRow .rgSorted{background-color:#3366cc}
@@ -199,7 +199,7 @@
 .RadGrid_Telerik .rgFooter td
 {
 	border-top-width:1px;
-	border-color:#3366cc #0B49AE #fff #336699;
+	border-color:#3366cc #68bfe1 #fff #336699;
 }
 
 /*status*/
@@ -207,7 +207,7 @@
 .RadGrid_Telerik .rgPager .rgStatus
 {
 	border:1px solid;
-	border-color:#3366cc #0B49AE #fff #336699;
+	border-color:#3366cc #68bfe1 #fff #336699;
 	border-left:0;
 }
 
@@ -220,7 +220,7 @@
 
 .RadGrid_Telerik .rgPager
 {
-	background:#0B49AE;
+	background:#68bfe1;
 }
 
 .RadGrid_Telerik td.rgPagerCell
@@ -395,7 +395,7 @@
 .RadMenu_Telerik .rgHCMClear:hover,
 .RadMenu_Telerik .rgHCMFilter:hover
 {
-	border-color:#0B49AE;
+	border-color:#68bfe1;
 	background-position:center -67px;
 	background-color:#336699;
 }
@@ -405,15 +405,15 @@
 .RadGrid_Telerik .rgGroupPanel
 {
 	border:1px solid;
-	border-color:#cfcfcf #0B49AE #cfcfcf;
+	border-color:#cfcfcf #68bfe1 #cfcfcf;
 	/*background:#e6ebf5 0 -1900px repeat-x url('Grid/sprite.gif');*/
-	background-color:#0B49AE;
+	background-color:#68bfe1;
 }
 
 .RadGrid_Telerik .rgGroupPanel td
 {
 	border:0;
-	border-bottom:1px solid #0B49AE;
+	border-bottom:1px solid #68bfe1;
 	padding:0;
 }
 
@@ -512,7 +512,7 @@
 
 .RadGrid_Telerik .rgDetailTable
 {
-	border-color:#0B49AE;
+	border-color:#68bfe1;
 }
 
 /*command row*/
@@ -531,26 +531,26 @@
 
 .RadGrid_Telerik thead .rgCommandCell
 {
-	border-bottom:1px solid #0B49AE;
+	border-bottom:1px solid #68bfe1;
 }
 
 .RadGrid_Telerik tfoot .rgCommandCell,
 .RadGrid_Telerik .rgMasterTable>tbody>tr.rgCommandRow .rgCommandCell
 {
-	border-top:1px solid #0B49AE;
+	border-top:1px solid #68bfe1;
 }
 
 .RadGrid_Telerik .rgCommandTable td
 {
 	border:0;
 	padding:2px 7px;
-	background-color: #0B49AE;
+	background-color: #68bfe1;
 }
 
 .RadGrid_Telerik .rgCommandTable
 {
 	border:1px solid;
-	border-color:#0B49AE #3366cc #336699;
+	border-color:#68bfe1 #3366cc #336699;
 }
 
 .RadGrid_Telerik .rgCommandRow a
@@ -739,13 +739,13 @@
 
 	background-image: url('ImageHandler.ashx?mode=get&suite=aspnet-ajax&control=Grid&skin=Telerik&file=rgCommandRow.gif&t=1437799218');
 
-	color: #2475C7;
+	color: #68bfe1;
 
 }
 
  div.RadGrid_Telerik .rgPager {
 
-	background-color: #2475C7;
+	background-color: #68bfe1;
 
 }
 

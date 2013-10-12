@@ -7,12 +7,13 @@
 {
 	color: #000000;
 	font: 12px/26px "Segoe UI", Arial, sans-serif;
+	border-radius:3px;
 }
 
 .RadTabStripLeft_Telerik .rtsSeparator,
 .RadTabStripRight_Telerik .rtsSeparator
 {
-	background: #000000;
+	background: blue;
 }
 
 /* <disabled tabs> */
@@ -28,7 +29,7 @@
 .RadTabStrip_Telerik .rtsPrevArrowDisabled,
 .RadTabStrip_Telerik .rtsNextArrowDisabled
 {
-	background-image: url('TabStrip/TabStripVStates.png');
+	background-image: url('TabStrip/TabStripStates.png.png');
 }
 /* </scrolling arrows> */
 
@@ -49,7 +50,7 @@
 .RadTabStripLeft_Telerik .rtsLast .rtsLink,
 .RadTabStripRight_Telerik .rtsLast .rtsLink
 {
-	border-bottom: 1px solid #8a9094;
+	border-bottom: 1px solid green;
 }
 
 .RadTabStripRight_Telerik .rtsLink,
@@ -73,7 +74,7 @@
 .RadTabStripTop_Telerik .rtsSelected,
 .RadTabStripTop_Telerik .rtsSelected:hover { background-position: 0 -26px; }
 .RadTabStripTop_Telerik .rtsSelected .rtsOut,
-.RadTabStripTop_Telerik .rtsSelected:hover .rtsOut { background-position: 100% -26px; }
+.RadTabStripTop_Telerik .rtsSelected:hover .rtsOut { background-position: 100% -26px; background-image: url('TabStrip/TabStripStates.png')}
 
 .RadTabStripTop_Telerik .rtsDisabled:hover { background-position: 0 0; }
 .RadTabStripTop_Telerik .rtsDisabled:hover .rtsOut { background-position: 100% 0; }
@@ -118,7 +119,7 @@
 
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel2,
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel3,
-.RadTabStrip_Telerik_SimpleSubItems .rtsLevel4 { background: #D9EBF7; }
+.RadTabStrip_Telerik_SimpleSubItems .rtsLevel4 { background: green; }
 
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel2 .rtsSelected,
 .RadTabStrip_Telerik_SimpleSubItems .rtsLevel3 .rtsSelected,

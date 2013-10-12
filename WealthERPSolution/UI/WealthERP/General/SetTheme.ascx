@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="SetTheme.ascx.cs" Inherits="WealthERP.General.SetTheme" %>
+
 <table width="100%" class="TableBackground">
 <tr>
 <td colspan="3" style="width: 100%;">
@@ -28,8 +29,10 @@
                 <asp:ListItem Value="Yellow">Yellow</asp:ListItem>
                  <asp:ListItem Value="LightPurple">LightPurple</asp:ListItem>
                  <asp:ListItem Value="SBICAP">Light Blue</asp:ListItem>
+                <asp:ListItem Value="SBIOnLine">Blue</asp:ListItem>
                 
             </asp:DropDownList>
         </td>
     </tr>
+    
 </table>

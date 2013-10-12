@@ -15,10 +15,10 @@
 .HeaderStyle, .PagerStyle /*Common Styles*/
 {
     /* border: Inset 2px black; */
-     background-image: url(Images/testSCBbackground.gif) repeat-x;
-    background-position: center;
-    background-repeat: repeat-x;
-    vertical-align:top;
+     background-image: url(Images/testSCBbackground.gif);
+    /*background-position: center;
+    background-repeat: no-repeat;
+    vertical-align:top;*/
 }
 .HeaderStyle th
 {
@@ -92,9 +92,10 @@
 
 .FooterStyle td
 {
-     background-image: url(Images/rgCommandRow.gif);
-    color: #4B4726;
+     color: #ffffff;
+      /* background-image: url(Images/rgCommandRow.gif);
+         color: #4B4726;
     font-family: Verdana,tahoma;
     font-weight: bold;
-    font-size: x-small;
+    font-size: x-small;*/
 }

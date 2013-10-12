@@ -47,7 +47,8 @@
 .RadPanelBar_Telerik a.rpFocused,
 .RadPanelBar_Telerik a.rpLink:hover
 {
-	color: #0060ef;
+	color: #68bfe1;
+	font-family:Arial;
 	background-color: #ffffff !important;
 }
 
@@ -59,7 +60,7 @@
 .RadPanelBar_Telerik a.rpDisabled:hover
 {
 	color: #bbb;
-	background-color: #006699 !important;
+	background-color:#68bfe1 !important;
 }
 
 .RadPanelBar_Telerik a.rpDisabled:hover .rpOut
@@ -252,7 +253,7 @@
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
 
     background-image: none !important;
-	color: #006699;
+	color: #68bfe1;
 
 }
 
@@ -260,7 +261,7 @@
 
 	background-image: none;
 
-	background-color: #006699;
+	background-color: #68bfe1;
 
 }
 
@@ -274,21 +275,21 @@
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink {
 
-	background-color: #006699;
+	background-color: #68bfe1;
 	color: rgb(0, 0, 0);
 
 }
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpLink:hover {
 
-	background-color: #006699;
+	background-color: #68bfe1;
 
 }
 
  div.RadPanelBar_Telerik .rpItem .rpGroup .rpSelected {
 
 	background-image: none !important;
-	color: #006699;
+	color: #68bfe1;
 	font-weight: bold;
 
 }
@@ -304,7 +305,7 @@
 
 
     background-image: none !important;
-	background-color: #006699;
+	background-color: #68bfe1;
 
 }
 
