@@ -186,6 +186,84 @@ namespace BoOnlineOrderManagement
             }
             return dsSipDetails;
         }
+        /// <summary>
+        /// Gets the Sip dates from the database for the scheme & sipFreq
+        /// </summary>
+        /// <param name="schemePlanCode"></param>
+        /// <param name="sipFreqCode"></param>
+        /// <returns></returns>
+        public DateTime[] GetSipStartDates(int schemePlanCode, string sipFreqCode)
+        {
+            DataSet dsSipDetails = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            List<DateTime> lstSipStartDates = new List<DateTime>();
 
+            try
+            {
+                dsSipDetails = OnlineMFOrderDao.GetSipDetails(schemePlanCode, sipFreqCode);
+                if (dsSipDetails == null) return lstSipStartDates.ToArray();
+
+                string sipStartDates = dsSipDetails.Tables[0].Rows[0]["PASPSD_StatingDates"].ToString();
+
+                List<int> lstSipDates = new List<int>();
+                string[] temp = sipStartDates.Split(';');
+                foreach (string date in temp) {
+                    if (!string.IsNullOrEmpty(date.Trim()))
+                        lstSipDates.Add(int.Parse(date.Trim()));
+                }
+
+
+                DateTime dateCurr = DateTime.Now;
+                while (dateCurr <= DateTime.Now.AddMonths(3)) {
+                    int res = lstSipDates.Find(delegate(int date) {
+                        return date == dateCurr.Day;
+                    });
+
+                    if (res > 0) lstSipStartDates.Add(dateCurr);
+                    dateCurr = dateCurr.AddDays(1);
+                }
+                return lstSipStartDates.ToArray();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSipStartDates(int schemePlanCode, string sipFreqCode)");
+                object[] objects = new object[2];
+                objects[0] = schemePlanCode;
+                objects[1] = sipFreqCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        /// <summary>
+        /// Gets SIP end date
+        /// </summary>
+        /// <param name="StartDate"></param>
+        /// <param name="SipFrequency"></param>
+        /// <param name="installments"></param>
+        /// <returns></returns>
+        public DateTime GetSipEndDate(DateTime StartDate, string SipFrequency, int installments)
+        {
+            int multiplier = 0;
+
+            switch (SipFrequency)
+            {
+                case "MN":
+                    multiplier = 1;
+                    break;
+                case "QT":
+                    multiplier = 3;
+                    break;
+            }
+
+            return StartDate.AddMonths(multiplier * installments);
+        }
     }
 }
