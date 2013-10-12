@@ -210,7 +210,32 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo.Amount = 0.0;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "BUY";
-            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmt.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmt.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            float amt;
+            float minAmt;
+            float multiAmt;
+            DateTime Dt; 
+
+            if (string.IsNullOrEmpty(txtAmt.Text))
+            {
+                 amt = 0;
+               
+            }
+            else
+            {
+               amt = float.Parse(txtAmt.Text);
+            }
+            if (string.IsNullOrEmpty(lblMintxt.Text) && string.IsNullOrEmpty(lblMulti.Text) && string.IsNullOrEmpty(lbltime.Text))
+            {
+                minAmt = 0; multiAmt = 0; Dt = DateTime.MinValue;
+            }
+            else
+            {
+
+                minAmt = float.Parse(lblMintxt.Text);
+                multiAmt = float.Parse(lblMulti.Text);
+                Dt = DateTime.Parse(lbltime.Text);
+            }
+            int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
             if (retVal != 0) { ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return; 
               } 
 

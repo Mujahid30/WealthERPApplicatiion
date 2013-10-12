@@ -3,7 +3,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+<asp:ScriptManager ID="ScriptManager1" runat="server">
+</asp:ScriptManager>
 <script type="text/javascript">
     function ShowPopup() {
         var i = 0;
@@ -304,9 +305,7 @@
         </td>
     </tr>
     <tr>
-        <td class="leftField">
-            <asp:Label ID="lblHolder" CssClass="FieldName" Text="Add Holder :" runat="server"></asp:Label>
-        </td>
+       
         <td class="leftField">
             <asp:Label ID="lblCutt" runat="server" Text="Cutt Off time" CssClass="FieldName"></asp:Label>
         </td>

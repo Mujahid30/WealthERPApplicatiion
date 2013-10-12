@@ -119,8 +119,9 @@ namespace WealthERP.OnlineOrderManagement
         protected void GetControlDetails(int scheme,string folio)
         {
             DataSet ds = new DataSet();
-            DataTable dt = ds.Tables[0];
+            
             ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
 
@@ -259,11 +260,38 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "Sel";
-            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmt.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmt.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            float amt;
+            float minAmt;
+            float multiAmt;
+            DateTime Dt;
+
+            if (string.IsNullOrEmpty(txtAmt.Text))
+            {
+                amt = 0;
+
+            }
+            else
+            {
+                amt = float.Parse(txtAmt.Text);
+            }
+            if (string.IsNullOrEmpty(lblMintxt.Text) && string.IsNullOrEmpty(lblMulti.Text) && string.IsNullOrEmpty(lbltime.Text))
+            {
+                minAmt = 0; multiAmt = 0; Dt = DateTime.MinValue;
+            }
+            else
+            {
+
+                minAmt = float.Parse(lblMintxt.Text);
+                multiAmt = float.Parse(lblMulti.Text);
+                Dt = DateTime.Parse(lbltime.Text);
+            }
+            int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
             if (retVal != 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;
             } 
+
+           
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
