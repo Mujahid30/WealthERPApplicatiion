@@ -97,7 +97,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlScheme.SelectedIndex != -1)
             {
                 ResetControlDetails();
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue));
+                GetControlDetails(int.Parse(ddlScheme.SelectedValue), 0);
                 SetControlDetails();
             }
         }
@@ -111,10 +111,11 @@ namespace WealthERP.OnlineOrderManagement
             lbldftext.Text = "";
             txtAmt.Text = "";
         }
-        protected void GetControlDetails(int scheme)
+        protected void GetControlDetails(int scheme,int folio)
         {
-            DataTable dt = new DataTable();
-            dt = onlineMforderBo.GetControlDetails(scheme);
+            DataSet ds = new DataSet();
+            DataTable dt = ds.Tables[0];
+            ds = onlineMforderBo.GetControlDetails(scheme, folio);
             if (dt.Rows.Count > -1)
             {
 
@@ -198,6 +199,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
+            List<int> OrderIds = new List<int>();
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
             if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
             {
@@ -207,9 +209,11 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo.Amount = 0.0;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "BUY";
-            OrderId = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+          //  commonLookupBo.IsRuleCorrect(float.Parse(onlinemforderVo.Amount.ToString()),float.Parse(),float.Parse(),DateTime.Parse(lbltime.Text))
 
+            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            OrderId = int.Parse(OrderIds[0].ToString());
         }
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
