@@ -245,7 +245,6 @@ namespace DaoCommon
 
                 db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemdCode);
 
-
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -316,6 +315,25 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CmdGetOverAllCategoryList = db.GetStoredProcCommand("SP_GetNavOverAllCategoryList");
                 dsGetAllCategoryList = db.ExecuteDataSet(CmdGetOverAllCategoryList);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsGetAllCategoryList;
+        }
+
+        public DataSet GetLatestNav(int schemePlanCode)
+        {
+            DataSet dsGetAllCategoryList;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetLatestNavForScheme");
+                db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemePlanCode);
+                dsGetAllCategoryList = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
             {
