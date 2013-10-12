@@ -20,7 +20,7 @@ namespace VoOnlineOrderManagemnet
         public DateTime PaymentDate { set; get; }
         public int CustBankAccId { set; get; }
         public string BankBranchName { set; get; }
-
+        public string FolioNumber { set; get; }
         public string OrderStepCode { set; get; }
         public string OrderStatusCode { set; get; }
         public string ReasonCode { set; get; }

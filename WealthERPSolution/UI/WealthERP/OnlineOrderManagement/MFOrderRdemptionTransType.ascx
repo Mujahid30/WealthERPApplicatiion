@@ -3,6 +3,27 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+
+<script type="text/javascript">
+    function ShowPopup() {
+        var i = 0;
+        var form = document.forms[0];
+        var folioId = "";
+        var count = 0;
+        for (var i = 0; i < form.elements.length; i++) {
+            if (form.elements[i].type == 'checkbox') {
+                if (form.elements[i].checked == true) {
+                    count++;
+                }
+            }
+        }
+        if (count == 0) {
+            alert("Please select one record.")
+            return false;
+        }
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -18,20 +39,96 @@
         </td>
     </tr>
 </table>
-<table id="tbpurchase" style="height: 315px; width: 101%">
+<telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForNominee" runat="server"
+    Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
+    Behaviors="Move,resize,close" Title="Add Nominee">
+    <ContentTemplate>
+        <div id="DivForNominee" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
+            align="center" visible="false">
+            Records not found
+        </div>
+        <div style="padding: 20px">
+            <telerik:RadGrid ID="gvNominees" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView DataKeyNames="MemberCustomerId, AssociationId" NoDetailRecordsText="Records not found"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridTemplateColumn HeaderStyle-Width="15px" AllowFiltering="false" HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkId0" runat="server" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="110px" DataField="Name"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="Relationship"
+                            HeaderText="Relationship" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </div>
+        <div style="padding: 20px">
+            <asp:Button ID="btnAddNominee" runat="server" CssClass="PCGButton" Text="Associate"
+                OnClick="btnAddNominee_Click" OnClientClick="return ShowPopup()" />
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
+<telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForJointHolder" runat="server"
+    Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
+    Behaviors="Move,resize,close" Title="Add Joint Holder">
+    <ContentTemplate>
+        <div id="DivForJH" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
+            align="center" visible="false">
+            Records not found
+        </div>
+        <div style="padding: 20px">
+            <telerik:RadGrid ID="gvJointHoldersList" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" DataKeyNames="AssociationId"
+                    Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <NoRecordsTemplate>
+                        <div>
+                            There are no records to display</div>
+                    </NoRecordsTemplate>
+                    <Columns>
+                        <telerik:GridTemplateColumn HeaderStyle-Width="15px" AllowFiltering="false" HeaderText="Select">
+                            <ItemTemplate>
+                                <asp:CheckBox ID="chkId" runat="server" />
+                            </ItemTemplate>
+                        </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn HeaderStyle-Width="110px" ShowFilterIcon="false" DataField="Name"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn HeaderStyle-Width="100px" ShowFilterIcon="false" DataField="Relationship"
+                            HeaderText="Relationship" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </div>
+        <div style="padding: 20px">
+            <asp:Button ID="btnAddJointHolder" runat="server" CssClass="PCGButton" Text="Associate"
+                OnClick="btnAddJointHolder_Click" OnClientClick="return ShowPopup()" />
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
+<table id="tbpurchase" width="100%">
     <tr>
-        <td class="leftLabel" align="left">
-            <asp:Label ID="lblAmc" runat="server" Text="AMC" CssClass="FieldName"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="leftLabel" align="left">
-            <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="leftLabel" align="left">
-            <asp:Label ID="lblScheme" runat="server" Text="Scheme" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="rightData">
+        <td class="rightField">
             <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
             </asp:DropDownList>
@@ -39,20 +136,27 @@
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Select an AMC" Display="Dynamic" ControlToValidate="ddlAmc"
-                InitialValue="Select" ValidationGroup="btnSubmit">
+                InitialValue="0" ValidationGroup="btnSubmit">
             </asp:RequiredFieldValidator>
         </td>
-        <td class="rightData">
+        <td class="leftField">
+            <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
                 CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
-                Display="Dynamic"></asp:RequiredFieldValidator>
+                Display="Dynamic" InitialValue="-1"></asp:RequiredFieldValidator>
         </td>
-        <td class="rightData">
-            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true">
+        <td class="leftField">
+            <asp:Label ID="lblScheme" runat="server" Text="Scheme" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
@@ -60,97 +164,240 @@
         </td>
     </tr>
     <tr>
-        <td class="leftLabel" align="left">
+        <td>
+            <asp:Label ID="lblfolio" Text="Folio:" CssClass="cmbField" runat="server"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server">
+            </asp:DropDownList>
+        </td>
+        <td class="leftField">
             <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="leftLabel" align="left">
-            <asp:Label ID="lblDividendType" runat="server" Text="Dividend Type" CssClass="FieldName"></asp:Label>
+        <td class="rightField">
+            <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
         </td>
-        <td class="leftLabel" align="left">
+        <td class="leftField">
             <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency" CssClass="FieldName"></asp:Label>
         </td>
-    </tr>
-    <tr>
-        <td class="rightData">
-            <asp:Label ID="lblOption1" runat="server" Text="Dividend" CssClass="FieldName"></asp:Label>
+        <td class="rightField">
+            <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
         </td>
-        <td class="rightData">
-            <asp:Label ID="lblDividendType2" runat="server" Text="Dividend ReInvestment" CssClass="FieldName"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="lblDivType" runat="server" Text="Dividend Type" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
-            <asp:Label ID="lblDividendFrequency2" runat="server" Text="Monthly" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftLabel">
-            <asp:Label ID="lblOffer" runat="server" Text="Offer Doc" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="LeftLabel">
-            <asp:Label ID="lblFact" runat="server" Text="Fact Sheet" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="LeftLabel">
-            <asp:Label ID="lblNav" runat="server" Text="Latest Nav" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="leftLabel">
-            <asp:Label ID="lblMoh" runat="server" Text="Mode of Holding:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="leftlabel">
-            <asp:Label ID="lblAmt" runat="server" Text="Amount" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="leftLabel">
-            <asp:Label ID="lblMin" runat="server" Text="Min Amount:" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="rightData">
-            <asp:DropDownList ID="ddlMoh" runat="server" CssClass="cmbField">
+        <td class="rightField">
+            <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
+                <asp:ListItem>Dividend Reinvestement</asp:ListItem>
+                <asp:ListItem>Dividend Payout</asp:ListItem>
             </asp:DropDownList>
-            <span id="Span3" class="spnRequiredField">*</span>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select an AMC" Display="Dynamic" ControlToValidate="ddlMoh"
-                InitialValue="Select" ValidationGroup="btnSubmit">
-            </asp:RequiredFieldValidator>
         </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-        <td class="rightData">
-            <asp:Label ID="lblMintxt" runat="server" Text="1000" CssClass="FieldName"></asp:Label>
-        </td>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+            ErrorMessage="Enter " Display="Dynamic" ControlToValidate="ddlDivType" InitialValue="Select"
+            ValidationGroup="btnSubmit">
+        </asp:RequiredFieldValidator>
     </tr>
     <tr>
-        <td class="leftLabel">
-            <asp:Label ID="lblHolder" runat="server" Text="Holder:" CssClass="FieldName"></asp:Label>
+        <td class="leftField">
+            <asp:Label ID="Label1" CssClass="FieldName" Text="Add Holder :" runat="server"></asp:Label>
         </td>
-        <td class="leftLabel">
-            <asp:Label ID="lblNominee" runat="server" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="leftLabel">
-            <asp:Label ID="lblMultiple" runat="server" Text="Multiple There after:" CssClass="FieldName"></asp:Label>
-        </td>
-    </tr>
-    <tr>
-        <td class="rightData">
-            <asp:TextBox ID="txtNominee" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtHolder" runat="server" CssClass="txtField"></asp:TextBox>
-        </td>
-        <td class="rightData">
-            <asp:Label ID="lblMulti" runat="server" Text="1000" CssClass="FieldName"></asp:Label>
+        <td colspan="5">
+            <asp:ImageButton OnClick="imgAddJointHolder_Click" ID="imgAddJointHolder" Text="AddJTHolder"
+                runat="server" ImageUrl="~/Images/user_add.png" runat="server" ToolTip="Click here to Add Joint Holder"
+                Height="15px" Width="15px"></asp:ImageButton>
         </td>
     </tr>
     <tr>
         <td>
         </td>
-        <td class="leftLabel">
+        <td colspan="5">
+            <telerik:RadGrid Visible="false" ID="gvJoint2" runat="server" GridLines="None" AutoGenerateColumns="False"
+                PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
+                Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
+                AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
+                            DataField="MemberCustomerId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="50px"
+                            DataField="AssociationId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="NAME"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
+                            HeaderText="Relation" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblNominee" runat="server" Text="Add Nominee :" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField" colspan="5">
+            <asp:ImageButton OnClick="imgAddNominee_Click" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Nominee" Height="15px" Width="15px" ID="imgAddNominee"
+                Text="AddNominee"></asp:ImageButton>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td colspan="5">
+            <telerik:RadGrid Visible="false" ID="gvNominee2" runat="server" GridLines="None"
+                AutoGenerateColumns="False" PageSize="10" AllowSorting="false" AllowPaging="True"
+                ShowStatusBar="false" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
+                Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
+                <ExportSettings HideStructureColumns="true">
+                </ExportSettings>
+                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
+                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <Columns>
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
+                            DataField="MemberCustomerId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="50px"
+                            DataField="AssociationId" HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="100px" DataField="NAME"
+                            HeaderText="Name" />
+                        <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
+                            HeaderText="Relation" />
+                    </Columns>
+                </MasterTableView>
+                <ClientSettings>
+                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                </ClientSettings>
+            </telerik:RadGrid>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblMoh" runat="server" Text="Mode of Holding:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlMoh" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <br />
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblAmt" runat="server" Text="Amount" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+        <span id="Span4" class="spnRequiredField">*</span>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+            ErrorMessage="Enter Amount" Display="Dynamic" ControlToValidate="txtAmt" InitialValue="Select"
+            ValidationGroup="btnSubmit">
+        </asp:RequiredFieldValidator>
+        <td class="leftField">
+            <asp:Label ID="lblMin" runat="server" Text="Min Amount:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblMintxt" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblHolder" CssClass="FieldName" Text="Add Holder :" runat="server"></asp:Label>
+        </td>
+        <td class="leftField">
             <asp:Label ID="lblCutt" runat="server" Text="Cutt Off time" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
-            <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
+        <td class="rightField">
+            <asp:Label ID="lbltime" runat="server" Text="" CssClass="txtField"></asp:Label>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblNav" runat="server" Text="Latest Nav" CssClass="FieldName"></asp:Label>
+        </td>
+        <%--<td class="leftField">
+            <asp:Label ID="lblOffer" runat="server" Text="Offer Doc" CssClass="FieldName"></asp:Label>
+        </td>--%>
+        <td class="leftField">
+            <asp:Label ID="lblFact" runat="server" Text="Fact Sheet" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblMultiple" runat="server" Text="Multiple There after:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblMulti" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblRedeem" runat="server" Text="Redeem" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:DropDownList ID="ddlRedeem" runat="server" OnSelectedIndexChanged="ddlRedeem_OnSelectedIndexChanged">
+                <asp:ListItem> Units</asp:ListItem>
+                <asp:ListItem>Amount</asp:ListItem>
+            </asp:DropDownList>
+        </td>
+        <td class="rightField">
+            <asp:TextBox ID="txtRedeem" runat="server"></asp:TextBox>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblCurrentUnits" runat="server" Text="Current Units" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblCurrentUnitstxt" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblCurrentValue" runat="server" Text="Current Value" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="lblCurrentValuetxt" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+    </tr>
+    <tr id="trAmt" runat="server">
+        <td  class="leftField">
+            <asp:Label ID="lblMultiAmt" runat="server" Text="Multiple Amount:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="txtMultiAmt" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblMinAmt" runat="server" Text="Minumum Amount:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="txtMinAmt" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td colspan="2">
+        </td>
+    </tr>
+    <tr id="trUnit" runat="server">
+        <td class="leftField">
+            <asp:Label ID="lblMultiUnit" runat="server" Text="Multiple Units:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="txtMultiUnit" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td class="leftField">
+            <asp:Label ID="lblMiniUnit" runat="server" Text="Minumum Units:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightField">
+            <asp:Label ID="txtMinUnit" runat="server" CssClass="txtField"></asp:Label>
+        </td>
+        <td colspan="2">
+        </td>
+    </tr>
+    
+    
+    
+    <tr >
+        <td colspan="5">
+        </td>
+        <td>
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
+                CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
         </td>
     </tr>
 </table>
+<asp:HiddenField ID="hdnAssociationIdForNominee" runat="server" />
+<asp:HiddenField ID="hdnAssociationIdForJointHolder" runat="server" />

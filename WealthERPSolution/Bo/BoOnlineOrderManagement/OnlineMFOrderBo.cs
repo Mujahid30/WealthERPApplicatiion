@@ -73,13 +73,13 @@ namespace BoOnlineOrderManagement
             }
             return dsFolioAccount;
         }
-        public DataTable GetControlDetails(int scheme)
+        public DataSet GetControlDetails(int scheme, int folio)
         {
-            DataTable dt = null;
+            DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dt = OnlineMFOrderDao.GetControlDetails(scheme);
+                ds = OnlineMFOrderDao.GetControlDetails(scheme, folio);
             }
             catch (BaseApplicationException Ex)
             {
@@ -98,7 +98,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
 
             }
-            return dt;
+            return ds;
         }
         public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
         {
@@ -115,20 +115,20 @@ namespace BoOnlineOrderManagement
             }
             return orderIds;
         }
-
-        public int CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
+        public List<int> CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
         {
+            List<int> orderIds = new List<int>();
             OnlineMFOrderDao onlineOrderdao = new OnlineMFOrderDao();
-            int orderId;
+            
             try
             {
-                orderId = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
+                orderIds = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return orderId;
+            return orderIds;
         }
         public DataSet GetSIPBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
