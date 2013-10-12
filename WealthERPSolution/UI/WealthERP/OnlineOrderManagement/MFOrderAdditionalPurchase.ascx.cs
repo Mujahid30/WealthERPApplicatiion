@@ -102,7 +102,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlScheme.SelectedIndex != -1)
             {
                 ResetControlDetails();
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue), int.Parse(ddlFolio.SelectedValue));
+                GetControlDetails(int.Parse(ddlScheme.SelectedValue),ddlFolio.SelectedValue.ToString());
                 SetControlDetails();
             }
         }
@@ -116,7 +116,7 @@ namespace WealthERP.OnlineOrderManagement
             lbldftext.Text = "";
             txtAmt.Text = "";
         }
-        protected void GetControlDetails(int scheme, int folio)
+        protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
             DataTable dt = ds.Tables[0];

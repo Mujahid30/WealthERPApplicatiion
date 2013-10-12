@@ -85,7 +85,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsFolioAccount;
         }
-        public DataSet GetControlDetails(int Scheme, int folio)
+        public DataSet GetControlDetails(int Scheme, string folio)
         {
             DataSet dsGetControlDetails;
             Database db;
@@ -95,7 +95,10 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetSchemeDetails");
                 db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
-                db.AddInParameter(GetGetControlDetailsCmd, "@folio", DbType.Int32, folio);
+                if(!string.IsNullOrEmpty(folio))
+                db.AddInParameter(GetGetControlDetailsCmd, "@folio", DbType.String, folio);
+                else
+                    db.AddInParameter(GetGetControlDetailsCmd, "@folio", DbType.String,DBNull.Value);
 
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
 

@@ -97,7 +97,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlScheme.SelectedIndex != -1)
             {
                 ResetControlDetails();
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue), 0);
+                GetControlDetails(int.Parse(ddlScheme.SelectedValue), null);
                 SetControlDetails();
             }
         }
@@ -111,11 +111,12 @@ namespace WealthERP.OnlineOrderManagement
             lbldftext.Text = "";
             txtAmt.Text = "";
         }
-        protected void GetControlDetails(int scheme,int folio)
+        protected void GetControlDetails(int scheme,string folio)
         {
             DataSet ds = new DataSet();
-            DataTable dt = ds.Tables[0];
+           
             ds = onlineMforderBo.GetControlDetails(scheme, folio);
+            DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
 

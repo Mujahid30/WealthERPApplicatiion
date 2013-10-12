@@ -73,7 +73,7 @@ namespace BoOnlineOrderManagement
             }
             return dsFolioAccount;
         }
-        public DataSet GetControlDetails(int scheme, int folio)
+        public DataSet GetControlDetails(int scheme, string folio)
         {
             DataSet ds = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
