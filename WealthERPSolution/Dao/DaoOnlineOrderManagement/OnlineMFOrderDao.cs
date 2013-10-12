@@ -85,7 +85,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsFolioAccount;
         }
-        public DataTable GetControlDetails(int Scheme)
+        public DataSet GetControlDetails(int Scheme, int folio)
         {
             DataSet dsGetControlDetails;
             Database db;
@@ -95,6 +95,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetSchemeDetails");
                 db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
+                db.AddInParameter(GetGetControlDetailsCmd, "@folio", DbType.Int32, folio);
+
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
 
             }
@@ -113,11 +115,12 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dsGetControlDetails.Tables[0];
+            return dsGetControlDetails;
         }
-        public int CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
+        public List<int> CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
         {
-            int OrderId;
+            List<int> orderIds = new List<int>();
+            int orderId;
             Database db;
             DbCommand CreateCustomerOnlineMFOrderDetailsCmd;
             try
@@ -132,13 +135,19 @@ namespace DaoOnlineOrderManagement
                 db.AddOutParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@CMFOD_OrderDetailsId", DbType.Int32, 10);
                 db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@TransactionType", DbType.String, onlinemforderVo.TransactionType);
                 db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@DividendType", DbType.String, onlinemforderVo.DividendType);
+                if (!string.IsNullOrEmpty(onlinemforderVo.FolioNumber))
+                {
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@folioNumer", DbType.String, onlinemforderVo.FolioNumber);
+                }
+                else
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@folioNumer", DbType.String, DBNull.Value);
 
                 if (db.ExecuteNonQuery(CreateCustomerOnlineMFOrderDetailsCmd) != 0)
                 {
-                    OrderId = Convert.ToInt32(db.GetParameterValue(CreateCustomerOnlineMFOrderDetailsCmd, "CO_OrderId").ToString());
-
+                    orderId = Convert.ToInt32(db.GetParameterValue(CreateCustomerOnlineMFOrderDetailsCmd, "CO_OrderId").ToString());
+                    orderIds.Add(orderId);
                 }
-                OrderId = 0;
+                
 
             }
             catch (BaseApplicationException Ex)
@@ -156,7 +165,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return OrderId;
+            return orderIds;
         }
         public DataSet GetSIPBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
