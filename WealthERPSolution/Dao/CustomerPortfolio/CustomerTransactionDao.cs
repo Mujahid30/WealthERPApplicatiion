@@ -3282,7 +3282,7 @@ namespace DaoCustomerPortfolio
                     if (dr["CMFA_IsJointlyHeld"].ToString() != string.Empty)
                         AccountVo.IsJointHolding = int.Parse(dr["CMFA_IsJointlyHeld"].ToString());
                     if (dr["CMFA_IsOnline"].ToString() != string.Empty)
-                        AccountVo.IsJointHolding = int.Parse(dr["CMFA_IsOnline"].ToString());
+                        AccountVo.IsOnline = int.Parse(dr["CMFA_IsOnline"].ToString());
                     AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
                     AccountVo.BankId = bankId;
                     AccountVo.Name = dr["CMFA_INV_NAME"].ToString();
