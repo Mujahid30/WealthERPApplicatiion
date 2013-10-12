@@ -210,7 +210,9 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo.Amount = 0.0;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "BUY";
-          //  commonLookupBo.IsRuleCorrect(float.Parse(onlinemforderVo.Amount.ToString()),float.Parse(),float.Parse(),DateTime.Parse(lbltime.Text))
+            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmt.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmt.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            if (retVal != 0) { ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return; 
+              } 
 
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);

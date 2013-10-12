@@ -225,6 +225,12 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "ABY";
+            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmt.Text), float.Parse(lblMintxt.Text), float.Parse(txtAmt.Text), float.Parse(lblMulti.Text), DateTime.Parse(lbltime.Text));
+            if (retVal != 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;
+            
+            } 
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
