@@ -80,6 +80,7 @@ namespace VoCustomerPortfolio
         public int orderNo { get; set; }
         public string channel { get; set; }
         public string TrxnNo { get; set; }
+        public DateTime OrdDate { get; set; }
         public string PortfolioName
         {
             get { return m_PortfolioName; }
