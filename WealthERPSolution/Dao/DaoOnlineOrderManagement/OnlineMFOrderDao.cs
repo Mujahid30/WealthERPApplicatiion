@@ -289,7 +289,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmd = db.GetStoredProcCommand("SPROC_Onl_GetSipDetails");
+                cmd = db.GetStoredProcCommand("SPROC_Onl_SipDetails");
                 db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemeId);
                 if (frequency != null) db.AddInParameter(cmd, "@XF_SystematicFrequencyCode", DbType.String, frequency);
                 dsSipDetails = db.ExecuteDataSet(cmd);
