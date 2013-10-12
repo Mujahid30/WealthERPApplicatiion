@@ -110,10 +110,10 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                gvSIPBookMIS.DataSource = dsSIPBookMIS.Tables[0];
+                gvSIPBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPBookMIS.DataBind();
                 //gvSIPBookMIS.Visible = false;
-                //pnlSIPBook.Visible = false;
+               pnlSIPBook.Visible = true;
                 trNoRecords.Visible = true;
                 divNoRecords.Visible = true;
                 btnExport.Visible = false;

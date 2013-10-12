@@ -130,9 +130,9 @@
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                             </telerik:RadComboBoxItem>                                            
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit"
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit" Enabled="false"
                                                 runat="server"></telerik:RadComboBoxItem>
-                                                <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png"
+                                                <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png" Enabled="false"
                                                 runat="server"></telerik:RadComboBoxItem>                                           
                                         </Items>
                                     </telerik:RadComboBox>

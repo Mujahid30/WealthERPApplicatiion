@@ -33,7 +33,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOrderBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
-                //db.AddInParameter(GetOrderBookMISCmd, "@status", DbType.String, status);                
+               // db.AddInParameter(GetOrderBookMISCmd, "@IsOnline", DbType.Int32, IsOnline);
+               // db.AddInParameter(GetOrderBookMISCmd, "@status", DbType.String, status);
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }

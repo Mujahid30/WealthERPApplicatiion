@@ -12,6 +12,8 @@ using WealthERP.Base;
 using System.Web.UI.HtmlControls;
 using Telerik.Web.UI;
 using VoCustomerProfiling;
+using VoCustomerPortfolio;
+using BoCustomerPortfolio;
 using BoCustomerProfiling;
 using BoOnlineOrderManagement;
 using VoOps;
@@ -22,6 +24,7 @@ namespace WealthERP.OnlineOrderManagement
     public partial class CustomerMFOrderBookList : System.Web.UI.UserControl
     {
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
+        CustomerAccountsVo customerAccountsVo = new CustomerAccountsVo();
         AdvisorVo advisorVo;    
         CustomerVo customerVO = new CustomerVo();
         MFOrderBo mforderBo = new MFOrderBo();
@@ -39,6 +42,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();          
             customerId = customerVO.CustomerId;
+            customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
             BindFolioAccount();
             if (!Page.IsPostBack)
             {
@@ -80,7 +84,7 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         protected void BindOrderBook()
         {
-             
+            //int IsOnline = 0; 
              DataSet dsOrderBookMIS = new DataSet();
              DataTable dtOrderBookMIS = new DataTable();
              if (txtFrom.SelectedDate != null)
@@ -88,6 +92,10 @@ namespace WealthERP.OnlineOrderManagement
              if (txtTo.SelectedDate != null)
              toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
              //AccountId = int.Parse(ViewState["AccountDropDown"].ToString());
+             //if (customerAccountsVo.IsOnline == 0)
+             //{
+             //    hdnAccount.Value = "0"; 
+             //}
 
             dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(advisorVo.advisorId, customerId, int.Parse(hdnAccount.Value), fromDate, toDate);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
