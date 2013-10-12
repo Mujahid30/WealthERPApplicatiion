@@ -74,6 +74,12 @@ namespace VoCustomerPortfolio
         #endregion Fields
 
         #region Properties
+        public string DivReinvestmen { get; set; }
+        public string Divfrequency { get; set; }
+        public float latestNav { get; set; }
+        public int orderNo { get; set; }
+        public string channel { get; set; }
+        public string TrxnNo { get; set; }
         public string PortfolioName
         {
             get { return m_PortfolioName; }
