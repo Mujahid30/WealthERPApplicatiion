@@ -125,6 +125,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dtScheme = new DataTable();
             dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
+            ddlScheme.Items.Clear();
+            ddlScheme.Items.Add(new ListItem("--SELECT--", "0"));
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
