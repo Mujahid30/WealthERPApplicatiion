@@ -166,10 +166,10 @@
         </td>
     </tr>
     <tr>
-        <td>
-            <asp:Label ID="lblfolio" Text="Folio:" CssClass="cmbField" runat="server"></asp:Label>
+        <td class="leftfield">
+            <asp:Label ID="lblfolio" Text="Folio:" CssClass="FieldName" runat="server"></asp:Label>
         </td>
-        <td>
+        <td class="rightfield">
             <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server">
             </asp:DropDownList>
         </td>
@@ -185,6 +185,8 @@
         <td class="rightField">
             <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
         </td>
+        </tr>
+        <tr>
         <td class="leftField">
             <asp:Label ID="lblDivType" runat="server" Text="Dividend Type" CssClass="FieldName"></asp:Label>
         </td>
@@ -198,6 +200,7 @@
             ErrorMessage="Enter " Display="Dynamic" ControlToValidate="ddlDivType" InitialValue="Select"
             ValidationGroup="btnSubmit">
         </asp:RequiredFieldValidator>
+        <td colspan="4"></td>
     </tr>
     <tr>
         <td class="leftField">
@@ -331,55 +334,7 @@
             <asp:Label ID="lblMulti" runat="server" CssClass="txtField"></asp:Label>
         </td>
     </tr>
-    <tr>
-        <td class="leftField">
-            <asp:Label ID="Label2" runat="server" Text="Redeem" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:DropDownList ID="ddlRedeem" runat="server" CssClass="cmbField">
-                <asp:ListItem>Units</asp:ListItem>
-                <asp:ListItem>Amount</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-        <td class="rightField">
-            <asp:TextBox ID="txtRedeem" runat="server" CssClass="txtField">
-            </asp:TextBox>
-        </td>
-        <td class="leftField">
-        </td>
-    </tr>
-    <tr id="trAmt" runat="server">
-        <td class="leftField">
-            <asp:Label ID="lblMultiAmt" runat="server" Text="Multiples of Amount" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:Label ID="txtMultiAmt" runat="server" CssClass="txtField"></asp:Label>
-        </td>
-        <td class="leftField">
-            <asp:Label ID="Label3" runat="server" Text="Min Amount" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:Label ID="Label4" runat="server" CssClass="txtField"></asp:Label>
-        </td>
-        <td colspan="2">
-        </td>
-    </tr>
-    <tr id="trUnits" runat="server">
-    <td class="leftField">
-            <asp:Label ID="lblMultiUnits" runat="server" Text="Multiples of Units" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:Label ID="txtMultiUnits" runat="server" CssClass="txtField"></asp:Label>
-        </td>
-        <td class="leftField">
-            <asp:Label ID="lblMinUnits" runat="server" Text="Min Amount" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightField">
-            <asp:Label ID="txtMinUnits" runat="server" CssClass="txtField"></asp:Label>
-        </td>
-        <td colspan="4">
-        </td>
-    </tr>
+   
     <tr>
         <td colspan="5">
         </td>
