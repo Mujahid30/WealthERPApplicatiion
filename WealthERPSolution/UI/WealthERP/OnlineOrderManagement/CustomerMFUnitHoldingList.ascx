@@ -104,7 +104,7 @@
                                 HeaderText="Folio" DataField="FolioNum">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridDateTimeColumn HeaderStyle-Width="100px" DataField="FolioStartDate"
+                            <telerik:GridDateTimeColumn Visible="false" HeaderStyle-Width="100px" DataField="FolioStartDate"
                                 SortExpression="FolioStartDate" AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
                                 AllowFiltering="false" HeaderText="Scheme Invst. Date" UniqueName="FolioStartDate"
                                 DataFormatString="{0:d}" HtmlEncode="False">
@@ -114,7 +114,7 @@
                                     </telerik:RadDatePicker>
                                 </FilterTemplate>
                             </telerik:GridDateTimeColumn>
-                            <telerik:GridDateTimeColumn HeaderStyle-Width="100px" DataField="InvestmentStartDate"
+                            <telerik:GridDateTimeColumn  Visible="false" HeaderStyle-Width="100px" DataField="InvestmentStartDate"
                                 SortExpression="InvestmentStartDate" AutoPostBackOnFilter="false" CurrentFilterFunction="Contains"
                                 AllowFiltering="false" HeaderText="Holding Start Date" UniqueName="InvestmentStartDate"
                                 DataFormatString="{0:d}">
@@ -139,7 +139,7 @@
                                 DataFormatString="{0:N3}" Aggregate="Sum" AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="InvestedCost" HeaderText="Invested Cost"
+                            <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="InvestedCost" HeaderText="Invested Value"
                                 DataField="InvestedCost" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
                                 Aggregate="Sum" AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
