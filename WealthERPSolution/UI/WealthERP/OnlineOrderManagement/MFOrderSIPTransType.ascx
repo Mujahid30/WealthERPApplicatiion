@@ -94,7 +94,8 @@
             <asp:LinkButton ID="lnkFactSheet" Text="Go" runat="server" CssClass="txtField"></asp:LinkButton>
         </td>
         <td class="LeftLabel">
-            <asp:TextBox ID="txtLatestNAV" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtLatestNAV" runat="server" CssClass="txtField" 
+                Enabled="False"></asp:TextBox>
         </td>
         <td>
         </td>
@@ -128,7 +129,7 @@
             <asp:Label Visible="false" ID="txtDividendFrequency" Text="Monthly" runat="server"
                 CssClass="txtField"></asp:Label>
         </td>
-      <td class="FieldName" id="tdSipDates" runat="server">
+      <td class="LeftLabel" id="tdSipDates" runat="server" align="left">
             
         </td>
     </tr>
@@ -155,7 +156,7 @@
         </td>
         <td class="leftLabel">
             <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField"  OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged">
-            <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+            <asp:ListItem Text="Select" Value="0" Selected="True"></asp:ListItem>
            <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
              <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
              <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
@@ -260,7 +261,8 @@
         <td class="leftlabel">
         </td>
         <td class="leftLabel">
-            <asp:TextBox ID="txtMultiplesThereAfter" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtMultiplesThereAfter" runat="server" CssClass="txtField" 
+                Enabled="False"></asp:TextBox>
         </td>
         <td>
         </td>
@@ -271,7 +273,8 @@
         <td class="leftlabel">
         </td>
         <td class="leftLabel">
-            <asp:Label ID="lblCutOffTime" runat="server" Text="cut off time:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-off time:" 
+                CssClass="FieldName"></asp:Label>
         </td>
         <td>
         </td>
@@ -282,7 +285,8 @@
         <td class="leftlabel">
         </td>
         <td class="leftLabel">
-            <asp:TextBox ID="txtCutOffTime" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:TextBox ID="txtCutOffTime" runat="server" CssClass="txtField" 
+                Enabled="False"></asp:TextBox>
         </td>
         <td>
         </td>

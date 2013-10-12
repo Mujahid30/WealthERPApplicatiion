@@ -63,8 +63,6 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAmc.DataBind();
                 ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
-
-
             }
         }
         private void BindModeOfHolding()

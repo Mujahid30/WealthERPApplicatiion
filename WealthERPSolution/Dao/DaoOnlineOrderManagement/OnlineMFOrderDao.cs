@@ -197,7 +197,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-                public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId )
+        public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId )
         {
             List<int> orderIds = new List<int>();
             int OrderId;
@@ -268,37 +268,37 @@ namespace DaoOnlineOrderManagement
         }
 
 
-                public DataSet GetSipDetails(int schemeId, string frequency)
-                {
-                    DataSet dsSipDetails;
-                    Database db;
-                    DbCommand cmd;
-                    try
-                    {
-                        db = DatabaseFactory.CreateDatabase("wealtherp");
-                        cmd = db.GetStoredProcCommand("SPROC_Onl_GetSipDetails");
-                        db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemeId);
-                        if (frequency != null) db.AddInParameter(cmd, "@XF_SystematicFrequencyCode", DbType.String, frequency);
-                        dsSipDetails = db.ExecuteDataSet(cmd);
+        public DataSet GetSipDetails(int schemeId, string frequency)
+        {
+            DataSet dsSipDetails;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_Onl_GetSipDetails");
+                db.AddInParameter(cmd, "@PASP_SchemePlanCode", DbType.Int32, schemeId);
+                if (frequency != null) db.AddInParameter(cmd, "@XF_SystematicFrequencyCode", DbType.String, frequency);
+                dsSipDetails = db.ExecuteDataSet(cmd);
 
-                    }
-                    catch (BaseApplicationException Ex)
-                    {
-                        throw Ex;
-                    }
-                    catch (Exception Ex)
-                    {
-                        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                        NameValueCollection FunctionInfo = new NameValueCollection();
-                        FunctionInfo.Add("Method", "OperationDao.cs:GetFolioAccount()");
-                        object[] objects = new object[10];
-                        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                        exBase.AdditionalInformation = FunctionInfo;
-                        ExceptionManager.Publish(exBase);
-                        throw exBase;
-                    }
-                    return dsSipDetails;
-                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetFolioAccount()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSipDetails;
+        }
 
     }
 }

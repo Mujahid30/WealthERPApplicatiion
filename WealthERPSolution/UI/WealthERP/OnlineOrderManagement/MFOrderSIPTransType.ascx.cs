@@ -43,6 +43,8 @@ namespace WealthERP.OnlineOrderManagement
         OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
         OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
 
+        string[] AllSipDates;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -139,14 +141,12 @@ namespace WealthERP.OnlineOrderManagement
 
         private void SaveOrderDetails()
         {
-
             onlineMFOrderVo.SchemePlanCode = int.Parse(ddlScheme.SelectedValue);
-            onlineMFOrderVo.AccountId = int.Parse(ddlFolio.SelectedValue); 
+            onlineMFOrderVo.AccountId =  string.IsNullOrEmpty(ddlFolio.SelectedValue) ? 0 : int.Parse(ddlFolio.SelectedValue); 
             onlineMFOrderVo.SystematicTypeCode = "SIP";
 
             if (!string.IsNullOrEmpty((txtStartDate.Text )))
                 onlineMFOrderVo.StartDate = DateTime.Parse(txtStartDate.Text.ToString());
-
 
             if (!string.IsNullOrEmpty((txtEndDate.Text)))            
             onlineMFOrderVo.EndDate = Convert.ToDateTime(txtEndDate.Text);
@@ -155,25 +155,39 @@ namespace WealthERP.OnlineOrderManagement
             onlineMFOrderVo.Amount = int.Parse(txtAmount.Text);
             onlineMFOrderVo.SourceCode = "";
             onlineMFOrderVo.FrequencyCode =ddlFrequency.SelectedValue;
-            onlineMFOrderVo.CustomerId =customerVo.CustomerId;
-            onlineMFOrderVo.SystematicDates ="";
+            onlineMFOrderVo.CustomerId = customerVo.CustomerId;
 
- 
+            //string DelimitedDateVals = dtGetAllSIPDataForOrder.Row
+            //string[] dates = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_StatingDates"].ToString().Split(';');
 
+            //if (tdSipDates == null) return;
+            string sipDates = "5,10,15,20,25,30";
+            //int i = 0;
+            //foreach (string date in AllSipDates)
+            //{
+            //    i++;
+            //    if (string.IsNullOrEmpty(date)) continue;
+            //    sipDates += date;
+            //    if (i < AllSipDates.Length)
+            //        sipDates += ",";
+            //}
+
+            onlineMFOrderVo.SystematicDates = sipDates;
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Order has been placed');", true);
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-
+            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(txtMinAmtReqd.Text), float.Parse(txtAmount.Text), float.Parse(txtMultiplesThereAfter.Text), DateTime.Parse(txtCutOffTime.Text));
+            if (retVal != 0) { ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return; } 
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
-            OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo,userVo.UserId );
+            OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindSIPUIONSchemeSelection();
         }
-
-
 
         protected void ddlFrequency_OnSelectedIndexChanged(object sender, EventArgs e)
         {
@@ -191,8 +205,17 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
+        }
 
+        protected void SetLatestNav()
+        {
+            DataSet ds = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
+            txtLatestNAV.Text = ds.Tables[0].Rows[0][0].ToString();
+        }
 
+        protected void SetOptionsList()
+        {
+ 
         }
 
         protected void BindSIPUIONSchemeSelection()
@@ -200,19 +223,32 @@ namespace WealthERP.OnlineOrderManagement
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
             BindFrequency();
             BindAllControlsWithSIPData();
+            SetLatestNav();
+            BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+            BindModeOfHolding();
+            LoadNominees();
             //ShowSipDates();
         }
 
         protected void BindFrequency()
         {
-            if (dtGetAllSIPDataForOrder != null)
+            ddlFrequency.Items.Clear();
+            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
             {
-                ddlFrequency.DataSource = dtGetAllSIPDataForOrder;
-                ddlFrequency.DataTextField = dtGetAllSIPDataForOrder.Columns["XF_Frequency"].ToString();
-                ddlFrequency.DataValueField = dtGetAllSIPDataForOrder.Columns["XF_FrequencyCode"].ToString();
-                ddlFrequency.DataBind();
-
+                if (row["PASP_SchemePlanCode"].ToString() == ddlScheme.SelectedValue.ToString()) {
+                    ddlFrequency.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
+                }
+ 
             }
+            //dtGetAllSIPDataForOrder.
+            //if (dtGetAllSIPDataForOrder != null)
+            //{
+            //    ddlFrequency.DataSource = dtGetAllSIPDataForOrder;
+            //    ddlFrequency.DataTextField = dtGetAllSIPDataForOrder.Columns["XF_Frequency"].ToString();
+            //    ddlFrequency.DataValueField = dtGetAllSIPDataForOrder.Columns["XF_FrequencyCode"].ToString();
+            //    ddlFrequency.DataBind();
+
+            //}
         }
 
         private void BindModeOfHolding()
@@ -228,7 +264,7 @@ namespace WealthERP.OnlineOrderManagement
 
         public void BindAllControlsWithSIPData()
         {
-            if (dtGetAllSIPDataForOrder.Rows.Count>0)
+            if (dtGetAllSIPDataForOrder.Rows.Count > 0 )
             {              
                 txtMinAmtReqd.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString();
                 txtMultiplesThereAfter.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString();
@@ -244,11 +280,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void ShowSipDates(string DelimitedDateVals)
         {
             //string DelimitedDateVals = dtGetAllSIPDataForOrder.Row
-            string[] dates = DelimitedDateVals.Split(';');
+            AllSipDates = DelimitedDateVals.Split(';');
 
             //if (tdSipDates == null) return;
             int i = 0;
-            foreach (string date in dates)
+            foreach (string date in AllSipDates)
             {
                 if(string.IsNullOrEmpty(date)) continue;
                 CheckBox chk = new CheckBox();
@@ -339,10 +375,7 @@ namespace WealthERP.OnlineOrderManagement
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
         }
-
-
     }
 }
