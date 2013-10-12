@@ -54,12 +54,16 @@ namespace WealthERP.OnlineOrderManagement
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
-            AmcBind();
-            LoadNominees();
-            BindCategory();
-            BindModeOfHolding();
 
+            if (!IsPostBack)
+            {
+                AmcBind();
+                //LoadNominees();
+                BindCategory();
+                BindModeOfHolding();
+            }
         }
+
         protected void AmcBind()
         {
             DataTable dtAmc = new DataTable();
@@ -70,13 +74,15 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
                 ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAmc.DataBind();
-
             }
+            ddlAmc.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {            
             BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
             SchemeBind(Convert.ToInt32(ddlAmc.SelectedValue), "ALL");
+            DataTable dtAmc = commonLookupBo.GetProdAmc(int.Parse(ddlAmc.SelectedValue));
+            lnkFactSheet.PostBackUrl = dtAmc.Rows[0]["PA_Url"].ToString();
         }
 
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -126,7 +132,6 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtScheme = new DataTable();
             dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
             ddlScheme.Items.Clear();
-            ddlScheme.Items.Add(new ListItem("--SELECT--", "0"));
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
@@ -134,6 +139,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
             }
+            ddlScheme.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
 
         protected void BindSIPUI()
@@ -203,7 +209,6 @@ namespace WealthERP.OnlineOrderManagement
             txtMinAmtReqd.Text = dtSipDet["PASPSD_MinAmount"].ToString();
             txtMultiplesThereAfter.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
             txtCutOffTime.Text = dtSipDet["PASPD_CutOffTime"].ToString();
-
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
@@ -228,7 +233,7 @@ namespace WealthERP.OnlineOrderManagement
             SetLatestNav();
             BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
             BindModeOfHolding();
-            LoadNominees();
+            //LoadNominees();
             //ShowSipDates();
         }
 
@@ -378,6 +383,11 @@ namespace WealthERP.OnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+        protected void lnkFactSheet_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

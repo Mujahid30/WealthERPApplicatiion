@@ -65,12 +65,14 @@
                 OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
-                CssClass="rfvPCG" ControlToValidate="ddlScheme" ValidationGroup="btnSubmit" Display="Dynamic"
+            <asp:RequiredFieldValidator ID="rfvScheme" runat="server" ErrorMessage="Please Select a scheme"
+                CssClass="rfvPCG" ControlToValidate="ddlScheme" 
+                ValidationGroup="btnSubmit" Display="Dynamic"
                 InitialValue="0"></asp:RequiredFieldValidator>
         </td>
         <td>
-        <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" ></asp:DropDownList>
+        <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" 
+                AutoPostBack="True" ></asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -91,7 +93,7 @@
             <asp:TextBox ID="txtOfferDoc" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
         <td class="LeftLabel">
-            <asp:LinkButton ID="lnkFactSheet" Text="Go" runat="server" CssClass="txtField"></asp:LinkButton>
+            <asp:LinkButton ID="lnkFactSheet" Text="Go" runat="server" CssClass="txtField" ></asp:LinkButton>
         </td>
         <td class="LeftLabel">
             <asp:TextBox ID="txtLatestNAV" runat="server" CssClass="txtField" 
@@ -153,15 +155,23 @@
         </td>
         <td class="leftlabel">
             <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
+            <span id="Span3" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator class="rfvPCG" ID="rfvAmount" runat="server" 
+                ControlToValidate="txtAmount" ErrorMessage="Please enter a valid amount">Please enter a valid amount</asp:RequiredFieldValidator>
         </td>
         <td class="leftLabel">
-            <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField"  OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged">
+            <asp:DropDownList ID="ddlFrequency" runat="server" CssClass="cmbField"  
+                OnSelectedIndexChanged="ddlFrequency_OnSelectedIndexChanged" 
+                AutoPostBack="True">
             <asp:ListItem Text="Select" Value="0" Selected="True"></asp:ListItem>
            <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
              <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
              <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
              
             </asp:DropDownList>
+            <span id="Span4" class="rfvPCG">*</span>
+            <asp:RequiredFieldValidator class="rfvPCG" ID="rfvFrequency" runat="server" 
+                ErrorMessage="Please select a frequency" ControlToValidate="ddlFrequency">Please select a frequency</asp:RequiredFieldValidator>
         </td>
         <td>
         </td>
