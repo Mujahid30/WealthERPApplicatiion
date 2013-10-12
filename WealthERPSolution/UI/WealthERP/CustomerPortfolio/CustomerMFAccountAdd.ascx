@@ -129,7 +129,7 @@
             if ($("#<%= hidValidCheck.ClientID %>").val() == '1') {
                 return Page_IsValid;
             }
-        } 
+        }
     }
     function checkDate(sender, args) {
         var selectedDate = new Date();
@@ -152,7 +152,7 @@
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForGuardian" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Add Guardian">
-    <ContentTemplate>
+    <contenttemplate>
         <div id="divForGuardian" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
             Records not found
@@ -187,12 +187,12 @@
             <asp:Button ID="btnAddMinor" runat="server" CssClass="PCGButton" Text="Associate"
                 OnClick="btnAddGuardian_Click" OnClientClick="return ShowPopup()" />
         </div>
-    </ContentTemplate>
+    </contenttemplate>
 </telerik:RadWindow>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForNominee" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Add Nominee">
-    <ContentTemplate>
+    <contenttemplate>
         <div id="DivForNominee" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
             Records not found
@@ -227,12 +227,12 @@
             <asp:Button ID="btnAddNominee" runat="server" CssClass="PCGButton" Text="Associate"
                 OnClick="btnAddNominee_Click" OnClientClick="return ShowPopup()" />
         </div>
-    </ContentTemplate>
+    </contenttemplate>
 </telerik:RadWindow>
 <telerik:RadWindow VisibleOnPageLoad="false" ID="radwindowForJointHolder" runat="server"
     Height="30%" Width="550px" Modal="true" BackColor="#DADADA" Top="10px" Left="20px"
     Behaviors="Move,resize,close" Title="Add Joint Holder">
-    <ContentTemplate>
+    <contenttemplate>
         <div id="DivForJH" style="width: 75%; text-align: center;" runat="server" class="failure-msg"
             align="center" visible="false">
             Records not found
@@ -271,7 +271,7 @@
             <asp:Button ID="btnAddJointHolder" runat="server" CssClass="PCGButton" Text="Associate"
                 OnClick="btnAddJointHolder_Click" OnClientClick="return ShowPopup()" />
         </div>
-    </ContentTemplate>
+    </contenttemplate>
 </telerik:RadWindow>
 <table width="100%" class="TableBackground">
     <tr>
@@ -283,7 +283,8 @@
                             Add MF Folio
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="lnkEdit" Visible="false"  runat="server" CssClass="LinkButtons" OnClick="lnkEdit_Click">Edit</asp:LinkButton>
+                            <asp:LinkButton ID="lnkEdit" Visible="false" runat="server" CssClass="LinkButtons"
+                                OnClick="lnkEdit_Click">Edit</asp:LinkButton>
                         </td>
                     </tr>
                 </table>
@@ -349,7 +350,7 @@
         <td class="rightField" colspan="4">
             <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
                 Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged1" />
-            <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+            <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" Checked="true" GroupName="rbtnJointHolding"
                 Text="No" AutoPostBack="true" OnCheckedChanged="rbtnNo_CheckedChanged" />
         </td>
     </tr>
@@ -368,17 +369,36 @@
     </tr>
     <tr>
         <td class="leftField">
+            <asp:Label ID="Label30" runat="server" CssClass="FieldName" Text="Is Online:"></asp:Label>
+        </td>
+        <td class="rightField" colspan="4">
+            <asp:RadioButtonList ID="rbtnlIs_online" Width="90px" runat="server" CssClass="cmbField" RepeatDirection="Horizontal">
+                <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
+                <asp:ListItem Selected="True" Text="No" Value="0"></asp:ListItem>
+            </asp:RadioButtonList>
+        </td>
+    </tr>
+    <%--<tr>
+        <td>
+            <asp:RadioButton ID="rbtnYesOnline" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYesOnline_CheckedChanged1" />
+            <asp:RadioButton ID="rbtnNoOnline" runat="server" CssClass="cmbField" Checked="true"
+                GroupName="rbtnJointHolding" Text="No" AutoPostBack="true" OnCheckedChanged="rbtnNoOnline_CheckedChanged" />
+        </td>
+    </tr>--%>
+    <tr>
+        <td class="leftField">
             <asp:Label ID="lblAccountStartingDate" runat="server" CssClass="FieldName" Text="Account Starting Date :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
             <telerik:RadDatePicker ID="txtAccountDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
         </td>
     </tr>
@@ -405,11 +425,12 @@
         <td class="rightField">
             <asp:TextBox ID="txtAssociateCode" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
-       <%-- <td class="rightField">
+        <%-- <td class="rightField">
             <asp:DropDownList ID="ddlAssociateCode" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>--%>
-        <td></td>
+        <td>
+        </td>
     </tr>
     <tr visible="false">
         <td class="leftField">
@@ -419,8 +440,8 @@
             <asp:TextBox Visible="false" ID="txtTaxStatus" runat="server" CssClass="txtField"></asp:TextBox>
         </td>
     </tr>
-    <tr>    
-      <td class="leftField">
+    <tr>
+        <td class="leftField">
             <asp:Label ID="lblddlBankList" runat="server" CssClass="FieldName" Text="Bank :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
@@ -433,7 +454,7 @@
             <asp:ImageButton ID="imgBtnRefereshBank" ImageUrl="~/Images/refresh.png" AlternateText="Refresh"
                 runat="server" ToolTip="Click here to refresh Bank List" OnClick="imgBtnRefereshBank_OnClick"
                 Height="15px" Width="25px"></asp:ImageButton>
-        </td>    
+        </td>
     </tr>
     <tr>
         <td colspan="5">
@@ -462,10 +483,10 @@
                 AutoGenerateColumns="False" PageSize="10" AllowSorting="false" AllowPaging="True"
                 ShowStatusBar="false" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
                 Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
-                <ExportSettings HideStructureColumns="true">
-                </ExportSettings>
-                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                <exportsettings hidestructurecolumns="true">
+                </exportsettings>
+                <mastertableview nodetailrecordstext="Records not found" width="100%" allowmulticolumnsorting="True"
+                    autogeneratecolumns="false" commanditemdisplay="None">
                     <Columns>
                         <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
                             DataField="MemberCustomerId" HeaderText="Name" />
@@ -476,10 +497,10 @@
                         <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
                             HeaderText="Relation" />
                     </Columns>
-                </MasterTableView>
-                <ClientSettings>
+                </mastertableview>
+                <clientsettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                </ClientSettings>
+                </clientsettings>
             </telerik:RadGrid>
         </td>
     </tr>
@@ -501,10 +522,10 @@
                 AutoGenerateColumns="False" PageSize="10" AllowSorting="false" AllowPaging="True"
                 ShowStatusBar="True" ShowFooter="false" Skin="Telerik" EnableEmbeddedSkins="false"
                 Width="500px" AllowFilteringByColumn="false" AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
-                <ExportSettings HideStructureColumns="true">
-                </ExportSettings>
-                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                <exportsettings hidestructurecolumns="true">
+                </exportsettings>
+                <mastertableview nodetailrecordstext="Records not found" width="100%" allowmulticolumnsorting="True"
+                    autogeneratecolumns="false" commanditemdisplay="None">
                     <Columns>
                         <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
                             DataField="MemberCustomerId" HeaderText="Name" />
@@ -515,10 +536,10 @@
                         <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
                             HeaderText="Relation" />
                     </Columns>
-                </MasterTableView>
-                <ClientSettings>
+                </mastertableview>
+                <clientsettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                </ClientSettings>
+                </clientsettings>
             </telerik:RadGrid>
         </td>
     </tr>
@@ -540,10 +561,10 @@
                 PageSize="10" AllowSorting="false" AllowPaging="True" ShowStatusBar="True" ShowFooter="false"
                 Skin="Telerik" EnableEmbeddedSkins="false" Width="500px" AllowFilteringByColumn="false"
                 AllowAutomaticInserts="false" ExportSettings-FileName="Nominee Details">
-                <ExportSettings HideStructureColumns="true">
-                </ExportSettings>
-                <MasterTableView NoDetailRecordsText="Records not found" Width="100%" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" CommandItemDisplay="None">
+                <exportsettings hidestructurecolumns="true">
+                </exportsettings>
+                <mastertableview nodetailrecordstext="Records not found" width="100%" allowmulticolumnsorting="True"
+                    autogeneratecolumns="false" commanditemdisplay="None">
                     <Columns>
                         <telerik:GridBoundColumn ShowFilterIcon="false" Visible="false" HeaderStyle-Width="110px"
                             DataField="MemberCustomerId" HeaderText="Name" />
@@ -554,10 +575,10 @@
                         <telerik:GridBoundColumn ShowFilterIcon="false" HeaderStyle-Width="25px" DataField="XR_Relationship"
                             HeaderText="Relation" />
                     </Columns>
-                </MasterTableView>
-                <ClientSettings>
+                </mastertableview>
+                <clientsettings>
                     <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                </ClientSettings>
+                </clientsettings>
             </telerik:RadGrid>
         </td>
     </tr>
@@ -571,7 +592,6 @@
         </td>
     </tr>
     <tr id="trbankList" runat="server">
-      
         <td class="leftField">
             <asp:Label ID="Label29" runat="server" CssClass="FieldName" Text="Bank Name On Ext. File :"></asp:Label>
         </td>
@@ -592,7 +612,8 @@
                         <asp:DropDownList ID="ddlALLBankList" runat="server" CssClass="cmbField">
                         </asp:DropDownList>
                         <asp:ImageButton ID="imgAddBankForTBC" ImageUrl="~/Images/user_add.png" runat="server"
-                            ToolTip="Click here to Update Bank" Height="15px" Width="15px" OnClick="imgAddBankForTBC_Click"></asp:ImageButton>
+                            ToolTip="Click here to Update Bank" Height="15px" Width="15px" OnClick="imgAddBankForTBC_Click">
+                        </asp:ImageButton>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label22" CssClass="FieldName" Text="Account Type :" runat="server"></asp:Label>
@@ -852,12 +873,12 @@
         <td class="rightField" style="width: 25%">
             <telerik:RadDatePicker ID="rdpDOB" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
         </td>
         <td>
@@ -907,12 +928,12 @@
         Text="Submit" OnClick="btnSubmit_Click" OnClientClick="return isValid()" ValidationGroup="btnSubmit" />
     <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
         onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerMFAccountAdd_btnUpdate', 'S');"
-        Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()"  ValidationGroup="btnSubmit" />
+        Text="Update" OnClick="btnUpdate_Click" OnClientClick="return isValid()" ValidationGroup="btnSubmit" />
 </div>
 <asp:HiddenField ID="hidValidCheck" runat="server" EnableViewState="true" />
 <asp:HiddenField ID="hdnCustomerName" runat="server" />
 <asp:HiddenField ID="hdnAssociationIdForNominee" runat="server" />
 <asp:HiddenField ID="hdnAssociationIdForGuardian" runat="server" />
 <asp:HiddenField ID="hdnAssociationIdForJointHolder" runat="server" />
-<asp:HiddenField ID="hdnIsMainPortfolio" runat="server"/>
+<asp:HiddenField ID="hdnIsMainPortfolio" runat="server" />
 <asp:HiddenField ID="hdnIsCustomerLogin" runat="server" />

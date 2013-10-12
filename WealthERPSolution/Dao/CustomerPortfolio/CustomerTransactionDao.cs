@@ -3281,6 +3281,8 @@ namespace DaoCustomerPortfolio
                     Int32.TryParse(dr["CB_CustPrimaryBankAccId"].ToString(), out bankId);
                     if (dr["CMFA_IsJointlyHeld"].ToString() != string.Empty)
                         AccountVo.IsJointHolding = int.Parse(dr["CMFA_IsJointlyHeld"].ToString());
+                    if (dr["CMFA_IsOnline"].ToString() != string.Empty)
+                        AccountVo.IsJointHolding = int.Parse(dr["CMFA_IsOnline"].ToString());
                     AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
                     AccountVo.BankId = bankId;
                     AccountVo.Name = dr["CMFA_INV_NAME"].ToString();
@@ -3380,6 +3382,7 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_FolioNum", DbType.String, AccountVo.AccountNum);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@PA_AMCCode", DbType.Int32, AccountVo.AMCCode);
                 db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_IsJointlyHeld", DbType.Int32, AccountVo.IsJointHolding);
+                db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_IsOnline", DbType.Int32, AccountVo.IsOnline);
                 if (AccountVo.AccountOpeningDate != DateTime.MinValue)
                     db.AddInParameter(updateMFFolioDetailsCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, AccountVo.AccountOpeningDate);
                 else

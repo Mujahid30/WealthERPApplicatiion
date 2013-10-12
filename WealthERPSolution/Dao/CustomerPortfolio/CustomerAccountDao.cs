@@ -408,6 +408,11 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(createCustomerMFAccountCmd, "@PAG_AssetGroupCode", DbType.String, customerAccountVo.AssetClass);
                 db.AddInParameter(createCustomerMFAccountCmd, "@PA_AMCCode", DbType.Int32, customerAccountVo.AMCCode);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_IsJointlyHeld", DbType.Int16, customerAccountVo.IsJointHolding);
+          
+
+                db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_IsOnline", DbType.Int16, customerAccountVo.IsOnline);
+                
+                
                 db.AddInParameter(createCustomerMFAccountCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerAccountVo.ModeOfHolding);
                 if (customerAccountVo.AccountOpeningDate != DateTime.MinValue)
                     db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_AccountOpeningDate", DbType.DateTime, customerAccountVo.AccountOpeningDate);
@@ -713,9 +718,13 @@ namespace DaoCustomerPortfolio
 
 
                 if (db.ExecuteNonQuery(createCustomerMFAccountCmd) > 0)
+                {
                     accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "CMFA_AccountId").ToString());
+                }
                 else
+                {
                     accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "IsFolioExist").ToString());
+                }
                 //DataSet ds = db.ExecuteDataSet(createCustomerMFAccountCmd);
             }
             catch (BaseApplicationException Ex)

@@ -232,6 +232,11 @@ namespace WealthERP.CustomerPortfolio
                 rbtnYes.Checked = true;
             else
                 rbtnNo.Checked = true;
+            if (customerAccountsVo.IsOnline == 0)
+                rbtnlIs_online.SelectedValue="0";
+               
+            else
+                rbtnlIs_online.SelectedValue = "1";
             BindModeOfHolding();
             //if (customerAccountsVo.ModeOfHoldingCode != "")
             //{
@@ -420,6 +425,14 @@ namespace WealthERP.CustomerPortfolio
             {
                 rbtnNo.Checked = true;
                 //trJoint2Header.Visible = false;
+            }
+            if (customerAccountsVo.IsOnline == 0)
+            { rbtnlIs_online.SelectedValue = "0"; 
+            }
+
+            else
+            {
+                rbtnlIs_online.SelectedValue = "1";
             }
             BindModeOfHolding();
             if (customerAccountsVo.ModeOfHoldingCode != "" && customerAccountsVo.ModeOfHoldingCode != null)
@@ -841,6 +854,10 @@ namespace WealthERP.CustomerPortfolio
 
         }
 
+        protected void rbtnNoOnline_CheckedChanged(object sender, EventArgs e)
+        { }
+        protected void rbtnYesOnline_CheckedChanged1(object sender, EventArgs e)
+        { }
         protected void rbtnYes_CheckedChanged(object sender, EventArgs e)
         {
             try
@@ -1027,6 +1044,10 @@ namespace WealthERP.CustomerPortfolio
                         customerAccountsVo.IsJointHolding = 0;
                     else
                         customerAccountsVo.IsJointHolding = 1;
+                    if (rbtnlIs_online.SelectedValue =="0")
+                        customerAccountsVo.IsOnline =0;
+                    else
+                        customerAccountsVo.IsOnline = 1;
                     if (ddlModeOfHolding.SelectedValue != "0")
                         customerAccountsVo.ModeOfHolding = ddlModeOfHolding.SelectedItem.Value.ToString();
                     if (txtAccountDate.SelectedDate.ToString() != "")
@@ -1247,6 +1268,10 @@ namespace WealthERP.CustomerPortfolio
                         newAccountVo.IsJointHolding = 0;
                     else
                         newAccountVo.IsJointHolding = 1;
+                    if (rbtnlIs_online.SelectedValue == "0")
+                        customerAccountsVo.IsOnline = 0;
+                    else
+                        customerAccountsVo.IsOnline = 1;
                     if (ddlModeOfHolding.SelectedValue != "Select Mode of Holding")
                         newAccountVo.ModeOfHolding = ddlModeOfHolding.SelectedItem.Value.ToString();
                     if (txtAccountDate.SelectedDate.ToString() != "")
