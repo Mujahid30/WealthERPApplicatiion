@@ -334,5 +334,41 @@ namespace BoCommon
 
             return dsGetAllCategoryList;
         }
+
+        public DataSet GetLatestNav(int schemePlanCode)
+        {
+            DataSet dtLatNav = new DataSet();
+            try
+            {
+                dtLatNav = daoCommonLookup.GetLatestNav(schemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[1];
+                objParams[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtLatNav;
+        }
+
+        //Returns 0 for correct & 1 if cut-off error, -1 in other error
+        //If no max val send amt as max
+        public int IsRuleCorrect(float amt, float min, float max, float multiple, DateTime cutOff)
+        {
+            if (amt < min || amt > max) return -1;
+            if (amt % multiple != 0) return -1;
+            if (cutOff.TimeOfDay > DateTime.Now.TimeOfDay) return 1;
+            return 0;
+        }
     }
 }
