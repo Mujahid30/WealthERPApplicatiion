@@ -87,7 +87,7 @@ namespace VoCustomerPortfolio
         private DateTime m_createdOn;
         private int m_AdviserAgentId;
         private string m_AssociateCode;
-
+        public int IsOnline { get; set; }
 
 
 
