@@ -171,7 +171,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), DateTime.Parse(lblCutOffTimeDisplay.Text));
+            int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), float.Parse(txtAmount.Text), float.Parse(lblMutiplesThereAfterDisplay.Text), DateTime.Parse(lblCutOffTimeDisplay.Text));
             if (retVal != 0 && retVal != 1) {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true);
                 return;
