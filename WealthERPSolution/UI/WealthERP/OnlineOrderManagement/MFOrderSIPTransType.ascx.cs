@@ -166,7 +166,7 @@ namespace WealthERP.OnlineOrderManagement
             onlineMFOrderVo.FrequencyCode = ddlFrequency.SelectedValue;
             onlineMFOrderVo.CustomerId = customerVo.CustomerId;
             onlineMFOrderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
-            onlineMFOrderVo.EndDate = DateTime.Parse(lblEndDate.Text);
+            onlineMFOrderVo.EndDate = DateTime.Parse(lblEndDateDisplay.Text);
             onlineMFOrderVo.SystematicDates = "";
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
