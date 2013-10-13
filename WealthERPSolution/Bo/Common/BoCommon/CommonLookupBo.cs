@@ -395,7 +395,7 @@ namespace BoCommon
         {
             if (amt < min || amt > max) return -1;
             if (amt % multiple != 0) return -1;
-            if (cutOff.TimeOfDay < DateTime.Now.TimeOfDay) return 1;
+            if (cutOff.TimeOfDay > DateTime.Now.TimeOfDay) return 1;
             return 0;
         }
     }
