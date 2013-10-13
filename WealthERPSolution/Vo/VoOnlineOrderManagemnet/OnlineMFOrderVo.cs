@@ -18,6 +18,8 @@ namespace VoOnlineOrderManagemnet
         public string DividendType { set; get; }
         public string TransactionType { set; get; }
         public string FrequencyCode { set; get; }
-        
+        public Double Redeemunits { set; get; }
+        public Double RedeemAmount { set; get; }
+
     }
 }

@@ -17,6 +17,7 @@ using BoOnlineOrderManagement;
 using System.Configuration;
 using VoUser;
 using VoOnlineOrderManagemnet;
+using DaoReports;
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -38,6 +39,7 @@ namespace WealthERP.OnlineOrderManagement
         DataRow drCustomerAssociates;
         int accountId;
         int OrderId;
+        DataTable dtgetfolioNo;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -48,7 +50,9 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
+                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
                 AmcBind();
+                txtRedeemTypeValue.Visible = false;
             }
 
 
@@ -68,16 +72,7 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        private void BindModeOfHolding()
-        {
-            DataTable dtModeOfHolding;
-            dtModeOfHolding = XMLBo.GetModeOfHolding(path);
-            ddlMoh.DataSource = dtModeOfHolding;
-            ddlMoh.DataTextField = "ModeOfHolding";
-            ddlMoh.DataValueField = "ModeOfHoldingCode";
-            ddlMoh.DataBind();
-            ddlMoh.Items.Insert(0, new ListItem("Select", "0"));
-        }
+
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             CategoryBind();
@@ -102,7 +97,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlScheme.SelectedIndex != -1)
             {
                 ResetControlDetails();
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue),ddlFolio.SelectedValue.ToString());
+                GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue.ToString());
                 SetControlDetails();
             }
         }
@@ -110,16 +105,16 @@ namespace WealthERP.OnlineOrderManagement
         protected void ResetControlDetails()
         {
             lblDividendType.Text = "";
-            lblMintxt.Text = "";
-            lblMulti.Text = "";
+            
+           
             lbltime.Text = "";
             lbldftext.Text = "";
-            txtAmt.Text = "";
+            
         }
-        protected void GetControlDetails(int scheme,string folio)
+        protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
-            
+
             ds = onlineMforderBo.GetControlDetails(scheme, folio);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
@@ -131,14 +126,8 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
                     }
-                    if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
-                    {
-                        lblMintxt.Text = dr["MinAmt"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
-                    {
-                        lblMulti.Text = dr["MultiAmt"].ToString();
-                    }
+                    
+                    
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
                         lbltime.Text = dr["CutOffTime"].ToString();
@@ -148,37 +137,27 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lbldftext.Text = dr["divFrequency"].ToString();
                     }
-                    if (!string.IsNullOrEmpty(dr["MinRedeemAmt"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["url"].ToString()))
                     {
-                        txtMinAmt.Text = dr["MinRedeemAmt"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(dr["MinRedeemUnit"].ToString()))
-                    {
-                        txtMinUnit.Text = dr["MinRedeemUnit"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(dr["MultiRedeemAmt"].ToString()))
-                    {
-                        txtMultiAmt.Text = dr["MultiRedeemAmt"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(dr["MultiRedeemUnit"].ToString()))
-                    {
-                        txtMultiUnit.Text = dr["MultiRedeemUnit"].ToString();
+                        lnkFactSheet.PostBackUrl = dr["url"].ToString();
                     }
                 }
             }
-            if (ds.Tables[1].Rows.Count > -1)
+            DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
+            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][0].ToString();
+            if (ds.Tables[1].Rows.Count > 0)
             {
-                foreach (DataRow dr in ds.Tables[1].Rows)
+                DataTable dtUnit = ds.Tables[1];
+                foreach (DataRow drunits in dtUnit.Rows)
                 {
-                    if (!string.IsNullOrEmpty(dr["CMFNP_NetHoldings"].ToString()))
+                    if (!string.IsNullOrEmpty(drunits["CMFNP_NetHoldings"].ToString()))
                     {
-                        lblCurrentUnitstxt.Text = dr["CMFNP_NetHoldings"].ToString();
+                        lblUnitsheldDisplay.Text = drunits["CMFNP_NetHoldings"].ToString();
                     }
-                    if (!string.IsNullOrEmpty(dr["CMFNP_CurrentValue"].ToString()))
+                    if (!string.IsNullOrEmpty(drunits["CMFNP_CurrentValue"].ToString()))
                     {
-                        lblCurrentValuetxt.Text = dr["CMFNP_CurrentValue"].ToString();
+                        lblCurrentValueDisplay.Text = drunits["CMFNP_CurrentValue"].ToString();
                     }
-
                 }
             }
 
@@ -188,10 +167,23 @@ namespace WealthERP.OnlineOrderManagement
         {
             lbltime.Visible = true;
             lblDividendType.Visible = true;
-            lblMulti.Visible = true;
-            lblMintxt.Visible = true;
+           
+            
             lblDivType.Visible = true;
+            lblCurrentValueDisplay.Visible = true;
+            lblUnitsheldDisplay.Visible = true;
+            if (lblDividendType.Text == "Growth")
+            {
+                lblDividendFrequency.Visible = false;
+                lbldftext.Visible = false;
+                lblDivType.Visible = false;
+                ddlDivType.Visible = false;
 
+            }
+            lblDividendFrequency.Visible = true;
+            lbldftext.Visible = true;
+            lblDivType.Visible = true;
+            ddlDivType.Visible = true;
         }
         protected void CategoryBind()
         {
@@ -219,15 +211,15 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
             }
+            
         }
-        private void GetNetpositionValues(int folio,int scheme)
-        { 
-        
+        private void GetNetpositionValues(int folio, int scheme)
+        {
+
         }
         private void BindFolioNumber(int amcCode)
         {
             DataTable dtScheme = new DataTable();
-            DataTable dtgetfolioNo;
             try
             {
                 dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
@@ -246,327 +238,82 @@ namespace WealthERP.OnlineOrderManagement
                 throw (Ex);
             }
         }
+        protected void ddlRedeem_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlRedeem.SelectedValue == "1")
+            {
+                lblRedeemType.Text = "Units";
+                txtRedeemTypeValue.Text = null;
+            }
+            else if (ddlRedeem.SelectedValue == "2")
+            {
+                lblRedeemType.Text = "Amounts";
+                txtRedeemTypeValue.Text = null;
+            }
+            else if (ddlRedeem.SelectedValue == "3")
+            {
+                lblRedeemType.Text = "All";
+                txtRedeemTypeValue.Text = lblUnitsheldDisplay.Text;
+            }
+            txtRedeemTypeValue.Visible = true;
+        }
+        protected void BindNomineeAndJointHolders()
+        {
+            MFReportsDao MFReportsDao = new MFReportsDao();
+            DataSet dsNomineeAndJointHolders;
+            dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedItem.ToString());
+            StringBuilder strbNominee = new StringBuilder();
+            StringBuilder strbJointHolder = new StringBuilder();
+
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
+            {
+                strbJointHolder.Append(dr["JointHolderName"].ToString() + ",");
+                strbNominee.Append(dr["JointHolderName"].ToString() + ",");
+            }
+
+            lblNomineeDisplay.Text = strbNominee.ToString();
+            lblHolderDisplay.Text = strbJointHolder.ToString();
+        }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
 
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
-            if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
-            {
-                onlinemforderVo.Amount = double.Parse(txtAmt.Text.ToString());
-            }
-            else
-                onlinemforderVo.Amount = 0.0;
+
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "Sel";
+            if (ddlRedeem.SelectedValue == "1")
+                onlinemforderVo.Redeemunits = double.Parse(txtRedeemTypeValue.Text);
+            else if (ddlRedeem.SelectedValue == "2")
+                onlinemforderVo.Amount = double.Parse(txtRedeemTypeValue.Text);
+
             float amt;
             float minAmt;
             float multiAmt;
             DateTime Dt;
 
-            if (string.IsNullOrEmpty(txtAmt.Text))
-            {
-                amt = 0;
 
-            }
-            else
-            {
-                amt = float.Parse(txtAmt.Text);
-            }
-            if (string.IsNullOrEmpty(lblMintxt.Text) && string.IsNullOrEmpty(lblMulti.Text) && string.IsNullOrEmpty(lbltime.Text))
-            {
-                minAmt = 0; multiAmt = 0; Dt = DateTime.MinValue;
-            }
-            else
-            {
+            amt = 0;
 
-                minAmt = float.Parse(lblMintxt.Text);
-                multiAmt = float.Parse(lblMulti.Text);
-                Dt = DateTime.Parse(lbltime.Text);
-            }
+
+
+            minAmt = 0;
+            multiAmt = 0;
+            Dt = DateTime.Parse(lbltime.Text);
+
             int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
             if (retVal != 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;
-            } 
+            }
 
-           
+
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
         }
-        protected void imgAddNominee_Click(object sender, EventArgs e)
-        {
-            LoadNominees();
-            radwindowForNominee.VisibleOnPageLoad = true;
-        }
-        private void LoadNominees()
-        {
-            try
-            {
 
-                dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
-                dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
-
-                dtCustomerAssociates.Columns.Add("MemberCustomerId");
-                dtCustomerAssociates.Columns.Add("AssociationId");
-                dtCustomerAssociates.Columns.Add("Name");
-                dtCustomerAssociates.Columns.Add("Relationship");
-
-                foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
-                {
-                    drCustomerAssociates = dtCustomerAssociates.NewRow();
-                    drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
-                    drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
-                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
-                    drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
-                    dtCustomerAssociates.Rows.Add(drCustomerAssociates);
-                }
-
-                if (dtCustomerAssociates.Rows.Count > 0)
-                {
-                    gvNominees.DataSource = dtCustomerAssociates;
-                    gvNominees.DataBind();
-                    gvNominees.Visible = true;
-                    Session["Nominee"] = dtCustomerAssociates;
-                    //trJoint2Header.Visible = true;
-                    //trJoint2HeaderGrid.Visible = true;
-                }
-                else
-                {
-                    //trJoint2Header.Visible = false;
-                    //trJoint2HeaderGrid.Visible = true;
-                    btnAddNominee.Visible = false;
-                    DivForNominee.Visible = true;
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerMFAccountAdd.ascx:LoadNominees()");
-                object[] objects = new object[1];
-                objects[0] = customerVo;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
-        protected void btnAddNominee_Click(object sender, EventArgs e)
-        {
-            CheckBox chkbox = new CheckBox();
-            hdnAssociationIdForNominee.Value = "";
-            DataTable dtBindTableWithSelectedNominee = new DataTable();
-            DataTable dtNominee = new DataTable();
-            if (dtNominee != null)
-                dtNominee = null;
-            dtNominee = (DataTable)Session["Nominee"];
-            string strNomineeAssnId = string.Empty;
-            customerAccountsVo.AccountId = accountId;
-            customerAccountAssociationVo.AccountId = accountId;
-            customerAccountAssociationVo.CustomerId = customerVo.CustomerId;
-            foreach (GridDataItem gvr in this.gvNominees.Items)
-            {
-                chkbox = (CheckBox)gvr.FindControl("chkId0"); // accessing the CheckBox control
-                if (chkbox.Checked == true)
-                {
-                    hdnAssociationIdForNominee.Value = gvNominees.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString();
-                    strNomineeAssnId = strNomineeAssnId + hdnAssociationIdForNominee.Value + ",";
-                }
-            }
-            if (!string.IsNullOrEmpty(strNomineeAssnId))
-            {
-                strNomineeAssnId = strNomineeAssnId.TrimEnd(',');
-                string expression;
-                expression = "AssociationId in" + "(" + strNomineeAssnId + ")";
-                DataRow[] foundRows;
-                foundRows = dtNominee.Select(expression);
-                dtBindTableWithSelectedNominee.Rows.Clear();
-                dtBindTableWithSelectedNominee.Columns.Add("MemberCustomerId");
-                dtBindTableWithSelectedNominee.Columns.Add("AssociationId");
-                dtBindTableWithSelectedNominee.Columns.Add("Name");
-                dtBindTableWithSelectedNominee.Columns.Add("XR_Relationship");
-                foreach (DataRow dr in foundRows)
-                {
-                    dr.BeginEdit();
-                    dtBindTableWithSelectedNominee.Rows.Add(dr.ItemArray);
-                    dtBindTableWithSelectedNominee.AcceptChanges();
-                }
-
-                gvNominee2.DataSource = dtBindTableWithSelectedNominee;
-                gvNominee2.DataBind();
-                gvNominee2.Visible = true;
-            }
-        }
-        private void BindAssociates(CustomerAccountsVo AccountVo)
-        {
-            DataTable dtJoinHolder = new DataTable();
-            DataTable dtJoinHolderGV = new DataTable();
-            DataTable dtGuardian = new DataTable();
-            DataTable dtNominees = new DataTable();
-            DataTable dtNomineesGV = new DataTable();
-
-            try
-            {
-                dsCustomerAssociates = customerTransactionBo.GetMFFolioAccountAssociates(AccountVo.AccountId, customerVo.CustomerId);
-                dtJoinHolder = dsCustomerAssociates.Tables[2];
-                dtNominees = dsCustomerAssociates.Tables[1];
-                dtGuardian = dsCustomerAssociates.Tables[0];
-
-                if (AccountVo.IsJointHolding == 1)
-                {
-                    //trAddJointHolder.Visible = true;
-                    gvJoint2.Visible = true;
-                    if (dtJoinHolder.Rows.Count > 0 && dtJoinHolder != null)
-                    {
-                        ViewState["JointHold"] = dtJoinHolder;
-                        gvJoint2.DataSource = dtJoinHolder;
-                        gvJoint2.DataBind();
-                        gvJoint2.Visible = true;
-                    }
-                    else
-                    {
-                    }
-                }
-
-                if (dtNominees.Rows.Count > 0 && dtJoinHolder != null)
-                {
-                    ViewState["Nominees"] = dtNominees;
-                    gvNominee2.DataSource = dtNominees;
-                    gvNominee2.DataBind();
-                    gvNominee2.Visible = true;
-                }
-
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "CustomerMFAccountAdd.ascx:BindAssociates()");
-                object[] objects = new object[1];
-                objects[0] = customerVo;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
-        protected void imgAddJointHolder_Click(object sender, EventArgs e)
-        {
-
-            dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRel(customerVo.CustomerId);
-            dtCustomerAssociatesRaw = dsCustomerAssociates.Tables[0];
-
-            dtCustomerAssociates.Columns.Add("MemberCustomerId");
-            dtCustomerAssociates.Columns.Add("AssociationId");
-            dtCustomerAssociates.Columns.Add("Name");
-            dtCustomerAssociates.Columns.Add("Relationship");
-
-            foreach (DataRow dr in dtCustomerAssociatesRaw.Rows)
-            {
-                drCustomerAssociates = dtCustomerAssociates.NewRow();
-                drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
-                drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
-                drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
-                drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
-                dtCustomerAssociates.Rows.Add(drCustomerAssociates);
-            }
-
-            if (dtCustomerAssociates.Rows.Count > 0)
-            {
-                gvJointHoldersList.DataSource = dtCustomerAssociates;
-                gvJointHoldersList.DataBind();
-                gvJointHoldersList.Visible = true;
-
-                Session["JointHolder"] = dtCustomerAssociates;
-                //trJoint2Header.Visible = true;
-                //trJoint2HeaderGrid.Visible = true;
-            }
-            else
-            {
-                //trJoint2Header.Visible = false;
-                //trJoint2HeaderGrid.Visible = true;
-                btnAddJointHolder.Visible = false;
-                DivForJH.Visible = true;
-            }
-
-
-            radwindowForJointHolder.VisibleOnPageLoad = true;
-        }
-        protected void ddlRedeem_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ddlRedeem.SelectedItem.Value == "Units")
-            {
-                trUnit.Visible = true;
-                trAmt.Visible = false;
-            }
-            else
-                trAmt.Visible = true;
-            trUnit.Visible = false;
-        }
-        protected void btnAddJointHolder_Click(object sender, EventArgs e)
-        {
-            CheckBox chkbox = new CheckBox();
-            hdnAssociationIdForJointHolder.Value = "";
-            DataTable dtBindTableWithSelectedJointHolder = new DataTable();
-            DataTable dtJointHolder = new DataTable();
-            if (dtJointHolder != null)
-                dtJointHolder = null;
-            dtJointHolder = (DataTable)Session["JointHolder"];
-            string strJointHolderAssnId = string.Empty;
-            customerAccountsVo.AccountId = accountId;
-            customerAccountAssociationVo.AccountId = accountId;
-            customerAccountAssociationVo.CustomerId = customerVo.CustomerId;
-
-            foreach (GridDataItem gvr in this.gvJointHoldersList.Items)
-            {
-                chkbox = (CheckBox)gvr.FindControl("chkId"); // accessing the CheckBox control
-                if (chkbox.Checked == true)
-                {
-                    hdnAssociationIdForJointHolder.Value = gvJointHoldersList.MasterTableView.DataKeyValues[gvr.ItemIndex]["AssociationId"].ToString();
-                    strJointHolderAssnId = strJointHolderAssnId + hdnAssociationIdForJointHolder.Value + ",";
-                }
-            }
-
-            if (!string.IsNullOrEmpty(strJointHolderAssnId))
-            {
-                strJointHolderAssnId = strJointHolderAssnId.TrimEnd(',');
-                string expression;
-                expression = "AssociationId in" + "(" + strJointHolderAssnId + ")";
-                DataRow[] foundRows;
-                foundRows = dtJointHolder.Select(expression);
-                dtBindTableWithSelectedJointHolder.Rows.Clear();
-                dtBindTableWithSelectedJointHolder.Columns.Add("MemberCustomerId");
-                dtBindTableWithSelectedJointHolder.Columns.Add("AssociationId");
-                dtBindTableWithSelectedJointHolder.Columns.Add("Name");
-                dtBindTableWithSelectedJointHolder.Columns.Add("XR_Relationship");
-                foreach (DataRow dr in foundRows)
-                {
-                    dr.BeginEdit();
-                    dtBindTableWithSelectedJointHolder.Rows.Add(dr.ItemArray);
-                    dtBindTableWithSelectedJointHolder.AcceptChanges();
-                }
-
-                gvJoint2.DataSource = dtBindTableWithSelectedJointHolder;
-                gvJoint2.DataBind();
-                gvJoint2.Visible = true;
-            }
-        }
 
 
     }

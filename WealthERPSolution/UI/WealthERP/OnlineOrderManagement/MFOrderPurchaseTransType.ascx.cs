@@ -139,6 +139,10 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lbldftext.Text = dr["divFrequency"].ToString();
                     }
+                    if (!string.IsNullOrEmpty(dr["url"].ToString()))
+                    {
+                        lnkFactSheet.PostBackUrl = dr["url"].ToString();
+                    }
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
                 lblNavDisplay.Text = dsNav.Tables[0].Rows[0][0].ToString();
@@ -151,12 +155,12 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
 
-                {
-                    
-                    ddlFolio.DataTextField = "New";
-                    ddlFolio.DataValueField = "New";
-                    ddlFolio.DataBind();
-                }
+                
+
+                ddlFolio.SelectedValue = "New";
+                ddlFolio.SelectedItem.Text = "New";
+
+
 
             }
             catch (BaseApplicationException Ex)
@@ -180,7 +184,11 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-
+        protected void lnkFactSheet_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(lnkFactSheet.PostBackUrl))
+                Response.Write(@"<script language='javascript'>alert('The URL is not valid');</script>");
+        }
         protected void CategoryBind()
         {
             DataSet dsCategory = new DataSet();

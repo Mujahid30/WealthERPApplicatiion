@@ -97,9 +97,9 @@ namespace DaoOnlineOrderManagement
                 GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetSchemeDetails");
                 db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
                 if(!string.IsNullOrEmpty(folio))
-                db.AddInParameter(GetGetControlDetailsCmd, "@folio", DbType.String, folio);
+                    db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, int.Parse(folio));
                 else
-                    db.AddInParameter(GetGetControlDetailsCmd, "@folio", DbType.String,DBNull.Value);
+                    db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, 0);
 
                 dsGetControlDetails = db.ExecuteDataSet(GetGetControlDetailsCmd);
 
@@ -139,12 +139,19 @@ namespace DaoOnlineOrderManagement
                 db.AddOutParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@CMFOD_OrderDetailsId", DbType.Int32, 10);
                 db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@TransactionType", DbType.String, onlinemforderVo.TransactionType);
                 db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@DividendType", DbType.String, onlinemforderVo.DividendType);
-                if (!string.IsNullOrEmpty(onlinemforderVo.FolioNumber))
+
+                if (!string.IsNullOrEmpty(onlinemforderVo.Redeemunits.ToString()))
                 {
-                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@folioNumer", DbType.String, onlinemforderVo.FolioNumber);
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@Redeemunits", DbType.Double, onlinemforderVo.Redeemunits);
                 }
                 else
-                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@folioNumer", DbType.String, DBNull.Value);
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@Redeemunits", DbType.Double, 0);
+                if (!string.IsNullOrEmpty(onlinemforderVo.FolioNumber))
+                {
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32, int.Parse(onlinemforderVo.FolioNumber));
+                }
+                else
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32 ,0);
 
                 if (db.ExecuteNonQuery(CreateCustomerOnlineMFOrderDetailsCmd) != 0)
                 {

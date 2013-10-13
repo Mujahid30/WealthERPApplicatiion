@@ -129,9 +129,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointHolder;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivfeq;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
-
+        
         /// <summary>
         /// lblHolder control.
         /// </summary>
@@ -158,7 +156,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNominee;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivfeq;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
+
         /// <summary>
         /// lblNominee control.
         /// </summary>
@@ -268,24 +268,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblMintxt;
         
         /// <summary>
-        /// lblMultiple control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMultiple;
-        
-        /// <summary>
-        /// lblMulti control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMulti;
-        
-        /// <summary>
         /// lblOption control.
         /// </summary>
         /// <remarks>
@@ -302,6 +284,24 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDividendType;
+        
+        /// <summary>
+        /// lblMultiple control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMultiple;
+        
+        /// <summary>
+        /// lblMulti control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMulti;
         
         /// <summary>
         /// lblDividendFrequency control.
@@ -392,32 +392,5 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkExitLoad;
-        
-        /// <summary>
-        /// lnkExitDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkExitDetails;
-        
-        /// <summary>
-        /// hdnAssociationIdForNominee control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForNominee;
-        
-        /// <summary>
-        /// hdnAssociationIdForJointHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnAssociationIdForJointHolder;
     }
 }
