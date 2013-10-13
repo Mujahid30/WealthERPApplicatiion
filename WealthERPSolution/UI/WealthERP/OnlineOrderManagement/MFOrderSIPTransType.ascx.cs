@@ -83,7 +83,7 @@ namespace WealthERP.OnlineOrderManagement
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
-            SchemeBind(Convert.ToInt32(ddlAmc.SelectedValue), "ALL");
+            SchemeBind(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
             DataTable dtAmc = commonLookupBo.GetProdAmc(int.Parse(ddlAmc.SelectedValue));
             lnkFactSheet.PostBackUrl = dtAmc.Rows[0]["PA_Url"].ToString();
         }
@@ -106,7 +106,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory.DataValueField = dsCategory.Tables[0].Columns["Category_Code"].ToString();
                     ddlCategory.DataTextField = dsCategory.Tables[0].Columns["Category_Name"].ToString();
                     ddlCategory.DataBind();
-                    ddlCategory.Items.Insert(0, new ListItem("All", "0"));
+                    ddlCategory.Items.Insert(0, new ListItem("All", "ALL"));
                 }
 
             }
@@ -132,8 +132,12 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void SchemeBind(int amccode, string category)
         {
+            if (amccode <= 0) return;
+            string paramCat = category.ToLower() == "all" ? null : category;
+
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
+
+            dtScheme = commonLookupBo.GetAmcSipSchemeList(amccode, paramCat);
             ddlScheme.Items.Clear();
             if (dtScheme.Rows.Count > 0)
             {

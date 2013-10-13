@@ -267,6 +267,41 @@ namespace DaoCommon
             return dsGetAmcSchemeList.Tables[0];
         }
 
+        //GetAmcSipSchemeList
+
+        public DataTable GetAmcSipSchemeList(int AmcCode, string Category)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsGetAmcSchemeList = null;
+            try {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetSipSchemes");
+                db.AddInParameter(cmd, "@PA_AMCCode", DbType.Int32, AmcCode);
+                if (!string.IsNullOrEmpty(Category)) db.AddInParameter(cmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, Category);
+                dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objects = new object[3];
+                objects[0] = AmcCode;
+                objects[1] = Category;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAmcSchemeList.Tables[0];
+        }
+
         public DataTable GetAmcSchemeList(int AmcCode, string Category)
         {
             Database db;
