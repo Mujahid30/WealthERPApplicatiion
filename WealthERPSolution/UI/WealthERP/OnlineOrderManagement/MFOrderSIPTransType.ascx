@@ -11,6 +11,20 @@
         padding-bottom: .5em;
     }
 </style>
+<script type="text/javascript">
+     function DeleteConfirmation() {
+        var bool = window.confirm('Are you sure you want to delete this Question?');
+
+        if (bool) {
+            document.getElementById("ctrl_RiskScore_hdnDeletemsgValue").value = 1;
+            document.getElementById("ctrl_RiskScore_hiddenDeleteQuestion").click();
+
+            return false;
+        }
+        else {
+            return false;
+        }
+</script>
 <table width="100%">
     <tr class="spaceUnder">
         <td>

@@ -160,37 +160,25 @@ namespace WealthERP.OnlineOrderManagement
             onlineMFOrderVo.SchemePlanCode = int.Parse(ddlScheme.SelectedValue);
             onlineMFOrderVo.AccountId = string.IsNullOrEmpty(ddlFolio.SelectedValue) ? 0 : int.Parse(ddlFolio.SelectedValue);
             onlineMFOrderVo.SystematicTypeCode = "SIP";
-
-
             onlineMFOrderVo.SystematicDate = 0;
             onlineMFOrderVo.Amount = int.Parse(txtAmount.Text);
             onlineMFOrderVo.SourceCode = "";
             onlineMFOrderVo.FrequencyCode = ddlFrequency.SelectedValue;
             onlineMFOrderVo.CustomerId = customerVo.CustomerId;
-
-            //string DelimitedDateVals = dtGetAllSIPDataForOrder.Row
-            //string[] dates = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_StatingDates"].ToString().Split(';');
-
-            //if (tdSipDates == null) return;
-            string sipDates = "5,10,15,20,25,30";
-            //int i = 0;
-            //foreach (string date in AllSipDates)
-            //{
-            //    i++;
-            //    if (string.IsNullOrEmpty(date)) continue;
-            //    sipDates += date;
-            //    if (i < AllSipDates.Length)
-            //        sipDates += ",";
-            //}
-
-            onlineMFOrderVo.SystematicDates = sipDates;
-
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Order has been placed');", true);
+            onlineMFOrderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
+            onlineMFOrderVo.EndDate = DateTime.Parse(lblEndDate.Text);
+            onlineMFOrderVo.SystematicDates = "";
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), DateTime.Parse(lblCutOffTimeDisplay.Text));
-            if (retVal != 0) { ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return; }
+            if (retVal != 0 && retVal != 1) {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true);
+                return;
+            }
+            if (retVal == 1) {
+                ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteConfirmation();", true);
+            }
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
             OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
@@ -275,13 +263,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStartDates()
         {
             DateTime[] dtStartdates;
-
-
             dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
 
             foreach (DateTime d in dtStartdates)
             {
-                ddlStartDate.Items.Add(new ListItem(d.ToShortDateString(), d.ToString("dd,MMM,yyyy")));
+                ddlStartDate.Items.Add(new ListItem(d.ToString("dd,MMM,yyyy"), d.ToString("dd,MMM,yyyy")));
             }
         }
 

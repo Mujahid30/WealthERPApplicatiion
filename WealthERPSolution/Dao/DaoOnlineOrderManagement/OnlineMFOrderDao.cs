@@ -246,22 +246,15 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, onlineMFOrderVo.FrequencyCode);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, DBNull.Value);
-                 db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
-                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_CreatedBy", DbType.Int32, userId);
-                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
-                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SubBrokerCode", DbType.Int32, onlineMFOrderVo.AgentCode);
+                db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SubBrokerCode", DbType.Int32, onlineMFOrderVo.AgentCode);
                 db.AddInParameter(createMFOrderTrackingCmd, "@customerId", DbType.Int32, onlineMFOrderVo.CustomerId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@systamaticDates", DbType.String, onlineMFOrderVo.SystematicDates);
-
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
-                           
-
-               
-
-
-                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
-                {
+                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0) {
                     //OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
 
                    // orderIds.Add(OrderId);
@@ -315,8 +308,3 @@ namespace DaoOnlineOrderManagement
 
     }
 }
-
-
-
-    
-
