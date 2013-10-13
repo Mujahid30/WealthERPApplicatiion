@@ -298,6 +298,7 @@ namespace WealthERP.OnlineOrderManagement
             txtMinAmtDisplay.Text = dtSipDet["PASPSD_MinAmount"].ToString();            
             lblMutiplesThereAfterDisplay.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
+            lblDividendOptionDisplay.Text = dtSipDet["PSLV_LookupValue"].ToString();
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
