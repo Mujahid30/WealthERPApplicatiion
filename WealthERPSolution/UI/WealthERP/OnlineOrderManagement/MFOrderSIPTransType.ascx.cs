@@ -193,6 +193,9 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ShowHideControlsForDivAndGrowth()
         {
+            DataView dvFilterDivNGrowth = new DataView(dtGetAllSIPDataForOrder, "PASP_SchemePlanCode='" + ddlScheme.SelectedValue + "'", "PSLV_LookupValueCodeForSchemeOption", DataViewRowState.CurrentRows);
+
+            dtGetAllSIPDataForOrder = dvFilterDivNGrowth.ToTable();
             if (dtGetAllSIPDataForOrder.Rows[0]["PSLV_LookupValueCodeForSchemeOption"].ToString() == "DV")
             {
                 trDividendType.Visible = true;
@@ -215,7 +218,7 @@ namespace WealthERP.OnlineOrderManagement
             StringBuilder strbNominee = new StringBuilder();
             StringBuilder strbJointHolder = new StringBuilder();
 
-            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[2].Rows)
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
             {
                 strbJointHolder.Append(dr["JointHolderName"].ToString()+",");
                 strbNominee.Append(dr["JointHolderName"].ToString() + ",");
