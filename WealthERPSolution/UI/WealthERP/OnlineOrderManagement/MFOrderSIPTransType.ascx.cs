@@ -285,10 +285,34 @@ namespace WealthERP.OnlineOrderManagement
         {
         }
 
+        protected string FormatFloat(float num)
+        {
+            string strFloat = "0.00";
+            try
+            {
+                strFloat = num.ToString("0.00");
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return strFloat;
+        }
+
         protected void SetLatestNav()
         {
+            float latNav = 0;
+
             DataSet ds = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-            lblNavDisplay.Text = ds.Tables[0].Rows[0][0].ToString();
+            try
+            {
+                latNav = float.Parse(ds.Tables[0].Rows[0][0].ToString());
+            }
+            catch (Exception ex)
+            {
+ 
+            }
+            lblNavDisplay.Text = FormatFloat(latNav);
         }
 
         protected void SetOptionsList()
@@ -339,8 +363,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (dtGetAllSIPDataForOrder.Rows.Count > 0)
             {
-                lblMinAmountrequiredDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString();
-                lblMutiplesThereAfterDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString();
+                lblMinAmountrequiredDisplay.Text = FormatFloat(float.Parse(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString()));
+                lblMutiplesThereAfterDisplay.Text = FormatFloat(float.Parse(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString()));
                 lblCutOffTimeDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPD_CutOffTime"].ToString();
                 BindFrequency();
                 ddlFrequency.SelectedValue = dtGetAllSIPDataForOrder.Rows[0]["XF_FrequencyCode"].ToString();
