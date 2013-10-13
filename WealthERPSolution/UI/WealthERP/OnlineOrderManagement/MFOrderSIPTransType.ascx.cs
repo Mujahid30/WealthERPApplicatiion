@@ -193,7 +193,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindSIPUIONSchemeSelection();
-            GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
+            //GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
             BindStartDates();
             BindddlTotalInstallments();
         }
@@ -202,11 +202,11 @@ namespace WealthERP.OnlineOrderManagement
         {
             MFReportsDao MFReportsDao=new MFReportsDao(); 
             DataSet dsNomineeAndJointHolders;
-            dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedValue);
+            dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedItem.ToString());
             StringBuilder strbNominee = new StringBuilder();
             StringBuilder strbJointHolder = new StringBuilder();
 
-            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[3].Rows)
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[2].Rows)
             {
                 strbJointHolder.Append(dr["JointHolderName"].ToString()+",");
                 strbNominee.Append(dr["JointHolderName"].ToString() + ",");
@@ -219,7 +219,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
 
-            ds = boOnlineOrder.GetControlDetails(scheme, folio);
+            ds = boOnlineOrder.GetControlDetails(scheme, ddlFolio.SelectedValue);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
             {
@@ -475,7 +475,18 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindNomineeAndJointHolders();
+            if (ddlFolio.SelectedItem.ToString() != "New")
+            {
+                BindNomineeAndJointHolders();
+                GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
+                trNominee.Visible = true;
+                trJointHolder.Visible = true;
+            }
+            else
+            {
+                trNominee.Visible = false;
+                trJointHolder.Visible = false;
+            }
         }
     }
 }

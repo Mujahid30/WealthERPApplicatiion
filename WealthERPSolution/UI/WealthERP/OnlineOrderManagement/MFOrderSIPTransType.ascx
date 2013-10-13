@@ -6,18 +6,17 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <style>
-tr.spaceUnder > td
-{
-  padding-bottom: .5em;
-}
+    tr.spaceUnder > td
+    {
+        padding-bottom: .5em;
+    }
 </style>
-
 <table width="100%">
-    <tr   class="spaceUnder">
+    <tr class="spaceUnder">
         <td>
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr   class="spaceUnder">
+                    <tr class="spaceUnder">
                         <td align="left">
                             SIP
                         </td>
@@ -29,9 +28,10 @@ tr.spaceUnder > td
 </table>
 <div style="float: left;">
     <table>
-        <tr  class="spaceUnder">
-        <td></td>
-            <td align="right" style="vertical-align:top;">
+        <tr class="spaceUnder">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
@@ -50,8 +50,10 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
-            <td align="right" style="vertical-align:top;">
+        <tr class="spaceUnder">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
@@ -69,8 +71,10 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
-            <td align="right" style="vertical-align:top;">
+        <tr class="spaceUnder">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
@@ -87,12 +91,15 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblFolioNumber" runat="server" Text="Folio Number:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="True">
+                <asp:DropDownList OnSelectedIndexChanged="ddlFolio_SelectedIndexChanged" ID="ddlFolio"
+                    CssClass="cmbField" runat="server" AutoPostBack="True">
                 </asp:DropDownList>
             </td>
             <td>
@@ -100,7 +107,9 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr id="trNominee" runat="server" class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblHolder" runat="server" Text="Holder:" CssClass="FieldName"></asp:Label>
             </td>
@@ -112,7 +121,9 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr id="trJointHolder" runat="server" class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
             </td>
@@ -124,7 +135,9 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblNav" runat="server" Text="Latest Nav:" CssClass="FieldName"></asp:Label>
             </td>
@@ -136,19 +149,23 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-off time:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                 <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
             </td>
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblUnitHeld" runat="server" Text="Unit Held:" CssClass="FieldName"></asp:Label>
             </td>
@@ -160,8 +177,10 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
-            <td align="right" style="vertical-align:top;">
+        <tr class="spaceUnder">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblFrequency" runat="server" Text="SIP Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
@@ -172,8 +191,7 @@ tr.spaceUnder > td
                     <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
                     <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
                 </asp:DropDownList>
-                <span id="Span4" class="spnRequiredField">*</span>
-                </br>
+                <span id="Span4" class="spnRequiredField">*</span> </br>
                 <asp:RequiredFieldValidator class="rfvPCG" ID="rfvFrequency" runat="server" ErrorMessage="Please select a frequency"
                     ControlToValidate="ddlFrequency">Please select a frequency</asp:RequiredFieldValidator>
             </td>
@@ -182,7 +200,9 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="Label3" runat="server" Text="Start Dt:" CssClass="FieldName"></asp:Label>
             </td>
@@ -195,14 +215,15 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblTotalInstallments" runat="server" Text="TotalInstallments:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" 
-                    AutoPostBack="True" 
-                    onselectedindexchanged="ddlTotalInstallments_SelectedIndexChanged">
+                <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" AutoPostBack="True"
+                    OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
             <td>
@@ -212,7 +233,9 @@ tr.spaceUnder > td
                 <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
                 <asp:Label ID="lblEndDate" runat="server" Text="End Dt:" CssClass="FieldName"></asp:Label>
             </td>
@@ -223,15 +246,16 @@ tr.spaceUnder > td
             </td>
             <td>
             </td>
-        </tr>        
-        <tr   class="spaceUnder"><td></td>
-            <td align="right" style="vertical-align:top;">
-                <asp:Label ID="lblAmount" runat="server" Text="Amount" CssClass="FieldName"></asp:Label>
+        </tr>
+        <tr class="spaceUnder">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
+                <asp:Label ID="lblAmount" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
-                <span id="Span3" class="spnRequiredField">*</span>
-                </br>
+                <span id="Span3" class="spnRequiredField">*</span> </br>
                 <asp:RequiredFieldValidator class="rfvPCG" ID="rfvAmount" runat="server" ControlToValidate="txtAmount"
                     ErrorMessage="Please enter a valid amount">Please enter a valid amount</asp:RequiredFieldValidator>
             </td>
@@ -242,27 +266,30 @@ tr.spaceUnder > td
                 <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
-                <asp:Label ID="lblDividendType" runat="server" Text="DividendType:"
-                    CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendType" runat="server" Text="DividendType:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-            <asp:Label ID="lblDividendTypeDisplay" runat="server" 
-                    CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendTypeDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
             </td>
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
-                <asp:Label  ID="lblDividendFreq" runat="server" Text="Dividend Frequency:"
-                    CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-             <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
                 </asp:DropDownList>
             </td>
             <td>
@@ -270,24 +297,25 @@ tr.spaceUnder > td
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder"><td></td>
+        <tr class="spaceUnder">
+            <td>
+            </td>
             <td align="right">
-                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:"
-                    CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-             <asp:Label ID="lblDividendOptionDisplay" runat="server"  
-                    CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendOptionDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
             </td>
             <td>
             </td>
         </tr>
-        <tr   class="spaceUnder">
-            <td style="width:150px;">
+        <tr class="spaceUnder">
+            <td style="width: 150px;">
             </td>
-            <td> <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="FieldName" OnClick="btnSubmit_Click">
+            <td>
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="FieldName" OnClick="btnSubmit_Click">
                 </asp:Button>
             </td>
             <td>
@@ -297,30 +325,29 @@ tr.spaceUnder > td
         </tr>
     </table>
 </div>
-<div >
-    <table style="border-style:solid;border-width:2px;border-color:Blue">
-        <tr   class="spaceUnder">
+<div>
+    <table style="border-style: solid; border-width: 2px; border-color: Blue">
+        <tr class="spaceUnder">
             <td>
-                <asp:Label ID="lblUsefulLinks" runat="server" Text="Quick Links:"
-                    CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblUsefulLinks" runat="server" Text="Quick Links:" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
-        <tr   class="spaceUnder">
+        <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" Text="Offer Doc" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
-        <tr   class="spaceUnder">
+        <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkFactSheet" Text="Fact Sheet" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
-        <tr   class="spaceUnder">
+        <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" runat="server" Text="Exit Load" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
-        <tr   class="spaceUnder">
+        <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitDetails" Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
