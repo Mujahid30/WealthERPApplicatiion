@@ -153,7 +153,7 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblNav" runat="server" Text="Last Recorderd NAV(Rs):" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblNav" runat="server" Text="Last Recorded NAV(Rs):" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -295,6 +295,23 @@
             <td>
             </td>
         </tr>
+        <tr id="trDividendOption" runat="server" class="spaceUnder">
+            <td>
+            </td>
+            <td align="right">
+                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td> <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                </asp:DropDownList>
+                
+            </td>
+            <td align="right">
+            </td>
+            <td>
+            </td>
+        </tr>
         <tr id="trDividendFrequency" runat="server" class="spaceUnder">
             <td>
             </td>
@@ -302,30 +319,14 @@
                 <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
-                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
-                </asp:DropDownList>
+               <asp:Label ID="lblDividendOptionDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
             </td>
             <td>
             </td>
         </tr>
-        <tr id="trDividendOption" runat="server" class="spaceUnder">
-            <td>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:Label ID="lblDividendOptionDisplay" runat="server" CssClass="FieldName"></asp:Label>
-            </td>
-            <td align="right">
-            </td>
-            <td>
-            </td>
-        </tr>
+        
         <tr class="spaceUnder">
             <td style="width: 150px;">
             </td>
