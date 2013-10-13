@@ -4665,7 +4665,14 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.FinancialFlag = int.Parse(dr["WMTT_FinancialFlag"].ToString());
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
-                        mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());                       
+                        mfTransactionVo.DivReinvestmen = dr["CMFOD_DividendOption"].ToString();
+                        mfTransactionVo.Divfrequency = dr["DivFrequency"].ToString();
+                        mfTransactionVo.orderNo = int.Parse(dr["Co_OrderId"].ToString());
+                        mfTransactionVo.channel = dr["Channel"].ToString();
+                        mfTransactionVo.latestNav = float.Parse(dr["NAV"].ToString());
+                        mfTransactionVo.TrxnNo = (dr["CMFT_TransactionNumber"].ToString());
+                        mfTransactionVo.OrdDate = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
+                        mfTransactionVo.CreatedOn = DateTime.Parse(dr["CO_OrderDate"].ToString());                       
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
                             mfTransactionVo.EUIN = dr["CMFT_EUIN"].ToString();

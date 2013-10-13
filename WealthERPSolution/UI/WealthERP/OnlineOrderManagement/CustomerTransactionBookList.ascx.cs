@@ -141,7 +141,7 @@ namespace WealthERP.OnlineOrderManagement
                    
                     DataTable dtMFTransactions = new DataTable();
                     dtMFTransactions.Columns.Add("TransactionId");
-                    dtMFTransactions.Columns.Add("Customer Name");
+                    dtMFTransactions.Columns.Add("Customer Name");                   
                     dtMFTransactions.Columns.Add("Folio Number");
                     dtMFTransactions.Columns.Add("Scheme Name");
                     dtMFTransactions.Columns.Add("Transaction Type");
@@ -160,7 +160,14 @@ namespace WealthERP.OnlineOrderManagement
                     dtMFTransactions.Columns.Add("CreatedOn");
                     dtMFTransactions.Columns.Add("CMFT_ExternalBrokerageAmount", typeof(double));
                     dtMFTransactions.Columns.Add("CMFT_Area");
-                    dtMFTransactions.Columns.Add("CMFT_EUIN");
+                    dtMFTransactions.Columns.Add("CMFT_EUIN"); 
+                    dtMFTransactions.Columns.Add("CurrentNAV");
+                    dtMFTransactions.Columns.Add("DivReinvestment");
+                    dtMFTransactions.Columns.Add("DivFrequency");
+                    dtMFTransactions.Columns.Add("Channel");
+                    dtMFTransactions.Columns.Add("OrderNo");
+                    dtMFTransactions.Columns.Add("TransactionNumber");
+                    dtMFTransactions.Columns.Add("CO_OrderDate", typeof(DateTime));
                     
                     
 
@@ -177,23 +184,14 @@ namespace WealthERP.OnlineOrderManagement
                         drMFTransaction[4] = mfTransactionVo.TransactionType.ToString();
                         drMFTransaction[5] = mfTransactionVo.TransactionDate.ToShortDateString().ToString();
                         drMFTransaction[6] = decimal.Parse(mfTransactionVo.Price.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        
-                     
-                            //drMFTransaction[6] = decimal.Parse(mfTransactionVo.Price.ToString());
-                      
+                       
                         drMFTransaction[7] = mfTransactionVo.Units.ToString("f4");
                         totalUnits = totalUnits + mfTransactionVo.Units;
                         drMFTransaction[8] = decimal.Parse(mfTransactionVo.Amount.ToString()).ToString("n2", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        //else
-                        //{
-                        //    drMFTransaction[8] = decimal.Parse(mfTransactionVo.Amount.ToString());
-                        //}
+                       
                         totalAmount = totalAmount + mfTransactionVo.Amount;
                         drMFTransaction[9] = decimal.Parse(mfTransactionVo.STT.ToString()).ToString("n4", System.Globalization.CultureInfo.CreateSpecificCulture("hi-IN"));
-                        //else
-                        //{
-                        //    drMFTransaction[9] = decimal.Parse(mfTransactionVo.STT.ToString());
-                        //}
+                       
                         drMFTransaction[10] = mfTransactionVo.PortfolioName.ToString();
                         drMFTransaction[11] = mfTransactionVo.TransactionStatus.ToString();
                         drMFTransaction[12] = mfTransactionVo.Category;
@@ -209,6 +207,13 @@ namespace WealthERP.OnlineOrderManagement
                         drMFTransaction[18] = decimal.Parse(mfTransactionVo.BrokerageAmount.ToString());
                         drMFTransaction["CMFT_Area"] = mfTransactionVo.Area.ToString();
                         drMFTransaction["CMFT_EUIN"] = mfTransactionVo.EUIN.ToString();                       
+                        drMFTransaction["DivReinvestment"] = mfTransactionVo.DivReinvestmen.ToString(); ;
+                        drMFTransaction["DivFrequency"] = mfTransactionVo.Divfrequency.ToString(); ;
+                        drMFTransaction["Channel"] = mfTransactionVo.channel.ToString();                        
+                        drMFTransaction["OrderNo"] = mfTransactionVo.orderNo;
+                        drMFTransaction["CurrentNav"] = mfTransactionVo.latestNav;
+                        drMFTransaction["TransactionNumber"] = mfTransactionVo.TrxnNo.ToString();
+                        drMFTransaction["CO_OrderDate"] = DateTime.Parse(mfTransactionVo.OrdDate.ToString());
 
                         dtMFTransactions.Rows.Add(drMFTransaction);
                     }                   
