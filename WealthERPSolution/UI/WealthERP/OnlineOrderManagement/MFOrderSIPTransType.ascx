@@ -277,8 +277,8 @@
             <td style="vertical-align:top;">
                 <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
             </td>
-            <td style="vertical-align:top;"><asp:TextBox ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false" runat="server"></asp:TextBox>
-                <asp:Label style="display:none;" ID="lblMinAmountrequiredDisplay"  runat="server" CssClass="FieldName"></asp:Label>
+            <td style="vertical-align:top;"><asp:TextBox style="display:none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false" runat="server"></asp:TextBox>
+                <asp:Label  ID="lblMinAmountrequiredDisplay"  runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr style="display:none;" id="trDividendType" runat="server" class="spaceUnder">

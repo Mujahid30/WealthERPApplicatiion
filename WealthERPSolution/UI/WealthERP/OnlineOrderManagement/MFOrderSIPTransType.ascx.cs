@@ -267,7 +267,7 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DateTime d in dtStartdates)
             {
-                ddlStartDate.Items.Add(new ListItem(d.ToString("dd,MMM,yyyy"), d.ToString("dd,MMM,yyyy")));
+                ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy"), d.ToString("dd-MMM-yyyy")));
             }
         }
 
@@ -285,6 +285,7 @@ namespace WealthERP.OnlineOrderManagement
             lblMutiplesThereAfterDisplay.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
             lblDividendOptionDisplay.Text = dtSipDet["PSLV_LookupValue"].ToString();
+            lblUnitHeldDisplay.Text = "0.00";
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
