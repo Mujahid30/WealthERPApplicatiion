@@ -315,7 +315,7 @@
             <td style="width: 150px;">
             </td>
             <td>
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="FieldName" OnClick="btnSubmit_Click">
+                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click">
                 </asp:Button>
             </td>
             <td>
@@ -334,22 +334,22 @@
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkOfferDoc" Text="Offer Doc" runat="server" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false"  Text="Offer Doc" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkFactSheet" Text="Fact Sheet" runat="server" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkFactSheet" CausesValidation="false" Text="Fact Sheet" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkExitLoad" runat="server" Text="Exit Load" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkExitDetails" Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkExitDetails"  Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
     </table>

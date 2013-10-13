@@ -466,6 +466,7 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (string s in strSplit)
             {
+                if(string.IsNullOrEmpty(s.Trim())) continue;
                 ddlTotalInstallments.Items.Add(new ListItem (s.ToString()));
             }
         }
