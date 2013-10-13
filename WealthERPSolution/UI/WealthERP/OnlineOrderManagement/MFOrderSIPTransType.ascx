@@ -139,7 +139,7 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblNav" runat="server" Text="Latest Nav:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblNav" runat="server" Text="Last Recorderd NAV(Rs):" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -204,7 +204,7 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="Label3" runat="server" Text="Start Dt:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text="Start Date:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddlStartDate" CssClass="cmbField" runat="server" AutoPostBack="True">
@@ -227,24 +227,24 @@
                 </asp:DropDownList>
             </td>
             <td>
-                <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Mutiples There After:"></asp:Label>
+                
             </td>
             <td>
-                <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                
             </td>
         </tr>
         <tr class="spaceUnder">
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblEndDate" runat="server" Text="End Dt:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblEndDate" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td><asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
             </td>
-            <td>
+            <td><asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -257,16 +257,17 @@
                 <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span> </br>
                 <asp:RequiredFieldValidator class="rfvPCG" ID="rfvAmount" runat="server" ControlToValidate="txtAmount"
-                    ErrorMessage="Please enter a valid amount">Please enter a valid amount</asp:RequiredFieldValidator>
+                    ErrorMessage="Please enter a valid amount">Please enter a valid amount</asp:RequiredFieldValidator></br>
+                   
             </td>
-            <td>
-                <asp:Label ID="lblMinAmountrequired" runat="server" Text="Min Amount required:" CssClass="FieldName"></asp:Label>
+            <td style="vertical-align:top;">
+                <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
-                <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="FieldName"></asp:Label>
+            <td style="vertical-align:top;"><asp:TextBox ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false" runat="server"></asp:TextBox>
+                <asp:Label style="display:none;" ID="lblMinAmountrequiredDisplay"  runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
-        <tr class="spaceUnder">
+        <tr style="display:none;" id="trDividendType" runat="server" class="spaceUnder">
             <td>
             </td>
             <td align="right">
@@ -275,12 +276,12 @@
             <td>
                 <asp:Label ID="lblDividendTypeDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             </td>
             <td>
             </td>
         </tr>
-        <tr class="spaceUnder">
+        <tr id="trDividendFrequency" runat="server" class="spaceUnder">
             <td>
             </td>
             <td align="right">
@@ -297,7 +298,7 @@
             <td>
             </td>
         </tr>
-        <tr class="spaceUnder">
+        <tr id="trDividendOption" runat="server" class="spaceUnder">
             <td>
             </td>
             <td align="right">
@@ -306,7 +307,7 @@
             <td>
                 <asp:Label ID="lblDividendOptionDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td>
+            <td align="right">
             </td>
             <td>
             </td>
@@ -347,7 +348,7 @@
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
-        <tr class="spaceUnder">
+        <tr style="display:none;" class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitDetails"  Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>

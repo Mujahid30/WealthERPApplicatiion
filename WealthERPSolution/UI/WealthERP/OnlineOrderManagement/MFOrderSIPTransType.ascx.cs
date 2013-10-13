@@ -86,6 +86,7 @@ namespace WealthERP.OnlineOrderManagement
             SchemeBind(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
             DataTable dtAmc = commonLookupBo.GetProdAmc(int.Parse(ddlAmc.SelectedValue));
             lnkFactSheet.PostBackUrl = dtAmc.Rows[0]["PA_Url"].ToString();
+            //BindNomineeAndJointHolders();
         }
 
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
@@ -197,9 +198,25 @@ namespace WealthERP.OnlineOrderManagement
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindSIPUIONSchemeSelection();
-            //GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
             BindStartDates();
             BindddlTotalInstallments();
+            ShowHideControlsForDivAndGrowth();
+        }
+
+        protected void ShowHideControlsForDivAndGrowth()
+        {
+            if (dtGetAllSIPDataForOrder.Rows[0]["PSLV_LookupValueCodeForSchemeOption"].ToString() == "DV")
+            {
+                trDividendType.Visible = true;
+                trDividendFrequency.Visible = true;
+                trDividendOption.Visible = true;
+            }
+            else
+            {
+                trDividendType.Visible = false;
+                trDividendFrequency.Visible = false;
+                trDividendOption.Visible = false;
+            }
         }
 
         protected void BindNomineeAndJointHolders()
@@ -236,7 +253,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
                     {
-                        lblMinAmountrequiredDisplay.Text = dr["MinAmt"].ToString();
+                        txtMinAmtDisplay.Text = dr["MinAmt"].ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
                     {
@@ -278,6 +295,7 @@ namespace WealthERP.OnlineOrderManagement
             if (dsSipDetails == null) return;
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
             lblMinAmountrequiredDisplay.Text = dtSipDet["PASPSD_MinAmount"].ToString();
+            txtMinAmtDisplay.Text = dtSipDet["PASPSD_MinAmount"].ToString();            
             lblMutiplesThereAfterDisplay.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
         }
@@ -363,8 +381,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (dtGetAllSIPDataForOrder.Rows.Count > 0)
             {
-                lblMinAmountrequiredDisplay.Text = FormatFloat(float.Parse(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString()));
-                lblMutiplesThereAfterDisplay.Text = FormatFloat(float.Parse(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString()));
+                txtMinAmtDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString();
+                lblMutiplesThereAfterDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString();
                 lblCutOffTimeDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPD_CutOffTime"].ToString();
                 BindFrequency();
                 ddlFrequency.SelectedValue = dtGetAllSIPDataForOrder.Rows[0]["XF_FrequencyCode"].ToString();
@@ -394,6 +412,7 @@ namespace WealthERP.OnlineOrderManagement
 
         private void BindFolioNumber(int amcCode)
         {
+            ddlFolio.Items.Clear();
             DataTable dtScheme = new DataTable();
             DataTable dtgetfolioNo;
             try
