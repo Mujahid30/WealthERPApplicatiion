@@ -242,7 +242,7 @@
                                     DataFormatString="{0:n3}" Aggregate="Sum">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" DataField="CurrentNav" HeaderText="Current NAV"
+                                <telerik:GridBoundColumn visible ="false" DataField="CurrentNav" HeaderText="Current NAV"
                                     AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CurrentNav" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CurrentNav"
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n3}">
