@@ -158,7 +158,7 @@ namespace WealthERP.OnlineOrderManagement
         private void SaveOrderDetails()
         {
             onlineMFOrderVo.SchemePlanCode = int.Parse(ddlScheme.SelectedValue);
-            onlineMFOrderVo.AccountId = string.IsNullOrEmpty(ddlFolio.SelectedValue) ? 0 : int.Parse(ddlFolio.SelectedValue);
+            onlineMFOrderVo.AccountId = Convert.ToInt32(ddlFolio.SelectedValue);
             onlineMFOrderVo.SystematicTypeCode = "SIP";
             onlineMFOrderVo.SystematicDate = 0;
             onlineMFOrderVo.Amount = int.Parse(txtAmount.Text);
@@ -287,7 +287,6 @@ namespace WealthERP.OnlineOrderManagement
             txtMinAmtDisplay.Text = dtSipDet["PASPSD_MinAmount"].ToString();            
             lblMutiplesThereAfterDisplay.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
-            lblDividendOptionDisplay.Text = dtSipDet["PSLV_LookupValue"].ToString();
             lblUnitHeldDisplay.Text = "0.00";
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
@@ -321,7 +320,9 @@ namespace WealthERP.OnlineOrderManagement
             {
  
             }
-            lblNavDisplay.Text = FormatFloat(latNav);
+            lblNavDisplay.Text =ds.Tables[0].Rows[0][1]+ "As On " + ds.Tables[0].Rows[0][0].ToString() ;
+
+            //lblNavDisplay.Text = FormatFloat(latNav);// +' ' + dtGetAllSIPDataForOrder.Rows[0]["PSP_Date"].ToString();
         }
 
         protected void SetOptionsList()
@@ -331,10 +332,10 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindSIPUIONSchemeSelection()
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
-            BindFrequency();
-            BindAllControlsWithSIPData();
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));            
             SetLatestNav();
+            BindFrequency();
+            BindAllControlsWithSIPData();            
             BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
             BindModeOfHolding();
             //LoadNominees();

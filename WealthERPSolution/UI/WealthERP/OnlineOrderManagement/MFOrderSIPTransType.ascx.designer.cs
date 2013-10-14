@@ -311,22 +311,22 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblEndDateDisplay;
         
         /// <summary>
-        /// lblMutiplesThereAfter control.
+        /// lblMinAmountrequired control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMutiplesThereAfter;
+        protected global::System.Web.UI.WebControls.Label lblMinAmountrequired;
         
         /// <summary>
-        /// lblMutiplesThereAfterDisplay control.
+        /// lblMinAmountrequiredDisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMutiplesThereAfterDisplay;
+        protected global::System.Web.UI.WebControls.Label lblMinAmountrequiredDisplay;
         
         /// <summary>
         /// lblAmount control.
@@ -356,13 +356,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAmount;
         
         /// <summary>
-        /// lblMinAmountrequired control.
+        /// lblMutiplesThereAfter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMinAmountrequired;
+        protected global::System.Web.UI.WebControls.Label lblMutiplesThereAfter;
         
         /// <summary>
         /// txtMinAmtDisplay control.
@@ -374,13 +374,13 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.TextBox txtMinAmtDisplay;
         
         /// <summary>
-        /// lblMinAmountrequiredDisplay control.
+        /// lblMutiplesThereAfterDisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMinAmountrequiredDisplay;
+        protected global::System.Web.UI.WebControls.Label lblMutiplesThereAfterDisplay;
         
         /// <summary>
         /// trDividendType control.
@@ -410,33 +410,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblDividendTypeDisplay;
         
         /// <summary>
-        /// trDividendOption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDividendOption;
-        
-        /// <summary>
-        /// lblDividendOption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDividendOption;
-        
-        /// <summary>
-        /// ddlDividendFreq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDividendFreq;
-        
-        /// <summary>
         /// trDividendFrequency control.
         /// </summary>
         /// <remarks>
@@ -455,13 +428,40 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblDividendFreq;
         
         /// <summary>
-        /// lblDividendOptionDisplay control.
+        /// ddlDividendFreq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDividendOptionDisplay;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDividendFreq;
+        
+        /// <summary>
+        /// trDividendOption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDividendOption;
+        
+        /// <summary>
+        /// lblDividendOption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDividendOption;
+        
+        /// <summary>
+        /// ddlDividendOption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlDividendOption;
         
         /// <summary>
         /// btnSubmit control.

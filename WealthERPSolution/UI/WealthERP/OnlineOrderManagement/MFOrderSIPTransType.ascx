@@ -256,9 +256,11 @@
             <td>
                 <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td><asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
+            <td>
+             <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
             </td>
-            <td><asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
+            <td>
+            <asp:Label  ID="lblMinAmountrequiredDisplay"  runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -275,10 +277,11 @@
                    
             </td>
             <td style="vertical-align:top;">
-                <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
+               
+            <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
             </td>
             <td style="vertical-align:top;"><asp:TextBox style="display:none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false" runat="server"></asp:TextBox>
-                <asp:Label  ID="lblMinAmountrequiredDisplay"  runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr style="display:none;" id="trDividendType" runat="server" class="spaceUnder">
@@ -295,37 +298,41 @@
             <td>
             </td>
         </tr>
-        <tr id="trDividendOption" runat="server" class="spaceUnder">
-            <td>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td> <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
-                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
-                </asp:DropDownList>
-                
-            </td>
-            <td align="right">
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr id="trDividendFrequency" runat="server" class="spaceUnder">
+        <tr visible="false" id="trDividendFrequency" runat="server" class="spaceUnder">
             <td>
             </td>
             <td align="right">
                 <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-               <asp:Label ID="lblDividendOptionDisplay" runat="server" CssClass="FieldName"></asp:Label>
+               <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                </asp:DropDownList>
             </td>
             <td>
             </td>
             <td>
             </td>
         </tr>
+        <tr visible="false" id="trDividendOption" runat="server" class="spaceUnder">
+            <td>
+            </td>
+            <td align="right">
+                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td> 
+                <asp:DropDownList ID="ddlDividendOption" CssClass="cmbField" runat="server" AutoPostBack="True">
+                    <asp:ListItem Text="Quaterly" Value="QTR"></asp:ListItem>
+                    <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td align="right">
+            </td>
+            <td>
+            </td>
+        </tr>
+        
         
         <tr class="spaceUnder">
             <td style="width: 150px;">
