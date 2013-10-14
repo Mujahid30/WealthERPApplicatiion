@@ -15,6 +15,7 @@ namespace VoUser
         private string m_OriginalPassword;
         private string m_Password;
         private string m_PwdSaltValue;
+        public string  AccountId { get; set; } 
         private string m_FirstName;
         private string m_MiddleName;
         private string m_LastName;

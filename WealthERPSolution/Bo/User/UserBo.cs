@@ -9,6 +9,7 @@ using VoUser;
 using System.Data;
 using System.Collections;
 
+
 namespace BoUser
 {
     public class UserBo
@@ -20,6 +21,7 @@ namespace BoUser
             try
             {
                 userId = userDao.CreateUser(userVo);
+                 
             }
             catch (BaseApplicationException Ex)
             {
@@ -810,6 +812,7 @@ namespace BoUser
             try
             {
                 bResult = userDao.DeletefromPermision(userId);
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -862,6 +865,35 @@ namespace BoUser
                 throw exBase;
             }
             return ds;
+        }
+
+        public UserVo GetUserAccountDetails(string userAccountId)
+        {
+            UserDao userDao = new UserDao();
+            UserVo userVo;
+            try
+            {
+                userVo = userDao.GetUserAccountDetails(userAccountId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection functionInfo = new NameValueCollection();
+                functionInfo.Add("Method", "UserBo.cs:GetUserAccountUserId(string userAccountId)");
+                object[] objects = new object[1];
+                objects[0] = userAccountId;
+                functionInfo = exBase.AddObject(functionInfo, objects);
+                exBase.AdditionalInformation = functionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return userVo;
+
         }
     }
 }

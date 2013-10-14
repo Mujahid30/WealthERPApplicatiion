@@ -267,6 +267,7 @@ namespace DaoUser
             return bResult;
 
         }
+
         public bool ValidateUser(string username, string password)
         {
 
@@ -1449,6 +1450,75 @@ namespace DaoUser
             }
             return getLoginDs;
 
+        }
+
+        public UserVo GetUserAccountDetails(string userAccountId)
+        {
+            Database db;
+            DbCommand getUserAccountDetailsCmd;
+            UserVo userVo = new UserVo();
+            DataSet getUserDs;
+            DataRow dr;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getUserAccountDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_GetUserAccountDetails");
+                db.AddInParameter(getUserAccountDetailsCmd, "@UserAccountId", DbType.String, userAccountId);
+                getUserDs=db.ExecuteDataSet(getUserAccountDetailsCmd);
+
+                if (getUserDs.Tables[0].Rows.Count > 0)
+                {
+                    userVo = new UserVo();
+                    dr = getUserDs.Tables[0].Rows[0];
+
+                    userVo.UserId = int.Parse(dr["U_UserId"].ToString());
+                    userVo.Password = dr["U_Password"].ToString();
+                    userVo.MiddleName = dr["U_MiddleName"].ToString();
+                    userVo.LastName = dr["U_LastName"].ToString();
+                    userVo.FirstName = dr["U_FirstName"].ToString();
+                    userVo.Email = dr["U_Email"].ToString();
+                    userVo.UserType = dr["U_UserType"].ToString();
+                    userVo.LoginId = dr["U_LoginId"].ToString();
+                    if (dr["U_IsTempPassword"].ToString() != "")
+                        userVo.IsTempPassword = int.Parse(dr["U_IsTempPassword"].ToString());
+                    if (dr["U_Theme"].ToString() != "")
+                        userVo.theme = dr["U_Theme"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["RoleList"].ToString()))
+                        userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
+
+                    if (!string.IsNullOrEmpty(dr["PermissionList"].ToString()))
+                        userVo.PermisionList = dr["PermissionList"].ToString().Split(new char[] { ',' });
+                    if (!string.IsNullOrEmpty(dr["U_PwdSaltValue"].ToString()))
+                        userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString().Trim();
+                }
+                else
+                    userVo = null;
+               
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", " GetUserAccountDetails(string userAccountId)");
+
+                object[] objects = new object[1];
+                objects[0] = userAccountId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return userVo;
+ 
         }
 
 
