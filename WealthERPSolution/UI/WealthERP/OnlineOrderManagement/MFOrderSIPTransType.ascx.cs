@@ -82,6 +82,12 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+            //Reset dependent controls
+            ddlFolio.SelectedIndex = 0;
+            ddlScheme.SelectedIndex = 0;
+
+            if (ddlAmc.SelectedIndex == 0) return;
+
             BindFolioNumber(Convert.ToInt32(ddlAmc.SelectedValue));
             SchemeBind(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
             DataTable dtAmc = commonLookupBo.GetProdAmc(int.Parse(ddlAmc.SelectedValue));
@@ -89,8 +95,12 @@ namespace WealthERP.OnlineOrderManagement
             //BindNomineeAndJointHolders();
         }
 
-        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e) {
+            //Reset dependent controls
+            ddlScheme.SelectedIndex = 0;
+
+            if (ddlCategory.SelectedIndex == 0) return;
+
             SchemeBind(Convert.ToInt32(ddlAmc.SelectedValue), ddlCategory.SelectedValue);
         }
 
@@ -101,15 +111,15 @@ namespace WealthERP.OnlineOrderManagement
                 DataSet dsCategory = new DataSet();
                 dsCategory = commonLookupBo.GetAllCategoryList();
 
-                if (dsCategory.Tables[0].Rows.Count > 0)
-                {
+                if (dsCategory.Tables[0].Rows.Count > 0) {
                     ddlCategory.DataSource = dsCategory.Tables[0];
                     ddlCategory.DataValueField = dsCategory.Tables[0].Columns["Category_Code"].ToString();
                     ddlCategory.DataTextField = dsCategory.Tables[0].Columns["Category_Name"].ToString();
                     ddlCategory.DataBind();
-                    ddlCategory.Items.Insert(0, new ListItem("All", "ALL"));
                 }
-
+                ddlCategory.Items.Insert(0, new ListItem("All", "ALL"));
+                ddlCategory.Items.Insert(0, new ListItem("--SELECT--", "--SELECT--"));
+                ddlCategory.SelectedIndex = 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -119,11 +129,8 @@ namespace WealthERP.OnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-
                 FunctionInfo.Add("Method", "MFManualSingleTran.ascx:BindBranchDropDown()");
-
                 object[] objects = new object[3];
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -148,11 +155,11 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataBind();
             }
             ddlScheme.Items.Insert(0, new ListItem("--SELECT--", "0"));
+            ddlScheme.SelectedIndex = 0;
         }
 
-        protected void BindSIPUI()
+        protected void BindSIPUI() 
         {
-
         }
 
         private void SaveOrderDetails()
@@ -171,6 +178,11 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            if (!Page.IsValid) {
+                divValidationError.Visible = true;
+                return; 
+            }
+            
             int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), float.Parse(txtAmount.Text), float.Parse(lblMutiplesThereAfterDisplay.Text), DateTime.Parse(lblCutOffTimeDisplay.Text));
             if (retVal != 0 && retVal != 1) {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true);
@@ -188,7 +200,12 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSIPUIONSchemeSelection();
+            //Reset dependent controls
+            ddlFrequency.SelectedIndex = 0;
+
+            if (ddlScheme.SelectedIndex == 0) return;
+
+            BindSipUiOnSchemeSelection();
             BindStartDates();
             BindddlTotalInstallments();
             ShowHideControlsForDivAndGrowth();
@@ -215,15 +232,15 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindNomineeAndJointHolders()
         {
+
             MFReportsDao MFReportsDao=new MFReportsDao(); 
             DataSet dsNomineeAndJointHolders;
             dsNomineeAndJointHolders = MFReportsDao.GetARNNoAndJointHoldings(customerVo.CustomerId, 0, ddlFolio.SelectedItem.ToString());
             StringBuilder strbNominee = new StringBuilder();
             StringBuilder strbJointHolder = new StringBuilder();
 
-            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
-            {
-                strbJointHolder.Append(dr["JointHolderName"].ToString()+",");
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows) {
+                strbJointHolder.Append(dr["JointHolderName"].ToString() + ",");
                 strbNominee.Append(dr["JointHolderName"].ToString() + ",");
             }
 
@@ -279,14 +296,20 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlFrequency_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            BindSIPDetailsONFrequencySelection(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
+            //Reset dpendent controls
+            ddlStartDate.SelectedIndex = 0;
+            ddlTotalInstallments.SelectedIndex = 0;
+
+            if (ddlFrequency.SelectedIndex == 0) return;
+
+            BindSipDetailsOnFrequencySelection(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
         }
-        protected void BindSIPDetailsONFrequencySelection(string schemeId, string freq)
+        protected void BindSipDetailsOnFrequencySelection(string schemeId, string freq)
         {
             DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
 
-
             if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count==0) return;
+            
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
             lblMinAmountrequiredDisplay.Text =Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MinAmount"].ToString()),2).ToString();
             txtMinAmtDisplay.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MinAmount"].ToString()),2).ToString();
@@ -320,16 +343,13 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
                 latNav = float.Parse(ds.Tables[0].Rows[0][0].ToString());
+                string strDateForNAV = Convert.ToDateTime(ds.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                lblNavDisplay.Text = ds.Tables[0].Rows[0][1] + " " + "As On " + strDateForNAV;
             }
             catch (Exception ex)
             {
  
             }
-
-            string strDateForNAV =Convert.ToDateTime(ds.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-            lblNavDisplay.Text = ds.Tables[0].Rows[0][1] +" "+ "As On " + strDateForNAV;
-
-            //lblNavDisplay.Text = FormatFloat(latNav);// +' ' + dtGetAllSIPDataForOrder.Rows[0]["PSP_Date"].ToString();
         }
 
         protected void SetOptionsList()
@@ -337,16 +357,13 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void BindSIPUIONSchemeSelection()
-        {
+        protected void BindSipUiOnSchemeSelection() {
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));            
             SetLatestNav();
             BindFrequency();
-            BindAllControlsWithSIPData();            
+            BindAllControlsWithSipData();            
             BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
             BindModeOfHolding();
-            //LoadNominees();
-            //ShowSipDates();
         }
 
         protected void BindFrequency()
@@ -360,16 +377,8 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
             }
-            ddlFrequency.Items.Insert(0, new ListItem("--SELECT--", "0"));
-            //dtGetAllSIPDataForOrder.
-            //if (dtGetAllSIPDataForOrder != null)
-            //{
-            //    ddlFrequency.DataSource = dtGetAllSIPDataForOrder;
-            //    ddlFrequency.DataTextField = dtGetAllSIPDataForOrder.Columns["XF_Frequency"].ToString();
-            //    ddlFrequency.DataValueField = dtGetAllSIPDataForOrder.Columns["XF_FrequencyCode"].ToString();
-            //    ddlFrequency.DataBind();
-
-            //}
+            ddlFrequency.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlFrequency.SelectedIndex = 0;
         }
 
         private void BindModeOfHolding()
@@ -377,7 +386,7 @@ namespace WealthERP.OnlineOrderManagement
         }
 
 
-        public void BindAllControlsWithSIPData()
+        public void BindAllControlsWithSipData()
         {
             if (dtGetAllSIPDataForOrder.Rows.Count > 0)
             {
@@ -426,8 +435,9 @@ namespace WealthERP.OnlineOrderManagement
                     ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolio.DataBind();
                 }
-                ddlFolio.Items.Insert(0, new ListItem("Select", "0"));
+                ddlFolio.Items.Insert(0, new ListItem("--SELECT--", "--SELECT--"));
                 ddlFolio.Items.Insert(1, new ListItem("New", "1"));
+                ddlFolio.SelectedIndex = 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -524,6 +534,8 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ddlFolio.SelectedIndex < 1) return;
+
             if (ddlFolio.SelectedItem.ToString() != "New")
             {
                 BindNomineeAndJointHolders();
@@ -536,6 +548,12 @@ namespace WealthERP.OnlineOrderManagement
                 trNominee.Visible = false;
                 trJointHolder.Visible = false;
             }
+        }
+
+        protected void ddlStartDate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Reset dependent controls
+            ddlTotalInstallments.SelectedIndex = 0;
         }
     }
 }
