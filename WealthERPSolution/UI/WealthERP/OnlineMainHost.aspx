@@ -65,7 +65,6 @@
 </script>
 
 <%--<link href="../App_Themes/Blue/StyleSheet.css" rel="stylesheet" type="text/css" />--%>
-
 <style type="text/css">
     #topframe
     {
@@ -101,22 +100,7 @@
         vertical-align: middle;
         margin: 2px;
     }
-    .divSectionHeading
-    {
-        -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        -webkit-box-shadow: 3px 3px 3px #DDD;
-      
-        background-color: #C5D8E5;
-        color: #16518A;
-        font-weight: bold;
-        font-size: small;
-        height: 20px;
-        vertical-align: middle;
-        padding-left: 15px;
-        border: 0px;
-        padding-top: 2px;
-    }
+   
     .fltlft
     {
         float: left;
@@ -132,10 +116,10 @@
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
-        <table width="100%" >
+        <table width="100%">
             <tr id="trMFOrderMenu" runat="server">
                 <td>
-                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    <div class="OnlineProductMenu" style="vertical-align:middle">
                         <table width="100%">
                             <tr>
                                 <td>

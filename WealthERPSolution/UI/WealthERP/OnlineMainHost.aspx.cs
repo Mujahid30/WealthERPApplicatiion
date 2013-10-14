@@ -42,8 +42,8 @@ namespace WealthERP
         Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            Page.Theme = "Blue";
-            Session["Theme"] = "Blue";
+            Page.Theme = "SBIOnLine";
+            Session["Theme"] = "SBIOnLine";
         }
 
         protected void Page_Init(object sender, EventArgs e)

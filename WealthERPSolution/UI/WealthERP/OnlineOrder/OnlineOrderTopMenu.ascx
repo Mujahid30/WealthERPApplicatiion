@@ -6,7 +6,7 @@
     
     <tr id="trMFOrderMenuTransactTab" runat="server" visible="false">
         <td>
-            <telerik:RadTabStrip ID="RTSMFOrderMenuTransact" runat="server" Skin="Telerik" MultiPageID="RMPMFOrderMenuTransact"
+            <telerik:RadTabStrip ID="RTSMFOrderMenuTransact" runat="server" EnableTheming="True" Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
                 SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
                 <Tabs>
                     <telerik:RadTab runat="server" Text="New Purchase" Value="RTSMFOrderMenuTransactNewPurchase"
