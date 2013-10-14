@@ -217,8 +217,7 @@
                     AutoPostBack="True">
                     <asp:ListItem Text="--SELECT--" Value="0" Selected="True"></asp:ListItem>
                     <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
-                    <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
-                    <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
+                   
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvFrequency" runat="server" ErrorMessage="Please Select Frequency"
                     CssClass="rfvPCG" ControlToValidate="ddlFrequency" Display="Dynamic"
@@ -367,7 +366,7 @@
             <td style="width: 150px;">
             </td>
             <td>
-                <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server" Text="Submit"
+                <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server"
                     CssClass="PCGButton" OnClick="btnSubmit_Click"></asp:Button>
             </td>
             <td>
@@ -399,7 +398,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                    CssClass="txtField"></asp:LinkButton>
+                    CssClass="txtField" onclick="lnkExitLoad_Click"></asp:LinkButton>
             </td>
         </tr>
         <tr style="display: none;" class="spaceUnder">
