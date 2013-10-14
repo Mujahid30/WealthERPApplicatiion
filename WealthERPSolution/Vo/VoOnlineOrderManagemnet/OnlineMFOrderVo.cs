@@ -21,6 +21,8 @@ namespace VoOnlineOrderManagemnet
         public Double Redeemunits { set; get; }
         public Double RedeemAmount { set; get; }
         public string Action { set; get; }
-
+        public string DivFrequencyCode { set; get; }
+        public string DivFrequencyName { set; get; }
+        public string DivOption { set; get; }
     }
 }
