@@ -345,11 +345,11 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Books" Value="Books">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="OrderBook" Value="OrderBook">
+                                                    <telerik:RadPanelItem runat="server" Text="Order Book" Value="OrderBook">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="TransactionBook" Value="TransactionBook">
+                                                    <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIPBook" Value="SIPBook">
+                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
