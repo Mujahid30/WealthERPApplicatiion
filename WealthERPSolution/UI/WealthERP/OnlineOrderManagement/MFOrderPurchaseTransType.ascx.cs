@@ -48,8 +48,8 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 AmcBind();
-                trJointHolder.Visible = true;
-                trNominee.Visible = true;
+                trJointHolder.Visible = false;
+                trNominee.Visible = false;
 
             }
 

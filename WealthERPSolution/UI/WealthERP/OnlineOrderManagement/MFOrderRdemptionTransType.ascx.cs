@@ -180,10 +180,13 @@ namespace WealthERP.OnlineOrderManagement
                 ddlDivType.Visible = false;
 
             }
-            lblDividendFrequency.Visible = true;
-            lbldftext.Visible = true;
-            lblDivType.Visible = true;
-            ddlDivType.Visible = true;
+            else
+            {
+                lblDividendFrequency.Visible = true;
+                lbldftext.Visible = true;
+                lblDivType.Visible = true;
+                ddlDivType.Visible = true;
+            }
         }
         protected void CategoryBind()
         {

@@ -221,11 +221,9 @@
                     <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
                     <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
                 </asp:DropDownList>
+            
             </td>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Enter " Display="Dynamic" ControlToValidate="ddlDivType" InitialValue="Select"
-                ValidationGroup="btnSubmit">
-            </asp:RequiredFieldValidator>
+           
             <td colspan="2">
             </td>
         </tr>

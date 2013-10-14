@@ -166,7 +166,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
             lblNavDisplay.Text = dsNav.Tables[0].Rows[0][0].ToString();
-            if (ds.Tables[1].Rows.Count > 1)
+            if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
                 foreach (DataRow drunits in dtUnit.Rows)
@@ -197,7 +197,13 @@ namespace WealthERP.OnlineOrderManagement
                 ddlDivType.Visible = false;
 
             }
-
+            else
+            {
+                lblDividendFrequency.Visible = true;
+                lbldftext.Visible = true;
+                lblDivType.Visible = true;
+                ddlDivType.Visible = true;
+            }
 
         }
         protected void CategoryBind()
