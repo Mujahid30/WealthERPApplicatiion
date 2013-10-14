@@ -80,6 +80,7 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         private void BindFolioAccount()
         {
+            ddlAccount.Items.Clear();
             DataSet dsFolioAccount;
             DataTable dtFolioAccount;
             dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
