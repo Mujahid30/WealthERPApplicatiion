@@ -20,7 +20,7 @@ namespace VoOnlineOrderManagemnet
         public string FrequencyCode { set; get; }
         public Double Redeemunits { set; get; }
         public Double RedeemAmount { set; get; }
-        public string strAction { set; get; }
+        public string Action { set; get; }
 
     }
 }
