@@ -11,6 +11,7 @@
         padding-bottom: .5em;
     }
 </style>
+
 <script type="text/javascript">
      function DeleteConfirmation() {
         var bool = window.confirm('Are you sure you want to delete this Question?');
@@ -25,6 +26,7 @@
             return false;
         }
 </script>
+
 <table width="100%">
     <tr class="spaceUnder">
         <td>
@@ -40,6 +42,13 @@
         </td>
     </tr>
 </table>
+</br>
+<table width="100%"><tr align="center"><td align="center">
+<div id="divOrderCompletionDetails" runat="server" class="success-msg" align="center"
+    visible="false">
+</div>
+</td></tr></table>
+</br>
 <div style="float: left;">
     <table>
         <tr class="spaceUnder">
@@ -115,6 +124,10 @@
                 <asp:DropDownList OnSelectedIndexChanged="ddlFolio_SelectedIndexChanged" ID="ddlFolio"
                     CssClass="cmbField" runat="server" AutoPostBack="True">
                 </asp:DropDownList>
+                <span id="Span5" class="spnRequiredField">*</span> </br>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Folio"
+                    CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"
+                    InitialValue="0"></asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -206,8 +219,9 @@
                     <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span> </br>
-                <asp:RequiredFieldValidator class="rfvPCG" ID="rfvFrequency" runat="server" ErrorMessage="Please select a frequency"
-                    ControlToValidate="ddlFrequency">Please select a frequency</asp:RequiredFieldValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Frequency"
+                    CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"
+                    InitialValue="0"></asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -241,10 +255,8 @@
                 </asp:DropDownList>
             </td>
             <td>
-                
             </td>
             <td>
-                
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -257,10 +269,11 @@
                 <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-             <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:"
+                    CssClass="FieldName"></asp:Label>
             </td>
             <td>
-            <asp:Label  ID="lblMinAmountrequiredDisplay"  runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -274,17 +287,17 @@
                 <span id="Span3" class="spnRequiredField">*</span> </br>
                 <asp:RequiredFieldValidator class="rfvPCG" ID="rfvAmount" runat="server" ControlToValidate="txtAmount"
                     ErrorMessage="Please enter a valid amount">Please enter a valid amount</asp:RequiredFieldValidator></br>
-                   
             </td>
-            <td style="vertical-align:top;">
-               
-            <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
+            <td style="vertical-align: top;" align="right">
+                <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
             </td>
-            <td style="vertical-align:top;"><asp:TextBox style="display:none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false" runat="server"></asp:TextBox>
+            <td style="vertical-align: top;">
+                <asp:TextBox Style="display: none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false"
+                    runat="server"></asp:TextBox>
                 <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
-        <tr style="display:none;" id="trDividendType" runat="server" class="spaceUnder">
+        <tr style="display: none;" id="trDividendType" runat="server" class="spaceUnder">
             <td>
             </td>
             <td align="right">
@@ -305,7 +318,7 @@
                 <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-               <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
                     <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                     <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
                 </asp:DropDownList>
@@ -321,7 +334,7 @@
             <td align="right">
                 <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
             </td>
-            <td> 
+            <td>
                 <asp:DropDownList ID="ddlDividendOption" CssClass="cmbField" runat="server" AutoPostBack="True">
                     <asp:ListItem Text="Quaterly" Value="QTR"></asp:ListItem>
                     <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
@@ -332,14 +345,12 @@
             <td>
             </td>
         </tr>
-        
-        
         <tr class="spaceUnder">
             <td style="width: 150px;">
             </td>
             <td>
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnSubmit_Click">
-                </asp:Button>
+                <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server" Text="Submit"
+                    CssClass="PCGButton" OnClick="btnSubmit_Click"></asp:Button>
             </td>
             <td>
             </td>
@@ -357,22 +368,25 @@
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false"  Text="Offer Doc" runat="server" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkFactSheet" CausesValidation="false" Text="Fact Sheet" runat="server" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkFactSheet" CausesValidation="false" Text="Fact Sheet" runat="server"
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
-        <tr style="display:none;" class="spaceUnder">
+        <tr style="display: none;" class="spaceUnder">
             <td>
-                <asp:LinkButton ID="lnkExitDetails"  Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
+                <asp:LinkButton ID="lnkExitDetails" Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
     </table>

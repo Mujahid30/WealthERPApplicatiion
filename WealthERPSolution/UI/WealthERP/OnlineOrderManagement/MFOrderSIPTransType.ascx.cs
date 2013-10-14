@@ -182,6 +182,9 @@ namespace WealthERP.OnlineOrderManagement
             List<int> OrderIds = new List<int>();
             SaveOrderDetails();
             OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+
+            divOrderCompletionDetails.InnerHtml = "Order Submitted Successfully";
+            divOrderCompletionDetails.Visible = true;
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -281,11 +284,13 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindSIPDetailsONFrequencySelection(string schemeId, string freq)
         {
             DataSet dsSipDetails = boOnlineOrder.GetSipDetails(int.Parse(schemeId), freq);
-            if (dsSipDetails == null) return;
+
+
+            if (dsSipDetails == null || dsSipDetails.Tables[0].Rows.Count==0) return;
             DataRow dtSipDet = dsSipDetails.Tables[0].Rows[0];
-            lblMinAmountrequiredDisplay.Text = dtSipDet["PASPSD_MinAmount"].ToString();
-            txtMinAmtDisplay.Text = dtSipDet["PASPSD_MinAmount"].ToString();            
-            lblMutiplesThereAfterDisplay.Text = dtSipDet["PASPSD_MultipleAmount"].ToString();
+            lblMinAmountrequiredDisplay.Text =Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MinAmount"].ToString()),2).ToString();
+            txtMinAmtDisplay.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MinAmount"].ToString()),2).ToString();
+            lblMutiplesThereAfterDisplay.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MultipleAmount"].ToString()),2).ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
             lblUnitHeldDisplay.Text = "0.00";
         }
@@ -320,7 +325,9 @@ namespace WealthERP.OnlineOrderManagement
             {
  
             }
-            lblNavDisplay.Text =ds.Tables[0].Rows[0][1]+ "As On " + ds.Tables[0].Rows[0][0].ToString() ;
+
+            string strDateForNAV =Convert.ToDateTime(ds.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+            lblNavDisplay.Text = ds.Tables[0].Rows[0][1] +" "+ "As On " + strDateForNAV;
 
             //lblNavDisplay.Text = FormatFloat(latNav);// +' ' + dtGetAllSIPDataForOrder.Rows[0]["PSP_Date"].ToString();
         }
@@ -353,6 +360,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
             }
+            ddlFrequency.Items.Insert(0, new ListItem("--SELECT--", "0"));
             //dtGetAllSIPDataForOrder.
             //if (dtGetAllSIPDataForOrder != null)
             //{
@@ -373,8 +381,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (dtGetAllSIPDataForOrder.Rows.Count > 0)
             {
-                txtMinAmtDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString();
-                lblMutiplesThereAfterDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString();
+                txtMinAmtDisplay.Text = Math.Round(Convert.ToDecimal(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinAmount"].ToString()),2).ToString();
+                lblMutiplesThereAfterDisplay.Text = Math.Round(Convert.ToDecimal(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MultipleAmount"].ToString()),2).ToString();
                 lblCutOffTimeDisplay.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPD_CutOffTime"].ToString();
                 BindFrequency();
                 ddlFrequency.SelectedValue = dtGetAllSIPDataForOrder.Rows[0]["XF_FrequencyCode"].ToString();
@@ -504,6 +512,7 @@ namespace WealthERP.OnlineOrderManagement
                 if(string.IsNullOrEmpty(s.Trim())) continue;
                 ddlTotalInstallments.Items.Add(new ListItem (s.ToString()));
             }
+            ddlTotalInstallments.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
 
         protected void ddlTotalInstallments_SelectedIndexChanged(object sender, EventArgs e)
