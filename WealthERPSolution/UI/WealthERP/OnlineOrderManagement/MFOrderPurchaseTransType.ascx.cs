@@ -50,7 +50,8 @@ namespace WealthERP.OnlineOrderManagement
                 AmcBind();
                 trJointHolder.Visible = false;
                 trNominee.Visible = false;
-
+                lblOption.Visible = false;
+                lblDividendType.Visible = false;
             }
 
 
@@ -145,7 +146,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][0].ToString();
+                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + dsNav.Tables[0].Rows[0][0].ToString();
             }
 
         }
@@ -171,15 +172,26 @@ namespace WealthERP.OnlineOrderManagement
         protected void SetControlDetails()
         {
             lbltime.Visible = true;
-            lblDividendType.Visible = true;
+            //lblDividendType.Visible = true;
             lblMulti.Visible = true;
             lblMintxt.Visible = true;
             lblDivType.Visible = true;
 
-            if (lblDividendType.Text == "growth")
+            if (lblDividendType.Text == "Growth")
             {
-                trDivfeq.Visible = false;
-                trDivtype.Visible = false;
+                lblDividendFrequency.Visible = false;
+                lbldftext.Visible = false;
+                lblDivType.Visible = false;
+                ddlDivType.Visible = false;
+                RequiredFieldValidator4.Enabled = false;
+            }
+            else
+            {
+                lblDividendFrequency.Visible = true;
+                lbldftext.Visible = true;
+                lblDivType.Visible = true;
+                ddlDivType.Visible = true;
+                RequiredFieldValidator4.Enabled = true;
             }
 
 

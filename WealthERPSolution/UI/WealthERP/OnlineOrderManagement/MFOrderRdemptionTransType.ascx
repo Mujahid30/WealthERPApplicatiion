@@ -99,7 +99,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblHolder" runat="server" Text="Holder:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblHolderDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -123,7 +123,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs)::" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -147,7 +147,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblUnitsheld" runat="server" Text="Units Held" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblUnitsheld" runat="server" Text="Units Held:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -159,7 +159,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblCurrentValue" runat="server" Text="Current Value Of Holdings" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCurrentValue" runat="server" Text="Current Value Of Holdings:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblCurrentValueDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -189,10 +189,28 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblDividendType" runat="server" CssClass="FieldName"></asp:Label>
+            </td>
+            <td colspan="2">
+            </td>
+        </tr>
+        <tr class="spaceUnder" id="trDivtype">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
+                <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
+                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
+                    ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                    InitialValue="0" ValidationGroup="btnSubmit">
+                </asp:RequiredFieldValidator>
             </td>
             <td colspan="2">
             </td>
@@ -209,32 +227,15 @@
             <td colspan="2">
             </td>
         </tr>
-        <tr class="spaceUnder" id="trDivtype">
-            <td>
-            </td>
-            <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
-                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
-                </asp:DropDownList>
-            
-            </td>
-           
-            <td colspan="2">
-            </td>
-        </tr>
         <tr class="spaceUnder">
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblRedeem" runat="server" Text="Redeem" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblRedeem" runat="server" Text="Redeem:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlRedeem" runat="server" AutoPostBack="true" CssClass="cmbField" OnSelectedIndexChanged="ddlRedeem_OnSelectedIndexChanged">
+                <asp:DropDownList ID="ddlRedeem" runat="server" AutoPostBack="true" CssClass="cmbField"
+                    OnSelectedIndexChanged="ddlRedeem_OnSelectedIndexChanged">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                     <asp:ListItem Text="Units" Value="1"></asp:ListItem>
                     <asp:ListItem Text="Amounts" Value="2"></asp:ListItem>
@@ -246,10 +247,22 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblRedeemType" runat="server"  CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblRedeemType" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtRedeemTypeValue" runat="server"  CssClass="FieldName"></asp:TextBox>
+                <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName"></asp:TextBox>
+            </td>
+            <td colspan="2">
+            </td>
+        </tr>
+        <tr class="spaceUnder">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
+                <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
             </td>
             <td colspan="2">
             </td>

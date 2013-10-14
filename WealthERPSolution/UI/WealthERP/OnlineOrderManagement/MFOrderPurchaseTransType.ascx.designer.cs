@@ -156,9 +156,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNominee;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivfeq;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
-
+        
         /// <summary>
         /// lblNominee control.
         /// </summary>
@@ -212,6 +210,24 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbltime;
+        
+        /// <summary>
+        /// lblMultiple control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMultiple;
+        
+        /// <summary>
+        /// lblMulti control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMulti;
         
         /// <summary>
         /// lblAmt control.
@@ -268,40 +284,31 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lblMintxt;
         
         /// <summary>
-        /// lblOption control.
+        /// lblDivType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOption;
+        protected global::System.Web.UI.WebControls.Label lblDivType;
         
         /// <summary>
-        /// lblDividendType control.
+        /// ddlDivType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDividendType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDivType;
         
         /// <summary>
-        /// lblMultiple control.
+        /// RequiredFieldValidator4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMultiple;
-        
-        /// <summary>
-        /// lblMulti control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMulti;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// lblDividendFrequency control.
@@ -322,31 +329,22 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Label lbldftext;
         
         /// <summary>
-        /// lblDivType control.
+        /// lblOption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDivType;
+        protected global::System.Web.UI.WebControls.Label lblOption;
         
         /// <summary>
-        /// ddlDivType control.
+        /// lblDividendType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDivType;
-        
-        /// <summary>
-        /// RequiredFieldValidator6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        protected global::System.Web.UI.WebControls.Label lblDividendType;
         
         /// <summary>
         /// btnSubmit control.

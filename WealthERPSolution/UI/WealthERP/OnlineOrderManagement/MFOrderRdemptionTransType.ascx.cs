@@ -40,7 +40,7 @@ namespace WealthERP.OnlineOrderManagement
         int accountId;
         int OrderId;
         DataTable dtgetfolioNo;
-
+        int retVal;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,6 +53,8 @@ namespace WealthERP.OnlineOrderManagement
                 dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
                 AmcBind();
                 txtRedeemTypeValue.Visible = false;
+                lblOption.Visible = false;
+                lblDividendType.Visible = false;
             }
 
 
@@ -144,7 +146,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][0].ToString();
+            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] +" "+ "As On "+" " + dsNav.Tables[0].Rows[0][0].ToString();
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -166,7 +168,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void SetControlDetails()
         {
             lbltime.Visible = true;
-            lblDividendType.Visible = true;
+            //lblDividendType.Visible = true;
            
             
             lblDivType.Visible = true;
@@ -178,7 +180,7 @@ namespace WealthERP.OnlineOrderManagement
                 lbldftext.Visible = false;
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
-
+                RequiredFieldValidator3.Enabled = false;
             }
             else
             {
@@ -186,6 +188,8 @@ namespace WealthERP.OnlineOrderManagement
                 lbldftext.Visible = true;
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
+                RequiredFieldValidator3.Enabled = true;
+
             }
         }
         protected void CategoryBind()
@@ -287,10 +291,15 @@ namespace WealthERP.OnlineOrderManagement
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "Sel";
             if (ddlRedeem.SelectedValue == "1")
-                onlinemforderVo.Redeemunits = double.Parse(txtRedeemTypeValue.Text);
+                if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
+                    onlinemforderVo.Redeemunits = double.Parse(txtRedeemTypeValue.Text);
+                else
+                    onlinemforderVo.Redeemunits = 0;
             else if (ddlRedeem.SelectedValue == "2")
+                if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
                 onlinemforderVo.Amount = double.Parse(txtRedeemTypeValue.Text);
-
+                else
+                    onlinemforderVo.Amount = 0;
             float amt;
             float minAmt;
             float multiAmt;
@@ -299,13 +308,17 @@ namespace WealthERP.OnlineOrderManagement
 
             amt = 0;
 
-
+           
 
             minAmt = 0;
             multiAmt = 0;
             Dt = DateTime.Parse(lbltime.Text);
-
-            int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
+             
+            //int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
+            if (Dt.TimeOfDay < DateTime.Now.TimeOfDay)
+            {
+                 retVal = 1;
+            }
             if (retVal != 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;

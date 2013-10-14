@@ -51,6 +51,8 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 AmcBind();
+                lblOption.Visible = false;
+                lblDividendType.Visible = false;
             }
 
 
@@ -165,7 +167,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][0].ToString();
+            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + dsNav.Tables[0].Rows[0][0].ToString();
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -184,7 +186,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void SetControlDetails()
         {
             lbltime.Visible = true;
-            lblDividendType.Visible = true;
+            //lblDividendType.Visible = true;
             lblMulti.Visible = true;
             lblMintxt.Visible = true;
             lblDivType.Visible = true;
@@ -195,6 +197,7 @@ namespace WealthERP.OnlineOrderManagement
                 lbldftext.Visible = false;
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
+                RequiredFieldValidator4.Enabled = false;
 
             }
             else
@@ -203,6 +206,7 @@ namespace WealthERP.OnlineOrderManagement
                 lbldftext.Visible = true;
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
+                RequiredFieldValidator4.Enabled = true;
             }
 
         }

@@ -120,7 +120,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblHolder" runat="server" Text="Holder:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblHolderDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -144,7 +144,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs)::" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -201,17 +201,33 @@
         <tr class="spaceUnder">
             <td>
             </td>
-            <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:Label ID="lblDividendType" runat="server" CssClass="FieldName"></asp:Label>
-            </td>
+            <td colspan="2"></td>
             <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblMulti" runat="server" CssClass="FieldName"></asp:Label>
+            </td>
+        </tr>
+        <tr class="spaceUnder" id="trDivtype">
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
+                <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
+                    <asp:ListItem Text="Select" Value="0"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
+                </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                    ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
+                    InitialValue="0" ValidationGroup="btnSubmit">
+                </asp:RequiredFieldValidator>
+            </td>
+            
+            <td colspan="2">
             </td>
         </tr>
         <tr class="spaceUnder" id="trDivfeq">
@@ -226,23 +242,18 @@
             <td colspan="2">
             </td>
         </tr>
-        <tr class="spaceUnder" id="trDivtype">
+        
+        <tr class="spaceUnder">
+        <td>
+        </td>
+         <td align="right" style="vertical-align: top;">
+         <td></td>
+                <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
+            </td>
             <td>
+                <asp:Label ID="lblDividendType" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
-                    <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
-                </asp:DropDownList>
-           
-            </td>
-            
-            <td colspan="2">
-            </td>
+            <td colspan="2"></td>
         </tr>
         <tr class="spaceUnder">
             <td style="width: 150px;">
