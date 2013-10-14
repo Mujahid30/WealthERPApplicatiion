@@ -135,8 +135,10 @@
     </tr>
 </table>
 <%--<div class="exampleWrapper">--%>
-<telerik:RadTabStrip ID="RadTabStrip2" runat="server" Skin="Telerik" MultiPageID="SetupEmailSMS"
-    SelectedIndex="0">
+<%--<telerik:RadTabStrip ID="RadTabStrip2" runat="server" Skin="Telerik" MultiPageID="SetupEmailSMS"
+    SelectedIndex="0">--%>
+    <telerik:RadTabStrip ID="RadTabStrip2" EnableTheming="True" Skin="Telerik" EnableEmbeddedSkins="False"
+    runat="server" MultiPageID="SetupEmailSMS" SelectedIndex="0">
     <Tabs>
         <telerik:RadTab runat="server" Text="Emails" Value="Email" TabIndex="0" Selected="True">
         </telerik:RadTab>

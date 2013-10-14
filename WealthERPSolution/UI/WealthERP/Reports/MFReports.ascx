@@ -833,9 +833,9 @@
                                     <td id="Td2" runat="server">
                                         <asp:Label ID="lblGrpOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                             Text="Generate report for :"></asp:Label>
-                                        <asp:RadioButton runat="server" ID="rdoGroup" Text="Group" Class="cmbField" GroupName="GrpOrInd"
+                                        <asp:RadioButton runat="server" ID="rdoGroup" Text="Group" Class="cmbFielde" GroupName="GrpOrInd"
                                             Checked="True" onClick="ChangeCustomerSelectionTextBox('Group')" />
-                                        <asp:RadioButton runat="server" ID="rdoIndividual" Text="Individual" Class="cmbField"
+                                        <asp:RadioButton runat="server" ID="rdoIndividual" Text="Individual" Class="cmbFielde"
                                             GroupName="GrpOrInd" onClick="return ChangeCustomerSelectionTextBox('Individual')" />
                                     </td>
                                     <td id="Td3" runat="server">
@@ -960,7 +960,7 @@
                                         <asp:Label ID="Label4" runat="server" Text="Report Type:" CssClass="FieldName"></asp:Label>
                                     </td>
                                     <td align="left" width="87%">
-                                        <asp:DropDownList ID="ddlReportSubType" runat="server" CssClass="ddlReportType" onChange="ChangeDates()">
+                                        <asp:DropDownList ID="ddlReportSubType" runat="server" width="210px" CssClass="cmbField" onChange="ChangeDates()">
                                             <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="Portfolio Returns-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
                                             <asp:ListItem Text="Comprehensive Report" Value="COMPREHENSIVE"></asp:ListItem>
