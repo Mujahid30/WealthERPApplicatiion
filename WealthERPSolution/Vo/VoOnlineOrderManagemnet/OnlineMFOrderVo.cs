@@ -24,5 +24,9 @@ namespace VoOnlineOrderManagemnet
         public string DivFrequencyCode { set; get; }
         public string DivFrequencyName { set; get; }
         public string DivOption { set; get; }
+        public string Category { set; get; }
+        public string Folio { set; get; }
+        public Double UnitsHeld { set; get; }
+
     }
 }
