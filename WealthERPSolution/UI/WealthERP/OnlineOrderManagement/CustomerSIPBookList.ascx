@@ -205,7 +205,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn> 
                              <telerik:GridBoundColumn DataField="IntallmentNo" AllowFiltering="false"
-                                HeaderText="Installment No." UniqueName="IntallmentNo" SortExpression="IntallmentNo"
+                                HeaderText="Number of Installment" UniqueName="IntallmentNo" SortExpression="IntallmentNo"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
