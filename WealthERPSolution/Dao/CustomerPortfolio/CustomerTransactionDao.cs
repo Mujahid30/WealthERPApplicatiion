@@ -3193,6 +3193,10 @@ namespace DaoCustomerPortfolio
                         if (dr["XMOH_ModeOfHoldingCode"].ToString() != string.Empty)
 
                             AccountVo.ModeOfHoldingCode = dr["XMOH_ModeOfHoldingCode"].ToString();
+                        if (dr["CMFA_IsOnline"].ToString() != string.Empty)
+
+                            AccountVo.IsOnline =Convert.ToInt32(dr["CMFA_IsOnline"]);
+
                         if (dr["CMFA_SubBrokerCode"].ToString() != string.Empty)
 
                             AccountVo.AssociateCode = dr["XMOH_ModeOfHoldingCode"].ToString();
