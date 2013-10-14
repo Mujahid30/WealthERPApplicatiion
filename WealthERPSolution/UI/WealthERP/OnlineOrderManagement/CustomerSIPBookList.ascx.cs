@@ -300,7 +300,9 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     int mfOrderId = int.Parse(orderId);
                     GetMFOrderDetails(mfOrderId);
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=Edit');", true);
+
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customerId=" + customerId + "');", true);   
+
                 }
 
             }
@@ -333,5 +335,24 @@ namespace WealthERP.OnlineOrderManagement
             gvSIPBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvSIPBookMIS.MasterTableView.ExportToExcel();
         }
+
+
+        #region DDLVIEWEDITSELECTION
+         
+        protected void ddlAction_OnSelectedIndexChange(object sender, EventArgs e)
+        {
+
+                RadComboBox ddlAction = (RadComboBox)sender;
+          
+                GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                int selectedRow = gvr.ItemIndex + 1;
+                string strAction = string.Empty;
+
+
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedValue + "');", true);
+                  
+
+        }
+        #endregion
     }
 }
