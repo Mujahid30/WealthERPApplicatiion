@@ -172,7 +172,7 @@
                             <telerik:GridBoundColumn DataField="PASP_SchemePlanName" HeaderText="SchemePlanName"
                                 AllowFiltering="true" SortExpression="PASP_SchemePlanName" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanName"
-                                FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="300px">
+                                FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="220px">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
                                 AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PAISC_AssetInstrumentSubCategoryName"
@@ -259,12 +259,12 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="false" HeaderText="Status"
-                                HeaderStyle-Width="80px" UniqueName="XS_Status" SortExpression="XS_Status" ShowFilterIcon="false"
+                                HeaderStyle-Width="60px" UniqueName="XS_Status" SortExpression="XS_Status" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Channel" AllowFiltering="false" HeaderText="Channel"
-                                HeaderStyle-Width="80px" UniqueName="Channel" SortExpression="Channel" ShowFilterIcon="false"
+                                HeaderStyle-Width="65px" UniqueName="Channel" SortExpression="Channel" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -276,9 +276,9 @@
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                             </telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit"
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit" Enabled="false"
                                                 runat="server"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png"
+                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png" Enabled="false"
                                                 runat="server"></telerik:RadComboBoxItem>
                                         </Items>
                                     </telerik:RadComboBox>
