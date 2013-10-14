@@ -68,7 +68,24 @@ namespace WealthERP.OnlineOrder
 
         protected void RTSMFOrderMenuBooks_TabClick(object sender, RadTabStripEventArgs e)
         {
+            switch (e.Tab.Value)
+            {
+                case "RTSMFOrderMenuBooksOrderBook": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerMFOrderBookList','login');", true);
+                    break;
 
+                case "RTSMFOrderMenuBooksTransactionBook": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','login');", true);
+                    break;
+
+                case "RTSMFOrderMenuBooksSIPBook": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','login');", true);
+                    break;
+
+                case "RTSMFOrderMenuBooksDividendBook": // add a new child tab
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','login');", true);
+                    break;
+            }
         }
 
         protected void RTSMFOrderMenuHoldings_TabClick(object sender, RadTabStripEventArgs e)

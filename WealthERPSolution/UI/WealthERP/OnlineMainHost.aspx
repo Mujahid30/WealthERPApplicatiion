@@ -100,7 +100,6 @@
         vertical-align: middle;
         margin: 2px;
     }
-   
     .fltlft
     {
         float: left;
@@ -116,46 +115,57 @@
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
-        <table width="100%">
-            <tr id="trMFOrderMenu" runat="server">
-                <td>
-                    <div class="OnlineProductMenu" style="vertical-align:middle">
-                        <table width="100%">
-                            <tr>
-                                <td>
-                                    <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
-                                        Style="text-decoration: none"></asp:LinkButton>
-                                </td>
-                                <td>
-                                    <asp:LinkButton ID="lnkMFOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
-                                        Style="text-decoration: none"></asp:LinkButton>
-                                </td>
-                                <td>
-                                    <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
-                                        Style="text-decoration: none"></asp:LinkButton>
-                                </td>
-                                <td align="right">
-                                    <asp:LinkButton ID="lnkLogOut" runat="server" Text="logout" CssClass="LinkButtons"
-                                        Style="text-decoration: none"></asp:LinkButton>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-            <tr id="trTopMenuFrame" runat="server">
-                <td>
-                    <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
-                        src="OnlineTopHost.aspx" height="35px" width="100%" scrolling="no"></iframe>
-                </td>
-            </tr>
-            <tr id="trMainFrame" runat="server">
-                <td>
-                    <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
-                        src="OnlineBottomHost.aspx" scrolling="no" height="600px"></iframe>
-                </td>
-            </tr>
-        </table>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <table width="100%">
+                    <tr id="trMFOrderMenu" runat="server">
+                        <td>
+                            <div class="OnlineProductMenu" style="vertical-align: top">
+                                <table width="100%" style="vertical-align:top">
+                                    <tr>
+                                        <td>
+                                            <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
+                                                Style="text-decoration: none" OnClick="lnkMFOrderMenuTransact_Click"></asp:LinkButton>
+                                        </td>
+                                        <td>
+                                            <asp:LinkButton ID="lnkMFOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
+                                                Style="text-decoration: none" OnClick="lnkMFOrderMenuBooks_Click"></asp:LinkButton>
+                                        </td>
+                                        <td>
+                                            <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
+                                                Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click"></asp:LinkButton>
+                                        </td>
+                                        <td align="right" style="vertical-align:top">
+                                            <asp:Label ID="lblProductType" runat="server" Text="Product Type:"></asp:Label>
+                                            <img src="Images/MenuSeparator.jpg" alt="">
+                                            <asp:Label ID="lblWelcomeUser" runat="server" Text=""></asp:Label>
+                                            <img src="Images/MenuSeparator.jpg" alt="">
+                                            <asp:LinkButton ID="lnkLogOut" runat="server" Text="logout" CssClass="LinkButtons"
+                                                Style="text-decoration: none" OnClick="lnkLogOut_Click"></asp:LinkButton>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="trTopMenuFrame" runat="server">
+                        <td>
+                            <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
+                                src="OnlineTopHost.aspx" height="35px" width="100%" scrolling="no"></iframe>
+                        </td>
+                    </tr>
+                    <tr id="trMainFrame" runat="server">
+                        <td>
+                            <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
+                                src="OnlineBottomHost.aspx" scrolling="no" height="600px"></iframe>
+                        </td>
+                    </tr>
+                </table>
+            </ContentTemplate>
+            <Triggers>
+                <%-- <asp:PostBackTrigger ControlID="imgexportButton" />--%>
+            </Triggers>
+        </asp:UpdatePanel>
     </div>
     </form>
 </body>

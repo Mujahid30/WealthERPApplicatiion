@@ -48,8 +48,6 @@ namespace WealthERP
 
         protected void Page_Init(object sender, EventArgs e)
         {
-           
-            userAccountId = "ESI64786";
 
             if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
             {
@@ -66,8 +64,15 @@ namespace WealthERP
                 if (Request.QueryString["x-SBI-Products"] != null && Request.QueryString["x-SBI-Products"] != "")
                 {
                     productType = Request.QueryString["x-SBI-Products"];
+                    lblProductType.Text = "PRODUCT TYPE:-" + Request.QueryString["x-SBI-Products"];
                 }
             }
+            //Testing User
+            
+            if (string.IsNullOrEmpty(userAccountId))
+                userAccountId = "ESI64786";
+            if (productType != "MF")
+                productType = "MF";
 
             if (!string.IsNullOrEmpty(userAccountId))
             {
@@ -78,6 +83,8 @@ namespace WealthERP
                     SetDefaultPageSetting(productType);
                 }
             }
+
+            lblWelcomeUser.Text = "Welcome " + userAccountId;
         }
 
 
@@ -204,6 +211,53 @@ namespace WealthERP
         private void InvalidateUser()
         {
             //lblIllegal.Text = "Username and Password does not match";
+        }
+        protected void lnkLogOut_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("http://sspr.sbicapstestlab.com/AGLogout ");
+        }
+
+        protected void lnkMFOrderMenuTransact_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("MF", "Transact");
+        }
+
+        protected void lnkMFOrderMenuBooks_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("MF", "OrderBook");
+        }
+
+        protected void lnkMFOrderMenuHoldings_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("MF", "Hodings");
+        }
+
+        protected void ProductMenuItemChange(string ProductType,string menuType)
+        {
+            switch (menuType)
+            {
+                case "Transact":
+                    defaultProductPageSetting.Add("ProductType", ProductType);
+                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
+                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransactNewPurchase");
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "MFOrderPurchaseTransType");
+                    break;
+                case "OrderBook":
+                    defaultProductPageSetting.Add("ProductType", ProductType);
+                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuBooksTab");
+                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuBooks");
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFOrderBookList");
+                    break;
+                case "Hodings":
+                    defaultProductPageSetting.Add("ProductType", ProductType);
+                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuHoldingsTab");
+                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHoldings");
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFUnitHoldingList");
+                    break;
+            }
+            Session["PageDefaultSetting"] = defaultProductPageSetting;
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
+
         }
 
 
