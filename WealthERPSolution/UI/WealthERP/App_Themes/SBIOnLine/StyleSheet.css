@@ -97,13 +97,35 @@ div#MainDivLeft
     width: 500px;
     
 }
-.cmbField
+.cmbFielde
 {
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
     color: #0B49AE;
     width: 150px; /*margin-left: 0px;*/
+    -webkit-transform: scale(5, 5); 
+    -moz-transform: scale(5, 5);
+    margin: 1em 1em 1em 1;
+}
+.cmbField
+{
+   height: 20px;
+               width:150px;
+               overflow: hidden;
+               background: url(/../Images/downArrow.png) no-repeat right white; /*Adds background-image*/
+               border-left: 1px double #6a7887;
+               border-bottom: 2px double #2672c5;
+               border-top: 2px double #98c6fa;
+               border-right: 1px double #98c6fa;
+               border-radius: 6px;
+               display: inline-block;
+               position:relative;
+               appearance: none;                    /*Removes default IE style*/
+               -webkit-appearance: none;            /*Removes default chrome and safari style*/
+               -moz-appearance: none;               /* Removes Default Firefox style*/
+               text-indent: 0.01px;                /* Removes default arrow from firefox*/
+               text-overflow: ''; 
 }
 
 .cmbLongField
@@ -380,7 +402,7 @@ div#MainDivLeft
   width:60px;
   border:1px solid;
   border-color:#78918B;
-  border-radius:2px;
+  border-radius:4px;
  -moz-text-stroke-color:#acafbo;
   color: black;
 }
@@ -394,7 +416,7 @@ div#MainDivLeft
   font-family:Arial;
   border:1px solid;
   border-color:#78918B;
-  border-radius:2px;
+  border-radius:4px;
  -moz-text-stroke-color:#acafbo;
   color: black;
     height: 22px;
@@ -412,7 +434,7 @@ div#MainDivLeft
   font-family:Arial;
    border:1px solid;
   border-color:#78918B;
-  border-radius:2px;
+  border-radius:4px;
  -moz-text-stroke-color:#acafbo;
   color: black;
     height: 22px;
@@ -421,16 +443,20 @@ div#MainDivLeft
    
 }
 .PCGHoverMediumButton
-{
-    background: url(Images/PCG_gradient_button_medium_hover.jpg) no-repeat left top; /*background-repeat: no-repeat;*/
-    font-weight: bolder;
-    color: #ffffff;
-    font-size: x-small;
-    font-family: Verdana,Tahoma;
+{ 
+    background: blue;
+  background: -moz-linear-gradient(top,  #d2e7fc,  #fff);
+  background: -moz-linear-gradient(bottom,  #82cbf6,  #fff);
+  background: -moz-linear-gradient(middle,  #dbeeff,  #fff);
+  font-family:Arial;
+   border:1px solid;
+  border-color:#78918B;
+  border-radius:4px;
+ -moz-text-stroke-color:#acafbo;
+  color: black;
     height: 22px;
     width: 125px;
     cursor: pointer;
-    background-color:#0B49AE;
 }
 
 a.aBreadCrumb
@@ -638,6 +664,7 @@ a.aBreadCrumbCurrent
 .tabber
 {    height: 496px;
     width: 650px;
+    border-color:blue;
 }
 .tabberlive
 {
@@ -645,22 +672,22 @@ a.aBreadCrumbCurrent
 }
 ul.tabbernav
 {
-    margin: 2px;
-    padding: 2px 0;
-    border-bottom: 1px solid #778;
+    margin: 4px;
+    padding: 4px 0;
+    border-bottom: 2px solid #778;
     font: bold 10px Verdana, sans-serif;
 }
 ul.tabbernav li
 {
     list-style: none;
-    margin: 2px;
+    margin: 4px;
     display: inline;
 }
 ul.tabbernav li a
 {
- padding:2px;
- margin-left: 2px;
- border: 1px solid #778;
+ padding:4px;
+ margin-left: 4px;
+ border: 4px solid #778;
  border-bottom: none;
  background: #DDE;
  text-decoration: none;
@@ -677,28 +704,28 @@ ul.tabbernav li a:visited
 ul.tabbernav li a:hover
 {
     color: #000;
- background-color: #D9EBF7;
+ background-color: #7ca644;
  border-color: #227;
 
 }
 ul.tabbernav li.tabberactive a
 {
     background-color: #fff;
- border-bottom: 1px solid #fff;
+ border-bottom: 2px solid #fff;
 
 }
 ul.tabbernav li.tabberactive a:hover
 {
     color: #000;
- background: white;
- border-bottom: 1px solid white;
+ background: blue;
+ border-bottom: 2px solid green;
 
     
 }
 .tabberlive .tabbertab
 {
-    padding: 2px;
-    border: 1px solid #93917D;
+    padding: 4px;
+    border: 4px solid #93917D;
     border-top: 0;
 }
 .tabberlive .tabbertab h6
@@ -725,14 +752,16 @@ ul.tabbernav li.tabberactive a:hover
     overflow: auto;
 }
 .yellow-box {
-    background-color:#FFFFE5;
-    border:1px solid #F5E082;
+    background-color:#006699;
+    border:4px solid #006699;
     padding:10px;
 }
  .ajax__tab_body
-  {
-      background-color: #FFFFFF !important;
-  }
+  
+      { background-image: url('TabStrip/TabStripStates.png');}
+
+  
+
   
   /* AutoComplete item */
 .AutoCompleteExtender_CompletionList
