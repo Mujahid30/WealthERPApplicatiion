@@ -148,14 +148,14 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                                 
-                                <telerik:GridBoundColumn DataField="TransactionNumber" HeaderText="TransactionNo"
+                              <%--  <telerik:GridBoundColumn DataField="TransactionNumber" HeaderText="TransactionNo"
                                     AllowFiltering="false" SortExpression="TransactionNumber" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="TransactionNumber"
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridBoundColumn DataField="TransactionId" HeaderText="TransactionId" AllowFiltering="false"
-                                    Visible="false" SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
