@@ -269,7 +269,7 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn Visible="false" DataField="XS_Status" AllowFiltering="false" HeaderText="Order Status"
+                             <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="false" HeaderText="Order Status"
                                 HeaderStyle-Width="80px" UniqueName="XS_Status" SortExpression="XS_Status" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
