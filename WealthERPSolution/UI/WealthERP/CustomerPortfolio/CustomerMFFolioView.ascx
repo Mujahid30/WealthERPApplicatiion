@@ -118,18 +118,14 @@
     <tr id="trFailure" runat="server" visible="false">
         <td align="center">
             <div id="statusMsgFailure" runat="server" visible="false" class="failure-msg" align="center">
-              
             </div>
-    
             <div id="statusMsgSuccess" runat="server" visible="false" class="success-msg" align="center">
-                
             </div>
-           
         </td>
     </tr>
 </table>
 <div style="width: 1100px; overflow: scroll">
-    <telerik:RadGrid ID="gvMFFolio"  runat="server" GridLines="None" AutoGenerateColumns="False"
+    <telerik:RadGrid ID="gvMFFolio" runat="server" GridLines="None" AutoGenerateColumns="False"
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" OnItemDataBound="gvMFFolio_ItemDataBound" OnNeedDataSource="gvMFFolio_NeedDataSource">
@@ -165,9 +161,9 @@
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                 <telerik:GridBoundColumn UniqueName="ADUL_ProcessId" HeaderStyle-Width="80px" HeaderText="ProcessId"
-                    DataField="ADUL_ProcessId" SortExpression="ADUL_ProcessId" AllowFiltering="true" ShowFilterIcon="false"
-                    AutoPostBackOnFilter="true">
+                <telerik:GridBoundColumn UniqueName="ADUL_ProcessId" HeaderStyle-Width="80px" HeaderText="ProcessId"
+                    DataField="ADUL_ProcessId" SortExpression="ADUL_ProcessId" AllowFiltering="true"
+                    ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="AMC Name" HeaderStyle-Width="180px" HeaderText="AMC"
@@ -191,6 +187,17 @@
                     AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
+                <%-- <telerik:GridBoundColumn UniqueName="CMFA_IsOnline" HeaderStyle-Width="120px" 
+                    HeaderText="ISOnline" DataField='<%# Eval if(CMFA_IsOnline==1) ?'YES':'No' %>'>
+                    SortExpression="CMFA_IsOnline" AllowFiltering="false" ShowFilterIcon="false"
+                    AutoPostBackOnFilter="true">
+                    <HeaderStyle></HeaderStyle>
+                </telerik:GridBoundColumn>--%>
+                <telerik:GridTemplateColumn HeaderText="ISOnline" ShowFilterIcon="false" AllowFiltering="true" SortExpression="CMFA_IsOnline"  AutoPostBackOnFilter="true">
+                    <ItemTemplate>                       
+                           <asp:Label ID="LblTotal" runat="server" Text='<%# Convert.ToInt32(Eval("CMFA_IsOnline").ToString())==1 ? "YES" : "NO" %>'></asp:Label>
+                    </ItemTemplate>
+                </telerik:GridTemplateColumn>
             </Columns>
             <HeaderStyle Width="110px" />
         </MasterTableView>
