@@ -116,7 +116,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedIndex != -1)
             {
-                ResetControlDetails(sender,e);
+               // ResetControlDetails(sender,e);
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue),ddlFolio.SelectedValue.ToString());
                 SetControlDetails();
             }
