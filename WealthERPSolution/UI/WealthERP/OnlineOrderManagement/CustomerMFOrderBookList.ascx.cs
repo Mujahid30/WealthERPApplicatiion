@@ -155,152 +155,152 @@ namespace WealthERP.OnlineOrderManagement
         }
         private void GetMFOrderDetails(int orderId)
         {
-            DataSet dsGetMFOrderDetails = mforderBo.GetCustomerMFOrderDetails(orderId);
-            if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
-            {
-                foreach (DataRow dr in dsGetMFOrderDetails.Tables[0].Rows)
-                {
-                    orderVo.OrderId = int.Parse(dr["CO_OrderId"].ToString());
-                    orderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
-                    mforderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
-                    mforderVo.CustomerName = dr["Customer_Name"].ToString();
-                    mforderVo.RMName = dr["RM_Name"].ToString();
-                    mforderVo.BMName = dr["AB_BranchName"].ToString();
-                    mforderVo.PanNo = dr["C_PANNum"].ToString();
-                    if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
-                        mforderVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
-                    else
-                        mforderVo.Amccode = 0;
-                    if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
-                        mforderVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
-                        mforderVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-                    mforderVo.OrderNumber = int.Parse(dr["CMFOD_OrderNumber"].ToString());
-                    if (!string.IsNullOrEmpty(dr["CMFOD_Amount"].ToString().Trim()))
-                        mforderVo.Amount = double.Parse(dr["CMFOD_Amount"].ToString());
-                    else
-                        mforderVo.Amount = 0;
+            //DataSet dsGetMFOrderDetails = mforderBo.GetCustomerMFOrderDetails(orderId);
+            //if (dsGetMFOrderDetails.Tables[0].Rows.Count > 0)
+            //{
+            //    foreach (DataRow dr in dsGetMFOrderDetails.Tables[0].Rows)
+            //    {
+            //        orderVo.OrderId = int.Parse(dr["CO_OrderId"].ToString());
+            //        orderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+            //        mforderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+            //        mforderVo.CustomerName = dr["Customer_Name"].ToString();
+            //        mforderVo.RMName = dr["RM_Name"].ToString();
+            //        mforderVo.BMName = dr["AB_BranchName"].ToString();
+            //        mforderVo.PanNo = dr["C_PANNum"].ToString();
+            //        if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
+            //            mforderVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
+            //        else
+            //            mforderVo.Amccode = 0;
+            //        if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
+            //            mforderVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+            //        if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
+            //            mforderVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+            //        mforderVo.OrderNumber = int.Parse(dr["CMFOD_OrderNumber"].ToString());
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_Amount"].ToString().Trim()))
+            //            mforderVo.Amount = double.Parse(dr["CMFOD_Amount"].ToString());
+            //        else
+            //            mforderVo.Amount = 0;
 
-                    if (int.Parse(dr["CMFA_accountid"].ToString()) != 0)
-                        mforderVo.accountid = int.Parse(dr["CMFA_accountid"].ToString());
-                    else
-                        mforderVo.accountid = 0;
-                    mforderVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
-                    mforderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
-                    orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
-                    mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
-                    orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
-                    if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString()))
-                    {
-                        orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
-                    }
-                    else
-                        orderVo.ApplicationReceivedDate = DateTime.MinValue;
-                    mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
-                    orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
-                    if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
-                        orderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
-                    else
-                        orderVo.ChequeNumber = "";
-                    if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
-                        orderVo.PaymentDate = DateTime.Parse(dr["CO_PaymentDate"].ToString());
-                    else
-                        orderVo.PaymentDate = DateTime.MinValue;
+            //        if (int.Parse(dr["CMFA_accountid"].ToString()) != 0)
+            //            mforderVo.accountid = int.Parse(dr["CMFA_accountid"].ToString());
+            //        else
+            //            mforderVo.accountid = 0;
+            //        mforderVo.FolioNumber = dr["CMFA_FolioNum"].ToString();
+            //        mforderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
+            //        orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
+            //        mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
+            //        orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
+            //        if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString()))
+            //        {
+            //            orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+            //        }
+            //        else
+            //            orderVo.ApplicationReceivedDate = DateTime.MinValue;
+            //        mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
+            //        orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
+            //        if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
+            //            orderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
+            //        else
+            //            orderVo.ChequeNumber = "";
+            //        if (!string.IsNullOrEmpty(dr["CO_PaymentDate"].ToString()))
+            //            orderVo.PaymentDate = DateTime.Parse(dr["CO_PaymentDate"].ToString());
+            //        else
+            //            orderVo.PaymentDate = DateTime.MinValue;
 
-                    if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
-                    {
-                        orderVo.AgentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
-                    }
+            //        if (!string.IsNullOrEmpty(dr["AAC_AdviserAgentId"].ToString()))
+            //        {
+            //            orderVo.AgentId = Convert.ToInt32(dr["AAC_AdviserAgentId"].ToString());
+            //        }
 
-                    if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
-                    {
-                        mforderVo.AgentCode = dr["AAC_AgentCode"].ToString();
-                    }
+            //        if (!string.IsNullOrEmpty(dr["AAC_AgentCode"].ToString()))
+            //        {
+            //            mforderVo.AgentCode = dr["AAC_AgentCode"].ToString();
+            //        }
 
-                    if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
-                        mforderVo.FutureTriggerCondition = dr["CMFOD_FutureTriggerCondition"].ToString();
-                    else
-                        mforderVo.FutureTriggerCondition = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_FutureExecutionDate"].ToString()))
-                        mforderVo.FutureExecutionDate = DateTime.Parse(dr["CMFOD_FutureExecutionDate"].ToString());
-                    else
-                        mforderVo.FutureExecutionDate = DateTime.MinValue;
-                    if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
-                        mforderVo.SchemePlanSwitch = int.Parse(dr["PASP_SchemePlanSwitch"].ToString());
-                    else
-                        mforderVo.SchemePlanSwitch = 0;
-                    if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
-                        orderVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
-                    else
-                        orderVo.CustBankAccId = 0;
-                    if (!string.IsNullOrEmpty(dr["CMFOD_BankName"].ToString()))
-                        mforderVo.BankName = dr["CMFOD_BankName"].ToString();
-                    else
-                        mforderVo.BankName = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
-                        mforderVo.BranchName = dr["CMFOD_BranchName"].ToString();
-                    else
-                        mforderVo.BranchName = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine1"].ToString()))
-                        mforderVo.AddrLine1 = dr["CMFOD_AddrLine1"].ToString();
-                    else
-                        mforderVo.AddrLine1 = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine2"].ToString()))
-                        mforderVo.AddrLine2 = dr["CMFOD_AddrLine2"].ToString();
-                    else
-                        mforderVo.AddrLine2 = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine3"].ToString()))
-                        mforderVo.AddrLine3 = dr["CMFOD_AddrLine3"].ToString();
-                    else
-                        mforderVo.AddrLine3 = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_City"].ToString()))
-                        mforderVo.City = dr["CMFOD_City"].ToString();
-                    else
-                        mforderVo.City = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_State"].ToString()))
-                        mforderVo.State = dr["CMFOD_State"].ToString();
-                    else
-                        mforderVo.State = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_Country"].ToString()))
-                        mforderVo.Country = dr["CMFOD_Country"].ToString();
-                    else
-                        mforderVo.Country = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
-                        mforderVo.Pincode = dr["CMFOD_PinCode"].ToString();
-                    else
-                        mforderVo.Pincode = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_LivingScince"].ToString()))
-                        mforderVo.LivingSince = DateTime.Parse(dr["CMFOD_LivingScince"].ToString());
-                    else
-                        mforderVo.LivingSince = DateTime.MinValue;
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
+            //            mforderVo.FutureTriggerCondition = dr["CMFOD_FutureTriggerCondition"].ToString();
+            //        else
+            //            mforderVo.FutureTriggerCondition = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_FutureExecutionDate"].ToString()))
+            //            mforderVo.FutureExecutionDate = DateTime.Parse(dr["CMFOD_FutureExecutionDate"].ToString());
+            //        else
+            //            mforderVo.FutureExecutionDate = DateTime.MinValue;
+            //        if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
+            //            mforderVo.SchemePlanSwitch = int.Parse(dr["PASP_SchemePlanSwitch"].ToString());
+            //        else
+            //            mforderVo.SchemePlanSwitch = 0;
+            //        if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
+            //            orderVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
+            //        else
+            //            orderVo.CustBankAccId = 0;
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_BankName"].ToString()))
+            //            mforderVo.BankName = dr["CMFOD_BankName"].ToString();
+            //        else
+            //            mforderVo.BankName = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
+            //            mforderVo.BranchName = dr["CMFOD_BranchName"].ToString();
+            //        else
+            //            mforderVo.BranchName = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine1"].ToString()))
+            //            mforderVo.AddrLine1 = dr["CMFOD_AddrLine1"].ToString();
+            //        else
+            //            mforderVo.AddrLine1 = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine2"].ToString()))
+            //            mforderVo.AddrLine2 = dr["CMFOD_AddrLine2"].ToString();
+            //        else
+            //            mforderVo.AddrLine2 = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine3"].ToString()))
+            //            mforderVo.AddrLine3 = dr["CMFOD_AddrLine3"].ToString();
+            //        else
+            //            mforderVo.AddrLine3 = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_City"].ToString()))
+            //            mforderVo.City = dr["CMFOD_City"].ToString();
+            //        else
+            //            mforderVo.City = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_State"].ToString()))
+            //            mforderVo.State = dr["CMFOD_State"].ToString();
+            //        else
+            //            mforderVo.State = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_Country"].ToString()))
+            //            mforderVo.Country = dr["CMFOD_Country"].ToString();
+            //        else
+            //            mforderVo.Country = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
+            //            mforderVo.Pincode = dr["CMFOD_PinCode"].ToString();
+            //        else
+            //            mforderVo.Pincode = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_LivingScince"].ToString()))
+            //            mforderVo.LivingSince = DateTime.Parse(dr["CMFOD_LivingScince"].ToString());
+            //        else
+            //            mforderVo.LivingSince = DateTime.MinValue;
 
-                    if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
-                        mforderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
-                    else
-                        mforderVo.FrequencyCode = "";
-                    if (!string.IsNullOrEmpty(dr["CMFOD_StartDate"].ToString()))
-                        mforderVo.StartDate = DateTime.Parse(dr["CMFOD_StartDate"].ToString());
-                    else
-                        mforderVo.StartDate = DateTime.MinValue;
-                    if (!string.IsNullOrEmpty(dr["CMFOD_EndDate"].ToString()))
-                        mforderVo.EndDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
-                    else
-                        mforderVo.EndDate = DateTime.MinValue;
+            //        if (!string.IsNullOrEmpty(dr["XF_FrequencyCode"].ToString()))
+            //            mforderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
+            //        else
+            //            mforderVo.FrequencyCode = "";
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_StartDate"].ToString()))
+            //            mforderVo.StartDate = DateTime.Parse(dr["CMFOD_StartDate"].ToString());
+            //        else
+            //            mforderVo.StartDate = DateTime.MinValue;
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_EndDate"].ToString()))
+            //            mforderVo.EndDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
+            //        else
+            //            mforderVo.EndDate = DateTime.MinValue;
 
-                    if (!string.IsNullOrEmpty(dr["CMFOD_Units"].ToString()))
-                        mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
-                    else
-                        mforderVo.Units = 0;
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_Units"].ToString()))
+            //            mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
+            //        else
+            //            mforderVo.Units = 0;
 
-                    if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
-                    {
-                        mforderVo.ARNNo = Convert.ToString(dr["CMFOD_ARNNo"]);
-                    }
+            //        if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
+            //        {
+            //            mforderVo.ARNNo = Convert.ToString(dr["CMFOD_ARNNo"]);
+            //        }
 
-                }
-                Session["orderVo"] = orderVo;
-                Session["mforderVo"] = mforderVo;
-            }
+            //    }
+            //    Session["orderVo"] = orderVo;
+            //    Session["mforderVo"] = mforderVo;
+            //}
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -309,20 +309,31 @@ namespace WealthERP.OnlineOrderManagement
                 RadComboBox ddlAction = (RadComboBox)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
-
                 string action = "";
                 string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
                 string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
                 string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
-
+                string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["WMTT_TransactionClassificationCode"].ToString();
+            
                 if (ddlAction.SelectedItem.Value.ToString() == "Edit")
                 {
                    action = "Edit";                  
                    if (assetGroupCode == "MF")
                     {
-                        int mfOrderId = int.Parse(orderId);
-                        GetMFOrderDetails(mfOrderId);
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderEntry", "loadcontrol('MFOrderEntry','action=Edit');", true);
+                        if (Code == "BUY")
+                        //int mfOrderId = int.Parse(orderId);
+                        //GetMFOrderDetails(mfOrderId);
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderPurchaseTransType", "loadcontrol('MFOrderPurchaseTransType','action=Edit');", true);
+                        }
+                        else if (Code == "ABY")
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderAdditionalPurchase", "loadcontrol('MFOrderAdditionalPurchase','action=Edit');", true);
+                        }
+                        else
+                        {
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOrderRdemptionTransType", "loadcontrol('MFOrderRdemptionTransType','action=Edit');", true);
+                        }
                     }
                    
                 }

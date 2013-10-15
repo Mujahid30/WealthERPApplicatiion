@@ -125,7 +125,7 @@
                     <%--  OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound"--%>
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
@@ -138,6 +138,11 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Order No."
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn Visible="false" DataField="WMTT_TransactionClassificationCode" AllowFiltering="true" HeaderText="Order No."
+                                UniqueName="WMTT_TransactionClassificationCode" SortExpression="WMTT_TransactionClassificationCode" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
@@ -276,9 +281,9 @@
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                             </telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit" Enabled="false"
+                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit" Enabled="true"
                                                 runat="server"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png" Enabled="false"
+                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png" Enabled="false" Visible="false"
                                                 runat="server"></telerik:RadComboBoxItem>
                                         </Items>
                                     </telerik:RadComboBox>
