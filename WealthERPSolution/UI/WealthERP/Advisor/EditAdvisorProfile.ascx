@@ -313,7 +313,7 @@
             <asp:Label ID="Label18" runat="server" CssClass="FieldName" Text="Business Type :"></asp:Label>
         </td>
         <td class="rightField" colspan="3">
-            <asp:DropDownList ID="ddlBusinessType" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlBusinessType" runat="server" CssClass="cmbField" Width="190px">
             </asp:DropDownList>
         </td>
     </tr>

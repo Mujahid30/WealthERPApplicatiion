@@ -97,6 +97,15 @@ div#MainDivLeft
     width: 500px;
     
 }
+.cmbFielde
+{
+   
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #0B49AE;
+    width: 150px;
+}
 .cmbField
 {
     font-family: Verdana,Tahoma;
