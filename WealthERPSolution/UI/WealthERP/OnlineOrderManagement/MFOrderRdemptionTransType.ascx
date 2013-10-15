@@ -94,7 +94,6 @@
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select a Folio"
                     CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
-
             </td>
             <td colspan="2">
             </td>
@@ -163,7 +162,8 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblCurrentValue" runat="server" Text="Current Value Of Holdings:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCurrentValue" runat="server" Text="Current Value Of Holdings:"
+                    CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblCurrentValueDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -208,9 +208,10 @@
             <td>
                 <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                     <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
                 </asp:DropDownList>
+                <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" CssClass="rfvPCG"
                     ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
                     InitialValue="0" ValidationGroup="btnSubmit">
@@ -254,7 +255,14 @@
                 <asp:Label ID="lblRedeemType" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName"></asp:TextBox>
+                <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName" MaxLength="8"></asp:TextBox>
+                <span id="Span4" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select a Amount"
+                    CssClass="rfvPCG" ControlToValidate="txtRedeemTypeValue" ValidationGroup="btnSubmit"
+                    Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
+                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
+                    ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
             </td>
             <td colspan="2">
             </td>
@@ -278,8 +286,10 @@
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                     CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
             </td>
-            <td colspan="2">
-            </td>
+            <%--<asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails()"
+                CssClass="FieldName"></asp:Button>
+            <td>
+            </td>--%>
         </tr>
     </table>
 </div>
@@ -294,7 +304,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                    CssClass="txtField"></asp:LinkButton>
+                    CssClass="txtField" Visible="false"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -306,7 +316,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                    CssClass="txtField"></asp:LinkButton>
+                    CssClass="txtField" Visible="false"></asp:LinkButton>
             </td>
         </tr>
     </table>

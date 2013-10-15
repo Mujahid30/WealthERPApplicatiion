@@ -45,6 +45,7 @@ namespace WealthERP.OnlineOrderManagement
             SessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
+            Session["OrderId"] = OrderId;
             if (!IsPostBack)
             {
                 AmcBind();
@@ -91,13 +92,13 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedIndex != -1)
             {
-                ResetControlDetails();
+                ResetControlDetails(sender, e);
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue), null);
                 SetControlDetails();
             }
         }
 
-        protected void ResetControlDetails()
+        protected void ResetControlDetails(object sender, EventArgs e)
         {
             lblDividendType.Text = "";
             lblMintxt.Text = "";
@@ -106,6 +107,13 @@ namespace WealthERP.OnlineOrderManagement
             lbldftext.Text = "";
             txtAmt.Text = "";
             lblNavDisplay.Text = "";
+            ddlAmc.SelectedIndex = 0;
+            ddlCategory.SelectedIndex = 0;
+            ddlScheme.SelectedIndex = 0;
+            ddlFolio.SelectedIndex = 0;
+
+            ddlDivType.SelectedIndex = 0;
+
 
         }
         protected void GetControlDetails(int scheme, string folio)
@@ -146,7 +154,8 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + dsNav.Tables[0].Rows[0][0].ToString();
+                string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             }
 
         }
@@ -156,7 +165,7 @@ namespace WealthERP.OnlineOrderManagement
             try
             {
 
-                
+
 
                 ddlFolio.SelectedValue = "New";
                 ddlFolio.SelectedItem.Text = "New";
@@ -196,6 +205,41 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
+        protected void PurchaseOrderControlsEnable(bool enable)
+        {
+            if (!enable)
+            {
+                ddlAmc.Enabled = false;
+                ddlCategory.Enabled = false;
+                ddlScheme.Enabled = false;
+                ddlFolio.Enabled = false;
+                txtAmt.Enabled = false;
+                ddlDivType.Enabled = false;
+                lnkFactSheet.Enabled = false;
+                btnSubmit.Enabled = false;
+            }
+            else
+            {
+                btnSubmit.Enabled = true;
+                ddlAmc.Enabled = true;
+                ddlCategory.Enabled = true;
+                ddlScheme.Enabled = true;
+                ddlFolio.Enabled = true;
+                txtAmt.Enabled = true;
+                ddlDivType.Enabled = true;
+                lnkFactSheet.Enabled = true;
+                btnSubmit.Enabled = true;
+            }
+
+        }
+        protected void LoadOrderDetails()
+        {
+
+            int ID = int.Parse(Session["OrderId"].ToString());
+            onlinemforderVo = onlineMforderBo.GetOrderDetails(ID);
+
+
+        }
         protected void lnkFactSheet_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(lnkFactSheet.PostBackUrl))
@@ -219,7 +263,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void SchemeBind(int amccode, string category)
         {
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category,0);
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, 0);
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;
@@ -268,17 +312,22 @@ namespace WealthERP.OnlineOrderManagement
             int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
             if (retVal != 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
             }
 
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
+          
         }
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
+        protected void lnkEdit_Click(object sender, EventArgs e)
+        { }
+        protected void lnkBack_Click(object sender, EventArgs e)
+        { }
 
 
 

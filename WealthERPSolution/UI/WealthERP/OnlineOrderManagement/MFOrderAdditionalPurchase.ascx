@@ -112,6 +112,7 @@
             <td>
                 <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="True">
                 </asp:DropDownList>
+                <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select a Folio"
                     CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
@@ -174,9 +175,10 @@
                 <asp:Label ID="lblUnitsheld" runat="server" Text="Units Held:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblUnitsheldDisplay" runat="server"  CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td colspan="2"></td>
+            <td colspan="2">
+            </td>
         </tr>
         <tr class="spaceUnder">
             <td>
@@ -185,7 +187,7 @@
                 <asp:Label ID="lblAmt" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField"></asp:TextBox>
+                <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
                     ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
@@ -204,7 +206,8 @@
         <tr class="spaceUnder">
             <td>
             </td>
-            <td colspan="2"></td>
+            <td colspan="2">
+            </td>
             <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
             </td>
@@ -221,15 +224,15 @@
             <td>
                 <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
-                    <asp:ListItem Text="Dividend Reinvestement" Value="DVR"></asp:ListItem>
+                    <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                     <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
                 </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
+                <span id="Span4" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
                     ErrorMessage="Please Select an Dividend Type" Display="Dynamic" ControlToValidate="ddlDivType"
                     InitialValue="0" ValidationGroup="btnSubmit">
                 </asp:RequiredFieldValidator>
             </td>
-            
             <td colspan="2">
             </td>
         </tr>
@@ -245,18 +248,19 @@
             <td colspan="2">
             </td>
         </tr>
-        
         <tr class="spaceUnder">
-        <td>
-        </td>
-         <td align="right" style="vertical-align: top;">
-         <td></td>
+            <td>
+            </td>
+            <td align="right" style="vertical-align: top;">
+                <td>
+                </td>
                 <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblDividendType" runat="server" CssClass="FieldName"></asp:Label>
             </td>
-            <td colspan="2"></td>
+            <td colspan="2">
+            </td>
         </tr>
         <tr class="spaceUnder">
             <td style="width: 150px;">
@@ -265,8 +269,10 @@
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                     CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
             </td>
-            <td colspan="2">
-            </td>
+           <%-- <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails()"
+                CssClass="FieldName"></asp:Button>
+            <td>
+            </td>--%>
         </tr>
     </table>
 </div>
@@ -281,7 +287,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                    CssClass="txtField"></asp:LinkButton>
+                    CssClass="txtField" Visible="false"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -293,7 +299,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                    CssClass="txtField"></asp:LinkButton>
+                    CssClass="txtField" Visible="false"></asp:LinkButton>
             </td>
         </tr>
     </table>

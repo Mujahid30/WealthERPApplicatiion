@@ -100,20 +100,28 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedIndex != -1)
             {
-                ResetControlDetails();
+                ResetControlDetails(sender, e);
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue.ToString());
                 SetControlDetails();
             }
         }
 
-        protected void ResetControlDetails()
+        protected void ResetControlDetails(object sender, EventArgs e)
         {
             lblDividendType.Text = "";
-            
-           
+
             lbltime.Text = "";
             lbldftext.Text = "";
-            
+            txtRedeemTypeValue.Text = "";
+            lblNavDisplay.Text = "";
+            ddlAmc.SelectedIndex = 0;
+            ddlCategory.SelectedIndex = 0;
+            ddlScheme.SelectedIndex = 0;
+            ddlFolio.SelectedIndex = 0;
+
+            ddlDivType.SelectedIndex = 0;
+
+
         }
         protected void GetControlDetails(int scheme, string folio)
         {
@@ -130,8 +138,8 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
                     }
-                    
-                    
+
+
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
                         lbltime.Text = dr["CutOffTime"].ToString();
@@ -148,7 +156,8 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] +" "+ "As On "+" " + dsNav.Tables[0].Rows[0][0].ToString();
+            string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -171,8 +180,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             lbltime.Visible = true;
             //lblDividendType.Visible = true;
-           
-            
+
+
             lblDivType.Visible = true;
             lblCurrentValueDisplay.Visible = true;
             lblUnitsheldDisplay.Visible = true;
@@ -220,7 +229,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
             }
-            
+
         }
         private void GetNetpositionValues(int folio, int scheme)
         {
@@ -283,6 +292,36 @@ namespace WealthERP.OnlineOrderManagement
             lblNomineeDisplay.Text = strbNominee.ToString();
             lblHolderDisplay.Text = strbJointHolder.ToString();
         }
+        protected void PurchaseOrderControlsEnable(bool enable)
+        {
+            if (!enable)
+            {
+                ddlAmc.Enabled = false;
+                ddlCategory.Enabled = false;
+                ddlScheme.Enabled = false;
+                ddlFolio.Enabled = false;
+                txtRedeemTypeValue.Enabled = false;
+                ddlDivType.Enabled = false;
+                lnkFactSheet.Enabled = false;
+                btnSubmit.Enabled = false;
+                ddlRedeem.Enabled = false;
+            }
+            else
+            {
+                ddlAmc.Enabled = true;
+                ddlCategory.Enabled = true;
+                ddlScheme.Enabled = true;
+                ddlFolio.Enabled = true;
+                txtRedeemTypeValue.Enabled = true;
+                ddlDivType.Enabled = true;
+                lnkFactSheet.Enabled = true;
+                btnSubmit.Enabled = true;
+                ddlRedeem.Enabled = true;
+
+
+            }
+
+        }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
@@ -299,7 +338,7 @@ namespace WealthERP.OnlineOrderManagement
                     onlinemforderVo.Redeemunits = 0;
             else if (ddlRedeem.SelectedValue == "2")
                 if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
-                onlinemforderVo.Amount = double.Parse(txtRedeemTypeValue.Text);
+                    onlinemforderVo.Amount = double.Parse(txtRedeemTypeValue.Text);
                 else
                     onlinemforderVo.Amount = 0;
             float amt;
@@ -310,20 +349,20 @@ namespace WealthERP.OnlineOrderManagement
 
             amt = 0;
 
-           
+
 
             minAmt = 0;
             multiAmt = 0;
             Dt = DateTime.Parse(lbltime.Text);
-             
+
             //int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
             if (Dt.TimeOfDay < DateTime.Now.TimeOfDay)
             {
-                 retVal = 1;
+                retVal = 1;
             }
             if (retVal != 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
             }
 
 

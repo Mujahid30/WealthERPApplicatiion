@@ -279,5 +279,19 @@ namespace BoOnlineOrderManagement
             }
             return dsGetRedeemSchemeDetails;
         }
+        public OnlineMFOrderVo GetOrderDetails(int Id)
+        {
+            OnlineMFOrderVo onlinemforderVo=new OnlineMFOrderVo();
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                onlinemforderVo = OnlineMFOrderDao.GetOrderDetails(Id);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return onlinemforderVo;
+        }
     }
 }

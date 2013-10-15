@@ -116,21 +116,13 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedIndex != -1)
             {
-                ResetControlDetails();
+                ResetControlDetails(sender,e);
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue),ddlFolio.SelectedValue.ToString());
                 SetControlDetails();
             }
         }
 
-        protected void ResetControlDetails()
-        {
-            lblDividendType.Text = "";
-            lblMintxt.Text = "";
-            lblMulti.Text = "";
-            lbltime.Text = "";
-            lbldftext.Text = "";
-            txtAmt.Text = "";
-        }
+        
         protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
@@ -170,7 +162,8 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + dsNav.Tables[0].Rows[0][0].ToString();
+            string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -240,9 +233,52 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataBind();
             }
         }
-        
+        protected void ResetControlDetails(object sender, EventArgs e)
+        {
+            lblDividendType.Text = "";
+            lblMintxt.Text = "";
+            lblMulti.Text = "";
+            lbltime.Text = "";
+            lbldftext.Text = "";
+            txtAmt.Text = "";
+            lblNavDisplay.Text = "";
+            ddlAmc.SelectedIndex = 0;
+            ddlCategory.SelectedIndex = 0;
+            ddlScheme.SelectedIndex = 0;
+            ddlFolio.SelectedIndex = 0;
 
-        
+            ddlDivType.SelectedIndex = 0;
+
+
+        }
+
+        protected void PurchaseOrderControlsEnable(bool enable)
+        {
+            if (!enable)
+            {
+                ddlAmc.Enabled = false;
+                ddlCategory.Enabled = false;
+                ddlScheme.Enabled = false;
+                ddlFolio.Enabled = false;
+                txtAmt.Enabled = false;
+                ddlDivType.Enabled = false;
+                lnkFactSheet.Enabled = false;
+                btnSubmit.Enabled = false;
+            }
+            else
+            {
+                ddlAmc.Enabled = true;
+                ddlCategory.Enabled = true;
+                ddlScheme.Enabled = true;
+                ddlFolio.Enabled = true;
+                txtAmt.Enabled = true;
+                ddlDivType.Enabled = true;
+                lnkFactSheet.Enabled = true;
+                btnSubmit.Enabled = true;
+
+            }
+
+        }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
@@ -285,13 +321,14 @@ namespace WealthERP.OnlineOrderManagement
             int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
             if (retVal != 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true); return;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
             } 
 
            
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
+            
         }
         private void BindFolioNumber(int amcCode)
         {

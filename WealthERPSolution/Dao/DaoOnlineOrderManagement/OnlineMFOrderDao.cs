@@ -33,8 +33,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOrderBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
-               // db.AddInParameter(GetOrderBookMISCmd, "@IsOnline", DbType.Int32, IsOnline);
-               // db.AddInParameter(GetOrderBookMISCmd, "@status", DbType.String, status);
+                // db.AddInParameter(GetOrderBookMISCmd, "@IsOnline", DbType.Int32, IsOnline);
+                // db.AddInParameter(GetOrderBookMISCmd, "@status", DbType.String, status);
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }
@@ -96,7 +96,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetGetControlDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_GetSchemeDetails");
                 db.AddInParameter(GetGetControlDetailsCmd, "@schemecode", DbType.Int32, Scheme);
-                if(!string.IsNullOrEmpty(folio))
+                if (!string.IsNullOrEmpty(folio))
                     db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, int.Parse(folio));
                 else
                     db.AddInParameter(GetGetControlDetailsCmd, "@accountid", DbType.Int32, 0);
@@ -151,14 +151,14 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32, int.Parse(onlinemforderVo.FolioNumber));
                 }
                 else
-                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32 ,0);
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32, 0);
 
                 if (db.ExecuteNonQuery(CreateCustomerOnlineMFOrderDetailsCmd) != 0)
                 {
                     orderId = Convert.ToInt32(db.GetParameterValue(CreateCustomerOnlineMFOrderDetailsCmd, "CO_OrderId").ToString());
                     orderIds.Add(orderId);
                 }
-                
+
 
             }
             catch (BaseApplicationException Ex)
@@ -194,7 +194,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, DBNull.Value);
                 db.AddInParameter(GetSIPBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);                               
+                db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
 
             }
@@ -217,7 +217,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId )
+        public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
         {
             List<int> orderIds = new List<int>();
             int OrderId;
@@ -229,8 +229,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_Onl_CreateCustomerOnlineMFSipDetails");
 
-                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, onlineMFOrderVo.SchemePlanCode);                
-              
+                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, onlineMFOrderVo.SchemePlanCode);
+
                 if (onlineMFOrderVo.AccountId != 0)
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_accountid", DbType.Int32, onlineMFOrderVo.AccountId);
                 else
@@ -249,7 +249,7 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Amount", DbType.Double, onlineMFOrderVo.Amount);
                 db.AddInParameter(createMFOrderTrackingCmd, "@XES_SourceCode", DbType.String, onlineMFOrderVo.SourceCode);
-                 if (onlineMFOrderVo.FrequencyCode != null && onlineMFOrderVo.FrequencyCode != "")
+                if (onlineMFOrderVo.FrequencyCode != null && onlineMFOrderVo.FrequencyCode != "")
                     db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, onlineMFOrderVo.FrequencyCode);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, DBNull.Value);
@@ -262,16 +262,17 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(createMFOrderTrackingCmd, "@action", DbType.String, onlineMFOrderVo.Action);
                 if (!string.IsNullOrEmpty(onlineMFOrderVo.DivOption))
-                db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
-                
+                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
+
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
 
-                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0) {
+                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
+                {
                     //OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
 
-                   // orderIds.Add(OrderId);
+                    // orderIds.Add(OrderId);
                 }
                 else
                 {
@@ -284,7 +285,7 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
             return orderIds;
-                      
+
         }
 
 
@@ -336,6 +337,33 @@ namespace DaoOnlineOrderManagement
                 throw (Ex);
             }
             return dsGetRedeemSchemeDetails;
+        }
+        public OnlineMFOrderVo GetOrderDetails(int Id)
+        {
+            DataSet dsGetOrderDetails;
+            OnlineMFOrderVo onlinemforderVo = new OnlineMFOrderVo();
+            Database db;
+            DbCommand GetOrderDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderDetailscmd = db.GetStoredProcCommand("SPROC_ONL_GetOrderDetails");
+                db.AddInParameter(GetOrderDetailscmd, "@Id", DbType.Int32, Id);
+                dsGetOrderDetails = db.ExecuteDataSet(GetOrderDetailscmd);
+                foreach (DataRow dr in dsGetOrderDetails.Tables[0].Rows)
+                {
+                    onlinemforderVo.SchemePlanCode = Convert.ToInt32(dr["scheme"].ToString());
+                    onlinemforderVo.Amount = Convert.ToDouble(dr["amount"].ToString());
+                    onlinemforderVo.DividendType = dr["DivOption"].ToString();
+                    onlinemforderVo.TransactionType = dr["transactiontype"].ToString();
+
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return onlinemforderVo;
         }
     }
 }
