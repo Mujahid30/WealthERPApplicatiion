@@ -62,7 +62,6 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         private void BindFolioAccount()
         {
-            ddlAccount.Items.Clear();
             DataSet dsFolioAccount;
             DataTable dtFolioAccount;
             dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
@@ -298,8 +297,8 @@ namespace WealthERP.OnlineOrderManagement
                 action = "Edit";
                 if (assetGroupCode == "MF")
                 {
-                    int mfOrderId = int.Parse(orderId);
-                    GetMFOrderDetails(mfOrderId);
+                    //int mfOrderId = int.Parse(orderId);
+                    //GetMFOrderDetails(mfOrderId);
 
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customerId=" + customerId + "');", true);   
 

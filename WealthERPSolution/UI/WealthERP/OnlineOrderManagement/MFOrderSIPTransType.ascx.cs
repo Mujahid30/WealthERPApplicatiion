@@ -49,6 +49,7 @@ namespace WealthERP.OnlineOrderManagement
         int orderIdForEdit;
         int customerIdforEdit;
         List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
+        DataTable dtFrequency;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -82,6 +83,7 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     DataViewOnEdit();
                     btnSubmit.Text = "Modify";
+                    onlineMFOrderVo.Action = "Edit";
                 }
                 else
                     btnSubmit.Text = "Submit";
@@ -90,36 +92,53 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void DataViewOnEdit()
         {
+
+            BindSIPDetailsForEdit();
             ddlAmc.Enabled = false;
             ddlCategory.Enabled = false;
             ddlScheme.Enabled = false;
             ddlFolio.Enabled = false;
 
-            BindSIPDetailsForEdit();
 
         }
 
         protected void BindSIPDetailsForEdit()
         {
             SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
-            SIPDataForOrderEditList = commonLookupBo.GetAllSIPDataForOrderEdit(orderIdForEdit,customerIdforEdit);
+            SIPDataForOrderEditList = commonLookupBo.GetAllSIPDataForOrderEdit(orderIdForEdit, customerIdforEdit);
             onlineMFOrderVo = (OnlineMFOrderVo)SIPDataForOrderEditList[0];
 
             BindEachControlForEditWithVO();
-            
-            
-            SetLatestNav();
+
+
+           
         }
 
 
         protected void BindEachControlForEditWithVO()
         {
+            BindStartDates(); 
+            BindFrequency();
+            SetLatestNav();
+            BindFolioNumber(Convert.ToInt32(onlineMFOrderVo.AssetGroup));
+
+            SchemeBind(Convert.ToInt32(onlineMFOrderVo.AssetGroup), "ALL");
+            ddlAmc.SelectedValue = onlineMFOrderVo.AssetGroup;
+            if (!string.IsNullOrEmpty(onlineMFOrderVo.Category))
+                ddlCategory.SelectedValue = onlineMFOrderVo.Category;
+            ddlFolio.SelectedValue = onlineMFOrderVo.Folio;
+            ddlScheme.SelectedValue = onlineMFOrderVo.SchemePlanCode.ToString();
             ddlFrequency.SelectedValue = onlineMFOrderVo.FrequencyCode;
-            ddlDividendFreq.SelectedValue = onlineMFOrderVo.DivFrequencyCode;
-            ddlDividendOption.SelectedValue = onlineMFOrderVo.DivOption;
+            ddlDividendFreq.SelectedValue = onlineMFOrderVo.FrequencyCode;
+            if (!string.IsNullOrEmpty(onlineMFOrderVo.DivOption))
+                ddlDividendOption.SelectedValue = onlineMFOrderVo.DivOption;
             txtAmount.Text = onlineMFOrderVo.Amount.ToString();
+            onlineMFOrderVo.StartDate.ToString("dd-MMM-yyyy");
             ddlStartDate.SelectedValue = onlineMFOrderVo.StartDate.ToString();
             lblEndDateDisplay.Text = onlineMFOrderVo.EndDate.ToString();
+            BindddlTotalInstallments();
+            ddlTotalInstallments.SelectedValue = onlineMFOrderVo.TotalInstallments.ToString();//for the time being take it as reedemed units
+            
         }
 
         protected void ddlStartDate_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,7 +175,8 @@ namespace WealthERP.OnlineOrderManagement
             //BindNomineeAndJointHolders();
         }
 
-        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e) {
+        protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
             //Reset dependent controls
             ddlScheme.SelectedIndex = 0;
 
@@ -172,7 +192,8 @@ namespace WealthERP.OnlineOrderManagement
                 DataSet dsCategory = new DataSet();
                 dsCategory = commonLookupBo.GetAllCategoryList();
 
-                if (dsCategory.Tables[0].Rows.Count > 0) {
+                if (dsCategory.Tables[0].Rows.Count > 0)
+                {
                     ddlCategory.DataSource = dsCategory.Tables[0];
                     ddlCategory.DataValueField = dsCategory.Tables[0].Columns["Category_Code"].ToString();
                     ddlCategory.DataTextField = dsCategory.Tables[0].Columns["Category_Name"].ToString();
@@ -219,7 +240,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlScheme.SelectedIndex = 0;
         }
 
-        protected void BindSIPUI() 
+        protected void BindSIPUI()
         {
         }
 
@@ -370,7 +391,15 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStartDates()
         {
             DateTime[] dtStartdates;
-            dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
+            if (strAction != "Edit")
+            {
+
+                dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
+            }
+            else
+            {
+                dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
+            }
 
             foreach (DateTime d in dtStartdates)
             {
@@ -387,7 +416,7 @@ namespace WealthERP.OnlineOrderManagement
             if (ddlFrequency.SelectedIndex == 0) return;
 
             BindSIPDetailsONFrequencySelection(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
-       
+
         }
         protected void BindSIPDetailsONFrequencySelection(string schemeId, string freq)
         {
@@ -429,35 +458,30 @@ namespace WealthERP.OnlineOrderManagement
                 if ((!string.IsNullOrEmpty(ddlScheme.SelectedValue)) || ddlScheme.SelectedValue == "0")
                 {
                     DataSet ds = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                    try
-                    {
-                        latNav = float.Parse(ds.Tables[0].Rows[0][0].ToString());
-                    }
-                    catch (Exception ex)
-                    {
 
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        latNav = float.Parse(ds.Tables[0].Rows[0][1].ToString());
+                        string strDateForNAV = Convert.ToDateTime(ds.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                        lblNavDisplay.Text = latNav + " " + "As On " + strDateForNAV;
                     }
 
-                    string strDateForNAV = Convert.ToDateTime(ds.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                    lblNavDisplay.Text = ds.Tables[0].Rows[0][1] + " " + "As On " + strDateForNAV;
+
                 }
             }
             else
             {
-               
-                    DataSet ds = commonLookupBo.GetLatestNav(int.Parse(onlineMFOrderVo.SchemePlanCode.ToString()));
-                    try
-                    {
-                        latNav = float.Parse(ds.Tables[0].Rows[0][0].ToString());
-                    }
-                    catch (Exception ex)
-                    {
 
-                    }
+                DataSet ds = commonLookupBo.GetLatestNav(int.Parse(onlineMFOrderVo.SchemePlanCode.ToString()));
 
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    latNav = float.Parse(ds.Tables[0].Rows[0][1].ToString());
                     string strDateForNAV = Convert.ToDateTime(ds.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                    lblNavDisplay.Text = ds.Tables[0].Rows[0][1] + " " + "As On " + strDateForNAV;
-               
+                    lblNavDisplay.Text = latNav + " " + "As On " + strDateForNAV;
+                }
+
+
             }
             //lblNavDisplay.Text = FormatFloat(latNav);// +' ' + dtGetAllSIPDataForOrder.Rows[0]["PSP_Date"].ToString();
         }
@@ -467,7 +491,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void BindSIPUIONSchemeSelection()
+        protected void BindSipUiOnSchemeSelection()
         {
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
             SetLatestNav();
@@ -480,13 +504,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindFrequency()
         {
             ddlFrequency.Items.Clear();
-            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
+            dtFrequency = new DataTable();
+            dtFrequency = commonLookupBo.GetFrequencyDetails();
+            foreach (DataRow row in dtFrequency.Rows)
             {
-                if (row["PASP_SchemePlanCode"].ToString() == ddlScheme.SelectedValue.ToString())
-                {
-                    ddlFrequency.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
-                }
-
+                ddlFrequency.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
             }
             ddlFrequency.Items.Insert(0, new ListItem("--SELECT--"));
             ddlFrequency.SelectedIndex = 0;
@@ -537,8 +559,11 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtgetfolioNo;
             try
             {
+                if(strAction!="Edit")
                 dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
-
+                else
+                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId);
+                
                 if (dtgetfolioNo.Rows.Count > 0)
                 {
                     ddlFolio.DataSource = dtgetfolioNo;
@@ -548,7 +573,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 ddlFolio.Items.Insert(0, new ListItem("--SELECT--", "--SELECT--"));
                 ddlFolio.Items.Insert(1, new ListItem("New", "1"));
-                ddlFolio.SelectedIndex = 0;
+                //ddlFolio.SelectedIndex = 0;
             }
             catch (BaseApplicationException Ex)
             {
@@ -616,8 +641,20 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindddlTotalInstallments()
         {
             ddlTotalInstallments.Items.Clear();
-            int minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
-            int maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
+            int minDues ;
+            int maxDues;
+            if (strAction != "Edit")
+            {
+                 minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
+                 maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
+               
+            }
+            else
+            {
+                 minDues = Convert.ToInt32(onlineMFOrderVo.MinDues);
+                 maxDues = Convert.ToInt32(onlineMFOrderVo.MaxDues);
+
+            }
             StringBuilder strTotalInstallments = new StringBuilder();
 
             for (int i = minDues; i <= maxDues; i++)
