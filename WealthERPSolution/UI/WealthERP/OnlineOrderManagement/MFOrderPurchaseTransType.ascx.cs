@@ -275,6 +275,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
+            bool accountDebitStatus = false;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
             if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
             {
@@ -315,9 +316,20 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
             }
 
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);           
             OrderId = int.Parse(OrderIds[0].ToString());
+            if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                accountDebitStatus = onlineMforderBo.CheckRMSUserAccountBalance(customerVo.AccountId, onlinemforderVo.Amount, OrderId);
+            }
+            if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            }
+            else if (OrderId != 0 && accountDebitStatus == false)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order will not process');", true);
+            }
             PurchaseOrderControlsEnable(false);
         }
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
