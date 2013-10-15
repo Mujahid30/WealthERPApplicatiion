@@ -35,5 +35,7 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::Telerik.Web.UI.RadGrid rgUnitHolding;
         protected global::System.Web.UI.WebControls.Panel pnlMFUnitHolding;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAction;
     }
 }

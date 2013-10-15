@@ -40,21 +40,52 @@ namespace WealthERP.OnlineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
             customerId = customerVO.CustomerId;
-            BindPortfolioDropDown();
+            BindFolioAccount();
            
+        }
+        private void SetParameter()
+        {
+            if (ddlPortfolio.SelectedIndex != 0)
+            {
+                hdnAccount.Value = ddlPortfolio.SelectedValue;
+                ViewState["AccountDropDown"] = hdnAccount.Value;
+            }
+            else
+            {
+                hdnAccount.Value = "0";
+            }
         }
         private void BindPortfolioDropDown()
         {
-            DataSet ds = portfolioBo.GetCustomerPortfolio(customerVO.CustomerId);
-            ddlPortfolio.DataSource = ds;
-            ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
-            ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
-            ddlPortfolio.DataBind();
+            //DataSet ds = portfolioBo.GetCustomerPortfolio(customerVO.CustomerId);
+            //ddlPortfolio.DataSource = ds;
+            //ddlPortfolio.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
+            //ddlPortfolio.DataTextField = ds.Tables[0].Columns["CP_PortfolioName"].ToString();
+            //ddlPortfolio.DataBind();
             //ddlPortfolio.SelectedValue = portfolioId.ToString();
+        }
+        /// <summary>
+        /// Get Folio Account for Customer
+        /// </summary>
+        private void BindFolioAccount()
+        {
+            DataSet dsFolioAccount;
+            DataTable dtFolioAccount;
+            dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
+            dtFolioAccount = dsFolioAccount.Tables[0];
+            if (dtFolioAccount.Rows.Count > 0)
+            {
+                ddlPortfolio.DataSource = dsFolioAccount.Tables[0];
+                ddlPortfolio.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
+                ddlPortfolio.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
+                ddlPortfolio.DataBind();
+            }
+            ddlPortfolio.Items.Insert(0, new ListItem("All", "0"));
         }
         protected void btnUnitHolding_Click(object sender, EventArgs e)
         {
-            portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
+            //portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
+            SetParameter();
             BindUnitHolding();
            
         }
@@ -64,7 +95,7 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         protected void BindUnitHolding()
         {
-            OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, portfolioId);
+            OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
             if (OnlineMFHoldingList.Count != 0)
             {
                 DataTable dtMFUnitHoplding = new DataTable();
@@ -96,6 +127,7 @@ namespace WealthERP.OnlineOrderManagement
                 dtMFUnitHoplding.Columns.Add("InvestmentStartDate");
                 dtMFUnitHoplding.Columns.Add("CMFNP_NAVDate");
                 dtMFUnitHoplding.Columns.Add("CMFNP_ValuationDate");
+                dtMFUnitHoplding.Columns.Add("RealizesdGain");
 
                 DataRow drMFUnitHoplding;
                 for (int i = 0; i < OnlineMFHoldingList.Count; i++)
@@ -167,7 +199,7 @@ namespace WealthERP.OnlineOrderManagement
                       if (mfPortfolioVo.ReturnsAllTotalDividends != 0)
                           drMFUnitHoplding["TotalDividends"] = mfPortfolioVo.ReturnsAllTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                        drMFUnitHoplding["TotalDividends"] = "0.00";
+                      drMFUnitHoplding["TotalDividends"] = "0.00";
                       drMFUnitHoplding["AMCCode"] = mfPortfolioVo.AMCCode;
                       drMFUnitHoplding["AmcName"] = mfPortfolioVo.AmcName;
                       drMFUnitHoplding["SchemeCode"] = mfPortfolioVo.SchemePlanCode;
@@ -185,6 +217,10 @@ namespace WealthERP.OnlineOrderManagement
                     else
                           drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
                       drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
+                    if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
+                        drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                      else
+                        drMFUnitHoplding["RealizesdGain"] = "0.00";
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                }
                 if (dtMFUnitHoplding.Rows.Count > 0)
@@ -216,6 +252,26 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
             }
+        }
+        protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            int selectedRow = gvr.ItemIndex + 1;           
+            string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString();
+            if(ddlAction.SelectedItem.Value.ToString() == "ABY")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + AccountId + "')", true); 
+            }
+            else if (ddlAction.SelectedItem.Value.ToString() == "SIP")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + AccountId + "')", true);
+            }
+            else
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + AccountId + "')", true);
+            }
+
         }
         protected void rgUnitHolding_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
