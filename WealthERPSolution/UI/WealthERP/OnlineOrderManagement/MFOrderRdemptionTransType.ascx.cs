@@ -61,8 +61,10 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void AmcBind()
         {
+            DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            dtAmc = commonLookupBo.GetProdAmc();
+            ds = onlineMforderBo.GetRedeemAmcDetails(customerVo.CustomerId);
+            dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
                 ddlAmc.DataSource = dtAmc;
@@ -78,7 +80,7 @@ namespace WealthERP.OnlineOrderManagement
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             CategoryBind();
-            SchemeBind(int.Parse(ddlAmc.SelectedValue), null);
+            SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
             BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
 
         }
@@ -89,7 +91,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 int amcCode = int.Parse(ddlAmc.SelectedValue);
                 string category = ddlCategory.SelectedValue.ToString();
-                SchemeBind(amcCode, category);
+                SchemeBind(amcCode, category, customerVo.CustomerId);
             }
 
         }
@@ -207,10 +209,10 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void SchemeBind(int amccode, string category)
+        protected void SchemeBind(int amccode, string category, int customerid)
         {
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid);
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;

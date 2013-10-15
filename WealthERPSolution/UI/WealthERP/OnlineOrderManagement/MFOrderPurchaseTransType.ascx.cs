@@ -219,7 +219,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void SchemeBind(int amccode, string category)
         {
             DataTable dtScheme = new DataTable();
-            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category);
+            dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category,0);
             if (dtScheme.Rows.Count > 0)
             {
                 ddlScheme.DataSource = dtScheme;

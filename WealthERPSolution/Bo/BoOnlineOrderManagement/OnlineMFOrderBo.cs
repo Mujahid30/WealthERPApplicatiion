@@ -265,5 +265,19 @@ namespace BoOnlineOrderManagement
 
             return StartDate.AddMonths(multiplier * installments);
         }
+        public DataSet GetRedeemAmcDetails(int customerId)
+        {
+            DataSet dsGetRedeemSchemeDetails;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsGetRedeemSchemeDetails = OnlineMFOrderDao.GetRedeemAmcDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetRedeemSchemeDetails;
+        }
     }
 }

@@ -39,7 +39,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr class="spaceUnder">
                         <td align="left">
-                            Addtional Purchase
+                            Additional Purchase
                         </td>
                     </tr>
                 </table>
@@ -112,6 +112,9 @@
             <td>
                 <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="True">
                 </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select a Folio"
+                    CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+            </td>
             </td>
             <td colspan="2">
             </td>
@@ -156,7 +159,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -168,7 +171,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblUnitsheld" runat="server" Text="Units Held" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblUnitsheld" runat="server" Text="Units Held:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblUnitsheldDisplay" runat="server"  CssClass="FieldName"></asp:Label>

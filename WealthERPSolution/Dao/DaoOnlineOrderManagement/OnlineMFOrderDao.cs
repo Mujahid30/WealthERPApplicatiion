@@ -319,6 +319,23 @@ namespace DaoOnlineOrderManagement
             }
             return dsSipDetails;
         }
-
+        public DataSet GetRedeemAmcDetails(int customerId)
+        {
+            DataSet dsGetRedeemSchemeDetails;
+            Database db;
+            DbCommand GetRedeemSchemeDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetRedeemSchemeDetailscmd = db.GetStoredProcCommand("SPROC_ONL_GetRedeemAmcDetails");
+                db.AddInParameter(GetRedeemSchemeDetailscmd, "@customerId", DbType.Int32, customerId);
+                dsGetRedeemSchemeDetails = db.ExecuteDataSet(GetRedeemSchemeDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetRedeemSchemeDetails;
+        }
     }
 }

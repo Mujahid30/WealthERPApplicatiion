@@ -75,7 +75,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblCategory" runat="server" Text="Category" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -93,7 +93,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblScheme" runat="server" Text="Scheme" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -160,7 +160,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -176,7 +176,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblAmt" runat="server" Text="Amount" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblAmt" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField"></asp:TextBox>
@@ -199,7 +199,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblDivType" runat="server" Text="Dividend Type" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
@@ -219,7 +219,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
@@ -231,7 +231,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>

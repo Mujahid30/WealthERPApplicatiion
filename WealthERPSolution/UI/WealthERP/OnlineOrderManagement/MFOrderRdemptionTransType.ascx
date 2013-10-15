@@ -91,6 +91,10 @@
             <td>
                 <asp:DropDownList ID="ddlFolio" CssClass="cmbField" runat="server" AutoPostBack="True">
                 </asp:DropDownList>
+                <span id="Span3" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Select a Folio"
+                    CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+
             </td>
             <td colspan="2">
             </td>
@@ -135,7 +139,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -238,7 +242,7 @@
                     OnSelectedIndexChanged="ddlRedeem_OnSelectedIndexChanged">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                     <asp:ListItem Text="Units" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="Amounts" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="Amount(Rs)" Value="2"></asp:ListItem>
                     <asp:ListItem Text="All" Value="3"></asp:ListItem>
                 </asp:DropDownList>
             </td>
@@ -259,7 +263,7 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblDividendType" runat="server" CssClass="txtField"></asp:Label>
