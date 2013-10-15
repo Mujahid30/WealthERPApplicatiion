@@ -1568,6 +1568,22 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerFIAlerts", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
                 }
+                else if (e.Item.Value == "NCDIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                }
+                else if (e.Item.Value == "NCDIssueTransact")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                }
+                else if (e.Item.Value == "NCDOrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                }
+                else if (e.Item.Value == "NCDHolding")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                }
              }
             catch (BaseApplicationException Ex)
             {

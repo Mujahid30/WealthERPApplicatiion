@@ -362,6 +362,35 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
+                                  <Items>
+                                    <telerik:RadPanelItem runat="server" Text="NCD Order" Value="NCDMFOrder">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Transact" Value="NCDTransact">
+                                                <Items>
+                                                     <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact">
+                                                    </telerik:RadPanelItem>
+                                                   
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD Books" Value="NCDBooks">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Book" Value="NCDOrderBook">
+                                                    </telerik:RadPanelItem>
+                                                  
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD Issue Holdings" Value="NCDHoldings">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="NCDHolding" Value="NCDHolding">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
                             </telerik:RadPanelItem>
                         </Items>
                         <ExpandAnimation Type="InCubic" />
