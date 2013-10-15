@@ -504,18 +504,18 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindFrequency()
         {
             ddlFrequency.Items.Clear();
-            dtFrequency = new DataTable();
-            dtFrequency = commonLookupBo.GetFrequencyDetails();
-            foreach (DataRow row in dtFrequency.Rows)
-            {
-                ddlFrequency.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
+            if (dtGetAllSIPDataForOrder == null) return;
+
+            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows) {
+                if (row["PASP_SchemePlanCode"].ToString() == ddlScheme.SelectedValue.ToString()) {
+                    ddlFrequency.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
+                }
             }
             ddlFrequency.Items.Insert(0, new ListItem("--SELECT--"));
             ddlFrequency.SelectedIndex = 0;
         }
 
-        private void BindModeOfHolding()
-        {
+        private void BindModeOfHolding() {
         }
 
 
