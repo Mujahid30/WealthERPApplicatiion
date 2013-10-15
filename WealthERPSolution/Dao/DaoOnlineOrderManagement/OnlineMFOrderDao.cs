@@ -16,7 +16,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineMFOrderDao : OnlineOrderDao
     {
-        public DataSet GetOrderBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -25,7 +25,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetOrderBook");
-                db.AddInParameter(GetOrderBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
+               // db.AddInParameter(GetOrderBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 if (AccountId != 0)
                     db.AddInParameter(GetOrderBookMISCmd, "@AccountId", DbType.Int32, AccountId);
                 else
@@ -178,7 +178,7 @@ namespace DaoOnlineOrderManagement
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -187,7 +187,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");
-                db.AddInParameter(GetSIPBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
+                //db.AddInParameter(GetSIPBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
                 if (AccountId != 0)
                     db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, AccountId);
                 else

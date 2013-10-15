@@ -98,7 +98,7 @@ namespace WealthERP.OnlineOrderManagement
              //    hdnAccount.Value = "0"; 
              //}
 
-            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(advisorVo.advisorId, customerId, int.Parse(hdnAccount.Value), fromDate, toDate);
+            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(customerId, int.Parse(hdnAccount.Value), fromDate, toDate);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)
             {

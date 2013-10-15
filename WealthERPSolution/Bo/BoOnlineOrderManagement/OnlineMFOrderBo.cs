@@ -17,13 +17,13 @@ namespace BoOnlineOrderManagement
     public class OnlineMFOrderBo:OnlineOrderBo
     {
 
-        public DataSet GetOrderBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsOrderBookMIS = OnlineMFOrderDao.GetOrderBookMIS(adviserId, CustomerId, AccountId, dtFrom, dtTo);
+                dsOrderBookMIS = OnlineMFOrderDao.GetOrderBookMIS(CustomerId, AccountId, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -130,13 +130,13 @@ namespace BoOnlineOrderManagement
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int adviserId, int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(adviserId, CustomerId, AccountId, dtFrom, dtTo);
+                dsSIPBookMIS = OnlineMFOrderDao.GetSIPBookMIS(CustomerId, AccountId, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
