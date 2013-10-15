@@ -289,7 +289,7 @@
                                             </telerik:RadComboBoxItem>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Modify" Value="Edit"
                                                runat="server"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png"
+                                            <telerik:RadComboBoxItem Text="Cancel" Value="Cancel" ImageUrl="~/Images/DetailedView.png" Visible="false"
                                                runat="server"></telerik:RadComboBoxItem>
                                         </Items>
                                     </telerik:RadComboBox>
