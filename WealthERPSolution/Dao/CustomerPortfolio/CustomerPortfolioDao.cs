@@ -2193,7 +2193,10 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getMFPortfolioCmd = db.GetStoredProcCommand("SPROC_Onl_GetMFHolding");
                 db.AddInParameter(getMFPortfolioCmd, "@customerId", DbType.Int32, customerId);
-                db.AddInParameter(getMFPortfolioCmd, "@portfolioId", DbType.Int32, portfolioId);               
+                if(portfolioId!=0)
+                db.AddInParameter(getMFPortfolioCmd, "@AccountId", DbType.Int32, portfolioId);
+                else
+                db.AddInParameter(getMFPortfolioCmd, "@AccountId", DbType.Int32,DBNull.Value);
                 dsGetMFPortfolio = db.ExecuteDataSet(getMFPortfolioCmd);
 
                 if (dsGetMFPortfolio.Tables[0].Rows.Count > 0)
