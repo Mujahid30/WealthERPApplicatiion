@@ -11,7 +11,7 @@ using VoOnlineOrderManagemnet;
 
 namespace DaoOnlineOrderManagement
 {
-    public class OnlineBondOrderDao:OnlineOrderDao
+    public class OnlineBondOrderDao : OnlineOrderDao
     {
         public DataSet GetLookupDataForReceivableSetUP(int adviserId, int structureId)
         {
@@ -45,7 +45,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        
+
         public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
         {
             Database db;
@@ -79,26 +79,25 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-
         public bool UpdateOnlineBondTransact(DataTable BondORder)
         {
             Database db;
-            DbCommand cmdOnlineBondTransact;      
+            DbCommand cmdOnlineBondTransact;
             bool result = false;
 
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                
-                
-                
-                
+
+
+
+
                 cmdOnlineBondTransact = db.GetStoredProcCommand("SPROC_ONL_OnlineBondTransaction");
 
                 DataSet ds = new DataSet();
                 ds.Tables.Add(BondORder);
 
-                String sb ;
+                String sb;
                 sb = ds.GetXml().ToString();
 
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
@@ -130,6 +129,68 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return result;
+        }
+
+        public DataSet GetOrderBondsBook(int input)
+        {
+            DataSet dsOrderBondsBook;
+            Database db;
+            DbCommand GetOrderBondsBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_OnlineBondManagement");
+                db.AddInParameter(GetOrderBondsBookcmd, "@ReportType", DbType.Int32, input);
+                dsOrderBondsBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetOrderBondsBook(int input)");
+                object[] objects = new object[1];
+                objects[0] = input;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrderBondsBook;
+        }
+
+        public void CancelBondsBookOrder(string id)
+        {
+            Database db;
+            DbCommand CancelOrderBondsBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CancelOrderBondsBookcmd = db.GetStoredProcCommand("");
+                db.AddInParameter(CancelOrderBondsBookcmd, "", DbType.String, id);
+                db.ExecuteDataSet(CancelOrderBondsBookcmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:CancelBondsBookOrder(string id)");
+                object[] objects = new object[1];
+                objects[0] = id;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }
