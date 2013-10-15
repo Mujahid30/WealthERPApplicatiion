@@ -318,7 +318,7 @@ namespace WealthERP.OnlineOrderManagement
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
-          
+            PurchaseOrderControlsEnable(false);
         }
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
