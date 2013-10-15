@@ -961,7 +961,7 @@ namespace WealthERP.CustomerPortfolio
                 //drMFPortfolioHoldings[22] = "N/A";
                 //drMFPortfolioHoldings[23] = "N/A";
                 //drMFPortfolioHoldings[24] = "N/A";
-                drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "N/A";
+                //drMFPortfolioHoldings["CMFNP_RET_Hold_DVRAmounts"] = "N/A";
                 drMFPortfolioHoldings[22] = "N/A";
                 drMFPortfolioHoldings[23] = "N/A";
                 drMFPortfolioHoldings[24] = "N/A";

@@ -846,9 +846,9 @@
                                     <td id="Td4" runat="server">
                                         <asp:Label ID="lblCustometGroupOrInd" runat="server" CssClass="HeaderTextSmall" Style='font-weight: normal;'
                                             Text="Generate report for :"></asp:Label>
-                                        <asp:RadioButton runat="server" ID="rdoCustomerGroup" Text="Group" Class="cmbField"
+                                        <asp:RadioButton runat="server" ID="rdoCustomerGroup" Text="Group" Class="cmbFielde"
                                             GroupName="GrpOrSelf" onClick="ChangeGroupOrSelf('group')" />
-                                        <asp:RadioButton runat="server" ID="rdoCustomerIndivisual" Text="Self" Class="cmbField"
+                                        <asp:RadioButton runat="server" ID="rdoCustomerIndivisual" Text="Self" Class="cmbFielde"
                                             GroupName="GrpOrSelf" onClick="return ChangeGroupOrSelf('Individual')" />
                                     </td>
                                     <td id="Td5" runat="server">
@@ -985,9 +985,9 @@
                                                     <asp:Label ID="lblsortby" runat="server" CssClass="FieldName" Text="Sort by:"></asp:Label>
                                                 </td>
                                                 <td id="Td14" runat="server" align="left">
-                                                    <asp:RadioButton ID="rddate" runat="server" CssClass="cmbField" GroupName="Transation"
+                                                    <asp:RadioButton ID="rddate" runat="server" CssClass="cmbFielde" GroupName="Transation"
                                                         Text="Date" />
-                                                    <asp:RadioButton ID="rdScheme" runat="server" CssClass="cmbField" GroupName="Transation"
+                                                    <asp:RadioButton ID="rdScheme" runat="server" CssClass="cmbFielde" GroupName="Transation"
                                                         Text="Scheme/Folio" />
                                                 </td>
                                             </tr>
@@ -1167,13 +1167,13 @@
                                     Text="Group" Class="cmbField" GroupName="EmailGrpOrInd" Checked="True" OnCheckedChanged="rbnGroup_CheckedChanged"
                                     AutoPostBack="True" />
                                     --%>
-                                                <asp:RadioButton runat="server" ID="rbtnGrp" Text="Group" Class="cmbField" GroupName="EmailGrpOrInd"
+                                                <asp:RadioButton runat="server" ID="rbtnGrp" Text="Group" Class="cmbFielde" GroupName="EmailGrpOrInd"
                                                     OnCheckedChanged="rbnGroup_CheckedChanged" AutoPostBack="True" />
                                                 <asp:RadioButton runat="server" ID="rbnIndivisual" Text="Individual Without Group"
-                                                    Class="cmbField" GroupName="EmailGrpOrInd" OnCheckedChanged="rbnIndivisual_CheckedChanged"
+                                                    Class="cmbFielde" GroupName="EmailGrpOrInd" OnCheckedChanged="rbnIndivisual_CheckedChanged"
                                                     AutoPostBack="True" />
                                                 <asp:RadioButton runat="server" ID="rbnAllCustomer" AutoPostBack="True" Text="All Individual"
-                                                    value="chkCustomer" GroupName="EmailGrpOrInd" CssClass="cmbField" OnCheckedChanged="rbnAllCustomer_CheckedChanged" />
+                                                    value="chkCustomer" GroupName="EmailGrpOrInd" CssClass="cmbFielde" OnCheckedChanged="rbnAllCustomer_CheckedChanged" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -1302,7 +1302,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td width="100%">
-                                                                <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbField" Width="100%">
+                                                                <asp:CheckBoxList ID="chkAsOnReportList" runat="server" class="cmbFielde" Width="100%">
                                                                     <asp:ListItem Text="Mutual Fund Summary" Value="CATEGORY_WISE"></asp:ListItem>
                                                                     <asp:ListItem Text="Portfolio Return-Holding" Value="RETURNS_PORTFOLIO"></asp:ListItem>
                                                                     <asp:ListItem Text="Comprehensive" Value="COMPREHENSIVE"></asp:ListItem>
@@ -1320,10 +1320,10 @@
                                                         width="100%">
                                                         <tr>
                                                             <td width="100%">
-                                                                <asp:RadioButton ID="rdoDateRange" runat="server" Checked="True" class="cmbField"
+                                                                <asp:RadioButton ID="rdoDateRange" runat="server" Checked="True" class="cmbFielde"
                                                                     GroupName="DatePick" onclick="DisplayEmailDates('DATE_RANGE')" />
                                                                 <asp:Label ID="lblEmailDateRangeRdo" runat="server" CssClass="Field" Text="Pick a Date Range"></asp:Label>
-                                                                <asp:RadioButton ID="rdoDatePeriod" runat="server" class="cmbField" GroupName="DatePick"
+                                                                <asp:RadioButton ID="rdoDatePeriod" runat="server" class="cmbFielde" GroupName="DatePick"
                                                                     onclick="DisplayEmailDates('PERIOD')" />
                                                                 <asp:Label ID="lblEmailDatePeriodRdo" runat="server" CssClass="Field" Text="Pick a Period"></asp:Label>
                                                             </td>
@@ -1401,7 +1401,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <asp:CheckBoxList ID="chkRangeReportList" runat="server" class="cmbField" Width="100%">
+                                                                <asp:CheckBoxList ID="chkRangeReportList" runat="server" class="cmbFielde" Width="100%">
                                                                     <asp:ListItem Text="Transaction Report" Value="TRANSACTION_REPORT"></asp:ListItem>
                                                                     <asp:ListItem Text="Dividend Statement" Value="DIVIDEND_STATEMENT"></asp:ListItem>
                                                                     <asp:ListItem Text="Dividend Summary" Value="DIVIDEND_SUMMARY"></asp:ListItem>

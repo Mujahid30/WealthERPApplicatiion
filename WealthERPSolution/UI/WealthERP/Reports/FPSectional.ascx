@@ -225,72 +225,72 @@
                             </td>
                             <td style="width: 44%; white-space: nowrap">
                                 <%-- <input type="checkbox" name="FPSectonal" value="1">Cover page<br>--%>
-                                <asp:CheckBox ID="chkCover_page" runat="server" CssClass="cmbField" Text="Cover page"
+                                <asp:CheckBox ID="chkCover_page" runat="server" CssClass="cmbFielde" Text="Cover page"
                                     Checked="true" Enabled="false" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkIncome_Expense" runat="server" CssClass="cmbField" Text="Income and Expense Summary" />
+                                <asp:CheckBox ID="chkIncome_Expense" runat="server" CssClass="cmbFielde" Text="Income and Expense Summary" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 3%">
                             </td>
                             <td style="width: 44%; white-space: nowrap">
-                                <asp:CheckBox ID="chkRM_Messgae" runat="server" CssClass="cmbField" Text="RM Message" />
+                                <asp:CheckBox ID="chkRM_Messgae" runat="server" CssClass="cmbFielde" Text="RM Message" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkCash_Flows" runat="server" CssClass="cmbField" Text="Cash Flows" />
+                                <asp:CheckBox ID="chkCash_Flows" runat="server" CssClass="cmbFielde" Text="Cash Flows" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 3%">
                             </td>
                             <td style="width: 44%; white-space: nowrap">
-                                <asp:CheckBox ID="chkImage" runat="server" CssClass="cmbField" Text="Image" />
+                                <asp:CheckBox ID="chkImage" runat="server" CssClass="cmbFielde" Text="Image" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkNetWorthSummary" runat="server" CssClass="cmbField" Text="Net Worth Summary" />
+                                <asp:CheckBox ID="chkNetWorthSummary" runat="server" CssClass="cmbFielde" Text="Net Worth Summary" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 3%">
                             </td>
                             <td style="width: 44%; white-space: nowrap">
-                                <asp:CheckBox ID="chkTableContent" runat="server" CssClass="cmbField" Text="Table of Content"
+                                <asp:CheckBox ID="chkTableContent" runat="server" CssClass="cmbFielde" Text="Table of Content"
                                     Enabled="false" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkRiskProfile" runat="server" CssClass="cmbField" Text="Risk profile & Portfolio allocation" />
+                                <asp:CheckBox ID="chkRiskProfile" runat="server" CssClass="cmbFielde" Text="Risk profile & Portfolio allocation" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 3%">
                             </td>
                             <td style="width: 44%; white-space: nowrap">
-                                <asp:CheckBox ID="chkFPIntroduction" runat="server" CssClass="cmbField" Text="FP Introduction" />
+                                <asp:CheckBox ID="chkFPIntroduction" runat="server" CssClass="cmbFielde" Text="FP Introduction" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkInsurance" runat="server" CssClass="cmbField" Text="Life Insurance" />
+                                <asp:CheckBox ID="chkInsurance" runat="server" CssClass="cmbFielde" Text="Life Insurance" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 3%">
                             </td>
                             <td style="width: 44%; white-space: nowrap">
-                                <asp:CheckBox ID="chkProfileSummary" runat="server" CssClass="cmbField" Text="Profile Summary" />
+                                <asp:CheckBox ID="chkProfileSummary" runat="server" CssClass="cmbFielde" Text="Profile Summary" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkGeneralInsurance" runat="server" CssClass="cmbField" Text="General Insurance" />
+                                <asp:CheckBox ID="chkGeneralInsurance" runat="server" CssClass="cmbFielde" Text="General Insurance" />
                             </td>
                         </tr>
                         <tr>
                             <td style="width: 3%">
                             </td>
                             <td style="width: 44%; white-space: nowrap">
-                                <asp:CheckBox ID="chkFinancialHealth" runat="server" CssClass="cmbField" Text="Financial Health" />
+                                <asp:CheckBox ID="chkFinancialHealth" runat="server" CssClass="cmbFielde" Text="Financial Health" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkCurrentObservation" runat="server" CssClass="cmbField" Text="Current Situation and Observations" />
+                                <asp:CheckBox ID="chkCurrentObservation" runat="server" CssClass="cmbFielde" Text="Current Situation and Observations" />
                             </td>
                         </tr>
                         <tr>
@@ -298,10 +298,10 @@
                             </td>
                             <td style="width: 44%; white-space: nowrap">
                                 <%-- <asp:CheckBox ID="chkKeyAssumptions" runat="server" CssClass="cmbField" Text="Key Assumptions" />  --%>
-                                <asp:CheckBox ID="chkGoalProfile" runat="server" CssClass="cmbField" Text="Goal Profiling" />
+                                <asp:CheckBox ID="chkGoalProfile" runat="server" CssClass="cmbFielde" Text="Goal Profiling" />
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkDisclaimer" runat="server" CssClass="cmbField" Text="Disclaimer" />
+                                <asp:CheckBox ID="chkDisclaimer" runat="server" CssClass="cmbFielde" Text="Disclaimer" />
                             </td>
                         </tr>
                         <tr>
@@ -312,7 +312,7 @@
                                 <%-- <asp:CheckBox ID="CheckBox1" runat="server" CssClass="cmbField" Text="Goal Profiling" />   --%>
                             </td>
                             <td style="width: 50%; white-space: nowrap">
-                                <asp:CheckBox ID="chkNotes" runat="server" CssClass="cmbField" Text="Notes" />
+                                <asp:CheckBox ID="chkNotes" runat="server" CssClass="cmbFielde" Text="Notes" />
                             </td>
                         </tr>
                     </table>

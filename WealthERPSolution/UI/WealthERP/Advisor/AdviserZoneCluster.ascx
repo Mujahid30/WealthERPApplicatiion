@@ -48,7 +48,7 @@
 <br />
 <div style="border: none; padding-left: 8px">
     <asp:Label ID="lblAction" runat="server" Text="Show:" CssClass="FieldName"></asp:Label>
-    <telerik:RadComboBox runat="server" ID="rcbShow" EmptyMessage="Show">
+    <telerik:RadComboBox CssClass="cmbField" runat="server" ID="rcbShow" EmptyMessage="Show">
         <Items>
             <telerik:RadComboBoxItem Text="" Value="" />
             <telerik:RadComboBoxItem Text="Zone" Value="1" />

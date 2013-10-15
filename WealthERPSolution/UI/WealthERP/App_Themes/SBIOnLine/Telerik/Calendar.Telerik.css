@@ -13,7 +13,7 @@ table.RadCalendar_Telerik
 {
 	border-color:#a7bac5;
 	border-bottom-color:#2676c7;
-	background:#D9EBF7 0 -800px repeat-x url('Calendar/sprite.gif');
+	background:#b4e1ed 0 -800px repeat-x url('Calendar/sprite.gif');
 	color:#000;
 }
 
@@ -127,7 +127,7 @@ table.RadCalendar_Telerik
 .RadCalendar_Telerik .rcViewSel,
 .RadCalendar_Telerik .rcRow th
 {
-	background:#0B49AE;
+	background:#b4e1ed;
 }
 
 .RadCalendar_Telerik .rcRow th

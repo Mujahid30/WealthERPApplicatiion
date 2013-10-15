@@ -116,11 +116,11 @@
             <asp:Label ID="lblStaffRole" Text="Select Staff Role:" runat="server" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField">
-            <asp:CheckBox ID="chkbxAll" CssClass="cmbField" runat="server" Text="All" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')"
+            <asp:CheckBox ID="chkbxAll" CssClass="cmbFielde" runat="server" Text="All" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')"
                 OnCheckedChanged="ChkBxRoleList_SelectedIndexChanged" AutoPostBack="true" />
             <asp:CheckBoxList ID="ChkBxRoleList" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
             onclick="javascript:CheckBoxAllUncheck('ctrl_MessageCompose_ChkBxRoleList', 'ctrl_MessageCompose_chkbxAll')"
-                CssClass="cmbField" RepeatLayout="Flow" OnSelectedIndexChanged="ChkBxRoleList_SelectedIndexChanged"
+                CssClass="cmbFielde" RepeatLayout="Flow" OnSelectedIndexChanged="ChkBxRoleList_SelectedIndexChanged"
                 AutoPostBack="true">
                 <%--<asp:ListItem Value="0" onclick="javascript:CheckBoxListSelect('ctrl_MessageCompose_ChkBxRoleList')">All</asp:ListItem>--%>
                 <asp:ListItem Value="1000">Advisor</asp:ListItem>

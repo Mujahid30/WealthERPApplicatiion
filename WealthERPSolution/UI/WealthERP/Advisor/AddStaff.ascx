@@ -454,7 +454,7 @@
                         AllowTransferOnDoubleClick="true" AllowTransferDuplicates="false" OnTransferred="ListBoxSource_Transferred"
                         EnableViewState="true" EnableMarkMatches="true" runat="server" ID="LBStaffBranch" 
                         Height="200px" Width="250px"  AllowTransfer="true"
-                        TransferToID="RadListBoxDestination" CssClass="cmbField">
+                        TransferToID="RadListBoxDestination" CssClass="cmbFielde">
                     </telerik:RadListBox>
                     <telerik:RadListBox runat="server" AutoPostBackOnTransfer="true" SelectionMode="Multiple"
                         ID="RadListBoxDestination" Height="200px" Width="220px" CssClass="cmbField">

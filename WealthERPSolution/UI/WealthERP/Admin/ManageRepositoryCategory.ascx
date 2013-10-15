@@ -50,7 +50,7 @@
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList1" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
-                    CssClass="cmbField" RepeatLayout="Flow">
+                    CssClass="cmbFielde" RepeatLayout="Flow">
                     <asp:ListItem Value="1000" Selected="True" Enabled="false">Advisor</asp:ListItem>
                     <asp:ListItem Value="1002">BM</asp:ListItem>
                     <asp:ListItem Value="1001">RM</asp:ListItem>
@@ -81,7 +81,7 @@
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList2" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
-                    CssClass="cmbField" RepeatLayout="Flow">
+                    CssClass="cmbFielde" RepeatLayout="Flow">
                     <asp:ListItem Value="1000" Selected="True" Enabled="false">Advisor</asp:ListItem>
                     <asp:ListItem Value="1002">BM</asp:ListItem>
                     <asp:ListItem Value="1001">RM</asp:ListItem>
@@ -112,7 +112,7 @@
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList3" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
-                    CssClass="cmbField" RepeatLayout="Flow">
+                    CssClass="cmbFielde" RepeatLayout="Flow">
                     <asp:ListItem Value="1000" Selected="True" Enabled="false">Advisor</asp:ListItem>
                     <asp:ListItem Value="1002">BM</asp:ListItem>
                     <asp:ListItem Value="1001">RM</asp:ListItem>
@@ -143,7 +143,7 @@
             </td>
             <td>
                 <asp:CheckBoxList ID="CheckBoxList4" runat="server" CausesValidation="True" RepeatDirection="Horizontal"
-                    CssClass="cmbField" RepeatLayout="Flow">
+                    CssClass="cmbFielde" RepeatLayout="Flow">
                     <asp:ListItem Value="1000" Selected="True" Enabled="false">Advisor</asp:ListItem>
                     <asp:ListItem Value="1002">BM</asp:ListItem>
                     <asp:ListItem Value="1001">RM</asp:ListItem>
