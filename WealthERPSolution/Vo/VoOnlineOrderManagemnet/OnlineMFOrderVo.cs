@@ -27,6 +27,8 @@ namespace VoOnlineOrderManagemnet
         public string Category { set; get; }
         public string Folio { set; get; }
         public Double UnitsHeld { set; get; }
-
+        public int TotalInstallments { set; get; }
+        public int MinDues { set; get; }
+        public int MaxDues { set; get; }
     }
 }
