@@ -259,7 +259,14 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SubBrokerCode", DbType.Int32, onlineMFOrderVo.AgentCode);
                 db.AddInParameter(createMFOrderTrackingCmd, "@customerId", DbType.Int32, onlineMFOrderVo.CustomerId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@systamaticDates", DbType.String, onlineMFOrderVo.SystematicDates);
+
+                db.AddInParameter(createMFOrderTrackingCmd, "@action", DbType.String, onlineMFOrderVo.Action);
+                if (!string.IsNullOrEmpty(onlineMFOrderVo.DivOption))
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
+                
+
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
+
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0) {
                     //OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
