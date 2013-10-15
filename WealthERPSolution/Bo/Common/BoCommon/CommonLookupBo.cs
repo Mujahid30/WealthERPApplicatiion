@@ -6,6 +6,7 @@ using DaoCommon;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Data;
+using VoOnlineOrderManagemnet;
 
 
 namespace BoCommon
@@ -45,6 +46,14 @@ namespace BoCommon
                 throw exBase;
             }
             return dtSubCategory;
+        }
+
+        public List<OnlineMFOrderVo> GetAllSIPDataForOrderEdit(int orderIDForEdit, int customerIdForEdit)
+        {
+            List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
+            SIPDataForOrderEditList=daoCommonLookup.GetAllSIPDataForOrderEdit(orderIDForEdit, customerIdForEdit);
+
+            return SIPDataForOrderEditList;
         }
 
         /// <summary> 
@@ -239,6 +248,33 @@ namespace BoCommon
             }
             return dt;
         }
+
+        public DataTable GetFrequencyDetails()
+        {
+            DataTable dtAllSIPDataForOrder = new DataTable();
+            try
+            {
+                dtAllSIPDataForOrder = daoCommonLookup.GetFrequencyDetails();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objParams = new object[3];
+              
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAllSIPDataForOrder;
+        }
+
 
         public DataTable GetAllSIPDataForOrder(int schemeCode)
         {

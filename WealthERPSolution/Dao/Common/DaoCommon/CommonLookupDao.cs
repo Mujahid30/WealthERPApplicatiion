@@ -7,6 +7,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data;
 using System.Data.Common;
+using VoOnlineOrderManagemnet;
 
 namespace DaoCommon
 {
@@ -223,6 +224,102 @@ namespace DaoCommon
                 FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
                 object[] objects = new object[3];
                 objects[0] = AmcCode;
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAmcSchemeList.Tables[0];
+        }
+
+        public List<OnlineMFOrderVo> GetAllSIPDataForOrderEdit(int orderIDForEdit, int customerIdForEdit)
+        {
+            List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
+            OnlineMFOrderVo OnlineMFOrderVo=new OnlineMFOrderVo();
+            Database db;
+            DbCommand getAdvisorBranchCmd;
+            DataSet getAdvisorBranchDs;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+
+                getAdvisorBranchCmd = db.GetStoredProcCommand("SPROC_GetAllSIPDataForOrderEdit");
+                db.AddInParameter(getAdvisorBranchCmd, "@CO_OrderId", DbType.Int32, orderIDForEdit);
+                db.AddInParameter(getAdvisorBranchCmd, "@C_CustomerId", DbType.Int32, customerIdForEdit);               
+
+                getAdvisorBranchDs = db.ExecuteDataSet(getAdvisorBranchCmd);
+
+                if (getAdvisorBranchDs.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in getAdvisorBranchDs.Tables[0].Rows)
+                    {
+                        OnlineMFOrderVo = new OnlineMFOrderVo();
+
+                        OnlineMFOrderVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        OnlineMFOrderVo.AccountId = int.Parse(dr["CMFA_accountid"].ToString());
+                        OnlineMFOrderVo.SystematicTypeCode = dr["XSTT_SystematicTypeCode"].ToString();
+                        OnlineMFOrderVo.SystematicDate = int.Parse(dr["CMFSS_SystematicDate"].ToString());
+
+                        OnlineMFOrderVo.Amount =Convert.ToDouble(dr["CMFOD_Amount"].ToString());
+                        OnlineMFOrderVo.SourceCode = dr["XES_SourceCode"].ToString();
+                        OnlineMFOrderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
+                        OnlineMFOrderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
+                        OnlineMFOrderVo.StartDate = Convert.ToDateTime(dr["CMFOD_StartDate"].ToString());
+                        OnlineMFOrderVo.EndDate = Convert.ToDateTime(dr["CMFOD_EndDate"].ToString());
+                        OnlineMFOrderVo.SystematicDates = dr["CMFSS_SystematicDate"].ToString();
+                        OnlineMFOrderVo.AssetGroup = dr["PA_AMCCode"].ToString();
+                        OnlineMFOrderVo.Folio = dr["CMFA_FolioNum"].ToString();
+                        OnlineMFOrderVo.MinDues = Convert.ToInt32(getAdvisorBranchDs.Tables[1].Rows[0]["PASPSD_MinDues"].ToString());
+                        OnlineMFOrderVo.MaxDues = Convert.ToInt32(getAdvisorBranchDs.Tables[1].Rows[0]["PASPSD_MaxDues"].ToString());
+                        SIPDataForOrderEditList.Add(OnlineMFOrderVo);
+                    }
+                }
+                else
+                    SIPDataForOrderEditList = null; 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAdvisorBranches()");
+                object[] objects = new object[3]; 
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return SIPDataForOrderEditList;
+        }
+
+        public DataTable GetFrequencyDetails()
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet dsGetAmcSchemeList = null;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetFrequencyDetails");
+
+
+                dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
+                object[] objects = new object[3];
                
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
