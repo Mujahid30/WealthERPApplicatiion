@@ -44,10 +44,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dsLookupData;
-        }
-
-       
-
+        }       
 
         public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
         {
@@ -74,8 +71,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dsCommissionStructureRules;
-        }
-        
+        }        
        
         public bool onlineBOndtransact(DataTable OnlineBondOrder)
         {
@@ -102,6 +98,60 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return result;
+        }
+
+        public DataSet getBondsBookview(int input)
+        {
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = OnlineBondDao.GetOrderBondsBook(input);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:getBondsBookview(int input)");
+                object[] objects = new object[1];
+                objects[0] = input;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public void cancelBondsBookOrder(string id)
+        {
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+            try
+            {
+                OnlineBondDao.CancelBondsBookOrder(id);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:cancelBondsBookOrder(string id)");
+                object[] objects = new object[1];
+                objects[0] = id;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
     }
