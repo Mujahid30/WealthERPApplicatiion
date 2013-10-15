@@ -406,7 +406,7 @@ namespace DaoCommon
             DataSet dsGetAmcSchemeList = null;
             try {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmd = db.GetStoredProcCommand("SP_GetSchemeFromOverAllCategoryList");
+                cmd = db.GetStoredProcCommand("SP_GetSchemeFromOverAllCategoryListForOnlOrder");
                 if (AmcCode != 0)
                     db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
                 else
