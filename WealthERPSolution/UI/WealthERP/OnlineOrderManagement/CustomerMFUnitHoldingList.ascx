@@ -157,9 +157,9 @@
                                 DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="RealizesdGain" HeaderText="Unrealised gain/loss"
+                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="RealizesdGain" HeaderText="Unrealised Gain/Loss"
                                 DataField="RealizesdGain" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
-                                Aggregate="Sum" AllowFiltering="false">
+                                AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn visible="false" UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue"
@@ -203,12 +203,12 @@
                                 FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="TotalPL" HeaderText="Realised gain/loss"
+                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="TotalPL" HeaderText="Realised Gain/Loss"
                                 DataField="TotalPL" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
-                                Aggregate="Sum" AllowFiltering="false">
+                                AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn visible="false" HeaderStyle-Width="59px" UniqueName="AbsoluteReturn" HeaderText="Unrealised(%)"
+                            <telerik:GridBoundColumn visible="false" HeaderStyle-Width="59px" UniqueName="AbsoluteReturn" HeaderText="Unrealised Gain/Loss"
                                 DataField="AbsoluteReturn" AllowFiltering="false" DataFormatString="{0:N2}">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
