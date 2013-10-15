@@ -526,6 +526,8 @@ namespace DaoCustomerProfiling
                         customerVo.TaxSlab = int.Parse(dr["C_TaxSlab"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_IsKYCAvailable"].ToString()))
                         customerVo.MfKYC = int.Parse(dr["C_IsKYCAvailable"].ToString());
+                    if (!string.IsNullOrEmpty(dr["U_AccountId"].ToString()))
+                        customerVo.AccountId = dr["U_AccountId"].ToString();
 
                 }
             }
