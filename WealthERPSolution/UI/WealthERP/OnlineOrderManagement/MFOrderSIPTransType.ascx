@@ -254,7 +254,7 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblTotalInstallments" runat="server" Text="TotalInstallments:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblTotalInstallments" runat="server" Text="Total Installments:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddlTotalInstallments" CssClass="cmbField" runat="server" AutoPostBack="True"
@@ -329,14 +329,14 @@
         <tr visible="false" id="trDividendFrequency" runat="server" class="spaceUnder">
             <td>
             </td>
-            <td align="right">
-                <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
+            <td align="right"><asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                     <asp:ListItem Selected="True">--SELECT--</asp:ListItem>
                     <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                     <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
-                    <asp:ListItem Selected="True">--SELECT--</asp:ListItem>
+                   
                 </asp:DropDownList>
             </td>
             <td>
@@ -348,13 +348,15 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendFreq" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
+                
             </td>
             <td>
                 <asp:DropDownList ID="ddlDividendOption" CssClass="cmbField" runat="server" AutoPostBack="True">
+                   <asp:ListItem Selected="True" Value="--SELECT--">--SELECT--</asp:ListItem>
                     <asp:ListItem Text="Quaterly" Value="QTR"></asp:ListItem>
                     <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
-                    <asp:ListItem Selected="True" Value="--SELECT--">--SELECT--</asp:ListItem>
+                    
                 </asp:DropDownList>
             </td>
             <td align="right">
@@ -382,29 +384,34 @@
             <td>
                 <asp:Label ID="lblUsefulLinks" runat="server" Text="Quick Links:" CssClass="FieldName"></asp:Label>
             </td>
+            <td></td>
         </tr>
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
                     CssClass="txtField"></asp:LinkButton>
             </td>
+            <td></td>
         </tr>
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkFactSheet" CausesValidation="false" Text="Fact Sheet" runat="server"
                     CssClass="txtField"></asp:LinkButton>
             </td>
+            <td></td>
         </tr>
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
                     CssClass="txtField" onclick="lnkExitLoad_Click"></asp:LinkButton>
             </td>
+            <td><asp:Label runat="server" ID="lblExitLoad"></asp:Label></td>
         </tr>
         <tr style="display: none;" class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitDetails" Text="Exit Details" runat="server" CssClass="txtField"></asp:LinkButton>
             </td>
+            <td></td>
         </tr>
     </table>
 </div>

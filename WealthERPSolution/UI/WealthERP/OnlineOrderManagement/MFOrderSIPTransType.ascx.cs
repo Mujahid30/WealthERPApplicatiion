@@ -111,13 +111,13 @@ namespace WealthERP.OnlineOrderManagement
             BindEachControlForEditWithVO();
 
 
-           
+
         }
 
 
         protected void BindEachControlForEditWithVO()
         {
-            BindStartDates(); 
+            BindStartDates();
             BindFrequency();
             SetLatestNav();
             BindFolioNumber(Convert.ToInt32(onlineMFOrderVo.AssetGroup));
@@ -138,7 +138,7 @@ namespace WealthERP.OnlineOrderManagement
             lblEndDateDisplay.Text = onlineMFOrderVo.EndDate.ToString();
             BindddlTotalInstallments();
             ddlTotalInstallments.SelectedValue = onlineMFOrderVo.TotalInstallments.ToString();//for the time being take it as reedemed units
-            
+
         }
 
         protected void ddlStartDate_SelectedIndexChanged(object sender, EventArgs e)
@@ -302,6 +302,8 @@ namespace WealthERP.OnlineOrderManagement
                 divOrderCompletionDetails.Visible = true;
 
             }
+
+            FreezControlsAfterSubmit();
         }
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -314,6 +316,7 @@ namespace WealthERP.OnlineOrderManagement
             BindStartDates();
             BindddlTotalInstallments();
             ShowHideControlsForDivAndGrowth();
+            BindSIPDetailsONFrequencySelection(ddlScheme.SelectedValue, ddlFrequency.SelectedValue);
         }
 
         protected void ShowHideControlsForDivAndGrowth()
@@ -390,6 +393,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void BindStartDates()
         {
+            ddlStartDate.Items.Clear();
             DateTime[] dtStartdates;
             if (strAction != "Edit")
             {
@@ -430,6 +434,8 @@ namespace WealthERP.OnlineOrderManagement
             lblMutiplesThereAfterDisplay.Text = Math.Round(Convert.ToDecimal(dtSipDet["PASPSD_MultipleAmount"].ToString()), 2).ToString();
             lblCutOffTimeDisplay.Text = dtSipDet["PASPD_CutOffTime"].ToString();
             lblUnitHeldDisplay.Text = "0.00";
+            ViewState["ExitLoad"] = dtSipDet["PASPD_ExitLoadRemark"].ToString();
+
         }
         protected void hidFolioNumber_ValueChanged(object sender, EventArgs e)
         {
@@ -494,6 +500,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindSipUiOnSchemeSelection()
         {
             dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
+
             SetLatestNav();
             BindFrequency();
             BindAllControlsWithSIPData();
@@ -529,6 +536,7 @@ namespace WealthERP.OnlineOrderManagement
                 BindFrequency();
                 ddlFrequency.SelectedValue = dtGetAllSIPDataForOrder.Rows[0]["XF_FrequencyCode"].ToString();
                 ShowSipDates(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_StatingDates"].ToString());
+                lblEndDateDisplay.Text = string.Empty;
             }
 
         }
@@ -559,11 +567,11 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtgetfolioNo;
             try
             {
-                if(strAction!="Edit")
-                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
+                if (strAction != "Edit")
+                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(ddlAmc.SelectedValue), customerVo.CustomerId);
                 else
                     dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId);
-                
+
                 if (dtgetfolioNo.Rows.Count > 0)
                 {
                     ddlFolio.DataSource = dtgetfolioNo;
@@ -641,18 +649,18 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindddlTotalInstallments()
         {
             ddlTotalInstallments.Items.Clear();
-            int minDues ;
+            int minDues;
             int maxDues;
             if (strAction != "Edit")
             {
-                 minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
-                 maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
-               
+                minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
+                maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
+
             }
             else
             {
-                 minDues = Convert.ToInt32(onlineMFOrderVo.MinDues);
-                 maxDues = Convert.ToInt32(onlineMFOrderVo.MaxDues);
+                minDues = Convert.ToInt32(onlineMFOrderVo.MinDues);
+                maxDues = Convert.ToInt32(onlineMFOrderVo.MaxDues);
 
             }
             StringBuilder strTotalInstallments = new StringBuilder();
@@ -680,6 +688,20 @@ namespace WealthERP.OnlineOrderManagement
             lblEndDateDisplay.Text = dtEndDate.ToString("dd-MMM-yyyy");
         }
 
+        protected void FreezControlsAfterSubmit()
+        {
+            ddlAmc.Enabled = false;
+            ddlCategory.Enabled = false;
+            ddlScheme.Enabled = false;
+            ddlFolio.Enabled = false;
+            ddlFrequency.Enabled = false;
+            ddlStartDate.Enabled = false;
+            txtAmount.Enabled = false;
+            btnSubmit.Enabled = false;
+            ddlTotalInstallments.Enabled = false;
+
+        }
+
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlFolio.SelectedIndex < 1) return;
@@ -689,6 +711,7 @@ namespace WealthERP.OnlineOrderManagement
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
                 trNominee.Visible = true;
                 trJointHolder.Visible = true;
+                ddlFrequency.SelectedIndex = 0;
             }
             else
             {
@@ -699,7 +722,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void lnkExitLoad_Click(object sender, EventArgs e)
         {
-            lnkExitLoad.Text = dtGetAllSIPDataForOrder.Rows[0]["PASPD_ExitLoadRemark"].ToString();
+            lblExitLoad.Text = ViewState["ExitLoad"].ToString();
         }
     }
 }
