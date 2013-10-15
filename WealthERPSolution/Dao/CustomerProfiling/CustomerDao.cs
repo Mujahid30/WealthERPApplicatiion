@@ -256,13 +256,13 @@ namespace DaoCustomerProfiling
             return getschemePlanCodeDs;
         }
 
-        public DataSet GetSchemeMapDetails(string ExternalType,int AmcCode,string Category,string Type)
+        public DataSet GetSchemeMapDetails(string ExternalType, int AmcCode, string Category, string Type)
         {
             CustomerVo customerVo = null;
             Database db;
             DbCommand getschemePlanCodeCmd;
             DataSet getschemePlanCodeDs;
-           
+
             try
             {
                 customerVo = new CustomerVo();
@@ -271,7 +271,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(getschemePlanCodeCmd, "@ExternalType", DbType.String, ExternalType);
                 db.AddInParameter(getschemePlanCodeCmd, "@AmcCode", DbType.Int32, AmcCode);
                 db.AddInParameter(getschemePlanCodeCmd, "@Category", DbType.String, Category);
-                db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.String,Type);
+                db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.String, Type);
                 getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
             }
             catch (BaseApplicationException Ex)
@@ -301,13 +301,13 @@ namespace DaoCustomerProfiling
             Database db;
             DbCommand getschemePlanCodeCmd;
             DataSet getschemePlanCodeDs;
-           
+
             try
             {
                 customerVo = new CustomerVo();
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getschemePlanCodeCmd = db.GetStoredProcCommand("SP_BindDataTranslationMappingDetails");
-                db.AddInParameter(getschemePlanCodeCmd, "@ExtractType", DbType.String, ExternalType);               
+                db.AddInParameter(getschemePlanCodeCmd, "@ExtractType", DbType.String, ExternalType);
                 getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
             }
             catch (BaseApplicationException Ex)
@@ -320,7 +320,7 @@ namespace DaoCustomerProfiling
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerDao.cs:GetDataTransMapDetails()");
                 object[] objects = new object[1];
-                objects[0] = ExternalType;             
+                objects[0] = ExternalType;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -526,7 +526,7 @@ namespace DaoCustomerProfiling
                         customerVo.TaxSlab = int.Parse(dr["C_TaxSlab"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_IsKYCAvailable"].ToString()))
                         customerVo.MfKYC = int.Parse(dr["C_IsKYCAvailable"].ToString());
-                   
+
                 }
             }
 
@@ -730,6 +730,8 @@ namespace DaoCustomerProfiling
                         customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                     if (!string.IsNullOrEmpty(dr["ACC_CustomerCategoryCode"].ToString()))
                         customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerCategoryCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["U_AccountId"].ToString()))
+                        customerVo.AccountId = dr["U_AccountId"].ToString();
 
                 }
             }
@@ -1072,8 +1074,8 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_MothersMaidenName", DbType.String, customerVo.MothersMaidenName);
                 db.AddInParameter(editCustomerCmd, "@C_AdvNote", DbType.String, customerVo.AdviseNote);
                 db.AddInParameter(editCustomerCmd, "@C_IsAct", DbType.Int32, customerVo.IsActive);
-                if(customerVo.CustomerClassificationID != 0)
-                db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
+                if (customerVo.CustomerClassificationID != 0)
+                    db.AddInParameter(editCustomerCmd, "@C_ClassCode", DbType.Int32, customerVo.CustomerClassificationID);
                 db.AddInParameter(editCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddInParameter(editCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
                 db.AddInParameter(editCustomerCmd, "@C_MfKYC", DbType.String, customerVo.MfKYC);
@@ -5150,7 +5152,7 @@ namespace DaoCustomerProfiling
             return dsGetExceptionReportDetails;
         }
         public bool EditData(string ProData, string FolioData, string FolioNumber, int CustomerId, string Explist)
-            {
+        {
             bool bResult = false;
             //string Exp;
             Database db;
@@ -5163,7 +5165,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(EditDataCmd, "@customerId", DbType.Int32, CustomerId);
                 db.AddInParameter(EditDataCmd, "@folioData", DbType.String, FolioData);
                 db.AddInParameter(EditDataCmd, "@folionum", DbType.String, FolioNumber);
-               
+
                 if (Explist == "Pan")
                     Explist = "C_PANNum";
                 else if (Explist == "Email")
@@ -5179,7 +5181,7 @@ namespace DaoCustomerProfiling
                 else if (Explist == "Mob(o)")
                     Explist = "C_OfcPhoneNum";
                 db.AddInParameter(EditDataCmd, "@Explist", DbType.String, Explist);
-               if (db.ExecuteNonQuery(EditDataCmd) != 0)
+                if (db.ExecuteNonQuery(EditDataCmd) != 0)
                     bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -5332,7 +5334,7 @@ namespace DaoCustomerProfiling
             {
                 throw Ex;
             }
-           
+
             return result;
         }
 
@@ -5360,7 +5362,7 @@ namespace DaoCustomerProfiling
             {
                 throw Ex;
             }
-         
+
             return dtCustomerNames;
         }
 
@@ -5379,8 +5381,8 @@ namespace DaoCustomerProfiling
                 cmdGetCustomerNames = db.GetStoredProcCommand("SP_GetAdviserAllCustomerForAssociations");
                 db.AddInParameter(cmdGetCustomerNames, "@prefixText", DbType.String, prefixText);
                 db.AddInParameter(cmdGetCustomerNames, "@A_AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetCustomerNames, "@selectedParentId", DbType.Int32,parentId);
-                
+                db.AddInParameter(cmdGetCustomerNames, "@selectedParentId", DbType.Int32, parentId);
+
                 dsCustomerNames = db.ExecuteDataSet(cmdGetCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 
@@ -5389,7 +5391,7 @@ namespace DaoCustomerProfiling
             {
                 throw Ex;
             }
-         
+
             return dtCustomerNames;
         }
 
@@ -5523,14 +5525,14 @@ namespace DaoCustomerProfiling
             }
             return dtCustomerNames;
         }
-         public int ChkAssociateCode(int adviserid, string agentcode )
+        public int ChkAssociateCode(int adviserid, string agentcode)
         {
 
             Database db;
             DbCommand cmdGetGroupCustomerNames;
             DataSet dsCustomerNames;
             DataTable dtCustomerNames;
-             int CountRecord=0;
+            int CountRecord = 0;
 
             try
             {
@@ -5541,9 +5543,9 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(cmdGetGroupCustomerNames, "@agentcode", DbType.String, agentcode);
 
                 dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
-                CountRecord = Convert.ToInt32 (dsCustomerNames.Tables[0].Rows[0][0]);
+                CountRecord = Convert.ToInt32(dsCustomerNames.Tables[0].Rows[0][0]);
 
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -5586,7 +5588,7 @@ namespace DaoCustomerProfiling
                 dsCustomerNames = db.ExecuteDataSet(cmdGetGroupCustomerNames);
                 dtCustomerNames = dsCustomerNames.Tables[0];
 
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -5688,26 +5690,26 @@ namespace DaoCustomerProfiling
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdInsertDataTranslateMappingDetalis = db.GetStoredProcCommand("SP_EditKarvyDataTranslationMappingDetails");
-                if (TransactionHead!=null)
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead", DbType.String, TransactionHead);
+                if (TransactionHead != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead", DbType.String, TransactionHead);
                 else
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead",DbType.String, DBNull.Value);
-                if (TransactionDescription!=null)
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, TransactionDescription);
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionHead", DbType.String, DBNull.Value);
+                if (TransactionDescription != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, TransactionDescription);
                 else
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, DBNull.Value);
-                if (TransactionType!=null)
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionType", DbType.String, TransactionType);
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionDescription", DbType.String, DBNull.Value);
+                if (TransactionType != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionType", DbType.String, TransactionType);
                 else
                     db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionType", DbType.String, DBNull.Value);
-                if (TransactionTypeFlag!=null)
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionTypeFlag", DbType.String, TransactionTypeFlag);
+                if (TransactionTypeFlag != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionTypeFlag", DbType.String, TransactionTypeFlag);
                 else
-                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis,"@WKDTM_TransactionTypeFlag", DbType.String, DBNull.Value);
-                if(TransactionClassificationCode!=null)
-                db.AddInParameter(cmdInsertDataTranslateMappingDetalis,"@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WKDTM_TransactionTypeFlag", DbType.String, DBNull.Value);
+                if (TransactionClassificationCode != null)
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, TransactionClassificationCode);
                 else
-                 db.AddInParameter(cmdInsertDataTranslateMappingDetalis,"@WMTT_TransactionClassificationCode", DbType.String, DBNull.Value);
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WMTT_TransactionClassificationCode", DbType.String, DBNull.Value);
                 db.ExecuteNonQuery(cmdInsertDataTranslateMappingDetalis);
                 isUpdated = true;
             }
@@ -5750,7 +5752,7 @@ namespace DaoCustomerProfiling
                 if (TransactionType != null)
                     db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, TransactionType);
                 else
-                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, DBNull.Value);   
+                    db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_Transaction_type", DbType.String, DBNull.Value);
                 if (TransactionDescription != null)
                     db.AddInParameter(cmdInsertDataTranslateMappingDetalis, "@WCDTM_TransactionNature", DbType.String, TransactionDescription);
                 else
