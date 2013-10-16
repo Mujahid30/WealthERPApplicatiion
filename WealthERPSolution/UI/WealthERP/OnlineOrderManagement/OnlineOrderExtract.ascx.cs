@@ -13,5 +13,22 @@ namespace WealthERP.OnlineOrderManagement
         {
 
         }
+        protected void btnGenerateFile_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void btnPreview_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void btnExtract_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
