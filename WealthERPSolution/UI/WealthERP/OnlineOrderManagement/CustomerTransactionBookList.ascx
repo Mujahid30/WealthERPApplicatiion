@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <telerik:RadScriptManager ID="RadScriptManager1" runat="server" />
-<table width="100%">
+<%--<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -22,8 +22,8 @@
             </div>
         </td>
     </tr>
-</table>
-<div id="divConditional" runat="server">
+</table>--%>
+<div id="divConditional" runat="server" style="padding-top:4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="tdlblRejectReason" runat="server">

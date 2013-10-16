@@ -4,7 +4,7 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
-<table width="100%">
+<%--<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -23,8 +23,8 @@
             </div>
         </td>
     </tr>
-</table>
-<table style="width: 100%" class="TableBackground">
+</table>--%>
+<table style="width: 100%" class="TableBackground" style="padding-top:4px">
     <tr>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Account:"></asp:Label>

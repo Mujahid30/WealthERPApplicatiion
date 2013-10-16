@@ -6,7 +6,7 @@
 
 <script type="text/javascript" src="../Scripts/JScript.js"></script>
 
-<table width="100%">
+<%--<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -20,7 +20,7 @@
                             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View UploadLog"
                                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
                         </td>--%>
-                        <td align="right" style="width: 10px">
+                    <%--    <td align="right" style="width: 10px">
                             <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
@@ -30,8 +30,8 @@
             </div>
         </td>
     </tr>
-</table>
-<div id="divConditional" runat="server">
+</table>--%>--%>
+<div id="divConditional" runat="server" style="padding-top:4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="tdlblRejectReason" runat="server">
