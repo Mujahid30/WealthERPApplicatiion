@@ -65,7 +65,17 @@ namespace WealthERP.Advisor
                 groupCustomerId = customerBo.GetCustomerGroupHead(customerVo.CustomerId);
                 Session["rmVo"] = advisorStaffBo.GetAdvisorStaffDetails(customerVo.RmId);
                 rmVo = (RMVo)Session["rmVo"];
-
+                if (!string.IsNullOrEmpty(customerVo.AccountId))
+                {
+                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?x-SBI-Products=MF&x-Account-ID=" + customerVo.AccountId.ToString() ;
+                    btnOnlineOrder.ToolTip = "Click here for MF online Order";
+                }
+                else
+                {
+                    btnOnlineOrder.ToolTip = "ClientId not available, Please update clientId from backend";
+                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?x-SBI-Products=MF";
+                    btnOnlineOrder.Enabled = false;
+                }
                 if (!IsPostBack)
                 {
                     First = customerVo.FirstName.ToString();
@@ -1584,7 +1594,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
                 }
-             }
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

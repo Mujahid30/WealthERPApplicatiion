@@ -57,7 +57,7 @@ namespace WealthERP
                     productType = Page.Request.Headers["x-SBI-Products"];
                 }
             }
-            else if (Request.QueryString["x-Account-ID"] != null)
+            else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
             {
                 userAccountId = Request.QueryString["x-Account-ID"].ToString();
 
@@ -68,7 +68,7 @@ namespace WealthERP
                 }
             }
             //Testing User
-            
+
             if (string.IsNullOrEmpty(userAccountId))
                 userAccountId = "ESI64786";
             if (productType != "MF")
@@ -232,7 +232,7 @@ namespace WealthERP
             ProductMenuItemChange("MF", "Hodings");
         }
 
-        protected void ProductMenuItemChange(string ProductType,string menuType)
+        protected void ProductMenuItemChange(string ProductType, string menuType)
         {
             switch (menuType)
             {

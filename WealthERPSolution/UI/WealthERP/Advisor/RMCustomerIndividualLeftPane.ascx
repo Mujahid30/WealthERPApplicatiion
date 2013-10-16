@@ -1,8 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="RMCustomerIndividualLeftPane.ascx.cs"
     Inherits="WealthERP.Advisor.RMIndividualCustomerLeftPane" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<asp:ScriptManager ID="smCustomerLeftpanel" runat="server">
-</asp:ScriptManager>
 
 <script id="pagescript" type="text/javascript" language="javascript">
     function callSearch(searchtype) {
@@ -18,6 +16,15 @@
     }
 </script>
 
+<style type="text/css">
+    .OnlineOrder
+    {
+        width: 30px;
+        background: #68bfe1 url('/./Images/Buy-Button.png') no-repeat;
+    }
+</style>
+<asp:ScriptManager ID="smCustomerLeftpanel" runat="server">
+</asp:ScriptManager>
 <asp:UpdatePanel ID="upnlCustomerLeftpanel" runat="server">
     <ContentTemplate>
         <table>
@@ -31,6 +38,7 @@
             </tr>
             <tr id="trCustRMDetailsDivider" runat="server">
                 <td colspan="2">
+                    <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <hr />
                 </td>
             </tr>
@@ -349,7 +357,7 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -362,23 +370,21 @@
                                         </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
-                                  <Items>
+                                <Items>
                                     <telerik:RadPanelItem runat="server" Text="NCD Order" Value="NCDMFOrder">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Transact" Value="NCDTransact">
                                                 <Items>
-                                                     <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact">
                                                     </telerik:RadPanelItem>
-                                                   
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD Books" Value="NCDBooks">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Issue Book" Value="NCDOrderBook">
                                                     </telerik:RadPanelItem>
-                                                  
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD Issue Holdings" Value="NCDHoldings">
@@ -387,7 +393,6 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                 </Items>

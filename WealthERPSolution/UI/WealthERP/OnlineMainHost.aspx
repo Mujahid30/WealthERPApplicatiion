@@ -115,8 +115,8 @@
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
-        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>
+  <%--      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>--%>
                 <table width="100%">
                     <tr id="trMFOrderMenu" runat="server">
                         <td>
@@ -161,11 +161,11 @@
                         </td>
                     </tr>
                 </table>
-            </ContentTemplate>
+           <%-- </ContentTemplate>
             <Triggers>
                 <%-- <asp:PostBackTrigger ControlID="imgexportButton" />--%>
             </Triggers>
-        </asp:UpdatePanel>
+        </asp:UpdatePanel>--%>
     </div>
     </form>
 </body>
