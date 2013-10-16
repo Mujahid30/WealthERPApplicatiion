@@ -27,27 +27,11 @@
         }
 </script>
 
-<table width="100%">
-    <tr class="spaceUnder">
-        <td>
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr class="spaceUnder">
-                        <td align="left">
-                            SIP
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
-</br>
 <table width="100%"><tr align="center"><td align="center">
 <div id="divOrderCompletionDetails" runat="server" class="success-msg" align="center"
     visible="false">
 </div>
-<div id="divValidationError" runat="server" class="success-msg" align="center" visible="false">
+<div id="divValidationError" runat="server" class="success-msg" align="center" visible="true">
     <asp:ValidationSummary ID="vsSummary" runat="server"  Visible="true"
         ValidationGroup="btnSubmit" />
 </div>
@@ -68,7 +52,7 @@
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG"
                     ErrorMessage="Please Select an AMC" Display="Dynamic" ControlToValidate="ddlAmc"
-                    InitialValue="0" ValidationGroup="btnSubmit">*</asp:RequiredFieldValidator>
+                    InitialValue="0" ValidationGroup="btnSubmit">Please Select an AMC</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -87,9 +71,9 @@
                     <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
                     <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Please Select Category"
+                <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Please select a category"
                     CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
-                    Display="Dynamic" InitialValue="0">*</asp:RequiredFieldValidator>
+                    Display="Dynamic" InitialValue="0">Please select a category</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -107,9 +91,9 @@
                     OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
                     <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfvScheme" runat="server" ErrorMessage="Please Select a Scheme"
+                <asp:RequiredFieldValidator ID="rfvScheme" runat="server" ErrorMessage="Please select a scheme"
                     CssClass="rfvPCG" ControlToValidate="ddlScheme" Display="Dynamic"
-                    InitialValue="0" ValidationGroup="btnSubmit">*</asp:RequiredFieldValidator>
+                    InitialValue="0" ValidationGroup="btnSubmit">Please select a scheme</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -127,9 +111,9 @@
                     CssClass="cmbField" runat="server" AutoPostBack="True">
                     <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfvFolio" runat="server" ErrorMessage="Please Select Folio Number"
+                <asp:RequiredFieldValidator ID="rfvFolio" runat="server" ErrorMessage="Please select folio number"
                     CssClass="rfvPCG" ControlToValidate="ddlFolio" Display="Dynamic"
-                    InitialValue="0" ValidationGroup="btnSubmit">*</asp:RequiredFieldValidator>
+                    InitialValue="0" ValidationGroup="btnSubmit">Please select folio number</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -219,9 +203,9 @@
                     <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
                    
                 </asp:DropDownList>
-                <asp:RequiredFieldValidator ID="rfvFrequency" runat="server" ErrorMessage="Please Select Frequency"
+                <asp:RequiredFieldValidator ID="rfvFrequency" runat="server" ErrorMessage="Please select frequency"
                     CssClass="rfvPCG" ControlToValidate="ddlFrequency" Display="Dynamic"
-                    InitialValue="0" ValidationGroup="btnSubmit">*</asp:RequiredFieldValidator>
+                    InitialValue="0" ValidationGroup="btnSubmit">Please select frequency</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -243,7 +227,7 @@
                 <asp:RequiredFieldValidator ID="rfvStartDate" runat="server" 
                     ErrorMessage="Please select a start date" InitialValue="0" 
                     ControlToValidate="ddlStartDate" ValidationGroup="btnSubmit" 
-                    CssClass="rfvPCG">*</asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" Display="Dynamic">Please select a start date</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -264,7 +248,7 @@
                 <asp:RequiredFieldValidator ID="rfvInstallments" runat="server" 
                     ErrorMessage="Please select a value" 
                     ControlToValidate="ddlTotalInstallments" InitialValue="0" 
-                    ValidationGroup="btnSubmit" CssClass="rfvPCG">*</asp:RequiredFieldValidator>
+                    ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic">Please select a value</asp:RequiredFieldValidator>
             </td>
             <td>
             </td>
@@ -297,11 +281,12 @@
             <td>
                 <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="rfvAmount" runat="server" 
-                    ErrorMessage="Please enter a valid number" InitialValue="0.00" 
-                    ValidationGroup="btnSubmit" ControlToValidate="txtAmount">*</asp:RequiredFieldValidator>
+                    ErrorMessage="Please enter a valid amount (e.g. 500.0,  100.15)" 
+                    ValidationGroup="btnSubmit" ControlToValidate="txtAmount" 
+                    Display="Dynamic" CssClass="rfvPCG">Please enter a valid amount</asp:RequiredFieldValidator>
                 <asp:RangeValidator ID="rgvAmount" runat="server" ControlToValidate="txtAmount" 
-                    ErrorMessage="Please enter a valid amount" Type="Double" 
-                    ValidationGroup="btnSubmit" CssClass="rfvPCG">*</asp:RangeValidator>
+                    ErrorMessage="Please enter a valid amount (e.g. 500.0,  100.15)" Type="Double" 
+                    ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic">Please enter a valid amount</asp:RangeValidator>
             </td>
             <td style="vertical-align: top;" align="right">
                 <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
@@ -353,10 +338,9 @@
             </td>
             <td>
                 <asp:DropDownList ID="ddlDividendOption" CssClass="cmbField" runat="server" AutoPostBack="True">
-                   <asp:ListItem Selected="True" Value="--SELECT--">--SELECT--</asp:ListItem>
-                    <asp:ListItem Text="Quaterly" Value="QTR"></asp:ListItem>
-                    <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>
-                    
+                    <asp:ListItem Selected="True" Value="--SELECT--">--SELECT--</asp:ListItem>
+                    <asp:ListItem Text="Quarterly" Value="QTR"></asp:ListItem>
+                    <asp:ListItem Text="Monthly" Value="MN"></asp:ListItem>                    
                 </asp:DropDownList>
             </td>
             <td align="right">
@@ -368,10 +352,10 @@
             <td style="width: 150px;">
             </td>
             <td>
+                &nbsp;</td>
+            <td>
                 <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server"
                     CssClass="PCGButton" OnClick="btnSubmit_Click"></asp:Button>
-            </td>
-            <td>
             </td>
             <td>
             </td>

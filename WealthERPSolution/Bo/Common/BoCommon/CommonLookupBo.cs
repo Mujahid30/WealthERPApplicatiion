@@ -65,8 +65,7 @@ namespace BoCommon
             DataTable dtAmc;
             try
             {
-                dtAmc = daoCommonLookup.GetProductAmc(0);
-
+                dtAmc = daoCommonLookup.GetProductAmc(0, false);
             }
             catch (BaseApplicationException Ex)
             {
@@ -94,7 +93,7 @@ namespace BoCommon
             DataTable dtAmc;
             try
             {
-                dtAmc = daoCommonLookup.GetProductAmc(AmcCode);
+                dtAmc = daoCommonLookup.GetProductAmc(AmcCode, false);
 
             }
             catch (BaseApplicationException Ex)
@@ -106,6 +105,38 @@ namespace BoCommon
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommonLookupBo.cs:GetProdAmc(int AmcCode)");
+                object[] objParams = new object[1];
+                objParams[0] = AmcCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtAmc;
+        }
+
+        /// <summary> 
+        /// Gets the list of AMC</summary> 
+        /// <param name="AmcCode">AMCCode for the desired AMC. '0' to return list of all AMCs</param>
+        /// <param name="hasOnlineShcemes">true if AMC with only online schemes, otherwise false</param>
+        /// <returns> 
+        /// DataTable containing AMC list</returns>
+        public DataTable GetProdAmc(int AmcCode, bool hasOnlineShcemes)
+        {
+            DataTable dtAmc;
+            try
+            {
+                dtAmc = daoCommonLookup.GetProductAmc(AmcCode, hasOnlineShcemes);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetProdAmc(int AmcCode, bool hasOnlineShcemes)");
                 object[] objParams = new object[1];
                 objParams[0] = AmcCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objParams);

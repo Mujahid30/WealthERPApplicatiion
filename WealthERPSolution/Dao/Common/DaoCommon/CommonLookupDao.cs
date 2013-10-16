@@ -49,8 +49,8 @@ namespace DaoCommon
         /// Gets the list of AMC</summary> 
         /// <param name="AmcCode">AMCCode for the desired AMC. '0' to return list of all AMCs</param>
         /// <returns> 
-        /// DataTable containing AMC list</returns> 
-        public DataTable GetProductAmc(int AmcCode)
+        /// DataTable containing AMC list that have only schemes</returns> 
+        public DataTable GetProductAmc(int AmcCode, bool hasOnlineShcemes)
         {
             Database db;
             DbCommand cmdGetProdAmc;
@@ -61,6 +61,7 @@ namespace DaoCommon
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetProdAmc = db.GetStoredProcCommand("SP_GetProductAmc");
                 if (AmcCode > 0) db.AddInParameter(cmdGetProdAmc, "@PA_AMCCode", DbType.Int32, AmcCode);
+                if (hasOnlineShcemes) db.AddInParameter(cmdGetProdAmc, "@onlyOnlineSchemes", DbType.Boolean, hasOnlineShcemes);
                 ds = db.ExecuteDataSet(cmdGetProdAmc);
             }
             catch (BaseApplicationException Ex)
@@ -122,6 +123,47 @@ namespace DaoCommon
         /// <returns> 
         /// DataTable containing Product list</returns>
         public DataTable GetProductCategories(string ProductCode, string CategoryCode)
+        {
+            Database db;
+            DbCommand cmdGetCatCm;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCatCm = db.GetStoredProcCommand("SPROC_GetCategoryCM");
+                if (string.IsNullOrEmpty(ProductCode) == false) db.AddInParameter(cmdGetCatCm, "@PAG_AssetGroupCode", DbType.String, ProductCode);
+                if (string.IsNullOrEmpty(CategoryCode) == false) db.AddInParameter(cmdGetCatCm, "@PAIC_AssetInstrumentCategoryCode", DbType.String, CategoryCode);
+                ds = db.ExecuteDataSet(cmdGetCatCm);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductCategories(string ProductCode, string CategoryCode)");
+                object[] objects = new object[2];
+                objects[0] = ProductCode;
+                objects[1] = CategoryCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
+
+        /// <summary> 
+        /// Gets list of categories</summary> 
+        /// <param name="ProductCode">ProductCode for the desired Product. EmptyString to return list of all Products</param>
+        /// <param name="CategoryCode">CategoryCode for the desired Category. EmptyString to return list of all Products</param>
+        /// <param name="hasOnlineSchemes">ProductCode for the desired Product. EmptyString to return list of all Products</param>
+        /// <returns> 
+        /// DataTable containing Product list</returns>
+        public DataTable GetProductCategories(string ProductCode, string CategoryCode, bool hasOnlineSchemes)
         {
             Database db;
             DbCommand cmdGetCatCm;
@@ -365,7 +407,6 @@ namespace DaoCommon
         }
 
         //GetAmcSipSchemeList
-
         public DataTable GetAmcSipSchemeList(int AmcCode, string Category)
         {
             Database db;

@@ -220,7 +220,7 @@ namespace DaoOnlineOrderManagement
         public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
         {
             List<int> orderIds = new List<int>();
-            int OrderId;
+            //int OrderId;
             Database db;
             DbCommand createMFOrderTrackingCmd;
 
@@ -229,63 +229,42 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_Onl_CreateCustomerOnlineMFSipDetails");
 
-                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, onlineMFOrderVo.SchemePlanCode);
-
-                if (onlineMFOrderVo.AccountId != 0)
+                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, onlineMFOrderVo.SchemePlanCode);                
+                if (onlineMFOrderVo.AccountId != 0) 
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_accountid", DbType.Int32, onlineMFOrderVo.AccountId);
-                else
-                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_accountid", DbType.Int32, 0);
 
-                db.AddInParameter(createMFOrderTrackingCmd, "@XSTT_SystematicTypeCode", DbType.String, onlineMFOrderVo.SystematicTypeCode);
+                if (!string.IsNullOrEmpty(onlineMFOrderVo.SystematicTypeCode))
+                    db.AddInParameter(createMFOrderTrackingCmd, "@XSTT_SystematicTypeCode", DbType.String, onlineMFOrderVo.SystematicTypeCode);
+                
                 if (onlineMFOrderVo.StartDate != DateTime.MinValue)
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_StartDate", DbType.DateTime, onlineMFOrderVo.StartDate);
-                else
-                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_StartDate", DbType.DateTime, DBNull.Value);
+               
                 if (onlineMFOrderVo.EndDate != DateTime.MinValue)
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_EndDate", DbType.DateTime, onlineMFOrderVo.EndDate);
-                else
-                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_EndDate", DbType.DateTime, DBNull.Value);
+                
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, onlineMFOrderVo.SystematicDate);
-
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Amount", DbType.Double, onlineMFOrderVo.Amount);
                 db.AddInParameter(createMFOrderTrackingCmd, "@XES_SourceCode", DbType.String, onlineMFOrderVo.SourceCode);
-                if (onlineMFOrderVo.FrequencyCode != null && onlineMFOrderVo.FrequencyCode != "")
+                
+                if (!string.IsNullOrEmpty(onlineMFOrderVo.FrequencyCode))
                     db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, onlineMFOrderVo.FrequencyCode);
-                else
-                    db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, DBNull.Value);
-                db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+                
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SubBrokerCode", DbType.Int32, onlineMFOrderVo.AgentCode);
                 db.AddInParameter(createMFOrderTrackingCmd, "@customerId", DbType.Int32, onlineMFOrderVo.CustomerId);
-                db.AddInParameter(createMFOrderTrackingCmd, "@systamaticDates", DbType.String, onlineMFOrderVo.SystematicDates);
-
-                db.AddInParameter(createMFOrderTrackingCmd, "@action", DbType.String, onlineMFOrderVo.Action);
-                if (!string.IsNullOrEmpty(onlineMFOrderVo.DivOption))
-                    db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
-
+                db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@systamaticDates", DbType.String, onlineMFOrderVo.SystematicDate.ToString());
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
-
-                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
-                {
-                    //OrderId = Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
-
-                    // orderIds.Add(OrderId);
-                }
-                else
-                {
-                    orderIds = null;
-                }
-
+                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0) { }
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
             return orderIds;
-
         }
 
 
