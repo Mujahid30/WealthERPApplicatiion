@@ -89,7 +89,42 @@ namespace WealthERP.OnlineOrderManagement
             BindUnitHolding();
            
         }
-                   
+        public DataTable CreateUnitHoldingListTable()
+        {
+            DataTable dtMFUnitHolding = new DataTable();
+            dtMFUnitHolding.Columns.Add("MFNPId");
+            dtMFUnitHolding.Columns.Add("AccountId");
+            dtMFUnitHolding.Columns.Add("Category");
+            dtMFUnitHolding.Columns.Add("Scheme");
+            dtMFUnitHolding.Columns.Add("FolioNum");
+            dtMFUnitHolding.Columns.Add("PurchasedUnits", typeof(double));
+            dtMFUnitHolding.Columns.Add("DVRUnits", typeof(double));
+            dtMFUnitHolding.Columns.Add("OpenUnits", typeof(double));
+            dtMFUnitHolding.Columns.Add("Price");
+            dtMFUnitHolding.Columns.Add("InvestedCost", typeof(double));
+            dtMFUnitHolding.Columns.Add("NAV", typeof(double));
+            dtMFUnitHolding.Columns.Add("CurrentValue", typeof(double));
+            dtMFUnitHolding.Columns.Add("UnitsSold", typeof(double));
+            dtMFUnitHolding.Columns.Add("RedeemedAmount", typeof(double));
+            dtMFUnitHolding.Columns.Add("DVP", typeof(double));
+            dtMFUnitHolding.Columns.Add("TotalPL", typeof(double));
+            dtMFUnitHolding.Columns.Add("AbsoluteReturn", typeof(double));
+            dtMFUnitHolding.Columns.Add("DVR", typeof(double));
+            dtMFUnitHolding.Columns.Add("XIRR", typeof(double));
+            dtMFUnitHolding.Columns.Add("TotalDividends", typeof(double));
+            dtMFUnitHolding.Columns.Add("AMCCode");
+            dtMFUnitHolding.Columns.Add("SchemeCode");
+            dtMFUnitHolding.Columns.Add("AmcName");
+            dtMFUnitHolding.Columns.Add("SubCategoryName");
+            dtMFUnitHolding.Columns.Add("FolioStartDate");
+            dtMFUnitHolding.Columns.Add("InvestmentStartDate");
+            dtMFUnitHolding.Columns.Add("CMFNP_NAVDate");
+            dtMFUnitHolding.Columns.Add("CMFNP_ValuationDate");
+            dtMFUnitHolding.Columns.Add("RealizesdGain");
+
+            return dtMFUnitHolding;
+        }
+           
         /// <summary>
         /// Get Unit Holding Data for Customer
         /// </summary>
@@ -99,36 +134,36 @@ namespace WealthERP.OnlineOrderManagement
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
             if (OnlineMFHoldingList!= null)
             {
-                DataTable dtMFUnitHoplding = new DataTable();
-                dtMFUnitHoplding.Columns.Add("MFNPId");
-                dtMFUnitHoplding.Columns.Add("AccountId");
-                dtMFUnitHoplding.Columns.Add("Category");
-                dtMFUnitHoplding.Columns.Add("Scheme");
-                dtMFUnitHoplding.Columns.Add("FolioNum");
-                dtMFUnitHoplding.Columns.Add("PurchasedUnits", typeof(double));
-                dtMFUnitHoplding.Columns.Add("DVRUnits", typeof(double));
-                dtMFUnitHoplding.Columns.Add("OpenUnits", typeof(double));
-                dtMFUnitHoplding.Columns.Add("Price");
-                dtMFUnitHoplding.Columns.Add("InvestedCost", typeof(double));
-                dtMFUnitHoplding.Columns.Add("NAV", typeof(double));
-                dtMFUnitHoplding.Columns.Add("CurrentValue", typeof(double));
-                dtMFUnitHoplding.Columns.Add("UnitsSold", typeof(double));
-                dtMFUnitHoplding.Columns.Add("RedeemedAmount", typeof(double));
-                dtMFUnitHoplding.Columns.Add("DVP", typeof(double));
-                dtMFUnitHoplding.Columns.Add("TotalPL", typeof(double));
-                dtMFUnitHoplding.Columns.Add("AbsoluteReturn", typeof(double));
-                dtMFUnitHoplding.Columns.Add("DVR", typeof(double));
-                dtMFUnitHoplding.Columns.Add("XIRR", typeof(double));
-                dtMFUnitHoplding.Columns.Add("TotalDividends", typeof(double));
-                dtMFUnitHoplding.Columns.Add("AMCCode");
-                dtMFUnitHoplding.Columns.Add("SchemeCode");
-                dtMFUnitHoplding.Columns.Add("AmcName");
-                dtMFUnitHoplding.Columns.Add("SubCategoryName");
-                dtMFUnitHoplding.Columns.Add("FolioStartDate");
-                dtMFUnitHoplding.Columns.Add("InvestmentStartDate");
-                dtMFUnitHoplding.Columns.Add("CMFNP_NAVDate");
-                dtMFUnitHoplding.Columns.Add("CMFNP_ValuationDate");
-                dtMFUnitHoplding.Columns.Add("RealizesdGain");
+                DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();
+                //dtMFUnitHoplding.Columns.Add("MFNPId");
+                //dtMFUnitHoplding.Columns.Add("AccountId");
+                //dtMFUnitHoplding.Columns.Add("Category");
+                //dtMFUnitHoplding.Columns.Add("Scheme");
+                //dtMFUnitHoplding.Columns.Add("FolioNum");
+                //dtMFUnitHoplding.Columns.Add("PurchasedUnits", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("DVRUnits", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("OpenUnits", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("Price");
+                //dtMFUnitHoplding.Columns.Add("InvestedCost", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("NAV", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("CurrentValue", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("UnitsSold", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("RedeemedAmount", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("DVP", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("TotalPL", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("AbsoluteReturn", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("DVR", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("XIRR", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("TotalDividends", typeof(double));
+                //dtMFUnitHoplding.Columns.Add("AMCCode");
+                //dtMFUnitHoplding.Columns.Add("SchemeCode");
+                //dtMFUnitHoplding.Columns.Add("AmcName");
+                //dtMFUnitHoplding.Columns.Add("SubCategoryName");
+                //dtMFUnitHoplding.Columns.Add("FolioStartDate");
+                //dtMFUnitHoplding.Columns.Add("InvestmentStartDate");
+                //dtMFUnitHoplding.Columns.Add("CMFNP_NAVDate");
+                //dtMFUnitHoplding.Columns.Add("CMFNP_ValuationDate");
+                //dtMFUnitHoplding.Columns.Add("RealizesdGain");
 
                 DataRow drMFUnitHoplding;
                 for (int i = 0; i < OnlineMFHoldingList.Count; i++)
@@ -256,13 +291,14 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                rgUnitHolding.DataSource = null;
+                DataTable dtUnitNoRecord = CreateUnitHoldingListTable();
+                rgUnitHolding.DataSource = dtUnitNoRecord; 
                 rgUnitHolding.DataBind();
                 //rgUnitHolding.Visible = false;
-                pnlMFUnitHolding.Visible = false;
+                pnlMFUnitHolding.Visible = true;
                 btnExport.Visible = false;
-                trNoRecords.Visible = true;
-                lblNoRecords.Text = "No Records Found";
+                trNoRecords.Visible = false;
+                //lblNoRecords.Text = "No Records Found";
 
             }
         }
