@@ -2338,6 +2338,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//OnlineOrderExtract.ascx.
+        /// </summary>
+        internal static string OnlineOrderExtract {
+            get {
+                return ResourceManager.GetString("OnlineOrderExtract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrder//OnlineOrderTopMenu.ascx.
         /// </summary>
         internal static string OnlineOrderTopMenu {

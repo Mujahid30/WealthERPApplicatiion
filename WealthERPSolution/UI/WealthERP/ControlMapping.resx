@@ -1757,4 +1757,8 @@
     <value>OnlineOrderManagement//SIPBookSummmaryList.ascx</value>
     <comment>OnlineOrderManagement//SIPBookSummmaryList.ascx</comment>
   </data>
+  <data name="OnlineOrderExtract" xml:space="preserve">
+    <value>OnlineOrderManagement//OnlineOrderExtract.ascx</value>
+    <comment>OnlineOrderManagement//OnlineOrderExtract.ascx</comment>
+  </data>
 </root>

@@ -2743,6 +2743,13 @@
     <Compile Include="OnlineOrderManagement\NCDIssueTransact.ascx.designer.cs">
       <DependentUpon>NCDIssueTransact.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\OnlineOrderExtract.ascx.cs">
+      <DependentUpon>OnlineOrderExtract.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\OnlineOrderExtract.ascx.designer.cs">
+      <DependentUpon>OnlineOrderExtract.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\SIPBookSummmaryList.ascx.cs">
       <DependentUpon>SIPBookSummmaryList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7558,6 +7565,7 @@
     <Content Include="OnlineOrderManagement\NCDIssueHoldings.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueList.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueTransact.ascx" />
+    <Content Include="OnlineOrderManagement\OnlineOrderExtract.ascx" />
     <Content Include="OnlineOrderManagement\SIPBookSummmaryList.ascx" />
     <Content Include="OnlineOrder\MFOnlineOrder.aspx" />
     <Content Include="OnlineOrder\OnlineOrderTopMenu.ascx" />
