@@ -11,17 +11,10 @@
         padding-bottom: .5em;
     }
 </style>
-<table width="100%">
-    <tr class="spaceUnder">
-        <td>
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr class="spaceUnder">
-                        <td align="left">
-                            Redeem
-                        </td>
-                    </tr>
-                </table>
+<table id="tblMessage" width="100%" runat="server" visible="false">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
             </div>
         </td>
     </tr>
@@ -246,6 +239,10 @@
                     <asp:ListItem Text="Amount(Rs)" Value="2"></asp:ListItem>
                     <asp:ListItem Text="All" Value="3"></asp:ListItem>
                 </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
+                    ErrorMessage="Please Select an Redeem Type" Display="Dynamic" ControlToValidate="ddlRedeem"
+                    InitialValue="0" ValidationGroup="btnSubmit">
+                </asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -261,7 +258,7 @@
                     CssClass="rfvPCG" ControlToValidate="txtRedeemTypeValue" ValidationGroup="btnSubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
-                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
+                    ErrorMessage="Please Enter Only Numbers/Decimal" CssClass="rfvPCG" ValidationExpression="^[\-]?[0-9]{0,7}([\.][0-9][0-9])?$"
                     ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
             </td>
             <td colspan="2">
@@ -304,7 +301,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                    CssClass="txtField" Visible="false"></asp:LinkButton>
+                    CssClass="txtField" ></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -316,7 +313,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                    CssClass="txtField" Visible="false"></asp:LinkButton>
+                    CssClass="txtField" ></asp:LinkButton>
             </td>
         </tr>
     </table>

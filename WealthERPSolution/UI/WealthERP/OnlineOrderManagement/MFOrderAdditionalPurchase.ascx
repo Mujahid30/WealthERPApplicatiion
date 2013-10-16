@@ -26,27 +26,21 @@
     }
 </script>
 
+<table id="tblMessage" width="100%" runat="server" visible="false">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+            </div>
+        </td>
+    </tr>
+</table>
 <style>
     tr.spaceUnder > td
     {
         padding-bottom: .5em;
     }
 </style>
-<table width="100%">
-    <tr class="spaceUnder">
-        <td>
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr class="spaceUnder">
-                        <td align="left">
-                            Additional Purchase
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </td>
-    </tr>
-</table>
+
 <div style="float: left;">
     <table id="tbpurchase">
         <tr class="spaceUnder">
@@ -190,7 +184,7 @@
                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
-                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
+                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^[1-9]\d*(\.\d+)?$"
                     ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
                 </br>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
@@ -269,7 +263,7 @@
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                     CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
             </td>
-           <%-- <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails()"
+            <%-- <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails()"
                 CssClass="FieldName"></asp:Button>
             <td>
             </td>--%>
@@ -287,7 +281,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                    CssClass="txtField" Visible="false"></asp:LinkButton>
+                    CssClass="txtField" ></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -299,7 +293,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                    CssClass="txtField" Visible="false"></asp:LinkButton>
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
     </table>

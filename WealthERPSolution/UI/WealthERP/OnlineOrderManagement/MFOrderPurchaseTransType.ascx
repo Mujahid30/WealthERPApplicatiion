@@ -39,7 +39,6 @@
     <tr id="trSumbitSuccess">
         <td align="center">
             <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
-                
             </div>
         </td>
     </tr>
@@ -159,11 +158,11 @@
             <td>
                 <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </td>
-            <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
+               <td align="right" style="vertical-align: top;">
+                <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblMulti" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMintxt" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -176,17 +175,17 @@
                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
-                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
+                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^[1-9]\d*(\.\d+)?$"
                     ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
                 </br>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
                     CssClass="rfvPCG" ControlToValidate="txtAmt" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lblMintxt" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMulti" runat="server" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr class="spaceUnder" id="trDivtype">
@@ -261,7 +260,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                    CssClass="txtField" Visible="false"></asp:LinkButton>
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">
@@ -273,7 +272,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkExitLoad" CausesValidation="false" runat="server" Text="Exit Load"
-                    CssClass="txtField" Visible="false"></asp:LinkButton>
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
     </table>

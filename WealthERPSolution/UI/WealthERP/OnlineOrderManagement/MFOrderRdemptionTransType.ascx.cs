@@ -192,6 +192,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator3.Enabled = false;
+
             }
             else
             {
@@ -262,16 +263,20 @@ namespace WealthERP.OnlineOrderManagement
             {
                 lblRedeemType.Text = "Units";
                 txtRedeemTypeValue.Text = null;
+                txtRedeemTypeValue.Enabled = true;
             }
             else if (ddlRedeem.SelectedValue == "2")
             {
                 lblRedeemType.Text = "Amounts";
                 txtRedeemTypeValue.Text = null;
+                txtRedeemTypeValue.Enabled = true;
+
             }
             else if (ddlRedeem.SelectedValue == "3")
             {
                 lblRedeemType.Text = "All";
                 txtRedeemTypeValue.Text = lblUnitsheldDisplay.Text;
+                txtRedeemTypeValue.Enabled = false;
             }
             txtRedeemTypeValue.Visible = true;
         }
@@ -305,6 +310,8 @@ namespace WealthERP.OnlineOrderManagement
                 lnkFactSheet.Enabled = false;
                 btnSubmit.Enabled = false;
                 ddlRedeem.Enabled = false;
+                txtRedeemTypeValue.Enabled = false;
+
             }
             else
             {
@@ -322,12 +329,17 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
+        }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
 
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
-
+            bool accountDebitStatus = false;
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "Sel";
@@ -356,19 +368,44 @@ namespace WealthERP.OnlineOrderManagement
             Dt = DateTime.Parse(lbltime.Text);
 
             //int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
-            if (Dt.TimeOfDay < DateTime.Now.TimeOfDay)
+            if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "1" && (int.Parse(txtRedeemTypeValue.Text) > int.Parse(lblUnitsheldDisplay.Text))))
             {
+
+
+
                 retVal = 1;
+
+
+
+
+
             }
             if (retVal != 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
             }
-
-
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
+            if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, onlinemforderVo.Amount, OrderId);
+            }
+            if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
+            {
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
+                string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
+                ShowMessage(message);
+            }
+            else if (OrderId != 0 && accountDebitStatus == false)
+            {
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
+                string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
+                ShowMessage(message);
+            }
+
+
+
             PurchaseOrderControlsEnable(false);
         }
 

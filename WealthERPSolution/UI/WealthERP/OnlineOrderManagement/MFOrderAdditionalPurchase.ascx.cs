@@ -282,7 +282,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
-            
+            bool accountDebitStatus = false;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
             if (!string.IsNullOrEmpty(txtAmt.Text.ToString()))
             {
@@ -322,14 +322,36 @@ namespace WealthERP.OnlineOrderManagement
             if (retVal != 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
-            } 
-
+             
+            }
            
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
+            if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, onlinemforderVo.Amount, OrderId);
+            }
+            if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
+            {
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
+                string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
+                ShowMessage(message);
+            }
+            else if (OrderId != 0 && accountDebitStatus == false)
+            {
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
+                string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
+                ShowMessage(message);
+            }
+            
             PurchaseOrderControlsEnable(false);
             
+        }
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
         }
         private void BindFolioNumber(int amcCode)
         {
