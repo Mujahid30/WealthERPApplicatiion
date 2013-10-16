@@ -95,8 +95,9 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         protected void BindUnitHolding()
         {
+            DataTable dt = new DataTable();
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
-            if (OnlineMFHoldingList.Count != 0)
+            if (OnlineMFHoldingList!= null)
             {
                 DataTable dtMFUnitHoplding = new DataTable();
                 dtMFUnitHoplding.Columns.Add("MFNPId");
@@ -222,8 +223,8 @@ namespace WealthERP.OnlineOrderManagement
                       else
                         drMFUnitHoplding["RealizesdGain"] = "0.00";
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
-               }
-                if (dtMFUnitHoplding.Rows.Count > 0)
+                  }
+                 if (dtMFUnitHoplding.Rows.Count > 0)
                   {
                     if (Cache["UnitHolding" + advisorVo.advisorId] == null)
                     {
@@ -251,6 +252,18 @@ namespace WealthERP.OnlineOrderManagement
                     trNoRecords.Visible = false;
 
                 }
+                
+            }
+            else
+            {
+                rgUnitHolding.DataSource = null;
+                rgUnitHolding.DataBind();
+                //rgUnitHolding.Visible = false;
+                pnlMFUnitHolding.Visible = false;
+                btnExport.Visible = false;
+                trNoRecords.Visible = true;
+                lblNoRecords.Text = "No Records Found";
+
             }
         }
         protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)

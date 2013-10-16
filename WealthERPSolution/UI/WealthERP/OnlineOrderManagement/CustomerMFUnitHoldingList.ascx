@@ -46,9 +46,9 @@
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
         <td align="center">
-            <div id="divNoRecords" runat="server" class="failure-msg">
+           <%-- <div id="divNoRecords" runat="server" class="failure-msg">--%>
                 <asp:Label ID="lblNoRecords" Text="No Records found" runat="server"></asp:Label>
-            </div>
+           <%--  </div>--%>
         </td>
     </tr>
 </table>

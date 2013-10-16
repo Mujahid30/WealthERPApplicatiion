@@ -37,5 +37,8 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
         protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
         protected global::System.Web.UI.WebControls.DropDownList ddlAction;
+        protected global::System.Web.UI.WebControls.Label lblNoRecords;
+
+
     }
 }
