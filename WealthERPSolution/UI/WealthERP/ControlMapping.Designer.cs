@@ -3139,6 +3139,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//SIPBookSummmaryList.ascx.
+        /// </summary>
+        internal static string SIPBookSummmaryList {
+            get {
+                return ResourceManager.GetString("SIPBookSummmaryList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//StaffDashBoard.ascx.
         /// </summary>
         internal static string StaffDashBoard {
