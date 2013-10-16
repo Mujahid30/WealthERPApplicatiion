@@ -35,21 +35,11 @@
         padding-bottom: .5em;
     }
 </style>
-<table width="100%">
-    <tr class="spaceUnder">
-        <td>
-            <div class="divPageHeading">
-                <table cellspacing="0" cellpadding="3" width="100%">
-                    <tr class="spaceUnder">
-                        <td align="left">
-                            New Purchase
-                        </td>
-                        <%-- <td colspan="4" align="right">
-                            <asp:LinkButton ID="LnkBack" Text="Back" runat="server" CssClass="LinkButtons" CausesValidation="false" OnClick="lnkBack_Click"></asp:LinkButton>&nbsp;&nbsp;
-                            <asp:LinkButton ID="lnkEdit" Text="Edit" runat="server" CssClass="LinkButtons" CausesValidation="false" OnClick="lnkEdit_Click"></asp:LinkButton>&nbsp;&nbsp;
-                        </td>--%>
-                    </tr>
-                </table>
+<table id="tblMessage" width="100%" runat="server" visible="false">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                
             </div>
         </td>
     </tr>
@@ -184,7 +174,7 @@
             </td>
             <td>
                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
-                <span id="Span3" class="spnRequiredField" >*</span>
+                <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
                     ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
                     ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
@@ -251,11 +241,12 @@
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                     CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
             </td>
-           <%-- <td >
+            <%-- <td >
              <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails"
                     CssClass="FieldName"></asp:Button>
             </td>--%>
-            <td></td>
+            <td>
+            </td>
         </tr>
     </table>
 </div>

@@ -316,7 +316,7 @@ namespace WealthERP.OnlineOrderManagement
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
             }
 
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);           
+            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
             if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
             {
@@ -324,13 +324,22 @@ namespace WealthERP.OnlineOrderManagement
             }
             if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
+                string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
+                ShowMessage(message);
             }
             else if (OrderId != 0 && accountDebitStatus == false)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
+                string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
+                ShowMessage(message);
             }
             PurchaseOrderControlsEnable(false);
+        }
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
         }
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
