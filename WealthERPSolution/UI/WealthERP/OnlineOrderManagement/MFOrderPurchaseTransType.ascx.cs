@@ -320,15 +320,15 @@ namespace WealthERP.OnlineOrderManagement
             OrderId = int.Parse(OrderIds[0].ToString());
             if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
             {
-                accountDebitStatus = onlineMforderBo.CheckRMSUserAccountBalance(customerVo.AccountId, onlinemforderVo.Amount, OrderId);
+                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, onlinemforderVo.Amount, OrderId);
             }
             if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
             }
             else if (OrderId != 0 && accountDebitStatus == false)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order will not process');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
             }
             PurchaseOrderControlsEnable(false);
         }
