@@ -320,7 +320,7 @@ namespace WealthERP.OnlineOrderManagement
             OrderId = int.Parse(OrderIds[0].ToString());
             if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
             {
-                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, onlinemforderVo.Amount, OrderId);
+                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
             }
             if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
             {

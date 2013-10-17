@@ -39,6 +39,7 @@ namespace WealthERP
         AdvisorPreferenceVo advisorPreferenceVo = new AdvisorPreferenceVo();
         string userAccountId;
         string productType;
+        string isWerp;
         Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -67,6 +68,8 @@ namespace WealthERP
                     lblProductType.Text = "PRODUCT TYPE:-" + Request.QueryString["x-SBI-Products"];
                 }
             }
+            if (Request.QueryString["WERP"] != null)
+                isWerp = Request.QueryString["WERP"];
             //Testing User
 
             if (string.IsNullOrEmpty(userAccountId))
@@ -108,7 +111,7 @@ namespace WealthERP
                 {
                     if (!string.IsNullOrEmpty(userAccountId))
                     {
-                        ValidateUserLogin(userAccountId);
+                        ValidateUserLogin(userAccountId, isWerp);
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
                     }
 
@@ -133,7 +136,7 @@ namespace WealthERP
             Session["PageDefaultSetting"] = defaultProductPageSetting;
         }
 
-        private void ValidateUserLogin(string userAccountId)
+        private void ValidateUserLogin(string userAccountId, string isWerp)
         {
             UserBo userBo = new UserBo();
 
@@ -149,10 +152,18 @@ namespace WealthERP
             PortfolioBo portfolioBo = new PortfolioBo();
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
 
-
             userVo = userBo.GetUserAccountDetails(userAccountId);
 
-            if (userVo != null)
+            if (!string.IsNullOrEmpty(isWerp))
+            {
+                if (userVo != null)
+                {
+                    customerVo = customerBo.GetCustomerInfo(userVo.UserId);
+                }
+                Session["CustomerVo"] = customerVo;
+
+            }
+            else if (userVo != null)
             {
                 List<string> roleList = new List<string>();
                 string branchLogoSourcePath;

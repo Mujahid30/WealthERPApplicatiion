@@ -24,6 +24,32 @@ namespace WealthERP.OnlineOrder
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (Page.Request.Headers["From_NAM"] != null || Page.Request.Headers["x-username"] != null || Page.Request.Headers["x-guid"] != null)
+            {
+                string headerValue1 = string.Empty, headerValue2 = string.Empty, headerValue3 = string.Empty;
+                string[] headerinfo = new string[10];
+                headerinfo = Page.Request.Headers.GetValues("From_NAM");
+                if (Page.Request.Headers["From_NAM"] != null)
+                    headerValue1 = Page.Request.Headers["Name"];
+                else
+                    headerValue1 = "null";
+                if (Page.Request.Headers["x-username"] != null)
+                    headerValue2 = Page.Request.Headers["x-username"];
+                else
+                    headerValue2 = "null";
+                if (Page.Request.Headers["x-guid"] != null)
+                    headerValue3 = Page.Request.Headers["x-guid"];
+                else
+                    headerValue3 = "null";
+
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + "From_NAM=" + headerValue1 + "x-username=" + headerValue2 + "x-guid=" + headerValue3 + "x-username=" + headerinfo[0] + "');", true);
+
+                foreach (string str in headerinfo)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('" + str + "');", true);
+                }
+            }
+
             if (Session["PageDefaultSetting"] != null)
                 defaultProductPageSetting = (Dictionary<string, string>)Session["PageDefaultSetting"];
 

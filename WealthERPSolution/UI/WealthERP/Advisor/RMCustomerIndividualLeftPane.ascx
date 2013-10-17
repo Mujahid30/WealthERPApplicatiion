@@ -38,7 +38,6 @@
             </tr>
             <tr id="trCustRMDetailsDivider" runat="server">
                 <td colspan="2">
-                    <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <hr />
                 </td>
             </tr>
@@ -72,9 +71,11 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td colspan="2" align="right">
+                    <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <hr />
                 </td>
+                
             </tr>
         </table>
         <table style="valign: top; width: 100%;">
