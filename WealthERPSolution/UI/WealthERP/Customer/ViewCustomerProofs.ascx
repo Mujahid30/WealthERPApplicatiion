@@ -171,7 +171,7 @@
             <table id="tblproofAdd" width="100%">
                 <tr>
                     <td align="right">
-                        <label class="cmbField">
+                        <label class="cmbFielde">
                             Type:
                         </label>
                     </td>
@@ -192,7 +192,7 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <label class="cmbField">
+                        <label class="cmbFielde">
                             Proof/Form:
                         </label>
                     </td>
@@ -212,7 +212,7 @@
                 </tr>
                 <tr>
                     <td align="right">
-                        <label class="cmbField">
+                        <label class="cmbFielde">
                             Copy type:
                         </label>
                     </td>
@@ -232,7 +232,7 @@
                 </tr>
                 <tr>
                     <td align="right" style="vertical-align: middle">
-                        <label class="cmbField">
+                        <label class="cmbFielde">
                             Upload:
                         </label>
                     </td>
@@ -330,13 +330,13 @@
                             <ItemTemplate>
                                 <tr>
                                     <td align="center">
-                                        <asp:Label ID="lblProofType" runat="server" CssClass="cmbField" Text='<%# Eval("ProofType").ToString() %>'></asp:Label>
+                                        <asp:Label ID="lblProofType" runat="server" CssClass="cmbFielde" Text='<%# Eval("ProofType").ToString() %>'></asp:Label>
                                     </td>
                                     <td align="center">
-                                        <asp:Label ID="lblProof" runat="server" CssClass="cmbField" Text='<%# Eval("ProofName").ToString() %>'></asp:Label>
+                                        <asp:Label ID="lblProof" runat="server" CssClass="cmbFielde" Text='<%# Eval("ProofName").ToString() %>'></asp:Label>
                                     </td>
                                     <td align="center">
-                                        <asp:Label ID="lblProofCopy" runat="server" CssClass="cmbField" Text='<%# Eval("ProofCopyType").ToString() %>'></asp:Label>
+                                        <asp:Label ID="lblProofCopy" runat="server" CssClass="cmbFielde" Text='<%# Eval("ProofCopyType").ToString() %>'></asp:Label>
                                     </td>
                                     <%-- <td align="center" style="border: 0; float: left" runat="server" id="tdProofImages">
                                         <%# LoadControls(Eval("ProofExtensions").ToString(), Eval("ProofImage").ToString(), Eval("ProofFileName").ToString())%>

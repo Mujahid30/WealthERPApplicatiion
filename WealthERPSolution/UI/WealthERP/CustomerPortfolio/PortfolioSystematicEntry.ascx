@@ -369,16 +369,16 @@
             <asp:Label ID="lblSystematicDate" runat="server" Text="Date of Systematic Trx:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:CheckBox ID="chkDate1" Text="1" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate2" Text="2" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate3" Text="3" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate4" Text="4" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate5" Text="5" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate6" Text="6" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate7" Text="7" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate8" Text="8" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate9" Text="9" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate10" Text="10" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate1" Text="1" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate2" Text="2" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate3" Text="3" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate4" Text="4" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate5" Text="5" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate6" Text="6" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate7" Text="7" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate8" Text="8" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate9" Text="9" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate10" Text="10" runat="server" CssClass="cmbFielde" Width="40px" />
         </td>
         <td>
         </td>
@@ -387,16 +387,16 @@
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkDate11" Text="11" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate12" Text="12" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate13" Text="13" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate14" Text="14" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate15" Text="15" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate16" Text="16" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate17" Text="17" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate18" Text="18" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate19" Text="19" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate20" Text="20" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate11" Text="11" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate12" Text="12" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate13" Text="13" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate14" Text="14" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate15" Text="15" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate16" Text="16" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate17" Text="17" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate18" Text="18" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate19" Text="19" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate20" Text="20" runat="server" CssClass="cmbFielde" Width="40px" />
         </td>
         <td>
         </td>
@@ -405,17 +405,17 @@
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkDate21" Text="21" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate22" Text="22" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate23" Text="23" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate24" Text="24" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate25" Text="25" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate26" Text="26" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate27" Text="27" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate28" Text="28" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate29" Text="29" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate30" Text="30" runat="server" CssClass="cmbField" Width="40px" />
-            <asp:CheckBox ID="chkDate31" Text="31" runat="server" CssClass="cmbField" Width="40px" />
+            <asp:CheckBox ID="chkDate21" Text="21" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate22" Text="22" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate23" Text="23" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate24" Text="24" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate25" Text="25" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate26" Text="26" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate27" Text="27" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate28" Text="28" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate29" Text="29" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate30" Text="30" runat="server" CssClass="cmbFielde" Width="40px" />
+            <asp:CheckBox ID="chkDate31" Text="31" runat="server" CssClass="cmbFielde" Width="40px" />
         </td>
         <td>
         </td>

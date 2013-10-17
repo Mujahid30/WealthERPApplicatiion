@@ -348,9 +348,9 @@
             <asp:Label ID="lblJointHolding" runat="server" CssClass="FieldName" Text="Joint Holding :"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+            <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
                 Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged1" />
-            <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" Checked="true" GroupName="rbtnJointHolding"
+            <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbFielde" Checked="true" GroupName="rbtnJointHolding"
                 Text="No" AutoPostBack="true" OnCheckedChanged="rbtnNo_CheckedChanged" />
         </td>
     </tr>
@@ -372,7 +372,7 @@
             <asp:Label ID="Label30" runat="server" CssClass="FieldName" Text="Is Online:"></asp:Label>
         </td>
         <td class="rightField" colspan="4">
-            <asp:RadioButtonList ID="rbtnlIs_online" Width="90px" runat="server" CssClass="cmbField" RepeatDirection="Horizontal">
+            <asp:RadioButtonList ID="rbtnlIs_online" Width="90px" runat="server" CssClass="cmbFielde" RepeatDirection="Horizontal">
                 <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                 <asp:ListItem Selected="True" Text="No" Value="0"></asp:ListItem>
             </asp:RadioButtonList>

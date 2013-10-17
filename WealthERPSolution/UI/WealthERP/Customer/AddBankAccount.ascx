@@ -132,7 +132,7 @@
                 <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
             </td>
             <td>
-                <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
                     Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" />
               <%--  <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
                     Text="No" AutoPostBack="true"
@@ -141,7 +141,7 @@
                     Text="No" AutoPostBack="true"
                     OnCheckedChanged="rbtnYes_CheckedChanged" />--%>
                     
-                         <asp:RadioButton ID="RadioButton1" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                         <asp:RadioButton ID="RadioButton1" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
                     Text="No" AutoPostBack="true" Checked="true"
                     OnCheckedChanged="rbtnYes_CheckedChanged" />
                 <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
@@ -170,9 +170,9 @@
                 <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Add Nominee:"></asp:Label>
             </td>
             <td>
-                <asp:RadioButton ID="rbtnomyes" runat="server" CssClass="cmbField" GroupName="rbtnNominee"
+                <asp:RadioButton ID="rbtnomyes" runat="server" CssClass="cmbFielde" GroupName="rbtnNominee"
                     Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnNominee_CheckedChanged " />
-                <asp:RadioButton ID="rbtnomNo" runat="server" CssClass="cmbField" GroupName="rbtnNominee"
+                <asp:RadioButton ID="rbtnomNo" runat="server" CssClass="cmbFielde" GroupName="rbtnNominee"
                     Text="No" AutoPostBack="true" OnCheckedChanged="rbtnNominee_CheckedChanged" Checked="true" />
                 <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
             </td>

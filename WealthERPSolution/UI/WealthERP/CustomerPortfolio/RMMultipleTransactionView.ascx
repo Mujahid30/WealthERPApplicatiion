@@ -384,10 +384,10 @@ function goBack()
                             </td>
                             <td align="left">
                                 <asp:RadioButton ID="rbtnAll" AutoPostBack="true" Checked="true" runat="server" GroupName="GroupAll"
-                                    Text="All" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
+                                    Text="All" CssClass="cmbFielde" OnCheckedChanged="rbtnAll_CheckedChanged" />
                                 &nbsp;
                                 <asp:RadioButton ID="rbtnGroup" AutoPostBack="true" runat="server" GroupName="GroupAll"
-                                    Text="Group" CssClass="cmbField" OnCheckedChanged="rbtnAll_CheckedChanged" />
+                                    Text="Group" CssClass="cmbFielde" OnCheckedChanged="rbtnAll_CheckedChanged" />
                             </td>
                         </tr>
                         <tr id="trRange" visible="false" runat="server" onkeypress="return keyPress(this, event)">

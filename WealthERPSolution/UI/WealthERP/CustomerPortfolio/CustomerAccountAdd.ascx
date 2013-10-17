@@ -225,9 +225,9 @@
                     <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Joint Holding:"></asp:Label>
                 </td>
                 <td>
-                    <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                    <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
                         Text="Yes" OnCheckedChanged="rbtnYes_CheckedChanged" AutoPostBack="true" />
-                    <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                    <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
                         Text="No" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" Checked="true" />
                 </td>
             </tr>

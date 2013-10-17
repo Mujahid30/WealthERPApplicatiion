@@ -329,9 +329,9 @@
                         </td>
                         <td class="rightField">
                             <asp:RadioButton ID="rdoMFBasedGoalYes" Text="Yes" runat="server" GroupName="YesNo"
-                                Class="cmbField" OnCheckedChanged="rdoMFBasedGoalYes_CheckedChanged" AutoPostBack="True" />
+                                Class="cmbFielde" OnCheckedChanged="rdoMFBasedGoalYes_CheckedChanged" AutoPostBack="True" />
                             <asp:RadioButton ID="rdoMFBasedGoalNo" Text="No" runat="server" GroupName="YesNo"
-                                Class="cmbField" Checked="True" OnCheckedChanged="rdoMFBasedGoalNo_CheckedChanged"
+                                Class="cmbFielde" Checked="True" OnCheckedChanged="rdoMFBasedGoalNo_CheckedChanged"
                                 AutoPostBack="True" />
                         </td>
                         <td class="leftField" id="tdPostRetirementReturns1" runat="server">
@@ -580,19 +580,19 @@
                 </tr>
                 <tr id="tdNote" runat="server">
                     <td>
-                        <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbField" Style="font-size: small;"
+                        <asp:Label ID="lblNoteHeading" runat="server" CssClass="cmbFielde" Style="font-size: small;"
                             Text="Note :"></asp:Label>
                     </td>
                 </tr>
                 <tr>
                     <td id="Td2" class="tdRequiredText" runat="server">
-                        <asp:Label ID="trRequiedNote" CssClass="cmbField" Style="font-size: small;" runat="server"
+                        <asp:Label ID="trRequiedNote" CssClass="cmbFielde" Style="font-size: small;" runat="server"
                             Text="1)Fields marked with ' * ' are mandatory."></asp:Label>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lblNote" runat="server" CssClass="cmbField" Style="font-size: small;"
+                        <asp:Label ID="lblNote" runat="server" CssClass="cmbFielde" Style="font-size: small;"
                             Text="2)Expected rate of return as per your risk assessment.If risk profile is not complete, please complete risk profile for return calculation."></asp:Label>
                     </td>
                 </tr>
