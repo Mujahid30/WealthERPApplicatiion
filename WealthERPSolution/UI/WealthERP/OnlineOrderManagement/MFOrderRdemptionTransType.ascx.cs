@@ -72,8 +72,12 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAmc.DataBind();
                 ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
+                BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
 
-
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true); return;
             }
         }
 
@@ -267,7 +271,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (ddlRedeem.SelectedValue == "2")
             {
-                lblRedeemType.Text = "Amounts";
+                lblRedeemType.Text = "Amount";
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
 
@@ -353,22 +357,19 @@ namespace WealthERP.OnlineOrderManagement
                     onlinemforderVo.Amount = double.Parse(txtRedeemTypeValue.Text);
                 else
                     onlinemforderVo.Amount = 0;
-            float amt;
-            float minAmt;
-            float multiAmt;
+            float RedeemAmt=float.Parse(string.IsNullOrEmpty(txtRedeemTypeValue.Text)?"0":txtRedeemTypeValue.Text);
+           float AvailableAmt=int.Parse(string.IsNullOrEmpty(lblUnitsheldDisplay.Text)?"0":lblUnitsheldDisplay.Text);
             DateTime Dt;
 
 
-            amt = 0;
+            
 
 
 
-            minAmt = 0;
-            multiAmt = 0;
+            
             Dt = DateTime.Parse(lbltime.Text);
 
-            //int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
-            if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "1" && (int.Parse(txtRedeemTypeValue.Text) > int.Parse(lblUnitsheldDisplay.Text))))
+            if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "1" && (RedeemAmt > AvailableAmt)))
             {
 
 

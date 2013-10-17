@@ -257,8 +257,9 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select a Amount"
                     CssClass="rfvPCG" ControlToValidate="txtRedeemTypeValue" ValidationGroup="btnSubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
+                    </br>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
-                    ErrorMessage="Please Enter Only Numbers/Decimal" CssClass="rfvPCG" ValidationExpression="^[\-]?[0-9]{0,7}([\.][0-9][0-9])?$"
+                    ErrorMessage="Please Enter Only Numbers and 2 digits after Decimal" CssClass="rfvPCG" ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$"
                     ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
             </td>
             <td colspan="2">

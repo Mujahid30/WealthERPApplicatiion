@@ -40,7 +40,6 @@
         padding-bottom: .5em;
     }
 </style>
-
 <div style="float: left;">
     <table id="tbpurchase">
         <tr class="spaceUnder">
@@ -183,12 +182,12 @@
             <td>
                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
-                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^[1-9]\d*(\.\d+)?$"
-                    ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
-                </br>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
                     CssClass="rfvPCG" ControlToValidate="txtAmt" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                </br>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
+                    ErrorMessage="Please Enter Only Numbers and 2 digits after decimal" CssClass="rfvPCG"
+                    ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
             </td>
             <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount: " CssClass="FieldName"></asp:Label>
@@ -281,7 +280,7 @@
         <tr class="spaceUnder">
             <td>
                 <asp:LinkButton ID="lnkOfferDoc" CausesValidation="false" Text="Offer Doc" runat="server"
-                    CssClass="txtField" ></asp:LinkButton>
+                    CssClass="txtField"></asp:LinkButton>
             </td>
         </tr>
         <tr class="spaceUnder">

@@ -40,7 +40,7 @@ namespace WealthERP.OnlineOrderManagement
         DataRow drCustomerAssociates;
         int accountId;
         int OrderId;
-        DataSet ds; 
+        DataSet ds;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,7 +50,7 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
-               
+
                 AmcBind();
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
@@ -79,7 +79,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = onlineMforderBo.GetRedeemAmcDetails(customerVo.CustomerId); 
+            ds = onlineMforderBo.GetRedeemAmcDetails(customerVo.CustomerId);
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
@@ -89,18 +89,21 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataBind();
                 ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
 
-
+                BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
             }
-            BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true); return;
+            }
         }
-        
+
         public void ddlAmc_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             CategoryBind();
-            SchemeBind(int.Parse(ddlAmc.SelectedValue), null,customerVo.CustomerId);
+            SchemeBind(int.Parse(ddlAmc.SelectedValue), null, customerVo.CustomerId);
             BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
         }
-        
+
         public void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAmc.SelectedIndex != -1 && ddlCategory.SelectedIndex != -1)
@@ -116,17 +119,17 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedIndex != -1)
             {
-               // ResetControlDetails(sender,e);
-                GetControlDetails(int.Parse(ddlScheme.SelectedValue),ddlFolio.SelectedValue.ToString());
+                // ResetControlDetails(sender,e);
+                GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue.ToString());
                 SetControlDetails();
             }
         }
 
-        
+
         protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
-           
+
             ds = onlineMforderBo.GetControlDetails(scheme, folio);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
@@ -175,7 +178,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            
+
 
 
         }
@@ -221,7 +224,7 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void SchemeBind(int amccode, string category,int customerid)
+        protected void SchemeBind(int amccode, string category, int customerid)
         {
             DataTable dtScheme = new DataTable();
             dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid);
@@ -322,9 +325,9 @@ namespace WealthERP.OnlineOrderManagement
             if (retVal != 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
-             
+
             }
-           
+
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
@@ -344,9 +347,9 @@ namespace WealthERP.OnlineOrderManagement
                 string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
                 ShowMessage(message);
             }
-            
+
             PurchaseOrderControlsEnable(false);
-            
+
         }
         private void ShowMessage(string msg)
         {
@@ -375,7 +378,7 @@ namespace WealthERP.OnlineOrderManagement
                 throw (Ex);
             }
         }
-       
-        
+
+
     }
 }

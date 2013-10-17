@@ -174,12 +174,13 @@
             <td>
                 <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField" MaxLength="8"></asp:TextBox>
                 <span id="Span3" class="spnRequiredField">*</span>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
-                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^[1-9]\d*(\.\d+)?$"
-                    ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
-                </br>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
+                  <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
                     CssClass="rfvPCG" ControlToValidate="txtAmt" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                </br>
+                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
+                    ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG" ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$"
+                    ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+                             
             </td>
             <td align="right" style="vertical-align: top;">
                 <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>

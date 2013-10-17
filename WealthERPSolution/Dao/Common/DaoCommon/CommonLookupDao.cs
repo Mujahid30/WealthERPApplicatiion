@@ -452,7 +452,7 @@ namespace DaoCommon
                     db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(cmd, "@amcCode", DbType.Int32, 0);
-                if (!string.IsNullOrEmpty(Category))
+                if (Category!="0")
                     db.AddInParameter(cmd, "@categoryCode", DbType.String, Category);
                 else
                     db.AddInParameter(cmd, "@categoryCode", DbType.String, DBNull.Value);
