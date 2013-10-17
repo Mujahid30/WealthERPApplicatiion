@@ -156,14 +156,19 @@ namespace WealthERP.OnlineOrderManagement
 
 
         protected void gvOrderBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
-        {   GridDataItem gvr = (GridDataItem)e.Item;
-            string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString();
-            string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["C_CustomerId"].ToString();
-            string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAG_AssetGroupCode"].ToString();
-            string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["WMTT_TransactionClassificationCode"].ToString();
+      { 
+            //GridDataItem gvr = (GridDataItem)e.Item;
+            //string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString();
+            //string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["C_CustomerId"].ToString();
+            //string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAG_AssetGroupCode"].ToString();
+            //string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["WMTT_TransactionClassificationCode"].ToString();
 
             if (e.CommandName == "Edit")
             {
+            string orderId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
+            string customerId = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
+            string assetGroupCode = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
+            string Code = gvOrderBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WMTT_TransactionClassificationCode"].ToString();
                 if (assetGroupCode == "MF")
                 {
                     if (Code == "BUY")

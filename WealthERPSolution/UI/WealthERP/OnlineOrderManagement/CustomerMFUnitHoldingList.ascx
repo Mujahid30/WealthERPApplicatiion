@@ -66,7 +66,7 @@
                      OnNeedDataSource="rgUnitHolding_OnNeedDataSource" AllowFilteringByColumn="true"--%>
                     <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
                     <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
-                        width="100%" autogeneratecolumns="false" commanditemdisplay="None">
+                        width="105%" autogeneratecolumns="false" commanditemdisplay="None">
                         <Columns>
                             <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="100px" SortExpression="MFNPId"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
@@ -231,19 +231,11 @@
                                 FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action" HeaderText="Action"
-                                HeaderStyle-Width="120px">
-                                <ItemTemplate>
-                                    <asp:DropDownList ID="ddlAction" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" AutoPostBack="true"
-                                        Width="100px" AppendDataBoundItems="true">
-                                        <Items>
-                                            <asp:ListItem Text="Select" Value="Select" Selected="true" />
-                                            <asp:ListItem Text="Buy More" Value="ABY" />
-                                            <asp:ListItem Text="Sell More" Value="SEL" />
-                                            <asp:ListItem Text="SIP" Value="SIP" />                                          
-                                        </Items>
-                                    </asp:DropDownList>                                    
+                              <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action">
+                                <ItemTemplate>                                  
+                                 <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"/>
+                                 <asp:ImageButton ID="ImageButton2" runat="server" CommandName="Sell" ImageUrl="~/Images/Buy-Button.png"/>
+                                 <asp:ImageButton ID="ImageButton3" runat="server" CommandName="SIP" ImageUrl="~/Images/Buy-Button.png"/>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>

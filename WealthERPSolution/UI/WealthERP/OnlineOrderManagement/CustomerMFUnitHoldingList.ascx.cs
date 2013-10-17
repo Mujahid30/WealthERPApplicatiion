@@ -41,7 +41,8 @@ namespace WealthERP.OnlineOrderManagement
             userType = Session[SessionContents.CurrentUserRole].ToString();
             customerId = customerVO.CustomerId;
             BindFolioAccount();
-           
+            if(!IsPostBack)
+            Cache.Remove("UnitHolding" + advisorVo.advisorId); 
         }
         private void SetParameter()
         {
@@ -274,7 +275,7 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataBind();
                     rgUnitHolding.Visible = true;
                     pnlMFUnitHolding.Visible = true;
-                    btnExport.Visible = true;
+                  //  btnExport.Visible = true;
                     trNoRecords.Visible = false;
                  }
                 else
@@ -334,6 +335,9 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void rgUnitHolding_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
+           // GridDataItem gvr = (GridDataItem)e.Item;
+            
+                       
             if (e.CommandName.ToString() != "Filter")
             {
                 if (e.CommandName.ToString() != "Sort")
@@ -354,6 +358,21 @@ namespace WealthERP.OnlineOrderManagement
                         }
                     }
                 }
+            }
+           if (e.CommandName == "Buy")
+            {
+                string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + AccountId + "')", true);
+            }
+           if (e.CommandName == "SIP")
+           {
+                string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + AccountId + "')", true);
+            }
+           if (e.CommandName == "Sell")
+           {
+                string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + AccountId + "')", true);
             }
         }
            

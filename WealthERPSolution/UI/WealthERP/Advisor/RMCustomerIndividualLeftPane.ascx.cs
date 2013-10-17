@@ -1594,7 +1594,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
                 }
-            }
+                else if (e.Item.Value == "SIPSumBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
+                }
+             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

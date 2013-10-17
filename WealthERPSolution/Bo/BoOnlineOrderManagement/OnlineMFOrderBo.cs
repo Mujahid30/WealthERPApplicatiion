@@ -158,32 +158,32 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        //public DataSet GetSIPSummaryBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
-        //{
-        //    DataSet dsSIPSummaryBookMIS = null;
-        //    OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
-        //    try
-        //    {
-        //        dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AccountId, dtFrom, dtTo);
-        //    }
-        //    catch (BaseApplicationException Ex)
-        //    {
-        //        throw Ex;
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-        //        NameValueCollection FunctionInfo = new NameValueCollection();
-        //        FunctionInfo.Add("Method", "OrderBo.cs:GetSIPSummaryBookMIS()");
-        //        object[] objects = new object[1];
-        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-        //        exBase.AdditionalInformation = FunctionInfo;
-        //        ExceptionManager.Publish(exBase);
-        //        throw exBase;
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        {
+            DataSet dsSIPSummaryBookMIS = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AccountId, dtFrom, dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OrderBo.cs:GetSIPSummaryBookMIS()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
-        //    }
-        //    return dsSIPSummaryBookMIS;
-        //}
+            }
+            return dsSIPSummaryBookMIS;
+        }
         public DataSet GetSipDetails(int SchemeId, string frequency)
         {
             DataSet dsSipDetails = null;

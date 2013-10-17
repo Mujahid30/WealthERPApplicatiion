@@ -114,7 +114,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvSIPBookMIS.DataSource = dtSIPBookMIS;
                 gvSIPBookMIS.DataBind();
                 //gvSIPBookMIS.Visible = false;
-               pnlSIPBook.Visible = true;
+                pnlSIPBook.Visible = true;
                 trNoRecords.Visible = true;
                 divNoRecords.Visible = true;
                // btnExport.Visible = false;
@@ -132,38 +132,55 @@ namespace WealthERP.OnlineOrderManagement
                 hdnAccount.Value = "0";
             }
         }
-       
-        protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        protected void gvSIPBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-
-            RadComboBox ddlAction = (RadComboBox)sender;
-            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            int selectedRow = gvr.ItemIndex + 1;
-
-            string action = "";
-            string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
-            string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
-            string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
-
-            if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+            //GridDataItem gvr = (GridDataItem)e.Item;
+            //string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["CO_OrderId"].ToString();
+            //string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["C_CustomerId"].ToString();
+            //string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[gvr.ItemIndex]["PAG_AssetGroupCode"].ToString();
+            if (e.CommandName == "Edit")
             {
-                action = "Edit";
+                string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString();
+                string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_CustomerId"].ToString();
+                string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PAG_AssetGroupCode"].ToString();
                 if (assetGroupCode == "MF")
                 {
-                    //int mfOrderId = int.Parse(orderId);
-                    //GetMFOrderDetails(mfOrderId);
-
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customerId=" + customerId + "');", true);   
-
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&orderId=" + orderId + "&customerId=" + customerId + "');", true);     
                 }
-
             }
 
-            if (ddlAction.SelectedItem.Value.ToString() == "Cancel")
-            {
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
-            }
-        }
+        }        
+        //protected void ddlMenu_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+        //    RadComboBox ddlAction = (RadComboBox)sender;
+        //    GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+        //    int selectedRow = gvr.ItemIndex + 1;
+
+        //    string action = "";
+        //    string orderId = gvSIPBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString();
+        //    string customerId = gvSIPBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString();
+        //    string assetGroupCode = gvSIPBookMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PAG_AssetGroupCode"].ToString();
+
+        //    if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+        //    {
+        //        action = "Edit";
+        //        if (assetGroupCode == "MF")
+        //        {
+        //            //int mfOrderId = int.Parse(orderId);
+        //            //GetMFOrderDetails(mfOrderId);
+
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customerId=" + customerId + "');", true);   
+
+        //        }
+
+        //    }
+
+        //    if (ddlAction.SelectedItem.Value.ToString() == "Cancel")
+        //    {
+        //        Page.ClientScript.RegisterStartupScript(this.GetType(), "Message", "showmessage();", true);
+        //    }
+        //}
            
         protected void gvSIPBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
