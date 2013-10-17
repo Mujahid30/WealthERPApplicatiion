@@ -283,7 +283,7 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataBind();
                     //rgUnitHolding.Visible = false;
                     pnlMFUnitHolding.Visible = true;
-                    btnExport.Visible = false;
+                   // btnExport.Visible = false;
                     trNoRecords.Visible = false;
 
                 }
@@ -296,7 +296,7 @@ namespace WealthERP.OnlineOrderManagement
                 rgUnitHolding.DataBind();
                 //rgUnitHolding.Visible = false;
                 pnlMFUnitHolding.Visible = true;
-                btnExport.Visible = false;
+               // btnExport.Visible = false;
                 trNoRecords.Visible = false;
                 //lblNoRecords.Text = "No Records Found";
 
@@ -357,15 +357,15 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
            
-        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
-        {
-            rgUnitHolding.ExportSettings.OpenInNewWindow = true;
-            rgUnitHolding.ExportSettings.IgnorePaging = true;
-            rgUnitHolding.ExportSettings.HideStructureColumns = true;
-            rgUnitHolding.ExportSettings.ExportOnlyData = true;
-            rgUnitHolding.ExportSettings.FileName = "Unit Holding Details";
-            rgUnitHolding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            rgUnitHolding.MasterTableView.ExportToExcel();
-        }
+        //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        //{
+        //    rgUnitHolding.ExportSettings.OpenInNewWindow = true;
+        //    rgUnitHolding.ExportSettings.IgnorePaging = true;
+        //    rgUnitHolding.ExportSettings.HideStructureColumns = true;
+        //    rgUnitHolding.ExportSettings.ExportOnlyData = true;
+        //    rgUnitHolding.ExportSettings.FileName = "Unit Holding Details";
+        //    rgUnitHolding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+        //    rgUnitHolding.MasterTableView.ExportToExcel();
+        //}
     }
 }
