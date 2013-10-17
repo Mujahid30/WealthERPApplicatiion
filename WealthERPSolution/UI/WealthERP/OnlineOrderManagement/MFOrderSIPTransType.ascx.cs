@@ -190,7 +190,7 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory.DataBind();
                 }
                 ddlCategory.Items.Insert(0, new ListItem("--SELECT--"));
-                ddlCategory.Items.Insert(1, new ListItem("ALL"));
+                ddlCategory.Items.Insert(1, new ListItem("All"));
                 ddlCategory.SelectedIndex = 0;
             }
             catch (BaseApplicationException Ex)
@@ -673,6 +673,8 @@ namespace WealthERP.OnlineOrderManagement
             txtAmount.Enabled = false;
             btnSubmit.Enabled = false;
             ddlTotalInstallments.Enabled = false;
+            ddlDividendFreq.Enabled = false;
+            ddlDividendOption.Enabled = false;
         }
 
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)
@@ -712,6 +714,11 @@ namespace WealthERP.OnlineOrderManagement
 
         void ShowValidationMessage() {
             divValidationError.Visible = true;
+        }
+
+        protected void BindDivFrequency()
+        {
+ 
         }
     }
 }
