@@ -345,43 +345,43 @@ namespace DaoOnlineOrderManagement
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
-        {
-            DataSet dsSIPSummaryBookMIS;
-            Database db;
-            DbCommand GetSIPSummaryBookMISCmd;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPSummaryBook");
-                //db.AddInParameter(GetSIPBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                if (AccountId != 0)
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AccountId", DbType.Int32, AccountId);
-                else
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AccountId", DbType.Int32, DBNull.Value);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
-                dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
+        //public DataSet GetSIPSummaryBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        //{
+        //    DataSet dsSIPSummaryBookMIS;
+        //    Database db;
+        //    DbCommand GetSIPSummaryBookMISCmd;
+        //    try
+        //    {
+        //        db = DatabaseFactory.CreateDatabase("wealtherp");
+        //        GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPSummaryBook");
+        //        //db.AddInParameter(GetSIPBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
+        //        if (AccountId != 0)
+        //            db.AddInParameter(GetSIPSummaryBookMISCmd, "@AccountId", DbType.Int32, AccountId);
+        //        else
+        //            db.AddInParameter(GetSIPSummaryBookMISCmd, "@AccountId", DbType.Int32, DBNull.Value);
+        //        db.AddInParameter(GetSIPSummaryBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+        //        db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
+        //        db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
+        //        dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OperationDao.cs:GetSIPSummaryBookMIS()");
-                object[] objects = new object[10];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return dsSIPSummaryBookMIS;
-        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "OperationDao.cs:GetSIPSummaryBookMIS()");
+        //        object[] objects = new object[10];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //    return dsSIPSummaryBookMIS;
+        //}
 
     }
 }
