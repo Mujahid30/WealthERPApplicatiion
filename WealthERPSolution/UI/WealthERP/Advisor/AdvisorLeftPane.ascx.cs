@@ -1044,6 +1044,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     
                 }
+                else if (e.Item.Value == "Extract")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderExtract','login');", true);
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1965,6 +1970,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Scheme_DataTrans_Mapping")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddSchemeMapping','login')", true);
+                }
+                else if (e.Item.Value == "Extract")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderExtract','login');", true);
                 }
                 else if (e.Item.Value == "File_Generation")
                 {
