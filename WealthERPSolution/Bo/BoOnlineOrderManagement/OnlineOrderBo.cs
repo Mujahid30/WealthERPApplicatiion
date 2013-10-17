@@ -34,20 +34,25 @@ namespace BoOnlineOrderManagement
                 Response = TrigerAPI(rmsAPI);
                 if (Response.Contains("TRUE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, Response);
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, "RMSREsponse:-" + Response);
                     result = true;
 
                 }
                 else if (Response.Contains("MSG_FAILURE"))
                 {
-                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 1, string.Empty, Response);
-                    result = false;
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
+
+                }
+                else if (Response.Contains("FALSE"))
+                {
+                    onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, "RMSREsponse:-" + Response);
+
                 }
 
             }
             catch (Exception Ex)
             {
-                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-"+Response + "ERROR:-" + Ex.Message));
+                onlineOrderDao.UpdateOrderRMSAccountDebitDetails(orderId, 0, string.Empty, ("RMSREsponse:-" + Response + "ERROR:-" + Ex.Message));
 
             }
             return result;
