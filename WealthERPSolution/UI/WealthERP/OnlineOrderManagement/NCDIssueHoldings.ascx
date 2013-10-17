@@ -135,11 +135,11 @@
                                    <telerik:RadGrid ID="gvBHList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    onpageindexchanged="gvBHList_PageIndexChanged" AllowAutomaticInserts="false" >
+                      AllowAutomaticInserts="false" >
                     <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="BHScrip" Width="100%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="None">
+                        AutoGenerateColumns="false" CommandItemDisplay="None" DataKeyNames="BHScrip">
                         <Columns>
                             <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="false" HeaderText="Action">
                                 <%--<ItemTemplate>
@@ -154,7 +154,7 @@
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlMenu"
                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik" 
-                                        AllowCustomText="true" Width="120px" AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_OnSelectedIndexChanged">
+                                        AllowCustomText="true" Width="120px" AutoPostBack="true" >
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                             </telerik:RadComboBoxItem>                                           
@@ -186,23 +186,11 @@
                                 HeaderText="Maturity date" UniqueName="BHMaturitydate">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <%--<telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText=""
-                                UniqueName="ActiveLevel">
-                                <FilterTemplate>
-                                <asp:DropDownList Visible="true" runat="server" ID="" OnSelectedIndexChanged="ddlNameFilter_OnSelectedIndexChanged" AutoPostBack="true"  CssClass="GridViewCmbField"></asp:DropDownList>
-                                </FilterTemplate>
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
-                           <%-- <telerik:GridBoundColumn DataField="StaffCode" AllowFiltering="false" HeaderText="Staffcode"
-                                UniqueName="ActiveLevel">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
                             <telerik:GridBoundColumn DataField="BHCoupon" SortExpression="BHCoupon" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                 HeaderText="Coupon" UniqueName="BHCoupon">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
                             <telerik:GridBoundColumn Visible="false" DataField="BHInteresttype" SortExpression="BHInteresttype" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                 HeaderText="Interest type" UniqueName="BHInteresttype"> 
@@ -249,6 +237,12 @@
                                 UniqueName="BHCurrentRatings">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px" UniqueName="Action" HeaderText="Buy/Sell" >
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lbBuySell" runat="server" OnClick="lbBuySell_Click"  Text="Buy / Sell"></asp:LinkButton>
+                                </ItemTemplate>
+                                 <HeaderStyle Width="100px" />
+                            </telerik:GridTemplateColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

@@ -18,7 +18,7 @@ namespace BoOnlineOrderManagement
         DataSet dsCommissionStructureRules;
 
 
-        public DataSet GetLookupDataForReceivableSetUP(int adviserId, int structureId)
+        public DataSet GetLookupDataForReceivableSetUP(int adviserId, string structureId)
         {
             //CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsLookupData;
@@ -44,11 +44,11 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dsLookupData;
-        }       
+        }
 
-        public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
+        public DataSet GetAdviserCommissionStructureRules(int adviserId, string structureId)
         {
-           
+
             try
             {
                 dsCommissionStructureRules = onlineBondDao.GetAdviserCommissionStructureRules(adviserId, structureId);
@@ -71,11 +71,11 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dsCommissionStructureRules;
-        }        
-       
+        }
+
         public bool onlineBOndtransact(DataTable OnlineBondOrder)
         {
-            bool result=false;
+            bool result = false;
             try
             {
                 result = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder);
@@ -100,13 +100,13 @@ namespace BoOnlineOrderManagement
             return result;
         }
 
-        public DataSet getBondsBookview(int input)
+        public DataSet getBondsBookview(int input, string CustId)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = OnlineBondDao.GetOrderBondsBook(input);
+                dsLookupData = OnlineBondDao.GetOrderBondsBook(input, CustId);
 
             }
             catch (BaseApplicationException Ex)
@@ -152,6 +152,36 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+        }
+
+
+        public string GetMAXTransactNO()
+        {
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+           
+            string maxDB=string.Empty;
+            try
+            {
+                maxDB = OnlineBondDao.GetMAXTransactNO();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:getBondsBookview(int input)");
+                object[] objects = new object[1];
+               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return maxDB;
         }
 
     }

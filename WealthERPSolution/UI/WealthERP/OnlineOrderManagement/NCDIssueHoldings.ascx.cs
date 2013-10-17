@@ -15,15 +15,27 @@ namespace WealthERP.OnlineOrderManagement
     {
         UserVo userVo;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["CusstId"] = "ESI123456";
             userVo = (UserVo)Session[SessionContents.UserVo];
-            BindBHGV();
+            string CustId = Session["CusstId"].ToString();
+            BindBHGV(4, CustId);
         }
-
-        protected void BindBHGV()
+        protected void lbBuySell_Click(object sender, EventArgs e)
         {
-            DataSet dsbondsHolding = BoOnlineBondOrder.getBondsBookview(4);
+            string CustId = Session["CustId"].ToString();
+            int rowindex1 = ((GridDataItem)((LinkButton)sender).NamingContainer).RowIndex;
+            int rowindex = (rowindex1 / 2) - 1;
+            LinkButton lbButton = (LinkButton)sender;
+            GridDataItem item = (GridDataItem)lbButton.NamingContainer;
+            string IssuerId = gvBHList.MasterTableView.DataKeyValues[rowindex]["BHScrip"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','CustId=" + CustId + "'&'IssuerId=" + IssuerId + "');", true);
+        }
+        protected void BindBHGV(int Type, string CustId)
+        {
+            DataSet dsbondsHolding = BoOnlineBondOrder.getBondsBookview(Type, CustId);
 
             if (dsbondsHolding.Tables[0].Rows.Count > 0)
                 ibtExportSummary.Visible = true;
@@ -35,7 +47,6 @@ namespace WealthERP.OnlineOrderManagement
 
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsbondsHolding.Tables[0]);
         }
-
         protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
         {
             DataTable dtCommMgmt = new DataTable();
@@ -55,33 +66,5 @@ namespace WealthERP.OnlineOrderManagement
             //BindStructureRuleGrid();
         }
 
-        protected void ddlMenu_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            //string sActionName = ((DropDownList)sender).SelectedItem.Text;
-            //string sStructId = ((DropDownList)sender).SelectedValue;
-
-            RadComboBox ddlAction = (RadComboBox)sender;
-            //GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
-            //int structureId = int.Parse(gvBHList.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
-            //string prodType = this.ddProduct.SelectedValue;
-
-            switch (ddlAction.SelectedValue)
-            {
-                case "Edit":
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=1');", true);
-                    break;
-                case "Cancel":
-                   // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=1');", true);
-                    break;
-                default:
-                    return;
-            }
-        }
-
-        protected void gvBHList_PageIndexChanged(object sender, GridPageChangedEventArgs e)
-        {
-            gvBHList.CurrentPageIndex = e.NewPageIndex;
-            BindBHGV();
-        }
     }
 }

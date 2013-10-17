@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OnlineOrderManagement {
-    
-    
-    public partial class NCDIssueBooks {
-        
+namespace WealthERP.OnlineOrderManagement
+{
+
+
+    public partial class NCDIssueBooks
+    {
+
         /// <summary>
         /// scrptMgr control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-        
+
         /// <summary>
         /// upBBGrid control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel upBBGrid;
-        
+
         /// <summary>
         /// ibtExportSummary control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
-        
+
         /// <summary>
         /// tblCommissionStructureRule control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
-        
+
         /// <summary>
         /// pnlGrid control.
         /// </summary>
@@ -57,7 +59,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlGrid;
-        
+
         /// <summary>
         /// gvBBList control.
         /// </summary>

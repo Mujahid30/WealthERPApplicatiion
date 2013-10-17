@@ -22,44 +22,44 @@ namespace WealthERP.OnlineOrderManagement
     public partial class NCDIssueTransact : System.Web.UI.UserControl
     {
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
-        OnlineBondOrderVo OnlineBondVo=new OnlineBondOrderVo();
+        OnlineBondOrderVo OnlineBondVo = new OnlineBondOrderVo();
         bool RESULT = false;
-        int selectedRowIndex;
+        //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                BindDropDownListIssuer();
+
                 BindKYCDetailDDl();
-                ////DHFL
-                //string IssueId = "1";
-                ////Request.QueryString["IssueId"].ToString();
-                ////if (Request.Form["IssueId"] != null)
-                ////{
-                //if(IssueId!=null)
-                //{
-                //    lblIssuer.Text = "Selected Issue Name :";
-                //    int IssueIdN = Convert.ToInt32(IssueId);
-                //    btnConfirm.Enabled = false;
-                //    BindStructureRuleGrid(4);
-                //}
-                //else
-                //{
+                if (Request.QueryString["IssuerId"] != null)
+                {
+                    string IssuerId = Request.QueryString["IssuerId"].ToString();
+                    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                    //int IssueIdN = Convert.ToInt32(IssueId);
+                    ddIssuerList.Visible = false;
+                    btnConfirm.Visible = false;
+                    BindStructureRuleGrid(IssuerId);
+                }
+                else
+                {
+                    BindDropDownListIssuer();
                     lblIssuer.Text = "Kindly Select Issue Name";
-                //}
+                    btnConfirm.Enabled = true;
+                }
+
             }
         }
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
+            string IssuerId = ddIssuerList.SelectedValue.ToString();
             BindStructureRuleGrid(IssuerId);
             //OnlineBondVo = new OnlineBondOrderVo();
             //OnlineBondVo = CollectOnlineBondData(sender);
             //OnlineBondBo.onlineBOndtransact(OnlineBondVo);
 
         }
-        protected void BindStructureRuleGrid(int IssuerId)
+        protected void BindStructureRuleGrid(string IssuerId)
         {
             //DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(1,2);
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
@@ -76,15 +76,15 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindDropDownListIssuer()
         {
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(5, 9);
-            ddIssuerList.DataTextField = dsStructureRules.Tables[0].Columns["AIM_SchemeName"].ToString();
-            ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["AIM_IssueID"].ToString();
+            DataSet dsStructureRules = OnlineBondBo.GetLookupDataForReceivableSetUP(5, "9");
+            ddIssuerList.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
+            ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["PFISD_SeriesId"].ToString();
             ddIssuerList.DataSource = dsStructureRules.Tables[0];
             ddIssuerList.DataBind();
         }
         protected void BindKYCDetailDDl()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(6, 11);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(6, "11");
             if (dsStructureRules.Tables[0].Rows.Count > 0)
             {
                 lblHolderTwo.Text = dsStructureRules.Tables[0].Columns["SecondHolder"].ToString();
@@ -101,7 +101,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 lblNomineeTwo.Text = dsStructureRules.Tables[1].Columns["NomineeName1"].ToString();
                 lblNomineeThird.Text = dsStructureRules.Tables[1].Columns["NomineeName2"].ToString();
-                
+
             }
             else
             {
@@ -111,13 +111,15 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
-           int rowindex1= ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
+            int rowindex1 = ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
 
-           int rowindex = (rowindex1/ 2)-1;
-           TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
+            int rowindex = (rowindex1 / 2) - 1;
+            TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
 
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
+
+
                 int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_BidQty"].ToString());
                 int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_InMultiplesOf"].ToString());
                 int Qty = Convert.ToInt32(txtQuantity.Text);
@@ -149,12 +151,16 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void lbconfirmOrder_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void btnConfirmOrder_Click(object sender, EventArgs e)
         {
             Button Button = (Button)sender;
+            int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
+           // int maxDB = OnlineBondBo.GetMAXTransactNO();
+
+
             DataTable dt = new DataTable();
             //GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
             //Need to be collect from Session...
@@ -164,11 +170,11 @@ namespace WealthERP.OnlineOrderManagement
             dt.Columns.Add("PFISM_SchemeId");
             dt.Columns.Add("Qty");
             dt.Columns.Add("Amount");
-            int rowNo=0;
+            int rowNo = 0;
             int tableRow = 0;
             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
             {
-              
+
                 TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
 
                 OnlineBondVo.CustomerId = "ESI123456".ToString();
@@ -177,7 +183,7 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISD_SeriesId"].ToString());
                 OnlineBondVo.PFIIM_IssuerId = Convert.ToString(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFIIM_IssuerId"].ToString());
                 OnlineBondVo.PFISM_SchemeId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
-                CheckBox Check= (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
+                CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
                 {
                     if (!string.IsNullOrEmpty(txtQuantity.Text))
@@ -194,8 +200,6 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows[tableRow]["PFISM_SchemeId"] = OnlineBondVo.PFISM_SchemeId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
-
-
                     }
                     tableRow++;
                 }
@@ -204,18 +208,20 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     break;
 
-                }
+            }
 
             RESULT = OnlineBondBo.onlineBOndtransact(dt);
+            string CustId = Session["CustId"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBook','CustId=" + CustId + "');", true);
         }
 
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            
 
-            
+
+
         }
-        
+
 
     }
 }

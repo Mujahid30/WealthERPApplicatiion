@@ -156,8 +156,8 @@
             : 
         </td>
         <td class="rightData" colspan="2">
-             <asp:Label ID="lblHolderTwo" runat="server" Text=" "  ></asp:Label>
-            <asp:Label ID="lblHolderThird" runat="server" Text=" "  ></asp:Label>
+             <asp:Label ID="lblHolderTwo" runat="server" Text=" "   CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblHolderThird" runat="server" Text=" "   CssClass="FieldName"></asp:Label>
         </td>
         <td>
             &nbsp;
@@ -169,8 +169,8 @@
             : 
         </td>
         <td class="rightData" colspan="2">
-              <asp:Label ID="lblNomineeTwo" runat="server" Text=" "  ></asp:Label>
-            <asp:Label ID="lblNomineeThird" runat="server" Text=" "  ></asp:Label>
+              <asp:Label ID="lblNomineeTwo" runat="server" Text=" "   CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblNomineeThird" runat="server" Text=" "   CssClass="FieldName"></asp:Label>
         </td>
         <td>
             &nbsp;
@@ -202,7 +202,7 @@
         </tr>
         <tr>
         <td   colspan="4">
-        <div style="width: 950px; overflow: scroll;">
+        <div style="width: 1150px; overflow: scroll;">
             <telerik:RadGrid ID="gvCommMgmt" AllowSorting="false" runat="server" EnableLoadOnDemand="True"
                     AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
@@ -210,7 +210,7 @@
                     <headercontextmenu enableembeddedskins="False"></headercontextmenu>
                     <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList"></exportsettings>
                     <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" DataKeyNames="PFISD_SeriesId,PFIIM_IssuerId,PFISM_SchemeId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty"
+                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" DataKeyNames="PFISD_SeriesId,PFIIM_IssuerId,PFISM_SchemeId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo"
                         autogeneratecolumns="false" width="100%">
                                             <CommandItemSettings ExportToPdfText="Export to Pdf" />
                                             

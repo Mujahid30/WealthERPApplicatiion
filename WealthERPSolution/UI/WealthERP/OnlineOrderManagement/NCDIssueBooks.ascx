@@ -134,26 +134,18 @@
                                    <telerik:RadGrid ID="gvBBList" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
-                    onpageindexchanged="gvBBList_PageIndexChanged" AllowAutomaticInserts="false" >
+                      AllowAutomaticInserts="false" >
                     <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="Scrip" Width="100%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="true" HeaderText="Action">
-                                <%--<ItemTemplate>
-                                    <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
-                                        OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
-                                        <asp:ListItem>Select </asp:ListItem>
-                                        <asp:ListItem Text="View profile" Value="View profile">View profile</asp:ListItem>
-                                        <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
-                                    </asp:DropDownList>
-                                </ItemTemplate>--%>
-                                <%-- <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">--%>
+                                
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlMenu"
                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik" 
-                                        AllowCustomText="true" Width="120px" AutoPostBack="true" OnSelectedIndexChanged="ddlMenu_OnSelectedIndexChanged">
+                                        AllowCustomText="true" Width="120px" AutoPostBack="true" >
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
                                             </telerik:RadComboBoxItem>                                           
@@ -184,18 +176,7 @@
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                 HeaderText="End Date" UniqueName="BBEndDate">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                            <%--<telerik:GridBoundColumn DataField="RMName" AllowFiltering="true" HeaderText=""
-                                UniqueName="ActiveLevel">
-                                <FilterTemplate>
-                                <asp:DropDownList Visible="true" runat="server" ID="" OnSelectedIndexChanged="ddlNameFilter_OnSelectedIndexChanged" AutoPostBack="true"  CssClass="GridViewCmbField"></asp:DropDownList>
-                                </FilterTemplate>
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
-                           <%-- <telerik:GridBoundColumn DataField="StaffCode" AllowFiltering="false" HeaderText="Staffcode"
-                                UniqueName="ActiveLevel">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn> 
                             <telerik:GridBoundColumn Visible="false" DataField="BBOptionSeries" SortExpression="BBOptionSeries" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                 HeaderText="Option / series" UniqueName="BBOptionSeries">

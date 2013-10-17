@@ -14,16 +14,27 @@ namespace WealthERP.OnlineOrderManagement
     public partial class NCDIssueBooks : System.Web.UI.UserControl
     {
         UserVo userVo;
+        string CustId = "7709";
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
-            BindBBGV();
+
+            if (Request.QueryString["CustId"] != null)
+            {
+                CustId = Request.QueryString["CustId"].ToString();
+                BindBBGV(3, CustId);
+            }
+            else
+            {
+                //CustId = Session["CustId"].ToString();
+                BindBBGV(3, CustId);
+            }
         }
 
-        protected void BindBBGV()
+        protected void BindBBGV(int Type, string CustId)
         {
-            DataSet dsbondsBook = BoOnlineBondOrder.getBondsBookview(3);
+            DataSet dsbondsBook = BoOnlineBondOrder.getBondsBookview(Type, CustId);
 
             if (dsbondsBook.Tables[0].Rows.Count > 0)
                 ibtExportSummary.Visible = true;
@@ -64,13 +75,13 @@ namespace WealthERP.OnlineOrderManagement
             //GridDataItem item = (GridDataItem)ddlAction.NamingContainer;
             //int structureId = int.Parse(gvBBList.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
             //string prodType = this.ddProduct.SelectedValue;
-           
+
             switch (ddlAction.SelectedValue)
             {
                 case "Cancel":
-                 BoOnlineBondOrder.cancelBondsBookOrder("");  
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=1');", true);
-                    break;               
+                    BoOnlineBondOrder.cancelBondsBookOrder("");
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=1');", true);
+                    break;
                 default:
                     return;
             }
@@ -79,7 +90,22 @@ namespace WealthERP.OnlineOrderManagement
         protected void gvBBList_PageIndexChanged(object sender, GridPageChangedEventArgs e)
         {
             gvBBList.CurrentPageIndex = e.NewPageIndex;
-            BindBBGV();
+            int rowindex1 = ((GridDataItem)((DropDownList)sender).NamingContainer).RowIndex;
+
+            int rowindex = (rowindex1 / 2) - 1;
+            if (Request.QueryString["CustId"] != null)
+            {
+                CustId = Request.QueryString["CustId"].ToString();
+                BindBBGV(6, CustId);
+            }
+            else
+            {
+                CustId = Session["CustId"].ToString();
+                BindBBGV(6, CustId);
+            }
+
+
+
         }
     }
 }

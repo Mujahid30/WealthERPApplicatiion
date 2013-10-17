@@ -13,7 +13,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineBondOrderDao : OnlineOrderDao
     {
-        public DataSet GetLookupDataForReceivableSetUP(int adviserId, int structureId)
+        public DataSet GetLookupDataForReceivableSetUP(int adviserId, string structureId)
         {
             Database db;
             DbCommand cmdGetLookupDataForReceivable;
@@ -21,10 +21,10 @@ namespace DaoOnlineOrderManagement
 
             try
             {
-                db = DatabaseFactory.CreateDatabase("wealtherp_SBI");
+                db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetLookupDataForReceivable = db.GetStoredProcCommand("SPROC_OnlineBondManagement");
                 db.AddInParameter(cmdGetLookupDataForReceivable, "@ReportType", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetLookupDataForReceivable, "@SeriesId", DbType.Int32, structureId);
+                db.AddInParameter(cmdGetLookupDataForReceivable, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetLookupDataForReceivable);
             }
             catch (BaseApplicationException Ex)
@@ -46,7 +46,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserCommissionStructureRules(int adviserId, int structureId)
+        public DataSet GetAdviserCommissionStructureRules(int adviserId, string structureId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -57,7 +57,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OnlineBondManagement");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@ReportType", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.Int32, structureId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
             catch (BaseApplicationException Ex)
@@ -131,7 +131,7 @@ namespace DaoOnlineOrderManagement
             return result;
         }
 
-        public DataSet GetOrderBondsBook(int input)
+        public DataSet GetOrderBondsBook(int input, string CustId)
         {
             DataSet dsOrderBondsBook;
             Database db;
@@ -141,6 +141,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_OnlineBondManagement");
                 db.AddInParameter(GetOrderBondsBookcmd, "@ReportType", DbType.Int32, input);
+                db.AddInParameter(GetOrderBondsBookcmd, "@SeriesId", DbType.String, CustId);
                 dsOrderBondsBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
 
             }
@@ -192,5 +193,39 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
         }
+
+        public string GetMAXTransactNO()
+        {
+            Database db;
+            string strMaxNoDB = string.Empty;
+            DbCommand CancelOrderBondsBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CancelOrderBondsBookcmd = db.GetStoredProcCommand("SP");
+
+                strMaxNoDB=db.ExecuteScalar(CancelOrderBondsBookcmd).ToString();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:CancelBondsBookOrder(string id)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return strMaxNoDB;
+        }
+
+        
+
     }
 }
