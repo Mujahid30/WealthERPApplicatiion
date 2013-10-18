@@ -19,7 +19,7 @@ namespace WealthERP.OnlineOrderManagement
         OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
         OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
         AdvisorVo advisorVo;
-        DataTable   dtOrderMIS=new DataTable();
+        DataTable dtOrderMIS = new DataTable();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,9 +44,22 @@ namespace WealthERP.OnlineOrderManagement
         {
             BindMISGridView();
         }
+
+        protected void btnAutoOrder_Click(object sender, EventArgs e)
+        {
+            boOnlineOrder.TriggerAutoOrderFromSIP();
+            ShowMessage("Auto Order SIP Triger successfully");
+        }
+
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
+        }
+
         protected void gvExtractMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {
-           
+
             //if (e.Item is GridDataItem)
             //{
             //    GridDataItem dataItem = e.Item as GridDataItem;
@@ -67,10 +80,10 @@ namespace WealthERP.OnlineOrderManagement
             //dtOrderMIS = (DataTable)Cache["OrderMIS" + userVo.UserId];
 
             DataTable dtOrderMIS = new DataTable();
-            dtOrderMIS = (DataTable)Cache["OrderMIS"];            
+            dtOrderMIS = (DataTable)Cache["OrderMIS"];
             gvExtractMIS.DataSource = dtOrderMIS;
             gvExtractMIS.Visible = true;
-           
+
         }
         private void BindMISGridView()
         {
@@ -94,7 +107,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
         {
-           
+
         }
     }
 }

@@ -18,12 +18,26 @@
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                                 OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
                         </td>--%>
+                        <td align="right">
+                        <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order"
+                         OnClick="btnAutoOrder_Click" />
+                        </td>
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
 </table>
+
+<table id="tblMessage" width="100%" runat="server" visible="false">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+            </div>
+        </td>
+    </tr>
+</table>
+
 <div id="divConditional" runat="server">
     <table class="TableBackground" cellpadding="2">
         <tr>

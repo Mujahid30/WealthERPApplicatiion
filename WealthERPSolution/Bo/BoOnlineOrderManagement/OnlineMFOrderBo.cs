@@ -14,9 +14,9 @@ using DaoOnlineOrderManagement;
 
 namespace BoOnlineOrderManagement
 {
-    public class OnlineMFOrderBo:OnlineOrderBo
+    public class OnlineMFOrderBo : OnlineOrderBo
     {
-        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId,string orderType)
+        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId, string orderType)
         {
             DataSet dsMfOrderExtract = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
@@ -64,7 +64,7 @@ namespace BoOnlineOrderManagement
 
                 FunctionInfo.Add("Method", "OrderBo.cs:GetOrderStepsDetails()");
 
-                object[] objects = new object[1];                
+                object[] objects = new object[1];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -157,7 +157,7 @@ namespace BoOnlineOrderManagement
         {
             List<int> orderIds = new List<int>();
             OnlineMFOrderDao onlineOrderdao = new OnlineMFOrderDao();
-            
+
             try
             {
                 orderIds = onlineOrderdao.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, UserId, CustomerId);
@@ -270,15 +270,18 @@ namespace BoOnlineOrderManagement
 
                 List<int> lstSipDates = new List<int>();
                 string[] temp = sipStartDates.Split(';');
-                foreach (string date in temp) {
+                foreach (string date in temp)
+                {
                     if (!string.IsNullOrEmpty(date.Trim()))
                         lstSipDates.Add(int.Parse(date.Trim()));
                 }
 
 
                 DateTime dateCurr = DateTime.Now;
-                while (dateCurr <= DateTime.Now.AddMonths(3)) {
-                    int res = lstSipDates.Find(delegate(int date) {
+                while (dateCurr <= DateTime.Now.AddMonths(3))
+                {
+                    int res = lstSipDates.Find(delegate(int date)
+                    {
                         return date == dateCurr.Day;
                     });
 
@@ -344,7 +347,7 @@ namespace BoOnlineOrderManagement
         }
         public OnlineMFOrderVo GetOrderDetails(int Id)
         {
-            OnlineMFOrderVo onlinemforderVo=new OnlineMFOrderVo();
+            OnlineMFOrderVo onlinemforderVo = new OnlineMFOrderVo();
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
@@ -355,6 +358,20 @@ namespace BoOnlineOrderManagement
                 throw (Ex);
             }
             return onlinemforderVo;
+        }
+
+        public void TriggerAutoOrderFromSIP()
+        {
+
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                OnlineMFOrderDao.TriggerAutoOrderFromSIP();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
         }
     }
 }

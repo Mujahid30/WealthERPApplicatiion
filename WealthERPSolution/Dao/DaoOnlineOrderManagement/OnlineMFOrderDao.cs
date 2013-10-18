@@ -16,7 +16,7 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineMFOrderDao : OnlineOrderDao
     {
-        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId,string orderType)
+        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId, string orderType)
         {
             DataSet dsGetMfOrderExtract;
             Database db;
@@ -28,8 +28,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@Fromdate", DbType.DateTime, dtFrom);
 
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(GetGetMfOrderExtractCmd, "@OrderType", DbType.Int32, adviserId);               
-               
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@OrderType", DbType.Int32, adviserId);
+
                 dsGetMfOrderExtract = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
 
             }
@@ -51,8 +51,8 @@ namespace DaoOnlineOrderManagement
             return dsGetMfOrderExtract;
         }
 
-       
-        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode,string OrderStatus, DateTime dtFrom, DateTime dtTo)
+
+        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -60,18 +60,18 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetOrderBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetOrderBook");               
+                GetOrderBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetOrderBook");
                 db.AddInParameter(GetOrderBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 if (AmcCode != 0)
                     db.AddInParameter(GetOrderBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetOrderBookMISCmd, "@AMC", DbType.Int32, 0);
-                if(OrderStatus!="0")
-                db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, OrderStatus);
+                if (OrderStatus != "0")
+                    db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, OrderStatus);
                 else
-                db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
+                    db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);              
+                db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }
@@ -127,7 +127,7 @@ namespace DaoOnlineOrderManagement
         {
             DataSet dsOrderStatus;
             Database db;
-            DbCommand GetOrderStatusCmd;         
+            DbCommand GetOrderStatusCmd;
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderStatusCmd = db.GetStoredProcCommand("Sproc_onl_GetOrderStatus");
@@ -244,7 +244,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, AccountId);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, 0);
-                
+
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
@@ -281,28 +281,28 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_Onl_CreateCustomerOnlineMFSipDetails");
 
-                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, onlineMFOrderVo.SchemePlanCode);                
-                
-                if (onlineMFOrderVo.AccountId != 0) 
+                db.AddInParameter(createMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, onlineMFOrderVo.SchemePlanCode);
+
+                if (onlineMFOrderVo.AccountId != 0)
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFA_accountid", DbType.Int32, onlineMFOrderVo.AccountId);
 
                 if (!string.IsNullOrEmpty(onlineMFOrderVo.SystematicTypeCode))
                     db.AddInParameter(createMFOrderTrackingCmd, "@XSTT_SystematicTypeCode", DbType.String, onlineMFOrderVo.SystematicTypeCode);
-                
+
                 if (onlineMFOrderVo.StartDate != DateTime.MinValue)
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_StartDate", DbType.DateTime, onlineMFOrderVo.StartDate);
-               
+
                 if (onlineMFOrderVo.EndDate != DateTime.MinValue)
                     db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_EndDate", DbType.DateTime, onlineMFOrderVo.EndDate);
-                
+
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_TotalInstallment", DbType.Int32, onlineMFOrderVo.TotalInstallments);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, onlineMFOrderVo.SystematicDate);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_Amount", DbType.Double, onlineMFOrderVo.Amount);
                 db.AddInParameter(createMFOrderTrackingCmd, "@XES_SourceCode", DbType.String, onlineMFOrderVo.SourceCode);
-                
+
                 if (!string.IsNullOrEmpty(onlineMFOrderVo.FrequencyCode))
                     db.AddInParameter(createMFOrderTrackingCmd, "@XF_FrequencyCode", DbType.String, onlineMFOrderVo.FrequencyCode);
-                
+
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFSS_SubBrokerCode", DbType.Int32, onlineMFOrderVo.AgentCode);
@@ -435,6 +435,33 @@ namespace DaoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
+        public void TriggerAutoOrderFromSIP()
+        {
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_CreateAutoSipOrder");
+                db.ExecuteNonQuery(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:TriggerAutoOrderFromSIP()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
 
     }
 }
