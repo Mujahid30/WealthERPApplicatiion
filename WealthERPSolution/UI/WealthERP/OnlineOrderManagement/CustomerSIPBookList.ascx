@@ -28,13 +28,16 @@
     <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="tdlblRejectReason" runat="server">
-                <asp:Label runat="server" class="FieldName" Text="Account:" ID="lblAccount"></asp:Label>
-            </td>
-            <td id="tdAccount" runat="server">
-                <asp:DropDownList CssClass="cmbField" ID="ddlAccount" runat="server" AutoPostBack="false">
+                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" runat="server" AutoPostBack="false">
                     <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
                 </asp:DropDownList>
             </td>
+             <td id="td1" runat="server">
+                <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlOrderstatus" runat="server" AutoPostBack="false">                  
+                </asp:DropDownList>
+            </td>           
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
@@ -88,7 +91,7 @@
                 </asp:CompareValidator>
             </td>
             <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewOrder_Click" />
+                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />
             </td>
         </tr>
     </table>
@@ -295,4 +298,5 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
+<asp:HiddenField ID="hdnAmc" runat="server" />
+<asp:HiddenField ID="hdnOrderStatus" runat="server" />

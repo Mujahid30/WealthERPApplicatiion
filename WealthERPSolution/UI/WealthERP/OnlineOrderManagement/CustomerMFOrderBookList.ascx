@@ -32,7 +32,7 @@
     </tr>
 </table>--%>
 <div id="divConditional" runat="server" style="padding-top: 4px">
-    <table class="TableBackground" width="100%">
+    <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="tdlblRejectReason" runat="server" style="padding-right:20px">
                 <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
@@ -102,15 +102,9 @@
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                     ControlToCompare="txtOrderFrom" CssClass="cvPCG" ValidationGroup="btnViewOrder" Display="Dynamic">
                 </asp:CompareValidator>
-            </td>
-        </tr>       
-       <tr>
-       <td>
-       </td>
-       </tr>
-        <tr>
+            </td>    
             <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewOrder_Click" />
+                <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder" OnClick="btnViewOrder_Click" />
             </td>
         </tr>
     </table>

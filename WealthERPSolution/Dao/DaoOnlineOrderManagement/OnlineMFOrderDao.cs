@@ -229,7 +229,7 @@ namespace DaoOnlineOrderManagement
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -237,14 +237,16 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");
-                //db.AddInParameter(GetSIPBookMISCmd, "@AdviserId", DbType.Int32, adviserId);
+                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");               
                 db.AddInParameter(GetSIPBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
-                if (AccountId != 0)
-                    db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, AccountId);
+                if (AmcCode != 0)
+                    db.AddInParameter(GetSIPBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
-                    db.AddInParameter(GetSIPBookMISCmd, "@AccountId", DbType.Int32, 0);
-
+                    db.AddInParameter(GetSIPBookMISCmd, "@AMC", DbType.Int32, 0);
+                if (OrderStatus != "0")
+                    db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, OrderStatus);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);

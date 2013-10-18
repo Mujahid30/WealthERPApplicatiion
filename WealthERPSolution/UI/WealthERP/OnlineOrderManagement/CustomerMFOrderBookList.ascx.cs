@@ -42,10 +42,9 @@ namespace WealthERP.OnlineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();          
             customerId = customerVO.CustomerId;
-            customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
-            BindFolioAccount();
-            BindOrderStatus();
+            customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];                    
             BindAmc();
+            BindOrderStatus();
             if (!Page.IsPostBack)
             {
                 Cache.Remove("OrderList" + advisorVo.advisorId);               
@@ -100,10 +99,7 @@ namespace WealthERP.OnlineOrderManagement
                 //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
 
             }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true); return;
-            }
+           
         }
 
         /// <summary>

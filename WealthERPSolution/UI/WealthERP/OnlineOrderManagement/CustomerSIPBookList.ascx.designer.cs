@@ -283,5 +283,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
         protected global::System.Web.UI.WebControls.Button btnViewSIP;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAMCCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderstatus;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAmc;
     }
 }
