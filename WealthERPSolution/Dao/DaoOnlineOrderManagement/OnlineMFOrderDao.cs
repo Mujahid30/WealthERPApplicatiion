@@ -259,7 +259,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@systamaticDates", DbType.String, onlineMFOrderVo.SystematicDate.ToString());
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
-                db.AddOutParameter(createMFOrderTrackingCmd, "@CP_PortfolioId", DbType.Int32, onlineMFOrderVo.PortfolioId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CP_PortfolioId", DbType.Int32, onlineMFOrderVo.PortfolioId);
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0) { }
             }
