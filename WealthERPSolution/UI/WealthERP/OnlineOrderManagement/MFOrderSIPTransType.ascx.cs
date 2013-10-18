@@ -18,6 +18,7 @@ using BoProductMaster;
 using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using DaoReports;
+using VoCustomerPortfolio;
 
 
 namespace WealthERP.OnlineOrderManagement
@@ -44,6 +45,7 @@ namespace WealthERP.OnlineOrderManagement
         ProductMFBo productMfBo = new ProductMFBo();
         OnlineMFOrderBo boOnlineOrder = new OnlineMFOrderBo();
         OnlineMFOrderVo onlineMFOrderVo = new OnlineMFOrderVo();
+        CustomerPortfolioVo custPortVo;
         string strAction;
         string[] AllSipDates;
         int orderIdForEdit;
@@ -59,6 +61,7 @@ namespace WealthERP.OnlineOrderManagement
             rmVo = (RMVo)Session["rmVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
+            custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
 
             divValidationError.Visible = false;
 
@@ -270,6 +273,8 @@ namespace WealthERP.OnlineOrderManagement
             onlineMFOrderVo.StartDate = DateTime.Parse(ddlStartDate.SelectedValue);
             onlineMFOrderVo.EndDate = DateTime.Parse(lblEndDateDisplay.Text);
             onlineMFOrderVo.SystematicDates = "";
+            onlineMFOrderVo.TotalInstallments = int.Parse(ddlTotalInstallments.SelectedValue);
+            onlineMFOrderVo.PortfolioId = custPortVo.PortfolioId;
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {

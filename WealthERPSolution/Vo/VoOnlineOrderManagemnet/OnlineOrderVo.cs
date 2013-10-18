@@ -30,7 +30,6 @@ namespace VoOnlineOrderManagemnet
         public int IsCustomerApprovalApplicable { set; get; }
         public int AgentId { get; set; }
         public string AgentCode { get; set; }
-
-
+        public int PortfolioId { get; set; }
     }
 }
