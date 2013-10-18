@@ -16,6 +16,41 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineMFOrderDao : OnlineOrderDao
     {
+        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId,string orderType)
+        {
+            DataSet dsGetMfOrderExtract;
+            Database db;
+            DbCommand GetGetMfOrderExtractCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetMfOrderExtractCmd = db.GetStoredProcCommand("Sp_CreateAdviserMFOrderExtract");
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@Fromdate", DbType.DateTime, dtFrom);
+
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@OrderType", DbType.Int32, adviserId);               
+               
+                dsGetMfOrderExtract = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMfOrderExtract;
+        }
+
         public DataSet GetOrderBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS;

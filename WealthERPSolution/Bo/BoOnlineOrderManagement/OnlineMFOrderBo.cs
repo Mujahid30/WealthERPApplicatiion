@@ -16,6 +16,34 @@ namespace BoOnlineOrderManagement
 {
     public class OnlineMFOrderBo:OnlineOrderBo
     {
+        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId,string orderType)
+        {
+            DataSet dsMfOrderExtract = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsMfOrderExtract = OnlineMFOrderDao.GetMfOrderExtract(dtFrom, adviserId, orderType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:GetMfOrderExtract()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsMfOrderExtract;
+        }
 
         public DataSet GetOrderBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
         {
