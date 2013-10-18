@@ -45,13 +45,13 @@ namespace BoOnlineOrderManagement
             return dsMfOrderExtract;
         }
 
-        public DataSet GetOrderBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetOrderBookMIS(int CustomerId,int AmcCode,string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsOrderBookMIS = OnlineMFOrderDao.GetOrderBookMIS(CustomerId, AccountId, dtFrom, dtTo);
+                dsOrderBookMIS = OnlineMFOrderDao.GetOrderBookMIS(CustomerId,AmcCode,OrderStatus,dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -100,6 +100,16 @@ namespace BoOnlineOrderManagement
 
             }
             return dsFolioAccount;
+        }
+        public DataSet GetOrderStatus()
+        {
+            DataSet dsOrderStatus = null;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();         
+            {
+                dsOrderStatus = OnlineMFOrderDao.GetOrderStatus();
+            }
+
+            return dsOrderStatus;
         }
         public DataSet GetControlDetails(int scheme, string folio)
         {

@@ -58,7 +58,7 @@
         <tr>
             <td>
                 <telerik:RadGrid ID="rgUnitHolding" runat="server" PageSize="10" AllowPaging="True"
-                    GridLines="None" AutoGenerateColumns="true" Width="100%"
+                    GridLines="None" AutoGenerateColumns="true" Width="100%" ClientSettings-AllowColumnsReorder="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowSorting="true" EnableViewState="true"
                     AllowFilteringByColumn="true" OnNeedDataSource="rgUnitHolding_OnNeedDataSource"
                     OnItemCommand="rgUnitHolding_OnItemCommand">
@@ -234,8 +234,8 @@
                               <telerik:GridTemplateColumn ItemStyle-Width="140px" AllowFiltering="false" HeaderText="Action">
                                 <ItemTemplate>                                  
                                  <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"/>
-                                 <asp:ImageButton ID="ImageButton2" runat="server" CommandName="Sell" ImageUrl="~/Images/Buy-Button.png"/>
-                                 <asp:ImageButton ID="ImageButton3" runat="server" CommandName="SIP" ImageUrl="~/Images/Buy-Button.png"/>
+                                 <asp:ImageButton ID="ImageButton2" runat="server" CommandName="Sell" ImageUrl="~/Images/Sell-Button.png"/>
+                                 <asp:ImageButton ID="ImageButton3" runat="server" CommandName="SIP" ImageUrl="~/Images/SIP-Button.png"  ToolTip="SIP"/>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>

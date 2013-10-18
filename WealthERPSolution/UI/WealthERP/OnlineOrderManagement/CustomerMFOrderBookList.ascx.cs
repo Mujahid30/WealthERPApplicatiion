@@ -44,12 +44,14 @@ namespace WealthERP.OnlineOrderManagement
             customerId = customerVO.CustomerId;
             customerAccountsVo = (CustomerAccountsVo)Session["FolioVo"];
             BindFolioAccount();
+            BindOrderStatus();
+            BindAmc();
             if (!Page.IsPostBack)
             {
-                hdnAccount.Value = "0";
+                Cache.Remove("OrderList" + advisorVo.advisorId);               
                 fromDate = DateTime.Now.AddMonths(-1);
-                txtFrom.SelectedDate = fromDate.Date;
-                txtTo.SelectedDate = DateTime.Now;
+                txtOrderFrom.SelectedDate = fromDate.Date;
+                txtOrderTo.SelectedDate = DateTime.Now;
                 
             }
            
@@ -62,46 +64,89 @@ namespace WealthERP.OnlineOrderManagement
         }
 
         /// <summary>
+        /// Get Bind Orderstatus
+        /// </summary>
+        private void BindOrderStatus()
+        {
+            ddlOrderStatus.Items.Clear();
+            DataSet dsOrderStatus;
+            DataTable dtOrderStatus;
+            dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
+            dtOrderStatus = dsOrderStatus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+        }
+
+
+        protected void BindAmc()
+        {
+            DataSet ds = new DataSet();
+            DataTable dtAmc = new DataTable();
+            ds = OnlineMFOrderBo.GetRedeemAmcDetails(customerId);
+            dtAmc = ds.Tables[0];
+            if (dtAmc.Rows.Count > 0)
+            {
+                ddlAmc.DataSource = dtAmc;
+                ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+                ddlAmc.DataBind();
+                ddlAmc.Items.Insert(0, new ListItem("All", "0"));
+                //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true); return;
+            }
+        }
+
+        /// <summary>
         /// Get Folio Account for Customer
         /// </summary>
         private void BindFolioAccount()
         {
-            ddlAccount.Items.Clear();
-            DataSet dsFolioAccount;
-            DataTable dtFolioAccount;
-            dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
-            dtFolioAccount = dsFolioAccount.Tables[0];
-            if (dtFolioAccount.Rows.Count > 0)
-            {
-                ddlAccount.DataSource = dsFolioAccount.Tables[0];
-                ddlAccount.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
-                ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
-                ddlAccount.DataBind();
-            }
-              ddlAccount.Items.Insert(0, new ListItem("All", "0"));
+            //ddlAccount.Items.Clear();
+            //DataSet dsFolioAccount;
+            //DataTable dtFolioAccount;
+            //dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
+            //dtFolioAccount = dsFolioAccount.Tables[0];
+            //if (dtFolioAccount.Rows.Count > 0)
+            //{
+            //    ddlAccount.DataSource = dsFolioAccount.Tables[0];
+            //    ddlAccount.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
+            //    ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
+            //    ddlAccount.DataBind();
+            //}
+            //  ddlAccount.Items.Insert(0, new ListItem("All", "0"));
         }
         /// <summary>
         /// Get Order Book MIS
         /// </summary>
         protected void BindOrderBook()
         {
-            //int IsOnline = 0; 
              DataSet dsOrderBookMIS = new DataSet();
              DataTable dtOrderBookMIS = new DataTable();
-             if (txtFrom.SelectedDate != null)
-             fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
-             if (txtTo.SelectedDate != null)
-             toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-             //AccountId = int.Parse(ViewState["AccountDropDown"].ToString());
-             //if (customerAccountsVo.IsOnline == 0)
-             //{
-             //    hdnAccount.Value = "0"; 
-             //}
-
-            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(customerId, int.Parse(hdnAccount.Value), fromDate, toDate);
+             if (txtOrderFrom.SelectedDate != null)
+                 fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+             if (txtOrderTo.SelectedDate != null)
+                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            
+            dsOrderBookMIS = OnlineMFOrderBo.GetOrderBookMIS(customerId, int.Parse(hdnAmc.Value),hdnOrderStatus.Value, fromDate, toDate);
             dtOrderBookMIS = dsOrderBookMIS.Tables[0];
             if (dtOrderBookMIS.Rows.Count > 0)
             {
+                gvOrderBookMIS.DataSource = dtOrderBookMIS;
+                gvOrderBookMIS.DataBind();
+                gvOrderBookMIS.Visible = true;
+                pnlOrderBook.Visible = true;
+               // btnExport.Visible = true;
+                trNoRecords.Visible = false;
                 if (Cache["OrderList" + advisorVo.advisorId] == null)
                 {
                     Cache.Insert("OrderList" + advisorVo.advisorId, dtOrderBookMIS);
@@ -111,12 +156,6 @@ namespace WealthERP.OnlineOrderManagement
                     Cache.Remove("OrderList" + advisorVo.advisorId);
                     Cache.Insert("OrderList" + advisorVo.advisorId, dtOrderBookMIS);
                 }
-                gvOrderBookMIS.DataSource = dtOrderBookMIS;
-                gvOrderBookMIS.DataBind();
-                gvOrderBookMIS.Visible = true;
-                pnlOrderBook.Visible = true;
-               // btnExport.Visible = true;
-                trNoRecords.Visible = false;
                
                 }
             else
@@ -131,15 +170,25 @@ namespace WealthERP.OnlineOrderManagement
         }
         private void SetParameter()
         {
-            if (ddlAccount.SelectedIndex != 0)
+            if (ddlOrderStatus.SelectedIndex != 0)
             {
-                hdnAccount.Value = ddlAccount.SelectedValue;
-                ViewState["AccountDropDown"] = hdnAccount.Value;
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+                ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
             }
             else
             {
-                hdnAccount.Value = "0";
+                hdnOrderStatus.Value = "0";
             }
+            if (ddlAmc.SelectedIndex != 0)
+            {
+                hdnAmc.Value = ddlAmc.SelectedValue;
+                ViewState["AMCDropDown"] = hdnAmc.Value;
+            }
+            else
+            {
+                hdnAmc.Value = "0";
+            }
+
         }
         protected void gvOrderBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -147,8 +196,8 @@ namespace WealthERP.OnlineOrderManagement
             DataTable dtOrderBookMIS = new DataTable();          
             dtOrderBookMIS = (DataTable)Cache["OrderList" + advisorVo.advisorId.ToString()];
             if (dtOrderBookMIS != null)
-            {
-                gvOrderBookMIS.DataSource = dtOrderBookMIS;                
+
+            {   gvOrderBookMIS.DataSource = dtOrderBookMIS;                
                 gvOrderBookMIS.Visible = true;
             }
 

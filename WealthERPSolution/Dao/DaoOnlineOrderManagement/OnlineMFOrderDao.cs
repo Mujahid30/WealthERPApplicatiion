@@ -51,7 +51,8 @@ namespace DaoOnlineOrderManagement
             return dsGetMfOrderExtract;
         }
 
-        public DataSet GetOrderBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+       
+        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode,string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -59,17 +60,18 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetOrderBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetOrderBook");
-               // db.AddInParameter(GetOrderBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                if (AccountId != 0)
-                    db.AddInParameter(GetOrderBookMISCmd, "@AccountId", DbType.Int32, AccountId);
-                else
-                    db.AddInParameter(GetOrderBookMISCmd, "@AccountId", DbType.Int32, 0);
+                GetOrderBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetOrderBook");               
                 db.AddInParameter(GetOrderBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                if (AmcCode != 0)
+                    db.AddInParameter(GetOrderBookMISCmd, "@AMC", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(GetOrderBookMISCmd, "@AMC", DbType.Int32, 0);
+                if(OrderStatus!="0")
+                db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, OrderStatus);
+                else
+                db.AddInParameter(GetOrderBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetOrderBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
-                db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
-                // db.AddInParameter(GetOrderBookMISCmd, "@IsOnline", DbType.Int32, IsOnline);
-                // db.AddInParameter(GetOrderBookMISCmd, "@status", DbType.String, status);
+                db.AddInParameter(GetOrderBookMISCmd, "@ToDate", DbType.DateTime, dtTo);              
                 dsOrderBookMIS = db.ExecuteDataSet(GetOrderBookMISCmd);
 
             }
@@ -120,6 +122,20 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsFolioAccount;
+        }
+        public DataSet GetOrderStatus()
+        {
+            DataSet dsOrderStatus;
+            Database db;
+            DbCommand GetOrderStatusCmd;         
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderStatusCmd = db.GetStoredProcCommand("Sproc_onl_GetOrderStatus");
+                dsOrderStatus = db.ExecuteDataSet(GetOrderStatusCmd);
+
+            }
+
+            return dsOrderStatus;
         }
         public DataSet GetControlDetails(int Scheme, string folio)
         {

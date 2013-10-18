@@ -32,21 +32,30 @@
     </tr>
 </table>--%>
 <div id="divConditional" runat="server" style="padding-top: 4px">
-    <table class="TableBackground" cellpadding="2">
+    <table class="TableBackground" width="100%">
         <tr>
-            <td id="tdlblRejectReason" runat="server">
-                <asp:Label runat="server" class="FieldName" Text="Account:" ID="lblAccount"></asp:Label>
-            </td>
-            <td id="tdAccount" runat="server">
-                <asp:DropDownList CssClass="cmbField" ID="ddlAccount" runat="server" AutoPostBack="false">
-                    <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
+            <td id="tdlblRejectReason" runat="server" style="padding-right:20px">
+                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">                
                 </asp:DropDownList>
             </td>
+          <%--  <td id="tdAccount" runat="server" align="left">
+               
+            </td>
+           &nbsp--%>
+            <td id="td1" runat="server">
+                <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">                
+                </asp:DropDownList>
+            </td>
+          <%--  <td id="td2" runat="server">
+               
+            </td>--%>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
-            </td>
+            </td>            
             <td id="tdTxtFromDate" runat="server">
-                <telerik:RadDatePicker ID="txtFrom" CssClass="txtField" runat="server" Culture="English (United States)"
+                <telerik:RadDatePicker ID="txtOrderFrom" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                     <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
@@ -57,12 +66,12 @@
                 </telerik:RadDatePicker>
                 <div id="dvTransactionDate" runat="server" class="dvInLine">
                     <span id="Span1" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtFrom"
+                    <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtOrderFrom"
                         ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
                         runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                        Type="Date" ControlToValidate="txtFrom" CssClass="cvPCG" Operator="DataTypeCheck"
+                        Type="Date" ControlToValidate="txtOrderFrom" CssClass="cvPCG" Operator="DataTypeCheck"
                         Display="Dynamic"></asp:CompareValidator>
                 </div>
             </td>
@@ -70,9 +79,9 @@
                 <asp:Label ID="lblToTran" Text="To :" CssClass="FieldName" runat="server" />
             </td>
             <td id="tdTxtToDate" runat="server">
-                <telerik:RadDatePicker ID="txtTo" CssClass="txtField" runat="server" Culture="English (United States)"
+                <telerik:RadDatePicker ID="txtOrderTo" CssClass="txtField" runat="server" Culture="English (United States)"
                     Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                    <Calendar def ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                    <Calendar ID="Calendar2" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                         ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
                     </Calendar>
                     <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
@@ -81,19 +90,25 @@
                 </telerik:RadDatePicker>
                 <div id="Div1" runat="server" class="dvInLine">
                     <span id="Span2" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtTo"
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtOrderTo"
                         ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
                         runat="server" InitialValue="">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
-                        Type="Date" ControlToValidate="txtTo" CssClass="cvPCG" Operator="DataTypeCheck"
+                        Type="Date" ControlToValidate="txtOrderTo" CssClass="cvPCG" Operator="DataTypeCheck"
                         Display="Dynamic"></asp:CompareValidator>
                 </div>
-                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
+                <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtOrderTo"
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
+                    ControlToCompare="txtOrderFrom" CssClass="cvPCG" ValidationGroup="btnViewOrder" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
+        </tr>       
+       <tr>
+       <td>
+       </td>
+       </tr>
+        <tr>
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewOrder_Click" />
             </td>
@@ -120,15 +135,16 @@
             <td>
                 <telerik:RadGrid ID="gvOrderBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%"
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvOrderBookMIS_OnNeedDataSource" OnItemCommand="gvOrderBookMIS_OnItemCommand">
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%" ClientSettings-AllowColumnsReorder="true"
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvOrderBookMIS_OnNeedDataSource"
+                    OnItemCommand="gvOrderBookMIS_OnItemCommand">
                     <%--  OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound"--%>
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                         ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
+                            ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
                             <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
                                 AllowFiltering="true" HeaderText="Request Date" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
@@ -275,9 +291,10 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action">
-                                <ItemTemplate>                                  
-                                 <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png"/>
+                            <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
+                                Visible="false">
+                                <ItemTemplate>
+                                    <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>
@@ -291,4 +308,5 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
+<asp:HiddenField ID="hdnAmc" runat="server" />
+<asp:HiddenField ID="hdnOrderStatus" runat="server" />

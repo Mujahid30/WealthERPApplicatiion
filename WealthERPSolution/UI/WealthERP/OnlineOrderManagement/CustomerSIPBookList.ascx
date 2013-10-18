@@ -84,11 +84,11 @@
                 </div>
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
+                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
             <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewOrder_Click" />
+                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewOrder_Click" />
             </td>
         </tr>
     </table>
@@ -113,7 +113,7 @@
             <td>
                 <telerik:RadGrid ID="gvSIPBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%"
+                    Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%" ClientSettings-AllowColumnsReorder="true"
                     AllowAutomaticInserts="false" OnNeedDataSource="gvSIPBookMIS_OnNeedDataSource" OnItemCommand="gvSIPBookMIS_OnItemCommand">
                     <%--  OnNeedDataSource="gvOrderList_OnNeedDataSource" OnItemDataBound="gvOrderList_ItemDataBound"--%>
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
@@ -279,7 +279,7 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>                           
-                            <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action">
+                            <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action" Visible="false">
                                 <ItemTemplate>                                  
                                  <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png"/>
                                 </ItemTemplate>
