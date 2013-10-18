@@ -25,7 +25,7 @@ namespace WealthERP.OnlineOrderManagement
     {
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         PortfolioBo portfolioBo = new PortfolioBo();
-        MFPortfolioVo mfPortfolioVo=new MFPortfolioVo();
+        MFPortfolioVo mfPortfolioVo = new MFPortfolioVo();
         List<MFPortfolioNetPositionVo> OnlineMFHoldingList = null;
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AdvisorVo advisorVo;
@@ -41,8 +41,8 @@ namespace WealthERP.OnlineOrderManagement
             userType = Session[SessionContents.CurrentUserRole].ToString();
             customerId = customerVO.CustomerId;
             BindFolioAccount();
-            if(!IsPostBack)
-            Cache.Remove("UnitHolding" + advisorVo.advisorId); 
+            if (!IsPostBack)
+                Cache.Remove("UnitHolding" + advisorVo.advisorId);
         }
         private void SetParameter()
         {
@@ -88,7 +88,7 @@ namespace WealthERP.OnlineOrderManagement
             //portfolioId = Convert.ToInt32(ddlPortfolio.SelectedValue);
             SetParameter();
             BindUnitHolding();
-           
+
         }
         public DataTable CreateUnitHoldingListTable()
         {
@@ -125,7 +125,7 @@ namespace WealthERP.OnlineOrderManagement
 
             return dtMFUnitHolding;
         }
-           
+
         /// <summary>
         /// Get Unit Holding Data for Customer
         /// </summary>
@@ -133,7 +133,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             DataTable dt = new DataTable();
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
-            if (OnlineMFHoldingList!= null)
+            if (OnlineMFHoldingList != null)
             {
                 DataTable dtMFUnitHoplding = CreateUnitHoldingListTable();
                 //dtMFUnitHoplding.Columns.Add("MFNPId");
@@ -201,67 +201,67 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["NAV"] = mfPortfolioVo.MarketPrice.ToString("n4", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["NAV"] = "0.00";
-                      if (mfPortfolioVo.CurrentValue != 0)
-                          drMFUnitHoplding["CurrentValue"] = mfPortfolioVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.CurrentValue != 0)
+                        drMFUnitHoplding["CurrentValue"] = mfPortfolioVo.CurrentValue.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["CurrentValue"] = "0.00";
-                      if (mfPortfolioVo.SalesQuantity != 0)
-                          drMFUnitHoplding["UnitsSold"] = mfPortfolioVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.SalesQuantity != 0)
+                        drMFUnitHoplding["UnitsSold"] = mfPortfolioVo.SalesQuantity.ToString("n3", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["UnitsSold"] = "0.00";
-                      if (mfPortfolioVo.RedeemedAmount != 0)
-                          drMFUnitHoplding["RedeemedAmount"] = mfPortfolioVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.RedeemedAmount != 0)
+                        drMFUnitHoplding["RedeemedAmount"] = mfPortfolioVo.RedeemedAmount.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["RedeemedAmount"] = "0.00";
-                      if (mfPortfolioVo.ReturnsAllDVPAmt != 0)
-                          drMFUnitHoplding["DVP"] = mfPortfolioVo.ReturnsAllDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.ReturnsAllDVPAmt != 0)
+                        drMFUnitHoplding["DVP"] = mfPortfolioVo.ReturnsAllDVPAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["DVP"] = "0.00";
-                      if (mfPortfolioVo.ReturnsHoldTotalPL != 0)
-                          drMFUnitHoplding["TotalPL"] = mfPortfolioVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.ReturnsHoldTotalPL != 0)
+                        drMFUnitHoplding["TotalPL"] = mfPortfolioVo.ReturnsHoldTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["TotalPL"] = "0.00";
-                      if (mfPortfolioVo.ReturnsHoldAbsReturn != 0)
-                          drMFUnitHoplding["AbsoluteReturn"] = mfPortfolioVo.ReturnsHoldAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.ReturnsHoldAbsReturn != 0)
+                        drMFUnitHoplding["AbsoluteReturn"] = mfPortfolioVo.ReturnsHoldAbsReturn.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["AbsoluteReturn"] = "0.00";
-                      if (mfPortfolioVo.ReturnsAllDVRAmt != 0)
-                          drMFUnitHoplding["DVR"] = mfPortfolioVo.ReturnsAllDVRAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.ReturnsAllDVRAmt != 0)
+                        drMFUnitHoplding["DVR"] = mfPortfolioVo.ReturnsAllDVRAmt.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["DVR"] = "0";
-                      if (mfPortfolioVo.ReturnsAllTotalXIRR != 0)
-                          drMFUnitHoplding["XIRR"] = mfPortfolioVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.ReturnsAllTotalXIRR != 0)
+                        drMFUnitHoplding["XIRR"] = mfPortfolioVo.ReturnsAllTotalXIRR.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["XIRR"] = "0.00";
-                      if (mfPortfolioVo.ReturnsAllTotalDividends != 0)
-                          drMFUnitHoplding["TotalDividends"] = mfPortfolioVo.ReturnsAllTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
+                    if (mfPortfolioVo.ReturnsAllTotalDividends != 0)
+                        drMFUnitHoplding["TotalDividends"] = mfPortfolioVo.ReturnsAllTotalDividends.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                      drMFUnitHoplding["TotalDividends"] = "0.00";
-                      drMFUnitHoplding["AMCCode"] = mfPortfolioVo.AMCCode;
-                      drMFUnitHoplding["AmcName"] = mfPortfolioVo.AmcName;
-                      drMFUnitHoplding["SchemeCode"] = mfPortfolioVo.SchemePlanCode;
-                      drMFUnitHoplding["SubCategoryName"] = mfPortfolioVo.AssetInstrumentSubCategoryName;
-                      if (mfPortfolioVo.FolioStartDate == DateTime.MinValue)
+                        drMFUnitHoplding["TotalDividends"] = "0.00";
+                    drMFUnitHoplding["AMCCode"] = mfPortfolioVo.AMCCode;
+                    drMFUnitHoplding["AmcName"] = mfPortfolioVo.AmcName;
+                    drMFUnitHoplding["SchemeCode"] = mfPortfolioVo.SchemePlanCode;
+                    drMFUnitHoplding["SubCategoryName"] = mfPortfolioVo.AssetInstrumentSubCategoryName;
+                    if (mfPortfolioVo.FolioStartDate == DateTime.MinValue)
                         drMFUnitHoplding["FolioStartDate"] = "N/A";
                     else
-                          drMFUnitHoplding["FolioStartDate"] = mfPortfolioVo.FolioStartDate.ToShortDateString();
-                      if (mfPortfolioVo.InvestmentStartDate == DateTime.MinValue)
+                        drMFUnitHoplding["FolioStartDate"] = mfPortfolioVo.FolioStartDate.ToShortDateString();
+                    if (mfPortfolioVo.InvestmentStartDate == DateTime.MinValue)
                         drMFUnitHoplding["InvestmentStartDate"] = "N/A";
                     else
-                          drMFUnitHoplding["InvestmentStartDate"] = mfPortfolioVo.InvestmentStartDate.ToShortDateString();
-                      if (mfPortfolioVo.NavDate == DateTime.MinValue)
+                        drMFUnitHoplding["InvestmentStartDate"] = mfPortfolioVo.InvestmentStartDate.ToShortDateString();
+                    if (mfPortfolioVo.NavDate == DateTime.MinValue)
                         drMFUnitHoplding["CMFNP_NAVDate"] = "N/A";
                     else
-                          drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
-                      drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
+                        drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
+                    drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
                         drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
-                      else
+                    else
                         drMFUnitHoplding["RealizesdGain"] = "0.00";
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
-                  }
-                 if (dtMFUnitHoplding.Rows.Count > 0)
-                  {
+                }
+                if (dtMFUnitHoplding.Rows.Count > 0)
+                {
                     if (Cache["UnitHolding" + advisorVo.advisorId] == null)
                     {
                         Cache.Insert("UnitHolding" + advisorVo.advisorId, dtMFUnitHoplding);
@@ -275,29 +275,29 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataBind();
                     rgUnitHolding.Visible = true;
                     pnlMFUnitHolding.Visible = true;
-                  //  btnExport.Visible = true;
+                    //  btnExport.Visible = true;
                     trNoRecords.Visible = false;
-                 }
+                }
                 else
                 {
                     rgUnitHolding.DataSource = dtMFUnitHoplding;
                     rgUnitHolding.DataBind();
                     //rgUnitHolding.Visible = false;
                     pnlMFUnitHolding.Visible = true;
-                   // btnExport.Visible = false;
+                    // btnExport.Visible = false;
                     trNoRecords.Visible = false;
 
                 }
-                
+
             }
             else
             {
                 DataTable dtUnitNoRecord = CreateUnitHoldingListTable();
-                rgUnitHolding.DataSource = dtUnitNoRecord; 
+                rgUnitHolding.DataSource = dtUnitNoRecord;
                 rgUnitHolding.DataBind();
                 //rgUnitHolding.Visible = false;
                 pnlMFUnitHolding.Visible = true;
-               // btnExport.Visible = false;
+                // btnExport.Visible = false;
                 trNoRecords.Visible = false;
                 //lblNoRecords.Text = "No Records Found";
 
@@ -307,25 +307,27 @@ namespace WealthERP.OnlineOrderManagement
         {
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            int selectedRow = gvr.ItemIndex + 1;           
-            string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString();
-            if(ddlAction.SelectedItem.Value.ToString() == "ABY")
+            int selectedRow = gvr.ItemIndex + 1;
+            string accountId = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["AccountId"].ToString();
+            string schemePlanCode = rgUnitHolding.MasterTableView.DataKeyValues[selectedRow - 1]["SchemeCode"].ToString();
+
+            if (ddlAction.SelectedItem.Value.ToString() == "ABY")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + AccountId + "')", true); 
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
             else if (ddlAction.SelectedItem.Value.ToString() == "SIP")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + AccountId + "')", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
             else
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + AccountId + "')", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
 
         }
         protected void rgUnitHolding_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable  dtUnitHolding = new DataTable();
+            DataTable dtUnitHolding = new DataTable();
             dtUnitHolding = (DataTable)Cache["UnitHolding" + advisorVo.advisorId.ToString()];
             if (dtUnitHolding != null)
             {
@@ -335,9 +337,10 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void rgUnitHolding_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-           // GridDataItem gvr = (GridDataItem)e.Item;
-            
-                       
+            // GridDataItem gvr = (GridDataItem)e.Item;
+            string accountId = string.Empty;
+            string schemePlanCode = string.Empty;
+
             if (e.CommandName.ToString() != "Filter")
             {
                 if (e.CommandName.ToString() != "Sort")
@@ -359,23 +362,25 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-           if (e.CommandName == "Buy")
+            if (e.CommandName == "Buy" || e.CommandName == "SIP" || e.CommandName == "SIP")
             {
-                string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + AccountId + "')", true);
+                accountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
+                schemePlanCode = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString();
             }
-           if (e.CommandName == "SIP")
-           {
-                string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + AccountId + "')", true);
+            if (e.CommandName == "Buy")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
-           if (e.CommandName == "Sell")
-           {
-                string AccountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + AccountId + "')", true);
+            if (e.CommandName == "SIP")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+            }
+            if (e.CommandName == "Sell")
+            {
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
             }
         }
-           
+
         //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
         //{
         //    rgUnitHolding.ExportSettings.OpenInNewWindow = true;
