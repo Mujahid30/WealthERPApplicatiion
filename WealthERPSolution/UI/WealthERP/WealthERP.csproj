@@ -7499,6 +7499,8 @@
     <Content Include="Images\Schedule.png" />
     <Content Include="Images\ScreenInfo.png" />
     <Content Include="Images\Select.png" />
+    <Content Include="Images\Sell-Button.png" />
+    <Content Include="Images\SIP-Button.png" />
     <Content Include="Images\spacer.png" />
     <Content Include="Images\Standard Chartered Bank_800px-Standard_Chartered_Bank_logo.jpg" />
     <Content Include="Images\Standard Chartered Bank_AmpsysLogo.jpg" />
