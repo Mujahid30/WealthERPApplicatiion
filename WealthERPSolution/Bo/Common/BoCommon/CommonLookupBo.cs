@@ -51,7 +51,7 @@ namespace BoCommon
         public List<OnlineMFOrderVo> GetAllSIPDataForOrderEdit(int orderIDForEdit, int customerIdForEdit)
         {
             List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
-            SIPDataForOrderEditList=daoCommonLookup.GetAllSIPDataForOrderEdit(orderIDForEdit, customerIdForEdit);
+            SIPDataForOrderEditList = daoCommonLookup.GetAllSIPDataForOrderEdit(orderIDForEdit, customerIdForEdit);
 
             return SIPDataForOrderEditList;
         }
@@ -297,7 +297,7 @@ namespace BoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommonLookupBo.cs:GetCategoryList(string ProductCode, string CategoryCode, string SubCategoryCode)");
                 object[] objParams = new object[3];
-              
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -333,7 +333,7 @@ namespace BoCommon
             return dtAllSIPDataForOrder;
         }
 
-        public DataTable GetFolioNumberForSIP(int Amccode,int CustomerId)
+        public DataTable GetFolioNumberForSIP(int Amccode, int CustomerId)
         {
             DataTable dtSchemeList = new DataTable();
             try
@@ -387,13 +387,13 @@ namespace BoCommon
             return dtSchemeList;
         }
 
-        public DataTable GetAmcSchemeList(int Amccode, string Category,int Customerid)
+        public DataTable GetAmcSchemeList(int Amccode, string Category, int Customerid)
         {
             DataTable dtSchemeList = new DataTable();
             try
             {
-                 string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
-                 dtSchemeList = daoCommonLookup.GetAmcSchemeList(Amccode, CategoryCode, Customerid);
+                string CategoryCode = string.IsNullOrEmpty(Category) ? null : Category.Trim();
+                dtSchemeList = daoCommonLookup.GetAmcSchemeList(Amccode, CategoryCode, Customerid);
             }
             catch (BaseApplicationException Ex)
             {
@@ -407,7 +407,7 @@ namespace BoCommon
                 object[] objParams = new object[3];
                 objParams[0] = Amccode;
                 objParams[1] = Category;
-               FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
@@ -417,7 +417,7 @@ namespace BoCommon
         public DataSet GetAllCategoryList()
         {
             DataSet dsGetAllCategoryList = new DataSet();
-            
+
             try
             {
                 dsGetAllCategoryList = daoCommonLookup.GetAllCategoryList();
@@ -464,6 +464,32 @@ namespace BoCommon
             if (amt % multiple != 0) return -1;
             if (cutOff.TimeOfDay < DateTime.Now.TimeOfDay) return 1;
             return 0;
+        }
+
+
+        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)
+        {
+            try
+            {
+                daoCommonLookup.GetSchemeAMCCategory(schemePlanCode, out amcCode, out category);
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)");
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }

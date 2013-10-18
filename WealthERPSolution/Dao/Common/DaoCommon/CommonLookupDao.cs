@@ -245,14 +245,15 @@ namespace DaoCommon
             Database db;
             DbCommand cmd;
             DataSet dsGetAmcSchemeList = null;
-            try {
+            try
+            {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_GetFolioNumberForSIP");
-               
-                    db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
-                    db.AddInParameter(cmd, "@CustomerId", DbType.Int32, CustomerId);
 
-              
+                db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
+                db.AddInParameter(cmd, "@CustomerId", DbType.Int32, CustomerId);
+
+
                 dsGetAmcSchemeList = db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -266,7 +267,7 @@ namespace DaoCommon
                 FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
                 object[] objects = new object[3];
                 objects[0] = AmcCode;
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -278,7 +279,7 @@ namespace DaoCommon
         public List<OnlineMFOrderVo> GetAllSIPDataForOrderEdit(int orderIDForEdit, int customerIdForEdit)
         {
             List<OnlineMFOrderVo> SIPDataForOrderEditList = new List<OnlineMFOrderVo>();
-            OnlineMFOrderVo OnlineMFOrderVo=new OnlineMFOrderVo();
+            OnlineMFOrderVo OnlineMFOrderVo = new OnlineMFOrderVo();
             Database db;
             DbCommand getAdvisorBranchCmd;
             DataSet getAdvisorBranchDs;
@@ -288,7 +289,7 @@ namespace DaoCommon
 
                 getAdvisorBranchCmd = db.GetStoredProcCommand("SPROC_GetAllSIPDataForOrderEdit");
                 db.AddInParameter(getAdvisorBranchCmd, "@CO_OrderId", DbType.Int32, orderIDForEdit);
-                db.AddInParameter(getAdvisorBranchCmd, "@C_CustomerId", DbType.Int32, customerIdForEdit);               
+                db.AddInParameter(getAdvisorBranchCmd, "@C_CustomerId", DbType.Int32, customerIdForEdit);
 
                 getAdvisorBranchDs = db.ExecuteDataSet(getAdvisorBranchCmd);
 
@@ -303,7 +304,7 @@ namespace DaoCommon
                         OnlineMFOrderVo.SystematicTypeCode = dr["XSTT_SystematicTypeCode"].ToString();
                         OnlineMFOrderVo.SystematicDate = int.Parse(dr["CMFSS_SystematicDate"].ToString());
 
-                        OnlineMFOrderVo.Amount =Convert.ToDouble(dr["CMFOD_Amount"].ToString());
+                        OnlineMFOrderVo.Amount = Convert.ToDouble(dr["CMFOD_Amount"].ToString());
                         OnlineMFOrderVo.SourceCode = dr["XES_SourceCode"].ToString();
                         OnlineMFOrderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
                         OnlineMFOrderVo.CustomerId = int.Parse(dr["C_CustomerId"].ToString());
@@ -318,7 +319,7 @@ namespace DaoCommon
                     }
                 }
                 else
-                    SIPDataForOrderEditList = null; 
+                    SIPDataForOrderEditList = null;
             }
             catch (BaseApplicationException Ex)
             {
@@ -329,7 +330,7 @@ namespace DaoCommon
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "AdvisorBranchDao.cs:GetAdvisorBranches()");
-                object[] objects = new object[3]; 
+                object[] objects = new object[3];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -362,7 +363,7 @@ namespace DaoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommonLookupDao.cs:GetProductSubCategories(string ProductCode, string CategoryCode, string SubCategoryCode)");
                 object[] objects = new object[3];
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -412,7 +413,8 @@ namespace DaoCommon
             Database db;
             DbCommand cmd;
             DataSet dsGetAmcSchemeList = null;
-            try {
+            try
+            {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_ONL_GetSipSchemes");
                 db.AddInParameter(cmd, "@PA_AMCCode", DbType.Int32, AmcCode);
@@ -440,23 +442,24 @@ namespace DaoCommon
             return dsGetAmcSchemeList.Tables[0];
         }
 
-        public DataTable GetAmcSchemeList(int AmcCode, string Category,int customerid)
+        public DataTable GetAmcSchemeList(int AmcCode, string Category, int customerid)
         {
             Database db;
             DbCommand cmd;
             DataSet dsGetAmcSchemeList = null;
-            try {
+            try
+            {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SP_GetSchemeFromOverAllCategoryListForOnlOrder");
                 if (AmcCode != 0)
                     db.AddInParameter(cmd, "@amcCode", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(cmd, "@amcCode", DbType.Int32, 0);
-                if (Category!="0")
+                if (Category != "0")
                     db.AddInParameter(cmd, "@categoryCode", DbType.String, Category);
                 else
                     db.AddInParameter(cmd, "@categoryCode", DbType.String, DBNull.Value);
-                if (customerid!=0)
+                if (customerid != 0)
                     db.AddInParameter(cmd, "@customerid", DbType.Int32, customerid);
                 else
                     db.AddInParameter(cmd, "@customerid", DbType.Int32, DBNull.Value);
@@ -474,7 +477,7 @@ namespace DaoCommon
                 object[] objects = new object[3];
                 objects[0] = AmcCode;
                 objects[1] = Category;
-               
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -517,6 +520,48 @@ namespace DaoCommon
                 throw Ex;
             }
             return dsGetAllCategoryList;
+        }
+
+        public void GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)
+        {
+            Database db;
+            DbCommand cmd;
+            amcCode = 0;
+            category = string.Empty;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetSchemeAMCCategory");
+                db.AddInParameter(cmd, "@SchemePlanCode", DbType.Int32, schemePlanCode);
+                db.AddOutParameter(cmd, "@AMCCode", DbType.Int64, 1000000);
+                db.AddOutParameter(cmd, "@CategoryCode", DbType.String, 100000);
+                db.ExecuteNonQuery(cmd);
+                Object objAMCCode = db.GetParameterValue(cmd, "@AMCCode");
+                if (objAMCCode != DBNull.Value)
+                    amcCode = Convert.ToInt32(objAMCCode);
+
+                Object objCategory = db.GetParameterValue(cmd, "@CategoryCode");
+                if (objCategory != DBNull.Value)
+                    category = Convert.ToString(objCategory);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetSchemeAMCCategory(int schemePlanCode, out int amcCode, out string category)");
+                object[] objects = new object[1];
+                objects[0] = schemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
     }
 }

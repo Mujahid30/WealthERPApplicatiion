@@ -63,38 +63,72 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["CustomerVo"];
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
 
+
+
             divValidationError.Visible = false;
+
+
 
             if (!IsPostBack)
             {
+                AmcBind();
+                BindCategory();
+
                 if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
                 {
                     strAction = Request.QueryString["strAction"].ToString();
                     orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
                     customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
                 }
-                AmcBind();
-                BindCategory();
+                else if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                {
+                    int accountId = 0;
+                    int schemeCode = 0;
+                    int amcCode = 0;
+                    string category = string.Empty;
+                    accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                    schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                    commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                    OnDrillDownBindControlValue(amcCode, category, accountId, amcCode);
+                    DataViewOnEdit();
+                }
 
                 btnSubmit.Text = "Submit";
 
-                if (strAction == "Edit") {
+                if (strAction == "Edit")
+                {
+                    BindSipDetailsForEdit();
                     DataViewOnEdit();
                     btnSubmit.Text = "Modify";
                     onlineMFOrderVo.Action = "Edit";
-                }                    
+                }
             }
         }
 
-        protected void DataViewOnEdit() {
-            BindSipDetailsForEdit();
+
+        protected void OnDrillDownBindControlValue(int amcCode, string category, int accountId, int schemeCode)
+        {
+            ddlAmc.SelectedValue = amcCode.ToString();
+            ddlCategory.SelectedValue = category;
+            BindAMCSchemes(amcCode, category);
+            ddlScheme.SelectedValue = schemeCode.ToString();
+
+            BindSipUiOnSchemeSelection(schemeCode);
+            ddlFolio.SelectedValue = accountId.ToString();            
+
+        }
+
+
+        protected void DataViewOnEdit()
+        {
             ddlAmc.Enabled = false;
             ddlCategory.Enabled = false;
             ddlScheme.Enabled = false;
             ddlFolio.Enabled = false;
         }
 
-        protected void BindSipDetailsForEdit() {
+        protected void BindSipDetailsForEdit()
+        {
             SipDataForOrderEditList = new List<OnlineMFOrderVo>();
             SipDataForOrderEditList = commonLookupBo.GetAllSIPDataForOrderEdit(orderIdForEdit, customerIdforEdit);
             onlineMFOrderVo = (OnlineMFOrderVo)SipDataForOrderEditList[0];
@@ -140,16 +174,18 @@ namespace WealthERP.OnlineOrderManagement
             ddlAmc.Items.Clear();
             if (ddlAmc.SelectedIndex == 0) return;
 
-            DataTable dtAmc =  commonLookupBo.GetProdAmc(0, true);
+            DataTable dtAmc = commonLookupBo.GetProdAmc(0, true);
             if (dtAmc == null) return;
 
-            if (dtAmc.Rows.Count > 0) {
+            if (dtAmc.Rows.Count > 0)
+            {
                 ddlAmc.DataSource = dtAmc;
                 ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
                 ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAmc.DataBind();
             }
-            ddlAmc.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlAmc.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            //ddlAmc.Items.Insert(0, new ListItem("--SELECT--"));
             ddlAmc.SelectedIndex = 0;
         }
 
@@ -193,7 +229,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                     ddlCategory.DataBind();
                 }
-                ddlCategory.Items.Insert(0, new ListItem("--SELECT--"));
+                //ddlCategory.Items.Insert(0, new ListItem("--SELECT--"));
+                ddlCategory.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
                 ddlCategory.Items.Insert(1, new ListItem("All"));
                 ddlCategory.SelectedIndex = 0;
             }
@@ -217,7 +254,9 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindSchemes()
         {
             ddlScheme.Items.Clear();
-            ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            //ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+
             ddlScheme.SelectedIndex = 0;
 
             if (ddlAmc.SelectedIndex == 0 || ddlCategory.SelectedIndex == 0) return;
@@ -229,20 +268,41 @@ namespace WealthERP.OnlineOrderManagement
 
             dtScheme = commonLookupBo.GetAmcSipSchemeList(amc, category);
             if (dtScheme == null) return;
-            if (dtScheme.Rows.Count > 0) {
+            if (dtScheme.Rows.Count > 0)
+            {
                 ddlScheme.DataSource = dtScheme;
                 ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
             }
-            ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            //ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlScheme.SelectedIndex = 0;
+        }
+
+        protected void BindAMCSchemes(int amc, string category)
+        {
+            DataTable dtScheme;
+            dtScheme = commonLookupBo.GetAmcSipSchemeList(amc, category);
+            if (dtScheme == null) return;
+            if (dtScheme.Rows.Count > 0)
+            {
+                ddlScheme.DataSource = dtScheme;
+                ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
+                ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
+                ddlScheme.DataBind();
+            }
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            //ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlScheme.SelectedIndex = 0;
+
         }
 
         protected void BindSchemes(int Amc, string Category)
         {
             ddlScheme.Items.Clear();
-            ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            //ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
             ddlScheme.SelectedIndex = 0;
 
             string category = Category.ToLower() == "all" ? null : Category.ToLower();
@@ -251,17 +311,20 @@ namespace WealthERP.OnlineOrderManagement
 
             dtScheme = commonLookupBo.GetAmcSipSchemeList(Amc, category);
             if (dtScheme == null) return;
-            if (dtScheme.Rows.Count > 0) {
+            if (dtScheme.Rows.Count > 0)
+            {
                 ddlScheme.DataSource = dtScheme;
                 ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
             }
-            ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlScheme.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            //ddlScheme.Items.Insert(0, new ListItem("--SELECT--"));
             ddlScheme.SelectedIndex = 0;
         }
 
-        private void SaveOrderDetails() {
+        private void SaveOrderDetails()
+        {
             onlineMFOrderVo.SchemePlanCode = int.Parse(ddlScheme.SelectedValue);
             if (ddlFolio.SelectedIndex > 1)
                 onlineMFOrderVo.AccountId = Convert.ToInt32(ddlFolio.SelectedValue);
@@ -285,7 +348,8 @@ namespace WealthERP.OnlineOrderManagement
 
             Page.Validate("btnSubmit");
 
-            if (!Page.IsValid) {
+            if (!Page.IsValid)
+            {
                 divValidationError.Visible = true;
                 return;
             }
@@ -340,7 +404,7 @@ namespace WealthERP.OnlineOrderManagement
                 List<int> OrderIds = new List<int>();
                 SaveOrderDetails();
                 OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
-               
+
             }
 
             FreezeControls();
@@ -356,10 +420,9 @@ namespace WealthERP.OnlineOrderManagement
         {
             //Reset dependent controls
             ddlFrequency.SelectedIndex = 0;
-
             if (ddlScheme.SelectedIndex == 0) return;
+            BindSipUiOnSchemeSelection(Convert.ToInt32(ddlScheme.SelectedValue));
 
-            BindSipUiOnSchemeSelection();            
         }
 
         protected void ShowHideControlsForDivAndGrowth()
@@ -409,13 +472,13 @@ namespace WealthERP.OnlineOrderManagement
                 foreach (DataRow dr in dt.Rows)
                 {
                     if (!string.IsNullOrEmpty(dr["PSLV_LookupValue"].ToString())) lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
-                    
+
                     if (!string.IsNullOrEmpty(dr["MinAmt"].ToString())) txtMinAmtDisplay.Text = dr["MinAmt"].ToString();
-                    
+
                     if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString())) lblMutiplesThereAfterDisplay.Text = dr["MultiAmt"].ToString();
-                    
-                    if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))  lblCutOffTimeDisplay.Text = dr["CutOffTime"].ToString();
-                    
+
+                    if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString())) lblCutOffTimeDisplay.Text = dr["CutOffTime"].ToString();
+
                     if (!string.IsNullOrEmpty(dr["divFrequency"].ToString())) lblFrequency.Text = dr["divFrequency"].ToString();
                 }
             }
@@ -426,13 +489,13 @@ namespace WealthERP.OnlineOrderManagement
             ddlStartDate.Items.Clear();
 
             DateTime[] dtStartdates;
-            
+
             if (strAction != "Edit") dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(ddlScheme.SelectedValue), ddlFrequency.SelectedValue);
             else dtStartdates = boOnlineOrder.GetSipStartDates(Convert.ToInt32(onlineMFOrderVo.SchemePlanCode), onlineMFOrderVo.FrequencyCode);
 
             foreach (DateTime d in dtStartdates) ddlStartDate.Items.Add(new ListItem(d.ToString("dd-MMM-yyyy")));
-            
-            ddlStartDate.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlStartDate.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            //ddlStartDate.Items.Insert(0, new ListItem("--SELECT--"));
             ddlStartDate.SelectedIndex = 0;
         }
 
@@ -510,9 +573,9 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        protected void BindSipUiOnSchemeSelection()
+        protected void BindSipUiOnSchemeSelection(int schemeCode)
         {
-            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
+            dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(schemeCode);
 
             SetLatestNav();
             BindFrequency();
@@ -525,12 +588,18 @@ namespace WealthERP.OnlineOrderManagement
             ddlFrequency.Items.Clear();
             if (dtGetAllSIPDataForOrder == null) return;
 
-            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows) {
-                if (row["PASP_SchemePlanCode"].ToString() == ddlScheme.SelectedValue.ToString()) {
+            foreach (DataRow row in dtGetAllSIPDataForOrder.Rows)
+            {
+                if (row["PASP_SchemePlanCode"].ToString() == ddlScheme.SelectedValue.ToString())
+                {
                     ddlFrequency.Items.Add(new ListItem(row["XF_Frequency"].ToString(), row["XF_FrequencyCode"].ToString()));
                 }
             }
-            ddlFrequency.Items.Insert(0, new ListItem("--SELECT--"));
+
+            //ddlFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+
+            //ddlFrequency.Items.Insert(0, new ListItem(""));
+
             ddlFrequency.SelectedIndex = 0;
         }
 
@@ -551,7 +620,8 @@ namespace WealthERP.OnlineOrderManagement
             AllSipDates = DelimitedDateVals.Split(';');
 
             int i = 0;
-            foreach (string date in AllSipDates) {
+            foreach (string date in AllSipDates)
+            {
                 if (string.IsNullOrEmpty(date)) continue;
                 CheckBox chk = new CheckBox();
                 chk.ID = "chk_Sip_" + i;
@@ -575,13 +645,16 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(Convert.ToInt32(onlineMFOrderVo.AssetGroup), customerVo.CustomerId);
 
-                if (dtgetfolioNo.Rows.Count > 0) {
+                if (dtgetfolioNo.Rows.Count > 0)
+                {
                     ddlFolio.DataSource = dtgetfolioNo;
                     ddlFolio.DataTextField = dtgetfolioNo.Columns["CMFA_FolioNum"].ToString();
                     ddlFolio.DataValueField = dtgetfolioNo.Columns["CMFA_AccountId"].ToString();
                     ddlFolio.DataBind();
                 }
-                ddlFolio.Items.Insert(0, new ListItem("--SELECT--"));
+                ddlFolio.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+                //ddlFolio.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+                //ddlFolio.Items.Insert(0, new ListItem("--SELECT--"));
                 ddlFolio.Items.Insert(1, new ListItem("New", "1"));
                 ddlFolio.SelectedIndex = 0;
             }
@@ -657,18 +730,20 @@ namespace WealthERP.OnlineOrderManagement
 
             int minDues;
             int maxDues;
-            if (strAction != "Edit") {
+            if (strAction != "Edit")
+            {
                 minDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MinDues"]);
                 maxDues = Convert.ToInt32(dtGetAllSIPDataForOrder.Rows[0]["PASPSD_MaxDues"]);
             }
-            else {
+            else
+            {
                 minDues = Convert.ToInt32(onlineMFOrderVo.MinDues);
                 maxDues = Convert.ToInt32(onlineMFOrderVo.MaxDues);
             }
             StringBuilder strTotalInstallments = new StringBuilder();
 
             for (int i = minDues; i <= maxDues; i++) strTotalInstallments.Append(i + "~");
-            
+
             string str = strTotalInstallments.ToString();
 
             string[] strSplit = str.Split('~');
@@ -678,18 +753,21 @@ namespace WealthERP.OnlineOrderManagement
                 if (string.IsNullOrEmpty(s.Trim())) continue;
                 ddlTotalInstallments.Items.Add(new ListItem(s.ToString()));
             }
-            ddlTotalInstallments.Items.Insert(0, new ListItem("--SELECT--"));
+            ddlTotalInstallments.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            //ddlTotalInstallments.Items.Insert(0, new ListItem("--SELECT--"));
             ddlTotalInstallments.SelectedIndex = 0;
         }
 
-        protected void ddlTotalInstallments_SelectedIndexChanged(object sender, EventArgs e) {
+        protected void ddlTotalInstallments_SelectedIndexChanged(object sender, EventArgs e)
+        {
             if (ddlTotalInstallments.SelectedIndex == 0 || ddlStartDate.SelectedIndex == 0 || ddlFrequency.SelectedIndex == 0) return;
-            
+
             DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequency.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue));
             lblEndDateDisplay.Text = dtEndDate.ToString("dd-MMM-yyyy");
         }
 
-        protected void FreezeControls() {
+        protected void FreezeControls()
+        {
             ddlAmc.Enabled = false;
             ddlCategory.Enabled = false;
             ddlScheme.Enabled = false;
@@ -707,20 +785,23 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlFolio.SelectedIndex < 1) return;
 
-            if (ddlFolio.SelectedItem.ToString() != "New") {
+            if (ddlFolio.SelectedItem.ToString() != "New")
+            {
                 BindNomineeAndJointHolders();
                 GetControlDetails(Convert.ToInt32(ddlScheme.SelectedValue), ddlFolio.SelectedValue);
                 trNominee.Visible = true;
                 trJointHolder.Visible = true;
                 ddlFrequency.SelectedIndex = 0;
             }
-            else {
+            else
+            {
                 trNominee.Visible = false;
                 trJointHolder.Visible = false;
             }
         }
 
-        protected void lnkExitLoad_Click(object sender, EventArgs e) {
+        protected void lnkExitLoad_Click(object sender, EventArgs e)
+        {
             lblExitLoad.Text = "";
 
             if (dtGetAllSIPDataForOrder == null) dtGetAllSIPDataForOrder = commonLookupBo.GetAllSIPDataForOrder(Convert.ToInt32(ddlScheme.SelectedValue));
@@ -738,13 +819,14 @@ namespace WealthERP.OnlineOrderManagement
             lblExitLoad.Text = strExitLoadPerc + "(" + strExitLoadRemk + ")";
         }
 
-        void ShowValidationMessage() {
+        void ShowValidationMessage()
+        {
             divValidationError.Visible = true;
         }
 
         protected void BindDivFrequency()
         {
- 
+
         }
     }
 }
