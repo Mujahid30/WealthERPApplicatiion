@@ -460,7 +460,7 @@ namespace BoCommon
         //If no max val send amt as max
         public int IsRuleCorrect(float amt, float min, float max, float multiple, DateTime cutOff)
         {
-            if (amt < min || amt > max) return -1;
+            if (amt < min || amt > max) return -2;
             if (amt % multiple != 0) return -1;
             if (cutOff.TimeOfDay < DateTime.Now.TimeOfDay) return 1;
             return 0;

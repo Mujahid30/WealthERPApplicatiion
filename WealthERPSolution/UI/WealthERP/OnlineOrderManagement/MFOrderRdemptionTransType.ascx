@@ -217,10 +217,10 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendFrequency" runat="server" Visible="false" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lbldftext" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lbldftext" runat="server" Visible="false" CssClass="FieldName"></asp:Label>
             </td>
             <td colspan="2">
             </td>
@@ -236,8 +236,8 @@
                     OnSelectedIndexChanged="ddlRedeem_OnSelectedIndexChanged">
                     <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                     <asp:ListItem Text="Units" Value="1"></asp:ListItem>
-                    <asp:ListItem Text="Amount(Rs)" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="All" Value="3"></asp:ListItem>
+                    <asp:ListItem Text="Amount (Rs)" Value="2"></asp:ListItem>
+                    <asp:ListItem Text="All Units" Value="3"></asp:ListItem>
                 </asp:DropDownList>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" CssClass="rfvPCG"
                     ErrorMessage="Please Select an Redeem Type" Display="Dynamic" ControlToValidate="ddlRedeem"

@@ -233,10 +233,10 @@
             <td>
             </td>
             <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblDividendFrequency" Visible="false" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="lbldftext" runat="server" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lbldftext" Visible="false" runat="server" CssClass="FieldName"></asp:Label>
             </td>
             <td colspan="2">
             </td>

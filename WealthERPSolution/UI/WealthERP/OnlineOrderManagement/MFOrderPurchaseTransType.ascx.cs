@@ -196,8 +196,8 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                lblDividendFrequency.Visible = true;
-                lbldftext.Visible = true;
+               // lblDividendFrequency.Visible = true;
+                //lbldftext.Visible = true;
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
@@ -253,8 +253,8 @@ namespace WealthERP.OnlineOrderManagement
             if (dsCategory.Tables[0].Rows.Count > 0)
             {
                 ddlCategory.DataSource = dsCategory.Tables[0];
-                ddlCategory.DataValueField = dsCategory.Tables[0].Columns["Category_Code"].ToString();
-                ddlCategory.DataTextField = dsCategory.Tables[0].Columns["Category_Name"].ToString();
+                ddlCategory.DataValueField = dsCategory.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlCategory.DataTextField = dsCategory.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("All", "0"));
             }
@@ -270,6 +270,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
+                ddlScheme.Items.Insert(0, new ListItem("Select", "0"));
             }
         }
         protected void OnClick_Submit(object sender, EventArgs e)
@@ -311,9 +312,20 @@ namespace WealthERP.OnlineOrderManagement
                 Dt = DateTime.Parse(lbltime.Text);
             }
             int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
-            if (retVal != 0)
+            if (retVal != 0 )
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
+                if (retVal == -2)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+                }
+                if (retVal == -1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount ');", true); return;
+                }
+                if (retVal == 1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('The CutOff time has been Reached ');", true); return;
+                }
             }
 
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);

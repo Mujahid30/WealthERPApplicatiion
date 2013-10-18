@@ -200,8 +200,8 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-                lblDividendFrequency.Visible = true;
-                lbldftext.Visible = true;
+                //lblDividendFrequency.Visible = true;
+                //lbldftext.Visible = true;
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
@@ -216,8 +216,8 @@ namespace WealthERP.OnlineOrderManagement
             if (dsCategory.Tables[0].Rows.Count > 0)
             {
                 ddlCategory.DataSource = dsCategory.Tables[0];
-                ddlCategory.DataValueField = dsCategory.Tables[0].Columns["Category_Code"].ToString();
-                ddlCategory.DataTextField = dsCategory.Tables[0].Columns["Category_Name"].ToString();
+                ddlCategory.DataValueField = dsCategory.Tables[0].Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlCategory.DataTextField = dsCategory.Tables[0].Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("All", "0"));
             }
@@ -233,6 +233,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
+                ddlScheme.Items.Insert(0, new ListItem("Select", "0"));
             }
 
         }
@@ -265,20 +266,20 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlRedeem.SelectedValue == "1")
             {
-                lblRedeemType.Text = "Units";
+                lblRedeemType.Text = "Units:";
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
             }
             else if (ddlRedeem.SelectedValue == "2")
             {
-                lblRedeemType.Text = "Amount";
+                lblRedeemType.Text = "Amount (Rs):";
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
 
             }
             else if (ddlRedeem.SelectedValue == "3")
             {
-                lblRedeemType.Text = "All";
+                lblRedeemType.Text = "All Units:";
                 txtRedeemTypeValue.Text = lblUnitsheldDisplay.Text;
                 txtRedeemTypeValue.Enabled = false;
             }
@@ -341,49 +342,54 @@ namespace WealthERP.OnlineOrderManagement
         protected void OnClick_Submit(object sender, EventArgs e)
         {
             List<int> OrderIds = new List<int>();
-
+            DateTime Dt;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
             bool accountDebitStatus = false;
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "Sel";
+            Dt = DateTime.Parse(lbltime.Text);
             if (ddlRedeem.SelectedValue == "1")
+            {
                 if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
                     onlinemforderVo.Redeemunits = double.Parse(txtRedeemTypeValue.Text);
                 else
                     onlinemforderVo.Redeemunits = 0;
+
+                float RedeemUnits = float.Parse(string.IsNullOrEmpty(txtRedeemTypeValue.Text) ? "0" : txtRedeemTypeValue.Text);
+                float AvailableUnits = float.Parse(string.IsNullOrEmpty(lblUnitsheldDisplay.Text) ? "0" : lblUnitsheldDisplay.Text);
+                if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "1" && (RedeemUnits > AvailableUnits)))
+                {
+                    retVal = 1;
+                }
+            }
             else if (ddlRedeem.SelectedValue == "2")
+            {
                 if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
                     onlinemforderVo.Amount = double.Parse(txtRedeemTypeValue.Text);
                 else
                     onlinemforderVo.Amount = 0;
-            float RedeemAmt=float.Parse(string.IsNullOrEmpty(txtRedeemTypeValue.Text)?"0":txtRedeemTypeValue.Text);
-           float AvailableAmt=int.Parse(string.IsNullOrEmpty(lblUnitsheldDisplay.Text)?"0":lblUnitsheldDisplay.Text);
-            DateTime Dt;
+                float RedeemAmt = float.Parse(string.IsNullOrEmpty(txtRedeemTypeValue.Text) ? "0" : txtRedeemTypeValue.Text);
+                float AvailableAmt = float.Parse(string.IsNullOrEmpty(lblCurrentValueDisplay.Text) ? "0" : lblCurrentValueDisplay.Text);
 
+                if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "2" && (RedeemAmt > AvailableAmt)))
+                {
 
-            
-
-
-
-            
-            Dt = DateTime.Parse(lbltime.Text);
-
-            if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "1" && (RedeemAmt > AvailableAmt)))
-            {
-
-
-
-                retVal = 1;
-
-
-
-
+                    retVal = -1;
+                }
 
             }
+
             if (retVal != 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
+                if (retVal == -1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid amount');", true); return;
+                }
+                else if (retVal == 1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter a valid Units');", true); return;
+                }
             }
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
@@ -414,3 +420,23 @@ namespace WealthERP.OnlineOrderManagement
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

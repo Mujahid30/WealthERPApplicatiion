@@ -493,7 +493,7 @@ namespace DaoCommon
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                CmdGetOverAllCategoryList = db.GetStoredProcCommand("SP_GetNavOverAllCategoryList");
+                CmdGetOverAllCategoryList = db.GetStoredProcCommand("SP_GetProductAssetCategory");
                 dsGetAllCategoryList = db.ExecuteDataSet(CmdGetOverAllCategoryList);
             }
             catch (BaseApplicationException Ex)
