@@ -183,13 +183,14 @@ namespace WealthERP.OnlineOrderManagement
 
             try
             {
-                DataSet dsCategory = new DataSet();
-                dsCategory = commonLookupBo.GetAllCategoryList();
+                DataTable dtCategory = new DataTable();
+                dtCategory = commonLookupBo.GetCategoryList("MF", null);
 
-                if (dsCategory.Tables[0].Rows.Count > 0) {
-                    ddlCategory.DataSource = dsCategory.Tables[0];
-                    ddlCategory.DataValueField = dsCategory.Tables[0].Columns["Category_Code"].ToString();
-                    ddlCategory.DataTextField = dsCategory.Tables[0].Columns["Category_Name"].ToString();
+                if (dtCategory.Rows.Count > 0)
+                {
+                    ddlCategory.DataSource = dtCategory;
+                    ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
                     ddlCategory.DataBind();
                 }
                 ddlCategory.Items.Insert(0, new ListItem("--SELECT--"));
@@ -278,6 +279,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            bool accountDebitStatus = false;
             rgvAmount.MinimumValue = string.IsNullOrEmpty(lblMinAmountrequiredDisplay.Text) == true ? "0" : lblMinAmountrequiredDisplay.Text;
             rgvAmount.MaximumValue = ((int)99999999).ToString();
 
@@ -301,12 +303,26 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteConfirmation();", true);
                 }
                 List<int> OrderIds = new List<int>();
+                int OrderId = int.Parse(OrderIds[0].ToString());
                 SaveOrderDetails();
                 OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
 
-                divOrderCompletionDetails.InnerHtml = "Order Submitted Successfully";
-                divOrderCompletionDetails.Visible = true;
-
+                if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                {
+                    accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
+                }
+                if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
+                {
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
+                    string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
+                    ShowMessage(message);
+                }
+                else if (OrderId != 0 && accountDebitStatus == false)
+                {
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
+                    string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
+                    ShowMessage(message);
+                }
             }
             else
             {
@@ -324,13 +340,18 @@ namespace WealthERP.OnlineOrderManagement
                 List<int> OrderIds = new List<int>();
                 SaveOrderDetails();
                 OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
-
-                divOrderCompletionDetails.InnerHtml = "Order Updated Successfully";
-                divOrderCompletionDetails.Visible = true;
+               
             }
 
             FreezeControls();
         }
+
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
+        }
+
         protected void ddlScheme_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Reset dependent controls
@@ -350,13 +371,13 @@ namespace WealthERP.OnlineOrderManagement
             {
                 trDividendType.Visible = true;
                 trDividendFrequency.Visible = true;
-                trDividendOption.Visible = true;
+                //trDividendOption.Visible = true;
             }
             else
             {
                 trDividendType.Visible = false;
                 trDividendFrequency.Visible = false;
-                trDividendOption.Visible = false;
+                //trDividendOption.Visible = false;
             }
         }
 
