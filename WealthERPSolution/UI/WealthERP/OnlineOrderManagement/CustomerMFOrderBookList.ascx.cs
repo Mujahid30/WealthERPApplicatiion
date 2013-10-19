@@ -95,10 +95,11 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
                 ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAmc.DataBind();
-                ddlAmc.Items.Insert(0, new ListItem("All", "0"));
+                
                 //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
 
             }
+            ddlAmc.Items.Insert(0, new ListItem("All", "0"));
            
         }
 
