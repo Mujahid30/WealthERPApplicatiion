@@ -7139,6 +7139,8 @@
     <Content Include="bin\BoFPSuperlite.pdb" />
     <Content Include="bin\BoHostConfig.dll" />
     <Content Include="bin\BoHostConfig.pdb" />
+    <Content Include="bin\BoOnlineOrderManagement.dll" />
+    <Content Include="bin\BoOnlineOrderManagement.pdb" />
     <Content Include="bin\BoOps.dll" />
     <Content Include="bin\BoOps.pdb" />
     <Content Include="bin\BoReports.pdb" />
@@ -7154,6 +7156,8 @@
     <Content Include="bin\DaoCommon.dll" />
     <Content Include="bin\DaoCommon.pdb" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
+    <Content Include="bin\DaoOnlineOrderManagement.dll" />
+    <Content Include="bin\DaoOnlineOrderManagement.pdb" />
     <Content Include="bin\DaoOps.dll" />
     <Content Include="bin\DaoOps.pdb" />
     <Content Include="bin\DaoReports.dll" />
@@ -7172,9 +7176,12 @@
     <Content Include="bin\Microsoft.mshtml.dll" />
     <Content Include="bin\Microsoft.Office.Interop.Excel.dll" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Configuration.Design.xml" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
     <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.SqlCe.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
     <Content Include="bin\Microsoft.Practices.ObjectBuilder2.dll" />
     <Content Include="bin\Microsoft.Practices.Unity.dll" />
     <Content Include="bin\Microsoft.Vbe.Interop.dll" />
