@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineOrderExtract.ascx.cs"
-    Inherits="WealthERP.OnlineOrderManagement.OnlineOrderExtract" %>
+    Inherits="WealthERP.OnlineOrderBackOffice.OnlineOrderExtract" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <asp:ScriptManager ID="scriptmanager" runat="server">

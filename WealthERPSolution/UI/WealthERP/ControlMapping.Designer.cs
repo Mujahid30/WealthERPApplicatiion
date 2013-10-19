@@ -2347,7 +2347,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnlineOrderManagement//OnlineOrderExtract.ascx.
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineOrderExtract.ascx.
         /// </summary>
         internal static string OnlineOrderExtract {
             get {

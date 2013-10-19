@@ -1758,8 +1758,8 @@
     <comment>OnlineOrderManagement//SIPBookSummmaryList.ascx</comment>
   </data>
   <data name="OnlineOrderExtract" xml:space="preserve">
-    <value>OnlineOrderManagement//OnlineOrderExtract.ascx</value>
-    <comment>OnlineOrderManagement//OnlineOrderExtract.ascx</comment>
+    <value>OnlineOrderBackOffice//OnlineOrderExtract.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineOrderExtract.ascx</comment>
   </data>
   <data name="OnlineOrderAccountingExtract" xml:space="preserve">
     <value>OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx</value>
