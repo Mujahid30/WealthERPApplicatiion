@@ -1761,4 +1761,8 @@
     <value>OnlineOrderManagement//OnlineOrderExtract.ascx</value>
     <comment>OnlineOrderManagement//OnlineOrderExtract.ascx</comment>
   </data>
+  <data name="OnlineOrderAccountingExtract" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx</comment>
+  </data>
 </root>

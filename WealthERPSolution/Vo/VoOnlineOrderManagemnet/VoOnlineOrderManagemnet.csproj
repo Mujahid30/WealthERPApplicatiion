@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="OnlineBondOrderVo.cs" />
     <Compile Include="OnlineMFOrderVo.cs" />
+    <Compile Include="OnlineOrderBackOfficeVo.cs" />
     <Compile Include="OnlineOrderVo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

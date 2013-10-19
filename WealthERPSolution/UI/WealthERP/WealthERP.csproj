@@ -2645,6 +2645,13 @@
     <Compile Include="OnlineMainHost.aspx.designer.cs">
       <DependentUpon>OnlineMainHost.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.cs">
+      <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.designer.cs">
+      <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.cs">
       <DependentUpon>BondOrderManagement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7554,6 +7561,7 @@
     <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />
+    <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
