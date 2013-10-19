@@ -24,7 +24,7 @@
         </td>
     </tr>
 </table>--%>
-<table style="width: 100%" class="TableBackground" style="padding-top:4px">
+<table style="width: 100%" class="TableBackground" style="padding-top: 4px">
     <tr>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Account:"></asp:Label>
@@ -46,9 +46,9 @@
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
         <td align="center">
-           <%-- <div id="divNoRecords" runat="server" class="failure-msg">--%>
-                <asp:Label ID="lblNoRecords" Text="No Records found" runat="server"></asp:Label>
-           <%--  </div>--%>
+            <%-- <div id="divNoRecords" runat="server" class="failure-msg">--%>
+            <asp:Label ID="lblNoRecords" Text="No Records found" runat="server"></asp:Label>
+            <%--  </div>--%>
         </td>
     </tr>
 </table>
@@ -239,7 +239,7 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>
-                    </mastertableview>                  
+                    </mastertableview>
                     <clientsettings>
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="true" />
