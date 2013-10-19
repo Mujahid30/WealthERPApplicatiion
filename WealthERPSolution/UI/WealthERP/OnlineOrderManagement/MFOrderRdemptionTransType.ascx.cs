@@ -50,11 +50,24 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
-                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
                 AmcBind();
+                CategoryBind();
+                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
+               
                 txtRedeemTypeValue.Visible = false;
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
+                if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                {
+                    int accountId = 0;
+                    int schemeCode = 0;
+                    int amcCode = 0;
+                    string category = string.Empty;
+                    accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                    schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                    commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                    SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                }
             }
 
 
@@ -159,7 +172,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
+            DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
             string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
             lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             if (ds.Tables[1].Rows.Count > 0)
@@ -177,6 +190,38 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
+
+
+        }
+        protected void BindAmcForDrillDown()
+        {
+            DataTable dtAmc = new DataTable();
+            dtAmc = commonLookupBo.GetProdAmc();
+            if (dtAmc.Rows.Count > 0)
+            {
+                ddlAmc.DataSource = dtAmc;
+                ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+                ddlAmc.DataBind();
+                ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
+            }
+
+        }
+        protected void SetSelectedDisplay(int Accountid, int SchemeCode, int Amccode, string Category)
+        {
+            BindAmcForDrillDown();
+            ddlAmc.SelectedValue = Amccode.ToString();
+            ddlCategory.SelectedValue = Category;
+            SchemeBind(Amccode, Category, 0);
+            BindFolioNumber(Amccode);
+            ddlFolio.SelectedValue = Accountid.ToString();
+            ddlScheme.SelectedValue = SchemeCode.ToString();
+
+            ddlAmc.Enabled = false;
+            ddlCategory.Enabled = false;
+            ddlFolio.Enabled = false;
+            ddlScheme.Enabled = false;
+            GetControlDetails(SchemeCode, Accountid.ToString());
 
 
         }
@@ -392,7 +437,6 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
             if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
             {

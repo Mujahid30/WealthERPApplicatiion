@@ -50,11 +50,56 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
-
                 AmcBind();
+                CategoryBind();
+               
+                if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                {
+                    int accountId = 0;
+                    int schemeCode = 0;
+                    int amcCode = 0;
+                    string category = string.Empty;
+                    accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                    schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                    commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                    SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                }
+                
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
             }
+
+
+        }
+        protected void BindAmcForDrillDown()
+        {
+            DataTable dtAmc = new DataTable();
+            dtAmc = commonLookupBo.GetProdAmc();
+            if (dtAmc.Rows.Count > 0)
+            {
+                ddlAmc.DataSource = dtAmc;
+                ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+                ddlAmc.DataBind();
+                ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
+            }
+        
+        }
+        protected void SetSelectedDisplay(int Accountid, int SchemeCode, int Amccode, string Category)
+        {
+            BindAmcForDrillDown();
+            ddlAmc.SelectedValue= Amccode.ToString();
+            ddlCategory.SelectedValue = Category;
+           SchemeBind(Amccode, Category,0);
+            BindFolioNumber(Amccode);
+            ddlFolio.SelectedValue = Accountid.ToString();
+            ddlScheme.SelectedValue = SchemeCode.ToString();
+
+            ddlAmc.Enabled = false;
+            ddlCategory.Enabled = false;
+            ddlFolio.Enabled = false;
+            ddlScheme.Enabled = false;
+            GetControlDetails(SchemeCode, Accountid.ToString());
 
 
         }
@@ -141,13 +186,13 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lblDividendType.Text = dr["PSLV_LookupValue"].ToString();
                     }
-                    if (!string.IsNullOrEmpty(dr["MinAmt"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AdditionalMinAmt"].ToString()))
                     {
-                        lblMintxt.Text = dr["MinAmt"].ToString();
+                        lblMintxt.Text = dr["AdditionalMinAmt"].ToString();
                     }
-                    if (!string.IsNullOrEmpty(dr["MultiAmt"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AdditionalMultiAmt"].ToString()))
                     {
-                        lblMulti.Text = dr["MultiAmt"].ToString();
+                        lblMulti.Text = dr["AdditionalMultiAmt"].ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
@@ -164,7 +209,11 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
+            DataSet dsNav = new DataSet();
+
+            dsNav = commonLookupBo.GetLatestNav(scheme);
+            
+                dsNav = commonLookupBo.GetLatestNav(scheme);
             string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
             lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             if (ds.Tables[1].Rows.Count > 0)
@@ -323,9 +372,9 @@ namespace WealthERP.OnlineOrderManagement
                 Dt = DateTime.Parse(lbltime.Text);
             }
             int retVal = commonLookupBo.IsRuleCorrect(amt, minAmt, amt, multiAmt, Dt);
-            if (retVal != 0 && retVal != -2)
+            if (retVal != 0)
             {
-               
+
                 if (retVal == -1)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount');", true); return;
@@ -334,10 +383,13 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('The CutOff time has been Reached ');", true); return;
                 }
+                if (retVal == -2)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
+                }
             }
 
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Your order added successfully.');", true);
             OrderId = int.Parse(OrderIds[0].ToString());
             if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
             {
@@ -345,13 +397,11 @@ namespace WealthERP.OnlineOrderManagement
             }
             if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
             {
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
                 string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
                 ShowMessage(message);
             }
             else if (OrderId != 0 && accountDebitStatus == false)
             {
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
                 string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
                 ShowMessage(message);
             }

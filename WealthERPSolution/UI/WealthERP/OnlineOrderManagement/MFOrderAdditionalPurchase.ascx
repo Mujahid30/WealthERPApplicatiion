@@ -55,7 +55,7 @@
                 <span id="Span1" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                     ErrorMessage="Please Select an AMC" Display="Dynamic" ControlToValidate="ddlAmc"
-                    InitialValue="0" ValidationGroup="btnSubmit">
+                     ValidationGroup="btnSubmit">
                 </asp:RequiredFieldValidator>
             </td>
             <td colspan="2">
