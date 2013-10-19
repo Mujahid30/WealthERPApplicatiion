@@ -4579,7 +4579,7 @@ namespace DaoCustomerPortfolio
             }
             return ds;
         }
-        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AccountId, int SchemePlanCode)
+        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode,string OrderStatus, int SchemePlanCode)
         {
             DataSet ds = null;
             Database db;
@@ -4607,14 +4607,18 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@FromDate", DbType.DateTime, From);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
-                if (AccountId != 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, AccountId);
+                if (AmcCode != 0)
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, AmcCode);
                 else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.String, DBNull.Value);
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, 0);
+                if (OrderStatus != "0")
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, OrderStatus);
+                else
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, DBNull.Value);
                 if (SchemePlanCode != 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, SchemePlanCode);
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, SchemePlanCode);
                 else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.String, DBNull.Value);
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, 0);
 
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);

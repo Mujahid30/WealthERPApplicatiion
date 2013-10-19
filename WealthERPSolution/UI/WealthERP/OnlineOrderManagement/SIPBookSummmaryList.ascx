@@ -23,17 +23,20 @@
         </td>
     </tr>
 </table>
-<div id="divConditional" runat="server">
+<div id="divConditional" runat="server" style="padding-top:4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
             <td id="tdlblRejectReason" runat="server">
-                <asp:Label runat="server" class="FieldName" Text="Account:" ID="lblAccount"></asp:Label>
-            </td>
-            <td id="tdAccount" runat="server">
-                <asp:DropDownList CssClass="cmbField" ID="ddlAccount" runat="server" AutoPostBack="false">
+                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlAMCCode" runat="server" AutoPostBack="false">
                     <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
                 </asp:DropDownList>
             </td>
+             <td id="td1" runat="server">
+                <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label1"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlOrderstatus" runat="server" AutoPostBack="false">                  
+                </asp:DropDownList>
+            </td>           
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
@@ -83,11 +86,11 @@
                 </div>
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
+                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewSIP" Display="Dynamic">
                 </asp:CompareValidator>
             </td>
             <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewOrder_Click" />
+                <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP" OnClick="btnViewOrder_Click" />
             </td>
         </tr>
     </table>
@@ -116,13 +119,13 @@
                     AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate"
+                    <MasterTableView DataKeyNames="CO_OrderId,C_CustomerId,CO_OrderDate"
                         Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
                          <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                AllowFiltering="true" HeaderText="Request Date" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
+                                AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -217,7 +220,19 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>                      
+                            </telerik:GridBoundColumn> 
+                             <telerik:GridBoundColumn DataField="CMFSS_EndDate" DataFormatString="{0:dd/MM/yyyy}"
+                                AllowFiltering="false" HeaderText="End Date" UniqueName="CMFSS_EndDate" SortExpression="CMFSS_EndDate"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn> 
+                             <telerik:GridBoundColumn DataField="CMFSS_NextSIPDueDate" DataFormatString="{0:dd/MM/yyyy}"
+                                AllowFiltering="false" HeaderText="Next SIP Date" UniqueName="CMFSS_NextSIPDueDate" SortExpression="CMFSS_NextSIPDueDate"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>                        
                             <telerik:GridBoundColumn DataField="TotalInstallmentNumber" AllowFiltering="false"
                                 HeaderText="Total Installment No." UniqueName="TotalInstallmentNumber" SortExpression="TotalInstallmentNumber"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
@@ -225,19 +240,19 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="CMFSS_InstallmentPending" AllowFiltering="false"
-                                HeaderText="Installment Pending" UniqueName="CMFSS_InstallmentPending" SortExpression="CMFSS_InstallmentPending"
+                                HeaderText="Pending Dues" UniqueName="CMFSS_InstallmentPending" SortExpression="CMFSS_InstallmentPending"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="CMFSS_InstallmentRejected" AllowFiltering="false"
-                                HeaderText="Installment Rejected" UniqueName="CMFSS_InstallmentRejected" SortExpression="CMFSS_InstallmentRejected"
+                                HeaderText="Miss Dues" UniqueName="CMFSS_InstallmentRejected" SortExpression="CMFSS_InstallmentRejected"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="CMFSS_InstallmentAccepted" AllowFiltering="false"
-                                HeaderText="Installment Accepted" UniqueName="CMFSS_InstallmentAccepteds" SortExpression="CMFSS_InstallmentAccepted"
+                                HeaderText="Accepted Dues" UniqueName="CMFSS_InstallmentAccepteds" SortExpression="CMFSS_InstallmentAccepted"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -277,4 +292,5 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
+<asp:HiddenField ID="hdnAmc" runat="server" />
+<asp:HiddenField ID="hdnOrderStatus" runat="server" />

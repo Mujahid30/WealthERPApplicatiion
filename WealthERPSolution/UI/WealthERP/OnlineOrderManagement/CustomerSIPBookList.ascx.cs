@@ -85,7 +85,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlAMCCode.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
-            ds = OnlineMFOrderBo.GetRedeemAmcDetails(customerId);
+            ds = OnlineMFOrderBo.GetSIPAmcDetails(customerId);
             dtAmc = ds.Tables[0];
             if (dtAmc.Rows.Count > 0)
             {
@@ -93,8 +93,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAMCCode.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
                 ddlAMCCode.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
                 ddlAMCCode.DataBind();
-                                //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
-
+                              
             }
             ddlAMCCode.Items.Insert(0, new ListItem("All", "0"));
         }

@@ -406,7 +406,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, string OrderStatus ,DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -415,12 +415,15 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPSummaryBook");
-                //db.AddInParameter(GetSIPBookMISCmd, "@A_AdviserId", DbType.Int32, adviserId);
-                if (AccountId != 0)
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AccountId", DbType.Int32, AccountId);
-                else
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AccountId", DbType.Int32, 0);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
+                if (AmcCode != 0)
+                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, AmcCode);
+                else
+                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);
+                if (OrderStatus != "0")
+                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, OrderStatus);
+                else
+                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
@@ -469,7 +472,59 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
         }
-
-
+        public DataSet GetSIPAmcDetails(int customerId)
+        {
+            DataSet dsGetSIPAmcDetails;
+            Database db;
+            DbCommand GetSIPAmcDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSIPAmcDetailscmd = db.GetStoredProcCommand("sproc_onl_BindAmcSIP");
+                db.AddInParameter(GetSIPAmcDetailscmd, "@customerId", DbType.Int32, customerId);
+                dsGetSIPAmcDetails = db.ExecuteDataSet(GetSIPAmcDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetSIPAmcDetails;
+        }
+        public DataSet GetOrderAmcDetails(int customerId)
+        {
+            DataSet dsGetOrderAmcDetails;
+            Database db;
+            DbCommand GetOrderAmcDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderAmcDetailscmd = db.GetStoredProcCommand("sproc_onl_BindAmcOrder");
+                db.AddInParameter(GetOrderAmcDetailscmd, "@customerId", DbType.Int32, customerId);
+                dsGetOrderAmcDetails = db.ExecuteDataSet(GetOrderAmcDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetOrderAmcDetails;
+        }
+        public DataSet GetTransAllAmcDetails(int customerId)
+        {
+            DataSet dsGetTransAllAmcDetails;
+            Database db;
+            DbCommand GetTransAllAmcDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetTransAllAmcDetailscmd = db.GetStoredProcCommand("sproc_onl_BindAmcAllTran");
+                db.AddInParameter(GetTransAllAmcDetailscmd, "@customerId", DbType.Int32, customerId);
+                dsGetTransAllAmcDetails = db.ExecuteDataSet(GetTransAllAmcDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetTransAllAmcDetails;
+        }
     }
 }

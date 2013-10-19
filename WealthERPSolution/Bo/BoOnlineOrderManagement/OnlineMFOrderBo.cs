@@ -196,13 +196,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPBookMIS;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPSummaryBookMIS = null;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AccountId, dtFrom, dtTo);
+                dsSIPSummaryBookMIS = OnlineMFOrderDao.GetSIPSummaryBookMIS(CustomerId, AmcCode,OrderStatus, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -372,6 +372,48 @@ namespace BoOnlineOrderManagement
             {
                 throw (Ex);
             }
+        }
+        public DataSet GetSIPAmcDetails(int customerId)
+        {
+            DataSet dsGetSIPAmcDetails;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsGetSIPAmcDetails = OnlineMFOrderDao.GetSIPAmcDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetSIPAmcDetails;
+        }
+        public DataSet GetOrderAmcDetails(int customerId)
+        {
+            DataSet dsGetOrderAmcDetails;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsGetOrderAmcDetails = OnlineMFOrderDao.GetOrderAmcDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetOrderAmcDetails;
+        }
+        public DataSet GetTransAllAmcDetails(int customerId)
+        {
+            DataSet dsGetTransAllAmcDetails;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                dsGetTransAllAmcDetails = OnlineMFOrderDao.GetTransAllAmcDetails(customerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return dsGetTransAllAmcDetails;
         }
     }
 }

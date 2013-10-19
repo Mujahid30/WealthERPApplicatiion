@@ -44,7 +44,8 @@ namespace WealthERP.OnlineOrderManagement
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
-            BindFolioAccount();
+            BindOrderStatus();
+            BindAmc();
             BindLink();
             if (!Page.IsPostBack)
             {
@@ -60,6 +61,46 @@ namespace WealthERP.OnlineOrderManagement
             txtTo.SelectedDate = DateTime.Parse(ds.Tables[0].Rows[0][0].ToString());
 
         }
+        /// <summary>
+        /// Get Bind Orderstatus
+        /// </summary>
+        private void BindOrderStatus()
+        {
+            ddlOrderStatus.Items.Clear();
+            DataSet dsOrderStatus;
+            DataTable dtOrderStatus;
+            dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
+            dtOrderStatus = dsOrderStatus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+        }
+        /// <summary>
+        /// get AMC
+        /// </summary>
+        protected void BindAmc()
+        {
+            ddlAmc.Items.Clear();
+            DataSet ds = new DataSet();
+            DataTable dtAmc = new DataTable();
+            ds = OnlineMFOrderBo.GetTransAllAmcDetails(customerId);
+            dtAmc = ds.Tables[0];
+            if (dtAmc.Rows.Count > 0)
+            {
+                ddlAmc.DataSource = dtAmc;
+                ddlAmc.DataValueField = dtAmc.Columns["PA_AMCCode"].ToString();
+                ddlAmc.DataTextField = dtAmc.Columns["PA_AMCName"].ToString();
+                ddlAmc.DataBind();
+                //BindFolioNumber(int.Parse(ddlAmc.SelectedValue));
+
+            }
+            ddlAmc.Items.Insert(0, new ListItem("All", "0"));
+        }
         protected void BindLink()
         {
             if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null)
@@ -74,37 +115,48 @@ namespace WealthERP.OnlineOrderManagement
                 BindGrid();
             }
         }
+                
 
         /// <summary>
         /// Get Folio Account for Customer
         /// </summary>
         private void BindFolioAccount()
         {
-            ddlAccount.Items.Clear();
-            DataSet dsFolioAccount;
-            DataTable dtFolioAccount;
-            dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
-            dtFolioAccount = dsFolioAccount.Tables[0];
-            if (dtFolioAccount.Rows.Count > 0)
-            {
-                ddlAccount.DataSource = dsFolioAccount.Tables[0];
-                ddlAccount.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
-                ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
-                ddlAccount.DataBind();
-            }
-            ddlAccount.Items.Insert(0, new ListItem("All", "0"));
+        //    ddlAccount.Items.Clear();
+        //    DataSet dsFolioAccount;
+        //    DataTable dtFolioAccount;
+        //    dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
+        //    dtFolioAccount = dsFolioAccount.Tables[0];
+        //    if (dtFolioAccount.Rows.Count > 0)
+        //    {
+        //        ddlAccount.DataSource = dsFolioAccount.Tables[0];
+        //        ddlAccount.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
+        //        ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
+        //        ddlAccount.DataBind();
+        //    }
+        //    ddlAccount.Items.Insert(0, new ListItem("All", "0"));
         }
          private void SetParameter()
         {
-            if (ddlAccount.SelectedIndex != 0)
+           if (ddlOrderStatus.SelectedIndex != 0)
             {
-                hdnAccount.Value = ddlAccount.SelectedValue;
-                ViewState["AccountDropDown"] = hdnAccount.Value;
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+                ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
             }
             else
             {
-                hdnAccount.Value = "0";
+                hdnOrderStatus.Value = "0";
             }
+            if (ddlAmc.SelectedIndex != 0)
+            {
+                hdnAmc.Value = ddlAmc.SelectedValue;
+                ViewState["AMCDropDown"] = hdnAmc.Value;
+            }
+            else
+            {
+                hdnAmc.Value = "0";
+            }
+            
         }
          protected void btnViewTransaction_Click(object sender, EventArgs e)
          {
@@ -136,7 +188,7 @@ namespace WealthERP.OnlineOrderManagement
             if (txtTo.SelectedDate != null)
             toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
-            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAccount.Value),schemePlanCode);
+            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value),hdnOrderStatus.Value, schemePlanCode);
                 if (mfTransactionList.Count != 0)
                 {
                    

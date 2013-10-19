@@ -26,12 +26,16 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Panel pnlTransactionBook;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnOrder;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAccount;
-        protected global::System.Web.UI.WebControls.DropDownList ddlAccount;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAmc;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
         protected global::Telerik.Web.UI.RadDatePicker txtFrom;
         protected global::Telerik.Web.UI.RadDatePicker txtTo;
         protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
         protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
         protected global::System.Web.UI.WebControls.DropDownList ddlPortfolioGroup;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAmc;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
+        protected global::System.Web.UI.WebControls.Button btnViewTransaction;
     }
 }

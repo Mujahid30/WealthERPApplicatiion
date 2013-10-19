@@ -23,24 +23,24 @@
         </td>
     </tr>
 </table>--%>
-<div id="divConditional" runat="server" style="padding-top:4px">
+<div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
-            <td id="tdlblRejectReason" runat="server">
-                <asp:Label runat="server" class="FieldName" Text="Account:" ID="lblAccount"></asp:Label>
-            </td>
-            <td id="tdAccount" runat="server">
-                <asp:DropDownList CssClass="cmbField" ID="ddlAccount" runat="server" AutoPostBack="false">
-                    <%--<asp:ListItem Text="All" Value="0"></asp:ListItem>--%>
+            <td id="tdlblRejectReason" runat="server" style="padding-right: 20px">
+                <asp:Label runat="server" class="FieldName" Text="AMC:" ID="lblAccount"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlAmc" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
-            <td align="right">
+            <td align="right" visible="false" runat="server">
                 <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Portfolio:"></asp:Label>
-            </td>
-            <td align="left">
                 <asp:DropDownList ID="ddlPortfolioGroup" runat="server" CssClass="cmbField">
                     <asp:ListItem Text="Managed" Value="1">Managed</asp:ListItem>
                     <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
+                </asp:DropDownList>
+            </td>
+            <td id="td1" runat="server">
+                <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label2"></asp:Label>
+                <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
             </td>
             <td id="tdlblFromDate" runat="server" align="right">
@@ -92,11 +92,13 @@
                 </div>
                 <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtTo"
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
-                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnSubmit" Display="Dynamic">
+                    ControlToCompare="txtFrom" CssClass="cvPCG" ValidationGroup="btnViewTransaction"
+                    Display="Dynamic">
                 </asp:CompareValidator>
             </td>
-            <td id="tdBtnOrder" runat="server">
-                <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewTransaction_Click" />
+            <td id="tdBtnOrder" runat="server" colspan="4">
+                <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
+                    ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
             </td>
         </tr>
     </table>
@@ -141,14 +143,13 @@
                                     UniqueName="Customer Name" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                  <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                AllowFiltering="true" HeaderText="Request Date" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                HeaderStyle-Width="80px" FilterControlWidth="60px">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                                
-                              <%--  <telerik:GridBoundColumn DataField="TransactionNumber" HeaderText="TransactionNo"
+                                <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <%--  <telerik:GridBoundColumn DataField="TransactionNumber" HeaderText="TransactionNo"
                                     AllowFiltering="false" SortExpression="TransactionNumber" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="TransactionNumber"
                                     FooterStyle-HorizontalAlign="Left">
@@ -180,7 +181,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                 <telerik:GridBoundColumn DataField="Scheme Name" HeaderText="Scheme Name" AllowFiltering="true"
+                                <telerik:GridBoundColumn DataField="Scheme Name" HeaderText="Scheme Name" AllowFiltering="true"
                                     HeaderStyle-Wrap="false" SortExpression="Scheme Name" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Scheme Name"
                                     FooterStyle-HorizontalAlign="Left">
@@ -192,7 +193,6 @@
                                     UniqueName="PAISC_AssetInstrumentSubCategoryName" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                               
                                 <%--<telerik:GridTemplateColumn AllowFiltering="true" DataField="Scheme Name" AutoPostBackOnFilter="true"
                                                         HeaderText="Scheme" ShowFilterIcon="false" FilterControlWidth="280px">
                                                         <ItemStyle Wrap="false" />
@@ -242,7 +242,7 @@
                                     DataFormatString="{0:n3}" Aggregate="Sum">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn visible ="false" DataField="CurrentNav" HeaderText="Current NAV"
+                                <telerik:GridBoundColumn Visible="false" DataField="CurrentNav" HeaderText="Current NAV"
                                     AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CurrentNav" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CurrentNav"
                                     FooterStyle-HorizontalAlign="Right" DataFormatString="{0:n3}">
@@ -313,10 +313,10 @@
                                                             </telerik:RadScriptBlock>
                                                         </FilterTemplate>--%>
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn Visible="false" DataField="CreatedOn" HeaderText="Add Date (System)" AllowFiltering="false"
-                                    HeaderStyle-Wrap="false" SortExpression="CreatedOn" ShowFilterIcon="false" AllowSorting="true"
-                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="CreatedOn"
-                                    FooterStyle-HorizontalAlign="Left">
+                                <telerik:GridBoundColumn Visible="false" DataField="CreatedOn" HeaderText="Add Date (System)"
+                                    AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CreatedOn" ShowFilterIcon="false"
+                                    AllowSorting="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="CreatedOn" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                             </Columns>
@@ -330,4 +330,5 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField ID="hdnAccount" runat="server" Value="0" />
+<asp:HiddenField ID="hdnAmc" runat="server" />
+<asp:HiddenField ID="hdnOrderStatus" runat="server" />
