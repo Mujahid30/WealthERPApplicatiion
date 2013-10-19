@@ -2218,6 +2218,7 @@ namespace DaoCustomerPortfolio
                         mfPortfNetPositionVo.AssetInstrumentSubCategoryName = dr["PAISC_AssetInstrumentSubCategoryName"].ToString();
                         if (dr["PA_AMCCode"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        mfPortfNetPositionVo.AmcName = dr["PA_AMCName"].ToString();
                         if (dr["CMFNP_MarketPrice"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.MarketPrice = double.Parse(dr["CMFNP_MarketPrice"].ToString());
                         if (dr["CMFNP_MFNPId"].ToString().Trim() != String.Empty)
