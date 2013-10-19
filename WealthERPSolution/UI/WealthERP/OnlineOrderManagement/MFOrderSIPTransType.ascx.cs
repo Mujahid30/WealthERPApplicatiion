@@ -339,6 +339,8 @@ namespace WealthERP.OnlineOrderManagement
             onlineMFOrderVo.SystematicDates = "";
             onlineMFOrderVo.TotalInstallments = int.Parse(ddlTotalInstallments.SelectedValue);
             onlineMFOrderVo.PortfolioId = custPortVo.PortfolioId;
+            if (ddlDividendFreq.SelectedIndex > -1)
+            onlineMFOrderVo.DivOption= ddlDividendFreq.SelectedValue;
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -367,9 +369,10 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteConfirmation();", true);
                 }
                 List<int> OrderIds = new List<int>();
-                int OrderId = int.Parse(OrderIds[0].ToString());
+                
                 SaveOrderDetails();
                 OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                int OrderId = int.Parse(OrderIds[0].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
@@ -596,7 +599,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
 
-            //ddlFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlFrequency.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
 
             //ddlFrequency.Items.Insert(0, new ListItem(""));
 

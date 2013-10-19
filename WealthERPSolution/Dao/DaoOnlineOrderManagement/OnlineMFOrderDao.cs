@@ -313,8 +313,14 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOrderTrackingCmd, "@systamaticDates", DbType.String, onlineMFOrderVo.SystematicDate.ToString());
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CP_PortfolioId", DbType.Int32, onlineMFOrderVo.PortfolioId);
+                db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
 
-                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0) { }
+
+                if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
+                {
+                    orderIds.Add( Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString()));
+                    
+                }
             }
             catch (BaseApplicationException Ex)
             {

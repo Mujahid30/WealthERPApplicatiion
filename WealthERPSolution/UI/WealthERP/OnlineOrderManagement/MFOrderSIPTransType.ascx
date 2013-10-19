@@ -39,7 +39,7 @@
 <table width="100%">
     <tr align="center">
         <td align="center">
-            <div id="divValidationError" runat="server" class="success-msg" align="center" visible="true">
+            <div id="divValidationError" runat="server" class="failure-msg" align="center" visible="true">
                 <asp:ValidationSummary ID="vsSummary" runat="server" Visible="true" ValidationGroup="btnSubmit" />
             </div>
         </td>
