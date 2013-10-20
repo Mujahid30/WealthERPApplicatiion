@@ -12,7 +12,7 @@ using VoUser;
 
 
 
-namespace WealthERP.OnlineOrderManagement
+namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineOrderExtract : System.Web.UI.UserControl
     {
