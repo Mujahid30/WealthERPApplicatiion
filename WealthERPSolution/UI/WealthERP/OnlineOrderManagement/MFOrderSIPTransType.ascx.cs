@@ -89,7 +89,7 @@ namespace WealthERP.OnlineOrderManagement
                     accountId = int.Parse(Request.QueryString["accountId"].ToString());
                     schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
                     commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                    OnDrillDownBindControlValue(amcCode, category, accountId, amcCode);
+                    OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
                     DataViewOnEdit();
                 }
 

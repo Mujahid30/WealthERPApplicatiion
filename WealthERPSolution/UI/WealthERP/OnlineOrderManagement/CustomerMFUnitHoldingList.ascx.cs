@@ -30,6 +30,7 @@ namespace WealthERP.OnlineOrderManagement
         CustomerPortfolioBo customerPortfolioBo = new CustomerPortfolioBo();
         AdvisorVo advisorVo;
         CustomerVo customerVO = new CustomerVo();
+        UserVo userVo;
         string userType;
         int customerId = 0;
         int portfolioId = 0;
@@ -39,10 +40,11 @@ namespace WealthERP.OnlineOrderManagement
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
+            userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
             BindFolioAccount();
             if (!IsPostBack)
-                Cache.Remove("UnitHolding" + advisorVo.advisorId);
+                Cache.Remove("UnitHolding" + userVo.UserId);
         }
         private void SetParameter()
         {
@@ -122,6 +124,7 @@ namespace WealthERP.OnlineOrderManagement
             dtMFUnitHolding.Columns.Add("CMFNP_NAVDate");
             dtMFUnitHolding.Columns.Add("CMFNP_ValuationDate");
             dtMFUnitHolding.Columns.Add("RealizesdGain");
+            dtMFUnitHolding.Columns.Add("IsSchemeSIPType");
 
             return dtMFUnitHolding;
         }
@@ -258,18 +261,20 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["RealizesdGain"] = "0.00";
+
+                    drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
                 }
                 if (dtMFUnitHoplding.Rows.Count > 0)
                 {
-                    if (Cache["UnitHolding" + advisorVo.advisorId] == null)
+                    if (Cache["UnitHolding" + userVo.UserId] == null)
                     {
-                        Cache.Insert("UnitHolding" + advisorVo.advisorId, dtMFUnitHoplding);
+                        Cache.Insert("UnitHolding" + userVo.UserId, dtMFUnitHoplding);
                     }
                     else
                     {
-                        Cache.Remove("UnitHolding" + advisorVo.advisorId);
-                        Cache.Insert("UnitHolding" + advisorVo.advisorId, dtMFUnitHoplding);
+                        Cache.Remove("UnitHolding" + userVo.UserId);
+                        Cache.Insert("UnitHolding" + userVo.UserId, dtMFUnitHoplding);
                     }
                     rgUnitHolding.DataSource = dtMFUnitHoplding;
                     rgUnitHolding.DataBind();
@@ -328,7 +333,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void rgUnitHolding_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtUnitHolding = new DataTable();
-            dtUnitHolding = (DataTable)Cache["UnitHolding" + advisorVo.advisorId.ToString()];
+            dtUnitHolding = (DataTable)Cache["UnitHolding" + userVo.UserId.ToString()];
             if (dtUnitHolding != null)
             {
                 rgUnitHolding.DataSource = dtUnitHolding;
@@ -391,5 +396,26 @@ namespace WealthERP.OnlineOrderManagement
         //    rgUnitHolding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
         //    rgUnitHolding.MasterTableView.ExportToExcel();
         //}
+
+        public void rgUnitHolding_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                Label lblSIPSchemeFlag = new Label();
+                ImageButton imgSIP = new ImageButton();
+                lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
+
+                if (lblSIPSchemeFlag.Text.Trim().ToLower() == "false")
+                {
+                    imgSIP = (ImageButton)e.Item.FindControl("imgSip");
+                    imgSIP.Visible = false;
+
+                }
+                lblSIPSchemeFlag.Visible = false;
+
+
+            }
+
+        }
     }
 }

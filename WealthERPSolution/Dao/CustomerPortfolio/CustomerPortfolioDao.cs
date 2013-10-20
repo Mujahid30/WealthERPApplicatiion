@@ -2356,6 +2356,8 @@ namespace DaoCustomerPortfolio
                         if (dr["CMFNP_RET_Hold_WeightageDays"].ToString().Trim() != String.Empty)
                             mfPortfNetPositionVo.WeightageDays = Convert.ToInt32(dr["CMFNP_RET_Hold_WeightageDays"]);
 
+                        mfPortfNetPositionVo.IsSchemeSIPType = Convert.ToBoolean(dr["PASPD_IsSIPAvailable"]);
+
                         mfPortfolioNetPositionList.Add(mfPortfNetPositionVo);
                     }
                 }
