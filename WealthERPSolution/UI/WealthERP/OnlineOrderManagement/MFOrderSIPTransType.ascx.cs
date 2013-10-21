@@ -765,7 +765,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlTotalInstallments.SelectedIndex == 0 || ddlStartDate.SelectedIndex == 0 || ddlFrequency.SelectedIndex == 0) return;
 
-            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequency.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue));
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequency.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue)-1);
             lblEndDateDisplay.Text = dtEndDate.ToString("dd-MMM-yyyy");
         }
 
