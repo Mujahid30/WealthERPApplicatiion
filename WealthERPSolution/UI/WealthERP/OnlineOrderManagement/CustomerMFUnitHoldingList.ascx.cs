@@ -367,7 +367,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
-            if (e.CommandName == "Buy" || e.CommandName == "SIP" || e.CommandName == "SIP")
+            if (e.CommandName == "Buy" || e.CommandName == "SIP" || e.CommandName == "Sell")
             {
                 accountId = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AccountId"].ToString();
                 schemePlanCode = rgUnitHolding.MasterTableView.DataKeyValues[e.Item.ItemIndex]["SchemeCode"].ToString();

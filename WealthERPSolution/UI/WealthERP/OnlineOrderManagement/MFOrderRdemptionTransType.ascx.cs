@@ -53,7 +53,7 @@ namespace WealthERP.OnlineOrderManagement
                 AmcBind();
                 CategoryBind();
                 dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
-               
+
                 txtRedeemTypeValue.Visible = false;
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
@@ -140,10 +140,66 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
+        protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt)
+        {
+            DataTable dt = new DataTable();
+            double holdingUnits;
+            double holdingAmt;
+            double ValuatedUnits;
+            double ValuatedAmt;
+            double finalUnits;
+            double finalAmt;
+
+            if (dscurrent.Tables[1].Rows.Count > 0)
+            {
+                DataTable dtUnit = dscurrent.Tables[1];
+                if (dscurrent.Tables[2].Rows.Count > 0)
+                {
+                    DataTable dtvaluated = dscurrent.Tables[2];
+
+                    if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][0]).ToString()))
+                    {
+                        holdingUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
+                    }
+                    else holdingUnits = 0.0;
+                    if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][0].ToString()))
+                    {
+                        ValuatedUnits = double.Parse(dscurrent.Tables[2].Rows[1][0].ToString());
+                    }
+                    else ValuatedUnits = 0.0;
+                    finalUnits = holdingUnits - ValuatedUnits;
+                    if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][1]).ToString()))
+                    {
+                        holdingAmt = double.Parse((dscurrent.Tables[1].Rows[0][1]).ToString());
+                    }
+                    else holdingAmt = 0.0;
+                    if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][1].ToString()))
+                    {
+                        ValuatedAmt = double.Parse(dscurrent.Tables[2].Rows[1][1].ToString());
+                    }
+                    else ValuatedAmt = 0.0;
+                    finalAmt = holdingAmt - ValuatedAmt;
+                }
+                else
+                {
+                    finalUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
+                    finalAmt = double.Parse((dscurrent.Tables[1].Rows[0][1]).ToString());
+                }
+
+            }
+            else
+            {
+                finalAmt = 0.0;
+                finalUnits = 0.0;
+            }
+            units = finalUnits;
+            amt = finalAmt;
+        }
         protected void GetControlDetails(int scheme, string folio)
         {
             DataSet ds = new DataSet();
-
+            double finalamt;
+            double finalunits;
             ds = onlineMforderBo.GetControlDetails(scheme, folio);
             DataTable dt = ds.Tables[0];
             if (dt.Rows.Count > -1)
@@ -175,23 +231,9 @@ namespace WealthERP.OnlineOrderManagement
             DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
             string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
             lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
-            if (ds.Tables[1].Rows.Count > 0)
-            {
-                DataTable dtUnit = ds.Tables[1];
-                foreach (DataRow drunits in dtUnit.Rows)
-                {
-                    if (!string.IsNullOrEmpty(drunits["CMFNP_NetHoldings"].ToString()))
-                    {
-                        lblUnitsheldDisplay.Text = drunits["CMFNP_NetHoldings"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(drunits["CMFNP_CurrentValue"].ToString()))
-                    {
-                        lblCurrentValueDisplay.Text = drunits["CMFNP_CurrentValue"].ToString();
-                    }
-                }
-            }
-
-
+            CalculateCurrentholding(ds, out finalunits, out finalamt);
+            lblUnitsheldDisplay.Text = finalunits.ToString();
+            lblCurrentValueDisplay.Text = finalamt.ToString();
         }
         protected void BindAmcForDrillDown()
         {
