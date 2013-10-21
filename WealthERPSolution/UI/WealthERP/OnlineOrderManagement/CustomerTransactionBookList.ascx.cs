@@ -34,6 +34,7 @@ namespace WealthERP.OnlineOrderManagement
         int customerId = 0;
         DateTime fromDate;
         DateTime toDate;
+        int AccountId = 0;
         static double totalAmount = 0;
         static double totalUnits = 0;
         DataTable dtMFTransactions = new DataTable();
@@ -107,11 +108,13 @@ namespace WealthERP.OnlineOrderManagement
             {
                 int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                 int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
-                hdnAccount.Value = accountId.ToString();
+                AccountId = int.Parse(accountId.ToString());
                 BindLastTradeDate();
                 string fromdate = "01-01-1990";
                 txtFrom.SelectedDate = DateTime.Parse(fromdate);
                 ViewState["SchemePlanCode"] = SchemePlanCode;
+                hdnAmc.Value = "0";
+                hdnOrderStatus.Value = "0";
                 BindGrid();
             }
         }
@@ -188,7 +191,7 @@ namespace WealthERP.OnlineOrderManagement
             if (txtTo.SelectedDate != null)
             toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
-            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value),hdnOrderStatus.Value, schemePlanCode);
+            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value),hdnOrderStatus.Value,AccountId, schemePlanCode);
                 if (mfTransactionList.Count != 0)
                 {
                    
