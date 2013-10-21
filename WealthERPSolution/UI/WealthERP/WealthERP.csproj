@@ -7509,6 +7509,7 @@
     <Content Include="Images\RetirementGoal.png" />
     <Content Include="Images\RiskProtection.png" />
     <Content Include="Images\rollback.png" />
+    <Content Include="Images\sbi-capsec-header.png" />
     <Content Include="Images\SCBFPImage.jpg" />
     <Content Include="Images\Schedule.png" />
     <Content Include="Images\ScreenInfo.png" />
