@@ -4,14 +4,14 @@
 <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top">
+        <table cellpadding="0" cellspacing="0" style="top: auto; vertical-align: top;padding-left:15px;">
             <tr id="trMFOrderMenuTransactTab" runat="server" visible="false">
                 <td>
                     <telerik:RadTabStrip ID="RTSMFOrderMenuTransact" runat="server" EnableTheming="True"
                         Skin="Telerik" EnableEmbeddedSkins="False" MultiPageID="RMPMFOrderMenuTransact"
                         SelectedIndex="0" AutoPostBack="true" OnTabClick="RTSMFOrderMenuTransact_TabClick">
                         <Tabs>
-                            <telerik:RadTab runat="server" Text="New Purchase" Value="RTSMFOrderMenuTransactNewPurchase"
+                            <telerik:RadTab runat="server" Text="NEW PURCHASE" Value="RTSMFOrderMenuTransactNewPurchase"
                                 TabIndex="0" PageViewID="RPVNewPurchase" Selected="True">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="ADDITIONAL PURCHASE" Value="RTSMFOrderMenuTransactAdditionalPurchase"

@@ -106,6 +106,127 @@
         padding-left: 3px;
         width: 20%;
     }
+    .div-with-header
+    {
+        height: 40px;
+        background: url('Images/sbi-capsec-header.png') no-repeat left top;
+        width: 100%;
+        float: left;
+    }
+    .div-container
+    {
+        border: 3px;
+        border-style: solid;
+        color: #3299FF;
+        width: 100%;
+        float: right;
+        margin-top: 0px;
+        padding-top: 0px;
+        border-top: 1px;
+    }
+    .div-log-out
+    {
+        float: right;
+        padding-right: 10px;
+        background: url('Images/sign-out.png') no-repeat left top;
+        padding-top: 50px;
+        padding-right: 30px;
+    }
+    .user-name
+    {
+        color: #EA8A04;
+        font-family: Arial;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .product-header
+    {
+        background: url('Images/product-header.png');
+        background-repeat: repeat;
+        height: 20px;
+        width: 100%;
+        float: left;
+    }
+    .product-header-text
+    {
+        float: left;
+        color: White;
+        font-family: Arial;
+        font-size: 15px;
+        font-weight: bold;
+        padding-left: 15px;
+    }
+    .prduct-main-menu
+    {
+        float: left;
+        width: 100%;
+        height: 35px;
+        padding-top: 0px;
+    }
+    .top-menu-frame
+    {
+        float: left;
+        width: 100%;
+        height: 30px;
+    }
+    .bottom-content-frame
+    {
+        float: left;
+        width: 100%;
+    }
+    ul
+    {
+        /* padding: 5px;*/
+        margin: 5px 0;
+        list-style: none;
+        float: left;
+        padding-left:0px;
+    }
+    ul li
+    {
+        float: left;
+        display: inline; /*For ignore double margin in IE6*/
+        margin: 0 10px;
+        background: url('Images/product-menu-fixed.png') no-repeat top right;
+    }
+    ul li a
+    {
+        text-decoration: none;
+        float: left;
+        color: #999;
+        cursor: pointer;
+        font: 900 14px/22px "Arial" , Helvetica, sans-serif;
+        width: 65px;
+    }
+    ul li a span
+    {
+        margin: 0 10px 0 -10px;
+        padding: 1px 8px 5px 18px;
+        position: relative; /*To fix IE6 problem (not displaying)*/
+        float: left;
+    }
+    ul.blue li :hover
+    {
+        background: url('Images/product-menu-hover.png') no-repeat top right;
+        color: #0d5f83;
+    }
+    ul.blue li:hover
+    {
+        background: url('Images/product-menu-hover.png') no-repeat top left;
+    }
+    ul blue li:selected
+    {
+        background: url('Images/product-menu-hover.png') no-repeat top left !important;
+        color: White;
+        font-weight: bold;
+    }
+    .selected
+    {
+        background: url('Images/product-menu-hover.png') no-repeat top left !important;
+        color: White;
+        font-weight: bold;
+    }
+    
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -115,57 +236,44 @@
     <form id="form1" runat="server">
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
-  <%--      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-            <ContentTemplate>--%>
-                <table width="100%">
-                    <tr id="trMFOrderMenu" runat="server">
-                        <td>
-                            <div class="OnlineProductMenu" style="vertical-align: top">
-                                <table width="100%" style="vertical-align:top">
-                                    <tr>
-                                        <td>
-                                            <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
-                                                Style="text-decoration: none" OnClick="lnkMFOrderMenuTransact_Click"></asp:LinkButton>
-                                        </td>
-                                        <td>
-                                            <asp:LinkButton ID="lnkMFOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
-                                                Style="text-decoration: none" OnClick="lnkMFOrderMenuBooks_Click"></asp:LinkButton>
-                                        </td>
-                                        <td>
-                                            <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
-                                                Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click"></asp:LinkButton>
-                                        </td>
-                                        <td align="right" style="vertical-align:top">
-                                            <asp:Label ID="lblProductType" runat="server" Text="Product Type:"></asp:Label>
-                                            <img src="Images/MenuSeparator.jpg" alt="">
-                                            <asp:Label ID="lblWelcomeUser" runat="server" Text=""></asp:Label>
-                                            <img src="Images/MenuSeparator.jpg" alt="">
-                                            <asp:LinkButton ID="lnkLogOut" runat="server" Text="logout" CssClass="LinkButtons"
-                                                Style="text-decoration: none" OnClick="lnkLogOut_Click"></asp:LinkButton>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id="trTopMenuFrame" runat="server">
-                        <td>
-                            <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
-                                src="OnlineTopHost.aspx" height="35px" width="100%" scrolling="no"></iframe>
-                        </td>
-                    </tr>
-                    <tr id="trMainFrame" runat="server">
-                        <td>
-                            <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
-                                src="OnlineBottomHost.aspx" scrolling="no" height="600px"></iframe>
-                        </td>
-                    </tr>
-                </table>
-           <%-- </ContentTemplate>
-            <Triggers>
-                <%-- <asp:PostBackTrigger ControlID="imgexportButton" />--%>
-            </Triggers>
-        </asp:UpdatePanel>--%>
+        <div class="div-with-header">
+            <div style="float: right; padding-top: 8px;">
+                <asp:LinkButton ID="lnkLogOut" runat="server" Text="" CssClass="div-log-out" Style="text-decoration: none"
+                    OnClick="lnkLogOut_Click"></asp:LinkButton>
+            </div>
+            <div style="float: right; width: 36%; padding-top: 10px;">
+                <asp:Label ID="lblWelcomeUser" runat="server" Text="" CssClass="user-name"></asp:Label>
+            </div>
+        </div>
+        <div class="div-container">
+            <div class="product-header">
+                <asp:Label ID="lblOnlieProductType" runat="server" Text="Mutual Fund Order" CssClass="product-header-text"></asp:Label>
+            </div>
+            <div class="prduct-main-menu" id="divMFMenu" runat="server">
+                <ul class="blue">
+                    <li><a href="#" title="TRANSACT">
+                        <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkMFOrderMenuTransact_Click"></asp:LinkButton>
+                    </a></li>
+                    <li><a href="#" title="BOOKS">
+                        <asp:LinkButton ID="lnkMFOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkMFOrderMenuBooks_Click"></asp:LinkButton>
+                    </a></li>
+                    <li><a href="#" title="HOLDINGS">
+                        <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click"></asp:LinkButton>
+                    </a></li>
+                </ul>
+            </div>
+            <div class="top-menu-frame">
+                <iframe name="topframe" id="topframe" onload="javascript:calcIFrameHeight('topframe');"
+                    src="OnlineTopHost.aspx" height="35px" width="100%" scrolling="no"></iframe>
+            </div>
+            <div class="bottom-content-frame">
+                <iframe name="bottomframe" class="bottomframe" id="bottomframe" onload="javascript:calcIFrameHeight('bottomframe');"
+                    src="OnlineBottomHost.aspx" scrolling="no" height="600px"></iframe>
+            </div>
+        </div>
     </div>
     </form>
 </body>

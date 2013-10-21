@@ -65,7 +65,7 @@ namespace WealthERP
                 if (Request.QueryString["x-SBI-Products"] != null && Request.QueryString["x-SBI-Products"] != "")
                 {
                     productType = Request.QueryString["x-SBI-Products"];
-                    lblProductType.Text = "PRODUCT TYPE:-" + Request.QueryString["x-SBI-Products"];
+                    
                 }
             }
             if (Request.QueryString["WERP"] != null)
@@ -87,7 +87,7 @@ namespace WealthERP
                 }
             }
 
-            lblWelcomeUser.Text = "Welcome " + userAccountId;
+            lblWelcomeUser.Text = "Account: " + userAccountId;
         }
 
 
