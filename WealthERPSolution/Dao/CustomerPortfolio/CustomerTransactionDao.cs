@@ -4593,9 +4593,13 @@ namespace DaoCustomerPortfolio
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getRMCustomerMFTransactionsCmd = db.GetStoredProcCommand("SPROC_Onl_GetCustomerMFTransactionsBook");
                 if (AdviserID != 0)
+                {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, AdviserID);
+                }
                 else
+                {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AdviserID", DbType.Int32, DBNull.Value);
+                }
                 if (CustomerId != 0)
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@CustomerId", DbType.Int32, CustomerId);
@@ -4608,22 +4612,37 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@ToDate", DbType.DateTime, To);
                 db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Manage", DbType.Int32, Manage);
                 if (AmcCode != 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, AmcCode);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, 0);
-                if (AccountId != 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, AccountId);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, 0);
-                if (OrderStatus != "0")
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, OrderStatus);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, DBNull.Value);
-                if (SchemePlanCode != 0)
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, SchemePlanCode);
-                else
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, 0);
+                { db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, AmcCode); }
 
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AMC", DbType.Int32, 0);
+                }
+                if (AccountId != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, AccountId);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, 0);
+                }
+                if (OrderStatus != "0")
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, OrderStatus);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, DBNull.Value);
+                }
+
+                if (SchemePlanCode != 0)
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, SchemePlanCode);
+                }
+                else
+                {
+                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@SchemePlanCode", DbType.Int32, DBNull.Value);
+                }
                 getRMCustomerMFTransactionsCmd.CommandTimeout = 60 * 60;
                 ds = db.ExecuteDataSet(getRMCustomerMFTransactionsCmd);
 
@@ -4679,12 +4698,27 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.DivReinvestmen = dr["CMFOD_DividendOption"].ToString();
                         mfTransactionVo.Divfrequency = dr["DivFrequency"].ToString();
-                        mfTransactionVo.orderNo = int.Parse(dr["Co_OrderId"].ToString());
+                        if (dr["Co_OrderId"].ToString() != null && dr["Co_OrderId"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.orderNo = int.Parse(dr["Co_OrderId"].ToString());
+                        }
+                        else
+                        {
+                            mfTransactionVo.orderNo = 0;
+                        }
+                        
                         mfTransactionVo.channel = dr["Channel"].ToString();
                         mfTransactionVo.latestNav = float.Parse(dr["NAV"].ToString());
-                        mfTransactionVo.TrxnNo = (dr["CMFT_TransactionNumber"].ToString());
-                        mfTransactionVo.OrdDate = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
-                        mfTransactionVo.CreatedOn = DateTime.Parse(dr["CO_OrderDate"].ToString());                       
+                       // mfTransactionVo.TrxnNo = (dr["CMFT_TransactionNumber"].ToString());
+                        if (dr["CO_OrderDate"].ToString() != null && dr["CO_OrderDate"].ToString() != string.Empty)
+                        {
+                            mfTransactionVo.OrdDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
+                        }
+                        else
+                        {
+                            mfTransactionVo.OrdDate = DateTime.MinValue;
+                        }
+                        mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());                       
                         if (dr["CMFT_EUIN"].ToString() != null && dr["CMFT_EUIN"].ToString() != string.Empty)
                         {
                             mfTransactionVo.EUIN = dr["CMFT_EUIN"].ToString();

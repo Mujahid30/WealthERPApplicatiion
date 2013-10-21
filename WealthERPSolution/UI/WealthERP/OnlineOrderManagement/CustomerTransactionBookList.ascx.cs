@@ -222,7 +222,7 @@ namespace WealthERP.OnlineOrderManagement
                     dtMFTransactions.Columns.Add("DivFrequency");
                     dtMFTransactions.Columns.Add("Channel");
                     dtMFTransactions.Columns.Add("OrderNo");
-                    dtMFTransactions.Columns.Add("TransactionNumber");
+                    //dtMFTransactions.Columns.Add("TransactionNumber");
                     dtMFTransactions.Columns.Add("CO_OrderDate", typeof(DateTime));
                     
                     
@@ -268,7 +268,7 @@ namespace WealthERP.OnlineOrderManagement
                         drMFTransaction["Channel"] = mfTransactionVo.channel.ToString();                        
                         drMFTransaction["OrderNo"] = mfTransactionVo.orderNo;
                         drMFTransaction["CurrentNav"] = mfTransactionVo.latestNav;
-                        drMFTransaction["TransactionNumber"] = mfTransactionVo.TrxnNo.ToString();
+                        //drMFTransaction["TransactionNumber"] = mfTransactionVo.TrxnNo.ToString();
                         drMFTransaction["CO_OrderDate"] = DateTime.Parse(mfTransactionVo.OrdDate.ToString());
 
                         dtMFTransactions.Rows.Add(drMFTransaction);

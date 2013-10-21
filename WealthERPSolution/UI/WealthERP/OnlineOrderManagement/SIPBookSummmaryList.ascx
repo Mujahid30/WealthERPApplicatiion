@@ -119,8 +119,7 @@
                     AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="C_CustomerId,CO_OrderDate"
-                        Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <MasterTableView Width="102%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
@@ -234,25 +233,31 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>                        
                             <telerik:GridBoundColumn DataField="TotalInstallmentNumber" AllowFiltering="false"
-                                HeaderText="Total Installment No." UniqueName="TotalInstallmentNumber" SortExpression="TotalInstallmentNumber"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CMFSS_InstallmentPending" AllowFiltering="false"
-                                HeaderText="Pending Dues" UniqueName="CMFSS_InstallmentPending" SortExpression="CMFSS_InstallmentPending"
-                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
-                                AutoPostBackOnFilter="true">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CMFSS_InstallmentRejected" AllowFiltering="false"
-                                HeaderText="Miss Dues" UniqueName="CMFSS_InstallmentRejected" SortExpression="CMFSS_InstallmentRejected"
+                                HeaderText="Total Installment" UniqueName="TotalInstallmentNumber" SortExpression="TotalInstallmentNumber"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="CMFSS_InstallmentAccepted" AllowFiltering="false"
-                                HeaderText="Accepted Dues" UniqueName="CMFSS_InstallmentAccepteds" SortExpression="CMFSS_InstallmentAccepted"
+                                HeaderText="Accepted" UniqueName="CMFSS_InstallmentAccepteds" SortExpression="CMFSS_InstallmentAccepted"
+                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="CMFSS_InstallmentPending" AllowFiltering="false"
+                                HeaderText="Pending" UniqueName="CMFSS_InstallmentPending" SortExpression="CMFSS_InstallmentPending"
+                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="CMFSS_InstallmentRejected" AllowFiltering="false"
+                                HeaderText="Missed" UniqueName="CMFSS_InstallmentRejected" SortExpression="CMFSS_InstallmentRejected"
+                                ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="InstallmentRejected" AllowFiltering="false"
+                                HeaderText="Rejected" UniqueName="InstallmentRejected" SortExpression="InstallmentRejected"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />

@@ -143,8 +143,8 @@
                                     UniqueName="Customer Name" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
+                                <telerik:GridBoundColumn DataField="Transaction Date" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="Transaction Date" SortExpression="Transaction Date"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     HeaderStyle-Width="80px" FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
