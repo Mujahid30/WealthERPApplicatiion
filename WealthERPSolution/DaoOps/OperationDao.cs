@@ -23,7 +23,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getOrderStatusCmd = db.GetStoredProcCommand("SP_GetOrderStatus");
+                getOrderStatusCmd = db.GetStoredProcCommand("SPROC_GetOrderStatus");
                 dsOrderStatus = db.ExecuteDataSet(getOrderStatusCmd);
                
             }
@@ -751,6 +751,43 @@ namespace DaoOps
                 throw Ex;
             }
             return operationVo;
+        }
+
+        public bool Update_Onl_MFTransactionForSynch(int gvOrderId)
+        {
+            Database db;
+            DbCommand updateMFTransactionForSynchCmd;
+            bool status=false;
+            int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateMFTransactionForSynchCmd = db.GetStoredProcCommand("SP_Onl_UpdateMFTransactionForSync");
+                db.AddInParameter(updateMFTransactionForSynchCmd, "@orderDetId", DbType.Int32, gvOrderId);                
+                db.AddOutParameter(updateMFTransactionForSynchCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateMFTransactionForSynchCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateMFTransactionForSynchCmd, "@IsSuccess").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:Update_Onl_MFTransactionForSynch()");
+                object[] objects = new object[7];
+                objects[0] = gvOrderId;               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
         }
 
         public bool UpdateMFTransactionForSynch(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, out bool status, DateTime gvOrderDate)

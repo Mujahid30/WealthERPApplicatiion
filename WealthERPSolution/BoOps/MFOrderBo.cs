@@ -65,12 +65,12 @@ namespace BoOps
             return orderIds;
         }
 
-        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime FromDate, DateTime ToDate, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode , string customerId)
+        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime FromDate, DateTime ToDate, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline)
         {
             DataSet dsGetMFOrderMIS;
             try
             {
-                dsGetMFOrderMIS = mfOrderDao.GetCustomerMFOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode,customerId);
+                dsGetMFOrderMIS = mfOrderDao.GetCustomerMFOrderMIS(AdviserId, FromDate, ToDate, branchId, rmId, transactionType, status, orderType, amcCode, customerId, isOnline);
             }
             catch (BaseApplicationException Ex)
             {

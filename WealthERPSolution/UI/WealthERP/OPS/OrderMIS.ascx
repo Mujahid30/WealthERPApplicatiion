@@ -25,6 +25,7 @@
     };
 
 </script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
@@ -38,7 +39,10 @@
 </script>
 
 <style type="text/css">
-   .ajax__calendar_container { z-index : 1000 ; }
+    .ajax__calendar_container
+    {
+        z-index: 1000;
+    }
 </style>
 
 <script language="javascript" type="text/javascript">
@@ -80,10 +84,8 @@
         return false;
     };
 </script>--%>
-
-
 <table style="width: 100%;">
-<%-- <tr>
+    <%-- <tr>
         <td colspan="5">
             <div class="divPageHeading">
                 <table cellspacing="0" cellpadding="3" width="100%">
@@ -96,26 +98,27 @@
         </td>
     </tr>
 <tr>--%>
-<tr>
-     <td colspan="5">
+    <tr>
+        <td colspan="5">
             <div class="divPageHeading">
                 <table cellspacing="0" width="100%">
-                <tr>
-                    <td align="left">MF Order Recon</td>
-                    <td align="right" style="padding-bottom:2px;">
-                       <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
-                class="flip" />
-                <asp:ImageButton ID="btnMForderRecon" ImageUrl="~/Images/Export_Excel.png"
-                runat="server" AlternateText="Excel" ToolTip="Export To Excel" Visible="false"
-                OnClientClick="setFormat('excel')" Height="25px" Width="25px" 
-            onclick="btnMForderRecon_Click"></asp:ImageButton>
-                    </td>
-                </tr>
+                    <tr>
+                        <td align="left">
+                            MF Order Recon
+                        </td>
+                        <td align="right" style="padding-bottom: 2px;">
+                            <img src="../Images/helpImage.png" height="20px" width="25px" style="float: right;"
+                                class="flip" />
+                            <asp:ImageButton ID="btnMForderRecon" ImageUrl="~/Images/Export_Excel.png" runat="server"
+                                AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
+                                Height="25px" Width="25px" OnClick="btnMForderRecon_Click"></asp:ImageButton>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </td>
     </tr>
-<%--    <tr>
+    <%--    <tr>
         <td class="HeaderTextBig" colspan="2">
             <img src="../Images/helpImage.png" height="25px" width="25px" style="float: right;"
                 class="flip" />
@@ -133,7 +136,7 @@
             </div>
         </td>
     </tr>
-<%--    <tr>
+    <%--    <tr>
         <td class="style12" align="left">
             <asp:ImageButton ID="imgBtnExport" ImageUrl="~/Images/Export_Excel.png" runat="server"
                 AlternateText="Excel" ToolTip="Export To Excel" OnClick="imgBtnExport_Click"
@@ -168,25 +171,46 @@
         </td>
     </tr>--%>
 </table>
-
 <table width="80%" onkeypress="return keyPress(this, event)">
-<tr>
-        <td class="leftField">
+    <tr>
+        <td  align="right">
             <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Order Type:"></asp:Label>
         </td>
-        <td class="rightField">
+        <td  >
             <%--<asp:RadioButton runat="server" ID="rdoPickCustomer" Text="Pick Customer" AutoPostBack="true"
               Class="cmbField" GroupName="SelectCustomer" oncheckedchanged="rdoPickCustomer_CheckedChanged"/>--%>
             <asp:DropDownList ID="ddlProductType" Style="vertical-align: middle" runat="server"
                 CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged">
-                <asp:ListItem Value="Select" Text="Select" Selected="True"  ></asp:ListItem>
+                <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
                 <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
                 <asp:ListItem Value="IN" Text="Life Insurance" Enabled="false"></asp:ListItem>
-                  <asp:ListItem Value="FI" Text="FixedIncome" ></asp:ListItem>
+                <asp:ListItem Value="FI" Text="FixedIncome" Enabled="false"></asp:ListItem>
             </asp:DropDownList>
+           
         </td>
+        <td align="right">
+            <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Online/Offline:"></asp:Label>
+        </td>
+        <td>
+         <asp:DropDownList ID="ddlOnlineOffline" runat="server" CssClass="cmbField" AutoPostBack="true"
+                OnSelectedIndexChanged="ddlOnlineOffline_SelectedIndexChanged">
+                <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
+                <asp:ListItem Value="Online" Text="Online"></asp:ListItem>
+                <asp:ListItem Value="Offline" Text="Offline"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rvOnlineOffline" ControlToValidate="ddlOnlineOffline"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select Online/Offline Orders" Display="Dynamic"
+                runat="server" InitialValue="Select" ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
+        </td>
+        <td align="right">
+             
+        </td>
+        <td>
+             
+        </td>
+
     </tr>
-    <tr>
+    <tr id="trOrderDates" visible="false" runat="server">
         <td align="right" valign="top">
             <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>
         </td>
@@ -202,16 +226,15 @@
             <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFrom" CssClass="rfvPCG"
                 ErrorMessage="<br />Please select a  Date" Display="Dynamic" runat="server" InitialValue=""
                 ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-                
-            <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG"
-                ControlToValidate="txtFrom" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
-                Operator="DataTypeCheck" Type="Date">
+            <asp:CompareValidator ID="CompareValidator1" runat="server" CssClass="rfvPCG" ControlToValidate="txtFrom"
+                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit" Operator="DataTypeCheck"
+                Type="Date">
             </asp:CompareValidator>
         </td>
-        <td align="right" valign="top">
+        <td align="left" class="leftField">
             <asp:Label ID="lblTo" runat="server" Text="Order To Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td colspan="3">
+        <td colspan="2" class="rightField">
             <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox>
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtTo"
                 Format="dd/MM/yyyy">
@@ -222,48 +245,37 @@
             <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtTo" CssClass="rfvPCG"
                 ErrorMessage="<br />Please select a Date" Display="Dynamic" runat="server" InitialValue=""
                 ValidationGroup="MFSubmit"></asp:RequiredFieldValidator>
-              
             <%--<asp:RegularExpressionValidator ID="rev1" runat="server" CssClass="rfvPCG" ValidationExpression="[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]"
             ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit">
             </asp:RegularExpressionValidator>--%>
-            
-            <asp:CompareValidator ID="CompareValidator2" runat="server" CssClass="rfvPCG"
-            ControlToValidate="txtTo" Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit"
-            Operator="DataTypeCheck" Type="Date">
-            </asp:CompareValidator>  
-            
+            <asp:CompareValidator ID="CompareValidator2" runat="server" CssClass="rfvPCG" ControlToValidate="txtTo"
+                Display="Dynamic" ErrorMessage="Invalid Date" ValidationGroup="MFSubmit" Operator="DataTypeCheck"
+                Type="Date">
+            </asp:CompareValidator>
             <asp:CompareValidator ID="cvtodate" runat="server" ErrorMessage="<br/>To Date should not less than From Date"
-                Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual" 
+                Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="MFSubmit"></asp:CompareValidator>
         </td>
-       <%-- <td colspan="2">
-        </td>--%>
     </tr>
-     <tr id="trFITransType" runat="server" visible="false" >
-    <td class="leftField" style="width: 20%">
+    <tr id="trFITransType" runat="server" visible="false">
+        <td class="leftField" style="width: 20%">
             <asp:Label ID="Label2" runat="server" Text="Transaction type: " CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:DropDownList ID="ddlFITrxType" runat="server" CssClass="cmbLongField" AutoPostBack="true" Width="150px">
+            <asp:DropDownList ID="ddlFITrxType" runat="server" CssClass="cmbLongField" AutoPostBack="true"
+                Width="150px">
                 <%--OnSelectedIndexChanged="ddlTranstype_SelectedIndexChanged">--%>
-                 
-
-
-
                 <asp:ListItem Text="Select" Value="Select" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="New" Value="New"></asp:ListItem>
-                <asp:ListItem Text="Renewal"  Value="Renewal"></asp:ListItem>
+                <asp:ListItem Text="Renewal" Value="Renewal"></asp:ListItem>
             </asp:DropDownList>
-           
-
-
-<%--
+            <%--
   <span id="SpanddlTranstype" runat="server" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="CompareValidatorTranstype" runat="server" ControlToValidate="ddlTranstype"
                 CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select an Transaction Type"
                 Operator="NotEqual" ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator> --%>
         </td>
-        </tr>
+    </tr>
     <tr id="trMFTransType" runat="server" visible="false">
         <td align="right">
             <asp:Label ID="lblTransactionType" runat="server" Text="Transaction Type: " CssClass="FieldName"></asp:Label>
@@ -278,7 +290,7 @@
                 <asp:ListItem Text="SWP" Value="SWP"></asp:ListItem>
                 <asp:ListItem Text="STP" Value="STP"></asp:ListItem>
                 <asp:ListItem Text="Switch" Value="SWB"></asp:ListItem>
-                <asp:ListItem Text="Change Of Address Form" Value="CAF"></asp:ListItem>
+                <asp:ListItem Text="Change Of Address Form" Value="CAF" Enabled ="false" ></asp:ListItem>
             </asp:DropDownList>
             <%--        <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField">
         <asp:ListItem Text="New Purchase" Value="Select" Selected="true"></asp:ListItem>
@@ -313,13 +325,6 @@
                 OnSelectedIndexChanged="ddlBranch_SelectedIndexChanged">
             </asp:DropDownList>
         </td>
-        <%--<td align="right">
-<asp:Label ID="lblAssetType" runat="server" Text="Asset Type:"  CssClass="FieldName"></asp:Label>
-</td>
-<td>
-     <asp:DropDownList ID="ddlAssetType" runat="server" CssClass="cmbField">
-    </asp:DropDownList>
-</td>--%>
     </tr>
     <%--<tr>
   <td align="right">
@@ -365,12 +370,12 @@
  
   </td>
 </tr>--%>
-    <tr>
+    <tr id="trOrderStatus" visible="false" runat="server">
         <td align="right">
             <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-        <%--<asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISOrderStatus_SelectedIndexChanged">
+            <%--<asp:DropDownList ID="ddlMISOrderStatus" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlMISOrderStatus_SelectedIndexChanged">
                 <asp:ListItem Text="Open" Value="0" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Closed" Value="1"></asp:ListItem>
             </asp:DropDownList>--%>
@@ -381,7 +386,7 @@
             <asp:Label ID="lblOrderType" runat="server" Text="Order Type: " CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField" >
+            <asp:DropDownList ID="ddlOrderType" runat="server" CssClass="cmbField">
                 <asp:ListItem Text="Immediate" Value="1" Selected="true"></asp:ListItem>
                 <asp:ListItem Text="Future" Value="0"></asp:ListItem>
             </asp:DropDownList>
@@ -453,8 +458,8 @@
                         ValidationGroup="MFSubmit" ValueToCompare="Select"></asp:CompareValidator>
   </td>
 </tr>--%>
-<tr>
- <td class="leftField">
+    <tr id="trCustomerType" runat="server" visible="false">
+        <td class="leftField">
             <asp:Label ID="lblSelectTypeOfCustomer" runat="server" CssClass="FieldName" Text="Customer Type: "></asp:Label>
         </td>
         <td class="rightField">
@@ -467,13 +472,12 @@
                 <asp:ListItem Value="1" Text="Individual"></asp:ListItem>
             </asp:DropDownList>
         </td>
-     
-        <td class="leftField" >
+        <td class="leftField">
             <asp:Label ID="lblselectCustomer" runat="server" CssClass="FieldName" Text="Search Customer: "></asp:Label>
         </td>
-       <td align="left" onkeypress="return keyPress(this, event)">
-            <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off" Enabled="false"
-                AutoPostBack="True">  </asp:TextBox>
+        <td align="left" onkeypress="return keyPress(this, event)">
+            <asp:TextBox ID="txtIndividualCustomer" runat="server" CssClass="txtField" AutoComplete="Off"
+                Enabled="false" AutoPostBack="True">  </asp:TextBox>
             <cc1:TextBoxWatermarkExtender ID="txtIndividualCustomer_water" TargetControlID="txtIndividualCustomer"
                 WatermarkText="Enter few chars of Customer" runat="server" EnableViewState="false">
             </cc1:TextBoxWatermarkExtender>
@@ -489,11 +493,11 @@
                 runat="server" ValidationGroup="CustomerValidation">
             </asp:RequiredFieldValidator>
         </td>
-</tr>
+    </tr>
     <tr>
         <td colspan="2" align="left">
             <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="MFSubmit"
-                OnClick="btnGo_Click" />
+                Visible="false" OnClick="btnGo_Click" />
         </td>
         <td colspan="2">
             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -502,7 +506,6 @@
         </td>
     </tr>
 </table>
-
 <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server"
     visible="false">
     <tr>
@@ -652,15 +655,16 @@
                     <SelectedRowStyle CssClass="SelectedRowStyle" />
                 </asp:GridView>--%>
                 <div id="dvOrderMIS" runat="server" style="width: 640px;">
-                <telerik:RadGrid ID="gvCustomerOrderMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" 
-                    OnItemDataBound="gvCustomerOrderMIS_ItemDataBound" OnNeedDataSource="gvCustomerOrderMIS_OnNeedDataSource"
-                    ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="MF Order Recon" > 
-                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MF Order Recon" Excel-Format="ExcelML">
-                    </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch" 
-                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <telerik:RadGrid ID="gvCustomerOrderMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnItemDataBound="gvCustomerOrderMIS_ItemDataBound"
+                        OnNeedDataSource="gvCustomerOrderMIS_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
+                        EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
+                        ExportSettings-FileName="MF Order Recon">
+                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                            filename="MF Order Recon" excel-format="ExcelML">
+                    </exportsettings>
+                        <mastertableview datakeynames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch"
+                            width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None">
                         <Columns>
                         
                         <telerik:GridTemplateColumn HeaderText="Select">
@@ -707,9 +711,9 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         
-                        <telerik:GridBoundColumn DataField="XS_Status" HeaderText="Status"
-                                SortExpression="XS_Status" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
-                                AutoPostBackOnFilter="true" UniqueName="XS_Status" FooterStyle-HorizontalAlign="Left">
+                        <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="Status"
+                                SortExpression="WOS_OrderStep" ShowFilterIcon="false" CurrentFilterFunction="Contains" 
+                                AutoPostBackOnFilter="true" UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                        
@@ -809,28 +813,28 @@
                         </telerik:GridBoundColumn>
                                                 
                         </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
+                    </mastertableview>
+                        <clientsettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
-                </telerik:RadGrid></div>
+                    </clientsettings>
+                    </telerik:RadGrid></div>
             </td>
             <td>
                 &nbsp;&nbsp;
             </td>
         </tr>
         <tr>
-        <td>
-         <div id="dvFIOrderMIS" runat="server" style="width: 640px;">
-                <telerik:RadGrid ID="gvCustomerFIOrderMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
-                    PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" 
-                     
-                    ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
-                    AllowAutomaticInserts="false" ExportSettings-FileName="MF Order Recon" > 
-                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true" FileName="MF Order Recon" Excel-Format="ExcelML">
-                    </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,CFIOD_DetailsId,C_CustomerId,CO_OrderDate,PAIC_AssetInstrumentCategoryCode" 
-                        Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+            <td>
+                <div id="dvFIOrderMIS" runat="server" style="width: 640px;" visible="false">
+                    <telerik:RadGrid ID="gvCustomerFIOrderMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
+                        AllowAutomaticInserts="false" ExportSettings-FileName="MF Order Recon">
+                        <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                            filename="MF Order Recon" excel-format="ExcelML">
+                    </exportsettings>
+                        <mastertableview datakeynames="CO_OrderId,CFIOD_DetailsId,C_CustomerId,CO_OrderDate,PAIC_AssetInstrumentCategoryCode"
+                            width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None">
                         <Columns>
                         
                         <telerik:GridTemplateColumn HeaderText="Select">
@@ -994,12 +998,12 @@
                         </telerik:GridBoundColumn>--%>
                                                 
                         </Columns>
-                    </MasterTableView>
-                    <ClientSettings>
+                    </mastertableview>
+                        <clientsettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                    </ClientSettings>
-                </telerik:RadGrid></div>
-          </td>
+                    </clientsettings>
+                    </telerik:RadGrid></div>
+            </td>
         </tr>
         <tr>
             <td>
@@ -1013,7 +1017,6 @@
         </tr>
     </table>
 </asp:Panel>
-
 <table width="50%">
     <tr>
         <%--    <td> 
@@ -1040,6 +1043,5 @@
 <asp:HiddenField ID="hdnDownloadPageType" runat="server" Visible="true" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
- <asp:HiddenField ID="hdnCustomerId" runat="server" 
-    onvaluechanged="hdnCustomerId_ValueChanged" />
+<asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnProductType" runat="server" />

@@ -161,7 +161,7 @@ namespace BoOps
             DataSet dsMannualMatch;
             try
             {
-                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId,schemeSwitch);
+                dsMannualMatch = operationDao.GetOrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
             }
             catch (BaseApplicationException Ex)
             {
@@ -218,7 +218,7 @@ namespace BoOps
             DataSet dsProductAMC;
             try
             {
-                dsProductAMC = operationDao.GetAMCForOrderEntry(flag,customerId);
+                dsProductAMC = operationDao.GetAMCForOrderEntry(flag, customerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -241,7 +241,7 @@ namespace BoOps
         }
 
         public DataSet GetSchemeForOrderEntry(int amcCode, string categoryCode, int Sflag, int customerId)
-         {
+        {
             DataSet dsScheme;
             try
             {
@@ -270,7 +270,7 @@ namespace BoOps
         }
 
 
-        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId,int IsaNo, string prefixText)
+        public DataSet GetFolioForOrderEntry(int SchemeCode, int amcCode, int Fflag, int customerId, int IsaNo, string prefixText)
         {
             DataSet dsfolio;
             try
@@ -406,6 +406,32 @@ namespace BoOps
             return operationVo;
         }
 
+        public bool Update_Onl_MFTransactionForSynch(int gvOrderId)
+        {
+            bool Result = false;
+            try
+            {
+                Result = operationDao.Update_Onl_MFTransactionForSynch(gvOrderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:UpdateMFTransaction()");
+                object[] objects = new object[7];
+                objects[0] = gvOrderId;                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return Result;
+        }
+
         public bool UpdateMFTransaction(int gvOrderId, int gvSchemeCode, int gvaccountId, string gvTrxType, int gvPortfolioId, double gvAmount, DateTime gvOrderDate)
         {
             bool Result = false;
@@ -457,7 +483,7 @@ namespace BoOps
             bool Result = false;
             try
             {
-                Result = operationDao.OrderMannualMatch(OrderId,transId, SchemeCode, amount, out Result, TrxType);
+                Result = operationDao.OrderMannualMatch(OrderId, transId, SchemeCode, amount, out Result, TrxType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -474,7 +500,7 @@ namespace BoOps
                 objects[2] = SchemeCode;
                 objects[3] = amount;
                 objects[4] = TrxType;
-                
+
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -513,7 +539,7 @@ namespace BoOps
             return dtPdfForms;
         }
 
-        public DataSet GetCustomerApprovalList(int customerId,int status)
+        public DataSet GetCustomerApprovalList(int customerId, int status)
         {
             DataSet dsCustomerApprovallist = new DataSet();
             try
@@ -532,7 +558,7 @@ namespace BoOps
             bool Result = false;
             try
             {
-                Result = operationDao.UpdateCustomerApprovalList(gvOrderId,out Result);
+                Result = operationDao.UpdateCustomerApprovalList(gvOrderId, out Result);
             }
             catch (BaseApplicationException Ex)
             {
