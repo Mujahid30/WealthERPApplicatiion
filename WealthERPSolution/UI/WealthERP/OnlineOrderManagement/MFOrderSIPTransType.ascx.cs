@@ -19,6 +19,7 @@ using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using DaoReports;
 using VoCustomerPortfolio;
+using BoCustomerPortfolio;
 
 
 namespace WealthERP.OnlineOrderManagement
@@ -30,6 +31,7 @@ namespace WealthERP.OnlineOrderManagement
         int CustomerId;
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
+        PortfolioBo portfolioBo = new PortfolioBo();
 
         DataSet dsCustomerAssociates;
         DataTable dtCustomerAssociatesRaw;
@@ -62,7 +64,11 @@ namespace WealthERP.OnlineOrderManagement
             adviserVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
-
+            if(custPortVo==null)
+            {
+             custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
+            
+            }
 
 
             divValidationError.Visible = false;

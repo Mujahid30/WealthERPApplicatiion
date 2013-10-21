@@ -122,6 +122,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void AmcBind()
         {
+            ddlAmc.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
             ds = onlineMforderBo.GetRedeemAmcDetails(customerVo.CustomerId);
@@ -213,9 +214,12 @@ namespace WealthERP.OnlineOrderManagement
 
             dsNav = commonLookupBo.GetLatestNav(scheme);
             
-                dsNav = commonLookupBo.GetLatestNav(scheme);
-            string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+               
+                if (dsNav.Tables[0].Rows.Count > 0)
+                {
+                    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                }
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -260,6 +264,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void CategoryBind()
         {
+            ddlCategory.Items.Clear();
             DataSet dsCategory = new DataSet();
             dsCategory = commonLookupBo.GetAllCategoryList();
 
@@ -275,6 +280,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void SchemeBind(int amccode, string category, int customerid)
         {
+            ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
             dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid);
             if (dtScheme.Rows.Count > 0)

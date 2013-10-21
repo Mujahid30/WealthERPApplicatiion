@@ -65,7 +65,7 @@
                 <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
                     OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
                 </asp:DropDownList>
                 <span id="Span2" class="spnRequiredField">*</span>

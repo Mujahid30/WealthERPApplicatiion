@@ -59,6 +59,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void AmcBind()
         {
+            ddlAmc.Items.Clear();
             DataTable dtAmc = new DataTable();
             dtAmc = commonLookupBo.GetProdAmc();
             if (dtAmc.Rows.Count > 0)
@@ -92,7 +93,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlScheme.SelectedIndex != -1)
             {
-                //ResetControlDetails(sender, e);
+                
                 GetControlDetails(int.Parse(ddlScheme.SelectedValue), null);
                 SetControlDetails();
             }
@@ -154,8 +155,11 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
                 DataSet dsNav = commonLookupBo.GetLatestNav(int.Parse(ddlScheme.SelectedValue));
-                string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                if (dsNav.Tables[0].Rows.Count > 0)
+                {
+                    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+                }
             }
 
         }
@@ -247,6 +251,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void CategoryBind()
         {
+            ddlCategory.Items.Clear();
             DataSet dsCategory = new DataSet();
             dsCategory = commonLookupBo.GetAllCategoryList();
 
@@ -262,6 +267,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void SchemeBind(int amccode, string category)
         {
+            ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
             dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, 0);
             if (dtScheme.Rows.Count > 0)

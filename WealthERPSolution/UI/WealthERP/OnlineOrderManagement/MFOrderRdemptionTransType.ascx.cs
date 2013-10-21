@@ -74,6 +74,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void AmcBind()
         {
+            ddlAmc.Items.Clear();
             DataSet ds = new DataSet();
             DataTable dtAmc = new DataTable();
             ds = onlineMforderBo.GetRedeemAmcDetails(customerVo.CustomerId);
@@ -153,7 +154,7 @@ namespace WealthERP.OnlineOrderManagement
             if (dscurrent.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = dscurrent.Tables[1];
-                if (dscurrent.Tables[2].Rows.Count > 0)
+                if (dscurrent.Tables[2].Rows.Count > 0 && dscurrent.Tables[2].Rows[1][0]!=null)
                 {
                     DataTable dtvaluated = dscurrent.Tables[2];
 
@@ -229,11 +230,15 @@ namespace WealthERP.OnlineOrderManagement
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
-            string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-            lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+            if (dsNav.Tables[0].Rows.Count > 0)
+            {
+                string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+            }
             CalculateCurrentholding(ds, out finalunits, out finalamt);
             lblUnitsheldDisplay.Text = finalunits.ToString();
             lblCurrentValueDisplay.Text = finalamt.ToString();
+
         }
         protected void BindAmcForDrillDown()
         {
@@ -297,6 +302,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void CategoryBind()
         {
+            ddlCategory.Items.Clear();
             DataSet dsCategory = new DataSet();
             dsCategory = commonLookupBo.GetAllCategoryList();
 
@@ -312,6 +318,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void SchemeBind(int amccode, string category, int customerid)
         {
+            ddlScheme.Items.Clear();
             DataTable dtScheme = new DataTable();
             dtScheme = commonLookupBo.GetAmcSchemeList(amccode, category, customerid);
             if (dtScheme.Rows.Count > 0)

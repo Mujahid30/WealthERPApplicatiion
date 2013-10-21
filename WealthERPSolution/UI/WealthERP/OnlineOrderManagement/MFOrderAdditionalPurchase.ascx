@@ -86,12 +86,12 @@
                 <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
                     OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
                 </asp:DropDownList>
                 <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
-                    CssClass="rfvPCG" ControlToValidate="ddlScheme" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                  InitialValue=0  CssClass="rfvPCG" ControlToValidate="ddlScheme" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
             <td colspan="2">
             </td>
