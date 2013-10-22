@@ -180,13 +180,13 @@
         margin: 5px 0;
         list-style: none;
         float: left;
-        padding-left:0px;
+        padding-left:4px;
     }
     ul li
     {
         float: left;
         display: inline; /*For ignore double margin in IE6*/
-        margin: 0 10px;
+        margin: 0 6px;
         background: url('Images/product-menu-fixed.png') no-repeat top right;
     }
     ul li a
@@ -251,18 +251,18 @@
             </div>
             <div class="prduct-main-menu" id="divMFMenu" runat="server">
                 <ul class="blue">
-                    <li><a href="#" title="TRANSACT">
+                    <li>
                         <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
-                            Style="text-decoration: none" OnClick="lnkMFOrderMenuTransact_Click"></asp:LinkButton>
-                    </a></li>
-                    <li><a href="#" title="BOOKS">
+                            Style="text-decoration: none" OnClick="lnkMFOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                    <li>
                         <asp:LinkButton ID="lnkMFOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
-                            Style="text-decoration: none" OnClick="lnkMFOrderMenuBooks_Click"></asp:LinkButton>
-                    </a></li>
-                    <li><a href="#" title="HOLDINGS">
+                            Style="text-decoration: none" OnClick="lnkMFOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                    <li>
                         <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
-                            Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click"></asp:LinkButton>
-                    </a></li>
+                            Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
+                    </li>
                 </ul>
             </div>
             <div class="top-menu-frame">
