@@ -139,6 +139,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
+                PurchaseOrderControlsEnable(false);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('No existing Investment found');", true); return;
             }
         }
