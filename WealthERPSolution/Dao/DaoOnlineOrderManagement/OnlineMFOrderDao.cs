@@ -406,7 +406,7 @@ namespace DaoOnlineOrderManagement
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, string OrderStatus ,DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode,DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -414,16 +414,16 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPSummaryBook");
+                GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_ONL_GetSIPSummaryBookDet");
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 if (AmcCode != 0)
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);
-                if (OrderStatus != "0")
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, OrderStatus);
-                else
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
+                //if (OrderStatus != "0")
+                //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, OrderStatus);
+                //else
+                //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);

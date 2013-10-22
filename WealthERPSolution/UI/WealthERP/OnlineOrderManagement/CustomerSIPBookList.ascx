@@ -127,12 +127,12 @@
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
                          <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
+                                AllowFiltering="true" HeaderText="Order Date/Time" UniqueName="CO_OrderDate" SortExpression="CO_OrderDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Transaction No."
+                            <telerik:GridBoundColumn DataField="CO_OrderId" AllowFiltering="true" HeaderText="Transaction No./Order No."
                                 UniqueName="CO_OrderId" SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -195,7 +195,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CMFT_TransactionDate" DataFormatString="{0:dd/MM/yyyy}"
-                                AllowFiltering="false" HeaderText="Date" UniqueName="CMFT_TransactionDate" SortExpression="CMFT_TransactionDate"
+                                AllowFiltering="false" HeaderText="Transaction Date" UniqueName="CMFT_TransactionDate" SortExpression="CMFT_TransactionDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -208,7 +208,7 @@
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn> 
                              <telerik:GridBoundColumn DataField="IntallmentNo" AllowFiltering="false"
-                                HeaderText="Number of Installment" UniqueName="IntallmentNo" SortExpression="IntallmentNo"
+                                HeaderText="Installment Number" UniqueName="IntallmentNo" SortExpression="IntallmentNo"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -238,19 +238,19 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="XF_SystematicFrequencyCode" HeaderText="Frequency" AllowFiltering="false"
+                             <telerik:GridBoundColumn Visible="false" DataField="XF_SystematicFrequencyCode" HeaderText="Frequency" AllowFiltering="false"
                                 HeaderStyle-Wrap="false" SortExpression="XF_SystematicFrequencyCode" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 UniqueName="XF_SystematicFrequencyCode" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CMFSS_StartDate" DataFormatString="{0:dd/MM/yyyy}"
+                            <telerik:GridBoundColumn Visible="false" DataField="CMFSS_StartDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="false" HeaderText="Start Date" UniqueName="CMFSS_StartDate" SortExpression="CMFSS_StartDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CMFSS_EndDate" DataFormatString="{0:dd/MM/yyyy}"
+                             <telerik:GridBoundColumn Visible="false" DataField="CMFSS_EndDate" DataFormatString="{0:dd/MM/yyyy}"
                                 AllowFiltering="false" HeaderText="End Date" UniqueName="CMFSS_EndDate" SortExpression="CMFSS_EndDate"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="80px" FilterControlWidth="60px">
@@ -263,7 +263,7 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>                            
                             <telerik:GridBoundColumn Visible="false" DataField="TotalInstallmentNumber" AllowFiltering="false"
-                                HeaderText="Total Installment No." UniqueName="TotalInstallmentNumber" SortExpression="TotalInstallmentNumber"
+                                HeaderText="Installment No." UniqueName="TotalInstallmentNumber" SortExpression="TotalInstallmentNumber"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
