@@ -154,15 +154,18 @@ namespace WealthERP.OnlineOrderManagement
             if (dscurrent.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = dscurrent.Tables[1];
-                if (dscurrent.Tables[2].Rows.Count > 0 && dscurrent.Tables[2].Rows[1][0]!=null)
+                if (dscurrent.Tables[2].Rows.Count > 0 && (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[0][0].ToString()) || dscurrent.Tables[2].Rows.Count == 2))
+                    
                 {
+                    
                     DataTable dtvaluated = dscurrent.Tables[2];
-
+                    
                     if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][0]).ToString()))
                     {
                         holdingUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
                     }
                     else holdingUnits = 0.0;
+                    
                     if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][0].ToString()))
                     {
                         ValuatedUnits = double.Parse(dscurrent.Tables[2].Rows[1][0].ToString());
