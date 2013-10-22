@@ -358,9 +358,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Order Book" Value="SIPBook">                                                     
+                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">                                                     
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Summary Book" Value="SIPSumBook">
+                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

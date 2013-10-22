@@ -29,7 +29,7 @@ namespace WealthERP.OnlineOrderManagement
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
         string userType;
-        int customerId = 0;       
+        int customerId = 0;
         DateTime fromDate;
         DateTime toDate;
         protected void Page_Load(object sender, EventArgs e)
@@ -101,20 +101,20 @@ namespace WealthERP.OnlineOrderManagement
         /// Get Folio Account for Customer
         /// </summary>
         private void BindFolioAccount()
-      {
-        //    ddlAccount.Items.Clear();
-        //    DataSet dsFolioAccount;
-        //    DataTable dtFolioAccount;
-        //    dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
-        //    dtFolioAccount = dsFolioAccount.Tables[0];
-        //    if (dtFolioAccount.Rows.Count > 0)
-        //    {
-        //        ddlAccount.DataSource = dsFolioAccount.Tables[0];
-        //        ddlAccount.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
-        //        ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
-        //        ddlAccount.DataBind();
-        //    }
-        //    ddlAccount.Items.Insert(0, new ListItem("All", "0"));
+        {
+            //    ddlAccount.Items.Clear();
+            //    DataSet dsFolioAccount;
+            //    DataTable dtFolioAccount;
+            //    dsFolioAccount = OnlineMFOrderBo.GetFolioAccount(customerId);
+            //    dtFolioAccount = dsFolioAccount.Tables[0];
+            //    if (dtFolioAccount.Rows.Count > 0)
+            //    {
+            //        ddlAccount.DataSource = dsFolioAccount.Tables[0];
+            //        ddlAccount.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
+            //        ddlAccount.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
+            //        ddlAccount.DataBind();
+            //    }
+            //    ddlAccount.Items.Insert(0, new ListItem("All", "0"));
         }
         /// <summary>
         /// Get Order Book MIS
@@ -127,7 +127,7 @@ namespace WealthERP.OnlineOrderManagement
                 fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
             if (txtTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
-            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId,int.Parse(hdnAmc.Value),fromDate, toDate);
+            dsSIPBookMIS = OnlineMFOrderBo.GetSIPSummaryBookMIS(customerId, int.Parse(hdnAmc.Value), fromDate, toDate);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             dtSIPBookMIS = createSIPOrderBook(dsSIPBookMIS);
             if (dtSIPBookMIS.Rows.Count > 0)
@@ -153,7 +153,7 @@ namespace WealthERP.OnlineOrderManagement
             else
             {
                 gvSIPSummaryBookMIS.DataSource = dtSIPBookMIS;
-                gvSIPSummaryBookMIS.DataBind();               
+                gvSIPSummaryBookMIS.DataBind();
                 pnlSIPSumBook.Visible = true;
                 trNoRecords.Visible = true;
                 divNoRecords.Visible = true;
@@ -163,49 +163,49 @@ namespace WealthERP.OnlineOrderManagement
 
         protected DataTable createSIPOrderBook(DataSet dsSIPOrderDetails)
         {
-            DataTable dtFinalSIPOrderBook= new DataTable();
-            dtFinalSIPOrderBook=CreateSIPBookDataTable();
-            DataTable dtSIPDetails=dsSIPOrderDetails.Tables[0];
-            DataTable dtOrderDetails=dsSIPOrderDetails.Tables[1];
+            DataTable dtFinalSIPOrderBook = new DataTable();
+            dtFinalSIPOrderBook = CreateSIPBookDataTable();
+            DataTable dtSIPDetails = dsSIPOrderDetails.Tables[0];
+            DataTable dtOrderDetails = dsSIPOrderDetails.Tables[1];
             DataView dvSIPOrderDetails;
             DataRow drSIPOrderBook;
-        
-            foreach(DataRow drSIP in dtSIPDetails.Rows)
+
+            foreach (DataRow drSIP in dtSIPDetails.Rows)
             {
-               drSIPOrderBook=dtFinalSIPOrderBook.NewRow();
-                
-               int sipDueCount=0,inProcessCount=0,acceptCount=0,systemRejectCount=0,rejectedCount=0;
-               
-               dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
+                drSIPOrderBook = dtFinalSIPOrderBook.NewRow();
 
-               sipDueCount=(Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString())-dvSIPOrderDetails.ToTable().Rows.Count);
+                int sipDueCount = 0, inProcessCount = 0, acceptCount = 0, systemRejectCount = 0, rejectedCount = 0;
 
-               foreach(DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
-               {
-                   switch (drOrder["WOS_OrderStepCode"].ToString().TrimEnd())
-                        {
-                            case "AL":
-                                inProcessCount=inProcessCount+1;
-                                break;
-                            case "IP":                               
-                                inProcessCount=inProcessCount+1;
-                                break;
-                            case "RJ":
-                                rejectedCount=rejectedCount+1;
-                                break;
-                           case "PR":
-                                acceptCount=acceptCount+1;
-                                break;
-                           case "SJ":
-                                systemRejectCount=systemRejectCount +1;
-                                break;
-                            default:                               
-                                break;
-                        }
-               }
+                dvSIPOrderDetails = new DataView(dtOrderDetails, "CMFSS_SystematicSetupId=" + drSIP["CMFSS_SystematicSetupId"].ToString(), "CMFSS_SystematicSetupId", DataViewRowState.CurrentRows);
+
+                sipDueCount = (Convert.ToInt16(drSIP["CMFSS_TotalInstallment"].ToString()) - dvSIPOrderDetails.ToTable().Rows.Count);
+
+                foreach (DataRow drOrder in dvSIPOrderDetails.ToTable().Rows)
+                {
+                    switch (drOrder["WOS_OrderStepCode"].ToString().TrimEnd())
+                    {
+                        case "AL":
+                            inProcessCount = inProcessCount + 1;
+                            break;
+                        case "IP":
+                            inProcessCount = inProcessCount + 1;
+                            break;
+                        case "RJ":
+                            rejectedCount = rejectedCount + 1;
+                            break;
+                        case "PR":
+                            acceptCount = acceptCount + 1;
+                            break;
+                        case "SJ":
+                            systemRejectCount = systemRejectCount + 1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
 
-                drSIPOrderBook["CMFSS_CreatedOn"]=DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
+                drSIPOrderBook["CMFSS_CreatedOn"] = DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
                 drSIPOrderBook["CMFSS_SystematicSetupId"] = drSIP["CMFSS_SystematicSetupId"];
                 drSIPOrderBook["PA_AMCName"] = drSIP["PA_AMCName"].ToString();
                 drSIPOrderBook["PASP_SchemePlanName"] = drSIP["PASP_SchemePlanName"].ToString();
@@ -215,38 +215,38 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["XF_Frequency"] = drSIP["XF_Frequency"];
                 drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
                 drSIPOrderBook["CMFSS_EndDate"] = DateTime.Parse(drSIP["CMFSS_EndDate"].ToString());
-                drSIPOrderBook["CMFSS_NextSIPDueDate"] =DateTime.Parse (drSIP["CMFSS_NextSIPDueDate"].ToString());
+                drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.Parse(drSIP["CMFSS_NextSIPDueDate"].ToString());
                 drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
                 drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
                 drSIPOrderBook["Channel"] = drSIP["Channel"];
-              
-                drSIPOrderBook["SIPDueCount"]=sipDueCount;
-                drSIPOrderBook["InProcessCount"]=inProcessCount;
-                drSIPOrderBook["AcceptCount"]=acceptCount;
-                drSIPOrderBook["SystemRejectCount"]=systemRejectCount;
-                drSIPOrderBook["RejectedCount"]=rejectedCount;
+
+                drSIPOrderBook["SIPDueCount"] = sipDueCount;
+                drSIPOrderBook["InProcessCount"] = inProcessCount;
+                drSIPOrderBook["AcceptCount"] = acceptCount;
+                drSIPOrderBook["SystemRejectCount"] = systemRejectCount;
+                drSIPOrderBook["RejectedCount"] = rejectedCount;
 
                 dtFinalSIPOrderBook.Rows.Add(drSIPOrderBook);
             }
 
             return dtFinalSIPOrderBook;
-        
+
         }
 
         protected DataTable CreateSIPBookDataTable()
         {
-            DataTable dtSIPOrderBook= new DataTable();
-            dtSIPOrderBook.Columns.Add("CMFSS_CreatedOn");
+            DataTable dtSIPOrderBook = new DataTable();
+            dtSIPOrderBook.Columns.Add("CMFSS_CreatedOn", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_SystematicSetupId");
             dtSIPOrderBook.Columns.Add("PA_AMCName");
             dtSIPOrderBook.Columns.Add("PASP_SchemePlanName");
             dtSIPOrderBook.Columns.Add("PAISC_AssetInstrumentSubCategoryName");
             dtSIPOrderBook.Columns.Add("CMFSS_DividendOption");
-            dtSIPOrderBook.Columns.Add("CMFSS_Amount",typeof(double));
+            dtSIPOrderBook.Columns.Add("CMFSS_Amount", typeof(double));
             dtSIPOrderBook.Columns.Add("XF_Frequency");
-            dtSIPOrderBook.Columns.Add("CMFSS_StartDate");
-            dtSIPOrderBook.Columns.Add("CMFSS_EndDate");
-            dtSIPOrderBook.Columns.Add("CMFSS_NextSIPDueDate");
+            dtSIPOrderBook.Columns.Add("CMFSS_StartDate", typeof(DateTime));
+            dtSIPOrderBook.Columns.Add("CMFSS_EndDate", typeof(DateTime));
+            dtSIPOrderBook.Columns.Add("CMFSS_NextSIPDueDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_TotalInstallment");
             dtSIPOrderBook.Columns.Add("CMFA_FolioNum");
             dtSIPOrderBook.Columns.Add("Channel");
@@ -260,7 +260,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        
+
 
         private void SetParameter()
         {
@@ -299,7 +299,7 @@ namespace WealthERP.OnlineOrderManagement
             //    {
             //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','strAction=" + ddlAction.SelectedItem.Value.ToString() + "&orderId=" + orderId + "&customerId=" + customerId + "');", true);
             //    }
-         }
+        }
         protected void gvSIPSummaryBookMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             gvSIPSummaryBookMIS.Visible = true;
@@ -322,7 +322,31 @@ namespace WealthERP.OnlineOrderManagement
             gvSIPSummaryBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvSIPSummaryBookMIS.MasterTableView.ExportToExcel();
         }
+        protected void gvSIPSummaryBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+
+            if (e.CommandName.ToString() != "Filter")
+            {
+                if (e.CommandName.ToString() != "Sort")
+                {
+                    if (e.CommandName.ToString() != "Page")
+                    {
+                        if (e.CommandName.ToString() != "ChangePageSize")
+                        {
+                            GridDataItem gvr = (GridDataItem)e.Item;
+                            int selectedRow = gvr.ItemIndex + 1;
+                            int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());                           
+                            if (e.CommandName == "Select")
+                            {
+                                Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId +"", false);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
+
 }
 
 

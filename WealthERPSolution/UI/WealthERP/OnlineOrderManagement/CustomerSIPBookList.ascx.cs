@@ -30,7 +30,8 @@ namespace WealthERP.OnlineOrderManagement
         string userType;
         int customerId = 0;       
         DateTime fromDate;
-        DateTime toDate;       
+        DateTime toDate;
+        int systematicId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -40,6 +41,7 @@ namespace WealthERP.OnlineOrderManagement
             customerId = customerVO.CustomerId;
             BindAmc();
             BindOrderStatus();
+            BindLink();
             if (!Page.IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -49,11 +51,27 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
-
+        protected void BindLink()
+        {
+            if (Request.QueryString["systematicId"] != null)
+            {
+                int systematicId = int.Parse(Request.QueryString["systematicId"].ToString());
+                ViewState["systematicId"] = int.Parse(systematicId.ToString());
+                string fromdate = "01-01-1990";
+                txtFrom.SelectedDate = DateTime.Parse(fromdate);                
+                hdnAmc.Value = "0";
+                BindSIPBook(DateTime.Parse(fromdate), DateTime.Now);
+            }
+        }
+              
         protected void btnViewOrder_Click(object sender, EventArgs e)
         {
             SetParameter();
-            BindSIPBook();
+            if (txtFrom.SelectedDate != null)
+                fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+            if (txtTo.SelectedDate != null)
+                toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+            BindSIPBook(fromDate, toDate);
         }
 
         /// <summary>
@@ -120,15 +138,16 @@ namespace WealthERP.OnlineOrderManagement
         /// <summary>
         /// Get Order Book MIS
         /// </summary>
-        protected void BindSIPBook()
+        protected void BindSIPBook(DateTime fromDate,DateTime toDate)
         {
             DataSet dsSIPBookMIS = new DataSet();
             DataTable dtSIPBookMIS = new DataTable();
-            if (txtFrom.SelectedDate != null)
-                fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
-            if (txtTo.SelectedDate != null)
-                toDate = DateTime.Parse(txtTo.SelectedDate.ToString());           
-            dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value),hdnOrderStatus.Value, fromDate, toDate);
+            //if (txtFrom.SelectedDate != null)
+            //    fromDate = DateTime.Parse(txtFrom.SelectedDate.ToString());
+            //if (txtTo.SelectedDate != null)
+            //    toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
+            systematicId = Convert.ToInt32(ViewState["systematicId"]);
+            dsSIPBookMIS = OnlineMFOrderBo.GetSIPBookMIS(customerId, int.Parse(hdnAmc.Value),hdnOrderStatus.Value,systematicId, fromDate, toDate);
             dtSIPBookMIS = dsSIPBookMIS.Tables[0];
             if (dtSIPBookMIS.Rows.Count > 0)
             {

@@ -229,7 +229,7 @@ namespace DaoOnlineOrderManagement
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus,int systematicId,DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -247,6 +247,10 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, OrderStatus);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, DBNull.Value);
+                if (systematicId != 0)
+                    db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, systematicId);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
