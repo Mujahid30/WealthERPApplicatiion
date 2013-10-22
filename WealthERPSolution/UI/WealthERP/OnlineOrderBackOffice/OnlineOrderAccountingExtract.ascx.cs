@@ -37,7 +37,7 @@ namespace WealthERP.OnlineOrderBackOffice
             // Get the Extract Path in solution
             //ExtractPath = ConfigurationManager.AppSettings["ExtractPath"].ToString();
 
-            ExtractPath =Server.MapPath("UploadFiles");
+            ExtractPath = Server.MapPath("UploadFiles");
 
             BindddlExtractType();
         }
@@ -53,14 +53,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //if (!Directory.Exists(ExtractPath))
             //{
             //    Directory.CreateDirectory(ExtractPath);
-                File.WriteAllText(Path.Combine(ExtractPath, "ExtractDetails.txt"), ", System.Text.Encoding.Default");
+            File.WriteAllText(Path.Combine(ExtractPath, "ExtractDetails.txt"), ", System.Text.Encoding.Default");
             //}
         }
 
         protected void GetExtractTypeDataForFileCreation()
         {
             orderDate = Convert.ToDateTime(txtExtractDate.Text);
-            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId);
+            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId,Convert.ToInt32(ddlExtractType.SelectedValue));
             CreateDataTableForExtract();
         }
 
@@ -150,17 +150,15 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             dtTableForExtract = new DataTable();
 
-            if (ddlExtractType.SelectedValue == "39")
+            if (ddlSaveAs.SelectedValue == "2")
             {
-                if (ddlSaveAs.SelectedValue == "2")
-                {
-                    CreateDBFFile(Convert.ToInt32(ddlExtractType.SelectedValue));
-                }
-                else if (ddlSaveAs.SelectedValue == "1")
-                {
-                    CreateTextFile(Convert.ToInt32(ddlExtractType.SelectedValue));
-                }
+                CreateDBFFile(Convert.ToInt32(ddlExtractType.SelectedValue));
             }
+            else if (ddlSaveAs.SelectedValue == "1")
+            {
+                CreateTextFile(Convert.ToInt32(ddlExtractType.SelectedValue));
+            }
+
         }
 
 

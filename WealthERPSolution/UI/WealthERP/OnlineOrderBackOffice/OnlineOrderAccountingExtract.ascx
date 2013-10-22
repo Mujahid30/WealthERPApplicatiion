@@ -30,8 +30,7 @@
             <asp:Label ID="lblAmc" runat="server" Text="Extract Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbField" AutoPostBack="true"
-               >
+            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
@@ -41,8 +40,9 @@
         <td>
         </td>
         <td>
-        </td><td></td>
-
+        </td>
+        <td>
+        </td>
     </tr>
     <tr>
         <td>
@@ -69,8 +69,7 @@
             <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Extract and Save As:"></asp:Label>
         </td>
         <td class="rightField">
-           <asp:DropDownList ID="ddlSaveAs" runat="server" CssClass="cmbField" 
-                >
+            <asp:DropDownList ID="ddlSaveAs" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Value="1" Text="txt"></asp:ListItem>
                 <asp:ListItem Value="2" Text="dbf"></asp:ListItem>
@@ -79,9 +78,9 @@
         <td>
         </td>
         <td>
-            
         </td>
-        <td></td>
+        <td>
+        </td>
     </tr>
     <tr>
         <td>
@@ -89,8 +88,7 @@
         <td>
         </td>
         <td>
-            <asp:Button ID="btnExtract" runat="server" Text="Extract" CssClass="PCGButton" 
-                onclick="btnExtract_Click" />
+            <asp:Button ID="btnExtract" runat="server" Text="Extract" CssClass="PCGButton" OnClick="btnExtract_Click" />
         </td>
         <td>
         </td>
