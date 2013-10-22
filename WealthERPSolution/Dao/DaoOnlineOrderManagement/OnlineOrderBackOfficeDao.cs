@@ -47,7 +47,7 @@ namespace DaoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate,int AdviserId)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate,int AdviserId,int extractType)
         {
             DataSet dsExtractType;
             Database db;
@@ -59,6 +59,7 @@ namespace DaoOnlineOrderManagement
                 if (orderDate != DateTime.MinValue)
                     db.AddInParameter(GetGetMfOrderExtractCmd, "@orderDate", DbType.DateTime, orderDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@adviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@extractType", DbType.Int32, extractType);
                 dsExtractType = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
 
             }
