@@ -16,8 +16,43 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineMFOrderDao : OnlineOrderDao
     {
-        public DataSet GetOr
-derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetMfOrderExtract(DateTime dtFrom, int adviserId, string orderType)
+        {
+            DataSet dsGetMfOrderExtract;
+            Database db;
+            DbCommand GetGetMfOrderExtractCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetGetMfOrderExtractCmd = db.GetStoredProcCommand("Sp_CreateAdviserMFOrderExtract");
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@Fromdate", DbType.DateTime, dtFrom);
+
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@OrderType", DbType.Int32, adviserId);
+
+                dsGetMfOrderExtract = db.ExecuteDataSet(GetGetMfOrderExtractCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMfOrderExtract;
+        }
+
+
+        public DataSet GetOrderBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBookMIS;
             Database db;
@@ -194,7 +229,7 @@ derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, Dat
             }
             return orderIds;
         }
-        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPBookMIS(int CustomerId, int AmcCode, string OrderStatus,int systematicId,DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPBookMIS;
             Database db;
@@ -202,7 +237,7 @@ derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, Dat
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");
+                GetSIPBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPBook");               
                 db.AddInParameter(GetSIPBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 if (AmcCode != 0)
                     db.AddInParameter(GetSIPBookMISCmd, "@AMC", DbType.Int32, AmcCode);
@@ -212,6 +247,10 @@ derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, Dat
                     db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, OrderStatus);
                 else
                     db.AddInParameter(GetSIPBookMISCmd, "@Status", DbType.String, DBNull.Value);
+                if (systematicId != 0)
+                    db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, systematicId);
+                else
+                    db.AddInParameter(GetSIPBookMISCmd, "@systematicId", DbType.Int32, 0);
                 db.AddInParameter(GetSIPBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPBookMIS = db.ExecuteDataSet(GetSIPBookMISCmd);
@@ -283,8 +322,8 @@ derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, Dat
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
-                    orderIds.Add(Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString()));
-
+                    orderIds.Add( Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString()));
+                    
                 }
             }
             catch (BaseApplicationException Ex)
@@ -371,7 +410,7 @@ derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, Dat
             }
             return onlinemforderVo;
         }
-        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, DateTime dtTo)
+        public DataSet GetSIPSummaryBookMIS(int CustomerId, int AmcCode,DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsSIPSummaryBookMIS;
             Database db;
@@ -379,16 +418,16 @@ derBookMIS(int CustomerId, int AmcCode, string OrderStatus, DateTime dtFrom, Dat
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_Onl_GetSIPSummaryBook");
+                GetSIPSummaryBookMISCmd = db.GetStoredProcCommand("SPROC_ONL_GetSIPSummaryBookDet");
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@C_CustomerId", DbType.Int32, CustomerId);
                 if (AmcCode != 0)
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);
-                if (OrderStatus != "0")
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, OrderStatus);
-                else
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
+                //if (OrderStatus != "0")
+                //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, OrderStatus);
+                //else
+                //    db.AddInParameter(GetSIPSummaryBookMISCmd, "@Status", DbType.String, DBNull.Value);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
