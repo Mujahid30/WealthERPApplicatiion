@@ -491,5 +491,33 @@ namespace BoCommon
                 throw exBase;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="SourceCode"></param>
+        /// <returns></returns>
+        public DataTable GetExternalSource(string SourceCode)
+        {
+            DataTable dt;
+            try
+            {
+                dt = daoCommonLookup.GetSourceCodeList(SourceCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetProductList()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
     }
 }

@@ -563,5 +563,37 @@ namespace DaoCommon
             }
 
         }
+
+        public DataTable GetSourceCodeList(string SourceCode)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetExternalSource");
+                if (string.IsNullOrEmpty(SourceCode) == false) db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, SourceCode);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetSourceCodeList(string SourceCode)");
+                object[] objParams = new object[1];
+                objParams[0] = SourceCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
     }
 }
