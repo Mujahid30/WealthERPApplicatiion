@@ -322,7 +322,7 @@
         </td>
         <td class="rightField" colspan="4">
             <asp:DropDownList ID="ddlProductAmc" AutoPostBack="true" runat="server" OnSelectedIndexChanged="btn_amccheck"
-                CssClass="cmbLongField">
+                CssClass="cmbField">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
             <asp:CompareValidator ID="cvProductAmc" runat="server" ControlToValidate="ddlProductAmc"

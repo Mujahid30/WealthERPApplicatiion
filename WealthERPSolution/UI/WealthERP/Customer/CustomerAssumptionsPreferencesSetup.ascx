@@ -257,7 +257,7 @@
                     <td>
                     </td>
                     <td>
-                        <asp:CheckBox ID="chkRetirement" runat="server" CssClass="cmbField" Text="Retirement calculation basis corpus to be left behind" />
+                        <asp:CheckBox ID="chkRetirement" runat="server" CssClass="cmbFielde" Text="Retirement calculation basis corpus to be left behind" />
                         <img src="../Images/help.png" class="ScreenTip2" style="height: 15px; width: 15px;" />
                         <div id="div2" style="display: none;">
                             <p class="tip">
@@ -270,7 +270,7 @@
                     <td>
                     </td>
                     <td>
-                        <asp:CheckBox ID="chkModelPortFolio" runat="server" CssClass="cmbField" Text="View Model Portfolio" />
+                        <asp:CheckBox ID="chkModelPortFolio" runat="server" CssClass="cmbFielde" Text="View Model Portfolio" />
                         <img src="../Images/help.png" class="ScreenTip3" style="height: 15px; width: 15px;" />
                         <div id="div3" style="display: none;">
                             <p class="tip">

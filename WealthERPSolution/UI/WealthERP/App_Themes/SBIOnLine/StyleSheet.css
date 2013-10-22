@@ -8,7 +8,7 @@
 
 .divSectionHeadingNumber
 {
-    background-color:#387FDF;
+    background-color:#0396cc;
     color:#ffffff;
 height: 18px;
 float:left;
@@ -278,7 +278,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: bold;
     font-size: medium; /*color: #993434;*/
-    color: #006699;
+    color: #0396cc;
 }
 .TableBackground
 {
@@ -436,8 +436,8 @@ div#MainDivLeft
 	
 	cursor:pointer;
 	cursor:hand;
-	height: 22px;
-    width: 125px;
+	/*height: 22px;
+    width: 125px;*/
 }
 
 .PCGHoverButton
@@ -1316,7 +1316,7 @@ p.tip
     box-shadow: 3px 3px 3px #DDD;
     border-radius: 4px;   
     background-color:#D9EBF7;
-    color:#2471C9;
+    color:#0396cc;
     font-weight:bold;
     font-size:small;
     height:20px;

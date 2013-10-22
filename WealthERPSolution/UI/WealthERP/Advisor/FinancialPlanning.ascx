@@ -2,6 +2,7 @@
     Inherits="WealthERP.Advisor.FinancialPlanning" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register assembly="System.Web.DataVisualization" namespace="System.Web.UI.DataVisualization.Charting" tagprefix="asp" %>
 <telerik:RadScriptManager ID="scptMgr" runat="server">
 <Services>
         <asp:ServiceReference Path="~/CustomerPortfolio/AutoComplete.asmx" />
@@ -132,7 +133,7 @@
     <tr>
         <td>
             <ajaxToolkit:TabContainer ID="tabRiskProfilingAndAssetAllocation" runat="server"
-                ActiveTabIndex="0" Width="100%" Style="visibility: visible;">
+                ActiveTabIndex="1" Width="100%" Style="visibility: visible;">
                 <ajaxToolkit:TabPanel ID="tabRiskProfiling" runat="server" 
                     HeaderText="Risk Profiling">
                     <HeaderTemplate>
@@ -334,7 +335,7 @@
                                 <Columns>
                                 <asp:TemplateField HeaderText="Class" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblClass" runat="server" CssClass="cmbField" 
+                                        <asp:Label ID="lblClass" runat="server" CssClass="cmbFielde" 
                                             Text='<%#Eval("Class") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -343,7 +344,7 @@
                                  
                                  <asp:TemplateField HeaderText="Current(%)" >
                                         <ItemTemplate>
-                                            <asp:Label ID="lblCurrentPctg" runat="server" CssClass="cmbField" 
+                                            <asp:Label ID="lblCurrentPctg" runat="server" CssClass="cmbFielde" 
                                                 Text='<%#Eval("CurrentPercentage") %>'>
                                             </asp:Label>
                                         </ItemTemplate>
@@ -352,7 +353,7 @@
                                  
                                   <asp:TemplateField HeaderText="Recommended(%)" >
                                         <ItemTemplate>
-                                            <asp:Label ID="lblRecommendedPctg" runat="server" CssClass="cmbField" 
+                                            <asp:Label ID="lblRecommendedPctg" runat="server" CssClass="cmbFielde" 
                                                 Text='<%#Eval("RecommendedPercentage") %>'>
                                             </asp:Label>
                                         </ItemTemplate>
@@ -368,7 +369,7 @@
                                  
                                  <asp:TemplateField HeaderText="Action Needed(%)" >
                                         <ItemTemplate>                                            
-                                            <asp:Label ID="lblActionPctg" runat="server" CssClass="cmbField" 
+                                            <asp:Label ID="lblActionPctg" runat="server" CssClass="cmbFielde" 
                                                 Text='<%#Eval("ActionNeeded") %>'>
                                             </asp:Label>
                                         </ItemTemplate>
@@ -377,7 +378,7 @@
                                  
                                  <asp:TemplateField HeaderText="Current(Rs.)" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblCurrentRs" runat="server" CssClass="cmbField" 
+                                        <asp:Label ID="lblCurrentRs" runat="server" CssClass="cmbFielde" 
                                             Text='<%#Eval("CurrentRs") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -386,7 +387,7 @@
                                  
                                  <asp:TemplateField HeaderText="Recommended(Rs.)" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblRecommendedRs" runat="server" CssClass="cmbField" 
+                                        <asp:Label ID="lblRecommendedRs" runat="server" CssClass="cmbFielde" 
                                             Text='<%#Eval("RecommendedRs") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -395,7 +396,7 @@
                                  
                                  <asp:TemplateField HeaderText="Action Needed(Rs.)" >
                                     <ItemTemplate>
-                                        <asp:Label ID="lblActionRs" runat="server" CssClass="cmbField" 
+                                        <asp:Label ID="lblActionRs" runat="server" CssClass="cmbFielde" 
                                             Text='<%#Eval("ActionRs") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
@@ -411,7 +412,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Label ID="lblAgeErrormsg" runat="server" CssClass="cmbField" 
+                                <asp:Label ID="lblAgeErrormsg" runat="server" CssClass="cmbFielde" 
                                     Font-Bold="True" Visible="False" 
                                     Text="No Age to display chart. Please Fill Date of Birth in profile!"></asp:Label>
                             </td>

@@ -1414,7 +1414,7 @@
                                             <tr>
                                                 <td colspan="4">
                                                     <asp:Label ID="lblincomenote" runat="server" Text="Please Enter Monthly Income Details."
-                                                        Font-Size="Small" CssClass="cmbField"></asp:Label>
+                                                        Font-Size="Small" CssClass="cmbFielde"></asp:Label>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1603,7 +1603,7 @@
                                             <tr>
                                                 <td colspan="4">
                                                     <asp:Label ID="lblexpensenote" runat="server" Text="Please Enter Monthly Expense Details."
-                                                        Font-Size="Small" CssClass="cmbField"></asp:Label>
+                                                        Font-Size="Small" CssClass="cmbFielde"></asp:Label>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -1737,7 +1737,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="4">
-                                                    <span class="cmbField" style="font-size: small">Note: 1.SIP is coming from MF screen.<br />
+                                                    <span class="cmbFielde" style="font-size: small">Note: 1.SIP is coming from MF screen.<br />
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.Loan EMI is coming from
                                                         Liabilities.<br />
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.Insurance Premium is coming
