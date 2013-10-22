@@ -23,7 +23,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getOrderStatusCmd = db.GetStoredProcCommand("SPROC_GetOrderStatus");
+                getOrderStatusCmd = db.GetStoredProcCommand("SP_GetOrderStatus");
                 dsOrderStatus = db.ExecuteDataSet(getOrderStatusCmd);
                
             }
@@ -42,6 +42,36 @@ namespace DaoOps
                 ExceptionManager.Publish(exBase);
                 throw exBase;
              }
+            return dsOrderStatus;
+        }
+       
+        public DataSet Get_Onl_OrderStatus()
+        {
+            DataSet dsOrderStatus;
+            Database db;
+            DbCommand getOrderStatusCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getOrderStatusCmd = db.GetStoredProcCommand("SPROC_GetOrderStatus");
+                dsOrderStatus = db.ExecuteDataSet(getOrderStatusCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetOrderStatus()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
             return dsOrderStatus;
         }
 
@@ -202,6 +232,49 @@ namespace DaoOps
                 throw exBase;
             }
             return dsOrderMIS;
+        }
+        
+
+        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        {
+            DataSet dsmannualMatch;
+            Database db;
+            DbCommand getMannualMatchcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getMannualMatchcmd = db.GetStoredProcCommand("SPORC_Onl_GetMannualOrderMapping");
+                db.AddInParameter(getMannualMatchcmd, "@schemeCode", DbType.Int32, scheme);
+                db.AddInParameter(getMannualMatchcmd, "@accountId", DbType.Int32, accountId);
+                db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
+                db.AddInParameter(getMannualMatchcmd, "@amount", DbType.Double, amount);
+                db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
+                db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(getMannualMatchcmd, "@schemeSwitchCode", DbType.Int32, schemeSwitch);
+                dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetOrderMannualMatch()");
+                object[] objects = new object[6];
+                objects[0] = scheme;
+                objects[1] = accountId;
+                objects[2] = type;
+                objects[3] = amount;
+                objects[4] = orderDate;
+                objects[5] = schemeSwitch;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsmannualMatch;
         }
 
         public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
@@ -960,13 +1033,59 @@ namespace DaoOps
             }
             return bResult;
         }
+        public bool Order_Onl_MannualMatch(int OrderId, int transId, int SchemeCode, double amount, out bool status, string TrxType)
+        {
+            Database db;
+            int affectedRecords = 0;
+            DbCommand getOrderMannualMatchCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getOrderMannualMatchCmd = db.GetStoredProcCommand("SP_Onl_GetOrderMannualMatch");
+                db.AddInParameter(getOrderMannualMatchCmd, "@orderId", DbType.Int32, OrderId);
+                db.AddInParameter(getOrderMannualMatchCmd, "@transId", DbType.Int32, transId);
+                db.AddInParameter(getOrderMannualMatchCmd, "@schemeCode", DbType.Int32, SchemeCode);
+                //db.AddInParameter(getOrderMannualMatchCmd, "@portfolioId", DbType.Int32, PortfolioId);
+                db.AddInParameter(getOrderMannualMatchCmd, "@amount", DbType.Double, amount);
+                db.AddInParameter(getOrderMannualMatchCmd, "@type", DbType.String, TrxType);
+                db.AddOutParameter(getOrderMannualMatchCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(getOrderMannualMatchCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(getOrderMannualMatchCmd, "@IsSuccess").ToString());
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:Order_Onl_MannualMatch()");
+                object[] objects = new object[5];
+                objects[0] = OrderId;
+                objects[1] = transId;
+                objects[2] = SchemeCode;
+                objects[3] = amount;
+                objects[4] = TrxType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
+        }
 
         public bool OrderMannualMatch(int OrderId, int transId, int SchemeCode, double amount, out bool status, string TrxType)
         {
             Database db;
             int affectedRecords = 0;
             DbCommand getOrderMannualMatchCmd;
-            
+
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -980,7 +1099,7 @@ namespace DaoOps
                 db.AddOutParameter(getOrderMannualMatchCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(getOrderMannualMatchCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(getOrderMannualMatchCmd, "@IsSuccess").ToString());
-  
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1003,10 +1122,12 @@ namespace DaoOps
                 throw exBase;
             }
             if (affectedRecords > 0)
-                return status=true;
+                return status = true;
             else
-                return status=false;
+                return status = false;
         }
+
+       
 
         /// <summary>
         /// Added to check PDF Form Availabilty

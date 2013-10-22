@@ -273,7 +273,7 @@ namespace WealthERP.OPS
         {
             DataSet dsOrderStaus;
             DataTable dtOrderStatus;
-            dsOrderStaus = operationBo.GetOrderStatus();
+            dsOrderStaus = operationBo.Get_Onl_OrderStatus();
             dtOrderStatus = dsOrderStaus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)
             {
@@ -1273,6 +1273,7 @@ namespace WealthERP.OPS
                 int schemeCodeSwitch = 0;
                 string TrxType = string.Empty;
                 DateTime OrderDate = DateTime.MinValue;
+                int OnlineStatus = 0;
 
                 foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
                 {
@@ -1284,9 +1285,7 @@ namespace WealthERP.OPS
                         //gdi = (GridDataItem)lnkOrderId.NamingContainer;
                         int selectedRow = gdi.ItemIndex + 1;
                         OrderId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFOD_OrderDetailsId"].ToString());
-                        //OrderId = Convert.ToInt32(gvCustomerOrderMIS.DataKeys[gvRow1.RowIndex].Values["CMFOD_OrderDetailsId"].ToString());
                         CustomerId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString());
-                        //PortfolioId = Convert.ToInt32(gvMIS.DataKeys[gvRow1.RowIndex].Values["CP_portfolioId"].ToString());
                         SchemeCode = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
                         if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
                             accountId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString());
@@ -1299,7 +1298,13 @@ namespace WealthERP.OPS
                             schemeCodeSwitch = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanSwitch"].ToString());
                         else
                             schemeCodeSwitch = 0;
-                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+
+                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim()))
+                            OnlineStatus = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString());
+                        else
+                            OnlineStatus = 0;
+
+                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "&OnlineStatus=" + OnlineStatus + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
                     }
 
                 }
@@ -1663,15 +1668,27 @@ namespace WealthERP.OPS
                     mforderVo.RMName = dr["RM_Name"].ToString();
                     mforderVo.BMName = dr["AB_BranchName"].ToString();
                     mforderVo.PanNo = dr["C_PANNum"].ToString();
+
                     if (!string.IsNullOrEmpty(dr["PA_AMCCode"].ToString().Trim()))
                         mforderVo.Amccode = int.Parse(dr["PA_AMCCode"].ToString());
                     else
                         mforderVo.Amccode = 0;
+
                     if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString().Trim()))
                         mforderVo.category = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    else
+                        mforderVo.category = string.Empty;
+
                     if (!string.IsNullOrEmpty(dr["PASP_SchemePlanCode"].ToString().Trim()))
                         mforderVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-                    mforderVo.OrderNumber = int.Parse(dr["CMFOD_OrderNumber"].ToString());
+                    else
+                        mforderVo.SchemePlanCode = 0;
+
+                    if (!string.IsNullOrEmpty(dr["CMFOD_OrderNumber"].ToString().Trim()))
+                        mforderVo.OrderNumber = int.Parse(dr["CMFOD_OrderNumber"].ToString());
+                    else
+                        mforderVo.OrderNumber = 0;
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_Amount"].ToString().Trim()))
                         mforderVo.Amount = double.Parse(dr["CMFOD_Amount"].ToString());
                     else
@@ -1681,13 +1698,43 @@ namespace WealthERP.OPS
                         mforderVo.accountid = int.Parse(dr["CMFA_accountid"].ToString());
                     else
                         mforderVo.accountid = 0;
-                    mforderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["WMTT_TransactionClassificationCode"].ToString().Trim()))
+                        mforderVo.TransactionCode = dr["WMTT_TransactionClassificationCode"].ToString();
+                    else
+                        mforderVo.TransactionCode = string.Empty;
+
                     orderVo.OrderDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
-                    mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
-                    orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
-                    orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
-                    mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
-                    orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["CMFOD_IsImmediate"].ToString().Trim()))
+                        mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
+                    else
+                        mforderVo.IsImmediate = 0;
+
+                    //mforderVo.IsImmediate = int.Parse(dr["CMFOD_IsImmediate"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["CO_ApplicationNumber"].ToString().Trim()))
+                        orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
+                    else
+                        orderVo.ApplicationNumber = string.Empty;
+
+                    //orderVo.ApplicationNumber = dr["CO_ApplicationNumber"].ToString();
+                    if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString().Trim()))
+                        orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+                    else
+                        orderVo.ApplicationReceivedDate = DateTime.MinValue ;
+
+                    //orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
+                    if (!string.IsNullOrEmpty(dr["CP_portfolioId"].ToString().Trim()))
+                        mforderVo.portfolioId = int.Parse(dr["CP_portfolioId"].ToString());
+                    else
+                        mforderVo.portfolioId = 0;
+
+                    if (!string.IsNullOrEmpty(dr["XPM_PaymentModeCode"].ToString().Trim()))
+                        orderVo.PaymentMode = dr["XPM_PaymentModeCode"].ToString();
+                    else
+                        orderVo.PaymentMode = string.Empty;
+
                     if (!string.IsNullOrEmpty(dr["CO_ChequeNumber"].ToString()))
                         orderVo.ChequeNumber = dr["CO_ChequeNumber"].ToString();
                     else
@@ -1696,34 +1743,42 @@ namespace WealthERP.OPS
                         orderVo.PaymentDate = DateTime.Parse(dr["CO_PaymentDate"].ToString());
                     else
                         orderVo.PaymentDate = DateTime.MinValue;
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_FutureTriggerCondition"].ToString()))
                         mforderVo.FutureTriggerCondition = dr["CMFOD_FutureTriggerCondition"].ToString();
                     else
                         mforderVo.FutureTriggerCondition = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_FutureExecutionDate"].ToString()))
                         mforderVo.FutureExecutionDate = DateTime.Parse(dr["CMFOD_FutureExecutionDate"].ToString());
                     else
                         mforderVo.FutureExecutionDate = DateTime.MinValue;
+
                     if (!string.IsNullOrEmpty(dr["PASP_SchemePlanSwitch"].ToString()))
                         mforderVo.SchemePlanSwitch = int.Parse(dr["PASP_SchemePlanSwitch"].ToString());
                     else
                         mforderVo.SchemePlanSwitch = 0;
+
                     if (!string.IsNullOrEmpty(dr["CB_CustBankAccId"].ToString()))
                         orderVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
                     else
                         orderVo.CustBankAccId = 0;
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_BankName"].ToString()))
                         mforderVo.BankName = dr["CMFOD_BankName"].ToString();
                     else
                         mforderVo.BankName = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_BranchName"].ToString()))
                         mforderVo.BranchName = dr["CMFOD_BranchName"].ToString();
                     else
                         mforderVo.BranchName = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine1"].ToString()))
                         mforderVo.AddrLine1 = dr["CMFOD_AddrLine1"].ToString();
                     else
                         mforderVo.AddrLine1 = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_AddrLine2"].ToString()))
                         mforderVo.AddrLine2 = dr["CMFOD_AddrLine2"].ToString();
                     else
@@ -1732,22 +1787,27 @@ namespace WealthERP.OPS
                         mforderVo.AddrLine3 = dr["CMFOD_AddrLine3"].ToString();
                     else
                         mforderVo.AddrLine3 = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_City"].ToString()))
                         mforderVo.City = dr["CMFOD_City"].ToString();
                     else
                         mforderVo.City = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_State"].ToString()))
                         mforderVo.State = dr["CMFOD_State"].ToString();
                     else
                         mforderVo.State = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_Country"].ToString()))
                         mforderVo.Country = dr["CMFOD_Country"].ToString();
                     else
                         mforderVo.Country = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_PinCode"].ToString()))
                         mforderVo.Pincode = dr["CMFOD_PinCode"].ToString();
                     else
                         mforderVo.Pincode = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_LivingScince"].ToString()))
                         mforderVo.LivingSince = DateTime.Parse(dr["CMFOD_LivingScince"].ToString());
                     else
@@ -1757,10 +1817,12 @@ namespace WealthERP.OPS
                         mforderVo.FrequencyCode = dr["XF_FrequencyCode"].ToString();
                     else
                         mforderVo.FrequencyCode = "";
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_StartDate"].ToString()))
                         mforderVo.StartDate = DateTime.Parse(dr["CMFOD_StartDate"].ToString());
                     else
                         mforderVo.StartDate = DateTime.MinValue;
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_EndDate"].ToString()))
                         mforderVo.EndDate = DateTime.Parse(dr["CMFOD_EndDate"].ToString());
                     else
@@ -1770,6 +1832,7 @@ namespace WealthERP.OPS
                         mforderVo.Units = double.Parse(dr["CMFOD_Units"].ToString());
                     else
                         mforderVo.Units = 0;
+
                     if (!string.IsNullOrEmpty(dr["CMFOD_ARNNo"].ToString()))
                         mforderVo.ARNNo = dr["CMFOD_ARNNo"].ToString();
                     else
@@ -1941,7 +2004,7 @@ namespace WealthERP.OPS
             dtOrderMIS = (DataTable)Cache["OrderMIS" + userVo.UserId];
             gvCustomerOrderMIS.DataSource = dtOrderMIS;
             gvCustomerOrderMIS.Visible = true;
-            if (ddlMISOrderStatus.SelectedValue == "OMIP")
+            if (ddlMISOrderStatus.SelectedValue == "AL")
             {
                 btnSync.Visible = true;
                 btnMannualMatch.Visible = true;

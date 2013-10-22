@@ -39,6 +39,30 @@ namespace BoOps
             }
             return dsOrderStatus;
         }
+        public DataSet Get_Onl_OrderStatus()
+        {
+            DataSet dsOrderStatus;
+            try
+            {
+                dsOrderStatus = operationDao.Get_Onl_OrderStatus();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetOrderStatus()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrderStatus;
+        }
 
         public DataSet GetMFOrderRecon(DateTime fromDate, DateTime toDate, string orderStatus, string orderType)
         {
@@ -156,6 +180,36 @@ namespace BoOps
             return dsOrderMIS;
         }
 
+        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        {
+            DataSet dsMannualMatch;
+            try
+            {
+                dsMannualMatch = operationDao.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:Get_Onl_OrderMannualMatch()");
+                object[] objects = new object[6];
+                objects[0] = scheme;
+                objects[1] = accountId;
+                objects[2] = type;
+                objects[3] = amount;
+                objects[4] = orderDate;
+                objects[5] = schemeSwitch;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsMannualMatch;
+        }
         public DataSet GetOrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
         {
             DataSet dsMannualMatch;
@@ -423,7 +477,7 @@ namespace BoOps
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OperationBo.cs:UpdateMFTransaction()");
                 object[] objects = new object[7];
-                objects[0] = gvOrderId;                
+                objects[0] = gvOrderId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -478,6 +532,36 @@ namespace BoOps
             return bResult;
         }
 
+        public bool Order_Onl_MannualMatch(int OrderId, int transId, int SchemeCode, double amount, string TrxType)
+        {
+            bool Result = false;
+            try
+            {
+                Result = operationDao.Order_Onl_MannualMatch(OrderId, transId, SchemeCode, amount, out Result, TrxType);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:OrderMannualMatch()");
+                object[] objects = new object[5];
+                objects[0] = OrderId;
+                objects[1] = transId;
+                objects[2] = SchemeCode;
+                objects[3] = amount;
+                objects[4] = TrxType;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return Result;
+        }
         public bool OrderMannualMatch(int OrderId, int transId, int SchemeCode, double amount, string TrxType)
         {
             bool Result = false;

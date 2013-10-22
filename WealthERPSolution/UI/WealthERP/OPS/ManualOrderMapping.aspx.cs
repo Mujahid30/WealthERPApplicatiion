@@ -12,17 +12,18 @@ namespace WealthERP.OPS
     public partial class ManualOrderMapping : System.Web.UI.Page
     {
         OperationBo operationBo = new OperationBo();
-       string path = string.Empty;
-       //string Ids = string.Empty;
-       int Ids;
-       int scheme;
-       int accountId;
-       int customerId;
-       int schemeSwitch;
-       string type;
-       double amount;
-       DateTime orderDate;
-       DataTable dtOrderRecon;
+        string path = string.Empty;
+        //string Ids = string.Empty;
+        int Ids;
+        int scheme;
+        int accountId;
+        int customerId;
+        int schemeSwitch;
+        int onlineMFOrderFlag = 0;
+        string type;
+        double amount;
+        DateTime orderDate;
+        DataTable dtOrderRecon;
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Session["Theme"] != null)
@@ -66,17 +67,53 @@ namespace WealthERP.OPS
             {
                 schemeSwitch = Convert.ToInt32(Request.QueryString["SchemeSwitch"]);
             }
-            
+            if (Request.QueryString["OnlineStatus"] != null)
+            {
+                onlineMFOrderFlag = Convert.ToInt32(Request.QueryString["OnlineStatus"]);
+            }
+
+
             if (!IsPostBack)
             {
-                BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
-                //if (Session["GridView"] != null)
-                //    dtOrderRecon = (DataTable)Session["GridView"];
-                //if (Request.QueryString["result"] != null)
-                    //BindMannualMatchGrid(dtOrderRecon, ids);
-             } 
-        }
+                if (onlineMFOrderFlag == 1)
+                {
+                    Bind_Onl_MannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+                }
+                else
+                {
+                    BindMannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+                }
 
+            }
+        }
+        private void Bind_Onl_MannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        {
+            //string orderIds = Ids;
+            string OrderType;
+            DataSet dsOrderMannualMatch;
+            DataTable dtOrderMannualMatch;
+            dsOrderMannualMatch = operationBo.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+            dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
+            if (dtOrderMannualMatch.Rows.Count > 0)
+            {
+                gvMannualMatch.DataSource = dtOrderMannualMatch;
+                gvMannualMatch.DataBind();
+                gvMannualMatch.Visible = true;                 
+                btnSubmit.Visible = true;
+                ErrorMessage.Visible = false;
+                tblMessage.Visible = false;                
+                imgBubble.Visible = true;
+            }
+            else
+            {
+                gvMannualMatch.Visible = false;
+                btnSubmit.Visible = false;
+                imgBubble.Visible = false;
+                tblMessage.Visible = true;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "No Records Found...!";
+            }
+        }
         private void BindMannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
         {
             //string orderIds = Ids;
@@ -107,7 +144,7 @@ namespace WealthERP.OPS
             else
             {
                 gvMannualMatch.Visible = false;
-                btnSubmit.Visible=false;
+                btnSubmit.Visible = false;
                 //hlClose.Visible = false;
                 imgBubble.Visible = false;
                 tblMessage.Visible = true;
@@ -152,7 +189,16 @@ namespace WealthERP.OPS
                         //    accountId = 0;
                         TrxType = gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["WMTT_TransactionClassificationCode"].ToString();
                         amount = Convert.ToDouble(gvMannualMatch.DataKeys[gvRow1.RowIndex].Values["CMFT_Amount"].ToString());
-                        isUpdate = operationBo.OrderMannualMatch(Ids, transId, SchemeCode, amount, TrxType);
+
+                        if (onlineMFOrderFlag == 1)
+                        {
+                            isUpdate = operationBo.Order_Onl_MannualMatch(Ids, transId, SchemeCode, amount, TrxType);
+
+                        }
+                        else
+                        {
+                            isUpdate = operationBo.OrderMannualMatch(Ids, transId, SchemeCode, amount, TrxType);
+                        }
 
                         if (isUpdate == true)
                         {
@@ -169,7 +215,7 @@ namespace WealthERP.OPS
 
             }
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('OrderMIS','none');", true);
-      
+
         }
 
         //private void BindMannualMatchGrid(DataTable dtMannualMatch, string strMannualMatchIds)
@@ -200,5 +246,5 @@ namespace WealthERP.OPS
         //}
 
     }
-    
+
 }
