@@ -68,6 +68,7 @@
     <Compile Include="OnlineMFOrderDao.cs" />
     <Compile Include="OnlineOrderBackOfficeDao.cs" />
     <Compile Include="OnlineOrderDao.cs" />
+    <Compile Include="OnlineOrderMISDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
