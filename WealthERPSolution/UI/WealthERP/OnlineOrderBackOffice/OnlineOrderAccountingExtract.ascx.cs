@@ -28,6 +28,8 @@ namespace WealthERP.OnlineOrderBackOffice
         DataSet dsExtractTypeDataForFileCreation;
         DateTime orderDate;
         DataTable dtTableForExtract;
+        string filename;
+        string delimeter;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,8 +61,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void GetExtractTypeDataForFileCreation()
         {
-            orderDate = Convert.ToDateTime(txtExtractDate.Text);
-            //dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId,Convert.ToInt32(ddlExtractType.SelectedValue));
+            orderDate = Convert.ToDateTime(txtExtractDate.SelectedDate);
+            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId,Convert.ToInt32(ddlExtractType.SelectedValue));
             CreateDataTableForExtract();
         }
 
@@ -109,18 +111,57 @@ namespace WealthERP.OnlineOrderBackOffice
             HttpContext.Current.Response.End();
         }
 
+        protected void SetFileNameAndDelimeter(int FileID)
+        {
+            string strExtractDate= txtExtractDate.SelectedDate.ToString();
+            string[] strSplitExtractDate = strExtractDate.Split('\\');
+
+            string DD = strSplitExtractDate[0].ToString();
+            string MM = strSplitExtractDate[1].ToString();
+            string YYYY = strSplitExtractDate[2].ToString();
+
+            if(FileID==37)
+            {
+                filename = "sbiemf<'" + DD + MM + "'>.txt";
+                delimeter = "#";                
+            }
+            else if(FileID==38)
+            {
+                filename = "sbipay<'" + DD + MM + "'>.txt";
+                delimeter = "   ";
+            }
+            else if(FileID==39)
+            {
+                filename = "HDFCPAY<'" + DD + MM + "'>.txt";
+                delimeter = "        ";
+            }
+            else if(FileID==40)
+            {
+                filename = "eMF-InProcess<'" + DD + MM + YYYY + "'>.txt";
+                delimeter = "|";
+            }
+            else if(FileID==41)
+            {
+                filename = "eMF-Executed<'" + DD + MM + YYYY + "'>.txt";
+                delimeter = "|";
+            }
+        }
+
+
         protected void CreateTextFile(int FileID)
         {
-            string filename = "ExtractDetails.txt";
+            SetFileNameAndDelimeter(FileID);
+
+            //filename = "ExtractDetails.txt";
             string file = string.Empty;
 
             #region ExportDataTabletoFile
-            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/ExtractDetails.txt"), false, System.Text.Encoding.Default);
+            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename  + "'"), false, System.Text.Encoding.Default);
 
             string Columns = string.Empty;
             foreach (DataColumn column in dsExtractTypeDataForFileCreation.Tables[0].Columns)
             {
-                Columns += column.ColumnName + "|";
+                Columns += column.ColumnName + delimeter;
             }
             str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
 
@@ -166,7 +207,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void BindddlExtractType()
         {
             dsextractType = new DataSet();
-            //dsextractType = OnlineOrderBackOfficeBo.GetExtractType();
+            dsextractType = OnlineOrderBackOfficeBo.GetExtractType();
             if (dsextractType != null && dsextractType.Tables[0].Rows.Count > 0)
             {
                 ddlExtractType.DataSource = dsextractType;

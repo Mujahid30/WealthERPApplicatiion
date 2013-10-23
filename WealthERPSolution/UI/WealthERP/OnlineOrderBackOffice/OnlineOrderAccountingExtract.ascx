@@ -51,9 +51,20 @@
             <asp:Label ID="Label1" runat="server" Text="Extract Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtExtractDate" runat="server" CssClass="txtField"></asp:TextBox>
-            <ajaxToolkit:CalendarExtender runat="server" TargetControlID="txtExtractDate">
-            </ajaxToolkit:CalendarExtender>
+            <telerik:RadDatePicker ID="txtExtractDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <span class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmitTemp"
+                runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
+                ControlToValidate="txtReportedDate"></asp:RequiredFieldValidator>
         </td>
         <td>
         </td>
@@ -72,7 +83,7 @@
             <asp:DropDownList ID="ddlSaveAs" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Value="1" Text="txt"></asp:ListItem>
-                <asp:ListItem Value="2" Text="dbf"></asp:ListItem>
+                <%--<asp:ListItem Value="2" Text="dbf"></asp:ListItem>--%>
             </asp:DropDownList>
         </td>
         <td>
