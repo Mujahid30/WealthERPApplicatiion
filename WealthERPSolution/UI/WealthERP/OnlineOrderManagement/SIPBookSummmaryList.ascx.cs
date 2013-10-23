@@ -28,6 +28,7 @@ namespace WealthERP.OnlineOrderManagement
         MFOrderBo mforderBo = new MFOrderBo();
         MFOrderVo mforderVo = new MFOrderVo();
         OrderVo orderVo = new OrderVo();
+        UserVo userVo;
         string userType;
         int customerId = 0;
         DateTime fromDate;
@@ -38,6 +39,7 @@ namespace WealthERP.OnlineOrderManagement
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
+            userVo = (UserVo)Session[SessionContents.UserVo];
             customerId = customerVO.CustomerId;
             BindAmc();
             BindOrderStatus();
@@ -215,11 +217,18 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["XF_Frequency"] = drSIP["XF_Frequency"];
                 drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
                 drSIPOrderBook["CMFSS_EndDate"] = DateTime.Parse(drSIP["CMFSS_EndDate"].ToString());
-                drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.Parse(drSIP["CMFSS_NextSIPDueDate"].ToString());
+                if (drSIPOrderBook["CMFSS_NextSIPDueDate"].ToString() != null)
+                {
+                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.Parse(drSIP["CMFSS_NextSIPDueDate"].ToString());
+                }
+                else
+                {
+                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.MinValue;
+                }
                 drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
                 drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
                 drSIPOrderBook["Channel"] = drSIP["Channel"];
-
+                drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
                 drSIPOrderBook["AcceptCount"] = acceptCount;
@@ -250,6 +259,7 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("CMFSS_TotalInstallment");
             dtSIPOrderBook.Columns.Add("CMFA_FolioNum");
             dtSIPOrderBook.Columns.Add("Channel");
+            dtSIPOrderBook.Columns.Add("CMFSS_IsCanceled");
             dtSIPOrderBook.Columns.Add("SIPDueCount");
             dtSIPOrderBook.Columns.Add("InProcessCount");
             dtSIPOrderBook.Columns.Add("AcceptCount");
@@ -344,6 +354,12 @@ namespace WealthERP.OnlineOrderManagement
                     }
                 }
             }
+        }
+        protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
+            OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, userVo.UserId);
+
         }
     }
 

@@ -4579,7 +4579,7 @@ namespace DaoCustomerPortfolio
             }
             return ds;
         }
-        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode,string OrderStatus,int AccountId, int SchemePlanCode)
+        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode,int AccountId, int SchemePlanCode)
         {
             DataSet ds = null;
             Database db;
@@ -4626,14 +4626,14 @@ namespace DaoCustomerPortfolio
                 {
                     db.AddInParameter(getRMCustomerMFTransactionsCmd, "@AccountId", DbType.Int32, 0);
                 }
-                if (OrderStatus != "0")
-                {
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, OrderStatus);
-                }
-                else
-                {
-                    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, DBNull.Value);
-                }
+                //if (OrderStatus != "0")
+                //{
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, OrderStatus);
+                //}
+                //else
+                //{
+                //    db.AddInParameter(getRMCustomerMFTransactionsCmd, "@Status", DbType.String, DBNull.Value);
+                //}
 
                 if (SchemePlanCode != 0)
                 {

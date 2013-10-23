@@ -67,19 +67,19 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         private void BindOrderStatus()
         {
-            ddlOrderStatus.Items.Clear();
-            DataSet dsOrderStatus;
-            DataTable dtOrderStatus;
-            dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
-            dtOrderStatus = dsOrderStatus.Tables[0];
-            if (dtOrderStatus.Rows.Count > 0)
-            {
-                ddlOrderStatus.DataSource = dtOrderStatus;
-                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
-                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
-                ddlOrderStatus.DataBind();
-            }
-            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+            //ddlOrderStatus.Items.Clear();
+            //DataSet dsOrderStatus;
+            //DataTable dtOrderStatus;
+            //dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
+            //dtOrderStatus = dsOrderStatus.Tables[0];
+            //if (dtOrderStatus.Rows.Count > 0)
+            //{
+            //    ddlOrderStatus.DataSource = dtOrderStatus;
+            //    ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+            //    ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+            //    ddlOrderStatus.DataBind();
+            //}
+            //ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
         }
         /// <summary>
         /// get AMC
@@ -141,15 +141,15 @@ namespace WealthERP.OnlineOrderManagement
         }
          private void SetParameter()
         {
-           if (ddlOrderStatus.SelectedIndex != 0)
-            {
-                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
-                ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
-            }
-            else
-            {
-                hdnOrderStatus.Value = "0";
-            }
+           //if (ddlOrderStatus.SelectedIndex != 0)
+           // {
+           //     hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+           //     ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
+           // }
+           // else
+           // {
+           //     hdnOrderStatus.Value = "0";
+           // }
             if (ddlAmc.SelectedIndex != 0)
             {
                 hdnAmc.Value = ddlAmc.SelectedValue;
@@ -191,7 +191,7 @@ namespace WealthERP.OnlineOrderManagement
             if (txtTo.SelectedDate != null)
             toDate = DateTime.Parse(txtTo.SelectedDate.ToString());
             schemePlanCode = Convert.ToInt32(ViewState["SchemePlanCode"]);
-            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value),hdnOrderStatus.Value,AccountId, schemePlanCode);
+            mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value),AccountId,schemePlanCode);
                 if (mfTransactionList.Count != 0)
                 {
                    

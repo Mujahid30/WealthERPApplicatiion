@@ -114,7 +114,7 @@
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%"
                     AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource"
-                    OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand">
+                    OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand" OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="CMFSS_SystematicSetupId" Width="102%" AllowMultiColumnSorting="True"
@@ -129,15 +129,15 @@
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="CMFSS_SystematicSetupId"
-                                AutoPostBackOnFilter="true" HeaderText="Request No." ShowFilterIcon="false"
-                                CurrentFilterFunction="Contains" SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right">
+                                AutoPostBackOnFilter="true" HeaderText="Request No." ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                SortExpression="CMFSS_SystematicSetupId" FooterStyle-HorizontalAlign="Right">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="Select" Text='<%# Eval("CMFSS_SystematicSetupId").ToString() %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                           <%-- <telerik:GridBoundColumn DataField="CMFSS_SystematicSetupId" AllowFiltering="true"
+                            <%-- <telerik:GridBoundColumn DataField="CMFSS_SystematicSetupId" AllowFiltering="true"
                                 HeaderText="Transaction No." UniqueName="CMFSS_SystematicSetupId" SortExpression="CMFSS_SystematicSetupId"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 HeaderStyle-Width="75px" FilterControlWidth="50px">
@@ -290,6 +290,14 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CMFSS_IsCanceled" AllowFiltering="false" HeaderText="Status"
+                                HeaderStyle-Width="80px" UniqueName="CMFSS_IsCanceled" SortExpression="CMFSS_IsCanceled"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridButtonColumn HeaderText="Action" CommandName="Update" Text="Cancel"
+                                ConfirmText="Do you want to Cancel this SIP? Click OK to proceed" UniqueName="column">
+                            </telerik:GridButtonColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>

@@ -184,9 +184,17 @@
                                             <telerik:RadPanelItem runat="server" Text="Add FD&54EC order" Value="ProductOrderMaster"
                                                 Visible="false">
                                             </telerik:RadPanelItem>
-                                            
-                                            
-                                             <telerik:RadPanelItem runat="server" Text="File Extraction" Value="File_Extraction">
+                                            <telerik:RadPanelItem runat="server" Text="MF Online" Value="MF_Online">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Book" Value="MF_Online_OrderBook">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Order Book" Value="MF_Online_SIP_Ord_Book">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIP_Book">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="File Extraction" Value="File_Extraction">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Order Extract" Value="Extract">
                                             </telerik:RadPanelItem>
@@ -702,6 +710,16 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Operations" Value="Operations">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="MF Online" Value="MF_Online">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Order Book" Value="MF_Online_OrderBook">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Order Book" Value="MF_Online_SIP_Ord_Book">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIP_Book">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Order Extract" Value="Extract">
                                             </telerik:RadPanelItem>
                                             <%-- <telerik:RadPanelItem runat="server" Text="File Generation" Value="File_Generation">

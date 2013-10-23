@@ -532,5 +532,27 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetTransAllAmcDetails;
         }
+
+        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,int cancelBy)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand UpdateCnacleRegisterSIP;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateCnacleRegisterSIP = db.GetStoredProcCommand("sproc_onl_CancelSIPRegister");
+                db.AddInParameter(UpdateCnacleRegisterSIP, "@systematicId", DbType.Int32, systematicId);
+                db.AddInParameter(UpdateCnacleRegisterSIP, "@Is_Canceled", DbType.Int32, is_Cancel);
+                db.AddInParameter(UpdateCnacleRegisterSIP, "@CancelBy", DbType.Int32, cancelBy);
+                if (db.ExecuteNonQuery(UpdateCnacleRegisterSIP) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            return bResult;
+        }
     }
 }

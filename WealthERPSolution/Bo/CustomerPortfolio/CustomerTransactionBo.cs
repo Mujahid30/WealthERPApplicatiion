@@ -2100,14 +2100,14 @@ namespace BoCustomerPortfolio
             return ds;
         }
 
-        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode, string OrderStatus,int AccountId, int SchemePlanCode)
+        public List<MFTransactionVo> GetCustomerTransactionsBook(int AdviserID, int CustomerId, DateTime From, DateTime To, int Manage, int AmcCode, int AccountId, int SchemePlanCode)
         {
             CustomerTransactionDao customerTransactionDao = new CustomerTransactionDao();
             List<MFTransactionVo> mfTransactionsBookList = new List<MFTransactionVo>();
             try
             {
 
-                mfTransactionsBookList = customerTransactionDao.GetCustomerTransactionsBook(AdviserID, CustomerId, From, To, Manage, AmcCode,OrderStatus,AccountId,SchemePlanCode);
+                mfTransactionsBookList = customerTransactionDao.GetCustomerTransactionsBook(AdviserID, CustomerId, From, To, Manage, AmcCode,AccountId,SchemePlanCode);
 
             }
             catch (BaseApplicationException Ex)

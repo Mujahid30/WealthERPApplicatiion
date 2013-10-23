@@ -38,11 +38,11 @@
                     <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
                 </asp:DropDownList>
             </td>
-            <td id="td1" runat="server">
+           <%-- <td id="td1" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label2"></asp:Label>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
-            </td>
+            </td>--%>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
             </td>
@@ -155,7 +155,7 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>--%>
-                                <telerik:GridBoundColumn DataField="TransactionId" HeaderText="Transaction ID" AllowFiltering="false"
+                                <telerik:GridBoundColumn Visible="false" DataField="TransactionId" HeaderText="Transaction ID" AllowFiltering="false"
                                     SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />

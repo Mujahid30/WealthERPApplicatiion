@@ -14,5 +14,38 @@ namespace WealthERP.OnlineOrderBackOffice
 
     public partial class OnlineAdviserCustomerOrderBook
     {
+        protected global::System.Web.UI.ScriptManager scptMgr;
+
+        /// <summary>
+        /// lnkBtnBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkBtnBack;
+
+        /// <summary>
+        /// btnExport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        protected global::Telerik.Web.UI.RadGrid gvOrderBookMIS;
+        protected global::System.Web.UI.WebControls.Panel pnlOrderBook;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdBtnOrder;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdAccount;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAmc;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAmc;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNoRecords;
+        protected global::System.Web.UI.WebControls.Button btnViewOrder;
+
     }
 }

@@ -386,5 +386,37 @@ namespace BoOnlineOrderManagement
             }
             return dsGetTransAllAmcDetails;
         }
+        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,int cancelBy)
+        {
+            bool bResult = false;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+            try
+            {
+                bResult = OnlineMFOrderDao.UpdateCnacleRegisterSIP(systematicId,is_Cancel,cancelBy);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "AdvisorBo.cs:UpdateCnacleRegisterSIP()");
+
+
+                object[] objects = new object[1];            
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
+
     }
 }

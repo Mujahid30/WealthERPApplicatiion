@@ -873,7 +873,7 @@ namespace WealthERP.Advisor
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFOrderEntry','login');", true);
                     }
                 }
-               
+
                 else if (e.Item.Value == "LI_Order")
                 {
                     Session["UserType"] = "adviser";
@@ -1042,7 +1042,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "File_Generation")
                 {
                     Session["UserType"] = "adviser";
-                    
+
                 }
                 else if (e.Item.Value == "Extract")
                 {
@@ -1053,6 +1053,21 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderAccountingExtract','login');", true);
+                }
+                else if (e.Item.Value == "MF_Online_SIP_Ord_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','login');", true);
+
+                }
+                else if (e.Item.Value == "MF_Online_OrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerOrderBook','login');", true);
+
+                }
+                else if (e.Item.Value == "SIP_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderBackOffice','login');", true);
+
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1854,13 +1869,13 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerExceptionHandling','login');", true);
                 }
-                
+
                 else if (e.Item.Value == "MFNP_Tranx_Compare")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('MFNPAndTransactionCompare','login');", true);
                 }
-                
+
                 else if (e.Item.Value == "Multi Asset Report")
                 {
                     Session["UserType"] = "adviser";
@@ -1987,11 +2002,25 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderAccountingExtract','login');", true);
                 }
 
-                    
+
                 else if (e.Item.Value == "File_Generation")
                 {
                     Session["UserType"] = "adviser";
 
+                }
+                else if (e.Item.Value == "MF_Online_SIP_Ord_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerSIPOrderBook','login');", true);
+
+                }
+                else if (e.Item.Value == "MF_Online_OrderBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerOrderBook','login');", true);
+
+                }
+                else if (e.Item.Value == "SIP_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderBackOffice','login');", true);
                 }
 
             }
@@ -2454,9 +2483,9 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[0].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString()== "Queries")
+                            if (dr[2].ToString() == "Queries")
                             {
-                                Item.Visible =false;
+                                Item.Visible = false;
                             }
                         }
                     }
@@ -2480,7 +2509,7 @@ namespace WealthERP.Advisor
                         {
                             dr = dsAdminTreeNodes.Tables[1].Rows.Find(Item.Value);
                             Item.Text = dr[2].ToString();
-                            if (dr[2].ToString() == "Add FD&54EC order" || dr[2].ToString()== "Customer AUM")
+                            if (dr[2].ToString() == "Add FD&54EC order" || dr[2].ToString() == "Customer AUM")
                             {
                                 Item.Visible = false;
                             }
@@ -3251,7 +3280,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "Customer_AUM")
                 {
                     Session["UserType"] = "Associates";
-                   //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
+                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerAUM','login');", true);
                 }
                 else if (e.Item.Value == "Customer_Holdings")
                 {
