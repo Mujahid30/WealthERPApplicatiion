@@ -13,7 +13,25 @@
         </td>
     </tr>
 </table>
+
 <table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            Order Extract
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<br />
+<table style="display:none" width="100%">
     <tr align="center">
         <td align="center">
             <div id="divValidationError" runat="server" class="failure-msg" align="center" visible="true">
@@ -64,7 +82,7 @@
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmitTemp"
                 runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
-                ControlToValidate="txtReportedDate"></asp:RequiredFieldValidator>
+                ControlToValidate="txtExtractDate"></asp:RequiredFieldValidator>
         </td>
         <td>
         </td>

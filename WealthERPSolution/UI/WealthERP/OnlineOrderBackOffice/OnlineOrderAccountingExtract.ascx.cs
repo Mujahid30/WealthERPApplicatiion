@@ -52,10 +52,11 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void CreateFileForextractAndSaveinServer()
         {
+            SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue));
             //if (!Directory.Exists(ExtractPath))
             //{
             //    Directory.CreateDirectory(ExtractPath);
-            File.WriteAllText(Path.Combine(ExtractPath, "ExtractDetails.txt"), ", System.Text.Encoding.Default");
+            File.WriteAllText(Path.Combine(ExtractPath, filename), ", System.Text.Encoding.Default");
             //}
         }
 
@@ -113,8 +114,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void SetFileNameAndDelimeter(int FileID)
         {
-            string strExtractDate= txtExtractDate.SelectedDate.ToString();
-            string[] strSplitExtractDate = strExtractDate.Split('\\');
+            string strExtractDate = Convert.ToDateTime(txtExtractDate.SelectedDate).ToShortDateString();
+            string[] strSplitExtractDate = strExtractDate.Split('/');
 
             string DD = strSplitExtractDate[0].ToString();
             string MM = strSplitExtractDate[1].ToString();
@@ -122,27 +123,37 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if(FileID==37)
             {
-                filename = "sbiemf<'" + DD + MM + "'>.txt";
+                filename = "sbiemf" + DD + MM + ".txt";
+
+                //filename = "sbiemf'" + DD + MM + "'.txt";
                 delimeter = "#";                
             }
             else if(FileID==38)
             {
-                filename = "sbipay<'" + DD + MM + "'>.txt";
+                filename = "sbipay" + DD + MM + ".txt";
+
+                //filename = "sbipay'" + DD + MM + "'.txt";
                 delimeter = "   ";
             }
             else if(FileID==39)
             {
-                filename = "HDFCPAY<'" + DD + MM + "'>.txt";
+                filename = "HDFCPAY" + DD + MM + ".txt";
+
+                //filename = "HDFCPAY'" + DD + MM + "'.txt";
                 delimeter = "        ";
             }
             else if(FileID==40)
             {
-                filename = "eMF-InProcess<'" + DD + MM + YYYY + "'>.txt";
+                filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
+
+                //filename = "eMF-InProcess'" + DD + MM + YYYY + "'.txt";
                 delimeter = "|";
             }
             else if(FileID==41)
             {
-                filename = "eMF-Executed<'" + DD + MM + YYYY + "'>.txt";
+                filename = "eMF-Executed" + DD + MM + YYYY + ".txt";
+
+                //filename = "eMF-Executed'" + DD + MM + YYYY + "'.txt";
                 delimeter = "|";
             }
         }
@@ -150,27 +161,33 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void CreateTextFile(int FileID)
         {
-            SetFileNameAndDelimeter(FileID);
+            //SetFileNameAndDelimeter(FileID);
 
             //filename = "ExtractDetails.txt";
             string file = string.Empty;
 
             #region ExportDataTabletoFile
-            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename  + "'"), false, System.Text.Encoding.Default);
+            //StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename  + "'"), false, System.Text.Encoding.Unicode);
+            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
             string Columns = string.Empty;
-            foreach (DataColumn column in dsExtractTypeDataForFileCreation.Tables[0].Columns)
+
+            if (FileID != 37)
             {
-                Columns += column.ColumnName + delimeter;
+                foreach (DataColumn column in dsExtractTypeDataForFileCreation.Tables[0].Columns)
+                {
+                    Columns += column.ColumnName + delimeter;
+                }
+                str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
             }
-            str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+
 
             foreach (DataRow datarow in dsExtractTypeDataForFileCreation.Tables[0].Rows)
             {
                 string row = string.Empty;
                 foreach (object items in datarow.ItemArray)
                 {
-                    row += items.ToString() + "|";
+                    row += items.ToString() + delimeter;
                 }
                 str.WriteLine(row.Remove(row.Length - 1, 1));
             }
