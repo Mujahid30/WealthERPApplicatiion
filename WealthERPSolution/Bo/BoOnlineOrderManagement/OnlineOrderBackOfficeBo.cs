@@ -173,14 +173,14 @@ namespace BoOnlineOrderManagement
         /// <param name="OrderType"></param>
         /// <param name="RtaIdentifier"></param>
         /// <returns></returns>
-        public DataSet GetMfOrderExtract(DateTime ExecutionDate, int AdviserId, string OrderType, string RtaIdentifier)
+        public DataSet GetMfOrderExtract(DateTime ExecutionDate, int AdviserId, string OrderType, string RtaIdentifier, int AmcCode)
         {
             DataSet dsMfOrderExtract = null;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                dsMfOrderExtract = daoOnlineOrderBackOffice.GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier);
+                dsMfOrderExtract = daoOnlineOrderBackOffice.GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -209,13 +209,13 @@ namespace BoOnlineOrderManagement
         /// <param name="RtaIdentifier"></param>
         /// <param name="ExecutionDate"></param>
         /// <returns></returns>
-        public DataTable GetOrderExtractForRta(DateTime ExecutionDate, int AdviserId, string OrderType, string RtaIdentifier)
+        public DataTable GetOrderExtractForRta(DateTime ExecutionDate, int AdviserId, string OrderType, string RtaIdentifier, int AmcCode)
         {
             DataTable dtOrderExtract = new DataTable();
             try
             {
                 List<OnlineOrderBackOfficeVo> headerMap = GetRtaColumnDetails(RtaIdentifier);
-                DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier);
+                DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
                 dtOrderExtract = new DataTable("OrderExtract");
                 foreach (OnlineOrderBackOfficeVo header in headerMap)
                 {
@@ -308,6 +308,32 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dbfFile;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void GenerateOrderExtract()
+        {
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            try
+            {
+                daoOnlineOrderBackOffice.GenerateOrderExtract();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GenerateOrderExtract()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
         }
     }
 }

@@ -81,7 +81,7 @@ namespace DaoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetMfOrderExtract(DateTime ExecutionDate, int AdviserId, string TransactionType, string RtaIdentifier)
+        public DataSet GetMfOrderExtract(DateTime ExecutionDate, int AdviserId, string TransactionType, string RtaIdentifier, int AmcCode)
         {
             DataSet dsGetMfOrderExtract;
             Database db;
@@ -94,6 +94,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, RtaIdentifier);
                 if (string.IsNullOrEmpty(TransactionType) == false && TransactionType.ToUpper() != "ALL") { db.AddInParameter(cmd, "@AMFE_TrxnType", DbType.String, TransactionType); }
+                if (AmcCode > 0) { db.AddInParameter(cmd, "@PA_AMCCode", DbType.Int32, AmcCode); }
 
                 dsGetMfOrderExtract = db.ExecuteDataSet(cmd);
             }
@@ -149,6 +150,34 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsHeaderMapping;
+        }
+
+        /// <summary>
+        /// Generates MF Order extracts
+        /// </summary>
+        public void GenerateOrderExtract()
+        {
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_CreateAdviserMFOrderExtract");
+                db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GenerateOrderExtract()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
     }
 }

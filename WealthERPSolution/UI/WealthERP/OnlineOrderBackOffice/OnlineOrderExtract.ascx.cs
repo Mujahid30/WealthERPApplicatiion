@@ -41,14 +41,16 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnGenerateFile_Click(object sender, EventArgs e)
         {
+            boOnlineOrderBackOffice.GenerateOrderExtract();
             DateTime execDate = rdpExtractDate.SelectedDate.Value;
 
-            DataTable orderExtractForRta = boOnlineOrderBackOffice.GetOrderExtractForRta(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue);
+            DataTable orderExtractForRta = boOnlineOrderBackOffice.GetOrderExtractForRta(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue));
             DownloadCsvFile(orderExtractForRta);
         }
 
         protected void btnPreview_Click(object sender, EventArgs e)
         {
+            boOnlineOrderBackOffice.GenerateOrderExtract();
             Page.Validate("ExtractData");
             if (!Page.IsValid)
             {
@@ -116,7 +118,7 @@ namespace WealthERP.OnlineOrderBackOffice
         
         private int BindMisGridView()
         {
-            DataSet dsOrderMis = boOnlineOrderBackOffice.GetMfOrderExtract(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, "CA");
+            DataSet dsOrderMis = boOnlineOrderBackOffice.GetMfOrderExtract(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, "CA", int.Parse(ddlProductAmc.SelectedValue));
 
             if (dsOrderMis == null) return 0;
             if (dsOrderMis.Tables.Count <= 0) return 0;
