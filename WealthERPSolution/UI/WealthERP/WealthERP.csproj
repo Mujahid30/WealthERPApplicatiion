@@ -6715,6 +6715,7 @@
     <Content Include="App_Themes\SBIOnLine\Images\comnav-arrowover.png" />
     <Content Include="App_Themes\SBIOnLine\Images\comnav-arrowover2.png" />
     <Content Include="App_Themes\SBIOnLine\Images\CrystalIcon.png" />
+    <Content Include="App_Themes\SBIOnLine\Images\downarrow.png" />
     <Content Include="App_Themes\SBIOnLine\Images\Export_Excel.png" />
     <Content Include="App_Themes\SBIOnLine\Images\Export_Pdf.gif" />
     <Content Include="App_Themes\SBIOnLine\Images\Export_Word.jpg" />
