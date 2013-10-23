@@ -239,7 +239,7 @@
             </td>
             <td>
                 <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
-                    CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
+                    CssClass="PCGButton" ValidationGroup="btnSubmit"></asp:Button>
             </td>
             <%-- <td >
              <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails"
