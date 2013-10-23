@@ -60,7 +60,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void GetExtractTypeDataForFileCreation()
         {
             orderDate = Convert.ToDateTime(txtExtractDate.Text);
-            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId,Convert.ToInt32(ddlExtractType.SelectedValue));
+            //dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId,Convert.ToInt32(ddlExtractType.SelectedValue));
             CreateDataTableForExtract();
         }
 
@@ -166,7 +166,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void BindddlExtractType()
         {
             dsextractType = new DataSet();
-            dsextractType = OnlineOrderBackOfficeBo.GetExtractType();
+            //dsextractType = OnlineOrderBackOfficeBo.GetExtractType();
             if (dsextractType != null && dsextractType.Tables[0].Rows.Count > 0)
             {
                 ddlExtractType.DataSource = dsextractType;
