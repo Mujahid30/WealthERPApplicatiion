@@ -11,7 +11,7 @@ using VoCustomerPortfolio;
 
 namespace BoOps
 {
-    public class MFOrderBo:OrderBo
+    public class MFOrderBo : OrderBo
     {
         MFOrderDao mfOrderDao = new MFOrderDao();
         public int GetOrderNumber(int orderId)
@@ -38,12 +38,12 @@ namespace BoOps
             }
             return orderNumber;
         }
-         public  DataTable   AplicationNODuplicates(string prefixText)
+        public DataTable AplicationNODuplicates(string prefixText)
         {
             DataTable AplicationNODuplicates = new DataTable();
             try
             {
-                AplicationNODuplicates = mfOrderDao.AplicationNODuplicates( prefixText);
+                AplicationNODuplicates = mfOrderDao.AplicationNODuplicates(prefixText);
             }
             catch (BaseApplicationException Ex)
             {
@@ -51,7 +51,7 @@ namespace BoOps
             }
             return AplicationNODuplicates;
         }
-        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo,int userId,SystematicSetupVo SystematicSetupVo)
+        public List<int> CreateCustomerMFOrderDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo SystematicSetupVo)
         {
             List<int> orderIds = new List<int>();
             try
@@ -93,7 +93,14 @@ namespace BoOps
         public int MarkAsReject(int orderId)
         {
             int IsMarked = 0;
-            IsMarked = mfOrderDao.MarkAsReject(orderId);
+            try
+            {
+                IsMarked = mfOrderDao.MarkAsReject(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
             return IsMarked;
         }
         public bool ChkOnlineOrder(int OrderId)
@@ -137,7 +144,7 @@ namespace BoOps
 
         public DataSet GetSipDetails(int orderID)
         {
-            DataSet dsGetSip ;
+            DataSet dsGetSip;
             try
             {
                 dsGetSip = mfOrderDao.GetSipDetails(orderID);
@@ -215,6 +222,6 @@ namespace BoOps
             }
             return dsARNNo;
         }
-       
+
     }
 }

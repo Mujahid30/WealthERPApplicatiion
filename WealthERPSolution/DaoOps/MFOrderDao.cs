@@ -67,7 +67,7 @@ namespace DaoOps
                 db.AddInParameter(DupAppNosCmd, "@CO_ApplicationNumber", DbType.String, prefixText);
                 dsApplicationNo = db.ExecuteDataSet(DupAppNosCmd);
                 DupAppNos = dsApplicationNo.Tables[0];
-                
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -85,7 +85,7 @@ namespace DaoOps
                 throw exBase;
             }
             return DupAppNos;
-          
+
 
         }
         public List<int> CreateOrderMFDetails(OrderVo orderVo, MFOrderVo mforderVo, int userId, SystematicSetupVo systematicSetupVo)
@@ -125,7 +125,7 @@ namespace DaoOps
                     db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, orderVo.ApplicationReceivedDate);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@ApplicationReceivedDate", DbType.DateTime, DBNull.Value);
-                
+
                 db.AddInParameter(createMFOrderTrackingCmd, "@CP_portfolioId", DbType.Int32, mforderVo.portfolioId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@PaymentMode", DbType.String, orderVo.PaymentMode);
                 if (!string.IsNullOrEmpty(orderVo.ChequeNumber.ToString().Trim()))
@@ -209,7 +209,7 @@ namespace DaoOps
 
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
 
-                if (mforderVo.AgentId !=0)
+                if (mforderVo.AgentId != 0)
                     db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, mforderVo.AgentId);
                 else
                     db.AddInParameter(createMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
@@ -244,7 +244,7 @@ namespace DaoOps
                 {
                     orderIds = null;
                 }
-             
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -253,7 +253,7 @@ namespace DaoOps
             return orderIds;
         }
 
-        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId,int isOnline)
+        public DataSet GetCustomerMFOrderMIS(int AdviserId, DateTime dtFrom, DateTime dtTo, string branchId, string rmId, string transactionType, string status, string orderType, string amcCode, string customerId, int isOnline)
         {
             DataSet dsGetCustomerMFOrderMIS = null;
             Database db;
@@ -285,8 +285,8 @@ namespace DaoOps
                 else
                     db.AddInParameter(GetCustomerMFOrderMIScmd, "@customerId", DbType.String, DBNull.Value);
 
-                db.AddInParameter(GetCustomerMFOrderMIScmd, "@isOnline", DbType.Int64, isOnline);                
-              
+                db.AddInParameter(GetCustomerMFOrderMIScmd, "@isOnline", DbType.Int64, isOnline);
+
                 dsGetCustomerMFOrderMIS = db.ExecuteDataSet(GetCustomerMFOrderMIScmd);
             }
             catch (BaseApplicationException ex)
@@ -309,13 +309,13 @@ namespace DaoOps
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@C_CustomerId", DbType.Int32, orderVo.CustomerId);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@PASP_SchemePlanCode", DbType.Int32, mforderVo.SchemePlanCode);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_OrderNumber", DbType.Int32, mforderVo.OrderNumber);
-                if (orderVo.CustBankAccId !=0)
+                if (orderVo.CustBankAccId != 0)
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, orderVo.CustBankAccId);
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CustBankAccId", DbType.Int32, 0);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@AssetGroupCode", DbType.String, orderVo.AssetGroup);
                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFOD_Amount ", DbType.Double, mforderVo.Amount);
-              
+
                 if (mforderVo.accountid != 0)
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFA_accountid", DbType.Int32, mforderVo.accountid);
                 else
@@ -419,27 +419,27 @@ namespace DaoOps
                 else
                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@AgentId", DbType.Int32, DBNull.Value);
 
-                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
+                db.AddInParameter(UpdateMFOrderTrackingCmd, "@UserId", DbType.Int32, userId);
 
-                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
+                db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_SystematicDate", DbType.Int32, systematicSetupVo.SystematicDate);
 
-                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_Tenure", DbType.Int32, systematicSetupVo.Period);
+                db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_Tenure", DbType.Int32, systematicSetupVo.Period);
 
-                 db.AddInParameter(UpdateMFOrderTrackingCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
+                db.AddInParameter(UpdateMFOrderTrackingCmd, "@TenureCycle", DbType.String, systematicSetupVo.PeriodSelection);
 
-                 if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
-                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
-                 else
-                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
+                if (systematicSetupVo.RegistrationDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, systematicSetupVo.RegistrationDate);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CMFSS_RegistrationDate", DbType.DateTime, DBNull.Value);
 
-                 if (systematicSetupVo.CeaseDate != DateTime.MinValue)
-                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
-                 else
-                     db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
+                if (systematicSetupVo.CeaseDate != DateTime.MinValue)
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, systematicSetupVo.CeaseDate);
+                else
+                    db.AddInParameter(UpdateMFOrderTrackingCmd, "@CeaseDate", DbType.DateTime, DBNull.Value);
 
-                 db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
+                db.ExecuteNonQuery(UpdateMFOrderTrackingCmd);
             }
-            catch(BaseApplicationException Ex)
+            catch (BaseApplicationException Ex)
             {
                 throw (Ex);
             }
@@ -482,11 +482,17 @@ namespace DaoOps
 
             Database db;
             DbCommand createMFOrderTrackingCmd;
-
-            db = DatabaseFactory.CreateDatabase("wealtherp");
-            createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_MarkAsReject");
-            db.AddInParameter(createMFOrderTrackingCmd, "@OrderId", DbType.Int32, OrderID);
-            IsMarked = Convert.ToInt32(db.ExecuteScalar(createMFOrderTrackingCmd));
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_MarkAsReject");
+                db.AddInParameter(createMFOrderTrackingCmd, "@OrderId", DbType.Int32, OrderID);
+                IsMarked = Convert.ToInt32(db.ExecuteScalar(createMFOrderTrackingCmd));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
 
             return IsMarked;
         }
@@ -496,7 +502,7 @@ namespace DaoOps
             Database db;
             DbCommand getCustomerBankcmd;
             try
-                {
+            {
                 //  Shantanu Dated :- 18thSept2012
                 //Don't Change this scripts As I am using same while MF Folio Add. If you want to change ,
                 //then test the folio Add Screen also..
@@ -601,7 +607,7 @@ namespace DaoOps
                 throw Ex;
             }
         }
-      
+
 
         public bool MFOrderAutoMatch(int OrderId, int SchemeCode, int AccountId, string TransType, int CustomerId, double Amount, DateTime OrderDate, out bool status)
         {
@@ -646,7 +652,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getCustomerBankcmd = db.GetStoredProcCommand("SP_GetBankAccountEQDetails");
                 db.AddInParameter(getCustomerBankcmd, "@C_CustomerId", DbType.Int32, customerId);
-               // db.AddInParameter(getCustomerBankcmd, "@CB_CustBankAccId", DbType.Int32, CB_CustBankAccId);
+                // db.AddInParameter(getCustomerBankcmd, "@CB_CustBankAccId", DbType.Int32, CB_CustBankAccId);
                 dsGetCustomerBank = db.ExecuteDataSet(getCustomerBankcmd);
             }
             catch (BaseApplicationException Ex)
@@ -673,6 +679,6 @@ namespace DaoOps
             }
             return dsARNNo;
         }
-        
+
     }
 }

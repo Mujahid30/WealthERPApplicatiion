@@ -441,7 +441,7 @@ namespace WealthERP.OPS
                 gvCustomerOrderMIS.DataBind();
                 gvCustomerOrderMIS.Visible = true;
                 //this.GetPageCount();
-                if (ddlMISOrderStatus.SelectedValue.Trim() == "AL")
+                if (ddlMISOrderStatus.SelectedValue.Trim() == "IP")
                 {
                     btnSync.Visible = true;
                     btnMannualMatch.Visible = true;
@@ -2031,7 +2031,7 @@ namespace WealthERP.OPS
             dtOrderMIS = (DataTable)Cache["OrderMIS" + userVo.UserId];
             gvCustomerOrderMIS.DataSource = dtOrderMIS;
             gvCustomerOrderMIS.Visible = true;
-            if (ddlMISOrderStatus.SelectedValue == "AL")
+            if (ddlMISOrderStatus.SelectedValue == "IP")
             {
                 btnSync.Visible = true;
                 btnMannualMatch.Visible = true;
