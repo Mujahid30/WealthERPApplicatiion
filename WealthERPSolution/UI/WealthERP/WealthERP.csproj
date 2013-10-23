@@ -2645,6 +2645,27 @@
     <Compile Include="OnlineMainHost.aspx.designer.cs">
       <DependentUpon>OnlineMainHost.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerOrderBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerSIPOrderBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerSIPOrderBook.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx.cs">
+      <DependentUpon>OnlineAdviserSIPSummaryBooks.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserSIPSummaryBooks.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.cs">
       <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7573,6 +7594,9 @@
     <Content Include="Messages\MessageOutbox.ascx" />
     <Content Include="OnlineBottomHost.aspx" />
     <Content Include="OnlineMainHost.aspx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />

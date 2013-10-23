@@ -2338,11 +2338,38 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineAdviserCustomerOrderBook.ascx.
+        /// </summary>
+        internal static string OnlineAdviserCustomerOrderBook {
+            get {
+                return ResourceManager.GetString("OnlineAdviserCustomerOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineAdviserCustomerSIPOrderBook.ascx.
+        /// </summary>
+        internal static string OnlineAdviserCustomerSIPOrderBook {
+            get {
+                return ResourceManager.GetString("OnlineAdviserCustomerSIPOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx.
         /// </summary>
         internal static string OnlineOrderAccountingExtract {
             get {
                 return ResourceManager.GetString("OnlineOrderAccountingExtract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineAdviserSIPSummaryBooks.ascx.
+        /// </summary>
+        internal static string OnlineOrderBackOffice {
+            get {
+                return ResourceManager.GetString("OnlineOrderBackOffice", resourceCulture);
             }
         }
         

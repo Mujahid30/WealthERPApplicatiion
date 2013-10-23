@@ -1765,4 +1765,16 @@
     <value>OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx</comment>
   </data>
+  <data name="OnlineAdviserCustomerOrderBook" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineAdviserCustomerOrderBook.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineAdviserCustomerOrderBook.ascx</comment>
+  </data>
+  <data name="OnlineAdviserCustomerSIPOrderBook" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineAdviserCustomerSIPOrderBook.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineAdviserCustomerSIPOrderBook.ascx</comment>
+  </data>
+  <data name="OnlineOrderBackOffice" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineAdviserSIPSummaryBooks.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineAdviserSIPSummaryBooks.ascx</comment>
+  </data>
 </root>
