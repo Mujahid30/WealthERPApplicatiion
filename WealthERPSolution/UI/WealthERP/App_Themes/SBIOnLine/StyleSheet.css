@@ -1452,5 +1452,25 @@ color:#FFF;
         border: 0px;
         padding-top: 2px;
     }
+    
+.divOnlinePageHeading
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+     -webkit-box-shadow: 3px 3px 3px #DDD;
+    box-shadow: 3px 3px 3px #DDD;
+    border-radius: 4px;   
+    background-color:#D9EBF7;
+    color:#2471C9;
+    font-weight:bold;
+    font-size:small;
+    height:12px;
+    vertical-align:middle;  
+    padding-left:15px;
+    border:0px;
+    padding-top:3px;
+    padding-bottom:5px;
+    
+}
 
 /* End */

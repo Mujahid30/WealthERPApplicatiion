@@ -109,20 +109,20 @@ namespace BoOnlineOrderManagement
             }
             return ds;
         }
-        public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
+        public IDictionary<string, string> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
         {
-            List<int> orderIds = new List<int>();
+            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();            
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
 
             try
             {
-                orderIds = OnlineMFOrderDao.CreateOrderMFSipDetails(onlineMFOrderVo, userId);
+                sipOrderIds = OnlineMFOrderDao.CreateOrderMFSipDetails(onlineMFOrderVo, userId);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
-            return orderIds;
+            return sipOrderIds;
         }
         public List<int> CreateCustomerOnlineMFOrderDetails(OnlineMFOrderVo onlinemforderVo, int UserId, int CustomerId)
         {

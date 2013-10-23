@@ -66,5 +66,32 @@ namespace BoOnlineOrderManagement
             Response = new StreamReader(WR.GetResponse().GetResponseStream()).ReadToEnd();
             return Response;
         }
+
+        public decimal GetUserRMSAccountBalance(string userAccountId)
+        {
+            decimal accountBalance = 0;
+            string response = string.Empty;
+            string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_CHECK_API"];
+            string[] resultAPI = new string[5];
+
+            try
+            {
+                rmsAPI = rmsAPI.Replace("#UserAccountId#", userAccountId);
+                response = TrigerAPI(rmsAPI);
+                if (!string.IsNullOrEmpty(response))
+                {
+                    resultAPI = response.Split('|');
+                    accountBalance = Convert.ToDecimal(resultAPI[1].ToString());
+                }
+
+            }
+            catch (Exception Ex)
+            {
+
+
+            }
+            return accountBalance;
+
+        }
     }
 }

@@ -275,9 +275,9 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public List<int> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
+        public IDictionary<string, string> CreateOrderMFSipDetails(OnlineMFOrderVo onlineMFOrderVo, int userId)
         {
-            List<int> orderIds = new List<int>();
+            IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
             //int OrderId;
             Database db;
             DbCommand createMFOrderTrackingCmd;
@@ -318,11 +318,13 @@ namespace DaoOnlineOrderManagement
                 db.AddOutParameter(createMFOrderTrackingCmd, "@CO_OrderId", DbType.Int32, 10);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CP_PortfolioId", DbType.Int32, onlineMFOrderVo.PortfolioId);
                 db.AddInParameter(createMFOrderTrackingCmd, "@CMFOD_DividendOption", DbType.String, onlineMFOrderVo.DivOption);
+                db.AddOutParameter(createMFOrderTrackingCmd, "@SIPRegisterId", DbType.Int32, 10000);
 
 
                 if (db.ExecuteNonQuery(createMFOrderTrackingCmd) != 0)
                 {
-                    orderIds.Add( Convert.ToInt32(db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString()));
+                    sipOrderIds.Add("OrderId", db.GetParameterValue(createMFOrderTrackingCmd, "CO_OrderId").ToString());
+                    sipOrderIds.Add("SIPId", db.GetParameterValue(createMFOrderTrackingCmd, "SIPRegisterId").ToString());
                     
                 }
             }
@@ -330,7 +332,7 @@ namespace DaoOnlineOrderManagement
             {
                 throw Ex;
             }
-            return orderIds;
+            return sipOrderIds;
         }
 
 

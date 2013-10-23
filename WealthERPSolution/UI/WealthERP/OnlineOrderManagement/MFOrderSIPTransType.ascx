@@ -27,7 +27,22 @@
         }
 </script>
 
-<table id="tblMessage" width="100%" runat="server" visible="false">
+<script type="text/javascript">
+    function EUINConfirm() {
+        if (confirm("I/We hereby confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction ")) {
+            return true;
+        }
+        return false;
+    }
+</script>
+
+<div class="divOnlinePageHeading" style="float: right; width: 100%">
+    <div style="float:right;padding-right:100px;">
+      <span style="color:Black;font:arial;font-size:smaller">Available Limits:</span>
+        <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+    </div>
+</div>
+<table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top:20px;">
     <tr id="trSumbitSuccess">
         <td align="center">
             <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
@@ -35,7 +50,6 @@
         </td>
     </tr>
 </table>
-
 <table width="100%">
     <tr align="center">
         <td align="center">
@@ -58,7 +72,7 @@
                     OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                     <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                 <span id="Span7" class="spnRequiredField">*</span>
+                <span id="Span7" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an AMC"
                     Display="Dynamic" ControlToValidate="ddlAmc" InitialValue="0" ValidationGroup="btnSubmit">Please Select an AMC</asp:RequiredFieldValidator>
             </td>
@@ -79,7 +93,7 @@
                     <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
                     <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                 <span id="Span8" class="spnRequiredField">*</span>
+                <span id="Span8" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ErrorMessage="Please select a category"
                     CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnSubmit"
                     Display="Dynamic" InitialValue="0">Please select a category</asp:RequiredFieldValidator>
@@ -96,11 +110,11 @@
                 <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
-                    OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
+                <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    Width="300px" OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
                     <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                 <span id="Span1" class="spnRequiredField">*</span>
+                <span id="Span1" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvScheme" runat="server" ErrorMessage="Please select a scheme"
                     CssClass="rfvPCG" ControlToValidate="ddlScheme" Display="Dynamic" InitialValue="0"
                     ValidationGroup="btnSubmit">Please select a scheme</asp:RequiredFieldValidator>
@@ -121,7 +135,7 @@
                     CssClass="cmbField" runat="server" AutoPostBack="True">
                     <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                 <span id="Span2" class="spnRequiredField">*</span>
+                <span id="Span2" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvFolio" runat="server" ErrorMessage="Please select folio number"
                     CssClass="rfvPCG" ControlToValidate="ddlFolio" Display="Dynamic" InitialValue="0"
                     ValidationGroup="btnSubmit">Please select folio number</asp:RequiredFieldValidator>
@@ -213,7 +227,7 @@
                     <asp:ListItem Text="--SELECT--" Value="0" Selected="True"></asp:ListItem>
                     <%--  <asp:ListItem Text="Quarterly" Value="QT"></asp:ListItem>--%>
                 </asp:DropDownList>
-                 <span id="Span3" class="spnRequiredField">*</span>
+                <span id="Span3" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvFrequency" runat="server" ErrorMessage="Please select frequency"
                     CssClass="rfvPCG" ControlToValidate="ddlFrequency" Display="Dynamic" InitialValue="0"
                     ValidationGroup="btnSubmit">Please select frequency</asp:RequiredFieldValidator>
@@ -234,7 +248,7 @@
                     OnSelectedIndexChanged="ddlStartDate_SelectedIndexChanged" ValidationGroup="btnSubmit">
                     <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                 <span id="Span4" class="spnRequiredField">*</span>
+                <span id="Span4" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvStartDate" runat="server" ErrorMessage="Please select a start date"
                     InitialValue="0" ControlToValidate="ddlStartDate" ValidationGroup="btnSubmit"
                     CssClass="rfvPCG" Display="Dynamic">Please select a start date</asp:RequiredFieldValidator>
@@ -255,7 +269,7 @@
                     OnSelectedIndexChanged="ddlTotalInstallments_SelectedIndexChanged">
                     <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                 </asp:DropDownList>
-                 <span id="Span5" class="spnRequiredField">*</span>
+                <span id="Span5" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvInstallments" runat="server" ErrorMessage="Please select a value"
                     ControlToValidate="ddlTotalInstallments" InitialValue="0" ValidationGroup="btnSubmit"
                     CssClass="rfvPCG" Display="Dynamic">Please select a value</asp:RequiredFieldValidator>
@@ -290,11 +304,11 @@
             </td>
             <td>
                 <asp:TextBox ID="txtAmount" runat="server" CssClass="txtField"></asp:TextBox>
-                 <span id="Span6" class="spnRequiredField">*</span>
+                <span id="Span6" class="spnRequiredField">*</span>
                 <asp:RequiredFieldValidator ID="rfvAmount" runat="server" ErrorMessage="Please enter a valid amount (e.g. 500.0,  100.15)"
                     ValidationGroup="btnSubmit" ControlToValidate="txtAmount" Display="Dynamic" CssClass="rfvPCG">Please enter a valid amount</asp:RequiredFieldValidator>
-                <asp:RangeValidator ID="rgvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="You should enter the amount in Multiple of Subsequent Amount (e.g. 500.0,  100.15)"
-                    Type="Double" ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic"> You should enter the amount in Multiple of Subsequent Amount</asp:RangeValidator>
+                <asp:RangeValidator ID="rgvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="You have entered the amount less than the Minimum Initial Amount"
+                    Type="Double" ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic"> You should enter the amount in multiple of subsequent amount</asp:RangeValidator>
             </td>
             <td style="vertical-align: top;" align="right">
                 <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
@@ -326,7 +340,7 @@
                 <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server" AutoPostBack="True">
+                <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server">
                     <asp:ListItem Selected="True">--SELECT--</asp:ListItem>
                     <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                     <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
@@ -363,14 +377,14 @@
             </td>
             <td>
                 <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server" CssClass="PCGButton"
-                    OnClick="btnSubmit_Click"></asp:Button>
+                    OnClick="btnSubmit_Click" OnClientClick="return EUINConfirm()"></asp:Button>
             </td>
             <td>
             </td>
         </tr>
     </table>
 </div>
-<div>
+<div style="float: left;padding-top:5px;">
     <table style="border-style: solid; border-width: 2px; border-color: Blue">
         <tr class="spaceUnder">
             <td>

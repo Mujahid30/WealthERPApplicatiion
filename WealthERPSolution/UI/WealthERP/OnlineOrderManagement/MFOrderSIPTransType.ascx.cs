@@ -64,10 +64,10 @@ namespace WealthERP.OnlineOrderManagement
             adviserVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["CustomerVo"];
             custPortVo = (CustomerPortfolioVo)Session["CustomerPortfolioVo"];
-            if(custPortVo==null)
+            if (custPortVo == null)
             {
-             custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
-            
+                custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
+
             }
 
 
@@ -79,6 +79,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 AmcBind();
                 BindCategory();
+                ShowAvailableLimits();
 
                 if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
                 {
@@ -111,6 +112,14 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
+        private void ShowAvailableLimits()
+        {
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                lblAvailableLimits.Text = boOnlineOrder.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+            }
+
+        }
 
         protected void OnDrillDownBindControlValue(int amcCode, string category, int accountId, int schemeCode)
         {
@@ -120,7 +129,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlScheme.SelectedValue = schemeCode.ToString();
 
             BindSipUiOnSchemeSelection(schemeCode);
-            ddlFolio.SelectedValue = accountId.ToString();            
+            ddlFolio.SelectedValue = accountId.ToString();
 
         }
 
@@ -346,7 +355,7 @@ namespace WealthERP.OnlineOrderManagement
             onlineMFOrderVo.TotalInstallments = int.Parse(ddlTotalInstallments.SelectedValue);
             onlineMFOrderVo.PortfolioId = custPortVo.PortfolioId;
             if (ddlDividendFreq.SelectedIndex > -1)
-            onlineMFOrderVo.DivOption= ddlDividendFreq.SelectedValue;
+                onlineMFOrderVo.DivOption = ddlDividendFreq.SelectedValue;
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
@@ -367,33 +376,40 @@ namespace WealthERP.OnlineOrderManagement
                 int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), float.Parse(txtAmount.Text), float.Parse(lblMutiplesThereAfterDisplay.Text), DateTime.Parse(lblCutOffTimeDisplay.Text));
                 if (retVal != 0 && retVal != 1)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Rules defined were incorrect');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter amount in multiple of subsequent amount and greater than minimum initial amount');", true);
                     return;
                 }
                 if (retVal == 1)
                 {
                     ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteConfirmation();", true);
                 }
-                List<int> OrderIds = new List<int>();
-                
-                SaveOrderDetails();
-                OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
-                int OrderId = int.Parse(OrderIds[0].ToString());
+                IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
 
+                SaveOrderDetails();
+                sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                int OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
+                int sipId = int.Parse(sipOrderIds["SIPId"].ToString());
+                string message=string.Empty;
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
+                    ShowAvailableLimits();
                 }
                 if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
                 {
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
-                    string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
+                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
                     ShowMessage(message);
                 }
                 else if (OrderId != 0 && accountDebitStatus == false)
                 {
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
-                    string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
+                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
+                    ShowMessage(message);
+                }
+                else if (OrderId == 0 && sipId != 0)
+                {
+                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
                     ShowMessage(message);
                 }
             }
@@ -412,11 +428,30 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 List<int> OrderIds = new List<int>();
                 SaveOrderDetails();
-                OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                //OrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
 
             }
 
             FreezeControls();
+        }
+
+        private string CreateUserMessage(int orderId, int sipId, bool accountDebitStatus)
+        {
+            string userMessage = string.Empty;
+            if (orderId != 0 && accountDebitStatus == true)
+            {
+                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+            }
+            else if (orderId != 0 && accountDebitStatus == false)
+            {
+                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+            }
+            else if (orderId == 0 && sipId != 0)
+            {
+                userMessage = "SIP Requested successfully, SIP reference no is " + sipId.ToString();
+            }
+            return userMessage;
+
         }
 
         private void ShowMessage(string msg)
@@ -771,7 +806,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (ddlTotalInstallments.SelectedIndex == 0 || ddlStartDate.SelectedIndex == 0 || ddlFrequency.SelectedIndex == 0) return;
 
-            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequency.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue)-1);
+            DateTime dtEndDate = boOnlineOrder.GetSipEndDate(Convert.ToDateTime(ddlStartDate.SelectedValue), ddlFrequency.SelectedValue, Convert.ToInt32(ddlTotalInstallments.SelectedValue) - 1);
             lblEndDateDisplay.Text = dtEndDate.ToString("dd-MMM-yyyy");
         }
 
