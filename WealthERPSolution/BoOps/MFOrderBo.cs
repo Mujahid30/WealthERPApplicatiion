@@ -90,7 +90,23 @@ namespace BoOps
                 throw (Ex);
             }
         }
-
+        public int MarkAsReject(int orderId)
+        {
+            int IsMarked = 0;
+            IsMarked = mfOrderDao.MarkAsReject(orderId);
+            return IsMarked;
+        }
+        public bool ChkOnlineOrder(int OrderId)
+        {
+            try
+            {
+                return mfOrderDao.ChkOnlineOrder(OrderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+        }
         public DataSet GetCustomerMFOrderDetails(int orderId)
         {
             DataSet dsGetCustomerMFOrderDetails;

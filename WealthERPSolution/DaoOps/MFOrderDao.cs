@@ -476,7 +476,20 @@ namespace DaoOps
             }
             return dsGetCustomerMFOrderDetails;
         }
+        public int MarkAsReject(int OrderID)
+        {
+            int IsMarked = 0;
 
+            Database db;
+            DbCommand createMFOrderTrackingCmd;
+
+            db = DatabaseFactory.CreateDatabase("wealtherp");
+            createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_MarkAsReject");
+            db.AddInParameter(createMFOrderTrackingCmd, "@OrderId", DbType.Int32, OrderID);
+            IsMarked = Convert.ToInt32(db.ExecuteScalar(createMFOrderTrackingCmd));
+
+            return IsMarked;
+        }
         public DataSet GetCustomerBank(int customerId)
         {
             DataSet dsGetCustomerBank;
@@ -562,6 +575,33 @@ namespace DaoOps
             }
             return bResult;
         }
+
+        public bool ChkOnlineOrder(int OrderId)
+        {
+            Database db;
+            DbCommand MFOrderAutoMatchCmd;
+            int status;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MFOrderAutoMatchCmd = db.GetStoredProcCommand("SP_ChkOnlineOrder");
+                db.AddInParameter(MFOrderAutoMatchCmd, "@orderId", DbType.Int32, OrderId);
+                db.AddOutParameter(MFOrderAutoMatchCmd, "@IsOnline", DbType.Int16, 0);
+                db.ExecuteDataSet(MFOrderAutoMatchCmd);
+                status = int.Parse(db.GetParameterValue(MFOrderAutoMatchCmd, "@IsOnline").ToString());
+                if (status == 1)
+                    return true;
+                else
+                    return false;
+
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+      
 
         public bool MFOrderAutoMatch(int OrderId, int SchemeCode, int AccountId, string TransType, int CustomerId, double Amount, DateTime OrderDate, out bool status)
         {

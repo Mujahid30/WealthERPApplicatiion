@@ -1620,24 +1620,33 @@ namespace WealthERP.OPS
 
         protected void gvCustomerOrderMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    Label lblordertype = e.Row.FindControl("lblOrderType") as Label;
-            //    //CheckBox chkApprove = e.Row.FindControl("cbRecons") as CheckBox;
-            //    string ordertype = null;
-            //    ordertype = lblordertype.Text;
-            //    if (ordertype == "1")
-            //        lblordertype.Text = "Immediate";
-            //    else
-            //        lblordertype.Text = "Future";
-
-
-            //}
+            
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
 
                 Label lblordertype = dataItem.FindControl("lblOrderType") as Label;
+                LinkButton lbtnMarkAsReject = dataItem.FindControl("lbtnMarkAsReject") as LinkButton;
+                Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
+                int selectedRow = dataItem.ItemIndex + 1;
+
+                if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
+                {
+                    if (OrderStep.Text.Trim() == "Executed")
+                    {
+                        lbtnMarkAsReject.Visible = true;
+                    }
+                    else
+                    {
+                        lbtnMarkAsReject.Visible = false;
+                    }
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
+                }
+
+                  
                 string ordertype = null;
                 ordertype = lblordertype.Text;
                 if (ordertype == "1")
@@ -1645,6 +1654,24 @@ namespace WealthERP.OPS
                 else
                     lblordertype.Text = "Future";
             }
+
+        }
+        protected void lbtnMarkAsReject_Click(object sender, EventArgs e)
+        {
+            int IsMarked = 0;
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int orderId = int.Parse((gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()));
+            IsMarked = mforderBo.MarkAsReject(orderId);
+
+            if (IsMarked == 0)
+                Response.Write(@"<script language='javascript'>alert('Status Updated Successfully');</script>");
+            else
+                Response.Write(@"<script language='javascript'>alert('Status not updated');</script>");
+
+            BindMISGridView();
 
         }
         protected void lnkOrderNo_Click(object sender, EventArgs e)

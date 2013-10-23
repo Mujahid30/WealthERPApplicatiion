@@ -678,19 +678,24 @@
                         </telerik:GridBoundColumn>--%>
                                 <%--<telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text='<%#Eval("CMFOD_OrderNumber").ToString() %>' CommandName="ViewOrder">
                           </telerik:GridButtonColumn>--%>
-                                <telerik:GridTemplateColumn HeaderText="Order No" AllowFiltering="false" DataField="CMFOD_OrderNumber">
-                                    <ItemStyle />
-                                    <ItemTemplate>
-                                        <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CMFOD_OrderNumber") %>'
+                                <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
+                                    SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                     <ItemTemplate>
+                                        <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CO_OrderId") %>'
                                             OnClick="lnkOrderNo_Click">
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridDateTimeColumn DataField="CO_OrderId" HeaderText="Order/Transaction No." SortExpression="CO_OrderId"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
-                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridDateTimeColumn>
+                                <telerik:GridTemplateColumn HeaderText="OrderDetID" AllowFiltering="false" DataField="CMFOD_OrderNumber" Visible="false">
+                                    <ItemStyle />
+                                    <%--<ItemTemplate>
+                                       <%-- <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CMFOD_OrderNumber") %>'
+                                            OnClick="lnkOrderNo_Click">
+                                        </asp:LinkButton>--%>
+                                    <%--</ItemTemplate> --%>
+                                </telerik:GridTemplateColumn> 
                                 <telerik:GridDateTimeColumn DataField="CO_OrderDate" HeaderText="Order Date" SortExpression="CO_OrderDate"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="CO_OrderDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
@@ -706,11 +711,14 @@
                                     AutoPostBackOnFilter="true" UniqueName="WMTT_TransactionClassificationName" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
+                                <telerik:GridTemplateColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
+                                     <ItemTemplate>
+                                        <asp:Label ID="lblOrderStep" runat="server" Text='<%#Eval("WOS_OrderStep").ToString() %>'> </asp:Label>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
                                 <telerik:GridTemplateColumn DataField="CMFOD_IsImmediate" HeaderText="Order Type">
                                     <HeaderTemplate>
                                         <asp:Label ID="lblOrderTypeHeader" runat="server" Text="Order Type"></asp:Label>
@@ -790,7 +798,15 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="CMFT_Units" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:n}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>                              
+                                </telerik:GridBoundColumn>
+                                <telerik:GridTemplateColumn AllowFiltering="false">
+                                    <ItemStyle />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lbtnMarkAsReject" runat="server" CssClass="cmbField" Text="Mark As Reject"
+                                            OnClick="lbtnMarkAsReject_Click">
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
                             </Columns>
                         </MasterTableView>
                         <ClientSettings>
