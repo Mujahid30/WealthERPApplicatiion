@@ -194,9 +194,9 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="File Extraction" Value="File_Extraction">
+                                            <telerik:RadPanelItem runat="server" Text="Accounting Extract" Value="File_Extraction">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Order Extract" Value="Extract">
+                                            <telerik:RadPanelItem runat="server" Text="RTA Extract" Value="Extract">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
                                                 <Items>
@@ -720,7 +720,7 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Order Extract" Value="Extract">
+                                            <telerik:RadPanelItem runat="server" Text="RTA Extract" Value="Extract">
                                             </telerik:RadPanelItem>
                                             <%-- <telerik:RadPanelItem runat="server" Text="File Generation" Value="File_Generation">
                                             </telerik:RadPanelItem>--%>
