@@ -15,8 +15,6 @@ using System.Configuration;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
-
-
     public partial class OnlineOrderAccountingExtract : System.Web.UI.UserControl
     {
         DataSet dsextractType;
@@ -35,13 +33,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
-
-            // Get the Extract Path in solution
-            //ExtractPath = ConfigurationManager.AppSettings["ExtractPath"].ToString();
-
             ExtractPath = Server.MapPath("UploadFiles");
-
             BindddlExtractType();
+            if (!IsPostBack)
+            {
+                txtExtractDate.MaxDate = DateTime.Now;
+                txtExtractDate.SelectedDate = DateTime.Now;
+            }
         }
 
         protected void btnExtract_Click(object sender, EventArgs e)
@@ -53,11 +51,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void CreateFileForextractAndSaveinServer()
         {
             SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue));
-            //if (!Directory.Exists(ExtractPath))
-            //{
-            //    Directory.CreateDirectory(ExtractPath);
             File.WriteAllText(Path.Combine(ExtractPath, filename), ", System.Text.Encoding.Default");
-            //}
         }
 
         protected void GetExtractTypeDataForFileCreation()
@@ -124,36 +118,26 @@ namespace WealthERP.OnlineOrderBackOffice
             if(FileID==37)
             {
                 filename = "sbiemf" + DD + MM + ".txt";
-
-                //filename = "sbiemf'" + DD + MM + "'.txt";
                 delimeter = "#";                
             }
             else if(FileID==38)
             {
                 filename = "sbipay" + DD + MM + ".txt";
-
-                //filename = "sbipay'" + DD + MM + "'.txt";
                 delimeter = "   ";
             }
             else if(FileID==39)
             {
                 filename = "HDFCPAY" + DD + MM + ".txt";
-
-                //filename = "HDFCPAY'" + DD + MM + "'.txt";
                 delimeter = "        ";
             }
             else if(FileID==40)
             {
                 filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
-
-                //filename = "eMF-InProcess'" + DD + MM + YYYY + "'.txt";
                 delimeter = "|";
             }
             else if(FileID==41)
             {
                 filename = "eMF-Executed" + DD + MM + YYYY + ".txt";
-
-                //filename = "eMF-Executed'" + DD + MM + YYYY + "'.txt";
                 delimeter = "|";
             }
         }
@@ -161,13 +145,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void CreateTextFile(int FileID)
         {
-            //SetFileNameAndDelimeter(FileID);
-
-            //filename = "ExtractDetails.txt";
             string file = string.Empty;
 
             #region ExportDataTabletoFile
-            //StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename  + "'"), false, System.Text.Encoding.Unicode);
             StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
             string Columns = string.Empty;
@@ -207,7 +187,6 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void CreateDataTableForExtract()
         {
             dtTableForExtract = new DataTable();
-
             if (ddlSaveAs.SelectedValue == "2")
             {
                 CreateDBFFile(Convert.ToInt32(ddlExtractType.SelectedValue));
@@ -216,10 +195,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 CreateTextFile(Convert.ToInt32(ddlExtractType.SelectedValue));
             }
-
         }
-
-
 
         protected void BindddlExtractType()
         {
@@ -232,8 +208,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlExtractType.DataTextField = dsextractType.Tables[0].Columns["WUXFT_XMLFileName"].ToString();
                 ddlExtractType.DataBind();
             }
-            ddlExtractType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
-
+            //ddlExtractType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlExtractType.SelectedIndex = 0;
         }
     }

@@ -48,7 +48,7 @@
             <asp:Label ID="lblAmc" runat="server" Text="Extract Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlExtractType" runat="server" CssClass="cmbField">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
@@ -99,7 +99,7 @@
         </td>
         <td class="rightField">
             <asp:DropDownList ID="ddlSaveAs" runat="server" CssClass="cmbField">
-                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                <%--<asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>--%>
                 <asp:ListItem Value="1" Text="txt"></asp:ListItem>
                 <%--<asp:ListItem Value="2" Text="dbf"></asp:ListItem>--%>
             </asp:DropDownList>
