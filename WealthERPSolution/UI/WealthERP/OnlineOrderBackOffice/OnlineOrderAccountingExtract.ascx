@@ -21,7 +21,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Order Extract
+                           Accounting Extract
                         </td>
                         
                     </tr>
