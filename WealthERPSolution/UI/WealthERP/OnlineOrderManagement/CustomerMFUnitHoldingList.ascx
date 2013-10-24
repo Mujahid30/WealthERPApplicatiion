@@ -162,7 +162,7 @@
                                 AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" UniqueName="CurrentValue" HeaderText="Current Value"
+                            <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value"
                                 DataField="CurrentValue" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
                                 AllowFiltering="false" HeaderStyle-Width="86px" Aggregate="Sum">
                                 <ItemStyle HorizontalAlign="Right" />
