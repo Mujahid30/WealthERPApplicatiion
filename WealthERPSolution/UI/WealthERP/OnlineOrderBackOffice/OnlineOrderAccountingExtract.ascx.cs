@@ -44,12 +44,16 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnExtract_Click(object sender, EventArgs e)
         {
-            CreateFileForextractAndSaveinServer();
-            GetExtractTypeDataForFileCreation();
+            if (ddlExtractType.SelectedValue != "0")
+            {
+                CreateFileForextractAndSaveinServer();
+                GetExtractTypeDataForFileCreation();
+            }
         }
 
         protected void CreateFileForextractAndSaveinServer()
         {
+
             SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue));
             File.WriteAllText(Path.Combine(ExtractPath, filename), ", System.Text.Encoding.Default");
         }
@@ -140,48 +144,56 @@ namespace WealthERP.OnlineOrderBackOffice
                 filename = "eMF-Executed" + DD + MM + YYYY + ".txt";
                 delimeter = "|";
             }
+            else if (FileID == 42)
+            {
+                filename = "SSL104" + DD + MM + ".txt";
+                delimeter = ",";
+            }
         }
 
 
         protected void CreateTextFile(int FileID)
         {
             string file = string.Empty;
-
-            #region ExportDataTabletoFile
-            StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
-
-            string Columns = string.Empty;
-
-            if (FileID != 37)
+            if (!string.IsNullOrEmpty(filename))
             {
-                foreach (DataColumn column in dsExtractTypeDataForFileCreation.Tables[0].Columns)
+
+                #region ExportDataTabletoFile
+                StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
+
+                string Columns = string.Empty;
+
+                if (FileID != 37)
                 {
-                    Columns += column.ColumnName + delimeter;
+                    foreach (DataColumn column in dsExtractTypeDataForFileCreation.Tables[0].Columns)
+                    {
+                        Columns += column.ColumnName + delimeter;
+                    }
+                    str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
                 }
-                str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
-            }
 
 
-            foreach (DataRow datarow in dsExtractTypeDataForFileCreation.Tables[0].Rows)
-            {
-                string row = string.Empty;
-                foreach (object items in datarow.ItemArray)
+                foreach (DataRow datarow in dsExtractTypeDataForFileCreation.Tables[0].Rows)
                 {
-                    row += items.ToString() + delimeter;
+                    string row = string.Empty;
+                    foreach (object items in datarow.ItemArray)
+                    {
+                        row += items.ToString() + delimeter;
+                    }
+                    str.WriteLine(row.Remove(row.Length - 1, 1));
                 }
-                str.WriteLine(row.Remove(row.Length - 1, 1));
+                str.Flush();
+                str.Close();
+                #endregion
+                #region download notepad or text file.
+                Response.ContentType = "application/octet-stream";
+                Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
+                string aaa = Server.MapPath("~/UploadFiles/" + filename);
+                Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                Response.End();
+                #endregion
             }
-            str.Flush();
-            str.Close();
-            #endregion
-            #region download notepad or text file.
-            Response.ContentType = "application/octet-stream";
-            Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
-            string aaa = Server.MapPath("~/UploadFiles/" + filename);
-            Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
-            HttpContext.Current.ApplicationInstance.CompleteRequest();
-            Response.End();
-            #endregion
         }
 
         protected void CreateDataTableForExtract()
@@ -201,6 +213,16 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             dsextractType = new DataSet();
             dsextractType = OnlineOrderBackOfficeBo.GetExtractType();
+
+            int i = 0;
+            int j = 1;
+            foreach (DataRow dr in dsextractType.Tables[0].Rows)
+            {
+                dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = j + " - " + dr["WUXFT_XMLFileName"].ToString();
+                i++;
+                j++;
+
+            }
             if (dsextractType != null && dsextractType.Tables[0].Rows.Count > 0)
             {
                 ddlExtractType.DataSource = dsextractType;
@@ -208,7 +230,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlExtractType.DataTextField = dsextractType.Tables[0].Columns["WUXFT_XMLFileName"].ToString();
                 ddlExtractType.DataBind();
             }
-            //ddlExtractType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
+            ddlExtractType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlExtractType.SelectedIndex = 0;
         }
     }
