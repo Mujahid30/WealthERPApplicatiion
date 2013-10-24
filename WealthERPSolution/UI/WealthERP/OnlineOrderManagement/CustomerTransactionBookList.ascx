@@ -100,6 +100,9 @@
                 <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
                     ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
             </td>
+            <td align="right">
+                <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"></asp:LinkButton>
+            </td>
             <td align="right" style="width: 25%">
                 <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"

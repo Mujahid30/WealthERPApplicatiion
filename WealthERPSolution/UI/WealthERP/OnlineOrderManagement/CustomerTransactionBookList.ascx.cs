@@ -48,6 +48,7 @@ namespace WealthERP.OnlineOrderManagement
             BindOrderStatus();
             BindAmc();
             BindLink();
+            lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -116,6 +117,7 @@ namespace WealthERP.OnlineOrderManagement
                 hdnAmc.Value = "0";
                 hdnOrderStatus.Value = "0";
                 BindGrid();
+                lbBack.Visible = true;
             }
         }
                 

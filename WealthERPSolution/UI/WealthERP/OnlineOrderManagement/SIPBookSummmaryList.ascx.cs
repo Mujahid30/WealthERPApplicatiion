@@ -217,7 +217,7 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["XF_Frequency"] = drSIP["XF_Frequency"];
                 drSIPOrderBook["CMFSS_StartDate"] = DateTime.Parse(drSIP["CMFSS_StartDate"].ToString());
                 drSIPOrderBook["CMFSS_EndDate"] = DateTime.Parse(drSIP["CMFSS_EndDate"].ToString());
-                if (drSIPOrderBook["CMFSS_NextSIPDueDate"].ToString() != null)
+                if (!string.IsNullOrEmpty(drSIP["CMFSS_NextSIPDueDate"].ToString()))
                 {
                     drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.Parse(drSIP["CMFSS_NextSIPDueDate"].ToString());
                 }
@@ -229,6 +229,7 @@ namespace WealthERP.OnlineOrderManagement
                 drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
                 drSIPOrderBook["Channel"] = drSIP["Channel"];
                 drSIPOrderBook["CMFSS_IsCanceled"] = drSIP["CMFSS_IsCanceled"];
+                drSIPOrderBook["CMFSS_Remark"] = drSIP["CMFSS_Remark"];
                 drSIPOrderBook["SIPDueCount"] = sipDueCount;
                 drSIPOrderBook["InProcessCount"] = inProcessCount;
                 drSIPOrderBook["AcceptCount"] = acceptCount;
@@ -260,6 +261,7 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("CMFA_FolioNum");
             dtSIPOrderBook.Columns.Add("Channel");
             dtSIPOrderBook.Columns.Add("CMFSS_IsCanceled");
+            dtSIPOrderBook.Columns.Add("CMFSS_Remark");
             dtSIPOrderBook.Columns.Add("SIPDueCount");
             dtSIPOrderBook.Columns.Add("InProcessCount");
             dtSIPOrderBook.Columns.Add("AcceptCount");
@@ -334,21 +336,24 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvSIPSummaryBookMIS_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-
-            if (e.CommandName.ToString() != "Filter")
+            if (e.Item is GridDataItem)
             {
-                if (e.CommandName.ToString() != "Sort")
+                GridDataItem gvr = (GridDataItem)e.Item;
+                if (e.CommandName.ToString() != "Filter")
                 {
-                    if (e.CommandName.ToString() != "Page")
+                    if (e.CommandName.ToString() != "Sort")
                     {
-                        if (e.CommandName.ToString() != "ChangePageSize")
+                        if (e.CommandName.ToString() != "Page")
                         {
-                            GridDataItem gvr = (GridDataItem)e.Item;
-                            int selectedRow = gvr.ItemIndex + 1;
-                            int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());                           
-                            if (e.CommandName == "Select")
+                            if (e.CommandName.ToString() != "ChangePageSize")
                             {
-                                Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId +"", false);
+                                // GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
+                                if (e.CommandName == "Select")
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+                                }
                             }
                         }
                     }
@@ -357,13 +362,36 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvSIPSummaryBookMIS_UpdateCommand(object source, GridCommandEventArgs e)
         {
-            Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
-            OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, userVo.UserId);
-            BindSIPSummaryBook();
+            string strRemark = string.Empty;
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                //LinkButton buttonEdit = editItem["editColumn"].Controls[0] as LinkButton;
+                Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
+                OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+                BindSIPSummaryBook();
+                //buttonEdit.Enabled = false;
+            }
 
         }
-    }
+        protected void gvSIPSummaryBookMIS_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;               
+                string Iscancel = Convert.ToString(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_IsCanceled"]);
+                LinkButton buttonEdit = dataItem["editColumn"].Controls[0] as LinkButton;
+                if (Iscancel == "Cancelled")
+                {
+                    buttonEdit.Enabled = false;
+                }
 
+            }
+        }
+
+    }
 }
 
 

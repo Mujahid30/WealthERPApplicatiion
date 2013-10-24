@@ -118,12 +118,12 @@
                 <telerik:RadGrid ID="gvSIPSummaryBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%"
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource"
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource" OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound"
                     OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand" OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId" Width="102%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="None">
+                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled" Width="102%" AllowMultiColumnSorting="True"
+                        AutoGenerateColumns="false" CommandItemDisplay="None" EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
@@ -300,10 +300,81 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridButtonColumn HeaderText="Action" CommandName="Update" Text="Cancel"
+                            <telerik:GridBoundColumn DataField="CMFSS_Remark" AllowFiltering="false" HeaderText="Remark"
+                                HeaderStyle-Width="80px" UniqueName="CMFSS_Remark" SortExpression="CMFSS_Remark"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                           <%-- <telerik:GridButtonColumn HeaderText="Action" CommandName="Update" Text="Cancel"
                                 ConfirmText="Do you want to Cancel this SIP? Click OK to proceed" UniqueName="column">
-                            </telerik:GridButtonColumn>
+                            </telerik:GridButtonColumn>--%>
+                      
+                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="editColumn"
+                            EditText="Cancel" CancelText="Cancel" UpdateText="OK">
+                        </telerik:GridEditCommandColumn>
+                        <%--  <telerik:GridTemplateColumn UniqueName="Action" ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
+                                Visible="true">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="lnkAction" runat="server" CommandName="Update" Text="Cancel" ConfirmText="Do you want to Cancel this SIP? Click OK to proceed"
+                                        UniqueName="Action" >
+                                        </asp:LinkButton>
+                                  <%--  </telerik:GridButtonColumn>--%>
+                        <%-- <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />--%>
                         </Columns>
+                        <EditFormSettings FormTableStyle-Height="60%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                            <FormTemplate>
+                                <table style="background-color: White;" border="0">
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                                SIP Cancel Request
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
+                                        </td>
+                                        <td class="rightField">
+                                            <asp:TextBox ID="txtSystematicSetupId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                Text='<%# Bind("CMFSS_SystematicSetupId") %>'></asp:TextBox>
+                                        </td>
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="leftField">
+                                            <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName"></asp:Label>
+                                        </td>
+                                        <td class="rightField">
+                                            <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;"></asp:TextBox>
+                                        </td>
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <td colspan="2">
+                                        &nbsp;
+                                    </td>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td align="left">
+                                            <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                ValidationGroup="btnSubmit">
+                                                <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
+                                            </asp:Button>
+                                        </td>
+                                        <td align="left">
+                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                CommandName="Cancel"></asp:Button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </FormTemplate>
+                        </EditFormSettings>
                     </MasterTableView>
                     <ClientSettings>
                         <Resizing AllowColumnResize="true" />

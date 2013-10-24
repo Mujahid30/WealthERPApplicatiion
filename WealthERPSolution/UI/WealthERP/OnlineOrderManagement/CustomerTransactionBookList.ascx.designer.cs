@@ -37,5 +37,6 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.HiddenField hdnAmc;
         protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
         protected global::System.Web.UI.WebControls.Button btnViewTransaction;
+        protected global::System.Web.UI.WebControls.LinkButton lbBack;
     }
 }

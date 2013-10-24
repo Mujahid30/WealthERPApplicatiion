@@ -386,13 +386,13 @@ namespace BoOnlineOrderManagement
             }
             return dsGetTransAllAmcDetails;
         }
-        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,int cancelBy)
+        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,string remark,int cancelBy)
         {
             bool bResult = false;
             OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
             try
             {
-                bResult = OnlineMFOrderDao.UpdateCnacleRegisterSIP(systematicId,is_Cancel,cancelBy);
+                bResult = OnlineMFOrderDao.UpdateCnacleRegisterSIP(systematicId,is_Cancel,remark,cancelBy);
 
             }
             catch (BaseApplicationException Ex)

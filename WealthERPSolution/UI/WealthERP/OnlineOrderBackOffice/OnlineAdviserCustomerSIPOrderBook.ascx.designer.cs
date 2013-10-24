@@ -281,5 +281,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderstatus;
         protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
         protected global::System.Web.UI.WebControls.HiddenField hdnAmc;
+        protected global::System.Web.UI.WebControls.LinkButton lbBack;
+      
     }
 }

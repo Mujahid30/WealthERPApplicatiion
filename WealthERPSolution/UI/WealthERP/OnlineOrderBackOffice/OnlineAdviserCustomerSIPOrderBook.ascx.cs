@@ -41,9 +41,10 @@ namespace WealthERP.OnlineOrderBackOffice
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();
            // customerId = customerVO.CustomerId;
-            BindAmc();
-            BindOrderStatus();
+            //BindAmc();
+            //BindOrderStatus();
             BindLink();
+            lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
                 BindAmc();
@@ -65,6 +66,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtFrom.SelectedDate = DateTime.Parse(fromdate);
                 hdnAmc.Value = "0";
                 BindSIPBook(DateTime.Parse(fromdate), DateTime.Now);
+                lbBack.Visible = true;
             }
         }
 

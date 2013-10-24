@@ -42,6 +42,7 @@ namespace WealthERP.OnlineOrderManagement
             BindAmc();
             BindOrderStatus();
             BindLink();
+            lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -61,6 +62,7 @@ namespace WealthERP.OnlineOrderManagement
                 txtFrom.SelectedDate = DateTime.Parse(fromdate);                
                 hdnAmc.Value = "0";
                 BindSIPBook(DateTime.Parse(fromdate), DateTime.Now);
+                lbBack.Visible = true;
             }
         }
               

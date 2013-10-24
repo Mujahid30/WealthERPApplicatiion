@@ -533,7 +533,7 @@ namespace DaoOnlineOrderManagement
             return dsGetTransAllAmcDetails;
         }
 
-        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,int cancelBy)
+        public bool UpdateCnacleRegisterSIP(int systematicId,int is_Cancel,string remark, int cancelBy)
         {
             bool bResult = false;
             Database db;
@@ -544,6 +544,7 @@ namespace DaoOnlineOrderManagement
                 UpdateCnacleRegisterSIP = db.GetStoredProcCommand("sproc_onl_CancelSIPRegister");
                 db.AddInParameter(UpdateCnacleRegisterSIP, "@systematicId", DbType.Int32, systematicId);
                 db.AddInParameter(UpdateCnacleRegisterSIP, "@Is_Canceled", DbType.Int32, is_Cancel);
+                db.AddInParameter(UpdateCnacleRegisterSIP, "@Remark", DbType.String, remark);
                 db.AddInParameter(UpdateCnacleRegisterSIP, "@CancelBy", DbType.Int32, cancelBy);
                 if (db.ExecuteNonQuery(UpdateCnacleRegisterSIP) != 0)
                     bResult = true;
