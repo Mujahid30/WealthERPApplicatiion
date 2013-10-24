@@ -102,7 +102,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            Order Extract
+                            RTA Extract
                         </td>
                         <td align="right">
                             <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order" OnClick="btnAutoOrder_Click" />
