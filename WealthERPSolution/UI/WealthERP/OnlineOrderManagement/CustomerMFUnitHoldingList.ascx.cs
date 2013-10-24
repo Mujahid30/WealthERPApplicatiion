@@ -256,7 +256,7 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["CMFNP_NAVDate"] = "N/A";
                     else
                         drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
-                    drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
+                        drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
                         drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
@@ -280,7 +280,7 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataBind();
                     rgUnitHolding.Visible = true;
                     pnlMFUnitHolding.Visible = true;
-                    //  btnExport.Visible = true;
+                    btnExport.Visible = true;
                     trNoRecords.Visible = false;
                 }
                 else
@@ -289,7 +289,7 @@ namespace WealthERP.OnlineOrderManagement
                     rgUnitHolding.DataBind();
                     //rgUnitHolding.Visible = false;
                     pnlMFUnitHolding.Visible = true;
-                    // btnExport.Visible = false;
+                    btnExport.Visible = false;
                     trNoRecords.Visible = false;
 
                 }
@@ -302,7 +302,7 @@ namespace WealthERP.OnlineOrderManagement
                 rgUnitHolding.DataBind();
                 //rgUnitHolding.Visible = false;
                 pnlMFUnitHolding.Visible = true;
-                // btnExport.Visible = false;
+                btnExport.Visible = false;
                 trNoRecords.Visible = false;
                 //lblNoRecords.Text = "No Records Found";
 
@@ -386,16 +386,16 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
-        //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
-        //{
-        //    rgUnitHolding.ExportSettings.OpenInNewWindow = true;
-        //    rgUnitHolding.ExportSettings.IgnorePaging = true;
-        //    rgUnitHolding.ExportSettings.HideStructureColumns = true;
-        //    rgUnitHolding.ExportSettings.ExportOnlyData = true;
-        //    rgUnitHolding.ExportSettings.FileName = "Unit Holding Details";
-        //    rgUnitHolding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-        //    rgUnitHolding.MasterTableView.ExportToExcel();
-        //}
+        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+            rgUnitHolding.ExportSettings.OpenInNewWindow = true;
+            rgUnitHolding.ExportSettings.IgnorePaging = true;
+            rgUnitHolding.ExportSettings.HideStructureColumns = true;
+            rgUnitHolding.ExportSettings.ExportOnlyData = true;
+            rgUnitHolding.ExportSettings.FileName = "Unit Holding Details";
+            rgUnitHolding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgUnitHolding.MasterTableView.ExportToExcel();
+        }
 
         public void rgUnitHolding_ItemDataBound(object sender, GridItemEventArgs e)
         {

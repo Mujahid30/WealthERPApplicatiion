@@ -359,6 +359,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
             OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, userVo.UserId);
+            BindSIPSummaryBook();
 
         }
     }

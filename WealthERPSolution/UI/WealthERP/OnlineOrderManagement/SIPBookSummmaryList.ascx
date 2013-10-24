@@ -4,7 +4,7 @@
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
-<table width="100%">
+<%--<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -23,7 +23,7 @@
             </div>
         </td>
     </tr>
-</table>
+</table>--%>
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
@@ -88,6 +88,11 @@
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />
+            </td>
+            <td align="right" style="width: 15%">
+                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
             </td>
         </tr>
     </table>

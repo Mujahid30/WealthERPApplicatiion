@@ -39,6 +39,11 @@
         <td class="rightField" style="width: 15%">
             <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />
         </td>
+        <td align="right" style="width: 25%">
+            <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+        </td>
         <td>
         </td>
     </tr>
@@ -162,9 +167,9 @@
                                 AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value"
-                                DataField="CurrentValue" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
-                                AllowFiltering="false" HeaderStyle-Width="86px" Aggregate="Sum">
+                            <telerik:GridBoundColumn UniqueName="CurrentValue" HeaderText="Current Value" DataField="CurrentValue"
+                                FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" AllowFiltering="false"
+                                HeaderStyle-Width="86px" Aggregate="Sum">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <%--  <telerik:GridTemplateColumn AllowFiltering="false" DataField="UnitsSold" AutoPostBackOnFilter="true"

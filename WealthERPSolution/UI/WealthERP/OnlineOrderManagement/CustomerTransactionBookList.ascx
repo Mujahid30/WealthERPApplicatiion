@@ -38,7 +38,7 @@
                     <asp:ListItem Text="UnManaged" Value="0">UnManaged</asp:ListItem>
                 </asp:DropDownList>
             </td>
-           <%-- <td id="td1" runat="server">
+            <%-- <td id="td1" runat="server">
                 <asp:Label runat="server" class="FieldName" Text="Order Status:" ID="Label2"></asp:Label>
                 <asp:DropDownList CssClass="cmbField" ID="ddlOrderStatus" runat="server" AutoPostBack="false">
                 </asp:DropDownList>
@@ -100,6 +100,11 @@
                 <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
                     ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
             </td>
+            <td align="right" style="width: 25%">
+                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+            </td>
         </tr>
     </table>
 </div>
@@ -144,9 +149,9 @@
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Transaction Date" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="Transaction Date" SortExpression="Transaction Date"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="Transaction Date"
+                                    SortExpression="Transaction Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <%--  <telerik:GridBoundColumn DataField="TransactionNumber" HeaderText="TransactionNo"
@@ -155,9 +160,10 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>--%>
-                                <telerik:GridBoundColumn Visible="false" DataField="TransactionId" HeaderText="Transaction ID" AllowFiltering="false"
-                                    SortExpression="TransactionId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    AutoPostBackOnFilter="true" UniqueName="TransactionId" FooterStyle-HorizontalAlign="Left">
+                                <telerik:GridBoundColumn Visible="false" DataField="TransactionId" HeaderText="Transaction ID"
+                                    AllowFiltering="false" SortExpression="TransactionId" ShowFilterIcon="false"
+                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="TransactionId"
+                                    FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."

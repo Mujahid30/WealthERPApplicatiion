@@ -290,7 +290,7 @@ namespace WealthERP.OnlineOrderManagement
                     pnlTransactionBook.Visible = true;
                     //ErrorMessage.Visible = false;
                     gvTransationBookMIS.Visible = true;
-                   // btnExport.Visible = true;
+                    btnExport.Visible = true;
                     trNoRecords.Visible = false;
                 }
                 else
@@ -301,7 +301,7 @@ namespace WealthERP.OnlineOrderManagement
                     //ErrorMessage.Visible = true;
                     trNoRecords.Visible = true;
                     pnlTransactionBook.Visible = true;
-                   // btnExport.Visible = false;
+                    btnExport.Visible = false;
 
                 }                
             }
@@ -317,16 +317,16 @@ namespace WealthERP.OnlineOrderManagement
             }           
 
         }
-        //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
-        //{
-        //    gvTransationBookMIS.ExportSettings.OpenInNewWindow = true;
-        //    gvTransationBookMIS.ExportSettings.IgnorePaging = true;
-        //    gvTransationBookMIS.ExportSettings.HideStructureColumns = true;
-        //    gvTransationBookMIS.ExportSettings.ExportOnlyData = true;
-        //    gvTransationBookMIS.ExportSettings.FileName = "Transaction Book Details";
-        //    gvTransationBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-        //    gvTransationBookMIS.MasterTableView.ExportToExcel();
-        //}
+        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+            gvTransationBookMIS.ExportSettings.OpenInNewWindow = true;
+            gvTransationBookMIS.ExportSettings.IgnorePaging = true;
+            gvTransationBookMIS.ExportSettings.HideStructureColumns = true;
+            gvTransationBookMIS.ExportSettings.ExportOnlyData = true;
+            gvTransationBookMIS.ExportSettings.FileName = "Transaction Book Details";
+            gvTransationBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvTransationBookMIS.MasterTableView.ExportToExcel();
+        }
 
         }
 }

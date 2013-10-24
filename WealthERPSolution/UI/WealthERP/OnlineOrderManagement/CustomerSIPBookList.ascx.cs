@@ -164,7 +164,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvSIPBookMIS.DataBind();
                 gvSIPBookMIS.Visible = true;
                 pnlSIPBook.Visible = true;
-                //btnExport.Visible = true;
+                btnExport.Visible = true;
                 trNoRecords.Visible = false;
                 divNoRecords.Visible = false;
 
@@ -177,7 +177,7 @@ namespace WealthERP.OnlineOrderManagement
                 pnlSIPBook.Visible = true;
                 trNoRecords.Visible = true;
                 divNoRecords.Visible = true;
-               // btnExport.Visible = false;
+                btnExport.Visible = false;
             }
         }
         private void SetParameter()
@@ -259,16 +259,16 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
-        //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
-        //{
-        //    gvSIPBookMIS.ExportSettings.OpenInNewWindow = true;
-        //    gvSIPBookMIS.ExportSettings.IgnorePaging = true;
-        //    gvSIPBookMIS.ExportSettings.HideStructureColumns = true;
-        //    gvSIPBookMIS.ExportSettings.ExportOnlyData = true;
-        //    gvSIPBookMIS.ExportSettings.FileName = "OrderBook Details";
-        //    gvSIPBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-        //    gvSIPBookMIS.MasterTableView.ExportToExcel();
-        //}
+        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        {
+            gvSIPBookMIS.ExportSettings.OpenInNewWindow = true;
+            gvSIPBookMIS.ExportSettings.IgnorePaging = true;
+            gvSIPBookMIS.ExportSettings.HideStructureColumns = true;
+            gvSIPBookMIS.ExportSettings.ExportOnlyData = true;
+            gvSIPBookMIS.ExportSettings.FileName = "SIP OrderBook Details";
+            gvSIPBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvSIPBookMIS.MasterTableView.ExportToExcel();
+        }
 
 
         #region DDLVIEWEDITSELECTION
