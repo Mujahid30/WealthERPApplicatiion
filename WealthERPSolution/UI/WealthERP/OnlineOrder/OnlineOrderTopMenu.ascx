@@ -64,7 +64,7 @@
                                 TabIndex="2" PageViewID="RPVSIPBook">
                             </telerik:RadTab>
                             <telerik:RadTab runat="server" Text="DIVIDEND BOOK" Value="RTSMFOrderMenuBooksDividendBook"
-                                TabIndex="2" PageViewID="RPVDividendBook">
+                                TabIndex="2" PageViewID="RPVDividendBook" Visible="false">
                             </telerik:RadTab>
                         </Tabs>
                     </telerik:RadTabStrip>

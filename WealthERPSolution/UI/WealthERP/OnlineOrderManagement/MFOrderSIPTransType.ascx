@@ -13,6 +13,17 @@
 </style>
 
 <script type="text/javascript">
+    function ValidateTermsConditions(sender, args) {
+
+        if (document.getElementById("<%=chkTermsCondition.ClientID %>").checked == true) {
+            args.IsValid = true;
+        } else {
+            args.IsValid = false;
+        }
+    }
+</script>
+
+<script type="text/javascript">
      function DeleteConfirmation() {
         var bool = window.confirm('Are you sure you want to delete this Question?');
 
@@ -37,12 +48,12 @@
 </script>
 
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
-    <div style="float:right;padding-right:100px;">
-      <span style="color:Black;font:arial;font-size:smaller">Available Limits:</span>
+    <div style="float: right; padding-right: 100px;">
+        <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
         <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
     </div>
 </div>
-<table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top:20px;">
+<table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
     <tr id="trSumbitSuccess">
         <td align="center">
             <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
@@ -371,20 +382,43 @@
         </tr>
         <tr class="spaceUnder">
             <td style="width: 150px;">
+                &nbsp;
+            </td>
+            <td align="right">
+                <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
+                    Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
+                    CausesValidation="true" />
+            </td>
+            <td align="left">
+                <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
+                    runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
+                <span id="Span9" class="spnRequiredField">*</span>
+                <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
+                    ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
+                    OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnSubmit"
+                    CssClass="rfvPCG">
+                    Please read terms & conditions
+                </asp:CustomValidator>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr class="spaceUnder">
+            <td style="width: 150px;">
             </td>
             <td>
                 &nbsp;
             </td>
             <td>
                 <asp:Button ValidationGroup="btnSubmit" ID="btnSubmit" runat="server" CssClass="PCGButton"
-                    OnClick="btnSubmit_Click" OnClientClick="return EUINConfirm()"></asp:Button>
+                    OnClick="btnSubmit_Click"></asp:Button>
             </td>
             <td>
             </td>
         </tr>
     </table>
 </div>
-<div style="float: left;padding-top:5px;">
+<div style="float: left; padding-top: 5px;">
     <table style="border-style: solid; border-width: 2px; border-color: Blue">
         <tr class="spaceUnder">
             <td>
@@ -427,7 +461,29 @@
         </tr>
     </table>
 </div>
-</br>
+<telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
+    Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
+    Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
+    <ContentTemplate>
+        <div style="padding: 0px; width: 100%">
+            <table width="100%" cellpadding="0" cellpadding="0">
+                <tr>
+                    <td align="left">
+                        <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                        <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
+                            style="width: 100%"></iframe>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <asp:Button ID="btnAccept" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAccept_Click"
+                            CausesValidation="false" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
 <div style="float: inherit;">
     <asp:HiddenField ID="hdnAccountId" runat="server" />
 </div>

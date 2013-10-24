@@ -105,7 +105,7 @@ namespace WealthERP.OnlineOrder
                     break;
 
                 case "RTSMFOrderMenuBooksSIPBook": // add a new child tab
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('SIPBookSummmaryList','login');", true);
                     break;
 
                 case "RTSMFOrderMenuBooksDividendBook": // add a new child tab

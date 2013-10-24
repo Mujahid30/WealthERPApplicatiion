@@ -359,6 +359,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "EUINConfirmation", " EUINConfirm();", true);
             bool accountDebitStatus = false;
             rgvAmount.MinimumValue = string.IsNullOrEmpty(lblMinAmountrequiredDisplay.Text) == true ? "0" : lblMinAmountrequiredDisplay.Text;
             rgvAmount.MaximumValue = ((int)99999999).ToString();
@@ -389,7 +390,7 @@ namespace WealthERP.OnlineOrderManagement
                 sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
                 int OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
                 int sipId = int.Parse(sipOrderIds["SIPId"].ToString());
-                string message=string.Empty;
+                string message = string.Empty;
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
@@ -872,5 +873,28 @@ namespace WealthERP.OnlineOrderManagement
         {
 
         }
+
+        protected void lnkTermsCondition_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = true;
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = false;
+            chkTermsCondition.Checked = true;
+        }
+
+        public void TermsConditionCheckBox(object o, ServerValidateEventArgs e)
+        {
+            if (chkTermsCondition.Checked)
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
+        } 
     }
 }
