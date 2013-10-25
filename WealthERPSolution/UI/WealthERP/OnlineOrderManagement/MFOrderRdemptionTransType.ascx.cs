@@ -440,6 +440,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "EUINConfirmation", " EUINConfirm();", true);
             List<int> OrderIds = new List<int>();
             DateTime Dt;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
@@ -514,6 +515,37 @@ namespace WealthERP.OnlineOrderManagement
             PurchaseOrderControlsEnable(false);
         }
 
+        protected void lnkTermsCondition_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = true;
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = false;
+            chkTermsCondition.Checked = true;
+        }
+
+        public void TermsConditionCheckBox(object o, ServerValidateEventArgs e)
+        {
+            if (chkTermsCondition.Checked)
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
+        }
+
+        private void ShowAvailableLimits()
+        {
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+            }
+
+        }
 
 
     }

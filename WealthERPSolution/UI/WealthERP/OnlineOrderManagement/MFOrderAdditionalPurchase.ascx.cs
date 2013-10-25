@@ -341,6 +341,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "EUINConfirmation", " EUINConfirm();", true);
             List<int> OrderIds = new List<int>();
             bool accountDebitStatus = false;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
@@ -398,24 +399,43 @@ namespace WealthERP.OnlineOrderManagement
 
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
+            string message = string.Empty;
             if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
             {
                 accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
             }
             if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
             {
-                string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
+                message = CreateUserMessage(OrderId, accountDebitStatus);
                 ShowMessage(message);
             }
             else if (OrderId != 0 && accountDebitStatus == false)
             {
-                string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
+                message = CreateUserMessage(OrderId, accountDebitStatus);
                 ShowMessage(message);
             }
 
             PurchaseOrderControlsEnable(false);
 
         }
+        private string CreateUserMessage(int orderId, bool accountDebitStatus)
+        {
+            string userMessage = string.Empty;
+            if (orderId != 0 && accountDebitStatus == true)
+            {
+                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+            }
+            else if (orderId != 0 && accountDebitStatus == false)
+            {
+                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+            }
+
+            return userMessage;
+
+        }
+
         private void ShowMessage(string msg)
         {
             tblMessage.Visible = true;
@@ -442,6 +462,37 @@ namespace WealthERP.OnlineOrderManagement
             {
                 throw (Ex);
             }
+        }
+        protected void lnkTermsCondition_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = true;
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = false;
+            chkTermsCondition.Checked = true;
+        }
+
+        public void TermsConditionCheckBox(object o, ServerValidateEventArgs e)
+        {
+            if (chkTermsCondition.Checked)
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
+        }
+
+        private void ShowAvailableLimits()
+        {
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+            }
+
         }
 
 
