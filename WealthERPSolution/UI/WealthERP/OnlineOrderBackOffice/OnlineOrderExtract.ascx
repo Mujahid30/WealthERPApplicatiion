@@ -94,6 +94,10 @@
         padding-left: 2px;
         padding-right: 5px;
     }
+    .PCGLongButton
+    {
+        height: 26px;
+    }
     </style>
 <table width="100%">
     <tr>
@@ -123,7 +127,7 @@
         </td>
     </tr>
 </table>
-<table width="60%">
+<table width="75%">
     <tr>
         <td class="leftLabel">
             <asp:Label runat="server" class="FieldName" Text="Product AMC: " ID="lblProductAmc"></asp:Label>
@@ -162,7 +166,7 @@
             <asp:DropDownList CssClass="cmbField" ID="ddlExtractType" runat="server" AutoPostBack="false">
                 <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Value="ALL">All</asp:ListItem>
-                <asp:ListItem Value="NORMAL">Normal Orders</asp:ListItem>
+                <asp:ListItem Value="OTH">Normal Orders</asp:ListItem>
                 <asp:ListItem Value="SIP">SIP Orders</asp:ListItem>
             </asp:DropDownList>
             
@@ -205,7 +209,9 @@
         <td class="leftLabel"><asp:Label runat="server" class="FieldName" Text="File Format:" ID="lblFileFormat"></asp:Label></td>
         <td class="rightData">
             <asp:DropDownList CssClass="cmbField" ID="ddlFileFormat" runat="server" AutoPostBack="false">
-                <asp:ListItem>Text File</asp:ListItem>
+                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                <asp:ListItem Value="dbf">DBF File</asp:ListItem>
+                <asp:ListItem Value="txt">Text File</asp:ListItem>
             </asp:DropDownList>
             
             <asp:RequiredFieldValidator ID="rfvFileFormat" runat="server" CssClass="rfvPCG" 
@@ -216,10 +222,11 @@
         </td>
     </tr>
     <tr>
-        <td>&nbsp;</td>
-        <td class="rightData"><asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="Preview Data" 
+        <td class="leftLabel"><asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="1-Extract Data" 
+                OnClick="btnExtract_Click" /></td>
+        <td class="rightData">&nbsp;&nbsp;<asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="2-Preview Data" 
                 OnClick="btnPreview_Click" ValidationGroup="PreviewData" />&nbsp;&nbsp;&nbsp;<asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" 
-                Text="Download Data" OnClick="btnGenerateFile_Click" 
+                Text="3-Download Data" OnClick="btnGenerateFile_Click" 
                 ValidationGroup="PreviewData" /></td>
     </tr>
     

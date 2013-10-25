@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using DaoOnlineOrderManagement;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
+using System.IO;
 
 
 namespace BoOnlineOrderManagement
@@ -122,9 +123,35 @@ namespace BoOnlineOrderManagement
                     return "System.String";
             }
         }
+
+        private OleDbType GetOleDbType(string sDataType)
+        {
+            switch (sDataType)
+            {
+                case "System.Int64":
+                    return OleDbType.BigInt;
+                case "System.Boolean":
+                    return OleDbType.TinyInt;
+                case "System.DateTime":
+                    return OleDbType.Date;
+                case "System.Decimal":
+                    return OleDbType.Decimal;
+                case "System.Int32":
+                    return OleDbType.Integer;
+                case "System.String":
+                    return OleDbType.VarChar;
+                case "System.Int16":
+                    return OleDbType.SmallInt;
+                case "System.TimeSpan":
+                    return OleDbType.DBTime;
+                default:
+                    return OleDbType.VarChar;
+            }
+        }
+
+
         public List<OnlineOrderBackOfficeVo> GetRtaColumnDetails(string RtaIdentifier)
         {
-
             List<OnlineOrderBackOfficeVo> lsHeaderMapping = new List<OnlineOrderBackOfficeVo>();
             try
             {
@@ -198,7 +225,6 @@ namespace BoOnlineOrderManagement
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
             return dsMfOrderExtract;
         }
@@ -227,7 +253,7 @@ namespace BoOnlineOrderManagement
                     foreach (DataColumn dc in dtOrderExtract.Columns)
                     {
                         string werpColName = headerMap.Find(c => c.HeaderName == dc.ColumnName).WerpColumnName;
-                        if (werpColName == "UNKNOWN") continue;
+                        if (werpColName == "UNKNOWN") { lsItems.Add(0); continue; }
                         lsItems.Add(row[werpColName]);
                     }
                     dtOrderExtract.Rows.Add(lsItems.ToArray());
@@ -264,36 +290,89 @@ namespace BoOnlineOrderManagement
             return colList;
         }
 
-        public string CreatDbfFile(DataTable OrderExtract)
+        public string GetFileName(string ExtractType, string AmcName, int RowCount)
         {
-            string dbfFile = OrderExtract.TableName.ToLower().Substring(0, 8) + ".DBF";
+            #region CustomFileName
+            var random = new Random(System.DateTime.Now.Millisecond);
+            int randomNumber = random.Next(0, 1000000);
+            string rowCount = string.Empty;
+            
+            if (RowCount < 6) {
+                int i = 0;
+
+                rowCount = RowCount.ToString();
+                int rowCountLength = rowCount.Length;
+                while (i < (6 - rowCountLength)) {
+                    rowCount += "0";
+                    if (i < (6 - rowCountLength))
+                        i++;
+                }
+            }
+            string filename = "MF_ " + ExtractType + "_" + AmcName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
+            #endregion
+
+            return filename;
+        }
+
+        public string CreatDbfFile(DataTable OrderExtract, string RnTType, string workDir)
+        {
+            string seedFileName = "";
+            switch (RnTType)
+            { 
+                case "CA":
+                    seedFileName = "cams";
+                    break;
+                default:
+                    seedFileName = "cams";
+                    break;
+            }
+            string dbfFile = "orderext.dbf";
+            string csvColList = GetCsvColumnList(OrderExtract.Columns);
+            //string workDir = Server.Mappath("~/ReferenceFiles/RTAExtractSampleFiles/");
+            
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + workDir + ";Extended Properties=dBASE IV;");
+
+            string sqlIns = "INSERT INTO " + dbfFile + " (" + csvColList + ") VALUES (" + Regex.Replace(csvColList, @"[a-zA-Z_0-9]+", "?") + ")";
+            string sqlSel = "SELECT " + csvColList + " INTO " + dbfFile + " FROM " + seedFileName + ".dbf WHERE 1 = 2";
+            string sqlDel = "DELETE FROM " + seedFileName + ".dbf" + " WHERE 1 = 1";
+
+            OleDbDataAdapter daRead = new OleDbDataAdapter(sqlSel, conn);
+
+            if (File.Exists(workDir + dbfFile)) File.Delete(workDir + dbfFile);
+
+            daRead.AcceptChangesDuringUpdate = true;
+            daRead.AcceptChangesDuringFill = true;
+
+            OleDbCommand cmdSel = new OleDbCommand(sqlSel, conn);
+            OleDbCommand cmdIns = new OleDbCommand(sqlIns, conn);
+            OleDbCommand cmdDel = new OleDbCommand(sqlDel, conn);
 
             try
             {
-                string csvColList = GetCsvColumnList(OrderExtract.Columns);
-                string workDir = @"c:\DBF\";
-
-                string sqlIns = "INSERT INTO " + dbfFile + " (" + csvColList + ") VALUES (" + Regex.Replace(csvColList, @"[a-zA-Z_0-9]+", "?") + ")";
-                string sqlSel = "SELECT " + csvColList + " FROM " + dbfFile;
-
-                OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + workDir + ";Extended Properties=dBASE IV;");
-                OleDbDataAdapter da = new OleDbDataAdapter(sqlSel, conn);
-
-                OleDbCommand cmdIns = new OleDbCommand(sqlIns, conn);
-
-                foreach (DataRow row in OrderExtract.Rows)
-                {
-                    foreach (DataColumn col in OrderExtract.Columns)
-                    {
-                        string colNam = col.ColumnName;
-                        Object colval = row[col.ColumnName];
-                        OleDbParameter param = cmdIns.Parameters.Add(new OleDbParameter(colNam, colval));
-                    }
-                }
-                da.InsertCommand = cmdIns;
+                daRead.SelectCommand = cmdSel;
+                daRead.DeleteCommand = cmdDel;
+               
                 conn.Open();
+                DataTable dtEmpty = new DataTable();
+                
+                daRead.Fill(dtEmpty);
+                sqlSel = "SELECT " + csvColList + " FROM " + seedFileName;
 
-                da.Update(OrderExtract);
+                daRead.SelectCommand = new OleDbCommand(sqlSel, conn);
+                daRead.FillSchema(dtEmpty, SchemaType.Source);
+                daRead.Update(dtEmpty);
+
+                dtEmpty.BeginLoadData();
+                dtEmpty.Merge(OrderExtract, true, MissingSchemaAction.Ignore);
+
+                foreach (DataColumn col in dtEmpty.Columns) {
+                    OleDbParameter param = cmdIns.Parameters.Add("@" + col.ColumnName, GetOleDbType(col.DataType.ToString()), col.MaxLength, col.ColumnName);
+                }
+                daRead.InsertCommand = cmdIns;
+                
+                daRead.Update(dtEmpty);
+
+                conn.Close();
             }
             catch (Exception Ex)
             {
@@ -307,7 +386,10 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return dbfFile;
+            finally {
+                conn.Close();
+            }
+            return workDir + dbfFile;
         }
 
         /// <summary>

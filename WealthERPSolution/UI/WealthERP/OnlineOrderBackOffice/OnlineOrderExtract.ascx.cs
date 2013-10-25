@@ -12,8 +12,6 @@ using VoUser;
 using System.IO;
 using BoCommon;
 
-
-
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineOrderExtract : System.Web.UI.UserControl
@@ -36,21 +34,50 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindProduct();
                 BindExternalSource();
                 BindExtractDate();
+                //BindRnTType();
             }
+        }
+
+        protected void BindRnTType() { 
+
         }
 
         protected void btnGenerateFile_Click(object sender, EventArgs e)
         {
-            boOnlineOrderBackOffice.GenerateOrderExtract();
+            //boOnlineOrderBackOffice.GenerateOrderExtract();
             DateTime execDate = rdpExtractDate.SelectedDate.Value;
 
             DataTable orderExtractForRta = boOnlineOrderBackOffice.GetOrderExtractForRta(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue));
-            DownloadCsvFile(orderExtractForRta);
+            
+            string downloadFileName = boOnlineOrderBackOffice.GetFileName(ddlExtractType.SelectedValue, ddlProductAmc.SelectedValue, orderExtractForRta.Rows.Count); 
+
+            switch (ddlFileFormat.SelectedValue) { 
+                case "dbf":
+                    string localFilePath = boOnlineOrderBackOffice.CreatDbfFile(orderExtractForRta, ddlRnT.SelectedValue, Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"));
+                    DownloadDbfFile(localFilePath, downloadFileName + ".DBF");
+                    break;
+                case "txt":
+                    string txtFilePath = downloadFileName;
+                    DownloadCsvFile(orderExtractForRta, downloadFileName + ".txt");
+                    break;
+
+            }
+            //string localFilePath = bo 
+        }
+
+        protected void DownloadDbfFile(string localFilePath, string downloadFileName)
+        {
+            Response.ContentType = "application/octet-stream";
+            Response.AppendHeader("Content-Disposition", "attachment;filename=" + downloadFileName);
+            //string aaa = Server.MapPath("~/UploadFiles/" + filename);
+            Response.TransmitFile(localFilePath);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            Response.End();
         }
 
         protected void btnPreview_Click(object sender, EventArgs e)
         {
-            boOnlineOrderBackOffice.GenerateOrderExtract();
+            //boOnlineOrderBackOffice.GenerateOrderExtract();
             Page.Validate("ExtractData");
             if (!Page.IsValid)
             {
@@ -67,23 +94,24 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnExtract_Click(object sender, EventArgs e)
         {
-            Page.Validate("ExtractData");
-            Page.Validate("PreviewData");
-            if (!Page.IsValid)
-            {
-                ShowMessage("Please select required fields");
-                return;
-            }
+            boOnlineOrderBackOffice.GenerateOrderExtract();
+            //Page.Validate("ExtractData");
+            //Page.Validate("PreviewData");
+            //if (!Page.IsValid)
+            //{
+            //    ShowMessage("Please select required fields");
+            //    return;
+            //}
  
-            if (gvExtractMIS.MasterTableView.Items.Count <= 0) return;
+            //if (gvExtractMIS.MasterTableView.Items.Count <= 0) return;
 
-            gvExtractMIS.ExportSettings.OpenInNewWindow = true;
-            gvExtractMIS.ExportSettings.OpenInNewWindow = true;
-            gvExtractMIS.ExportSettings.IgnorePaging = true;
-            gvExtractMIS.ExportSettings.HideStructureColumns = true;
-            gvExtractMIS.ExportSettings.ExportOnlyData = true;
-            gvExtractMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvExtractMIS.MasterTableView.ExportToExcel();
+            //gvExtractMIS.ExportSettings.OpenInNewWindow = true;
+            //gvExtractMIS.ExportSettings.OpenInNewWindow = true;
+            //gvExtractMIS.ExportSettings.IgnorePaging = true;
+            //gvExtractMIS.ExportSettings.HideStructureColumns = true;
+            //gvExtractMIS.ExportSettings.ExportOnlyData = true;
+            //gvExtractMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvExtractMIS.MasterTableView.ExportToExcel();
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)
@@ -118,7 +146,9 @@ namespace WealthERP.OnlineOrderBackOffice
         
         private int BindMisGridView()
         {
-            DataSet dsOrderMis = boOnlineOrderBackOffice.GetMfOrderExtract(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, "CA", int.Parse(ddlProductAmc.SelectedValue));
+            if (Cache["OrderMIS"] != null) Cache.Remove("OrderMIS");
+
+            DataSet dsOrderMis = boOnlineOrderBackOffice.GetMfOrderExtract(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue));
 
             if (dsOrderMis == null) return 0;
             if (dsOrderMis.Tables.Count <= 0) return 0;
@@ -143,7 +173,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //divValidation.Visible = true;
         }
 
-        public void DownloadCsvFile(DataTable dtOrderExtract)
+        public void DownloadCsvFile(DataTable dtOrderExtract, string filename)
         {
             if (dtOrderExtract == null) 
             {
@@ -156,7 +186,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
-            string filename = "OrderExtract" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + ".txt";
+            //string filename = "OrderExtract" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + ".txt";
             string file = string.Empty;
 
             #region ExportDataTabletoFile
@@ -208,6 +238,10 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             ddlRnT.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlRnT.SelectedIndex = 0;
+
+            //Only for cams
+            ddlRnT.SelectedIndex = 1;
+            ddlRnT.Enabled = false;
         }
 
         protected void BindExtractDate()
