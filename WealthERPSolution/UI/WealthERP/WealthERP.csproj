@@ -8165,6 +8165,7 @@
     <None Include="FillablePDFForms\FranklinInfotechFund%28G%29_SIP.pdf" />
     <None Include="MarketDataDownloadFiles\BseEquities.CSV" />
     <None Include="MarketDataDownloadFiles\BseEquitiesFiltered.csv" />
+    <None Include="ReferenceFiles\RTAExtractSampleFiles\cams.dbf" />
     <None Include="Reports\CapitalGainDetailsDs.xsc">
       <DependentUpon>CapitalGainDetailsDs.xsd</DependentUpon>
     </None>
