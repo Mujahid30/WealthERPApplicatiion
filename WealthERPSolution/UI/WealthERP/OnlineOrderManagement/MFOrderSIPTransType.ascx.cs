@@ -394,10 +394,11 @@ namespace WealthERP.OnlineOrderManagement
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
-                    ShowAvailableLimits();
+
                 }
                 if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
                 {
+                    ShowAvailableLimits();
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
                     message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
                     ShowMessage(message);
@@ -895,6 +896,6 @@ namespace WealthERP.OnlineOrderManagement
             {
                 e.IsValid = false;
             }
-        } 
+        }
     }
 }

@@ -24,6 +24,15 @@
 </script>
 
 <script type="text/javascript">
+    function EUINConfirm() {
+        if (confirm("I/We hereby confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction ")) {
+            return true;
+        }
+        return false;
+    }
+</script>
+
+<script type="text/javascript">
      function DeleteConfirmation() {
         var bool = window.confirm('Are you sure you want to delete this Question?');
 
@@ -38,14 +47,7 @@
         }
 </script>
 
-<script type="text/javascript">
-    function EUINConfirm() {
-        if (confirm("I/We hereby confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction ")) {
-            return true;
-        }
-        return false;
-    }
-</script>
+
 
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
     <div style="float: right; padding-right: 100px;">
