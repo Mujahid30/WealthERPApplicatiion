@@ -25,7 +25,7 @@
             <asp:Label ID="lblProduct" runat="server" Text="Product" CssClass="FieldName"> </asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbfield" AutoPostBack="true">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
                 <asp:ListItem Text="Mutual Funds" />
             </asp:DropDownList>
@@ -57,12 +57,12 @@
         <td  align="right">
             <asp:Label ID="lblAmc" runat="server" Text="AMC" CssClass="FieldName"> </asp:Label>
           </td><td>
-            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbfield" AutoPostBack="true">
+            <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
         <td align="right">
             <asp:Label ID="lblcategory" runat="server" Text="Category" CssClass="FieldName"> </asp:Label>
-          </td><td>  <asp:DropDownList ID="ddlcategory" runat="server" CssClass="cmbfield" AutoPostBack="true">
+          </td><td>  <asp:DropDownList ID="ddlcategory" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
     </tr>
@@ -73,7 +73,7 @@
         </td>
         <td align="right">
             <asp:Label ID="lblScategory" runat="server" Text="Sub Category" CssClass="FieldName"> </asp:Label>
-            </td><td><asp:DropDownList ID="ddlScategory" runat="server" CssClass="cmbfield" AutoPostBack="true">
+            </td><td><asp:DropDownList ID="ddlScategory" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
     </tr>
@@ -81,25 +81,25 @@
         <td  align="right">
             <asp:Label ID="lblSctype" runat="server" Text="Scheme Type" CssClass="FieldName"> </asp:Label>
             </td><td><asp:DropDownList ID="ddlSctype"
-                runat="server" CssClass="cmbfield" AutoPostBack="true">
+                runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
         <td align="right">
             <asp:Label ID="lblSScategory" runat="server" Text="Sub Sub Category" CssClass="FieldName"> </asp:Label>
-            </td><td><asp:DropDownList ID="ddlSScategory" runat="server" CssClass="cmbfield" AutoPostBack="true">
+            </td><td><asp:DropDownList ID="ddlSScategory" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
     </tr>
     <tr>
         <td  align="right">
             <asp:Label ID="lblOption" runat="server" Text="Option" CssClass="FieldName"> </asp:Label>
-            </td><td><asp:DropDownList ID="ddlOption" runat="server" CssClass="cmbfield" AutoPostBack="true">
+            </td><td><asp:DropDownList ID="ddlOption" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
         <td align="right">
             <asp:Label ID="lblDFrequency" runat="server" Text="Dividend Frequency" CssClass="FieldName"> </asp:Label>
             </td><td><asp:DropDownList ID="ddlDFrequency"
-                runat="server" CssClass="cmbfield" AutoPostBack="true">
+                runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
     </tr>
@@ -107,7 +107,7 @@
         <td  align="right">
             <asp:Label ID="lblBname" runat="server" Text="Bank Name" CssClass="FieldName"> </asp:Label>
             </td><td><asp:DropDownList
-                ID="ddlBname" runat="server" CssClass="cmbfield" AutoPostBack="true">
+                ID="ddlBname" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
         <td align="right">
@@ -282,12 +282,12 @@
     <tr>
         <td align="right">
             <asp:Label ID="lblGenerationfreq" runat="server" Text="File Generation Freq" CssClass="FieldName"> </asp:Label>
-            </td><td><asp:DropDownList ID="ddlGenerationfreq" runat="server" CssClass="cmbfield" AutoPostBack="true">
+            </td><td><asp:DropDownList ID="ddlGenerationfreq" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
         <td align="right">
             <asp:Label ID="lblRT" runat="server" Text="R&T" CssClass="FieldName"> </asp:Label>
-           </td><td> <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbfield" AutoPostBack="true">
+           </td><td> <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
         </td>
     </tr>
