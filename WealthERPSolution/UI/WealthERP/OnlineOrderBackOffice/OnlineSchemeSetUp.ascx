@@ -37,7 +37,7 @@
             <asp:CheckBox ID="chkonline" runat="server" Text="Online Scheme" CssClass="cmbFielde" />
         </td>
         <td>
-            <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="cmbField" />
+            <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="cmbFielde" />
         </td>
     </tr>
     
@@ -72,7 +72,7 @@
             </td><td><asp:TextBox ID="txtFvale" runat="server" CssClass="cmbFielde"></asp:TextBox>
         </td>
         <td align="right">
-            <asp:Label ID="lblScategory" runat="server" Text="Sub Category" CssClass="Sub Category"> </asp:Label>
+            <asp:Label ID="lblScategory" runat="server" Text="Sub Category" CssClass="FieldName"> </asp:Label>
             </td><td><asp:DropDownList ID="ddlScategory" runat="server" CssClass="cmbfield" AutoPostBack="true">
             </asp:DropDownList>
         </td>
