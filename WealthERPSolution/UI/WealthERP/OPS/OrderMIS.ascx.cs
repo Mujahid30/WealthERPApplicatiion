@@ -51,7 +51,7 @@ namespace WealthERP.OPS
         String userType;
         int bmID = 0;
         string customerType = string.Empty;
-
+        int orderRejId;
 
         // protected override void OnInit(EventArgs e)
         // {
@@ -424,15 +424,15 @@ namespace WealthERP.OPS
             //DataTable dtBindGridView = new DataTable();
             DataSet dsOrderMIS;
             DataTable dtOrderMIS;
-            int OnlineStatus=0;
+            int OnlineStatus = 0;
 
             if (ddlOnlineOffline.SelectedValue == "Online")
             {
                 OnlineStatus = 1;
-            }      
-            
+            }
+
             //dsOrderMIS = operationBo.GetOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
-            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value,OnlineStatus );
+            dsOrderMIS = mforderBo.GetCustomerMFOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value, OnlineStatus);
             dtOrderMIS = dsOrderMIS.Tables[0];
             if (dtOrderMIS.Rows.Count > 0)
             {
@@ -522,20 +522,20 @@ namespace WealthERP.OPS
         protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlProductType.SelectedValue == "Select")
-            {                
+            {
                 //  online/offline mf drop down visiblity             
                 ddlOnlineOffline.Visible = false;
                 Common_MfControls_Visiblity(false);
 
             }
-            else  if (ddlProductType.SelectedValue == "MF")
+            else if (ddlProductType.SelectedValue == "MF")
             {
                 //  online/offline mf drop down  visiblity             
                 ddlOnlineOffline.Visible = true;
-              //  Common_MfControls_Visiblity(true);
+                //  Common_MfControls_Visiblity(true);
 
             }
-           
+
 
             gvCustomerOrderMIS.Visible = false;
             gvCustomerFIOrderMIS.Visible = false;
@@ -594,7 +594,7 @@ namespace WealthERP.OPS
             ddlRM.Visible = ShowVisblity;
 
             // Customer selection 
-            lblOrderType.Visible = ShowVisblity;           
+            lblOrderType.Visible = ShowVisblity;
             ddlCustomerType.Visible = ShowVisblity;
 
         }
@@ -682,7 +682,7 @@ namespace WealthERP.OPS
                 hdnOrdStatus.Value = "OMIP";
 
 
-            if (ddlOrderType.SelectedIndex != -1 )
+            if (ddlOrderType.SelectedIndex != -1)
                 hdnOrderType.Value = ddlOrderType.SelectedValue;
             else
                 hdnOrderType.Value = "0";
@@ -842,6 +842,23 @@ namespace WealthERP.OPS
 
         }
 
+        ////protected void hdnRejOrderId_ValueChanged(object sender, EventArgs e)
+        ////{
+        ////    if (hdnRejOrderId.Value != null)
+        ////    {
+        ////        int IsMarked = 0;
+
+
+        ////        IsMarked = mforderBo.MarkAsReject(orderRejId);
+
+        ////        if (IsMarked == 0)
+        ////            Response.Write(@"<script language='javascript'>alert('Status Updated Successfully');</script>");
+        ////        else
+        ////            Response.Write(@"<script language='javascript'>alert('Status not updated');</script>");
+
+        ////        BindMISGridView();
+        ////    }
+        ////}
         //protected void txtCustomerName_TextChanged(object sender, EventArgs e)
         //{
         //    BindPortfolioDropdown();
@@ -1034,7 +1051,7 @@ namespace WealthERP.OPS
                     {
                         result = operationBo.UpdateMFTransaction(gvOrderDetId, gvSchemeCode, gvaccountId, gvTrxType, gvPortfolioId, gvAmount, gvOrderDate);
                     }
-                   
+
                 }
             }
 
@@ -1620,13 +1637,15 @@ namespace WealthERP.OPS
 
         protected void gvCustomerOrderMIS_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            
+
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
 
                 Label lblordertype = dataItem.FindControl("lblOrderType") as Label;
-                LinkButton lbtnMarkAsReject = dataItem.FindControl("lbtnMarkAsReject") as LinkButton;
+                //    LinkButton lbtnMarkAsReject = dataItem.FindControl("MarkAsReject") as LinkButton;
+                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+
                 Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
                 int selectedRow = dataItem.ItemIndex + 1;
 
@@ -1646,7 +1665,7 @@ namespace WealthERP.OPS
                     lbtnMarkAsReject.Visible = false;
                 }
 
-                  
+
                 string ordertype = null;
                 ordertype = lblordertype.Text;
                 if (ordertype == "1")
@@ -1663,15 +1682,9 @@ namespace WealthERP.OPS
             GridDataItem gdi;
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
-            int orderId = int.Parse((gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()));
-            IsMarked = mforderBo.MarkAsReject(orderId);
+            orderRejId = int.Parse((gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()));
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "click", "Prompt();", true);
 
-            if (IsMarked == 0)
-                Response.Write(@"<script language='javascript'>alert('Status Updated Successfully');</script>");
-            else
-                Response.Write(@"<script language='javascript'>alert('Status not updated');</script>");
-
-            BindMISGridView();
 
         }
         protected void lnkOrderNo_Click(object sender, EventArgs e)
@@ -1749,7 +1762,7 @@ namespace WealthERP.OPS
                     if (!string.IsNullOrEmpty(dr["CO_ApplicationReceivedDate"].ToString().Trim()))
                         orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
                     else
-                        orderVo.ApplicationReceivedDate = DateTime.MinValue ;
+                        orderVo.ApplicationReceivedDate = DateTime.MinValue;
 
                     //orderVo.ApplicationReceivedDate = DateTime.Parse(dr["CO_ApplicationReceivedDate"].ToString());
                     if (!string.IsNullOrEmpty(dr["CP_portfolioId"].ToString().Trim()))
@@ -2025,6 +2038,35 @@ namespace WealthERP.OPS
 
         }
 
+        protected void gvCustomerOrderMIS_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            string strRemark = string.Empty;
+            int IsMarked = 0;
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                Int32 orderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+
+
+
+                IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+
+                //if (IsMarked == 0)
+                //    Response.Write(@"<script language='javascript'>alert('Status Updated Successfully');</script>");
+                //else
+                //    Response.Write(@"<script language='javascript'>alert('Status not updated');</script>");
+
+                BindMISGridView();
+
+                //OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+                //BindSIPSummaryBook();
+                //buttonEdit.Enabled = false;
+
+            }
+        }
         protected void gvCustomerOrderMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtOrderMIS = new DataTable();

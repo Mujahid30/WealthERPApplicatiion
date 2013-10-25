@@ -476,7 +476,7 @@ namespace DaoOps
             }
             return dsGetCustomerMFOrderDetails;
         }
-        public int MarkAsReject(int OrderID)
+        public int MarkAsReject(int OrderID,string Remarks)
         {
             int IsMarked = 0;
 
@@ -487,6 +487,7 @@ namespace DaoOps
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_MarkAsReject");
                 db.AddInParameter(createMFOrderTrackingCmd, "@OrderId", DbType.Int32, OrderID);
+                db.AddInParameter(createMFOrderTrackingCmd, "@Remarks", DbType.String, Remarks);
                 IsMarked = Convert.ToInt32(db.ExecuteScalar(createMFOrderTrackingCmd));
             }
             catch (BaseApplicationException Ex)

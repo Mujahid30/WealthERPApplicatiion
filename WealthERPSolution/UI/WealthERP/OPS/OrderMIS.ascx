@@ -26,6 +26,20 @@
 
 </script>
 
+<script type="text/javascript" language="javascript">
+    function Prompt() {
+
+        if (confirm("Do you want to Proceed?")) {
+            var YourMessage = prompt("Please Enter Reason to Reject", "");
+            document.getElementById("<%= hdnRejOrderId.ClientID %>").value = YourMessage;
+            return false;
+        }
+        else {
+            alert("Order Rejection Canceled)");
+        }
+    }
+</script>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $(".flip").click(function() { $(".panel").slideToggle(); });
@@ -513,7 +527,7 @@
 </table>
 <asp:Panel ID="tbgvMIS" runat="server" class="Landscape" Width="100%" Height="80%"
     ScrollBars="Both">
-    <table width="100%">
+    <table width="50%">
         <tr>
             <td>
                 <%--<asp:GridView ID="gvMIS" CssClass="GridViewStyle" DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch"
@@ -655,12 +669,13 @@
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnItemDataBound="gvCustomerOrderMIS_ItemDataBound"
                         OnNeedDataSource="gvCustomerOrderMIS_OnNeedDataSource" ShowFooter="true" Skin="Telerik"
                         EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
-                        ExportSettings-FileName="MF Order Recon">
+                        ExportSettings-FileName="MF Order Recon" OnUpdateCommand="gvCustomerOrderMIS_UpdateCommand">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
                         </ExportSettings>
                         <MasterTableView DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch,CO_IsOnline"
-                            Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None">
+                            Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
+                            EditMode="PopUp">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderText="Select">
                                     <HeaderTemplate>
@@ -682,20 +697,21 @@
                                     SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
-                                     <ItemTemplate>
+                                    <ItemTemplate>
                                         <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CO_OrderId") %>'
                                             OnClick="lnkOrderNo_Click">
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridTemplateColumn HeaderText="OrderDetID" AllowFiltering="false" DataField="CMFOD_OrderNumber" Visible="false">
+                                <telerik:GridTemplateColumn HeaderText="OrderDetID" AllowFiltering="false" DataField="CMFOD_OrderNumber"
+                                    Visible="false">
                                     <ItemStyle />
                                     <%--<ItemTemplate>
                                        <%-- <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CMFOD_OrderNumber") %>'
                                             OnClick="lnkOrderNo_Click">
                                         </asp:LinkButton>--%>
                                     <%--</ItemTemplate> --%>
-                                </telerik:GridTemplateColumn> 
+                                </telerik:GridTemplateColumn>
                                 <telerik:GridDateTimeColumn DataField="CO_OrderDate" HeaderText="Order Date" SortExpression="CO_OrderDate"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="CO_OrderDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
@@ -715,7 +731,7 @@
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                     <ItemTemplate>
+                                    <ItemTemplate>
                                         <asp:Label ID="lblOrderStep" runat="server" Text='<%#Eval("WOS_OrderStep").ToString() %>'> </asp:Label>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
@@ -799,15 +815,73 @@
                                     UniqueName="CMFT_Units" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:n}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridTemplateColumn AllowFiltering="false">
+                                <%--<telerik:GridTemplateColumn AllowFiltering="false" >
                                     <ItemStyle />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lbtnMarkAsReject" runat="server" CssClass="cmbField" Text="Mark As Reject"
-                                            OnClick="lbtnMarkAsReject_Click">
+                                        <asp:LinkButton ID="lbtnMarkAsReject" runat="server" CssClass="cmbField" Text="Mark As Reject" 
+                                             OnClick="lbtnMarkAsReject_Click">
+                                            
                                         </asp:LinkButton>
                                     </ItemTemplate>
-                                </telerik:GridTemplateColumn>
+                                </telerik:GridTemplateColumn>--%>
+                                <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="MarkAsReject"
+                                    EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
+                                </telerik:GridEditCommandColumn>
                             </Columns>
+                            <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                                <FormTemplate>
+                                    <table style="background-color: White;" border="0">
+                                        <tr>
+                                            <td colspan="4">
+                                                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                                                    Order Rejection Request
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="leftField">
+                                                <asp:Label ID="Label1" runat="server" CssClass="FieldName" Text="Request No.:"></asp:Label>
+                                            </td>
+                                            <td class="rightField">
+                                                <asp:TextBox ID="txtRejOrderId" runat="server" CssClass="txtField" Style="width: 250px;"
+                                                    Text='<%# Bind("CO_OrderId") %>' ReadOnly="true"></asp:TextBox>
+                                            </td>
+                                            <td colspan="2">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="leftField">
+                                                <asp:Label ID="Label20" runat="server" Text="Remark:" CssClass="FieldName" ></asp:Label>
+                                            </td>
+                                            <td class="rightField">
+                                                <asp:TextBox ID="txtRemark" runat="server" CssClass="txtField" Style="width: 250px;" ></asp:TextBox>
+                                            </td>
+                                            <td colspan="2">
+                                                &nbsp;
+                                            </td>
+                                        </tr>
+                                        <td colspan="2">
+                                            &nbsp;
+                                        </td>
+                                        <tr>
+                                            <td>
+                                                &nbsp;
+                                            </td>
+                                            <td align="left">
+                                                <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                    ValidationGroup="btnSubmit">
+                                                    <%-- OnClientClick='<%# (Container is GridEditFormInsertItem) ?  " javascript:return ShowPopup();": "" %>'--%>
+                                                </asp:Button>
+                                            </td>
+                                            <td align="left">
+                                                <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                    CommandName="Cancel"></asp:Button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </FormTemplate>
+                            </EditFormSettings>
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
@@ -1024,3 +1098,4 @@
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnProductType" runat="server" />
+<asp:HiddenField ID="hdnRejOrderId" runat="server"  />

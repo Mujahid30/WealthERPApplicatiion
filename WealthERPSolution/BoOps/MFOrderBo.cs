@@ -90,12 +90,12 @@ namespace BoOps
                 throw (Ex);
             }
         }
-        public int MarkAsReject(int orderId)
+        public int MarkAsReject(int orderId, string Remarks)
         {
             int IsMarked = 0;
             try
             {
-                IsMarked = mfOrderDao.MarkAsReject(orderId);
+                IsMarked = mfOrderDao.MarkAsReject(orderId, Remarks);
             }
             catch (BaseApplicationException Ex)
             {
