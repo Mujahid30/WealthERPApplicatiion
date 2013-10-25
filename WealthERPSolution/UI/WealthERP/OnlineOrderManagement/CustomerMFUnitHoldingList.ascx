@@ -189,7 +189,7 @@
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="RedeemedAmount" AutoPostBackOnFilter="true"
-                                HeaderText="Sold Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                HeaderText="Sold Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 HeaderStyle-Width="75px" SortExpression="RedeemedAmount" Aggregate="Sum" FooterText=" "
                                 FooterStyle-HorizontalAlign="Right" FooterAggregateFormatString="{0:n3}">
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />

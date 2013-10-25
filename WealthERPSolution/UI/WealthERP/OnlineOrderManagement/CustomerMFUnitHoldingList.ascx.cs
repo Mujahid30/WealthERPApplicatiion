@@ -34,6 +34,7 @@ namespace WealthERP.OnlineOrderManagement
         string userType;
         int customerId = 0;
         int portfolioId = 0;
+        int accountId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -43,9 +44,25 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             customerId = customerVO.CustomerId;
             BindFolioAccount();
+            BindLink();
             if (!IsPostBack)
                 Cache.Remove("UnitHolding" + userVo.UserId);
         }
+        protected void BindLink()
+        {
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
+            {
+                int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
+                hdnAccount.Value=accountddl.ToString();
+                BindUnitHolding();
+                ViewState["SchemePlanCode"] = SchemePlanCode;
+                ddlPortfolio.SelectedValue = accountddl.ToString();
+            }
+        }
+
+
         private void SetParameter()
         {
             if (ddlPortfolio.SelectedIndex != 0)
@@ -82,8 +99,10 @@ namespace WealthERP.OnlineOrderManagement
                 ddlPortfolio.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
                 ddlPortfolio.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
                 ddlPortfolio.DataBind();
+               // ViewState["Account"] = ddlPortfolio.SelectedValue;
             }
             ddlPortfolio.Items.Insert(0, new ListItem("All", "0"));
+           
         }
         protected void btnUnitHolding_Click(object sender, EventArgs e)
         {
@@ -134,7 +153,8 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         protected void BindUnitHolding()
         {
-            DataTable dt = new DataTable();
+            DataTable dt = new DataTable();           
+            //hdnAccount.Value = accountId.ToString();
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
             if (OnlineMFHoldingList != null)
             {
@@ -358,9 +378,10 @@ namespace WealthERP.OnlineOrderManagement
                             int selectedRow = gvr.ItemIndex + 1;
                             int folio = int.Parse(gvr.GetDataKeyValue("AccountId").ToString());
                             int SchemePlanCode = int.Parse(gvr.GetDataKeyValue("SchemeCode").ToString());
+                            int accountddl = Convert.ToInt32(ViewState["AccountDropDown"]);
                             if (e.CommandName == "SelectTransaction")
                             {
-                                Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "", false);
+                                Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "", false);
                             }
 
                         }
