@@ -48,7 +48,9 @@ namespace WealthERP.OnlineOrderManagement
             BindOrderStatus();
             BindAmc();
             BindLink();
-            lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
+            Session["PreviousPage"] = "yes";
+
+           // lbBack.Attributes.Add("onClick", "javascript:history.back(); return false;");
             if (!Page.IsPostBack)
             {
                 fromDate = DateTime.Now.AddMonths(-1);
@@ -105,10 +107,11 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindLink()
         {
-            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null)
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"]!=null)
             {
                 int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                 int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
                 AccountId = int.Parse(accountId.ToString());
                 BindLastTradeDate();
                 string fromdate = "01-01-1990";
@@ -120,8 +123,20 @@ namespace WealthERP.OnlineOrderManagement
                 lbBack.Visible = true;
             }
         }
-                
-
+        protected void lbBack_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["folionum"] != null && Request.QueryString["SchemePlanCode"] != null && Request.QueryString["accountddl"] != null)
+            {
+                if (Session["PreviousPage"] != null)
+                {
+                    int accountId = int.Parse(Request.QueryString["folionum"].ToString());
+                    int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                    int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
+                    AccountId = int.Parse(accountId.ToString());
+                    Response.Redirect("ControlHost.aspx?pageid=CustomerMFUnitHoldingList&folionum=" + accountId + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl+"", false);
+                }
+            }
+        }
         /// <summary>
         /// Get Folio Account for Customer
         /// </summary>

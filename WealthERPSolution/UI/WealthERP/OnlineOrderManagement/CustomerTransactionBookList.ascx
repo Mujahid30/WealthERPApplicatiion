@@ -100,10 +100,20 @@
                 <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
                     ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
             </td>
-            <td align="right">
-                <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"></asp:LinkButton>
+            <td colspan="6">
+                &nbsp; &nbsp;
             </td>
-            <td align="right" style="width: 25%">
+            <td colspan="6">
+                &nbsp; &nbsp;
+            </td>
+            <td colspan="6">
+                &nbsp; &nbsp;
+            </td>
+            <td align="right">
+                <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                    OnClick="lbBack_Click"></asp:LinkButton>
+            </td>
+            <td align="right" style="width: 10%">
                 <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                     runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
                     OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
