@@ -24,6 +24,23 @@
         </td>
     </tr>
 </table>--%>
+<div class="divOnlinePageHeading" style="float: right; width: 100%">
+    <div style="float: right; padding-right: 100px;">
+        <table cellspacing="0" cellpadding="3" width="100%">
+            <tr>
+                <td align="right">
+                    <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                        OnClick="lbBack_Click"></asp:LinkButton>
+                </td>
+                <td align="right" style="width: 5%">
+                    <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                        OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
@@ -88,13 +105,7 @@
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewSIP" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewSIP"
                     OnClick="btnViewOrder_Click" />
-            </td>
-            <td align="right" style="width: 15%">
-                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-            </td>
-        </tr>
+            </td>            
     </table>
 </div>
 <table style="width: 100%" class="TableBackground">
@@ -118,12 +129,14 @@
                 <telerik:RadGrid ID="gvSIPSummaryBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                     PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="true" Width="102%"
-                    AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource" OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound"
-                    OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand" OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
+                    AllowAutomaticInserts="false" OnNeedDataSource="gvSIPSummaryBookMIS_OnNeedDataSource"
+                    OnItemDataBound="gvSIPSummaryBookMIS_OnItemDataBound" OnItemCommand="gvSIPSummaryBookMIS_OnItemCommand"
+                    OnUpdateCommand="gvSIPSummaryBookMIS_UpdateCommand">
                     <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled" Width="102%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="None" EditMode="PopUp">
+                    <MasterTableView DataKeyNames="CMFSS_SystematicSetupId,CMFSS_IsCanceled" Width="102%"
+                        AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
+                        EditMode="PopUp">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
@@ -305,21 +318,20 @@
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <%-- <telerik:GridButtonColumn HeaderText="Action" CommandName="Update" Text="Cancel"
+                            <%-- <telerik:GridButtonColumn HeaderText="Action" CommandName="Update" Text="Cancel"
                                 ConfirmText="Do you want to Cancel this SIP? Click OK to proceed" UniqueName="column">
                             </telerik:GridButtonColumn>--%>
-                      
-                        <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="editColumn"
-                            EditText="Cancel" CancelText="Cancel" UpdateText="OK">
-                        </telerik:GridEditCommandColumn>
-                        <%--  <telerik:GridTemplateColumn UniqueName="Action" ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
+                            <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="editColumn"
+                                EditText="Cancel" CancelText="Cancel" UpdateText="OK">
+                            </telerik:GridEditCommandColumn>
+                            <%--  <telerik:GridTemplateColumn UniqueName="Action" ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="true">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkAction" runat="server" CommandName="Update" Text="Cancel" ConfirmText="Do you want to Cancel this SIP? Click OK to proceed"
                                         UniqueName="Action" >
                                         </asp:LinkButton>
                                   <%--  </telerik:GridButtonColumn>--%>
-                        <%-- <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />--%>
+                            <%-- <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />--%>
                         </Columns>
                         <EditFormSettings FormTableStyle-Height="60%" EditFormType="Template" FormMainTableStyle-Width="300px">
                             <FormTemplate>

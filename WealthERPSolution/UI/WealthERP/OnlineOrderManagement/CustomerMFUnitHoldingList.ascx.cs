@@ -55,7 +55,7 @@ namespace WealthERP.OnlineOrderManagement
                 int accountId = int.Parse(Request.QueryString["folionum"].ToString());
                 int SchemePlanCode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
                 int accountddl = int.Parse(Request.QueryString["accountddl"].ToString());
-                hdnAccount.Value=accountddl.ToString();
+                hdnAccount.Value = accountddl.ToString();
                 BindUnitHolding();
                 ViewState["SchemePlanCode"] = SchemePlanCode;
                 ddlPortfolio.SelectedValue = accountddl.ToString();
@@ -99,10 +99,10 @@ namespace WealthERP.OnlineOrderManagement
                 ddlPortfolio.DataTextField = dtFolioAccount.Columns["CMFA_FolioNum"].ToString();
                 ddlPortfolio.DataValueField = dtFolioAccount.Columns["CMFA_AccountId"].ToString();
                 ddlPortfolio.DataBind();
-               // ViewState["Account"] = ddlPortfolio.SelectedValue;
+                // ViewState["Account"] = ddlPortfolio.SelectedValue;
             }
             ddlPortfolio.Items.Insert(0, new ListItem("All", "0"));
-           
+
         }
         protected void btnUnitHolding_Click(object sender, EventArgs e)
         {
@@ -153,7 +153,7 @@ namespace WealthERP.OnlineOrderManagement
         /// </summary>
         protected void BindUnitHolding()
         {
-            DataTable dt = new DataTable();           
+            DataTable dt = new DataTable();
             //hdnAccount.Value = accountId.ToString();
             OnlineMFHoldingList = customerPortfolioBo.GetOnlineUnitHolding(customerId, int.Parse(hdnAccount.Value));
             if (OnlineMFHoldingList != null)
@@ -276,7 +276,7 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["CMFNP_NAVDate"] = "N/A";
                     else
                         drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
-                        drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
+                    drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
                         drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
@@ -381,7 +381,14 @@ namespace WealthERP.OnlineOrderManagement
                             int accountddl = Convert.ToInt32(ViewState["AccountDropDown"]);
                             if (e.CommandName == "SelectTransaction")
                             {
-                                Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "", false);
+                                if (Session["PageDefaultSetting"] != null)
+                                {
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerTransactionBookList','?folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "');", true);
+                                }
+                                else
+                                {
+                                    Response.Redirect("ControlHost.aspx?pageid=CustomerTransactionBookList&folionum=" + folio + "&SchemePlanCode=" + SchemePlanCode + "&accountddl=" + accountddl + "", false);
+                                }
                             }
 
                         }
@@ -395,15 +402,37 @@ namespace WealthERP.OnlineOrderManagement
             }
             if (e.CommandName == "Buy")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderAdditionalPurchase','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                }
+
             }
             if (e.CommandName == "SIP")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderSIPTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                }
             }
             if (e.CommandName == "Sell")
             {
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                if (Session["PageDefaultSetting"] != null)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                }
+                else
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('MFOrderRdemptionTransType','&accountId=" + accountId + "&SchemeCode=" + schemePlanCode + "')", true);
+                }
             }
         }
 

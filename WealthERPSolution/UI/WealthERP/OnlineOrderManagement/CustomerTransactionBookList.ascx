@@ -23,6 +23,23 @@
         </td>
     </tr>
 </table>--%>
+<div class="divOnlinePageHeading" style="float: right; width: 100%">
+    <div style="float: right; padding-right: 100px;">
+        <table cellspacing="0" cellpadding="3" width="100%">
+            <tr>
+                <td align="right">
+                    <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                        OnClick="lbBack_Click"></asp:LinkButton>
+                </td>
+                <td align="right" style="width:5%">
+                    <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                        OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
@@ -99,24 +116,6 @@
             <td id="tdBtnOrder" runat="server" colspan="4">
                 <asp:Button ID="btnViewTransaction" runat="server" CssClass="PCGButton" Text="Go"
                     ValidationGroup="btnViewTransaction" OnClick="btnViewTransaction_Click" />
-            </td>
-            <td colspan="6">
-                &nbsp; &nbsp;
-            </td>
-            <td colspan="6">
-                &nbsp; &nbsp;
-            </td>
-            <td colspan="6">
-                &nbsp; &nbsp;
-            </td>
-            <td align="right">
-                <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
-                    OnClick="lbBack_Click"></asp:LinkButton>
-            </td>
-            <td align="right" style="width: 10%">
-                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
             </td>
         </tr>
     </table>

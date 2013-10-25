@@ -352,7 +352,14 @@ namespace WealthERP.OnlineOrderManagement
                                 int systematicId = int.Parse(gvr.GetDataKeyValue("CMFSS_SystematicSetupId").ToString());
                                 if (e.CommandName == "Select")
                                 {
-                                    Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+                                    if (Session["PageDefaultSetting"] != null)
+                                    {
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerSIPBookList','?systematicId=" + systematicId + "');", true);
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + systematicId + "", false);
+                                    }
                                 }
                             }
                         }

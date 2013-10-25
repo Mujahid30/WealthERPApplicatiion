@@ -31,6 +31,19 @@
         </td>
     </tr>
 </table>--%>
+<div class="divOnlinePageHeading" style="float: right; width: 100%">
+    <div style="float: right; padding-right: 100px;">
+        <table cellspacing="0" cellpadding="3" width="100%">
+            <tr>
+                <td align="right" style="width: 10px">
+                    <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                        OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
@@ -107,11 +120,6 @@
             <td id="tdBtnOrder" runat="server">
                 <asp:Button ID="btnViewOrder" runat="server" CssClass="PCGButton" Text="Go" ValidationGroup="btnViewOrder"
                     OnClick="btnViewOrder_Click" />
-            </td>
-            <td align="right" style="width: 10%">
-                <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                    runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                    OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
             </td>
         </tr>
     </table>
