@@ -224,6 +224,7 @@ namespace WealthERP.Advisor
             dtCustomer.Columns.Add("IsActive");
             dtCustomer.Columns.Add("IsProspect");
             dtCustomer.Columns.Add("IsFPClient");
+            dtCustomer.Columns.Add("IsMFKYC");
             if (UserRole != "rm")
             {
                 dtCustomer.Columns.Add("BranchName");
@@ -359,6 +360,15 @@ namespace WealthERP.Advisor
                         else
                         {
                             drCustomer["IsFPClient"] = "No";
+                        }
+
+                        if (customerVo.MfKYC == 1)
+                        {
+                            drCustomer["IsMFKYC"] = "Y";
+                        }
+                        else
+                        {
+                            drCustomer["IsMFKYC"] = "N";
                         }
                         if (UserRole != "rm")
                         {
@@ -529,6 +539,14 @@ namespace WealthERP.Advisor
                         else
                         {
                             drCustomer["IsFPClient"] = "No";
+                        }
+                        if (customerVo.MfKYC == 1)
+                        {
+                            drCustomer["IsMFKYC"] = "Y";
+                        }
+                        else
+                        {
+                            drCustomer["IsMFKYC"] = "N";
                         }
                         if (UserRole != "rm")
                         {

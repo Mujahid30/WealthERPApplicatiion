@@ -170,7 +170,6 @@
         </td>
     </tr>
 </table>
-
 <table width="100%" cellspacing="0" cellpadding="0" runat="server">
     <tr>
         <td align="center">
@@ -183,11 +182,11 @@
 <%--<div style="width: 100%;">--%>
 <%-- <asp:Panel ID="pnlCustomerList" runat="server" class="Landscape" ScrollBars="Both"
         Visible="false" Width="100%">--%>
-
 <table width="100%" cellspacing="0" cellpadding="1">
     <tr>
         <td>
-            <div id="DivCustomerList" runat="server" style="width: 52.8%; padding-left: 5px;" visible="false">
+            <div id="DivCustomerList" runat="server" style="width: 49%; padding-left: 5px;"
+                visible="false">
                 <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
@@ -249,7 +248,8 @@
                                 <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Group" UniqueName="ParentId" HeaderText="Group"
-                                AutoPostBackOnFilter="true" SortExpression="Group" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="145px">
+                                AutoPostBackOnFilter="true" SortExpression="Group" ShowFilterIcon="false" AllowFiltering="true"
+                                HeaderStyle-Width="145px">
                                 <ItemStyle Width="145px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 <%-- <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboGroup" AutoPostBack="true" AllowFiltering="true"
@@ -278,15 +278,14 @@
                                 AllowFiltering="true" HeaderStyle-Width="100px" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            
                             <telerik:GridBoundColumn DataField="BranchName" UniqueName="BranchName" HeaderText="Branch"
-                                AutoPostBackOnFilter="true" SortExpression="BranchName" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="100px"
-                                FilterControlWidth="80px" CurrentFilterFunction="Contains">
+                                AutoPostBackOnFilter="true" SortExpression="BranchName" ShowFilterIcon="false"
+                                AllowFiltering="true" HeaderStyle-Width="100px" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AssignedRM" UniqueName="RMId" HeaderText="RM"
-                                AutoPostBackOnFilter="true" SortExpression="AssignedRM" ShowFilterIcon="false" AllowFiltering="true"
-                                HeaderStyle-Width="140px">
+                                AutoPostBackOnFilter="true" SortExpression="AssignedRM" ShowFilterIcon="false"
+                                AllowFiltering="true" HeaderStyle-Width="140px">
                                 <ItemStyle Width="140px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboRM" AutoPostBack="true" AllowFiltering="true" CssClass="cmbField"
@@ -338,8 +337,8 @@
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="City" UniqueName="City" HeaderText="City" SortExpression="City"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="85px" FilterControlWidth="70px"
-                                CurrentFilterFunction="Contains">
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="85px"
+                                FilterControlWidth="70px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Pincode" UniqueName="Pincode" HeaderText="Pincode"
@@ -399,6 +398,12 @@
 
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="IsMFKYC" UniqueName="IsMFKYC" HeaderText="Is MFKYC"
+                                SortExpression="IsMFKYC" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="60px" FilterControlWidth="30px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false">
+                                <ItemStyle Width="55px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="ADUL_ProcessId" UniqueName="ADUL_ProcessId" HeaderText="Process Id"
                                 SortExpression="ADUL_ProcessId" AutoPostBackOnFilter="true" AllowFiltering="true"
