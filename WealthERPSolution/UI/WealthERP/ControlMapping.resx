@@ -1777,4 +1777,12 @@
     <value>OnlineOrderBackOffice//OnlineAdviserSIPSummaryBooks.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineAdviserSIPSummaryBooks.ascx</comment>
   </data>
+  <data name="OnlineSchemeMIS" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineSchemeMIS.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineSchemeMIS.ascx</comment>
+  </data>
+  <data name="OnlineSchemeSetUp" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineSchemeSetUp.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineSchemeSetUp.ascx</comment>
+  </data>
 </root>
