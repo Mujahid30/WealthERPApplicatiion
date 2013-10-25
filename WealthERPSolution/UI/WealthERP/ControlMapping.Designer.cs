@@ -2392,6 +2392,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineSchemeMIS.ascx.
+        /// </summary>
+        internal static string OnlineSchemeMIS {
+            get {
+                return ResourceManager.GetString("OnlineSchemeMIS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineSchemeSetUp.ascx.
+        /// </summary>
+        internal static string OnlineSchemeSetUp {
+            get {
+                return ResourceManager.GetString("OnlineSchemeSetUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OPS//OrderDashBoard.ascx.
         /// </summary>
         internal static string OrderDashBoard {

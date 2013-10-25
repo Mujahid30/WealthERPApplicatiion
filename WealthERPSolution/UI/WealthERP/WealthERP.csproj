@@ -2673,6 +2673,20 @@
     <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.designer.cs">
       <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx.cs">
+      <DependentUpon>OnlineSchemeMIS.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx.designer.cs">
+      <DependentUpon>OnlineSchemeMIS.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx.cs">
+      <DependentUpon>OnlineSchemeSetUp.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx.designer.cs">
+      <DependentUpon>OnlineSchemeSetUp.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.cs">
       <DependentUpon>BondOrderManagement.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7599,6 +7613,8 @@
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
