@@ -187,7 +187,7 @@
         <td>
             <div id="DivCustomerList" runat="server" style="width: 49%; padding-left: 5px;"
                 visible="false">
-                <telerik:RadGrid ID="gvCustomerList" runat="server" AllowAutomaticDeletes="false"
+                <telerik:RadGrid ID="gvCustomerList" runat="server" fAllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
                     GridLines="none" AllowAutomaticInserts="false" OnItemCreated="gvCustomerList_ItemCreated"
@@ -239,7 +239,12 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="CustomerId" UniqueName="CustomerId" HeaderText="Id"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
-                                SortExpression="CustomerId" FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                SortExpression="CustomerId" FilterControlWidth="50px" CurrentFilterFunction="Contains" Visible="false">
+                                <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="custcode" UniqueName="custcode" HeaderText="SSL Client Id "
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
+                                SortExpression="custcode" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Cust_Comp_Name" UniqueName="Cust_Comp_Name" HeaderText="Name"

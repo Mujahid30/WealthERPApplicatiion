@@ -3067,6 +3067,14 @@ namespace DaoAdvisorProfiling
                         {
                             customerVo.ACC_CustomerCategoryName = dr["ACC_customerCategoryName"].ToString();
                         }
+                        if (dr["c_custcode"].ToString() == null || dr["c_custcode"].ToString() == "")
+                        {
+                            customerVo.ACC_CustomerCategoryName = "N/A";
+                        }
+                        else
+                        {
+                            customerVo.ACC_CustomerCategoryName = dr["c_custcode"].ToString();
+                        }
                         customerVo.FirstName = dr["C_FirstName"].ToString();
                         customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
                         customerVo.MiddleName = dr["C_MiddleName"].ToString();

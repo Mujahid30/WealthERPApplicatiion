@@ -217,6 +217,7 @@ namespace WealthERP.Advisor
             dtCustomer.Columns.Add("Area");
             dtCustomer.Columns.Add("City");
             dtCustomer.Columns.Add("Pincode");
+            dtCustomer.Columns.Add("custcode");
             if (UserRole != "rm")
             {
                 dtCustomer.Columns.Add("AssignedRM");
@@ -374,6 +375,10 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["BranchName"] = customerVo.BranchName;
                         }
+                        if (customerVo.CustCode != null)
+                            drCustomer["custcode"] = customerVo.CustCode.ToString();
+                        else
+                            drCustomer["custcode"] = "";
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
@@ -552,9 +557,16 @@ namespace WealthERP.Advisor
                         {
                             drCustomer["BranchName"] = customerVo.BranchName;
                         }
+                        if (customerVo.CustCode != null)
+                        {
+                            drCustomer["custcode"] = customerVo.CustCode.ToString();
+                        }
+                        else
+                           drCustomer["custcode"] = "";
                         dtCustomerList.Rows.Add(drCustomer);
 
                     }
+                     
                     if (Cache["CustomerList+UserRole" + adviserVo.advisorId + UserRole] == null)
                     {
                         Cache.Insert("CustomerList+UserRole" + adviserVo.advisorId + UserRole, dtCustomerList);
