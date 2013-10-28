@@ -162,7 +162,7 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblHolder" runat="server" Text="Holder:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblHolderDisplay" runat="server" CssClass="FieldName"></asp:Label>
@@ -204,7 +204,7 @@
             <td>
             </td>
             <td align="right">
-                <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-off time:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="FieldName"></asp:Label>

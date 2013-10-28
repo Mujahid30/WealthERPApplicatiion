@@ -233,7 +233,7 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="XF_Frequency" HeaderText="Frequency" AllowFiltering="false"
+                            <telerik:GridBoundColumn DataField="XF_Frequency" HeaderText="SIP Frequency" AllowFiltering="false"
                                 HeaderStyle-Wrap="false" SortExpression="XF_Frequency" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 UniqueName="XF_Frequency" FooterStyle-HorizontalAlign="Left">
