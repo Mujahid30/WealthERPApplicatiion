@@ -359,12 +359,25 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "EUINConfirmation", " EUINConfirm();", true);
-            bool accountDebitStatus = false;
             rgvAmount.MinimumValue = string.IsNullOrEmpty(lblMinAmountrequiredDisplay.Text) == true ? "0" : lblMinAmountrequiredDisplay.Text;
             rgvAmount.MaximumValue = ((int)99999999).ToString();
-
             Page.Validate("btnSubmit");
+
+            confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
+            string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
+
+
+        }
+
+        protected void rbConfirm_OK_Click(object sender, EventArgs e)
+        {
+            CreateSIPOrder();
+        }
+
+        private void CreateSIPOrder()
+        {
+            bool accountDebitStatus = false;
 
             if (!Page.IsValid)
             {
@@ -380,10 +393,7 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter amount in multiple of subsequent amount and greater than minimum initial amount');", true);
                     return;
                 }
-                if (retVal == 1)
-                {
-                    ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "Message", "javascript:DeleteConfirmation();", true);
-                }
+
                 IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
 
                 SaveOrderDetails();
@@ -396,24 +406,13 @@ namespace WealthERP.OnlineOrderManagement
                     accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
 
                 }
-                if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
+                if (OrderId != 0)
                 {
                     ShowAvailableLimits();
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
-                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
+                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
                     ShowMessage(message);
                 }
-                else if (OrderId != 0 && accountDebitStatus == false)
-                {
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
-                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
-                    ShowMessage(message);
-                }
-                else if (OrderId == 0 && sipId != 0)
-                {
-                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus);
-                    ShowMessage(message);
-                }
+
             }
             else
             {
@@ -435,14 +434,18 @@ namespace WealthERP.OnlineOrderManagement
             }
 
             FreezeControls();
+
         }
 
-        private string CreateUserMessage(int orderId, int sipId, bool accountDebitStatus)
+        private string CreateUserMessage(int orderId, int sipId, bool accountDebitStatus, bool isCutOffTimeOver)
         {
             string userMessage = string.Empty;
             if (orderId != 0 && accountDebitStatus == true)
             {
-                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                if (isCutOffTimeOver)
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
+                else
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {

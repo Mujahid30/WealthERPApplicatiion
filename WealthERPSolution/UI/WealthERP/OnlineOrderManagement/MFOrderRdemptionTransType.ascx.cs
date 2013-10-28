@@ -157,17 +157,16 @@ namespace WealthERP.OnlineOrderManagement
             {
                 DataTable dtUnit = dscurrent.Tables[1];
                 if (dscurrent.Tables[2].Rows.Count > 0 && (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[0][0].ToString()) || dscurrent.Tables[2].Rows.Count == 2))
-                    
                 {
-                    
+
                     DataTable dtvaluated = dscurrent.Tables[2];
-                    
+
                     if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][0]).ToString()))
                     {
                         holdingUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
                     }
                     else holdingUnits = 0.0;
-                    
+
                     if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][0].ToString()))
                     {
                         ValuatedUnits = double.Parse(dscurrent.Tables[2].Rows[1][0].ToString());
@@ -440,15 +439,33 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "EUINConfirmation", " EUINConfirm();", true);
+            confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
+            string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
+
+        }
+
+        protected void rbConfirm_OK_Click(object sender, EventArgs e)
+        {
+            CreateRedemptionOrderType();
+        }
+
+        private void CreateRedemptionOrderType()
+        {
             List<int> OrderIds = new List<int>();
-            DateTime Dt;
+            DateTime dtCutOfffTime;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
-            bool accountDebitStatus = false;
+            bool isCutOffTimeOver = false;
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
             onlinemforderVo.TransactionType = "Sel";
-            Dt = DateTime.Parse(lbltime.Text);
+            dtCutOfffTime = DateTime.Parse(lbltime.Text);
+
+            if (DateTime.Now.TimeOfDay > dtCutOfffTime.TimeOfDay && dtCutOfffTime.TimeOfDay < Convert.ToDateTime("24:00:00.000").TimeOfDay)
+            {
+                isCutOffTimeOver = true;
+            }
+
             if (ddlRedeem.SelectedValue == "1")
             {
                 if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
@@ -458,7 +475,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 float RedeemUnits = float.Parse(string.IsNullOrEmpty(txtRedeemTypeValue.Text) ? "0" : txtRedeemTypeValue.Text);
                 float AvailableUnits = float.Parse(string.IsNullOrEmpty(lblUnitsheldDisplay.Text) ? "0" : lblUnitsheldDisplay.Text);
-                if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "1" && (RedeemUnits > AvailableUnits)))
+                if ((ddlRedeem.SelectedValue == "1" && (RedeemUnits > AvailableUnits)))
                 {
                     retVal = 1;
                 }
@@ -472,7 +489,7 @@ namespace WealthERP.OnlineOrderManagement
                 float RedeemAmt = float.Parse(string.IsNullOrEmpty(txtRedeemTypeValue.Text) ? "0" : txtRedeemTypeValue.Text);
                 float AvailableAmt = float.Parse(string.IsNullOrEmpty(lblCurrentValueDisplay.Text) ? "0" : lblCurrentValueDisplay.Text);
 
-                if (Dt.TimeOfDay < DateTime.Now.TimeOfDay || (ddlRedeem.SelectedValue == "2" && (RedeemAmt > AvailableAmt)))
+                if ((ddlRedeem.SelectedValue == "2" && (RedeemAmt > AvailableAmt)))
                 {
 
                     retVal = -1;
@@ -493,26 +510,27 @@ namespace WealthERP.OnlineOrderManagement
             }
             OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
             OrderId = int.Parse(OrderIds[0].ToString());
-            if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
-            {
-                accountDebitStatus = true;
-            }
-            if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
-            {
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
-                string message = "Order placed successfully, Order reference no is " + OrderId.ToString();
-                ShowMessage(message);
-            }
-            else if (OrderId != 0 && accountDebitStatus == false)
-            {
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
-                string message = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + OrderId.ToString();
-                ShowMessage(message);
-            }
 
 
+            string message = CreateUserMessage(OrderId, isCutOffTimeOver);
+            ShowMessage(message);
 
             PurchaseOrderControlsEnable(false);
+
+        }
+
+        private string CreateUserMessage(int orderId, bool isCutOffTimeOver)
+        {
+            string userMessage = string.Empty;
+            if (orderId != 0)
+            {
+                if (isCutOffTimeOver)
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
+                else
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+            }
+            return userMessage;
+
         }
 
         protected void lnkTermsCondition_Click(object sender, EventArgs e)

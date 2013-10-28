@@ -50,9 +50,10 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
+                ShowAvailableLimits();
                 AmcBind();
                 CategoryBind();
-               
+
                 if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
                 {
                     int accountId = 0;
@@ -64,7 +65,7 @@ namespace WealthERP.OnlineOrderManagement
                     commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
                     SetSelectedDisplay(accountId, schemeCode, amcCode, category);
                 }
-                
+
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
             }
@@ -83,14 +84,14 @@ namespace WealthERP.OnlineOrderManagement
                 ddlAmc.DataBind();
                 ddlAmc.Items.Insert(0, new ListItem("Select", "0"));
             }
-        
+
         }
         protected void SetSelectedDisplay(int Accountid, int SchemeCode, int Amccode, string Category)
         {
             BindAmcForDrillDown();
-            ddlAmc.SelectedValue= Amccode.ToString();
+            ddlAmc.SelectedValue = Amccode.ToString();
             ddlCategory.SelectedValue = Category;
-           SchemeBind(Amccode, Category,0);
+            SchemeBind(Amccode, Category, 0);
             BindFolioNumber(Amccode);
             ddlFolio.SelectedValue = Accountid.ToString();
             ddlScheme.SelectedValue = SchemeCode.ToString();
@@ -214,13 +215,13 @@ namespace WealthERP.OnlineOrderManagement
             DataSet dsNav = new DataSet();
 
             dsNav = commonLookupBo.GetLatestNav(scheme);
-            
-               
-                if (dsNav.Tables[0].Rows.Count > 0)
-                {
-                    string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
-                    lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
-                }
+
+
+            if (dsNav.Tables[0].Rows.Count > 0)
+            {
+                string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
+                lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
+            }
             if (ds.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = ds.Tables[1];
@@ -341,7 +342,19 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "EUINConfirmation", " EUINConfirm();", true);
+            confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
+            string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
+
+        }
+
+        protected void rbConfirm_OK_Click(object sender, EventArgs e)
+        {
+            CreateAdditionalPurchaseOrderType();
+        }
+
+        private void CreateAdditionalPurchaseOrderType()
+        {
             List<int> OrderIds = new List<int>();
             bool accountDebitStatus = false;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
@@ -387,10 +400,6 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You should enter the amount in multiples of Subsequent amount');", true); return;
                 }
-                if (retVal == 1)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('The CutOff time has been Reached ');", true); return;
-                }
                 if (retVal == -2)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
@@ -404,28 +413,26 @@ namespace WealthERP.OnlineOrderManagement
             {
                 accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
             }
-            if ((OrderId != 0 && accountDebitStatus == true) || (OrderId != 0 && string.IsNullOrEmpty(customerVo.AccountId)))
+            if (OrderId != 0)
             {
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order received successfully.');", true);
-                message = CreateUserMessage(OrderId, accountDebitStatus);
-                ShowMessage(message);
-            }
-            else if (OrderId != 0 && accountDebitStatus == false)
-            {
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order taken,Order will not process due to insufficient balance');", true);
-                message = CreateUserMessage(OrderId, accountDebitStatus);
+                ShowAvailableLimits();
+                message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false);
                 ShowMessage(message);
             }
 
             PurchaseOrderControlsEnable(false);
 
         }
-        private string CreateUserMessage(int orderId, bool accountDebitStatus)
+
+        private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
         {
             string userMessage = string.Empty;
             if (orderId != 0 && accountDebitStatus == true)
             {
-                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                if (isCutOffTimeOver)
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
+                else
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
