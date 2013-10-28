@@ -174,7 +174,7 @@
                                 FilterControlWidth="60px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="C_CustCode " AllowFiltering="true" HeaderText="Customer Id"
+                            <telerik:GridBoundColumn DataField="C_CustCode " AllowFiltering="true" HeaderText="Client Id"
                                 UniqueName="C_CustCode" SortExpression="C_CustCode " ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
