@@ -112,7 +112,7 @@ namespace DaoOnlineOrderManagement
                 if (AmcCode != 0)
                     db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, AmcCode);
                 else
-                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);               
+                    db.AddInParameter(GetSIPSummaryBookMISCmd, "@AMC", DbType.Int32, 0);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@Fromdate", DbType.DateTime, dtFrom);
                 db.AddInParameter(GetSIPSummaryBookMISCmd, "@ToDate", DbType.DateTime, dtTo);
                 dsSIPSummaryBookMIS = db.ExecuteDataSet(GetSIPSummaryBookMISCmd);
@@ -134,6 +134,44 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsSIPSummaryBookMIS;
+        }
+        public DataSet GetSchemeMIS(string Assettype, int Onlinetype)
+        {
+            DataSet dsSchemeMIS;
+            Database db;
+            DbCommand GetSchemeMISCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetSchemeMISCmd = db.GetStoredProcCommand("SPROC_GetProductAMCSchemePlanDetails");
+                db.AddInParameter(GetSchemeMISCmd,"@assettype", DbType.String, Assettype);
+                if(Onlinetype!=0)
+                {
+                    db.AddInParameter(GetSchemeMISCmd,"@onlinetype",DbType.Int32,Onlinetype);
+                }
+                else
+                {
+                    db.AddInParameter(GetSchemeMISCmd, "@onlinetype", DbType.Int32, DBNull.Value);
+                }
+                dsSchemeMIS = db.ExecuteDataSet(GetSchemeMISCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }  
+            return dsSchemeMIS;
         }
     }
 }

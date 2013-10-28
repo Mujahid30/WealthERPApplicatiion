@@ -100,5 +100,32 @@ namespace BoOnlineOrderManagement
             }
             return dsSIPSummaryBookMIS;
         }
+         public DataSet GetSchemeMIS(string Assettype, int Onlinetype)
+        {
+             DataSet dsSchemeMIS;
+             OnlineOrderMISDao onlineOrderMISDao = new OnlineOrderMISDao();
+
+             try
+             {
+
+                 dsSchemeMIS = onlineOrderMISDao.GetSchemeMIS(Assettype, Onlinetype);
+             }
+             catch (BaseApplicationException Ex)
+             {
+                 throw Ex;
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                 object[] objects = new object[10];
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dsSchemeMIS;
+        }
     }
 }
