@@ -28,10 +28,10 @@
     <div style="float: right; padding-right: 100px;">
         <table cellspacing="0" cellpadding="3" width="100%">
             <tr>
-                <td align="right">
+                <%--<td align="right">
                     <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"
                         OnClick="lbBack_Click"></asp:LinkButton>
-                </td>
+                </td>--%>
                 <td align="right" style="width: 5%">
                     <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
