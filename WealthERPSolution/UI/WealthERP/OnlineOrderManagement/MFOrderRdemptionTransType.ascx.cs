@@ -496,6 +496,11 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
             }
+            else if (ddlRedeem.SelectedValue == "3")
+            { 
+            onlinemforderVo.IsAllUnits=true;
+
+            }
 
             if (retVal != 0)
             {

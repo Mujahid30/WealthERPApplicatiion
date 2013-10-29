@@ -30,5 +30,6 @@ namespace VoOnlineOrderManagemnet
         public int TotalInstallments { set; get; }
         public int MinDues { set; get; }
         public int MaxDues { set; get; }
+        public bool IsAllUnits { set; get; }
     }
 }

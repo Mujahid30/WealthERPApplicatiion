@@ -203,6 +203,12 @@ namespace DaoOnlineOrderManagement
                 }
                 else
                     db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@accountid", DbType.Int32, 0);
+                if (onlinemforderVo.IsAllUnits==true)
+                {
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsAllUnits", DbType.Boolean, bool.Parse(onlinemforderVo.IsAllUnits.ToString()));
+                }
+                else
+                    db.AddInParameter(CreateCustomerOnlineMFOrderDetailsCmd, "@IsAllUnits", DbType.Boolean, 0);
 
                 if (db.ExecuteNonQuery(CreateCustomerOnlineMFOrderDetailsCmd) != 0)
                 {
