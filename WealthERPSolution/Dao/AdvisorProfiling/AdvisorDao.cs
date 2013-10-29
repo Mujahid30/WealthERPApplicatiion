@@ -3069,11 +3069,11 @@ namespace DaoAdvisorProfiling
                         }
                         if (dr["c_custcode"].ToString() == null || dr["c_custcode"].ToString() == "")
                         {
-                            customerVo.ACC_CustomerCategoryName = "N/A";
+                            customerVo.CustCode = "N/A";
                         }
                         else
                         {
-                            customerVo.ACC_CustomerCategoryName = dr["c_custcode"].ToString();
+                            customerVo.CustCode = dr["c_custcode"].ToString();
                         }
                         customerVo.FirstName = dr["C_FirstName"].ToString();
                         customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
@@ -3114,6 +3114,8 @@ namespace DaoAdvisorProfiling
                             if (dr["BranchName"].ToString() != "")
                                 customerVo.BranchName = dr["BranchName"].ToString();
                         }
+
+
                         customerList.Add(customerVo);
                     }
                 }
