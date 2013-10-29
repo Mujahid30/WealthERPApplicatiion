@@ -503,8 +503,8 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow dr in dsNomineeAndJointHolders.Tables[1].Rows)
             {
-                strbJointHolder.Append(dr["JointHolderName"].ToString() + ",");
-                strbNominee.Append(dr["JointHolderName"].ToString() + ",");
+                strbJointHolder.Append(dr["JointHolderName"].ToString());
+                strbNominee.Append(dr["JointHolderName"].ToString());
             }
 
             lblNomineeDisplay.Text = strbNominee.ToString();
@@ -731,7 +731,7 @@ namespace WealthERP.OnlineOrderManagement
                     drCustomerAssociates = dtCustomerAssociates.NewRow();
                     drCustomerAssociates[0] = dr["C_AssociateCustomerId"].ToString();
                     //drCustomerAssociates[1] = dr["CA_AssociationId"].ToString();
-                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + " " + dr["C_LastName"].ToString();
+                    drCustomerAssociates[2] = dr["C_FirstName"].ToString() + "  " + dr["C_LastName"].ToString();
                     //drCustomerAssociates[3] = dr["XR_Relationship"].ToString();
                     dtCustomerAssociates.Rows.Add(drCustomerAssociates);
                 }
