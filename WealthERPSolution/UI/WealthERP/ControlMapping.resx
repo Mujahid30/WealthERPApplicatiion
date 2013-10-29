@@ -1785,4 +1785,12 @@
     <value>OnlineOrderBackOffice//OnlineSchemeSetUp.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineSchemeSetUp.ascx</comment>
   </data>
+  <data name="ExternalFieldMapping" xml:space="preserve">
+    <value>OnlineOrderBackOffice//ExternalFieldMapping.ascx</value>
+    <comment>OnlineOrderBackOffice//ExternalFieldMapping.ascx</comment>
+  </data>
+  <data name="ManageLookups" xml:space="preserve">
+    <value>OnlineOrderBackOffice//ManageLookups.ascx</value>
+    <comment>OnlineOrderBackOffice//ManageLookups.ascx</comment>
+  </data>
 </root>

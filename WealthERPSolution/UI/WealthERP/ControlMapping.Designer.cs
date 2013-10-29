@@ -1627,6 +1627,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//ExternalFieldMapping.ascx.
+        /// </summary>
+        internal static string ExternalFieldMapping {
+            get {
+                return ResourceManager.GetString("ExternalFieldMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//FamilyDetails.ascx.
         /// </summary>
         internal static string FamilyDetails {
@@ -2019,6 +2028,15 @@ namespace WealthERP {
         internal static string LOBDetails {
             get {
                 return ResourceManager.GetString("LOBDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//ManageLookups.ascx.
+        /// </summary>
+        internal static string ManageLookups {
+            get {
+                return ResourceManager.GetString("ManageLookups", resourceCulture);
             }
         }
         
