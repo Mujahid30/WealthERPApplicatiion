@@ -93,7 +93,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@WTBD_ExecutionDate", DbType.DateTime, ExecutionDate);
                 db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, RtaIdentifier);
-                if (string.IsNullOrEmpty(TransactionType) == false && TransactionType.ToUpper() != "ALL") { db.AddInParameter(cmd, "@AMFE_TrxnType", DbType.String, TransactionType); }
+                if (string.IsNullOrEmpty(TransactionType) == false && TransactionType.ToUpper() != "ALL") { db.AddInParameter(cmd, "@WMTT_TransactionClassificationCode", DbType.String, TransactionType); }
                 if (AmcCode > 0) { db.AddInParameter(cmd, "@PA_AMCCode", DbType.Int32, AmcCode); }
 
                 dsGetMfOrderExtract = db.ExecuteDataSet(cmd);
@@ -153,17 +153,32 @@ namespace DaoOnlineOrderManagement
         }
 
         /// <summary>
-        /// Generates MF Order extracts
+        /// 
         /// </summary>
-        public void GenerateOrderExtract()
+        /// <param name="ExecutionDate"></param>
+        /// <param name="AdviserId"></param>
+        /// <param name="XES_SourceCode"></param>
+        /// <param name="OrderType"></param>
+        /// <returns></returns>
+        public int GenerateOrderExtract(int AmcCode, DateTime ExecutionDate, int AdviserId, string XES_SourceCode, string OrderType)
         {
             Database db;
             DbCommand cmd;
+            int rowsCreated = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_CreateAdviserMFOrderExtract");
+                db.AddInParameter(cmd, "@PA_AMCCode", DbType.Int32, AmcCode);
+                db.AddInParameter(cmd, "@WTBD_ExecutionDate", DbType.Date, ExecutionDate);
+                db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);
+                db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, XES_SourceCode);
+                if (string.IsNullOrEmpty(OrderType) == false && OrderType.ToUpper() != "ALL") { db.AddInParameter(cmd, "@WMTT_TransactionClassificationCode", DbType.String, OrderType); }
+                db.AddOutParameter(cmd, "@OrderExtractCreated", DbType.Int32, 0);
                 db.ExecuteDataSet(cmd);
+                string paramOut = db.GetParameterValue(cmd, "@OrderExtractCreated").ToString();
+                if (string.IsNullOrEmpty(paramOut) != true)
+                    rowsCreated = int.Parse(paramOut);
             }
             catch (BaseApplicationException Ex)
             {
@@ -178,6 +193,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return rowsCreated;
         }
     }
 }

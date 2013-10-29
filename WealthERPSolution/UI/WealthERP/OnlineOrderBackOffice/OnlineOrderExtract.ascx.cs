@@ -10,6 +10,7 @@ using Telerik.Web.UI;
 using System.Data;
 using VoUser;
 using System.IO;
+using WealthERP.Base;
 using BoCommon;
 
 namespace WealthERP.OnlineOrderBackOffice
@@ -20,13 +21,22 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineOrderBackOfficeBo boOnlineOrderBackOffice = new OnlineOrderBackOfficeBo();
         AdvisorVo advisorVo;
         CommonLookupBo boCommon = new CommonLookupBo();
+        string sCacheIndex;
+        UserVo userVo;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
+            userVo = (UserVo)Session[SessionContents.UserVo];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            
             tblMessage.Visible = false;
 
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
+
+            userVo = (UserVo)Session[SessionContents.UserVo];
+            sCacheIndex = userVo.UserId.ToString() + "OrderExtractMis";
 
             if (!Page.IsPostBack)
             {
@@ -34,20 +44,24 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindProduct();
                 BindExternalSource();
                 BindExtractDate();
-                //BindRnTType();
             }
-        }
-
-        protected void BindRnTType() { 
-
         }
 
         protected void btnGenerateFile_Click(object sender, EventArgs e)
         {
-            //boOnlineOrderBackOffice.GenerateOrderExtract();
             DateTime execDate = rdpExtractDate.SelectedDate.Value;
 
             DataTable orderExtractForRta = boOnlineOrderBackOffice.GetOrderExtractForRta(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue));
+
+            if (orderExtractForRta == null) { 
+                ShowMessage("No data available");
+                return; 
+            }
+            if (orderExtractForRta.Rows.Count <= 0)
+            {
+                ShowMessage("No data available");
+                return;
+            }
             
             string downloadFileName = boOnlineOrderBackOffice.GetFileName(ddlExtractType.SelectedValue, ddlProductAmc.SelectedValue, orderExtractForRta.Rows.Count); 
 
@@ -62,7 +76,6 @@ namespace WealthERP.OnlineOrderBackOffice
                     break;
 
             }
-            //string localFilePath = bo 
         }
 
         protected void DownloadDbfFile(string localFilePath, string downloadFileName)
@@ -77,7 +90,6 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnPreview_Click(object sender, EventArgs e)
         {
-            //boOnlineOrderBackOffice.GenerateOrderExtract();
             Page.Validate("ExtractData");
             if (!Page.IsValid)
             {
@@ -94,24 +106,9 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnExtract_Click(object sender, EventArgs e)
         {
-            boOnlineOrderBackOffice.GenerateOrderExtract();
-            //Page.Validate("ExtractData");
-            //Page.Validate("PreviewData");
-            //if (!Page.IsValid)
-            //{
-            //    ShowMessage("Please select required fields");
-            //    return;
-            //}
- 
-            //if (gvExtractMIS.MasterTableView.Items.Count <= 0) return;
-
-            //gvExtractMIS.ExportSettings.OpenInNewWindow = true;
-            //gvExtractMIS.ExportSettings.OpenInNewWindow = true;
-            //gvExtractMIS.ExportSettings.IgnorePaging = true;
-            //gvExtractMIS.ExportSettings.HideStructureColumns = true;
-            //gvExtractMIS.ExportSettings.ExportOnlyData = true;
-            //gvExtractMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //gvExtractMIS.MasterTableView.ExportToExcel();
+            DateTime execDate = rdpExtractDate.SelectedDate.Value;
+            int orderCreated = boOnlineOrderBackOffice.GenerateOrderExtract(int.Parse(ddlProductAmc.SelectedValue), execDate, advisorVo.advisorId, ddlRnT.SelectedValue, ddlExtractType.SelectedValue);
+            ShowMessage("New Orders Extracted: " + orderCreated);
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)
@@ -131,22 +128,26 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         protected void gvExtractMIS_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-        {     
-            DataTable dtOrderMIS = new DataTable();
-            dtOrderMIS = (DataTable)Cache["OrderMIS"];
+        {
+            gvExtractMIS.Visible = false;
 
-            if (dtOrderMIS.Rows.Count == 0) {
-                gvExtractMIS.DataSource = new Object[] { };
-                return;
-            }  
+            DataTable dtOrderExtractMis = new DataTable();
+            if (Cache[sCacheIndex] != null) {
+                dtOrderExtractMis = (DataTable)Cache[sCacheIndex];
+                gvExtractMIS.DataSource = dtOrderExtractMis;
+            }
 
-            gvExtractMIS.DataSource = dtOrderMIS;
+            if (dtOrderExtractMis.Rows.Count <= 0) return;
+
+            gvExtractMIS.DataSource = dtOrderExtractMis;
             gvExtractMIS.Visible = true;
         }
         
         private int BindMisGridView()
         {
-            if (Cache["OrderMIS"] != null) Cache.Remove("OrderMIS");
+            gvExtractMIS.Visible = false;
+
+            if (Cache[sCacheIndex] != null) Cache.Remove(sCacheIndex);
 
             DataSet dsOrderMis = boOnlineOrderBackOffice.GetMfOrderExtract(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue));
 
@@ -161,9 +162,9 @@ namespace WealthERP.OnlineOrderBackOffice
             gvExtractMIS.DataSource = dtOrderMIS;
             gvExtractMIS.DataBind();
             gvExtractMIS.Visible = true;
-            Cache.Remove("OrderMIS");
-            
-            if (Cache["OrderMIS"] == null) Cache.Insert("OrderMIS", dtOrderMIS);
+            Cache.Remove(sCacheIndex);
+
+            if (Cache[sCacheIndex] == null) Cache.Insert(sCacheIndex, dtOrderMIS);
 
             return cRows;
         }
@@ -238,14 +239,9 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             ddlRnT.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlRnT.SelectedIndex = 0;
-
-            //Only for cams
-            ddlRnT.SelectedIndex = 1;
-            ddlRnT.Enabled = false;
         }
 
-        protected void BindExtractDate()
-        {
+        protected void BindExtractDate() {
             rdpExtractDate.SelectedDate = DateTime.Now;
         }
 

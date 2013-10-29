@@ -322,9 +322,17 @@ namespace BoOnlineOrderManagement
                 case "CA":
                     seedFileName = "cams";
                     break;
-                default:
-                    seedFileName = "cams";
+                case "KA":
+                    seedFileName = "karvy";
                     break;
+                case "TN":
+                    seedFileName = "ft";
+                    break;
+                case "SU":
+                    seedFileName = "sund";
+                    break;
+                default:
+                    return null;
             }
             string dbfFile = "orderext.dbf";
             string csvColList = GetCsvColumnList(OrderExtract.Columns);
@@ -333,7 +341,7 @@ namespace BoOnlineOrderManagement
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + workDir + ";Extended Properties=dBASE IV;");
 
             string sqlIns = "INSERT INTO " + dbfFile + " (" + csvColList + ") VALUES (" + Regex.Replace(csvColList, @"[a-zA-Z_0-9]+", "?") + ")";
-            string sqlSel = "SELECT " + csvColList + " INTO " + dbfFile + " FROM " + seedFileName + ".dbf WHERE 1 = 2";
+            string sqlSel = "SELECT " + csvColList + " INTO " + dbfFile + " FROM " + seedFileName + ".dbf";
             string sqlDel = "DELETE FROM " + seedFileName + ".dbf" + " WHERE 1 = 1";
 
             OleDbDataAdapter daRead = new OleDbDataAdapter(sqlSel, conn);
@@ -395,12 +403,13 @@ namespace BoOnlineOrderManagement
         /// <summary>
         /// 
         /// </summary>
-        public void GenerateOrderExtract()
+        public int GenerateOrderExtract(int AmcCode, DateTime ExecutionDate, int AdviserId, string XES_SourceCode, string OrderType)
         {
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            int ordersCreated = 0;
             try
             {
-                daoOnlineOrderBackOffice.GenerateOrderExtract();
+                ordersCreated = daoOnlineOrderBackOffice.GenerateOrderExtract(AmcCode, ExecutionDate, AdviserId, XES_SourceCode, OrderType);
             }
             catch (BaseApplicationException Ex)
             {
@@ -416,6 +425,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
 
             }
+            return ordersCreated;
         }
     }
 }
