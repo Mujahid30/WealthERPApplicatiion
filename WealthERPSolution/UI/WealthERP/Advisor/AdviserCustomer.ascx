@@ -242,7 +242,7 @@
                                 SortExpression="CustomerId" FilterControlWidth="50px" CurrentFilterFunction="Contains" Visible="false">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="custcode" UniqueName="custcode" HeaderText="SSL Client Id "
+                            <telerik:GridBoundColumn DataField="custcode" UniqueName="custcode" HeaderText="Client Id"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
                                 SortExpression="custcode" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
