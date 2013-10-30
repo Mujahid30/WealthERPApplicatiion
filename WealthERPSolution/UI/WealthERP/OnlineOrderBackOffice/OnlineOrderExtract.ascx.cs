@@ -29,7 +29,7 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            
+
             tblMessage.Visible = false;
 
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
@@ -53,19 +53,21 @@ namespace WealthERP.OnlineOrderBackOffice
 
             DataTable orderExtractForRta = boOnlineOrderBackOffice.GetOrderExtractForRta(rdpExtractDate.SelectedDate.Value, advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue));
 
-            if (orderExtractForRta == null) { 
+            if (orderExtractForRta == null)
+            {
                 ShowMessage("No data available");
-                return; 
+                return;
             }
             if (orderExtractForRta.Rows.Count <= 0)
             {
                 ShowMessage("No data available");
                 return;
             }
-            
-            string downloadFileName = boOnlineOrderBackOffice.GetFileName(ddlExtractType.SelectedValue, ddlProductAmc.SelectedValue, orderExtractForRta.Rows.Count); 
 
-            switch (ddlFileFormat.SelectedValue) { 
+            string downloadFileName = boOnlineOrderBackOffice.GetFileName(ddlExtractType.SelectedValue, ddlProductAmc.SelectedValue, orderExtractForRta.Rows.Count);
+
+            switch (ddlFileFormat.SelectedValue)
+            {
                 case "dbf":
                     string localFilePath = boOnlineOrderBackOffice.CreatDbfFile(orderExtractForRta, ddlRnT.SelectedValue, Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"));
                     DownloadDbfFile(localFilePath, downloadFileName + ".DBF");
@@ -107,8 +109,13 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnExtract_Click(object sender, EventArgs e)
         {
             DateTime execDate = rdpExtractDate.SelectedDate.Value;
-            int orderCreated = boOnlineOrderBackOffice.GenerateOrderExtract(int.Parse(ddlProductAmc.SelectedValue), execDate, advisorVo.advisorId, ddlRnT.SelectedValue, ddlExtractType.SelectedValue);
-            ShowMessage("New Orders Extracted: " + orderCreated);
+
+            bool extractStatus = boOnlineOrderBackOffice.ExtractDailyRTAOrderList(advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue), userVo.UserId);
+
+            if (extractStatus)
+                ShowMessage("Extraction sucessfull");
+            else
+                ShowMessage("Extraction Unsucessfull");
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)
@@ -132,7 +139,8 @@ namespace WealthERP.OnlineOrderBackOffice
             gvExtractMIS.Visible = false;
 
             DataTable dtOrderExtractMis = new DataTable();
-            if (Cache[sCacheIndex] != null) {
+            if (Cache[sCacheIndex] != null)
+            {
                 dtOrderExtractMis = (DataTable)Cache[sCacheIndex];
                 gvExtractMIS.DataSource = dtOrderExtractMis;
             }
@@ -142,7 +150,7 @@ namespace WealthERP.OnlineOrderBackOffice
             gvExtractMIS.DataSource = dtOrderExtractMis;
             gvExtractMIS.Visible = true;
         }
-        
+
         private int BindMisGridView()
         {
             gvExtractMIS.Visible = false;
@@ -158,7 +166,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             int cRows = dtOrderMIS.Rows.Count;
             if (cRows <= 0) return 0;
-            
+
             gvExtractMIS.DataSource = dtOrderMIS;
             gvExtractMIS.DataBind();
             gvExtractMIS.Visible = true;
@@ -176,10 +184,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
         public void DownloadCsvFile(DataTable dtOrderExtract, string filename)
         {
-            if (dtOrderExtract == null) 
+            if (dtOrderExtract == null)
             {
                 ShowMessage("No data available");
-                return; 
+                return;
             }
             if (dtOrderExtract.Rows.Count <= 0)
             {
@@ -241,7 +249,8 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlRnT.SelectedIndex = 0;
         }
 
-        protected void BindExtractDate() {
+        protected void BindExtractDate()
+        {
             rdpExtractDate.SelectedDate = DateTime.Now;
         }
 
