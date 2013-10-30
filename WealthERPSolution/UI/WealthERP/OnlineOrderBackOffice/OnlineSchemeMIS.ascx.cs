@@ -137,9 +137,20 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
+                 DropDownList ddlAction = (DropDownList)sender;
+                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+                //int selectedRow = gvr.ItemIndex + 1;
+                 string action = "";
+                 int SchemePlanCode = int.Parse(gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_SchemePlanCode"].ToString());
 
-
-        }
+                 if (ddlAction.SelectedItem.Value.ToString() == "View")
+                 {
+                     if (ddlProduct.SelectedItem.Value.ToString() == "MF")
+                     {
+                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUP", "loadcontrol('OnlineSchemeSetUP','?strOrderId=" + orderId + "&strCustomerId=" + customerId + "&strAction=" + action + " ');", true);   
+                     }
+                 }
+            }
 
         protected void gvonlineschememis_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
