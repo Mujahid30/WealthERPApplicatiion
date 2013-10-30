@@ -1581,19 +1581,19 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCDIssueList")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList','none');", true);
                 }
                 else if (e.Item.Value == "NCDIssueTransact")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('NCDIssueTransact','none');", true);
                 }
                 else if (e.Item.Value == "NCDOrderBook")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueBooks", "loadcontrol('NCDIssueBooks','none');", true);
                 }
                 else if (e.Item.Value == "NCDHolding")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerMFUnitHoldingList','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('NCDIssueHoldings','none');", true);
                 }
                 else if (e.Item.Value == "SIPSumBook")
                 {
