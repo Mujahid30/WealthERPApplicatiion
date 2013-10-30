@@ -49,7 +49,7 @@
             <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField" AutoPostBack="true"
                 >
                 <Items>
-                  <asp:ListItem Text="Both" Value="" Selected="true" />
+                  <asp:ListItem Text="Both" Value=" " Selected="true" />
                   <asp:ListItem Text="Online Scheme" Value="1" />
                   <asp:ListItem Text="Offline Scheme" Value="0"/>
                  <%-- <asp:ListItem Text="Both" Value="Both"/>--%>
@@ -69,7 +69,7 @@
                     OnItemDataBound="gvonlineschememis_ItemDataBound"
                     OnNeedDataSource="gvonlineschememis_OnNeedDataSource" OnPreRender="gvonlineschememis_PreRender"--%>
         <td>
-            <div id="SchemeMIS" runat="server" style="width: 90%; padding-left: 5px;
+            <div id="SchemeMIS" runat="server" style="width: 95%; padding-left: 5px;
             " visible="false">
                  <telerik:RadGrid ID="gvonlineschememis" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
@@ -78,7 +78,7 @@
                     OnNeedDataSource="gvonlineschememis_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" Width="90%" AllowMultiColumnSorting="True"
+                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" Width="94%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
@@ -103,6 +103,12 @@
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn DataField="PASC_AMC_ExternalType" UniqueName="PASC_AMC_ExternalType"
+                                HeaderText="External Type" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="120px" SortExpression="PA_AMCNamee" FilterControlWidth="50px"
+                                CurrentFilterFunction="Contains">
+                                <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="PASP_SchemePlanCode" UniqueName="PASP_SchemePlanCode"
                                 HeaderText="PASP_SchemePlanCode" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                 HeaderStyle-Width="67px" SortExpression="PASP_SchemePlanCode" FilterControlWidth="50px"
@@ -115,7 +121,7 @@
                                 <ItemStyle Width="290px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                              <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="Online/Offline"
-                                SortExpression="PASP_IsOnline" AllowFiltering="true" HeaderStyle-Width="100px"
+                                SortExpression="PASP_IsOnline" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 FilterControlWidth="80px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                 <ItemStyle Width="80px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
@@ -139,7 +145,7 @@
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
-                 <%--  <Scrolling AllowScroll="true" UseStaticHeaders="false" />--%>
+             <Scrolling AllowScroll="true" UseStaticHeaders="false" ScrollHeight="388px" />
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>
