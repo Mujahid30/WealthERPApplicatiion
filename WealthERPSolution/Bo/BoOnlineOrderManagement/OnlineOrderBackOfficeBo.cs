@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 
 
+
 namespace BoOnlineOrderManagement
 {
     public class OnlineOrderBackOfficeBo
@@ -49,7 +50,7 @@ namespace BoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate,int AdviserId,int extractType)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType)
         {
             DataSet dsExtractType;
             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
@@ -296,13 +297,15 @@ namespace BoOnlineOrderManagement
             var random = new Random(System.DateTime.Now.Millisecond);
             int randomNumber = random.Next(0, 1000000);
             string rowCount = string.Empty;
-            
-            if (RowCount < 6) {
+
+            if (RowCount < 6)
+            {
                 int i = 0;
 
                 rowCount = RowCount.ToString();
                 int rowCountLength = rowCount.Length;
-                while (i < (6 - rowCountLength)) {
+                while (i < (6 - rowCountLength))
+                {
                     rowCount += "0";
                     if (i < (6 - rowCountLength))
                         i++;
@@ -318,7 +321,7 @@ namespace BoOnlineOrderManagement
         {
             string seedFileName = "";
             switch (RnTType)
-            { 
+            {
                 case "CA":
                     seedFileName = "cams";
                     break;
@@ -337,7 +340,7 @@ namespace BoOnlineOrderManagement
             string dbfFile = "orderext.dbf";
             string csvColList = GetCsvColumnList(OrderExtract.Columns);
             //string workDir = Server.Mappath("~/ReferenceFiles/RTAExtractSampleFiles/");
-            
+
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + workDir + ";Extended Properties=dBASE IV;");
 
             string sqlIns = "INSERT INTO " + dbfFile + " (" + csvColList + ") VALUES (" + Regex.Replace(csvColList, @"[a-zA-Z_0-9]+", "?") + ")";
@@ -359,10 +362,10 @@ namespace BoOnlineOrderManagement
             {
                 daRead.SelectCommand = cmdSel;
                 daRead.DeleteCommand = cmdDel;
-               
+
                 conn.Open();
                 DataTable dtEmpty = new DataTable();
-                
+
                 daRead.Fill(dtEmpty);
                 sqlSel = "SELECT " + csvColList + " FROM " + seedFileName;
 
@@ -370,14 +373,16 @@ namespace BoOnlineOrderManagement
                 daRead.FillSchema(dtEmpty, SchemaType.Source);
                 daRead.Update(dtEmpty);
 
+
                 dtEmpty.BeginLoadData();
                 dtEmpty.Merge(OrderExtract, true, MissingSchemaAction.Ignore);
 
-                foreach (DataColumn col in dtEmpty.Columns) {
+                foreach (DataColumn col in dtEmpty.Columns)
+                {
                     OleDbParameter param = cmdIns.Parameters.Add("@" + col.ColumnName, GetOleDbType(col.DataType.ToString()), col.MaxLength, col.ColumnName);
                 }
                 daRead.InsertCommand = cmdIns;
-                
+
                 daRead.Update(dtEmpty);
 
                 conn.Close();
@@ -394,7 +399,8 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            finally {
+            finally
+            {
                 conn.Close();
             }
             return workDir + dbfFile;
@@ -426,6 +432,402 @@ namespace BoOnlineOrderManagement
 
             }
             return ordersCreated;
+        }
+
+
+
+        public bool ExtractDailyRTAOrderList(int adviserId, string transactionType, string rtaIdentifier, int amcCode,int userId)
+        {
+            DataSet dsMfOrderExtract = null;
+            OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            DataTable dtFinalRTAOrderList = new DataTable();
+            DataTable dtRTAExtractTableScheme = new DataTable();
+            bool statusFlag = false;
+            try
+            {
+                dsMfOrderExtract = onlineOrderBackOfficeDao.GetMFOrderDetailsForRTAExtract(adviserId, transactionType, rtaIdentifier, amcCode, userId);
+                dtFinalRTAOrderList = onlineOrderBackOfficeDao.GetTableScheme("dbo.AdviserMFOrderExtract");
+                dtFinalRTAOrderList = PrepareFinalRTAOrderExtract(dsMfOrderExtract, ref dtRTAExtractTableScheme);
+                onlineOrderBackOfficeDao.CreateRTAEctractedOrderList(dtFinalRTAOrderList);
+                statusFlag = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:ExtractDailyRTAOrderList()");
+
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = transactionType;
+                objects[2] = rtaIdentifier;
+                objects[3] = amcCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return statusFlag;
+
+        }
+
+        private DataTable PrepareFinalRTAOrderExtract(DataSet dsMfOrderExtract, ref DataTable dtFinalRTAOrderList)
+        {
+            try
+            {
+
+                DataTable dtRTAOrderExtract = CreateAdviserOrderExtractTable();
+                DataTable dtOrderCustomerProfileDetails = dsMfOrderExtract.Tables[0];
+                DataTable dtCustomerJointNomineeDetails = dsMfOrderExtract.Tables[1];
+                DataTable dtCustomerBankDeatils = dsMfOrderExtract.Tables[2];
+
+                //DataTable dtFinalOrderCustomerProfileDetails = dtFinalRTAOrderList.Copy();
+                //DataTable dtFinalCustomerJointNomineeDetails = dtFinalRTAOrderList.Copy();
+                //DataTable dtFinalCustomerBankDeatils = dtFinalRTAOrderList.Copy();
+
+                DataRow drFinalRTAExtract;
+
+                foreach (DataRow drProfileOrder in dtOrderCustomerProfileDetails.Rows)
+                {
+                    drFinalRTAExtract = dtRTAOrderExtract.NewRow();
+                    //string[] finaltableScheme = new string[dtFinalRTAOrderList.Columns.Count];
+                    //finaltableScheme = dtFinalRTAOrderList.Columns;
+                    //DataView dvJointHolder = new DataView(dtCustomerJointNomineeDetails, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND CEDAA_AssociationType='JH'", "C_CustomerId", DataViewRowState.CurrentRows);
+                    //DataView dvNominee = new DataView(dtCustomerJointNomineeDetails, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString() + "AND CEDAA_AssociationType='N'", "C_CustomerId", DataViewRowState.CurrentRows);
+                    DataView dvCustomerBankDetails = new DataView(dtCustomerBankDeatils, "C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString(), "C_CustomerId", DataViewRowState.CurrentRows);
+                    //DataRow[] drJointNominee = dtCustomerJointNomineeDetails.Select("C_CustomerId=" + drProfileOrder["C_CustomerId"].ToString());
+                    int joint = 1;
+                    int nominee = 1;
+                    int jointPan = 1;
+
+                    foreach (DataColumn dcc in dtRTAOrderExtract.Columns)
+                    {
+                        var abccolumns = (dvCustomerBankDetails.ToTable()).Columns.Cast<DataColumn>().Where(c => c.ColumnName.StartsWith(dcc.ToString()));
+                        if (drProfileOrder.Table.Columns.Contains(dcc.ToString()))
+                        {
+                            if (dcc.ToString() == "AMFE_TransactionTime")
+                            {
+                                drFinalRTAExtract[dcc.ToString()] = TimeSpan.Parse(drProfileOrder[dcc.ToString()].ToString());
+                            }
+                            else
+                            {
+                                drFinalRTAExtract[dcc.ToString()] = drProfileOrder[dcc.ToString()];
+                            }
+                        }
+                        else if (!string.IsNullOrEmpty(abccolumns.ToString()))
+                        {
+                            foreach (DataRow drBank in dvCustomerBankDetails.ToTable().Rows)
+                            {
+                                if (drBank.Table.Columns.Contains(dcc.ToString()))
+                                {
+                                    drFinalRTAExtract[dcc.ToString()] = drBank[dcc.ToString()];
+                                }
+
+                            }
+                        }
+                        else
+                        {
+
+                            foreach (DataRow drJointNominee in dtCustomerJointNomineeDetails.Rows)
+                            {
+                                switch (dcc.ToString())
+                                {
+                                    case "AMFE_JointName1":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH" && joint == 1)
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                            joint = joint + 1;
+                                        }
+                                        break;
+                                    case "AMFE_JointName2":
+                                        if (joint == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                            joint = joint + 1;
+                                        }
+                                        break;
+                                    case "AMFE_JointHolderRelation":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
+
+                                        }
+                                        break;
+                                    case "AMFE_JointDateofBirth":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
+
+                                        }
+                                        break;
+                                    case "AMFE_JointGaurdianName":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
+
+                                        }
+                                        break;
+                                    case "AMFE_JointHolder1Pan":
+                                        if (jointPan == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                            jointPan = jointPan + 1;
+                                        }
+                                        break;
+                                    case "AMFE_JointHolder2Pan":
+                                        if (jointPan == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                            jointPan = jointPan + 1;
+                                        }
+                                        break;
+
+
+
+
+
+
+
+                                    case "AMFE_NomineeName1":
+                                        if (nominee == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                            nominee = nominee + 1;
+                                        }
+                                        break;
+                                    case "AMFE_NomineeName2":
+                                        if (nominee == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                            nominee = nominee + 1;
+                                        }
+                                        break;
+                                    case "AMFE_NomineeRelation":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
+
+                                        }
+                                        break;
+                                    case "AMFE_NomineeDateofBirth":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
+
+                                        }
+                                        break;
+                                    case "AMFE_NomineeGaurdianName":
+                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                        {
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
+
+                                        }
+                                        break;
+
+
+
+                                    case "AMFE_Dp_Id":
+                                        drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_Dp_Id"];
+                                        break;
+
+                                    default:
+                                        drFinalRTAExtract[dcc.ToString()] = null;
+                                        break;
+                                }
+
+                            }
+
+                        }
+
+
+
+                    }
+
+                    dtRTAOrderExtract.Rows.Add(drFinalRTAExtract);
+
+                }
+
+
+                return dtRTAOrderExtract;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OrderBo.cs:ExtractDailyRTAOrderList()");
+
+                object[] objects = new object[4];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
+        }
+
+        private void PrepareOrderProfileDataTable(DataTable dtOrderCustomerProfileDetails, ref DataTable dtFinalOrderCustomerProfileDetails)
+        {
+
+
+        }
+
+
+
+
+
+        private DataTable CreateAdviserOrderExtractTable()
+        {
+            DataTable dtAdviserExtractedOrderList = new DataTable();
+            //dtAdviserExtractedOrderList.Columns.Add("AMFE_Id", typeof(Int32));
+            dtAdviserExtractedOrderList.Columns.Add("PA_AMCCode", typeof(Int32), null);
+            dtAdviserExtractedOrderList.Columns.Add("CO_OrderId", typeof(Int32));
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AMCCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BrokerCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SubBrokerCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_UserCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_UserTrxnNo", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_ApplicationNumber", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FolioNumber", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_CheckDigitNumber", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_TrxnType", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SchemeCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_InvestorFirstName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JointName1", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JointName2", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AddressLine1", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AddressLine2", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AddressLine3", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_City", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Pincode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_PhoneOffice", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_TransactionDate", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_TransactionTime", typeof(TimeSpan), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Units", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Amount", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_CloseAC", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_DateofBirth", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_GuardianName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_PanNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_PhoneResidence", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FaxOffice", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FaxResidence", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_EmailID", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AccountNumber", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AccountType", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BankName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BranchName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BankCity", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_ReinvestOption", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_HoldingNature", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_OccupationCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_TaxStatusCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Remarks", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_State", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SubTrxnType", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_DivPayoutMechanism", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_ECSNumber", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BankCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AltFolioNumber", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_AltBrokerCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_LocationCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_RedPayoutMechanism", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Pricing", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JointHolder1Pan", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JointHolder2Pan", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NomineeName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NomineeRelation", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_GuardianPAN", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_InstrmNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_UinNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_PANValid", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_GuardianPanValid", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JH1PanValid", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JH2PanValid", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SIPRegisteredDate", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FH_Min", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Jh1_Min", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Jh2_Min", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Guard_min", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Neft_Code", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Rtgs_Code", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Email_Acst", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Mobile_No", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Dp_Id", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Poa_Type", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_TrxnMode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Trxn_Sign_Confn", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address1", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address2", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address3", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address1_City", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address1_State", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address1_Country", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Addl_Address1_Pincode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Nom1_Applicable_Percentage", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Nom2_Name", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Nom2_Relationship", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("Nom2_Applicable_Percentage", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Nom3_Name", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Nom3_Relationship", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("Nom3_Applicable_Percentage", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Check_Flag", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Third_Party_Payment", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_KYC_Status", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FIRCStatus", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SIPRegistrationNumber", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NoOfInstallments", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SIPFrequency", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_StartDate", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_EndDate", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_InstallmentNumber", typeof(decimal), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NomineeDateofBirth", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NomineeMinorFlag", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NomineeGaurdianName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FirstHolderPanExempt", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JH1PanExempt", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_JH2PanExempt", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_GuardianPANExempt", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_FirstHolderExemptCategory", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Jh1ExemptCategory", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Jh2ExemptCategory", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_GaurdianExemptCategory", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Fh_KraExemptReferenceNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Jh1_KraExemptReferenceNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Jh2_KraExemptReferenceNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_GaurdianExemptReferenceNo", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_EuinOpted", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_Euin", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_NominationNotOpted", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_SubbrokerARNcode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_ExtractDateTime", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("C_CustCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("PASPD_BankName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("PASPD_AccountNumber", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("XES_SourceCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("A_AdviserId", typeof(Int32), null);
+            dtAdviserExtractedOrderList.Columns.Add("PASP_SchemeName", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BackOfficeExtractDateTime", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("WERPBM_BankCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("WERP_TransactionType", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("WMTT_TransactionClassificationCode", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_CreatedBy", typeof(Int32), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_CreatedOn", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_DepositDate", typeof(DateTime), null);
+            return dtAdviserExtractedOrderList;
         }
     }
 }
