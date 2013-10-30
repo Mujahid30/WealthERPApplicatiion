@@ -10,6 +10,9 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
+using System.Data.OleDb;
+using System.Configuration;
+using System.Data.SqlClient;
 
 
 namespace DaoOnlineOrderManagement
@@ -47,7 +50,7 @@ namespace DaoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate,int AdviserId,int extractType)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType)
         {
             DataSet dsExtractType;
             Database db;
@@ -195,5 +198,125 @@ namespace DaoOnlineOrderManagement
             }
             return rowsCreated;
         }
+
+        public DataSet GetMFOrderDetailsForRTAExtract(int adviserId, string transactionType, string rtaIdentifier, int amcCode,int userId)
+        {
+            DataSet dsGetMFOrderDetails;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_DailyAdviserRTAOrderExtract");
+                //db.AddInParameter(cmd, "@WTBD_ExecutionDate", DbType.DateTime, ExecutionDate);
+                db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, rtaIdentifier);
+                if (string.IsNullOrEmpty(transactionType) == false && transactionType.ToUpper() != "ALL") { db.AddInParameter(cmd, "@WMTT_TransactionClassificationCode", DbType.String, transactionType); }
+                if (amcCode > 0) { db.AddInParameter(cmd, "@PA_AMCCode", DbType.Int32, amcCode); }
+                db.AddInParameter(cmd, "@U_UserId", DbType.Int32, userId);
+
+                dsGetMFOrderDetails = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetMFOrderDetailsForRTAExtract(DateTime ExecutionDate, int AdviserId, string TransactionType, string RtaIdentifier)");
+                object[] objects = new object[4];
+                objects[0] = adviserId;
+                objects[1] = transactionType;
+                objects[2] = rtaIdentifier;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetMFOrderDetails;
+        }
+
+        public DataTable GetTableScheme(string tableName)
+        {
+            DataTable dtTableScheme = new DataTable();
+            string conString;
+            conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(conString);
+            string sql = @"select * from " + tableName.ToString() + " WHERE 1 = 2";
+
+            try
+            {
+                sqlCon.Open();
+                SqlCommand cmd = new SqlCommand(sql, sqlCon);
+                SqlDataReader reader = cmd.ExecuteReader();
+                dtTableScheme = reader.GetSchemaTable();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetTableScheme");
+                object[] objects = new object[1];
+                objects[0] = tableName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+
+            return dtTableScheme;
+
+        }
+
+        public void CreateRTAEctractedOrderList(DataTable dtExtractedOrderList)
+        {
+            string conString;
+            conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+            SqlConnection sqlCon = new SqlConnection(conString);
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SPROC_ONL_CreateRTAExtractOrderList", sqlCon);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter sqlParameterMFNetPositionTable = new SqlParameter();
+                sqlParameterMFNetPositionTable.ParameterName = "@AdviserRTAExtractedList";
+                sqlParameterMFNetPositionTable.SqlDbType = SqlDbType.Structured;
+                sqlParameterMFNetPositionTable.Value = dtExtractedOrderList;
+                sqlParameterMFNetPositionTable.TypeName = "AdviserMFOrderExtract";
+                cmd.Parameters.Add(sqlParameterMFNetPositionTable);
+
+                sqlCon.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+        }
+
+
     }
 }
