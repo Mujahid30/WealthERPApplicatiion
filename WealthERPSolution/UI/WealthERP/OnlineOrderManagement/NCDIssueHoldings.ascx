@@ -139,7 +139,7 @@
                     <ExportSettings FileName="Details" HideStructureColumns="true" ExportOnlyData="true">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="BHScrip" Width="100%" AllowMultiColumnSorting="True"
-                        AutoGenerateColumns="false" CommandItemDisplay="None" DataKeyNames="BHScrip">
+                        AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="false" HeaderText="Action">
                                 <%--<ItemTemplate>
