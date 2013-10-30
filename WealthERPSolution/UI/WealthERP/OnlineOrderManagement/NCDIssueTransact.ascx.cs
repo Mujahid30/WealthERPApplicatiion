@@ -78,7 +78,7 @@ namespace WealthERP.OnlineOrderManagement
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
             DataSet dsStructureRules = OnlineBondBo.GetLookupDataForReceivableSetUP(5, "9");
             ddIssuerList.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
-            ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["PFISD_SeriesId"].ToString();
+            ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
             ddIssuerList.DataSource = dsStructureRules.Tables[0];
             ddIssuerList.DataBind();
         }
