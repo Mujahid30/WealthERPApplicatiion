@@ -306,7 +306,7 @@ namespace BoOnlineOrderManagement
 
             rowCount = rowCount.PadLeft((7 - totalLength), '0');
            
-            string filename = "MF_ " + ExtractType + "_" + strAMCCodeRTName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
+            string filename = strAMCCodeRTName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
             #endregion
 
             return filename;
