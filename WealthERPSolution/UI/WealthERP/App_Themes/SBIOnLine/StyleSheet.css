@@ -155,6 +155,7 @@ div#MainDivLeft
                 text-overflow: " ";
                display: inline-block;
                border: 0 !important; 
+               width:150px;
 }
 
 .Button

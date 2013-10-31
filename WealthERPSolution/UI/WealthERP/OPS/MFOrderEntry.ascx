@@ -1130,9 +1130,9 @@
             <asp:Label ID="lblReedeemed" runat="server" Text="Redeem/Switch:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightField" style="width: 20%">
-            <asp:RadioButton ID="rbtAmount" Class="cmbField" runat="server" GroupName="AmountUnit"
+            <asp:RadioButton ID="rbtAmount" Class="cmbFielde" runat="server" GroupName="AmountUnit"
                 Checked="True" Text="Amount" />
-            <asp:RadioButton ID="rbtUnit" Class="cmbField" runat="server" GroupName="AmountUnit"
+            <asp:RadioButton ID="rbtUnit" Class="cmbFielde" runat="server" GroupName="AmountUnit"
                 Text="Units" />
         </td>
         <td class="leftField" style="width: 20%">
