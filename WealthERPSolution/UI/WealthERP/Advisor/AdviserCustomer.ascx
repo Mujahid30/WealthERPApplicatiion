@@ -237,9 +237,9 @@
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="67px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="CustomerId" UniqueName="CustomerId" HeaderText="Id"
+                            <telerik:GridBoundColumn DataField="CustomerId" UniqueName="CustomerId" HeaderText="System Id"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="67px"
-                                SortExpression="CustomerId" FilterControlWidth="50px" CurrentFilterFunction="Contains" Visible="false">
+                                SortExpression="CustomerId" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="custcode" UniqueName="custcode" HeaderText="Client Id"
