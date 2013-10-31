@@ -295,23 +295,18 @@ namespace BoOnlineOrderManagement
         {
             #region CustomFileName
             var random = new Random(System.DateTime.Now.Millisecond);
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+           
+            string strAMCCodeRTName = daoOnlineOrderBackOffice.GetstrAMCCodeRTName(AmcName);
+
             int randomNumber = random.Next(0, 1000000);
             string rowCount = string.Empty;
+            rowCount = RowCount.ToString();
+            int totalLength = strAMCCodeRTName.Length;
 
-            if (RowCount < 6)
-            {
-                int i = 0;
-
-                rowCount = RowCount.ToString();
-                int rowCountLength = rowCount.Length;
-                while (i < (6 - rowCountLength))
-                {
-                    rowCount += "0";
-                    if (i < (6 - rowCountLength))
-                        i++;
-                }
-            }
-            string filename = "MF_ " + ExtractType + "_" + AmcName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
+            rowCount = rowCount.PadLeft((7 - totalLength), '0');
+           
+            string filename = "MF_ " + ExtractType + "_" + strAMCCodeRTName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
             #endregion
 
             return filename;

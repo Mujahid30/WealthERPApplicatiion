@@ -199,6 +199,42 @@ namespace DaoOnlineOrderManagement
             return rowsCreated;
         }
 
+        public string GetstrAMCCodeRTName(string AmcCode)
+        { 
+            string strAMCCodeRTName;
+            Database db;
+            DataSet dsGetMFOrderDetails;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetstrAMCCodeRTName");
+                db.AddInParameter(cmd, "@AmcCode", DbType.String, AmcCode);
+             
+
+                dsGetMFOrderDetails = db.ExecuteDataSet(cmd);
+                strAMCCodeRTName = dsGetMFOrderDetails.Tables[0].Rows[0][0].ToString();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetMFOrderDetailsForRTAExtract(DateTime ExecutionDate, int AdviserId, string TransactionType, string RtaIdentifier)");
+                object[] objects = new object[4];
+                objects[0] = AmcCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return strAMCCodeRTName;
+
+        }
+
         public DataSet GetMFOrderDetailsForRTAExtract(int adviserId, string transactionType, string rtaIdentifier, int amcCode,int userId)
         {
             DataSet dsGetMFOrderDetails;
