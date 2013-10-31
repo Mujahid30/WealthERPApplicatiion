@@ -266,6 +266,11 @@
                                 AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CMFOD_IsAllUnits" AllowFiltering="true" HeaderText="Redeem All"
+                                UniqueName="CMFOD_IsAllUnits" SortExpression="CMFOD_IsAllUnits" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="Nav" HeaderText="Current NAV"
                                 AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="Nav" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="Nav"
