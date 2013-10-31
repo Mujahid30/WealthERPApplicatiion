@@ -842,27 +842,6 @@ namespace WealthERP.OPS
 
         }
 
-        ////protected void hdnRejOrderId_ValueChanged(object sender, EventArgs e)
-        ////{
-        ////    if (hdnRejOrderId.Value != null)
-        ////    {
-        ////        int IsMarked = 0;
-
-
-        ////        IsMarked = mforderBo.MarkAsReject(orderRejId);
-
-        ////        if (IsMarked == 0)
-        ////            Response.Write(@"<script language='javascript'>alert('Status Updated Successfully');</script>");
-        ////        else
-        ////            Response.Write(@"<script language='javascript'>alert('Status not updated');</script>");
-
-        ////        BindMISGridView();
-        ////    }
-        ////}
-        //protected void txtCustomerName_TextChanged(object sender, EventArgs e)
-        //{
-        //    BindPortfolioDropdown();
-        //}
 
         //protected void txtSchemeName_TextChanged(object sender, EventArgs e)
         //{
@@ -1679,18 +1658,17 @@ namespace WealthERP.OPS
             }
 
         }
-        protected void lbtnMarkAsReject_Click(object sender, EventArgs e)
-        {
-            int IsMarked = 0;
-            LinkButton lnkOrderNo = (LinkButton)sender;
-            GridDataItem gdi;
-            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
-            int selectedRow = gdi.ItemIndex + 1;
-            orderRejId = int.Parse((gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()));
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "click", "Prompt();", true);
+        //protected void lbtnMarkAsReject_Click(object sender, EventArgs e)
+        //{
+        //    int IsMarked = 0;
+        //    LinkButton lnkOrderNo = (LinkButton)sender;
+        //    GridDataItem gdi;
+        //    gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+        //    int selectedRow = gdi.ItemIndex + 1;
+        //    orderRejId = int.Parse((gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString()));
+        //    Page.ClientScript.RegisterStartupScript(this.GetType(), "click", "Prompt();", true);
 
-
-        }
+        //}
         protected void lnkOrderNo_Click(object sender, EventArgs e)
         {
             int index = 0;
@@ -2054,20 +2032,8 @@ namespace WealthERP.OPS
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvCustomerOrderMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
 
-
-
                 IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
-
-                //if (IsMarked == 0)
-                //    Response.Write(@"<script language='javascript'>alert('Status Updated Successfully');</script>");
-                //else
-                //    Response.Write(@"<script language='javascript'>alert('Status not updated');</script>");
-
                 BindMISGridView();
-
-                //OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
-                //BindSIPSummaryBook();
-                //buttonEdit.Enabled = false;
 
             }
         }

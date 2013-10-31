@@ -26,19 +26,7 @@
 
 </script>
 
-<script type="text/javascript" language="javascript">
-    function Prompt() {
 
-        if (confirm("Do you want to Proceed?")) {
-            var YourMessage = prompt("Please Enter Reason to Reject", "");
-            document.getElementById("<%= hdnRejOrderId.ClientID %>").value = YourMessage;
-            return false;
-        }
-        else {
-            alert("Order Rejection Canceled)");
-        }
-    }
-</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -1098,4 +1086,4 @@
 <asp:HiddenField ID="hdnIndividualOrGroup" runat="server" />
 <asp:HiddenField ID="hdnCustomerId" runat="server" OnValueChanged="hdnCustomerId_ValueChanged" />
 <asp:HiddenField ID="hdnProductType" runat="server" />
-<asp:HiddenField ID="hdnRejOrderId" runat="server"  />
+
