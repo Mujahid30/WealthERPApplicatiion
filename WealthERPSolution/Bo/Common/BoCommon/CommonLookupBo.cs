@@ -462,7 +462,7 @@ namespace BoCommon
         {
             if (amt < min || amt > max) return -2;
             if (amt % multiple != 0) return -1;
-            if (DateTime.Now.TimeOfDay > cutOff.TimeOfDay && cutOff.TimeOfDay < Convert.ToDateTime("24:00:00.000").TimeOfDay) return 1;
+            if (DateTime.Now.TimeOfDay > cutOff.TimeOfDay && cutOff.TimeOfDay < System.TimeSpan.Parse("23:59:59")) return 1;
             return 0;
         }
 
