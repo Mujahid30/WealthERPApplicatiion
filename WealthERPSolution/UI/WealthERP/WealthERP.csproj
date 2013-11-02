@@ -7570,6 +7570,7 @@
     <Content Include="Images\Select.png" />
     <Content Include="Images\Sell-Button.png" />
     <Content Include="Images\sign-out.png" />
+    <Content Include="Images\SIP-Button.png" />
     <Content Include="Images\spacer.png" />
     <Content Include="Images\Standard Chartered Bank_800px-Standard_Chartered_Bank_logo.jpg" />
     <Content Include="Images\Standard Chartered Bank_AmpsysLogo.jpg" />
@@ -7595,7 +7596,6 @@
     <Content Include="Images\Telerik\FP\Summary.gif" />
     <Content Include="Images\Telerik\mailNewIcon.png" />
     <Content Include="Images\Telerik\mailOpenIcon.png" />
-    <Content Include="Images\Telerik\SIP-Button.png" />
     <Content Include="Images\Telerik\Synchronize.png" />
     <Content Include="Images\Telerik\Update.gif" />
     <Content Include="Images\Telerik\View.gif" />
