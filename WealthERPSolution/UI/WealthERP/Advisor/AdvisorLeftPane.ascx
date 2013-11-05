@@ -167,6 +167,10 @@
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Scheme Setup" Value="Scheme_Setup">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
@@ -692,6 +696,10 @@
                                     <telerik:RadPanelItem runat="server" Text="Product" Value="Product">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Scheme Setup" Value="Scheme_Setup">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

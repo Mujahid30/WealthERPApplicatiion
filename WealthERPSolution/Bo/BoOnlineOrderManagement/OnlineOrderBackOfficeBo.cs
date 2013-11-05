@@ -428,6 +428,94 @@ namespace BoOnlineOrderManagement
             }
             return ordersCreated;
         }
+        public DataSet GetSubCategory(string CategoryCode)
+        {
+            DataSet dsSubCategory;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsSubCategory = daoOnlineOrderBackOffice.GetSubCategory(CategoryCode);
+            return dsSubCategory;
+        }
+        public DataSet GetSubSubCategory(string CategoryCode, string SubCategoryCode)
+        {
+
+            DataSet dsSubSubCategory;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsSubSubCategory = daoOnlineOrderBackOffice.GetSubSubCategory(CategoryCode, SubCategoryCode);
+            return dsSubSubCategory;
+        }
+        public List<int> CreateOnlineSchemeSetUp(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int userId)
+        {
+            List<int> SchemePlancodes = new List<int>();
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+
+            try
+            {
+                SchemePlancodes = OnlineOrderBackOfficeDao.CreateOnlineSchemeSetUp(OnlineOrderBackOfficeVo, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return SchemePlancodes;
+        }
+
+        public OnlineOrderBackOfficeVo GetOnlineSchemeSetUp(int SchemePlanCode)
+        {
+            OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                OnlineOrderBackOfficeVo = OnlineOrderBackOfficeDao.GetOnlineSchemeSetUp(SchemePlanCode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerBankAccountBo.cs:GetOnlineSchemeSetUp()");
+                object[] objects = new object[1];
+                objects[0] = SchemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return OnlineOrderBackOfficeVo;
+        }
+        public DataSet GetSchemeSetUpFromOverAllCategoryList(int amcCode, string categoryCode)
+        {
+            DataSet dsSchemeSetUpFromOverAllCategoryList = new DataSet();
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsSchemeSetUpFromOverAllCategoryList = OnlineOrderBackOfficeDao.GetSchemeSetUpFromOverAllCategoryList(amcCode, categoryCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dsSchemeSetUpFromOverAllCategoryList;
+        }
+        public bool AMFIduplicateCheck(int schemeplancode, string externalcode)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = OnlineOrderBackOfficeDao.AMFIduplicateCheck(schemeplancode,externalcode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
 
 
 
@@ -823,6 +911,14 @@ namespace BoOnlineOrderManagement
             dtAdviserExtractedOrderList.Columns.Add("AMFE_CreatedOn", typeof(DateTime), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_DepositDate", typeof(DateTime), null);
             return dtAdviserExtractedOrderList;
+        }
+        public DataSet GetFrequency()
+        {
+
+            DataSet dsFrequency;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsFrequency = daoOnlineOrderBackOffice.GetFrequency();
+            return dsFrequency;
         }
     }
 }

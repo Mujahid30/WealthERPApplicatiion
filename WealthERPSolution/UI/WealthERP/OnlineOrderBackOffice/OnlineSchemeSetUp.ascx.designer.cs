@@ -398,7 +398,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCOtime;
+        protected global::System.Web.UI.WebControls.TextBox txtSS;
         
         /// <summary>
         /// lblEload control.
@@ -876,5 +876,12 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnsubmit;
+        protected global::System.Web.UI.WebControls.TextBox txtAMFI;
+        protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtNFOendDate;
+        protected global::System.Web.UI.WebControls.TextBox txtHH;
+        protected global::System.Web.UI.WebControls.TextBox txtMM;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList;
+        protected global::System.Web.UI.WebControls.LinkButton lbBack;
     }
 }

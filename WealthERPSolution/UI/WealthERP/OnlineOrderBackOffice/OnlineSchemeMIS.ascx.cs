@@ -11,15 +11,17 @@ using BoOnlineOrderManagement;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using Telerik.Web.UI;
 using VoUser;
+using VoOnlineOrderManagemnet;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineSchemeMIS : System.Web.UI.UserControl
     {
         OnlineOrderMISBo OnlineOrderMISBo = new OnlineOrderMISBo();
+        OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
-
+        int SchemePlanCode = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -77,18 +79,27 @@ namespace WealthERP.OnlineOrderBackOffice
                 DataTable dtschememis = new DataTable();
                 dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value,int.Parse(hdnIsonline.Value));
                 dtschememis = dsSchemeMIs.Tables[0];
-                gvonlineschememis.DataSource = dtschememis;
-                gvonlineschememis.DataBind();
-                if (Cache["SchemeMIS" + adviserVo.advisorId ] == null)
+                if (dtschememis.Rows.Count > 0)
+                {
+                    if (Cache["SchemeMIS" + adviserVo.advisorId] == null)
                     {
-                        Cache.Insert("SchemeMIS" + adviserVo.advisorId ,dtschememis);
+                        Cache.Insert("SchemeMIS" + adviserVo.advisorId, dtschememis);
                     }
                     else
                     {
                         Cache.Remove("SchemeMIS" + adviserVo.advisorId);
-                        Cache.Insert("SchemeMIS" + adviserVo.advisorId,dtschememis);
+                        Cache.Insert("SchemeMIS" + adviserVo.advisorId, dtschememis);
                     }
-                SchemeMIS.Visible = true;
+                    gvonlineschememis.DataSource = dtschememis;
+                    gvonlineschememis.DataBind();
+                    SchemeMIS.Visible = true;
+                    pnlSchemeMIS.Visible = true;
+                }
+                else
+                {
+                    SchemeMIS.Visible = false;
+                    pnlSchemeMIS.Visible = false;
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -136,22 +147,32 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-
-                // DropDownList ddlAction = (DropDownList)sender;
-                // GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-                ////int selectedRow = gvr.ItemIndex + 1;
-                // string action = "";
-                // int SchemePlanCode = int.Parse(gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_SchemePlanCode"].ToString());
-
-                // if (ddlAction.SelectedItem.Value.ToString() == "View")
-                // {
-                //     action = "View";
-                //     if (ddlProduct.SelectedItem.Value.ToString() == "MF")
-                //     {
-                //         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUP", "loadcontrol('OnlineSchemeSetUP',,'action=View');", true);   
-                //     }
-                // }
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            string action = "";
+            SchemePlanCode = int.Parse(gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_SchemePlanCode"].ToString());
+            // string Status = (gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_Status"].ToString());
+            Session["SchemeList"] = OnlineOrderBackOfficeBo.GetOnlineSchemeSetUp(SchemePlanCode);
+            if (ddlAction.SelectedItem.Value.ToString() == "View")
+            {
+                if (ddlProduct.SelectedItem.Value.ToString() == "MF")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + " ');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Is InActive Scheme !!');", true);
+                }
             }
+            if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+            {
+                if (ddlProduct.SelectedItem.Value.ToString() == "MF")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + " ');", true);
+
+                }
+            }
+        }
 
         protected void gvonlineschememis_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {

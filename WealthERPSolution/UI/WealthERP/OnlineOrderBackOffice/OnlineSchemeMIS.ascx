@@ -63,13 +63,14 @@
         </td>
     </tr>
 </table>
-<table width="90%">
+<asp:Panel ID="pnlSchemeMIS" runat="server" ScrollBars="Horizontal" Width="100%" visible="false">
+<table width="100%">
     <tr>
     <%-- OnItemCreated="gvonlineschememis_ItemCreated"
                     OnItemDataBound="gvonlineschememis_ItemDataBound"
                     OnNeedDataSource="gvonlineschememis_OnNeedDataSource" OnPreRender="gvonlineschememis_PreRender"--%>
         <td>
-            <div id="SchemeMIS" runat="server" style="width: 95%; padding-left: 5px;
+            <div id="SchemeMIS" runat="server" style="width: 100%; padding-left: 5px;
             " visible="false">
                  <telerik:RadGrid ID="gvonlineschememis" runat="server" AllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
@@ -78,7 +79,7 @@
                     OnNeedDataSource="gvonlineschememis_OnNeedDataSource">
                     <ExportSettings HideStructureColumns="true">
                     </ExportSettings>
-                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" Width="94%" AllowMultiColumnSorting="True"
+                    <MasterTableView DataKeyNames="PASP_SchemePlanCode" Width="100%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false">
                         <Columns>
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
@@ -99,6 +100,12 @@
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="PA_AMCName" UniqueName="PA_AMCName"
                                 HeaderText="AMC" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="120px" SortExpression="PA_AMCNamee" FilterControlWidth="50px"
+                                CurrentFilterFunction="Contains">
+                                <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
+                             <telerik:GridBoundColumn Visible="false" DataField="PA_AMCCode" UniqueName="PA_AMCCode"
+                                HeaderText="PA_AMCCode" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                 HeaderStyle-Width="120px" SortExpression="PA_AMCNamee" FilterControlWidth="50px"
                                 CurrentFilterFunction="Contains">
                                 <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
@@ -133,15 +140,18 @@
                             <telerik:GridBoundColumn DataField="PAISC_AssetInstrumentSubCategoryName" UniqueName="PAISC_AssetInstrumentSubCategoryName" HeaderText="Sub Category"
                                 AutoPostBackOnFilter="true" SortExpression="PAISC_AssetInstrumentSubCategoryName" ShowFilterIcon="false" AllowFiltering="true" HeaderStyle-Width="145px">
                                 <ItemStyle Width="145px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
-                               
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PAISSC_AssetInstrumentSubSubCategoryName" UniqueName="PAISSC_AssetInstrumentSubSubCategoryName" HeaderText="Sub Sub Category"
                                 SortExpression="PAISSC_AssetInstrumentSubSubCategoryName" AutoPostBackOnFilter="true" ShowFilterIcon="false"
                                 AllowFiltering="true" HeaderStyle-Width="150px" FilterControlWidth="80px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                            
-                           
+                             <telerik:GridBoundColumn Visible="true" DataField="PASP_Status" UniqueName="PASP_Status"
+                                HeaderText="PASP_Status" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                HeaderStyle-Width="120px" SortExpression="PASP_Status" FilterControlWidth="50px"
+                                CurrentFilterFunction="Contains">
+                                <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
+                            </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
                     <ClientSettings>
@@ -155,6 +165,7 @@
         </td>
     </tr>
 </table>
+</asp:Panel>
 
 <asp:HiddenField ID="hdnAssettype" runat="server" />
 <asp:HiddenField ID="hdnIsonline" runat="server" />
