@@ -157,6 +157,13 @@ namespace WealthERP.OnlineOrderBackOffice
             string file = string.Empty;
             if (!string.IsNullOrEmpty(filename))
             {
+                if (FileID == 42)
+                {
+                    string[] strName = filename.Split('.');
+
+                    filename = strName[0] + ".001";
+
+                }
 
                 #region ExportDataTabletoFile
                 StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
@@ -187,6 +194,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 #endregion
                 #region download notepad or text file.
                 Response.ContentType = "application/octet-stream";
+
+             
+
                 Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
                 string aaa = Server.MapPath("~/UploadFiles/" + filename);
                 Response.TransmitFile(Server.MapPath("~/UploadFiles/" + filename));
