@@ -53,7 +53,9 @@ namespace WealthERP.OnlineOrderManagement
                 ShowAvailableLimits();
                 AmcBind();
                 CategoryBind();
-
+                lnkOfferDoc.Visible = false;
+                lnkFactSheet.Visible = false;
+                lnkExitLoad.Visible = false;
                 if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
                 {
                     int accountId = 0;
@@ -252,7 +254,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
-
+                
             }
             else
             {
@@ -261,6 +263,8 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
+                
+
             }
 
         }

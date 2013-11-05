@@ -226,7 +226,7 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Width="200px">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
@@ -280,7 +280,7 @@
                         <asp:Label ID="lblRedeemType" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName" MaxLength="8"></asp:TextBox>
+                        <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName" MaxLength="11"></asp:TextBox>
                         <span id="Span4" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select a Amount"
                             CssClass="rfvPCG" ControlToValidate="txtRedeemTypeValue" ValidationGroup="btnSubmit"
@@ -289,6 +289,9 @@
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
                             ErrorMessage="Please Enter Only Numbers and 2 digits after Decimal" CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+                        <asp:RangeValidator ID="RangeValidator1" Text="Please enter value greater than 0 " ControlToValidate="txtRedeemTypeValue" MinimumValue="1"
+                            MaximumValue="9999999999" ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic" 
+                            runat="server" />
                     </td>
                     <td colspan="2">
                     </td>

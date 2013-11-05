@@ -54,6 +54,9 @@ namespace WealthERP.OnlineOrderManagement
                 trNominee.Visible = false;
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
+                lnkOfferDoc.Visible = false;
+                lnkFactSheet.Visible = false;
+                lnkExitLoad.Visible = false;
             }
 
 
@@ -189,7 +192,7 @@ namespace WealthERP.OnlineOrderManagement
             //lblDividendType.Visible = true;
             lblMulti.Visible = true;
             lblMintxt.Visible = true;
-            lblDivType.Visible = true;
+            //lblDivType.Visible = true;
 
             if (lblDividendType.Text == "Growth")
             {
@@ -198,6 +201,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
+                
             }
             else
             {
@@ -206,6 +210,8 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
+                
+
             }
 
 

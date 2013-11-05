@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
 
         /// <summary>
         /// msgRecordStatus control.
@@ -50,6 +51,7 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl span1;
 
         /// <summary>
         /// lblAmc control.

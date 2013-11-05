@@ -53,7 +53,9 @@ namespace WealthERP.OnlineOrderManagement
                 AmcBind();
                 CategoryBind();
                 dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
-
+                lnkOfferDoc.Visible = false;
+                lnkFactSheet.Visible = false;
+                lnkExitLoad.Visible = false;
                 txtRedeemTypeValue.Visible = false;
                 lblOption.Visible = false;
                 lblDividendType.Visible = false;
@@ -143,7 +145,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-        protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt)
+        protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt,string nav)
         {
             DataTable dt = new DataTable();
             double holdingUnits;
@@ -152,7 +154,7 @@ namespace WealthERP.OnlineOrderManagement
             double ValuatedAmt;
             double finalUnits;
             double finalAmt;
-
+            double Nav = double.Parse(nav);
             if (dscurrent.Tables[1].Rows.Count > 0)
             {
                 DataTable dtUnit = dscurrent.Tables[1];
@@ -173,22 +175,24 @@ namespace WealthERP.OnlineOrderManagement
                     }
                     else ValuatedUnits = 0.0;
                     finalUnits = holdingUnits - ValuatedUnits;
-                    if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][1]).ToString()))
-                    {
-                        holdingAmt = double.Parse((dscurrent.Tables[1].Rows[0][1]).ToString());
-                    }
-                    else holdingAmt = 0.0;
-                    if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][1].ToString()))
-                    {
-                        ValuatedAmt = double.Parse(dscurrent.Tables[2].Rows[1][1].ToString());
-                    }
-                    else ValuatedAmt = 0.0;
-                    finalAmt = holdingAmt - ValuatedAmt;
+                    //if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][1]).ToString()))
+                    //{
+                    //    holdingAmt = double.Parse((dscurrent.Tables[1].Rows[0][1]).ToString());
+                    //}
+                    //else holdingAmt = 0.0;
+                    //if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][1].ToString()))
+                    //{
+                    //    ValuatedAmt = double.Parse(dscurrent.Tables[2].Rows[1][1].ToString());
+                    //}
+                    //else ValuatedAmt = 0.0;
+                    //finalAmt = holdingAmt - ValuatedAmt;
+                    finalAmt = finalUnits * Nav;
+
                 }
                 else
                 {
                     finalUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
-                    finalAmt = double.Parse((dscurrent.Tables[1].Rows[0][1]).ToString());
+                    finalAmt = finalUnits * Nav;
                 }
 
             }
@@ -239,7 +243,7 @@ namespace WealthERP.OnlineOrderManagement
                 string date = Convert.ToDateTime(dsNav.Tables[0].Rows[0][0]).ToString("dd-MMM-yyyy");
                 lblNavDisplay.Text = dsNav.Tables[0].Rows[0][1] + " " + "As On " + " " + date;
             }
-            CalculateCurrentholding(ds, out finalunits, out finalamt);
+            CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows[0][1].ToString());
             lblUnitsheldDisplay.Text = finalunits.ToString();
             lblCurrentValueDisplay.Text = finalamt.ToString();
 
@@ -292,6 +296,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator3.Enabled = false;
+               
 
             }
             else
@@ -301,6 +306,8 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
+                
+
 
             }
         }
