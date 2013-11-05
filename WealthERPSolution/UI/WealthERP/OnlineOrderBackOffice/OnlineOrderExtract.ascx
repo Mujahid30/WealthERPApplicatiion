@@ -201,6 +201,20 @@
                 Display="Dynamic" ErrorMessage="Please select an extract date" ValidationGroup="PreviewData"
                 ControlToValidate="rdpExtractDate">Please select an extract date</asp:RequiredFieldValidator>
         </td>
+        
+        <td class="leftLabel">
+            <asp:Label runat="server" class="FieldName" Text="File Format:" ID="lblFileFormat"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList CssClass="cmbField" ID="ddlFileFormat" runat="server" AutoPostBack="false">
+                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                <asp:ListItem Value="dbf">DBF File</asp:ListItem>
+                <asp:ListItem Value="txt">Text File</asp:ListItem>
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvFileFormat" runat="server" CssClass="rfvPCG" Display="Dynamic"
+                ErrorMessage="Please select a file format" ValidationGroup="ExtractData" ControlToValidate="ddlFileFormat"
+                InitialValue="0">Please select a file format</asp:RequiredFieldValidator>
+        </td>
         <td>
             <asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="1-Preview Data"
                 OnClick="btnPreview_Click" ValidationGroup="PreviewData" />
@@ -208,10 +222,6 @@
         <td>
             <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download Data"
                 OnClick="btnGenerateFile_Click" ValidationGroup="PreviewData" />
-        </td>
-        <td>
-        </td>
-        <td>
         </td>
     </tr>
 </table>
