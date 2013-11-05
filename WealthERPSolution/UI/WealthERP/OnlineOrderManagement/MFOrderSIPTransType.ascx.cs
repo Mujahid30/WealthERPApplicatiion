@@ -80,7 +80,9 @@ namespace WealthERP.OnlineOrderManagement
                 AmcBind();
                 BindCategory();
                 ShowAvailableLimits();
-
+                lnkOfferDoc.Visible = false;
+                lnkFactSheet.Visible = false;
+                lnkExitLoad.Visible = false;
                 if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
                 {
                     strAction = Request.QueryString["strAction"].ToString();
