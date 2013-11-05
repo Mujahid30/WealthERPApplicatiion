@@ -223,7 +223,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = DateTime.MinValue;
+                    drSIPOrderBook["CMFSS_NextSIPDueDate"] = "";
                 }
                 drSIPOrderBook["CMFSS_TotalInstallment"] = drSIP["CMFSS_TotalInstallment"];
                 drSIPOrderBook["CMFA_FolioNum"] = drSIP["CMFA_FolioNum"];
