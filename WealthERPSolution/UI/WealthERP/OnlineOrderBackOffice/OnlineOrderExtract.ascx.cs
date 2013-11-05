@@ -113,9 +113,9 @@ namespace WealthERP.OnlineOrderBackOffice
             bool extractStatus = boOnlineOrderBackOffice.ExtractDailyRTAOrderList(advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue), userVo.UserId);
 
             if (extractStatus)
-                ShowMessage("Extraction sucessfull");
+                ShowMessage("Extraction Successful");
             else
-                ShowMessage("Extraction Unsucessfull");
+                ShowMessage("Extraction Unsuccessful");
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)

@@ -98,7 +98,7 @@
     {
         height: 26px;
     }
-    </style>
+</style>
 <table width="100%">
     <tr>
         <td>
@@ -109,7 +109,6 @@
                             RTA Extract
                         </td>
                         <td align="right">
-                            <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order" OnClick="btnAutoOrder_Click" />
                         </td>
                     </tr>
                 </table>
@@ -120,28 +119,15 @@
 <table id="tblMessage" width="100%" runat="server" visible="false">
     <tr id="trSumbitSuccess">
         <td align="center">
-            <div id="msgRecordStatus" class="success-msg" align="center" runat="server"></div>
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+            </div>
             <%--<div id="divValidation" class="e-msg" align="center" runat="server">
                 <asp:ValidationSummary ID="vsValidations" runat="server" ValidationGroup="PreviewData" HeaderText="All fields are required" />
             </div>--%>
         </td>
     </tr>
 </table>
-<table width="75%">
-    <tr>
-        <td class="leftLabel">
-            <asp:Label runat="server" class="FieldName" Text="Product AMC: " ID="lblProductAmc"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:DropDownList CssClass="cmbField" ID="ddlProductAmc" runat="server" AutoPostBack="false"></asp:DropDownList>
-            
-            <asp:RequiredFieldValidator ID="rfvProductAmc" runat="server" 
-                ErrorMessage="Please select a product" CssClass="rfvPCG" Display="Dynamic" 
-                InitialValue="0" ValidationGroup="PreviewData" 
-                ControlToValidate="ddlProductAmc">Please select a product</asp:RequiredFieldValidator>
-            
-        </td>
-    </tr>
+<table width="100%">
     <tr>
         <td class="leftLabel">
             <asp:Label runat="server" class="FieldName" Text="Product: " ID="lblProduct"></asp:Label>
@@ -151,11 +137,25 @@
                 <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Value="MF">Mutual Fund</asp:ListItem>
             </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="rfvProduct" runat="server" 
-                ErrorMessage="Please select a product" CssClass="rfvPCG" Display="Dynamic" 
-                InitialValue="0" ValidationGroup="PreviewData" 
+            <asp:RequiredFieldValidator ID="rfvProduct" runat="server" ErrorMessage="Please select a product"
+                CssClass="rfvPCG" Display="Dynamic" InitialValue="0" ValidationGroup="PreviewData"
                 ControlToValidate="ddlProduct">Please select a product</asp:RequiredFieldValidator>
-            
+        </td>
+        <td class="leftLabel">
+            <asp:Label runat="server" class="FieldName" Text="Product AMC: " ID="lblProductAmc"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList CssClass="cmbField" ID="ddlProductAmc" runat="server" AutoPostBack="false">
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvProductAmc" runat="server" ErrorMessage="Please select a product"
+                CssClass="rfvPCG" Display="Dynamic" InitialValue="0" ValidationGroup="PreviewData"
+                ControlToValidate="ddlProductAmc">Please select a product</asp:RequiredFieldValidator>
+        </td>
+        <td colspan="2">
+            <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order"
+                OnClick="btnAutoOrder_Click" />
+            <asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="Extract Data"
+                OnClick="btnExtract_Click" CausesValidation="false" />
         </td>
     </tr>
     <tr>
@@ -169,28 +169,25 @@
                 <asp:ListItem Value="OTH">Normal Orders</asp:ListItem>
                 <asp:ListItem Value="SIP">SIP Orders</asp:ListItem>
             </asp:DropDownList>
-            
-            <asp:RequiredFieldValidator ID="rfvExtractType" runat="server" 
-                CssClass="rfvPCG" Display="Dynamic" 
-                ErrorMessage="Please select an Extract Type" ValidationGroup="PreviewData" 
+            <asp:RequiredFieldValidator ID="rfvExtractType" runat="server" CssClass="rfvPCG"
+                Display="Dynamic" ErrorMessage="Please select an Extract Type" ValidationGroup="PreviewData"
                 ControlToValidate="ddlExtractType" InitialValue="0">Please select an Extract Type</asp:RequiredFieldValidator>
         </td>
-    </tr>
-    <tr>
         <td class="leftLabel">
             <asp:Label runat="server" class="FieldName" Text="R&T:" ID="lblRnT"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList CssClass="cmbField" ID="ddlRnT" runat="server" 
-                AutoPostBack="false">
+            <asp:DropDownList CssClass="cmbField" ID="ddlRnT" runat="server" AutoPostBack="false">
                 <asp:ListItem Value="CA">CAMS</asp:ListItem>
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
-            
-            <asp:RequiredFieldValidator ID="rfvRnT" runat="server" CssClass="rfvPCG" 
-                Display="Dynamic" ErrorMessage="Please select an R&amp;T" 
-                ValidationGroup="PreviewData" ControlToValidate="ddlRnT" InitialValue="0">Please select an R&amp;T</asp:RequiredFieldValidator>
-            
+            <asp:RequiredFieldValidator ID="rfvRnT" runat="server" CssClass="rfvPCG" Display="Dynamic"
+                ErrorMessage="Please select an R&amp;T" ValidationGroup="PreviewData" ControlToValidate="ddlRnT"
+                InitialValue="0">Please select an R&amp;T</asp:RequiredFieldValidator>
+        </td>
+        <td>
+        </td>
+        <td>
         </td>
     </tr>
     <tr>
@@ -198,40 +195,26 @@
             <asp:Label class="FieldName" ID="lblExtractDate" Text="Extract Date: " runat="server" />
         </td>
         <td class="rightData">
-            <telerik:RadDatePicker ID="rdpExtractDate" runat="server" ></telerik:RadDatePicker>
-            <asp:RequiredFieldValidator ID="rfvExtractDate" runat="server" 
-                CssClass="rfvPCG" Display="Dynamic" 
-                ErrorMessage="Please select an extract date" ValidationGroup="PreviewData" 
+            <telerik:RadDatePicker ID="rdpExtractDate" runat="server">
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="rfvExtractDate" runat="server" CssClass="rfvPCG"
+                Display="Dynamic" ErrorMessage="Please select an extract date" ValidationGroup="PreviewData"
                 ControlToValidate="rdpExtractDate">Please select an extract date</asp:RequiredFieldValidator>
         </td>
-    </tr>
-    <tr>
-        <td class="leftLabel"><asp:Label runat="server" class="FieldName" Text="File Format:" ID="lblFileFormat"></asp:Label></td>
-        <td class="rightData">
-            <asp:DropDownList CssClass="cmbField" ID="ddlFileFormat" runat="server" AutoPostBack="false">
-                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                <asp:ListItem Value="dbf">DBF File</asp:ListItem>
-                <asp:ListItem Value="txt">Text File</asp:ListItem>
-            </asp:DropDownList>
-            
-            <asp:RequiredFieldValidator ID="rfvFileFormat" runat="server" CssClass="rfvPCG" 
-                Display="Dynamic" ErrorMessage="Please select a file format" 
-                ValidationGroup="ExtractData" ControlToValidate="ddlFileFormat" 
-                InitialValue="0">Please select a file format</asp:RequiredFieldValidator>
-            
+        <td>
+            <asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="1-Preview Data"
+                OnClick="btnPreview_Click" ValidationGroup="PreviewData" />
+        </td>
+        <td>
+            <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download Data"
+                OnClick="btnGenerateFile_Click" ValidationGroup="PreviewData" />
+        </td>
+        <td>
+        </td>
+        <td>
         </td>
     </tr>
-    <tr>
-        <td class="leftLabel"><asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="1-Extract Data" 
-                OnClick="btnExtract_Click" /></td>
-        <td class="rightData">&nbsp;&nbsp;<asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="2-Preview Data" 
-                OnClick="btnPreview_Click" ValidationGroup="PreviewData" />&nbsp;&nbsp;&nbsp;<asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" 
-                Text="3-Download Data" OnClick="btnGenerateFile_Click" 
-                ValidationGroup="PreviewData" /></td>
-    </tr>
-    
 </table>
-
 <%--<table>
     <tr>
         <td id="td10" runat="server">
@@ -255,7 +238,8 @@
         </tr>
     </tr>
 </table>--%>
-<asp:Panel ID="pnlExtractMIS" runat="server" class="Landscape" Width="100%" Visible="false" ScrollBars="Horizontal">
+<asp:Panel ID="pnlExtractMIS" runat="server" class="Landscape" Width="100%" Visible="false"
+    ScrollBars="Horizontal">
     <table width="100%">
         <tr>
             <td>
