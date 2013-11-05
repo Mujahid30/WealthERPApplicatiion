@@ -74,7 +74,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     break;
                 case "txt":
                     string txtFilePath = downloadFileName;
-                    DownloadCsvFile(orderExtractForRta, downloadFileName + ".txt");
+                    DownloadCsvFile(orderExtractForRta, downloadFileName + ".txt", ddlRnT.SelectedValue);
                     break;
 
             }
@@ -113,9 +113,9 @@ namespace WealthERP.OnlineOrderBackOffice
             bool extractStatus = boOnlineOrderBackOffice.ExtractDailyRTAOrderList(advisorVo.advisorId, ddlExtractType.SelectedValue, ddlRnT.SelectedValue, int.Parse(ddlProductAmc.SelectedValue), userVo.UserId);
 
             if (extractStatus)
-                ShowMessage("Extraction Successfully");
+                ShowMessage("Extraction Successful");
             else
-                ShowMessage("Extraction Unsuccessfully");
+                ShowMessage("Extraction Unsuccessful");
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)
@@ -182,8 +182,24 @@ namespace WealthERP.OnlineOrderBackOffice
             //divValidation.Visible = true;
         }
 
-        public void DownloadCsvFile(DataTable dtOrderExtract, string filename)
+        public void DownloadCsvFile(DataTable dtOrderExtract, string filename, string rtaType)
         {
+            string dateFormat = "MM/dd/yyyy";
+
+            switch (rtaType)
+            {
+                case "KA":
+                case "CA":
+                    dateFormat = "MM/dd/yyyy";
+                    break;
+                case "TN":
+                    dateFormat = "dd-MM-yyyy";
+                    break;
+                case "SU":
+                    dateFormat = "dd/MM/yyyy";
+                    break;
+            }
+
             if (dtOrderExtract == null)
             {
                 ShowMessage("No data available");
@@ -195,25 +211,29 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
-            //string filename = "OrderExtract" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + ".txt";
             string file = string.Empty;
 
             #region ExportDataTabletoFile
             StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
-            string Columns = string.Empty;
-            foreach (DataColumn column in dtOrderExtract.Columns)
-            {
-                Columns += column.ColumnName + "|";
-            }
-            str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
-
+            DataColumn[] arrCols =  new DataColumn[dtOrderExtract.Columns.Count];
+            dtOrderExtract.Columns.CopyTo(arrCols, 0);
             foreach (DataRow datarow in dtOrderExtract.Rows)
             {
                 string row = string.Empty;
-                foreach (object items in datarow.ItemArray)
+                int i = 0;
+                foreach (object item in datarow.ItemArray)
                 {
-                    row += items.ToString() + "|";
+                    if (arrCols[i].DataType.FullName == "System.DateTime")
+                    {
+                        string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
+                        row += strDate + "|";
+                    }
+                    else
+                    {
+                        row += item.ToString() + "|";
+                    }
+                    i++;
                 }
                 str.WriteLine(row.Remove(row.Length - 1, 1));
             }
