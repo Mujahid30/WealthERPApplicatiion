@@ -218,10 +218,11 @@
         <td>
             <asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="1-Preview Data"
                 OnClick="btnPreview_Click" ValidationGroup="PreviewData" />
+                  <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download Data"
+                OnClick="btnGenerateFile_Click" ValidationGroup="PreviewData" />
         </td>
         <td>
-            <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download Data"
-                OnClick="btnGenerateFile_Click" ValidationGroup="PreviewData" />
+          
         </td>
     </tr>
 </table>
