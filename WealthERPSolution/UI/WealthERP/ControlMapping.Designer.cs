@@ -3319,6 +3319,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//TradeBusinessDate.ascx.
+        /// </summary>
+        internal static string TradeBusinessDate {
+            get {
+                return ResourceManager.GetString("TradeBusinessDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//TrailCommisionTransactionRejects.ascx.
         /// </summary>
         internal static string TrailCommisionTransactionRejects {

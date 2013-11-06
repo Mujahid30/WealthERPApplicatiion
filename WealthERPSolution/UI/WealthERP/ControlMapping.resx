@@ -1793,4 +1793,8 @@
     <value>OnlineOrderBackOffice//ManageLookups.ascx</value>
     <comment>OnlineOrderBackOffice//ManageLookups.ascx</comment>
   </data>
+  <data name="TradeBusinessDate" xml:space="preserve">
+    <value>OnlineOrderBackOffice//TradeBusinessDate.ascx</value>
+    <comment>OnlineOrderBackOffice//TradeBusinessDate.ascx</comment>
+  </data>
 </root>
