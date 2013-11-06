@@ -1063,7 +1063,32 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+        public bool UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int SchemePlanCode)
+        {
+            bool blResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo, SchemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineSchemeSetUp.cs:UpdateSchemeSetUpDetail()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
+            }
+            return blResult;
+        }
 
     }
 }
