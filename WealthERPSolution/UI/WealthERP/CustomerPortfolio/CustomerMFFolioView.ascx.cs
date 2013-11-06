@@ -427,6 +427,8 @@ namespace WealthERP.CustomerPortfolio
                 //lblTransferMsg.Text = statusMsg;
                 //divMessage.Attributes.Add("class", "yellow-box");
                 //if (trTransferMsg.Visible == false)
+
+                
                 //    trTransferMsg.Visible = true;
             }
             BindFolioGridView();
