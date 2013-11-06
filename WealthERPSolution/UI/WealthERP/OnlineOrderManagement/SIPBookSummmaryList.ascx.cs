@@ -256,7 +256,7 @@ namespace WealthERP.OnlineOrderManagement
             dtSIPOrderBook.Columns.Add("XF_Frequency");
             dtSIPOrderBook.Columns.Add("CMFSS_StartDate", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_EndDate", typeof(DateTime));
-            dtSIPOrderBook.Columns.Add("CMFSS_NextSIPDueDate", typeof(DateTime));
+            dtSIPOrderBook.Columns.Add("CMFSS_NextSIPDueDate");
             dtSIPOrderBook.Columns.Add("CMFSS_TotalInstallment");
             dtSIPOrderBook.Columns.Add("CMFA_FolioNum");
             dtSIPOrderBook.Columns.Add("Channel");
