@@ -160,9 +160,9 @@
                                     UniqueName="Customer Name" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="Transaction Date" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="Transaction Date"
-                                    SortExpression="Transaction Date" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
+                                    SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
@@ -242,7 +242,7 @@
                                     UniqueName="CMFOD_DividendOption" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="DivedendFrequency" HeaderText="Div-Reinvestment Freq."
+                                <telerik:GridBoundColumn DataField="DivedendFrequency" HeaderText="Divedend Frequency"
                                     AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="DivedendFrequency"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="DivedendFrequency" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
