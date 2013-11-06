@@ -338,10 +338,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ModifiedBy", DbType.Int32, userId);
-               // db.AddOutParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, 10000);
+                // db.AddOutParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, 10000);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, OnlineOrderBackOfficeVo.SchemePlanCode);
                 //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency", DbType.String, OnlineOrderBackOfficeVo.DividendFrequency);
-                db.ExecuteNonQuery(createMFOnlineSchemeSetUpCmd); 
+                db.ExecuteNonQuery(createMFOnlineSchemeSetUpCmd);
                 //{
                 //    SchemePlancode = Convert.ToInt32(db.GetParameterValue(createMFOnlineSchemeSetUpCmd, "PASP_SchemePlanCode").ToString());
                 //    SchemePlancodes.Add(SchemePlancode);
@@ -358,181 +358,184 @@ namespace DaoOnlineOrderManagement
         public OnlineOrderBackOfficeVo GetOnlineSchemeSetUp(int SchemePlanCode)
         {
 
-            
-            OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo =new OnlineOrderBackOfficeVo();
+
+            OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
             Database db;
             DataSet getSchemeSetUpDs;
             DbCommand getSchemeSetUpCmd;
-            
+
             try
             {
 
-                db = DatabaseFactory.CreateDatabase("wealtherp");                
+                db = DatabaseFactory.CreateDatabase("wealtherp");
                 getSchemeSetUpCmd = db.GetStoredProcCommand("Sproc_getOnlineschemeSetUp");
-                db.AddInParameter(getSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, SchemePlanCode);               
+                db.AddInParameter(getSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, SchemePlanCode);
                 getSchemeSetUpDs = db.ExecuteDataSet(getSchemeSetUpCmd);
                 if (getSchemeSetUpDs.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow dr in getSchemeSetUpDs.Tables[0].Rows)
                     {
-                    OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                    OnlineOrderBackOfficeVo.AMCCode=int.Parse(dr["PA_AMCCode"].ToString());
-                    OnlineOrderBackOfficeVo.SchemePlanName=dr["PASP_SchemePlanName"].ToString();
-                    OnlineOrderBackOfficeVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-                    OnlineOrderBackOfficeVo.AssetSubSubCategory=dr["PAISSC_AssetInstrumentSubSubCategoryCode"].ToString();
-                    OnlineOrderBackOfficeVo.AssetSubCategoryCode=dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                    OnlineOrderBackOfficeVo.AssetCategoryCode=dr["PAIC_AssetInstrumentCategoryCode"].ToString();
-                    OnlineOrderBackOfficeVo.Product=dr["PAG_AssetGroupCode"].ToString();
-                    OnlineOrderBackOfficeVo.Status=dr["PASP_Status"].ToString();
-                    if (dr["PASP_IsOnline"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsOnline = 1;
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsOnline = 0;
-                    }
-                    if (OnlineOrderBackOfficeVo.IsDirect != 0)
-                    {
-                        OnlineOrderBackOfficeVo.IsDirect = int.Parse(dr["PASP_IsDirect"].ToString());
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsDirect = 0;
-                    }
-                    if (dr["PASPD_FaceValue"].ToString() != null && dr["PASPD_FaceValue"].ToString()!=string.Empty)
-                    OnlineOrderBackOfficeVo.FaceValue=Convert.ToDouble(dr["PASPD_FaceValue"].ToString());
-                    OnlineOrderBackOfficeVo.SchemeType = dr["PSLV_LookupValueCodeForSchemeType"].ToString();
-                    OnlineOrderBackOfficeVo.SchemeOption = dr["PSLV_LookupValueCodeForSchemeOption"].ToString();
-                    if (dr["XF_DividendFrequency"].ToString() != null && dr["XF_DividendFrequency"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
-                    OnlineOrderBackOfficeVo.BankName = dr["PASPD_BankName"].ToString();
-                    OnlineOrderBackOfficeVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
-                    OnlineOrderBackOfficeVo.Branch = dr["PASPD_Branch"].ToString();
-                    if (dr["PASPD_IsNFO"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsNFO = 1;
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsNFO = 0;
-                    }
-                    if (OnlineOrderBackOfficeVo.NFOStartDate!=DateTime.MinValue)
-                    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(dr["PASPD_NFOStartDate"].ToString());
-                    if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
-                    OnlineOrderBackOfficeVo.NFOEndDate =DateTime.Parse(dr["PASPD_NFOEndDate"].ToString());
-                    if (dr["PASPD_LockInPeriod"].ToString() != null && dr["PASPD_LockInPeriod"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.LockInPeriod = int.Parse(dr["PASPD_LockInPeriod"].ToString());
-                    if (dr["PASPD_CutOffTime"].ToString() != null && dr["PASPD_CutOffTime"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.CutOffTime = TimeSpan.Parse(dr["PASPD_CutOffTime"].ToString());
-                    if (dr["PASPD_EntryLoadPercentage"].ToString() != null && dr["PASPD_EntryLoadPercentage"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.EntryLoadPercentag =Convert.ToDouble(dr["PASPD_EntryLoadPercentage"].ToString());
-                    if (dr["PASPD_EntryLoadRemark"].ToString() != null && dr["PASPD_EntryLoadRemark"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.EntryLoadRemark = dr["PASPD_EntryLoadRemark"].ToString();
-                    if (dr["PASPD_ExitLoadPercentage"].ToString() != null && dr["PASPD_ExitLoadPercentage"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(dr["PASPD_ExitLoadPercentage"].ToString());
-                    if (dr["PASPD_ExitLoadRemark"].ToString() != null && dr["PASPD_ExitLoadRemark"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.ExitLoadRemark = dr["PASPD_ExitLoadRemark"].ToString();
-                    if (dr["PASPD_IsPurchaseAvailable"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsPurchaseAvailable=1;
-                    }
-                    else {
-                        OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
-                    }
-                    if (dr["PASPD_IsRedeemAvailable"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
-                    }
-                    if (dr["PASPD_IsSIPAvailable"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsSIPAvailable = 1;
-                    }
-                    else {
-                        OnlineOrderBackOfficeVo.IsSIPAvailable = 0;
-                    }
-                    if (dr["PASPD_IsSWPAvailable"].ToString()=="True")
-                    {
-                        OnlineOrderBackOfficeVo.IsSWPAvailable = 1;
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsSWPAvailable = 0;
-                    }
-                    if (dr["PASPD_IsSwitchAvailable"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsSwitchAvailable = 1;
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsSwitchAvailable = 0;
-                    }
-                    if (dr["PASPD_IsSTPAvailable"].ToString() == "True")
-                    {
-                        OnlineOrderBackOfficeVo.IsSTPAvailable = 1;
-                    }
-                    else
-                    {
-                        OnlineOrderBackOfficeVo.IsSTPAvailable = 0; 
-                    }
-                    if (dr["PASPD_InitialPurchaseAmount"].ToString() != null && dr["PASPD_InitialPurchaseAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.InitialPurchaseAmount = Convert.ToDouble(dr["PASPD_InitialPurchaseAmount"].ToString());
-                    if (dr["PASPD_InitialMultipleAmount"].ToString() != null && dr["PASPD_InitialMultipleAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
-                    if (dr["PASPD_InitialMultipleAmount"].ToString() != null && dr["PASPD_InitialMultipleAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
-                    if (dr["PASPD_AdditionalMultipleAmount"].ToString() != null && dr["PASPD_AdditionalMultipleAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(dr["PASPD_AdditionalMultipleAmount"].ToString());
-                    if (dr["PASPD_MinRedemptionAmount"].ToString() != null && dr["PASPD_MinRedemptionAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(dr["PASPD_MinRedemptionAmount"].ToString());
-                    if (dr["PASPD_RedemptionMultipleAmount"].ToString() != null && dr["PASPD_RedemptionMultipleAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.RedemptionMultipleAmount = Convert.ToDouble(dr["PASPD_RedemptionMultipleAmount"].ToString());
-                    if (dr["PASPD_MinRedemptionUnits"].ToString() != null && dr["PASPD_MinRedemptionUnits"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.MinRedemptionUnits = int.Parse(dr["PASPD_MinRedemptionUnits"].ToString());
-                    if (dr["PASPD_RedemptionMultiplesUnits"].ToString() != null && dr["PASPD_RedemptionMultiplesUnits"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = int.Parse(dr["PASPD_RedemptionMultiplesUnits"].ToString());
-                    if (dr["PASPD_MinSwitchAmount"].ToString() != null && dr["PASPD_MinSwitchAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(dr["PASPD_MinSwitchAmount"].ToString());
-                    if (dr["PASPD_SwitchMultipleAmount"].ToString() != null && dr["PASPD_SwitchMultipleAmount"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.SwitchMultipleAmount = Convert.ToDouble(dr["PASPD_SwitchMultipleAmount"].ToString());
-                    if (dr["PASPD_MinSwitchUnits"].ToString() != null && dr["PASPD_MinSwitchUnits"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.MinSwitchUnits = int.Parse(dr["PASPD_MinSwitchUnits"].ToString());
-                    if (dr["PASPD_SwitchMultiplesUnits"].ToString() != null && dr["PASPD_SwitchMultiplesUnits"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.SwitchMultiplesUnits = int.Parse(dr["PASPD_SwitchMultiplesUnits"].ToString());
-                    if (dr["XF_FileGenerationFrequency"].ToString() != null && dr["XF_FileGenerationFrequency"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.GenerationFrequency = dr["XF_FileGenerationFrequency"].ToString();
-                    if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SourceCode))
-                    {
-                        OnlineOrderBackOfficeVo.SourceCode = dr["XES_SourceCode"].ToString();
-                    }
+                        OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                        OnlineOrderBackOfficeVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        OnlineOrderBackOfficeVo.SchemePlanName = dr["PASP_SchemePlanName"].ToString();
+                        OnlineOrderBackOfficeVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        OnlineOrderBackOfficeVo.AssetSubSubCategory = dr["PAISSC_AssetInstrumentSubSubCategoryCode"].ToString();
+                        OnlineOrderBackOfficeVo.AssetSubCategoryCode = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                        OnlineOrderBackOfficeVo.AssetCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        OnlineOrderBackOfficeVo.Product = dr["PAG_AssetGroupCode"].ToString();
+                        OnlineOrderBackOfficeVo.Status = dr["PASP_Status"].ToString();
+                        if (dr["PASP_IsOnline"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsOnline = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsOnline = 0;
+                        }
+                        if (OnlineOrderBackOfficeVo.IsDirect != 0)
+                        {
+                            OnlineOrderBackOfficeVo.IsDirect = int.Parse(dr["PASP_IsDirect"].ToString());
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsDirect = 0;
+                        }
+                        if (dr["PASPD_FaceValue"].ToString() != null && dr["PASPD_FaceValue"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(dr["PASPD_FaceValue"].ToString());
+                        OnlineOrderBackOfficeVo.SchemeType = dr["PSLV_LookupValueCodeForSchemeType"].ToString();
+                        OnlineOrderBackOfficeVo.SchemeOption = dr["PSLV_LookupValueCodeForSchemeOption"].ToString();
+                        if (dr["XF_DividendFrequency"].ToString() != null && dr["XF_DividendFrequency"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
+                        OnlineOrderBackOfficeVo.BankName = dr["PASPD_BankName"].ToString();
+                        OnlineOrderBackOfficeVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
+                        OnlineOrderBackOfficeVo.Branch = dr["PASPD_Branch"].ToString();
+                        if (dr["PASPD_IsNFO"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsNFO = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsNFO = 0;
+                        }
+                        if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
+                            OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(dr["PASPD_NFOStartDate"].ToString());
+                        if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+                            OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(dr["PASPD_NFOEndDate"].ToString());
+                        if (dr["PASPD_LockInPeriod"].ToString() != null && dr["PASPD_LockInPeriod"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.LockInPeriod = int.Parse(dr["PASPD_LockInPeriod"].ToString());
+                        if (dr["PASPD_CutOffTime"].ToString() != null && dr["PASPD_CutOffTime"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.CutOffTime = TimeSpan.Parse(dr["PASPD_CutOffTime"].ToString());
+                        if (dr["PASPD_EntryLoadPercentage"].ToString() != null && dr["PASPD_EntryLoadPercentage"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(dr["PASPD_EntryLoadPercentage"].ToString());
+                        if (dr["PASPD_EntryLoadRemark"].ToString() != null && dr["PASPD_EntryLoadRemark"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.EntryLoadRemark = dr["PASPD_EntryLoadRemark"].ToString();
+                        if (dr["PASPD_ExitLoadPercentage"].ToString() != null && dr["PASPD_ExitLoadPercentage"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(dr["PASPD_ExitLoadPercentage"].ToString());
+                        if (dr["PASPD_ExitLoadRemark"].ToString() != null && dr["PASPD_ExitLoadRemark"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.ExitLoadRemark = dr["PASPD_ExitLoadRemark"].ToString();
+                        if (dr["PASPD_IsPurchaseAvailable"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
+                        }
+                        if (dr["PASPD_IsRedeemAvailable"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
+                        }
+                        if (dr["PASPD_IsSIPAvailable"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsSIPAvailable = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsSIPAvailable = 0;
+                        }
+                        if (dr["PASPD_IsSWPAvailable"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsSWPAvailable = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsSWPAvailable = 0;
+                        }
+                        if (dr["PASPD_IsSwitchAvailable"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsSwitchAvailable = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsSwitchAvailable = 0;
+                        }
+                        if (dr["PASPD_IsSTPAvailable"].ToString() == "True")
+                        {
+                            OnlineOrderBackOfficeVo.IsSTPAvailable = 1;
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.IsSTPAvailable = 0;
+                        }
+                        if (dr["PASPD_InitialPurchaseAmount"].ToString() != null && dr["PASPD_InitialPurchaseAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.InitialPurchaseAmount = Convert.ToDouble(dr["PASPD_InitialPurchaseAmount"].ToString());
+                        if (dr["PASPD_InitialMultipleAmount"].ToString() != null && dr["PASPD_InitialMultipleAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
+                        if (dr["PASPD_InitialMultipleAmount"].ToString() != null && dr["PASPD_InitialMultipleAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
+                        if (dr["PASPD_AdditionalMultipleAmount"].ToString() != null && dr["PASPD_AdditionalMultipleAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(dr["PASPD_AdditionalMultipleAmount"].ToString());
+                        if (dr["PASPD_MinRedemptionAmount"].ToString() != null && dr["PASPD_MinRedemptionAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(dr["PASPD_MinRedemptionAmount"].ToString());
+                        if (dr["PASPD_RedemptionMultipleAmount"].ToString() != null && dr["PASPD_RedemptionMultipleAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.RedemptionMultipleAmount = Convert.ToDouble(dr["PASPD_RedemptionMultipleAmount"].ToString());
+                        if (dr["PASPD_MinRedemptionUnits"].ToString() != null && dr["PASPD_MinRedemptionUnits"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.MinRedemptionUnits = int.Parse(dr["PASPD_MinRedemptionUnits"].ToString());
+                        if (dr["PASPD_RedemptionMultiplesUnits"].ToString() != null && dr["PASPD_RedemptionMultiplesUnits"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = int.Parse(dr["PASPD_RedemptionMultiplesUnits"].ToString());
+                        if (dr["PASPD_MinSwitchAmount"].ToString() != null && dr["PASPD_MinSwitchAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(dr["PASPD_MinSwitchAmount"].ToString());
+                        if (dr["PASPD_SwitchMultipleAmount"].ToString() != null && dr["PASPD_SwitchMultipleAmount"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.SwitchMultipleAmount = Convert.ToDouble(dr["PASPD_SwitchMultipleAmount"].ToString());
+                        if (dr["PASPD_MinSwitchUnits"].ToString() != null && dr["PASPD_MinSwitchUnits"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.MinSwitchUnits = int.Parse(dr["PASPD_MinSwitchUnits"].ToString());
+                        if (dr["PASPD_SwitchMultiplesUnits"].ToString() != null && dr["PASPD_SwitchMultiplesUnits"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.SwitchMultiplesUnits = int.Parse(dr["PASPD_SwitchMultiplesUnits"].ToString());
+                        if (dr["XF_FileGenerationFrequency"].ToString() != null && dr["XF_FileGenerationFrequency"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.GenerationFrequency = dr["XF_FileGenerationFrequency"].ToString();
+                        if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SourceCode))
+                        {
+                            OnlineOrderBackOfficeVo.SourceCode = dr["XES_SourceCode"].ToString();
+                        }
                         //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, DBNull.Value);
-                    OnlineOrderBackOfficeVo.CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
-                    if (dr["PASPD_SecurityCode"].ToString() != null && dr["PASPD_SecurityCode"].ToString() != string.Empty)
-                    OnlineOrderBackOfficeVo.SecurityCode = dr["PASPD_SecurityCode"].ToString();
-                    if (dr["PASPD_MaxInvestment"].ToString() != null&&dr["PASPD_MaxInvestment"].ToString() != string.Empty)
-                    {
-                        OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(dr["PASPD_MaxInvestment"].ToString());
-                    }
-                    else {
-                        OnlineOrderBackOfficeVo.PASPD_MaxInvestment = 0;
-                    }
-                    if (!string.IsNullOrEmpty(dr["WERPBM_BankCode"].ToString()))
-                    {
-                        OnlineOrderBackOfficeVo.WERPBM_BankCode = dr["WERPBM_BankCode"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalCode"].ToString()))
-                    {
-                        OnlineOrderBackOfficeVo.ExternalCode = dr["PASC_AMC_ExternalCode"].ToString();
-                    }
-                    if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalType"].ToString()))
-                    {
-                        OnlineOrderBackOfficeVo.ExternalType = dr["PASC_AMC_ExternalType"].ToString();
-                    }
-                    
+                        OnlineOrderBackOfficeVo.CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
+                        if (dr["PASPD_SecurityCode"].ToString() != null && dr["PASPD_SecurityCode"].ToString() != string.Empty)
+                            OnlineOrderBackOfficeVo.SecurityCode = dr["PASPD_SecurityCode"].ToString();
+                        if (dr["PASPD_MaxInvestment"].ToString() != null && dr["PASPD_MaxInvestment"].ToString() != string.Empty)
+                        {
+                            OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(dr["PASPD_MaxInvestment"].ToString());
+                        }
+                        else
+                        {
+                            OnlineOrderBackOfficeVo.PASPD_MaxInvestment = 0;
+                        }
+                        if (!string.IsNullOrEmpty(dr["WERPBM_BankCode"].ToString()))
+                        {
+                            OnlineOrderBackOfficeVo.WERPBM_BankCode = dr["WERPBM_BankCode"].ToString();
+                        }
+                        if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalCode"].ToString()))
+                        {
+                            OnlineOrderBackOfficeVo.ExternalCode = dr["PASC_AMC_ExternalCode"].ToString();
+                        }
+                        if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalType"].ToString()))
+                        {
+                            OnlineOrderBackOfficeVo.ExternalType = dr["PASC_AMC_ExternalType"].ToString();
+                        }
+
                     }
                 }
 
@@ -560,8 +563,8 @@ namespace DaoOnlineOrderManagement
             }
             return OnlineOrderBackOfficeVo;
 
-        
-        
+
+
         }
 
         public DataSet GetSchemeSetUpFromOverAllCategoryList(int amcCode, string categoryCode)
@@ -599,7 +602,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdCodeduplicateCheck, "@ExternalCode", DbType.String, externalcode);
                 db.AddOutParameter(cmdCodeduplicateCheck, "@count", DbType.Int32, 10);
 
-                ds = db.ExecuteDataSet(cmdCodeduplicateCheck);               
+                ds = db.ExecuteDataSet(cmdCodeduplicateCheck);
                 Object objCount = db.GetParameterValue(cmdCodeduplicateCheck, "@count");
                 if (objCount != DBNull.Value)
                     count = int.Parse(db.GetParameterValue(cmdCodeduplicateCheck, "@count").ToString());
@@ -631,7 +634,7 @@ namespace DaoOnlineOrderManagement
 
 
         public string GetstrAMCCodeRTName(string AmcCode)
-        { 
+        {
             string strAMCCodeRTName;
             Database db;
             DataSet dsGetMFOrderDetails;
@@ -641,7 +644,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmd = db.GetStoredProcCommand("SPROC_GetstrAMCCodeRTName");
                 db.AddInParameter(cmd, "@AmcCode", DbType.String, AmcCode);
-             
+
 
                 dsGetMFOrderDetails = db.ExecuteDataSet(cmd);
                 strAMCCodeRTName = dsGetMFOrderDetails.Tables[0].Rows[0][0].ToString();
@@ -666,7 +669,7 @@ namespace DaoOnlineOrderManagement
 
         }
 
-        public DataSet GetMFOrderDetailsForRTAExtract(int adviserId, string transactionType, string rtaIdentifier, int amcCode,int userId)
+        public DataSet GetMFOrderDetailsForRTAExtract(int adviserId, string transactionType, string rtaIdentifier, int amcCode, int userId)
         {
             DataSet dsGetMFOrderDetails;
             Database db;
@@ -792,7 +795,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                Frequencycmd = db.GetStoredProcCommand("SProc_onl_BindFrequency");                
+                Frequencycmd = db.GetStoredProcCommand("SProc_onl_BindFrequency");
                 dsFrequency = db.ExecuteDataSet(Frequencycmd);
             }
             catch (BaseApplicationException Ex)
@@ -810,5 +813,208 @@ namespace DaoOnlineOrderManagement
             }
             return dsFrequency;
         }
+        public DataSet GetLookupCategory()
+        {
+            DataSet dsGetLookupCategory;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetLookupCategory");
+                dsGetLookupCategory = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetLookupCategory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetLookupCategory;
+        }
+
+        public DataSet GetWERPValues(int categoryID)
+        {
+            DataSet dsGetWERPValues;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetWERPValues");
+                db.AddInParameter(cmd, "@categoryID", DbType.Int32, categoryID);
+                dsGetWERPValues = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetWERPValues()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetWERPValues;
+        }
+        public DataSet GetRtaWiseMapings(string sourceCode, int categoryID)
+        {
+            DataSet dsGetRtaWiseMapings;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetRtaWiseMapings");
+                db.AddInParameter(cmd, "@SourceCode", DbType.String, sourceCode);
+                db.AddInParameter(cmd, "@CategoryID", DbType.String, categoryID);
+
+                dsGetRtaWiseMapings = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetRtaWiseMapings()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRtaWiseMapings;
+        }
+
+
+        public DataSet GetRTA()
+        {
+            DataSet dsGetRTA;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetRTA");
+                dsGetRTA = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetRTA()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRTA;
+        }
+        public bool CreateMapwithRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createCmd;
+            int affectedRecords = 0;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateMapwithRTA");
+                db.AddInParameter(createCmd, "@WCMV_LookupId", DbType.Int32, onlineOrderBackOfficeVo.LookupID);
+                db.AddInParameter(createCmd, "@XES_SourceCode", DbType.String, onlineOrderBackOfficeVo.SourceCode);
+                db.AddInParameter(createCmd, "@WCMVXM_ExternalCode", DbType.String, onlineOrderBackOfficeVo.ExternalCode);
+                db.AddInParameter(createCmd, "@WCMVXM_ExternalName", DbType.String, onlineOrderBackOfficeVo.ExternalName);
+                db.AddInParameter(createCmd, "@UserId", DbType.Int32, userID);
+
+                db.AddOutParameter(createCmd, "@IsExist", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(createCmd, "@IsExist").ToString());
+                if (affectedRecords == 0)
+                    bResult = true;
+                else
+                    bResult = false;
+                //db.ExecuteNonQuery(createCmd);
+                //bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool CreateNewWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        {
+            bool bResult = false;
+            int affectedRecords=0;
+            Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateNewWerpName");
+                db.AddInParameter(createCmd, "@WCMV_Name", DbType.String, onlineOrderBackOfficeVo.WerpName);
+                db.AddInParameter(createCmd, "@WCM_Id", DbType.Int32, onlineOrderBackOfficeVo.CategoryID);
+                db.AddInParameter(createCmd, "@UserId", DbType.Int32, userID);
+                db.AddOutParameter(createCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(createCmd, "@IsSuccess").ToString());
+                if (affectedRecords == 1)
+                    bResult = true;
+                else
+                    bResult = false;
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+        public bool RemoveMapingWIthRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createMFOrderTrackingCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_RemoveMapwithRTA");
+                db.AddInParameter(createMFOrderTrackingCmd, "@MapID", DbType.Int32, onlineOrderBackOfficeVo.MapID);
+
+                db.ExecuteNonQuery(createMFOrderTrackingCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
     }
 }

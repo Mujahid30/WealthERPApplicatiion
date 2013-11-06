@@ -512,7 +512,11 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Admin";
             try
             {
-                if (e.Item.Value == "Admin Home")
+                if (e.Item.Value == "Manage Lookups")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                else  if (e.Item.Value == "Admin Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 }

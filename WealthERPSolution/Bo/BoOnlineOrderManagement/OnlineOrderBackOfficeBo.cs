@@ -296,7 +296,7 @@ namespace BoOnlineOrderManagement
             #region CustomFileName
             var random = new Random(System.DateTime.Now.Millisecond);
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-           
+
             string strAMCCodeRTName = daoOnlineOrderBackOffice.GetstrAMCCodeRTName(AmcName);
 
             int randomNumber = random.Next(0, 1000000);
@@ -305,7 +305,7 @@ namespace BoOnlineOrderManagement
             int totalLength = strAMCCodeRTName.Length;
 
             rowCount = rowCount.PadLeft((7 - totalLength), '0');
-           
+
             string filename = strAMCCodeRTName + rowCount + "0001" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + randomNumber;
             #endregion
 
@@ -508,7 +508,7 @@ namespace BoOnlineOrderManagement
             bool bResult = false;
             try
             {
-                bResult = OnlineOrderBackOfficeDao.AMFIduplicateCheck(schemeplancode,externalcode);
+                bResult = OnlineOrderBackOfficeDao.AMFIduplicateCheck(schemeplancode, externalcode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -519,7 +519,7 @@ namespace BoOnlineOrderManagement
 
 
 
-        public bool ExtractDailyRTAOrderList(int adviserId, string transactionType, string rtaIdentifier, int amcCode,int userId)
+        public bool ExtractDailyRTAOrderList(int adviserId, string transactionType, string rtaIdentifier, int amcCode, int userId)
         {
             DataSet dsMfOrderExtract = null;
             OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
@@ -920,5 +920,150 @@ namespace BoOnlineOrderManagement
             dsFrequency = daoOnlineOrderBackOffice.GetFrequency();
             return dsFrequency;
         }
+        public DataSet GetLookupCategory()
+        {
+            DataSet dsLookupCategory;
+            OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsLookupCategory = OnlineOrderBackOfficeDao.GetLookupCategory();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBO.cs:GetLookupCategory()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupCategory;
+        }
+        public DataSet GetWERPValues(int categoryID)
+        {
+            DataSet dsLookupCategory;
+            OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsLookupCategory = OnlineOrderBackOfficeDao.GetWERPValues(categoryID);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBO.cs:GetWERPValues()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupCategory;
+        }
+        public DataSet GetRTA()
+        {
+            DataSet dsGetRTA;
+
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                dsGetRTA = OnlineOrderBackOfficeDao.GetRTA();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetRTA()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRTA;
+        }
+        public DataSet GetRtaWiseMapings(string sourceCode, int categoryID)
+        {
+            DataSet dsGetRtaWiseMapings;
+
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                dsGetRtaWiseMapings = OnlineOrderBackOfficeDao.GetRtaWiseMapings(sourceCode, categoryID);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetRtaWiseMapings()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetRtaWiseMapings;
+        }
+        public bool CreateMapwithRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                return OnlineOrderBackOfficeDao.CreateMapwithRTA(onlineOrderBackOfficeVo, userID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+
+        }
+        public bool CreateNewWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                return OnlineOrderBackOfficeDao.CreateNewWerpName(onlineOrderBackOfficeVo, userID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public bool RemoveMapingWIthRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                return OnlineOrderBackOfficeDao.RemoveMapingWIthRTA(onlineOrderBackOfficeVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+
     }
 }

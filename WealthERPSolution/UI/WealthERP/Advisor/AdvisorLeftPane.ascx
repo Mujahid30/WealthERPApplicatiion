@@ -294,6 +294,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="FixedIncomeOrderEntry" Value="FixedIncomeOrderEntry">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Manage Lookups" Value="Manage Lookups">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Business MIS" Value="Business MIS">

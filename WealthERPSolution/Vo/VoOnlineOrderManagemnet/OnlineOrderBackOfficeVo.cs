@@ -14,8 +14,14 @@ namespace VoOnlineOrderManagemnet
         public string DataType { get; set; }
         public int MaxLength { get; set; }
         public bool IsNullable { get; set; }
-       
- 
+
+        public int LookupID { get; set; }        
+        public string ExternalName { get; set; }
+        public int CategoryID { get; set; }
+        public string WerpCode { get; set; }
+        public string WerpName { get; set; }
+        public int MapID { get; set; }
+
 
        public int AMCCode { get; set; }
        public int SchemePlanCode { get; set; }
