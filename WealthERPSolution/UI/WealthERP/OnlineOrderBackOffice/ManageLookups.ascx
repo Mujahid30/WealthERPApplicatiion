@@ -160,21 +160,24 @@
                 <td>
                     <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
                         <telerik:RadGrid ID="rgWerp" runat="server" CssClass="RadGrid" GridLines="Both" AllowPaging="True"
-                            PageSize="20" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
-                            AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-                            Skin="Telerik" OnNeedDataSource="rgWerp_NeedDataSource" OnItemCommand="rgWerp_ItemCommand"
-                            Width="100%" OnUpdateCommand="rgWerp_UpdateCommand">
+                            PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
+                            AllowFilteringByColumn="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                            AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="rgWerp_NeedDataSource"
+                            OnItemCommand="rgWerp_ItemCommand" Width="100%" OnUpdateCommand="rgWerp_UpdateCommand">
                             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                             </ExportSettings>
                             <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                 EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Internal Code Value"
                                 DataKeyNames="WCMV_LookupId,WCMV_Name">
                                 <Columns>
-                                    <telerik:GridBoundColumn UniqueName="WCMV_LookupId" HeaderText="Internal ID" DataField="WCMV_LookupId">
+                                    <telerik:GridBoundColumn UniqueName="WCMV_LookupId" HeaderText="Internal ID" DataField="WCMV_LookupId"
+                                        SortExpression="WCMV_LookupId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        AutoPostBackOnFilter="true">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderText="Internal Code Value"
-                                        DataField="WCMV_Name">
+                                        DataField="WCMV_Name" SortExpression="WCMV_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        AutoPostBackOnFilter="true">
                                     </telerik:GridBoundColumn>
                                 </Columns>
                                 <EditFormSettings EditFormType="Template">
@@ -234,16 +237,17 @@
             <tr>
                 <td>
                     <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
-                        <telerik:RadGrid ID="rgMaping" runat="server" CssClass="RadGrid" GridLines="Both" 
-                            AllowPaging="True" PageSize="20" AllowSorting="True" AutoGenerateColumns="false"
+                        <telerik:RadGrid ID="rgMaping" runat="server" CssClass="RadGrid" GridLines="Both"
+                            AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
                             ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                            AllowAutomaticUpdates="false" Skin="Telerik" Width="100%" OnUpdateCommand="rgMaping_UpdateCommand"
-                            OnNeedDataSource="rgMaping_NeedDataSource" OnItemDataBound="rgMaping_ItemDataBound">
+                            AllowFilteringByColumn="true" AllowAutomaticUpdates="false" Skin="Telerik" Width="100%"
+                            OnUpdateCommand="rgMaping_UpdateCommand" OnNeedDataSource="rgMaping_NeedDataSource"
+                            OnItemDataBound="rgMaping_ItemDataBound">
                             <MasterTableView DataKeyNames="WCMVXM_Id" Width="120%" AllowMultiColumnSorting="True"
                                 AutoGenerateColumns="false" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                 EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New External Code Values">
                                 <Columns>
-                                    <telerik:GridTemplateColumn HeaderText="Select">
+                                    <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false">
                                         <HeaderTemplate>
                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                         </HeaderTemplate>
@@ -251,19 +255,25 @@
                                             <asp:CheckBox ID="cbMap" runat="server" Checked="false" />
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
-                                    <telerik:GridBoundColumn UniqueName="WCMV_LookupId" HeaderText="Internal ID" DataField="WCMV_LookupId">
+                                    <telerik:GridBoundColumn UniqueName="WCMV_LookupId" HeaderText="Internal ID" DataField="WCMV_LookupId"
+                                        SortExpression="WCMV_LookupId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        AutoPostBackOnFilter="true">
                                         <HeaderStyle></HeaderStyle>
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderText="Internal Name" DataField="WCMV_Name">
+                                    <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderText="Internal Name" DataField="WCMV_Name"
+                                        SortExpression="WCMV_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                        AutoPostBackOnFilter="true">
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="WCMVXM_ExternalCode" HeaderText="External Code"
-                                        DataField="WCMVXM_ExternalCode">
+                                        DataField="WCMVXM_ExternalCode" SortExpression="WCMVXM_ExternalCode" ShowFilterIcon="false"
+                                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="WCMVXM_ExternalName" HeaderText="External Name"
-                                        DataField="WCMVXM_ExternalName">
+                                        DataField="WCMVXM_ExternalName" SortExpression="WCMVXM_ExternalName" ShowFilterIcon="false"
+                                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                     </telerik:GridBoundColumn>
                                 </Columns>
-                                <EditFormSettings EditFormType="Template" >
+                                <EditFormSettings EditFormType="Template">
                                     <FormTemplate>
                                         <table width="75%" cellspacing="2" cellpadding="2">
                                             <tr>
@@ -322,7 +332,7 @@
                                                         CssClass="PCGButton" CommandName="Cancel"></asp:Button>
                                                 </td>
                                             </tr>
-                                           <%-- <tr>
+                                            <%-- <tr>
                                                 <td class="leftLabel">
                                                 </td>
                                                 <td class="rightData">
