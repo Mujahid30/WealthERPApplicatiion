@@ -77,7 +77,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataSet dsSchemeMIs = new DataSet();
                 DataTable dtschememis = new DataTable();
-                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value,int.Parse(hdnIsonline.Value));
+                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value,int.Parse(ddlTosee.SelectedItem.Value));
                 dtschememis = dsSchemeMIs.Tables[0];
                 if (dtschememis.Rows.Count > 0)
                 {

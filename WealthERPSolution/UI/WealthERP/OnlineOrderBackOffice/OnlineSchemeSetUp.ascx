@@ -22,6 +22,14 @@
             </div>
         </td>
     </tr>
+    <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+            <tr id="trSumbitSuccess">
+                <td align="center">
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    </div>
+                </td>
+            </tr>
+        </table>
 </table>
 <table width="100%">
     <tr>
@@ -449,6 +457,10 @@
                 <td align="right">
                     <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" ValidationGroup="btnsubmit"
                         OnClick="btnsubmit_click" />
+                        <td align="left">
+                    <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton"
+                        OnClick="btnUpdate_click" style="height: 26px" ValidationGroup="btnsubmit"/>
+                </td>
                 </td>
             </tr>
         </td>

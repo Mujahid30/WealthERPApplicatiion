@@ -49,7 +49,7 @@
             <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField" AutoPostBack="true"
                 >
                 <Items>
-                  <asp:ListItem Text="Both" Value=" " Selected="true" />
+                  <asp:ListItem Text="Both" Value="2" Selected="true" />
                   <asp:ListItem Text="Online Scheme" Value="1" />
                   <asp:ListItem Text="Offline Scheme" Value="0"/>
                  <%-- <asp:ListItem Text="Both" Value="Both"/>--%>

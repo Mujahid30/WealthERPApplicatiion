@@ -23,6 +23,42 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.ScriptManager scrptMgr;
         
         /// <summary>
+        /// lbBack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbBack;
+        
+        /// <summary>
+        /// tblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        
+        /// <summary>
+        /// trSumbitSuccess control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
+        
+        /// <summary>
+        /// msgRecordStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        
+        /// <summary>
         /// lblProduct control.
         /// </summary>
         /// <remarks>
@@ -95,13 +131,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Label lblAcode;
         
         /// <summary>
-        /// TextBox2 control.
+        /// txtAMFI control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtAMFI;
         
         /// <summary>
         /// lblAmc control.
@@ -138,6 +174,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlcategory;
+        
+        /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// ddlSchemeList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList;
         
         /// <summary>
         /// lblFvalue control.
@@ -320,13 +374,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Label lblNfostartdate;
         
         /// <summary>
-        /// txtReceivedDate control.
+        /// txtNFOStartDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker txtReceivedDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
         
         /// <summary>
         /// appRecidRequiredFieldValidator control.
@@ -347,13 +401,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Label lblNfoEnddate;
         
         /// <summary>
-        /// RadDatePicker1 control.
+        /// txtNFOendDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadDatePicker RadDatePicker1;
+        protected global::Telerik.Web.UI.RadDatePicker txtNFOendDate;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -363,6 +417,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
+        /// CompareValidator14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator14;
         
         /// <summary>
         /// lblLIperiod control.
@@ -392,13 +455,58 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Label lblCOtime;
         
         /// <summary>
-        /// txtCOtime control.
+        /// txtHH control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHH;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// txtMM control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMM;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// txtSS control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSS;
+        
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
         
         /// <summary>
         /// lblEload control.
@@ -876,12 +984,14 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnsubmit;
-        protected global::System.Web.UI.WebControls.TextBox txtAMFI;
-        protected global::Telerik.Web.UI.RadDatePicker txtNFOStartDate;
-        protected global::Telerik.Web.UI.RadDatePicker txtNFOendDate;
-        protected global::System.Web.UI.WebControls.TextBox txtHH;
-        protected global::System.Web.UI.WebControls.TextBox txtMM;
-        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList;
-        protected global::System.Web.UI.WebControls.LinkButton lbBack;
+        
+        /// <summary>
+        /// btnupdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnupdate;
     }
 }
