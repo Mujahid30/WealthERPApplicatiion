@@ -14,27 +14,30 @@ namespace WealthERP.OnlineOrderManagement
     public partial class NCDIssueBooks : System.Web.UI.UserControl
     {
         UserVo userVo;
-        string CustId = "7709";
+        CustomerVo customerVo = new CustomerVo();
+        int customerId;
+        //string CustId = "7709";
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
+            customerVo = (CustomerVo)Session["customerVo"];
 
-            if (Request.QueryString["CustId"] != null)
+            if (Request.QueryString["customerId"] != null)
             {
-                CustId = Request.QueryString["CustId"].ToString();
-                BindBBGV(3, CustId);
+                customerId = int.Parse(Request.QueryString["customerId"].ToString());
+                BindBBGV(customerId);
             }
             else
             {
                 //CustId = Session["CustId"].ToString();
-                BindBBGV(3, CustId);
+                BindBBGV(customerVo.CustomerId);
             }
         }
 
-        protected void BindBBGV(int Type, string CustId)
+        protected void BindBBGV(int customerId)
         {
-            DataSet dsbondsBook = BoOnlineBondOrder.getBondsBookview(Type, CustId);
+            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId);
 
             if (dsbondsBook.Tables[0].Rows.Count > 0)
                 ibtExportSummary.Visible = true;
@@ -93,19 +96,34 @@ namespace WealthERP.OnlineOrderManagement
             int rowindex1 = ((GridDataItem)((DropDownList)sender).NamingContainer).RowIndex;
 
             int rowindex = (rowindex1 / 2) - 1;
-            if (Request.QueryString["CustId"] != null)
+            if (Request.QueryString["customerId"] != null)
             {
-                CustId = Request.QueryString["CustId"].ToString();
-                BindBBGV(6, CustId);
+                customerId = int.Parse(Request.QueryString["customerId"].ToString());
+                BindjointNominee(customerId);
             }
             else
             {
-                CustId = Session["CustId"].ToString();
-                BindBBGV(6, CustId);
+               customerId=customerVo.CustomerId;
+               BindjointNominee(customerId);
             }
 
 
 
         }
+        protected void BindjointNominee(int customerId)
+        {
+            DataSet dsjointNominee = BoOnlineBondOrder.GetNomineeJointHolder(customerId);
+
+            if (dsjointNominee.Tables[0].Rows.Count > 0)
+                ibtExportSummary.Visible = true;
+            else
+                ibtExportSummary.Visible = false;
+
+            gvBBList.DataSource = dsjointNominee;
+            gvBBList.DataBind();
+
+            Cache.Insert(userVo.UserId.ToString() + "NomineeJointHolder", dsjointNominee.Tables[0]);
+        }
+
     }
 }

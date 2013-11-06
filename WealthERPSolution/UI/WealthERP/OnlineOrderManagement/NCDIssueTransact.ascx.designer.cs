@@ -158,5 +158,8 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnConfirmOrder;
+        protected global::System.Web.UI.WebControls.Panel pnlNCDTransactact;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointNom;
+         protected global::System.Web.UI.HtmlControls.HtmlTableRow trcustcode;
     }
 }

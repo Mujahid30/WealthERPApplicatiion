@@ -23,15 +23,23 @@ namespace WealthERP.OnlineOrderManagement
     {
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
         OnlineBondOrderVo OnlineBondVo = new OnlineBondOrderVo();
+        CustomerVo customerVo = new CustomerVo();
         bool RESULT = false;
+        int customerId;
         //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            customerVo = (CustomerVo)Session["customerVo"];
             if (!IsPostBack)
             {
 
                 BindKYCDetailDDl();
+                if (Request.QueryString["customerId"] != null)
+                {
+                    customerId = int.Parse((Request.QueryString["customerId"]).ToString());
+                }
+                  
                 if (Request.QueryString["IssuerId"] != null)
                 {
                     string IssuerId = Request.QueryString["IssuerId"].ToString();
@@ -63,7 +71,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             //DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(1,2);
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(2, IssuerId);
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId);
             if (dsStructureRules.Tables[0].Rows.Count > 0)
                 ibtExportSummary.Visible = true;
             else
@@ -71,43 +79,55 @@ namespace WealthERP.OnlineOrderManagement
 
             gvCommMgmt.DataSource = dsStructureRules.Tables[0];
             gvCommMgmt.DataBind();
+            pnlNCDTransactact.Visible = true;
             //Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
         }
         protected void BindDropDownListIssuer()
         {
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
-            DataSet dsStructureRules = OnlineBondBo.GetLookupDataForReceivableSetUP(5, "9");
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList();
             ddIssuerList.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
-            ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
+            ddIssuerList.DataValueField = dsStructureRules.Tables[0].Columns["AIM_IssueId"].ToString();
             ddIssuerList.DataSource = dsStructureRules.Tables[0];
             ddIssuerList.DataBind();
         }
         protected void BindKYCDetailDDl()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(6, "11");
-            if (dsStructureRules.Tables[0].Rows.Count > 0)
-            {
-                lblHolderTwo.Text = dsStructureRules.Tables[0].Columns["SecondHolder"].ToString();
-                lblHolderThird.Text = dsStructureRules.Tables[0].Columns["ThirdHolder"].ToString();
-                //ddlHolder.DataSource = dsStructureRules.Tables[0];
-                //ddlHolder.DataBind();
-            }
-            else
-            {
-                lblHolderTwo.Text = "No Second Holder";
-                lblHolderThird.Text = "No Third Holder";
-            }
-            if (dsStructureRules.Tables[1].Rows.Count > 0)
-            {
-                lblNomineeTwo.Text = dsStructureRules.Tables[1].Columns["NomineeName1"].ToString();
-                lblNomineeThird.Text = dsStructureRules.Tables[1].Columns["NomineeName2"].ToString();
+            DataSet dsNomineeAndJointHolders = OnlineBondBo.GetNomineeJointHolder(customerVo.CustomerId);
+            StringBuilder strbNominee = new StringBuilder();
+            StringBuilder strbJointHolder = new StringBuilder();
 
-            }
-            else
+            foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                lblNomineeTwo.Text = "No Nominee Name Found";
-                lblNomineeThird.Text = "No Nominee Name Found";
+                strbJointHolder.Append(dr["JointHolderName"].ToString() );
+                strbNominee.Append(dr["JointHolderName"].ToString() );
             }
+
+            lblNomineeTwo.Text = strbNominee.ToString();
+            lblHolderTwo.Text = strbJointHolder.ToString();
+            //if (dsStructureRules.Tables[0].Rows.Count > 0)
+            //{
+            //    lblHolderTwo.Text = dsStructureRules.Tables[0].Columns[""].ToString();
+            //    lblHolderThird.Text = dsStructureRules.Tables[0].Columns["ThirdHolder"].ToString();
+            //    //ddlHolder.DataSource = dsStructureRules.Tables[0];
+            //    //ddlHolder.DataBind();
+            //}
+            //else
+            //{
+            //    lblHolderTwo.Text = "No Second Holder";
+            //    lblHolderThird.Text = "No Third Holder";
+            //}
+            //if (dsStructureRules.Tables[1].Rows.Count > 0)
+            //{
+            //    lblNomineeTwo.Text = dsStructureRules.Tables[1].Columns["NomineeName1"].ToString();
+            //    lblNomineeThird.Text = dsStructureRules.Tables[1].Columns["NomineeName2"].ToString();
+
+            //}
+            //else
+            //{
+            //    lblNomineeTwo.Text = "No Nominee Name Found";
+            //    lblNomineeThird.Text = "No Nominee Name Found";
+            //}
         }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
@@ -118,8 +138,6 @@ namespace WealthERP.OnlineOrderManagement
 
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
-
-
                 int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_BidQty"].ToString());
                 int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_InMultiplesOf"].ToString());
                 int Qty = Convert.ToInt32(txtQuantity.Text);
@@ -138,9 +156,6 @@ namespace WealthERP.OnlineOrderManagement
                     return;
                 }
                 int AIM_FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_FaceValue"].ToString());
-
-
-
                 TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Amount"].FindControl("txtAmount");
                 txtAmount.Text = Convert.ToString(Qty * AIM_FaceValue);
                 CheckBox cbSelectOrder = (CheckBox)gvCommMgmt.MasterTableView.Items[rowindex]["Check"].FindControl("cbOrderCheck");
@@ -177,9 +192,9 @@ namespace WealthERP.OnlineOrderManagement
 
                 TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
 
-                OnlineBondVo.CustomerId = "ESI123456".ToString();
+                //OnlineBondVo.CustomerId = "ESI123456".ToString();
+                OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
-
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISD_SeriesId"].ToString());
                 OnlineBondVo.PFIIM_IssuerId = Convert.ToString(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFIIM_IssuerId"].ToString());
                 OnlineBondVo.PFISM_SchemeId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
@@ -209,10 +224,10 @@ namespace WealthERP.OnlineOrderManagement
                     break;
 
             }
-
             RESULT = OnlineBondBo.onlineBOndtransact(dt);
-            string CustId = Session["CustId"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBook','CustId=" + CustId + "');", true);
+            //string CustId = Session["CustId"].ToString();
+            if(RESULT==true)            
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
         }
 
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)

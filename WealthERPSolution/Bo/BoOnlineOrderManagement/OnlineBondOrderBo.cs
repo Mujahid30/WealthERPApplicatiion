@@ -18,13 +18,13 @@ namespace BoOnlineOrderManagement
         DataSet dsCommissionStructureRules;
 
 
-        public DataSet GetLookupDataForReceivableSetUP(int adviserId, string structureId)
+        public DataSet GetBindIssuerList()
         {
             //CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
             DataSet dsLookupData;
             try
             {
-                dsLookupData = onlineBondDao.GetLookupDataForReceivableSetUP(adviserId, structureId);
+                dsLookupData = onlineBondDao.GetBindIssuerList();
 
             }
             catch (BaseApplicationException Ex)
@@ -36,8 +36,7 @@ namespace BoOnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetLookupDataForReceivableSetUP(int adviserId)");
-                object[] objects = new object[1];
-                objects[0] = adviserId;
+                object[] objects = new object[1];                
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -46,12 +45,12 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserCommissionStructureRules(int adviserId, string structureId)
+        public DataSet GetAdviserIssuerList(int adviserId)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserCommissionStructureRules(adviserId, structureId);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -72,7 +71,109 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
+        public DataSet GetLiveBondTransaction(string SeriesId)
+        {
 
+            try
+            {
+                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransaction(SeriesId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetLiveBondTransaction()");
+                object[] objects = new object[1];               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCommissionStructureRules;
+        }
+        public DataSet GetLiveBondTransactionList()
+        {
+
+            try
+            {
+                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransactionList();
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetLiveBondTransactionList()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCommissionStructureRules;
+        }
+        public DataSet GetLookupDataForReceivableSetUP(int adviserId, string structureId)
+        {
+            //CommisionReceivableDao commisionReceivableDao = new CommisionReceivableDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = onlineBondDao.GetLookupDataForReceivableSetUP(adviserId, structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetLookupDataForReceivableSetUP(int adviserId)");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetAdviserCommissionStructureRules(int adviserId, string structureId)
+        {
+
+            try
+            {
+                dsCommissionStructureRules = onlineBondDao.GetAdviserCommissionStructureRules(adviserId,structureId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetAdviserCommissionStructureRules(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsCommissionStructureRules;
+        }
         public bool onlineBOndtransact(DataTable OnlineBondOrder)
         {
             bool result = false;
@@ -127,7 +228,61 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
+        public DataSet GetOrderBondBook(int customerId)
+        {
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = OnlineBondDao.GetOrderBondBook(customerId);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetOrderBondBook()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
+
+        public DataSet GetNomineeJointHolder(int customerId)
+        {
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = OnlineBondDao.GetNomineeJointHolder(customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetNomineeJointHolder()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
         public void cancelBondsBookOrder(string id)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();

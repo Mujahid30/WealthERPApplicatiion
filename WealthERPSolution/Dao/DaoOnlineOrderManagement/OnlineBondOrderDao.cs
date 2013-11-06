@@ -13,6 +13,133 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineBondOrderDao : OnlineOrderDao
     {
+        public DataSet GetBindIssuerList()
+        {
+            Database db;
+            DbCommand cmdGetLookupDataForReceivable;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetLookupDataForReceivable = db.GetStoredProcCommand("SPROC_ONL_BindIssuerList");
+                //db.AddInParameter(cmdGetLookupDataForReceivable, "@ReportType", DbType.Int32, adviserId);
+                //db.AddInParameter(cmdGetLookupDataForReceivable, "@SeriesId", DbType.String, structureId);
+                ds = db.ExecuteDataSet(cmdGetLookupDataForReceivable);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetBindIssuerList()");
+                object[] objects = new object[1];               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetAdviserIssuerList(int adviserId)
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetIssuerlist");
+                db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@ReportType", DbType.Int32, adviserId);
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetAdviserIssuerList(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+        public DataSet GetLiveBondTransaction(string SeriesId)
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetLiveBondTransaction");
+                db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, SeriesId);
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@ReportType", DbType.Int32, adviserId);
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetLiveBondTransaction()");
+                object[] objects = new object[1];               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
+        public DataSet GetLiveBondTransactionList()
+        {
+            Database db;
+            DbCommand cmdGetCommissionStructureRules;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetLiveBondTransactionList");               
+                ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetLiveBondTransactionList(int adviserId)");
+                object[] objects = new object[1];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
         public DataSet GetLookupDataForReceivableSetUP(int adviserId, string structureId)
         {
             Database db;
@@ -37,7 +164,6 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetLookupDataForReceivableSetUP(int adviserId)");
                 object[] objects = new object[1];
-                objects[0] = adviserId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -56,6 +182,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_OnlineBondManagement");
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@ReportType", DbType.Int32, adviserId);
                 db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
@@ -78,7 +205,6 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-
         public bool UpdateOnlineBondTransact(DataTable BondORder)
         {
             Database db;
@@ -88,10 +214,6 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-
-
-
-
                 cmdOnlineBondTransact = db.GetStoredProcCommand("SPROC_ONL_OnlineBondTransaction");
 
                 DataSet ds = new DataSet();
@@ -163,7 +285,69 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBondsBook;
         }
+        public DataSet GetOrderBondBook(int customerId)
+        {
+            DataSet dsOrderBondsBook;
+            Database db;
+            DbCommand GetOrderBondsBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_ONL_GetBondOrderBook");
+                db.AddInParameter(GetOrderBondsBookcmd, "@customerId", DbType.Int32, customerId);
+                dsOrderBondsBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetOrderBondBook()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrderBondsBook;
+        }
+
+        public DataSet GetNomineeJointHolder(int customerId)
+        {
+            DataSet dsGetNomineeJointHolder;
+            Database db;
+            DbCommand GetNomineeJointHoldercmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNomineeJointHoldercmd = db.GetStoredProcCommand("SPROC_ONL_GetNomineeJointHolder");
+                db.AddInParameter(GetNomineeJointHoldercmd, "@customerId", DbType.Int32, customerId);
+                dsGetNomineeJointHolder = db.ExecuteDataSet(GetNomineeJointHoldercmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetNomineeJointHolder()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetNomineeJointHolder;
+        }
         public void CancelBondsBookOrder(string id)
         {
             Database db;

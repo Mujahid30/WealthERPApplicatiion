@@ -23,19 +23,26 @@ namespace WealthERP.OnlineOrderManagement
     {
 
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
-
+        AdvisorVo advisorVo = new AdvisorVo();
+        CustomerVo customerVo = new CustomerVo();
+        int adviserId;
+        int customerId;
         protected void Page_Load(object sender, EventArgs e)
         {
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            customerVo = (CustomerVo)Session["customerVo"];
+            adviserId = advisorVo.advisorId;
+            customerId = customerVo.CustomerId;
             if (!IsPostBack)
             {
-                Session["CustId"] = "123456";
+                //Session["CustId"] = "123456";
                 BindStructureRuleGrid();
                 BindDropDownListIssuer();
             }
         }
         protected void BindStructureRuleGrid()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserCommissionStructureRules(1, "2");
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId);
             if (dsStructureRules.Tables[0].Rows.Count > 0)
                 ibtExportSummary.Visible = true;
             else
@@ -46,12 +53,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindDropDownListIssuer()
         {
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
-            DataSet dsStructureRules = OnlineBondBo.GetLookupDataForReceivableSetUP(7, "9");
-
+            DataSet dsStructureRules = OnlineBondBo.GetBindIssuerList();
             ddlListOfBonds.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerName"].ToString();
             ddlListOfBonds.DataValueField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
             ddlListOfBonds.DataSource = dsStructureRules.Tables[0];
-            ddlListOfBonds.DataBind();
+            ddlListOfBonds.DataBind(); 
         }
         protected void llPurchase_Click(object sender, EventArgs e)
         {
@@ -60,14 +66,15 @@ namespace WealthERP.OnlineOrderManagement
             LinkButton lbButton = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lbButton.NamingContainer;
             string IssuerId = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFIIM_IssuerId"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','IssuerId=" + IssuerId + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','?IssuerId=" + IssuerId + "');", true);
 
         }
         protected void btnEquityBond_Click(object sender, EventArgs e)
-        {
-            string CustId = Session["CustId"].ToString();
+        {   
+            //string CustId = Session["CustId"].ToString();
             string IssuerId = ddlListOfBonds.SelectedValue.ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','CustId=" + CustId + "'&'IssuerId=" + IssuerId + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','?customerId=" + customerId + "?IssuerId=" + IssuerId + " ');", true);
+           
 
         }
     }

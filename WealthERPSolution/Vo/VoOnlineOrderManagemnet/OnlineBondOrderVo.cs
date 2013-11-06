@@ -8,19 +8,18 @@ namespace VoOnlineOrderManagemnet
     public class OnlineBondOrderVo
     {
 
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         public int PFISM_SchemeId { get; set; }
         public int PFISD_SeriesId { get; set; }
 
 
         public string PFIIM_IssuerId { get; set; }
-        public string PFISD_Tenure { get; set; }
-        public string PFISD_CouponRate { get; set; }
+        public int PFISD_Tenure { get; set; }
+        public double PFISD_CouponRate { get; set; }
         public string PFISD_CouponFreq { get; set; }
         public string PFISD_RenewCouponRate { get; set; }
 
-        public decimal AIM_FaceValue { get; set; }
-
+        public double AIM_FaceValue { get; set; }
         public string PFISD_DefaultInterestRate { get; set; }
         public string PFISD_YieldUpto { get; set; }
         public string PFISD_YieldatBuyBack { get; set; }
