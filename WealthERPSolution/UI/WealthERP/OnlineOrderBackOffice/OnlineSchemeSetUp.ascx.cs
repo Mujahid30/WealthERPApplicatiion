@@ -1275,7 +1275,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlScategory.SelectedValue = "0";
+                ddlScategory.SelectedValue = "Select";
             }
             BindSubSubCategory(ddlcategory.SelectedValue, ddlScategory.SelectedValue);
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubSubCategory))
@@ -1307,7 +1307,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlSctype.SelectedValue = "0";
+                ddlSctype.SelectedValue = "Select";
             }
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeOption))
             {
@@ -1315,7 +1315,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlOption.SelectedValue = "0";
+                ddlOption.SelectedValue = "Select";
             }
 
             //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
@@ -1333,7 +1333,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlRT.SelectedValue = "0";
+                ddlRT.SelectedValue = "Select";
             }
 
             if (!string.IsNullOrEmpty(txtACno.Text))
