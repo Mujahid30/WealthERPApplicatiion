@@ -1353,6 +1353,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
             }
+            if (!string.IsNullOrEmpty(txtInitalPamount.Text))
+            {
+                OnlineOrderBackOfficeVo.InitialPurchaseAmount =Convert.ToDouble(txtInitalPamount.Text.ToString());
+            }
+            else
+            {
+                txtInitalPamount.Text = "0";
+            }
             if (!string.IsNullOrEmpty(txtIMultipleamount.Text))
             {
                 OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text.ToString());
@@ -1432,6 +1440,22 @@ namespace WealthERP.OnlineOrderBackOffice
             else
             {
                 txtSwitchMultipleUnits.Text = "0";
+            }
+            if (!string.IsNullOrEmpty(txtMinSwitchUnits.Text))
+            {
+                OnlineOrderBackOfficeVo.MinSwitchUnits =Convert.ToInt32(txtMinSwitchUnits.Text.ToString());
+            }
+            else
+            {
+                txtMinSwitchUnits.Text = "0";
+            }
+            if (!string.IsNullOrEmpty(txtinvestment.Text))
+            {
+                OnlineOrderBackOfficeVo.PASPD_MaxInvestment =Convert.ToDouble(txtinvestment.Text.ToString());
+            }
+            else
+            {
+                txtinvestment.Text = "0";
             }
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.FaceValue.ToString()))
             {
