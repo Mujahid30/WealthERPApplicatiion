@@ -216,6 +216,15 @@ namespace WealthERP.OnlineOrderBackOffice
             #region ExportDataTabletoFile
             StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
+            if (rtaType != "CA") {
+                string Columns = string.Empty;
+                foreach (DataColumn column in dtOrderExtract.Columns)
+                {
+                    Columns += column.ColumnName + "|";
+                }
+                str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+            }
+
             DataColumn[] arrCols =  new DataColumn[dtOrderExtract.Columns.Count];
             dtOrderExtract.Columns.CopyTo(arrCols, 0);
             foreach (DataRow datarow in dtOrderExtract.Rows)
