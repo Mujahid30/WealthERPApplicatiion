@@ -557,6 +557,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
+                
                 txtScname.Enabled = false;
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
@@ -584,7 +585,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ChkISSTP.Enabled = true;
                 ChkISSwitch.Enabled = true;
                 ChkISSWP.Enabled = true;
-                ddlSchemeList.Enabled = true;
+                ddlSchemeList.Enabled = false;
                 ChkISactive.Enabled = false;
                 txtInitalPamount.Enabled = true;
                 txtIMultipleamount.Enabled = true;
@@ -596,7 +597,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtMinSwitchUnits.Enabled = true;
                 txtRedemptionMultiplesUnits.Enabled = true;
                 txtSecuritycode.Enabled = true;
-                ddlRT.Enabled = true;
+                ddlRT.Enabled = false;
                 txtinvestment.Enabled = true;
                 txtESSchemecode.Enabled = true;
                 ddlGenerationfreq.Enabled = true;
@@ -605,6 +606,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnupdate.Visible = true;
                 tblMessage.Visible =false;
                 lbBack.Visible = false;
+
             }
 
         }
@@ -1252,7 +1254,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 Clearallcontrols();
             }
         }
-
+        protected void oncheckedOnlin_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (chkonline.Checked)
+            {
+                schemedetails.Visible = true;
+            }
+            else
+            {
+                schemedetails.Visible = false;
+            }
+        }
         protected void btnUpdate_click(object sender, EventArgs e)
         {
             string message = string.Empty;
@@ -1345,15 +1357,28 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtACno.Text = "0";
             }
 
-            if (txtNFOStartDate!=null)
-            {
-               
-                OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
-            }
-            if (txtNFOendDate!=null)
-            {
-                OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
-            }
+            if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
+                txtNFOStartDate.SelectedDate = OnlineOrderBackOfficeVo.NFOStartDate;
+            //if (txtNFOStartDate != null)
+            //{
+
+            //    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+            //}
+            //if (txtNFOStartDate.SelectedDate<DateTime.MinValue)
+            //{
+            //    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+
+            //}
+            //else
+            //{
+            //    txtNFOStartDate.SelectedDate = null; 
+            //}
+            if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+                txtNFOStartDate.SelectedDate = OnlineOrderBackOfficeVo.NFOEndDate;
+            //if (txtNFOendDate!=null)
+            //{
+            //    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+            //}
             if (!string.IsNullOrEmpty(txtInitalPamount.Text))
             {
                 OnlineOrderBackOfficeVo.InitialPurchaseAmount =Convert.ToDouble(txtInitalPamount.Text.ToString());
@@ -1621,7 +1646,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkonline.Checked = false;
                 chkoffline.Checked = true;
             }
+            if (ChkNRI.Checked)
+            {
+                OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NRI";
+               
 
+            }
+            if (ChkBO.Checked)
+            {
+                OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
+                
+            }
             txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
 
             //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))

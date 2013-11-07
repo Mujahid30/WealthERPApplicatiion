@@ -159,10 +159,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + " ');", true);
                 }
-                else
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Is InActive Scheme !!');", true);
-                }
+                //else
+                //{
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Is InActive Scheme !!');", true);
+                //}
             }
             if (ddlAction.SelectedItem.Value.ToString() == "Edit")
             {
