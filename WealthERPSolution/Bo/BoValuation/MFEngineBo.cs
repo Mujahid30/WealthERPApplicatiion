@@ -1398,7 +1398,8 @@ namespace BoValuation
 
 
                         drMFNetPosition["CMFNP_TAX_Hold_BalanceAmt"] = totalDiv;
-                        if (Math.Round(openUnits, 1) != 0)
+                        //Open units with fraction value issue 
+                        if (Math.Round(openUnits, 4) != 0)
                         {
                             currentValue = (!string.IsNullOrEmpty(Convert.ToString(dtMFTransactionBalance.Rows[0]["NAV"])) ? (Convert.ToDouble(dtMFTransactionBalance.Rows[0]["NAV"].ToString()) * openUnits) : returnInvestedCost);
                         }
