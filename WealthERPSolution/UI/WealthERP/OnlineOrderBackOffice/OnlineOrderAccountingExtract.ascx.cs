@@ -131,8 +131,8 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if(FileID==39)
             {
-                filename = "HDFCPAY" + DD + MM + ".txt";
-                delimeter = "        ";
+                filename = "HDFCPAY" + MM + DD + ".txt";
+                delimeter = " ";
             }
             else if(FileID==40)
             {
@@ -141,7 +141,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if(FileID==41)
             {
-                filename = "eMF-Executed" + DD + MM + YYYY + ".txt";
+                filename = "eMF-Executed" + MM + DD + YYYY + ".txt";
                 delimeter = "|";
             }
             else if (FileID == 42)
@@ -185,7 +185,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     string row = string.Empty;
                     foreach (object items in datarow.ItemArray)
                     {
-                        row += items.ToString() + delimeter;
+                        row += items.ToString().Trim() + delimeter;
                     }
                     str.WriteLine(row.Remove(row.Length - 1, 1));
                 }
