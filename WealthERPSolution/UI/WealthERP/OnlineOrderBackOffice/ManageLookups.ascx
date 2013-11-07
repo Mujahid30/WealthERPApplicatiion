@@ -184,22 +184,35 @@
                                     <FormTemplate>
                                         <table cellspacing="2" cellpadding="2" width="100%">
                                             <tr>
-                                                <td colspan="5" class="tdSectionHeading">
+                                                <td colspan="2" class="tdSectionHeading">
                                                     <div class="divSectionHeading" style="vertical-align: text-bottom">
-                                                        <div class="fltlft" style="width: 200px;">
+                                                        <div class="fltlft" style="width: 250px;">
                                                             &nbsp;
                                                             <asp:Label ID="lblNewWERPname" runat="server" Text="Internal Name"></asp:Label>
                                                             <asp:TextBox ID="txtNewWERPName" runat="server" CssClass="txtField"></asp:TextBox>
-                                                            <span id="Span6" class="spnRequiredField">*</span>
+                                                            <span id="Span6" class="spnRequiredField">*</span> &nbsp; &nbsp; &nbsp; &nbsp;
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txtNewWERPName"
-                                                                ErrorMessage="<br />Please enter a Name" Display="Dynamic" CssClass="rfvPCG"
-                                                                runat="server" InitialValue="" ValidationGroup="Button1">
+                                                                ErrorMessage="<br />Please Enter a Name" Display="Dynamic" CssClass="rfvPCG"
+                                                                runat="server" InitialValue="" ValidationGroup="btnOK">
                                                             </asp:RequiredFieldValidator>
-                                                            <asp:Button ID="Button1" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update" />
-                                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                                CommandName="Cancel"></asp:Button>
                                                         </div>
                                                     </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                        CausesValidation="True" ValidationGroup="btnOK" />
+                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                    &nbsp; &nbsp; &nbsp;
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    &nbsp;
                                                 </td>
                                             </tr>
                                         </table>
@@ -237,15 +250,16 @@
             <tr>
                 <td>
                     <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
-                        <telerik:RadGrid ID="rgMaping" runat="server" CssClass="RadGrid" GridLines="Both"
+                        <telerik:RadGrid ID="rgMaping" runat="server" CssClass="RadGrid" GridLines="None"
                             AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
-                            ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+                            ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
                             AllowFilteringByColumn="true" AllowAutomaticUpdates="false" Skin="Telerik" Width="100%"
                             OnUpdateCommand="rgMaping_UpdateCommand" OnNeedDataSource="rgMaping_NeedDataSource"
-                            OnItemDataBound="rgMaping_ItemDataBound">
+                            OnItemDataBound="rgMaping_ItemDataBound" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
                             <MasterTableView DataKeyNames="WCMVXM_Id" Width="120%" AllowMultiColumnSorting="True"
-                                AutoGenerateColumns="false" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                                EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New External Code Values">
+                                GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true" AutoGenerateColumns="false"
+                                CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" EditMode="PopUp" GroupLoadMode="Client"
+                                CommandItemSettings-AddNewRecordText="Create New External Code Values">
                                 <Columns>
                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false">
                                         <HeaderTemplate>
@@ -332,12 +346,16 @@
                                                         CssClass="PCGButton" CommandName="Cancel"></asp:Button>
                                                 </td>
                                             </tr>
-                                            <%-- <tr>
-                                                <td class="leftLabel">
+                                            <tr>
+                                                <td colspan="2">
+                                                    &nbsp;&nbsp;&nbsp;
                                                 </td>
-                                                <td class="rightData">
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    &nbsp;&nbsp;&nbsp;
                                                 </td>
-                                            </tr>--%>
+                                            </tr>
                                         </table>
                                     </FormTemplate>
                                 </EditFormSettings>
