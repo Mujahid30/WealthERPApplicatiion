@@ -31,8 +31,7 @@
         <td align="right" >
             <asp:Label ID="lblproduct" CssClass="FieldName" runat="server" Text="Product" valign="top" ></asp:Label>
               </td><td >
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
-                >
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField">
                 <Items>
                   <asp:ListItem Text="Select" Value="Select" Selected="true" />
                   <asp:ListItem Text="Mutual Funds"  Value="MF"/>
@@ -46,8 +45,7 @@
             <asp:Label ID="lblTosee" CssClass="FieldName" runat="server" Text="Do You Wish To See" ></asp:Label>
               </td>
               <td align="left">
-            <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField" AutoPostBack="true"
-                >
+            <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField">
                 <Items>
                   <asp:ListItem Text="Both" Value="2" Selected="true" />
                   <asp:ListItem Text="Online Scheme" Value="1" />
