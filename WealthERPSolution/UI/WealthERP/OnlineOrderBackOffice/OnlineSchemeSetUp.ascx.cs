@@ -1345,11 +1345,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtACno.Text = "0";
             }
 
-            if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
+            if (txtNFOStartDate!=null)
             {
+               
                 OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
             }
-            if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+            if (txtNFOendDate!=null)
             {
                 OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
             }
@@ -1517,54 +1518,62 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtExitLoad.Text = "0";
             }
-            if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
+            if (ChkISPurchage.Checked)
             {
-                ChkISPurchage.Checked = true;
+                OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
             }
             else
             {
-                ChkISPurchage.Checked = false;
+                OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
             }
-            if (OnlineOrderBackOfficeVo.IsRedeemAvailable == 1)
+            //if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
+            //{
+            //     = true;
+            //}
+            //else
+            //{
+            //    ChkISPurchage.Checked = false;
+            //}
+            if (ChkISRedeem.Checked)
             {
-                ChkISRedeem.Checked = true;
+                OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
             }
 
             else
             {
-                ChkISRedeem.Checked = false;
+               OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
             }
-            if (OnlineOrderBackOfficeVo.IsSIPAvailable == 1)
+            if (ChkISSIP.Checked)
             {
-                ChkISSIP.Checked = true;
-            }
-            else
-            {
-                ChkISSIP.Checked = false;
-            }
-            if (OnlineOrderBackOfficeVo.IsSTPAvailable == 1)
-            {
-                ChkISSTP.Checked = true;
+                OnlineOrderBackOfficeVo.IsSIPAvailable =1;
             }
             else
             {
-                ChkISSTP.Checked = false;
+                OnlineOrderBackOfficeVo.IsSIPAvailable =0;
             }
-            if (OnlineOrderBackOfficeVo.IsSwitchAvailable == 1)
+            if (ChkISSTP.Checked)
             {
-                ChkISSwitch.Checked = true;
-            }
-            else
-            {
-                ChkISSwitch.Checked = false;
-            }
-            if (OnlineOrderBackOfficeVo.IsSWPAvailable == 1)
-            {
-                ChkISSWP.Checked = true;
+                OnlineOrderBackOfficeVo.IsSTPAvailable =1;
             }
             else
             {
-                ChkISSWP.Checked = false;
+                OnlineOrderBackOfficeVo.IsSTPAvailable =0;
+            }
+            if (ChkISSwitch.Checked)
+            {
+                OnlineOrderBackOfficeVo.IsSwitchAvailable =1;
+            }
+            else
+            {
+                OnlineOrderBackOfficeVo.IsSwitchAvailable =0;
+            }
+            if (ChkISSWP.Checked)
+            {
+                OnlineOrderBackOfficeVo.IsSWPAvailable =1;
+            }
+            else
+            {
+                OnlineOrderBackOfficeVo.IsSWPAvailable =0;
             }
             if (OnlineOrderBackOfficeVo.Status == "Active")
             {
@@ -1612,6 +1621,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkonline.Checked = false;
                 chkoffline.Checked = true;
             }
+
             txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
 
             //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
@@ -1630,7 +1640,20 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtBranch.Text = "0";
             }
-
+            if (!string.IsNullOrEmpty(txtHH.Text) && (!string.IsNullOrEmpty(txtMM.Text)) && (!string.IsNullOrEmpty(txtSS.Text)))
+            {
+                string Time = (txtHH.Text + ':' + txtMM.Text + ':' + txtSS.Text);
+                if (Time != null || Time == "")
+                {
+                    TimeSpan CutOff = TimeSpan.Parse(Time);
+                    OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                }
+                else
+                {
+                    TimeSpan CutOff = TimeSpan.Parse("00:00:00");
+                    OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                }
+            }
             bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo, schemeplancode);
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Successfully Updated!!');", true);
             message = CreateUserMessage(schemeplancode);
