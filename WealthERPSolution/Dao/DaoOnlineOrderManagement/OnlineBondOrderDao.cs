@@ -45,7 +45,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId)
+        public DataSet GetAdviserIssuerList(int adviserId, string IssuerId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -56,7 +56,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetIssuerlist");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
-                //db.AddInParameter(cmdGetCommissionStructureRules, "@ReportType", DbType.Int32, adviserId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
@@ -205,6 +205,37 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
+        public DataSet GetIssueDetail(string IssuerId)
+        {
+            Database db;
+            DbCommand cmdGetIssueDetail;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdGetIssueDetail = db.GetStoredProcCommand("SPROC_ONL_GetIssueDetail");
+                db.AddInParameter(cmdGetIssueDetail, "@IssuerId", DbType.String, IssuerId);
+                ds = db.ExecuteDataSet(cmdGetIssueDetail);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetIssueDetail()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+
         public bool UpdateOnlineBondTransact(DataTable BondORder)
         {
             Database db;

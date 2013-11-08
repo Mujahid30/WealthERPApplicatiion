@@ -34,11 +34,7 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
 
-                BindKYCDetailDDl();
-                if (Request.QueryString["customerId"] != null)
-                {
-                    customerId = int.Parse((Request.QueryString["customerId"]).ToString());
-                }
+                BindKYCDetailDDl();              
                   
                 if (Request.QueryString["IssuerId"] != null)
                 {
@@ -52,10 +48,14 @@ namespace WealthERP.OnlineOrderManagement
                 else
                 {
                     BindDropDownListIssuer();
-                    lblIssuer.Text = "Kindly Select Issue Name";
+                    lblIssuer.Text = "Kindly Select Issue Name:";
                     btnConfirm.Enabled = true;
                 }
 
+            }
+            if (Request.QueryString["customerId"] != null)
+            {
+                customerId = Convert.ToInt32(Request.QueryString["customerId"].ToString());
             }
         }
         protected void btnConfirm_Click(object sender, EventArgs e)

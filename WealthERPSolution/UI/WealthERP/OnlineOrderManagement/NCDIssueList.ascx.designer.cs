@@ -8,13 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OnlineOrderManagement
-{
-
-
-    public partial class NCDIssueList
-    {
-
+namespace WealthERP.OnlineOrderManagement {
+    
+    
+    public partial class NCDIssueList {
+        
         /// <summary>
         /// scrptMgr control.
         /// </summary>
@@ -23,7 +21,7 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
-
+        
         /// <summary>
         /// ibtExportSummary control.
         /// </summary>
@@ -32,7 +30,16 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
-
+        
+        /// <summary>
+        /// lbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl;
+        
         /// <summary>
         /// ddlListOfBonds control.
         /// </summary>
@@ -41,7 +48,7 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlListOfBonds;
-
+        
         /// <summary>
         /// btnEquityBond control.
         /// </summary>
@@ -50,27 +57,9 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEquityBond;
-
+        
         /// <summary>
-        /// tblCommissionStructureRule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
-
-        /// <summary>
-        /// pnlGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlGrid;
-
-        /// <summary>
-        /// gvCommMgmt control.
+        /// gvCustomers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
