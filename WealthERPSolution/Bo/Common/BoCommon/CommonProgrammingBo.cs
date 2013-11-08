@@ -53,7 +53,7 @@ namespace BoCommon
            }
            else if (FileID == 42)
            {
-               filename = "SSL104" + DD + MM + ".txt";
+               filename = "(SSL104)" + DD + MM + ".txt";
                delimeter = ",";
            }
 
