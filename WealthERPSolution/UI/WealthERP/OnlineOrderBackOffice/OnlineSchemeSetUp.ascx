@@ -136,7 +136,7 @@
         </td>
         <td>
             <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online Scheme"
-                CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
+                CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>
         </td>
         <td align="right">
             <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>

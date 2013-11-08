@@ -144,10 +144,18 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetSchemeMISCmd = db.GetStoredProcCommand("SPROC_GetProductAMCSchemePlanDetails");
+                //if (Assettype == "All")
+                //{
+                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, null);
+                //}
+                //else
+                //{
+                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, Assettype);
+                //}
                 db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, Assettype);
-                if (Onlinetype !=0)
+                if (Onlinetype ==2)
                 {
-                    db.AddInParameter(GetSchemeMISCmd, "@onlinetype", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(GetSchemeMISCmd, "@onlinetype", DbType.Int32, Onlinetype);
 
                 }
                 else

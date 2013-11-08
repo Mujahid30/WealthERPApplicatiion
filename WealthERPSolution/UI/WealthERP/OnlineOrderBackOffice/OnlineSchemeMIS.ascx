@@ -33,9 +33,9 @@
               </td><td >
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField">
                 <Items>
-                  <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                  <asp:ListItem Text="Select" Value="Select" Selected="false" />
                   <asp:ListItem Text="Mutual Funds"  Value="MF"/>
-                  <asp:ListItem Text="Bonds" value="Bonds"/>
+                  <asp:ListItem Text="Bonds" value="BO"/>
                   
                 </Items>
                                           
@@ -47,7 +47,7 @@
               <td align="left">
             <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField">
                 <Items>
-                  <asp:ListItem Text="Both" Value="2" Selected="true" />
+                  <asp:ListItem Text="Both" Value="2" />
                   <asp:ListItem Text="Online Scheme" Value="1" />
                   <asp:ListItem Text="Offline Scheme" Value="0"/>
                  <%-- <asp:ListItem Text="Both" Value="Both"/>--%>
@@ -125,7 +125,7 @@
                                 SortExpression="PASP_SchemePlanName" FilterControlWidth="250px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="290px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="Online/Offline"
+                             <telerik:GridBoundColumn DataField="PASP_IsOnline" UniqueName="PASP_IsOnline" HeaderText="IsOnline Available"
                                 SortExpression="PASP_IsOnline" AutoPostBackOnFilter="true" HeaderStyle-Width="100px"
                                 FilterControlWidth="80px" CurrentFilterFunction="Contains" ShowFilterIcon="false">
                                 <ItemStyle Width="80px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
@@ -152,8 +152,7 @@
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
-                    <ClientSettings>
-             <Scrolling AllowScroll="true" UseStaticHeaders="false" ScrollHeight="388px" />
+                    <ClientSettings>             
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                     </ClientSettings>

@@ -6,9 +6,11 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+
+
 using BoCommon;
 using BoOnlineOrderManagement;
-using Microsoft.ApplicationBlocks.ExceptionManagement;
 using Telerik.Web.UI;
 using VoUser;
 using VoOnlineOrderManagemnet;
@@ -44,7 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     hdnAssettype.Value = "0";
                 }
 
-                if (ddlTosee.SelectedIndex != 0)
+                if (ddlTosee.SelectedIndex == 0 || ddlTosee.SelectedIndex == 1)
                 {
                     hdnIsonline.Value = ddlTosee.SelectedValue;
                     ViewState["Isonline"] = hdnIsonline.Value;
@@ -97,8 +99,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    SchemeMIS.Visible = false;
-                    pnlSchemeMIS.Visible = false;
+                    gvonlineschememis.DataSource = dtschememis;
+                    gvonlineschememis.DataBind();
+                    SchemeMIS.Visible = true;
+                    pnlSchemeMIS.Visible = true;
                 }
             }
             catch (BaseApplicationException Ex)

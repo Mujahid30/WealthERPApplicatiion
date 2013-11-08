@@ -1081,6 +1081,8 @@ namespace BoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineSchemeSetUp.cs:UpdateSchemeSetUpDetail()");
                 object[] objects = new object[3];
+                objects[0] = OnlineOrderBackOfficeVo;
+                objects[1] = SchemePlanCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

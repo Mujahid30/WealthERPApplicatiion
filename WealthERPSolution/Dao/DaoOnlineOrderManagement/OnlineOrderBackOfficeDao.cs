@@ -287,21 +287,21 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AccountNumber", DbType.String, OnlineOrderBackOfficeVo.AccountNumber);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_Branch", DbType.String, OnlineOrderBackOfficeVo.Branch);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsNFO", DbType.Int32, OnlineOrderBackOfficeVo.IsNFO);
-                if (OnlineOrderBackOfficeVo.NFOStartDate != null)
+                if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
                 {
                     db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOStartDate", DbType.DateTime, OnlineOrderBackOfficeVo.NFOStartDate);
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.MinValue;
+                    db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOStartDate", DbType.DateTime, DBNull.Value);
                 }
-                if (OnlineOrderBackOfficeVo.NFOEndDate != null)
+                if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
                 {
                     db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOEndDate", DbType.DateTime, OnlineOrderBackOfficeVo.NFOEndDate);
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.MinValue;
+                    db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOEndDate", DbType.DateTime, DBNull.Value);
                 }
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_LockInPeriod", DbType.Int32, OnlineOrderBackOfficeVo.LockInPeriod);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_CutOffTime", DbType.String, OnlineOrderBackOfficeVo.CutOffTime.ToString());
@@ -1118,7 +1118,6 @@ namespace DaoOnlineOrderManagement
                 object[] objects = new object[3];
                 objects[0] = OnlineOrderBackOfficeVo;
                 objects[1] = SchemePlanCode;
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

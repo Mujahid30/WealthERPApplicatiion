@@ -5,20 +5,21 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-using BoCommon;
-using VoUser;
 using System.Configuration;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
-using BoCustomerPortfolio;
+using System.Text.RegularExpressions;
 using System.Globalization;
+using BoCommon;
+using VoUser;
+
+using BoCustomerPortfolio;
 using BoCustomerProfiling;
 using WealthERP.Base;
 using BoProductMaster;
 using BoWerpAdmin;
 using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
-using System.Text.RegularExpressions;
 
 
 namespace WealthERP.OnlineOrderBackOffice
@@ -1267,434 +1268,460 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnUpdate_click(object sender, EventArgs e)
         {
-            string message = string.Empty;
-            OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
-            OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+            try
+            {
+                string message = string.Empty;
+                OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
+                OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetCategoryCode))
-            {
-                OnlineOrderBackOfficeVo.AssetCategoryCode = ddlcategory.SelectedValue;
-            }
-            else
-            {
-                ddlcategory.SelectedValue = "0";
-            }
-
-
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubCategoryCode))
-            {
-                OnlineOrderBackOfficeVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
-            }
-            else
-            {
-                ddlScategory.SelectedValue = "Select";
-            }
-            BindSubSubCategory(ddlcategory.SelectedValue, ddlScategory.SelectedValue);
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubSubCategory))
-            {
-                OnlineOrderBackOfficeVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
-            }
-            else
-            {
-                ddlSScategory.SelectedValue = "0";
-            }
-
-            //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.DividendFrequency))
-            //{
-            //    OnlineOrderBackOfficeVo.DividendFrequency = ddlDFrequency.SelectedValue;
-            //}
-            //else
-            //{
-            //    ddlDFrequency.SelectedValue = "0";
-            //}
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.WERPBM_BankCode))
-            {
-                OnlineOrderBackOfficeVo.WERPBM_BankCode = ddlBname.SelectedValue;
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeType))
-            {
-                ddlSctype.Enabled = true;
-                OnlineOrderBackOfficeVo.SchemeType = ddlSctype.SelectedValue;
-                ddlSctype.Enabled = false;
-            }
-            else
-            {
-                ddlSctype.SelectedValue = "Select";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeOption))
-            {
-                OnlineOrderBackOfficeVo.SchemeOption = ddlOption.SelectedValue;
-            }
-            else
-            {
-                ddlOption.SelectedValue = "Select";
-            }
-
-            //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
-            //{
-            //    OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
-
-            //}
-            //else
-            //{
-            //    ddlGenerationfreq.SelectedValue = "0";
-            //}
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
-            {
-                OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue;
-            }
-            else
-            {
-                ddlRT.SelectedValue = "Select";
-            }
-
-            if (!string.IsNullOrEmpty(txtACno.Text))
-            {
-                OnlineOrderBackOfficeVo.AccountNumber = txtACno.Text;
-            }
-            else
-            {
-                txtACno.Text = "0";
-            }
-
-            if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
-                txtNFOStartDate.SelectedDate = OnlineOrderBackOfficeVo.NFOStartDate;
-            //if (txtNFOStartDate != null)
-            //{
-
-            //    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
-            //}
-            //if (txtNFOStartDate.SelectedDate<DateTime.MinValue)
-            //{
-            //    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
-
-            //}
-            //else
-            //{
-            //    txtNFOStartDate.SelectedDate = null; 
-            //}
-            if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
-                txtNFOStartDate.SelectedDate = OnlineOrderBackOfficeVo.NFOEndDate;
-            //if (txtNFOendDate!=null)
-            //{
-            //    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
-            //}
-            if (!string.IsNullOrEmpty(txtInitalPamount.Text))
-            {
-                OnlineOrderBackOfficeVo.InitialPurchaseAmount =Convert.ToDouble(txtInitalPamount.Text.ToString());
-            }
-            else
-            {
-                txtInitalPamount.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtIMultipleamount.Text))
-            {
-                OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text.ToString());
-            }
-            else
-            {
-                txtIMultipleamount.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtAdditional.Text))
-            {
-                OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(txtAdditional.Text.ToString());
-            }
-            else
-            {
-                txtAdditional.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AdditionalMultipleAmount.ToString()))
-            {
-                OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text.ToString());
-            }
-            else
-            {
-                txtAddMultipleamount.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinRedemptionAmount.ToString()))
-            {
-                OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text.ToString());
-            }
-            else
-            {
-                txtMinRedemption.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtRedemptionmultiple.Text))
-            {
-                OnlineOrderBackOfficeVo.RedemptionMultipleAmount = Convert.ToDouble(txtRedemptionmultiple.Text.ToString());
-            }
-            else
-            {
-                txtRedemptionmultiple.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinRedemptionUnits.ToString()))
-            {
-                OnlineOrderBackOfficeVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text.ToString());
-            }
-            else
-            {
-                txtMinRedemptioUnits.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.RedemptionMultiplesUnits.ToString()))
-            {
-                OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text.ToString());
-            }
-            else
-            {
-                txtRedemptionMultiplesUnits.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinSwitchAmount.ToString()))
-            {
-                OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text.ToString());
-            }
-            else
-            {
-                txtMinSwitchAmount.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtSwitchMultipleAmount.Text))
-            {
-                OnlineOrderBackOfficeVo.SwitchMultipleAmount = Convert.ToDouble(txtSwitchMultipleAmount.Text.ToString());
-            }
-            else
-            {
-                txtSwitchMultipleAmount.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtSwitchMultipleUnits.Text))
-            {
-                OnlineOrderBackOfficeVo.SwitchMultiplesUnits = Convert.ToInt32(txtSwitchMultipleUnits.Text.ToString());
-            }
-            else
-            {
-                txtSwitchMultipleUnits.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtMinSwitchUnits.Text))
-            {
-                OnlineOrderBackOfficeVo.MinSwitchUnits =Convert.ToInt32(txtMinSwitchUnits.Text.ToString());
-            }
-            else
-            {
-                txtMinSwitchUnits.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtinvestment.Text))
-            {
-                OnlineOrderBackOfficeVo.PASPD_MaxInvestment =Convert.ToDouble(txtinvestment.Text.ToString());
-            }
-            else
-            {
-                txtinvestment.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.FaceValue.ToString()))
-            {
-                OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(txtFvale.Text.ToString());
-            }
-            else
-            {
-                txtFvale.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.LockInPeriod.ToString()))
-            {
-                OnlineOrderBackOfficeVo.LockInPeriod = Convert.ToInt32(txtLIperiod.Text.ToString());
-            }
-            else
-            {
-                txtLIperiod.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString()))
-            {
-                OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text.ToString());
-            }
-            else
-            {
-                txtEload.Text = "0";
-            }
-
-            if (OnlineOrderBackOfficeVo.AMCCode != 0)
-            {
-
-                OnlineOrderBackOfficeVo.AMCCode = Convert.ToInt32(ddlAmc.SelectedValue.ToString());
-            }
-            else
-            {
-                ddlAmc.SelectedValue = "0";
-            }
-
-            if (!string.IsNullOrEmpty(txtExitLoad.Text))
-            {
-                OnlineOrderBackOfficeVo.EntryLoadRemark = txtELremark.Text;
-            }
-            else
-            {
-                txtELremark.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExitLoadPercentage.ToString()))
-            {
-                OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text.ToString());
-            }
-            else
-            {
-                txtExitLoad.Text = "0";
-            }
-
-            if (!string.IsNullOrEmpty(txtExitLoad.Text))
-            {
-                OnlineOrderBackOfficeVo.ExitLoadRemark = txtExitLoad.Text;
-            }
-            else
-            {
-                txtExitLoad.Text = "0";
-            }
-            if (ChkISPurchage.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
-            }
-            //if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
-            //{
-            //     = true;
-            //}
-            //else
-            //{
-            //    ChkISPurchage.Checked = false;
-            //}
-            if (ChkISRedeem.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
-            }
-
-            else
-            {
-               OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
-            }
-            if (ChkISSIP.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsSIPAvailable =1;
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.IsSIPAvailable =0;
-            }
-            if (ChkISSTP.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsSTPAvailable =1;
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.IsSTPAvailable =0;
-            }
-            if (ChkISSwitch.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsSwitchAvailable =1;
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.IsSwitchAvailable =0;
-            }
-            if (ChkISSWP.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsSWPAvailable =1;
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.IsSWPAvailable =0;
-            }
-            if (OnlineOrderBackOfficeVo.Status == "Active")
-            {
-                ChkISactive.Checked = true;
-            }
-            else
-            {
-                ChkISactive.Checked = false;
-            }
-            if (!string.IsNullOrEmpty(txtSecuritycode.Text))
-            {
-                OnlineOrderBackOfficeVo.SecurityCode = txtSecuritycode.Text;
-            }
-            else
-            {
-                txtSecuritycode.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
-            {
-                OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue.ToString();
-            }
-            if (chkInfo.Checked)
-            {
-                OnlineOrderBackOfficeVo.IsNFO = 1;
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.IsNFO = 0;
-            }
-            if (ChkISactive.Checked)
-            {
-                OnlineOrderBackOfficeVo.Status = "Active";
-            }
-            else
-            {
-                OnlineOrderBackOfficeVo.Status = "Liquidated";
-            }
-            if (OnlineOrderBackOfficeVo.IsOnline == 1)
-            {
-                chkonline.Checked = true;
-                chkoffline.Checked = false;
-            }
-            else
-            {
-                chkonline.Checked = false;
-                chkoffline.Checked = true;
-            }
-            if (ChkNRI.Checked)
-            {
-                OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NRI";
-               
-
-            }
-            if (ChkBO.Checked)
-            {
-                OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
-                
-            }
-            txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
-
-            //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
-            //{
-            OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
-            //}
-            //else
-            //{
-            //    ddlGenerationfreq.SelectedValue="0";
-            //}
-            if (!string.IsNullOrEmpty(txtBranch.Text))
-            {
-                OnlineOrderBackOfficeVo.Branch = txtBranch.Text;
-            }
-            else
-            {
-                txtBranch.Text = "0";
-            }
-            if (!string.IsNullOrEmpty(txtHH.Text) && (!string.IsNullOrEmpty(txtMM.Text)) && (!string.IsNullOrEmpty(txtSS.Text)))
-            {
-                string Time = (txtHH.Text + ':' + txtMM.Text + ':' + txtSS.Text);
-                if (Time != null || Time == "")
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetCategoryCode))
                 {
-                    TimeSpan CutOff = TimeSpan.Parse(Time);
-                    OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                    OnlineOrderBackOfficeVo.AssetCategoryCode = ddlcategory.SelectedValue;
                 }
                 else
                 {
-                    TimeSpan CutOff = TimeSpan.Parse("00:00:00");
-                    OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                    ddlcategory.SelectedValue = "0";
                 }
+
+
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubCategoryCode))
+                {
+                    OnlineOrderBackOfficeVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
+                }
+                else
+                {
+                    ddlScategory.SelectedValue = "Select";
+                }
+                BindSubSubCategory(ddlcategory.SelectedValue, ddlScategory.SelectedValue);
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubSubCategory))
+                {
+                    OnlineOrderBackOfficeVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
+                }
+                else
+                {
+                    ddlSScategory.SelectedValue = "0";
+                }
+
+                //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.DividendFrequency))
+                //{
+                //    OnlineOrderBackOfficeVo.DividendFrequency = ddlDFrequency.SelectedValue;
+                //}
+                //else
+                //{
+                //    ddlDFrequency.SelectedValue = "0";
+                //}
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.WERPBM_BankCode))
+                {
+                    OnlineOrderBackOfficeVo.WERPBM_BankCode = ddlBname.SelectedValue;
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeType))
+                {
+                    ddlSctype.Enabled = true;
+                    OnlineOrderBackOfficeVo.SchemeType = ddlSctype.SelectedValue;
+                    ddlSctype.Enabled = false;
+                }
+                else
+                {
+                    ddlSctype.SelectedValue = "Select";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeOption))
+                {
+                    OnlineOrderBackOfficeVo.SchemeOption = ddlOption.SelectedValue;
+                }
+                else
+                {
+                    ddlOption.SelectedValue = "Select";
+                }
+
+                //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
+                //{
+                //    OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
+
+                //}
+                //else
+                //{
+                //    ddlGenerationfreq.SelectedValue = "0";
+                //}
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
+                {
+                    OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue;
+                }
+                else
+                {
+                    ddlRT.SelectedValue = "Select";
+                }
+
+                if (!string.IsNullOrEmpty(txtACno.Text))
+                {
+                    OnlineOrderBackOfficeVo.AccountNumber = txtACno.Text;
+                }
+                else
+                {
+                    txtACno.Text = "0";
+                }
+
+                if (!string.IsNullOrEmpty(txtNFOStartDate.SelectedDate.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+                }
+                else
+                {
+                    txtNFOStartDate.SelectedDate = null;
+                }
+                //if (txtNFOStartDate != null)
+                //{
+
+                //    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+                //}
+                if (!string.IsNullOrEmpty(txtNFOendDate.SelectedDate.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+
+                }
+                else
+                {
+                    txtNFOendDate.SelectedDate = null;
+                }
+                //if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+                //    txtNFOendDate.SelectedDate = OnlineOrderBackOfficeVo.NFOEndDate;
+                //if (txtNFOendDate!=null)
+                //{
+                //    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+                //}
+                if (!string.IsNullOrEmpty(txtInitalPamount.Text))
+                {
+                    OnlineOrderBackOfficeVo.InitialPurchaseAmount = Convert.ToDouble(txtInitalPamount.Text.ToString());
+                }
+                else
+                {
+                    txtInitalPamount.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtIMultipleamount.Text))
+                {
+                    OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text.ToString());
+                }
+                else
+                {
+                    txtIMultipleamount.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtAdditional.Text))
+                {
+                    OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(txtAdditional.Text.ToString());
+                }
+                else
+                {
+                    txtAdditional.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AdditionalMultipleAmount.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text.ToString());
+                }
+                else
+                {
+                    txtAddMultipleamount.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinRedemptionAmount.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text.ToString());
+                }
+                else
+                {
+                    txtMinRedemption.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtRedemptionmultiple.Text))
+                {
+                    OnlineOrderBackOfficeVo.RedemptionMultipleAmount = Convert.ToDouble(txtRedemptionmultiple.Text.ToString());
+                }
+                else
+                {
+                    txtRedemptionmultiple.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinRedemptionUnits.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text.ToString());
+                }
+                else
+                {
+                    txtMinRedemptioUnits.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.RedemptionMultiplesUnits.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text.ToString());
+                }
+                else
+                {
+                    txtRedemptionMultiplesUnits.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinSwitchAmount.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text.ToString());
+                }
+                else
+                {
+                    txtMinSwitchAmount.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtSwitchMultipleAmount.Text))
+                {
+                    OnlineOrderBackOfficeVo.SwitchMultipleAmount = Convert.ToDouble(txtSwitchMultipleAmount.Text.ToString());
+                }
+                else
+                {
+                    txtSwitchMultipleAmount.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtSwitchMultipleUnits.Text))
+                {
+                    OnlineOrderBackOfficeVo.SwitchMultiplesUnits = Convert.ToInt32(txtSwitchMultipleUnits.Text.ToString());
+                }
+                else
+                {
+                    txtSwitchMultipleUnits.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtMinSwitchUnits.Text))
+                {
+                    OnlineOrderBackOfficeVo.MinSwitchUnits = Convert.ToInt32(txtMinSwitchUnits.Text.ToString());
+                }
+                else
+                {
+                    txtMinSwitchUnits.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtinvestment.Text))
+                {
+                    OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text.ToString());
+                }
+                else
+                {
+                    txtinvestment.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.FaceValue.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(txtFvale.Text.ToString());
+                }
+                else
+                {
+                    txtFvale.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.LockInPeriod.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.LockInPeriod = Convert.ToInt32(txtLIperiod.Text.ToString());
+                }
+                else
+                {
+                    txtLIperiod.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text.ToString());
+                }
+                else
+                {
+                    txtEload.Text = "0";
+                }
+
+                if (OnlineOrderBackOfficeVo.AMCCode != 0)
+                {
+
+                    OnlineOrderBackOfficeVo.AMCCode = Convert.ToInt32(ddlAmc.SelectedValue.ToString());
+                }
+                else
+                {
+                    ddlAmc.SelectedValue = "0";
+                }
+
+                if (!string.IsNullOrEmpty(txtExitLoad.Text))
+                {
+                    OnlineOrderBackOfficeVo.EntryLoadRemark = txtELremark.Text;
+                }
+                else
+                {
+                    txtELremark.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExitLoadPercentage.ToString()))
+                {
+                    OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text.ToString());
+                }
+                else
+                {
+                    txtExitLoad.Text = "0";
+                }
+
+                if (!string.IsNullOrEmpty(txtExitLoad.Text))
+                {
+                    OnlineOrderBackOfficeVo.ExitLoadRemark = txtExitLoad.Text;
+                }
+                else
+                {
+                    txtExitLoad.Text = "0";
+                }
+                if (ChkISPurchage.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
+                }
+                //if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
+                //{
+                //     = true;
+                //}
+                //else
+                //{
+                //    ChkISPurchage.Checked = false;
+                //}
+                if (ChkISRedeem.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
+                }
+
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
+                }
+                if (ChkISSIP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsSIPAvailable = 1;
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsSIPAvailable = 0;
+                }
+                if (ChkISSTP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsSTPAvailable = 1;
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsSTPAvailable = 0;
+                }
+                if (ChkISSwitch.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsSwitchAvailable = 1;
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsSwitchAvailable = 0;
+                }
+                if (ChkISSWP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsSWPAvailable = 1;
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsSWPAvailable = 0;
+                }
+                if (OnlineOrderBackOfficeVo.Status == "Active")
+                {
+                    ChkISactive.Checked = true;
+                }
+                else
+                {
+                    ChkISactive.Checked = false;
+                }
+                if (!string.IsNullOrEmpty(txtSecuritycode.Text))
+                {
+                    OnlineOrderBackOfficeVo.SecurityCode = txtSecuritycode.Text;
+                }
+                else
+                {
+                    txtSecuritycode.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
+                {
+                    OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue.ToString();
+                }
+                if (chkInfo.Checked)
+                {
+                    OnlineOrderBackOfficeVo.IsNFO = 1;
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.IsNFO = 0;
+                }
+                if (ChkISactive.Checked)
+                {
+                    OnlineOrderBackOfficeVo.Status = "Active";
+                }
+                else
+                {
+                    OnlineOrderBackOfficeVo.Status = "Liquidated";
+                }
+                if (OnlineOrderBackOfficeVo.IsOnline == 1)
+                {
+                    chkonline.Checked = true;
+                    chkoffline.Checked = false;
+                }
+                else
+                {
+                    chkonline.Checked = false;
+                    chkoffline.Checked = true;
+                }
+                if (ChkNRI.Checked)
+                {
+                    OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NRI";
+
+
+                }
+                if (ChkBO.Checked)
+                {
+                    OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
+
+                }
+                txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
+
+                //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
+                //{
+                OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
+                //}
+                //else
+                //{
+                //    ddlGenerationfreq.SelectedValue="0";
+                //}
+                if (!string.IsNullOrEmpty(txtBranch.Text))
+                {
+                    OnlineOrderBackOfficeVo.Branch = txtBranch.Text;
+                }
+                else
+                {
+                    txtBranch.Text = "0";
+                }
+                if (!string.IsNullOrEmpty(txtHH.Text) && (!string.IsNullOrEmpty(txtMM.Text)) && (!string.IsNullOrEmpty(txtSS.Text)))
+                {
+                    string Time = (txtHH.Text + ':' + txtMM.Text + ':' + txtSS.Text);
+                    if (Time != null || Time == "")
+                    {
+                        TimeSpan CutOff = TimeSpan.Parse(Time);
+                        OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                    }
+                    else
+                    {
+                        TimeSpan CutOff = TimeSpan.Parse("00:00:00");
+                        OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                    }
+                }
+                bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo, schemeplancode);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Successfully Updated!!');", true);
+                message = CreateUserMessage(schemeplancode);
+                ShowMessage(message);
+                lbBack.Visible = true;
+                ControlMode(false);
             }
-            bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo, schemeplancode);
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Successfully Updated!!');", true);
-            message = CreateUserMessage(schemeplancode);
-            ShowMessage(message);
-            lbBack.Visible = true;
-            ControlMode(false);
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:btnUpdate_click()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+         
         }
 
         private void ControlMode(bool isViewMode)
