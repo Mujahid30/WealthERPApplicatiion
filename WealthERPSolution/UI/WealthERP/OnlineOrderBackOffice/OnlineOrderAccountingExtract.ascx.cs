@@ -17,6 +17,7 @@ namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineOrderAccountingExtract : System.Web.UI.UserControl
     {
+        CommonProgrammingBo commonProgrammingBo;
         DataSet dsextractType;
         OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         string fileExtension = string.Empty;
@@ -53,8 +54,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void CreateFileForextractAndSaveinServer()
         {
+            commonProgrammingBo=new CommonProgrammingBo();
+            string strFileNameAndDelimeter = string.Empty;
 
-            SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue));
+            strFileNameAndDelimeter = commonProgrammingBo.SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtExtractDate.SelectedDate));
+            SetFileNameAndDelimeter(strFileNameAndDelimeter);
+            //SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue));
             File.WriteAllText(Path.Combine(ExtractPath, filename), ", System.Text.Encoding.Default");
         }
 
@@ -110,47 +115,56 @@ namespace WealthERP.OnlineOrderBackOffice
             HttpContext.Current.Response.End();
         }
 
-        protected void SetFileNameAndDelimeter(int FileID)
+        protected void SetFileNameAndDelimeter(string strFileNameAndDelimeter)
         {
-            string strExtractDate = Convert.ToDateTime(txtExtractDate.SelectedDate).ToShortDateString();
-            string[] strSplitExtractDate = strExtractDate.Split('/');
-
-            string DD = strSplitExtractDate[0].ToString();
-            string MM = strSplitExtractDate[1].ToString();
-            string YYYY = strSplitExtractDate[2].ToString();
-
-            if(FileID==37)
-            {
-                filename = "sbiemf" + DD + MM + ".txt";
-                delimeter = "#";                
-            }
-            else if(FileID==38)
-            {
-                filename = "sbipay" + DD + MM + ".txt";
-                delimeter = "   ";
-            }
-            else if(FileID==39)
-            {
-                filename = "HDFCPAY" + MM + DD + ".txt";
-                delimeter = " ";
-            }
-            else if(FileID==40)
-            {
-                filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
-                delimeter = "|";
-            }
-            else if(FileID==41)
-            {
-                filename = "eMF-Executed" + MM + DD + YYYY + ".txt";
-                delimeter = "|";
-            }
-            else if (FileID == 42)
-            {
-                filename = "SSL104" + DD + MM + ".txt";
-                delimeter = ",";
-            }
+            string[] FileNameAndDelimeter= strFileNameAndDelimeter.Split('~');
+            filename=FileNameAndDelimeter[0];
+            delimeter = FileNameAndDelimeter[1];
         }
 
+
+        //protected void SetFileNameAndDelimeter(int FileID)
+        //{
+
+
+            //string strExtractDate = Convert.ToDateTime(txtExtractDate.SelectedDate).ToShortDateString();
+            //string[] strSplitExtractDate = strExtractDate.Split('/');
+
+            //string DD = strSplitExtractDate[0].ToString();
+            //string MM = strSplitExtractDate[1].ToString();
+            //string YYYY = strSplitExtractDate[2].ToString();
+
+            //if(FileID==37)
+            //{
+            //    filename = "sbiemf" + DD + MM + ".txt";
+            //    delimeter = "#";                
+            //}
+            //else if(FileID==38)
+            //{
+            //    filename = "sbipay" + DD + MM + ".txt";
+            //    delimeter = "   ";
+            //}
+            //else if(FileID==39)
+            //{
+            //    filename = "HDFCPAY" + MM + DD + ".txt";
+            //    delimeter = " ";
+            //}
+            //else if(FileID==40)
+            //{
+            //    filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
+            //    delimeter = "|";
+            //}
+            //else if(FileID==41)
+            //{
+            //    filename = "eMF-Executed" + MM + DD + YYYY + ".txt";
+            //    delimeter = "|";
+            //}
+            //else if (FileID == 42)
+            //{
+            //    filename = "SSL104" + DD + MM + ".txt";
+            //    delimeter = ",";
+            //}
+        //}
 
         protected void CreateTextFile(int FileID)
         {
