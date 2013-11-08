@@ -348,6 +348,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         private void BindFolioNumber(int amcCode)
         {
+            ddlFolio.Items.Clear();
             DataTable dtScheme = new DataTable();
             try
             {
