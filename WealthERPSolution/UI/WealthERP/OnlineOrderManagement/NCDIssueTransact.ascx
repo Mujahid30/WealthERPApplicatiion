@@ -138,23 +138,29 @@
     </tr>
 </table>
 <table width="100%" class="TableBackground">
+    <div class="divOnlinePageHeading" style="float: right; width: 100%">
+        <div style="float: right; padding-right: 100px;">
+            <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
+            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+        </div>
+    </div>
     <tr>
         <td class="leftField" colspan="2" align="center">
             <asp:Label ID="lblMSG" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-    <tr id="trJointNom" runat="server" align="center">
+    <tr id="trJointNom" runat="server" align="center" visible="false">
         <td>
             <asp:Label ID="lblHolderDetails" runat="server" Text="Joint Holders Name:" CssClass="FieldName"></asp:Label>
-       <%-- </td>--%>
-        <%--<td align="left">--%>
+            <%-- </td>--%>
+            <%--<td align="left">--%>
             <asp:Label ID="lblHolderTwo" runat="server" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-    <tr id="trcustcode" runat="server" align="center">
+    <tr id="trcustcode" runat="server" align="center" visible="false">
         <td>
             <asp:Label ID="lblNominee" runat="server" Text="Nominee Name:" CssClass="FieldName"></asp:Label>
-       <%-- </td>
+            <%-- </td>
         <td align="left">--%>
             <asp:Label ID="lblNomineeTwo" runat="server" CssClass="FieldName"></asp:Label>
         </td>
@@ -165,8 +171,8 @@
             <asp:DropDownList ID="ddIssuerList" runat="server" CssClass="cmbField" AutoPostBack="false">
             </asp:DropDownList>
         </td>
-        <td colspan="2" align="left">
-            <asp:Button ID="btnConfirm" runat="server" Text="confirm" OnClick="btnConfirm_Click" />
+        <td align="left">
+            <asp:Button ID="btnConfirm" runat="server" Text="Go" OnClick="btnConfirm_Click" CssClass="PCGButton" />
         </td>
     </tr>
 </table>
@@ -326,10 +332,11 @@
     </tr>
 </table>
 <table>
-    <tr>
+    <tr id="trSubmit" runat="server" visible="false">
         <td>
             <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
-            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click" />
+            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
+                CssClass="PCGButton" />
         </td>
     </tr>
 </table>

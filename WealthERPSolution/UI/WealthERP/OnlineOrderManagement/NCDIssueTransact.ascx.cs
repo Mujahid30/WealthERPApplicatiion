@@ -24,6 +24,7 @@ namespace WealthERP.OnlineOrderManagement
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
         OnlineBondOrderVo OnlineBondVo = new OnlineBondOrderVo();
         CustomerVo customerVo = new CustomerVo();
+        OnlineMFOrderBo onlineMforderBo = new OnlineMFOrderBo();
         bool RESULT = false;
         int customerId;
         //int selectedRowIndex;
@@ -31,11 +32,12 @@ namespace WealthERP.OnlineOrderManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             customerVo = (CustomerVo)Session["customerVo"];
+            ShowAvailableLimits();
             if (!IsPostBack)
             {
 
-                BindKYCDetailDDl();              
-                  
+                BindKYCDetailDDl();
+
                 if (Request.QueryString["IssuerId"] != null)
                 {
                     string IssuerId = Request.QueryString["IssuerId"].ToString();
@@ -73,13 +75,22 @@ namespace WealthERP.OnlineOrderManagement
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
             DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId);
             if (dsStructureRules.Tables[0].Rows.Count > 0)
+            {
+                gvCommMgmt.DataSource = dsStructureRules.Tables[0];
+                gvCommMgmt.DataBind();
+                pnlNCDTransactact.Visible = true;
                 ibtExportSummary.Visible = true;
+                trSubmit.Visible = true;
+                ViewState["Transact"] = dsStructureRules.Tables[0];
+            }
             else
+            {
                 ibtExportSummary.Visible = false;
-
-            gvCommMgmt.DataSource = dsStructureRules.Tables[0];
-            gvCommMgmt.DataBind();
-            pnlNCDTransactact.Visible = true;
+                gvCommMgmt.DataSource = dsStructureRules.Tables[0];
+                gvCommMgmt.DataBind();
+                pnlNCDTransactact.Visible = true;
+                trSubmit.Visible = false;
+            }
             //Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsStructureRules.Tables[0]);
         }
         protected void BindDropDownListIssuer()
@@ -99,8 +110,8 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                strbJointHolder.Append(dr["JointHolderName"].ToString() );
-                strbNominee.Append(dr["JointHolderName"].ToString() );
+                strbJointHolder.Append(dr["JointHolderName"].ToString());
+                strbNominee.Append(dr["JointHolderName"].ToString());
             }
 
             lblNomineeTwo.Text = strbNominee.ToString();
@@ -173,7 +184,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             Button Button = (Button)sender;
             int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
-           // int maxDB = OnlineBondBo.GetMAXTransactNO();
+            // int maxDB = OnlineBondBo.GetMAXTransactNO();
 
 
             DataTable dt = new DataTable();
@@ -216,6 +227,7 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                     }
+
                     tableRow++;
                 }
                 if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
@@ -226,17 +238,61 @@ namespace WealthERP.OnlineOrderManagement
             }
             RESULT = OnlineBondBo.onlineBOndtransact(dt);
             //string CustId = Session["CustId"].ToString();
-            if(RESULT==true)            
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
+            if (RESULT == true)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
         }
+        protected Dictionary<string, double> CalculateFooterTotal()
+        {
+            Dictionary<string, double> dicTotalSum = new Dictionary<string, double>();
+            double TotalAmount = 0;
+            int quantity = 0;
+            if (ViewState["Transact"] != null)
+            {
+                DataSet dstransact = (DataSet)ViewState["Transact"];
+                DataTable dttransact = dstransact.Tables[0];
+                foreach (DataRow dr in dttransact.Rows)
+                {
+                    if (dr["Amount"].ToString() != "N/A")
+                    {
+                        TotalAmount = TotalAmount + double.Parse(dr["Amount"].ToString());
+                    }
 
+                }
+                dicTotalSum.Add("Amount", TotalAmount);
+                // dicTotalSum.Add("RedeemedAmount", RedeemedAmountTotal);
+
+            }
+            return dicTotalSum;
+        }
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridFooterItem)
+            {
+                GridFooterItem footer = (GridFooterItem)e.Item;
+                if (gvCommMgmt.Items.Count > 0)
+                {
+                    Dictionary<string, double> dic = CalculateFooterTotal();
+                    if (dic.Count > 0)
+                    {
+                        var keyValuePairAcquisitionCost = dic.FirstOrDefault(x => x.Key == "AcquisitionCost");
+                        footer["Amount"].Text = keyValuePairAcquisitionCost.Value.ToString();
 
+                    }
+                }
+            }
+        }
 
+        private void ShowAvailableLimits()
+        {
+            if (!string.IsNullOrEmpty(customerVo.AccountId))
+            {
+                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+            }
 
         }
 
-
     }
+
+
+
 }

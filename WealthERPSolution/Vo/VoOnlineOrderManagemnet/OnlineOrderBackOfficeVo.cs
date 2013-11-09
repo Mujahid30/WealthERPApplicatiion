@@ -76,6 +76,13 @@ namespace VoOnlineOrderManagemnet
        public string    ExternalCode { get; set; }
        public string ExternalType { get; set; }
        public string Dividendfreq { get; set; }
+       public string startdate { get; set; }
+       public string frequency {get; set;}
+       public int MinDues { get; set; }
+       public int MaxDues { get; set; }
+       public double MinAmount { get; set; }
+       public double MultipleAmount { get; set; }
+       public string systematiccode { get; set; }
       
 
 

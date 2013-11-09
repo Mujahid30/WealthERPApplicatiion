@@ -38,14 +38,20 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindBBGV(int customerId)
         {
             DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId);
-
             if (dsbondsBook.Tables[0].Rows.Count > 0)
+            {
+                gvBBList.DataSource = dsbondsBook;
+                gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
+                pnlGrid.Visible = true;
+            }
             else
+            {
                 ibtExportSummary.Visible = false;
-
-            gvBBList.DataSource = dsbondsBook;
-            gvBBList.DataBind();
+                gvBBList.DataSource = dsbondsBook;
+                gvBBList.DataBind();
+                pnlGrid.Visible = true;
+            }
 
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsbondsBook.Tables[0]);
         }

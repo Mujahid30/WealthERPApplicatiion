@@ -1091,6 +1091,47 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
+        public DataSet GetSystematicDetails(int schemeplancode)
+        {
+            DataSet dsSystematicDetails;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsSystematicDetails = daoOnlineOrderBackOffice.GetSystematicDetails(schemeplancode);
+            return dsSystematicDetails;
+        }
+        public bool CreateSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode)
+        {
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            bool bResult = false;
+            try
+            {
+                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(OnlineOrderBackOfficeVo,schemeplancode);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:CreateSystematicDetails()");
+
+
+                object[] objects = new object[2];
+                objects[0] = OnlineOrderBackOfficeVo;
+                objects[1] = schemeplancode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+
+            return bResult;
+
+        }
 
     }
 }

@@ -160,6 +160,8 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.WebControls.Button btnConfirmOrder;
         protected global::System.Web.UI.WebControls.Panel pnlNCDTransactact;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trJointNom;
-         protected global::System.Web.UI.HtmlControls.HtmlTableRow trcustcode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trcustcode;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSubmit;
+        protected global::System.Web.UI.WebControls.Label lblAvailableLimits;
     }
 }

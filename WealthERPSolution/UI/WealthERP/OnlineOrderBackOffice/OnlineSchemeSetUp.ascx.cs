@@ -20,6 +20,8 @@ using BoProductMaster;
 using BoWerpAdmin;
 using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
+using System.Text.RegularExpressions;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.OnlineOrderBackOffice
@@ -1873,8 +1875,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnupdate.Visible = false;
             }
         }
-
-
         private string CreateUserMessage(int schemeplancode)
         {
             string userMessage = string.Empty;
@@ -1893,11 +1893,145 @@ namespace WealthERP.OnlineOrderBackOffice
             return userMessage;
 
         }
-
         private void ShowMessage(string msg)
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
+        }
+        protected void BindSystematicDetails()
+        {
+            DataSet dsSystematicDetails;
+            DataTable dtSystematicDetails;
+            schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+            dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode);
+            dtSystematicDetails = dsSystematicDetails.Tables[0];
+            if (dtSystematicDetails.Rows.Count > 0)
+            {
+                gvSIPDetails.DataSource = dtSystematicDetails;
+                gvSIPDetails.DataBind();
+                pnlSIPDetails.Visible = true;
+            }
+            else
+            {
+                gvSIPDetails.DataSource = dtSystematicDetails;
+                gvSIPDetails.DataBind();
+                pnlSIPDetails.Visible = true;
+            }
+                
+        }
+        protected void ChkISSIP_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkISSIP.Checked)
+            {
+                trsystematic.Visible = true;
+                BindSystematicDetails();
+                pnlSIPDetails.Visible = true;
+                ChkISSTP.Enabled = false;
+                ChkISSWP.Enabled = false;
+            }
+            else
+            {
+                trsystematic.Visible = false;
+                pnlSIPDetails.Visible = false;
+                ChkISSTP.Enabled = true;
+                ChkISSWP.Enabled = true;
+            
+            }
+            
+        }
+        protected void ChkISSWP_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkISSWP.Checked)
+            {
+                trsystematic.Visible = true;
+                BindSystematicDetails();
+                pnlSIPDetails.Visible = true;
+                ChkISSTP.Enabled = false;
+                ChkISSIP.Enabled = false;
+            }
+            else
+            {
+                trsystematic.Visible = false;
+                pnlSIPDetails.Visible = false;
+                ChkISSTP.Enabled = true;
+                ChkISSIP.Enabled = true;
+            }
+
+        }
+        protected void ChkISSTP_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkISSTP.Checked)
+            {
+                trsystematic.Visible = true;
+                BindSystematicDetails();
+                pnlSIPDetails.Visible = true;
+                ChkISSIP.Enabled = false;
+                ChkISSWP.Enabled = false;
+            }
+            else
+            {
+                trsystematic.Visible = false;
+                pnlSIPDetails.Visible = false;
+                ChkISSIP.Enabled = true;
+                ChkISSWP.Enabled = true;
+
+            }
+
+        }
+        protected void gvSIPDetails_OnItemCommand(object source, GridCommandEventArgs e)
+        {
+           int schemecode = 0;
+           schemecode = int.Parse(ViewState["Schemecode"].ToString()); 
+           if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");               
+                TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");                
+                TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
+                TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
+                TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
+                TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");  
+                if(ChkISSIP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.systematiccode = "SIP";
+                }
+                OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                OnlineOrderBackOfficeVo.frequency = ddlFrquency.SelectedValue.ToString();
+                OnlineOrderBackOfficeVo.startdate = txtstartDate.Text.ToString();
+                OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());                
+                OnlineOrderBackOfficeVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
+                OnlineOrderBackOfficeVo.MinAmount =Convert.ToDouble(txtMinAmount.Text.ToString());
+                OnlineOrderBackOfficeVo.MultipleAmount =Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                OnlineOrderBackOfficeBo.CreateSystematicDetails(OnlineOrderBackOfficeVo, schemecode);
+
+           }
+           if (e.CommandName == RadGrid.RebindGridCommandName)
+           {
+               gvSIPDetails.Rebind();
+           }
+
+           BindSystematicDetails();
+        }
+        protected void gvSIPDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
+        {
+        }
+        protected void gvSIPDetails_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;               
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlFrquency = (DropDownList)gefi.FindControl("ddlFrquency");
+                DataSet dsFrequency = OnlineOrderBackOfficeBo.GetFrequency();
+                DataTable dtFrequency;
+                dtFrequency = dsFrequency.Tables[0];
+                ddlFrquency.DataSource = dtFrequency;
+                ddlFrquency.DataValueField = dtFrequency.Columns["XF_FrequencyCode"].ToString();
+                ddlFrquency.DataTextField = dtFrequency.Columns["XF_Frequency"].ToString();
+                ddlFrquency.DataBind();
+                ddlFrquency.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+
         }
     }
 }

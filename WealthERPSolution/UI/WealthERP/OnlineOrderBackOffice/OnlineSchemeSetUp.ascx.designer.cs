@@ -1056,5 +1056,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnupdate;
+        protected global::Telerik.Web.UI.RadGrid gvSIPDetails;
+        protected global::System.Web.UI.WebControls.Panel pnlSIPDetails;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divSectionHeading;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trsystematic;
     }
+
 }

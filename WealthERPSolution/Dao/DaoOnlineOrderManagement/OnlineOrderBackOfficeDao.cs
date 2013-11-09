@@ -1126,6 +1126,75 @@ namespace DaoOnlineOrderManagement
             }
             return blResult;
         }
+        public DataSet GetSystematicDetails(int schemeplancode)
+        {
+            Database db;
+            DataSet dsSystematicDetails;
+            DbCommand SystematicDetailscmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                SystematicDetailscmd = db.GetStoredProcCommand("SPROC_ONL_GetsystematicDetails");
+                db.AddInParameter(SystematicDetailscmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplancode);
+                dsSystematicDetails = db.ExecuteDataSet(SystematicDetailscmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetSystematicDetails()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsSystematicDetails;
+        }
+        public bool CreateSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand CreateSystematicDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateSystematicDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_CreatesystematicDetails");
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32,schemeplancode);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@XSTT_SystematicTypeCode", DbType.String, OnlineOrderBackOfficeVo.systematiccode);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@XF_SystematicFrequencyCode", DbType.String,OnlineOrderBackOfficeVo.frequency);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_StatingDates", DbType.String,OnlineOrderBackOfficeVo.startdate);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MinDues", DbType.Int32,OnlineOrderBackOfficeVo.MinDues);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MaxDues", DbType.Int32,OnlineOrderBackOfficeVo.MaxDues);
+                db.AddInParameter(CreateSystematicDetailsCmd,"@PASPSD_MinAmount", DbType.Double,OnlineOrderBackOfficeVo.MinAmount);
+                db.AddInParameter(CreateSystematicDetailsCmd,"@PASPSD_MultipleAmount", DbType.Double,OnlineOrderBackOfficeVo.MultipleAmount);
+                if (db.ExecuteNonQuery(CreateSystematicDetailsCmd) != 0)
+                    bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:CreateSystematicDetails()");
+
+                object[] objects = new object[2];
+                objects[0] = OnlineOrderBackOfficeVo;
+                objects[1] = schemeplancode;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return bResult;
+        }
     }
 }
