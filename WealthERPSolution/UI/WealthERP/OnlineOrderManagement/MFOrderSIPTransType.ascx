@@ -389,7 +389,7 @@
                     <td>
                     </td>
                 </tr>
-                <tr class="spaceUnder">
+                <tr class="spaceUnder" id="trTermsCondition" runat="server">
                     <td style="width: 150px;">
                         &nbsp;
                     </td>
@@ -427,7 +427,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left; padding-top: 5px;">
+        <div style="float: left; padding-top: 5px;display:none;">
             <table style="border-style: solid; border-width: 2px; border-color: Blue">
                 <tr class="spaceUnder">
                     <td>

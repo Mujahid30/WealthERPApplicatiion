@@ -93,5 +93,57 @@ namespace BoOnlineOrderManagement
             return accountBalance;
 
         }
+
+        public string CreateClientMFAccessMessage(string accessCode)
+        {
+            string message = string.Empty;
+            switch (accessCode)
+            {
+                case "NA":
+                    message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
+                    break;
+                case "PA":
+                    message = "KRA not completed / updated ,Hence you can only Redeem existing holdings & Cancel existing SIP orders. To  Invest in mutual fund . Please contact SSL customer care";
+                    break;
+            }
+            return message;
+        }
+
+        public string GetClientMFAccessStatus(int customerId)
+        {
+            string strClientAccess = "NA";
+            DataTable dtClientKYCStatus = new DataTable();
+            OnlineOrderDao onlineOrderDao = new OnlineOrderDao();
+            try
+            {
+                dtClientKYCStatus = onlineOrderDao.GetClientKYCStatus(customerId);
+
+                DataRow[] drKYCYes = dtClientKYCStatus.Select("C_IsKYCAvailable=1", "C_IsKYCAvailable");
+                DataRow[] drKYCNo = dtClientKYCStatus.Select("C_IsKYCAvailable=0", "C_IsKYCAvailable");
+                if (drKYCYes.Count() == dtClientKYCStatus.Rows.Count)
+                    strClientAccess = "FA";
+                else if (drKYCNo.Count() >= 1)
+                    strClientAccess = "PA";
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OnlineOrderBo.cs:GetClientMFAccessStatus()");
+
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return strClientAccess;
+        }
     }
 }

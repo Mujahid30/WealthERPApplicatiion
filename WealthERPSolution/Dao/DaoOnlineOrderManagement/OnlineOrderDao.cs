@@ -85,6 +85,37 @@ namespace DaoOnlineOrderManagement
 
         }
 
+        public DataTable GetClientKYCStatus(int customerId)
+        {
 
+            DataTable dtClientKYC = new DataTable();
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetCustomerFamilyKYCStatus");
+                db.AddInParameter(cmd, "@CustomerId", DbType.Int32, customerId);
+                dtClientKYC = db.ExecuteDataSet(cmd).Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderDao.cs:GetClientKYCStatus(int customerId)");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dtClientKYC;
+
+        }
     }
 }

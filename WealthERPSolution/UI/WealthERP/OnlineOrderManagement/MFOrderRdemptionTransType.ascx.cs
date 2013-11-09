@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderManagement
         int OrderId;
         DataTable dtgetfolioNo;
         int retVal;
+        string clientMFAccessCode = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,27 +51,38 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
-                AmcBind();
-                CategoryBind();
-                dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
-                lnkOfferDoc.Visible = false;
-                lnkFactSheet.Visible = false;
-                lnkExitLoad.Visible = false;
-                txtRedeemTypeValue.Visible = false;
-                lblOption.Visible = false;
-                lblDividendType.Visible = false;
-                if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
+                if (clientMFAccessCode == "FA" || clientMFAccessCode == "PA")
                 {
-                    int accountId = 0;
-                    int schemeCode = 0;
-                    int amcCode = 0;
-                    string category = string.Empty;
-                    accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                    schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                    commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                    SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                    AmcBind();
+                    CategoryBind();
+                    dtgetfolioNo = commonLookupBo.GetFolioNumberForSIP(0, customerVo.CustomerId);
+                    lnkOfferDoc.Visible = false;
+                    lnkFactSheet.Visible = false;
+                    lnkExitLoad.Visible = false;
+                    txtRedeemTypeValue.Visible = false;
+                    lblOption.Visible = false;
+                    lblDividendType.Visible = false;
+                    if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                    {
+                        int accountId = 0;
+                        int schemeCode = 0;
+                        int amcCode = 0;
+                        string category = string.Empty;
+                        accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                        SetSelectedDisplay(accountId, schemeCode, amcCode, category);
+                    }
+                }
+                else
+                {
+                    ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                    PurchaseOrderControlsEnable(false);
+                    btnSubmit.Visible = false;
                 }
             }
+
 
 
         }
@@ -145,7 +157,7 @@ namespace WealthERP.OnlineOrderManagement
 
 
         }
-        protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt,string nav)
+        protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt, string nav)
         {
             DataTable dt = new DataTable();
             double holdingUnits;
@@ -296,7 +308,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator3.Enabled = false;
-               
+
 
             }
             else
@@ -306,7 +318,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
-                
+
 
 
             }
@@ -422,6 +434,7 @@ namespace WealthERP.OnlineOrderManagement
                 btnSubmit.Enabled = false;
                 ddlRedeem.Enabled = false;
                 txtRedeemTypeValue.Enabled = false;
+                trTermsCondition.Visible = false;
 
             }
             else
@@ -466,10 +479,10 @@ namespace WealthERP.OnlineOrderManagement
             bool isCutOffTimeOver = false;
             onlinemforderVo.FolioNumber = ddlFolio.SelectedValue;
             onlinemforderVo.DividendType = ddlDivType.SelectedValue;
-            onlinemforderVo.TransactionType = "Sel";
+            onlinemforderVo.TransactionType = "SEL";
             dtCutOfffTime = DateTime.Parse(lbltime.Text);
 
-            if (DateTime.Now.TimeOfDay > dtCutOfffTime.TimeOfDay && dtCutOfffTime.TimeOfDay < Convert.ToDateTime("24:00:00.000").TimeOfDay)
+            if (DateTime.Now.TimeOfDay > dtCutOfffTime.TimeOfDay && dtCutOfffTime.TimeOfDay < System.TimeSpan.Parse("23:59:59"))
             {
                 isCutOffTimeOver = true;
             }
@@ -505,8 +518,8 @@ namespace WealthERP.OnlineOrderManagement
 
             }
             else if (ddlRedeem.SelectedValue == "3")
-            { 
-            onlinemforderVo.IsAllUnits=true;
+            {
+                onlinemforderVo.IsAllUnits = true;
 
             }
 

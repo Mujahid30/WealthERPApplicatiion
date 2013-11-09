@@ -37,7 +37,7 @@
                 <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </div>
         </div>
-        <table id="tblMessage" width="100%" runat="server" visible="false">
+        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
             <tr id="trSumbitSuccess">
                 <td align="center">
                     <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
@@ -308,7 +308,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder">
+                <tr class="spaceUnder"  id="trTermsCondition" runat="server">
                     <td style="width: 150px;">
                         &nbsp;
                     </td>
@@ -364,7 +364,7 @@
                 </div>
             </ContentTemplate>
         </telerik:RadWindow>
-        <div style="float: left; padding-top: 5px;">
+        <div style="float: left; padding-top: 5px; display:none;">
             <table style="border-style: solid; border-width: 2px; border-color: Blue">
                 <tr class="spaceUnder">
                     <td>

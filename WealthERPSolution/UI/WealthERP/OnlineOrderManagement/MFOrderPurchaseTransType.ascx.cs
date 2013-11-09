@@ -38,6 +38,7 @@ namespace WealthERP.OnlineOrderManagement
         DataRow drCustomerAssociates;
         int accountId;
         int OrderId;
+        string clientMFAccessCode = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,16 +49,24 @@ namespace WealthERP.OnlineOrderManagement
             Session["OrderId"] = OrderId;
             if (!IsPostBack)
             {
-                ShowAvailableLimits();
-                AmcBind();
-                trJointHolder.Visible = false;
-                trNominee.Visible = false;
-                lblOption.Visible = false;
-                lblDividendType.Visible = false;
-                lnkOfferDoc.Visible = false;
-                lnkFactSheet.Visible = false;
-                lnkExitLoad.Visible = false;
+                clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
+                if (clientMFAccessCode == "FA")
+                {
+                    ShowAvailableLimits();
+                    AmcBind();
+                    trJointHolder.Visible = false;
+                    trNominee.Visible = false;
+                    lblOption.Visible = false;
+                    lblDividendType.Visible = false;
+                }
+                else
+                {
+                    ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                    PurchaseOrderControlsEnable(false);
+                    btnSubmit.Visible = false;
+                }
             }
+           
 
 
         }
@@ -201,7 +210,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
-                
+
             }
             else
             {
@@ -210,7 +219,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
-                
+
 
             }
 
@@ -228,6 +237,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlDivType.Enabled = false;
                 lnkFactSheet.Enabled = false;
                 btnSubmit.Enabled = false;
+                trTermsCondition.Visible = false;
             }
             else
             {

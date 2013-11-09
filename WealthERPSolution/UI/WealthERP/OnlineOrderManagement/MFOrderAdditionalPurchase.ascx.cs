@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderManagement
         int accountId;
         int OrderId;
         DataSet ds;
+        string clientMFAccessCode = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,26 +51,26 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session["userVo"];
             if (!IsPostBack)
             {
-                ShowAvailableLimits();
-                AmcBind();
-                CategoryBind();
-                lnkOfferDoc.Visible = false;
-                lnkFactSheet.Visible = false;
-                lnkExitLoad.Visible = false;
-                if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                clientMFAccessCode = onlineMforderBo.GetClientMFAccessStatus(customerVo.CustomerId);
+                if (clientMFAccessCode == "FA")
                 {
-                    int accountId = 0;
-                    int schemeCode = 0;
-                    int amcCode = 0;
-                    string category = string.Empty;
-                    accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                    schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                    commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                    SetSelectedDisplay(accountId, schemeCode, amcCode, category);
-                }
+                    ShowAvailableLimits();
+                    AmcBind();
+                    CategoryBind();
 
-                lblOption.Visible = false;
-                lblDividendType.Visible = false;
+                    if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                    {
+                        ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                        PurchaseOrderControlsEnable(false);
+                        btnSubmit.Visible = false;
+                    }
+                }
+                else
+                {
+                    ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                    PurchaseOrderControlsEnable(false);
+                    btnSubmit.Visible = false;
+                }
             }
 
 
@@ -254,7 +255,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = false;
                 ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
-                
+
             }
             else
             {
@@ -263,7 +264,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblDivType.Visible = true;
                 ddlDivType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
-                
+
 
             }
 
@@ -329,6 +330,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlDivType.Enabled = false;
                 lnkFactSheet.Enabled = false;
                 btnSubmit.Enabled = false;
+                trTermsCondition.Visible = false;
             }
             else
             {

@@ -49,6 +49,12 @@
         padding-bottom: .5em;
     }
 </style>
+<style>
+    tr.spaceUnder > td
+    {
+        padding-bottom: .5em;
+    }
+</style>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
@@ -57,7 +63,7 @@
                 <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </div>
         </div>
-        <table id="tblMessage" width="100%" runat="server" visible="false">
+        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
             <tr id="trSumbitSuccess">
                 <td align="center">
                     <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
@@ -65,14 +71,8 @@
                 </td>
             </tr>
         </table>
-        <style>
-            tr.spaceUnder > td
-            {
-                padding-bottom: .5em;
-            }
-        </style>
-        <div style="float: left;">
-            <table id="tbpurchase">
+        <div style="float: left; padding-top: 5px; width:100%">
+            <table id="tbpurchase" width="100%">
                 <tr class="spaceUnder">
                     <td>
                     </td>
@@ -278,8 +278,6 @@
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
-                        <td>
-                        </td>
                         <asp:Label ID="lblOption" runat="server" Text="Option:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -288,7 +286,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder">
+                <tr class="spaceUnder" id="trTermsCondition" runat="server">
                     <td style="width: 150px;">
                         &nbsp;
                     </td>
@@ -312,13 +310,12 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder">
-                    <td  colspan="2">
+                    <td colspan="2">
                     </td>
                     <td colspan="2" align="left">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                             CssClass="PCGButton" ValidationGroup="btnSubmit"></asp:Button>
                     </td>
-                    
                     <%-- <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="ResetControlDetails()"
                 CssClass="FieldName"></asp:Button>
             <td>
@@ -326,7 +323,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left; padding-top: 5px;">
+        <div style="float: left; padding-top: 5px; display: none;">
             <table style="border-style: solid; border-width: 2px; border-color: Blue">
                 <tr class="spaceUnder">
                     <td>

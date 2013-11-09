@@ -54,6 +54,7 @@ namespace WealthERP.OnlineOrderManagement
         int customerIdforEdit;
         List<OnlineMFOrderVo> SipDataForOrderEditList = new List<OnlineMFOrderVo>();
         DataTable dtFrequency;
+        string clientMFAccessCode = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -67,53 +68,59 @@ namespace WealthERP.OnlineOrderManagement
             if (custPortVo == null)
             {
                 custPortVo = portfolioBo.GetCustomerDefaultPortfolio(customerVo.CustomerId);
-
             }
-
-
             divValidationError.Visible = false;
-
-
 
             if (!IsPostBack)
             {
-                AmcBind();
-                BindCategory();
-                ShowAvailableLimits();
-                lnkOfferDoc.Visible = false;
-                lnkFactSheet.Visible = false;
-                lnkExitLoad.Visible = false;
-                if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
+                clientMFAccessCode = boOnlineOrder.GetClientMFAccessStatus(customerVo.CustomerId);
+                if (clientMFAccessCode == "FA")
                 {
-                    strAction = Request.QueryString["strAction"].ToString();
-                    orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
-                    customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
-                }
-                else if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
-                {
-                    int accountId = 0;
-                    int schemeCode = 0;
-                    int amcCode = 0;
-                    string category = string.Empty;
-                    accountId = int.Parse(Request.QueryString["accountId"].ToString());
-                    schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
-                    commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
-                    OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
-                    DataViewOnEdit();
-                }
+                    AmcBind();
+                    BindCategory();
+                    ShowAvailableLimits();
+                    //lnkOfferDoc.Visible = false;
+                    //lnkFactSheet.Visible = false;
+                    //lnkExitLoad.Visible = false;
+                    if (Request.QueryString["strAction"] != null && Request.QueryString["orderId"] != null && Request.QueryString["customerId"] != null)
+                    {
+                        strAction = Request.QueryString["strAction"].ToString();
+                        orderIdForEdit = Convert.ToInt32(Request.QueryString["orderId"].ToString());
+                        customerIdforEdit = Convert.ToInt32(Request.QueryString["customerId"].ToString());
+                    }
+                    else if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
+                    {
+                        int accountId = 0;
+                        int schemeCode = 0;
+                        int amcCode = 0;
+                        string category = string.Empty;
+                        accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                        OnDrillDownBindControlValue(amcCode, category, accountId, schemeCode);
+                        DataViewOnEdit();
+                    }
 
-                btnSubmit.Text = "Submit";
+                    btnSubmit.Text = "Submit";
 
-                if (strAction == "Edit")
+                    if (strAction == "Edit")
+                    {
+                        BindSipDetailsForEdit();
+                        DataViewOnEdit();
+                        btnSubmit.Text = "Modify";
+                        onlineMFOrderVo.Action = "Edit";
+                    }
+                }
+                else
                 {
-                    BindSipDetailsForEdit();
-                    DataViewOnEdit();
-                    btnSubmit.Text = "Modify";
-                    onlineMFOrderVo.Action = "Edit";
+                    ShowMessage(boOnlineOrder.CreateClientMFAccessMessage(clientMFAccessCode));
+                    FreezeControls();
+                    btnSubmit.Visible = false;
                 }
             }
         }
 
+      
         private void ShowAvailableLimits()
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
@@ -408,13 +415,12 @@ namespace WealthERP.OnlineOrderManagement
                     accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
 
                 }
-                if (OrderId != 0)
+                if (OrderId != 0 || sipId != 0)
                 {
                     ShowAvailableLimits();
                     message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
                     ShowMessage(message);
                 }
-
             }
             else
             {
@@ -830,6 +836,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlTotalInstallments.Enabled = false;
             ddlDividendFreq.Enabled = false;
             ddlDividendOption.Enabled = false;
+            trTermsCondition.Visible = false;
         }
 
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)
