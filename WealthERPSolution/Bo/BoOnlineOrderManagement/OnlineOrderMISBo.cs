@@ -118,7 +118,7 @@ namespace BoOnlineOrderManagement
              {
                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                  NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                 FunctionInfo.Add("Method", "OnlineOrderMISBo.cs:GetMfOrderExtract()");
                  object[] objects = new object[10];
                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                  exBase.AdditionalInformation = FunctionInfo;

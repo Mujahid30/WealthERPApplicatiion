@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     hdnAssettype.Value = ddlProduct.SelectedValue;
                     ViewState["Assettype"] = hdnAssettype.Value;
                 }
+              
                 else
                 {
                     hdnAssettype.Value = "0";
@@ -73,6 +74,19 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+        protected void Onselectedindex_select(object sender, EventArgs e)
+        {
+            if (ddlProduct.SelectedValue == "BO")
+            {
+                tdtosee.Visible = false;
+                llbtosee.Visible = false;
+            }
+            else
+            {
+                tdtosee.Visible = true;
+                llbtosee.Visible = true;
+            }
+        }
         protected void BindSchemeMIS()
         {
             try
@@ -99,6 +113,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
+                    tdtosee.Visible=false;
                     gvonlineschememis.DataSource = dtschememis;
                     gvonlineschememis.DataBind();
                     SchemeMIS.Visible = true;

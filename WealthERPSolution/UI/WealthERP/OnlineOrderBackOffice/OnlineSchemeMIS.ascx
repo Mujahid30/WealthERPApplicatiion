@@ -30,22 +30,22 @@
     <tr>
         <td align="right" >
             <asp:Label ID="lblproduct" CssClass="FieldName" runat="server" Text="Product" valign="top" ></asp:Label>
-              </td><td >
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField">
+              </td><td>
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="Onselectedindex_select" AutoPostBack ="true" >
                 <Items>
                   <asp:ListItem Text="Select" Value="Select" Selected="false" />
                   <asp:ListItem Text="Mutual Funds"  Value="MF"/>
-                  <asp:ListItem Text="Bonds" value="BO"/>
+                  <asp:ListItem Text="Bonds" value="BO" Enabled="false" />
                   
                 </Items>
                                           
             </asp:DropDownList>
         </td>
-        <td align="Right">
+        <td align="Right" id="llbtosee" runat="server">
             <asp:Label ID="lblTosee" CssClass="FieldName" runat="server" Text="Do You Wish To See" ></asp:Label>
               </td>
-              <td align="left">
-            <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField">
+              <td id="tdtosee" runat="server">
+            <asp:DropDownList ID="ddlTosee" runat="server" CssClass="cmbField" >
                 <Items>
                   <asp:ListItem Text="Both" Value="2" />
                   <asp:ListItem Text="Online Scheme" Value="1" />

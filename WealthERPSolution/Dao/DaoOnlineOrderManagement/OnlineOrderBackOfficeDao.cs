@@ -1114,7 +1114,7 @@ namespace DaoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineSchemeSetUp.cs:UpdateSchemeSetUpDetail()");
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
                 object[] objects = new object[3];
                 objects[0] = OnlineOrderBackOfficeVo;
                 objects[1] = SchemePlanCode;
@@ -1125,6 +1125,38 @@ namespace DaoOnlineOrderManagement
 
             }
             return blResult;
+        }
+           public DataTable OnlinebindRandT(int SchemPlaneCode)
+        {
+            DataSet dsOnlinebindRandT;
+            DataTable dt;
+            Database db;
+            DbCommand OnlinebindRandTCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                OnlinebindRandTCmd = db.GetStoredProcCommand("SPROC_Onl_BindRandT");
+                db.AddInParameter(OnlinebindRandTCmd, "@PASP_SchemPlaneCode", DbType.Int32, SchemPlaneCode);
+                dsOnlinebindRandT=db.ExecuteDataSet(OnlinebindRandTCmd);
+                dt = dsOnlinebindRandT.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:OnlinebindRandT()");
+                object[] objects = new object[1];
+                objects[0]=SchemPlaneCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
         }
         public DataSet GetSystematicDetails(int schemeplancode)
         {

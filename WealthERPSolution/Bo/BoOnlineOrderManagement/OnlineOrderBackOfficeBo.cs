@@ -1079,7 +1079,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineSchemeSetUp.cs:UpdateSchemeSetUpDetail()");
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
                 object[] objects = new object[3];
                 objects[0] = OnlineOrderBackOfficeVo;
                 objects[1] = SchemePlanCode;
@@ -1090,6 +1090,28 @@ namespace BoOnlineOrderManagement
 
             }
             return blResult;
+        }
+         public DataTable OnlinebindRandT(int SchemPlaneCode)
+        {
+           DataTable dtRandT;
+             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao=new OnlineOrderBackOfficeDao();
+             try
+             {
+                 dtRandT = OnlineOrderBackOfficeDao.OnlinebindRandT(SchemPlaneCode);
+             }
+             catch (Exception Ex)
+             {
+                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                 NameValueCollection FunctionInfo = new NameValueCollection();
+                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:OnlinebindRandT()");
+                 object[] objects = new object[1];
+                 objects[0] = SchemPlaneCode;
+                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                 exBase.AdditionalInformation = FunctionInfo;
+                 ExceptionManager.Publish(exBase);
+                 throw exBase;
+             }
+             return dtRandT;
         }
         public DataSet GetSystematicDetails(int schemeplancode)
         {
