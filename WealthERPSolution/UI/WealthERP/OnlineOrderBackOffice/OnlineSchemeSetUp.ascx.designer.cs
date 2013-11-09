@@ -383,6 +383,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtACno;
         
         /// <summary>
+        /// LalISnfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalISnfo;
+        
+        /// <summary>
         /// chkInfo control.
         /// </summary>
         /// <remarks>
@@ -590,6 +599,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtExitLremark;
         
         /// <summary>
+        /// LalISPurchage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalISPurchage;
+        
+        /// <summary>
         /// ChkISPurchage control.
         /// </summary>
         /// <remarks>
@@ -597,6 +615,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ChkISPurchage;
+        
+        /// <summary>
+        /// LalISRedeem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalISRedeem;
         
         /// <summary>
         /// ChkISRedeem control.
@@ -608,6 +635,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CheckBox ChkISRedeem;
         
         /// <summary>
+        /// LalChkISSwitch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalChkISSwitch;
+        
+        /// <summary>
         /// ChkISSwitch control.
         /// </summary>
         /// <remarks>
@@ -615,6 +651,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ChkISSwitch;
+        
+        /// <summary>
+        /// LbllISactive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LbllISactive;
         
         /// <summary>
         /// ChkISactive control.
@@ -941,6 +986,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtESSchemecode;
         
         /// <summary>
+        /// LalISSIP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalISSIP;
+        
+        /// <summary>
         /// ChkISSIP control.
         /// </summary>
         /// <remarks>
@@ -950,6 +1004,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CheckBox ChkISSIP;
         
         /// <summary>
+        /// LalISSWP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalISSWP;
+        
+        /// <summary>
         /// ChkISSWP control.
         /// </summary>
         /// <remarks>
@@ -957,6 +1020,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ChkISSWP;
+        
+        /// <summary>
+        /// LalISSTP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LalISSTP;
         
         /// <summary>
         /// ChkISSTP control.

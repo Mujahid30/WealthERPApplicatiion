@@ -116,8 +116,8 @@
             <asp:Label ID="lblRT" runat="server" Text="R&T" CssClass="FieldName"> </asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbField" AutoPostBack="false">
-                <asp:ListItem Text="Select" Value="Select" Selected="true" />
+            <asp:DropDownList ID="ddlRT" runat="server" CssClass="cmbField" AutoPostBack="true">
+                <%--<asp:ListItem Text="Select" Value="Select" Selected="true" />
                 <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
                 <asp:ListItem Text="Deutsche" Value="Deutsche" Enabled="false">
                 </asp:ListItem>
@@ -126,7 +126,7 @@
                 <asp:ListItem Text="KARVY" Value="KARVY">
                 </asp:ListItem>
                 <asp:ListItem Text="Sundaram" Value="Sundaram">
-                </asp:ListItem>
+                </asp:ListItem>--%>
             </asp:DropDownList>
         </td>
     </tr>
@@ -135,16 +135,18 @@
             <asp:Label ID="lblToadd" runat="server" Text="Do You Wish To Add" CssClass="FieldName"></asp:Label>
         </td>
         <td>
+            &nbsp;
             <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online Scheme"
                 CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>
+                &nbsp;
+                <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>
         </td>
-        <td align="right">
-            <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>
-        </td>
+        
     </tr>
 </table>
-<table width="100%">
+
     <div id="schemedetails" runat="server" visible="false">
+    <table width="100%">
         <tr>
             <td colspan="5">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -152,6 +154,8 @@
                 </div>
             </td>
         </tr>
+        </table>
+         <table width="100%">
         <tr>
             <td align="right">
                 <asp:Label ID="lblSctype" runat="server" Text="Scheme Type" CssClass="FieldName"> </asp:Label>
@@ -216,7 +220,10 @@
                 <asp:TextBox ID="txtACno" runat="server" CssClass="cmbFielde"></asp:TextBox>
             </td>
             <td align="right">
-                <asp:CheckBox ID="chkInfo" runat="server" Text="Is NFO" CssClass="FieldName" />
+                <asp:Label ID="LalISnfo" runat="server" Text="Is NFO" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+            <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
         </tr>
         <tr>
@@ -313,22 +320,31 @@
         </tr>
         <tr>
             <td align="right">
-                <asp:CheckBox ID="ChkISPurchage" runat="server" Text="Is Purchage Available" CssClass="FieldName" />
+                <asp:Label ID="LalISPurchage" runat="server" Text="IS Purchase Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
+            <asp:CheckBox ID="ChkISPurchage" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
             <td align="right">
-                <asp:CheckBox ID="ChkISRedeem" runat="server" Text="Is Redeem Available" CssClass="FieldName" />
+            <asp:Label ID="LalISRedeem" runat="server" Text="Is Redeem Available" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:CheckBox ID="ChkISRedeem" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
         </tr>
         <tr>
             <td align="right">
-                <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Is Switch Available" CssClass="FieldName" />
+            <asp:Label ID="LalChkISSwitch" runat="server" Text="Is Switch Available" CssClass="FieldName"></asp:Label>
+                
             </td>
             <td>
+            <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
             <td align="right">
-                <asp:CheckBox ID="ChkISactive" runat="server" Text="Is Active" CssClass="FieldName" />
+             <asp:Label ID="LbllISactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
+            </td>
+            <td >
+                <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
         </tr>
         <tr>
@@ -444,10 +460,13 @@
                     CssClass="FieldName"> </asp:Label>
             </td>
             <td>
+                &nbsp;
                 <asp:CheckBox ID="ChkNRI" runat="server" Text="NRI" CssClass="FieldName" />
+                &nbsp;
+                <asp:CheckBox ID="ChkBO" runat="server" Text="BOI" CssClass="FieldName" />
             </td>
             <td align="right">
-                <asp:CheckBox ID="ChkBO" runat="server" Text="BOI" CssClass="FieldName" />
+                
             </td>
         </tr>
         <tr>
@@ -465,9 +484,7 @@
                 <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde"></asp:TextBox>
             </td>
         </tr>
-        <tr>
-        </tr>
-        
+              
     
     <tr>
         <td colspan="5">
@@ -478,17 +495,26 @@
     </tr>
     <tr>
         <td align="right">
-            <asp:CheckBox ID="ChkISSIP" runat="server" Text="Is SIP Available" CssClass="FieldName" />
+        <asp:Label ID="LalISSIP" runat="server" Text="Is SIP Available" CssClass="FieldName"></asp:Label>
+            
         </td>
         <td>
+        <asp:CheckBox ID="ChkISSIP" runat="server" Text="Yes" CssClass="FieldName" />
         </td>
         <td align="right">
-            <asp:CheckBox ID="ChkISSWP" runat="server" Text="Is SWP Available" CssClass="FieldName" />
+           <asp:Label ID="LalISSWP" runat="server" Text="Is SWP Available" CssClass="FieldName"></asp:Label> 
+        </td>
+        <td>
+        <asp:CheckBox ID="ChkISSWP" runat="server" Text="Yes" CssClass="FieldName" />
         </td>
     </tr>
     <tr>
         <td align="right">
-            <asp:CheckBox ID="ChkISSTP" runat="server" Text="Is STP Available" CssClass="FieldName" />
+        <asp:Label ID="LalISSTP" runat="server" Text="Is STP Available" CssClass="FieldName"></asp:Label> 
+            
+        </td>
+        <td>
+        <asp:CheckBox ID="ChkISSTP" runat="server" Text="Yes" CssClass="FieldName" />
         </td>
     </tr>
     <tr>
@@ -501,5 +527,6 @@
                 <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
             </td>
         </tr>
+        </table>
     </div>
-</table>
+

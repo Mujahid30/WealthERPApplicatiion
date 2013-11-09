@@ -135,6 +135,41 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
+        protected  void Bindscheme()
+        {
+            try
+            {
+               
+                DataTable dtRandT;
+                schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+                dtRandT = OnlineOrderBackOfficeBo.OnlinebindRandT(schemeplancode);               
+                if (dtRandT != null)
+                {
+
+                    ddlRT.DataSource = dtRandT;
+                    ddlRT.DataValueField = dtRandT.Columns["PASC_AMC_ExternalType"].ToString();
+                    ddlRT.DataTextField = dtRandT.Columns["PASC_AMC_ExternalType"].ToString();
+                    ddlRT.DataBind();
+                }
+                //ddlRT.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:Bindscheme()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         private void BindCategory()
         {
             //ddlcategory.Items.Clear();
@@ -727,16 +762,16 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkBO.Checked = true;
             }
-            if (OnlineOrderBackOfficeVo.IsOnline == 1)
-            {
-                chkonline.Checked = true;
-                chkoffline.Checked = false;
-            }
-            else
-            {
-                chkonline.Checked = false;
-                chkoffline.Checked = true;
-            }
+            //if (OnlineOrderBackOfficeVo.IsOnline == 1)
+            //{
+            //    chkonline.Checked = true;
+            //    chkoffline.Checked = false;
+            //}
+            //else
+            //{
+            //    chkonline.Checked = false;
+            //    chkoffline.Checked = true;
+            //}
 
 
             if (OnlineOrderBackOfficeVo.IsNFO == 1)
@@ -797,7 +832,10 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //DateTime time = Convert.ToDateTime(txtHH.Text + "" + txtMM.Text + " " + txtSS.Text.ToString());
             //OnlineOrderBackOfficeVo.CutOffTime = time.ToLocalTime;
-            txtEload.Text = OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString();
+            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString()))
+            {
+                txtEload.Text = OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString();
+            }
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadRemark))
                 txtELremark.Text = OnlineOrderBackOfficeVo.EntryLoadRemark.ToString();
             txtExitLoad.Text = OnlineOrderBackOfficeVo.ExitLoadPercentage.ToString();
@@ -868,7 +906,10 @@ namespace WealthERP.OnlineOrderBackOffice
             txtMinRedemptioUnits.Text = OnlineOrderBackOfficeVo.MinRedemptionUnits.ToString();
             txtMinSwitchAmount.Text = OnlineOrderBackOfficeVo.SwitchMultipleAmount.ToString();
             txtMinSwitchUnits.Text = OnlineOrderBackOfficeVo.SwitchMultiplesUnits.ToString();
+            txtRedemptionmultiple.Text = OnlineOrderBackOfficeVo.RedemptionMultipleAmount.ToString();
             txtRedemptionMultiplesUnits.Text = OnlineOrderBackOfficeVo.RedemptionMultiplesUnits.ToString();
+            txtSwitchMultipleAmount.Text = OnlineOrderBackOfficeVo.SwitchMultipleAmount.ToString();
+            txtSwitchMultipleUnits.Text = OnlineOrderBackOfficeVo.SwitchMultiplesUnits.ToString();
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SecurityCode))
                 txtSecuritycode.Text = OnlineOrderBackOfficeVo.SecurityCode.ToString();
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
@@ -1207,6 +1248,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 int schemepalncode = int.Parse(ddlSchemeList.SelectedValue);
 
                 ViewState["Schemecode"] = schemepalncode;
+                Bindscheme();
             }
         }
         private bool AMFIValidation(string externalcode)
@@ -1412,7 +1454,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtAdditional.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AdditionalMultipleAmount.ToString()))
+                if (!string.IsNullOrEmpty(txtAddMultipleamount.Text))
                 {
                     OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text.ToString());
                 }
@@ -1420,7 +1462,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtAddMultipleamount.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinRedemptionAmount.ToString()))
+                if (!string.IsNullOrEmpty(txtMinRedemption.Text))
                 {
                     OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text.ToString());
                 }
@@ -1436,7 +1478,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtRedemptionmultiple.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinRedemptionUnits.ToString()))
+                if (!string.IsNullOrEmpty(txtMinRedemptioUnits.Text))
                 {
                     OnlineOrderBackOfficeVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text.ToString());
                 }
@@ -1444,7 +1486,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtMinRedemptioUnits.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.RedemptionMultiplesUnits.ToString()))
+                if (!string.IsNullOrEmpty(txtRedemptionMultiplesUnits.Text))
                 {
                     OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text.ToString());
                 }
@@ -1452,7 +1494,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtRedemptionMultiplesUnits.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.MinSwitchAmount.ToString()))
+                if (!string.IsNullOrEmpty(txtMinSwitchAmount.Text))
                 {
                     OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text.ToString());
                 }
@@ -1492,7 +1534,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtinvestment.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.FaceValue.ToString()))
+                if (!string.IsNullOrEmpty(txtFvale.Text))
                 {
                     OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(txtFvale.Text.ToString());
                 }
@@ -1500,7 +1542,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtFvale.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.LockInPeriod.ToString()))
+                if (!string.IsNullOrEmpty(txtLIperiod.Text))
                 {
                     OnlineOrderBackOfficeVo.LockInPeriod = Convert.ToInt32(txtLIperiod.Text.ToString());
                 }
@@ -1508,7 +1550,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtLIperiod.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString()))
+                if (!string.IsNullOrEmpty(txtEload.Text))
                 {
                     OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text.ToString());
                 }
@@ -1535,7 +1577,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtELremark.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExitLoadPercentage.ToString()))
+                if (!string.IsNullOrEmpty(txtExitLoad.Text))
                 {
                     OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text.ToString());
                 }
@@ -1666,7 +1708,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
 
                 }
-                txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
+                
 
                 //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
                 //{
