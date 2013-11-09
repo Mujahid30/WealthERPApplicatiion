@@ -243,6 +243,21 @@ namespace WealthERP.OnlineOrderBackOffice
             foreach (DataRow dr in dsextractType.Tables[0].Rows)
             {
                 dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = j + " - " + dr["WUXFT_XMLFileName"].ToString();
+
+                if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 37)
+                    dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(sbiemf)";
+                else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 38)
+                    dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(sbipay)";
+                else     if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 39)
+                    dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(HDFCPAY)";
+                else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 40)
+                    dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(eMF-InProcess)";
+                else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 41)
+                    dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(eMF-Executed)";
+                else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 42)
+                    dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(SSL104)";
+                
+
                 i++;
                 j++;
 
