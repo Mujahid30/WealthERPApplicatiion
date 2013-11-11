@@ -100,9 +100,6 @@
     }
 </style>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-    <Services>
-        <asp:ServiceReference Path="AutoComplete.asmx" />
-    </Services>
 </asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -133,8 +130,8 @@
                     </asp:DropDownList>
                     <span id="Span7" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Please Select Category"
-                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="btnAdd" Display="Dynamic"
-                        InitialValue="0"></asp:RequiredFieldValidator>
+                        CssClass="rfvPCG" ControlToValidate="ddlCategory" ValidationGroup="LookUPSubmit"
+                        Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
                 </td>
                 <td class="leftLabel">
                     <asp:Label ID="lblView" runat="server" Text="View:" CssClass="FieldName"></asp:Label>
@@ -143,42 +140,86 @@
                     <asp:DropDownList ID="ddlView" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlView_OnSelectedIndexChanged"
                         AutoPostBack="true">
                         <asp:ListItem Value="Select">Select</asp:ListItem>
-                        <asp:ListItem Value="1">Lookup</asp:ListItem>
-                        <asp:ListItem Value="2">Mapping</asp:ListItem>
+                        <asp:ListItem Value="Lookup">Lookup</asp:ListItem>
+                        <asp:ListItem Value="Mapping">Mapping</asp:ListItem>
                     </asp:DropDownList>
                     <span id="Span4" class="spnRequiredField">*</span>
                     <br />
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please Select Lookup View" Display="Dynamic" ControlToValidate="ddlView"
-                        InitialValue="Select" ValidationGroup="vgBtnSubmitStage2">
+                        InitialValue="Select" ValidationGroup="LookUPSubmit">
                     </asp:RequiredFieldValidator>
+                </td>
+            </tr>
+        </table>
+        <table width="100%" id="tblMap" runat="server">
+            <tr id="trSourceType" runat="server">
+                <td class="leftLabel">
+                    <asp:Label ID="lb1RTA" runat="server" Text="Source Type:" CssClass="FieldName"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlRTA" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlRTA_OnSelectedIndexChanged">
+                    </asp:DropDownList>
+                    <span id="Span1" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Source/RTA"
+                        CssClass="rfvPCG" ControlToValidate="ddlRTA" ValidationGroup="LookUPSubmit" Display="Dynamic"
+                        InitialValue="Select"></asp:RequiredFieldValidator>
+                </td>
+                <td align="right">
+                </td>
+                <td class="rightData">
+                </td>
+            </tr>
+            <tr>
+                <td class="leftLabel">
+                    <asp:Button ID="btnGo" runat="server" Text="GO" CssClass="PCGButton" ValidationGroup="LookUPSubmit"
+                        OnClick="btnGo_Click" />
+                </td>
+                <td class="rightData">
+                </td>
+                <td align="right">
+                </td>
+                <td class="rightData">
                 </td>
             </tr>
         </table>
         <table id="tblwerpGrd" runat="server" width="99%">
             <tr>
+                <td class="leftLabel">
+                </td>
                 <td>
-                    <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
-                        <telerik:RadGrid ID="rgWerp" runat="server" CssClass="RadGrid" GridLines="Both" AllowPaging="True"
+                    <asp:Panel ID="Panel2" runat="server" Width="50%" ScrollBars="Horizontal">
+                        <telerik:RadGrid ID="rgWerp" runat="server" GridLines="Both" AllowPaging="True" ShowFooter="true"
                             PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true"
                             AllowFilteringByColumn="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                             AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="rgWerp_NeedDataSource"
-                            OnItemCommand="rgWerp_ItemCommand" Width="100%" OnUpdateCommand="rgWerp_UpdateCommand">
+                            EnableEmbeddedSkins="false" Width="100%" OnItemCommand="rgWerp_ItemCommand">
                             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
                             </ExportSettings>
                             <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                 EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Internal Code Value"
                                 DataKeyNames="WCMV_LookupId,WCMV_Name">
                                 <Columns>
+                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        UpdateText="Update">
+                                    </telerik:GridEditCommandColumn>
                                     <telerik:GridBoundColumn UniqueName="WCMV_LookupId" HeaderText="Internal ID" DataField="WCMV_LookupId"
                                         SortExpression="WCMV_LookupId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                        AutoPostBackOnFilter="true">
+                                        AutoPostBackOnFilter="true" ItemStyle-Wrap="false">
                                         <HeaderStyle></HeaderStyle>
+                                        <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn UniqueName="WCMV_Name" HeaderText="Internal Code Value"
-                                        DataField="WCMV_Name" SortExpression="WCMV_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                        AutoPostBackOnFilter="true">
+                                        AllowFiltering="true" DataField="WCMV_Name" SortExpression="WCMV_Name" ShowFilterIcon="false"
+                                        CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                        <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                     </telerik:GridBoundColumn>
+                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete">
+                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    </telerik:GridButtonColumn>
                                 </Columns>
                                 <EditFormSettings EditFormType="Template">
                                     <FormTemplate>
@@ -201,8 +242,9 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
-                                                        CausesValidation="True" ValidationGroup="btnOK" />
+                                                    <asp:Button ValidationGroup="btnOK" ID="btnOK" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                        runat="server" CssClass="PCGButton" CausesValidation="True" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                                    </asp:Button>&nbsp;
                                                     <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
                                                         CssClass="PCGButton" CommandName="Cancel"></asp:Button>
                                                     &nbsp; &nbsp; &nbsp;
@@ -226,39 +268,21 @@
                 </td>
             </tr>
         </table>
-        <table width="100%" id="tblMap" runat="server">
-            <tr>
-                <td class="leftLabel">
-                    <asp:Label ID="lb1RTA" runat="server" Text="Source Type:" CssClass="FieldName"></asp:Label>
-                </td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddlRTA" runat="server" CssClass="cmbField" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlRTA_OnSelectedIndexChanged">
-                    </asp:DropDownList>
-                    <span id="Span1" class="spnRequiredField">*</span>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Source/RTA"
-                        CssClass="rfvPCG" ControlToValidate="ddlRTA" ValidationGroup="btnAdd" Display="Dynamic"
-                        InitialValue="Select"></asp:RequiredFieldValidator>
-                </td>
-                <td align="right">
-                </td>
-                <td class="rightData">
-                </td>
-            </tr>
-        </table>
         <table id="tblExtMapGrd" runat="server" width="99%">
             <tr>
+                <td class="leftLabel">
+                </td>
                 <td>
-                    <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="90%" ScrollBars="Horizontal">
-                        <telerik:RadGrid ID="rgMaping" runat="server" CssClass="RadGrid" GridLines="None"
+                    <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="70%" ScrollBars="Horizontal">
+                        <telerik:RadGrid ID="rgMaping" runat="server" GridLines="None" ShowFooter="true"
                             AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
                             ShowStatusBar="true" AllowAutomaticDeletes="false" AllowAutomaticInserts="false"
                             AllowFilteringByColumn="true" AllowAutomaticUpdates="false" Skin="Telerik" Width="100%"
                             OnUpdateCommand="rgMaping_UpdateCommand" OnNeedDataSource="rgMaping_NeedDataSource"
-                            OnItemDataBound="rgMaping_ItemDataBound" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true">
-                            <MasterTableView DataKeyNames="WCMVXM_Id" Width="120%" AllowMultiColumnSorting="True"
-                                GroupsDefaultExpanded="false" ExpandCollapseColumn-Groupable="true" AutoGenerateColumns="false"
-                                CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" EditMode="PopUp" GroupLoadMode="Client"
+                            OnItemDataBound="rgMaping_ItemDataBound" EnableHeaderContextMenu="false" EnableHeaderContextFilterMenu="false">
+                            <MasterTableView DataKeyNames="WCMVXM_Id" AllowMultiColumnSorting="True" GroupsDefaultExpanded="false"
+                                ExpandCollapseColumn-Groupable="false" AutoGenerateColumns="false" CommandItemDisplay="Top"
+                                CommandItemSettings-ShowRefreshButton="false" EditMode="PopUp" GroupLoadMode="Client"
                                 CommandItemSettings-AddNewRecordText="Create New External Code Values">
                                 <Columns>
                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false">
@@ -367,9 +391,11 @@
                 </td>
             </tr>
             <tr>
+                <td class="leftLabel">
+                </td>
                 <td>
-                    <asp:Button ID="Button3" CssClass="PCGLongButton" Text="Remove Maping" runat="server"
-                        OnClick="Button3_OnClick" />
+                    <asp:Button ID="btnRemoveMaping" CssClass="PCGLongButton" Text="Remove Maping" runat="server"
+                        OnClientClick="return confirm('Do you want to Remove Maping?');" OnClick="btnRemoveMaping_OnClick" />
                 </td>
             </tr>
         </table>

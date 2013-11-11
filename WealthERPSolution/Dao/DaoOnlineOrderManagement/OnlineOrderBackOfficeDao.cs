@@ -1018,6 +1018,56 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
+        public bool UpdateWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand createMFOrderTrackingCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_UpdateInternalValues");
+                db.AddInParameter(createMFOrderTrackingCmd, "@lookupID", DbType.Int32, onlineOrderBackOfficeVo.LookupID);
+                db.AddInParameter(createMFOrderTrackingCmd, "@internalName", DbType.String, onlineOrderBackOfficeVo.WerpName);
+                db.AddInParameter(createMFOrderTrackingCmd, "@userID", DbType.Int32, userID);
+
+                db.ExecuteNonQuery(createMFOrderTrackingCmd);
+                bResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
+        public bool DeleteWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        {
+            bool bResult = false;
+            int affectedRecords=0;
+            Database db;
+            DbCommand createCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_DeleteInternalValues");
+                db.AddInParameter(createCmd, "@lookupID", DbType.Int32, onlineOrderBackOfficeVo.LookupID);
+
+                db.AddOutParameter(createCmd, "@IsDeleted", DbType.Int32, 0);
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(createCmd, "@IsDeleted").ToString());
+                if (affectedRecords == 1)
+                    bResult = true;
+                else
+                    bResult = false;                
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return bResult;
+        }
+
 
         public bool UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int SchemePlanCode)
         {

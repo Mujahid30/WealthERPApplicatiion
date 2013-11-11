@@ -1051,6 +1051,30 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+        public bool DeleteWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                return OnlineOrderBackOfficeDao.DeleteWerpName(onlineOrderBackOfficeVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public bool UpdateWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        {
+            try
+            {
+                OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+                return OnlineOrderBackOfficeDao.UpdateWerpName(onlineOrderBackOfficeVo, userID);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
         public bool RemoveMapingWIthRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
         {
             try

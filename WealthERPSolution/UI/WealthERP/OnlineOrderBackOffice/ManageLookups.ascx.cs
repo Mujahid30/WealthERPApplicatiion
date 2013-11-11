@@ -7,10 +7,16 @@ using System.Web.UI.WebControls;
 using Telerik.Web.UI;
 using System.Data;
 using WealthERP.Base;
-using BoOnlineOrderManagement;
-using VoOnlineOrderManagemnet;
+using System.Collections.Specialized;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+
+
 using VoUser;
 using BoCommon;
+
+using BoOnlineOrderManagement;
+using VoOnlineOrderManagemnet;
+
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -35,270 +41,627 @@ namespace WealthERP.OnlineOrderBackOffice
         private void BindLookupdropdowns()
         {
             BindCategory();
-            BindRtA();
-
         }
         private void BindCategory()
         {
-            DataTable dtCategory = new DataTable();
-            dtCategory = onlineOrderBackOfficeBo.GetLookupCategory().Tables[0];
-            ddlCategory.DataSource = dtCategory;
-            ddlCategory.DataValueField = dtCategory.Columns["WCM_Id"].ToString();
-            ddlCategory.DataTextField = dtCategory.Columns["WCM_Name"].ToString();
-            ddlCategory.DataBind();
-            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+            try
+            {
+                DataTable dtCategory = new DataTable();
+                dtCategory = onlineOrderBackOfficeBo.GetLookupCategory().Tables[0];
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["WCM_Id"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["WCM_Name"].ToString();
+                ddlCategory.DataBind();
+                ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:BindCategory()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
 
+        public void btnGo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ShowControlsBasedonView(ddlView.SelectedValue);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:BindRtA()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         private void BindRtA()
         {
-            DataTable dtRTA = new DataTable();
-            dtRTA = onlineOrderBackOfficeBo.GetRTA().Tables[0];
-            ddlRTA.DataSource = dtRTA;
-            ddlRTA.DataValueField = dtRTA.Columns["XES_SourceCode"].ToString();
-            ddlRTA.DataTextField = dtRTA.Columns["XES_SourceName"].ToString();
-            ddlRTA.DataBind();
-            ddlRTA.Items.Insert(0, new ListItem("Select", "Select"));
+            try
+            {
+                DataTable dtRTA = new DataTable();
+                dtRTA = onlineOrderBackOfficeBo.GetRTA().Tables[0];
+                ddlRTA.DataSource = dtRTA;
+                ddlRTA.DataValueField = dtRTA.Columns["XES_SourceCode"].ToString();
+                ddlRTA.DataTextField = dtRTA.Columns["XES_SourceName"].ToString();
+                ddlRTA.DataBind();
+                ddlRTA.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:BindRtA()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         private void BindWerpValues(int categoryID, DropDownList ddlWerp)
         {
-            DataTable dtWerp = new DataTable();
-            dtWerp = onlineOrderBackOfficeBo.GetWERPValues(categoryID).Tables[0];
-            ddlWerp.DataSource = dtWerp;
-            ddlWerp.DataValueField = dtWerp.Columns["WCMV_LookupId"].ToString();
-            ddlWerp.DataTextField = dtWerp.Columns["ValueIds"].ToString();
-            ddlWerp.DataBind();
-            ddlWerp.Items.Insert(0, new ListItem("Select", "Select"));
-
+            try
+            {
+                DataTable dtWerp = new DataTable();
+                dtWerp = onlineOrderBackOfficeBo.GetWERPValues(categoryID).Tables[0];
+                ddlWerp.DataSource = dtWerp;
+                ddlWerp.DataValueField = dtWerp.Columns["WCMV_LookupId"].ToString();
+                ddlWerp.DataTextField = dtWerp.Columns["ValueIds"].ToString();
+                ddlWerp.DataBind();
+                ddlWerp.Items.Insert(0, new ListItem("Select", "Select"));
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:BindWerpValues()");
+                object[] objects = new object[1];
+                objects[1] = categoryID;
+                objects[2] = ddlWerp;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         private void BindWerpGrid(int categoryID)
         {
-            DataTable dtWerp = new DataTable();
-            dtWerp = onlineOrderBackOfficeBo.GetWERPValues(categoryID).Tables[0];
-            rgWerp.DataSource = dtWerp;
-            rgWerp.DataBind();
-            if (Cache[userVo.UserId.ToString() + "ManageLookups"] != null)
-                Cache.Remove(userVo.UserId.ToString() + "ManageLookups");
-            Cache.Insert(userVo.UserId.ToString() + "ManageLookups", dtWerp);
+            try
+            {
+                DataTable dtWerp = new DataTable();
+                dtWerp = onlineOrderBackOfficeBo.GetWERPValues(categoryID).Tables[0];
+                rgWerp.DataSource = dtWerp;
+                rgWerp.DataBind();
+                if (Cache[userVo.UserId.ToString() + "ManageLookups"] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "ManageLookups");
+                Cache.Insert(userVo.UserId.ToString() + "ManageLookups", dtWerp);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:BindWerpGrid()");
+                object[] objects = new object[1];
+                objects[1] = categoryID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         private void BindMapingGrid(string sourceCode, int categoryID)
         {
-            DataTable dtMap = new DataTable();
-            dtMap = onlineOrderBackOfficeBo.GetRtaWiseMapings(sourceCode, categoryID).Tables[0];
-            rgMaping.DataSource = dtMap;
-            rgMaping.DataBind();
-            if (Cache[userVo.UserId.ToString() + "ManageLookupsMapping"] != null)
-                Cache.Remove(userVo.UserId.ToString() + "ManageLookupsMapping");
-            Cache.Insert(userVo.UserId.ToString() + "ManageLookupsMapping", dtMap);
+            try
+            {
+                DataTable dtMap = new DataTable();
+                dtMap = onlineOrderBackOfficeBo.GetRtaWiseMapings(sourceCode, categoryID).Tables[0];
+                rgMaping.DataSource = dtMap;
+                rgMaping.DataBind();
+
+                if (dtMap.Rows.Count > 0)
+                    btnRemoveMaping.Visible = true;
+                else
+                    btnRemoveMaping.Visible = false;
+
+
+                if (Cache[userVo.UserId.ToString() + "ManageLookupsMapping"] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "ManageLookupsMapping");
+                Cache.Insert(userVo.UserId.ToString() + "ManageLookupsMapping", dtMap);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:BindMapingGrid()");
+                object[] objects = new object[2];
+                objects[1] = sourceCode;
+                objects[2] = categoryID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
         private void CreateNewWerpName(string newWerpName)
         {
-            bool result;
-            onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-            onlineOrderBackOfficeVo.WerpName = newWerpName;
-            onlineOrderBackOfficeVo.CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
-
-            result = onlineOrderBackOfficeBo.CreateNewWerpName(onlineOrderBackOfficeVo, userVo.UserId);
-            if (result)
+            try
             {
-                BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Internal Name Created Successfully.');", true);
-            }
-            else
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Already Exist.');", true);
+                bool result;
+                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                onlineOrderBackOfficeVo.WerpName = newWerpName;
+                onlineOrderBackOfficeVo.CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
+
+                result = onlineOrderBackOfficeBo.CreateNewWerpName(onlineOrderBackOfficeVo, userVo.UserId);
+                if (result)
+                {
+                    BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Internal Name Created Successfully.');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Already Exist.');", true);
+                }
             }
 
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:CreateNewWerpName()");
+                object[] objects = new object[1];
+                objects[1] = newWerpName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        private void DeleteWerpName(int lookupID)
+        {
+            try
+            {
+                bool result;
+                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                onlineOrderBackOfficeVo.LookupID = lookupID;
+
+                result = onlineOrderBackOfficeBo.DeleteWerpName(onlineOrderBackOfficeVo);
+                if (result)
+                {
+                    BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Internal Name Deleted Successfully.');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Exist.You cant delete.');", true);
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:DeleteWerpName()");
+                object[] objects = new object[1];
+                objects[0] = lookupID;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        private void UpdateWerpName(int lookupID, string werpName)
+        {
+            try
+            {
+                bool result;
+                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                onlineOrderBackOfficeVo.LookupID = lookupID;
+                onlineOrderBackOfficeVo.WerpName = werpName;
+
+                result = onlineOrderBackOfficeBo.UpdateWerpName(onlineOrderBackOfficeVo, userVo.UserId);
+                if (result)
+                {
+                    BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Internal Name Updated Successfully.');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Error in Updating');", true);
+                }
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:UpdateWerpName()");
+                object[] objects = new object[1];
+                objects[1] = lookupID;
+                objects[2] = werpName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
         private void RemoveMaping()
         {
-            int i = 0;
-            bool result;
-            int mapingID;
-            foreach (GridDataItem gvRow in rgMaping.Items)
+            try
             {
-                CheckBox chk = (CheckBox)gvRow.FindControl("cbMap");
-                if (chk.Checked)
+                int i = 0;
+                bool result;
+                int mapingID;
+                foreach (GridDataItem gvRow in rgMaping.Items)
                 {
-                    count++;
-                }
-                if (count > 1)
-                    chk.Checked = false;
-
-            }
-            if (count == 0)
-            {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-            }
-            if (count == 1)
-            {
-                foreach (GridDataItem gdi in rgMaping.Items)
-                {
-                    if (((CheckBox)gdi.FindControl("cbMap")).Checked == true)
+                    CheckBox chk = (CheckBox)gvRow.FindControl("cbMap");
+                    if (chk.Checked)
                     {
+                        count++;
+                    }
+                    if (count > 1)
+                        chk.Checked = false;
 
-                        int selectedRow = gdi.ItemIndex + 1;
-                        mapingID = int.Parse(rgMaping.MasterTableView.DataKeyValues[selectedRow - 1]["WCMVXM_Id"].ToString());
-
-                        onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                        onlineOrderBackOfficeVo.MapID = mapingID;
-
-                        result = onlineOrderBackOfficeBo.RemoveMapingWIthRTA(onlineOrderBackOfficeVo);
-                        if (result)
+                }
+                if (count == 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                }
+                if (count == 1)
+                {
+                    foreach (GridDataItem gdi in rgMaping.Items)
+                    {
+                        if (((CheckBox)gdi.FindControl("cbMap")).Checked == true)
                         {
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Removed Successfully.');", true);
+
+                            int selectedRow = gdi.ItemIndex + 1;
+                            mapingID = int.Parse(rgMaping.MasterTableView.DataKeyValues[selectedRow - 1]["WCMVXM_Id"].ToString());
+
+                            onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                            onlineOrderBackOfficeVo.MapID = mapingID;
+
+                            result = onlineOrderBackOfficeBo.RemoveMapingWIthRTA(onlineOrderBackOfficeVo);
+                            if (result)
+                            {
+                                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Removed Successfully.');", true);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You can select only one record at a time.');", true);
+                }
+                BindMapingGrid(ddlRTA.SelectedValue, Int32.Parse(ddlCategory.SelectedValue));
             }
-            else
+            catch (BaseApplicationException Ex)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You can select only one record at a time.');", true);
+                throw Ex;
             }
-            BindMapingGrid(ddlRTA.SelectedValue, Int32.Parse(ddlCategory.SelectedValue));
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:RemoveMaping()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
-        public void Button3_OnClick(object sender, EventArgs e)
+
+        public void btnRemoveMaping_OnClick(object sender, EventArgs e)
         {
             RemoveMaping();
         }
-       
+
         private void CreateMap(DropDownList ddlWerp, TextBox txtExternalCode, TextBox txtNewEXtName)
         {
-            bool result;
-            onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-            onlineOrderBackOfficeVo.SourceCode = ddlRTA.SelectedValue;
-            onlineOrderBackOfficeVo.LookupID = Convert.ToInt32(ddlWerp.SelectedValue);
-            onlineOrderBackOfficeVo.ExternalCode = txtExternalCode.Text;
-            onlineOrderBackOfficeVo.ExternalName = txtNewEXtName.Text;
+            try
+            {
+                bool result;
+                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                onlineOrderBackOfficeVo.SourceCode = ddlRTA.SelectedValue;
+                onlineOrderBackOfficeVo.LookupID = Convert.ToInt32(ddlWerp.SelectedValue);
+                onlineOrderBackOfficeVo.ExternalCode = txtExternalCode.Text;
+                onlineOrderBackOfficeVo.ExternalName = txtNewEXtName.Text;
 
-            result = onlineOrderBackOfficeBo.CreateMapwithRTA(onlineOrderBackOfficeVo, userVo.UserId);
-            if (result)
-            {
-                BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Created Successfully.');", true);
+                result = onlineOrderBackOfficeBo.CreateMapwithRTA(onlineOrderBackOfficeVo, userVo.UserId);
+                if (result)
+                {
+                    BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Created Successfully.');", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Already Exist.');", true);
+                }
             }
-            else
+            catch (BaseApplicationException Ex)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Already Exist.');", true);
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:CreateMap()");
+                object[] objects = new object[3];
+                objects[1] = ddlWerp;
+                objects[2] = txtExternalCode;
+                objects[3] = txtNewEXtName;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
 
         }
 
         protected void ddlView_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-
-            if (ddlCategory.SelectedValue == "Select")
+            try
             {
-                ddlView.SelectedValue = "Select";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Select Category.');", true);
-                return;
-            }
+                if (ddlView.SelectedValue == "Select")
+                    return;
 
-            ShowControlsBasedonView(ddlView.SelectedValue);
+                ShowControlsBasedonView("");
+                if (ddlView.SelectedValue == "Mapping")
+                {
+                    trSourceType.Visible = true;
+                    BindRtA();
+                }
+
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:ddlView_OnSelectedIndexChanged()");
+                object[] objects = new object[2];
+                objects[1] = sender;
+                objects[2] = e;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
 
         }
         private void ShowControlsBasedonView(string viewType)
         {
             // 1 for lookups grid 2 for maping grid
-
-            tblwerpGrd.Visible = false;
-            tblExtMapGrd.Visible = false;
-            tblMap.Visible = false;
-            if (viewType == "1")
+            try
             {
-                tblwerpGrd.Visible = true;
+                tblwerpGrd.Visible = false;
+                tblExtMapGrd.Visible = false;
+                trSourceType.Visible = false;
+                if (viewType == "Lookup")
+                {
+                    tblwerpGrd.Visible = true;
+                    BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
+                }
+                else if (viewType == "Mapping")
+                {
+                    tblExtMapGrd.Visible = true;
+                    BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
+                }
             }
-            else if (viewType == "2")
+            catch (BaseApplicationException Ex)
             {
-                tblMap.Visible = true;
-                // BindWerpValues(Convert.ToInt32(ddlCategory.SelectedValue));
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:ShowControlsBasedonView()");
+                object[] objects = new object[1];
+                objects[1] = viewType;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
 
         }
         protected void ddlRTA_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (ddlRTA.SelectedValue == "Select" & ddlCategory.SelectedValue == "Select")
-                return;
-            tblExtMapGrd.Visible = true;
-            BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
         }
         protected void ddlCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlCategory.SelectedValue == "Select")
-                return;
-            //  BindWerpValues(Convert.ToInt32(ddlCategory.SelectedValue));
 
-            BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
         }
-        protected void rgWerp_ItemDataBound(object sender, GridItemEventArgs e)
-        {
-            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
-            {
-                //DataSet dsCommissionLookup;
-                //dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
 
-                //GridEditFormItem editform = (GridEditFormItem)e.Item;
-                //DropDownList ddlCommissionType = (DropDownList)editform.FindControl("ddlCommissionType");
-                //DropDownList ddlInvestorType = (DropDownList)editform.FindControl("ddlInvestorType");
-
-            }
-        }
 
         protected void rgMaping_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
+            try
             {
-                //DataSet dsCommissionLookup;
-                //dsCommissionLookup = (DataSet)Session["CommissionLookUpData"];
-
-                GridEditFormItem editform = (GridEditFormItem)e.Item;
-                DropDownList ddlWerp = (DropDownList)editform.FindControl("ddlWerp");
-                //DropDownList ddlInvestorType = (DropDownList)editform.FindControl("ddlInvestorType");
-                BindWerpValues(Convert.ToInt32(ddlCategory.SelectedValue), ddlWerp);
+                if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
+                {
+                    GridEditFormItem editform = (GridEditFormItem)e.Item;
+                    DropDownList ddlWerp = (DropDownList)editform.FindControl("ddlWerp");
+                    BindWerpValues(Convert.ToInt32(ddlCategory.SelectedValue), ddlWerp);
+                }
             }
-        }
-        protected void rgWerp_UpdateCommand(object source, GridCommandEventArgs e)
-        {
-
-            if (e.CommandName == RadGrid.UpdateCommandName)
+            catch (BaseApplicationException Ex)
             {
-                TextBox txtNewWERPName = (TextBox)e.Item.FindControl("txtNewWERPName");
-                CreateNewWerpName(txtNewWERPName.Text.Trim());
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:rgMaping_ItemDataBound()");
+                object[] objects = new object[2];
+                objects[1] = sender;
+                objects[2] = e;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         protected void rgWerp_ItemCommand(object source, GridCommandEventArgs e)
         {
+            string description = string.Empty;
+            string name = string.Empty;
+            string insertType = string.Empty;
 
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                int EditingLookupID = Convert.ToInt32(rgWerp.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCMV_LookupId"].ToString());
+                TextBox txtNewWERPName = (TextBox)e.Item.FindControl("txtNewWERPName");
+                UpdateWerpName(EditingLookupID, txtNewWERPName.Text.ToString());
 
+            }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                TextBox txtNewWERPName = (TextBox)e.Item.FindControl("txtNewWERPName");
+                CreateNewWerpName(txtNewWERPName.Text.Trim());
+            }
+            if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                int DeletingLookupID = Convert.ToInt32(rgWerp.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WCMV_LookupId"].ToString());
+                DeleteWerpName(DeletingLookupID);
+            }
+            //bind the grid to get the edit form mode
+            BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
         }
+
+
         protected void rgWerp_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataTable dtWerp = new DataTable();
-            if (Cache[userVo.UserId.ToString() + "ManageLookups"] != null)
+            try
             {
-                dtWerp = (DataTable)Cache[userVo.UserId.ToString() + "ManageLookups"];
-                rgWerp.DataSource = dtWerp;
+                DataTable dtWerp = new DataTable();
+                if (Cache[userVo.UserId.ToString() + "ManageLookups"] != null)
+                {
+                    dtWerp = (DataTable)Cache[userVo.UserId.ToString() + "ManageLookups"];
+                    rgWerp.DataSource = dtWerp;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:rgWerp_NeedDataSource()");
+                object[] objects = new object[2];
+                objects[1] = source;
+                objects[2] = e;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         protected void rgMaping_UpdateCommand(object source, GridCommandEventArgs e)
         {
-            if (e.CommandName == RadGrid.UpdateCommandName)
+            try
             {
-                DropDownList ddlWerp = (DropDownList)e.Item.FindControl("ddlWerp");
-                TextBox txtExternalCode = (TextBox)e.Item.FindControl("txtExternalCode");
-                TextBox txtNewEXtName = (TextBox)e.Item.FindControl("txtNewEXtName");
-                CreateMap(ddlWerp, txtExternalCode, txtNewEXtName);
+                if (e.CommandName == RadGrid.UpdateCommandName)
+                {
+                    DropDownList ddlWerp = (DropDownList)e.Item.FindControl("ddlWerp");
+                    TextBox txtExternalCode = (TextBox)e.Item.FindControl("txtExternalCode");
+                    TextBox txtNewEXtName = (TextBox)e.Item.FindControl("txtNewEXtName");
+                    CreateMap(ddlWerp, txtExternalCode, txtNewEXtName);
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:rgMaping_UpdateCommand()");
+                object[] objects = new object[2];
+                objects[1] = source;
+                objects[2] = e;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
         }
         protected void rgMaping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-
-            DataTable dtMap = new DataTable();
-            if (Cache[userVo.UserId.ToString() + "ManageLookupsMapping"] != null)
+            try
             {
-                dtMap = (DataTable)Cache[userVo.UserId.ToString() + "ManageLookupsMapping"];
-                rgMaping.DataSource = dtMap;
+                DataTable dtMap = new DataTable();
+                if (Cache[userVo.UserId.ToString() + "ManageLookupsMapping"] != null)
+                {
+                    dtMap = (DataTable)Cache[userVo.UserId.ToString() + "ManageLookupsMapping"];
+                    rgMaping.DataSource = dtMap;
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "ManageLookups.ascx.cs:rgMaping_NeedDataSource()");
+                object[] objects = new object[2];
+                objects[1] = source;
+                objects[2] = e;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
             }
 
 
