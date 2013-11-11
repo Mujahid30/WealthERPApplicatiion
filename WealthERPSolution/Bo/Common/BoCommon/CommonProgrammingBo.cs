@@ -43,7 +43,7 @@ namespace BoCommon
            }
            else if (FileID == 40)
            {
-               filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
+               filename = "eMF-InProcess" + MM + DD + YYYY + ".txt";
                delimeter = "|";
            }
            else if (FileID == 41)
