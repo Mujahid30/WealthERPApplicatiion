@@ -52,8 +52,8 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an AMC"
-                Display="Dynamic" ControlToValidate="ddlExtractType" InitialValue="0" ValidationGroup="btnSubmit">Please Select an AMC</asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="rfvAmc" runat="server" CssClass="rfvPCG" ErrorMessage="Please Select an ExtractType"
+                Display="Dynamic" ControlToValidate="ddlExtractType" InitialValue="0" ValidationGroup="btnSubmit">Please Select an ExtractType</asp:RequiredFieldValidator>
         </td>
         <td>
         </td>
