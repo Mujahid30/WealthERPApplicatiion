@@ -62,6 +62,7 @@
     <Reference Include="Financial, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="FusionCharts, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL" />
     <Reference Include="itextsharp, Version=4.1.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -7228,6 +7229,7 @@
     <Content Include="bin\FusionCharts.dll" />
     <Content Include="bin\ICSharpCode.SharpZipLib.dll" />
     <Content Include="bin\Interop.SHDocVw.dll" />
+    <Content Include="bin\Ionic.Zip.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.dll" />
     <Content Include="bin\Microsoft.ApplicationBlocks.ExceptionManagement.pdb" />
