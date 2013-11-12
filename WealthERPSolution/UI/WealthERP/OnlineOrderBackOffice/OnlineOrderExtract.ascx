@@ -127,7 +127,83 @@
         </td>
     </tr>
 </table>
+<table width="100%>
+    <tr id="trStepOneHeading" runat="server">
+        <td class="tdSectionHeading" colspan="6">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                <div class="divSectionHeadingNumber fltlftStep">1</div>
+                <div class="fltlft">
+                    <asp:Label ID="lblStep1" runat="server" Text="Extract"></asp:Label>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td colspan="2"> 
+            <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order"
+                OnClick="btnAutoOrder_Click" />
+                &nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="Extract Data"
+                OnClick="btnExtract_Click" CausesValidation="false" /></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
+<table width="100%>
+    <tr id="trStepTwoHeading" runat="server">
+        <td class="tdSectionHeading" colspan="6">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                <div class="divSectionHeadingNumber fltlftStep">2</div>
+                <div class="fltlft">
+                    <asp:Label ID="lblBulkDownload" runat="server" Text="Bulk File Download"></asp:Label>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td class="leftLabel">
+            <asp:Label ID="lblOverwrite" class="FieldName" runat="server" Text="Overwite: "></asp:Label></td>
+        <td>
+            <asp:CheckBox ID="chkOverwrite" runat="server" />
+            <asp:Label ID="lblYes" class="FieldName" runat="server" Text="Yes"></asp:Label></td>
+        <td>
+            <asp:Button ID="btnCreateFiles" runat="server" CssClass="PCGLongButton" Text="Create Files"
+                OnClick="btnCreateFiles_Click" />
+            <asp:Label ID="lblCurrentDate" class="FieldName" runat="server" Text="(For current date only)"></asp:Label></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td class="leftLabel">
+            <asp:Label class="FieldName" ID="lblBulkDownloadDate" Text="Download Date: " runat="server" /></td>
+        <td class="rightData">
+            <telerik:RadDatePicker ID="rdpBulkDownloadDate" runat="server">
+            </telerik:RadDatePicker>
+            <asp:RequiredFieldValidator ID="rfvBulkDownDate" runat="server" CssClass="rfvPCG"
+                Display="Dynamic" ErrorMessage="Please select a download date" ValidationGroup="BulkDownload"
+                ControlToValidate="rdpExtractDate">Please select a download date</asp:RequiredFieldValidator></td>
+        <td>
+            <asp:Button ID="btnBulkDownload" runat="server" CssClass="PCGLongButton" Text="Download"
+                OnClick="btnBulkDownload_Click" /></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
 <table width="100%">
+    <tr id="tr1" runat="server">
+        <td class="tdSectionHeading" colspan="6">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+                <div class="divSectionHeadingNumber fltlftStep">3</div>
+                <div class="fltlft">
+                    <asp:Label ID="lblStep2" runat="server" Text="Individual Download"></asp:Label>
+                </div>
+            </div>
+        </td>
+    </tr>
     <tr>
         <td class="leftLabel">
             <asp:Label runat="server" class="FieldName" Text="Product: " ID="lblProduct"></asp:Label>
@@ -152,10 +228,10 @@
                 ControlToValidate="ddlProductAmc">Please select a product</asp:RequiredFieldValidator>
         </td>
         <td colspan="2">
-            <asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order"
+            <%--<asp:Button ID="btnAutoOrder" runat="server" CssClass="PCGLongButton" Text="Auto SIP Order"
                 OnClick="btnAutoOrder_Click" />
             <asp:Button ID="btnExtractData" runat="server" CssClass="PCGLongButton" Text="Extract Data"
-                OnClick="btnExtract_Click" CausesValidation="false" />
+                OnClick="btnExtract_Click" CausesValidation="false" />--%>
         </td>
     </tr>
     <tr>
@@ -218,7 +294,7 @@
         <td>
             <asp:Button ID="btnPreview" runat="server" CssClass="PCGLongButton" Text="1-Preview Data"
                 OnClick="btnPreview_Click" ValidationGroup="PreviewData" />
-                  <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download Data"
+                  <asp:Button ID="btnGenerate" runat="server" CssClass="PCGLongButton" Text="2-Download File"
                 OnClick="btnGenerateFile_Click" ValidationGroup="PreviewData" />
         </td>
         <td>

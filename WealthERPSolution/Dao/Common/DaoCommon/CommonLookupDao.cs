@@ -595,5 +595,36 @@ namespace DaoCommon
             }
             return ds.Tables[0];
         }
+
+        /// <summary>
+        /// Gets the list of AMC with RTAs
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetAmcWithRta() {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_GetAmcWithRta");
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetAmcWithRta()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
     }
 }

@@ -519,5 +519,31 @@ namespace BoCommon
             }
             return dt;
         }
+
+        /// <summary>
+        /// Gets the list of AMC with RTAs
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GetAmcWithRta() {
+            DataTable dt;
+
+            try {
+                dt = daoCommonLookup.GetAmcWithRta();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetProductList()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
     }
 }

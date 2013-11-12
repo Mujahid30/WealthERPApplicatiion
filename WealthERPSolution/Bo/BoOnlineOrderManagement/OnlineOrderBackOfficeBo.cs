@@ -14,14 +14,16 @@ using DaoOnlineOrderManagement;
 using System.Data.OleDb;
 using System.Text.RegularExpressions;
 using System.IO;
-
-
+using BoCommon;
+using System.Configuration;
 
 namespace BoOnlineOrderManagement
 {
     public class OnlineOrderBackOfficeBo
     {
         OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao;
+        CommonLookupBo boCommonLookup;
+        DataTable dtAmcWithRta;
 
         public DataSet GetExtractType()
         {
@@ -332,15 +334,14 @@ namespace BoOnlineOrderManagement
                 default:
                     return null;
             }
-            string dbfFile = "orderext.dbf";
+            string dbfFile = "ORDEREXT.DBF";
             string csvColList = GetCsvColumnList(OrderExtract.Columns);
-            //string workDir = Server.Mappath("~/ReferenceFiles/RTAExtractSampleFiles/");
 
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + workDir + ";Extended Properties=dBASE IV;");
 
             string sqlIns = "INSERT INTO " + dbfFile + " (" + csvColList + ") VALUES (" + Regex.Replace(csvColList, @"[a-zA-Z_0-9]+", "?") + ")";
-            string sqlSel = "SELECT " + csvColList + " INTO " + dbfFile + " FROM " + seedFileName + ".dbf";
-            string sqlDel = "DELETE FROM " + seedFileName + ".dbf" + " WHERE 1 = 1";
+            string sqlSel = "SELECT " + csvColList + " INTO " + dbfFile + " FROM " + seedFileName + ".DBF";
+            string sqlDel = "DELETE FROM " + seedFileName + ".DBF" + " WHERE 1 = 1";
 
             OleDbDataAdapter daRead = new OleDbDataAdapter(sqlSel, conn);
 
@@ -1164,7 +1165,6 @@ namespace BoOnlineOrderManagement
 
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:CreateSystematicDetails()");
 
-
                 object[] objects = new object[2];
                 objects[0] = OnlineOrderBackOfficeVo;
                 objects[1] = schemeplancode;
@@ -1174,10 +1174,173 @@ namespace BoOnlineOrderManagement
                 throw exBase;
 
             }
-
             return bResult;
-
         }
 
+
+        private KeyValuePair<string, string>[] GetAMCList(string RtaCode)
+        {
+            List<KeyValuePair<string, string>> AmcList = new List<KeyValuePair<string, string>>();
+            
+            if(boCommonLookup == null) boCommonLookup = new CommonLookupBo();
+            
+            try
+            {
+                if(dtAmcWithRta == null) dtAmcWithRta = boCommonLookup.GetAmcWithRta();
+                foreach (DataRow row in dtAmcWithRta.Rows) {
+                    if (row["RTA"].ToString().Equals(RtaCode) == false) continue;
+                    AmcList.Add(new KeyValuePair<string,string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetAMCList()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return AmcList.ToArray();
+        }
+
+        private KeyValuePair<string, string>[] GetRTAList()
+        {
+            List<KeyValuePair<string, string>> RTAList = new List<KeyValuePair<string, string>>();
+            if (boCommonLookup == null) boCommonLookup = new CommonLookupBo();
+
+            try
+            {
+                DataTable dtExtSrc = boCommonLookup.GetExternalSource(null);
+                foreach (DataRow row in dtExtSrc.Rows)
+                {
+                    RTAList.Add(new KeyValuePair<string, string>(row["XES_SourceCode"].ToString(), row["XES_SourceName"].ToString()));
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetAMCList()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return RTAList.ToArray();
+        }
+
+        private KeyValuePair<string, string>[] GetOrderTypeList()
+        {
+            List<KeyValuePair<string, string>> OrderTypeList = new List<KeyValuePair<string, string>>();
+
+            OrderTypeList.Add(new KeyValuePair<string,string>("OTH", "Normal"));
+            OrderTypeList.Add(new KeyValuePair<string,string>("SIP", "SIP"));
+
+            return OrderTypeList.ToArray();
+        }
+
+        private void CreateTxtFile(DataTable dtOrderExtract, string filename, string rtaType, string filePath)
+        {
+            string dateFormat = "MM/dd/yyyy";
+
+            switch (rtaType)
+            {
+                case "KA":
+                case "CA":
+                    dateFormat = "MM/dd/yyyy";
+                    break;
+                case "TN":
+                    dateFormat = "dd-MM-yyyy";
+                    break;
+                case "SU":
+                    dateFormat = "dd/MM/yyyy";
+                    break;
+            }
+            string file = string.Empty;
+
+            #region ExportDataTabletoFile
+            StreamWriter str = new StreamWriter(filePath + filename + ".TXT", false, System.Text.Encoding.Default);
+
+            if (rtaType != "CA")
+            {
+                string Columns = string.Empty;
+                foreach (DataColumn column in dtOrderExtract.Columns)
+                {
+                    Columns += column.ColumnName + "|";
+                }
+                str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+            }
+
+            DataColumn[] arrCols = new DataColumn[dtOrderExtract.Columns.Count];
+            dtOrderExtract.Columns.CopyTo(arrCols, 0);
+            foreach (DataRow datarow in dtOrderExtract.Rows)
+            {
+                string row = string.Empty;
+                int i = 0;
+                foreach (object item in datarow.ItemArray)
+                {
+                    if (arrCols[i].DataType.FullName == "System.DateTime")
+                    {
+                        string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
+                        row += strDate + "|";
+                    }
+                    else
+                    {
+                        row += item.ToString() + "|";
+                    }
+                    i++;
+                }
+                str.WriteLine(row.Remove(row.Length - 1, 1));
+            }
+            str.Flush();
+            str.Close();
+            #endregion
+        }
+
+        public void GenerateDailyOrderExtractFiles(string refFilePath, bool bOverwrite, int adviserId)
+        {
+            string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
+            string dailyDirName = DateTime.Now.ToString("ddMMMyyyy");
+
+            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName)) Directory.Delete(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName, true);
+
+            KeyValuePair<string, string>[] RtaList = GetRTAList();
+            KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
+
+            foreach (KeyValuePair<string,string> rta in RtaList) {
+                KeyValuePair<string, string>[] AmcList = GetAMCList(rta.Key);
+                
+                foreach (KeyValuePair<string, string> amc in AmcList)
+                {
+                    foreach (KeyValuePair<string,string> OrderType in OrderTypeList) {
+                        DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
+
+                        if (orderExtractForRta.Rows.Count <= 0) continue;
+
+                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false) {
+                            Directory.CreateDirectory(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value);
+                        }
+                        
+                        string downloadFileName = GetFileName(OrderType.Key, amc.Key, orderExtractForRta.Rows.Count);
+                        if (rta.Key.Equals("CA")) {
+                            CreateTxtFile(orderExtractForRta, downloadFileName, rta.Key, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\");
+                            continue;
+                        }
+
+                        string localFilePath = CreatDbfFile(orderExtractForRta, rta.Key, refFilePath);
+                        File.Copy(localFilePath, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\" + downloadFileName + ".DBF");
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                }
+            }
+        }
     }
 }

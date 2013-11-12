@@ -12,6 +12,8 @@ using VoUser;
 using System.IO;
 using WealthERP.Base;
 using BoCommon;
+using Ionic.Zip;
+using System.Configuration;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -44,6 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindProduct();
                 BindExternalSource();
                 BindExtractDate();
+                BindDownloadDate();
             }
         }
 
@@ -116,6 +119,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("Extraction Successfully");
             else
                 ShowMessage("Extraction Unsuccessfully");
+
+            AutoOrderExtract();
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)
@@ -283,6 +288,11 @@ namespace WealthERP.OnlineOrderBackOffice
             rdpExtractDate.SelectedDate = DateTime.Now;
         }
 
+        protected void BindDownloadDate()
+        {
+            rdpBulkDownloadDate.SelectedDate = DateTime.Now;
+        }
+
         protected void BindProduct()
         {
             ddlProduct.Items.Clear();
@@ -321,6 +331,40 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             ddlProductAmc.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlProductAmc.SelectedIndex = 0;
+        }
+
+        public void AutoOrderExtract()
+        {
+            boOnlineOrderBackOffice.GenerateDailyOrderExtractFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), chkOverwrite.Checked, advisorVo.advisorId );
+        }
+        
+        protected void btnCreateFiles_Click(object sender, EventArgs e)
+        {
+            AutoOrderExtract();
+        }
+
+        protected void btnBulkDownload_Click(object sender, EventArgs e)
+        {
+            string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
+            string dailyDirName = rdpBulkDownloadDate.SelectedDate.Value.ToString("ddMMMyyyy");
+            int adviserId = advisorVo.advisorId;
+
+            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) == false) {
+                ShowMessage("No download available. Create extract files, and retry");
+                return;
+            }
+
+            //Create a ZIP file
+
+            Response.ContentType = "application/zip";
+            Response.AddHeader("content-disposition", "attachment; filename=" + dailyDirName + ".ZIP");
+            using (ZipFile zipfile = new ZipFile())
+            {
+                zipfile.AlternateEncoding = System.Text.Encoding.Unicode;
+                zipfile.AddDirectory(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName);
+                zipfile.Save(Response.OutputStream);
+            }
+            Response.End();
         }
     }
 }
