@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BoCommon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\UI\WealthERP\bin\BoCommon.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ApplicationBlocks.ExceptionManagement, Version=4.0.0.4, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <SpecificVersion>False</SpecificVersion>
