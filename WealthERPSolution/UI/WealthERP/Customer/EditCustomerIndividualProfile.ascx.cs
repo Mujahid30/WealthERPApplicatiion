@@ -19,9 +19,9 @@ using BoCustomerPortfolio;
 using VoCustomerPortfolio;
 using Telerik.Web.UI;
 using System.Web.UI.HtmlControls;
-using BoCustomerProfiling;
 using AjaxControlToolkit;
 using BoOps;
+
 
 namespace WealthERP.Customer
 {
@@ -29,6 +29,7 @@ namespace WealthERP.Customer
     {
         UserVo userVo = null;
         RMVo rmVo = null;
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         MFOrderBo mfOrderBo = new MFOrderBo();
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
@@ -43,6 +44,8 @@ namespace WealthERP.Customer
         DataTable dtQualification = new DataTable();
         DataTable dtState = new DataTable();
         DataTable dtCustomerSubType = new DataTable();
+        DataTable dtCity = new DataTable();
+
         CustomerFamilyBo customerFamilyBo = new CustomerFamilyBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         DataSet dsCustomerAssociates = new DataSet();
@@ -161,7 +164,7 @@ namespace WealthERP.Customer
                     //Bind Adviser Branch List
 
                     BindListBranch(customerVo.RmId, "rm");
-
+                    ddlCustomerSubType.SelectedValue = customerVo.TaxStatusCustomerSubTypeId.ToString();
 
                     if (customerVo.Type.ToUpper().ToString() == "IND")
                     {
@@ -199,8 +202,8 @@ namespace WealthERP.Customer
                         txtMarriageDate.SelectedDate = customerVo.MarriageDate;
                     if (customerVo.Nationality != null)
                         ddlNationality.SelectedValue = customerVo.Nationality.ToString();
-                    if (customerVo.Occupation != null)
-                        ddlOccupation.SelectedValue = customerVo.Occupation.ToString();
+                    if (customerVo.OccupationId!=0)
+                        ddlOccupation.SelectedValue = customerVo.OccupationId.ToString();
                     if (customerVo.Qualification != null)
                         ddlQualification.SelectedValue = customerVo.Qualification.ToString();
 
@@ -256,31 +259,39 @@ namespace WealthERP.Customer
                     txtFirstName.Text = customerVo.FirstName;
                     txtMiddleName.Text = customerVo.MiddleName;
                     txtLastName.Text = customerVo.LastName;
-                    txtCustomerCode.Text = customerVo.CustCode;
+                    txtCustomerCode.Text = customerVo.AccountId;
+                    chkRealInvestor.Checked = customerVo.IsRealInvestor;
+
                     txtPanNumber.Text = customerVo.PANNum;
 
                     txtCorrAdrLine1.Text = customerVo.Adr1Line1;
                     txtCorrAdrLine2.Text = customerVo.Adr1Line2;
                     txtCorrAdrLine3.Text = customerVo.Adr1Line3;
                     txtCorrAdrPinCode.Text = customerVo.Adr1PinCode.ToString();
-                    txtCorrAdrCity.Text = customerVo.Adr1City;
-                    ddlCorrAdrState.SelectedValue = customerVo.Adr1State;
+
+                    ddlCorrAdrCity.SelectedValue = customerVo.CorrespondenceCityId.ToString();
+                    ddlCorrAdrState.SelectedValue = customerVo.CorrespondenceStateId.ToString();
+
                     txtCorrAdrCountry.Text = customerVo.Adr1Country;
                     txtPermAdrLine1.Text = customerVo.Adr2Line1;
                     txtPermAdrLine2.Text = customerVo.Adr2Line2;
 
                     txtPermAdrLine3.Text = customerVo.Adr2Line3;
                     txtPermAdrPinCode.Text = customerVo.Adr2PinCode.ToString();
-                    txtPermAdrCity.Text = customerVo.Adr2City;
-                    ddlPermAdrState.SelectedValue = customerVo.Adr2State;
+
+                    ddlPermAdrCity.SelectedValue = customerVo.PermanentCityId.ToString();
+                    ddlPermAdrState.SelectedValue = customerVo.PermanentStateId.ToString();
+
                     txtPermAdrCountry.Text = customerVo.Adr2Country;
                     txtOfcCompanyName.Text = customerVo.CompanyName;
                     txtOfcAdrLine1.Text = customerVo.OfcAdrLine1;
                     txtOfcAdrLine2.Text = customerVo.OfcAdrLine2;
                     txtOfcAdrLine3.Text = customerVo.OfcAdrLine3;
                     txtOfcAdrPinCode.Text = customerVo.OfcAdrPinCode.ToString();
-                    txtOfcAdrCity.Text = customerVo.OfcAdrCity;
-                    ddlOfcAdrState.SelectedValue = customerVo.OfcAdrState;
+
+                    ddlOfcAdrCity.SelectedValue = customerVo.OfficeCityId.ToString();
+                    ddlOfcAdrState.SelectedValue = customerVo.OfficeStateId.ToString();
+
                     txtOfcAdrCountry.Text = customerVo.OfcAdrCountry;
                     txtResPhoneNoIsd.Text = customerVo.ResISDCode.ToString();
                     txtResPhoneNoStd.Text = customerVo.ResSTDCode.ToString();
@@ -444,6 +455,7 @@ namespace WealthERP.Customer
         private void BindDropDowns()
         {
             AdvisorVo advisorVo = new AdvisorVo();
+            
             try
             {
                 dtMaritalStatus = XMLBo.GetMaritalStatus(path);
@@ -460,39 +472,68 @@ namespace WealthERP.Customer
                 ddlNationality.DataBind();
                 ddlNationality.Items.Insert(0, new ListItem("Select a Nationality", "Select a Nationality"));
 
-                dtOccupation = XMLBo.GetOccupation(path);
+
+                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(2000, 0);
+                ddlCustomerSubType.DataSource = dtOccupation;
+                ddlCustomerSubType.DataTextField = "WCMV_Name";
+                ddlCustomerSubType.DataValueField = "WCMV_LookupId";
+                ddlCustomerSubType.DataBind();
+                ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                dtOccupation = commonLookupBo.GetWERPLookupMasterValueList(3000, 0); ;
                 ddlOccupation.DataSource = dtOccupation;
-                ddlOccupation.DataTextField = "Occupation";
-                ddlOccupation.DataValueField = "OccupationCode";
+                ddlOccupation.DataTextField = "WCMV_Name";
+                ddlOccupation.DataValueField = "WCMV_LookupId";
                 ddlOccupation.DataBind();
-                ddlOccupation.Items.Insert(0, new ListItem("Select a Occupation", "Select a Occupation"));
+                ddlOccupation.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
                 dtQualification = XMLBo.GetQualification(path);
                 ddlQualification.DataSource = dtQualification;
                 ddlQualification.DataTextField = "Qualification";
                 ddlQualification.DataValueField = "QualificationCode";
                 ddlQualification.DataBind();
-                ddlQualification.Items.Insert(0, new ListItem("Select a Qualification", "Select a Qualification"));
+                ddlQualification.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
-                dtState = XMLBo.GetStates(path);
+                dtState = commonLookupBo.GetWERPLookupMasterValueList(9000, 0);
 
                 ddlCorrAdrState.DataSource = dtState;
-                ddlCorrAdrState.DataTextField = "StateName";
-                ddlCorrAdrState.DataValueField = "StateCode";
+                ddlCorrAdrState.DataTextField = "WCMV_Name";
+                ddlCorrAdrState.DataValueField = "WCMV_LookupId";
                 ddlCorrAdrState.DataBind();
-                ddlCorrAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+                ddlCorrAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
                 ddlPermAdrState.DataSource = dtState;
-                ddlPermAdrState.DataTextField = "StateName";
-                ddlPermAdrState.DataValueField = "StateCode";
+                ddlPermAdrState.DataTextField = "WCMV_Name";
+                ddlPermAdrState.DataValueField = "WCMV_LookupId";
                 ddlPermAdrState.DataBind();
-                ddlPermAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+                ddlPermAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
                 ddlOfcAdrState.DataSource = dtState;
-                ddlOfcAdrState.DataTextField = "StateName";
-                ddlOfcAdrState.DataValueField = "StateCode";
+                ddlOfcAdrState.DataTextField = "WCMV_Name";
+                ddlOfcAdrState.DataValueField = "WCMV_LookupId";
                 ddlOfcAdrState.DataBind();
-                ddlOfcAdrState.Items.Insert(0, new ListItem("Select a State", "Select a State"));
+                ddlOfcAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                dtCity=commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
+
+                ddlOfcAdrCity.DataSource = dtCity;
+                ddlOfcAdrCity.DataTextField = "WCMV_Name";
+                ddlOfcAdrCity.DataValueField = "WCMV_LookupId";
+                ddlOfcAdrCity.DataBind();
+                ddlOfcAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                ddlCorrAdrCity.DataSource = dtCity;
+                ddlCorrAdrCity.DataTextField = "WCMV_Name";
+                ddlCorrAdrCity.DataValueField = "WCMV_LookupId";
+                ddlCorrAdrCity.DataBind();
+                ddlCorrAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+                ddlPermAdrCity.DataSource = dtCity;
+                ddlPermAdrCity.DataTextField = "WCMV_Name";
+                ddlPermAdrCity.DataValueField = "WCMV_LookupId";
+                ddlPermAdrCity.DataBind();
+                ddlPermAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
 
                 if (customerVo.Type.ToUpper().ToString() == "IND")
                 {
@@ -503,10 +544,12 @@ namespace WealthERP.Customer
                 {
                     dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
                 }
-                ddlCustomerSubType.DataSource = dtCustomerSubType;
-                ddlCustomerSubType.DataTextField = "CustomerTypeName";
-                ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
-                ddlCustomerSubType.DataBind();
+                //ddlCustomerSubType.DataSource = dtCustomerSubType;
+                //ddlCustomerSubType.DataTextField = "CustomerTypeName";
+                //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+                //ddlCustomerSubType.DataBind();
+
+
                 ddlCustomerSubType.SelectedValue = customerVo.SubType;
 
             }
@@ -578,7 +621,9 @@ namespace WealthERP.Customer
                     }
 
 
-                    customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
+                    //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value.ToString();
+                    customerVo.TaxStatusCustomerSubTypeId =Int16.Parse(ddlCustomerSubType.SelectedItem.Value.ToString());
+                    customerVo.IsRealInvestor = chkRealInvestor.Checked;
 
                     if (customerVo.SubType == "MNR")
                     {
@@ -597,8 +642,8 @@ namespace WealthERP.Customer
                         customerVo.ProfilingDate =Convert.ToDateTime(txtProfilingDate.SelectedDate);
                     customerVo.PANNum = txtPanNumber.Text;
 
-                    customerVo.CustCode = txtCustomerCode.Text;
-
+                    customerVo.CustCode = txtCustomerCode.Text.Trim();
+                    customerVo.AccountId = txtCustomerCode.Text.Trim();
 
 
                     customerVo.Adr1Line1 = txtCorrAdrLine1.Text;
@@ -608,25 +653,27 @@ namespace WealthERP.Customer
                         customerVo.Adr1PinCode = 0;
                     else
                         customerVo.Adr1PinCode = int.Parse(txtCorrAdrPinCode.Text);
-                    customerVo.Adr1City = txtCorrAdrCity.Text;
-                    if (ddlCorrAdrState.SelectedIndex == 0)
-                        customerVo.Adr1State = "";
-                    else
-                        customerVo.Adr1State = ddlCorrAdrState.SelectedValue.ToString();
+                    //customerVo.Adr1City = txtCorrAdrCity.Text;
+                    customerVo.CorrespondenceCityId =int.Parse(ddlCorrAdrCity.SelectedValue);
+                    //if (ddlCorrAdrState.SelectedIndex == 0)
+                    //    customerVo.Adr1State = "";
+                    //else
+                        customerVo.CorrespondenceStateId = int.Parse(ddlCorrAdrState.SelectedValue.ToString());
 
                     customerVo.Adr1Country = txtCorrAdrCountry.Text.ToString();
                     customerVo.Adr2Line1 = txtPermAdrLine1.Text.ToString();
                     customerVo.Adr2Line2 = txtPermAdrLine2.Text.ToString();
                     customerVo.Adr2Line3 = txtPermAdrLine3.Text.ToString();
-                    customerVo.Adr2City = txtPermAdrCity.Text.ToString();
+                    //customerVo.Adr2City = txtPermAdrCity.Text.ToString();
+                    customerVo.PermanentCityId = int.Parse(ddlPermAdrCity.SelectedValue);
                     if (txtPermAdrPinCode.Text == "")
                         customerVo.Adr2PinCode = 0;
                     else
                         customerVo.Adr2PinCode = int.Parse(txtPermAdrPinCode.Text.ToString());
-                    if (ddlPermAdrState.SelectedIndex == 0)
-                        customerVo.Adr2State = "";
-                    else
-                        customerVo.Adr2State = ddlPermAdrState.SelectedValue.ToString();
+                    //if (ddlPermAdrState.SelectedIndex == 0)
+                    //    customerVo.Adr2State = "";
+                    //else
+                       customerVo.PermanentStateId =int.Parse(ddlPermAdrState.SelectedValue.ToString());
 
                     customerVo.Adr2Country = txtPermAdrCountry.Text.ToString();
                     customerVo.OfcAdrLine1 = txtOfcAdrLine1.Text.ToString();
@@ -637,11 +684,12 @@ namespace WealthERP.Customer
                     else
                         customerVo.OfcAdrPinCode = int.Parse(txtOfcAdrPinCode.Text.ToString());
 
-                    customerVo.OfcAdrCity = txtOfcAdrCity.Text.ToString();
-                    if (ddlOfcAdrState.SelectedIndex == 0)
-                        customerVo.OfcAdrState = "";
-                    else
-                        customerVo.OfcAdrState = ddlOfcAdrState.SelectedValue.ToString();
+                    //customerVo.OfcAdrCity = txtOfcAdrCity.Text.ToString();
+                    customerVo.OfficeCityId = int.Parse(ddlOfcAdrCity.SelectedValue);
+                    //if (ddlOfcAdrState.SelectedIndex == 0)
+                    //    customerVo.OfcAdrState = "";
+                    //else
+                     customerVo.OfficeStateId =int.Parse(ddlOfcAdrState.SelectedValue.ToString());
 
                     customerVo.OfcAdrCountry = txtOfcAdrCountry.Text.ToString();
 
@@ -750,10 +798,10 @@ namespace WealthERP.Customer
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.AltEmail = txtAltEmail.Text.ToString();
 
-                    if (ddlOccupation.SelectedIndex == 0)
-                        customerVo.Occupation = null;
-                    else
-                        customerVo.Occupation = ddlOccupation.SelectedItem.Value.ToString();
+                    //if (ddlOccupation.SelectedIndex == 0)
+                    //    customerVo.Occupation = null;
+                    //else
+                        customerVo.OccupationId = int.Parse(ddlOccupation.SelectedItem.Value.ToString());
 
                     if (chkdummypan.Checked)
                     {
@@ -838,7 +886,7 @@ namespace WealthERP.Customer
 
                     if (chkCorrPerm.Checked)
                     {
-                        customerVo.Adr2City = txtCorrAdrCity.Text;
+                        customerVo.PermanentCityId = int.Parse(ddlPermAdrCity.SelectedValue.ToString());
                         customerVo.Adr2Country = txtCorrAdrCountry.Text;
                         customerVo.Adr2Line1 = txtCorrAdrLine1.Text;
                         customerVo.Adr2Line2 = txtCorrAdrLine2.Text;

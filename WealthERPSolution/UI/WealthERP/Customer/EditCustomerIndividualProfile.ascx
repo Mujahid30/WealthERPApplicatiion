@@ -95,6 +95,7 @@
         <td class="leftField">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
+        
         <td>
             <asp:DropDownList ID="ddlAdviserBranchList" runat="server" CssClass="cmbField">
             </asp:DropDownList>
@@ -122,6 +123,8 @@
                 OnSelectedIndexChanged="ddlCustomerSubType_SelectedIndexChanged">
             </asp:DropDownList>
             <span id="Span2" class="spnRequiredField">*</span>
+            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="IsRealInvestor"
+                AutoPostBack="false" />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select a Sub-Type"
                 CssClass="cvPCG"></asp:CompareValidator>
@@ -146,7 +149,7 @@
     </tr>
     <tr>
         <td class="leftField">
-            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Customer Id:"></asp:Label>
+            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Client Code:"></asp:Label>
         </td>
         <td class="rightField">
             <asp:TextBox ID="txtCustomerCode" runat="server" CssClass="txtField" MaxLength="16"></asp:TextBox>
@@ -1131,7 +1134,8 @@
                         <asp:Label ID="Label14" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtCorrAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:DropDownList ID="ddlCorrAdrCity" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label16" CssClass="FieldName" runat="server" Text="State:"></asp:Label>
@@ -1207,7 +1211,8 @@
                         <asp:Label ID="Label22" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtPermAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:DropDownList ID="ddlPermAdrCity" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label23" CssClass="FieldName" runat="server" Text="State:"></asp:Label>
@@ -1299,7 +1304,8 @@
                         <asp:Label ID="Label30" CssClass="FieldName" runat="server" Text="City:"></asp:Label>
                     </td>
                     <td class="rightField">
-                        <asp:TextBox ID="txtOfcAdrCity" runat="server" CssClass="txtField"></asp:TextBox>
+                        <asp:DropDownList ID="ddlOfcAdrCity" runat="server" CssClass="cmbField">
+                        </asp:DropDownList>
                     </td>
                     <td class="leftField">
                         <asp:Label ID="Label31" CssClass="FieldName" runat="server" Text="State:"></asp:Label>

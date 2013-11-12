@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.Customer {
-    
-    
-    public partial class EditCustomerIndividualProfile {
-        
+namespace WealthERP.Customer
+{
+
+
+    public partial class EditCustomerIndividualProfile
+    {
+
         /// <summary>
         /// ScriptManager1 control.
         /// </summary>
@@ -21,7 +23,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager ScriptManager1;
-        
+
         /// <summary>
         /// lblCustomerType control.
         /// </summary>
@@ -30,7 +32,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerType;
-        
+
         /// <summary>
         /// rbtnIndividual control.
         /// </summary>
@@ -39,7 +41,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnIndividual;
-        
+
         /// <summary>
         /// rbtnNonIndividual control.
         /// </summary>
@@ -48,7 +50,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnNonIndividual;
-        
+
         /// <summary>
         /// lblBranchName control.
         /// </summary>
@@ -57,7 +59,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBranchName;
-        
+
         /// <summary>
         /// ddlAdviserBranchList control.
         /// </summary>
@@ -66,7 +68,37 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlAdviserBranchList;
-        
+
+        /// <summary>
+        /// ddlOfcAdrCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlOfcAdrCity;
+
+        /// <summary>
+        /// ddlCorrAdrCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCorrAdrCity;
+
+
+        /// <summary>
+        /// ddlPermAdrCity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPermAdrCity;
+
+
+
         /// <summary>
         /// ddlAdviserBranchList_CompareValidator control.
         /// </summary>
@@ -75,7 +107,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator ddlAdviserBranchList_CompareValidator;
-        
+
         /// <summary>
         /// lblRMName control.
         /// </summary>
@@ -84,7 +116,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRMName;
-        
+
         /// <summary>
         /// lblRM control.
         /// </summary>
@@ -93,7 +125,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRM;
-        
+
         /// <summary>
         /// lblCustomerSubType control.
         /// </summary>
@@ -102,7 +134,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCustomerSubType;
-        
+
         /// <summary>
         /// ddlCustomerSubType control.
         /// </summary>
@@ -111,7 +143,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCustomerSubType;
-        
+
         /// <summary>
         /// CompareValidator1 control.
         /// </summary>
@@ -120,7 +152,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
-        
+
         /// <summary>
         /// Label2 control.
         /// </summary>
@@ -129,7 +161,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label2;
-        
+
         /// <summary>
         /// txtProfilingDate control.
         /// </summary>
@@ -138,7 +170,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtProfilingDate;
-        
+
         /// <summary>
         /// Label5 control.
         /// </summary>
@@ -147,7 +179,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label5;
-        
+
         /// <summary>
         /// txtCustomerCode control.
         /// </summary>
@@ -156,7 +188,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCustomerCode;
-        
+
         /// <summary>
         /// revCustCode control.
         /// </summary>
@@ -165,7 +197,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revCustCode;
-        
+
         /// <summary>
         /// lblGender control.
         /// </summary>
@@ -174,7 +206,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGender;
-        
+
         /// <summary>
         /// rbtnMale control.
         /// </summary>
@@ -183,7 +215,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnMale;
-        
+
         /// <summary>
         /// rbtnFemale control.
         /// </summary>
@@ -192,7 +224,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rbtnFemale;
-        
+
         /// <summary>
         /// chkKYC control.
         /// </summary>
@@ -201,7 +233,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkKYC;
-        
+
         /// <summary>
         /// Label8 control.
         /// </summary>
@@ -210,7 +242,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label8;
-        
+
         /// <summary>
         /// txtPanNumber control.
         /// </summary>
@@ -219,7 +251,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPanNumber;
-        
+
         /// <summary>
         /// chkdummypan control.
         /// </summary>
@@ -228,7 +260,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkdummypan;
-        
+
         /// <summary>
         /// rfvPanNumber control.
         /// </summary>
@@ -237,7 +269,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPanNumber;
-        
+
         /// <summary>
         /// lblPanDuplicate control.
         /// </summary>
@@ -246,7 +278,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPanDuplicate;
-        
+
         /// <summary>
         /// Label3 control.
         /// </summary>
@@ -255,7 +287,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label3;
-        
+
         /// <summary>
         /// ddlSalutation control.
         /// </summary>
@@ -264,7 +296,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSalutation;
-        
+
         /// <summary>
         /// Label4 control.
         /// </summary>
@@ -273,7 +305,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label4;
-        
+
         /// <summary>
         /// txtFirstName control.
         /// </summary>
@@ -282,7 +314,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
+
         /// <summary>
         /// txtMiddleName control.
         /// </summary>
@@ -291,7 +323,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMiddleName;
-        
+
         /// <summary>
         /// txtLastName control.
         /// </summary>
@@ -300,7 +332,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
+
         /// <summary>
         /// rfvLastName control.
         /// </summary>
@@ -309,7 +341,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvLastName;
-        
+
         /// <summary>
         /// trGuardianName control.
         /// </summary>
@@ -318,7 +350,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trGuardianName;
-        
+
         /// <summary>
         /// Label1 control.
         /// </summary>
@@ -327,7 +359,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
-        
+
         /// <summary>
         /// txtGuardianFirstName control.
         /// </summary>
@@ -336,7 +368,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGuardianFirstName;
-        
+
         /// <summary>
         /// txtGuardianMiddleName control.
         /// </summary>
@@ -345,7 +377,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGuardianMiddleName;
-        
+
         /// <summary>
         /// txtGuardianLastName control.
         /// </summary>
@@ -354,7 +386,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGuardianLastName;
-        
+
         /// <summary>
         /// trForResidence control.
         /// </summary>
@@ -363,7 +395,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trForResidence;
-        
+
         /// <summary>
         /// lblSlabForOther control.
         /// </summary>
@@ -372,7 +404,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSlabForOther;
-        
+
         /// <summary>
         /// txtSlab control.
         /// </summary>
@@ -381,7 +413,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtSlab;
-        
+
         /// <summary>
         /// cmpareSlabForOther control.
         /// </summary>
@@ -390,7 +422,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cmpareSlabForOther;
-        
+
         /// <summary>
         /// btnGetSlab control.
         /// </summary>
@@ -399,7 +431,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetSlab;
-        
+
         /// <summary>
         /// RadTabStripCustomerProfile control.
         /// </summary>
@@ -408,7 +440,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadTabStrip RadTabStripCustomerProfile;
-        
+
         /// <summary>
         /// CustomerProfileDetails control.
         /// </summary>
@@ -417,7 +449,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadMultiPage CustomerProfileDetails;
-        
+
         /// <summary>
         /// rpvFamilyAssociates control.
         /// </summary>
@@ -426,7 +458,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvFamilyAssociates;
-        
+
         /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
@@ -435,7 +467,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel2;
-        
+
         /// <summary>
         /// trFamilyAssociates control.
         /// </summary>
@@ -444,7 +476,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trFamilyAssociates;
-        
+
         /// <summary>
         /// dvFamilyAssociate control.
         /// </summary>
@@ -453,7 +485,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvFamilyAssociate;
-        
+
         /// <summary>
         /// gvFamilyAssociate control.
         /// </summary>
@@ -462,7 +494,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvFamilyAssociate;
-        
+
         /// <summary>
         /// rpvISAAccount control.
         /// </summary>
@@ -471,7 +503,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvISAAccount;
-        
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -480,7 +512,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// gvISAAccountList control.
         /// </summary>
@@ -489,7 +521,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvISAAccountList;
-        
+
         /// <summary>
         /// rpvBankDeatils control.
         /// </summary>
@@ -498,7 +530,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvBankDeatils;
-        
+
         /// <summary>
         /// UpdatePanel3 control.
         /// </summary>
@@ -507,7 +539,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel3;
-        
+
         /// <summary>
         /// gvBankDetails control.
         /// </summary>
@@ -516,7 +548,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvBankDetails;
-        
+
         /// <summary>
         /// rpvCorrespondenceAddress control.
         /// </summary>
@@ -525,7 +557,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvCorrespondenceAddress;
-        
+
         /// <summary>
         /// pnlCorrespondenceAddress control.
         /// </summary>
@@ -534,7 +566,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlCorrespondenceAddress;
-        
+
         /// <summary>
         /// Label11 control.
         /// </summary>
@@ -543,7 +575,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label11;
-        
+
         /// <summary>
         /// txtCorrAdrLine1 control.
         /// </summary>
@@ -552,7 +584,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCorrAdrLine1;
-        
+
         /// <summary>
         /// Label12 control.
         /// </summary>
@@ -561,7 +593,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label12;
-        
+
         /// <summary>
         /// txtCorrAdrLine2 control.
         /// </summary>
@@ -570,7 +602,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCorrAdrLine2;
-        
+
         /// <summary>
         /// Label13 control.
         /// </summary>
@@ -579,7 +611,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label13;
-        
+
         /// <summary>
         /// txtCorrAdrLine3 control.
         /// </summary>
@@ -588,7 +620,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCorrAdrLine3;
-        
+
         /// <summary>
         /// lblResidenceLivingDate control.
         /// </summary>
@@ -597,7 +629,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblResidenceLivingDate;
-        
+
         /// <summary>
         /// txtLivingSince control.
         /// </summary>
@@ -606,7 +638,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLivingSince;
-        
+
         /// <summary>
         /// txtLivingSince_CalendarExtender control.
         /// </summary>
@@ -615,7 +647,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender txtLivingSince_CalendarExtender;
-        
+
         /// <summary>
         /// txtLivingSince_TextBoxWatermarkExtender control.
         /// </summary>
@@ -624,7 +656,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtLivingSince_TextBoxWatermarkExtender;
-        
+
         /// <summary>
         /// txtLivingSince_CompareValidator control.
         /// </summary>
@@ -633,7 +665,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtLivingSince_CompareValidator;
-        
+
         /// <summary>
         /// Label14 control.
         /// </summary>
@@ -642,16 +674,16 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label14;
-        
-        /// <summary>
-        /// txtCorrAdrCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCorrAdrCity;
-        
+
+        ///// <summary>
+        ///// txtCorrAdrCity control.
+        ///// </summary>
+        ///// <remarks>
+        ///// Auto-generated field.
+        ///// To modify move field declaration from designer file to code-behind file.
+        ///// </remarks>
+        //protected global::System.Web.UI.WebControls.TextBox txtCorrAdrCity;
+
         /// <summary>
         /// Label16 control.
         /// </summary>
@@ -660,7 +692,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label16;
-        
+
         /// <summary>
         /// ddlCorrAdrState control.
         /// </summary>
@@ -669,7 +701,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCorrAdrState;
-        
+
         /// <summary>
         /// Label15 control.
         /// </summary>
@@ -678,7 +710,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label15;
-        
+
         /// <summary>
         /// txtCorrAdrPinCode control.
         /// </summary>
@@ -687,7 +719,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCorrAdrPinCode;
-        
+
         /// <summary>
         /// txtCorrAdrPinCode_comparevalidator control.
         /// </summary>
@@ -696,7 +728,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtCorrAdrPinCode_comparevalidator;
-        
+
         /// <summary>
         /// Label17 control.
         /// </summary>
@@ -705,7 +737,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label17;
-        
+
         /// <summary>
         /// txtCorrAdrCountry control.
         /// </summary>
@@ -714,7 +746,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCorrAdrCountry;
-        
+
         /// <summary>
         /// rpvPermanentAddress control.
         /// </summary>
@@ -723,7 +755,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvPermanentAddress;
-        
+
         /// <summary>
         /// pnlPermanentAddress control.
         /// </summary>
@@ -732,7 +764,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlPermanentAddress;
-        
+
         /// <summary>
         /// chkCorrPerm control.
         /// </summary>
@@ -741,7 +773,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkCorrPerm;
-        
+
         /// <summary>
         /// Label19 control.
         /// </summary>
@@ -750,7 +782,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label19;
-        
+
         /// <summary>
         /// txtPermAdrLine1 control.
         /// </summary>
@@ -759,7 +791,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPermAdrLine1;
-        
+
         /// <summary>
         /// Label20 control.
         /// </summary>
@@ -768,7 +800,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label20;
-        
+
         /// <summary>
         /// txtPermAdrLine2 control.
         /// </summary>
@@ -777,7 +809,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPermAdrLine2;
-        
+
         /// <summary>
         /// Label21 control.
         /// </summary>
@@ -786,7 +818,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label21;
-        
+
         /// <summary>
         /// txtPermAdrLine3 control.
         /// </summary>
@@ -795,7 +827,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPermAdrLine3;
-        
+
         /// <summary>
         /// Label22 control.
         /// </summary>
@@ -804,16 +836,16 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label22;
-        
-        /// <summary>
-        /// txtPermAdrCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPermAdrCity;
-        
+
+        ///// <summary>
+        ///// txtPermAdrCity control.
+        ///// </summary>
+        ///// <remarks>
+        ///// Auto-generated field.
+        ///// To modify move field declaration from designer file to code-behind file.
+        ///// </remarks>
+        //protected global::System.Web.UI.WebControls.TextBox txtPermAdrCity;
+
         /// <summary>
         /// Label23 control.
         /// </summary>
@@ -822,7 +854,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label23;
-        
+
         /// <summary>
         /// ddlPermAdrState control.
         /// </summary>
@@ -831,7 +863,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPermAdrState;
-        
+
         /// <summary>
         /// Label24 control.
         /// </summary>
@@ -840,7 +872,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label24;
-        
+
         /// <summary>
         /// txtPermAdrPinCode control.
         /// </summary>
@@ -849,7 +881,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPermAdrPinCode;
-        
+
         /// <summary>
         /// txtPermAdrPinCode_CompareValidator control.
         /// </summary>
@@ -858,7 +890,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtPermAdrPinCode_CompareValidator;
-        
+
         /// <summary>
         /// Label25 control.
         /// </summary>
@@ -867,7 +899,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label25;
-        
+
         /// <summary>
         /// txtPermAdrCountry control.
         /// </summary>
@@ -876,7 +908,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPermAdrCountry;
-        
+
         /// <summary>
         /// rpvOfficeAddress control.
         /// </summary>
@@ -885,7 +917,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvOfficeAddress;
-        
+
         /// <summary>
         /// pnlOfficeAddress control.
         /// </summary>
@@ -894,7 +926,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlOfficeAddress;
-        
+
         /// <summary>
         /// Label34 control.
         /// </summary>
@@ -903,7 +935,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label34;
-        
+
         /// <summary>
         /// txtOfcCompanyName control.
         /// </summary>
@@ -912,7 +944,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcCompanyName;
-        
+
         /// <summary>
         /// Label27 control.
         /// </summary>
@@ -921,7 +953,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label27;
-        
+
         /// <summary>
         /// txtOfcAdrLine1 control.
         /// </summary>
@@ -930,7 +962,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcAdrLine1;
-        
+
         /// <summary>
         /// Label28 control.
         /// </summary>
@@ -939,7 +971,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label28;
-        
+
         /// <summary>
         /// txtOfcAdrLine2 control.
         /// </summary>
@@ -948,7 +980,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcAdrLine2;
-        
+
         /// <summary>
         /// Label29 control.
         /// </summary>
@@ -957,7 +989,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label29;
-        
+
         /// <summary>
         /// txtOfcAdrLine3 control.
         /// </summary>
@@ -966,7 +998,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcAdrLine3;
-        
+
         /// <summary>
         /// lblJobStartDate control.
         /// </summary>
@@ -975,7 +1007,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblJobStartDate;
-        
+
         /// <summary>
         /// txtJobStartDate control.
         /// </summary>
@@ -984,7 +1016,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtJobStartDate;
-        
+
         /// <summary>
         /// txtJobStartDate_CalendarExtender control.
         /// </summary>
@@ -993,7 +1025,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender txtJobStartDate_CalendarExtender;
-        
+
         /// <summary>
         /// txtJobStartDate_TextBoxWatermarkExtender control.
         /// </summary>
@@ -1002,7 +1034,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtJobStartDate_TextBoxWatermarkExtender;
-        
+
         /// <summary>
         /// cvJobStartDate control.
         /// </summary>
@@ -1011,7 +1043,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvJobStartDate;
-        
+
         /// <summary>
         /// Label30 control.
         /// </summary>
@@ -1020,16 +1052,16 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label30;
-        
-        /// <summary>
-        /// txtOfcAdrCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOfcAdrCity;
-        
+
+        ///// <summary>
+        ///// txtOfcAdrCity control.
+        ///// </summary>
+        ///// <remarks>
+        ///// Auto-generated field.
+        ///// To modify move field declaration from designer file to code-behind file.
+        ///// </remarks>
+        //protected global::System.Web.UI.WebControls.TextBox txtOfcAdrCity;
+
         /// <summary>
         /// Label31 control.
         /// </summary>
@@ -1038,7 +1070,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label31;
-        
+
         /// <summary>
         /// ddlOfcAdrState control.
         /// </summary>
@@ -1047,7 +1079,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOfcAdrState;
-        
+
         /// <summary>
         /// Label32 control.
         /// </summary>
@@ -1056,7 +1088,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label32;
-        
+
         /// <summary>
         /// txtOfcAdrPinCode control.
         /// </summary>
@@ -1065,7 +1097,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcAdrPinCode;
-        
+
         /// <summary>
         /// txtOfcAdrPinCode_CompareValidator control.
         /// </summary>
@@ -1074,7 +1106,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcAdrPinCode_CompareValidator;
-        
+
         /// <summary>
         /// Label33 control.
         /// </summary>
@@ -1083,7 +1115,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label33;
-        
+
         /// <summary>
         /// txtOfcAdrCountry control.
         /// </summary>
@@ -1092,7 +1124,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcAdrCountry;
-        
+
         /// <summary>
         /// rpvContactDetails control.
         /// </summary>
@@ -1101,7 +1133,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvContactDetails;
-        
+
         /// <summary>
         /// pnlContactDetails control.
         /// </summary>
@@ -1110,7 +1142,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlContactDetails;
-        
+
         /// <summary>
         /// Label36 control.
         /// </summary>
@@ -1119,7 +1151,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label36;
-        
+
         /// <summary>
         /// txtResPhoneNoIsd control.
         /// </summary>
@@ -1128,7 +1160,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResPhoneNoIsd;
-        
+
         /// <summary>
         /// txtResPhoneNoStd control.
         /// </summary>
@@ -1137,7 +1169,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResPhoneNoStd;
-        
+
         /// <summary>
         /// txtResPhoneNo control.
         /// </summary>
@@ -1146,7 +1178,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResPhoneNo;
-        
+
         /// <summary>
         /// txtResPhoneNoIsd_CompareValidator control.
         /// </summary>
@@ -1155,7 +1187,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtResPhoneNoIsd_CompareValidator;
-        
+
         /// <summary>
         /// txtResPhoneNoStd_CompareValidator control.
         /// </summary>
@@ -1164,7 +1196,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtResPhoneNoStd_CompareValidator;
-        
+
         /// <summary>
         /// txtResPhoneNo_CompareValidator control.
         /// </summary>
@@ -1173,7 +1205,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtResPhoneNo_CompareValidator;
-        
+
         /// <summary>
         /// Label41 control.
         /// </summary>
@@ -1182,7 +1214,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label41;
-        
+
         /// <summary>
         /// txtResFaxIsd control.
         /// </summary>
@@ -1191,7 +1223,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResFaxIsd;
-        
+
         /// <summary>
         /// txtResFaxStd control.
         /// </summary>
@@ -1200,7 +1232,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResFaxStd;
-        
+
         /// <summary>
         /// txtResFax control.
         /// </summary>
@@ -1209,7 +1241,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResFax;
-        
+
         /// <summary>
         /// txtResFaxIsd_CompareValidator control.
         /// </summary>
@@ -1218,7 +1250,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtResFaxIsd_CompareValidator;
-        
+
         /// <summary>
         /// txtResFaxStd_CompareValidator control.
         /// </summary>
@@ -1227,7 +1259,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtResFaxStd_CompareValidator;
-        
+
         /// <summary>
         /// txtResFax_CompareValidator control.
         /// </summary>
@@ -1236,7 +1268,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtResFax_CompareValidator;
-        
+
         /// <summary>
         /// Label37 control.
         /// </summary>
@@ -1245,7 +1277,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label37;
-        
+
         /// <summary>
         /// txtOfcPhoneNoIsd control.
         /// </summary>
@@ -1254,7 +1286,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcPhoneNoIsd;
-        
+
         /// <summary>
         /// txtOfcPhoneNoStd control.
         /// </summary>
@@ -1263,7 +1295,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcPhoneNoStd;
-        
+
         /// <summary>
         /// txtOfcPhoneNo control.
         /// </summary>
@@ -1272,7 +1304,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcPhoneNo;
-        
+
         /// <summary>
         /// txtOfcPhoneNoIsd_CompareValidator control.
         /// </summary>
@@ -1281,7 +1313,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcPhoneNoIsd_CompareValidator;
-        
+
         /// <summary>
         /// txtOfcPhoneNoStd_CompareValidator control.
         /// </summary>
@@ -1290,7 +1322,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcPhoneNoStd_CompareValidator;
-        
+
         /// <summary>
         /// txtOfcPhoneNo_CompareValidator control.
         /// </summary>
@@ -1299,7 +1331,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcPhoneNo_CompareValidator;
-        
+
         /// <summary>
         /// Label42 control.
         /// </summary>
@@ -1308,7 +1340,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label42;
-        
+
         /// <summary>
         /// txtOfcFaxIsd control.
         /// </summary>
@@ -1317,7 +1349,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcFaxIsd;
-        
+
         /// <summary>
         /// txtOfcFaxStd control.
         /// </summary>
@@ -1326,7 +1358,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcFaxStd;
-        
+
         /// <summary>
         /// txtOfcFax control.
         /// </summary>
@@ -1335,7 +1367,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOfcFax;
-        
+
         /// <summary>
         /// txtOfcFaxIsd_CompareValidator control.
         /// </summary>
@@ -1344,7 +1376,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcFaxIsd_CompareValidator;
-        
+
         /// <summary>
         /// txtOfcFaxStd_CompareValidator control.
         /// </summary>
@@ -1353,7 +1385,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcFaxStd_CompareValidator;
-        
+
         /// <summary>
         /// txtOfcFax_CompareValidator control.
         /// </summary>
@@ -1362,7 +1394,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator txtOfcFax_CompareValidator;
-        
+
         /// <summary>
         /// Label38 control.
         /// </summary>
@@ -1371,7 +1403,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label38;
-        
+
         /// <summary>
         /// txtMobile1 control.
         /// </summary>
@@ -1380,7 +1412,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMobile1;
-        
+
         /// <summary>
         /// Label43 control.
         /// </summary>
@@ -1389,7 +1421,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label43;
-        
+
         /// <summary>
         /// txtMobile2 control.
         /// </summary>
@@ -1398,7 +1430,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMobile2;
-        
+
         /// <summary>
         /// Label39 control.
         /// </summary>
@@ -1407,7 +1439,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label39;
-        
+
         /// <summary>
         /// txtEmail control.
         /// </summary>
@@ -1416,7 +1448,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
-        
+
         /// <summary>
         /// RegularExpressionValidator1 control.
         /// </summary>
@@ -1425,7 +1457,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
+
         /// <summary>
         /// Label40 control.
         /// </summary>
@@ -1434,7 +1466,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label40;
-        
+
         /// <summary>
         /// txtAltEmail control.
         /// </summary>
@@ -1443,7 +1475,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAltEmail;
-        
+
         /// <summary>
         /// txtAltEmail_RegularExpressionValidator control.
         /// </summary>
@@ -1452,7 +1484,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator txtAltEmail_RegularExpressionValidator;
-        
+
         /// <summary>
         /// rpvAdditionalInformation control.
         /// </summary>
@@ -1461,7 +1493,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadPageView rpvAdditionalInformation;
-        
+
         /// <summary>
         /// pnlAdditionalInformation control.
         /// </summary>
@@ -1470,7 +1502,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlAdditionalInformation;
-        
+
         /// <summary>
         /// Label45 control.
         /// </summary>
@@ -1479,7 +1511,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label45;
-        
+
         /// <summary>
         /// ddlOccupation control.
         /// </summary>
@@ -1488,7 +1520,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlOccupation;
-        
+
         /// <summary>
         /// Label46 control.
         /// </summary>
@@ -1497,7 +1529,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label46;
-        
+
         /// <summary>
         /// ddlQualification control.
         /// </summary>
@@ -1506,7 +1538,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlQualification;
-        
+
         /// <summary>
         /// Label47 control.
         /// </summary>
@@ -1515,7 +1547,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label47;
-        
+
         /// <summary>
         /// ddlMaritalStatus control.
         /// </summary>
@@ -1524,7 +1556,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMaritalStatus;
-        
+
         /// <summary>
         /// Label48 control.
         /// </summary>
@@ -1533,7 +1565,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label48;
-        
+
         /// <summary>
         /// ddlNationality control.
         /// </summary>
@@ -1542,7 +1574,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlNationality;
-        
+
         /// <summary>
         /// Label6 control.
         /// </summary>
@@ -1551,7 +1583,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label6;
-        
+
         /// <summary>
         /// txtMarriageDate control.
         /// </summary>
@@ -1560,7 +1592,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtMarriageDate;
-        
+
         /// <summary>
         /// lblMotherMaidenName control.
         /// </summary>
@@ -1569,7 +1601,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMotherMaidenName;
-        
+
         /// <summary>
         /// txtMotherMaidenName control.
         /// </summary>
@@ -1578,7 +1610,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMotherMaidenName;
-        
+
         /// <summary>
         /// trRBIRefNo control.
         /// </summary>
@@ -1587,7 +1619,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trRBIRefNo;
-        
+
         /// <summary>
         /// lblRBIRefNo control.
         /// </summary>
@@ -1596,7 +1628,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRBIRefNo;
-        
+
         /// <summary>
         /// txtRBIRefNo control.
         /// </summary>
@@ -1605,7 +1637,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRBIRefNo;
-        
+
         /// <summary>
         /// lblRBIRefDate control.
         /// </summary>
@@ -1614,7 +1646,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRBIRefDate;
-        
+
         /// <summary>
         /// txtRBIRefDate control.
         /// </summary>
@@ -1623,7 +1655,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRBIRefDate;
-        
+
         /// <summary>
         /// txtRBIRefDate_CalendarExtender control.
         /// </summary>
@@ -1632,7 +1664,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender txtRBIRefDate_CalendarExtender;
-        
+
         /// <summary>
         /// txtRBIRefDate_TextBoxWatermarkExtender control.
         /// </summary>
@@ -1641,7 +1673,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TextBoxWatermarkExtender txtRBIRefDate_TextBoxWatermarkExtender;
-        
+
         /// <summary>
         /// Label9 control.
         /// </summary>
@@ -1650,7 +1682,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label9;
-        
+
         /// <summary>
         /// chkmail control.
         /// </summary>
@@ -1659,7 +1691,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkmail;
-        
+
         /// <summary>
         /// chksms control.
         /// </summary>
@@ -1668,7 +1700,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chksms;
-        
+
         /// <summary>
         /// Label7 control.
         /// </summary>
@@ -1677,7 +1709,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label7;
-        
+
         /// <summary>
         /// cvDepositDate1 control.
         /// </summary>
@@ -1686,7 +1718,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CompareValidator cvDepositDate1;
-        
+
         /// <summary>
         /// txtDate control.
         /// </summary>
@@ -1695,7 +1727,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtDate;
-        
+
         /// <summary>
         /// btnEdit control.
         /// </summary>
@@ -1704,7 +1736,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEdit;
-        
+
         /// <summary>
         /// hdnGender control.
         /// </summary>
@@ -1713,7 +1745,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnGender;
-        
+
         /// <summary>
         /// hdnAge control.
         /// </summary>
@@ -1722,7 +1754,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnAge;
-        
+
         /// <summary>
         /// hdnTaxSlabValue control.
         /// </summary>
@@ -1731,7 +1763,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnTaxSlabValue;
-        
+
         /// <summary>
         /// txtCustomerId control.
         /// </summary>
@@ -1740,7 +1772,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField txtCustomerId;
-        
+
         /// <summary>
         /// hdnPannum control.
         /// </summary>
@@ -1749,7 +1781,7 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnPannum;
-        
+
         /// <summary>
         /// hdnRequestId control.
         /// </summary>
@@ -1758,5 +1790,14 @@ namespace WealthERP.Customer {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnRequestId;
+
+        /// <summary>
+        /// chkRealInvestor control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkRealInvestor;
     }
 }

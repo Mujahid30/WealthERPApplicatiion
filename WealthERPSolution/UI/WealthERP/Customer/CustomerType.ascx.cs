@@ -23,6 +23,7 @@ namespace WealthERP.Customer
 {
     public partial class CustomerType : System.Web.UI.UserControl
     {
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         CustomerVo customerVo = new CustomerVo();
         CustomerBo customerBo = new CustomerBo();
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
@@ -38,6 +39,7 @@ namespace WealthERP.Customer
         string path;
         string page = string.Empty;
         int bmID;
+        DataSet dsProfileLookup;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -74,7 +76,7 @@ namespace WealthERP.Customer
                     BindListBranch();
                     BindRMforBranchDropdown(0, 0);
                     //BindListBranch(rmVo.RMId, "rm");
-                    BindSubTypeDropDown();
+                    BindSubTypeDropDown(1001);
                     
                 }
 
@@ -268,20 +270,21 @@ namespace WealthERP.Customer
             ddlAdviseRMList.Items.Clear();
             BindListBranch();
             BindRMforBranchDropdown(0, 0);
-            BindSubTypeDropDown();
+            BindSubTypeDropDown(1001);
             trSalutation.Visible = true;
         }
 
-        private void BindSubTypeDropDown()
+        private void BindSubTypeDropDown(int lookupParentId)
         {
+            DataTable dtCustomerTaxSubTypeLookup = new DataTable();
             try
             {
-                dtCustomerSubType = XMLBo.GetCustomerSubType(path, "IND");
-                ddlCustomerSubType.DataSource = dtCustomerSubType;
-                ddlCustomerSubType.DataTextField = "CustomerTypeName";
-                ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+                dtCustomerTaxSubTypeLookup = commonLookupBo.GetWERPLookupMasterValueList(2000, lookupParentId);
+                ddlCustomerSubType.DataSource = dtCustomerTaxSubTypeLookup;
+                ddlCustomerSubType.DataTextField = "WCMV_Name";
+                ddlCustomerSubType.DataValueField = "WCMV_LookupId";
                 ddlCustomerSubType.DataBind();
-                ddlCustomerSubType.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlCustomerSubType.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
                 //txtFirstName.Visible = true;
                 //txtMiddleName.Visible = true;
@@ -315,13 +318,14 @@ namespace WealthERP.Customer
         {
             try
             {
-                dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
-                ddlCustomerSubType.DataSource = dtCustomerSubType;
-                ddlCustomerSubType.DataTextField = "CustomerTypeName";
-                ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
-                ddlCustomerSubType.DataBind();
-                ddlCustomerSubType.Items.Insert(0, new ListItem("Select", "Select"));
+                //dtCustomerSubType = XMLBo.GetCustomerSubType(path, "NIND");
+                //ddlCustomerSubType.DataSource = dtCustomerSubType;
+                //ddlCustomerSubType.DataTextField = "CustomerTypeName";
+                //ddlCustomerSubType.DataValueField = "CustomerSubTypeCode";
+                //ddlCustomerSubType.DataBind();
+                //ddlCustomerSubType.Items.Insert(0, new ListItem("Select", "Select"));
 
+                BindSubTypeDropDown(1002);
                 ddlAdviserBranchList.Items.Clear();
                 ddlAdviseRMList.Items.Clear();
                 BindListBranch();
@@ -377,7 +381,11 @@ namespace WealthERP.Customer
                         //customerVo.RmId = rmVo.RMId;
                         customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
                         customerVo.Type = "IND";
-                        customerVo.FirstName = txtFirstName.Text.ToString();
+
+                        customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
+                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
+
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
                         if (ddlSalutation.SelectedIndex == 0)
@@ -400,6 +408,11 @@ namespace WealthERP.Customer
                         //customerVo.RmId = rmVo.RMId;
                         customerVo.RmId = int.Parse(ddlAdviseRMList.SelectedValue.ToString());
                         customerVo.Type = "NIND";
+
+                        customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
+                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
+
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         userVo.FirstName = txtCompanyName.Text.ToString();
@@ -415,7 +428,7 @@ namespace WealthERP.Customer
                     //    customerVo.IsProspect = 0;
                     //}
 
-                    customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
+                    //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();
                     if (!string.IsNullOrEmpty(txtMobileNumber.Text.ToString()))
@@ -531,6 +544,11 @@ namespace WealthERP.Customer
                         customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
+
+                        customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
+                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
+
                         if (ddlSalutation.SelectedIndex == 0)
                         {
                             customerVo.Salutation = "";
@@ -546,6 +564,11 @@ namespace WealthERP.Customer
                     else if (rbtnNonIndividual.Checked)
                     {
                         customerVo.Type = "NIND";
+
+                        customerVo.TaxStatusCustomerSubTypeId = Int16.Parse(ddlCustomerSubType.SelectedValue.ToString());
+                        customerVo.AccountId = txtClientCode.Text.Trim();
+                        customerVo.IsRealInvestor = chkRealInvestor.Checked;
+
                         customerVo.CompanyName = txtCompanyName.Text.ToString();
                         customerVo.FirstName = txtCompanyName.Text.ToString();
                         customerVo.LastName = txtFirstName.Text.ToString();
@@ -556,7 +579,7 @@ namespace WealthERP.Customer
 
                     //customerVo.CustomerId = customerBo.GenerateId();
                     customerVo.BranchId = int.Parse(ddlAdviserBranchList.SelectedValue);
-                    customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
+                    //customerVo.SubType = ddlCustomerSubType.SelectedItem.Value;
                     customerVo.Email = txtEmail.Text.ToString();
                     customerVo.PANNum = txtPanNumber.Text.ToString();
                     userVo.Email = txtEmail.Text.ToString();

@@ -526,8 +526,32 @@ namespace DaoCustomerProfiling
                         customerVo.TaxSlab = int.Parse(dr["C_TaxSlab"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_IsKYCAvailable"].ToString()))
                         customerVo.MfKYC = int.Parse(dr["C_IsKYCAvailable"].ToString());
-                    if (!string.IsNullOrEmpty(dr["U_AccountId"].ToString()))
-                        customerVo.AccountId = dr["U_AccountId"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["C_CustCode"].ToString()))
+                        customerVo.AccountId = dr["C_CustCode"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["C_IsRealInvestor"].ToString()))
+                        customerVo.IsRealInvestor = bool.Parse(dr["C_IsRealInvestor"].ToString()) ? true : false;
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_TaxStatus_Id"].ToString()))
+                        customerVo.TaxStatusCustomerSubTypeId =int.Parse(dr["C_WCMV_TaxStatus_Id"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_CorrAdrCity_Id"].ToString()))
+                        customerVo.CorrespondenceCityId = int.Parse(dr["C_WCMV_CorrAdrCity_Id"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_CorrAdrState_Id"].ToString()))
+                        customerVo.CorrespondenceStateId = int.Parse(dr["C_WCMV_CorrAdrState_Id"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_PermaAdrCity_Id"].ToString()))
+                        customerVo.PermanentCityId = int.Parse(dr["C_WCMV_PermaAdrCity_Id"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_PermaAdrState_Id"].ToString()))
+                        customerVo.PermanentStateId = int.Parse(dr["C_WCMV_PermaAdrState_Id"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_OfficeAdrCity_Id"].ToString()))
+                        customerVo.OfficeCityId = int.Parse(dr["C_WCMV_OfficeAdrCity_Id"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_OfficeAdrState_Id"].ToString()))
+                        customerVo.OfficeStateId = int.Parse(dr["C_WCMV_OfficeAdrState_Id"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["C_WCMV_Occupation_Id"].ToString()))
+                        customerVo.OccupationId = int.Parse(dr["C_WCMV_Occupation_Id"].ToString());
 
                 }
             }
@@ -962,7 +986,7 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editCustomerCmd, "@C_DOB", DbType.DateTime, customerVo.Dob);
                 else
                     db.AddInParameter(editCustomerCmd, "@C_DOB", DbType.DateTime, DBNull.Value);
-                db.AddInParameter(editCustomerCmd, "@C_CustCode", DbType.String, customerVo.CustCode);
+                db.AddInParameter(editCustomerCmd, "@C_CustCode", DbType.String, customerVo.AccountId);
                 db.AddInParameter(editCustomerCmd, "@C_Adr1Line1", DbType.String, customerVo.Adr1Line1);
                 db.AddInParameter(editCustomerCmd, "@C_Adr1Line2", DbType.String, customerVo.Adr1Line2);
                 db.AddInParameter(editCustomerCmd, "@C_Adr1Line3", DbType.String, customerVo.Adr1Line3);
@@ -1009,10 +1033,10 @@ namespace DaoCustomerProfiling
 
 
 
-                if (customerVo.Occupation != "Select a Occupation" && customerVo.Occupation != "")
-                    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
-                else
-                    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, DBNull.Value);
+                //if (customerVo.Occupation != "Select a Occupation" && customerVo.Occupation != "")
+                //    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, customerVo.Occupation);
+                //else
+                //    db.AddInParameter(editCustomerCmd, "@XO_OccupationCode", DbType.String, DBNull.Value);
 
                 if (customerVo.Qualification != "Select a Qualification" && customerVo.Qualification != "")
                     db.AddInParameter(editCustomerCmd, "@XQ_QualificationCode", DbType.String, customerVo.Qualification);
@@ -1081,6 +1105,21 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editCustomerCmd, "@C_ProspectAddDate", DbType.DateTime, customerVo.ProspectAddDate);
                 db.AddInParameter(editCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
                 db.AddInParameter(editCustomerCmd, "@C_MfKYC", DbType.String, customerVo.MfKYC);
+                db.AddInParameter(editCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor ? 1 : 0);
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int32, customerVo.TaxStatusCustomerSubTypeId);
+
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_CorrAdrCity_Id", DbType.Int32, customerVo.CorrespondenceCityId);
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_CorrAdrState_Id", DbType.Int32, customerVo.CorrespondenceStateId);
+
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_PermaAdrCity_Id", DbType.Int32, customerVo.PermanentCityId);
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_PermaAdrState_Id", DbType.Int32, customerVo.PermanentStateId);
+
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_OfficeAdrCity_Id", DbType.Int32, customerVo.OfficeCityId);
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_OfficeAdrState_Id", DbType.Int32, customerVo.OfficeStateId);
+
+                db.AddInParameter(editCustomerCmd, "@C_WCMV_Occupation_Id", DbType.Int32, customerVo.OccupationId);
+              
+
                 if (db.ExecuteNonQuery(editCustomerCmd) != 0)
                     bResult = true;
 
@@ -1793,6 +1832,11 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_TaxSlab", DbType.Int32, customerVo.TaxSlab);
                 db.AddInParameter(createCustomerCmd, "@C_AlertViaSMS", DbType.Int16, customerVo.ViaSMS);
                 db.AddInParameter(createCustomerCmd, "@CPS_GuardPan", DbType.String, customerVo.GuardPANNum);
+
+                db.AddInParameter(createCustomerCmd, "@C_IsRealInvestor", DbType.Boolean, customerVo.IsRealInvestor?1:0);
+                db.AddInParameter(createCustomerCmd, "@C_WCMV_TaxStatus_Id", DbType.Int16, customerVo.TaxStatusCustomerSubTypeId);
+
+
                 if (db.ExecuteNonQuery(createCustomerCmd) != 0)
                 {
 
@@ -5817,6 +5861,43 @@ namespace DaoCustomerProfiling
                 throw Ex;
             }
             return isUpdated;
+        }
+
+        public DataSet GetCustomerProfileSetupLookupData()
+        {
+            Database db;
+            DbCommand cmdCustomerProfileSetupLookupData;
+            DataSet dsCustomerProfileSetupLookupData;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //To retreive data from the table 
+                cmdCustomerProfileSetupLookupData = db.GetStoredProcCommand("SPROC_ONL_GetCustomerProfileLookup");
+                dsCustomerProfileSetupLookupData = db.ExecuteDataSet(cmdCustomerProfileSetupLookupData);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "CustomerDao.cs:GetCustomerProfileSetupLookupData()");
+                object[] objects = new object[1];
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return dsCustomerProfileSetupLookupData;
+
+ 
         }
     }
 }

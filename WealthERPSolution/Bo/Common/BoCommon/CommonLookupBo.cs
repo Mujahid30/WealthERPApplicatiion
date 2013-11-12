@@ -545,5 +545,35 @@ namespace BoCommon
             }
             return dt;
         }
+
+        public DataTable GetWERPLookupMasterValueList(int codeMasterId, int lookupParentId)
+        {
+            DataTable dt;
+            try
+            {
+                dt = daoCommonLookup.GetWERPLookupMasterValueList(codeMasterId, lookupParentId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:GetWERPLookupMasterValueList(int codeMasterId,int lookupParentId)");
+                object[] objParams = new object[2];
+                objParams[0] = codeMasterId;
+                objParams[1] = lookupParentId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+
+
+
     }
 }

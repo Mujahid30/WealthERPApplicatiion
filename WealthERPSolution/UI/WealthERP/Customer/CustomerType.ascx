@@ -64,8 +64,9 @@
     <tr id="trBtnSaveMsg" runat="server" visible="false">
         <td class="leftField">
         </td>
-        <td>        
-       <asp:Label ID="lblbtnSaveMsg" runat="server" Text="Customer Added Successfully" CssClass="FieldName" Font-Size="Medium"></asp:Label>
+        <td>
+            <asp:Label ID="lblbtnSaveMsg" runat="server" Text="Customer Added Successfully" CssClass="FieldName"
+                Font-Size="Medium"></asp:Label>
         </td>
     </tr>
     <tr>
@@ -85,7 +86,7 @@
                 GroupName="grpCustomerType" AutoPostBack="true" OnCheckedChanged="rbtnNonIndividual_CheckedChanged" />
         </td>
     </tr>
-    <tr id="trBranchlist" runat="server" >
+    <tr id="trBranchlist" runat="server">
         <td class="leftField">
             <asp:Label ID="lblBranchName" runat="server" CssClass="FieldName" Text="Branch Name:"></asp:Label>
         </td>
@@ -123,11 +124,26 @@
         <td>
             <asp:DropDownList ID="ddlCustomerSubType" runat="server" CssClass="cmbField">
             </asp:DropDownList>
-            <span id="Span1" class="spnRequiredField">*</span>
+            <span id="Span1" class="spnRequiredField">*</span> &nbsp;
+            <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="IsRealInvestor"
+                AutoPostBack="false" Checked="true" />
             <br />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
                 CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftField">
+            <asp:Label ID="lblClientCode" runat="server" CssClass="FieldName" Text="Client Code:"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtClientCode" runat="server" CssClass="txtField" MaxLength="15"></asp:TextBox>
+           <%-- <span id="Span5" class="spnRequiredField">*</span> &nbsp;
+            <br />--%>
+           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtClientCode"
+                ErrorMessage="Please enter a client code" Display="Dynamic" runat="server" CssClass="rfvPCG">
+            </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
     <tr>
@@ -242,15 +258,12 @@
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtMobileNumber"
                 Display="Dynamic" runat="server" CssClass="rfvPCG" ErrorMessage="Not acceptable format"
-                 ValidationExpression="^\d{10,10}$">
+                ValidationExpression="^\d{10,10}$">
             </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMobileNumber"
-                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server" 
-                 CssClass="rfvPCG">
+                ErrorMessage="Please enter a Contact Number" Display="Dynamic" runat="server"
+                CssClass="rfvPCG">
             </asp:RequiredFieldValidator>
-            
-            
-            
         </td>
     </tr>
     <tr>

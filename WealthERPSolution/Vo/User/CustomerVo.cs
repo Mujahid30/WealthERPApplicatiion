@@ -106,6 +106,18 @@ namespace VoUser
         private int m_mfKYC;
         private string m_ACC_customerCategoryName;
         private int m_CustBankAccId;
+        public bool IsRealInvestor { get; set; }
+        public int TaxStatusCustomerSubTypeId { get; set; }
+
+        public int OfficeCityId { get; set; }
+        public int CorrespondenceCityId { get; set; }
+        public int PermanentCityId { get; set; }
+
+        public int OfficeStateId { get; set; }
+        public int CorrespondenceStateId { get; set; }
+        public int PermanentStateId { get; set; }
+       
+        public int OccupationId { get; set; } 
 
         public int CustomerCategoryCode
         {

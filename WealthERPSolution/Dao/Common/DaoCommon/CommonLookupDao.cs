@@ -626,5 +626,39 @@ namespace DaoCommon
             }
             return ds.Tables[0];
         }
+
+        public DataTable GetWERPLookupMasterValueList(int codeMasterId,int lookupParentId)
+        {
+            Database db;
+            DbCommand cmd;
+            DataSet ds = null;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetWERPLookupMasterValueList");
+                db.AddInParameter(cmd, "@CodeMasterId", DbType.Int16, codeMasterId);
+                if (lookupParentId != 0) db.AddInParameter(cmd, "@lookupParentId", DbType.Int16, lookupParentId);
+                ds = db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:GetWERPLookupMasterValueList(int codeMasterId,int lookupParentId)");
+                object[] objParams = new object[2];
+                objParams[0] = codeMasterId;
+                objParams[1] = lookupParentId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds.Tables[0];
+        }
     }
 }
