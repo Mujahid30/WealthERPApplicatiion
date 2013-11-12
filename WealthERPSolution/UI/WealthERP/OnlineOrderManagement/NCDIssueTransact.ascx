@@ -12,7 +12,6 @@
             return false;
         }
         return true;
-    }
 
 
 
@@ -190,7 +189,7 @@
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                     </ExportSettings>
                     <PagerStyle AlwaysVisible="True" />
-                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId,PFIIM_IssuerId,PFISM_SchemeId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo"
+                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId,PFIIM_IssuerId,PFISM_SchemeId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo,AIM_MinApplNo"
                         AutoGenerateColumns="false" Width="100%">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <%--Columns>
@@ -288,12 +287,12 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                UniqueName="Amount" HeaderText="Amount">
+                                UniqueName="Amount" HeaderText="Amount" FooterAggregateFormatString="{0:N2}">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtAmount" runat="server" ReadOnly="true" BackColor="Gray" ForeColor="White"
                                         Width="50px" Font-Bold="true"></asp:TextBox>
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                                </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                 UniqueName="Check" HeaderText="Check Order">
                                 <ItemTemplate>

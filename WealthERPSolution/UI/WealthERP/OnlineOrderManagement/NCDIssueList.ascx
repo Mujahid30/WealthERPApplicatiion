@@ -305,7 +305,7 @@
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                                                                         </telerik:GridBoundColumn> 
                                                                          <telerik:GridBoundColumn DataField="PFISD_LockingPeriod" HeaderStyle-Width="100px"
-                                                                            HeaderText="Lock-in Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                                            HeaderText="Lock-in Period" CurrentFilterFunction="Contains" ShowFilterIcon="false" DataFormatString="{0:N0}"
                                                                             AutoPostBackOnFilter="true" UniqueName="PFISD_LockingPeriod" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>                                                                      

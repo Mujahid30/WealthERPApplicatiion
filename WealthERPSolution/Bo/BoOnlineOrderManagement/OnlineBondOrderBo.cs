@@ -198,12 +198,12 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public bool onlineBOndtransact(DataTable OnlineBondOrder)
+        public bool onlineBOndtransact(DataTable OnlineBondOrder,int adviserId)
         {
             bool result = false;
             try
             {
-                result = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder);
+                result = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -279,7 +279,33 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
+        public DataSet GetOrderBondSubBook(int customerId, string IssuerId, int orderid)
+        {
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+            DataSet dsLookupData;
+            try
+            {
+                dsLookupData = OnlineBondDao.GetOrderBondSubBook(customerId,IssuerId,orderid);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetOrderBondBook()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsLookupData;
+        }
         public DataSet GetNomineeJointHolder(int customerId)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
@@ -362,6 +388,30 @@ namespace BoOnlineOrderManagement
             }
             return maxDB;
         }
-
+        public int GetApplicationNumber()
+        {
+            int ApplicationNumber = 0;
+            OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
+            try
+            {
+                ApplicationNumber = OnlineBondDao.GetApplicationNumber();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetApplicationNumber()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ApplicationNumber;
+        }
     }
 }

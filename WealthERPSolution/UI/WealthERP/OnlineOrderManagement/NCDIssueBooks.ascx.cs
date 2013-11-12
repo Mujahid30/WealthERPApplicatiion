@@ -15,6 +15,7 @@ namespace WealthERP.OnlineOrderManagement
     {
         UserVo userVo;
         CustomerVo customerVo = new CustomerVo();
+        AdvisorVo advisorVo;
         int customerId;
         //string CustId = "7709";
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
@@ -22,16 +23,20 @@ namespace WealthERP.OnlineOrderManagement
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
+            advisorVo = (AdvisorVo)Session["adviserVo"];
 
-            if (Request.QueryString["customerId"] != null)
+            if (!IsPostBack)
             {
-                customerId = int.Parse(Request.QueryString["customerId"].ToString());
-                BindBBGV(customerId);
-            }
-            else
-            {
-                //CustId = Session["CustId"].ToString();
-                BindBBGV(customerVo.CustomerId);
+                if (Request.QueryString["customerId"] != null)
+                {
+                    customerId = int.Parse(Request.QueryString["customerId"].ToString());
+                    BindBBGV(customerId);
+                }
+                else
+                {
+                    //CustId = Session["CustId"].ToString();
+                    BindBBGV(customerVo.CustomerId);
+                }
             }
         }
 
@@ -43,14 +48,15 @@ namespace WealthERP.OnlineOrderManagement
                 gvBBList.DataSource = dsbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
-                pnlGrid.Visible = true;
+                 //pnlGrid.Visible = true;
+               // pnlGrid.Visible = true;
             }
             else
             {
                 ibtExportSummary.Visible = false;
                 gvBBList.DataSource = dsbondsBook;
                 gvBBList.DataBind();
-                pnlGrid.Visible = true;
+                //pnlGrid.Visible = true;
             }
 
             Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsbondsBook.Tables[0]);
@@ -130,6 +136,50 @@ namespace WealthERP.OnlineOrderManagement
 
             Cache.Insert(userVo.UserId.ToString() + "NomineeJointHolder", dsjointNominee.Tables[0]);
         }
+        protected void btnExpandAll_Click(object sender, EventArgs e)
+        {
+            DataTable dtIssueDetail;
+            string strIssuerId = null;
+            LinkButton buttonlink = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)buttonlink.NamingContainer;
+            strIssuerId = gvBBList.MasterTableView.DataKeyValues[gdi.ItemIndex]["PFIIM_IssuerId"].ToString();
+            int orderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
+            RadGrid gvChildDetails = (RadGrid)gdi.FindControl("gvChildDetails");
+            Panel PnlChild = (Panel)gdi.FindControl("pnlchild");
+            if (PnlChild.Visible == false)
+            {
+                PnlChild.Visible = true;
+                buttonlink.Text = "-";
+            }
+            else if (PnlChild.Visible == true)
+            {
+                PnlChild.Visible = false;
+                buttonlink.Text = "+";
+            }
+            DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId,strIssuerId, orderId);
+            dtIssueDetail = ds.Tables[0];
+            gvChildDetails.DataSource = dtIssueDetail;
+            gvChildDetails.DataBind();
+        }
+        protected void gvBBList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtIssueDetail;
+            dtIssueDetail = (DataTable)Cache["NCDBookList" + advisorVo.advisorId.ToString()];
+            if (dtIssueDetail != null)
+            {
+                gvBBList.DataSource = dtIssueDetail;
+            }
 
+        }
+        protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            RadGrid gvChildDetails = (RadGrid)sender; // Get reference to grid 
+            GridDataItem item = (GridDataItem)(gvChildDetails.NamingContainer as GridEditFormItem).ParentItem;  // Get the mastertableview item 
+            string strIssuerId = item["PFIIM_IssuerId"].Text; // Get the value 
+            int orderId = int.Parse(item["CO_OrderId"].Text.ToString());
+            DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(orderId, strIssuerId, customerVo.CustomerId);
+            gvChildDetails.DataSource = ds.Tables[0];
+        }
     }
 }

@@ -236,7 +236,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public bool UpdateOnlineBondTransact(DataTable BondORder)
+        public bool UpdateOnlineBondTransact(DataTable BondORder,int adviserId)
         {
             Database db;
             DbCommand cmdOnlineBondTransact;
@@ -254,7 +254,7 @@ namespace DaoOnlineOrderManagement
                 sb = ds.GetXml().ToString();
 
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
-
+                db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISM_SchemeId", DbType.Int32, BondORder.PFISM_SchemeId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISD_SeriesId", DbType.Int32, BondORder.PFISD_SeriesId);
@@ -346,6 +346,40 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsOrderBondsBook;
+        }
+
+        public DataSet GetOrderBondSubBook(int customerId,string IssuerId,int orderid)
+        {
+            DataSet dsOrderBondssubBook;
+            Database db;
+            DbCommand GetOrderBondsBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_ONL_GetBondOrdersubBook");
+                db.AddInParameter(GetOrderBondsBookcmd, "@customerId", DbType.Int32, customerId);
+                db.AddInParameter(GetOrderBondsBookcmd, "@IssuerId", DbType.String, IssuerId);
+                db.AddInParameter(GetOrderBondsBookcmd, "@orderId", DbType.Int32, orderid);
+                dsOrderBondssubBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetOrderBondSubBook()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrderBondssubBook;
         }
 
         public DataSet GetNomineeJointHolder(int customerId)
@@ -440,7 +474,41 @@ namespace DaoOnlineOrderManagement
             return strMaxNoDB;
         }
 
-        
+       public int GetApplicationNumber()
+        {
+            DataSet dsApplicationNumber;
+            DataTable dtApplicationNumber;
+            int ApplicationNumber = 0;
+            Database db;
+            DbCommand getSchemeSwitchcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getSchemeSwitchcmd = db.GetStoredProcCommand("SP_GetApplicationNumber");
+                dsApplicationNumber = db.ExecuteDataSet(getSchemeSwitchcmd);
+                dtApplicationNumber = dsApplicationNumber.Tables[0];
+                if (dtApplicationNumber.Rows.Count > 0)
+                    ApplicationNumber = int.Parse(dtApplicationNumber.Rows[0]["CO_ApplicationNo"].ToString());
+                else
+                    ApplicationNumber = 999;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetOrderNumber()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ApplicationNumber;
+        }
 
     }
 }
