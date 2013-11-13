@@ -69,11 +69,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindDropDownListIssuer()
         {
             //int IssuerId = Convert.ToInt32(ddIssuerList.SelectedValue.ToString());
-            DataSet dsStructureRules = OnlineBondBo.GetBindIssuerList();
-            ddlListOfBonds.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerName"].ToString();
-            ddlListOfBonds.DataValueField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
-            ddlListOfBonds.DataSource = dsStructureRules.Tables[0];
-            ddlListOfBonds.DataBind(); 
+            //DataSet dsStructureRules = OnlineBondBo.GetBindIssuerList();
+            //ddlListOfBonds.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerName"].ToString();
+            //ddlListOfBonds.DataValueField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
+            //ddlListOfBonds.DataSource = dsStructureRules.Tables[0];
+            //ddlListOfBonds.DataBind(); 
         }
         protected void llPurchase_Click(object sender, EventArgs e)
         {

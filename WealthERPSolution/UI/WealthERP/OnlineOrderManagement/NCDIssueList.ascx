@@ -148,7 +148,7 @@
         </td>
     </tr>
 </table>
-<table width="100%">
+<%--<table width="100%">
     <tr>
         <td>
             <asp:Label ID="lbl" Text="Sell / Buy Bond:" CssClass="FieldName" runat="server">
@@ -160,13 +160,13 @@
             <asp:DropDownList ID="ddlListOfBonds" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>--%>
-        <td>
+       <%-- <td>
         </td>
         <td>
             <asp:Button ID="btnEquityBond" runat="server" Text="Purchase Bonds" OnClick="btnEquityBond_Click" />
         </td>
     </tr>
-</table>
+</table>--%>
 <asp:Panel ID="pnlchild" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
     <table id="tblCommissionStructureRule" runat="server" width="100%">
         <tr>
