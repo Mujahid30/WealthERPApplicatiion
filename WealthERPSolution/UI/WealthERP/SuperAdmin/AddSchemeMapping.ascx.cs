@@ -5,15 +5,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
-using BoCustomerProfiling;
+using System.Web.UI.HtmlControls;
+using Telerik.Web.UI;
+
 using BoProductMaster;
 using VoProductMaster;
 using WealthERP.Base;
 using BoWerpAdmin;
 using BoCustomerProfiling;
 using BoCustomerPortfolio;
-using Telerik.Web.UI;
-using System.Web.UI.HtmlControls;
+
+
 
 namespace WealthERP.SuperAdmin
 {
@@ -31,12 +33,19 @@ namespace WealthERP.SuperAdmin
         DataSet dsTransactionType = new DataSet();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["OnlineSchemeSetupSchemecode"] != null)
+            {
+                ViewState["OnlineSchemeSetupSchemecode"] = Session["OnlineSchemeSetupSchemecode"];
+                btnGo_Click(sender, e);
+                Session["OnlineSchemeSetupSchemecode"] = null;
+            }
             if (!IsPostBack)
             {
                 BindAMC();
                 BindSchemeCategory();
                 btnExportFilteredData.Visible = false;
             }
+            
         }
 
         //protected void txtSchemePlanCode_ValueChanged1(object sender, EventArgs e)
@@ -164,10 +173,10 @@ namespace WealthERP.SuperAdmin
         }
         public void BindSchemePlanDetails()
         {
-            SetParameter();
+            //SetParameter();
             dsSchemePlanDetails = new DataSet();
             customerBo = new CustomerBo();
-            dsSchemePlanDetails = customerBo.GetSchemeMapDetails(hdnExternalSource.Value, int.Parse(hdnAMC.Value), hdnCategory.Value, hdnType.Value);
+            dsSchemePlanDetails = customerBo.GetSchemeMapDetails(hdnExternalSource.Value, 0, hdnCategory.Value, hdnType.Value);
             if (dsSchemePlanDetails.Tables[0].Rows.Count > 0)
             {
                 btnExportFilteredData.Visible = true;
@@ -229,6 +238,13 @@ namespace WealthERP.SuperAdmin
         }
         protected void btnGo_Click(object sender, EventArgs e)
         {
+
+            if (ViewState["OnlineSchemeSetupSchemecode"] != null)
+            {
+                ddlMappingType.SelectedValue = "0";
+                
+            }
+
             if (ddlMappingType.SelectedValue.ToString() == "0")
             {
                 BindSchemePlanDetails();
@@ -274,6 +290,7 @@ namespace WealthERP.SuperAdmin
         protected void gvSchemeDetails_ItemCommand(object source, GridCommandEventArgs e)
         {
             int strSchemePlanCode = 0;
+            int Isonline = 0;
             string strExternalCode = string.Empty;
             string strExternalType = string.Empty;
             DateTime createdDate = new DateTime();
@@ -289,11 +306,13 @@ namespace WealthERP.SuperAdmin
                 TextBox txtExtCode = (TextBox)e.Item.FindControl("txtExternalCodeForEditForm");
                 DropDownList txtExtType = (DropDownList)e.Item.FindControl("ddlExternalType");
                 TextBox txtSchemePlancode = (TextBox)e.Item.FindControl("txtSchemePlanCodeForEditForm");
+                DropDownList ddlIsonline = (DropDownList)e.Item.FindControl("ddlONline");
                 strSchemePlanCode = int.Parse(txtSchemePlancode.Text);
                 strExternalCode = txtExtCode.Text;
                 strExternalType = txtExtType.Text;
+                Isonline =Convert.ToInt32(ddlIsonline.Text.ToString());
                 editedDate = DateTime.Now;
-                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
+                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode,Isonline, strExternalType, createdDate, editedDate, deletedDate);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -606,8 +625,8 @@ namespace WealthERP.SuperAdmin
                 GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 TextBox txtBox = (TextBox)item.FindControl("txtSchemePlanCodeForEditForm");
                 TextBox txtBoxScName = (TextBox)item.FindControl("txtSchemePlanNameForEditForm");
-                txtBox.Text = txtSchemePlanCode.Value;
-                txtBoxScName.Text = txtSchemeName.Text;
+                //txtBox.Text = txtSchemePlanCode.Value;
+                //txtBoxScName.Text = txtSchemeName.Text;
                 txtBox.Enabled = false;
                 txtBoxScName.Enabled = false;             
 
@@ -812,5 +831,29 @@ namespace WealthERP.SuperAdmin
             gvSchemeDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvSchemeDetails.MasterTableView.ExportToExcel();
         }
+
+        protected void gvSchemeDetails_PreRender(object sender, EventArgs e)
+        {
+            if (ViewState["OnlineSchemeSetupSchemecode"] != null)
+                schemePlanCode = Convert.ToInt32(ViewState["OnlineSchemeSetupSchemecode"]);
+            
+            DataSet dsCustomerList = new DataSet();
+            dsCustomerList = (DataSet)Cache["gvSchemeDetailsForMappinginSuperAdmin"];
+            DataTable dtCustomerList = new DataTable();
+            dtCustomerList = dsCustomerList.Tables[0];
+
+            if (!IsPostBack)
+            {
+                gvSchemeDetails.MasterTableView.FilterExpression = "([PASP_SchemePlanCode] = \'" + schemePlanCode + "\') ";
+                GridColumn column = gvSchemeDetails.MasterTableView.GetColumnSafe("PASP_SchemePlanCode");
+                column.CurrentFilterFunction = GridKnownFunction.Contains;
+                column.CurrentFilterValue =Convert.ToInt32(schemePlanCode).ToString();
+                DataRow[] rows = dtCustomerList.Select(gvSchemeDetails.MasterTableView.FilterExpression.ToString());
+                gvSchemeDetails.MasterTableView.Rebind();
+               
+                ddlSchemeMappingType.Enabled = false;
+             }           
+
+        }
+      }
     }
-}

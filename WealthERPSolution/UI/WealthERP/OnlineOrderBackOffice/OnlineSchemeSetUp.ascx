@@ -4,6 +4,20 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
+
+<script language="javascript" type="text/javascript">
+    function openpopupSchemeSetUp() {
+
+        var hdnSchemePlan = document.getElementById("<%=hdnSchemePlanCode.ClientID %>").value;
+        //        alert(hdnSchemePlan);
+        window.open('PopUp.aspx?PageId=AddSchemeMapping&OnlineSchemeSetupSchemecode=' + hdnSchemePlan, 'mywindow', 'width=750,height=500,scrollbars=yes,location=no');
+
+
+
+        return false;
+    }
+</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -31,6 +45,7 @@
         </tr>
     </table>
 </table>
+ 
 <table width="100%">
     <tr>
         <td colspan="5">
@@ -39,6 +54,7 @@
             </div>
         </td>
     </tr>
+   
     <tr>
         <td align="right">
             <asp:Label ID="lblProduct" runat="server" Text="Product" CssClass="FieldName"> </asp:Label>
@@ -97,7 +113,7 @@
             <asp:Label ID="lblSScategory" runat="server" Text="Sub Sub Category" CssClass="FieldName"> </asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlSScategory" runat="server" CssClass="cmbField" AutoPostBack="false">
+            <asp:DropDownList ID="ddlSScategory" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
             </asp:DropDownList>
         </td>
@@ -129,6 +145,13 @@
                 </asp:ListItem>--%>
             </asp:DropDownList>
         </td>
+        <td align="right">
+            <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
+                Width="15px"></asp:ImageButton>--%>
+            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
+                OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
+        </td>
     </tr>
     <tr>
         <td align="right">
@@ -140,16 +163,14 @@
                 CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false" />
                <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                 &nbsp;
+                
                <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
         </td>
-        <td align="right">
-           <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName"
-                Checked="false" />--%>
-        </td>
+        
     </tr>
 </table>
 
-    <div id="schemedetails" runat="server" visible="false">
+<div id="schemedetails" runat="server" visible="false">
     <table width="100%">
         <tr>
             <td colspan="5">
@@ -158,8 +179,8 @@
                 </div>
             </td>
         </tr>
-        </table>
-         <table width="100%">
+    </table>
+    <table width="100%">
         <tr>
             <td align="right">
                 <asp:Label ID="lblSctype" runat="server" Text="Scheme Type" CssClass="FieldName"> </asp:Label>
@@ -172,10 +193,11 @@
                 </asp:DropDownList>
             </td>
             <td align="right">
-                <asp:Label ID="lblFvalue" runat="server" Text="Face Value" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblSecuritycode" runat="server" Text="Security Code" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtFvale" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                <asp:TextBox ID="txtSecuritycode" runat="server" CssClass="cmbFielde" 
+                    style="margin-left: 0px"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -227,7 +249,7 @@
                 <asp:Label ID="LalISnfo" runat="server" Text="Is NFO" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-            <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" />
+                <asp:CheckBox ID="chkInfo" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
         </tr>
         <tr>
@@ -296,6 +318,21 @@
         </tr>
         <tr>
             <td align="right">
+                <asp:Label ID="lblESSchemecode" runat="server" Text="External System Scheme Code"
+                    CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde"></asp:TextBox>
+            </td>
+            <td align="right">
+                <asp:Label ID="lblFvalue" runat="server" Text="Face Value" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:TextBox ID="txtFvale" runat="server" CssClass="cmbFielde"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
                 <asp:Label ID="lblEload" runat="server" Text="Entry Load %" CssClass="FieldName"></asp:Label>
             </td>
             <td>
@@ -327,51 +364,35 @@
                 <asp:Label ID="LalISPurchage" runat="server" Text="IS Purchase Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-            <asp:CheckBox ID="ChkISPurchage" runat="server" Text="Yes" CssClass="FieldName" />
+                <asp:CheckBox ID="ChkISPurchage" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedISpurchage_OnCheckedChanged" AutoPostBack="true"/>
             </td>
             <td align="right">
-            <asp:Label ID="LalISRedeem" runat="server" Text="Is Redeem Available" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="LalISRedeem" runat="server" Text="Is Redeem Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="ChkISRedeem" runat="server" Text="Yes" CssClass="FieldName" />
+                <asp:CheckBox ID="ChkISRedeem" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedredemavaliable_OnCheckedChanged" AutoPostBack="true"/>
             </td>
         </tr>
         <tr>
             <td align="right">
-            <asp:Label ID="LalChkISSwitch" runat="server" Text="Is Switch Available" CssClass="FieldName"></asp:Label>
-                
+                <asp:Label ID="LalChkISSwitch" runat="server" Text="Is Switch Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-            <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" />
+                <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedSwtchAvaliable_OnCheckedChanged" AutoPostBack="true"/>
             </td>
             <td align="right">
-             <asp:Label ID="LbllISactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="LbllISactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
             </td>
-            <td >
+            <td>
                 <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
             </td>
         </tr>
         <tr>
             <td align="right">
-                <asp:Label ID="lblInitalPamount" runat="server" Text="Initial Purchase Amount" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtInitalPamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-            <td align="right">
                 <asp:Label ID="lblIMultipleamount" runat="server" Text="Inital Multiple Amount" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtIMultipleamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <asp:Label ID="lblAdditionalPamount" runat="server" Text="Additional Purchase Amount"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtAdditional" runat="server" CssClass="cmbFielde"></asp:TextBox>
             </td>
             <td align="right">
                 <asp:Label ID="lblAddMultipleamount" runat="server" Text="Additional Multiple Amount"
@@ -381,65 +402,99 @@
                 <asp:TextBox ID="txtAddMultipleamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
             </td>
         </tr>
-        <tr>
-            <td align="right">
-                <asp:Label ID="lblMinRedemption" runat="server" Text="Min Redemption Amount" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtMinRedemption" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblRedemptionmultiple" runat="server" Text="Redemption Multiple Amount"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtRedemptionmultiple" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <asp:Label ID="lblMinRedemptionUnits" runat="server" Text="Min Redemption Units"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtMinRedemptioUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblRedemptionMultiplesUnits" runat="server" Text="Redemption Multiples Units"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtRedemptionMultiplesUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+        <tr id="trIPAmount" runat="server" visible="false">
+            <td colspan="4">
+                <table width="100%">
+                    <tr>
+                        <td align="right" style="width:26%;">
+                            <asp:Label ID="lblInitalPamount" runat="server" Text="Initial Purchase Amount" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:24%;">
+                            <asp:TextBox ID="txtInitalPamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                        <td align="right" style="width:25.5%;">
+                            <asp:Label ID="lblAdditionalPamount" runat="server" Text="Additional Purchase Amount"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:24.5%;">
+                            <asp:TextBox ID="txtAdditional" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
-        <tr>
-            <td align="right">
-                <asp:Label ID="lblMinSwitchAmount" runat="server" Text="Min Switch Amount" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtMinSwitchAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblMinSwitchUnits" runat="server" Text="Min Switch Units" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtMinSwitchUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+        
+        <tr id="trMINRedemPtion" runat="server" visible="false">
+            <td colspan="4">
+                <table width="100%">
+                    <tr>
+                        <td align="right" style="width:26%;">
+                            <asp:Label ID="lblMinRedemption" runat="server" Text="Min Redemption Amount" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:24%;">
+                            <asp:TextBox ID="txtMinRedemption" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                        <td align="right" style="width:24.5%;">
+                            <asp:Label ID="lblRedemptionmultiple" runat="server" Text="Redemption Multiple Amount"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:26.5%;">
+                            <asp:TextBox ID="txtRedemptionmultiple" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:25%;">
+                            <asp:Label ID="lblMinRedemptionUnits" runat="server" Text="Min Redemption Units"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:25%;">
+                            <asp:TextBox ID="txtMinRedemptioUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                        <td align="right" style="width:24.5%;">
+                            <asp:Label ID="lblRedemptionMultiplesUnits" runat="server" Text="Redemption Multiples Units"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:26.5%;">
+                            <asp:TextBox ID="txtRedemptionMultiplesUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
-        <tr>
-            <td align="right">
-                <asp:Label ID="lblSwitchMultipleAmount" runat="server" Text="Switch Multiple Amount"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtSwitchMultipleAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblSwitchMultipleUnits" runat="server" Text="Switch Multiples Units"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtSwitchMultipleUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+        <tr  id="trSwitchPavailable" runat="server" visible="false">
+            <td colspan="4">
+                <table width="100%">
+                    <tr>
+                        <td align="right" style="width:26%;">
+                            <asp:Label ID="lblMinSwitchAmount" runat="server" Text="Min Switch Amount" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:24%;">
+                            <asp:TextBox ID="txtMinSwitchAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                        <td align="right" style="width:24.5%;">
+                            <asp:Label ID="lblMinSwitchUnits" runat="server" Text="Min Switch Units" CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:26.5%;">
+                            <asp:TextBox ID="txtMinSwitchUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right" style="width:25%;">
+                            <asp:Label ID="lblSwitchMultipleAmount" runat="server" Text="Switch Multiple Amount"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:25%;">
+                            <asp:TextBox ID="txtSwitchMultipleAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                        <td align="right" style="width:24.5%;">
+                            <asp:Label ID="lblSwitchMultipleUnits" runat="server" Text="Switch Multiples Units"
+                                CssClass="FieldName"></asp:Label>
+                        </td>
+                        <td style="width:26.5%;">
+                            <asp:TextBox ID="txtSwitchMultipleUnits" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
         <tr>
@@ -469,26 +524,7 @@
                 &nbsp;
                 <asp:CheckBox ID="ChkBO" runat="server" Text="BOI" CssClass="FieldName" />
             </td>
-            <td align="right">
-                
-            </td>
-        </tr>
-        <tr>
-            <td align="right">
-                <asp:Label ID="lblSecuritycode" runat="server" Text="Security Code" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtSecuritycode" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-            <td align="right">
-                <asp:Label ID="lblESSchemecode" runat="server" Text="External System Scheme Code"
-                    CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde"></asp:TextBox>
-            </td>
-        </tr>
-        <tr>
+            
         </tr>
         <%-- <tr>
             <td colspan="5">
@@ -503,200 +539,208 @@
                     AutoPostBack="true" OnCheckedChanged="ChkISSIP_OnCheckedChanged" />
             </td>
             <td align="right">
-                <asp:CheckBox ID="ChkISSWP" runat="server" Text="Is SWP Available"  AutoPostBack="true" CssClass="FieldName" OnCheckedChanged="ChkISSWP_OnCheckedChanged" />
+                <asp:CheckBox ID="ChkISSWP" runat="server" Text="Is SWP Available" AutoPostBack="true"
+                    CssClass="FieldName" OnCheckedChanged="ChkISSWP_OnCheckedChanged" />
             </td>
             <td align="right">
-                <asp:CheckBox ID="ChkISSTP" runat="server" Text="Is STP Available"  AutoPostBack="true" CssClass="FieldName" OnCheckedChanged="ChkISSTP_OnCheckedChanged"/>
+                <asp:CheckBox ID="ChkISSTP" runat="server" Text="Is STP Available" AutoPostBack="true"
+                    CssClass="FieldName" OnCheckedChanged="ChkISSTP_OnCheckedChanged" />
             </td>
         </tr>
-        </div>
-        <%-- <tr>
+</div>
+<%-- <tr>
            
         </tr>--%>
-        <tr id="trsystematic" runat="server" visible="false">
-            <td colspan="5">
-                <div class="divSectionHeading" style="vertical-align: text-bottom">
-                    Systematic Details
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <asp:Panel ID="pnlSIPDetails" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
-                Visible="false">
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <telerik:RadGrid ID="gvSIPDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
-                                PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                                Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" ClientSettings-AllowColumnsReorder="true"
-                                AllowAutomaticInserts="false" OnNeedDataSource="gvSIPDetails_OnNeedDataSource"
-                                OnItemDataBound="gvSIPDetails_OnItemDataBound" OnItemCommand="gvSIPDetails_OnItemCommand">
-                                <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
-                                </ExportSettings>
-                                <MasterTableView DataKeyNames="" AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True"
-                                    AutoGenerateColumns="false" CommandItemDisplay="Top" EditMode="PopUp">
-                                    <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
-                                        AddNewRecordText="Add New Systematic Details" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
-                                        ShowRefreshButton="false" />
-                                    <Columns>
-                                        <telerik:GridBoundColumn DataField="XF_Frequency" HeaderText="Frequency" AllowFiltering="true"
-                                            SortExpression="XF_Frequency" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" UniqueName="XF_Frequency" FooterStyle-HorizontalAlign="Left"
-                                            HeaderStyle-Width="100px">
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PASPSD_StatingDates" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
-                                            AllowFiltering="true" HeaderText="Start Date" UniqueName="PASPSD_StatingDates"
-                                            SortExpression="PASPSD_StatingDates" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                            AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PASPSD_MinDues" AllowFiltering="true" HeaderText="Min Dues"
-                                            UniqueName="PASPSD_MinDues" SortExpression="PASPSD_MinDues" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="75px"
-                                            FilterControlWidth="50px">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PASPSD_MaxDues" AllowFiltering="true" HeaderText="Max Dues"
-                                            UniqueName="PASPSD_MaxDues" SortExpression="PASPSD_MaxDues" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="75px"
-                                            FilterControlWidth="50px">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PASPSD_MinAmount" AllowFiltering="false" HeaderText="Min Amount"
-                                            UniqueName="PASPSD_MinAmount" SortExpression="PASPSD_MinAmount" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
-                                            FilterControlWidth="60px">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PASPSD_MultipleAmount" HeaderText="Amount Multiplier"
-                                            AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PASPSD_MultipleAmount"
-                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                            HeaderStyle-Width="100px" UniqueName="PASPSD_MultipleAmount" FooterStyle-HorizontalAlign="Left">
-                                            <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn Visible="false" DataField="PASP_SchemePlanCode" HeaderText="SchemePlanName"
-                                            AllowFiltering="true" SortExpression="PASP_SchemePlanCode" ShowFilterIcon="false"
-                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanCode"
-                                            FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="300px">
-                                        </telerik:GridBoundColumn>
-                                    </Columns>
-                                    <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px">
-                                        <FormTemplate>
-                                            <table width="100%" style="background-color: White">
-                                                <tr id="trCustomerTypeSelection" runat="server">
-                                                    <td colspan="4">
-                                                        <table width="50%">
-                                                            <tr>
-                                                                <td align="right">
-                                                                    <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
-                                                                </td>
-                                                                <td>
-                                                                    <asp:DropDownList ID="ddlFrquency" runat="server" CssClass="cmbField" AutoPostBack="true">
-                                                                    </asp:DropDownList>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="leftField" align="right">
-                                                                    <asp:Label ID="lblstartDate" runat="server" CssClass="FieldName" Text="Start Date:"></asp:Label>
-                                                                </td>
-                                                                <td class="rightField">
-                                                                    <asp:TextBox ID="txtstartDate" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_StatingDates") %>'
-                                                                        AutoPostBack="True"></asp:TextBox>
-                                                                    <span id="Span8" class="spnRequiredField">*</span>
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtstartDate"
-                                                                        ErrorMessage="<br />Please Enter Date" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                                                        ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="leftField" align="right">
-                                                                    <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Min Dues:"></asp:Label>
-                                                                </td>
-                                                                <td class="rightField">
-                                                                    <asp:TextBox ID="txtMinDues" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MinDues") %>'
-                                                                        AutoPostBack="True"></asp:TextBox>
-                                                                    <span id="Span1" class="spnRequiredField">*</span>
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtMinDues"
-                                                                        ErrorMessage="<br />Please Enter Min Dues" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                                                        ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="leftField" align="right">
-                                                                    <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Max Dues:"></asp:Label>
-                                                                </td>
-                                                                <td class="rightField">
-                                                                    <asp:TextBox ID="txtMaxDues" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MaxDues") %>'
-                                                                        AutoPostBack="True"></asp:TextBox>
-                                                                    <span id="Span2" class="spnRequiredField">*</span>
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtMaxDues"
-                                                                        ErrorMessage="<br />Please Enter Max Dues" Display="Dynamic" runat="server" CssClass="rfvPCG"
-                                                                        ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="leftField" align="right">
-                                                                    <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Min Amount:"></asp:Label>
-                                                                </td>
-                                                                <td class="rightField">
-                                                                    <asp:TextBox ID="txtMinAmount" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MinAmount") %>'
-                                                                        AutoPostBack="True"></asp:TextBox>
-                                                                    <span id="Span3" class="spnRequiredField">*</span>
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMinAmount"
-                                                                        ErrorMessage="<br />Please Enter Min Amount" Display="Dynamic" runat="server"
-                                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="leftField" align="right">
-                                                                    <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Multiple Amount:"></asp:Label>
-                                                                </td>
-                                                                <td class="rightField">
-                                                                    <asp:TextBox ID="txtMultipleAmount" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MultipleAmount") %>'
-                                                                        AutoPostBack="True"></asp:TextBox>
-                                                                    <span id="Span4" class="spnRequiredField">*</span>
-                                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtMultipleAmount"
-                                                                        ErrorMessage="<br />Please Enter Multiple Amount" Display="Dynamic" runat="server"
-                                                                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                </td>
-                                                                <td>
-                                                                    <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
-                                                                        runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                                        ValidationGroup="Submit"></asp:Button>
-                                                                </td>
-                                                                <td>
-                                                                    <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                                                        CommandName="Cancel"></asp:Button>
-                                                                </td>
-                                                            </tr>
-                                                </tr>
-                                            </table>
-                                            </td> </tr> </table>
-                                        </FormTemplate>
-                                    </EditFormSettings>
-                                </MasterTableView>
-                                <ClientSettings>
-                                    <Resizing AllowColumnResize="true" />
-                                    <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                                </ClientSettings>
-                            </telerik:RadGrid>
-                        </td>
-                    </tr>
-                </table>
-            </asp:Panel>
-        </tr>
-        <tr>
-            <td align="right">
-                <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click" />
-            </td>
-            <td align="left">
-                <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
-                    Style="height: 26px" />
-                <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
-            </td>
-        </tr>  
+<%--<tr id="trsystematic" runat="server" visible="false">
+    <td colspan="5">
+        <div class="divSectionHeading" style="vertical-align: text-bottom">
+            Systematic Details
+        </div>
+    </td>
+</tr>--%>
+<tr>
+    <asp:Panel ID="pnlSIPDetails" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
+        Visible="false">
+        <table width="100%">
+            <tr>
+                <td>
+                    <telerik:RadGrid ID="gvSIPDetails" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
+                        Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" ClientSettings-AllowColumnsReorder="true"
+                        AllowAutomaticInserts="false" OnNeedDataSource="gvSIPDetails_OnNeedDataSource"
+                        OnItemDataBound="gvSIPDetails_OnItemDataBound" OnItemCommand="gvSIPDetails_OnItemCommand">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="" AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="Top" EditMode="PopUp">
+                            <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
+                                AddNewRecordText="Add New Systematic Details" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
+                                ShowRefreshButton="false" />
+                            <Columns>
+                                <telerik:GridEditCommandColumn EditText="Add/Update" UniqueName="editColumn" CancelText="Cancel"
+                                    UpdateText="Update" HeaderStyle-Width="80px">
+                                </telerik:GridEditCommandColumn>
+                                <telerik:GridBoundColumn DataField="XF_Frequency" HeaderText="Frequency" AllowFiltering="true"
+                                    SortExpression="XF_Frequency" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="XF_Frequency" FooterStyle-HorizontalAlign="Left"
+                                    HeaderStyle-Width="100px">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASPSD_StatingDates" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                                    AllowFiltering="true" HeaderText="Start Date" UniqueName="PASPSD_StatingDates"
+                                    SortExpression="PASPSD_StatingDates" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASPSD_MinDues" AllowFiltering="true" HeaderText="Min Dues"
+                                    UniqueName="PASPSD_MinDues" SortExpression="PASPSD_MinDues" ShowFilterIcon="false"
+                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="75px"
+                                    FilterControlWidth="50px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASPSD_MaxDues" AllowFiltering="true" HeaderText="Max Dues"
+                                    UniqueName="PASPSD_MaxDues" SortExpression="PASPSD_MaxDues" ShowFilterIcon="false"
+                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="75px"
+                                    FilterControlWidth="50px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASPSD_MinAmount" AllowFiltering="false" HeaderText="Min Amount"
+                                    UniqueName="PASPSD_MinAmount" SortExpression="PASPSD_MinAmount" ShowFilterIcon="false"
+                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
+                                    FilterControlWidth="60px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASPSD_MultipleAmount" HeaderText="Amount Multiplier"
+                                    AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PASPSD_MultipleAmount"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    HeaderStyle-Width="100px" UniqueName="PASPSD_MultipleAmount" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn Visible="false" DataField="PASP_SchemePlanCode" HeaderText="SchemePlanName"
+                                    AllowFiltering="true" SortExpression="PASP_SchemePlanCode" ShowFilterIcon="false"
+                                    CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="PASP_SchemePlanCode"
+                                    FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="300px">
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                            <EditFormSettings FormTableStyle-Height="10px" EditFormType="Template" FormTableStyle-Width="1000px"
+                                PopUpSettings-Width="530px" PopUpSettings-Height="300px">
+                                <FormTemplate>
+                                    <table width="100%" style="background-color: White">
+                                        <tr id="trCustomerTypeSelection" runat="server">
+                                            <td colspan="4">
+                                                <table width="50%">
+                                                    <tr>
+                                                        <td align="right">
+                                                            <asp:Label ID="lblFrequency" runat="server" CssClass="FieldName" Text="Frequency:"></asp:Label>
+                                                        </td>
+                                                        <td>
+                                                            <asp:DropDownList ID="ddlFrquency" runat="server" CssClass="cmbField" AutoPostBack="false">
+                                                            </asp:DropDownList>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="leftField" align="right">
+                                                            <asp:Label ID="lblstartDate" runat="server" CssClass="FieldName" Text="Start Date:"></asp:Label>
+                                                        </td>
+                                                        <td class="rightField" align="right">
+                                                            <asp:TextBox ID="txtstartDate" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_StatingDates") %>'
+                                                                AutoPostBack="false"></asp:TextBox>
+                                                            <span id="Span8" class="spnRequiredField">*Date Should Be In This Formate[12;24]</span>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtstartDate"
+                                                                ErrorMessage="<br />Please Enter Date" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                                ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="leftField" align="right">
+                                                            <asp:Label ID="Label5" runat="server" CssClass="FieldName" Text="Min Dues:"></asp:Label>
+                                                        </td>
+                                                        <td class="rightField">
+                                                            <asp:TextBox ID="txtMinDues" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MinDues") %>'
+                                                                AutoPostBack="false"></asp:TextBox>
+                                                            <span id="Span1" class="spnRequiredField">*</span>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtMinDues"
+                                                                ErrorMessage="<br />Please Enter Min Dues" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                                ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="leftField" align="right">
+                                                            <asp:Label ID="Label6" runat="server" CssClass="FieldName" Text="Max Dues:"></asp:Label>
+                                                        </td>
+                                                        <td class="rightField">
+                                                            <asp:TextBox ID="txtMaxDues" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MaxDues") %>'
+                                                                AutoPostBack="false"></asp:TextBox>
+                                                            <span id="Span2" class="spnRequiredField">* </span>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtMaxDues"
+                                                                ErrorMessage="<br />Please Enter Max Dues" Display="Dynamic" runat="server" CssClass="rfvPCG"
+                                                                ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="leftField" align="right">
+                                                            <asp:Label ID="Label7" runat="server" CssClass="FieldName" Text="Min Amount:"></asp:Label>
+                                                        </td>
+                                                        <td class="rightField">
+                                                            <asp:TextBox ID="txtMinAmount" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MinAmount") %>'
+                                                                AutoPostBack="false"></asp:TextBox>
+                                                            <span id="Span3" class="spnRequiredField">*</span>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtMinAmount"
+                                                                ErrorMessage="<br />Please Enter Min Amount" Display="Dynamic" runat="server"
+                                                                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="leftField" align="right">
+                                                            <asp:Label ID="Label8" runat="server" CssClass="FieldName" Text="Multiple Amount:"></asp:Label>
+                                                        </td>
+                                                        <td class="rightField">
+                                                            <asp:TextBox ID="txtMultipleAmount" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_MultipleAmount") %>'
+                                                                AutoPostBack="false"></asp:TextBox>
+                                                            <span id="Span4" class="spnRequiredField">*</span>
+                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txtMultipleAmount"
+                                                                ErrorMessage="<br />Please Enter Multiple Amount" Display="Dynamic" runat="server"
+                                                                CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>'
+                                                                runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                                ValidationGroup="Submit"></asp:Button>
+                                                        </td>
+                                                        <td>
+                                                            <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                                                CommandName="Cancel"></asp:Button>
+                                                        </td>
+                                                    </tr>
+                                        </tr>
+                                    </table>
+                                    </td> </tr> </table>
+                                </FormTemplate>
+                            </EditFormSettings>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Resizing AllowColumnResize="true" />
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                </td>
+            </tr>
+        </table>
+    </asp:Panel>
+</tr>
+<tr>
+    <td align="right">
+        <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click" />
+    </td>
+    <td align="left">
+        <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
+            Style="height: 26px" />
+        <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
+    </td>
+</tr>
 </table>
+<asp:HiddenField ID="hdnSchemePlanCode" runat="server" />
+<asp:HiddenField ID="hdnCategory" runat="server" />
+<asp:HiddenField ID="hdnAMC" runat="server" />
+<asp:HiddenField ID="hdnExternalSource" runat="server" />

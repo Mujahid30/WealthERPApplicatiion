@@ -29,10 +29,18 @@ namespace WealthERP
             string AddMFOrderEntryLinkId = "";
             string userType = string.Empty;
             string rmId = string.Empty;
+            int OnlineSchemeSetupSchemecode = 0;
 
             if (Request.QueryString["PageId"] != null)
                 pageID = Request.QueryString["PageId"].ToString();
 
+
+            if (Request.QueryString["OnlineSchemeSetupSchemecode"] != null && Request.QueryString["OnlineSchemeSetupSchemecode"] !="")
+            {
+                OnlineSchemeSetupSchemecode = Convert.ToInt32(Request.QueryString["OnlineSchemeSetupSchemecode"]);
+                Session["OnlineSchemeSetupSchemecode"] = OnlineSchemeSetupSchemecode;
+            }
+            
             if (Request.QueryString["LinkId"] != null)
             {
                 linkId = Request.QueryString["LinkId"].ToString();

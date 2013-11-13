@@ -268,10 +268,10 @@ namespace DaoCustomerProfiling
                 customerVo = new CustomerVo();
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getschemePlanCodeCmd = db.GetStoredProcCommand("SP_BindSchemeDetails");
-                db.AddInParameter(getschemePlanCodeCmd, "@ExternalType", DbType.String, ExternalType);
-                db.AddInParameter(getschemePlanCodeCmd, "@AmcCode", DbType.Int32, AmcCode);
-                db.AddInParameter(getschemePlanCodeCmd, "@Category", DbType.String, Category);
-                db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.String, Type);
+                //db.AddInParameter(getschemePlanCodeCmd, "@ExternalType", DbType.String, ExternalType);
+                //db.AddInParameter(getschemePlanCodeCmd, "@AmcCode", DbType.Int32, AmcCode);
+                //db.AddInParameter(getschemePlanCodeCmd, "@Category", DbType.String, Category);
+                //db.AddInParameter(getschemePlanCodeCmd, "@Type", DbType.String, Type);
                 getschemePlanCodeDs = db.ExecuteDataSet(getschemePlanCodeCmd);
             }
             catch (BaseApplicationException Ex)
@@ -1508,7 +1508,7 @@ namespace DaoCustomerProfiling
             return dsAMCExternalType;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode,int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             bool bResult = false;
             Database db;
@@ -1521,6 +1521,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCode", DbType.String, strExtCode);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCodeToBeEdited", DbType.String, strExternalCodeToBeEdited);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalType", DbType.String, strExtName);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@Isonline", DbType.Int32, Isonline);
                 if (createdDate != DateTime.MinValue)
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@createdDate", DbType.DateTime, createdDate);
                 else

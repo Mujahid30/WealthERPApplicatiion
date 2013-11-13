@@ -76,16 +76,16 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void Onselectedindex_select(object sender, EventArgs e)
         {
-            if (ddlProduct.SelectedValue == "BO")
-            {
-                tdtosee.Visible = false;
-                llbtosee.Visible = false;
-            }
-            else
-            {
-                tdtosee.Visible = true;
-                llbtosee.Visible = true;
-            }
+            //if (ddlProduct.SelectedValue == "BO")
+            //{
+            //    tdtosee.Visible = false;
+            //    llbtosee.Visible = false;
+            //}
+            //else
+            //{
+            //    tdtosee.Visible = true;
+            //    llbtosee.Visible = true;
+            //}
         }
         protected void BindSchemeMIS()
         {

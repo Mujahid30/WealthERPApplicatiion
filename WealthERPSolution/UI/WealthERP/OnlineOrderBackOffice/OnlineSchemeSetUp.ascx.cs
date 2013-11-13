@@ -60,6 +60,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Request.QueryString["SchemePlanCode"] != null)
                 {
                     schemeplancode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
+                    hdnSchemePlanCode.Value = schemeplancode.ToString();
 
                 }
                 if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
@@ -137,14 +138,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
-        protected  void Bindscheme()
+        protected void Bindscheme(int SchemePlanCode)
         {
             try
             {
                
                 DataTable dtRandT;
-                schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
-                dtRandT = OnlineOrderBackOfficeBo.OnlinebindRandT(schemeplancode);               
+                //if (Request.QueryString["strAction"].Trim() != null)
+                //{
+                //    schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+                //}
+                dtRandT = OnlineOrderBackOfficeBo.OnlinebindRandT(SchemePlanCode);               
                 if (dtRandT != null)
                 {
 
@@ -299,7 +303,8 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlGenerationfreq.DataBind();
             ddlGenerationfreq.Items.Insert(0, new ListItem("Select", "Select"));
         }
-        protected void ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
+        protected void 
+            ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAmc.SelectedIndex != 0)
             {
@@ -369,10 +374,26 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 OnlineOrderBackOfficeVo.IsOnline = 0;
             }
-            OnlineOrderBackOfficeVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
+            if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
+            {
+                OnlineOrderBackOfficeVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+            }
+            else
+            {
+                ddlSchemeList.SelectedValue = "Select";
+            }
             OnlineOrderBackOfficeVo.SchemePlanName = ddlSchemeList.SelectedItem.Text;
             OnlineOrderBackOfficeVo.ExternalCode = txtESSchemecode.Text.ToString();
-            OnlineOrderBackOfficeVo.AMCCode = int.Parse(ddlAmc.SelectedValue);
+            if (!string.IsNullOrEmpty(ddlAmc.SelectedValue))
+            {
+                OnlineOrderBackOfficeVo.AMCCode = int.Parse(ddlAmc.SelectedValue);
+            }
+            else
+            {
+                ddlAmc.SelectedValue = "0";
+            }
+
+
             OnlineOrderBackOfficeVo.AssetCategoryCode = ddlcategory.SelectedValue;
             if (!string.IsNullOrEmpty(txtFvale.Text))
             {
@@ -382,7 +403,16 @@ namespace WealthERP.OnlineOrderBackOffice
             OnlineOrderBackOfficeVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
             OnlineOrderBackOfficeVo.SchemeType = ddlSctype.SelectedValue;
             OnlineOrderBackOfficeVo.SchemeOption = ddlOption.SelectedValue;
-            OnlineOrderBackOfficeVo.BankName = ddlBname.SelectedItem.ToString();
+            if (!string.IsNullOrEmpty(ddlBname.SelectedValue))
+            {
+                OnlineOrderBackOfficeVo.BankName = ddlBname.SelectedValue;
+            }
+            else
+            {
+                ddlBname.SelectedValue = "0";
+            }
+
+
             OnlineOrderBackOfficeVo.WERPBM_BankCode = ddlBname.SelectedValue;
             OnlineOrderBackOfficeVo.Branch = txtBranch.Text;
             OnlineOrderBackOfficeVo.AccountNumber = txtACno.Text;
@@ -536,7 +566,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text);
             }
-
+            
         }
 
         private void ControlViewEditMode(bool isViewMode)
@@ -603,7 +633,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtFvale.Enabled = true;
                 ddlScategory.Enabled = false;
                 ddlSScategory.Enabled = false;
-                ddlSctype.Enabled = false;
+                ddlSctype.Enabled = true;
                 ddlOption.Enabled = true;
                 ddlBname.Enabled = true;
                 txtBranch.Enabled = true;
@@ -619,10 +649,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtExitLremark.Enabled = true;
                 ChkISPurchage.Enabled = true;
                 ChkISRedeem.Enabled = true;
-                ChkISSIP.Enabled = true;
-                ChkISSTP.Enabled = true;
+                ChkISSIP.Enabled = false;
+                ChkISSTP.Enabled = false;
                 ChkISSwitch.Enabled = true;
-                ChkISSWP.Enabled = true;
+                ChkISSWP.Enabled = false;
                 ddlSchemeList.Enabled = false;
                 ChkISactive.Enabled = false;
                 txtInitalPamount.Enabled = true;
@@ -655,7 +685,7 @@ namespace WealthERP.OnlineOrderBackOffice
             // txtScname.Text = OnlineOrderBackOfficeVo.SchemePlanName;
             txtESSchemecode.Text = OnlineOrderBackOfficeVo.ExternalCode;
             //txtAMFI.Text = OnlineOrderBackOfficeVo.ExternalCode;
-            //BindAMC();
+            //BindAMC();           
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.DividendFrequency))
             {
                 ddlDFrequency.SelectedValue = OnlineOrderBackOfficeVo.DividendFrequency.ToString();
@@ -705,6 +735,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ddlSchemeList.SelectedValue = "0";
             }
+            Bindscheme(int.Parse(ddlSchemeList.SelectedValue.ToString()));
             txtFvale.Text = OnlineOrderBackOfficeVo.FaceValue.ToString();
             BindSubCategory(ddlcategory.SelectedValue);
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubCategoryCode))
@@ -915,11 +946,12 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SecurityCode))
                 txtSecuritycode.Text = OnlineOrderBackOfficeVo.SecurityCode.ToString();
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
-            {
-                ddlRT.SelectedValue = OnlineOrderBackOfficeVo.ExternalType.ToString();
-            }
+             ddlRT.SelectedItem.Value = OnlineOrderBackOfficeVo.ExternalType.ToString();
+           
             txtinvestment.Text = OnlineOrderBackOfficeVo.PASPD_MaxInvestment.ToString();
+
         }
+
 
 
 
@@ -1250,7 +1282,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 int schemepalncode = int.Parse(ddlSchemeList.SelectedValue);
 
                 ViewState["Schemecode"] = schemepalncode;
-                Bindscheme();
+                hdnSchemePlanCode.Value = schemepalncode.ToString();
+                Bindscheme(schemepalncode);
             }
         }
         private bool AMFIValidation(string externalcode)
@@ -1317,18 +1350,28 @@ namespace WealthERP.OnlineOrderBackOffice
                 string message = string.Empty;
                 OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
                 OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+                
+                //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.Product))
+                //{
+                    //OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+                //}
+                //else
+                //{
+                //    ddlProduct.SelectedValue = "";
+                //}
 
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetCategoryCode))
+
+                if (!string.IsNullOrEmpty(ddlcategory.SelectedValue))
                 {
                     OnlineOrderBackOfficeVo.AssetCategoryCode = ddlcategory.SelectedValue;
                 }
                 else
                 {
-                    ddlcategory.SelectedValue = "0";
+                    ddlcategory.SelectedValue = "Select";
                 }
 
 
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubCategoryCode))
+                if (!string.IsNullOrEmpty(ddlScategory.SelectedValue))
                 {
                     OnlineOrderBackOfficeVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
                 }
@@ -1386,13 +1429,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 //    ddlGenerationfreq.SelectedValue = "0";
                 //}
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
+                if (!string.IsNullOrEmpty(ddlRT.SelectedValue))
                 {
                     OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue;
                 }
                 else
                 {
-                    ddlRT.SelectedValue = "Select";
+                    ddlRT.SelectedValue = "0";
                 }
 
                 if (!string.IsNullOrEmpty(txtACno.Text))
@@ -1902,7 +1945,9 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSystematicDetails;
             DataTable dtSystematicDetails;
-            schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+           // schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+           
+            //hdnSchemePlanCode.Value = ViewState["Schemecode"].ToString();
             dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode);
             dtSystematicDetails = dsSystematicDetails.Tables[0];
             if (dtSystematicDetails.Rows.Count > 0)
@@ -1919,11 +1964,50 @@ namespace WealthERP.OnlineOrderBackOffice
             }
                 
         }
+        protected void oncheckedISpurchage_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkISPurchage.Checked)
+            {
+                trIPAmount.Visible = true;
+                trSwitchPavailable.Visible = false;
+                trMINRedemPtion.Visible = false;
+            }
+            else
+            {
+                trIPAmount.Visible = false;
+            }
+        }
+        protected void oncheckedredemavaliable_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkISRedeem.Checked)
+            {
+                trSwitchPavailable.Visible = false;
+                trMINRedemPtion.Visible = true;
+                trIPAmount.Visible = false;
+            }
+            else
+            {
+                trMINRedemPtion.Visible = false;
+            }
+        }
+        protected void oncheckedSwtchAvaliable_OnCheckedChanged(object sender, EventArgs e)
+        {
+            if (ChkISSwitch.Checked)
+            {
+                trMINRedemPtion.Visible = false;
+                trSwitchPavailable.Visible =true;
+                trIPAmount.Visible = false;
+            }
+            else
+            {
+                trSwitchPavailable.Visible = false;
+            }
+        }
         protected void ChkISSIP_OnCheckedChanged(object sender, EventArgs e)
         {
             if (ChkISSIP.Checked)
             {
-                trsystematic.Visible = true;
+                //trsystematic.Visible = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
                 ChkISSTP.Enabled = false;
@@ -1931,7 +2015,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                trsystematic.Visible = false;
+                //trsystematic.Visible = false;
                 pnlSIPDetails.Visible = false;
                 ChkISSTP.Enabled = true;
                 ChkISSWP.Enabled = true;
@@ -1943,7 +2027,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ChkISSWP.Checked)
             {
-                trsystematic.Visible = true;
+                //trsystematic.Visible = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
                 ChkISSTP.Enabled = false;
@@ -1951,7 +2035,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                trsystematic.Visible = false;
+                //trsystematic.Visible = false;
                 pnlSIPDetails.Visible = false;
                 ChkISSTP.Enabled = true;
                 ChkISSIP.Enabled = true;
@@ -1962,7 +2046,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ChkISSTP.Checked)
             {
-                trsystematic.Visible = true;
+                //trsystematic.Visible = true;
                 BindSystematicDetails();
                 pnlSIPDetails.Visible = true;
                 ChkISSIP.Enabled = false;
@@ -1970,7 +2054,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                trsystematic.Visible = false;
+                //trsystematic.Visible = false;
                 pnlSIPDetails.Visible = false;
                 ChkISSIP.Enabled = true;
                 ChkISSWP.Enabled = true;
@@ -1991,11 +2075,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
                 TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
                 TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");  
-                if(ChkISSIP.Checked)
+                OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                if (ChkISSIP.Checked)
                 {
                     OnlineOrderBackOfficeVo.systematiccode = "SIP";
                 }
-                OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                if (ChkISSTP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.systematiccode = "STP";
+                }
+                if (ChkISSWP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.systematiccode = "SWP";
+                }
                 OnlineOrderBackOfficeVo.frequency = ddlFrquency.SelectedValue.ToString();
                 OnlineOrderBackOfficeVo.startdate = txtstartDate.Text.ToString();
                 OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());                
@@ -2033,5 +2125,11 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+
+        //protected void lbSmapping_OnClick(object sender, EventArgs e)
+        //{
+        //    //ViewState["Schemecode"] = schemepalncode;
+        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddSchemeMapping", "loadcontrol('AddSchemeMapping','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + " ');", true);
+        //}
     }
 }

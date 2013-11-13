@@ -88,7 +88,7 @@
     <div>
         <tr>
             <td>
-                <table>
+                <table width="100%">
                     <tr id="trMappingType" runat="server">
                         <td align="right">
                             <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Mapping Type:"></asp:Label>
@@ -165,7 +165,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td align="right">
                             <asp:Button ID="btnGo" runat="server" OnClick="btnGo_Click" Text="Go" CssClass="PCGButton"
                                 ValidationGroup="btnGo" />
                         </td>
@@ -175,10 +175,10 @@
         </tr>
     </div>
     <br />
-    <div>
+    
         <asp:Panel ID="pnlgvScheme" Visible="false" runat="server" class="Landscape" ScrollBars="Horizontal">
-            <telerik:RadGrid ID="gvSchemeDetails" runat="server" CssClass="RadGrid" GridLines="None"
-                Width="102%" AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+            <telerik:RadGrid ID="gvSchemeDetails" runat="server"  GridLines="None" OnPreRender="gvSchemeDetails_PreRender"
+                AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
                 ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                 AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvSchemeDetails_ItemDataBound"
                 OnNeedDataSource="gvSchemeDetails_NeedDataSource" EnableEmbeddedSkins="false"
@@ -191,11 +191,13 @@
                     Width="102%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
                     <Columns>
                         <telerik:GridEditCommandColumn EditText="Add/Update" UniqueName="editColumn" CancelText="Cancel"
-                            UpdateText="Add/Update">
+                            UpdateText="Add/Update" HeaderStyle-Width="80px" >
+                          
                         </telerik:GridEditCommandColumn>
                          <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px" FilterControlWidth="50px"
                             HeaderText="Type" DataField="Type" SortExpression="Type" AllowFiltering="true"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                           
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="300px"
@@ -210,6 +212,11 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn Visible="true" UniqueName="PA_AMCName" HeaderStyle-Width="200px"
                             HeaderText="AMC" DataField="PA_AMCName" SortExpression="PA_AMCName" AllowFiltering="true"
+                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                            <HeaderStyle></HeaderStyle>
+                        </telerik:GridBoundColumn>
+                         <telerik:GridBoundColumn Visible="true" UniqueName="PASC_IsOnline" HeaderStyle-Width="130px"
+                            HeaderText="Is Online/Is Offline" DataField="PASC_IsOnline" SortExpression="PASC_IsOnline" AllowFiltering="true"
                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
@@ -251,11 +258,13 @@
                     </telerik:GridTemplateColumn>--%>
                         <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Scheme?"
                             ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                            Text="Delete">
+                            Text="Delete" HeaderStyle-Width="100px">
                             <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
                         </telerik:GridButtonColumn>
                     </Columns>
-                    <EditFormSettings EditFormType="Template" FormTableStyle-Width="600px">
+                <%--     <EditFormSettings FormTableStyle-Height="100%" EditFormType="Template" PopUpSettings-Height="505px"
+                PopUpSettings-Width="810px" FormMainTableStyle-Width="3500px">--%>
+                    <EditFormSettings EditFormType="Template" FormTableStyle-Width="800px" PopUpSettings-Width="530px" PopUpSettings-Height="200px">
                         <FormTemplate>
                             <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
                                 background: white;">
@@ -300,6 +309,7 @@
                                                     <asp:TextBox CssClass="txtField" ID="txtExternalCodeForEditForm" Text='<%# Bind("PASC_AMC_ExternalCode") %>'
                                                         runat="server"></asp:TextBox>
                                                 </td>
+                                                
                                             </tr>
                                             <tr>
                                                 <td id="td1" runat="server" align="right">
@@ -323,6 +333,20 @@
                                                         <asp:ListItem Text="Sundaram" Value="Sundaram">
                                                         </asp:ListItem>
                                                     </asp:DropDownList>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            <td align="right">
+                                            <asp:Label ID="lblisonline" Text="Is Online:" CssClass="FieldName" runat="server">
+                                                    </asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlONline" AutoPostBack="true">
+                                                <asp:ListItem Text="Is Online" Value="1">
+                                                        </asp:ListItem>
+                                                        <asp:ListItem Text="Is Offline" Value="0">
+                                                        </asp:ListItem>
+                                                </asp:DropDownList>
                                                 </td>
                                             </tr>
                                         </table>
@@ -351,7 +375,7 @@
                 </ClientSettings>
             </telerik:RadGrid>
         </asp:Panel>
-    </div>
+  
     <br />
 </body>
 <div>
