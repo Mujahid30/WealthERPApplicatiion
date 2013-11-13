@@ -187,7 +187,7 @@
                     <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td>
+                    <td  style="vertical-align: top;">
                         <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
                     </td>
                     <td colspan="2">
@@ -224,7 +224,7 @@
                     <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount: " CssClass="FieldName"></asp:Label>
                     </td>
-                    <td>
+                    <td  style="vertical-align: top;">
                         <asp:Label ID="lblMintxt" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
@@ -247,7 +247,7 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField">
+                        <asp:DropDownList ID="ddlDivType" runat="server"  Width="300px" CssClass="cmbField">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
