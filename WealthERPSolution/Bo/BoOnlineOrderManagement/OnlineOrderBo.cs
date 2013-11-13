@@ -103,7 +103,7 @@ namespace BoOnlineOrderManagement
                     message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
                     break;
                 case "PA":
-                    message = "KRA not completed / updated ,Hence you can only Redeem existing holdings & Cancel existing SIP orders. To  Invest in mutual fund . Please contact SSL customer care";
+                    message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
                     break;
             }
             return message;
