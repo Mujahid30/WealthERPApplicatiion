@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using BoCommon;
 using VoUser;
-
 using BoCustomerPortfolio;
 using BoCustomerProfiling;
 using WealthERP.Base;
@@ -30,6 +29,7 @@ namespace WealthERP.OnlineOrderBackOffice
     {
         ProductMFBo productMFBo = new ProductMFBo();
         PriceBo priceBo = new PriceBo();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
@@ -280,10 +280,10 @@ namespace WealthERP.OnlineOrderBackOffice
         public void BindBankName()
         {
             DataTable dtBankName = new DataTable();
-            dtBankName = customerBankAccountBo.GetALLBankName();
+            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0); ;
             ddlBname.DataSource = dtBankName;
-            ddlBname.DataValueField = dtBankName.Columns["WERPBM_BankCode"].ToString();
-            ddlBname.DataTextField = dtBankName.Columns["WERPBM_BankName"].ToString();
+            ddlBname.DataValueField = dtBankName.Columns["WCMV_LookupId"].ToString();
+            ddlBname.DataTextField = dtBankName.Columns["WCMV_Name"].ToString();
             ddlBname.DataBind();
             ddlBname.Items.Insert(0, new ListItem("Select", "Select"));
         }

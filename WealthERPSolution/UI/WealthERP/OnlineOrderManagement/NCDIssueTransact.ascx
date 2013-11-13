@@ -285,14 +285,20 @@
                                     <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
                                         Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                                 </ItemTemplate>
+                                <FooterTemplate>
+                                    <asp:Label runat="server" ID="lblQuantity"></asp:Label>
+                                </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                UniqueName="Amount" HeaderText="Amount" FooterAggregateFormatString="{0:N2}">
+                                FooterText="" UniqueName="Amount" HeaderText="Amount" FooterAggregateFormatString="{0:N2}">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtAmount" runat="server" ReadOnly="true" BackColor="Gray" ForeColor="White"
                                         Width="50px" Font-Bold="true"></asp:TextBox>
                                 </ItemTemplate>
-                                </telerik:GridTemplateColumn>
+                                <FooterTemplate>
+                                    <asp:Label runat="server" ID="lblAmount"></asp:Label>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                 UniqueName="Check" HeaderText="Check Order">
                                 <ItemTemplate>

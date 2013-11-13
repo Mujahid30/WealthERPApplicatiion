@@ -29,6 +29,7 @@ namespace WealthERP.OnlineOrderManagement
         bool RESULT = false;
         int customerId;
         double sum = 0;
+        int Quantity = 0;
         //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -177,23 +178,48 @@ namespace WealthERP.OnlineOrderManagement
                 TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Amount"].FindControl("txtAmount");
                 txtAmount.Text = Convert.ToString(Qty * AIM_FaceValue);
                 CheckBox cbSelectOrder = (CheckBox)gvCommMgmt.MasterTableView.Items[rowindex]["Check"].FindControl("cbOrderCheck");
-
-
+                
                 cbSelectOrder.Checked = true;
+                if (Session["Qty"] == null)
+                    Session["Qty"] = 0;
+                Quantity = Convert.ToInt32(Session["Qty"]) + Convert.ToInt32(txtQuantity.Text);
+                Session["Qty"] = Quantity;
+                Session["sum"] = sum;
                 if (Session["sum"] == null)
                     Session["sum"] = 0;
                 sum = Convert.ToInt32(Session["sum"]) + Convert.ToInt32(txtAmount.Text);
 
                 Session["sum"] = sum;
-                gvCommMgmt.MasterTableView.Columns.FindByUniqueName("Amount").FooterText.Insert(0,sum.ToString());
-
+                //gvCommMgmt.MasterTableView.Columns.FindByUniqueName("Amount").FooterText = sum.ToString(); 
+               // gvCommMgmt.GroupingSettings.RetainGroupFootersVisibility = true;  
                 // updatedSum = Convert.ToDouble(Session["sum"].ToString());
                 //lblAmount.Text =sum.ToString();
             }
           //  gvCommMgmt.MasterTableView.Columns.FindByUniqueName("Amount").FooterText = sum.ToString();
             //else
             //{
-            //    gvCommMgmt.MasterTableView.Columns.FindByUniqueName("Amount").FooterText = "";
+            GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+            Label lblQty = (Label)footerItem.FindControl("lblQuantity");
+            lblQty.Text = Quantity.ToString();
+
+            GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+            Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+            lblSum.Text = sum.ToString();
+            //}
+
+
+
+
+            //if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem dataItem = e.Item as GridDataItem;
+            //    int fieldValue = int.Parse(dataItem["Quantity"].Text);
+            //    total += fieldValue;
+            //}
+            //if (e.Item is GridFooterItem)
+            //{
+            //    GridFooterItem footerItem = e.Item as GridFooterItem;
+            //    footerItem["Quantity"].Text = "total: " + total.ToString();
             //}
         }
 

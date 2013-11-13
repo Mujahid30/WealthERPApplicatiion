@@ -138,13 +138,13 @@
             &nbsp;
             <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online Scheme"
                 CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false" />
-                CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>
+               <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                 &nbsp;
-                <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>
+               <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
         </td>
         <td align="right">
-            <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName"
-                Checked="false" />
+           <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName"
+                Checked="false" />--%>
         </td>
     </tr>
 </table>
