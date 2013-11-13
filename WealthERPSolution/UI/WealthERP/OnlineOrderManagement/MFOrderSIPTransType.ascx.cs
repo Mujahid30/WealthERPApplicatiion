@@ -399,7 +399,7 @@ namespace WealthERP.OnlineOrderManagement
                 int retVal = commonLookupBo.IsRuleCorrect(float.Parse(txtAmount.Text), float.Parse(lblMinAmountrequiredDisplay.Text), float.Parse(txtAmount.Text), float.Parse(lblMutiplesThereAfterDisplay.Text), DateTime.Parse(lblCutOffTimeDisplay.Text));
                 if (retVal != 0 && retVal != 1)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter amount in multiple of subsequent amount and greater than minimum initial amount');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please enter amount greater than or equal to minimum SIP amount & in mutiple of subsequent amount');", true);
                     return;
                 }
 
