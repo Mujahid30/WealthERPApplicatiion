@@ -187,7 +187,7 @@
                     <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td>
+                    <td style="vertical-align: top;">
                         <asp:Label ID="lblMintxt" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
@@ -210,7 +210,7 @@
                     <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
                     </td>
-                    <td>
+                    <td style="vertical-align: top;">
                         <asp:Label ID="lblMulti" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
@@ -221,7 +221,8 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlDivType" runat="server" Width="300px" CssClass="cmbField"
+                            OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
