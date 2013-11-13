@@ -1797,4 +1797,8 @@
     <value>OnlineOrderBackOffice//TradeBusinessDate.ascx</value>
     <comment>OnlineOrderBackOffice//TradeBusinessDate.ascx</comment>
   </data>
+  <data name="NCDIssuesetup" xml:space="preserve">
+    <value>OnlineOrderBackOffice//NCDIssuesetup.ascx</value>
+    <comment>OnlineOrderBackOffice//NCDIssuesetup.ascx</comment>
+  </data>
 </root>

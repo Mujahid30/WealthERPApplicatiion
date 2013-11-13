@@ -2329,6 +2329,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//NCDIssuesetup.ascx.
+        /// </summary>
+        internal static string NCDIssuesetup {
+            get {
+                return ResourceManager.GetString("NCDIssuesetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderManagement//NCDIssueTransact.ascx.
         /// </summary>
         internal static string NCDIssueTransact {
