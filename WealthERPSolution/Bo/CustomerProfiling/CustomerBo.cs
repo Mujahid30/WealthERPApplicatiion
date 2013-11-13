@@ -167,7 +167,7 @@ namespace BoCustomerProfiling
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CustomerBo.cs:GetSchemeMapDetails()");
-                object[] objects = new object[1];
+                object[] objects = new object[4];
                 objects[0] = ExternalType;
                 objects[1] = AmcCode;
                 objects[2] = Category;
@@ -2557,13 +2557,13 @@ namespace BoCustomerProfiling
             return isDeleted;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isEdited = false;
             try
             {
-                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExternalCodeToBeEdited, strExtCode, strExtName, createdDate, editedDate, deletedDate);
+                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExternalCodeToBeEdited, strExtCode, Isonline,strExtName, createdDate, editedDate, deletedDate);
             }
             catch (BaseApplicationException Ex)
             {
