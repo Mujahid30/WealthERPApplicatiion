@@ -221,7 +221,8 @@ namespace WealthERP.OnlineOrderBackOffice
             #region ExportDataTabletoFile
             StreamWriter str = new StreamWriter(Server.MapPath("UploadFiles/" + filename), false, System.Text.Encoding.Default);
 
-            if (rtaType != "CA") {
+            if (rtaType != "CA")
+            {
                 string Columns = string.Empty;
                 foreach (DataColumn column in dtOrderExtract.Columns)
                 {
@@ -230,7 +231,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 str.WriteLine(Columns.Remove(Columns.Length - 1, 1));
             }
 
-            DataColumn[] arrCols =  new DataColumn[dtOrderExtract.Columns.Count];
+            DataColumn[] arrCols = new DataColumn[dtOrderExtract.Columns.Count];
             dtOrderExtract.Columns.CopyTo(arrCols, 0);
             foreach (DataRow datarow in dtOrderExtract.Rows)
             {
@@ -335,9 +336,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         public void AutoOrderExtract()
         {
-            boOnlineOrderBackOffice.GenerateDailyOrderExtractFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), chkOverwrite.Checked, advisorVo.advisorId );
+            boOnlineOrderBackOffice.GenerateDailyOrderExtractFiles(Server.MapPath("~/ReferenceFiles/RTAExtractSampleFiles/"), chkOverwrite.Checked, advisorVo.advisorId);
         }
-        
+
         protected void btnCreateFiles_Click(object sender, EventArgs e)
         {
             AutoOrderExtract();
@@ -345,11 +346,19 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnBulkDownload_Click(object sender, EventArgs e)
         {
+            Page.Validate("BulkDownload");
+            if (!Page.IsValid)
+            {
+                ShowMessage("Please select required fields");
+                return;
+            }
+
             string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
             string dailyDirName = rdpBulkDownloadDate.SelectedDate.Value.ToString("ddMMMyyyy");
             int adviserId = advisorVo.advisorId;
 
-            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) == false) {
+            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) == false)
+            {
                 ShowMessage("No download available. Create extract files, and retry");
                 return;
             }

@@ -183,12 +183,11 @@
         <td class="rightData">
             <telerik:RadDatePicker ID="rdpBulkDownloadDate" runat="server">
             </telerik:RadDatePicker>
-            <asp:RequiredFieldValidator ID="rfvBulkDownDate" runat="server" CssClass="rfvPCG"
-                Display="Dynamic" ErrorMessage="Please select a download date" ValidationGroup="BulkDownload"
-                ControlToValidate="rdpExtractDate">Please select a download date</asp:RequiredFieldValidator></td>
+            <asp:RequiredFieldValidator ID="rfvBulkDownDate" runat="server" CssClass="rfvPCG" ControlToValidate="rdpBulkDownloadDate"
+                Display="Dynamic" ErrorMessage="Please select a download date" ValidationGroup="BulkDownload">Please select a download date</asp:RequiredFieldValidator></td>
         <td>
             <asp:Button ID="btnBulkDownload" runat="server" CssClass="PCGLongButton" Text="Download"
-                OnClick="btnBulkDownload_Click" /></td>
+                OnClick="btnBulkDownload_Click" ValidationGroup="BulkDownload" /></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
     </tr>

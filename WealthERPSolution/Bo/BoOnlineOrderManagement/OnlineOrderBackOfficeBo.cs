@@ -1310,7 +1310,10 @@ namespace BoOnlineOrderManagement
             string extractPath = ConfigurationSettings.AppSettings["RTA_EXTRACT_PATH"];
             string dailyDirName = DateTime.Now.ToString("ddMMMyyyy");
 
-            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName)) Directory.Delete(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName, true);
+
+            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == false) return;
+                
+            if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == true) Directory.Delete(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName, true);
 
             KeyValuePair<string, string>[] RtaList = GetRTAList();
             KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
@@ -1321,7 +1324,7 @@ namespace BoOnlineOrderManagement
                 foreach (KeyValuePair<string, string> amc in AmcList)
                 {
                     foreach (KeyValuePair<string,string> OrderType in OrderTypeList) {
-                        DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
+                        DataTable orderExtractForRta = GetOrderExtractForRta(new DateTime(2013, 11, 5), adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
