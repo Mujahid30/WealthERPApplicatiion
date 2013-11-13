@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 Session["sum"] = null;
+                Session["Qty"] = null;
                 BindKYCDetailDDl();
 
                 if (Request.QueryString["IssuerId"] != null)
