@@ -560,7 +560,7 @@
 </tr>--%>
 <tr>
     <asp:Panel ID="pnlSIPDetails" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
-        Visible="false">
+        Visible="true">
         <table width="100%">
             <tr>
                 <td>
@@ -571,19 +571,24 @@
                         OnItemDataBound="gvSIPDetails_OnItemDataBound" OnItemCommand="gvSIPDetails_OnItemCommand">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
                         </ExportSettings>
-                        <MasterTableView DataKeyNames="" AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True"
+                        <MasterTableView DataKeyNames="PASPSD_SystematicDetailsId,PASP_SchemePlanCode" AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True"
                             AutoGenerateColumns="false" CommandItemDisplay="Top" EditMode="PopUp">
                             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                                 AddNewRecordText="Add New Systematic Details" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                                 ShowRefreshButton="false" />
                             <Columns>
-                                <telerik:GridEditCommandColumn EditText="Add/Update" UniqueName="editColumn" CancelText="Cancel"
+                                <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                     UpdateText="Update" HeaderStyle-Width="80px">
                                 </telerik:GridEditCommandColumn>
                                 <telerik:GridBoundColumn DataField="XF_Frequency" HeaderText="Frequency" AllowFiltering="true"
                                     SortExpression="XF_Frequency" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="XF_Frequency" FooterStyle-HorizontalAlign="Left"
                                     HeaderStyle-Width="100px">
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="PASPSD_SystematicDetailsId" HeaderText="SystematicDetailsId" AllowFiltering="true"
+                                    SortExpression="PASPSD_SystematicDetailsId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="PASPSD_SystematicDetailsId" FooterStyle-HorizontalAlign="Left"
+                                    HeaderStyle-Width="100px" Visible="false">
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASPSD_StatingDates" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
                                     AllowFiltering="true" HeaderText="Start Date" UniqueName="PASPSD_StatingDates"
@@ -603,13 +608,13 @@
                                     FilterControlWidth="50px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="PASPSD_MinAmount" AllowFiltering="false" HeaderText="Min Amount"
+                                <telerik:GridBoundColumn DataField="PASPSD_MinAmount" AllowFiltering="false" HeaderText="Min Amount" DataFormatString="{0:N2}"
                                     UniqueName="PASPSD_MinAmount" SortExpression="PASPSD_MinAmount" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
                                     FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="PASPSD_MultipleAmount" HeaderText="Amount Multiplier"
+                                <telerik:GridBoundColumn DataField="PASPSD_MultipleAmount" HeaderText="Amount Multiplier" DataFormatString="{0:N0}"
                                     AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="PASPSD_MultipleAmount"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     HeaderStyle-Width="100px" UniqueName="PASPSD_MultipleAmount" FooterStyle-HorizontalAlign="Left">
@@ -644,7 +649,7 @@
                                                         <td class="rightField" align="right">
                                                             <asp:TextBox ID="txtstartDate" runat="server" CssClass="txtField" Text='<%# Bind("PASPSD_StatingDates") %>'
                                                                 AutoPostBack="false"></asp:TextBox>
-                                                            <span id="Span8" class="spnRequiredField">*Date Should Be In This Formate[12;24]</span>
+                                                            <span id="Span8" class="spnRequiredField">*Multiple entries to be separated by(;)like-[12;24]</span>
                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtstartDate"
                                                                 ErrorMessage="<br />Please Enter Date" Display="Dynamic" runat="server" CssClass="rfvPCG"
                                                                 ValidationGroup="Submit"></asp:RequiredFieldValidator>

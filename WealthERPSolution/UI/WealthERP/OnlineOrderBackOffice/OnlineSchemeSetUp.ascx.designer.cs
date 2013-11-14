@@ -248,15 +248,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CheckBox chkonline;
         
         /// <summary>
-        /// chkoffline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkoffline;
-        
-        /// <summary>
         /// schemedetails control.
         /// </summary>
         /// <remarks>
@@ -716,6 +707,51 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CheckBox ChkISactive;
         
         /// <summary>
+        /// lblIMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIMultipleamount;
+        
+        /// <summary>
+        /// txtIMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIMultipleamount;
+        
+        /// <summary>
+        /// lblAddMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAddMultipleamount;
+        
+        /// <summary>
+        /// txtAddMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAddMultipleamount;
+        
+        /// <summary>
+        /// trIPAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPAmount;
+        
+        /// <summary>
         /// lblInitalPamount control.
         /// </summary>
         /// <remarks>
@@ -752,40 +788,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtAdditional;
         
         /// <summary>
-        /// lblIMultipleamount control.
+        /// trMINRedemPtion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIMultipleamount;
-        
-        /// <summary>
-        /// txtIMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIMultipleamount;
-        
-        /// <summary>
-        /// lblAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddMultipleamount;
-        
-        /// <summary>
-        /// txtAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddMultipleamount;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMINRedemPtion;
         
         /// <summary>
         /// lblMinRedemption control.
@@ -858,6 +867,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRedemptionMultiplesUnits;
+        
+        /// <summary>
+        /// trSwitchPavailable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSwitchPavailable;
         
         /// <summary>
         /// lblMinSwitchAmount control.
@@ -1092,9 +1110,5 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField hdnExternalSource;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPAmount;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMINRedemPtion;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSwitchPavailable;
-
     }
 }

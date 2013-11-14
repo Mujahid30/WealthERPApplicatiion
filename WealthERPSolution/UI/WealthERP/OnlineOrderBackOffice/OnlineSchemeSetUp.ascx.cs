@@ -40,6 +40,7 @@ namespace WealthERP.OnlineOrderBackOffice
         string categoryCode;
         string subcategoryCode;
         int schemeplancode = 0;
+        int systematicdetailsid = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session["userVo"];
@@ -61,6 +62,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     schemeplancode = int.Parse(Request.QueryString["SchemePlanCode"].ToString());
                     hdnSchemePlanCode.Value = schemeplancode.ToString();
+                    ViewState["Schemeplancode"]=schemeplancode.ToString();
 
                 }
                 if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
@@ -142,13 +144,13 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-               
+
                 DataTable dtRandT;
                 //if (Request.QueryString["strAction"].Trim() != null)
                 //{
                 //    schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
                 //}
-                dtRandT = OnlineOrderBackOfficeBo.OnlinebindRandT(SchemePlanCode);               
+                dtRandT = OnlineOrderBackOfficeBo.OnlinebindRandT(SchemePlanCode);
                 if (dtRandT != null)
                 {
 
@@ -303,7 +305,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlGenerationfreq.DataBind();
             ddlGenerationfreq.Items.Insert(0, new ListItem("Select", "Select"));
         }
-        protected void 
+        protected void
             ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAmc.SelectedIndex != 0)
@@ -566,7 +568,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text);
             }
-            
+
         }
 
         private void ControlViewEditMode(bool isViewMode)
@@ -625,7 +627,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                
+
                 txtScname.Enabled = false;
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
@@ -649,10 +651,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtExitLremark.Enabled = true;
                 ChkISPurchage.Enabled = true;
                 ChkISRedeem.Enabled = true;
-                ChkISSIP.Enabled = false;
-                ChkISSTP.Enabled = false;
+                ChkISSIP.Enabled = true;
+                ChkISSTP.Enabled = true;
                 ChkISSwitch.Enabled = true;
-                ChkISSWP.Enabled = false;
+                ChkISSWP.Enabled = true;
                 ddlSchemeList.Enabled = false;
                 ChkISactive.Enabled = false;
                 txtInitalPamount.Enabled = true;
@@ -672,9 +674,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlDFrequency.Enabled = true;
                 btnsubmit.Visible = false;
                 btnupdate.Visible = true;
-                tblMessage.Visible =false;
+                tblMessage.Visible = false;
                 lbBack.Visible = false;
-
+                gvSIPDetails.MasterTableView.IsItemInserted = false;
             }
 
         }
@@ -946,8 +948,8 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SecurityCode))
                 txtSecuritycode.Text = OnlineOrderBackOfficeVo.SecurityCode.ToString();
             if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
-             ddlRT.SelectedItem.Value = OnlineOrderBackOfficeVo.ExternalType.ToString();
-           
+                ddlRT.SelectedItem.Value = OnlineOrderBackOfficeVo.ExternalType.ToString();
+
             txtinvestment.Text = OnlineOrderBackOfficeVo.PASPD_MaxInvestment.ToString();
 
         }
@@ -1074,12 +1076,12 @@ namespace WealthERP.OnlineOrderBackOffice
             if (OnlineOrderBackOfficeVo.IsOnline == 1)
             {
                 chkonline.Checked = true;
-                chkoffline.Checked = false;
+                //chkoffline.Checked = false;
             }
             else
             {
                 chkonline.Checked = false;
-                chkoffline.Checked = true;
+                //chkoffline.Checked = true;
             }
 
 
@@ -1279,6 +1281,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (ddlSchemeList.SelectedIndex != 0)
             {
+
                 int schemepalncode = int.Parse(ddlSchemeList.SelectedValue);
 
                 ViewState["Schemecode"] = schemepalncode;
@@ -1350,10 +1353,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 string message = string.Empty;
                 OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
                 OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
-                
+
                 //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.Product))
                 //{
-                    //OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+                //OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
                 //}
                 //else
                 //{
@@ -1735,12 +1738,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (OnlineOrderBackOfficeVo.IsOnline == 1)
                 {
                     chkonline.Checked = true;
-                    chkoffline.Checked = false;
+
                 }
                 else
                 {
                     chkonline.Checked = false;
-                    chkoffline.Checked = true;
+
                 }
                 if (ChkNRI.Checked)
                 {
@@ -1753,7 +1756,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
 
                 }
-                
+
 
                 //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
                 //{
@@ -1808,7 +1811,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
 
             }
-         
+
         }
 
         private void ControlMode(bool isViewMode)
@@ -1908,7 +1911,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtMinSwitchAmount.Enabled = false;
                 txtMinSwitchUnits.Enabled = false;
                 txtRedemptionMultiplesUnits.Enabled = false;
-                txtSecuritycode.Enabled =false;
+                txtSecuritycode.Enabled = false;
                 ddlRT.Enabled = false;
                 txtinvestment.Enabled = false;
                 txtESSchemecode.Enabled = false;
@@ -1916,6 +1919,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlDFrequency.Enabled = false;
                 btnsubmit.Visible = false;
                 btnupdate.Visible = false;
+               
             }
         }
         private string CreateUserMessage(int schemeplancode)
@@ -1945,10 +1949,18 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSystematicDetails;
             DataTable dtSystematicDetails;
-           // schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
-           
+            if (ViewState["Schemeplancode"] != null)
+            {
+                schemeplancode = Convert.ToInt32(ViewState["Schemeplancode"].ToString());
+            }
+            else
+            {
+                schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+            }
+
             //hdnSchemePlanCode.Value = ViewState["Schemecode"].ToString();
             dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode);
+            //dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(systematicdetailsid);
             dtSystematicDetails = dsSystematicDetails.Tables[0];
             if (dtSystematicDetails.Rows.Count > 0)
             {
@@ -1962,7 +1974,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvSIPDetails.DataBind();
                 pnlSIPDetails.Visible = true;
             }
-                
+
         }
         protected void oncheckedISpurchage_OnCheckedChanged(object sender, EventArgs e)
         {
@@ -1995,7 +2007,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (ChkISSwitch.Checked)
             {
                 trMINRedemPtion.Visible = false;
-                trSwitchPavailable.Visible =true;
+                trSwitchPavailable.Visible = true;
                 trIPAmount.Visible = false;
             }
             else
@@ -2019,9 +2031,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlSIPDetails.Visible = false;
                 ChkISSTP.Enabled = true;
                 ChkISSWP.Enabled = true;
-            
+
             }
-            
+
         }
         protected void ChkISSWP_OnCheckedChanged(object sender, EventArgs e)
         {
@@ -2064,17 +2076,26 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvSIPDetails_OnItemCommand(object source, GridCommandEventArgs e)
         {
-           int schemecode = 0;
-           schemecode = int.Parse(ViewState["Schemecode"].ToString()); 
-           if (e.CommandName == RadGrid.PerformInsertCommandName)
+            int schemecode = 0;
+            //schemecode = int.Parse(ViewState["Schemecode"].ToString());
+            if (ViewState["Schemeplancode"] != null)
+            {
+                schemeplancode = Convert.ToInt32(ViewState["Schemeplancode"].ToString());
+            }
+            else
+            {
+                schemecode = int.Parse(ViewState["Schemecode"].ToString());
+            }
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
-                DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");               
-                TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");                
+                DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
+                TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
                 TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
                 TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
                 TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
-                TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");  
+                TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
+                TextBox txtSydetails = (TextBox)e.Item.FindControl("txtSydetails");
                 OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
                 if (ChkISSIP.Checked)
                 {
@@ -2090,19 +2111,55 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 OnlineOrderBackOfficeVo.frequency = ddlFrquency.SelectedValue.ToString();
                 OnlineOrderBackOfficeVo.startdate = txtstartDate.Text.ToString();
-                OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());                
+                OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());
                 OnlineOrderBackOfficeVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
-                OnlineOrderBackOfficeVo.MinAmount =Convert.ToDouble(txtMinAmount.Text.ToString());
-                OnlineOrderBackOfficeVo.MultipleAmount =Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                OnlineOrderBackOfficeVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
+                OnlineOrderBackOfficeVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
                 OnlineOrderBackOfficeBo.CreateSystematicDetails(OnlineOrderBackOfficeVo, schemecode);
 
-           }
-           if (e.CommandName == RadGrid.RebindGridCommandName)
-           {
-               gvSIPDetails.Rebind();
-           }
+            }
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                bool isUpdated = false;
+                GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
+                DropDownList ddlFrquency = (DropDownList)e.Item.FindControl("ddlFrquency");
+                TextBox txtstartDate = (TextBox)e.Item.FindControl("txtstartDate");
+                TextBox txtMinDues = (TextBox)e.Item.FindControl("txtMinDues");
+                TextBox txtMaxDues = (TextBox)e.Item.FindControl("txtMaxDues");
+                TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
+                TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
+                int schemeplanecode = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_SchemePlanCode"].ToString());
+                int detailsid = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASPSD_SystematicDetailsId"].ToString());
 
-           BindSystematicDetails();
+                OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                if (ChkISSIP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.systematiccode = "SIP";
+                }
+                if (ChkISSTP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.systematiccode = "STP";
+                }
+                if (ChkISSWP.Checked)
+                {
+                    OnlineOrderBackOfficeVo.systematiccode = "SWP";
+                }
+                OnlineOrderBackOfficeVo.frequency = ddlFrquency.SelectedValue.ToString();
+                OnlineOrderBackOfficeVo.startdate = txtstartDate.Text.ToString();
+                OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());
+                OnlineOrderBackOfficeVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
+                OnlineOrderBackOfficeVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
+                OnlineOrderBackOfficeVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                //OnlineOrderBackOfficeBo.EditSystematicDetails(OnlineOrderBackOfficeVo, schemecode,systematicdetailsid);
+                isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(OnlineOrderBackOfficeVo, schemeplanecode, detailsid);
+            }
+
+            if (e.CommandName == RadGrid.RebindGridCommandName)
+            {
+                gvSIPDetails.Rebind();
+            }
+
+            BindSystematicDetails();
         }
         protected void gvSIPDetails_OnNeedDataSource(object source, GridNeedDataSourceEventArgs e)
         {
@@ -2111,7 +2168,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
             {
-                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;               
+                GridEditFormInsertItem item = (GridEditFormInsertItem)e.Item;
                 GridEditFormItem gefi = (GridEditFormItem)e.Item;
                 DropDownList ddlFrquency = (DropDownList)gefi.FindControl("ddlFrquency");
                 DataSet dsFrequency = OnlineOrderBackOfficeBo.GetFrequency();
@@ -2123,7 +2180,19 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlFrquency.DataBind();
                 ddlFrquency.Items.Insert(0, new ListItem("Select", "Select"));
             }
-
+            if (e.Item is GridEditFormItem && e.Item.IsInEditMode && e.Item.ItemIndex != -1)
+            {
+                GridEditFormItem editedItem = (GridEditFormItem)e.Item;
+                GridEditFormItem gefi = (GridEditFormItem)e.Item;
+                DropDownList ddlFrquency = (DropDownList)gefi.FindControl("ddlFrquency");
+                DataSet dsFrequency = OnlineOrderBackOfficeBo.GetFrequency();
+                DataTable dtFrequency;
+                dtFrequency = dsFrequency.Tables[0];
+                ddlFrquency.DataSource = dtFrequency;
+                ddlFrquency.DataValueField = dtFrequency.Columns["XF_FrequencyCode"].ToString();
+                ddlFrquency.DataTextField = dtFrequency.Columns["XF_Frequency"].ToString();
+                ddlFrquency.DataBind();
+            }
         }
 
         //protected void lbSmapping_OnClick(object sender, EventArgs e)

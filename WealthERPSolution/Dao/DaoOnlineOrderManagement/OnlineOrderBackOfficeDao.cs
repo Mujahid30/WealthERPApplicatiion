@@ -1235,6 +1235,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSystematicDetails;
         }
+
         public bool CreateSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode)
         {
             bool bResult = false;
@@ -1277,6 +1278,45 @@ namespace DaoOnlineOrderManagement
 
             }
             return bResult;
+        }
+        public bool EditSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode, int systematicdetailsid)
+        {
+            bool blResult = false;
+            Database db;
+            DbCommand EditSystematicDetailscmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                EditSystematicDetailscmd = db.GetStoredProcCommand("SPROC_Onl_EditSystematicDetails");
+                db.AddInParameter(EditSystematicDetailscmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplancode);
+                db.AddInParameter(EditSystematicDetailscmd,"@PASPSD_SystematicDetailsId",DbType.Int32,systematicdetailsid);
+                db.AddInParameter(EditSystematicDetailscmd, "@XF_SystematicFrequencyCode", DbType.String, OnlineOrderBackOfficeVo.frequency);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_StatingDates", DbType.String, OnlineOrderBackOfficeVo.startdate);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinDues", DbType.Int32, OnlineOrderBackOfficeVo.MinDues);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MaxDues", DbType.Int32, OnlineOrderBackOfficeVo.MaxDues);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinAmount", DbType.Double, OnlineOrderBackOfficeVo.MinAmount);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.MultipleAmount);
+                db.ExecuteNonQuery(EditSystematicDetailscmd);
+                if (db.ExecuteNonQuery(EditSystematicDetailscmd) != 0)
+                    blResult = true;
+                  
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:EditSystematicDetails()");
+                object[] objects = new object[2];
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return blResult;
         }
 
 
