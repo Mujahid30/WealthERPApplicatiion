@@ -1311,23 +1311,22 @@ namespace DaoOnlineOrderManagement
             return dsGetTradeBusinessDate;
 
         }
-        public bool CreateTradeBusinessDate(OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        public bool CreateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
         {
             int affectedRecords = 0;
             bool bResult = false;
             Database db;
-            DbCommand createtradeBusinessDateCmd;
-
+            DbCommand createtradeBusinessDateCmd;            
 
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_CreateTradeBusinessDate");
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, onlineOrderBackOfficeVo.TradeBusinessId);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, onlineOrderBackOfficeVo.TradeBusinessDate);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, onlineOrderBackOfficeVo.TradeBusinessExecutionDate);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_isholiday", DbType.Int32, onlineOrderBackOfficeVo.IsTradeBusinessDateHoliday);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_isweekend", DbType.Int32, onlineOrderBackOfficeVo.IsTradeBusinessDateWeekend);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, tradeBusinessDateVo.TradeBusinessExecutionDate);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_isholiday", DbType.Int32, tradeBusinessDateVo.IsTradeBusinessDateHoliday);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_isweekend", DbType.Int32, tradeBusinessDateVo.IsTradeBusinessDateWeekend);
                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
 
                 if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
