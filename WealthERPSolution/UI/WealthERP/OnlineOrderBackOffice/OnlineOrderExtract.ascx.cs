@@ -119,8 +119,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("Extraction Successfully");
             else
                 ShowMessage("Extraction Unsuccessfully");
-
-            AutoOrderExtract();
         }
 
         protected void btnAutoOrder_Click(object sender, EventArgs e)
