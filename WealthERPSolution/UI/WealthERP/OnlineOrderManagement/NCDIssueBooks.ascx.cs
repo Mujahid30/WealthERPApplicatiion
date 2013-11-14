@@ -181,5 +181,19 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(orderId, strIssuerId, customerVo.CustomerId);
             gvChildDetails.DataSource = ds.Tables[0];
         }
+        protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+        {   string action =string.Empty;
+            DropDownList ddlAction = (DropDownList)sender;
+            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+            RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
+            int selectedRow = gvr.ItemIndex + 1;
+            int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
+            string IssuerId = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["PFIIM_IssuerId"].ToString();
+            if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+            {
+                action = "Edit";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','?OrderId=" + OrderId + "?IssuerId=" + IssuerId + "?strAction=" + action + " ');", true);
+            }
+        }
     }
 }

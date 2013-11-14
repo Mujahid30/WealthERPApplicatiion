@@ -148,7 +148,7 @@
             <asp:Label ID="lblMSG" runat="server" Text="" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-    <tr id="trJointNom" runat="server" align="center" visible="false">
+    <tr id="trJointNom" runat="server" align="center">
         <td>
             <asp:Label ID="lblHolderDetails" runat="server" Text="Joint Holders Name:" CssClass="FieldName"></asp:Label>
             <%-- </td>--%>
@@ -156,7 +156,7 @@
             <asp:Label ID="lblHolderTwo" runat="server" CssClass="FieldName"></asp:Label>
         </td>
     </tr>
-    <tr id="trcustcode" runat="server" align="center" visible="false">
+    <tr id="trcustcode" runat="server" align="center">
         <td>
             <asp:Label ID="lblNominee" runat="server" Text="Nominee Name:" CssClass="FieldName"></asp:Label>
             <%-- </td>

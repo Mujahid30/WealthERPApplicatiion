@@ -23,8 +23,7 @@ namespace WealthERP.OnlineOrderManagement
     {
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
         OnlineBondOrderVo OnlineBondVo = new OnlineBondOrderVo();
-        CustomerVo customerVo = new CustomerVo();
-        OnlineMFOrderBo onlineMforderBo = new OnlineMFOrderBo();
+        CustomerVo customerVo = new CustomerVo();        
         AdvisorVo adviserVo;
         bool RESULT = false;
         int customerId;
@@ -117,12 +116,12 @@ namespace WealthERP.OnlineOrderManagement
 
             foreach (DataRow dr in dsNomineeAndJointHolders.Tables[0].Rows)
             {
-                strbJointHolder.Append(dr["JointHolderName"].ToString());
-                strbNominee.Append(dr["JointHolderName"].ToString());
+                strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString()+",");
+                strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             }
 
-            lblNomineeTwo.Text = strbNominee.ToString();
-            lblHolderTwo.Text = strbJointHolder.ToString();
+            lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
+            lblHolderTwo.Text = strbJointHolder.ToString().TrimEnd(',');
             //if (dsStructureRules.Tables[0].Rows.Count > 0)
             //{
             //    lblHolderTwo.Text = dsStructureRules.Tables[0].Columns[""].ToString();
@@ -164,14 +163,16 @@ namespace WealthERP.OnlineOrderManagement
 
                 if (Qty < PFISD_BidQty)
                 {
-                    lblMSG.Text = "Bid Quantity should not be less than the Minimum BID Qty i.e." + PFISD_BidQty.ToString();
+                   // lblMSG.Text = "Bid Quantity should not be less than the Minimum BID Qty i.e." + PFISD_BidQty.ToString();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should not be less than the Minimum BID Qty')+'?PFISD_BidQty=" + PFISD_BidQty + "'", true);
                     txtQuantity.Text = "";
                     return;
                 }
                 int Mod = Qty % PFISD_InMultiplesOf;
                 if (Mod != 0)
                 {
-                    lblMSG.Text = "Bid Quantity should be in Allowed Multiplication i.e. i.e." + PFISD_InMultiplesOf.ToString();
+                    //lblMSG.Text = "Bid Quantity should be in Allowed Multiplication i.e. i.e." + PFISD_InMultiplesOf.ToString();
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should be in Allowed Multiplication')+'?PFISD_InMultiplesOf=" + PFISD_InMultiplesOf + "'", true);
                     txtQuantity.Text = "";
                     return;
                 }
@@ -236,7 +237,6 @@ namespace WealthERP.OnlineOrderManagement
             int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
           //int minappNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MinApplNo"].ToString());
             // int maxDB = OnlineBondBo.GetMAXTransactNO();
-
             DataTable dt = new DataTable();
             //GridEditableItem editedItem = Button.NamingContainer as GridEditableItem;
             //Need to be collect from Session...
@@ -252,10 +252,7 @@ namespace WealthERP.OnlineOrderManagement
             double sum = 0;
             foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
             {
-                
-
                 TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
-
                 //OnlineBondVo.CustomerId = "ESI123456".ToString();
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
@@ -279,20 +276,13 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows[tableRow]["PFISM_SchemeId"] = OnlineBondVo.PFISM_SchemeId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
-
-                        sum = sum + Convert.ToDouble(txtAmount.Text);
-                        ViewState["sum"] = sum;
                     }
-
                     tableRow++;
-                  
                 }
-                
                 if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
                     rowNo++;
                 else
                     break;
-
             }            
             RESULT = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
             //string CustId = Session["CustId"].ToString();
@@ -360,7 +350,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
             {
-                lblAvailableLimits.Text = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
+                lblAvailableLimits.Text = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
 
         }

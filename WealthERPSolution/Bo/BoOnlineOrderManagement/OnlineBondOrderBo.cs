@@ -12,7 +12,7 @@ using System.Collections.Specialized;
 
 namespace BoOnlineOrderManagement
 {
-    public class OnlineBondOrderBo
+    public class OnlineBondOrderBo : OnlineOrderBo
     {
         OnlineBondOrderDao onlineBondDao = new OnlineBondOrderDao();
         DataSet dsCommissionStructureRules;

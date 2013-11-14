@@ -120,7 +120,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="pnlchild" runat="server" CssClass="Landscape" Width="85%" ScrollBars="Horizontal">
+<asp:Panel ID="pnlchild" runat="server" CssClass="Landscape" Width="92%" ScrollBars="Horizontal">
     <table id="tblCommissionStructureRule" runat="server">
         <tr>
             <td>
@@ -188,6 +188,17 @@
                                             UniqueName="BBAmounttoinvest" HeaderStyle-Width="77px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px"
+                                            UniqueName="Action" HeaderText="Action">
+                                            <ItemTemplate>
+                                                <asp:DropDownList ID="ddlaction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
+                                                    CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                                    AllowCustomText="true" Width="100px" AutoPostBack="true">
+                                                    <asp:ListItem Text="select" Value="select" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="Modify" Value="Edit"></asp:ListItem>
+                                                </asp:DropDownList>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn>
                                             <ItemTemplate>
                                                 <tr>
@@ -199,7 +210,7 @@
                                                                 PageSize="10" AllowPaging="True" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="false" OnNeedDataSource="gvChildDetails_OnNeedDataSource">
-                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFIIM_IssuerId,CO_OrderId"
+                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFIIM_IssuerId,CO_OrderId,PFISD_SeriesId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="PFISD_SeriesId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
