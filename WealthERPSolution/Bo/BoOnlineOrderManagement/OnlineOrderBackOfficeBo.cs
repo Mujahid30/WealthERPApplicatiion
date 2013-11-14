@@ -1383,13 +1383,13 @@ namespace BoOnlineOrderManagement
 
 
 
-        public bool CreateTradeBusinessDate(OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        public bool CreateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
         {
 
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                return OnlineOrderBackOfficeDao.CreateTradeBusinessDate(onlineOrderBackOfficeVo);
+                return OnlineOrderBackOfficeDao.CreateTradeBusinessDate(tradeBusinessDateVo);
             }
             catch (BaseApplicationException Ex)
             {
