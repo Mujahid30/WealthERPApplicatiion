@@ -1116,27 +1116,27 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-         public DataTable OnlinebindRandT(int SchemPlaneCode)
+        public DataTable OnlinebindRandT(int SchemPlaneCode)
         {
-           DataTable dtRandT;
-             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao=new OnlineOrderBackOfficeDao();
-             try
-             {
-                 dtRandT = OnlineOrderBackOfficeDao.OnlinebindRandT(SchemPlaneCode);
-             }
-             catch (Exception Ex)
-             {
-                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                 NameValueCollection FunctionInfo = new NameValueCollection();
-                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:OnlinebindRandT()");
-                 object[] objects = new object[1];
-                 objects[0] = SchemPlaneCode;
-                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                 exBase.AdditionalInformation = FunctionInfo;
-                 ExceptionManager.Publish(exBase);
-                 throw exBase;
-             }
-             return dtRandT;
+            DataTable dtRandT;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dtRandT = OnlineOrderBackOfficeDao.OnlinebindRandT(SchemPlaneCode);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:OnlinebindRandT()");
+                object[] objects = new object[1];
+                objects[0] = SchemPlaneCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtRandT;
         }
         public DataSet GetSystematicDetails(int schemeplancode)
         {
@@ -1151,7 +1151,7 @@ namespace BoOnlineOrderManagement
             bool bResult = false;
             try
             {
-                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(OnlineOrderBackOfficeVo,schemeplancode);
+                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(OnlineOrderBackOfficeVo, schemeplancode);
 
             }
             catch (BaseApplicationException Ex)
@@ -1181,15 +1181,16 @@ namespace BoOnlineOrderManagement
         private KeyValuePair<string, string>[] GetAMCList(string RtaCode)
         {
             List<KeyValuePair<string, string>> AmcList = new List<KeyValuePair<string, string>>();
-            
-            if(boCommonLookup == null) boCommonLookup = new CommonLookupBo();
-            
+
+            if (boCommonLookup == null) boCommonLookup = new CommonLookupBo();
+
             try
             {
-                if(dtAmcWithRta == null) dtAmcWithRta = boCommonLookup.GetAmcWithRta();
-                foreach (DataRow row in dtAmcWithRta.Rows) {
+                if (dtAmcWithRta == null) dtAmcWithRta = boCommonLookup.GetAmcWithRta();
+                foreach (DataRow row in dtAmcWithRta.Rows)
+                {
                     if (row["RTA"].ToString().Equals(RtaCode) == false) continue;
-                    AmcList.Add(new KeyValuePair<string,string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
+                    AmcList.Add(new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1241,8 +1242,8 @@ namespace BoOnlineOrderManagement
         {
             List<KeyValuePair<string, string>> OrderTypeList = new List<KeyValuePair<string, string>>();
 
-            OrderTypeList.Add(new KeyValuePair<string,string>("OTH", "Normal"));
-            OrderTypeList.Add(new KeyValuePair<string,string>("SIP", "SIP"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("OTH", "Normal"));
+            OrderTypeList.Add(new KeyValuePair<string, string>("SIP", "SIP"));
 
             return OrderTypeList.ToArray();
         }
@@ -1312,28 +1313,32 @@ namespace BoOnlineOrderManagement
 
 
             if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == false) return;
-                
+
             if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName) && bOverwrite == true) Directory.Delete(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName, true);
 
             KeyValuePair<string, string>[] RtaList = GetRTAList();
             KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
 
-            foreach (KeyValuePair<string,string> rta in RtaList) {
+            foreach (KeyValuePair<string, string> rta in RtaList)
+            {
                 KeyValuePair<string, string>[] AmcList = GetAMCList(rta.Key);
-                
+
                 foreach (KeyValuePair<string, string> amc in AmcList)
                 {
-                    foreach (KeyValuePair<string,string> OrderType in OrderTypeList) {
+                    foreach (KeyValuePair<string, string> OrderType in OrderTypeList)
+                    {
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
-                        if (orderExtractForRta.Rows.Count <= 0) continue; 
+                        if (orderExtractForRta.Rows.Count <= 0) continue;
 
-                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false) {
+                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false)
+                        {
                             Directory.CreateDirectory(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value);
                         }
-                        
+
                         string downloadFileName = GetFileName(OrderType.Key, amc.Key, orderExtractForRta.Rows.Count);
-                        if (rta.Key.Equals("CA")) {
+                        if (rta.Key.Equals("CA"))
+                        {
                             CreateTxtFile(orderExtractForRta, downloadFileName, rta.Key, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\");
                             continue;
                         }
@@ -1345,5 +1350,52 @@ namespace BoOnlineOrderManagement
                 }
             }
         }
+
+
+        public DataSet GetTradeBusinessDates()
+        {
+            DataSet dsGetTradeBusinessDate;
+            OnlineOrderBackOfficeDao Onlineorderbackofficedao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsGetTradeBusinessDate = Onlineorderbackofficedao.GetTradeBusinessDates();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBO.cs:GetTradeBusinessDates()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+            return dsGetTradeBusinessDate;
+
+        }
+
+
+
+
+        public bool CreateTradeBusinessDate(OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        {
+
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                return OnlineOrderBackOfficeDao.CreateTradeBusinessDate(onlineOrderBackOfficeVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
     }
 }
