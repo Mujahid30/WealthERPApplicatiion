@@ -2801,6 +2801,13 @@
     <Compile Include="OnlineOrderManagement\NCDIssueList.ascx.designer.cs">
       <DependentUpon>NCDIssueList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssuesetup.ascx.cs">
+      <DependentUpon>NCDIssuesetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\NCDIssuesetup.ascx.designer.cs">
+      <DependentUpon>NCDIssuesetup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\NCDIssueTransact.ascx.cs">
       <DependentUpon>NCDIssueTransact.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7249,6 +7256,7 @@
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\VoCommisionManagement.dll" />
     <Content Include="bin\VoCommisionManagement.pdb" />
+    <Content Include="bin\VoOnlineOrderManagemnet.pdb" />
     <Content Include="bin\VoOps.dll" />
     <Content Include="bin\VoOps.pdb" />
     <Content Include="bin\VoResearch.dll" />
@@ -7655,6 +7663,7 @@
     <Content Include="OnlineOrderManagement\NCDIssueBooks.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueHoldings.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueList.ascx" />
+    <Content Include="OnlineOrderManagement\NCDIssuesetup.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueTransact.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderExtract.ascx" />
     <Content Include="OnlineOrderManagement\SIPBookSummmaryList.ascx" />
