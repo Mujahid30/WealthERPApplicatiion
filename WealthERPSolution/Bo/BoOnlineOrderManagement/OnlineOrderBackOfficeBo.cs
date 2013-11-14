@@ -1324,9 +1324,9 @@ namespace BoOnlineOrderManagement
                 foreach (KeyValuePair<string, string> amc in AmcList)
                 {
                     foreach (KeyValuePair<string,string> OrderType in OrderTypeList) {
-                        DataTable orderExtractForRta = GetOrderExtractForRta(new DateTime(2013, 11, 5), adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
+                        DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
-                        if (orderExtractForRta.Rows.Count <= 0) continue;
+                        if (orderExtractForRta.Rows.Count <= 0) continue; 
 
                         if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false) {
                             Directory.CreateDirectory(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value);
