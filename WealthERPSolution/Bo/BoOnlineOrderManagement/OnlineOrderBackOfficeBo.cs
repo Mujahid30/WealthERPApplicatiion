@@ -1327,7 +1327,7 @@ namespace BoOnlineOrderManagement
                 {
                     foreach (KeyValuePair<string, string> OrderType in OrderTypeList)
                     {
-                        DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
+                        DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
