@@ -911,6 +911,7 @@ namespace BoOnlineOrderManagement
             dtAdviserExtractedOrderList.Columns.Add("AMFE_CreatedBy", typeof(Int32), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_CreatedOn", typeof(DateTime), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_DepositDate", typeof(DateTime), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_BankMandateProof", typeof(Char), null);
             return dtAdviserExtractedOrderList;
         }
         public DataSet GetFrequency()
@@ -1148,7 +1149,7 @@ namespace BoOnlineOrderManagement
         public bool EditSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode, int systematicdetailsid)
         {
             bool blResult = false;
-           
+
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
@@ -1427,6 +1428,138 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+
+        public DataTable GetAdviserClientKYCStatusList(int adviserId)
+        {
+            DataTable dtFinalAdviserClientKYCStatusList = new DataTable();
+            DataSet dsAdviserClientKYCStatusList = new DataSet();
+            OnlineOrderBackOfficeDao onlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                dsAdviserClientKYCStatusList = onlineOrderBackOfficeDao.GetAdviserClientKYCStatusList(adviserId);
+                dtFinalAdviserClientKYCStatusList = CreateFinalClientKYCDataTable(dsAdviserClientKYCStatusList);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:GetAdviserClientKYCStatusList()");
+
+
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtFinalAdviserClientKYCStatusList;
+        }
+
+        private DataTable CreateFinalClientKYCDataTable(DataSet dsClientKYCList)
+        {
+            DataTable dtFinalClientKYCList = new DataTable();
+            Dictionary<string, string> kycStatus;
+            dtFinalClientKYCList.Columns.Add("CustomerId");
+            dtFinalClientKYCList.Columns.Add("ClientAccountCode");
+            dtFinalClientKYCList.Columns.Add("Name");
+            dtFinalClientKYCList.Columns.Add("PAN");
+            dtFinalClientKYCList.Columns.Add("KYCStatus");
+            dtFinalClientKYCList.Columns.Add("Holding");
+
+            dtFinalClientKYCList.Columns.Add("SecondHolder");
+            dtFinalClientKYCList.Columns.Add("SecondHolderPAN");
+            dtFinalClientKYCList.Columns.Add("SecondHolderKYC");
+            dtFinalClientKYCList.Columns.Add("ThirdHolder");
+            dtFinalClientKYCList.Columns.Add("ThirdHolderPAN");
+            dtFinalClientKYCList.Columns.Add("SThirdHolderKYC");
+            dtFinalClientKYCList.Columns.Add("Privilege");
+
+            DataTable dtClientSelfDetails = dsClientKYCList.Tables[0];
+            DataTable dtClientDematJointHolderDetails = dsClientKYCList.Tables[1];
+
+
+            foreach (DataRow dr in dtClientSelfDetails.Rows)
+            {
+                kycStatus = new Dictionary<string, string>();
+                DataRow[] drClientDematJointList = dtClientDematJointHolderDetails.Select("C_CustomerId=" + dr["C_CustomerId"].ToString(), "CAS_AssociationId");
+                DataRow drFinalClientKYC = dtFinalClientKYCList.NewRow();
+                drFinalClientKYC["CustomerId"] = dr["C_CustomerId"];
+                drFinalClientKYC["ClientAccountCode"] = dr["C_CustCode"];
+                drFinalClientKYC["Name"] = dr["ClientName"];
+                drFinalClientKYC["PAN"] = dr["C_PANNum"];
+                drFinalClientKYC["KYCStatus"] = dr["C_IsKYCAvailable"];
+                drFinalClientKYC["Holding"] = dr["Holding"];
+                kycStatus.Add("JOINT1", dr["C_IsKYCAvailable"].ToString());
+                if (drClientDematJointList.Count() > 0)
+                {
+                    if (drClientDematJointList.Count() == 1)
+                    {
+                        drFinalClientKYC["SecondHolder"] = drClientDematJointList[0]["JointName"];
+                        drFinalClientKYC["SecondHolderPAN"] = drClientDematJointList[0]["JointPAN"];
+                        drFinalClientKYC["SecondHolderKYC"] = drClientDematJointList[0]["JointKYC"];
+
+                        drFinalClientKYC["Holding"] = "";
+                        drFinalClientKYC["Holding"] = "";
+                        drFinalClientKYC["Holding"] = "";
+
+                        kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString());
+                    }
+                    else if (drClientDematJointList.Count() > 1)
+                    {
+                        drFinalClientKYC["SecondHolder"] = drClientDematJointList[0]["JointName"];
+                        drFinalClientKYC["SecondHolderPAN"] = drClientDematJointList[0]["JointPAN"];
+                        drFinalClientKYC["SecondHolderKYC"] = drClientDematJointList[0]["JointKYC"];
+
+                        drFinalClientKYC["ThirdHolder"] = drClientDematJointList[1]["JointName"];
+                        drFinalClientKYC["ThirdHolderPAN"] = drClientDematJointList[1]["JointPAN"];
+                        drFinalClientKYC["SThirdHolderKYC"] = drClientDematJointList[1]["JointKYC"];
+
+                        kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString());
+                        kycStatus.Add("JOINT3", drClientDematJointList[1]["JointKYC"].ToString());
+
+                    }
+                }
+                else
+                {
+                    drFinalClientKYC["SecondHolder"] = "";
+                    drFinalClientKYC["SecondHolderPAN"] = "";
+                    drFinalClientKYC["SecondHolderKYC"] = "";
+
+                    drFinalClientKYC["ThirdHolder"] = "";
+                    drFinalClientKYC["ThirdHolderPAN"] = "";
+                    drFinalClientKYC["SThirdHolderKYC"] = "";
+                }
+
+                drFinalClientKYC["Privilege"] = GetClientPrivilege(kycStatus);
+                dtFinalClientKYCList.Rows.Add(drFinalClientKYC);
+
+
+            }
+
+            return dtFinalClientKYCList;
+
+
+        }
+
+
+        private string GetClientPrivilege(Dictionary<string, string> kycStatus)
+        {
+            string privilege = "None";
+
+            var kycNo = kycStatus.Where(pair => pair.Key.StartsWith("JOINT") && pair.Value == "0");
+            var kycYes = kycStatus.Where(pair => pair.Key.StartsWith("JOINT") && pair.Value == "1");
+            if (kycStatus.Count == kycYes.Count())
+                privilege = "Full";
+            else if (kycNo.Count() > 1)
+                privilege = "Partial";
+
+            return privilege;
+
+        }
+
 
     }
 }
