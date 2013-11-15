@@ -2329,7 +2329,7 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnlineOrderManagemen//NCDIssuesetup.ascx.
+        ///   Looks up a localized string similar to OnlineOrderManagement//NCDIssuesetup.ascx.
         /// </summary>
         internal static string NCDIssuesetup {
             get {
