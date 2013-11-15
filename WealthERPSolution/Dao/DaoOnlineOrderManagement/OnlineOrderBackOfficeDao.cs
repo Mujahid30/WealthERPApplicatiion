@@ -1392,5 +1392,38 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+
+        public DataSet GetAdviserClientKYCStatusList(int adviserId)
+        {
+
+            Database db;
+            DataSet dsAdviserClientKYCStatusList;
+            DbCommand AdviserClientKYCStatusListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                AdviserClientKYCStatusListcmd = db.GetStoredProcCommand("SPROC_GetAdviserAllClientKYCStatus");
+                db.AddInParameter(AdviserClientKYCStatusListcmd, "@AdviserId", DbType.Int32, adviserId);
+                dsAdviserClientKYCStatusList = db.ExecuteDataSet(AdviserClientKYCStatusListcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAdviserClientKYCStatusList(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsAdviserClientKYCStatusList;
+
+
+        }
     }
 }
