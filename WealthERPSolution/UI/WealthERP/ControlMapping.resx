@@ -1745,10 +1745,6 @@
     <value>OnlineOrderManagement//NCDIssueList.ascx</value>
     <comment>OnlineOrderManagement//NCDIssueList.ascx</comment>
   </data>
-  <data name="NCDIssueTransact" xml:space="preserve">
-    <value>OnlineOrderManagement//NCDIssueTransact.ascx</value>
-    <comment>OnlineOrderManagement//NCDIssueTransact.ascx</comment>
-  </data>
   <data name="OnlineOrderTopMenu" xml:space="preserve">
     <value>OnlineOrder//OnlineOrderTopMenu.ascx</value>
     <comment>OnlineOrder//OnlineOrderTopMenu.ascx</comment>
