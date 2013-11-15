@@ -6,7 +6,7 @@ using System.Data;
 
 namespace VoOnlineOrderManagemnet
 {
-    public class OnlineOrderBackOfficeVo
+    public class RTAExtractHeadeInfoVo
     {
         public string HeaderName { get; set; }
         public int HeaderSequence { get; set; }
@@ -14,14 +14,23 @@ namespace VoOnlineOrderManagemnet
         public string DataType { get; set; }
         public int MaxLength { get; set; }
         public bool IsNullable { get; set; }
+    }
 
+    public class WERPlookupCodeValueManagementVo
+    {
         public int LookupID { get; set; }
         public string ExternalName { get; set; }
         public int CategoryID { get; set; }
         public string WerpCode { get; set; }
         public string WerpName { get; set; }
         public int MapID { get; set; }
+        public string SourceCode { get; set; }
+        public string ExternalCode { get; set; }
 
+    }
+
+    public class MFProductAMCSchemePlanDetailsVo
+    {
 
         public int AMCCode { get; set; }
         public int SchemePlanCode { get; set; }
@@ -76,15 +85,14 @@ namespace VoOnlineOrderManagemnet
         public string ExternalCode { get; set; }
         public string ExternalType { get; set; }
         public string Dividendfreq { get; set; }
-        public string startdate { get; set; }
-        public string frequency { get; set; }
+        public string StartDate { get; set; }
+        public string Frequency { get; set; }
         public int MinDues { get; set; }
         public int MaxDues { get; set; }
         public double MinAmount { get; set; }
         public double MultipleAmount { get; set; }
-        public string systematiccode { get; set; }
+        public string SystematicCode { get; set; }
 
-       
     }
 
     public class TradeBusinessDateVo
@@ -95,6 +103,6 @@ namespace VoOnlineOrderManagemnet
         public int IsTradeBusinessDateHoliday { get; set; }
         public int IsTradeBusinessDateWeekend { get; set; }
 
- 
+
     }
 }
