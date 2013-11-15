@@ -257,7 +257,7 @@ namespace DaoOnlineOrderManagement
             return dsSubSubCategory;
         }
 
-        public List<int> CreateOnlineSchemeSetUp(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int userId)
+        public List<int> CreateOnlineSchemeSetUp(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
         {
             List<int> SchemePlancodes = new List<int>();
             int SchemePlancode = 0;
@@ -269,80 +269,80 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOnlineSchemeSetUpCmd = db.GetStoredProcCommand("SPROC_Onl_CreateOnlineSchemeSetUp");
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PA_AMCCode", DbType.Int32, OnlineOrderBackOfficeVo.AMCCode);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, OnlineOrderBackOfficeVo.SchemePlanName);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, OnlineOrderBackOfficeVo.SchemePlanName);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String, OnlineOrderBackOfficeVo.AssetSubSubCategory);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, OnlineOrderBackOfficeVo.AssetSubCategoryCode);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, OnlineOrderBackOfficeVo.AssetCategoryCode);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAG_AssetGroupCode", DbType.String, OnlineOrderBackOfficeVo.Product);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_Status", DbType.String, OnlineOrderBackOfficeVo.Status);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_IsOnline", DbType.Int32, OnlineOrderBackOfficeVo.IsOnline);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_IsDirect", DbType.Int32, OnlineOrderBackOfficeVo.IsDirect);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_FaceValue", DbType.Double, OnlineOrderBackOfficeVo.FaceValue);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, OnlineOrderBackOfficeVo.SchemeType);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, OnlineOrderBackOfficeVo.SchemeOption);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency", DbType.String, OnlineOrderBackOfficeVo.DividendFrequency);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_BankName", DbType.String, OnlineOrderBackOfficeVo.BankName);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AccountNumber", DbType.String, OnlineOrderBackOfficeVo.AccountNumber);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_Branch", DbType.String, OnlineOrderBackOfficeVo.Branch);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsNFO", DbType.Int32, OnlineOrderBackOfficeVo.IsNFO);
-                if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetCategoryCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PAG_AssetGroupCode", DbType.String, mfProductAMCSchemePlanDetailsVo.Product);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_Status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_IsOnline", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsOnline);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_IsDirect", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsDirect);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeOption);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);
+                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
                 {
-                    db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOStartDate", DbType.DateTime, OnlineOrderBackOfficeVo.NFOStartDate);
+                    db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
                 }
                 else
                 {
                     db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOStartDate", DbType.DateTime, DBNull.Value);
                 }
-                if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
                 {
-                    db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOEndDate", DbType.DateTime, OnlineOrderBackOfficeVo.NFOEndDate);
+                    db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
                 }
                 else
                 {
                     db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_NFOEndDate", DbType.DateTime, DBNull.Value);
                 }
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_LockInPeriod", DbType.Int32, OnlineOrderBackOfficeVo.LockInPeriod);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_CutOffTime", DbType.String, OnlineOrderBackOfficeVo.CutOffTime.ToString());
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_EntryLoadPercentag", DbType.Double, OnlineOrderBackOfficeVo.EntryLoadPercentag);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_EntryLoadRemark", DbType.String, OnlineOrderBackOfficeVo.EntryLoadRemark);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ExitLoadPercentage", DbType.Double, OnlineOrderBackOfficeVo.ExitLoadPercentage);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ExitLoadRemark", DbType.String, OnlineOrderBackOfficeVo.ExitLoadRemark);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsPurchaseAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsPurchaseAvailable);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsRedeemAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsRedeemAvailable);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSIPAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSIPAvailable);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSWPAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSWPAvailable);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSwitchAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSwitchAvailable);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSTPAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSTPAvailable);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_InitialPurchaseAmount", DbType.Double, OnlineOrderBackOfficeVo.InitialPurchaseAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_InitialMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.InitialMultipleAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AdditionalPruchaseAmount", DbType.Double, OnlineOrderBackOfficeVo.AdditionalPruchaseAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.AdditionalMultipleAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinRedemptionAmount", DbType.Double, OnlineOrderBackOfficeVo.MinRedemptionAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.RedemptionMultipleAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, OnlineOrderBackOfficeVo.MinRedemptionUnits);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, OnlineOrderBackOfficeVo.RedemptionMultiplesUnits);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinSwitchAmount", DbType.Double, OnlineOrderBackOfficeVo.MinSwitchAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.SwitchMultipleAmount);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinSwitchUnits", DbType.Int32, OnlineOrderBackOfficeVo.MinSwitchUnits);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SwitchMultiplesUnits", DbType.Int32, OnlineOrderBackOfficeVo.SwitchMultiplesUnits);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_FileGenerationFrequency", DbType.String, OnlineOrderBackOfficeVo.GenerationFrequency);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, OnlineOrderBackOfficeVo.SourceCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_LockInPeriod", DbType.Int32, mfProductAMCSchemePlanDetailsVo.LockInPeriod);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_CutOffTime", DbType.String, mfProductAMCSchemePlanDetailsVo.CutOffTime.ToString());
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_EntryLoadPercentag", DbType.Double, mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_EntryLoadRemark", DbType.String, mfProductAMCSchemePlanDetailsVo.EntryLoadRemark);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ExitLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ExitLoadRemark", DbType.String, mfProductAMCSchemePlanDetailsVo.ExitLoadRemark);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsPurchaseAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsRedeemAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSIPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSIPAvailable);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSWPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSWPAvailable);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSwitchAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsSTPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSTPAvailable);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_InitialPurchaseAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_InitialMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AdditionalPruchaseAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinRedemptionAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinSwitchAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinSwitchAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MinSwitchUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinSwitchUnits);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SwitchMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_FileGenerationFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.GenerationFrequency);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, DBNull.Value);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XCST_CustomerSubTypeCode", DbType.String, OnlineOrderBackOfficeVo.CustomerSubTypeCode);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SecurityCode", DbType.String, OnlineOrderBackOfficeVo.SecurityCode);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MaxInvestment", DbType.Double, OnlineOrderBackOfficeVo.PASPD_MaxInvestment);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WERPBM_BankCode", DbType.String, OnlineOrderBackOfficeVo.WERPBM_BankCode);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@ExternalCode", DbType.String, OnlineOrderBackOfficeVo.ExternalCode);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@ExternalType", DbType.String, OnlineOrderBackOfficeVo.ExternalType);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XCST_CustomerSubTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SecurityCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SecurityCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WERPBM_BankCode", DbType.String, mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_ModifiedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_ModifiedBy", DbType.Int32, userId);
                 // db.AddOutParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, 10000);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, OnlineOrderBackOfficeVo.SchemePlanCode);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency", DbType.String, OnlineOrderBackOfficeVo.DividendFrequency);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
                 db.ExecuteNonQuery(createMFOnlineSchemeSetUpCmd);
                 //{
                 //    SchemePlancode = Convert.ToInt32(db.GetParameterValue(createMFOnlineSchemeSetUpCmd, "PASP_SchemePlanCode").ToString());
@@ -357,11 +357,9 @@ namespace DaoOnlineOrderManagement
             }
             return SchemePlancodes;
         }
-        public OnlineOrderBackOfficeVo GetOnlineSchemeSetUp(int SchemePlanCode)
+        public MFProductAMCSchemePlanDetailsVo GetOnlineSchemeSetUp(int SchemePlanCode)
         {
-
-
-            OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+            MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
             Database db;
             DataSet getSchemeSetUpDs;
             DbCommand getSchemeSetUpCmd;
@@ -377,165 +375,165 @@ namespace DaoOnlineOrderManagement
                 {
                     foreach (DataRow dr in getSchemeSetUpDs.Tables[0].Rows)
                     {
-                        OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                        OnlineOrderBackOfficeVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
-                        OnlineOrderBackOfficeVo.SchemePlanName = dr["PASP_SchemePlanName"].ToString();
-                        OnlineOrderBackOfficeVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
-                        OnlineOrderBackOfficeVo.AssetSubSubCategory = dr["PAISSC_AssetInstrumentSubSubCategoryCode"].ToString();
-                        OnlineOrderBackOfficeVo.AssetSubCategoryCode = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
-                        OnlineOrderBackOfficeVo.AssetCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
-                        OnlineOrderBackOfficeVo.Product = dr["PAG_AssetGroupCode"].ToString();
-                        OnlineOrderBackOfficeVo.Status = dr["PASP_Status"].ToString();
+
+                        mfProductAMCSchemePlanDetailsVo.AMCCode = int.Parse(dr["PA_AMCCode"].ToString());
+                        mfProductAMCSchemePlanDetailsVo.SchemePlanName = dr["PASP_SchemePlanName"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(dr["PASP_SchemePlanCode"].ToString());
+                        mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory = dr["PAISSC_AssetInstrumentSubSubCategoryCode"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.AssetCategoryCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.Product = dr["PAG_AssetGroupCode"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.Status = dr["PASP_Status"].ToString();
                         if (dr["PASP_IsOnline"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsOnline = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsOnline = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsOnline = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsOnline = 0;
                         }
-                        if (OnlineOrderBackOfficeVo.IsDirect != 0)
+                        if (mfProductAMCSchemePlanDetailsVo.IsDirect != 0)
                         {
-                            OnlineOrderBackOfficeVo.IsDirect = int.Parse(dr["PASP_IsDirect"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.IsDirect = int.Parse(dr["PASP_IsDirect"].ToString());
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsDirect = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsDirect = 0;
                         }
                         if (dr["PASPD_FaceValue"].ToString() != null && dr["PASPD_FaceValue"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(dr["PASPD_FaceValue"].ToString());
-                        OnlineOrderBackOfficeVo.SchemeType = dr["PSLV_LookupValueCodeForSchemeType"].ToString();
-                        OnlineOrderBackOfficeVo.SchemeOption = dr["PSLV_LookupValueCodeForSchemeOption"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.FaceValue = Convert.ToDouble(dr["PASPD_FaceValue"].ToString());
+                        mfProductAMCSchemePlanDetailsVo.SchemeType = dr["PSLV_LookupValueCodeForSchemeType"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.SchemeOption = dr["PSLV_LookupValueCodeForSchemeOption"].ToString();
                         if (dr["XF_DividendFrequency"].ToString() != null && dr["XF_DividendFrequency"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
-                        OnlineOrderBackOfficeVo.BankName = dr["PASPD_BankName"].ToString();
-                        OnlineOrderBackOfficeVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
-                        OnlineOrderBackOfficeVo.Branch = dr["PASPD_Branch"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.Branch = dr["PASPD_Branch"].ToString();
                         if (dr["PASPD_IsNFO"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsNFO = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsNFO = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsNFO = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsNFO = 0;
                         }
-                        if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
-                            OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(dr["PASPD_NFOStartDate"].ToString());
-                        if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
-                            OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(dr["PASPD_NFOEndDate"].ToString());
+                        if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
+                            mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(dr["PASPD_NFOStartDate"].ToString());
+                        if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
+                            mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(dr["PASPD_NFOEndDate"].ToString());
                         if (dr["PASPD_LockInPeriod"].ToString() != null && dr["PASPD_LockInPeriod"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.LockInPeriod = int.Parse(dr["PASPD_LockInPeriod"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.LockInPeriod = int.Parse(dr["PASPD_LockInPeriod"].ToString());
                         if (dr["PASPD_CutOffTime"].ToString() != null && dr["PASPD_CutOffTime"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.CutOffTime = TimeSpan.Parse(dr["PASPD_CutOffTime"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.CutOffTime = TimeSpan.Parse(dr["PASPD_CutOffTime"].ToString());
                         if (dr["PASPD_EntryLoadPercentage"].ToString() != null && dr["PASPD_EntryLoadPercentage"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(dr["PASPD_EntryLoadPercentage"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag = Convert.ToDouble(dr["PASPD_EntryLoadPercentage"].ToString());
                         if (dr["PASPD_EntryLoadRemark"].ToString() != null && dr["PASPD_EntryLoadRemark"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.EntryLoadRemark = dr["PASPD_EntryLoadRemark"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.EntryLoadRemark = dr["PASPD_EntryLoadRemark"].ToString();
                         if (dr["PASPD_ExitLoadPercentage"].ToString() != null && dr["PASPD_ExitLoadPercentage"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(dr["PASPD_ExitLoadPercentage"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage = Convert.ToDouble(dr["PASPD_ExitLoadPercentage"].ToString());
                         if (dr["PASPD_ExitLoadRemark"].ToString() != null && dr["PASPD_ExitLoadRemark"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.ExitLoadRemark = dr["PASPD_ExitLoadRemark"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.ExitLoadRemark = dr["PASPD_ExitLoadRemark"].ToString();
                         if (dr["PASPD_IsPurchaseAvailable"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable = 0;
                         }
                         if (dr["PASPD_IsRedeemAvailable"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable = 0;
                         }
                         if (dr["PASPD_IsSIPAvailable"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsSIPAvailable = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsSIPAvailable = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 0;
                         }
                         if (dr["PASPD_IsSWPAvailable"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsSWPAvailable = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsSWPAvailable = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsSWPAvailable = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsSWPAvailable = 0;
                         }
                         if (dr["PASPD_IsSwitchAvailable"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsSwitchAvailable = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsSwitchAvailable = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable = 0;
                         }
                         if (dr["PASPD_IsSTPAvailable"].ToString() == "True")
                         {
-                            OnlineOrderBackOfficeVo.IsSTPAvailable = 1;
+                            mfProductAMCSchemePlanDetailsVo.IsSTPAvailable = 1;
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.IsSTPAvailable = 0;
+                            mfProductAMCSchemePlanDetailsVo.IsSTPAvailable = 0;
                         }
                         if (dr["PASPD_InitialPurchaseAmount"].ToString() != null && dr["PASPD_InitialPurchaseAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.InitialPurchaseAmount = Convert.ToDouble(dr["PASPD_InitialPurchaseAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount = Convert.ToDouble(dr["PASPD_InitialPurchaseAmount"].ToString());
                         if (dr["PASPD_InitialMultipleAmount"].ToString() != null && dr["PASPD_InitialMultipleAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
                         if (dr["PASPD_InitialMultipleAmount"].ToString() != null && dr["PASPD_InitialMultipleAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount = Convert.ToDouble(dr["PASPD_InitialMultipleAmount"].ToString());
                         if (dr["PASPD_AdditionalMultipleAmount"].ToString() != null && dr["PASPD_AdditionalMultipleAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(dr["PASPD_AdditionalMultipleAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount = Convert.ToDouble(dr["PASPD_AdditionalMultipleAmount"].ToString());
                         if (dr["PASPD_MinRedemptionAmount"].ToString() != null && dr["PASPD_MinRedemptionAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(dr["PASPD_MinRedemptionAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount = Convert.ToDouble(dr["PASPD_MinRedemptionAmount"].ToString());
                         if (dr["PASPD_RedemptionMultipleAmount"].ToString() != null && dr["PASPD_RedemptionMultipleAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.RedemptionMultipleAmount = Convert.ToDouble(dr["PASPD_RedemptionMultipleAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount = Convert.ToDouble(dr["PASPD_RedemptionMultipleAmount"].ToString());
                         if (dr["PASPD_MinRedemptionUnits"].ToString() != null && dr["PASPD_MinRedemptionUnits"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.MinRedemptionUnits = int.Parse(dr["PASPD_MinRedemptionUnits"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = int.Parse(dr["PASPD_MinRedemptionUnits"].ToString());
                         if (dr["PASPD_RedemptionMultiplesUnits"].ToString() != null && dr["PASPD_RedemptionMultiplesUnits"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = int.Parse(dr["PASPD_RedemptionMultiplesUnits"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = int.Parse(dr["PASPD_RedemptionMultiplesUnits"].ToString());
                         if (dr["PASPD_MinSwitchAmount"].ToString() != null && dr["PASPD_MinSwitchAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(dr["PASPD_MinSwitchAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.MinSwitchAmount = Convert.ToDouble(dr["PASPD_MinSwitchAmount"].ToString());
                         if (dr["PASPD_SwitchMultipleAmount"].ToString() != null && dr["PASPD_SwitchMultipleAmount"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.SwitchMultipleAmount = Convert.ToDouble(dr["PASPD_SwitchMultipleAmount"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount = Convert.ToDouble(dr["PASPD_SwitchMultipleAmount"].ToString());
                         if (dr["PASPD_MinSwitchUnits"].ToString() != null && dr["PASPD_MinSwitchUnits"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.MinSwitchUnits = int.Parse(dr["PASPD_MinSwitchUnits"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.MinSwitchUnits = int.Parse(dr["PASPD_MinSwitchUnits"].ToString());
                         if (dr["PASPD_SwitchMultiplesUnits"].ToString() != null && dr["PASPD_SwitchMultiplesUnits"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.SwitchMultiplesUnits = int.Parse(dr["PASPD_SwitchMultiplesUnits"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits = int.Parse(dr["PASPD_SwitchMultiplesUnits"].ToString());
                         if (dr["XF_FileGenerationFrequency"].ToString() != null && dr["XF_FileGenerationFrequency"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.GenerationFrequency = dr["XF_FileGenerationFrequency"].ToString();
-                        if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SourceCode))
+                            mfProductAMCSchemePlanDetailsVo.GenerationFrequency = dr["XF_FileGenerationFrequency"].ToString();
+                        if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SourceCode))
                         {
-                            OnlineOrderBackOfficeVo.SourceCode = dr["XES_SourceCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.SourceCode = dr["XES_SourceCode"].ToString();
                         }
                         //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, DBNull.Value);
-                        OnlineOrderBackOfficeVo.CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
+                        mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = dr["XCST_CustomerSubTypeCode"].ToString();
                         if (dr["PASPD_SecurityCode"].ToString() != null && dr["PASPD_SecurityCode"].ToString() != string.Empty)
-                            OnlineOrderBackOfficeVo.SecurityCode = dr["PASPD_SecurityCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.SecurityCode = dr["PASPD_SecurityCode"].ToString();
                         if (dr["PASPD_MaxInvestment"].ToString() != null && dr["PASPD_MaxInvestment"].ToString() != string.Empty)
                         {
-                            OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(dr["PASPD_MaxInvestment"].ToString());
+                            mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment = Convert.ToDouble(dr["PASPD_MaxInvestment"].ToString());
                         }
                         else
                         {
-                            OnlineOrderBackOfficeVo.PASPD_MaxInvestment = 0;
+                            mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment = 0;
                         }
                         if (!string.IsNullOrEmpty(dr["WERPBM_BankCode"].ToString()))
                         {
-                            OnlineOrderBackOfficeVo.WERPBM_BankCode = dr["WERPBM_BankCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode = dr["WERPBM_BankCode"].ToString();
                         }
                         if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalCode"].ToString()))
                         {
-                            OnlineOrderBackOfficeVo.ExternalCode = dr["PASC_AMC_ExternalCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.ExternalCode = dr["PASC_AMC_ExternalCode"].ToString();
                         }
                         if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalType"].ToString()))
                         {
-                            OnlineOrderBackOfficeVo.ExternalType = dr["PASC_AMC_ExternalType"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.ExternalType = dr["PASC_AMC_ExternalType"].ToString();
                         }
 
                     }
@@ -563,7 +561,7 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
 
             }
-            return OnlineOrderBackOfficeVo;
+            return mfProductAMCSchemePlanDetailsVo;
 
 
 
@@ -934,7 +932,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetRTA;
         }
-        public bool CreateMapwithRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        public bool CreateMapwithRTA(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             bool bResult = false;
             Database db;
@@ -945,10 +943,10 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_CreateMapwithRTA");
-                db.AddInParameter(createCmd, "@WCMV_LookupId", DbType.Int32, onlineOrderBackOfficeVo.LookupID);
-                db.AddInParameter(createCmd, "@XES_SourceCode", DbType.String, onlineOrderBackOfficeVo.SourceCode);
-                db.AddInParameter(createCmd, "@WCMVXM_ExternalCode", DbType.String, onlineOrderBackOfficeVo.ExternalCode);
-                db.AddInParameter(createCmd, "@WCMVXM_ExternalName", DbType.String, onlineOrderBackOfficeVo.ExternalName);
+                db.AddInParameter(createCmd, "@WCMV_LookupId", DbType.Int32, werplookupCodeValueManagementVo.LookupID);
+                db.AddInParameter(createCmd, "@XES_SourceCode", DbType.String, werplookupCodeValueManagementVo.SourceCode);
+                db.AddInParameter(createCmd, "@WCMVXM_ExternalCode", DbType.String, werplookupCodeValueManagementVo.ExternalCode);
+                db.AddInParameter(createCmd, "@WCMVXM_ExternalName", DbType.String, werplookupCodeValueManagementVo.ExternalName);
                 db.AddInParameter(createCmd, "@UserId", DbType.Int32, userID);
 
                 db.AddOutParameter(createCmd, "@IsExist", DbType.Int16, 0);
@@ -967,7 +965,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool CreateNewWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        public bool CreateNewWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             bool bResult = false;
             int affectedRecords = 0;
@@ -978,8 +976,8 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_CreateNewWerpName");
-                db.AddInParameter(createCmd, "@WCMV_Name", DbType.String, onlineOrderBackOfficeVo.WerpName);
-                db.AddInParameter(createCmd, "@WCM_Id", DbType.Int32, onlineOrderBackOfficeVo.CategoryID);
+                db.AddInParameter(createCmd, "@WCMV_Name", DbType.String, werplookupCodeValueManagementVo.WerpName);
+                db.AddInParameter(createCmd, "@WCM_Id", DbType.Int32, werplookupCodeValueManagementVo.CategoryID);
                 db.AddInParameter(createCmd, "@UserId", DbType.Int32, userID);
                 db.AddOutParameter(createCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -996,7 +994,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool RemoveMapingWIthRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        public bool RemoveMapingWIthRTA(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo)
         {
             bool bResult = false;
             Database db;
@@ -1006,7 +1004,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_RemoveMapwithRTA");
-                db.AddInParameter(createMFOrderTrackingCmd, "@MapID", DbType.Int32, onlineOrderBackOfficeVo.MapID);
+                db.AddInParameter(createMFOrderTrackingCmd, "@MapID", DbType.Int32, werplookupCodeValueManagementVo.MapID);
 
                 db.ExecuteNonQuery(createMFOrderTrackingCmd);
                 bResult = true;
@@ -1018,7 +1016,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool UpdateWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        public bool UpdateWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             bool bResult = false;
             Database db;
@@ -1027,8 +1025,8 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createMFOrderTrackingCmd = db.GetStoredProcCommand("SPROC_UpdateInternalValues");
-                db.AddInParameter(createMFOrderTrackingCmd, "@lookupID", DbType.Int32, onlineOrderBackOfficeVo.LookupID);
-                db.AddInParameter(createMFOrderTrackingCmd, "@internalName", DbType.String, onlineOrderBackOfficeVo.WerpName);
+                db.AddInParameter(createMFOrderTrackingCmd, "@lookupID", DbType.Int32, werplookupCodeValueManagementVo.LookupID);
+                db.AddInParameter(createMFOrderTrackingCmd, "@internalName", DbType.String, werplookupCodeValueManagementVo.WerpName);
                 db.AddInParameter(createMFOrderTrackingCmd, "@userID", DbType.Int32, userID);
 
                 db.ExecuteNonQuery(createMFOrderTrackingCmd);
@@ -1041,7 +1039,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool DeleteWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        public bool DeleteWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo)
         {
             bool bResult = false;
             int affectedRecords=0;
@@ -1051,7 +1049,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_DeleteInternalValues");
-                db.AddInParameter(createCmd, "@lookupID", DbType.Int32, onlineOrderBackOfficeVo.LookupID);
+                db.AddInParameter(createCmd, "@lookupID", DbType.Int32, werplookupCodeValueManagementVo.LookupID);
 
                 db.AddOutParameter(createCmd, "@IsDeleted", DbType.Int32, 0);
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -1069,7 +1067,7 @@ namespace DaoOnlineOrderManagement
         }
 
 
-        public bool UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int SchemePlanCode)
+        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
         {
             bool blResult = false;
             Database db;
@@ -1079,78 +1077,78 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateSchemeSetUpDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateSchemeSetUpDetail");
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, OnlineOrderBackOfficeVo.SchemePlanCode); //1
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_FaceValue", DbType.Double, OnlineOrderBackOfficeVo.FaceValue); //2
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, OnlineOrderBackOfficeVo.SchemeType); //3
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, OnlineOrderBackOfficeVo.SchemeOption);//4
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XF_DividendFrequency", DbType.String, OnlineOrderBackOfficeVo.DividendFrequency);//5
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_BankName", DbType.String, OnlineOrderBackOfficeVo.BankName);//6
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AccountNumber", DbType.String, OnlineOrderBackOfficeVo.AccountNumber); //7
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_Branch", DbType.String, OnlineOrderBackOfficeVo.Branch);//8
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsNFO", DbType.Int32, OnlineOrderBackOfficeVo.IsNFO);//9
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode); //1
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue); //2
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType); //3
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeOption);//4
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);//5
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);//6
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber); //7
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);//8
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);//9
 
-                if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue) //10
+                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue) //10
                 {
-                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, OnlineOrderBackOfficeVo.NFOStartDate);
+                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
                 }
                 else
                 {
                     db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, DBNull.Value);
                 }
-                if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)//11
+                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)//11
                 {
-                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, OnlineOrderBackOfficeVo.NFOEndDate);
+                    db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
                 }
                 else
                 {
                     db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, DBNull.Value);
                 }
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_LockInPeriod", DbType.Int32, OnlineOrderBackOfficeVo.LockInPeriod); //12
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CutOffTime", DbType.String, OnlineOrderBackOfficeVo.CutOffTime.ToString()); //13
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_EntryLoadPercentage", DbType.Double, OnlineOrderBackOfficeVo.EntryLoadPercentag);//14
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_EntryLoadRemark", DbType.String, OnlineOrderBackOfficeVo.EntryLoadRemark);//15
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ExitLoadPercentage", DbType.Double, OnlineOrderBackOfficeVo.ExitLoadPercentage);//16
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ExitLoadRemark", DbType.String, OnlineOrderBackOfficeVo.ExitLoadRemark);//17
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsPurchaseAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsPurchaseAvailable);//18
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsRedeemAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsRedeemAvailable);//19
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSIPAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSIPAvailable);//20
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSWPAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSWPAvailable);//21
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSwitchAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSwitchAvailable);//22
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSTPAvailable", DbType.Int32, OnlineOrderBackOfficeVo.IsSTPAvailable);//23
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_InitialPurchaseAmount", DbType.Double, OnlineOrderBackOfficeVo.InitialPurchaseAmount);//24
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_InitialMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.InitialMultipleAmount);//25
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AdditionalPruchaseAmount", DbType.Double, OnlineOrderBackOfficeVo.AdditionalPruchaseAmount);//26
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.AdditionalMultipleAmount);//27
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionAmount", DbType.Double, OnlineOrderBackOfficeVo.MinRedemptionAmount);//28
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.RedemptionMultipleAmount);//29
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, OnlineOrderBackOfficeVo.MinRedemptionUnits);//30
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, OnlineOrderBackOfficeVo.RedemptionMultiplesUnits);//31
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinSwitchAmount", DbType.Double, OnlineOrderBackOfficeVo.MinSwitchAmount);//32
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.SwitchMultipleAmount);//33
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinSwitchUnits", DbType.Int32, OnlineOrderBackOfficeVo.MinSwitchUnits);//34
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SwitchMultiplesUnits", DbType.Int32, OnlineOrderBackOfficeVo.SwitchMultiplesUnits);//35
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XF_FileGenerationFrequency", DbType.String, OnlineOrderBackOfficeVo.GenerationFrequency);//36
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_LockInPeriod", DbType.Int32, mfProductAMCSchemePlanDetailsVo.LockInPeriod); //12
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_CutOffTime", DbType.String, mfProductAMCSchemePlanDetailsVo.CutOffTime.ToString()); //13
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_EntryLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag);//14
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_EntryLoadRemark", DbType.String, mfProductAMCSchemePlanDetailsVo.EntryLoadRemark);//15
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ExitLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage);//16
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ExitLoadRemark", DbType.String, mfProductAMCSchemePlanDetailsVo.ExitLoadRemark);//17
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsPurchaseAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable);//18
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsRedeemAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable);//19
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSIPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSIPAvailable);//20
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSWPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSWPAvailable);//21
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSwitchAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable);//22
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsSTPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSTPAvailable);//23
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_InitialPurchaseAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount);//24
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_InitialMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount);//25
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AdditionalPruchaseAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount);//26
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount);//27
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount);//28
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount);//29
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);//30
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);//31
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinSwitchAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinSwitchAmount);//32
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount);//33
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MinSwitchUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinSwitchUnits);//34
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SwitchMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits);//35
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XF_FileGenerationFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.GenerationFrequency);//36
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XES_SourceCode", DbType.String, DBNull.Value);//37
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, OnlineOrderBackOfficeVo.CustomerSubTypeCode);//38
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SecurityCode", DbType.String, OnlineOrderBackOfficeVo.SecurityCode);//39
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MaxInvestment", DbType.Double, OnlineOrderBackOfficeVo.PASPD_MaxInvestment);//40
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@WERPBM_BankCode", DbType.String, OnlineOrderBackOfficeVo.WERPBM_BankCode);//41
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PA_AMCCode", DbType.Int32, OnlineOrderBackOfficeVo.AMCCode);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, OnlineOrderBackOfficeVo.SchemePlanName);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanName", DbType.String, OnlineOrderBackOfficeVo.SchemePlanName);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String,OnlineOrderBackOfficeVo.AssetSubSubCategory);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, OnlineOrderBackOfficeVo.AssetSubCategoryCode);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, OnlineOrderBackOfficeVo.AssetCategoryCode);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAG_AssetGroupCode",DbType.String, OnlineOrderBackOfficeVo.Product);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_Status", DbType.String,OnlineOrderBackOfficeVo.Status);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_IsOnline", DbType.Int32,OnlineOrderBackOfficeVo.IsOnline);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_IsDirect", DbType.Int32,OnlineOrderBackOfficeVo.IsDirect);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, OnlineOrderBackOfficeVo.SourceCode);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalCode", DbType.String,OnlineOrderBackOfficeVo.ExternalCode);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalType", DbType.String,OnlineOrderBackOfficeVo.ExternalType);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode);//38
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SecurityCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SecurityCode);//39
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);//40
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@WERPBM_BankCode", DbType.String, mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode);//41
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String,mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetCategoryCode);
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAG_AssetGroupCode",DbType.String, mfProductAMCSchemePlanDetailsVo.Product);
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_Status", DbType.String,mfProductAMCSchemePlanDetailsVo.Status);
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_IsOnline", DbType.Int32,mfProductAMCSchemePlanDetailsVo.IsOnline);
+                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_IsDirect", DbType.Int32,mfProductAMCSchemePlanDetailsVo.IsDirect);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalCode", DbType.String,mfProductAMCSchemePlanDetailsVo.ExternalCode);
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalType", DbType.String,mfProductAMCSchemePlanDetailsVo.ExternalType);
                 // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, UserId);
                 // db.AddOutParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode",DbType.Int32, 10000);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency",DbType.String, OnlineOrderBackOfficeVo.DividendFrequency);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency",DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
                 db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
 
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
@@ -1166,7 +1164,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
                 object[] objects = new object[3];
-                objects[0] = OnlineOrderBackOfficeVo;
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
                 objects[1] = SchemePlanCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1236,7 +1234,7 @@ namespace DaoOnlineOrderManagement
             return dsSystematicDetails;
         }
 
-        public bool CreateSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode)
+        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode)
         {
             bool bResult = false;
             Database db;
@@ -1246,13 +1244,13 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreateSystematicDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_CreatesystematicDetails");
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32,schemeplancode);
-                db.AddInParameter(CreateSystematicDetailsCmd, "@XSTT_SystematicTypeCode", DbType.String, OnlineOrderBackOfficeVo.systematiccode);
-                db.AddInParameter(CreateSystematicDetailsCmd, "@XF_SystematicFrequencyCode", DbType.String,OnlineOrderBackOfficeVo.frequency);
-                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_StatingDates", DbType.String,OnlineOrderBackOfficeVo.startdate);
-                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MinDues", DbType.Int32,OnlineOrderBackOfficeVo.MinDues);
-                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MaxDues", DbType.Int32,OnlineOrderBackOfficeVo.MaxDues);
-                db.AddInParameter(CreateSystematicDetailsCmd,"@PASPSD_MinAmount", DbType.Double,OnlineOrderBackOfficeVo.MinAmount);
-                db.AddInParameter(CreateSystematicDetailsCmd,"@PASPSD_MultipleAmount", DbType.Double,OnlineOrderBackOfficeVo.MultipleAmount);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@XSTT_SystematicTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SystematicCode);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@XF_SystematicFrequencyCode", DbType.String, mfProductAMCSchemePlanDetailsVo.Frequency);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_StatingDates", DbType.String, mfProductAMCSchemePlanDetailsVo.StartDate);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MinDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinDues);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MaxDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MaxDues);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MinAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinAmount);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
                 if (db.ExecuteNonQuery(CreateSystematicDetailsCmd) != 0)
                     bResult = true;
             }
@@ -1268,7 +1266,7 @@ namespace DaoOnlineOrderManagement
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:CreateSystematicDetails()");
 
                 object[] objects = new object[2];
-                objects[0] = OnlineOrderBackOfficeVo;
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
                 objects[1] = schemeplancode;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1279,7 +1277,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public bool EditSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode, int systematicdetailsid)
+        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid)
         {
             bool blResult = false;
             Database db;
@@ -1291,12 +1289,12 @@ namespace DaoOnlineOrderManagement
                 EditSystematicDetailscmd = db.GetStoredProcCommand("SPROC_Onl_EditSystematicDetails");
                 db.AddInParameter(EditSystematicDetailscmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplancode);
                 db.AddInParameter(EditSystematicDetailscmd,"@PASPSD_SystematicDetailsId",DbType.Int32,systematicdetailsid);
-                db.AddInParameter(EditSystematicDetailscmd, "@XF_SystematicFrequencyCode", DbType.String, OnlineOrderBackOfficeVo.frequency);
-                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_StatingDates", DbType.String, OnlineOrderBackOfficeVo.startdate);
-                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinDues", DbType.Int32, OnlineOrderBackOfficeVo.MinDues);
-                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MaxDues", DbType.Int32, OnlineOrderBackOfficeVo.MaxDues);
-                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinAmount", DbType.Double, OnlineOrderBackOfficeVo.MinAmount);
-                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MultipleAmount", DbType.Double, OnlineOrderBackOfficeVo.MultipleAmount);
+                db.AddInParameter(EditSystematicDetailscmd, "@XF_SystematicFrequencyCode", DbType.String, mfProductAMCSchemePlanDetailsVo.Frequency);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_StatingDates", DbType.String, mfProductAMCSchemePlanDetailsVo.StartDate);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinDues);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MaxDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MaxDues);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinAmount);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MultipleAmount);
                 db.ExecuteNonQuery(EditSystematicDetailscmd);
                 if (db.ExecuteNonQuery(EditSystematicDetailscmd) != 0)
                     blResult = true;
