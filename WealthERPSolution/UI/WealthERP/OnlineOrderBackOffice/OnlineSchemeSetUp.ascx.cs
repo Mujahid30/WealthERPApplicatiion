@@ -50,6 +50,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ////BindSubCategory();
             ////BindSubSubCategory();
             //BindBankName();
+            
             if (!IsPostBack)
             {
                 BindAMC();
@@ -1955,6 +1956,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
+                if (ViewState["Schemecode"]!=null)
                 schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
             }
 
@@ -2033,6 +2035,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 ChkISSWP.Enabled = true;
 
             }
+
+            GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+            commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
+
 
         }
         protected void ChkISSWP_OnCheckedChanged(object sender, EventArgs e)

@@ -45,8 +45,9 @@
         </tr>
     </table>
 </table>
- 
+ <div>
 <table width="100%">
+
     <tr>
         <td colspan="5">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
@@ -56,15 +57,15 @@
     </tr>
    
     <tr>
-        <td align="right">
+        <td align="right" width="25%">
             <asp:Label ID="lblProduct" runat="server" Text="Product" CssClass="FieldName"> </asp:Label>
         </td>
-        <td>
+        <td width="25%">
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="false">
                 <asp:ListItem Text="Mutual Funds" Value="MF" />
             </asp:DropDownList>
         </td>
-        <td align="right">
+        <td align="right" width="25%">
             <asp:Label ID="lblAmc" runat="server" Text="AMC" CssClass="FieldName"> </asp:Label>
         </td>
         <td>
@@ -167,9 +168,10 @@
                <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
         </td>
         
-    </tr>
+    </tr> 
+    
 </table>
-
+</div>
 <div id="schemedetails" runat="server" visible="false">
     <table width="100%">
         <tr>
@@ -179,20 +181,19 @@
                 </div>
             </td>
         </tr>
-    </table>
-    <table width="100%">
+    
         <tr>
-            <td align="right">
+            <td align="right" width="25%">
                 <asp:Label ID="lblSctype" runat="server" Text="Scheme Type" CssClass="FieldName"> </asp:Label>
             </td>
-            <td>
+            <td width="25%">
                 <asp:DropDownList ID="ddlSctype" runat="server" CssClass="cmbField" AutoPostBack="false">
                     <asp:ListItem Text="Select" Value="Select" />
                     <asp:ListItem Text="Open Ended" Value="OE" />
                     <asp:ListItem Text="Close Ended" Value="CE" />
                 </asp:DropDownList>
             </td>
-            <td align="right">
+            <td align="right" width="25%">
                 <asp:Label ID="lblSecuritycode" runat="server" Text="Security Code" CssClass="FieldName"></asp:Label>
             </td>
             <td>
@@ -406,13 +407,13 @@
             <td colspan="4">
                 <table width="100%">
                     <tr>
-                        <td align="right" style="width:26%;">
+                        <td align="right" style="width:24%";>
                             <asp:Label ID="lblInitalPamount" runat="server" Text="Initial Purchase Amount" CssClass="FieldName"></asp:Label>
                         </td>
                         <td style="width:24%;">
                             <asp:TextBox ID="txtInitalPamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
                         </td>
-                        <td align="right" style="width:25.5%;">
+                        <td align="right" style="width:24.5%;">
                             <asp:Label ID="lblAdditionalPamount" runat="server" Text="Additional Purchase Amount"
                                 CssClass="FieldName"></asp:Label>
                         </td>
@@ -428,13 +429,13 @@
             <td colspan="4">
                 <table width="100%">
                     <tr>
-                        <td align="right" style="width:26%;">
+                        <td align="right" style="width:20%;">
                             <asp:Label ID="lblMinRedemption" runat="server" Text="Min Redemption Amount" CssClass="FieldName"></asp:Label>
                         </td>
                         <td style="width:24%;">
                             <asp:TextBox ID="txtMinRedemption" runat="server" CssClass="cmbFielde"></asp:TextBox>
                         </td>
-                        <td align="right" style="width:24.5%;">
+                        <td align="right" style="width:25%;">
                             <asp:Label ID="lblRedemptionmultiple" runat="server" Text="Redemption Multiple Amount"
                                 CssClass="FieldName"></asp:Label>
                         </td>
@@ -465,13 +466,13 @@
             <td colspan="4">
                 <table width="100%">
                     <tr>
-                        <td align="right" style="width:26%;">
+                        <td align="right" style="width:24%;">
                             <asp:Label ID="lblMinSwitchAmount" runat="server" Text="Min Switch Amount" CssClass="FieldName"></asp:Label>
                         </td>
                         <td style="width:24%;">
                             <asp:TextBox ID="txtMinSwitchAmount" runat="server" CssClass="cmbFielde"></asp:TextBox>
                         </td>
-                        <td align="right" style="width:24.5%;">
+                        <td align="right" style="width:25%;">
                             <asp:Label ID="lblMinSwitchUnits" runat="server" Text="Min Switch Units" CssClass="FieldName"></asp:Label>
                         </td>
                         <td style="width:26.5%;">
@@ -547,6 +548,8 @@
                     CssClass="FieldName" OnCheckedChanged="ChkISSTP_OnCheckedChanged" />
             </td>
         </tr>
+
+</table>
 </div>
 <%-- <tr>
            
@@ -558,6 +561,7 @@
         </div>
     </td>
 </tr>--%>
+<table>
 <tr>
     <asp:Panel ID="pnlSIPDetails" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
         Visible="true">
