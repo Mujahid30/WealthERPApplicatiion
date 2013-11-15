@@ -1797,4 +1797,12 @@
     <value>OnlineOrderManagement//NCDIssuesetup.ascx</value>
     <comment>OnlineOrderManagement//NCDIssuesetup.ascx</comment>
   </data>
+  <data name="MFOnlineUserLandingPage" xml:space="preserve">
+    <value>OnlineOrderManagement//MFOnlineUserLandingPage.ascx</value>
+    <comment>OnlineOrderManagement//MFOnlineUserLandingPage.ascx</comment>
+  </data>
+  <data name="OnlineClientAccess" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineClientAccess.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineClientAccess.ascx</comment>
+  </data>
 </root>

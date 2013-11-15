@@ -2682,6 +2682,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx.designer.cs">
       <DependentUpon>OnlineAdviserSIPSummaryBooks.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineClientAccess.ascx.cs">
+      <DependentUpon>OnlineClientAccess.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineClientAccess.ascx.designer.cs">
+      <DependentUpon>OnlineClientAccess.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.cs">
       <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2744,6 +2751,13 @@
     </Compile>
     <Compile Include="OnlineOrderManagement\CustomerTransactionBookList.ascx.designer.cs">
       <DependentUpon>CustomerTransactionBookList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx.cs">
+      <DependentUpon>MFOnlineUserLandingPage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx.designer.cs">
+      <DependentUpon>MFOnlineUserLandingPage.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx.cs">
       <DependentUpon>MFOrderAdditionalPurchase.ascx</DependentUpon>
@@ -7646,6 +7660,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineClientAccess.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
@@ -7655,6 +7670,7 @@
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerSIPBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerTransactionBookList.ascx" />
+    <Content Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderRdemptionTransType.ascx" />

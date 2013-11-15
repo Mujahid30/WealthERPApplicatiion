@@ -2158,6 +2158,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//MFOnlineUserLandingPage.ascx.
+        /// </summary>
+        internal static string MFOnlineUserLandingPage {
+            get {
+                return ResourceManager.GetString("MFOnlineUserLandingPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderManagement//MFOrderAdditionalPurchase.ascx.
         /// </summary>
         internal static string MFOrderAdditionalPurchase {
@@ -2370,6 +2379,15 @@ namespace WealthERP {
         internal static string OnlineAdviserCustomerSIPOrderBook {
             get {
                 return ResourceManager.GetString("OnlineAdviserCustomerSIPOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineClientAccess.ascx.
+        /// </summary>
+        internal static string OnlineClientAccess {
+            get {
+                return ResourceManager.GetString("OnlineClientAccess", resourceCulture);
             }
         }
         
