@@ -380,7 +380,6 @@ namespace BoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:getBondsBookview(int input)");
                 object[] objects = new object[1];
-               
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -412,6 +411,33 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return ApplicationNumber;
+        }
+        public DataSet GetNCDTransactOrder(int orderId, string IssuerId)
+        {
+            DataSet dsNCD;
+          
+            OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
+            try
+            {
+                dsNCD = OnlineBondOrderDao.GetNCDTransactOrder(orderId, IssuerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetNCDTransactOrder()");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           return dsNCD;
         }
     }
 }

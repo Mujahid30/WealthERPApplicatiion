@@ -29,6 +29,8 @@ namespace WealthERP.OnlineOrderManagement
         int customerId;
         double sum = 0;
         int Quantity = 0;
+        int orderId = 0;
+        string IssuerId;
         //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -42,10 +44,25 @@ namespace WealthERP.OnlineOrderManagement
                 Session["sum"] = null;
                 Session["Qty"] = null;
                 BindKYCDetailDDl();
+                if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null)
+                {
+                   orderId = int.Parse(Request.QueryString["OrderId"].ToString());
+                   IssuerId = Request.QueryString["IssuerId"].ToString();
+                   lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                
+                }
+                if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
+                {
+                    if (Request.QueryString["strAction"].Trim() == "Edit")
+                    {
+                       Viewdetails(IssuerId);
 
+
+                    }
+                }
                 if (Request.QueryString["IssuerId"] != null)
                 {
-                    string IssuerId = Request.QueryString["IssuerId"].ToString();
+                    IssuerId = Request.QueryString["IssuerId"].ToString();
                     lblIssuer.Text = "Selected Issue Name :" + IssuerId;
                     //int IssueIdN = Convert.ToInt32(IssueId);
                     ddIssuerList.Visible = false;
@@ -67,7 +84,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            string IssuerId = ddIssuerList.SelectedValue.ToString();
+            IssuerId = ddIssuerList.SelectedValue.ToString();
             BindStructureRuleGrid(IssuerId);
             //OnlineBondVo = new OnlineBondOrderVo();
             //OnlineBondVo = CollectOnlineBondData(sender);
@@ -344,6 +361,28 @@ namespace WealthERP.OnlineOrderManagement
                   //  }
                // }
            // }
+        }
+        protected void Viewdetails( string IssuerId)
+        {
+            DataSet dsStructureRules = OnlineBondBo.GetNCDTransactOrder(orderId, IssuerId); 
+            if (dsStructureRules.Tables[0].Rows.Count > 0)
+            {
+                gvCommMgmt.DataSource = dsStructureRules.Tables[0];             
+                gvCommMgmt.DataBind();
+                pnlNCDTransactact.Visible = true;
+                ibtExportSummary.Visible = true;
+                trSubmit.Visible = true;
+                // ViewState["Transact"] = dsStructureRules.Tables[0];
+            }
+            else
+            {
+                ibtExportSummary.Visible = false;
+                gvCommMgmt.DataSource = dsStructureRules.Tables[0];
+                gvCommMgmt.DataBind();
+                pnlNCDTransactact.Visible = true;
+                trSubmit.Visible = false;
+            }
+           
         }
 
         private void ShowAvailableLimits()

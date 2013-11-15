@@ -189,10 +189,11 @@ namespace WealthERP.OnlineOrderManagement
             int selectedRow = gvr.ItemIndex + 1;
             int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
             string IssuerId = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["PFIIM_IssuerId"].ToString();
+            //Session["NCDTransact"] = BoOnlineBondOrder.GetNCDTransactOrder(OrderId, IssuerId);
             if (ddlAction.SelectedItem.Value.ToString() == "Edit")
             {
                 action = "Edit";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','?OrderId=" + OrderId + "?IssuerId=" + IssuerId + "?strAction=" + action + " ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&strAction=" + action + " ');", true);
             }
         }
     }

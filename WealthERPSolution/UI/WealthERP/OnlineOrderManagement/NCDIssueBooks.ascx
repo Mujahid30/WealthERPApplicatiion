@@ -188,8 +188,13 @@
                                             UniqueName="BBAmounttoinvest" HeaderStyle-Width="77px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px"
-                                            UniqueName="Action" HeaderText="Action">
+                                        <telerik:GridBoundColumn DataField="WOS_OrderStep" AllowFiltering="false" HeaderText="Status"
+                                            HeaderStyle-Width="70px" UniqueName="WOS_OrderStep" SortExpression="WOS_OrderStep" ShowFilterIcon="false"
+                                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
+                                            HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:DropDownList ID="ddlaction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
                                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"

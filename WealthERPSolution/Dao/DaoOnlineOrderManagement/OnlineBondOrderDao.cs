@@ -89,6 +89,10 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetLiveBondTransaction");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, SeriesId);
+                //if (orderId!=0)
+                //    db.AddInParameter(cmdGetCommissionStructureRules, "@orderId", DbType.Int32, orderId);
+                //else
+                //    db.AddInParameter(cmdGetCommissionStructureRules, "@orderId", DbType.Int32, 0);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@ReportType", DbType.Int32, adviserId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
@@ -509,6 +513,44 @@ namespace DaoOnlineOrderManagement
             }
             return ApplicationNumber;
         }
+       public DataSet GetNCDTransactOrder(int orderId, string IssuerId)
+       {
+           Database db;
+           DataSet GetNCDTransactOrderDs;
+           DbCommand GetNCDTransactOrderCmd;
+           try
+           {
 
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               GetNCDTransactOrderCmd = db.GetStoredProcCommand("SPROC_ONL_GetLiveBookBondTransaction");
+               db.AddInParameter(GetNCDTransactOrderCmd, "@orderId", DbType.Int32, orderId);
+               db.AddInParameter(GetNCDTransactOrderCmd, "@IssuerId", DbType.String, IssuerId);
+               GetNCDTransactOrderDs = db.ExecuteDataSet(GetNCDTransactOrderCmd);
+              
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+
+               FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetNCDTransactOrder()");
+
+
+               object[] objects = new object[1];
+               objects[0] = orderId;
+
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+
+           }
+           return GetNCDTransactOrderDs;
+
+       }
     }
 }
