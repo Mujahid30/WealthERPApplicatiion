@@ -346,7 +346,7 @@
                                                         </asp:ListItem>
                                                         <asp:ListItem Text="Is Offline" Value="0">
                                                         </asp:ListItem>
-                                                </asp:DropDownList>z
+                                                </asp:DropDownList>
                                                 </td>
                                             </tr>
                                         </table>

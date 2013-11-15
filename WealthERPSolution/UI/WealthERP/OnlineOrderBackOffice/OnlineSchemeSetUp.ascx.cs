@@ -32,7 +32,8 @@ namespace WealthERP.OnlineOrderBackOffice
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         CustomerBankAccountBo customerBankAccountBo = new CustomerBankAccountBo();
         OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
-        OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+        MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
+        //MFProductAMCSchemePlanDetailsVo MFProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
         AdvisorVo advisorVo = new AdvisorVo();
         UserVo userVo = new UserVo();
         int schemeId = 0;
@@ -357,39 +358,39 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void SaveSchemeDetails()
         {
-            OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
             if (ChkNRI.Checked)
             {
-                OnlineOrderBackOfficeVo.CustomerSubTypeCode = "IND";
+                mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "IND";
 
             }
             if (ChkBO.Checked)
             {
-                OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
+                mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NIND";
 
             }
             if (chkonline.Checked)
             {
-                OnlineOrderBackOfficeVo.IsOnline = 1;
+                mfProductAMCSchemePlanDetailsVo.IsOnline = 1;
 
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsOnline = 0;
+                mfProductAMCSchemePlanDetailsVo.IsOnline = 0;
             }
             if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
             {
-                OnlineOrderBackOfficeVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+                mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue.ToString());
             }
             else
             {
                 ddlSchemeList.SelectedValue = "Select";
             }
-            OnlineOrderBackOfficeVo.SchemePlanName = ddlSchemeList.SelectedItem.Text;
-            OnlineOrderBackOfficeVo.ExternalCode = txtESSchemecode.Text.ToString();
+            mfProductAMCSchemePlanDetailsVo.SchemePlanName = ddlSchemeList.SelectedItem.Text;
+            mfProductAMCSchemePlanDetailsVo.ExternalCode = txtESSchemecode.Text.ToString();
             if (!string.IsNullOrEmpty(ddlAmc.SelectedValue))
             {
-                OnlineOrderBackOfficeVo.AMCCode = int.Parse(ddlAmc.SelectedValue);
+                mfProductAMCSchemePlanDetailsVo.AMCCode = int.Parse(ddlAmc.SelectedValue);
             }
             else
             {
@@ -397,18 +398,18 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
 
-            OnlineOrderBackOfficeVo.AssetCategoryCode = ddlcategory.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.AssetCategoryCode = ddlcategory.SelectedValue;
             if (!string.IsNullOrEmpty(txtFvale.Text))
             {
-                OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(txtFvale.Text);
+                mfProductAMCSchemePlanDetailsVo.FaceValue = Convert.ToDouble(txtFvale.Text);
             }
-            OnlineOrderBackOfficeVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
-            OnlineOrderBackOfficeVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
-            OnlineOrderBackOfficeVo.SchemeType = ddlSctype.SelectedValue;
-            OnlineOrderBackOfficeVo.SchemeOption = ddlOption.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.SchemeType = ddlSctype.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.SchemeOption = ddlOption.SelectedValue;
             if (!string.IsNullOrEmpty(ddlBname.SelectedValue))
             {
-                OnlineOrderBackOfficeVo.BankName = ddlBname.SelectedValue;
+                mfProductAMCSchemePlanDetailsVo.BankName = ddlBname.SelectedValue;
             }
             else
             {
@@ -416,30 +417,30 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
 
-            OnlineOrderBackOfficeVo.WERPBM_BankCode = ddlBname.SelectedValue;
-            OnlineOrderBackOfficeVo.Branch = txtBranch.Text;
-            OnlineOrderBackOfficeVo.AccountNumber = txtACno.Text;
-            OnlineOrderBackOfficeVo.DividendFrequency = ddlDFrequency.SelectedValue;
-            OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode = ddlBname.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
+            mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
+            mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
+            mfProductAMCSchemePlanDetailsVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
             if (chkInfo.Checked)
             {
-                OnlineOrderBackOfficeVo.IsNFO = 1;
+                mfProductAMCSchemePlanDetailsVo.IsNFO = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsNFO = 0;
+                mfProductAMCSchemePlanDetailsVo.IsNFO = 0;
             }
             if (txtNFOStartDate.SelectedDate.ToString() != null && txtNFOStartDate.SelectedDate.ToString() != string.Empty)
             {
-                OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+                mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
             }
             if (txtNFOendDate.SelectedDate.ToString() != null && txtNFOendDate.SelectedDate.ToString() != string.Empty)
             {
-                OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+                mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
             }
             if (!string.IsNullOrEmpty(txtLIperiod.Text))
             {
-                OnlineOrderBackOfficeVo.LockInPeriod = int.Parse(txtLIperiod.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.LockInPeriod = int.Parse(txtLIperiod.Text.ToString());
             }
             //DateTime time1 = Convert.ToDateTime(txtHH.Text);
             //DateTime time2 =Convert.ToDateTime(txtMM.Text);  
@@ -451,123 +452,123 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Time != null || Time == "")
                 {
                     TimeSpan CutOff = TimeSpan.Parse(Time);
-                    OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                    mfProductAMCSchemePlanDetailsVo.CutOffTime = (CutOff);
                 }
                 else
                 {
                     TimeSpan CutOff = TimeSpan.Parse("00:00:00");
-                    OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                    mfProductAMCSchemePlanDetailsVo.CutOffTime = (CutOff);
                 }
             }
             if (!string.IsNullOrEmpty(txtEload.Text))
             {
-                OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text);
+                mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text);
             }
-            OnlineOrderBackOfficeVo.EntryLoadRemark = txtELremark.Text;
+            mfProductAMCSchemePlanDetailsVo.EntryLoadRemark = txtELremark.Text;
 
             {
                 if (!string.IsNullOrEmpty(txtExitLoad.Text))
-                    OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text);
+                    mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text);
             }
-            OnlineOrderBackOfficeVo.ExitLoadRemark = txtExitLremark.Text;
+            mfProductAMCSchemePlanDetailsVo.ExitLoadRemark = txtExitLremark.Text;
             if (ChkISPurchage.Checked)
             {
-                OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
+                mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
+                mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable = 0;
             }
             if (ChkISRedeem.Checked)
             {
-                OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
+                mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
+                mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable = 0;
             }
             if (ChkISSIP.Checked)
             {
-                OnlineOrderBackOfficeVo.IsSIPAvailable = 1;
+                mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsSIPAvailable = 0;
+                mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 0;
             }
             if (ChkISSTP.Checked)
             {
-                OnlineOrderBackOfficeVo.IsSTPAvailable = 1;
+                mfProductAMCSchemePlanDetailsVo.IsSTPAvailable = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsSTPAvailable = 0;
+                mfProductAMCSchemePlanDetailsVo.IsSTPAvailable = 0;
             }
             if (ChkISSwitch.Checked)
             {
-                OnlineOrderBackOfficeVo.IsSwitchAvailable = 1;
+                mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsSwitchAvailable = 0;
+                mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable = 0;
             }
             if (ChkISSWP.Checked)
             {
-                OnlineOrderBackOfficeVo.IsSWPAvailable = 1;
+                mfProductAMCSchemePlanDetailsVo.IsSWPAvailable = 1;
             }
             else
             {
-                OnlineOrderBackOfficeVo.IsSWPAvailable = 0;
+                mfProductAMCSchemePlanDetailsVo.IsSWPAvailable = 0;
             }
             if (ChkISactive.Checked)
             {
-                OnlineOrderBackOfficeVo.Status = "Active";
+                mfProductAMCSchemePlanDetailsVo.Status = "Active";
             }
             else
             {
-                OnlineOrderBackOfficeVo.Status = "Liquidated";
+                mfProductAMCSchemePlanDetailsVo.Status = "Liquidated";
             }
             if (!string.IsNullOrEmpty(txtInitalPamount.Text))
             {
-                OnlineOrderBackOfficeVo.InitialPurchaseAmount = Convert.ToDouble(txtInitalPamount.Text);
+                mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount = Convert.ToDouble(txtInitalPamount.Text);
             }
             if (!string.IsNullOrEmpty(txtIMultipleamount.Text))
             {
-                OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text);
+                mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text);
             }
             if (!string.IsNullOrEmpty(txtAdditional.Text))
             {
-                OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(txtAdditional.Text);
+                mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount = Convert.ToDouble(txtAdditional.Text);
             }
             if (!string.IsNullOrEmpty(txtAddMultipleamount.Text))
             {
-                OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text);
+                mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text);
             }
             if (!string.IsNullOrEmpty(txtMinRedemption.Text))
             {
-                OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text);
+                mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text);
             }
             if (!string.IsNullOrEmpty(txtMinRedemptioUnits.Text))
             {
-                OnlineOrderBackOfficeVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text);
+                mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text);
             }
             if (!string.IsNullOrEmpty(txtMinSwitchAmount.Text))
             {
-                OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text);
+                mfProductAMCSchemePlanDetailsVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text);
             }
             if (!string.IsNullOrEmpty(txtMinSwitchUnits.Text))
             {
-                OnlineOrderBackOfficeVo.MinSwitchUnits = Convert.ToInt32(txtMinSwitchUnits.Text);
+                mfProductAMCSchemePlanDetailsVo.MinSwitchUnits = Convert.ToInt32(txtMinSwitchUnits.Text);
             }
             if (!string.IsNullOrEmpty(txtRedemptionMultiplesUnits.Text))
             {
-                OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text);
+                mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text);
             }
             if (!string.IsNullOrEmpty(txtExitLoad.Text))
-                OnlineOrderBackOfficeVo.SecurityCode = txtSecuritycode.Text;
-            OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue;
+                mfProductAMCSchemePlanDetailsVo.SecurityCode = txtSecuritycode.Text;
+            mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedValue;
             if (!string.IsNullOrEmpty(txtinvestment.Text))
             {
-                OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text);
+                mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text);
             }
 
         }
@@ -591,10 +592,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkInfo.Enabled = false;
                 ddlSchemeList.Enabled = false;
                 //txtNFOStartDate.ToString()="";
-                //OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+                //mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
                 txtLIperiod.Enabled = false;
                 //DateTime time = Convert.ToDateTime(txtHH.Text + "" + txtMM.Text + " " + txtSS.Text.ToString());
-                //OnlineOrderBackOfficeVo.CutOffTime = time.ToLocalTime;
+                //mfProductAMCSchemePlanDetailsVo.CutOffTime = time.ToLocalTime;
                 txtHH.Enabled = false;
                 txtMM.Enabled = false;
                 txtSS.Enabled = false;
@@ -677,39 +678,41 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnupdate.Visible = true;
                 tblMessage.Visible = false;
                 lbBack.Visible = false;
-                gvSIPDetails.MasterTableView.IsItemInserted = false;
+                //gvSIPDetails.MasterTableView.IsItemInserted = false;
+                GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+                commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
             }
 
         }
         protected void ViewSchemeDetails()
         {
-            OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
+            mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
 
-            // txtScname.Text = OnlineOrderBackOfficeVo.SchemePlanName;
-            txtESSchemecode.Text = OnlineOrderBackOfficeVo.ExternalCode;
-            //txtAMFI.Text = OnlineOrderBackOfficeVo.ExternalCode;
+            // txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
+            txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
+            //txtAMFI.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             //BindAMC();           
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.DividendFrequency))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
             {
-                ddlDFrequency.SelectedValue = OnlineOrderBackOfficeVo.DividendFrequency.ToString();
+                ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
             }
             else
             {
                 ddlDFrequency.SelectedValue = "0";
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
             {
-                ddlGenerationfreq.SelectedValue = OnlineOrderBackOfficeVo.GenerationFrequency.ToString();
+                ddlGenerationfreq.SelectedValue = mfProductAMCSchemePlanDetailsVo.GenerationFrequency.ToString();
 
             }
             else
             {
                 ddlGenerationfreq.SelectedValue = "0";
             }
-            if (OnlineOrderBackOfficeVo.AMCCode != 0)
+            if (mfProductAMCSchemePlanDetailsVo.AMCCode != 0)
             {
 
-                ddlAmc.SelectedValue = OnlineOrderBackOfficeVo.AMCCode.ToString();
+                ddlAmc.SelectedValue = mfProductAMCSchemePlanDetailsVo.AMCCode.ToString();
             }
             else
             {
@@ -719,9 +722,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetCategoryCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetCategoryCode))
             {
-                ddlcategory.SelectedValue = OnlineOrderBackOfficeVo.AssetCategoryCode.ToString();
+                ddlcategory.SelectedValue = mfProductAMCSchemePlanDetailsVo.AssetCategoryCode.ToString();
             }
             else
             {
@@ -730,75 +733,75 @@ namespace WealthERP.OnlineOrderBackOffice
 
             LoadAllSchemeList(Convert.ToInt32(ddlAmc.SelectedValue));
 
-            if (OnlineOrderBackOfficeVo.SchemePlanCode != 0)
+            if (mfProductAMCSchemePlanDetailsVo.SchemePlanCode != 0)
             {
-                ddlSchemeList.SelectedValue = OnlineOrderBackOfficeVo.SchemePlanCode.ToString();
+                ddlSchemeList.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
             }
             else
             {
                 ddlSchemeList.SelectedValue = "0";
             }
             Bindscheme(int.Parse(ddlSchemeList.SelectedValue.ToString()));
-            txtFvale.Text = OnlineOrderBackOfficeVo.FaceValue.ToString();
+            txtFvale.Text = mfProductAMCSchemePlanDetailsVo.FaceValue.ToString();
             BindSubCategory(ddlcategory.SelectedValue);
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubCategoryCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode))
             {
-                ddlScategory.SelectedValue = OnlineOrderBackOfficeVo.AssetSubCategoryCode.ToString();
+                ddlScategory.SelectedValue = mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode.ToString();
             }
             else
             {
                 ddlScategory.SelectedValue = "0";
             }
             BindSubSubCategory(ddlcategory.SelectedValue, ddlScategory.SelectedValue);
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubSubCategory))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory))
             {
-                ddlSScategory.SelectedValue = OnlineOrderBackOfficeVo.AssetSubSubCategory.ToString();
+                ddlSScategory.SelectedValue = mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory.ToString();
             }
             else
             {
                 ddlSScategory.SelectedValue = "0";
             }
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeType))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeType))
             {
                 ddlSctype.Enabled = true;
-                ddlSctype.SelectedValue = OnlineOrderBackOfficeVo.SchemeType.ToString();
+                ddlSctype.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeType.ToString();
                 ddlSctype.Enabled = false;
             }
             else
             {
                 ddlSctype.SelectedValue = "0";
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeOption))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeOption))
             {
-                ddlOption.SelectedValue = OnlineOrderBackOfficeVo.SchemeOption.ToString();
+                ddlOption.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeOption.ToString();
             }
             else
             {
                 ddlOption.SelectedValue = "0";
             }
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.WERPBM_BankCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode))
             {
-                ddlBname.SelectedValue = OnlineOrderBackOfficeVo.WERPBM_BankCode.ToString();
+                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode.ToString();
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.Branch))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Branch))
             {
-                txtBranch.Text = OnlineOrderBackOfficeVo.Branch.ToString();
+                txtBranch.Text = mfProductAMCSchemePlanDetailsVo.Branch.ToString();
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AccountNumber))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AccountNumber))
             {
-                txtACno.Text = OnlineOrderBackOfficeVo.AccountNumber.ToString();
+                txtACno.Text = mfProductAMCSchemePlanDetailsVo.AccountNumber.ToString();
             }
-            if (OnlineOrderBackOfficeVo.CustomerSubTypeCode == "IND")
+            if (mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode == "IND")
             {
                 ChkNRI.Checked = true;
             }
-            if (OnlineOrderBackOfficeVo.CustomerSubTypeCode == "NIND")
+            if (mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode == "NIND")
             {
                 ChkBO.Checked = true;
             }
-            //if (OnlineOrderBackOfficeVo.IsOnline == 1)
+            //if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
             //{
             //    chkonline.Checked = true;
             //    chkoffline.Checked = false;
@@ -810,7 +813,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
 
-            if (OnlineOrderBackOfficeVo.IsNFO == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsNFO == 1)
             {
                 chkInfo.Checked = true;
             }
@@ -819,26 +822,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkInfo.Checked = false;
             }
 
-            if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
+            if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
             {
-                txtNFOStartDate.SelectedDate = OnlineOrderBackOfficeVo.NFOStartDate;
+                txtNFOStartDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.NFOStartDate;
 
             }
             //else
             //{
             //    txtNFOStartDate.SelectedDate = DateTime.MinValue;  
             //}
-            if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+            if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
             {
-                txtNFOendDate.SelectedDate = OnlineOrderBackOfficeVo.NFOEndDate;
+                txtNFOendDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.NFOEndDate;
             }
             //else
             //{
             //    txtNFOendDate.SelectedDate = DateTime.MinValue;
             //}
-            txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
+            txtLIperiod.Text = mfProductAMCSchemePlanDetailsVo.LockInPeriod.ToString();
             string Time = (txtHH.Text + ':' + txtMM.Text + ':' + txtSS.Text);
-            Time = Convert.ToString(OnlineOrderBackOfficeVo.CutOffTime).ToString();
+            Time = Convert.ToString(mfProductAMCSchemePlanDetailsVo.CutOffTime).ToString();
             string pattern = @":|:|:";
             string[] result = Regex.Split(Time, pattern);
             for (int ctr = 0; ctr < result.Length; ctr++)
@@ -867,17 +870,17 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
             //DateTime time = Convert.ToDateTime(txtHH.Text + "" + txtMM.Text + " " + txtSS.Text.ToString());
-            //OnlineOrderBackOfficeVo.CutOffTime = time.ToLocalTime;
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString()))
+            //mfProductAMCSchemePlanDetailsVo.CutOffTime = time.ToLocalTime;
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString()))
             {
-                txtEload.Text = OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString();
+                txtEload.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString();
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadRemark))
-                txtELremark.Text = OnlineOrderBackOfficeVo.EntryLoadRemark.ToString();
-            txtExitLoad.Text = OnlineOrderBackOfficeVo.ExitLoadPercentage.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExitLoadRemark))
-                txtExitLremark.Text = OnlineOrderBackOfficeVo.ExitLoadRemark.ToString();
-            if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.EntryLoadRemark))
+                txtELremark.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadRemark.ToString();
+            txtExitLoad.Text = mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExitLoadRemark))
+                txtExitLremark.Text = mfProductAMCSchemePlanDetailsVo.ExitLoadRemark.ToString();
+            if (mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable == 1)
             {
                 ChkISPurchage.Checked = true;
             }
@@ -885,7 +888,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISPurchage.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsRedeemAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable == 1)
             {
                 ChkISRedeem.Checked = true;
             }
@@ -894,7 +897,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISRedeem.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSIPAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSIPAvailable == 1)
             {
                 ChkISSIP.Checked = true;
             }
@@ -902,7 +905,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSIP.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSTPAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSTPAvailable == 1)
             {
                 ChkISSTP.Checked = true;
             }
@@ -910,7 +913,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSTP.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSwitchAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable == 1)
             {
                 ChkISSwitch.Checked = true;
             }
@@ -918,7 +921,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSwitch.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSWPAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSWPAvailable == 1)
             {
                 ChkISSWP.Checked = true;
             }
@@ -926,7 +929,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSWP.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.Status == "Active")
+            if (mfProductAMCSchemePlanDetailsVo.Status == "Active")
             {
                 ChkISactive.Checked = true;
             }
@@ -934,24 +937,24 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISactive.Checked = false;
             }
-            txtInitalPamount.Text = OnlineOrderBackOfficeVo.InitialPurchaseAmount.ToString();
-            txtIMultipleamount.Text = OnlineOrderBackOfficeVo.InitialMultipleAmount.ToString();
-            txtAdditional.Text = OnlineOrderBackOfficeVo.AdditionalPruchaseAmount.ToString();
-            txtAddMultipleamount.Text = OnlineOrderBackOfficeVo.AdditionalMultipleAmount.ToString();
-            txtMinRedemption.Text = OnlineOrderBackOfficeVo.MinRedemptionAmount.ToString();
-            txtMinRedemptioUnits.Text = OnlineOrderBackOfficeVo.MinRedemptionUnits.ToString();
-            txtMinSwitchAmount.Text = OnlineOrderBackOfficeVo.SwitchMultipleAmount.ToString();
-            txtMinSwitchUnits.Text = OnlineOrderBackOfficeVo.SwitchMultiplesUnits.ToString();
-            txtRedemptionmultiple.Text = OnlineOrderBackOfficeVo.RedemptionMultipleAmount.ToString();
-            txtRedemptionMultiplesUnits.Text = OnlineOrderBackOfficeVo.RedemptionMultiplesUnits.ToString();
-            txtSwitchMultipleAmount.Text = OnlineOrderBackOfficeVo.SwitchMultipleAmount.ToString();
-            txtSwitchMultipleUnits.Text = OnlineOrderBackOfficeVo.SwitchMultiplesUnits.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SecurityCode))
-                txtSecuritycode.Text = OnlineOrderBackOfficeVo.SecurityCode.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
-                ddlRT.SelectedItem.Value = OnlineOrderBackOfficeVo.ExternalType.ToString();
+            txtInitalPamount.Text = mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount.ToString();
+            txtIMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount.ToString();
+            txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
+            txtAddMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString();
+            txtMinRedemption.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount.ToString();
+            txtMinRedemptioUnits.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits.ToString();
+            txtMinSwitchAmount.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount.ToString();
+            txtMinSwitchUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
+            txtRedemptionmultiple.Text = mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount.ToString();
+            txtRedemptionMultiplesUnits.Text = mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits.ToString();
+            txtSwitchMultipleAmount.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount.ToString();
+            txtSwitchMultipleUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
+                txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
+                ddlRT.SelectedItem.Value = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
 
-            txtinvestment.Text = OnlineOrderBackOfficeVo.PASPD_MaxInvestment.ToString();
+            txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
 
         }
 
@@ -960,33 +963,33 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void EditSchemeDetails()
         {
-            OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
+            mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
 
-            // txtScname.Text = OnlineOrderBackOfficeVo.SchemePlanName;
-            txtESSchemecode.Text = OnlineOrderBackOfficeVo.ExternalCode;
-            //txtAMFI.Text = OnlineOrderBackOfficeVo.ExternalCode;
+            // txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
+            txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
+            //txtAMFI.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             //BindAMC();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.DividendFrequency))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
             {
-                ddlDFrequency.SelectedValue = OnlineOrderBackOfficeVo.DividendFrequency.ToString();
+                ddlDFrequency.SelectedValue = mfProductAMCSchemePlanDetailsVo.DividendFrequency.ToString();
             }
             else
             {
                 ddlDFrequency.SelectedValue = "0";
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
             {
-                ddlGenerationfreq.SelectedValue = OnlineOrderBackOfficeVo.GenerationFrequency.ToString();
+                ddlGenerationfreq.SelectedValue = mfProductAMCSchemePlanDetailsVo.GenerationFrequency.ToString();
 
             }
             else
             {
                 ddlGenerationfreq.SelectedValue = "0";
             }
-            if (OnlineOrderBackOfficeVo.AMCCode != 0)
+            if (mfProductAMCSchemePlanDetailsVo.AMCCode != 0)
             {
 
-                ddlAmc.SelectedValue = OnlineOrderBackOfficeVo.AMCCode.ToString();
+                ddlAmc.SelectedValue = mfProductAMCSchemePlanDetailsVo.AMCCode.ToString();
             }
             else
             {
@@ -996,9 +999,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetCategoryCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetCategoryCode))
             {
-                ddlcategory.SelectedValue = OnlineOrderBackOfficeVo.AssetCategoryCode.ToString();
+                ddlcategory.SelectedValue = mfProductAMCSchemePlanDetailsVo.AssetCategoryCode.ToString();
             }
             else
             {
@@ -1007,74 +1010,74 @@ namespace WealthERP.OnlineOrderBackOffice
 
             LoadAllSchemeList(Convert.ToInt32(ddlAmc.SelectedValue));
 
-            if (OnlineOrderBackOfficeVo.SchemePlanCode != 0)
+            if (mfProductAMCSchemePlanDetailsVo.SchemePlanCode != 0)
             {
-                ddlSchemeList.SelectedValue = OnlineOrderBackOfficeVo.SchemePlanCode.ToString();
+                ddlSchemeList.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemePlanCode.ToString();
             }
             else
             {
                 ddlSchemeList.SelectedValue = "0";
             }
-            txtFvale.Text = OnlineOrderBackOfficeVo.FaceValue.ToString();
+            txtFvale.Text = mfProductAMCSchemePlanDetailsVo.FaceValue.ToString();
             BindSubCategory(ddlcategory.SelectedValue);
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubCategoryCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode))
             {
-                ddlScategory.SelectedValue = OnlineOrderBackOfficeVo.AssetSubCategoryCode.ToString();
+                ddlScategory.SelectedValue = mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode.ToString();
             }
             else
             {
                 ddlScategory.SelectedValue = "0";
             }
             BindSubSubCategory(ddlcategory.SelectedValue, ddlScategory.SelectedValue);
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubSubCategory))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory))
             {
-                ddlSScategory.SelectedValue = OnlineOrderBackOfficeVo.AssetSubSubCategory.ToString();
+                ddlSScategory.SelectedValue = mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory.ToString();
             }
             else
             {
                 ddlSScategory.SelectedValue = "0";
             }
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeType))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeType))
             {
                 ddlSctype.Enabled = true;
-                ddlSctype.SelectedValue = OnlineOrderBackOfficeVo.SchemeType.ToString();
+                ddlSctype.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeType.ToString();
                 ddlSctype.Enabled = false;
             }
             else
             {
                 ddlSctype.SelectedValue = "0";
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeOption))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeOption))
             {
-                ddlOption.SelectedValue = OnlineOrderBackOfficeVo.SchemeOption.ToString();
+                ddlOption.SelectedValue = mfProductAMCSchemePlanDetailsVo.SchemeOption.ToString();
             }
             else
             {
                 ddlOption.SelectedValue = "0";
             }
 
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.WERPBM_BankCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode))
             {
-                ddlBname.SelectedValue = OnlineOrderBackOfficeVo.WERPBM_BankCode.ToString();
+                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode.ToString();
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.Branch))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Branch))
             {
-                txtBranch.Text = OnlineOrderBackOfficeVo.Branch.ToString();
+                txtBranch.Text = mfProductAMCSchemePlanDetailsVo.Branch.ToString();
             }
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AccountNumber))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AccountNumber))
             {
-                txtACno.Text = OnlineOrderBackOfficeVo.AccountNumber.ToString();
+                txtACno.Text = mfProductAMCSchemePlanDetailsVo.AccountNumber.ToString();
             }
-            if (OnlineOrderBackOfficeVo.CustomerSubTypeCode == "IND")
+            if (mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode == "IND")
             {
                 ChkNRI.Checked = true;
             }
-            if (OnlineOrderBackOfficeVo.CustomerSubTypeCode == "NIND")
+            if (mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode == "NIND")
             {
                 ChkBO.Checked = true;
             }
-            if (OnlineOrderBackOfficeVo.IsOnline == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
             {
                 chkonline.Checked = true;
                 //chkoffline.Checked = false;
@@ -1086,7 +1089,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
 
-            if (OnlineOrderBackOfficeVo.IsNFO == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsNFO == 1)
             {
                 chkInfo.Checked = true;
             }
@@ -1095,26 +1098,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkInfo.Checked = false;
             }
 
-            if (OnlineOrderBackOfficeVo.NFOStartDate != DateTime.MinValue)
+            if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
             {
-                txtNFOStartDate.SelectedDate = OnlineOrderBackOfficeVo.NFOStartDate;
+                txtNFOStartDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.NFOStartDate;
 
             }
             //else
             //{
             //    txtNFOStartDate.SelectedDate = DateTime.MinValue;  
             //}
-            if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
+            if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
             {
-                txtNFOendDate.SelectedDate = OnlineOrderBackOfficeVo.NFOEndDate;
+                txtNFOendDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.NFOEndDate;
             }
             //else
             //{
             //    txtNFOendDate.SelectedDate = DateTime.MinValue;
             //}
-            txtLIperiod.Text = OnlineOrderBackOfficeVo.LockInPeriod.ToString();
+            txtLIperiod.Text = mfProductAMCSchemePlanDetailsVo.LockInPeriod.ToString();
             string Time = (txtHH.Text + ':' + txtMM.Text + ':' + txtSS.Text);
-            Time = Convert.ToString(OnlineOrderBackOfficeVo.CutOffTime).ToString();
+            Time = Convert.ToString(mfProductAMCSchemePlanDetailsVo.CutOffTime).ToString();
             string pattern = @":|:|:";
             string[] result = Regex.Split(Time, pattern);
             for (int ctr = 0; ctr < result.Length; ctr++)
@@ -1143,14 +1146,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //}
 
             //DateTime time = Convert.ToDateTime(txtHH.Text + "" + txtMM.Text + " " + txtSS.Text.ToString());
-            //OnlineOrderBackOfficeVo.CutOffTime = time.ToLocalTime;
-            txtEload.Text = OnlineOrderBackOfficeVo.EntryLoadPercentag.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.EntryLoadRemark))
-                txtELremark.Text = OnlineOrderBackOfficeVo.EntryLoadRemark.ToString();
-            txtExitLoad.Text = OnlineOrderBackOfficeVo.ExitLoadPercentage.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExitLoadRemark))
-                txtExitLremark.Text = OnlineOrderBackOfficeVo.ExitLoadRemark.ToString();
-            if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
+            //mfProductAMCSchemePlanDetailsVo.CutOffTime = time.ToLocalTime;
+            txtEload.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.EntryLoadRemark))
+                txtELremark.Text = mfProductAMCSchemePlanDetailsVo.EntryLoadRemark.ToString();
+            txtExitLoad.Text = mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExitLoadRemark))
+                txtExitLremark.Text = mfProductAMCSchemePlanDetailsVo.ExitLoadRemark.ToString();
+            if (mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable == 1)
             {
                 ChkISPurchage.Checked = true;
             }
@@ -1158,7 +1161,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISPurchage.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsRedeemAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable == 1)
             {
                 ChkISRedeem.Checked = true;
             }
@@ -1167,7 +1170,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISRedeem.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSIPAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSIPAvailable == 1)
             {
                 ChkISSIP.Checked = true;
             }
@@ -1175,7 +1178,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSIP.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSTPAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSTPAvailable == 1)
             {
                 ChkISSTP.Checked = true;
             }
@@ -1183,7 +1186,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSTP.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSwitchAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable == 1)
             {
                 ChkISSwitch.Checked = true;
             }
@@ -1191,7 +1194,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSwitch.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.IsSWPAvailable == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsSWPAvailable == 1)
             {
                 ChkISSWP.Checked = true;
             }
@@ -1199,7 +1202,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISSWP.Checked = false;
             }
-            if (OnlineOrderBackOfficeVo.Status == "Active")
+            if (mfProductAMCSchemePlanDetailsVo.Status == "Active")
             {
                 ChkISactive.Checked = true;
             }
@@ -1207,22 +1210,22 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkISactive.Checked = false;
             }
-            txtInitalPamount.Text = OnlineOrderBackOfficeVo.InitialPurchaseAmount.ToString();
-            txtIMultipleamount.Text = OnlineOrderBackOfficeVo.InitialMultipleAmount.ToString();
-            txtAdditional.Text = OnlineOrderBackOfficeVo.AdditionalPruchaseAmount.ToString();
-            txtAddMultipleamount.Text = OnlineOrderBackOfficeVo.AdditionalMultipleAmount.ToString();
-            txtMinRedemption.Text = OnlineOrderBackOfficeVo.MinRedemptionAmount.ToString();
-            txtMinRedemptioUnits.Text = OnlineOrderBackOfficeVo.MinRedemptionUnits.ToString();
-            txtMinSwitchAmount.Text = OnlineOrderBackOfficeVo.SwitchMultipleAmount.ToString();
-            txtMinSwitchUnits.Text = OnlineOrderBackOfficeVo.SwitchMultiplesUnits.ToString();
-            txtRedemptionMultiplesUnits.Text = OnlineOrderBackOfficeVo.RedemptionMultiplesUnits.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SecurityCode))
-                txtSecuritycode.Text = OnlineOrderBackOfficeVo.SecurityCode.ToString();
-            if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
+            txtInitalPamount.Text = mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount.ToString();
+            txtIMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount.ToString();
+            txtAdditional.Text = mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount.ToString();
+            txtAddMultipleamount.Text = mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount.ToString();
+            txtMinRedemption.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount.ToString();
+            txtMinRedemptioUnits.Text = mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits.ToString();
+            txtMinSwitchAmount.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount.ToString();
+            txtMinSwitchUnits.Text = mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits.ToString();
+            txtRedemptionMultiplesUnits.Text = mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SecurityCode))
+                txtSecuritycode.Text = mfProductAMCSchemePlanDetailsVo.SecurityCode.ToString();
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
             {
-                ddlRT.SelectedValue = OnlineOrderBackOfficeVo.ExternalType.ToString();
+                ddlRT.SelectedValue = mfProductAMCSchemePlanDetailsVo.ExternalType.ToString();
             }
-            txtinvestment.Text = OnlineOrderBackOfficeVo.PASPD_MaxInvestment.ToString();
+            txtinvestment.Text = mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment.ToString();
 
 
 
@@ -1244,10 +1247,10 @@ namespace WealthERP.OnlineOrderBackOffice
             txtACno.Text = ""; ;
             chkInfo.Checked = false;
             //txtNFOStartDate.ToString()="";
-            //OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+            //mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
             txtLIperiod.Text = "";
             //DateTime time = Convert.ToDateTime(txtHH.Text + "" + txtMM.Text + " " + txtSS.Text.ToString());
-            //OnlineOrderBackOfficeVo.CutOffTime = time.ToLocalTime;
+            //mfProductAMCSchemePlanDetailsVo.CutOffTime = time.ToLocalTime;
             txtEload.Text = "";
             txtELremark.Text = "";
             txtExitLoad.Text = "";
@@ -1331,7 +1334,7 @@ namespace WealthERP.OnlineOrderBackOffice
             List<int> SchemePlancodes = new List<int>();
             if (AMFIValidation(txtAMFI.Text))
             {
-                SchemePlancodes = OnlineOrderBackOfficeBo.CreateOnlineSchemeSetUp(OnlineOrderBackOfficeVo, userVo.UserId);
+                SchemePlancodes = OnlineOrderBackOfficeBo.CreateOnlineSchemeSetUp(mfProductAMCSchemePlanDetailsVo, userVo.UserId);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Submit Successfully!!');", true);
                 Clearallcontrols();
             }
@@ -1352,12 +1355,12 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 string message = string.Empty;
-                OnlineOrderBackOfficeVo = (OnlineOrderBackOfficeVo)Session["SchemeList"];
-                OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+                mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
+                mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
 
-                //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.Product))
+                //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Product))
                 //{
-                //OnlineOrderBackOfficeVo.Product = ddlProduct.SelectedValue;
+                //mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
                 //}
                 //else
                 //{
@@ -1367,7 +1370,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(ddlcategory.SelectedValue))
                 {
-                    OnlineOrderBackOfficeVo.AssetCategoryCode = ddlcategory.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.AssetCategoryCode = ddlcategory.SelectedValue;
                 }
                 else
                 {
@@ -1377,56 +1380,56 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(ddlScategory.SelectedValue))
                 {
-                    OnlineOrderBackOfficeVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode = ddlScategory.SelectedValue;
                 }
                 else
                 {
                     ddlScategory.SelectedValue = "Select";
                 }
                 BindSubSubCategory(ddlcategory.SelectedValue, ddlScategory.SelectedValue);
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.AssetSubSubCategory))
+                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory))
                 {
-                    OnlineOrderBackOfficeVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory = ddlSScategory.SelectedValue;
                 }
                 else
                 {
                     ddlSScategory.SelectedValue = "0";
                 }
 
-                //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.DividendFrequency))
+                //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.DividendFrequency))
                 //{
-                //    OnlineOrderBackOfficeVo.DividendFrequency = ddlDFrequency.SelectedValue;
+                //    mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
                 //}
                 //else
                 //{
                 //    ddlDFrequency.SelectedValue = "0";
                 //}
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.WERPBM_BankCode))
+                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode))
                 {
-                    OnlineOrderBackOfficeVo.WERPBM_BankCode = ddlBname.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode = ddlBname.SelectedValue;
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeType))
+                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeType))
                 {
                     ddlSctype.Enabled = true;
-                    OnlineOrderBackOfficeVo.SchemeType = ddlSctype.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.SchemeType = ddlSctype.SelectedValue;
                     ddlSctype.Enabled = false;
                 }
                 else
                 {
                     ddlSctype.SelectedValue = "Select";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.SchemeOption))
+                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeOption))
                 {
-                    OnlineOrderBackOfficeVo.SchemeOption = ddlOption.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.SchemeOption = ddlOption.SelectedValue;
                 }
                 else
                 {
                     ddlOption.SelectedValue = "Select";
                 }
 
-                //if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
+                //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
                 //{
-                //    OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
+                //    mfProductAMCSchemePlanDetailsVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
 
                 //}
                 //else
@@ -1435,7 +1438,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 if (!string.IsNullOrEmpty(ddlRT.SelectedValue))
                 {
-                    OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedValue;
                 }
                 else
                 {
@@ -1444,7 +1447,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtACno.Text))
                 {
-                    OnlineOrderBackOfficeVo.AccountNumber = txtACno.Text;
+                    mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
                 }
                 else
                 {
@@ -1453,7 +1456,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtNFOStartDate.SelectedDate.ToString()))
                 {
-                    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+                    mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
                 }
                 else
                 {
@@ -1462,26 +1465,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 //if (txtNFOStartDate != null)
                 //{
 
-                //    OnlineOrderBackOfficeVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
+                //    mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(txtNFOStartDate.SelectedDate.ToString());
                 //}
                 if (!string.IsNullOrEmpty(txtNFOendDate.SelectedDate.ToString()))
                 {
-                    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+                    mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
 
                 }
                 else
                 {
                     txtNFOendDate.SelectedDate = null;
                 }
-                //if (OnlineOrderBackOfficeVo.NFOEndDate != DateTime.MinValue)
-                //    txtNFOendDate.SelectedDate = OnlineOrderBackOfficeVo.NFOEndDate;
+                //if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
+                //    txtNFOendDate.SelectedDate = mfProductAMCSchemePlanDetailsVo.NFOEndDate;
                 //if (txtNFOendDate!=null)
                 //{
-                //    OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+                //    mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
                 //}
                 if (!string.IsNullOrEmpty(txtInitalPamount.Text))
                 {
-                    OnlineOrderBackOfficeVo.InitialPurchaseAmount = Convert.ToDouble(txtInitalPamount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount = Convert.ToDouble(txtInitalPamount.Text.ToString());
                 }
                 else
                 {
@@ -1489,7 +1492,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtIMultipleamount.Text))
                 {
-                    OnlineOrderBackOfficeVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount = Convert.ToDouble(txtIMultipleamount.Text.ToString());
                 }
                 else
                 {
@@ -1497,7 +1500,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtAdditional.Text))
                 {
-                    OnlineOrderBackOfficeVo.AdditionalPruchaseAmount = Convert.ToDouble(txtAdditional.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount = Convert.ToDouble(txtAdditional.Text.ToString());
                 }
                 else
                 {
@@ -1505,7 +1508,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtAddMultipleamount.Text))
                 {
-                    OnlineOrderBackOfficeVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount = Convert.ToDouble(txtAddMultipleamount.Text.ToString());
                 }
                 else
                 {
@@ -1513,7 +1516,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtMinRedemption.Text))
                 {
-                    OnlineOrderBackOfficeVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount = Convert.ToDouble(txtMinRedemption.Text.ToString());
                 }
                 else
                 {
@@ -1521,7 +1524,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtRedemptionmultiple.Text))
                 {
-                    OnlineOrderBackOfficeVo.RedemptionMultipleAmount = Convert.ToDouble(txtRedemptionmultiple.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount = Convert.ToDouble(txtRedemptionmultiple.Text.ToString());
                 }
                 else
                 {
@@ -1529,7 +1532,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtMinRedemptioUnits.Text))
                 {
-                    OnlineOrderBackOfficeVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits = Convert.ToInt32(txtMinRedemptioUnits.Text.ToString());
                 }
                 else
                 {
@@ -1537,7 +1540,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtRedemptionMultiplesUnits.Text))
                 {
-                    OnlineOrderBackOfficeVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits = Convert.ToInt32(txtRedemptionMultiplesUnits.Text.ToString());
                 }
                 else
                 {
@@ -1545,7 +1548,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtMinSwitchAmount.Text))
                 {
-                    OnlineOrderBackOfficeVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinSwitchAmount = Convert.ToDouble(txtMinSwitchAmount.Text.ToString());
                 }
                 else
                 {
@@ -1553,7 +1556,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtSwitchMultipleAmount.Text))
                 {
-                    OnlineOrderBackOfficeVo.SwitchMultipleAmount = Convert.ToDouble(txtSwitchMultipleAmount.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount = Convert.ToDouble(txtSwitchMultipleAmount.Text.ToString());
                 }
                 else
                 {
@@ -1561,7 +1564,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtSwitchMultipleUnits.Text))
                 {
-                    OnlineOrderBackOfficeVo.SwitchMultiplesUnits = Convert.ToInt32(txtSwitchMultipleUnits.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits = Convert.ToInt32(txtSwitchMultipleUnits.Text.ToString());
                 }
                 else
                 {
@@ -1569,7 +1572,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtMinSwitchUnits.Text))
                 {
-                    OnlineOrderBackOfficeVo.MinSwitchUnits = Convert.ToInt32(txtMinSwitchUnits.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.MinSwitchUnits = Convert.ToInt32(txtMinSwitchUnits.Text.ToString());
                 }
                 else
                 {
@@ -1577,7 +1580,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtinvestment.Text))
                 {
-                    OnlineOrderBackOfficeVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment = Convert.ToDouble(txtinvestment.Text.ToString());
                 }
                 else
                 {
@@ -1585,7 +1588,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtFvale.Text))
                 {
-                    OnlineOrderBackOfficeVo.FaceValue = Convert.ToDouble(txtFvale.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.FaceValue = Convert.ToDouble(txtFvale.Text.ToString());
                 }
                 else
                 {
@@ -1593,7 +1596,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtLIperiod.Text))
                 {
-                    OnlineOrderBackOfficeVo.LockInPeriod = Convert.ToInt32(txtLIperiod.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.LockInPeriod = Convert.ToInt32(txtLIperiod.Text.ToString());
                 }
                 else
                 {
@@ -1601,17 +1604,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtEload.Text))
                 {
-                    OnlineOrderBackOfficeVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag = Convert.ToDouble(txtEload.Text.ToString());
                 }
                 else
                 {
                     txtEload.Text = "0";
                 }
 
-                if (OnlineOrderBackOfficeVo.AMCCode != 0)
+                if (mfProductAMCSchemePlanDetailsVo.AMCCode != 0)
                 {
 
-                    OnlineOrderBackOfficeVo.AMCCode = Convert.ToInt32(ddlAmc.SelectedValue.ToString());
+                    mfProductAMCSchemePlanDetailsVo.AMCCode = Convert.ToInt32(ddlAmc.SelectedValue.ToString());
                 }
                 else
                 {
@@ -1620,7 +1623,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtExitLoad.Text))
                 {
-                    OnlineOrderBackOfficeVo.EntryLoadRemark = txtELremark.Text;
+                    mfProductAMCSchemePlanDetailsVo.EntryLoadRemark = txtELremark.Text;
                 }
                 else
                 {
@@ -1628,7 +1631,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtExitLoad.Text))
                 {
-                    OnlineOrderBackOfficeVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text.ToString());
+                    mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage = Convert.ToDouble(txtExitLoad.Text.ToString());
                 }
                 else
                 {
@@ -1637,7 +1640,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 if (!string.IsNullOrEmpty(txtExitLoad.Text))
                 {
-                    OnlineOrderBackOfficeVo.ExitLoadRemark = txtExitLoad.Text;
+                    mfProductAMCSchemePlanDetailsVo.ExitLoadRemark = txtExitLoad.Text;
                 }
                 else
                 {
@@ -1645,13 +1648,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (ChkISPurchage.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsPurchaseAvailable = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable = 1;
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsPurchaseAvailable = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable = 0;
                 }
-                //if (OnlineOrderBackOfficeVo.IsPurchaseAvailable == 1)
+                //if (mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable == 1)
                 //{
                 //     = true;
                 //}
@@ -1661,46 +1664,46 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 if (ChkISRedeem.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsRedeemAvailable = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable = 1;
                 }
 
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsRedeemAvailable = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable = 0;
                 }
                 if (ChkISSIP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsSIPAvailable = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 1;
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsSIPAvailable = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsSIPAvailable = 0;
                 }
                 if (ChkISSTP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsSTPAvailable = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsSTPAvailable = 1;
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsSTPAvailable = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsSTPAvailable = 0;
                 }
                 if (ChkISSwitch.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsSwitchAvailable = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable = 1;
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsSwitchAvailable = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable = 0;
                 }
                 if (ChkISSWP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsSWPAvailable = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsSWPAvailable = 1;
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsSWPAvailable = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsSWPAvailable = 0;
                 }
-                if (OnlineOrderBackOfficeVo.Status == "Active")
+                if (mfProductAMCSchemePlanDetailsVo.Status == "Active")
                 {
                     ChkISactive.Checked = true;
                 }
@@ -1710,33 +1713,33 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (!string.IsNullOrEmpty(txtSecuritycode.Text))
                 {
-                    OnlineOrderBackOfficeVo.SecurityCode = txtSecuritycode.Text;
+                    mfProductAMCSchemePlanDetailsVo.SecurityCode = txtSecuritycode.Text;
                 }
                 else
                 {
                     txtSecuritycode.Text = "0";
                 }
-                if (!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.ExternalType))
+                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.ExternalType))
                 {
-                    OnlineOrderBackOfficeVo.ExternalType = ddlRT.SelectedValue.ToString();
+                    mfProductAMCSchemePlanDetailsVo.ExternalType = ddlRT.SelectedValue.ToString();
                 }
                 if (chkInfo.Checked)
                 {
-                    OnlineOrderBackOfficeVo.IsNFO = 1;
+                    mfProductAMCSchemePlanDetailsVo.IsNFO = 1;
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.IsNFO = 0;
+                    mfProductAMCSchemePlanDetailsVo.IsNFO = 0;
                 }
                 if (ChkISactive.Checked)
                 {
-                    OnlineOrderBackOfficeVo.Status = "Active";
+                    mfProductAMCSchemePlanDetailsVo.Status = "Active";
                 }
                 else
                 {
-                    OnlineOrderBackOfficeVo.Status = "Liquidated";
+                    mfProductAMCSchemePlanDetailsVo.Status = "Liquidated";
                 }
-                if (OnlineOrderBackOfficeVo.IsOnline == 1)
+                if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
                 {
                     chkonline.Checked = true;
 
@@ -1748,20 +1751,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 if (ChkNRI.Checked)
                 {
-                    OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NRI";
+                    mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NRI";
 
 
                 }
                 if (ChkBO.Checked)
                 {
-                    OnlineOrderBackOfficeVo.CustomerSubTypeCode = "NIND";
+                    mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NIND";
 
                 }
 
 
-                //if(!string.IsNullOrEmpty(OnlineOrderBackOfficeVo.GenerationFrequency))
+                //if(!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.GenerationFrequency))
                 //{
-                OnlineOrderBackOfficeVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
+                mfProductAMCSchemePlanDetailsVo.GenerationFrequency = ddlGenerationfreq.SelectedValue;
                 //}
                 //else
                 //{
@@ -1769,7 +1772,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //}
                 if (!string.IsNullOrEmpty(txtBranch.Text))
                 {
-                    OnlineOrderBackOfficeVo.Branch = txtBranch.Text;
+                    mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
                 }
                 else
                 {
@@ -1781,15 +1784,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (Time != null || Time == "")
                     {
                         TimeSpan CutOff = TimeSpan.Parse(Time);
-                        OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                        mfProductAMCSchemePlanDetailsVo.CutOffTime = (CutOff);
                     }
                     else
                     {
                         TimeSpan CutOff = TimeSpan.Parse("00:00:00");
-                        OnlineOrderBackOfficeVo.CutOffTime = (CutOff);
+                        mfProductAMCSchemePlanDetailsVo.CutOffTime = (CutOff);
                     }
                 }
-                bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo, schemeplancode);
+                bool bResult = OnlineOrderBackOfficeBo.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, schemeplancode);
                 //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Scheme Successfully Updated!!');", true);
                 message = CreateUserMessage(schemeplancode);
                 ShowMessage(message);
@@ -1834,10 +1837,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 chkInfo.Enabled = false;
                 ddlSchemeList.Enabled = false;
                 //txtNFOStartDate.ToString()="";
-                //OnlineOrderBackOfficeVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
+                //mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(txtNFOendDate.SelectedDate.ToString());
                 txtLIperiod.Enabled = false;
                 //DateTime time = Convert.ToDateTime(txtHH.Text + "" + txtMM.Text + " " + txtSS.Text.ToString());
-                //OnlineOrderBackOfficeVo.CutOffTime = time.ToLocalTime;
+                //mfProductAMCSchemePlanDetailsVo.CutOffTime = time.ToLocalTime;
                 txtHH.Enabled = false;
                 txtMM.Enabled = false;
                 txtSS.Enabled = false;
@@ -2036,8 +2039,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
 
-            GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[0];
-            commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
+            //GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[0];
+            //commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
 
 
         }
@@ -2102,26 +2105,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtMinAmount = (TextBox)e.Item.FindControl("txtMinAmount");
                 TextBox txtMultipleAmount = (TextBox)e.Item.FindControl("txtMultipleAmount");
                 TextBox txtSydetails = (TextBox)e.Item.FindControl("txtSydetails");
-                OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
                 if (ChkISSIP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.systematiccode = "SIP";
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
                 }
                 if (ChkISSTP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.systematiccode = "STP";
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
                 }
                 if (ChkISSWP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.systematiccode = "SWP";
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
                 }
-                OnlineOrderBackOfficeVo.frequency = ddlFrquency.SelectedValue.ToString();
-                OnlineOrderBackOfficeVo.startdate = txtstartDate.Text.ToString();
-                OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());
-                OnlineOrderBackOfficeVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
-                OnlineOrderBackOfficeVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
-                OnlineOrderBackOfficeVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                OnlineOrderBackOfficeBo.CreateSystematicDetails(OnlineOrderBackOfficeVo, schemecode);
+                mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
+                mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
+                mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                OnlineOrderBackOfficeBo.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode);
 
             }
             if (e.CommandName == RadGrid.UpdateCommandName)
@@ -2137,27 +2140,27 @@ namespace WealthERP.OnlineOrderBackOffice
                 int schemeplanecode = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASP_SchemePlanCode"].ToString());
                 int detailsid = int.Parse(gvSIPDetails.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PASPSD_SystematicDetailsId"].ToString());
 
-                OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+                MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
                 if (ChkISSIP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.systematiccode = "SIP";
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SIP";
                 }
                 if (ChkISSTP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.systematiccode = "STP";
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "STP";
                 }
                 if (ChkISSWP.Checked)
                 {
-                    OnlineOrderBackOfficeVo.systematiccode = "SWP";
+                    mfProductAMCSchemePlanDetailsVo.SystematicCode = "SWP";
                 }
-                OnlineOrderBackOfficeVo.frequency = ddlFrquency.SelectedValue.ToString();
-                OnlineOrderBackOfficeVo.startdate = txtstartDate.Text.ToString();
-                OnlineOrderBackOfficeVo.MinDues = int.Parse(txtMinDues.Text.ToString());
-                OnlineOrderBackOfficeVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
-                OnlineOrderBackOfficeVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
-                OnlineOrderBackOfficeVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
-                //OnlineOrderBackOfficeBo.EditSystematicDetails(OnlineOrderBackOfficeVo, schemecode,systematicdetailsid);
-                isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(OnlineOrderBackOfficeVo, schemeplanecode, detailsid);
+                mfProductAMCSchemePlanDetailsVo.Frequency = ddlFrquency.SelectedValue.ToString();
+                mfProductAMCSchemePlanDetailsVo.StartDate = txtstartDate.Text.ToString();
+                mfProductAMCSchemePlanDetailsVo.MinDues = int.Parse(txtMinDues.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.MaxDues = int.Parse(txtMaxDues.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.MinAmount = Convert.ToDouble(txtMinAmount.Text.ToString());
+                mfProductAMCSchemePlanDetailsVo.MultipleAmount = Convert.ToDouble(txtMultipleAmount.Text.ToString());
+                //OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemecode,systematicdetailsid);
+                isUpdated = OnlineOrderBackOfficeBo.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplanecode, detailsid);
             }
 
             if (e.CommandName == RadGrid.RebindGridCommandName)

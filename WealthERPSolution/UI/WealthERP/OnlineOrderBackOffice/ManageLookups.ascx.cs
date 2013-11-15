@@ -25,7 +25,7 @@ namespace WealthERP.OnlineOrderBackOffice
         UserVo userVo;
         AdvisorVo advisorVo;
         OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
-        OnlineOrderBackOfficeVo onlineOrderBackOfficeVo;
+        WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo;
         int count;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -217,11 +217,11 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 bool result;
-                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                onlineOrderBackOfficeVo.WerpName = newWerpName;
-                onlineOrderBackOfficeVo.CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
+                werplookupCodeValueManagementVo = new WERPlookupCodeValueManagementVo();
+                werplookupCodeValueManagementVo.WerpName = newWerpName;
+                werplookupCodeValueManagementVo.CategoryID = Convert.ToInt32(ddlCategory.SelectedValue);
 
-                result = onlineOrderBackOfficeBo.CreateNewWerpName(onlineOrderBackOfficeVo, userVo.UserId);
+                result = onlineOrderBackOfficeBo.CreateNewWerpName(werplookupCodeValueManagementVo, userVo.UserId);
                 if (result)
                 {
                     BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
@@ -255,10 +255,10 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 bool result;
-                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                onlineOrderBackOfficeVo.LookupID = lookupID;
+                werplookupCodeValueManagementVo = new WERPlookupCodeValueManagementVo();
+                werplookupCodeValueManagementVo.LookupID = lookupID;
 
-                result = onlineOrderBackOfficeBo.DeleteWerpName(onlineOrderBackOfficeVo);
+                result = onlineOrderBackOfficeBo.DeleteWerpName(werplookupCodeValueManagementVo);
                 if (result)
                 {
                     BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
@@ -292,11 +292,11 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 bool result;
-                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                onlineOrderBackOfficeVo.LookupID = lookupID;
-                onlineOrderBackOfficeVo.WerpName = werpName;
+                werplookupCodeValueManagementVo = new WERPlookupCodeValueManagementVo();
+                werplookupCodeValueManagementVo.LookupID = lookupID;
+                werplookupCodeValueManagementVo.WerpName = werpName;
 
-                result = onlineOrderBackOfficeBo.UpdateWerpName(onlineOrderBackOfficeVo, userVo.UserId);
+                result = onlineOrderBackOfficeBo.UpdateWerpName(werplookupCodeValueManagementVo, userVo.UserId);
                 if (result)
                 {
                     BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
@@ -358,10 +358,10 @@ namespace WealthERP.OnlineOrderBackOffice
                             int selectedRow = gdi.ItemIndex + 1;
                             mapingID = int.Parse(rgMaping.MasterTableView.DataKeyValues[selectedRow - 1]["WCMVXM_Id"].ToString());
 
-                            onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                            onlineOrderBackOfficeVo.MapID = mapingID;
+                            werplookupCodeValueManagementVo = new WERPlookupCodeValueManagementVo();
+                            werplookupCodeValueManagementVo.MapID = mapingID;
 
-                            result = onlineOrderBackOfficeBo.RemoveMapingWIthRTA(onlineOrderBackOfficeVo);
+                            result = onlineOrderBackOfficeBo.RemoveMapingWIthRTA(werplookupCodeValueManagementVo);
                             if (result)
                             {
                                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Maping Removed Successfully.');", true);
@@ -401,13 +401,13 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 bool result;
-                onlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
-                onlineOrderBackOfficeVo.SourceCode = ddlRTA.SelectedValue;
-                onlineOrderBackOfficeVo.LookupID = Convert.ToInt32(ddlWerp.SelectedValue);
-                onlineOrderBackOfficeVo.ExternalCode = txtExternalCode.Text;
-                onlineOrderBackOfficeVo.ExternalName = txtNewEXtName.Text;
+                werplookupCodeValueManagementVo = new WERPlookupCodeValueManagementVo();
+                werplookupCodeValueManagementVo.SourceCode = ddlRTA.SelectedValue;
+                werplookupCodeValueManagementVo.LookupID = Convert.ToInt32(ddlWerp.SelectedValue);
+                werplookupCodeValueManagementVo.ExternalCode = txtExternalCode.Text;
+                werplookupCodeValueManagementVo.ExternalName = txtNewEXtName.Text;
 
-                result = onlineOrderBackOfficeBo.CreateMapwithRTA(onlineOrderBackOfficeVo, userVo.UserId);
+                result = onlineOrderBackOfficeBo.CreateMapwithRTA(werplookupCodeValueManagementVo, userVo.UserId);
                 if (result)
                 {
                     BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
