@@ -153,9 +153,9 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public List<OnlineOrderBackOfficeVo> GetRtaColumnDetails(string RtaIdentifier)
+        public List<RTAExtractHeadeInfoVo> GetRtaColumnDetails(string RtaIdentifier)
         {
-            List<OnlineOrderBackOfficeVo> lsHeaderMapping = new List<OnlineOrderBackOfficeVo>();
+            List<RTAExtractHeadeInfoVo> lsHeaderMapping = new List<RTAExtractHeadeInfoVo>();
             try
             {
                 OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
@@ -169,7 +169,7 @@ namespace BoOnlineOrderManagement
 
                 foreach (DataRow row in dtHeaderMapping.Rows)
                 {
-                    OnlineOrderBackOfficeVo headMap = new OnlineOrderBackOfficeVo();
+                    RTAExtractHeadeInfoVo headMap = new RTAExtractHeadeInfoVo();
                     headMap.HeaderName = row["WEEHM_HeaderName"].ToString().Trim();
                     headMap.HeaderSequence = int.Parse(row["WEEHM_HeaderSequence"].ToString().Trim());
                     headMap.WerpColumnName = row["AMFE_ColumnName"].ToString().Trim();
@@ -243,10 +243,10 @@ namespace BoOnlineOrderManagement
             DataTable dtOrderExtract = new DataTable();
             try
             {
-                List<OnlineOrderBackOfficeVo> headerMap = GetRtaColumnDetails(RtaIdentifier);
+                List<RTAExtractHeadeInfoVo> headerMap = GetRtaColumnDetails(RtaIdentifier);
                 DataSet dsOrderExtract = GetMfOrderExtract(ExecutionDate, AdviserId, OrderType, RtaIdentifier, AmcCode);
                 dtOrderExtract = new DataTable("OrderExtract");
-                foreach (OnlineOrderBackOfficeVo header in headerMap)
+                foreach (RTAExtractHeadeInfoVo header in headerMap)
                 {
                     dtOrderExtract.Columns.Add(header.HeaderName, System.Type.GetType(header.DataType));
                 }
@@ -444,14 +444,14 @@ namespace BoOnlineOrderManagement
             dsSubSubCategory = daoOnlineOrderBackOffice.GetSubSubCategory(CategoryCode, SubCategoryCode);
             return dsSubSubCategory;
         }
-        public List<int> CreateOnlineSchemeSetUp(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int userId)
+        public List<int> CreateOnlineSchemeSetUp(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
         {
             List<int> SchemePlancodes = new List<int>();
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
 
             try
             {
-                SchemePlancodes = OnlineOrderBackOfficeDao.CreateOnlineSchemeSetUp(OnlineOrderBackOfficeVo, userId);
+                SchemePlancodes = OnlineOrderBackOfficeDao.CreateOnlineSchemeSetUp(mfProductAMCSchemePlanDetailsVo, userId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -460,13 +460,13 @@ namespace BoOnlineOrderManagement
             return SchemePlancodes;
         }
 
-        public OnlineOrderBackOfficeVo GetOnlineSchemeSetUp(int SchemePlanCode)
+        public MFProductAMCSchemePlanDetailsVo GetOnlineSchemeSetUp(int SchemePlanCode)
         {
-            OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo = new OnlineOrderBackOfficeVo();
+            MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                OnlineOrderBackOfficeVo = OnlineOrderBackOfficeDao.GetOnlineSchemeSetUp(SchemePlanCode);
+                mfProductAMCSchemePlanDetailsVo = OnlineOrderBackOfficeDao.GetOnlineSchemeSetUp(SchemePlanCode);
 
             }
             catch (BaseApplicationException Ex)
@@ -487,7 +487,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
 
             }
-            return OnlineOrderBackOfficeVo;
+            return mfProductAMCSchemePlanDetailsVo;
         }
         public DataSet GetSchemeSetUpFromOverAllCategoryList(int amcCode, string categoryCode)
         {
@@ -1028,12 +1028,12 @@ namespace BoOnlineOrderManagement
             }
             return dsGetRtaWiseMapings;
         }
-        public bool CreateMapwithRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        public bool CreateMapwithRTA(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             try
             {
                 OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-                return OnlineOrderBackOfficeDao.CreateMapwithRTA(onlineOrderBackOfficeVo, userID);
+                return OnlineOrderBackOfficeDao.CreateMapwithRTA(werplookupCodeValueManagementVo, userID);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1041,61 +1041,61 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public bool CreateNewWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        public bool CreateNewWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             try
             {
                 OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-                return OnlineOrderBackOfficeDao.CreateNewWerpName(onlineOrderBackOfficeVo, userID);
+                return OnlineOrderBackOfficeDao.CreateNewWerpName(werplookupCodeValueManagementVo, userID);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
         }
-        public bool DeleteWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        public bool DeleteWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo )
         {
             try
             {
                 OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-                return OnlineOrderBackOfficeDao.DeleteWerpName(onlineOrderBackOfficeVo);
+                return OnlineOrderBackOfficeDao.DeleteWerpName(werplookupCodeValueManagementVo);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
         }
-        public bool UpdateWerpName(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo, int userID)
+        public bool UpdateWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo, int userID)
         {
             try
             {
                 OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-                return OnlineOrderBackOfficeDao.UpdateWerpName(onlineOrderBackOfficeVo, userID);
+                return OnlineOrderBackOfficeDao.UpdateWerpName(werplookupCodeValueManagementVo, userID);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
         }
-        public bool RemoveMapingWIthRTA(VoOnlineOrderManagemnet.OnlineOrderBackOfficeVo onlineOrderBackOfficeVo)
+        public bool RemoveMapingWIthRTA(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo)
         {
             try
             {
                 OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
-                return OnlineOrderBackOfficeDao.RemoveMapingWIthRTA(onlineOrderBackOfficeVo);
+                return OnlineOrderBackOfficeDao.RemoveMapingWIthRTA(werplookupCodeValueManagementVo);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
         }
-        public bool UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int SchemePlanCode)
+        public bool UpdateSchemeSetUpDetail(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(OnlineOrderBackOfficeVo, SchemePlanCode);
+                blResult = OnlineOrderBackOfficeDao.UpdateSchemeSetUpDetail(mfProductAMCSchemePlanDetailsVo, SchemePlanCode);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1107,7 +1107,7 @@ namespace BoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
                 object[] objects = new object[3];
-                objects[0] = OnlineOrderBackOfficeVo;
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
                 objects[1] = SchemePlanCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1146,14 +1146,14 @@ namespace BoOnlineOrderManagement
             dsSystematicDetails = daoOnlineOrderBackOffice.GetSystematicDetails(schemeplancode);
             return dsSystematicDetails;
         }
-        public bool EditSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode, int systematicdetailsid)
+        public bool EditSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode, int systematicdetailsid)
         {
             bool blResult = false;
 
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.EditSystematicDetails(OnlineOrderBackOfficeVo, schemeplancode, systematicdetailsid);
+                blResult = OnlineOrderBackOfficeDao.EditSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode, systematicdetailsid);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1167,7 +1167,7 @@ namespace BoOnlineOrderManagement
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:CreateSystematicDetails()");
 
                 object[] objects = new object[2];
-                objects[0] = OnlineOrderBackOfficeVo;
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
                 objects[1] = schemeplancode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1177,13 +1177,13 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public bool CreateSystematicDetails(OnlineOrderBackOfficeVo OnlineOrderBackOfficeVo, int schemeplancode)
+        public bool CreateSystematicDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int schemeplancode)
         {
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
             bool bResult = false;
             try
             {
-                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(OnlineOrderBackOfficeVo, schemeplancode);
+                bResult = daoOnlineOrderBackOffice.CreateSystematicDetails(mfProductAMCSchemePlanDetailsVo, schemeplancode);
 
             }
             catch (BaseApplicationException Ex)
@@ -1198,7 +1198,7 @@ namespace BoOnlineOrderManagement
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:CreateSystematicDetails()");
 
                 object[] objects = new object[2];
-                objects[0] = OnlineOrderBackOfficeVo;
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
                 objects[1] = schemeplancode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
