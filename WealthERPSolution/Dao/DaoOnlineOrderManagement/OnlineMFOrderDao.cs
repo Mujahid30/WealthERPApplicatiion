@@ -561,7 +561,7 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode)
+        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode,string category)
         {
             DataSet dsGetMFSchemeDetailsForLanding;
             DataTable dtGetMFSchemeDetailsForLanding;
@@ -575,6 +575,10 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@Schemeplancode", DbType.Int32, Schemeplancode);
                 else
                     db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@Schemeplancode", DbType.Int32, 0);
+                if (category!= "0")
+                    db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@category", DbType.String, category);
+                else
+                db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@category", DbType.String, DBNull.Value);
                 dsGetMFSchemeDetailsForLanding = db.ExecuteDataSet(GetMFSchemeDetailsForLandingCmd);
                 dtGetMFSchemeDetailsForLanding = dsGetMFSchemeDetailsForLanding.Tables[0];
 

@@ -31,8 +31,8 @@ namespace WealthERP.OnlineOrderManagement
             {
                 AmcBind();
             }
-        }     
-       
+        }
+
         protected void AmcBind()
         {
             ddlAmc.Items.Clear();
@@ -88,7 +88,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlScheme.DataValueField = dtScheme.Columns["PASP_SchemePlanCode"].ToString();
                 ddlScheme.DataTextField = dtScheme.Columns["PASP_SchemePlanName"].ToString();
                 ddlScheme.DataBind();
-                ddlScheme.Items.Insert(0, new ListItem("Select", "0"));
+                ddlScheme.Items.Insert(0, new ListItem("All", "0"));
             }
         }
         private void SetParameter()
@@ -102,12 +102,20 @@ namespace WealthERP.OnlineOrderManagement
             {
                 hdnScheme.Value = "0";
             }
-
+            if (ddlCategory.SelectedIndex != 0)
+            {
+                hdnCategory.Value = ddlCategory.SelectedValue;
+                ViewState["hdnCategory"] = hdnCategory.Value;
+            }
+            else
+            {
+                hdnCategory.Value = "0";
+            }
         }
         protected void BindMFSchemeLanding()
         {
             DataTable dtGetMFSchemeDetailsForLanding;
-            dtGetMFSchemeDetailsForLanding = OnlineMFOrderBo.GetMFSchemeDetailsForLanding(int.Parse(hdnScheme.Value));
+            dtGetMFSchemeDetailsForLanding = OnlineMFOrderBo.GetMFSchemeDetailsForLanding(int.Parse(hdnScheme.Value),hdnCategory.Value);
             if (dtGetMFSchemeDetailsForLanding.Rows.Count > 0)
             {
                 if (Cache["GetMFSchemeDetailsForLanding" + userVo.UserId] == null)
@@ -160,6 +168,25 @@ namespace WealthERP.OnlineOrderManagement
             gvMFSchemeLanding.ExportSettings.FileName = "Landing Page Details";
             gvMFSchemeLanding.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvMFSchemeLanding.MasterTableView.ExportToExcel();
+        }
+        public void gvMFSchemeLanding_OnItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                Label lblSIPSchemeFlag = new Label();
+                ImageButton imgSIP = new ImageButton();
+                lblSIPSchemeFlag = (Label)e.Item.FindControl("lblSIPSchemeFlag");
+
+                if (lblSIPSchemeFlag.Text.Trim() == "No")
+                {
+                    imgSIP = (ImageButton)e.Item.FindControl("imgSip");
+                    imgSIP.Visible = false;
+
+                }
+                lblSIPSchemeFlag.Visible = false;
+
+
+            }
         }
     }
 }

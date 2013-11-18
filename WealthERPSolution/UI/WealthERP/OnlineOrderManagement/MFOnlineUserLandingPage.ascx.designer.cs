@@ -21,6 +21,7 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.WebControls.HiddenField hdnScheme;
         protected global::System.Web.UI.WebControls.Panel pnlMFSchemeLanding;
         protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        protected global::System.Web.UI.WebControls.HiddenField hdnCategory;
         
     }
 }

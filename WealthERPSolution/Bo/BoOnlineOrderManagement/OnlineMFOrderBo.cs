@@ -417,7 +417,7 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
-        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode)
+        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode,string category)
         {
             
             DataTable dtGetMFSchemeDetailsForLanding;
@@ -425,7 +425,7 @@ namespace BoOnlineOrderManagement
            
             try
             {
-                dtGetMFSchemeDetailsForLanding = OnlineMFOrderDao.GetMFSchemeDetailsForLanding(Schemeplancode);
+                dtGetMFSchemeDetailsForLanding = OnlineMFOrderDao.GetMFSchemeDetailsForLanding(Schemeplancode, category);
 
             }
             catch (BaseApplicationException Ex)
