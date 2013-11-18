@@ -1599,6 +1599,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "SIPBookSummmaryList", "loadcontrol('SIPBookSummmaryList','none');", true);
                 }
+                else if (e.Item.Value == "MF_Online_Landing_Page")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineUserLandingPage", "loadcontrol('MFOnlineUserLandingPage','none');", true);
+                }
              }
             catch (BaseApplicationException Ex)
             {

@@ -417,6 +417,33 @@ namespace BoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode)
+        {
+            
+            DataTable dtGetMFSchemeDetailsForLanding;
+            OnlineMFOrderDao OnlineMFOrderDao = new OnlineMFOrderDao();
+           
+            try
+            {
+                dtGetMFSchemeDetailsForLanding = OnlineMFOrderDao.GetMFSchemeDetailsForLanding(Schemeplancode);
 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFOrderBo.cs:GetMFSchemeDetailsForLanding()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetMFSchemeDetailsForLanding;
+        }
     }
 }

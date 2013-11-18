@@ -14,5 +14,13 @@ namespace WealthERP.OnlineOrderManagement
 
     public partial class MFOnlineUserLandingPage
     {
+        protected global::Telerik.Web.UI.RadGrid gvMFSchemeLanding;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAmc;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        protected global::System.Web.UI.WebControls.DropDownList ddlScheme;
+        protected global::System.Web.UI.WebControls.HiddenField hdnScheme;
+        protected global::System.Web.UI.WebControls.Panel pnlMFSchemeLanding;
+        protected global::System.Web.UI.WebControls.ImageButton btnExport;
+        
     }
 }

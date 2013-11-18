@@ -561,5 +561,41 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+        public DataTable GetMFSchemeDetailsForLanding(int Schemeplancode)
+        {
+            DataSet dsGetMFSchemeDetailsForLanding;
+            DataTable dtGetMFSchemeDetailsForLanding;
+            Database db;
+            DbCommand GetMFSchemeDetailsForLandingCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetMFSchemeDetailsForLandingCmd = db.GetStoredProcCommand("SPROC_Onl_GetMFSchemeDetailsForLanding");
+                if (Schemeplancode != 0)
+                    db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@Schemeplancode", DbType.Int32, Schemeplancode);
+                else
+                    db.AddInParameter(GetMFSchemeDetailsForLandingCmd, "@Schemeplancode", DbType.Int32, 0);
+                dsGetMFSchemeDetailsForLanding = db.ExecuteDataSet(GetMFSchemeDetailsForLandingCmd);
+                dtGetMFSchemeDetailsForLanding = dsGetMFSchemeDetailsForLanding.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineMFOrderDao.cs:GetMFSchemeDetailsForLanding()");
+                object[] objects = new object[1];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetMFSchemeDetailsForLanding;
+        }
+
     }
 }
