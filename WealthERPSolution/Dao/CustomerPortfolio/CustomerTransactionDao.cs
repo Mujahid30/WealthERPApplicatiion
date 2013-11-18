@@ -4710,7 +4710,8 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.channel = dr["Channel"].ToString();
                         mfTransactionVo.latestNav = float.Parse(dr["NAV"].ToString());
                        // mfTransactionVo.TrxnNo = (dr["CMFT_TransactionNumber"].ToString());
-                        if (dr["CO_OrderDate"].ToString() != null && dr["CO_OrderDate"].ToString() != string.Empty)
+                       // if (mfTransactionVo.OrdDate != DateTime.MinValue) 
+                       if (dr["CO_OrderDate"].ToString() != null && dr["CO_OrderDate"].ToString() != string.Empty)
                         {
                             mfTransactionVo.OrdDate = DateTime.Parse(dr["CO_OrderDate"].ToString());
                         }

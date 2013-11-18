@@ -46,9 +46,30 @@ namespace WealthERP.OnlineOrderManagement
                 BindKYCDetailDDl();
                 if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null)
                 {
-                   orderId = int.Parse(Request.QueryString["OrderId"].ToString());
-                   IssuerId = Request.QueryString["IssuerId"].ToString();
-                   lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                    orderId = int.Parse(Request.QueryString["OrderId"].ToString());
+                    IssuerId = Request.QueryString["IssuerId"].ToString();
+                    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                    ddIssuerList.Visible = false;
+                    btnConfirm.Visible = false;
+                    tdsubmit.Visible = false;
+
+
+                }
+                else if (Request.QueryString["IssuerId"] != null)
+                {
+                    IssuerId = Request.QueryString["IssuerId"].ToString();
+                    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                    //int IssueIdN = Convert.ToInt32(IssueId);
+                    ddIssuerList.Visible = false;
+                    btnConfirm.Visible = false;
+                    BindStructureRuleGrid(IssuerId);
+
+                }
+                else
+                { 
+                        BindDropDownListIssuer();
+                        lblIssuer.Text = "Kindly Select Issue Name:";
+                        btnConfirm.Enabled = true;
                 
                 }
                 if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
@@ -60,21 +81,21 @@ namespace WealthERP.OnlineOrderManagement
 
                     }
                 }
-                if (Request.QueryString["IssuerId"] != null)
-                {
-                    IssuerId = Request.QueryString["IssuerId"].ToString();
-                    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
-                    //int IssueIdN = Convert.ToInt32(IssueId);
-                    ddIssuerList.Visible = false;
-                    btnConfirm.Visible = false;
-                    BindStructureRuleGrid(IssuerId);
-                }
-                else
-                {
-                    BindDropDownListIssuer();
-                    lblIssuer.Text = "Kindly Select Issue Name:";
-                    btnConfirm.Enabled = true;
-                }
+                //if (Request.QueryString["IssuerId"] != null)
+                //{
+                //    IssuerId = Request.QueryString["IssuerId"].ToString();
+                //    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                //    //int IssueIdN = Convert.ToInt32(IssueId);
+                //    ddIssuerList.Visible = false;
+                //    btnConfirm.Visible = false;
+                //    BindStructureRuleGrid(IssuerId);
+                //}
+                //else
+                //{
+                //    BindDropDownListIssuer();
+                //    lblIssuer.Text = "Kindly Select Issue Name:";
+                //    btnConfirm.Enabled = true;
+                //}
 
             }
             if (Request.QueryString["customerId"] != null)
@@ -367,11 +388,29 @@ namespace WealthERP.OnlineOrderManagement
             DataSet dsStructureRules = OnlineBondBo.GetNCDTransactOrder(orderId, IssuerId); 
             if (dsStructureRules.Tables[0].Rows.Count > 0)
             {
+                
+
                 gvCommMgmt.DataSource = dsStructureRules.Tables[0];             
                 gvCommMgmt.DataBind();
                 pnlNCDTransactact.Visible = true;
                 ibtExportSummary.Visible = true;
                 trSubmit.Visible = true;
+
+
+
+                //GridItemCollection gridRows = gvCommMgmt.Items;
+                //foreach (GridDataItem data in gridRows)
+                //{
+                //    //ItemClass obj = (ItemClass)data.DataItem;
+
+                //}
+
+                //foreach (Telerik.Web.UI.GridDataItem dataItem in gvCommMgmt.MasterTableView.Items)
+                //{
+                //    TextBox t = (TextBox)dataItem.FindControl("txtAmount");
+                //}
+
+                
                 // ViewState["Transact"] = dsStructureRules.Tables[0];
             }
             else

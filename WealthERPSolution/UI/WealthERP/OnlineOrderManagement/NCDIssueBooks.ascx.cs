@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Telerik.Web.UI;
 using VoUser;
+using BoOnlineOrderManagement;
 using WealthERP.Base;
 
 namespace WealthERP.OnlineOrderManagement
@@ -15,51 +16,107 @@ namespace WealthERP.OnlineOrderManagement
     {
         UserVo userVo;
         CustomerVo customerVo = new CustomerVo();
+        OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         AdvisorVo advisorVo;
         int customerId;
+        DateTime fromDate;
+        DateTime toDate;
         //string CustId = "7709";
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         protected void Page_Load(object sender, EventArgs e)
         {
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
-            advisorVo = (AdvisorVo)Session["adviserVo"];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
 
             if (!IsPostBack)
             {
+                fromDate = DateTime.Now.AddMonths(-1);
+                txtOrderFrom.SelectedDate = fromDate.Date;
+                txtOrderTo.SelectedDate = DateTime.Now;
+                BindOrderStatus();
                 if (Request.QueryString["customerId"] != null)
                 {
                     customerId = int.Parse(Request.QueryString["customerId"].ToString());
+                    hdnOrderStatus.Value = "0";
                     BindBBGV(customerId);
+                }
+                //else
+                //{
+                //    //CustId = Session["CustId"].ToString();
+                //    BindBBGV(customerVo.CustomerId);
+                //}
+            }
+        }
+        private void SetParameter()
+        {
+            if (ddlOrderStatus.SelectedIndex != 0)
+            {
+                hdnOrderStatus.Value = ddlOrderStatus.SelectedValue;
+                ViewState["OrderstatusDropDown"] = hdnOrderStatus.Value;
+            }
+            else
+            {
+                hdnOrderStatus.Value = "0";
+            }
+        }
+        protected void btnViewOrder_Click(object sender, EventArgs e)
+        {
+            SetParameter();
+            BindBBGV(customerVo.CustomerId);
+        }
+        /// <summary>
+        /// Get Bind Orderstatus
+        /// </summary>
+        private void BindOrderStatus()
+        {
+            ddlOrderStatus.Items.Clear();
+            DataSet dsOrderStatus;
+            DataTable dtOrderStatus;
+            dsOrderStatus = OnlineMFOrderBo.GetOrderStatus();
+            dtOrderStatus = dsOrderStatus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void BindBBGV(int customerId)
+        {
+            if (txtOrderFrom.SelectedDate != null)
+                fromDate = DateTime.Parse(txtOrderFrom.SelectedDate.ToString());
+            if (txtOrderTo.SelectedDate != null)
+                toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
+            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId, hdnOrderStatus.Value, fromDate, toDate);
+            DataTable dtbondsBook = dsbondsBook.Tables[0];
+            if (dtbondsBook.Rows.Count > 0)
+            {
+                if (Cache["NCDBookList" + advisorVo.advisorId.ToString()] == null)
+                {
+                    Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
                 }
                 else
                 {
-                    //CustId = Session["CustId"].ToString();
-                    BindBBGV(customerVo.CustomerId);
+                    Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
+                    Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
                 }
-            }
-        }
-
-        protected void BindBBGV(int customerId)
-        {
-            DataSet dsbondsBook = BoOnlineBondOrder.GetOrderBondBook(customerId);
-            if (dsbondsBook.Tables[0].Rows.Count > 0)
-            {
                 gvBBList.DataSource = dsbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
-                 //pnlGrid.Visible = true;
-               // pnlGrid.Visible = true;
+                pnlGrid.Visible = true;
+                // pnlGrid.Visible = true;
             }
             else
             {
                 ibtExportSummary.Visible = false;
                 gvBBList.DataSource = dsbondsBook;
                 gvBBList.DataBind();
-                //pnlGrid.Visible = true;
+                pnlGrid.Visible = true;
             }
 
-            Cache.Insert(userVo.UserId.ToString() + "CommissionStructureRule", dsbondsBook.Tables[0]);
         }
 
         protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
@@ -115,12 +172,9 @@ namespace WealthERP.OnlineOrderManagement
             }
             else
             {
-               customerId=customerVo.CustomerId;
-               BindjointNominee(customerId);
+                customerId = customerVo.CustomerId;
+                BindjointNominee(customerId);
             }
-
-
-
         }
         protected void BindjointNominee(int customerId)
         {
@@ -157,7 +211,7 @@ namespace WealthERP.OnlineOrderManagement
                 PnlChild.Visible = false;
                 buttonlink.Text = "+";
             }
-            DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId,strIssuerId, orderId);
+            DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
             dtIssueDetail = ds.Tables[0];
             gvChildDetails.DataSource = dtIssueDetail;
             gvChildDetails.DataBind();
@@ -175,14 +229,15 @@ namespace WealthERP.OnlineOrderManagement
         protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             RadGrid gvChildDetails = (RadGrid)sender; // Get reference to grid 
-            GridDataItem item = (GridDataItem)(gvChildDetails.NamingContainer as GridEditFormItem).ParentItem;  // Get the mastertableview item 
-            string strIssuerId = item["PFIIM_IssuerId"].Text; // Get the value 
-            int orderId = int.Parse(item["CO_OrderId"].Text.ToString());
-            DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(orderId, strIssuerId, customerVo.CustomerId);
+            GridDataItem nesteditem = (GridDataItem)gvChildDetails.NamingContainer;
+            string strIssuerId = gvBBList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["PFIIM_IssuerId"].ToString(); // Get the value 
+            int orderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["CO_OrderId"].ToString());
+            DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
             gvChildDetails.DataSource = ds.Tables[0];
         }
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
-        {   string action =string.Empty;
+        {
+            string action = string.Empty;
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
             RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");

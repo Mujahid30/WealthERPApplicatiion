@@ -287,24 +287,24 @@
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                 UniqueName="Quantity" HeaderText="Quantity">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
+                                    <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged" Text='<%# Bind("CFIOD_Quantity")%>'
                                         Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label runat="server" ID="lblQuantity"></asp:Label>
+                                    <asp:Label runat="server" ID="lblQuantity"></asp:Label> 
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                 FooterText="" UniqueName="Amount" HeaderText="Amount" FooterAggregateFormatString="{0:N2}">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtAmount" runat="server" ReadOnly="true" BackColor="Gray" ForeColor="White"
-                                        Width="50px" Font-Bold="true"></asp:TextBox>
+                                        Width="50px" Font-Bold="true" Text='<%# Bind("CFIOD_AmountPayable")%>'></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:Label runat="server" ID="lblAmount"></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px" Visible="false"
                                 UniqueName="Check" HeaderText="Check Order">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="cbOrderCheck" runat="server" />
@@ -343,9 +343,14 @@
 </table>
 <table>
     <tr id="trSubmit" runat="server" visible="false">
-        <td>
+        <td id="tdsubmit" runat="server">
             <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
+                CssClass="PCGButton" />
+        </td>
+        <td id="tdupdate" runat="server" visible="false">
+            <asp:Label ID="Label2" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
+            <asp:Button ID="Button1" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
                 CssClass="PCGButton" />
         </td>
     </tr>

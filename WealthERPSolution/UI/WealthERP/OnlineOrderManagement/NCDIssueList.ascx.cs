@@ -43,19 +43,35 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStructureRuleGrid()
         {
             DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, IssuerId);
-            if (dsStructureRules.Tables[0].Rows.Count > 0)
+            DataTable dtIssue = dsStructureRules.Tables[0];
+            if (dtIssue.Rows.Count > 0)
+            {
+                if (Cache["NCDIssueList" + advisorVo.advisorId.ToString()] == null)
+                {
+                    Cache.Insert("NCDIssueList" + advisorVo.advisorId.ToString(), dtIssue);
+                }
+                else
+                {
+                    Cache.Remove("NCDIssueList" + advisorVo.advisorId.ToString());
+                    Cache.Insert("NCDIssueList" + advisorVo.advisorId.ToString(), dtIssue);
+                }
                 ibtExportSummary.Visible = true;
+                gvCommMgmt.DataSource = dtIssue;
+                gvCommMgmt.DataBind();
+            }
             else
+            {
                 ibtExportSummary.Visible = false;
+                gvCommMgmt.DataSource = dtIssue;
+                gvCommMgmt.DataBind();
 
-
+            }
 
             //FILING THE DATA FOR THE CHILD GRID
            // gvCommMgmt.MasterTableView.DetailTables[0].DataSource = dsStructureRules.Tables[1];
 
 
-            gvCommMgmt.DataSource = dsStructureRules.Tables[0];
-            gvCommMgmt.DataBind();
+            
         }
         protected void gvCommMgmt_PreRender(object sender, EventArgs e)
         {
@@ -164,8 +180,8 @@ namespace WealthERP.OnlineOrderManagement
         protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             RadGrid gvchildIssue = (RadGrid)sender; // Get reference to grid 
-            GridDataItem item = (GridDataItem)(gvchildIssue.NamingContainer as GridEditFormItem).ParentItem;  // Get the mastertableview item 
-            string strIssuerId = item["PFIIM_IssuerId"].Text; // Get the value 
+            GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
+            string strIssuerId = gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["PFIIM_IssuerId"].ToString(); // Get the value 
             DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
             gvchildIssue.DataSource = ds.Tables[0]; 
         }

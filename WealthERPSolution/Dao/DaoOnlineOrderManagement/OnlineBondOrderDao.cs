@@ -320,7 +320,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrderBondsBook;
         }
-        public DataSet GetOrderBondBook(int customerId)
+        public DataSet GetOrderBondBook(int customerId, string status, DateTime dtFrom, DateTime dtTo)
         {
             DataSet dsOrderBondsBook;
             Database db;
@@ -330,6 +330,12 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_ONL_GetBondOrderBook");
                 db.AddInParameter(GetOrderBondsBookcmd, "@customerId", DbType.Int32, customerId);
+                if (status != "0")
+                    db.AddInParameter(GetOrderBondsBookcmd, "@Status", DbType.String, status);
+                else
+                db.AddInParameter(GetOrderBondsBookcmd, "@Status", DbType.String, DBNull.Value);
+                db.AddInParameter(GetOrderBondsBookcmd, "@Fromdate", DbType.DateTime, dtFrom);
+                db.AddInParameter(GetOrderBondsBookcmd, "@ToDate", DbType.DateTime, dtTo);
                 dsOrderBondsBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
 
             }
