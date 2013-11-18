@@ -413,11 +413,17 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                ddlBname.SelectedValue = "0";
+                ddlBname.SelectedValue = "Select";
             }
 
-
-            mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode = ddlBname.SelectedValue;
+            if (ddlBname.SelectedIndex!=0)
+            {
+                mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedValue.ToString());
+            }
+            else
+            {
+                ddlBname.SelectedValue="Select";
+            }
             mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
             mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
             mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;
@@ -679,8 +685,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 tblMessage.Visible = false;
                 lbBack.Visible = false;
                 //gvSIPDetails.MasterTableView.IsItemInserted = false;
-                GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[0];
-                commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
+                //GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[100];
+                //commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
             }
 
         }
@@ -781,9 +787,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlOption.SelectedValue = "0";
             }
 
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString()))
             {
-                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode.ToString();
+                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString();
             }
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Branch))
             {
@@ -1057,9 +1063,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlOption.SelectedValue = "0";
             }
 
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString()))
             {
-                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode.ToString();
+                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString();
             }
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Branch))
             {
@@ -1356,6 +1362,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 string message = string.Empty;
                 mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
+
                 mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
 
                 //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Product))
@@ -1404,9 +1411,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 //    ddlDFrequency.SelectedValue = "0";
                 //}
-                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode))
+                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString()))
                 {
-                    mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode = ddlBname.SelectedValue;
+                    mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId =int.Parse(ddlBname.SelectedValue.ToString());
                 }
                 if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.SchemeType))
                 {
