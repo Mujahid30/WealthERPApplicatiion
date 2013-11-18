@@ -333,7 +333,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XCST_CustomerSubTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_SecurityCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SecurityCode);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);
-                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WERPBM_BankCode", DbType.String, mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode);
+                db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WCMV_Lookup_BankId", DbType.Int32, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalCode);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_CreatedBy", DbType.Int32, userId);
@@ -523,9 +523,9 @@ namespace DaoOnlineOrderManagement
                         {
                             mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment = 0;
                         }
-                        if (!string.IsNullOrEmpty(dr["WERPBM_BankCode"].ToString()))
+                        if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BankId"].ToString()))
                         {
-                            mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode = dr["WERPBM_BankCode"].ToString();
+                            mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());
                         }
                         if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalCode"].ToString()))
                         {
@@ -1132,7 +1132,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode);//38
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SecurityCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SecurityCode);//39
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);//40
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@WERPBM_BankCode", DbType.String, mfProductAMCSchemePlanDetailsVo.WERPBM_BankCode);//41
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@WCMV_Lookup_BankId", DbType.String, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);//41
                 // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
                 //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
                 //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);

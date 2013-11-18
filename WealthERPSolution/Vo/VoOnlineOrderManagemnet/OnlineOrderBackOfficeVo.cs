@@ -81,7 +81,7 @@ namespace VoOnlineOrderManagemnet
         public string CustomerSubTypeCode { get; set; }
         public string SecurityCode { get; set; }
         public double PASPD_MaxInvestment { get; set; }
-        public string WERPBM_BankCode { get; set; }
+        public int WCMV_Lookup_BankId { get; set; }
         public string ExternalCode { get; set; }
         public string ExternalType { get; set; }
         public string Dividendfreq { get; set; }

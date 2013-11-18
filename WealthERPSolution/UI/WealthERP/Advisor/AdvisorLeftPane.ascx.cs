@@ -552,7 +552,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineClientAccess','login');", true);
                 }
                 else if (e.Item.Value == "Setup_customer_category")
                 {
@@ -635,6 +635,11 @@ namespace WealthERP.Advisor
                 {
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                }
+                    else if (e.Item.Value == "Client_access")
+                {
+                    Session["Customer"] = "Customer";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineClientAccess", "loadcontrol('OnlineClientAccess','login');", true);
                 }
                 else if (e.Item.Value == "Add Customer")
                 {
@@ -1398,6 +1403,8 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "bm";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AdviserCustomer", "loadcontrol('AdviserCustomer','login');", true);
                 }
+
+
                 else if (e.Item.Value == "Customer_Report")
                 {
                     Session["UserType"] = "bm";
@@ -2124,6 +2131,11 @@ namespace WealthERP.Advisor
                     if (Item.Level != 0 && Item.Level != 1 && Item.Level != 3)
                     {
                         flag = tempView.Find(Item.Value);
+
+                        if (Item.Value == "Client_access")
+                        {
+
+                        }
                         if (flag == -1)
                         {
                             Item.Visible = false;
