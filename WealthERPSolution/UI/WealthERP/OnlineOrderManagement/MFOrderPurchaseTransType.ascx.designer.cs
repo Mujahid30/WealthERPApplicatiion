@@ -15,6 +15,15 @@ namespace WealthERP.OnlineOrderManagement
     public partial class MFOrderPurchaseTransactionType
     {
         /// <summary>
+        /// divControlContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divControlContainer;
+        
+        /// <summary>
         /// trTermsCondition control.
         /// </summary>
         /// <remarks>

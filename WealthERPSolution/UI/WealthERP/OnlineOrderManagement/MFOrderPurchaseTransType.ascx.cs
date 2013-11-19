@@ -63,10 +63,10 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
                     PurchaseOrderControlsEnable(false);
-                    btnSubmit.Visible = false;
+                    divControlContainer.Visible = false;
                 }
             }
-           
+
 
 
         }
@@ -360,21 +360,32 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
             }
-
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            OrderId = int.Parse(OrderIds[0].ToString());
+            decimal availableBalance = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId);
             string message = string.Empty;
-            if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+
+            if (availableBalance > 0)
             {
-                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderId = int.Parse(OrderIds[0].ToString());
+
+                if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                {
+                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
+                }
+                if (OrderId != 0)
+                {
+                    ShowAvailableLimits();
+                    message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false);
+                    ShowMessage(message);
+                }
+                PurchaseOrderControlsEnable(false);
             }
-            if (OrderId != 0)
+            else
             {
-                ShowAvailableLimits();
-                message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false);
+                message = CreateUserMessage(0, false, retVal == 1 ? true : false);
                 ShowMessage(message);
+                PurchaseOrderControlsEnable(false);
             }
-            PurchaseOrderControlsEnable(false);
 
         }
 
@@ -392,6 +403,10 @@ namespace WealthERP.OnlineOrderManagement
             else if (orderId != 0 && accountDebitStatus == false)
             {
                 userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+            }
+            else if (orderId == 0)
+            {
+                userMessage = "Order cannot be processed. Insufficient balance";
             }
 
             return userMessage;

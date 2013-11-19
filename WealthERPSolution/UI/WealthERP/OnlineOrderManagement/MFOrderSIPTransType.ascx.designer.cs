@@ -79,6 +79,15 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divValidationError;
 
         /// <summary>
+        /// divControlContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divControlContainer;
+
+        /// <summary>
         /// vsSummary control.
         /// </summary>
         /// <remarks>

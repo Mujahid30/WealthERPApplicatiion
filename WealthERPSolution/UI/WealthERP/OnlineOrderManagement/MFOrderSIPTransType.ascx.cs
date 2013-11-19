@@ -115,12 +115,12 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ShowMessage(boOnlineOrder.CreateClientMFAccessMessage(clientMFAccessCode));
                     FreezeControls();
-                    btnSubmit.Visible = false;
+                    divControlContainer.Visible = false;
                 }
             }
         }
 
-      
+
         private void ShowAvailableLimits()
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
@@ -404,22 +404,33 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
                 IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
-
-                SaveOrderDetails();
-                sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
-                int OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
-                int sipId = int.Parse(sipOrderIds["SIPId"].ToString());
+                decimal availableBalance = boOnlineOrder.GetUserRMSAccountBalance(customerVo.AccountId);
                 string message = string.Empty;
-                if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
-                {
-                    accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
 
-                }
-                if (OrderId != 0 || sipId != 0)
+                if (availableBalance > 0)
                 {
-                    ShowAvailableLimits();
-                    message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
+                    SaveOrderDetails();
+                    sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
+                    int OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
+                    int sipId = int.Parse(sipOrderIds["SIPId"].ToString());
+
+                    if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                    {
+                        accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
+
+                    }
+                    if (OrderId != 0 || sipId != 0)
+                    {
+                        ShowAvailableLimits();
+                        message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
+                        ShowMessage(message);
+                    }
+                }
+                else
+                {
+                    message = CreateUserMessage(0, 0, false, retVal == 1 ? true : false);
                     ShowMessage(message);
+
                 }
             }
             else
@@ -462,6 +473,11 @@ namespace WealthERP.OnlineOrderManagement
             else if (orderId == 0 && sipId != 0)
             {
                 userMessage = "SIP Requested successfully, SIP reference no is " + sipId.ToString();
+            }
+            else if (orderId == 0 && sipId == 0)
+            {
+                userMessage = "Order cannot be processed. Insufficient balance";
+               
             }
             return userMessage;
 

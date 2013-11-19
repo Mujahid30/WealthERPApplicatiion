@@ -79,7 +79,7 @@
                 </td>
             </tr>
         </table>
-        <div style="float: left;">
+        <div style="float: left;" id="divControlContainer" runat="server">
             <table>
                 <tr class="spaceUnder">
                     <td>
@@ -427,7 +427,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left; padding-top: 5px;display:none;">
+        <div style="float: left; padding-top: 5px; display: none;">
             <table style="border-style: solid; border-width: 2px; border-color: Blue">
                 <tr class="spaceUnder">
                     <td>
