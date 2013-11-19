@@ -13,10 +13,7 @@
         }
         return true;
 
-
-
 </script>
-
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
@@ -191,12 +188,7 @@
                     <PagerStyle AlwaysVisible="True" />
                     <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId,PFISM_SchemeId,PFIIM_IssuerId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo"
                         AutoGenerateColumns="false" Width="100%">
-                        <CommandItemSettings ExportToPdfText="Export to Pdf" />
-                        <%--Columns>
-                                               <telerik:GridBoundColumn HeaderStyle-Width="38px"></telerik:GridBoundColumn>
-                                               <telerik:GridBoundColumn   HeaderText="SportID" HeaderStyle-Width="120px" UniqueName="ID"></telerik:GridBoundColumn>
-                                               <telerik:GridBoundColumn   HeaderText="Sport" UniqueName="Name"></telerik:GridBoundColumn>
-                                            </Columns>--%>
+                        <CommandItemSettings ExportToPdfText="Export to Pdf" />                       
                         <Columns>
                             <telerik:GridBoundColumn DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scheme" UniqueName=" SchemeId"
