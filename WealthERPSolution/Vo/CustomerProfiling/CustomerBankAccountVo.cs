@@ -36,6 +36,14 @@ namespace VoCustomerProfiling
         private float m_Balance;
         private float m_InterestRate;
 
+        public int BankId { get; set; }
+        public int BankAccTypeId { get; set; }
+
+        public int BranchAddCityId { get; set; }
+        public int BranchAddStateId { get; set; }
+        public int BranchAddCountryId { get; set; }
+
+
 
 
 

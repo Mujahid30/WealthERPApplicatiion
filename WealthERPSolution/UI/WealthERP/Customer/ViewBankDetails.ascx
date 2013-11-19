@@ -141,7 +141,7 @@
     <telerik:RadGrid ID="gvBankDetails" runat="server" GridLines="None" Width="99%" AllowPaging="true"
         PageSize="10" AllowSorting="True" AutoGenerateColumns="false" ShowStatusBar="true" ShowFooter="true"
         AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-        Skin="Telerik" OnItemDataBound="gvBankDetails_ItemDataBound" EnableEmbeddedSkins="false"
+        Skin="Telerik" EnableEmbeddedSkins="false"
         OnItemCommand="gvBankDetails_ItemCommand" EnableHeaderContextMenu="false" OnPreRender="gvBankDetails_PreRender"
         EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="false" OnNeedDataSource="gvBankDetails_NeedDataSource"
         EditItemStyle-Width="600px">
@@ -149,7 +149,7 @@
         <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
         <ExportSettings HideStructureColumns="true">
         </ExportSettings>
-        <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WERPBDTM_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,PAIC_AssetInstrumentCategoryCode,CB_BranchAdrState,WERPBM_BankCode"
+        <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WCMV_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,WCMV_LookupId_AccType,WCMV_Lookup_BranchAddStateId,WCMV_LookupId_BankId"
             EditMode="EditForms" CommandItemDisplay="None" Width="100%">
             <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                 AddNewRecordText="Add New Bank Details" ShowRefreshButton="false" ShowExportToCsvButton="false"
@@ -180,7 +180,7 @@
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="WERPBDTM_BankName" HeaderStyle-Width="90px"
-                    HeaderText="Bank" DataField="WERPBDTM_BankName" SortExpression="WERPBDTM_BankName"
+                    HeaderText="Bank" DataField="WCMV_BankName" SortExpression="WCMV_BankName"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="CB_AccountNum" HeaderStyle-Width="80px" HeaderText="Account No."
@@ -188,7 +188,7 @@
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="PAIC_AssetInstrumentCategoryName" HeaderStyle-Width="80px"
-                    HeaderText="Account Type" DataField="PAIC_AssetInstrumentCategoryName" SortExpression="PAIC_AssetInstrumentCategoryName"
+                    HeaderText="Account Type" DataField="WCMV_BankAccountType" SortExpression="WCMV_BankAccountType"
                     AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                 </telerik:GridBoundColumn>
                 <telerik:GridBoundColumn UniqueName="XMOH_ModeOfHolding" HeaderStyle-Width="80px"

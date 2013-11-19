@@ -16,7 +16,7 @@ namespace DaoCustomerProfiling
     {
         public int CreateCustomerBankAccount(CustomerBankAccountVo customerBankAccountVo, int customerId, int userId)
         {
-            int accountId = 0;    
+            int accountId = 0;
             bool bResult = false;
             Database db;
             DbCommand createCustomerBankCmd;
@@ -29,9 +29,9 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerBankCmd, "@WERPBM_BankCode", DbType.String, customerBankAccountVo.BankName);
                 db.AddInParameter(createCustomerBankCmd, "@CP_PortfolioId", DbType.Int32, customerBankAccountVo.PortfolioId);
                 if (!string.IsNullOrEmpty("PAIC_AssetInstrumentCategoryCode".ToString()))
-                db.AddInParameter(createCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerBankAccountVo.AccountType);
+                    db.AddInParameter(createCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerBankAccountVo.AccountType);
                 else
-                db.AddInParameter(createCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String,DBNull.Value);
+                    db.AddInParameter(createCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, DBNull.Value);
                 db.AddInParameter(createCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(createCustomerBankCmd, "@CB_IsHeldJointly", DbType.Int32, customerBankAccountVo.IsJointHolding);
                 db.AddInParameter(createCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
@@ -48,14 +48,30 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
                 db.AddInParameter(createCustomerBankCmd, "@CB_CreatedBy", DbType.Int32, userId);
                 db.AddInParameter(createCustomerBankCmd, "@CB_ModifiedBy", DbType.Int32, userId);
-                db.AddOutParameter(createCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32,10000);
-               // db.ExecuteNonQuery(createCustomerBankCmd);
+
+                db.AddInParameter(createCustomerBankCmd, "@WCMV_LookupId_BankId", DbType.Int32, customerBankAccountVo.BankId);
+                db.AddInParameter(createCustomerBankCmd, "@WCMV_LookupId_AccType", DbType.Int32, customerBankAccountVo.BankAccTypeId);
+
+                if (customerBankAccountVo.BranchAddCityId != 0)
+                    db.AddInParameter(createCustomerBankCmd, "@WCMV_Lookup_BranchAddCityId", DbType.Int32, customerBankAccountVo.BranchAddCityId);
+
+                if (customerBankAccountVo.BranchAddStateId != 0)
+                    db.AddInParameter(createCustomerBankCmd, "@WCMV_Lookup_BranchAddStateId", DbType.Int32, customerBankAccountVo.BranchAddStateId);
+
+                if (customerBankAccountVo.BranchAddCountryId != 0)
+                    db.AddInParameter(createCustomerBankCmd, "@WCMV_Lookup_BranchAddCountryId", DbType.Int32, customerBankAccountVo.BranchAddCountryId);
+
+                db.AddOutParameter(createCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, 10000);
+
+
+
+                // db.ExecuteNonQuery(createCustomerBankCmd);
 
                 if (db.ExecuteNonQuery(createCustomerBankCmd) != 0)
-                accountId = int.Parse(db.GetParameterValue(createCustomerBankCmd, "CB_CustBankAccId").ToString());
-               // bResult = true;
+                    accountId = int.Parse(db.GetParameterValue(createCustomerBankCmd, "CB_CustBankAccId").ToString());
+                // bResult = true;
             }
-                
+
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -94,11 +110,11 @@ namespace DaoCustomerProfiling
             {
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-              
+
                 getCustomerBankCmd = db.GetStoredProcCommand("SP_GetCustomerBankAccounts");
                 db.AddInParameter(getCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
                 getCustomerBankDs = db.ExecuteDataSet(getCustomerBankCmd);
-              
+
 
             }
             catch (BaseApplicationException Ex)
@@ -149,9 +165,9 @@ namespace DaoCustomerProfiling
                     foreach (DataRow dr in getCustomerBankDs.Tables[0].Rows)
                     {
                         customerBankAccountVo = new CustomerBankAccountVo();
-                        customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());                                       
-                        customerBankAccountVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
-                        customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryName"].ToString();
+                        customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
+                        //customerBankAccountVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
+                        //customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryName"].ToString();
                         customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                         customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString().Trim();
                         customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
@@ -159,20 +175,33 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
                         customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
                         if (!string.IsNullOrEmpty(dr["CB_BranchAdrPinCode"].ToString()))
-                        customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
-                        customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
-                        customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
-                        customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
+                            customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
+                        //customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
+                        //customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
+                        //customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
                         customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHoldingCode"].ToString().Trim();
                         customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
-                        customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
-                       
+                        //customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
+
                         if (dr["CB_Balance"].ToString() != "")
                             if (!string.IsNullOrEmpty(dr["CB_Balance"].ToString()))
                                 customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
                         if (!string.IsNullOrEmpty(dr["CB_MICR"].ToString()))
                             customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
                         customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
+
+                        if (!string.IsNullOrEmpty(dr["WCMV_LookupId_AccType"].ToString()))
+                        customerBankAccountVo.BankAccTypeId = int.Parse(dr["WCMV_LookupId_AccType"].ToString());
+                        if (!string.IsNullOrEmpty(dr["WCMV_LookupId_BankId"].ToString()))
+                        customerBankAccountVo.BankId = int.Parse(dr["WCMV_LookupId_BankId"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCityId"].ToString()))
+                            customerBankAccountVo.BranchAddCityId = int.Parse(dr["WCMV_Lookup_BranchAddCityId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddStateId"].ToString()))
+                            customerBankAccountVo.BranchAddStateId = int.Parse(dr["WCMV_Lookup_BranchAddStateId"].ToString());
+                        if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCountryId"].ToString()))
+                            customerBankAccountVo.BranchAddCountryId = int.Parse(dr["WCMV_Lookup_BranchAddCountryId"].ToString());
+
                         accountList.Add(customerBankAccountVo);
 
                     }
@@ -297,32 +326,45 @@ namespace DaoCustomerProfiling
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCustomerBankCmd = db.GetStoredProcCommand("SP_UpdateCustomerBankAccount");
                 db.AddInParameter(updateCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccountVo.CustBankAccId);
-                db.AddInParameter(updateCustomerBankCmd, "@WERPBM_BankCode", DbType.String, customerBankAccountVo.BankName);
-                db.AddInParameter(updateCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerBankAccountVo.AccountType);
+                //db.AddInParameter(updateCustomerBankCmd, "@WERPBM_BankCode", DbType.String, customerBankAccountVo.BankName);
+                //db.AddInParameter(updateCustomerBankCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, customerBankAccountVo.AccountType);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_IsHeldJointly", DbType.Int32, customerBankAccountVo.IsJointHolding);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
-                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
-               // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
-                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
-               // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
-                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
+                // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
+                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
+                // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
+                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine3", DbType.String, customerBankAccountVo.BranchAdrLine3);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrPinCode", DbType.String, customerBankAccountVo.BranchAdrPinCode);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
-                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
-               // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
-                    db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrState", DbType.String, customerBankAccountVo.BranchAdrState);
+                //db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCity", DbType.String, customerBankAccountVo.BranchAdrCity);
+                // if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+                //db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrState", DbType.String, customerBankAccountVo.BranchAdrState);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
-                db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
+                //db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrCountry", DbType.String, customerBankAccountVo.BranchAdrCountry);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_Balance", DbType.Decimal, customerBankAccountVo.Balance);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_MICR", DbType.Int64, customerBankAccountVo.MICR);
-               // if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
-               db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
-               db.AddInParameter(updateCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
-               db.ExecuteNonQuery(updateCustomerBankCmd);                 
-                  
+                // if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
+                db.AddInParameter(updateCustomerBankCmd, "@CB_IFSC", DbType.String, customerBankAccountVo.IFSC);
+                db.AddInParameter(updateCustomerBankCmd, "@C_CustomerId", DbType.Int32, customerId);
+
+                db.AddInParameter(updateCustomerBankCmd, "@WCMV_LookupId_BankId", DbType.Int32, customerBankAccountVo.BankId);
+                db.AddInParameter(updateCustomerBankCmd, "@WCMV_LookupId_AccType", DbType.Int32, customerBankAccountVo.BankAccTypeId);
+
+                if (customerBankAccountVo.BranchAddCityId != 0)
+                    db.AddInParameter(updateCustomerBankCmd, "@WCMV_Lookup_BranchAddCityId", DbType.Int32, customerBankAccountVo.BranchAddCityId);
+
+                if (customerBankAccountVo.BranchAddStateId != 0)
+                    db.AddInParameter(updateCustomerBankCmd, "@WCMV_Lookup_BranchAddStateId", DbType.Int32, customerBankAccountVo.BranchAddStateId);
+
+                if (customerBankAccountVo.BranchAddCountryId != 0)
+                    db.AddInParameter(updateCustomerBankCmd, "@WCMV_Lookup_BranchAddCountryId", DbType.Int32, customerBankAccountVo.BranchAddCountryId);
+
+                db.ExecuteNonQuery(updateCustomerBankCmd);
+
                 bResult = true;
             }
             catch (BaseApplicationException Ex)
@@ -481,12 +523,12 @@ namespace DaoCustomerProfiling
             Database db;
             DataSet getCustomerBankDs;
             DbCommand getCustomerBankAccCmd;
-            DataRow dr;           
+            DataRow dr;
             try
             {
 
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getCustomerBankAccCmd = db.GetStoredProcCommand("SP_GetCustomerIndividualBankAccounts");                
+                getCustomerBankAccCmd = db.GetStoredProcCommand("SP_GetCustomerIndividualBankAccounts");
                 db.AddInParameter(getCustomerBankAccCmd, "@CB_CustBankAccId", DbType.Int32, customerBankAccId);
                 getCustomerBankDs = db.ExecuteDataSet(getCustomerBankAccCmd);
 
@@ -498,35 +540,52 @@ namespace DaoCustomerProfiling
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
                     if (dr["CP_PortfolioId"].ToString() != "")
                         customerBankAccountVo.PortfolioId = int.Parse(dr["CP_PortfolioId"].ToString());
-                    customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
+                    //customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
                     //if (dr["XBAT_BankAccountTypeCode"].ToString() == "SB")
                     //{
 
                     //    customerBankAccountVo.AccountType = "SV";
                     //}
                     //else
-                    customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                    //customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     //customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
                     customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHoldingCode"].ToString();
                     customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHolding"].ToString();
                     customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
                     if (dr["CB_IsHeldJointly"].ToString() != "")
-                    customerBankAccountVo.IsJointHolding = int.Parse(dr["CB_IsHeldJointly"].ToString());
+                        customerBankAccountVo.IsJointHolding = int.Parse(dr["CB_IsHeldJointly"].ToString());
                     customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
                     customerBankAccountVo.BranchAdrLine2 = dr["CB_BranchAdrLine2"].ToString();
                     customerBankAccountVo.BranchAdrLine3 = dr["CB_BranchAdrLine3"].ToString();
                     if (dr["CB_BranchAdrPinCode"].ToString() != "")
                         customerBankAccountVo.BranchAdrPinCode = int.Parse(dr["CB_BranchAdrPinCode"].ToString());
-                    customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
-                    customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
-                    customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
+
+                    //customerBankAccountVo.BranchAdrCity = dr["CB_BranchAdrCity"].ToString();
+                    //customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
+                    //customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
+
                     if (dr["CB_Balance"].ToString() != "")
                         customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
                     if (dr["CB_MICR"].ToString() != "")
                         customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
                     customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
 
+                    if (!string.IsNullOrEmpty(dr["WCMV_BankName"].ToString()))
+                        customerBankAccountVo.BankName = dr["WCMV_BankName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["WCMV_LookupId_BankId"].ToString()))
+                        customerBankAccountVo.BankId = int.Parse(dr["WCMV_LookupId_BankId"].ToString());
+
+                    if (!string.IsNullOrEmpty(dr["WCMV_LookupId_AccType"].ToString()))
+                        customerBankAccountVo.BankAccTypeId = int.Parse(dr["WCMV_LookupId_AccType"].ToString());
+                    
+
+                    if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCityId"].ToString()))
+                        customerBankAccountVo.BranchAddCityId = int.Parse(dr["WCMV_Lookup_BranchAddCityId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddStateId"].ToString()))
+                        customerBankAccountVo.BranchAddStateId = int.Parse(dr["WCMV_Lookup_BranchAddStateId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCountryId"].ToString()))
+                        customerBankAccountVo.BranchAddCountryId = int.Parse(dr["WCMV_Lookup_BranchAddCountryId"].ToString());
 
 
                 }
@@ -543,7 +602,7 @@ namespace DaoCustomerProfiling
 
                 FunctionInfo.Add("Method", "CustomerBankAccountDao.cs:GetCusomerBankAccount()");
                 object[] objects = new object[2];
-                objects[0] = customerBankAccId;              
+                objects[0] = customerBankAccId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

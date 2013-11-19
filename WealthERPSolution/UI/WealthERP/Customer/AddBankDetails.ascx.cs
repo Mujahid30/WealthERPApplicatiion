@@ -34,6 +34,7 @@ namespace WealthERP.Customer
         CustomerAccountsVo customeraccountVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
         List<CustomerAccountsVo> TransactionList = new List<CustomerAccountsVo>();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         int custBankAccId;
         string path;
         string DisplayType;
@@ -250,6 +251,7 @@ namespace WealthERP.Customer
             // ViewState["BankId"] = dsCustomerBankAccountDetails.Tables[1];
             Session["BankAccId"] = dsCustomerBankAccountDetails.Tables[1];
            // ddlAccountDetails.Items.Insert(0, "Select");
+
         }
 
         public void ddlAccountDetails_SelectedIndexChanged(object sender, EventArgs e)

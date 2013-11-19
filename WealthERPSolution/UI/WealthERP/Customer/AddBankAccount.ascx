@@ -7,13 +7,14 @@
 </asp:ScriptManager>
 
 <script language="javascript" type="text/javascript">
- 
+
     function ClosePopUp() {
 
         window.close();
         return true;
     }
 </script>
+
 <table style: width="100%;">
     <tr>
         <td>
@@ -23,13 +24,13 @@
                         <td align="left">
                             Add Bank Account
                         </td>
-                         <td align="right">
-                            <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit" Visible="false"
-                                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
+                        <td align="right">
+                            <asp:LinkButton runat="server" ID="lnkBtnEdit" CssClass="LinkButtons" Text="Edit"
+                                Visible="false" OnClick="lnkBtnEdit_Click"></asp:LinkButton>
                         </td>
                         <td align="right" style="width: 10px">
-                        <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back" Visible="false"
-                                OnClick="lnkBtnBack_Click"></asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="Back"
+                                Visible="false" OnClick="lnkBtnBack_Click"></asp:LinkButton>
                         </td>
                     </tr>
                 </table>
@@ -42,7 +43,7 @@
         <tr>
             <td colspan="4">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                     Bank Details
+                    Bank Details
                 </div>
             </td>
         </tr>
@@ -55,8 +56,8 @@
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlPortfolioId"
-                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please select Portfolio"
-                    Operator="NotEqual" ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
+                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please select Portfolio" Operator="NotEqual"
+                    ValueToCompare="Select" CssClass="cvPCG" Display="Dynamic"></asp:CompareValidator>
             </td>
             <td colspan="2">
                 &nbsp;
@@ -134,16 +135,14 @@
             <td>
                 <asp:RadioButton ID="rbtnYes" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
                     Text="Yes" AutoPostBack="true" OnCheckedChanged="rbtnYes_CheckedChanged" />
-              <%--  <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                <%--  <asp:RadioButton ID="rbtnNo" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
                     Text="No" AutoPostBack="true"
                     oncheckedchanged="rbtnNo_CheckedChanged" />--%>
-                     <%--<asp:RadioButton ID="rbtnN" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
+                <%--<asp:RadioButton ID="rbtnN" runat="server" CssClass="cmbField" GroupName="rbtnJointHolding"
                     Text="No" AutoPostBack="true"
                     OnCheckedChanged="rbtnYes_CheckedChanged" />--%>
-                    
-                         <asp:RadioButton ID="RadioButton1" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
-                    Text="No" AutoPostBack="true" Checked="true"
-                    OnCheckedChanged="rbtnYes_CheckedChanged" />
+                <asp:RadioButton ID="RadioButton1" runat="server" CssClass="cmbFielde" GroupName="rbtnJointHolding"
+                    Text="No" AutoPostBack="true" Checked="true" OnCheckedChanged="rbtnYes_CheckedChanged" />
                 <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
             </td>
         </tr>
@@ -165,7 +164,7 @@
                 &nbsp;
             </td>
         </tr>
-         <tr >
+        <tr>
             <td class="leftField">
                 <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Add Nominee:"></asp:Label>
             </td>
@@ -180,7 +179,7 @@
         <tr id="trjointholder" runat="server" visible="false">
             <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                     Joint Holder
+                    Joint Holder
                 </div>
             </td>
         </tr>
@@ -189,7 +188,7 @@
                 <telerik:RadGrid ID="gvJointHolders" runat="server" GridLines="None" Width="100%"
                     AllowPaging="true" AllowSorting="false" AutoGenerateColumns="false" ShowStatusBar="true"
                     AllowAutomaticDeletes="True" AllowAutomaticInserts="false" AllowAutomaticUpdates="false"
-                    Skin="Telerik" EnableEmbeddedSkins="true" EnableHeaderContextFilterMenu="false" 
+                    Skin="Telerik" EnableEmbeddedSkins="true" EnableHeaderContextFilterMenu="false"
                     AllowFilteringByColumn="false" OnItemDataBound="gvJointHolders_ItemDataBound">
                     <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
                     <ExportSettings HideStructureColumns="true">
@@ -203,12 +202,10 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="80px" HeaderText="Name"
-                                DataField="Name" AllowFiltering="false" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="false">
+                                DataField="Name" AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Relationship" HeaderStyle-Width="90px" HeaderText="Relationship"
-                                DataField="Relationship" AllowFiltering="false"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="false">
+                                DataField="Relationship" AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
@@ -229,7 +226,7 @@
         <tr id="trNomineeCaption" runat="server" visible="false">
             <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                     Nominees
+                    Nominees
                 </div>
             </td>
         </tr>
@@ -251,12 +248,10 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn UniqueName="Name" HeaderStyle-Width="80px" HeaderText="Name"
-                                DataField="Name" AllowFiltering="false" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="false">
+                                DataField="Name" AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn UniqueName="Relationship" HeaderStyle-Width="90px" HeaderText="Relationship"
-                                DataField="Relationship" AllowFiltering="false"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="false">
+                                DataField="Relationship" AllowFiltering="false" ShowFilterIcon="false" AutoPostBackOnFilter="false">
                             </telerik:GridBoundColumn>
                         </Columns>
                     </MasterTableView>
@@ -316,7 +311,9 @@
                 <asp:Label ID="lblCity" runat="server" CssClass="FieldName" Text="City:"></asp:Label>
             </td>
             <td class="rightField">
-                <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField" Text='<%# Bind("CB_BranchAdrCity") %>'></asp:TextBox>
+                <%-- <asp:TextBox ID="txtBankAdrCity" runat="server" CssClass="txtField" Text='<%# Bind("CB_BranchAdrCity") %>'></asp:TextBox>--%>
+                <asp:DropDownList ID="ddlBankAdrCity" runat="server" CssClass="txtField" Width="150px">
+                </asp:DropDownList>
             </td>
             <td class="leftField">
                 <asp:Label ID="Label23" runat="server" CssClass="FieldName" Text="State:"></asp:Label>
@@ -342,7 +339,6 @@
             </td>
             <td class="rightField">
                 <asp:DropDownList ID="ddlBankAdrCountry" runat="server" CssClass="cmbField">
-                    <asp:ListItem>India</asp:ListItem>
                 </asp:DropDownList>
             </td>
         </tr>
@@ -363,17 +359,17 @@
                 <asp:TextBox ID="txtIfsc" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_IFSC") %>'></asp:TextBox>
             </td>
         </tr>
-            <tr>
-                <td>
-                    <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                        Text="Submit" Visible="true" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
-                    <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                        onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
-                        Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
-                </td>
-            </tr>
-            <%--<td>
+        <tr>
+            <td>
+                <asp:Button ID="btnSubmit" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                    Text="Submit" Visible="true" OnClick="btnSubmit_Click" ValidationGroup="btnSubmit" />
+                <asp:Button ID="btnUpdate" runat="server" CssClass="PCGButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                    onmouseout="javascript:ChangeButtonCss('out', 'ctrl_CustomerAccountAdd_btnSubmit', 'S');"
+                    Text="Update" Visible="false" OnClick="btnUpdate_Click" ValidationGroup="btnSubmit" />
+            </td>
+        </tr>
+        <%--<td>
             <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
                 CommandName="Cancel"></asp:Button>
         </td>--%>

@@ -85,7 +85,7 @@ namespace WealthERP.Customer
                     gvBankDetails.Rebind();
                 }
 
-                BindBankDetails(customerVo.CustomerId);
+                //BindBankDetails(customerVo.CustomerId);
             }
             gvCashSavingTransaction.Visible = false;
         }

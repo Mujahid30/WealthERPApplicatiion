@@ -37,6 +37,7 @@ namespace WealthERP.Customer
         CustomerAccountsVo customeraccountVo = new CustomerAccountsVo();
         CustomerAccountAssociationVo customerAccountAssociationVo = new CustomerAccountAssociationVo();
         List<CustomerAccountsVo> TransactionList = new List<CustomerAccountsVo>();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
         DataSet dsCustomerAssociates;
         DataTable dtCustomerAssociates;
         DataTable dtCustomerAssociatesRaw;
@@ -70,7 +71,7 @@ namespace WealthERP.Customer
             {
                 action = Request.QueryString["action"].ToString();
                 strVisibility = "View";
-                
+
             }
             if (Request.QueryString["strModeOfOperation"] != null)
             {
@@ -84,6 +85,8 @@ namespace WealthERP.Customer
                 BindModeofOperation();
                 BindBankName();
                 BindState();
+                BindCity();
+                BindCountry();
                 ddlModeofOperation.SelectedValue = "SI";
                 ddlModeofOperation.Enabled = false;
             }
@@ -146,7 +149,7 @@ namespace WealthERP.Customer
         {
             if (customerVo.CustomerId == 0)
                 return;
-            
+
             DataSet ds = portfolioBo.GetCustomerPortfolio(customerVo.CustomerId);
             ddlPortfolioId.DataSource = ds;
             ddlPortfolioId.DataValueField = ds.Tables[0].Columns["CP_PortfolioId"].ToString();
@@ -155,46 +158,72 @@ namespace WealthERP.Customer
         }
         public void BindBankName()
         {
-            DataTable dtBankName = new DataTable();
-            dtBankName = customerBankAccountBo.GetALLBankName();
+            DataTable dtBankName;
+            dtBankName = commonLookupBo.GetWERPLookupMasterValueList(7000, 0);
             ddlBankName.DataSource = dtBankName;
-            ddlBankName.DataValueField = dtBankName.Columns["WERPBM_BankCode"].ToString();
-            ddlBankName.DataTextField = dtBankName.Columns["WERPBM_BankName"].ToString();
+            ddlBankName.DataValueField = "WCMV_LookupId";
+            ddlBankName.DataTextField = "WCMV_Name";
             ddlBankName.DataBind();
-            ddlBankName.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlBankName.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
         public void BindAccountType()
         {
-            DataTable dtAccType = new DataTable();
-            dtAccType = customerBankAccountBo.AssetBankaccountType();
+            DataTable dtAccType;
+            dtAccType = commonLookupBo.GetWERPLookupMasterValueList(5000, 0);
             ddlAccountType.DataSource = dtAccType;
-            ddlAccountType.DataValueField = dtAccType.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
-            ddlAccountType.DataTextField = dtAccType.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+            ddlAccountType.DataValueField = "WCMV_LookupId";
+            ddlAccountType.DataTextField = "WCMV_Name";
             ddlAccountType.DataBind();
-            ddlAccountType.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlAccountType.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
         public void BindModeofOperation()
         {
-            DataTable dtModeOfOpn = new DataTable();
+            DataTable dtModeOfOpn;
             dtModeOfOpn = customerBankAccountBo.XMLModeOfHolding();
             ddlModeofOperation.DataSource = dtModeOfOpn;
             ddlModeofOperation.DataValueField = dtModeOfOpn.Columns["XMOH_ModeOfHoldingCode"].ToString();
             ddlModeofOperation.DataTextField = dtModeOfOpn.Columns["XMOH_ModeOfHolding"].ToString();
             ddlModeofOperation.DataBind();
             //ddlModeofOperation.SelectedValue = "SI";
-            ddlModeofOperation.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlModeofOperation.Items.Insert(0, new ListItem("--SELECT--", "0"));
         }
         public void BindState()
         {
-            DataTable dtBankState = new DataTable();
-            dtBankState = XMLBo.GetStates(path);
+            DataTable dtBankState;
+            dtBankState = commonLookupBo.GetWERPLookupMasterValueList(9000, 0);
             ddlBankAdrState.DataSource = dtBankState;
-            ddlBankAdrState.DataTextField = "StateName";
-            ddlBankAdrState.DataValueField = "StateCode";
+            ddlBankAdrState.DataTextField = "WCMV_Name";
+            ddlBankAdrState.DataValueField = "WCMV_LookupId";
             ddlBankAdrState.DataBind();
-            ddlBankAdrState.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlBankAdrState.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
         }
+
+        public void BindCountry()
+        {
+            DataTable dtBankCountry;
+            dtBankCountry = commonLookupBo.GetWERPLookupMasterValueList(13000, 0);
+            ddlBankAdrCountry.DataSource = dtBankCountry;
+            ddlBankAdrCountry.DataTextField = "WCMV_Name";
+            ddlBankAdrCountry.DataValueField = "WCMV_LookupId";
+            ddlBankAdrCountry.DataBind();
+            ddlBankAdrCountry.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+        }
+
+
+        public void BindCity()
+        {
+            DataTable dtBankCity;
+            dtBankCity = commonLookupBo.GetWERPLookupMasterValueList(8000, 0);
+            ddlBankAdrCity.DataSource = dtBankCity;
+            ddlBankAdrCity.DataTextField = "WCMV_Name";
+            ddlBankAdrCity.DataValueField = "WCMV_LookupId";
+            ddlBankAdrCity.DataBind();
+            ddlBankAdrCity.Items.Insert(0, new ListItem("--SELECT--", "0"));
+
+        }
+
         public void BindNominees()
         {
             try
@@ -312,25 +341,40 @@ namespace WealthERP.Customer
             customerId = customerVo.CustomerId;
             customerBankAccountVo = new CustomerBankAccountVo();
             customerBankAccountVo.PortfolioId = int.Parse(ddlPortfolioId.SelectedItem.Value.ToString()); ;
-            customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
+            //customerBankAccountVo.AccountType = ddlAccountType.SelectedValue.ToString();
             customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
             if (ddlModeofOperation.SelectedValue.ToString() != "Select a Mode of Holding")
                 customerBankAccountVo.ModeOfOperation = ddlModeofOperation.SelectedValue.ToString();
-            customerBankAccountVo.BankName = ddlBankName.SelectedValue.ToString();
+            //customerBankAccountVo.BankName = ddlBankName.SelectedValue.ToString();
             customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
             customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
             customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
             customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
             if (txtBankAdrPinCode.Text.ToString() != "")
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
-            customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
-            if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
-                customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
-            customerBankAccountVo.BranchAdrCountry = "India";
+            //customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
+
+            //if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+            //    customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+            //customerBankAccountVo.BranchAdrCountry = "India";
             if (txtMicr.Text.ToString() != "")
                 customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
             customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
             customerBankAccountVo.Balance = 0;
+
+            customerBankAccountVo.BankAccTypeId = int.Parse(ddlAccountType.SelectedValue.ToString());
+            customerBankAccountVo.BankId = int.Parse(ddlBankName.SelectedValue.ToString());
+
+            if (ddlBankAdrCity.SelectedIndex != 0)
+                customerBankAccountVo.BranchAddCityId = int.Parse(ddlBankAdrCity.SelectedValue.ToString());
+            if (ddlBankAdrState.SelectedIndex != 0)
+                customerBankAccountVo.BranchAddStateId = int.Parse(ddlBankAdrState.SelectedValue.ToString());
+            if (ddlBankAdrCountry.SelectedIndex != 0)
+                customerBankAccountVo.BranchAddCountryId = int.Parse(ddlBankAdrCountry.SelectedValue.ToString());
+
+
+
+
             if (RadioButton1.Checked)
             {
                 customerBankAccountVo.IsJointHolding = 0;
@@ -423,7 +467,7 @@ namespace WealthERP.Customer
             customerVo = (CustomerVo)Session["customerVo"];
             customerId = customerVo.CustomerId;
             customerBankAccountVo.BankAccountNum = txtAccountNumber.Text.ToString();
-            customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
+            //customerBankAccountVo.AccountType = ddlAccountType.SelectedItem.Value.ToString();
             if (RadioButton1.Checked)
             {
                 customerBankAccountVo.IsJointHolding = 0;
@@ -433,7 +477,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo.IsJointHolding = 1;
             }
             customerBankAccountVo.ModeOfOperation = ddlModeofOperation.SelectedItem.Value.ToString();
-            customerBankAccountVo.BankName = ddlBankName.SelectedItem.Value.ToString();
+            //customerBankAccountVo.BankName = ddlBankName.SelectedItem.Value.ToString();
             customerBankAccountVo.BranchName = txtBranchName.Text.ToString();
             customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
             customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
@@ -442,12 +486,25 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
             else
                 customerBankAccountVo.BranchAdrPinCode = 0;
-            customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
-            if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
-                customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
 
-            customerBankAccountVo.CustBankAccId = bankId;
-            customerBankAccountVo.BranchAdrCountry = "India";
+            //customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
+            //if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
+            //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
+
+            //customerBankAccountVo.CustBankAccId = bankId;
+            //customerBankAccountVo.BranchAdrCountry = "India";
+
+            customerBankAccountVo.BankAccTypeId = int.Parse(ddlAccountType.SelectedValue.ToString());
+            customerBankAccountVo.BankId = int.Parse(ddlBankName.SelectedValue.ToString());
+
+            if (ddlBankAdrCity.SelectedIndex != 0)
+                customerBankAccountVo.BranchAddCityId = int.Parse(ddlBankAdrCity.SelectedValue.ToString());
+            if (ddlBankAdrState.SelectedIndex != 0)
+                customerBankAccountVo.BranchAddStateId = int.Parse(ddlBankAdrState.SelectedValue.ToString());
+            if (ddlBankAdrCountry.SelectedIndex != 0)
+                customerBankAccountVo.BranchAddCountryId = int.Parse(ddlBankAdrCountry.SelectedValue.ToString());
+
+
             customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
             if (txtMicr.Text.ToString() != "")
                 customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
@@ -593,14 +650,14 @@ namespace WealthERP.Customer
                 trNomineeCaption.Visible = true;
                 trgvNominees.Visible = true;
                 //if (ViewState["Action"] != null)
-               // {
+                // {
                 //    if (ViewState["Action"].ToString() != "Edit")
                 //    {
-                        BindNominees();
+                BindNominees();
                 //    }
 
-               // }
-                   
+                // }
+
             }
             if (rbtnomNo.Checked == true)
             {
@@ -642,7 +699,7 @@ namespace WealthERP.Customer
             strVisibility = "Edit";
             //dt=(DataTable)Cache["gvjoinholder" + customerVo.CustomerId];
             DataSet ds = new DataSet();
-             dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerVo.CustomerId, "Edit");
+            dsCustomerAssociates = customerAccountBo.GetCustomerAssociatedRelForCashAndSavings(customerVo.CustomerId, "Edit");
 
             string strJH;
             strJH = "CCSAA_AssociationType LIKE" + "'%Joint Holder%'";
@@ -664,8 +721,8 @@ namespace WealthERP.Customer
 
             if (rbtnYes.Checked == true)
             {
-                ddlModeofOperation.Enabled = true;               
-               // ddlModeofOperation.SelectedItem.Value=customerBankAccountVo.ModeOfOperation;
+                ddlModeofOperation.Enabled = true;
+                // ddlModeofOperation.SelectedItem.Value=customerBankAccountVo.ModeOfOperation;
                 ddlModeofOperation.SelectedValue = mode;
                 gvJointHolders.DataSource = dtCustomerAssociatesRaw;
                 gvJointHolders.DataBind();
@@ -681,7 +738,7 @@ namespace WealthERP.Customer
                         if (drjointDt.Count() > 0)
                         {
                             chkId.Checked = true;
-                        }                     
+                        }
 
                     }
                 }
@@ -703,7 +760,7 @@ namespace WealthERP.Customer
                 ViewState["newTable"] = dtCustomerAssociatesRaw;
                 //ddlModeofOperation.Enabled = true;
                 //ddlModeofOperation.SelectedIndex = 0;
-                
+
                 gvNominees.DataSource = dtCustomerAssociatesRaw;
                 gvNominees.DataBind();
                 DataTable dtNom = (DataTable)ViewState["dtNOM"];
@@ -718,7 +775,7 @@ namespace WealthERP.Customer
                         if (drNomineeDt.Count() > 0)
                         {
                             chkIdn.Checked = true;
-                        }                                       
+                        }
 
                     }
                 }
@@ -786,9 +843,18 @@ namespace WealthERP.Customer
         {
             customerBankAccountVo = customerBankAccountBo.GetCusomerIndBankAccount(bankId);
             ddlPortfolioId.SelectedValue = customerBankAccountVo.PortfolioId.ToString();
-            ddlAccountType.SelectedValue = customerBankAccountVo.AccountType;
             txtAccountNumber.Text = customerBankAccountVo.BankAccountNum;
-            ddlBankName.SelectedValue = customerBankAccountVo.BankName;
+
+            ddlAccountType.SelectedValue = customerBankAccountVo.BankAccTypeId.ToString();
+            ddlBankName.SelectedValue = customerBankAccountVo.BankId.ToString();
+
+            if (customerBankAccountVo.BranchAddCityId != 0)
+                ddlBankAdrCity.SelectedValue = customerBankAccountVo.BranchAddCityId.ToString();
+            if (customerBankAccountVo.BranchAddStateId != 0)
+                ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAddStateId.ToString();
+            if (customerBankAccountVo.BranchAddCountryId != 0)
+                ddlBankAdrCountry.SelectedValue = customerBankAccountVo.BranchAddCountryId.ToString();
+
             if (customerBankAccountVo.IsJointHolding == 1)
             {
                 rbtnYes.Checked = true;
@@ -819,13 +885,16 @@ namespace WealthERP.Customer
             }
             else
                 txtBankAdrPinCode.Text = "";
-            txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
-            if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
-            {
-                ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
-            }
-            else
-                ddlBankAdrState.SelectedValue = "Select";
+
+
+            //txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
+            //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+            //{
+            //    ddlBankAdrState.SelectedValue = customerBankAccountVo.BranchAdrState;
+            //}
+            //else
+            //    ddlBankAdrState.SelectedValue = "Select";
+
             txtMicr.Text = customerBankAccountVo.MICR.ToString();
             txtIfsc.Text = customerBankAccountVo.IFSC;
 
@@ -898,10 +967,10 @@ namespace WealthERP.Customer
                     if (drNomineeDt.Count() > 0)
                     {
                         chkIdn.Checked = true;
-                    }               
+                    }
                 }
             }
-            if (dtNOM.Rows.Count>0)
+            if (dtNOM.Rows.Count > 0)
             {
                 rbtnomyes.Checked = true;
                 rbtnomNo.Checked = false;
@@ -919,7 +988,7 @@ namespace WealthERP.Customer
                 trNomineeCaption.Visible = false;
                 trgvNominees.Visible = false;
                 gvNominees.Visible = false;
-               
+
             }
             //trNomineeCaption.Visible = true;
             //trgvNominees.Visible = true;
@@ -940,12 +1009,14 @@ namespace WealthERP.Customer
                 txtBankAdrLine2.Enabled = false;
                 txtBankAdrLine3.Enabled = false;
                 txtBankAdrPinCode.Enabled = false;
-                txtBankAdrCity.Enabled = false;
+                //txtBankAdrCity.Enabled = false;
+                ddlBankAdrCity.Enabled = false;
                 ddlBankAdrState.Enabled = false;
                 RadioButton1.Enabled = false;
                 rbtnYes.Enabled = false;
                 txtMicr.Enabled = false;
                 txtIfsc.Enabled = false;
+                ddlBankAdrCountry.Enabled = false;
             }
             else
             {
@@ -959,12 +1030,14 @@ namespace WealthERP.Customer
                 txtBankAdrLine2.Enabled = true;
                 txtBankAdrLine3.Enabled = true;
                 txtBankAdrPinCode.Enabled = true;
-                txtBankAdrCity.Enabled = true;
+                //txtBankAdrCity.Enabled = true;
                 ddlBankAdrState.Enabled = true;
                 RadioButton1.Enabled = true;
                 rbtnYes.Enabled = true;
                 txtMicr.Enabled = true;
                 txtIfsc.Enabled = true;
+                ddlBankAdrCity.Enabled = true;
+                ddlBankAdrCountry.Enabled = true;
 
 
             }
