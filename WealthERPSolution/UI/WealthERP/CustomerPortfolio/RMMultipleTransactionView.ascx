@@ -573,7 +573,7 @@ function goBack()
                     <telerik:RadPageView ID="RadPageView1" runat="server">--%>
         <tr>
             <td style="padding-top: 20px">
-                <div id="tbl" runat="server">
+                <%--<div id="tbl" runat="server">--%>
                     <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
                         Visible="false">
                         <table width="100%" cellspacing="0" cellpadding="0">
@@ -596,7 +596,7 @@ function goBack()
                                                     <telerik:GridTemplateColumn AllowFiltering="false" FooterText="Grand Total:" HeaderStyle-Wrap="false">
                                                         <ItemStyle Wrap="false" />
                                                         <ItemTemplate>
-                                                            <asp:LinkButton ID="lnkView" runat="server" CssClass="cmbField" Text="View Details"
+                                                            <asp:LinkButton ID="lnkView" runat="server" Text="View Details"
                                                                 OnClick="lnkView_Click">
                                                             </asp:LinkButton>
                                                         </ItemTemplate>
@@ -811,7 +811,7 @@ function goBack()
                             </tr>
                         </table>
                     </asp:Panel>
-                </div>
+               <%-- </div>--%>
             </td>
         </tr>
         <table id="tbspace" runat="server" cellpadding="5">
@@ -822,7 +822,7 @@ function goBack()
         </table>
         <tr>
             <td style="padding-top: 20px">
-                <div id="Div1" runat="server">
+              <%--  <div id="Div1" runat="server">--%>
                     <asp:Panel ID="Panel1" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal"
                         Visible="false">
                         <table width="100%" cellspacing="0" cellpadding="0">
@@ -1031,7 +1031,7 @@ function goBack()
                             </tr>
                         </table>
                     </asp:Panel>
-                </div>
+               <%-- </div>--%>
             </td>
         </tr>
         <tr>

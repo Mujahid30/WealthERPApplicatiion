@@ -821,7 +821,7 @@ namespace WealthERP.CustomerPortfolio
                     hdnExportType.Value = "TV";
                 }
             }
-            if (Request.QueryString["CategoryCode"] != null)
+           else if (Request.QueryString["CategoryCode"] != null)
             {
                 string CategoryCode = Request.QueryString["CategoryCode"].ToString();
                 BindLastTradeDate();
