@@ -552,7 +552,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Set Theme")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineClientAccess','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
                 }
                 else if (e.Item.Value == "Setup_customer_category")
                 {
@@ -2132,10 +2132,6 @@ namespace WealthERP.Advisor
                     {
                         flag = tempView.Find(Item.Value);
 
-                        if (Item.Value == "Client_access")
-                        {
-
-                        }
                         if (flag == -1)
                         {
                             Item.Visible = false;
