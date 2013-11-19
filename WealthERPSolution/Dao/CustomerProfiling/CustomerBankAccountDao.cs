@@ -166,9 +166,9 @@ namespace DaoCustomerProfiling
                     {
                         customerBankAccountVo = new CustomerBankAccountVo();
                         customerBankAccountVo.CustBankAccId = int.Parse(dr["CB_CustBankAccId"].ToString());
-                        //customerBankAccountVo.WERPBMBankName = dr["WERPBDTM_BankName"].ToString();
-                        //customerBankAccountVo.AccountType = dr["PAIC_AssetInstrumentCategoryName"].ToString();
-                        customerBankAccountVo.BankAccountNum = dr["CB_AccountNum"].ToString();
+                        customerBankAccountVo.WERPBMBankName = dr["WCMV_BankName"].ToString();
+                        customerBankAccountVo.AccountType = dr["WCMV_BankAccountType"].ToString();
+                        customerBankAccountVo.BankAccountNum = dr["WCMV_BankAccountType"].ToString();
                         customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHolding"].ToString().Trim();
                         customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
                         customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
@@ -180,7 +180,7 @@ namespace DaoCustomerProfiling
                         //customerBankAccountVo.BranchAdrState = dr["CB_BranchAdrState"].ToString();
                         //customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
                         customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHoldingCode"].ToString().Trim();
-                        customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+                        //customerBankAccountVo.AccountTypeCode = dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                         //customerBankAccountVo.BankName = dr["WERPBM_BankCode"].ToString();
 
                         if (dr["CB_Balance"].ToString() != "")
