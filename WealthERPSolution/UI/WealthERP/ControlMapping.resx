@@ -1809,4 +1809,8 @@
     <value>OnlineOrderManagement//NCDIssueTransact.ascx</value>
     <comment>OnlineOrderManagement//NCDIssueTransact.ascx</comment>
   </data>
+  <data name="OnlineNCDExtract" xml:space="preserve">
+    <value>OnlineOrderBackOffice/OnlineNCDExtract.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineNCDExtract.ascx</comment>
+  </data>
 </root>
