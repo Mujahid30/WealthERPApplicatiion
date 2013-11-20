@@ -29,6 +29,27 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    var crnt = 0;
+    function PreventClicks() {
+
+        if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                alert(crnt);
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
@@ -289,8 +310,9 @@
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
                             ErrorMessage="Please Enter Only Numbers and 2 digits after Decimal" CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
-                        <asp:RangeValidator ID="RangeValidator1" Text="Please enter value greater than 0 " ControlToValidate="txtRedeemTypeValue" MinimumValue="1"
-                            MaximumValue="9999999999" ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic" 
+                        <asp:RangeValidator ID="RangeValidator1" Text="Please enter value greater than 0 "
+                            ControlToValidate="txtRedeemTypeValue" MinimumValue="1" MaximumValue="9999999999"
+                            ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic"
                             runat="server" />
                     </td>
                     <td colspan="2">
@@ -308,7 +330,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder"  id="trTermsCondition" runat="server">
+                <tr class="spaceUnder" id="trTermsCondition" runat="server">
                     <td style="width: 150px;">
                         &nbsp;
                     </td>
@@ -364,7 +386,7 @@
                 </div>
             </ContentTemplate>
         </telerik:RadWindow>
-        <div style="float: left; padding-top: 5px; display:none;">
+        <div style="float: left; padding-top: 5px; display: none;">
             <table style="border-style: solid; border-width: 2px; border-color: Blue">
                 <tr class="spaceUnder">
                     <td>
@@ -402,8 +424,8 @@
                                 <asp:Label ID="confirmMessage" Text="" runat="server" />
                             </div>
                             <div>
-                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click">
-                                </asp:Button>
+                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
+                                    ValidationGroup="btnSubmit" OnClientClick="return PreventClicks();"></asp:Button>
                                 <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
                                 </asp:Button>
                             </div>

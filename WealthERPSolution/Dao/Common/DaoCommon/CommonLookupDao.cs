@@ -600,7 +600,8 @@ namespace DaoCommon
         /// Gets the list of AMC with RTAs
         /// </summary>
         /// <returns></returns>
-        public DataTable GetAmcWithRta() {
+        public DataTable GetAmcWithRta()
+        {
             Database db;
             DbCommand cmd;
             DataSet ds = null;
@@ -627,7 +628,7 @@ namespace DaoCommon
             return ds.Tables[0];
         }
 
-        public DataTable GetWERPLookupMasterValueList(int codeMasterId,int lookupParentId)
+        public DataTable GetWERPLookupMasterValueList(int codeMasterId, int lookupParentId)
         {
             Database db;
             DbCommand cmd;
@@ -659,6 +660,43 @@ namespace DaoCommon
                 throw exBase;
             }
             return ds.Tables[0];
+        }
+
+        public bool CheckForBusinessDate(DateTime date)
+        {
+            bool isBusinessDate = false;
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_CheckForBusinessDate");
+                db.AddInParameter(cmd, "@Date", DbType.Date, date);
+                db.AddOutParameter(cmd, "@IsBusinessDate", DbType.Int16, 1000);
+                db.ExecuteNonQuery(cmd);
+
+                Object objIsValidBunisessDate = db.GetParameterValue(cmd, "@IsBusinessDate");
+                if (objIsValidBunisessDate != DBNull.Value)
+                    isBusinessDate = Convert.ToInt32(objIsValidBunisessDate) == 1 ? true : false;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupDao.cs:CheckForBusinessDate(DateTime date)");
+                object[] objParams = new object[1];
+                objParams[0] = date;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return isBusinessDate;
+
         }
     }
 }

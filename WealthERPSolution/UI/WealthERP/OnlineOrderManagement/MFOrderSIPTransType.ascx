@@ -54,6 +54,27 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    var crnt = 0;
+    function PreventClicks() {
+
+        if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                alert(crnt);
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
@@ -503,8 +524,8 @@
                                 <asp:Label ID="confirmMessage" Text="" runat="server" />
                             </div>
                             <div>
-                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click">
-                                </asp:Button>
+                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
+                                    ValidationGroup="btnSubmit" OnClientClick="return PreventClicks();"></asp:Button>
                                 <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
                                 </asp:Button>
                             </div>

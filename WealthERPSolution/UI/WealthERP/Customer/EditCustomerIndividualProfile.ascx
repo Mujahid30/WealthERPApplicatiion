@@ -774,7 +774,7 @@
                 OnNeedDataSource="gvBankDetails_NeedDataSource">
                 <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
                 </ExportSettings>
-                <MasterTableView DataKeyNames="CB_CustBankAccId,ModeOfHoldingCode,CB_BankName,BankAccountTypeCode,CB_BranchAdrState"
+               <MasterTableView DataKeyNames="CB_CustBankAccId,CB_AccountNum,WCMV_BankName,CB_HoldingAmount,XMOH_ModeOfHoldingCode,WCMV_LookupId_AccType,WCMV_Lookup_BranchAddStateId,WCMV_LookupId_BankId"
                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="true" CommandItemSettings-AddNewRecordText="Add New Bank Details">
                     <EditFormSettings EditFormType="Template" FormTableStyle-BorderStyle="None">
                         <FormTemplate>
@@ -785,8 +785,8 @@
                             CommandName="Edit">
                             <HeaderStyle Width="100px" />
                         </telerik:GridButtonColumn>
-                        <telerik:GridBoundColumn UniqueName="CB_BankName" HeaderStyle-Width="100px" HeaderText="Bank Name"
-                            DataField="CB_BankName" SortExpression="CB_BankName" AllowFiltering="true" ShowFilterIcon="false"
+                        <telerik:GridBoundColumn UniqueName="WCMV_BankName" HeaderStyle-Width="100px" HeaderText="Bank Name"
+                            DataField="WCMV_BankName" SortExpression="WCMV_BankName" AllowFiltering="true" ShowFilterIcon="false"
                             AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
@@ -795,8 +795,8 @@
                             ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="XBAT_BankAccountTypeCode" HeaderStyle-Width="100px"
-                            HeaderText="Account Type" DataField="XBAT_BankAccountTypeCode" SortExpression="XBAT_BankAccountTypeCode"
+                        <telerik:GridBoundColumn UniqueName="WCMV_BankAccountType" HeaderStyle-Width="100px"
+                            HeaderText="Account Type" DataField="WCMV_BankAccountType" SortExpression="WCMV_BankAccountType"
                             AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                             <HeaderStyle></HeaderStyle>
                         </telerik:GridBoundColumn>

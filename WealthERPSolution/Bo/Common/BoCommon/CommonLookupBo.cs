@@ -573,6 +573,34 @@ namespace BoCommon
             return dt;
         }
 
+        public bool CheckForBusinessDate(DateTime date)
+        {
+            bool isBusinessDate = false;
+            try
+            {
+                isBusinessDate = daoCommonLookup.CheckForBusinessDate(date);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "CommonLookupBo.cs:CheckForBusinessDate(DateTime date)");
+                object[] objParams = new object[1];
+                objParams[0] = date;               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+           
+            return isBusinessDate;
+ 
+        }
+
 
 
     }

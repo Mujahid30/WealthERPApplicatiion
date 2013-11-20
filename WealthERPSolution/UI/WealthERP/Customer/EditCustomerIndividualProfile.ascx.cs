@@ -1748,80 +1748,80 @@ namespace WealthERP.Customer
             {
                 SessionBo.CheckSession();
                 customerVo = (CustomerVo)Session["CustomerVo"];
-                customerIdForGettingBankDetails = customerVo.CustomerId;
-
-                customerBankAccountList = customerBankAccountBo.GetCustomerBankAccounts(customerIdForGettingBankDetails);
+                //customerIdForGettingBankDetails = customerVo.CustomerId;
+                DataTable dtCustomerBankAccountList;
+                dtCustomerBankAccountList = customerBankAccountBo.GetCustomerIndividualBankDetails(customerVo.CustomerId).Tables[0];
                 //if (customerBankAccountList.Count != 0)
                 //{
-                    DataTable dtCustomerBankAccounts = new DataTable();
-                    dtCustomerBankAccounts.Columns.Add("CB_CustBankAccId");
-                    dtCustomerBankAccounts.Columns.Add("CB_BankName");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchName");
-                    dtCustomerBankAccounts.Columns.Add("XBAT_BankAccountTypeCode");
-                    dtCustomerBankAccounts.Columns.Add("XMOH_ModeOfHoldingCode");
-                    dtCustomerBankAccounts.Columns.Add("CB_AccountNum");
+                    //DataTable dtCustomerBankAccounts = new DataTable();
+                    //dtCustomerBankAccounts.Columns.Add("CB_CustBankAccId");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BankName");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchName");
+                    //dtCustomerBankAccounts.Columns.Add("XBAT_BankAccountTypeCode");
+                    //dtCustomerBankAccounts.Columns.Add("XMOH_ModeOfHoldingCode");
+                    //dtCustomerBankAccounts.Columns.Add("CB_AccountNum");
 
 
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine1");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine2");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine3");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrPinCode");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCity");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrState");
-                    dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCountry");
-                    dtCustomerBankAccounts.Columns.Add("CB_MICR");
-                    dtCustomerBankAccounts.Columns.Add("CB_IFSC");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine1");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine2");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrLine3");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrPinCode");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCity");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrState");
+                    //dtCustomerBankAccounts.Columns.Add("CB_BranchAdrCountry");
+                    //dtCustomerBankAccounts.Columns.Add("CB_MICR");
+                    //dtCustomerBankAccounts.Columns.Add("CB_IFSC");
 
-                    dtCustomerBankAccounts.Columns.Add("BankAccountTypeCode");
-                    dtCustomerBankAccounts.Columns.Add("ModeOfHoldingCode");
+                    //dtCustomerBankAccounts.Columns.Add("BankAccountTypeCode");
+                    //dtCustomerBankAccounts.Columns.Add("ModeOfHoldingCode");
 
-                    DataRow drCustomerBankAccount;
-                    for (int i = 0; i < customerBankAccountList.Count; i++)
-                    {
-                        drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
-                        customerBankAccountVo = new CustomerBankAccountVo();
-                        customerBankAccountVo = customerBankAccountList[i];
-                        drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
-                        drCustomerBankAccount[1] = customerBankAccountVo.WERPBMBankName.ToString();
-                        drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
-                        drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
-                        drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
-                        drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
+                    //DataRow drCustomerBankAccount;
+                    //for (int i = 0; i < customerBankAccountList.Count; i++)
+                    //{
+                    //    drCustomerBankAccount = dtCustomerBankAccounts.NewRow();
+                    //    customerBankAccountVo = new CustomerBankAccountVo();
+                    //    customerBankAccountVo = customerBankAccountList[i];
+                    //    drCustomerBankAccount[0] = customerBankAccountVo.CustBankAccId.ToString();
+                    //    drCustomerBankAccount[1] = customerBankAccountVo.WERPBMBankName.ToString();
+                    //    drCustomerBankAccount[2] = customerBankAccountVo.BranchName.ToString();
+                    //    drCustomerBankAccount[3] = customerBankAccountVo.AccountType.ToString();
+                    //    drCustomerBankAccount[4] = customerBankAccountVo.ModeOfOperation.ToString();
+                    //    drCustomerBankAccount[5] = customerBankAccountVo.BankAccountNum.ToString();
 
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
-                            drCustomerBankAccount[6] = customerBankAccountVo.BranchAdrLine1.ToString();
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
-                            drCustomerBankAccount[7] = customerBankAccountVo.BranchAdrLine2.ToString();
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
-                            drCustomerBankAccount[8] = customerBankAccountVo.BranchAdrLine3.ToString();
-                        if (customerBankAccountVo.BranchAdrPinCode != 0)
-                            drCustomerBankAccount["CB_BranchAdrPinCode"] = customerBankAccountVo.BranchAdrPinCode.ToString();
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
-                            drCustomerBankAccount[10] = customerBankAccountVo.BranchAdrCity.ToString();
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
+                    //        drCustomerBankAccount[6] = customerBankAccountVo.BranchAdrLine1.ToString();
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine2))
+                    //        drCustomerBankAccount[7] = customerBankAccountVo.BranchAdrLine2.ToString();
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine3))
+                    //        drCustomerBankAccount[8] = customerBankAccountVo.BranchAdrLine3.ToString();
+                    //    if (customerBankAccountVo.BranchAdrPinCode != 0)
+                    //        drCustomerBankAccount["CB_BranchAdrPinCode"] = customerBankAccountVo.BranchAdrPinCode.ToString();
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCity))
+                    //        drCustomerBankAccount[10] = customerBankAccountVo.BranchAdrCity.ToString();
 
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
-                            drCustomerBankAccount[11] = customerBankAccountVo.BranchAdrState.ToString();
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
-                            drCustomerBankAccount[12] = customerBankAccountVo.BranchAdrCountry.ToString();
-                        if (customerBankAccountVo.MICR != 0)
-                            drCustomerBankAccount["CB_MICR"] = customerBankAccountVo.MICR.ToString();
-                        if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
-                            drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
-                        drCustomerBankAccount[15] = customerBankAccountVo.AccountTypeCode.ToString();
-                        drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperationCode.ToString();
-                        dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
-                    }
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
+                    //        drCustomerBankAccount[11] = customerBankAccountVo.BranchAdrState.ToString();
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrCountry))
+                    //        drCustomerBankAccount[12] = customerBankAccountVo.BranchAdrCountry.ToString();
+                    //    if (customerBankAccountVo.MICR != 0)
+                    //        drCustomerBankAccount["CB_MICR"] = customerBankAccountVo.MICR.ToString();
+                    //    if (!string.IsNullOrEmpty(customerBankAccountVo.IFSC))
+                    //        drCustomerBankAccount[14] = customerBankAccountVo.IFSC.ToString();
+                    //    drCustomerBankAccount[15] = customerBankAccountVo.AccountTypeCode.ToString();
+                    //    drCustomerBankAccount[16] = customerBankAccountVo.ModeOfOperationCode.ToString();
+                    //    dtCustomerBankAccounts.Rows.Add(drCustomerBankAccount);
+                    //}
 
                     if (Cache["gvDetailsForBank" + userVo.UserId + customerVo.CustomerId] == null)
                     {
-                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccounts);
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccountList);
                     }
                     else
                     {
                         Cache.Remove("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId);
-                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccounts);
+                        Cache.Insert("gvDetailsForBank" + userVo.UserId + customerVo.CustomerId, dtCustomerBankAccountList);
                     }
-                    gvBankDetails.DataSource = dtCustomerBankAccounts;
+                    gvBankDetails.DataSource = dtCustomerBankAccountList;
                     gvBankDetails.DataBind();
                     gvBankDetails.Visible = true;
                 //}

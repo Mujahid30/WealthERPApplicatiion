@@ -46,6 +46,27 @@
     }
 </script>
 
+<script language="javascript" type="text/javascript">
+    var crnt = 0;
+    function PreventClicks() {
+
+        if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                alert(crnt);
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+
 <style>
     tr.spaceUnder > td
     {
@@ -68,7 +89,7 @@
                 </td>
             </tr>
         </table>
-        <div style="float: left;Width:100%" id="divControlContainer" runat="server">
+        <div style="float: left; width: 100%" id="divControlContainer" runat="server">
             <table id="tbpurchase" width="100%">
                 <tr class="spaceUnder">
                     <td>
@@ -300,7 +321,7 @@
                 </tr>
             </table>
         </div>
-        <div style="float: left; padding-top: 5px; display:none;">
+        <div style="float: left; padding-top: 5px; display: none;">
             <table style="border-style: solid; border-width: 2px; border-color: Blue">
                 <tr class="spaceUnder">
                     <td>
@@ -361,7 +382,7 @@
                                 <asp:Label ID="confirmMessage" Text="" runat="server" />
                             </div>
                             <div>
-                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click">
+                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click" OnClientClick="return PreventClicks();" ValidationGroup="btnSubmit">
                                 </asp:Button>
                                 <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
                                 </asp:Button>

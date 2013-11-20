@@ -42,6 +42,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!Page.IsPostBack)
             {
+                CheckForBusinessDate();
                 BindProductAmc();
                 BindProduct();
                 BindExternalSource();
@@ -372,6 +373,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 zipfile.Save(Response.OutputStream);
             }
             Response.End();
+        }
+
+        private void CheckForBusinessDate()
+        {
+            bool isBusinessDate = boCommon.CheckForBusinessDate(DateTime.Now);
+            if (!isBusinessDate)
+            {
+                btnExtractData.Enabled = false;
+                btnCreateFiles.Enabled = false;
+                btnExtractData.ToolTip = "Today is not a valid business date";
+                btnCreateFiles.ToolTip = "Today is not a valid business date";
+               
+            }
+
+
         }
     }
 }
