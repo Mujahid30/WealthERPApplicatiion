@@ -33,6 +33,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 fromDate = DateTime.Now.AddMonths(-1);
                 txtOrderFrom.SelectedDate = fromDate.Date;
+                Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
                 txtOrderTo.SelectedDate = DateTime.Now;
                 BindOrderStatus();
                 if (Request.QueryString["customerId"] != null)
@@ -103,7 +104,7 @@ namespace WealthERP.OnlineOrderManagement
                     Cache.Remove("NCDBookList" + advisorVo.advisorId.ToString());
                     Cache.Insert("NCDBookList" + advisorVo.advisorId.ToString(), dtbondsBook);
                 }
-                gvBBList.DataSource = dsbondsBook;
+                gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
                 ibtExportSummary.Visible = true;
                 pnlGrid.Visible = true;
@@ -112,7 +113,7 @@ namespace WealthERP.OnlineOrderManagement
             else
             {
                 ibtExportSummary.Visible = false;
-                gvBBList.DataSource = dsbondsBook;
+                gvBBList.DataSource = dtbondsBook;
                 gvBBList.DataBind();
                 pnlGrid.Visible = true;
             }
