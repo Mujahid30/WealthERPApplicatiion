@@ -132,9 +132,12 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
+                                        
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
+                                        <telerik:RadPanelItem runat="server" Text="Cliant Access" Value="Client_access">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Customer Association" Value="View_Customer_Association">
