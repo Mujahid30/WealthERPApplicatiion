@@ -39,6 +39,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProduct;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSelectionFor;
+
+        
         
         /// <summary>
         /// RequiredFieldValidator5 control.
@@ -120,6 +123,11 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlIssuer;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilterIssuer;
+        protected global::System.Web.UI.WebControls.DropDownList ddlFilterIssue;
+
+        
         
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -336,6 +344,11 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRating;
+        protected global::System.Web.UI.HtmlControls.HtmlTable  tbIssue;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnGo;
         
         /// <summary>
         /// lb1ModeOfTrading control.
@@ -434,7 +447,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTimePicker txtOpenTime;
+     
         
         /// <summary>
         /// RequiredFieldValidator17 control.
@@ -461,7 +474,7 @@ namespace WealthERP.OnlineOrderManagement {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadTimePicker txtCloseTime;
+      
         
         /// <summary>
         /// RequiredFieldValidator18 control.
@@ -490,6 +503,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtRevisionDates;
         
+
+        
+        
         /// <summary>
         /// lb1TradingLot control.
         /// </summary>
@@ -507,6 +523,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTradingLot;
+
+        protected global::System.Web.UI.WebControls.TextBox txtCloseTimes;
+        protected global::System.Web.UI.WebControls.TextBox txtOpenTimes;
         
         /// <summary>
         /// RequiredFieldValidator19 control.
@@ -777,6 +796,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSeries;
+        protected global::System.Web.UI.WebControls.Panel pnlCategory;
+
+        
         
         /// <summary>
         /// tblSeries control.

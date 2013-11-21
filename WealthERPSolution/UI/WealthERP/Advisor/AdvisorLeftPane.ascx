@@ -706,6 +706,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
                                             </telerik:RadPanelItem>
+                                             <telerik:RadPanelItem runat="server" Text="NCDIssuesetup" Value="NCDIssuesetup">
+                                            </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">

@@ -9,15 +9,16 @@
 <script type="text/javascript">
     var popUp;
     function PopUpShowing(sender, eventArgs) {
-      popUp = eventArgs.get_popUp();
-      var gridWidth = sender.get_element().offsetWidth;
-      var gridHeight = sender.get_element().offsetHeight;
-      var popUpWidth = popUp.style.width.substr(0, popUp.style.width.indexOf("px"));
-      var popUpHeight = popUp.style.height.substr(0, popUp.style.height.indexOf("px"));
-      popUp.style.left = ((gridWidth - popUpWidth) / 2 + sender.get_element().offsetLeft).toString() + "px";
-      popUp.style.top = ((gridHeight - popUpHeight) / 2 + sender.get_element().offsetTop).toString() + "px";
+        popUp = eventArgs.get_popUp();
+        var gridWidth = sender.get_element().offsetWidth;
+        var gridHeight = sender.get_element().offsetHeight;
+        var popUpWidth = popUp.style.width.substr(0, popUp.style.width.indexOf("px"));
+        var popUpHeight = popUp.style.height.substr(0, popUp.style.height.indexOf("px"));
+        popUp.style.left = ((gridWidth - popUpWidth) / 2 + sender.get_element().offsetLeft).toString() + "px";
+        popUp.style.top = ((gridHeight - popUpHeight) / 2 + sender.get_element().offsetTop).toString() + "px";
     } 
-  </script>
+</script>
+
 <style type="text/css">
     .table
     {
@@ -50,15 +51,18 @@
         </td>
     </tr>
 </table>
+
+ 
 <%--<asp:UpdatePanel ID="UpdatePanel3" runat="server">
     <ContentTemplate>--%>
-<table width="80%">
+<table width="80%"  runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1Product" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true" Width="205px">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="IPO">IPO</asp:ListItem>
                 <asp:ListItem Value="Bonds">Bonds</asp:ListItem>
@@ -73,7 +77,8 @@
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
         <td align="rightData">
-            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true" Width="205px">
+            <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="Infrastructurebonds">Infrastructure bonds</asp:ListItem>
@@ -101,7 +106,8 @@
             <asp:Label ID="lb1Issuer" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField" AutoPostBack="true" Width="205px">
+            <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
             <br />
@@ -115,7 +121,7 @@
             <asp:Label ID="lb1ActiveFormRange" runat="server" Text="Active Form Range:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtFormRange" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtFormRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span13" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Enter FromRange"
@@ -129,7 +135,7 @@
             <asp:Label ID="lb1ToRange" runat="server" Text="To:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtToRange" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtToRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span14" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Enter ToRange"
@@ -140,19 +146,18 @@
                 Type="Double" Operator="GreaterThan" CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>
-    
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1InitialCqNo" runat="server" Text="Initial Cheque Number:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtInitialCqNo" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>          
+            <asp:TextBox ID="txtInitialCqNo" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1FaceValue" runat="server" Text="Face Value:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtFaceValue" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtFaceValue" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span16" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" CssClass="rfvPCG"
@@ -169,7 +174,7 @@
             <asp:Label ID="lb1Price" runat="server" Text="Price (floor and fixed):" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtPrice" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtPrice" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span17" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator28" runat="server" CssClass="rfvPCG"
@@ -184,7 +189,8 @@
             <asp:Label ID="lb1ddlModeofIssue" runat="server" Text="Mode of Issue:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlModeofIssue" runat="server" CssClass="cmbField" AutoPostBack="true" Width="205px">
+            <asp:DropDownList ID="ddlModeofIssue" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Dematerialized">Dematerialized</asp:ListItem>
                 <asp:ListItem Value="Physical">Physical</asp:ListItem>
@@ -203,13 +209,14 @@
             <asp:Label ID="lb1Rating" runat="server" Text="Rating:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtRating" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtRating" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1ModeOfTrading" runat="server" Text="Mode Of Trading:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlModeOfTrading" runat="server" CssClass="cmbField" AutoPostBack="true" Width="205px">
+            <asp:DropDownList ID="ddlModeOfTrading" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="Dematerialized">Dematerialized</asp:ListItem>
                 <asp:ListItem Value="Physical">Physical</asp:ListItem>
@@ -230,7 +237,7 @@
         <td class="rightData">
             <telerik:RadDatePicker ID="txtOpenDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                TabIndex="17"  Width="200px">
+                TabIndex="17" Width="200px">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -250,8 +257,8 @@
         </td>
         <td class="rightData">
             <telerik:RadDatePicker ID="txtCloseDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"  Width="200px"
-                TabIndex="17">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                Width="200px" TabIndex="17">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -272,12 +279,14 @@
             <asp:Label ID="lb1OpenTime" runat="server" Text="Open Time:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <telerik:RadTimePicker ID="txtOpenTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"  Width="200px">
-            </telerik:RadTimePicker>
+           <%-- <telerik:RadTimePicker ID="txtOpenTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"
+                Width="200px">
+            </telerik:RadTimePicker>--%>
+             <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span20" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select Open Time" Display="Dynamic" ControlToValidate="txtOpenTime"
+                ErrorMessage="Please Enter Open Time" Display="Dynamic" ControlToValidate="txtOpenTimes"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
@@ -285,12 +294,14 @@
             <asp:Label ID="lb1Closetime" runat="server" Text="Close Time:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <telerik:RadTimePicker ID="txtCloseTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"  Width="200px">
-            </telerik:RadTimePicker>
+         <asp:TextBox ID="txtCloseTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <%--<telerik:RadTimePicker ID="txtCloseTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"
+                Width="200px">
+            </telerik:RadTimePicker>--%>
             <span id="Span21" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select Close Time" Display="Dynamic" ControlToValidate="txtCloseTime"
+                ErrorMessage="Please Enter Close Time" Display="Dynamic" ControlToValidate="txtCloseTimes"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
@@ -302,8 +313,8 @@
         <td class="rightData">
             <%--<asp:TextBox ID="txtRevisionDate" runat="server" CssClass="txtField"></asp:TextBox>--%>
             <telerik:RadDatePicker ID="txtRevisionDates" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"  Width="200px"
-                TabIndex="17">
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                Width="200px" TabIndex="17">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -330,7 +341,7 @@
             <asp:Label ID="lb1TradingLot" runat="server" Text="Trading Lot:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtTradingLot" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtTradingLot" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span22" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" CssClass="rfvPCG"
@@ -345,7 +356,7 @@
             <asp:Label ID="lb1BiddingLot" runat="server" Text="Bidding Lot:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtBiddingLot" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtBiddingLot" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span25" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator25" runat="server" CssClass="rfvPCG"
@@ -363,7 +374,7 @@
                 CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span23" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
@@ -375,7 +386,7 @@
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
     </tr>
     <tr>
@@ -383,7 +394,7 @@
             <asp:Label ID="lb1Trading" runat="server" Text="Trading In Multiple of:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField"  Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span15" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator27" runat="server" CssClass="rfvPCG"
@@ -399,7 +410,8 @@
             <asp:Label ID="lb1ListedInExchange" runat="server" Text="Listed In Exchange:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlListedInExchange" runat="server" CssClass="cmbField" AutoPostBack="true"  Width="205px">
+            <asp:DropDownList ID="ddlListedInExchange" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
                 <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                         <asp:ListItem Value="Dematerialized">Dematerialized</asp:ListItem>
                         <asp:ListItem Value="Physical">Physical</asp:ListItem>
@@ -413,14 +425,16 @@
             <asp:Label ID="lb1BankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"  Width="205px">
+            <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
             </asp:DropDownList>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1BankBranch" runat="server" Text="Bank Branch:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlBankBranch" runat="server" CssClass="cmbField" AutoPostBack="true"  Width="205px">
+            <asp:DropDownList ID="ddlBankBranch" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
             </asp:DropDownList>
         </td>
     </tr>
@@ -433,7 +447,7 @@
             </asp:CheckBox>
         </td>
         <td class="leftLabel">
-            <asp:Label ID="lb1PutCallOption" runat="server" Text="Put Call Option:" CssClass="FieldName" ></asp:Label>
+            <asp:Label ID="lb1PutCallOption" runat="server" Text="Put Call Option:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtPutCallOption" runat="server" CssClass="txtField" Width="205px"></asp:TextBox>
@@ -485,29 +499,33 @@
 </asp:UpdatePanel>--%>
 <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>--%>
-<asp:Panel ID="pnlSeries" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table id="tblSeries" runat="server" width="100%">
+<asp:Panel ID="pnlSeries" runat="server" Width="100%" >
+    <table id="tblSeries" runat="server" width="50%">
         <tr>
-            <td>
+        
+            <td >
                 <table width="100%">
                     <tr>
-                        <td>
+                        <td class="leftLabel">
                             <telerik:RadGrid ID="rgSeries" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 OnItemDataBound="rgSeries_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="false"
-                                OnNeedDataSource="rgSeries_OnNeedDataSource" OnUpdateCommand="rgSeries_UpdateCommand">
+                                OnNeedDataSource="rgSeries_OnNeedDataSource" OnItemCommand="rgSeries_ItemCommand">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
-                                    CommandItemDisplay="Top">
+                                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
-                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                            UpdateText="Update">
+                                        </telerik:GridEditCommandColumn>
                                         <telerik:GridBoundColumn DataField="PFISD_SeriesName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Series Name" UniqueName="PFISD_SeriesName"
                                             SortExpression="PFISD_SeriesName">
@@ -526,34 +544,37 @@
                                         <telerik:GridTemplateColumn>
                                             <ItemTemplate>
                                                 <tr>
-                                                    <td colspan="100%">
+                                                    <td colspan="1.5%">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td colspan="3%">
                                                         <asp:Panel ID="pnlchild" runat="server" Style="display: inline" CssClass="Landscape"
-                                                            Width="100%" ScrollBars="Horizontal" Visible="false">
+                                                            Width="50%" ScrollBars="Horizontal" Visible="false">
                                                             <telerik:RadGrid ID="rgSeriesCategories" runat="server" AutoGenerateColumns="False"
-                                                                enableloadondemand="True" PageSize="10" AllowPaging="True" EnableEmbeddedSkins="False"
+                                                                enableloadondemand="True" PageSize="5" AllowPaging="True" EnableEmbeddedSkins="False"
                                                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgSeriesCategories_OnNeedDataSource">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId"
-                                                                    AutoGenerateColumns="false" Width="100%">
+                                                                    AutoGenerateColumns="false">
                                                                     <Columns>
-                                                                        <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="60px"
+                                                                        <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" HeaderText="Investor CatgeoryName" SortExpression="AIIC_InvestorCatgeoryName">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="PFISD_DefaultInterestRate" HeaderStyle-Width="70px"
+                                                                        <telerik:GridBoundColumn DataField="PFISD_DefaultInterestRate" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="Default InterestRate" UniqueName="PFISD_DefaultInterestRate" SortExpression="PFISD_DefaultInterestRate">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="PFISD_AnnualizedYieldUpto" HeaderStyle-Width="60px"
+                                                                        <telerik:GridBoundColumn DataField="PFISD_AnnualizedYieldUpto" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="Annualized YieldUpto" UniqueName="PFISD_AnnualizedYieldUpto" SortExpression="PFISD_AnnualizedYieldUpto">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="PFISD_InterestFrequency" HeaderStyle-Width="80px"
+                                                                        <telerik:GridBoundColumn DataField="PFISD_InterestFrequency" HeaderStyle-Width="30px"
                                                                             HeaderText="Interest Frequency" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="PFISD_InterestFrequency" Visible="true">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                     </Columns>
                                                                 </MasterTableView>
@@ -564,7 +585,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="580px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="530px">
                                         <FormTemplate>
                                             <table width="75%" cellspacing="2" cellpadding="2">
                                                 <tr>
@@ -699,7 +720,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                        <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                             CausesValidation="True" ValidationGroup="btnOK" />
                                                     </td>
                                                     <td class="rightData">
@@ -736,23 +757,33 @@
 </asp:UpdatePanel>--%>
 <%--<asp:UpdatePanel ID="UpdatePanel2" runat="server">
     <ContentTemplate>--%>
-<asp:Panel ID="Panel1" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table id="Table1" runat="server" width="100%">
+<asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%"  >
+    <table id="Table1" runat="server" width="50%">
         <tr>
             <td>
-                <table width="100%">
+                <table>
                     <tr>
                         <td>
                             <telerik:RadGrid ID="rgEligibleInvestorCategories" runat="server" AllowSorting="True"
                                 enableloadondemand="True" PageSize="5" AllowPaging="True" AutoGenerateColumns="False"
                                 EnableEmbeddedSkins="False" GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
-                                OnUpdateCommand="rgEligibleInvestorCategories_UpdateCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
+                                OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New InvestorCategory"
                                     CommandItemDisplay="Top">
                                     <Columns>
-                                        <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="200px"
+                                     <telerik:GridTemplateColumn>
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
+                                                    Font-Bold="true" UniqueName="DetailsCategorieslink" OnClick="btnCategoriesExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
+                                            </ItemTemplate>
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                        </telerik:GridTemplateColumn>
+                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                            UpdateText="Update">
+                                        </telerik:GridEditCommandColumn>
+                                        <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="20px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Catgeory Name" UniqueName="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -771,6 +802,49 @@
                                             HeaderText="MaxBid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
+                                        <telerik:GridTemplateColumn>
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td colspan="1.5%">
+                                                        &nbsp;
+                                                    </td>
+                                                    <td colspan="3%">
+                                                        <asp:Panel ID="pnlCategoriesDetailschild" runat="server" Style="display: inline" CssClass="Landscape"
+                                                             ScrollBars="Horizontal" Visible="false">
+                                                            <telerik:RadGrid ID="rgCategoriesDetails" runat="server" AutoGenerateColumns="False"
+                                                                enableloadondemand="True" PageSize="5" AllowPaging="True" EnableEmbeddedSkins="False"
+                                                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
+                                                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource">
+                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId"
+                                                                    AutoGenerateColumns="false">
+                                                                    <Columns>
+                                                                        <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="30px" UniqueName="WCMV_Name"
+                                                                            CurrentFilterFunction="Contains" HeaderText="Investor Type" SortExpression="WCMV_Name">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="AIIC_InvestorSubTypeCode" HeaderStyle-Width="30px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="SubType Code" UniqueName="AIIC_InvestorSubTypeCode" SortExpression="AIIC_InvestorSubTypeCode">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="AIIC_MinInvestmentAmount" HeaderStyle-Width="30px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="MinInvestment Amount" UniqueName="AIIC_MinInvestmentAmount" SortExpression="AIIC_MinInvestmentAmount">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="AIIC_MaxInvestmentAmount" HeaderStyle-Width="30px"
+                                                                            HeaderText="MaxInvestment Amount" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                                            AutoPostBackOnFilter="true" UniqueName="AIIC_MaxInvestmentAmount" Visible="true">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                    </Columns>
+                                                                </MasterTableView>
+                                                            </telerik:RadGrid>
+                                                        </asp:Panel>
+                                                    </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>
                                     </Columns>
                                     <EditFormSettings EditFormType="Template" PopUpSettings-Height="450px" PopUpSettings-Width="700px">
                                         <FormTemplate>
@@ -901,7 +975,6 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtSubCategoryCode" runat="server" CssClass="txtField"></asp:TextBox>
-                                                                           
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="MinInvestmentAmount" ShowFilterIcon="false"
@@ -929,8 +1002,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                     <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                             CausesValidation="True" ValidationGroup="btnOK" />
+                                                      <%--  <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                            CausesValidation="True" ValidationGroup="btnOK" />--%>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
@@ -963,8 +1038,8 @@
                                     </EditFormSettings>
                                 </MasterTableView>
                                 <ClientSettings>
-                                 <ClientEvents OnPopUpShowing="PopUpShowing" />
-                                </ClientSettings> 
+                             <%--    <ClientEvents OnPopUpShowing="PopUpShowing" />--%>
+                                </ClientSettings>
                             </telerik:RadGrid>
                         </td>
                     </tr>
