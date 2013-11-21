@@ -386,6 +386,7 @@ namespace WealthERP.Customer
                         customerVo.AccountId = txtClientCode.Text.Trim();
                         customerVo.IsRealInvestor = chkRealInvestor.Checked;
 
+                        customerVo.FirstName = txtFirstName.Text.ToString();
                         customerVo.MiddleName = txtMiddleName.Text.ToString();
                         customerVo.LastName = txtLastName.Text.ToString();
                         if (ddlSalutation.SelectedIndex == 0)
