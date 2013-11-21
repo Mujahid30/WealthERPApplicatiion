@@ -67,7 +67,7 @@
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtOrderFrom"
                         ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
+                        runat="server" InitialValue="" ValidationGroup="btnViewOrder">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtOrderFrom" CssClass="cvPCG" Operator="DataTypeCheck"
@@ -91,7 +91,7 @@
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtOrderTo"
                         ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
+                        runat="server" InitialValue="" ValidationGroup="btnViewOrder">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtOrderTo" CssClass="cvPCG" Operator="DataTypeCheck"
