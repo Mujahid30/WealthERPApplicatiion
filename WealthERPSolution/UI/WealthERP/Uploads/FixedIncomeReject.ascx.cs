@@ -36,7 +36,6 @@ namespace WealthERP.Uploads
         string configPath;
         protected void Page_Load(object sender, EventArgs e)
         {
-            //ProcessId = 0;
             configPath = Server.MapPath(ConfigurationManager.AppSettings["SSISConfigPath"].ToString());
             if (Request.QueryString["processId"] != null)
             {

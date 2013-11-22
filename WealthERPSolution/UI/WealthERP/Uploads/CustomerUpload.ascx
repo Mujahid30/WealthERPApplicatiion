@@ -714,10 +714,10 @@
             </td>
         </tr>
         <tr>
-        <td><asp:Label ID="lblUploadProcessId" runat="server"></asp:Label></td>
+       <%-- <td><asp:Label ID="lblUploadProcessId" runat="server"></asp:Label></td>
          <td><asp:Label ID="lblpackagePath" runat="server"></asp:Label></td>
           <td><asp:Label ID="lblfileName" runat="server"></asp:Label></td>
-           <td><asp:Label ID="lblconfigPath" runat="server"></asp:Label></td>
+           <td><asp:Label ID="lblconfigPath" runat="server"></asp:Label></td>--%>
         </tr>
     </table>
 </div>

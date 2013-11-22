@@ -198,12 +198,13 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public bool onlineBOndtransact(DataTable OnlineBondOrder,int adviserId)
+        public IDictionary<string, string> onlineBOndtransact(DataTable OnlineBondOrder, int adviserId)
         {
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>(); 
             bool result = false;
             try
             {
-                result = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId);
+                OrderIds = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -222,7 +223,7 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return result;
+            return OrderIds;
         }
 
         public DataSet getBondsBookview(int input, string CustId)

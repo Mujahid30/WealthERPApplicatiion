@@ -8,7 +8,6 @@
 <asp:ScriptManager ID="scptMgr" runat="server">
 </asp:ScriptManager>
 
-
 <script type="text/javascript">
     function ShowPopup() {
         var form = document.forms[0];
@@ -66,12 +65,7 @@
         }
     }
 </script>
-<script language="javascript" type="text/javascript">
-    //    Function to call btnReprocess_Click method to refresh user control
-    function Reprocess() {
-        document.getElementById('<%= btnReprocess.ClientID %>').click();
-    }
-</script>
+
 <table width="100%">
     <tr>
         <td>
@@ -107,7 +101,7 @@
                 <asp:DropDownList CssClass="cmbField" ID="ddlRejectReason" runat="server">
                 </asp:DropDownList>
             </td>
-            <td style="width:10%"> 
+            <td style="width: 10%">
             </td>
             <td id="tdlblFromDate" runat="server" align="right">
                 <asp:Label class="FieldName" ID="lblFromTran" Text="From :" runat="server" />
@@ -160,10 +154,10 @@
                     ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
                     ControlToCompare="txtFromFI" CssClass="cvPCG" ValidationGroup="btnViewFI" Display="Dynamic">
                 </asp:CompareValidator>
-            </td>         
+            </td>
         </tr>
         <tr>
-           <td id="tdBtnViewRejetcs" runat="server">
+            <td id="tdBtnViewRejetcs" runat="server">
                 <asp:Button ID="btnViewFI" runat="server" CssClass="PCGButton" Text="Go" OnClick="btnViewFI_Click" />
             </td>
         </tr>
@@ -210,7 +204,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="95%"
+<asp:Panel ID="Panel2" Visible="false" runat="server" class="Landscape" Width="90%"
     ScrollBars="Horizontal">
     <table width="100%" cellspacing="0" cellpadding="2">
         <tr>
@@ -242,9 +236,9 @@
                                     <asp:HiddenField ID="hdnchkBx" runat="server" Value='<%# Eval("CUS_Id").ToString()%>' />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true" HeaderText="Reject Reason"
-                                HeaderStyle-Width="180px" UniqueName="RejectReasonCode" SortExpression="RejectReasonCode"
-                                AutoPostBackOnFilter="false" ShowFilterIcon="false">
+                            <telerik:GridBoundColumn DataField="WRR_RejectReasonDescription" AllowFiltering="true"
+                                HeaderText="Reject Reason" HeaderStyle-Width="230px" UniqueName="RejectReasonCode"
+                                SortExpression="RejectReasonCode" AutoPostBackOnFilter="false" ShowFilterIcon="false">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 <FilterTemplate>
                                     <telerik:RadComboBox ID="RadComboBoxRR" Width="230px" CssClass="cmbField" AllowFiltering="true"
@@ -257,12 +251,14 @@
                                         </Items>
                                     </telerik:RadComboBox>
                                     <telerik:RadScriptBlock ID="RadScriptBlock1" runat="server">
+
                                         <script type="text/javascript">
                                             function InvesterNameIndexChanged(sender, args) {
                                                 var tableView = $find("<%#((GridItem)Container).OwnerTableView.ClientID %>");
                                                 tableView.filter("RejectReasonCode", args.get_item().get_value(), "EqualTo");
                                             } 
                                         </script>
+
                                     </telerik:RadScriptBlock>
                                 </FilterTemplate>
                             </telerik:GridBoundColumn>
@@ -272,7 +268,7 @@
                                 UniqueName="CustomerName" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="CUS_PANno" AllowFiltering="false" HeaderText="Pan Number"
+                            <telerik:GridBoundColumn DataField="CUS_PANno" AllowFiltering="false" HeaderText="Pan Number"
                                 AllowSorting="true" HeaderStyle-Width="75px" UniqueName="CUS_PANno" SortExpression="CUS_PANno"
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -304,7 +300,7 @@
                                 DataFormatString="{0:n0}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
-                           <%-- <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="WUXFT_XMLFileName" AllowFiltering="false"
+                            <%-- <telerik:GridBoundColumn FooterStyle-HorizontalAlign="Right" DataField="WUXFT_XMLFileName" AllowFiltering="false"
                                 HeaderStyle-Width="65px" HeaderText="External Type" UniqueName="WUXFT_XMLFileName" AllowSorting="true">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>--%>
@@ -313,7 +309,7 @@
                                 AllowSorting="true" DataFormatString="{0:N2}">
                                 <ItemStyle Width="" HorizontalAlign="right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                           <%-- <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="Transaction Type"
+                            <%-- <telerik:GridBoundColumn DataField="TransactionType" AllowFiltering="true" HeaderText="Transaction Type"
                                 HeaderStyle-Width="100px" UniqueName="TransactionTypeCode" SortExpression="TransactionTypeCode"
                                 AutoPostBackOnFilter="true" ShowFilterIcon="false" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
@@ -332,12 +328,12 @@
 <div runat="server" id="DivAction" visible="false">
     <tr id="trReprocess" runat="server">
         <td class="SubmitCell">
-          <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click" Visible="false"
+            <%-- <asp:Button ID="btnReprocess" OnClientClick="return selectRecordToReprocess();" OnClick="btnReprocess_Click" Visible="false"
                 runat="server" Text="Reprocess" CssClass="PCGLongButton" onmouseover="javascript:ChangeButtonCss('hover', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');"
-                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />
+                onmouseout="javascript:ChangeButtonCss('out', 'ctrl_RejectedEquityTransactionStaging_btnReprocess','L');" />--%>
             <asp:Button ID="btnMapToCustomer" runat="server" CssClass="PCGLongButton" Text="Map to Customer"
                 OnClientClick="return ShowPopup()" Visible="false" />
-           <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
+            <asp:Button ID="btnDelete" runat="server" CssClass="PCGLongButton" Text="Delete Records"
                 OnClick="btnDelete_Click" />
             <br />
         </td>

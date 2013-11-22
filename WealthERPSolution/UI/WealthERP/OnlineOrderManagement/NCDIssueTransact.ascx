@@ -14,6 +14,7 @@
         return true;
 
 </script>
+
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
@@ -180,7 +181,7 @@
                 <telerik:RadGrid ID="gvCommMgmt" AllowSorting="false" runat="server" EnableLoadOnDemand="True"
                     AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
-                    AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound">
+                    AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
                     <HeaderContextMenu EnableEmbeddedSkins="False">
                     </HeaderContextMenu>
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
@@ -188,14 +189,14 @@
                     <PagerStyle AlwaysVisible="True" />
                     <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId,PFISM_SchemeId,PFIIM_IssuerId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo"
                         AutoGenerateColumns="false" Width="100%">
-                        <CommandItemSettings ExportToPdfText="Export to Pdf" />                       
+                        <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
                             <telerik:GridBoundColumn DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scheme" UniqueName=" SchemeId"
                                 SortExpression="SeriesId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <%-- <telerik:GridBoundColumn Visible="false" DataField="CO_OrderId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
+                          <%-- <telerik:GridBoundColumn Visible="false" DataField="CO_OrderId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="OrderNo" UniqueName="CO_OrderId"
                                 SortExpression="CO_OrderId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -279,11 +280,11 @@
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
                                 UniqueName="Quantity" HeaderText="Quantity">
                                 <ItemTemplate>
-                                    <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged" Text='<%# Bind("CFIOD_Quantity")%>'
-                                        Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                                    <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
+                                        Text='<%# Bind("CFIOD_Quantity")%>' Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label runat="server" ID="lblQuantity"></asp:Label> 
+                                    <asp:Label runat="server" ID="lblQuantity"></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -296,8 +297,8 @@
                                     <asp:Label runat="server" ID="lblAmount"></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px" Visible="false"
-                                UniqueName="Check" HeaderText="Check Order">
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
+                                Visible="false" UniqueName="Check" HeaderText="Check Order">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="cbOrderCheck" runat="server" />
                                 </ItemTemplate>

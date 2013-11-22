@@ -14,9 +14,7 @@
                     <tr>
                         <td align="left">
                             Order Book
-                        </td>
-                        <%-- <td align="right">
-                            &nbsp; &nbsp;
+                        </td>  
                             <asp:LinkButton runat="server" ID="lnkBtnBack" CssClass="LinkButtons" Text="View UploadLog"
                                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
                         </td>--%>
@@ -156,7 +154,7 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
-                            <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                            <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss tt}"
                                 AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
                                 SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
@@ -218,7 +216,7 @@
                                 HeaderStyle-Width="100px">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="WMTT_TransactionType" AllowFiltering="false"
+                            <telerik:GridBoundColumn DataField="WMTT_TransactionType" AllowFiltering="true"
                                 HeaderText="Order Type" UniqueName="WMTT_TransactionType" SortExpression="WMTT_TransactionType"
                                 ShowFilterIcon="false" HeaderStyle-Width="80px" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true">

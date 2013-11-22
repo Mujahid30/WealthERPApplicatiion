@@ -240,11 +240,12 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public bool UpdateOnlineBondTransact(DataTable BondORder,int adviserId)
+        public IDictionary<string, string> UpdateOnlineBondTransact(DataTable BondORder, int adviserId)
         {
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             Database db;
             DbCommand cmdOnlineBondTransact;
-            bool result = false;
+            //bool result = false;
 
             try
             {
@@ -266,8 +267,15 @@ namespace DaoOnlineOrderManagement
                 //db.AddInParameter(cmdOnlineBondTransact, "@Qty", DbType.Int32, BondORder.Qty);
                 //db.AddInParameter(cmdOnlineBondTransact, "@Amount", DbType.Double, BondORder.Amount);
                 //db.AddInParameter(cmdOnlineBondTransact, "@BankAccid", DbType.Double, BondORder.BankAccid);
-                db.ExecuteNonQuery(cmdOnlineBondTransact);
-                result = true;
+                //db.ExecuteNonQuery(cmdOnlineBondTransact);
+                //result = true;
+                
+                if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
+                {
+                    OrderIds.Add("OrderId", db.GetParameterValue(cmdOnlineBondTransact, "CO_OrderId").ToString());
+                
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -285,7 +293,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return result;
+            return OrderIds;
         }
 
         public DataSet GetOrderBondsBook(int input, string CustId)

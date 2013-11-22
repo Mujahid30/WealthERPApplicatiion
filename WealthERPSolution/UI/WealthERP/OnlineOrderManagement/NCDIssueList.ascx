@@ -284,7 +284,7 @@
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure" UniqueName="PFISD_Tenure"
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure(Month)" UniqueName="PFISD_Tenure"
                                                                             SortExpression="PFISD_Tenure">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                                                         </telerik:GridBoundColumn>
