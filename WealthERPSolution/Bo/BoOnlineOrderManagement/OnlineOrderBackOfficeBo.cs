@@ -326,7 +326,7 @@ namespace BoOnlineOrderManagement
                     seedFileName = "karvy";
                     break;
                 case "TN":
-                    seedFileName = "ft";
+                    seedFileName = "templeton";
                     break;
                 case "SU":
                     seedFileName = "sund";
