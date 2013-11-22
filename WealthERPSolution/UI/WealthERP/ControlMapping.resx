@@ -1813,4 +1813,12 @@
     <value>OnlineOrderBackOffice/OnlineNCDExtract.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineNCDExtract.ascx</comment>
   </data>
+  <data name="OnlineNCDIssueList" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineNCDIssueList.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineNCDIssueList.ascx</comment>
+  </data>
+  <data name="OnlineNCDIssueSetup" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineNCDIssueSetup.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineNCDIssueSetup.ascx</comment>
+  </data>
 </root>

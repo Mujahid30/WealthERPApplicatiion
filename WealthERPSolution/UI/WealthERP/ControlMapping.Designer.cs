@@ -2410,6 +2410,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineNCDIssueList.ascx.
+        /// </summary>
+        internal static string OnlineNCDIssueList {
+            get {
+                return ResourceManager.GetString("OnlineNCDIssueList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineNCDIssueSetup.ascx.
+        /// </summary>
+        internal static string OnlineNCDIssueSetup {
+            get {
+                return ResourceManager.GetString("OnlineNCDIssueSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineOrderAccountingExtract.ascx.
         /// </summary>
         internal static string OnlineOrderAccountingExtract {
