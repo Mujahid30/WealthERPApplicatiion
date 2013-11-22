@@ -2696,6 +2696,20 @@
     <Compile Include="OnlineOrderBackOffice\OnlineNCDExtract.ascx.designer.cs">
       <DependentUpon>OnlineNCDExtract.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineNCDIssueList.ascx.cs">
+      <DependentUpon>OnlineNCDIssueList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineNCDIssueList.ascx.designer.cs">
+      <DependentUpon>OnlineNCDIssueList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineNCDIssueSetup.ascx.cs">
+      <DependentUpon>OnlineNCDIssueSetup.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineNCDIssueSetup.ascx.designer.cs">
+      <DependentUpon>OnlineNCDIssueSetup.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.cs">
       <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7669,6 +7683,8 @@
     <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineClientAccess.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineNCDExtract.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineNCDIssueList.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineNCDIssueSetup.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
