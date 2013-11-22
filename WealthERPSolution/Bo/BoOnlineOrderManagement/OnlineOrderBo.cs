@@ -69,7 +69,7 @@ namespace BoOnlineOrderManagement
 
         public decimal GetUserRMSAccountBalance(string userAccountId)
         {
-            decimal accountBalance = 0;
+            decimal accountBalance= 0;
             string response = string.Empty;
             string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_CHECK_API"];
             string[] resultAPI = new string[5];
@@ -90,7 +90,7 @@ namespace BoOnlineOrderManagement
 
 
             }
-            return accountBalance;
+            return Math.Round(accountBalance,2);
 
         }
 
