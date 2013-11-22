@@ -38,7 +38,7 @@ namespace BoCommon
            }
            else if (FileID == 39)
            {
-               filename = "HDFCPAY" + MM + DD + ".txt";
+               filename = "HDFCPAY" + DD + MM + ".txt";
                delimeter = " ";
            }
            else if (FileID == 40)
