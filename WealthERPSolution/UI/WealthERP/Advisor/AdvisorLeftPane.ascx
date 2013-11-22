@@ -132,11 +132,10 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
-                                        
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
-                                        <telerik:RadPanelItem runat="server" Text="Cliant Access" Value="Client_access">
+                                            <telerik:RadPanelItem runat="server" Text="Cliant Access" Value="Client_access">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
@@ -173,6 +172,8 @@
                                             <telerik:RadPanelItem runat="server" Text="Scheme Setup" Value="Scheme_Setup">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCDIssuesetup" Value="NCDIssuesetup">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -706,7 +707,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="NCDIssuesetup" Value="NCDIssuesetup">
+                                            <telerik:RadPanelItem runat="server" Text="NCDIssuesetup" Value="NCDIssuesetup">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

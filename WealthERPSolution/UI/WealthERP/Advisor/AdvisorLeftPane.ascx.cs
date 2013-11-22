@@ -2053,6 +2053,11 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeSetUp','login');", true);
 
                 }
+                else if (e.Item.Value == "NCDIssuesetup")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssuesetup','login');", true);
+
+                }
                 else if (e.Item.Value == "View_Schemes")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeMIS','login');", true);
