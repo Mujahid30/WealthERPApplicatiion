@@ -102,7 +102,7 @@ namespace VoOnlineOrderManagemnet
         public DateTime TradeBusinessExecutionDate { get; set; }
         public int IsTradeBusinessDateHoliday { get; set; }
         public int IsTradeBusinessDateWeekend { get; set; }
-
+        public int year { get; set; }
 
     }
 }

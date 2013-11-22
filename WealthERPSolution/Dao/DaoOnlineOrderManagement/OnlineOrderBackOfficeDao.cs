@@ -1042,7 +1042,7 @@ namespace DaoOnlineOrderManagement
         public bool DeleteWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo)
         {
             bool bResult = false;
-            int affectedRecords=0;
+            int affectedRecords = 0;
             Database db;
             DbCommand createCmd;
             try
@@ -1057,7 +1057,7 @@ namespace DaoOnlineOrderManagement
                 if (affectedRecords == 1)
                     bResult = true;
                 else
-                    bResult = false;                
+                    bResult = false;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1174,7 +1174,7 @@ namespace DaoOnlineOrderManagement
             }
             return blResult;
         }
-           public DataTable OnlinebindRandT(int SchemPlaneCode)
+        public DataTable OnlinebindRandT(int SchemPlaneCode)
         {
             DataSet dsOnlinebindRandT;
             DataTable dt;
@@ -1185,7 +1185,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 OnlinebindRandTCmd = db.GetStoredProcCommand("SPROC_Onl_BindRandT");
                 db.AddInParameter(OnlinebindRandTCmd, "@PASP_SchemPlaneCode", DbType.Int32, SchemPlaneCode);
-                dsOnlinebindRandT=db.ExecuteDataSet(OnlinebindRandTCmd);
+                dsOnlinebindRandT = db.ExecuteDataSet(OnlinebindRandTCmd);
                 dt = dsOnlinebindRandT.Tables[0];
             }
             catch (BaseApplicationException Ex)
@@ -1198,7 +1198,7 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:OnlinebindRandT()");
                 object[] objects = new object[1];
-                objects[0]=SchemPlaneCode;
+                objects[0] = SchemPlaneCode;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1347,14 +1347,14 @@ namespace DaoOnlineOrderManagement
             }
 
             return dsGetTradeBusinessDate;
-
         }
+
         public bool CreateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
         {
             int affectedRecords = 0;
             bool bResult = false;
             Database db;
-            DbCommand createtradeBusinessDateCmd;            
+            DbCommand createtradeBusinessDateCmd;
 
             try
             {
@@ -1391,6 +1391,114 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
+        public bool updateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        {
+            int affectedRecords = 0;
+            bool bResult = false;
+            Database db;
+            DbCommand createtradeBusinessDateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_updateTradeBusinessDate");
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, tradeBusinessDateVo.TradeBusinessExecutionDate);
+                db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
+
+                if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(createtradeBusinessDateCmd, "@IsSuccess").ToString());
+                if (affectedRecords == 1)
+                    bResult = true;
+                else
+                    bResult = false;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:updateTradeBusinessDate()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public bool deleteTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        {
+            int affectedRecords = 0;
+            bool bResult = false;
+            Database db;
+            DbCommand createtradeBusinessDateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_deleteTradeBusinessDate");
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
+                //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
+                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(createtradeBusinessDateCmd, "@IsSuccess").ToString());
+                if (affectedRecords == 1)
+                    bResult = true;
+                else
+                    bResult = false;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:deleteTradeBusinessDate()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+
+        }
+
+        public void CreateCalendar(int year)
+        {
+            Database db;
+            DbCommand createtradeBusinessDateCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_CreateBusinessDayCalendar");
+                db.AddInParameter(createtradeBusinessDateCmd, "@Year", DbType.Int32, year);
+                db.ExecuteNonQuery(createtradeBusinessDateCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:CreateCalendar()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+        }
+                
+        
         public DataSet GetAdviserClientKYCStatusList(int adviserId)
         {
 

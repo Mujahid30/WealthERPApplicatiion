@@ -278,6 +278,21 @@ namespace BoOnlineOrderManagement
             return dtOrderExtract;
         }
 
+        public void CreateCalendar(int year)
+        {
+            OnlineOrderBackOfficeDao onlineorderbackofficedao = new OnlineOrderBackOfficeDao();
+
+            try
+            {
+                onlineorderbackofficedao.CreateCalendar(year);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+
         private string GetCsvColumnList(DataColumnCollection ColumnsCollection)
         {
             string colList = "";
@@ -1407,13 +1422,8 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
             return dsGetTradeBusinessDate;
-
         }
-
-
-
 
         public bool CreateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
         {
@@ -1561,5 +1571,30 @@ namespace BoOnlineOrderManagement
         }
 
 
+        public bool updateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(tradeBusinessDateVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
+        public bool deleteTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
     }
 }
