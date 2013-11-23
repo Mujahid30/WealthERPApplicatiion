@@ -778,6 +778,8 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSetUpSubmit;
+
+        protected global::System.Web.UI.WebControls.Button btnUpdate;
         
         /// <summary>
         /// txtIssueId control.
@@ -844,5 +846,9 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgEligibleInvestorCategories;
+
+
+        protected global::Telerik.Web.UI.RadGrid gvIssueList;
+        
     }
 }

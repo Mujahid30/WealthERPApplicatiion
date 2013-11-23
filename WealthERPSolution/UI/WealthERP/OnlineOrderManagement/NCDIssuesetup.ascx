@@ -34,6 +34,11 @@
         width: 18%;
         text-align: left;
     }
+     .Center
+    {
+         
+        text-align: center;
+    }
 </style>
 <%-- <asp:Panel ID="Panel2" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">--%>
 <table width="100%">
@@ -474,7 +479,8 @@
                 ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" />
         </td>
         <td class="rightData">
-            &nbsp;
+             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"
+                ValidationGroup="SetUpSubmit" OnClick="btnUpdate_Click" />
         </td>
         <td class="leftLabel">
             &nbsp;
@@ -502,7 +508,7 @@
 <asp:Panel ID="pnlSeries" runat="server" Width="100%" >
     <table id="tblSeries" runat="server" width="50%">
         <tr>
-        
+        <td class="leftLabel">&nbsp;</td>
             <td >
                 <table width="100%">
                     <tr>
@@ -760,6 +766,7 @@
 <asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%"  >
     <table id="Table1" runat="server" width="50%">
         <tr>
+         <td class="leftLabel">&nbsp;</td>
             <td>
                 <table>
                     <tr>
@@ -1050,4 +1057,10 @@
 </asp:Panel>
 <%-- </ContentTemplate>
 </asp:UpdatePanel>--%>
-<%--</asp:Panel> --%>
+<%--</asp:Panel> --
+
+
+
+<%--
+View Issue setUP--%>
+

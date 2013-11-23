@@ -15,6 +15,123 @@ namespace DaoOnlineOrderManagement
 {
     public class OnlineNCDBackOfficeDao
     {
+
+        public DataSet GetIssueDetails(int issueId, int adviserId)
+        {
+            DataSet dsIssueDetails;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetIssueDetails");
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
+                dsIssueDetails = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetIssueDetails()");
+                object[] objects = new object[2];
+                objects[1] = issueId;
+                objects[2] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsIssueDetails;
+        }
+
+        public DataSet GetAdviserIssueList(DateTime date,int type)
+        {
+            DataSet dsIssueDetails;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserIssueList");
+                db.AddInParameter(dbCommand, "@date", DbType.Date, date);
+                db.AddInParameter(dbCommand, "@type", DbType.Int32, type);
+                dsIssueDetails = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetAdviserIssueList()");
+                object[] objects = new object[0];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsIssueDetails;
+        }
+
+
+        public int UpdateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
+        {
+            int issueId;
+            Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_UpdateIssueMaster");
+
+
+                db.AddInParameter(createCmd, "@issueID", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
+                db.AddInParameter(createCmd, "@AIM_IssueName", DbType.String, onlineNCDBackOfficeVo.IssueName);
+                db.AddInParameter(createCmd, "@PFIIM_IssuerId", DbType.String, onlineNCDBackOfficeVo.IssuerId);
+                db.AddInParameter(createCmd, "@AIM_InitialChequeNo", DbType.String, onlineNCDBackOfficeVo.InitialChequeNo);
+                db.AddInParameter(createCmd, "@AIM_FaceValue", DbType.Decimal, onlineNCDBackOfficeVo.FaceValue);
+                db.AddInParameter(createCmd, "@FloorPrice", DbType.Decimal, onlineNCDBackOfficeVo.FloorPrice);
+                db.AddInParameter(createCmd, "@AIM_ModeOfIssue", DbType.String, onlineNCDBackOfficeVo.ModeOfIssue);
+                db.AddInParameter(createCmd, "@AIM_ModeOfTrading", DbType.String, onlineNCDBackOfficeVo.ModeOfTrading);
+                db.AddInParameter(createCmd, "@AIM_OpenDate", DbType.Date, onlineNCDBackOfficeVo.OpenDate);
+                db.AddInParameter(createCmd, "@AIM_CloseDate", DbType.Date, onlineNCDBackOfficeVo.CloseDate);
+                db.AddInParameter(createCmd, "@AIM_OpenTime", DbType.String, onlineNCDBackOfficeVo.OpenTime);
+                db.AddInParameter(createCmd, "@AIM_CloseTime", DbType.String, onlineNCDBackOfficeVo.CloseTime);
+                db.AddInParameter(createCmd, "@TradingLot", DbType.Int32, onlineNCDBackOfficeVo.TradingLot);
+                db.AddInParameter(createCmd, "@BiddingLot", DbType.Int32, onlineNCDBackOfficeVo.BiddingLot);
+                db.AddInParameter(createCmd, "@AIM_MinApplicationSize", DbType.Int32, onlineNCDBackOfficeVo.MinApplicationSize);
+                db.AddInParameter(createCmd, "@IsPrefix", DbType.String, onlineNCDBackOfficeVo.IsPrefix);
+                db.AddInParameter(createCmd, "@AIM_TradingInMultipleOf", DbType.Int32, onlineNCDBackOfficeVo.TradingInMultipleOf);
+                db.AddInParameter(createCmd, "@AIM_ListedInExchange", DbType.String, onlineNCDBackOfficeVo.ListedInExchange);
+                db.AddInParameter(createCmd, "@AIM_BankName", DbType.String, onlineNCDBackOfficeVo.BankName);
+                db.AddInParameter(createCmd, "@AIM_BankBranch", DbType.String, onlineNCDBackOfficeVo.BankBranch);
+                db.AddInParameter(createCmd, "@AIM_PutCallOption", DbType.String, onlineNCDBackOfficeVo.PutCallOption);
+                db.AddOutParameter(createCmd, "@AIM_IssueId", DbType.Int32, 0);
+                db.AddInParameter(createCmd, "@FromRange", DbType.Int32, onlineNCDBackOfficeVo.FromRange);
+                db.AddInParameter(createCmd, "@ToRange", DbType.Int32, onlineNCDBackOfficeVo.ToRange);
+                db.AddInParameter(createCmd, "@IsActive", DbType.Int32, onlineNCDBackOfficeVo.IsActive);
+                db.AddInParameter(createCmd, "@IsNominationRequired", DbType.Int32, onlineNCDBackOfficeVo.IsNominationRequired);
+
+
+                issueId = db.ExecuteNonQuery(createCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+
+                throw Ex;
+            }
+            return issueId;
+        }
+
         public DataSet GetSeriesCategories(string issuerId, int issueId, int seriesId)
         {
             DataSet dsGetSeriesCategories;
@@ -153,7 +270,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@Tenure", DbType.String, onlineNCDBackOfficeVo.Tenure);
                 db.AddInParameter(createCmd, "@InterestFrequency", DbType.Int32, onlineNCDBackOfficeVo.InterestFrequency);
                 db.AddInParameter(createCmd, "@InterestType", DbType.String, onlineNCDBackOfficeVo.InterestType);
-
+                db.AddInParameter(createCmd, "@ModeOfTenure", DbType.String, onlineNCDBackOfficeVo.ModeOfTenure);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
@@ -508,6 +625,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@Tenure", DbType.String, onlineNCDBackOfficeVo.Tenure);
                 db.AddInParameter(updateCmd, "@InterestFrequency", DbType.Int32, onlineNCDBackOfficeVo.InterestFrequency);
                 db.AddInParameter(updateCmd, "@InterestType", DbType.String, onlineNCDBackOfficeVo.InterestType);
+                db.AddInParameter(updateCmd, "@ModeOfTenure", DbType.String, onlineNCDBackOfficeVo.ModeOfTenure);
 
                 seriesId = db.ExecuteNonQuery(updateCmd);
 

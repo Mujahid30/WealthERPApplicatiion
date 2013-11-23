@@ -516,7 +516,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
-                else  if (e.Item.Value == "Admin Home")
+                else if (e.Item.Value == "Admin Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
                 }
@@ -636,7 +636,7 @@ namespace WealthERP.Advisor
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
                 }
-                    else if (e.Item.Value == "Client_access")
+                else if (e.Item.Value == "Client_access")
                 {
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineClientAccess", "loadcontrol('OnlineClientAccess','login');", true);
@@ -1085,9 +1085,13 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCDIssuesetup")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssuesetup','login');", true);
-
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDIssueSetup','login');", true);
                 }
+                else if (e.Item.Value == "NCDIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDIssueList','login');", true);
+                }
+
                 else if (e.Item.Value == "View_Schemes")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeMIS','login');", true);
@@ -2055,8 +2059,11 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCDIssuesetup")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('NCDIssuesetup','login');", true);
-
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDIssueSetup','login');", true);
+                }
+                else if (e.Item.Value == "NCDIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDIssueList','login');", true);
                 }
                 else if (e.Item.Value == "View_Schemes")
                 {

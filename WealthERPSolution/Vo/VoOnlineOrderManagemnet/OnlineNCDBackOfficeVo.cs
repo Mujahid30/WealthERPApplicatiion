@@ -13,7 +13,7 @@ namespace VoOnlineOrderManagemnet
         public int IssueId { get; set; }
         public int IsBuyBackAvailable { get; set; }
         public int Tenure { get; set; }
-        public int InterestFrequency { get; set; }
+        public string InterestFrequency { get; set; }
         public string InterestType { get; set; }
         public double DefaultInterestRate { get; set; }
         public double AnnualizedYieldUpto { get; set; }
@@ -65,6 +65,9 @@ namespace VoOnlineOrderManagemnet
 
         public int IsActive { get; set; }
         public int IsNominationRequired { get; set; }
+
+
+        public string  ModeOfTenure { get; set; }
 
 
 

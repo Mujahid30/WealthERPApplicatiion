@@ -15,6 +15,69 @@ namespace BoOnlineOrderManagement
     public class OnlineNCDBackOfficeBo
     {
         OnlineNCDBackOfficeDao onlineNCDBackOfficeDao;
+
+        public DataSet GetIssueDetails(int issueId, int adviserId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetIssueDetails(issueId, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+
+        public DataSet GetAdviserIssueList(DateTime date, int type)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetAdviserIssueList(date, type);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+        public int UpdateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                return onlineNCDBackOfficeDao.UpdateIssue(onlineNCDBackOfficeVo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public DataSet GetSeriesCategories(string issuerId, int issueId, int seriesId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -92,6 +155,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
         public int CreateSeries(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
@@ -154,7 +218,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-         public DataSet GetAllInvestorTypes(string issuerId, int issueId)
+        public DataSet GetAllInvestorTypes(string issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -328,7 +392,7 @@ namespace BoOnlineOrderManagement
 
 
         }
-        public DataSet GetIssuerIssue(string  issuerID)
+        public DataSet GetIssuerIssue(string issuerID)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -352,9 +416,9 @@ namespace BoOnlineOrderManagement
             }
 
         }
-          public DataSet GetCategoryDetails(int CatgeoryId)
+        public DataSet GetCategoryDetails(int CatgeoryId)
         {
-         
+
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
