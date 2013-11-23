@@ -102,7 +102,7 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>

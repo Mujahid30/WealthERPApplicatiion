@@ -54,7 +54,7 @@
     <ContentTemplate>
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
             <div style="float: right; padding-right: 50px;">
-                <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
+               <%-- <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>--%>
                 <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </div>
         </div>
@@ -75,7 +75,7 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
@@ -303,7 +303,7 @@
                     <td>
                         <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName" MaxLength="11"></asp:TextBox>
                         <span id="Span4" class="spnRequiredField">*</span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select a Amount"
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please enter required value"
                             CssClass="rfvPCG" ControlToValidate="txtRedeemTypeValue" ValidationGroup="btnSubmit"
                             Display="Dynamic"></asp:RequiredFieldValidator>
                         </br>

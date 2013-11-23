@@ -207,18 +207,24 @@ namespace WealthERP.OnlineOrderManagement
             {
                 lblDividendFrequency.Visible = false;
                 lbldftext.Visible = false;
-                lblDivType.Visible = false;
-                ddlDivType.Visible = false;
+
+                //lblDivType.Visible = false;
+                //ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
+                trDivfeq.Visible = false;
+
+               
 
             }
             else
             {
                 // lblDividendFrequency.Visible = true;
                 //lbldftext.Visible = true;
-                lblDivType.Visible = true;
-                ddlDivType.Visible = true;
+                //lblDivType.Visible = true;
+                //ddlDivType.Visible = true;                
+                trDivfeq.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
+                
 
 
             }

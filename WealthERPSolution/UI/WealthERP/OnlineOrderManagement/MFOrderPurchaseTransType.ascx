@@ -98,7 +98,7 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
@@ -235,7 +235,7 @@
                         <asp:Label ID="lblMulti" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDivtype" visible="false">
+                <tr class="spaceUnder" id="trDivtype" visible="false" runat="server">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
