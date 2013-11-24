@@ -194,11 +194,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void btnExpandAll_Click(object sender, EventArgs e)
         {
             DataTable dtIssueDetail;
-            string strIssuerId = null;
+            int strIssuerId = 0;
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi;
             gdi = (GridDataItem)buttonlink.NamingContainer;
-            strIssuerId = gvBBList.MasterTableView.DataKeyValues[gdi.ItemIndex]["PFIIM_IssuerId"].ToString();
+            strIssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
             int orderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
             RadGrid gvChildDetails = (RadGrid)gdi.FindControl("gvChildDetails");
             Panel PnlChild = (Panel)gdi.FindControl("pnlchild");
@@ -231,7 +231,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             RadGrid gvChildDetails = (RadGrid)sender; // Get reference to grid 
             GridDataItem nesteditem = (GridDataItem)gvChildDetails.NamingContainer;
-            string strIssuerId = gvBBList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["PFIIM_IssuerId"].ToString(); // Get the value 
+            int strIssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
             int orderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["CO_OrderId"].ToString());
             DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
             gvChildDetails.DataSource = ds.Tables[0];
@@ -244,7 +244,7 @@ namespace WealthERP.OnlineOrderManagement
             RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
             int selectedRow = gvr.ItemIndex + 1;
             int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
-            string IssuerId = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["PFIIM_IssuerId"].ToString();
+            int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString());
             //Session["NCDTransact"] = BoOnlineBondOrder.GetNCDTransactOrder(OrderId, IssuerId);
             if (ddlAction.SelectedItem.Value.ToString() == "Edit")
             {

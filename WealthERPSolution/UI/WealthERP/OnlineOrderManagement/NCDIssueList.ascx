@@ -160,7 +160,7 @@
             <asp:DropDownList ID="ddlListOfBonds" runat="server" CssClass="cmbField">
             </asp:DropDownList>
         </td>--%>
-       <%-- <td>
+<%-- <td>
         </td>
         <td>
             <asp:Button ID="btnEquityBond" runat="server" Text="Purchase Bonds" OnClick="btnEquityBond_Click" />
@@ -179,7 +179,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound"
                                 OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFIIM_IssuerId"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
@@ -192,6 +192,11 @@
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scrip Name" UniqueName="AIM_SchemeName"
                                             SortExpression="AIM_SchemeName">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="PFIIM_IssuerId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scrip ID" UniqueName="OnlIssuerId"
@@ -261,12 +266,17 @@
                                                                 PageSize="10" AllowPaging="True" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="false" OnNeedDataSource="gvChildDetails_OnNeedDataSource">
-                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFIIM_IssuerId"
+                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
-                                                                        <telerik:GridBoundColumn DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains" HeaderText="Scheme"
-                                                                            SortExpression="PFISM_SchemeId">
+                                                                        <telerik:GridBoundColumn DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
+                                                                            HeaderText="Scheme" SortExpression="PFISM_SchemeId">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFIIM_IssuerId" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Id" UniqueName="PFIIM_IssuerId"
@@ -278,14 +288,14 @@
                                                                             SortExpression="PFISD_SeriesId">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
+                                                                        <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             UniqueName="AIM_FaceValue" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure(Month)" UniqueName="PFISD_Tenure"
-                                                                            SortExpression="PFISD_Tenure">
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure(Month)"
+                                                                            UniqueName="PFISD_Tenure" SortExpression="PFISD_Tenure">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_CouponFreq" HeaderStyle-Width="85px" CurrentFilterFunction="Contains"
@@ -294,21 +304,22 @@
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)" UniqueName="PFISD_CouponRate"
-                                                                            SortExpression="PFISD_CouponRate">
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
+                                                                            UniqueName="PFISD_CouponRate" SortExpression="PFISD_CouponRate">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>                                                                        
+                                                                        </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_RenewCouponRate" HeaderStyle-Width="100px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="Renew Coupon Rate(%)" UniqueName="PFISD_RenewCouponRate" SortExpression="PFISD_RenewCouponRate">
                                                                             <HeaderStyle Width="100px" />
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
-                                                                        </telerik:GridBoundColumn> 
-                                                                         <telerik:GridBoundColumn DataField="PFISD_LockingPeriod" HeaderStyle-Width="100px"
-                                                                            HeaderText="Lock-in Period" CurrentFilterFunction="Contains" ShowFilterIcon="false" DataFormatString="{0:N0}"
-                                                                            AutoPostBackOnFilter="true" UniqueName="PFISD_LockingPeriod" Visible="true">
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn DataField="PFISD_LockingPeriod" HeaderStyle-Width="100px"
+                                                                            HeaderText="Lock-in Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                                                            DataFormatString="{0:N0}" AutoPostBackOnFilter="true" UniqueName="PFISD_LockingPeriod"
+                                                                            Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>                                                                      
+                                                                        </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_DefaultInterestRate" HeaderStyle-Width="80px"
                                                                             HeaderText="Yield at Call(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="PFISD_DefaultInterestRate" Visible="true">
@@ -323,7 +334,7 @@
                                                                             HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="PFISD_YieldatBuyBack" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>                                                                       
+                                                                        </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_CallOption" HeaderStyle-Width="80px" HeaderText="Call Option"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             UniqueName="PFISD_CallOption" Visible="true">

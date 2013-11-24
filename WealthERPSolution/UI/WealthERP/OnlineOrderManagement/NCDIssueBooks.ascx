@@ -200,7 +200,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvBBList_OnNeedDataSource">
                                 <%--OnNeedDataSource="gvBBList_OnNeedDataSource"--%>
-                                <MasterTableView DataKeyNames="CO_OrderId,PFIIM_IssuerId" Width="100%" AllowMultiColumnSorting="True"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId" Width="100%" AllowMultiColumnSorting="True"
                                     AutoGenerateColumns="false">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
@@ -209,6 +209,11 @@
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="PFIIM_IssuerId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scrip ID" UniqueName="OnlIssuerId"
                                             SortExpression="IssuerId">
@@ -284,7 +289,7 @@
                                                                 PageSize="10" AllowPaging="True" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="false" OnNeedDataSource="gvChildDetails_OnNeedDataSource">
-                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFIIM_IssuerId,CO_OrderId,PFISD_SeriesId"
+                                                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,CO_OrderId,PFISD_SeriesId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="PFISD_SeriesId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"

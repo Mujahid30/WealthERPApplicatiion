@@ -31,7 +31,7 @@ namespace WealthERP.OnlineOrderManagement
         double sum = 0;
         int Quantity = 0;
         int orderId = 0;
-        string IssuerId;
+        int IssuerId=0;
         //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace WealthERP.OnlineOrderManagement
                 if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null)
                 {
                     orderId = int.Parse(Request.QueryString["OrderId"].ToString());
-                    IssuerId = Request.QueryString["IssuerId"].ToString();
+                    IssuerId = int.Parse(Request.QueryString["IssuerId"].ToString());
                     lblIssuer.Text = "Selected Issue Name :" + IssuerId;
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
@@ -56,7 +56,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else if (Request.QueryString["IssuerId"] != null)
                 {
-                    IssuerId = Request.QueryString["IssuerId"].ToString();
+                    IssuerId = int.Parse(Request.QueryString["IssuerId"].ToString());
                     lblIssuer.Text = "Selected Issue Name :" + IssuerId;
                     //int IssueIdN = Convert.ToInt32(IssueId);
                     ddIssuerList.Visible = false;
@@ -85,10 +85,10 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            IssuerId = ddIssuerList.SelectedValue.ToString();
+            IssuerId = int.Parse(ddIssuerList.SelectedValue.ToString());
             BindStructureRuleGrid(IssuerId);
         }
-        protected void BindStructureRuleGrid(string IssuerId)
+        protected void BindStructureRuleGrid(int IssuerId)
         {
             DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId);
             DataTable dtTransact = dsStructureRules.Tables[0];
@@ -277,7 +277,7 @@ namespace WealthERP.OnlineOrderManagement
             //Need to be collect from Session...
             dt.Columns.Add("CustomerId");
             dt.Columns.Add("PFISD_SeriesId");
-            dt.Columns.Add("PFIIM_IssuerId");
+            dt.Columns.Add("AIM_IssueId");
             dt.Columns.Add("PFISM_SchemeId");
             dt.Columns.Add("Qty");
             dt.Columns.Add("Amount");
@@ -291,7 +291,7 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISD_SeriesId"].ToString());
-                OnlineBondVo.PFIIM_IssuerId = Convert.ToString(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFIIM_IssuerId"].ToString());
+                OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
                 OnlineBondVo.PFISM_SchemeId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
@@ -306,7 +306,7 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows.Add();
                         dt.Rows[tableRow]["CustomerId"] = OnlineBondVo.CustomerId;
                         dt.Rows[tableRow]["PFISD_SeriesId"] = OnlineBondVo.PFISD_SeriesId;
-                        dt.Rows[tableRow]["PFIIM_IssuerId"] = OnlineBondVo.PFIIM_IssuerId;
+                        dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
                         dt.Rows[tableRow]["PFISM_SchemeId"] = OnlineBondVo.PFISM_SchemeId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
@@ -381,7 +381,7 @@ namespace WealthERP.OnlineOrderManagement
             // }
             // }
         }
-        protected void Viewdetails(string IssuerId)
+        protected void Viewdetails(int IssuerId)
         {
             DataSet dsStructureRules = OnlineBondBo.GetNCDTransactOrder(orderId, IssuerId);
             int ronum = 0;

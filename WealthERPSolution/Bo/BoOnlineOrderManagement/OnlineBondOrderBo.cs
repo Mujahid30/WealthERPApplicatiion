@@ -45,12 +45,12 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, string IssuerId)
+        public DataSet GetAdviserIssuerList(int adviserId)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId,IssuerId);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -71,7 +71,7 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public DataSet GetLiveBondTransaction(string SeriesId)
+        public DataSet GetLiveBondTransaction(int SeriesId)
         {
 
             try
@@ -147,7 +147,7 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public DataSet GetIssueDetail(string IssuerId)
+        public DataSet GetIssueDetail(int IssuerId)
         {
             DataSet dsGetIssueDetail = new DataSet();
             try
@@ -280,7 +280,7 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public DataSet GetOrderBondSubBook(int customerId, string IssuerId, int orderid)
+        public DataSet GetOrderBondSubBook(int customerId, int IssuerId, int orderid)
         {
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             DataSet dsLookupData;
@@ -413,7 +413,7 @@ namespace BoOnlineOrderManagement
             }
             return ApplicationNumber;
         }
-        public DataSet GetNCDTransactOrder(int orderId, string IssuerId)
+        public DataSet GetNCDTransactOrder(int orderId, int IssuerId)
         {
             DataSet dsNCD;
           

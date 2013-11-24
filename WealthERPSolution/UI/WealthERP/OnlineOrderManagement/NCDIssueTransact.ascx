@@ -187,7 +187,7 @@
                     <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
                     </ExportSettings>
                     <PagerStyle AlwaysVisible="True" />
-                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId,PFISM_SchemeId,PFIIM_IssuerId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo"
+                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId,PFISM_SchemeId,AIM_IssueId,PFISD_DefaultInterestRate,PFISD_Tenure,AIM_FaceValue,PFISD_InMultiplesOf,PFISD_BidQty,AIM_MaxApplNo"
                         AutoGenerateColumns="false" Width="100%">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
@@ -201,6 +201,11 @@
                                 SortExpression="CO_OrderId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>--%>
+                            <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Id" UniqueName="AIM_IssueId"
+                                SortExpression="AIM_IssueId">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="PFIIM_IssuerId" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Id" UniqueName="IssuerId"
                                 SortExpression="IssuerId">

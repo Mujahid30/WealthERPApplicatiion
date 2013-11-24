@@ -45,7 +45,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, string IssuerId)
+        public DataSet GetAdviserIssuerList(int adviserId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -56,7 +56,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetIssuerlist");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
-                db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
+                //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);
             }
@@ -78,7 +78,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetLiveBondTransaction(string SeriesId)
+        public DataSet GetLiveBondTransaction(int SeriesId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -88,7 +88,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetLiveBondTransaction");
-                db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, SeriesId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.Int32, SeriesId);
                 //if (orderId!=0)
                 //    db.AddInParameter(cmdGetCommissionStructureRules, "@orderId", DbType.Int32, orderId);
                 //else
@@ -209,7 +209,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetIssueDetail(string IssuerId)
+        public DataSet GetIssueDetail(int IssuerId)
         {
             Database db;
             DbCommand cmdGetIssueDetail;
@@ -219,7 +219,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetIssueDetail = db.GetStoredProcCommand("SPROC_ONL_GetIssueDetail");
-                db.AddInParameter(cmdGetIssueDetail, "@IssuerId", DbType.String, IssuerId);
+                db.AddInParameter(cmdGetIssueDetail, "@IssuerId", DbType.Int32, IssuerId);
                 ds = db.ExecuteDataSet(cmdGetIssueDetail);
             }
             catch (BaseApplicationException Ex)
@@ -260,6 +260,7 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
+                db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 10000);
                 //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISM_SchemeId", DbType.Int32, BondORder.PFISM_SchemeId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISD_SeriesId", DbType.Int32, BondORder.PFISD_SeriesId);
@@ -272,7 +273,7 @@ namespace DaoOnlineOrderManagement
                 
                 if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
                 {
-                    OrderIds.Add("OrderId", db.GetParameterValue(cmdOnlineBondTransact, "CO_OrderId").ToString());
+                    OrderIds.Add("OrderId", db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
                 
                 }
 
@@ -366,7 +367,7 @@ namespace DaoOnlineOrderManagement
             return dsOrderBondsBook;
         }
 
-        public DataSet GetOrderBondSubBook(int customerId,string IssuerId,int orderid)
+        public DataSet GetOrderBondSubBook(int customerId,int IssuerId,int orderid)
         {
             DataSet dsOrderBondssubBook;
             Database db;
@@ -376,7 +377,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_ONL_GetBondOrdersubBook");
                 db.AddInParameter(GetOrderBondsBookcmd, "@customerId", DbType.Int32, customerId);
-                db.AddInParameter(GetOrderBondsBookcmd, "@IssuerId", DbType.String, IssuerId);
+                db.AddInParameter(GetOrderBondsBookcmd, "@IssuerId", DbType.Int32, IssuerId);
                 db.AddInParameter(GetOrderBondsBookcmd, "@orderId", DbType.Int32, orderid);
                 dsOrderBondssubBook = db.ExecuteDataSet(GetOrderBondsBookcmd);
 
@@ -527,7 +528,7 @@ namespace DaoOnlineOrderManagement
             }
             return ApplicationNumber;
         }
-       public DataSet GetNCDTransactOrder(int orderId, string IssuerId)
+       public DataSet GetNCDTransactOrder(int orderId, int IssuerId)
        {
            Database db;
            DataSet GetNCDTransactOrderDs;
@@ -538,7 +539,7 @@ namespace DaoOnlineOrderManagement
                db = DatabaseFactory.CreateDatabase("wealtherp");
                GetNCDTransactOrderCmd = db.GetStoredProcCommand("SPROC_ONL_GetLiveBookBondTransaction");
                db.AddInParameter(GetNCDTransactOrderCmd, "@orderId", DbType.Int32, orderId);
-               db.AddInParameter(GetNCDTransactOrderCmd, "@IssuerId", DbType.String, IssuerId);
+               db.AddInParameter(GetNCDTransactOrderCmd, "@IssuerId", DbType.Int32, IssuerId);
                GetNCDTransactOrderDs = db.ExecuteDataSet(GetNCDTransactOrderCmd);
               
            }

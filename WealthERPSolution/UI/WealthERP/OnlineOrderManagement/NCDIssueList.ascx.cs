@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, IssuerId);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -97,7 +97,7 @@ namespace WealthERP.OnlineOrderManagement
             int rowindex = (rowindex1 / 2) - 1;
             LinkButton lbButton = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lbButton.NamingContainer;
-            string IssuerId = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFIIM_IssuerId"].ToString();
+            int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','?IssuerId=" + IssuerId + "');", true);
 
         }
@@ -129,13 +129,13 @@ namespace WealthERP.OnlineOrderManagement
          protected void btnExpandAll_Click(object sender, EventArgs e)
         {
            DataTable dtIssueDetail;
-           string strIssuerId = null;
+           int strIssuerId = 0;
            LinkButton buttonlink = (LinkButton)sender;
            GridDataItem gdi;
            gdi = (GridDataItem)buttonlink.NamingContainer;
           //  foreach (GridDataItem gvr in this.gvCommMgmt.Items)
            // {
-                strIssuerId = gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["PFIIM_IssuerId"].ToString();
+           strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
                 RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
                 //LinkButton buttonlink = (LinkButton)gvr.FindControl("Detailslink");
                 Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
@@ -181,7 +181,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             RadGrid gvchildIssue = (RadGrid)sender; // Get reference to grid 
             GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
-            string strIssuerId = gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["PFIIM_IssuerId"].ToString(); // Get the value 
+            int strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
             DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
             gvchildIssue.DataSource = ds.Tables[0]; 
         }
