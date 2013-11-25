@@ -46,8 +46,8 @@ namespace VoOnlineOrderManagemnet
         public string ModeOfTrading { get; set; }
         public DateTime OpenDate { get; set; }
         public DateTime CloseDate { get; set; }
-        public string  OpenTime { get; set; }
-        public string CloseTime { get; set; }
+        public DateTime OpenTime { get; set; }
+        public DateTime CloseTime { get; set; }
         public DateTime IssueRevis { get; set; }
         public decimal TradingLot { get; set; }
         public decimal BiddingLot { get; set; }

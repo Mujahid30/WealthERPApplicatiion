@@ -1,4 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDIssueSetup.ascx.cs" Inherits="WealthERP.OnlineOrderBackOffice.OnlineNCDIssueSetup" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDIssueSetup.ascx.cs"
+    Inherits="WealthERP.OnlineOrderBackOffice.OnlineNCDIssueSetup" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
         <asp:ServiceReference Path="AutoComplete.asmx" />
@@ -44,17 +45,26 @@
                         <td align="left">
                             NCD Issue Setup
                         </td>
+                        <td align="right">
+                            <asp:LinkButton ID="lnkBtnEdit" runat="server" CssClass="LinkButtons" Text="Edit"
+                                OnClick="lnkBtnEdit_Click"></asp:LinkButton>
+                            &nbsp; &nbsp;
+                            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" Visible="false"
+                                OnClick="lnlBack_Click"></asp:LinkButton>&nbsp; &nbsp;
+                            <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" Text="Delete"
+                                OnClientClick="javascript: return confirm('Are you sure you want to Delete the Order?')"></asp:LinkButton>&nbsp;
+                            <%-- OnClick="lnkDelete_Click"--%>
+                            &nbsp;
+                        </td>
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
 </table>
-
- 
 <%--<asp:UpdatePanel ID="UpdatePanel3" runat="server">
     <ContentTemplate>--%>
-<table width="80%"  runat="server" id="tbIssue">
+<table width="80%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1Product" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
@@ -278,31 +288,43 @@
             <asp:Label ID="lb1OpenTime" runat="server" Text="Open Time:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-           <%-- <telerik:RadTimePicker ID="txtOpenTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"
+            <%-- <telerik:RadTimePicker ID="txtOpenTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"
                 Width="200px">
             </telerik:RadTimePicker>--%>
-             <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span20" class="spnRequiredField">*</span>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Enter Open Time" Display="Dynamic" ControlToValidate="txtOpenTimes"
+             <asp:DropDownList ID="ddlOpenTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px"/>
+                   <asp:DropDownList ID="ddlOpenTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px"/>
+                   <asp:DropDownList ID="ddlOpenTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px"/>
+           <%-- <asp:TextBox ID="txtOpenTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>--%>
+           <%-- <span id="Span20" class="spnRequiredField">*</span>
+            <br />--%>
+           <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Open Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
                 InitialValue="" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1Closetime" runat="server" Text="Close Time:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-         <asp:TextBox ID="txtCloseTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+         <asp:DropDownList ID="ddlCloseTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px"/>
+                   <asp:DropDownList ID="ddlCloseTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px"/>
+                   <asp:DropDownList ID="ddlCloseTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px"/>
+           <%-- <asp:TextBox ID="txtCloseTimes" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>--%>
             <%--<telerik:RadTimePicker ID="txtCloseTime" runat="server" ZIndex="30001" TimeView-TimeFormat="HH:mm"
                 Width="200px">
             </telerik:RadTimePicker>--%>
-            <span id="Span21" class="spnRequiredField">*</span>
+           <%-- <span id="Span21" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Enter Close Time" Display="Dynamic" ControlToValidate="txtCloseTimes"
+                ErrorMessage="Please Enter Close Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
                 InitialValue="" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
     <tr>
@@ -471,15 +493,16 @@
         <td class="leftLabel">
             <asp:Button ID="btnSetUpSubmit" runat="server" Text="Submit" CssClass="PCGButton"
                 ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" />
-        </td>
-        <td class="rightData">
-            &nbsp;
+            <%-- </td>
+        <td class="rightData">--%>
+            <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="SetUpSubmit"
+                OnClick="btnUpdate_Click" />
+            <asp:Button ID="btnProspect" runat="server" Text="Prospect" CssClass="PCGButton" Visible="false" 
+                OnClick="btnProspect_Click" />
+            <%-- ValidationGroup="SetUpSubmit"--%>
         </td>
         <td class="leftLabel">
-           <td class="rightData">
-             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton"
-                ValidationGroup="SetUpSubmit" OnClick="btnUpdate_Click" />
-        </td>
+            &nbsp;
         </td>
         <td class="rightData">
             &nbsp;
@@ -501,49 +524,52 @@
 </asp:UpdatePanel>--%>
 <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>--%>
-<asp:Panel ID="pnlSeries" runat="server" Width="100%" >
-    <table id="tblSeries" runat="server" width="50%">
+<asp:Panel ID="pnlSeries" runat="server" Width="100%">
+    <table id="tblSeries" runat="server" width="80%">
         <tr>
-        <td class="leftLabel">&nbsp;</td>
-            <td >
+            <td class="leftLabel">
+                &nbsp;
+            </td>
+            <td>
                 <table width="100%">
                     <tr>
                         <td class="leftLabel">
                             <telerik:RadGrid ID="rgSeries" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                OnItemDataBound="rgSeries_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="false"
+                                OnItemDataBound="rgSeries_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="True"
                                 OnNeedDataSource="rgSeries_OnNeedDataSource" OnItemCommand="rgSeries_ItemCommand">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
                                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false">
                                     <Columns>
-                                        <telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel" HeaderStyle-Width="70px"
                                             UpdateText="Update">
                                         </telerik:GridEditCommandColumn>
-                                        <telerik:GridBoundColumn DataField="PFISD_SeriesName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                        <telerik:GridBoundColumn DataField="PFISD_SeriesName" HeaderStyle-Width="100px" CurrentFilterFunction="Contains" 
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Series Name" UniqueName="PFISD_SeriesName"
-                                            SortExpression="PFISD_SeriesName">
+                                            SortExpression="PFISD_SeriesName" AllowFiltering="true"  >
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PFISD_Tenure" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                        <telerik:GridBoundColumn DataField="PFISD_Tenure" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure" UniqueName="PFISD_Tenure"
-                                            SortExpression="PFISD_Tenure">
+                                            SortExpression="PFISD_Tenure" AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="PFISD_BuyBackFacility" HeaderStyle-Width="200px"
+                                        <telerik:GridBoundColumn DataField="PFISD_BuyBackFacility"   HeaderStyle-Width="20px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="IsBuyBack Available" UniqueName="PFISD_BuyBackFacility" SortExpression="PFISD_BuyBackFacility">
+                                            HeaderText="IsBuyBack Available" UniqueName="PFISD_BuyBackFacility" SortExpression="PFISD_BuyBackFacility"
+                                            AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
                                                     <td colspan="1.5%">
@@ -555,12 +581,13 @@
                                                             <telerik:RadGrid ID="rgSeriesCategories" runat="server" AutoGenerateColumns="False"
                                                                 enableloadondemand="True" PageSize="5" AllowPaging="True" EnableEmbeddedSkins="False"
                                                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgSeriesCategories_OnNeedDataSource">
+                                                                Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCategories_OnNeedDataSource">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId"
                                                                     AutoGenerateColumns="false">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="30px"
-                                                                            CurrentFilterFunction="Contains" HeaderText="Investor CatgeoryName" SortExpression="AIIC_InvestorCatgeoryName">
+                                                                            CurrentFilterFunction="Contains" HeaderText="Investor CatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
+                                                                            AllowFiltering="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="PFISD_DefaultInterestRate" HeaderStyle-Width="30px"
@@ -603,6 +630,9 @@
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
+                                                    <td >
+                                                     &nbsp;
+                                                    </td>
                                                     <%--  <td class="rightData">
                                                         &nbsp;
                                                     </td>--%>
@@ -613,14 +643,21 @@
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:TextBox ID="txtTenure" runat="server" CssClass="txtField"></asp:TextBox>
-                                                        <span id="Span1" class="spnRequiredField">*</span>
+                                                         <span id="Span1" class="spnRequiredField">*</span>
+                                                       <%--  <asp:DropDownList ID="ddlTenure" runat="server" CssClass="cmbField">
+                                                            <asp:ListItem Value="Select">Select</asp:ListItem>
+                                                            <asp:ListItem Value="Month">Month</asp:ListItem>
+                                                            <asp:ListItem Value="Year">Year</asp:ListItem>
+                                                        </asp:DropDownList>--%>
+                                                       
                                                         <br />
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
                                                             ErrorMessage="Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
                                                             ValidationGroup="btnOK" InitialValue="">
                                                         </asp:RequiredFieldValidator>
+                                                       
                                                     </td>
-                                                    <td align="left">
+                                                    <td class="rightData">
                                                         <asp:DropDownList ID="ddlTenure" runat="server" CssClass="cmbField">
                                                             <asp:ListItem Value="Select">Select</asp:ListItem>
                                                             <asp:ListItem Value="Month">Month</asp:ListItem>
@@ -648,7 +685,7 @@
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td class="rightData">
+                                                    <td  class="rightData" >
                                                         <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbField" Text="Is Buy Back Available">
                                                         </asp:CheckBox>
                                                     </td>
@@ -670,20 +707,20 @@
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <%--  <td class="rightData">
-                                                        &nbsp;
-                                                    </td>--%>
+                                                     <td  class="rightData" >
+                                                     &nbsp;
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3">
                                                         <telerik:RadGrid ID="rgSeriesCat" runat="server" AllowSorting="True" enableloadondemand="True"
                                                             PageSize="5" AllowPaging="True" AutoGenerateColumns="false" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                                            Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgSeriesCat_OnNeedDataSource">
+                                                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCat_OnNeedDataSource">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
-                                                                Width="100%" DataKeyNames="AIIC_InvestorCatgeoryId">
+                                                                DataKeyNames="AIIC_InvestorCatgeoryId">
                                                                 <Columns>
-                                                                    <telerik:GridTemplateColumn HeaderText="Select">
+                                                                    <telerik:GridTemplateColumn HeaderText="Select" AllowFiltering="false" >
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblchkBxSelect" runat="server" Text="Select"></asp:Label>
                                                                         </HeaderTemplate>
@@ -691,15 +728,16 @@
                                                                             <asp:CheckBox ID="cbSeriesCat" runat="server" Checked="false" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="60px"
-                                                                        CurrentFilterFunction="Contains" HeaderText="CatgoryID" SortExpression="AIIC_InvestorCatgeoryId">
+                                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="20px" Visible="false" 
+                                                                      ShowFilterIcon="false"  CurrentFilterFunction="Contains" HeaderText="CatgoryID" SortExpression="AIIC_InvestorCatgeoryId">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="60px"
-                                                                        CurrentFilterFunction="Contains" HeaderText="Catgeory Name" SortExpression="AIIC_InvestorCatgeoryName">
+                                                                        CurrentFilterFunction="Contains" HeaderText="Catgeory Name" SortExpression="AIIC_InvestorCatgeoryName"
+                                                                        AllowFiltering="true"   ShowFilterIcon="false" >
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="InterestRate(%)">
+                                                                    <telerik:GridTemplateColumn HeaderText="InterestRate(%)" AllowFiltering="false" >
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblInterest" runat="server" Text="Interest Rate(%)"></asp:Label>
                                                                         </HeaderTemplate>
@@ -707,7 +745,7 @@
                                                                             <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Annualized Yield(%)">
+                                                                    <telerik:GridTemplateColumn HeaderText="Annualized Yield(%)" AllowFiltering="false">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblAnnualized" runat="server" Text="Annualized Yield(%)"></asp:Label>
                                                                         </HeaderTemplate>
@@ -719,6 +757,7 @@
                                                             </MasterTableView>
                                                         </telerik:RadGrid>
                                                     </td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
@@ -759,10 +798,12 @@
 </asp:UpdatePanel>--%>
 <%--<asp:UpdatePanel ID="UpdatePanel2" runat="server">
     <ContentTemplate>--%>
-<asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%"  >
-    <table id="Table1" runat="server" width="50%">
+<asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%">
+    <table id="Table1" runat="server" width="80%">
         <tr>
-        <td class="leftLabel">&nbsp;</td>
+            <td class="leftLabel">
+                &nbsp;
+            </td>
             <td>
                 <table>
                     <tr>
@@ -770,25 +811,27 @@
                             <telerik:RadGrid ID="rgEligibleInvestorCategories" runat="server" AllowSorting="True"
                                 enableloadondemand="True" PageSize="5" AllowPaging="True" AutoGenerateColumns="False"
                                 EnableEmbeddedSkins="False" GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true"
-                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
+                                ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
                                 OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
-                                    AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New InvestorCategory"
+                                    AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
                                     CommandItemDisplay="Top">
                                     <Columns>
-                                     <telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
-                                                    Font-Bold="true" UniqueName="DetailsCategorieslink" OnClick="btnCategoriesExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
+                                                    Font-Bold="true" UniqueName="DetailsCategorieslink" OnClick="btnCategoriesExpandAll_Click"
+                                                    Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                         </telerik:GridTemplateColumn>
-                                         <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                                             UpdateText="Update">
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="20px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="Catgeory Name" UniqueName="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName">
+                                            HeaderText="Catgeory Name" UniqueName="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
+                                            AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_ChequePayableTo" HeaderStyle-Width="200px"
@@ -805,24 +848,25 @@
                                             HeaderText="MaxBid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridTemplateColumn>
+                                        <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
                                                 <tr>
                                                     <td colspan="1.5%">
                                                         &nbsp;
                                                     </td>
                                                     <td colspan="3%">
-                                                        <asp:Panel ID="pnlCategoriesDetailschild" runat="server" Style="display: inline" CssClass="Landscape"
-                                                             ScrollBars="Horizontal" Visible="false">
+                                                        <asp:Panel ID="pnlCategoriesDetailschild" runat="server" Style="display: inline"
+                                                            CssClass="Landscape" ScrollBars="Horizontal" Visible="false">
                                                             <telerik:RadGrid ID="rgCategoriesDetails" runat="server" AutoGenerateColumns="False"
                                                                 enableloadondemand="True" PageSize="5" AllowPaging="True" EnableEmbeddedSkins="False"
-                                                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource">
+                                                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
+                                                                Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId"
                                                                     AutoGenerateColumns="false">
                                                                     <Columns>
                                                                         <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="30px" UniqueName="WCMV_Name"
-                                                                            CurrentFilterFunction="Contains" HeaderText="Investor Type" SortExpression="WCMV_Name">
+                                                                            CurrentFilterFunction="Contains" HeaderText="Investor Type" SortExpression="WCMV_Name"
+                                                                            AllowFiltering="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIIC_InvestorSubTypeCode" HeaderStyle-Width="30px"
@@ -947,11 +991,12 @@
                                                 <tr>
                                                     <td colspan="3">
                                                         <telerik:RadGrid ID="rgSubCategories" runat="server" AllowSorting="True" enableloadondemand="True"
-                                                            PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                                            Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="rgSubCategories_OnNeedDataSource"
+                                                            PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
+                                                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSubCategories_OnNeedDataSource"
                                                             DataKeyNames="WCMV_LookupId">
                                                             <MasterTableView>
+                                                               
                                                                 <Columns>
                                                                     <telerik:GridTemplateColumn HeaderText="Select" ShowFilterIcon="false" AllowFiltering="false">
                                                                         <HeaderTemplate>
@@ -963,7 +1008,7 @@
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
                                                                         ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Sub Category"
-                                                                        UniqueName="WCMV_Name" SortExpression="WCMV_Name">
+                                                                        UniqueName="WCMV_Name" SortExpression="WCMV_Name" AllowFiltering="true">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="WCMV_LookupId" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
@@ -1005,9 +1050,9 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="leftLabel">
-                                                     <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                        <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
                                                             CausesValidation="True" ValidationGroup="btnOK" />
-                                                      <%--  <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
+                                                        <%--  <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName="Update"
                                                             CausesValidation="True" ValidationGroup="btnOK" />--%>
                                                     </td>
                                                     <td class="rightData">
@@ -1041,7 +1086,7 @@
                                     </EditFormSettings>
                                 </MasterTableView>
                                 <ClientSettings>
-                             <%--    <ClientEvents OnPopUpShowing="PopUpShowing" />--%>
+                                    <%--    <ClientEvents OnPopUpShowing="PopUpShowing" />--%>
                                 </ClientSettings>
                             </telerik:RadGrid>
                         </td>
@@ -1054,3 +1099,18 @@
 <%-- </ContentTemplate>
 </asp:UpdatePanel>--%>
 <%--</asp:Panel> --%>
+<%--<telerik:RadTimePicker ID="RadHour" Runat="server"   
+        Culture="English (United States)" >         
+        <TimeView StartTime="1" EndTime="24" TimeFormat="HH"  /> 
+    </telerik:RadDateTimePicker> 
+    
+    <telerik:RadTimePicker ID="RadMinute" Runat="server"  
+        Culture="English (United States)" >         
+        <TimeView StartTime="1" EndTime="60" TimeFormat="mm"  /> 
+    </telerik:RadDateTimePicker> 
+    
+     <telerik:RadTimePicker ID="RadSecond" Runat="server"  
+        Culture="English (United States)" >         
+        <TimeView StartTime="1" EndTime="60" TimeFormat="ss"  /> 
+    </telerik:RadDateTimePicker> 
+    --%>

@@ -24,6 +24,8 @@ namespace WealthERP.OnlineOrderBackOffice
         UserVo userVo;
         AdvisorVo advisorVo;
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
+        CommonLookupBo commonLookupBo = new CommonLookupBo();
+
         OnlineNCDBackOfficeVo onlineNCDBackOfficeVo;
         string issuerId;
 
@@ -38,18 +40,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 BindIssuer();
                 pnlSeries.Visible = false;
                 pnlCategory.Visible = false;
+                BindHours();
+                BindMinutesAndSeconds();
 
                 if (Request.QueryString["action"] != null)
                 {
                     int issueNo = Convert.ToInt32(Request.QueryString["issueNo"].ToString());
                     ViewIssueList(issueNo, advisorVo.advisorId);
-                    btnUpdate.Visible = true;
-                    btnSetUpSubmit.Visible = false;
+                    VisblityAndEnablityOfScreen("View");
                 }
                 else
                 {
-                    btnUpdate.Visible = false;
-                    btnSetUpSubmit.Visible = true;
+                    VisblityAndEnablityOfScreen("New");
                 }
             }
         }
@@ -94,11 +96,22 @@ namespace WealthERP.OnlineOrderBackOffice
                     //string time                                                                                   txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                     if (!string.IsNullOrEmpty(dr["AIM_OpenTime"].ToString()))
                     {
-                        txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
+                        string opentime=dr["AIM_OpenTime"].ToString();
+                          ddlOpenTimeHours.SelectedValue =opentime.Substring(0,2);
+                          ddlOpenTimeMinutes.SelectedValue =opentime.Substring(3,4);
+                              ddlOpenTimeSeconds.SelectedValue=opentime.Substring(6,2);
+
+                        //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_CloseTime"].ToString()))
                     {
-                        txtCloseTimes.Text = dr["AIM_CloseTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
+                        string closetime=dr["AIM_OpenTime"].ToString();
+
+                        ddlCloseTimeHours.SelectedValue = closetime.Substring(0, 2);
+                        ddlCloseTimeMinutes.SelectedValue = closetime.Substring(0, 2);
+                        ddlCloseTimeSeconds.SelectedValue = closetime.Substring(0, 2);
+
+                        //txtCloseTimes.Text = dr["AIM_CloseTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
 
                     txtRevisionDates.SelectedDate = DateTime.Now;
@@ -237,6 +250,108 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
+        private void VisblityAndEnablityOfScreen(string Mode)
+        {
+            if (Mode == "New")
+            {
+                EnablityOfScreen(true, false, false, false);
+
+            }
+            else if (Mode == "Submited")
+            {
+                //After Submit
+                EnablityOfScreen(false, true, true, false);
+            }
+            else if (Mode == "View")
+            {
+                EnablityOfScreen(false, false, false, true);
+            }
+            else if (Mode == "LnkEdit")
+            {
+                EnablityOfScreen(true, true, true, true);
+            }
+            else if (Mode == "AfterUpdate")
+            {
+                //After Update
+                EnablityOfScreen(false, true, false, false);
+            }
+        }
+
+        private void EnablityOfScreen(bool value, bool boolGridsEnablity, bool boolGridsVisblity, bool boolBtnsVisblity)
+        {
+
+            ddlProduct.Enabled = value;
+            ddlCategory.Enabled = value;
+
+            txtName.Enabled = value;
+            ddlIssuer.Enabled = value;
+
+            txtFormRange.Enabled = value;
+            txtToRange.Enabled = value;
+
+            txtInitialCqNo.Enabled = value;
+            txtFaceValue.Enabled = value;
+
+            txtPrice.Enabled = value;
+            ddlModeofIssue.Enabled = value;
+
+            txtRating.Enabled = value;
+            ddlModeOfTrading.Enabled = value;
+
+            txtOpenDate.Enabled = value;
+            txtCloseDate.Enabled = value;
+
+            ddlOpenTimeHours.Enabled = value;
+            ddlOpenTimeMinutes.Enabled = value;
+            ddlOpenTimeSeconds.Enabled = value;
+
+            //txtCloseTimes.Enabled = value;
+            ddlCloseTimeHours.Enabled = value;
+            ddlCloseTimeMinutes.Enabled = value;
+            ddlCloseTimeSeconds.Enabled = value;
+            txtRevisionDates.Enabled = value;
+
+            txtTradingLot.Enabled = value;
+            txtBiddingLot.Enabled = value;
+
+
+
+            txtTradingInMultipleOf.Enabled = value;
+            ddlListedInExchange.Enabled = value;
+
+            ddlBankName.Enabled = value;
+            ddlBankBranch.Enabled = value;
+
+            txtPutCallOption.Enabled = value;
+
+            txtMinAplicSize.Enabled = value;
+            txtIsPrefix.Enabled = value;
+
+            chkIsActive.Enabled = value;
+            chkNomineeReQuired.Enabled = value;
+
+            pnlSeries.Enabled = boolGridsEnablity;
+            pnlCategory.Enabled = boolGridsEnablity;
+
+            btnSetUpSubmit.Enabled = value;
+
+
+            pnlSeries.Visible = boolGridsVisblity;
+            pnlCategory.Visible = boolGridsVisblity;
+
+            btnSetUpSubmit.Visible = !boolBtnsVisblity;
+            btnUpdate.Visible = boolBtnsVisblity;
+            lnkBtnEdit.Visible = boolBtnsVisblity;
+            lnlBack.Visible = boolBtnsVisblity;
+            lnkDelete.Visible = boolBtnsVisblity;
+
+
+
+
+
+        }
+
+
         private int UpdateIssue()
         {
             int issueId;
@@ -282,8 +397,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.OpenTime = txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.CloseTime = txtCloseTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue);// txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);  //SelectedDate.Value.ToShortTimeString().ToString();
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
@@ -625,6 +740,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
                 TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
                 TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
+                
                 categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text), "Insert");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
                 foreach (GridDataItem gdi in rgSubCategories.Items)
@@ -999,12 +1115,40 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
             txtIssueId.Text = CreateIssue().ToString();
+            VisblityAndEnablityOfScreen("Submited");
             SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
         }
+
+
+        protected void btnProspect_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','action=ManageRepository');", true);
+       
+        }
+        
+
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             int result = UpdateIssue();
+            //VisblityAndEnablityOfScreen("AfterUpdate");
             SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+        }
+        protected void lnkBtnEdit_Click(object sender, EventArgs e)
+        {
+            VisblityAndEnablityOfScreen("LnkEdit");
+            
+        }
+        protected void lnlBack_Click(object sender, EventArgs e)
+        {
+            string type = "";
+            string date = "";
+            if (Request.QueryString["action"] != null)
+            {
+                type = Request.QueryString["type"].ToString();
+                date = Request.QueryString["date"].ToString();
+            }
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','Mfaction=MF');", true);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type=" + type + "&date=" + date + "'');", true);
         }
 
         private void SeriesAndCategoriesGridsVisiblity(string issuerId, int issueId)
@@ -1059,8 +1203,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.OpenTime = txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.CloseTime = txtCloseTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(  ddlOpenTimeHours.SelectedValue  +":"+ ddlOpenTimeMinutes.SelectedValue +":"+ ddlOpenTimeSeconds.SelectedValue) ; //SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
@@ -1743,18 +1887,81 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-
-        protected void lnkIssueNo_Click(object sender, EventArgs e)
+        private void BindHours()
         {
-            //LinkButton lnkOrderNo = (LinkButton)sender;
-            //GridDataItem gdi;
-            //gdi = (GridDataItem)lnkOrderNo.NamingContainer;
-            //int selectedRow = gdi.ItemIndex + 1;
-            //int issueNo = int.Parse((gvIssueList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString()));
 
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssuesetup", "loadcontrol('NCDIssuesetup','action=viewIsssueList & issueNo=" + issueNo + "');", true);
+            List<int> hours = new List<int>();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Hours");
+
+            hours = commonLookupBo.GetHours();
+
+            foreach (var array in hours)
+            {
+                dt.Rows.Add(array);
+            }
+            if (dt.Rows.Count > 0)
+            {
+                ddlOpenTimeHours.DataSource = dt;
+                ddlOpenTimeHours.DataValueField = dt.Columns["Hours"].ToString();
+                ddlOpenTimeHours.DataTextField = dt.Columns["Hours"].ToString();
+                ddlOpenTimeHours.DataBind();
+
+                
+                     ddlCloseTimeHours.DataSource = dt;
+                ddlCloseTimeHours.DataValueField = dt.Columns["Hours"].ToString();
+                ddlCloseTimeHours.DataTextField = dt.Columns["Hours"].ToString();
+                ddlCloseTimeHours.DataBind();
+
+            }
+            //ddlOpenTimeHours.Items.Insert(0, new ListItem("Select", "Select"));
+       
+        }
+        private void BindMinutesAndSeconds()
+        {
+
+            List<int> Minutes = new List<int>();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Minutes");
+
+            Minutes = commonLookupBo.GetMinutes();
+
+            foreach (var array in Minutes)
+            {
+                dt.Rows.Add(array);
+            }
+            if (dt.Rows.Count > 0)
+            {
+                ddlOpenTimeMinutes.DataSource = dt;
+                ddlOpenTimeMinutes.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlOpenTimeMinutes.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlOpenTimeMinutes.DataBind();
+
+
+                ddlOpenTimeSeconds.DataSource = dt;
+                ddlOpenTimeSeconds.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlOpenTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlOpenTimeSeconds.DataBind();
+
+                
+
+                        ddlCloseTimeMinutes.DataSource = dt;
+                ddlCloseTimeMinutes.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlCloseTimeMinutes.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlCloseTimeMinutes.DataBind();
+
+                
+
+                    
+                        ddlCloseTimeSeconds.DataSource = dt;
+                ddlCloseTimeSeconds.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlCloseTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlCloseTimeSeconds.DataBind();
+
+            }
+            //ddlOpenTimeMinutes.Items.Insert(0, new ListItem("Select", "Select"));
 
         }
-
+        
     }
 }

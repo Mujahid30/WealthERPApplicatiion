@@ -35,37 +35,46 @@ namespace WealthERP.OnlineOrderBackOffice
             int adviserId = advisorVo.advisorId;
             if (!IsPostBack)
             {
+                string type = "";
+                DateTime date = DateTime.MinValue;
+                if (Request.QueryString["action"] != null)
+                {
+                    type = Request.QueryString["type"].ToString();
+                    date = Convert.ToDateTime(Request.QueryString["date"].ToString());
+                    BindViewListGrid(GetType(type), date);
+                }
 
             }
-            
-            
         }
-        protected void btnGo_Click(object sender, EventArgs e)
+        private int GetType(string ddlSelection)
         {
-            int type;
-              
-            if (ddlType.SelectedValue == "Curent")
+            int type = 0;
+            if (ddlSelection == "Curent")
             {
-                type=1;
+                type = 1;
             }
-            else if (ddlType.SelectedValue == "Closed")
+            else if (ddlSelection == "Closed")
             {
-                 type=2;
+                type = 2;
             }
             else
             {
-                 type=3;
-
+                type = 3;
             }
-            BindViewListGrid(type);
+            return type;
+        }
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            int type = GetType(ddlType.SelectedValue);
+            BindViewListGrid(type, txtDate.SelectedDate.Value);
             pnlIssueList.Visible = true;
         }
-        private void BindViewListGrid(int type)
+        private void BindViewListGrid(int type, DateTime date)
         {
             try
             {
                 DataTable dtIssueList = new DataTable();
-                dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(txtDate.SelectedDate.Value, type).Tables[0];
+                dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(date, type).Tables[0];
                 gvIssueList.DataSource = dtIssueList;
                 gvIssueList.DataBind();
                 if (Cache[userVo.UserId.ToString() + "IssueList"] != null)
@@ -107,8 +116,7 @@ namespace WealthERP.OnlineOrderBackOffice
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int issueNo = int.Parse((gvIssueList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString()));
-
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + txtDate.SelectedDate.Value + "');", true);
 
         }
     }

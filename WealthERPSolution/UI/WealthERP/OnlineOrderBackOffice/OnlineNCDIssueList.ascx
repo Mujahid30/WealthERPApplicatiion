@@ -24,6 +24,21 @@
         <asp:ServiceReference Path="AutoComplete.asmx" />
     </Services>
 </asp:ScriptManager>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            NCD Issue List
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
 <table width="60%" runat="server" id="tbNcdIssueList">
  
     <tr>
@@ -55,9 +70,9 @@
                 <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
                     Width="205px">
                     <asp:ListItem Value="Select">Select</asp:ListItem>
-                    <asp:ListItem Value="Curent">Curent NCD's</asp:ListItem>
-                    <asp:ListItem Value="Closed">Closed NCD's</asp:ListItem>
-                    <asp:ListItem Value="Future">Future NCD's</asp:ListItem>
+                    <asp:ListItem Value="Curent">Curent Issues</asp:ListItem>
+                    <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
+                    <asp:ListItem Value="Future">Future Issues</asp:ListItem>
                 </asp:DropDownList>
                 <span id="Span4" class="spnRequiredField">*</span>
                 <br />
@@ -88,11 +103,11 @@
 <asp:Panel ID="pnlIssueList" runat="server" class="Landscape" Width="80%" Height="80%" ScrollBars="Both" Visible="false">
     <table width="100%">
         <tr>
-            <td
+            <td>
             <div id="dvIssueList" runat="server" style="width:auto;">
              <telerik:RadGrid ID="gvIssueList" runat="server" GridLines="None" AutoGenerateColumns="False"
                         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
-                        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="false"
+                        Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
                         AllowAutomaticInserts="false" ExportSettings-FileName="Issue List" OnNeedDataSource="gvIssueList_OnNeedDataSource">
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
@@ -110,11 +125,11 @@
                                         </asp:LinkButton>
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                  <telerik:GridDateTimeColumn DataField="AIM_IssueName" HeaderText="Issue Name" SortExpression="AIM_IssueName"
+                                  <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderText="Issue Name" SortExpression="AIM_IssueName"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
+                                    UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left"  >
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridDateTimeColumn>
+                                </telerik:GridBoundColumn>
                                 <telerik:GridDateTimeColumn DataField="AIM_OpenDate" HeaderText="Open Date" SortExpression="AIM_OpenDate"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="AIM_OpenDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
@@ -126,7 +141,7 @@
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                   <telerik:GridBoundColumn DataField="PFISD_SeriesName" HeaderText="Series Name" SortExpression="PFISD_SeriesName"
-                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     UniqueName="PFISD_SeriesName" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
