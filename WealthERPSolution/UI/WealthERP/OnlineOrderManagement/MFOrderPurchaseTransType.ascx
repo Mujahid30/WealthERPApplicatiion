@@ -10,26 +10,6 @@
 </asp:ScriptManager>
 
 <script type="text/javascript">
-    function ShowPopup() {
-        var i = 0;
-        var form = document.forms[0];
-        var folioId = "";
-        var count = 0;
-        for (var i = 0; i < form.elements.length; i++) {
-            if (form.elements[i].type == 'checkbox') {
-                if (form.elements[i].checked == true) {
-                    count++;
-                }
-            }
-        }
-        if (count == 0) {
-            alert("Please select one record.")
-            return false;
-        }
-    }
-</script>
-
-<script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
 
         if (document.getElementById("<%=chkTermsCondition.ClientID %>").checked == true) {
