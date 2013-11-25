@@ -211,8 +211,8 @@ namespace WealthERP.OnlineOrderManagement
                 //lblDivType.Visible = false;
                 //ddlDivType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
-                trDivfeq.Visible = false;
-
+                trDivtype.Visible = false;
+               
                
 
             }
@@ -222,7 +222,7 @@ namespace WealthERP.OnlineOrderManagement
                 //lbldftext.Visible = true;
                 //lblDivType.Visible = true;
                 //ddlDivType.Visible = true;                
-                trDivfeq.Visible = true;
+                trDivtype.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
                 
 

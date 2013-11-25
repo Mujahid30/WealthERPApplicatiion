@@ -242,7 +242,7 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" Width="300px" CssClass="cmbField"
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField"
                             OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
@@ -257,15 +257,15 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDivfeq" visible="false">
+                <tr class="spaceUnder" id="trDivFre" visible="false" runat="server">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblDividendFrequency" runat="server" Visible="false" Text="Dividend Frequency:"
+                        <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:"
                             CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lbldftext" runat="server" Visible="false" CssClass="txtField"></asp:Label>
+                        <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>

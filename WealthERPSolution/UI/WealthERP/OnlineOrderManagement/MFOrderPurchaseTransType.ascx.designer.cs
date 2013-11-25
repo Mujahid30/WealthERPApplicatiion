@@ -30,7 +30,7 @@ namespace WealthERP.OnlineOrderManagement
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivfeq;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivFre;
 
         /// <summary>
         /// trTermsCondition control.
