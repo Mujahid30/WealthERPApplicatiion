@@ -283,8 +283,8 @@ namespace WealthERP.OnlineOrderManagement
 
 
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.OpenTime = txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.CloseTime = txtCloseTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                //onlineNCDBackOfficeVo.OpenTime = txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                //onlineNCDBackOfficeVo.CloseTime = txtCloseTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
@@ -999,12 +999,15 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void btnSetUpSubmit_Click(object sender, EventArgs e)
         {
-            txtIssueId.Text = CreateIssue().ToString();            
+            txtIssueId.Text = CreateIssue().ToString();
+           // EnablityOfScreen(false, true);
             SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
         }
+
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            int result = UpdateIssue();            
+            int result = UpdateIssue();
+       //     EnablityOfScreen(false, true);         
             SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
         }
         
@@ -1060,8 +1063,8 @@ namespace WealthERP.OnlineOrderManagement
 
 
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.OpenTime = txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.CloseTime = txtCloseTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                //onlineNCDBackOfficeVo.OpenTime = txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                //onlineNCDBackOfficeVo.CloseTime = txtCloseTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());

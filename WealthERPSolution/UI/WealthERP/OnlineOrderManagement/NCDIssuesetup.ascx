@@ -50,6 +50,7 @@
                         <td align="left">
                             NCD Issue Setup
                         </td>
+                        
                     </tr>
                 </table>
             </div>
@@ -505,8 +506,8 @@
 </asp:UpdatePanel>--%>
 <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>--%>
-<asp:Panel ID="pnlSeries" runat="server" Width="100%" >
-    <table id="tblSeries" runat="server" width="50%">
+<asp:Panel ID="pnlSeries" runat="server" Width="200%" ScrollBars="Both" >
+    <table id="tblSeries" runat="server" width="120%">
         <tr>
         <td class="leftLabel">&nbsp;</td>
             <td >
@@ -516,7 +517,7 @@
                             <telerik:RadGrid ID="rgSeries" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                OnItemDataBound="rgSeries_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="false"
+                                OnItemDataBound="rgSeries_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="true"
                                 OnNeedDataSource="rgSeries_OnNeedDataSource" OnItemCommand="rgSeries_ItemCommand">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PFISD_SeriesId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
@@ -534,7 +535,7 @@
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridBoundColumn DataField="PFISD_SeriesName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Series Name" UniqueName="PFISD_SeriesName"
-                                            SortExpression="PFISD_SeriesName">
+                                            SortExpression="PFISD_SeriesName" AllowFiltering="true" >
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="PFISD_Tenure" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
