@@ -55,7 +55,7 @@ namespace WealthERP.OnlineOrderManagement
                     Cache.Remove("NCDIssueList" + advisorVo.advisorId.ToString());
                     Cache.Insert("NCDIssueList" + advisorVo.advisorId.ToString(), dtIssue);
                 }
-                ibtExportSummary.Visible = true;
+                ibtExportSummary.Visible = false;
                 gvCommMgmt.DataSource = dtIssue;
                 gvCommMgmt.DataBind();
             }
@@ -98,7 +98,8 @@ namespace WealthERP.OnlineOrderManagement
             LinkButton lbButton = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lbButton.NamingContainer;
             int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','?IssuerId=" + IssuerId + "');", true);
+            string Issuename = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_SchemeName"].ToString();
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "');", true);
 
         }
         protected void btnEquityBond_Click(object sender, EventArgs e)
@@ -184,6 +185,16 @@ namespace WealthERP.OnlineOrderManagement
             int strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
             DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
             gvchildIssue.DataSource = ds.Tables[0]; 
+        }
+        public void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvCommMgmt.ExportSettings.OpenInNewWindow = true;
+            gvCommMgmt.ExportSettings.IgnorePaging = true;
+            gvCommMgmt.ExportSettings.HideStructureColumns = true;
+            gvCommMgmt.ExportSettings.ExportOnlyData = true;
+            gvCommMgmt.ExportSettings.FileName = "NCD Issue List";
+            gvCommMgmt.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvCommMgmt.MasterTableView.ExportToExcel();
         }
     }
 }

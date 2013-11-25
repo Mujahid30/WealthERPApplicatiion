@@ -296,6 +296,69 @@ namespace DaoOnlineOrderManagement
             }
             return OrderIds;
         }
+        public IDictionary<string, string> UpdateTransactOrder(DataTable BondORder,OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
+        {
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
+            Database db;
+            DbCommand cmdOnlineBondTransact;
+            //bool result = false;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdOnlineBondTransact = db.GetStoredProcCommand("SPROC_ONL_UpdateTransactOrder");
+
+                DataSet ds = new DataSet();
+                ds.Tables.Add(BondORder);
+
+                String sb;
+                sb = ds.GetXml().ToString();
+
+                db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
+                db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
+                db.AddInParameter(cmdOnlineBondTransact, "@IssuerId", DbType.Int32, IssuerId);
+                db.AddInParameter(cmdOnlineBondTransact, "@orderId", DbType.Int32,  OrderId);
+                db.AddInParameter(cmdOnlineBondTransact, "@seriesId", DbType.Int32, seriesId);
+                db.AddInParameter(cmdOnlineBondTransact, "@Quantity", DbType.Int32,OnlineBondOrderVo.Qty);
+                db.AddInParameter(cmdOnlineBondTransact, "@Amount", DbType.Int32, OnlineBondOrderVo.Amount);
+                //db.AddInParameter(cmdOnlineBondTransact, "@tenure", DbType.Int32, DBNull.Value);
+                //db.AddInParameter(cmdOnlineBondTransact, "@MatDate", DbType.DateTime, DBNull.Value);
+                db.AddOutParameter(cmdOnlineBondTransact,"@Order_Id", DbType.Int32, 10000);
+                //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);
+                //db.AddInParameter(cmdOnlineBondTransact, "@PFISM_SchemeId", DbType.Int32, BondORder.PFISM_SchemeId);
+                //db.AddInParameter(cmdOnlineBondTransact, "@PFISD_SeriesId", DbType.Int32, BondORder.PFISD_SeriesId);
+                //db.AddInParameter(cmdOnlineBondTransact, "@PFIIM_IssuerId", DbType.String, BondORder.PFIIM_IssuerId);
+                //db.AddInParameter(cmdOnlineBondTransact, "@Qty", DbType.Int32, BondORder.Qty);
+                //db.AddInParameter(cmdOnlineBondTransact, "@Amount", DbType.Double, BondORder.Amount);
+                //db.AddInParameter(cmdOnlineBondTransact, "@BankAccid", DbType.Double, BondORder.BankAccid);
+                //db.ExecuteNonQuery(cmdOnlineBondTransact);
+                //result = true;
+
+                if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
+                {
+                    OrderIds.Add("OrderId", db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
+
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:UpdateOnlineBondTransact(VoOnlineOrderManagemnet.OnlineBondOrderVo BondORder)");
+                object[] objects = new object[1];
+                objects[0] = BondORder;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return OrderIds;
+        }
 
         public DataSet GetOrderBondsBook(int input, string CustId)
         {
@@ -553,6 +616,45 @@ namespace DaoOnlineOrderManagement
                NameValueCollection FunctionInfo = new NameValueCollection();
 
                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetNCDTransactOrder()");
+
+
+               object[] objects = new object[1];
+               objects[0] = orderId;
+
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+
+           }
+           return GetNCDTransactOrderDs;
+
+       }
+       public DataSet GetNCDAllTransactOrder(int orderId, int IssuerId)
+       {
+           Database db;
+           DataSet GetNCDTransactOrderDs;
+           DbCommand GetNCDTransactOrderCmd;
+           try
+           {
+
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               GetNCDTransactOrderCmd = db.GetStoredProcCommand("SPROC_ONL_GetLiveBookAllBondTransaction");
+               db.AddInParameter(GetNCDTransactOrderCmd, "@orderId", DbType.Int32, orderId);
+               db.AddInParameter(GetNCDTransactOrderCmd, "@IssuerId", DbType.Int32, IssuerId);
+               GetNCDTransactOrderDs = db.ExecuteDataSet(GetNCDTransactOrderCmd);
+
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+
+               FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetNCDAllTransactOrder()");
 
 
                object[] objects = new object[1];

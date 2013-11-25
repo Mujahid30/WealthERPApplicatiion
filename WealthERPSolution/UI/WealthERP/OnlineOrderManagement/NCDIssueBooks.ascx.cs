@@ -122,20 +122,20 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
         {
-            DataTable dtCommMgmt = new DataTable();
-            dtCommMgmt = (DataTable)Cache[userVo.UserId.ToString() + "CommissionStructureRule"];
-            if (dtCommMgmt == null)
-                return;
-            else if (dtCommMgmt.Rows.Count < 1)
-                return;
-            gvBBList.DataSource = dtCommMgmt;
-            gvBBList.ExportSettings.OpenInNewWindow = true;
-            gvBBList.ExportSettings.IgnorePaging = true;
-            gvBBList.ExportSettings.HideStructureColumns = true;
-            gvBBList.ExportSettings.ExportOnlyData = true;
-            gvBBList.ExportSettings.FileName = "Details";
-            gvBBList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvBBList.MasterTableView.ExportToExcel();
+            //DataTable dtCommMgmt = new DataTable();
+            //dtCommMgmt = (DataTable)Cache[userVo.UserId.ToString() + "CommissionStructureRule"];
+            //if (dtCommMgmt == null)
+            //    return;
+            //else if (dtCommMgmt.Rows.Count < 1)
+            //    return;
+            //gvBBList.DataSource = dtCommMgmt;
+            //gvBBList.ExportSettings.OpenInNewWindow = true;
+            //gvBBList.ExportSettings.IgnorePaging = true;
+            //gvBBList.ExportSettings.HideStructureColumns = true;
+            //gvBBList.ExportSettings.ExportOnlyData = true;
+            //gvBBList.ExportSettings.FileName = "Details";
+            //gvBBList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvBBList.MasterTableView.ExportToExcel();
             //BindStructureRuleGrid();
         }
 
@@ -245,12 +245,39 @@ namespace WealthERP.OnlineOrderManagement
             int selectedRow = gvr.ItemIndex + 1;
             int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
             int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString());
+            string Issuername = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["Scrip"].ToString();
+
             //Session["NCDTransact"] = BoOnlineBondOrder.GetNCDTransactOrder(OrderId, IssuerId);
+            if (ddlAction.SelectedItem.Value.ToString() == "View")
+            {
+                action = "View";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
+            }
             if (ddlAction.SelectedItem.Value.ToString() == "Edit")
             {
                 action = "Edit";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&strAction=" + action + " ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
             }
+        }
+        public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
+        {
+            Button Button = (Button)sender;
+            GridDataItem gvr = (GridDataItem)Button.NamingContainer;
+            RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
+            gvBBList.ExportSettings.OpenInNewWindow = true;
+            gvBBList.ExportSettings.IgnorePaging = true;
+            gvBBList.ExportSettings.HideStructureColumns = true;
+            gvBBList.ExportSettings.ExportOnlyData = true;
+            gvBBList.ExportSettings.FileName = "NCD Order Book";
+            gvBBList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvBBList.MasterTableView.ExportToExcel();
+            gvChildDetails.ExportSettings.OpenInNewWindow = true;
+            gvChildDetails.ExportSettings.IgnorePaging = true;
+            gvChildDetails.ExportSettings.HideStructureColumns = true;
+            gvChildDetails.ExportSettings.ExportOnlyData = true;
+            gvChildDetails.ExportSettings.FileName = "NCD Order Book";
+            gvChildDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvChildDetails.MasterTableView.ExportToExcel();
         }
     }
 }

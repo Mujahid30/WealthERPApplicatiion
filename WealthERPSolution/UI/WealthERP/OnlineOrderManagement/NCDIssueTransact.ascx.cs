@@ -31,7 +31,8 @@ namespace WealthERP.OnlineOrderManagement
         double sum = 0;
         int Quantity = 0;
         int orderId = 0;
-        int IssuerId=0;
+        int IssuerId = 0;
+        int seriesId = 0;
         //int selectedRowIndex;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -39,25 +40,31 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-
+            //Session["sum"] = null;
+            //Session["Qty"] = null;
             if (!IsPostBack)
             {
                 Session["sum"] = null;
                 Session["Qty"] = null;
                 BindKYCDetailDDl();
-                if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null)
+                if (Request.QueryString["OrderId"] != null && Request.QueryString["IssuerId"] != null && Request.QueryString["Issuername"] != null)
                 {
                     orderId = int.Parse(Request.QueryString["OrderId"].ToString());
                     IssuerId = int.Parse(Request.QueryString["IssuerId"].ToString());
-                    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                    string Issuername = Request.QueryString["Issuername"].ToString();
+                    lblIssuer.Text = "Selected Issue Name :" + Issuername;
+                    ViewState["orderId"] = orderId;
+                    ViewState["IssuerId"] = IssuerId;
+                    ViewState["seriesId"] = seriesId;
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
                     tdsubmit.Visible = false;
                 }
-                else if (Request.QueryString["IssuerId"] != null)
+                else if (Request.QueryString["IssuerId"] != null && Request.QueryString["Issuename"] != null)
                 {
                     IssuerId = int.Parse(Request.QueryString["IssuerId"].ToString());
-                    lblIssuer.Text = "Selected Issue Name :" + IssuerId;
+                    string Issuename = Request.QueryString["Issuename"].ToString();
+                    lblIssuer.Text = "Selected Issue Name :" + Issuename;
                     //int IssueIdN = Convert.ToInt32(IssueId);
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
@@ -71,9 +78,20 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
                 {
-                    if (Request.QueryString["strAction"].Trim() == "Edit")
+                    if (Request.QueryString["strAction"].Trim() == "View")
                     {
                         Viewdetails(IssuerId);
+                        btnConfirm.Visible = false;
+                        tdsubmit.Visible = false;
+                    }
+                    if (Request.QueryString["strAction"].Trim() == "Edit")
+                    {
+                        Editdetails(IssuerId);
+                        //btnConfirm.Visible = true;
+                        //tdsubmit.Visible = true;
+                        tdupdate.Visible = true;
+
+                        // Viewdetails(IssuerId);
                     }
                 }
 
@@ -139,7 +157,6 @@ namespace WealthERP.OnlineOrderManagement
                 strbJointHolder.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
                 strbNominee.Append(dr["AMFE_JointNomineeName"].ToString() + ",");
             }
-
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
             lblHolderTwo.Text = strbJointHolder.ToString().TrimEnd(',');
 
@@ -149,64 +166,64 @@ namespace WealthERP.OnlineOrderManagement
             int rowindex1 = ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
             int rowindex = (rowindex1 / 2) - 1;
             TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Quantity"].FindControl("txtQuantity");
-
-            if (!string.IsNullOrEmpty(txtQuantity.Text))
-            {
-                int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_BidQty"].ToString());
-                int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_InMultiplesOf"].ToString());
-                Regex re = new Regex(@"[@\\*+#^\\.\$]+");
-                if (re.IsMatch(txtQuantity.Text))
+           
+                if (!string.IsNullOrEmpty(txtQuantity.Text))
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter only Valid Numbers & in multiples of 1')", true);
-                }
-                else
-                {
-                    int Qty = Convert.ToInt32(txtQuantity.Text);
-
-                    if (Qty < PFISD_BidQty)
+                    int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_BidQty"].ToString());
+                    int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["PFISD_InMultiplesOf"].ToString());
+                    Regex re = new Regex(@"[@\\*+#^\\.\$]+");
+                    if (re.IsMatch(txtQuantity.Text))
                     {
-                        // lblMSG.Text = "Bid Quantity should not be less than the Minimum BID Qty i.e." + PFISD_BidQty.ToString();
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should not be less than the Minimum BID Qty')+'?PFISD_BidQty=" + PFISD_BidQty + "'", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter only Valid Numbers & in multiples of 1')", true);
                         txtQuantity.Text = "";
-                        return;
                     }
-                    int Mod = Qty % PFISD_InMultiplesOf;
-                    if (Mod != 0)
+                    else
                     {
-                        //lblMSG.Text = "Bid Quantity should be in Allowed Multiplication i.e. i.e." + PFISD_InMultiplesOf.ToString();
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should be in Allowed Multiplication')+'?PFISD_InMultiplesOf=" + PFISD_InMultiplesOf + "'", true);
-                        txtQuantity.Text = "";
-                        return;
+                        int Qty = Convert.ToInt32(txtQuantity.Text);
+
+                        if (Qty < PFISD_BidQty)
+                        {
+                            // lblMSG.Text = "Bid Quantity should not be less than the Minimum BID Qty i.e." + PFISD_BidQty.ToString();
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should not be less than the Minimum BID Qty')+'?PFISD_BidQty=" + PFISD_BidQty + "'", true);
+                            txtQuantity.Text = "";
+                            return;
+                        }
+                        int Mod = Qty % PFISD_InMultiplesOf;
+                        if (Mod != 0)
+                        {
+                            //lblMSG.Text = "Bid Quantity should be in Allowed Multiplication i.e. i.e." + PFISD_InMultiplesOf.ToString();
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should be in Allowed Multiplication')+'?PFISD_InMultiplesOf=" + PFISD_InMultiplesOf + "'", true);
+                            txtQuantity.Text = "";
+                            return;
+                        }
+                        int AIM_FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_FaceValue"].ToString());
+                        TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Amount"].FindControl("txtAmount");
+                        txtAmount.Text = Convert.ToString(Qty * AIM_FaceValue);
+                        CheckBox cbSelectOrder = (CheckBox)gvCommMgmt.MasterTableView.Items[rowindex]["Check"].FindControl("cbOrderCheck");
+
+                        cbSelectOrder.Checked = true;
+                        if (Session["Qty"] == null)
+                            Session["Qty"] = 0;
+                        Quantity = Convert.ToInt32(Session["Qty"]) + Convert.ToInt32(txtQuantity.Text);
+                        Session["Qty"] = Quantity;
+                        if (Session["sum"] == null)
+                            Session["sum"] = 0;
+                        sum = Convert.ToInt32(Session["sum"]) + Convert.ToInt32(txtAmount.Text);
+                        Session["sum"] = sum;
+                        ViewState["sum"] = sum;
+                        GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblQty = (Label)footerItem.FindControl("lblQuantity");
+                        lblQty.Text = Quantity.ToString();
+
+                        GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                        Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+                        lblSum.Text = sum.ToString();
+
                     }
-                    int AIM_FaceValue = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_FaceValue"].ToString());
-                    TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowindex]["Amount"].FindControl("txtAmount");
-                    txtAmount.Text = Convert.ToString(Qty * AIM_FaceValue);
-                    CheckBox cbSelectOrder = (CheckBox)gvCommMgmt.MasterTableView.Items[rowindex]["Check"].FindControl("cbOrderCheck");
-
-                    cbSelectOrder.Checked = true;
-                    if (Session["Qty"] == null)
-                        Session["Qty"] = 0;
-                    Quantity = Convert.ToInt32(Session["Qty"]) + Convert.ToInt32(txtQuantity.Text);
-                    Session["Qty"] = Quantity;
-                    Session["sum"] = sum;
-                    if (Session["sum"] == null)
-                        Session["sum"] = 0;
-                    sum = Convert.ToInt32(Session["sum"]) + Convert.ToInt32(txtAmount.Text);
-
-                    Session["sum"] = sum;
-                    ViewState["sum"] = sum;
-                    GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                    Label lblQty = (Label)footerItem.FindControl("lblQuantity");
-                    lblQty.Text = Quantity.ToString();
-
-                    GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
-                    Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
-                    lblSum.Text = sum.ToString();
 
                 }
-
             }
-        }
+       
         private string CreateUserMessage(int orderId, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
@@ -243,7 +260,7 @@ namespace WealthERP.OnlineOrderManagement
                 //int OrderId = int.Parse(OrderIds["OrderId"].ToString());
                 //var item = gvCommMgmt.MasterTableView.Items[0] as GridDataItem;
 
-             //   int orderId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderId"].ToString());
+                //   int orderId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[item.ItemIndex]["CO_OrderId"].ToString());
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
@@ -292,7 +309,8 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISD_SeriesId"].ToString());
                 OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
-                OnlineBondVo.PFISM_SchemeId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
+                OnlineBondVo.PFISM_SchemeId = 0; 
+               // int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
                 {
@@ -321,6 +339,7 @@ namespace WealthERP.OnlineOrderManagement
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             OrderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
             ViewState["OrderId"] = OrderIds;
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order Placed Successfully')", true);
             //string CustId = Session["CustId"].ToString();
             if (OrderIds != null)
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
@@ -423,6 +442,48 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
+        protected void Editdetails(int IssuerId)
+        {
+            DataSet dsStructureRules = OnlineBondBo.GetNCDAllTransactOrder(orderId, IssuerId);
+            //int ronum = 0;
+            if (dsStructureRules.Tables[0].Rows.Count > 0)
+            {
+                gvCommMgmt.DataSource = dsStructureRules.Tables[0];
+                gvCommMgmt.DataBind();
+                pnlNCDTransactact.Visible = true;
+                ibtExportSummary.Visible = true;
+                trSubmit.Visible = true;
+                //foreach (GridDataItem gdi in gvCommMgmt.MasterTableView.Items)
+                //{
+                //    if (ronum < gvCommMgmt.MasterTableView.Items.Count)
+                //    {
+                //        TextBox txt = gvCommMgmt.Items[ronum].Cells[17].FindControl("txtQuantity") as TextBox;
+                //        txt.Enabled = true;
+                //        ronum++;
+                //    }
+                //}
+                //GridFooterItem footerItem = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                //Label lblQty = (Label)footerItem.FindControl("lblQuantity");
+                //Quantity = Convert.ToInt32(Session["Qty"]);
+                //lblQty.Text = Quantity.ToString();
+
+                //GridFooterItem footerItemAmount = (GridFooterItem)gvCommMgmt.MasterTableView.GetItems(GridItemType.Footer)[0];
+                //Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
+                //sum = Convert.ToInt32(ViewState["sum"]); 
+                //lblSum.Text = sum.ToString();
+
+
+            }
+            else
+            {
+                ibtExportSummary.Visible = false;
+                gvCommMgmt.DataSource = dsStructureRules.Tables[0];
+                gvCommMgmt.DataBind();
+                pnlNCDTransactact.Visible = true;
+                trSubmit.Visible = false;
+            }
+        }
+
         private void ShowAvailableLimits()
         {
             if (!string.IsNullOrEmpty(customerVo.AccountId))
@@ -441,9 +502,110 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
+        protected void btnUpdateOrder_Click(object sender, EventArgs e)
+        {
+            orderId=int.Parse(ViewState["orderId"].ToString());
+            IssuerId = int.Parse(ViewState["IssuerId"].ToString());
+            seriesId = 0; 
+   
+            Button Button = (Button)sender;
+          
+
+            //GridDataItem gdi = (GridDataItem)Button.NamingContainer;
+            int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
+           
+            DataTable dt = new DataTable();
+
+            //Need to be collect from Session...
+            dt.Columns.Add("CustomerId");
+            dt.Columns.Add("PFISD_SeriesId");
+            dt.Columns.Add("AIM_IssueId");
+            dt.Columns.Add("PFISM_SchemeId");
+            dt.Columns.Add("Qty");
+            dt.Columns.Add("Amount");
+            // dt.Columns.Add("AppLicationNo");
+            int rowNo = 0;
+            int tableRow = 0;
+            //if (seriesId == 0)
+            //{
+                foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
+                {
+                    TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
+                    //OnlineBondVo.CustomerId = "ESI123456".ToString();
+                    OnlineBondVo.CustomerId = customerVo.CustomerId;
+                    OnlineBondVo.BankAccid = 1002321521;
+                    OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISD_SeriesId"].ToString());
+                    OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
+                    OnlineBondVo.PFISM_SchemeId = 0;
+                        //int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
+                    CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
+                    if (Check.Checked == true)
+                    {
+                        if (!string.IsNullOrEmpty(txtQuantity.Text))
+                        {
+                            OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);
+                            TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Amount"].FindControl("txtAmount");
+                            OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
+                            //TextBox txtAmountAtMat = (TextBox)gvCommMgmt.MasterTableView.Items[0]["AmountAtMaturity"].FindControl("txtAmountAtMaturity");
+                            //OnlineBondVo.AmountAtMat = Convert.ToDouble(txtAmountAtMat.Text);
+                            dt.Rows.Add();
+                            dt.Rows[tableRow]["CustomerId"] = OnlineBondVo.CustomerId;
+                            dt.Rows[tableRow]["PFISD_SeriesId"] = OnlineBondVo.PFISD_SeriesId;
+                            dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
+                            dt.Rows[tableRow]["PFISM_SchemeId"] = OnlineBondVo.PFISM_SchemeId;
+                            dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
+                            dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
+
+                            OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);                           
+                            OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
+                        }
+                        tableRow++;
+                    }
+                    if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+                        rowNo++;
+                    else
+                        break;
+                }
+           // }
+            //else
+            //{
+            //    foreach (GridDataItem CBOrder in gvCommMgmt.MasterTableView.Items)
+            //    {
+            //        TextBox txtQuantity = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Quantity"].FindControl("txtQuantity");
+            //        //OnlineBondVo.CustomerId = "ESI123456".ToString();
+            //        OnlineBondVo.CustomerId = customerVo.CustomerId;
+            //        OnlineBondVo.BankAccid = 1002321521;
+            //        OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISD_SeriesId"].ToString());
+            //        OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
+            //        OnlineBondVo.PFISM_SchemeId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["PFISM_SchemeId"].ToString());
+            //        CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
+            //        if (Check.Checked == true)
+            //        {
+            //            if (!string.IsNullOrEmpty(txtQuantity.Text))
+            //            {
+            //                OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);
+            //                TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Amount"].FindControl("txtAmount");
+            //                OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
+            //            }
+            //            tableRow++;
+            //        }
+            //        if (rowNo < gvCommMgmt.MasterTableView.Items.Count)
+            //            rowNo++;
+            //        else
+            //            break;
+            //    }
+            //}
+                IDictionary<string, string> OrderIds = new Dictionary<string, string>();
+                OrderIds = OnlineBondBo.UpdateTransactOrder(dt, OnlineBondVo, adviserVo.advisorId, IssuerId, orderId, OnlineBondVo.PFISD_SeriesId);
+            
+               ViewState["OrderId"] = OrderIds;
+            //string CustId = Session["CustId"].ToString();
+              if (OrderIds != null)
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
+        }
 
     }
 
-
-
 }
+
+

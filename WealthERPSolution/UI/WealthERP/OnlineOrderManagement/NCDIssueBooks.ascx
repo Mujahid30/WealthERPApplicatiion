@@ -111,7 +111,7 @@
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExportSummary_OnClick"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
                                 Height="25px" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
@@ -145,7 +145,7 @@
                     <span id="Span1" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="rfvtxtTransactionDate" ControlToValidate="txtOrderFrom"
                         ErrorMessage="<br />Please select a From Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
+                        runat="server" InitialValue="" ValidationGroup="btnViewOrder">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator9" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtOrderFrom" CssClass="cvPCG" Operator="DataTypeCheck"
@@ -169,7 +169,7 @@
                     <span id="Span2" class="spnRequiredField">*</span>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtOrderTo"
                         ErrorMessage="<br />Please select a To Date" CssClass="cvPCG" Display="Dynamic"
-                        runat="server" InitialValue="">
+                        runat="server" InitialValue="" ValidationGroup="btnViewOrder">
                     </asp:RequiredFieldValidator>
                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="<br />The date format should be dd/mm/yyyy"
                         Type="Date" ControlToValidate="txtOrderTo" CssClass="cvPCG" Operator="DataTypeCheck"
@@ -188,7 +188,8 @@
         </tr>
     </table>
 </div>
-<asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="99%" ScrollBars="Horizontal" Visible="false">
+<asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="99%" ScrollBars="Horizontal"
+    Visible="false">
     <table id="tblCommissionStructureRule" runat="server">
         <tr>
             <td>
@@ -200,8 +201,8 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvBBList_OnNeedDataSource">
                                 <%--OnNeedDataSource="gvBBList_OnNeedDataSource"--%>
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId" Width="100%" AllowMultiColumnSorting="True"
-                                    AutoGenerateColumns="false">
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip" Width="100%"
+                                    AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
                                             <ItemTemplate>
@@ -209,14 +210,24 @@
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                      <%--  <telerik:GridBoundColumn Visible="false" DataField="AIM_SchemeName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scrip Name" UniqueName="AIM_SchemeName"
+                                            SortExpression="AIM_SchemeName">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
-                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
-                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
-                                                                        </telerik:GridBoundColumn>
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="PFIIM_IssuerId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scrip ID" UniqueName="OnlIssuerId"
                                             SortExpression="IssuerId">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn Visible="false" DataField="PFISD_SeriesId" HeaderStyle-Width="60px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Scrip ID" UniqueName="PFISD_SeriesId" SortExpression="PFISD_SeriesId">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
@@ -273,8 +284,8 @@
                                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                                     AllowCustomText="true" Width="100px" AutoPostBack="true">
                                                     <asp:ListItem Text="select" Value="select" Selected="True"></asp:ListItem>
-                                                    <asp:ListItem Text="View" Value="Edit"></asp:ListItem>
-                                                    <asp:ListItem Text="Modify" Value="Modify" Enabled="false"></asp:ListItem>
+                                                    <asp:ListItem Text="View" Value="View"></asp:ListItem>
+                                                    <asp:ListItem Text="Modify" Value="Edit" Enabled="false"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
@@ -292,14 +303,19 @@
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,CO_OrderId,PFISD_SeriesId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
-                                                                        <telerik:GridBoundColumn DataField="PFISD_SeriesId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
+                                                                        <telerik:GridBoundColumn DataField="PFISD_SeriesSequence" HeaderStyle-Width="60px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="Series" UniqueName="PFISD_SeriesSequence" SortExpression="PFISD_SeriesSequence">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>
+                                                                        <telerik:GridBoundColumn visible="false" DataField="PFISD_SeriesId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Series" UniqueName="PFISD_SeriesId"
                                                                             SortExpression="PFISD_SeriesId">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBTenure" SortExpression="BBTenure" AutoPostBackOnFilter="true"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                                                            HeaderText="Tenure (months)" UniqueName="BBTenure" HeaderStyle-Width="77px">
+                                                                            HeaderText="Tenure (Months)" UniqueName="BBTenure" HeaderStyle-Width="77px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBCouponrate" SortExpression="BBCouponrate" AutoPostBackOnFilter="true"
@@ -374,4 +390,4 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:HiddenField  ID="hdnOrderStatus" runat="server"/>
+<asp:HiddenField ID="hdnOrderStatus" runat="server" />
