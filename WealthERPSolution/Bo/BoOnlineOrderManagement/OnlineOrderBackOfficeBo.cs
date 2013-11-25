@@ -1068,7 +1068,7 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-        public bool DeleteWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo )
+        public bool DeleteWerpName(WERPlookupCodeValueManagementVo werplookupCodeValueManagementVo)
         {
             try
             {
@@ -1586,15 +1586,55 @@ namespace BoOnlineOrderManagement
 
         public bool deleteTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
         {
+            bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                //return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                blResult = OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
+            return blResult;
+        }
+        public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated)
+        {
+            bool blResult = false;
+
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                blResult = OnlineOrderBackOfficeDao.MakeTradeToHoliday(TradeBusinessDate, datesToBeUpdated);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:MakeTradeToHoliday()");
+
+                object[] objects = new object[2];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+        public DataSet GetOnlineNCDExtractPreview(DateTime date)
+        {
+            DataSet dsGetOnlineNCDExtractPreview;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetOnlineNCDExtractPreview = daoOnlineOrderBackOffice.GetOnlineNCDExtractPreview(date);
+            return dsGetOnlineNCDExtractPreview;
+
         }
     }
 }

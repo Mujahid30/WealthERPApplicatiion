@@ -1,18 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
+using System.Data.OleDb;
+using System.Data.Sql;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-using System.Data;
-using System.Collections;
-using System.Data.Sql;
-using VoOnlineOrderManagemnet;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
-using System.Collections.Specialized;
-using System.Data.OleDb;
-using System.Configuration;
-using System.Data.SqlClient;
+using Microsoft.Practices.EnterpriseLibrary.Data;
+using VoOnlineOrderManagemnet;
 
 
 
@@ -1243,7 +1243,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 CreateSystematicDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_CreatesystematicDetails");
-                db.AddInParameter(CreateSystematicDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32,schemeplancode);
+                db.AddInParameter(CreateSystematicDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplancode);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@XSTT_SystematicTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SystematicCode);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@XF_SystematicFrequencyCode", DbType.String, mfProductAMCSchemePlanDetailsVo.Frequency);
                 db.AddInParameter(CreateSystematicDetailsCmd, "@PASPSD_StatingDates", DbType.String, mfProductAMCSchemePlanDetailsVo.StartDate);
@@ -1288,7 +1288,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 EditSystematicDetailscmd = db.GetStoredProcCommand("SPROC_Onl_EditSystematicDetails");
                 db.AddInParameter(EditSystematicDetailscmd, "@PASP_SchemePlanCode", DbType.Int32, schemeplancode);
-                db.AddInParameter(EditSystematicDetailscmd,"@PASPSD_SystematicDetailsId",DbType.Int32,systematicdetailsid);
+                db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_SystematicDetailsId", DbType.Int32, systematicdetailsid);
                 db.AddInParameter(EditSystematicDetailscmd, "@XF_SystematicFrequencyCode", DbType.String, mfProductAMCSchemePlanDetailsVo.Frequency);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_StatingDates", DbType.String, mfProductAMCSchemePlanDetailsVo.StartDate);
                 db.AddInParameter(EditSystematicDetailscmd, "@PASPSD_MinDues", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinDues);
@@ -1298,7 +1298,7 @@ namespace DaoOnlineOrderManagement
                 db.ExecuteNonQuery(EditSystematicDetailscmd);
                 if (db.ExecuteNonQuery(EditSystematicDetailscmd) != 0)
                     blResult = true;
-                  
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1444,7 +1444,7 @@ namespace DaoOnlineOrderManagement
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_deleteTradeBusinessDate");
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
                 //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
-                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
+                db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(createtradeBusinessDateCmd, "@IsSuccess").ToString());
                 if (affectedRecords == 1)
@@ -1497,8 +1497,8 @@ namespace DaoOnlineOrderManagement
 
             }
         }
-                
-        
+
+
         public DataSet GetAdviserClientKYCStatusList(int adviserId)
         {
 
@@ -1528,8 +1528,67 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsAdviserClientKYCStatusList;
+        }
+        public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated)
+        {
+            bool bResult = false;
+            Database db;
+            DbCommand MakeTradeToHolidayCmd;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                MakeTradeToHolidayCmd = db.GetStoredProcCommand("SPROC_MakeTradeBussinessHoliday");
+                db.AddInParameter(MakeTradeToHolidayCmd, "@date", DbType.DateTime, TradeBusinessDate);
+                db.AddInParameter(MakeTradeToHolidayCmd, "@datesToBeUpdated", DbType.String, datesToBeUpdated);
+                
+                db.ExecuteNonQuery(MakeTradeToHolidayCmd);
 
+                bResult = true;
+            }
+
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:MakeTradeToHoliday()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return bResult;
+        }
+
+        public DataSet GetOnlineNCDExtractPreview(DateTime date)
+        {
+            Database db;
+            DataSet dsGetOnlineNCDExtractPreview;
+            DbCommand GetOnlineNCDExtractPreviewcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_PreviewNcdExtract");
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, date);
+                dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetOnlineNCDExtractPreview()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetOnlineNCDExtractPreview;
         }
     }
 }
