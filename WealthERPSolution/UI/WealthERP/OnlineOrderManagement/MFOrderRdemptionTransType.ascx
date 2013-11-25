@@ -66,7 +66,7 @@
                 </td>
             </tr>
         </table>
-        <div style="float: left;">
+        <div style="float: left;" id="divControlContainer" runat="server">
             <table id="tbpurchase">
                 <tr class="spaceUnder">
                     <td>
