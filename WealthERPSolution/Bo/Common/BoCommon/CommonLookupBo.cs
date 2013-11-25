@@ -55,6 +55,30 @@ namespace BoCommon
 
             return SIPDataForOrderEditList;
         }
+        public List<int> GetHours()
+        {
+             List<int> hours = new List<int>();
+
+             for(int i = 1; i <= 24; i++)
+             {
+                 hours.Add(i);
+             }
+
+            return hours;
+        }
+
+        public List<int> GetMinutes()
+        {
+            List<int> minutes = new List<int>();
+
+            for (int i = 1; i <= 60; i++)
+            {
+                minutes.Add(i);
+            }
+
+            return minutes;
+          
+        }
 
         /// <summary> 
         /// Gets the list of AMC</summary> 
