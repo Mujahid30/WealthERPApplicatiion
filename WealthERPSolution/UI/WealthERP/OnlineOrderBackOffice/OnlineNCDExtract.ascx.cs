@@ -8,6 +8,10 @@ using BoCommon;
 using BoOnlineOrderManagement;
 using VoUser;
 using System.Data;
+using System.Drawing;
+using System.Globalization;
+using System.Collections.Specialized;
+using Telerik.Web.UI;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -74,6 +78,15 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 gvOnlneNCDExtract.DataSource = dtGetOnlineNCDExtractPreview;
             }
+        }
+        protected void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvOnlneNCDExtract.ExportSettings.OpenInNewWindow = true;
+            gvOnlneNCDExtract.ExportSettings.ExportOnlyData = true;
+            gvOnlneNCDExtract.ExportSettings.IgnorePaging = true;
+            gvOnlneNCDExtract.ExportSettings.FileName = "NCDExtract";
+            gvOnlneNCDExtract.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOnlneNCDExtract.MasterTableView.ExportToExcel();
         }
     }
 }
