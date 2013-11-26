@@ -31,5 +31,6 @@ namespace VoOnlineOrderManagemnet
         public int AgentId { get; set; }
         public string AgentCode { get; set; }
         public int PortfolioId { get; set; }
+        public int IssuerId { get; set; }
     }
 }

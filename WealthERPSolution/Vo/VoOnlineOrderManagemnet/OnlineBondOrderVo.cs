@@ -5,14 +5,12 @@ using System.Text;
 
 namespace VoOnlineOrderManagemnet
 {
-    public class OnlineBondOrderVo
+    public class OnlineBondOrderVo : OnlineOrderVo
     {
 
-        public int CustomerId { get; set; }
         public int PFISM_SchemeId { get; set; }
         public int PFISD_SeriesId { get; set; }
 
-        public int IssuerId { get; set; }
         public string PFIIM_IssuerId { get; set; }
         public int PFISD_Tenure { get; set; }
         public double PFISD_CouponRate { get; set; }
