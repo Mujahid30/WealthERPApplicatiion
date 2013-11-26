@@ -240,9 +240,10 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public IDictionary<string, string> UpdateOnlineBondTransact(DataTable BondORder, int adviserId)
+        public int UpdateOnlineBondTransact(DataTable BondORder, int adviserId)
         {
-            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
+            //List<int> orderIds = new List<int>();
+            int orderId=0;
             Database db;
             DbCommand cmdOnlineBondTransact;
             //bool result = false;
@@ -260,7 +261,7 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
-                db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 10000);
+                db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 1000000);
                 //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISM_SchemeId", DbType.Int32, BondORder.PFISM_SchemeId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISD_SeriesId", DbType.Int32, BondORder.PFISD_SeriesId);
@@ -273,7 +274,8 @@ namespace DaoOnlineOrderManagement
                 
                 if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
                 {
-                    OrderIds.Add("OrderId", db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
+                    orderId = Convert.ToInt32(db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
+                    //orderIds.Add(orderId);
                 
                 }
 
@@ -294,7 +296,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return OrderIds;
+            return orderId;
         }
         public IDictionary<string, string> UpdateTransactOrder(DataTable BondORder,OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
         {
