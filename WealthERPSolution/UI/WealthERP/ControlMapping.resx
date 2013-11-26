@@ -1821,4 +1821,12 @@
     <value>OnlineOrderBackOffice//OnlineNCDIssueSetup.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineNCDIssueSetup.ascx</comment>
   </data>
+  <data name="IPOIssueList" xml:space="preserve">
+    <value>OnlineOrderManagement//IPOIssueList.ascx</value>
+    <comment>OnlineOrderManagement//IPOIssueList.ascx</comment>
+  </data>
+  <data name="IPOIssueTransact" xml:space="preserve">
+    <value>OnlineOrderManagement//IPOIssueTransact.ascx</value>
+    <comment>OnlineOrderManagement//IPOIssueTransact.ascx</comment>
+  </data>
 </root>

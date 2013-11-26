@@ -1906,6 +1906,24 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//IPOIssueList.ascx.
+        /// </summary>
+        internal static string IPOIssueList {
+            get {
+                return ResourceManager.GetString("IPOIssueList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//IPOIssueTransact.ascx.
+        /// </summary>
+        internal static string IPOIssueTransact {
+            get {
+                return ResourceManager.GetString("IPOIssueTransact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploads//KarvyProfileFolioInputRejects.ascx.
         /// </summary>
         internal static string KarvyProfileFolioInputRejects {

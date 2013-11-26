@@ -2773,6 +2773,20 @@
     <Compile Include="OnlineOrderManagement\CustomerTransactionBookList.ascx.designer.cs">
       <DependentUpon>CustomerTransactionBookList.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\IPOIssueList.ascx.cs">
+      <DependentUpon>IPOIssueList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\IPOIssueList.ascx.designer.cs">
+      <DependentUpon>IPOIssueList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\IPOIssueTransact.ascx.cs">
+      <DependentUpon>IPOIssueTransact.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\IPOIssueTransact.ascx.designer.cs">
+      <DependentUpon>IPOIssueTransact.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx.cs">
       <DependentUpon>MFOnlineUserLandingPage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7256,6 +7270,7 @@
     <Content Include="bin\DaoCommisionManagement.pdb" />
     <Content Include="bin\DaoCommon.dll" />
     <Content Include="bin\DaoCommon.pdb" />
+    <Content Include="bin\DaoFPSuperlite.dll" />
     <Content Include="bin\DaoFPSuperlite.pdb" />
     <Content Include="bin\DaoOnlineOrderManagement.dll" />
     <Content Include="bin\DaoOnlineOrderManagement.pdb" />
@@ -7265,6 +7280,8 @@
     <Content Include="bin\DaoReports.pdb" />
     <Content Include="bin\DaoResearch.dll" />
     <Content Include="bin\DaoResearch.pdb" />
+    <Content Include="bin\DaoSuperAdmin.dll" />
+    <Content Include="bin\DaoSuperAdmin.pdb" />
     <Content Include="bin\DaoSupportData.dll" />
     <Content Include="bin\DaoSupportData.pdb" />
     <Content Include="bin\Financial.dll" />
@@ -7291,6 +7308,10 @@
     <Content Include="bin\Telerik.Web.UI.dll" />
     <Content Include="bin\VoCommisionManagement.dll" />
     <Content Include="bin\VoCommisionManagement.pdb" />
+    <Content Include="bin\VoCommon.dll" />
+    <Content Include="bin\VoCommon.pdb" />
+    <Content Include="bin\VoHostConfig.dll" />
+    <Content Include="bin\VoHostConfig.pdb" />
     <Content Include="bin\VoOnlineOrderManagemnet.pdb" />
     <Content Include="bin\VoOps.dll" />
     <Content Include="bin\VoOps.pdb" />
@@ -7298,6 +7319,9 @@
     <Content Include="bin\VoResearch.pdb" />
     <Content Include="Base\CSS\Images\splitter_bar_left_pointer.jpg" />
     <Content Include="Base\CSS\Images\splitter_bar_right_pointer.jpg" />
+    <Content Include="bin\VoSuperAdmin.dll" />
+    <Content Include="bin\VoSuperAdmin.pdb" />
+    <Content Include="bin\VoValuation.dll" />
     <Content Include="bin\VoValuation.pdb" />
     <Content Include="bin\WatiN.Core.dll" />
     <Content Include="bin\WatiN.Core.XML" />
@@ -7694,6 +7718,8 @@
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerSIPBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerTransactionBookList.ascx" />
+    <Content Include="OnlineOrderManagement\IPOIssueList.ascx" />
+    <Content Include="OnlineOrderManagement\IPOIssueTransact.ascx" />
     <Content Include="OnlineOrderManagement\MFOnlineUserLandingPage.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderAdditionalPurchase.ascx" />
     <Content Include="OnlineOrderManagement\MFOrderPurchaseTransType.ascx" />
