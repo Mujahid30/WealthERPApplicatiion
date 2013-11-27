@@ -43,7 +43,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 GetTradeBusinessDates();
                 BindYearDropdown();
             }
-            createcalander.Visible = false;
+            createcalanders.Visible = false;
         }
 
         private void GetTradeBusinessDates()
@@ -248,13 +248,13 @@ namespace WealthERP.OnlineOrderBackOffice
             gvTradeBusinessDate.ExportSettings.OpenInNewWindow = true;
             gvTradeBusinessDate.ExportSettings.ExportOnlyData = true;
             gvTradeBusinessDate.ExportSettings.IgnorePaging = true;
-            gvTradeBusinessDate.ExportSettings.FileName = "TradeBusinessDate";
+            gvTradeBusinessDate.ExportSettings.FileName = "Trade Business Date";
             gvTradeBusinessDate.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvTradeBusinessDate.MasterTableView.ExportToExcel();
         }
         protected void Btncreatecalander_OnClick(object sender, EventArgs e)
         {
-            createcalander.Visible = true;
+            createcalanders.Visible = true;
         }
         protected void Btncreatecal_OnClick(object sender, EventArgs e)
         {
@@ -266,8 +266,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 int selYear = int.Parse(ddlyear.SelectedValue);
                 OnlineOrderBackOfficeBo.CreateCalendar(selYear);
-                createcalander.Visible = false;
-                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calander Created!!');", true);
+                createcalanders.Visible = false;
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calander Created!!');", true);
             }
             catch (BaseApplicationException Ex)
             {
@@ -379,7 +379,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             OnlineOrderBackOfficeBo.MakeTradeToHoliday(Convert.ToDateTime(strdt), datesToBeUpdated, TradeBusinessDateVo);
             radwindowPopup.VisibleOnPageLoad = false;
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Holiday created!!');", true);
+           // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Holiday created!!');", true);
             gvTradeBusinessDate.Rebind();
             GetTradeBusinessDates();
         }

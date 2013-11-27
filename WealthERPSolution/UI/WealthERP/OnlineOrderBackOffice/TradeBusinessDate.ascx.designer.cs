@@ -104,13 +104,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Button Btncreatecalander;
         
         /// <summary>
-        /// createcalander control.
+        /// createcalanders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow createcalander;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell createcalanders;
         
         /// <summary>
         /// lb1Type control.

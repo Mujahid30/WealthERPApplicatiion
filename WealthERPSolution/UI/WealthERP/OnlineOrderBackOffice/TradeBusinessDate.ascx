@@ -193,14 +193,13 @@
             <asp:Button ID="Btnmarkholiday" Text="Mark as holiday" runat="server" CssClass="PCGLongButton"
                 OnClick="Btnmarkholiday_Onclick" ValidationGroup="Btnmarkholiday" />
         </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Button ID="Btncreatecalander" Text="Create Calander" runat="server" CssClass="PCGLongButton"
+            <td>
+            <asp:Button ID="Btncreatecalander" Text="Create New Calander Entry" runat="server" CssClass="PCGLongButton"
                 OnClick="Btncreatecalander_OnClick" ValidationGroup="Btncreatecal" />
         </td>
-    </tr>
-    <tr id="createcalander" runat="server">
+        
+   
+    <td id="createcalanders" runat="server">
         <td class="leftLabel">
             <asp:Label ID="lb1Type" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
         </td>
@@ -219,6 +218,8 @@
             <asp:Button ID="Btncreatecal" Text="GO" runat="server" CssClass="PCGLongButton" OnClick="Btncreatecal_OnClick"
                 ValidationGroup="Btncreatecal" />
         </td>
+    
+    </td>
     </tr>
 </table>
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
