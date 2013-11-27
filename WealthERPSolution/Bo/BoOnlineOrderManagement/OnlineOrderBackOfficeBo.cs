@@ -1584,14 +1584,14 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public bool deleteTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        public bool deleteTradeBusinessDate(int TradeBusinessId)
         {
             bool blResult = false;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
                 //return OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
-                blResult = OnlineOrderBackOfficeDao.deleteTradeBusinessDate(tradeBusinessDateVo);
+                blResult = OnlineOrderBackOfficeDao.deleteTradeBusinessDate(TradeBusinessId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1599,14 +1599,14 @@ namespace BoOnlineOrderManagement
             }
             return blResult;
         }
-        public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated)
+        public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated, TradeBusinessDateVo TradeBusinessDateVo)
         {
             bool blResult = false;
 
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                blResult = OnlineOrderBackOfficeDao.MakeTradeToHoliday(TradeBusinessDate, datesToBeUpdated);
+                blResult = OnlineOrderBackOfficeDao.MakeTradeToHoliday(TradeBusinessDate, datesToBeUpdated, TradeBusinessDateVo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1627,6 +1627,51 @@ namespace BoOnlineOrderManagement
 
             }
             return blResult;
-        }        
+        }
+        //public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated)
+        //{
+        //    bool blResult = false;
+
+        //    OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+        //    try
+        //    {
+        //        blResult = OnlineOrderBackOfficeDao.MakeTradeToHoliday(TradeBusinessDate, datesToBeUpdated);
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:MakeTradeToHoliday()");
+
+        //        object[] objects = new object[2];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+
+        //    }
+        //    return blResult;
+        //}
+        public DataSet GetOnlineNCDExtractPreview(DateTime date)
+        {
+            DataSet dsGetOnlineNCDExtractPreview;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetOnlineNCDExtractPreview = daoOnlineOrderBackOffice.GetOnlineNCDExtractPreview(date);
+            return dsGetOnlineNCDExtractPreview;
+
+        }
+        public DataSet GetAllTradeBussiness(int year, int holiday)
+        {
+            DataSet dsGetAllTradeBussiness;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetAllTradeBussiness = daoOnlineOrderBackOffice.GetAllTradeBussiness(year,holiday);
+            return dsGetAllTradeBussiness;
+        }
     }
+
 }

@@ -1360,7 +1360,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_CreateTradeBusinessDate");
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
+                //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, tradeBusinessDateVo.TradeBusinessExecutionDate);
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_isholiday", DbType.Int32, tradeBusinessDateVo.IsTradeBusinessDateHoliday);
@@ -1431,7 +1431,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool deleteTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        public bool deleteTradeBusinessDate(int TradeBusinessId)
         {
             int affectedRecords = 0;
             bool bResult = false;
@@ -1442,7 +1442,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_deleteTradeBusinessDate");
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, TradeBusinessId);
                 //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)
@@ -1529,7 +1529,8 @@ namespace DaoOnlineOrderManagement
             }
             return dsAdviserClientKYCStatusList;
         }
-        public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated)
+        public bool MakeTradeToHoliday(DateTime TradeBusinessDate, string datesToBeUpdated, TradeBusinessDateVo TradeBusinessDateVo)
+        //int Id,DateTime dtDate)
         {
             bool bResult = false;
             Database db;
@@ -1537,10 +1538,21 @@ namespace DaoOnlineOrderManagement
 
             try
             {
+                //db = DatabaseFactory.CreateDatabase("wealtherp");
+                //MakeTradeToHolidayCmd = db.GetStoredProcCommand("SPROC_MarkTradeBussinessHolidays");
+                //db.AddInParameter(MakeTradeToHolidayCmd, "@WTBD_Date", DbType.DateTime, dtDate);
+
+
+                //db.AddInParameter(MakeTradeToHolidayCmd, "@WTBD_Id", DbType.Int32, Id);
+
+                //db.ExecuteNonQuery(MakeTradeToHolidayCmd);
+
+                //bResult = true;
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 MakeTradeToHolidayCmd = db.GetStoredProcCommand("SPROC_MakeTradeBussinessHoliday");
                 db.AddInParameter(MakeTradeToHolidayCmd, "@date", DbType.DateTime, TradeBusinessDate);
                 db.AddInParameter(MakeTradeToHolidayCmd, "@datesToBeUpdated", DbType.String, datesToBeUpdated);
+                db.AddInParameter(MakeTradeToHolidayCmd, "@WTBD_HolidayName", DbType.String, TradeBusinessDateVo.HolidayName);
 
                 db.ExecuteNonQuery(MakeTradeToHolidayCmd);
 
@@ -1562,5 +1574,82 @@ namespace DaoOnlineOrderManagement
             }
             return bResult;
         }
+
+        public DataSet GetOnlineNCDExtractPreview(DateTime date)
+        {
+            Database db;
+            DataSet dsGetOnlineNCDExtractPreview;
+            DbCommand GetOnlineNCDExtractPreviewcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_PreviewNcdExtract");
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, date);
+                dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetOnlineNCDExtractPreview()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetOnlineNCDExtractPreview;
+        }
+        public DataSet GetAllTradeBussiness(int year,int holiday)
+        {
+            DataSet dsGetAllTradeBussiness;
+            Database db;
+            DbCommand GetAllTradeBussinessCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAllTradeBussinessCmd = db.GetStoredProcCommand("SPROC_GetAllTradeBussinessDay");
+                //if (Assettype == "All")
+                //{
+                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, null);
+                //}
+                //else
+                //{
+                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, Assettype);
+                //}
+                db.AddInParameter(GetAllTradeBussinessCmd, "@year", DbType.Int32, year);
+                if (holiday ==2)
+                {
+                    db.AddInParameter(GetAllTradeBussinessCmd, "@holiday", DbType.Int32, holiday);
+
+                }
+                else
+                {
+                    db.AddInParameter(GetAllTradeBussinessCmd, "@holiday", DbType.Int32, holiday);
+
+                }
+                dsGetAllTradeBussiness = db.ExecuteDataSet(GetAllTradeBussinessCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetMfOrderExtract()");
+                object[] objects = new object[10];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAllTradeBussiness;
+        }
+
     }
 }

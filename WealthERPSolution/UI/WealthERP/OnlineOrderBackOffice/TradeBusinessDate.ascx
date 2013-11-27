@@ -9,7 +9,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            TradeBusinessDate
+                            Trade Business Date
                         </td>
                         <td align="right">
                             <asp:ImageButton ID="btnTradeBusinessDate" ImageUrl="~/Images/Export_Excel.png" runat="server"
@@ -22,42 +22,94 @@
         </td>
     </tr>
 </table>
-<table cellspacing="0" cellpadding="1" width="70%">
+<table>
+    <tr>
+        <td>
+            <asp:Label ID="Lblselyear" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="Ddlyears" runat="server" CssClass="cmbField">
+                <%--<asp:ListItem Text="Select" Value="Select" Selected="false" />--%>
+                <asp:ListItem Text="2013" Value="2013" />
+                <%--<asp:ListItem Text="Bussiness Day" Value="1"/>--%>
+                <asp:ListItem Text="2014" Value="2014" />
+                <asp:ListItem Text="2015" Value="2015" />
+                <asp:ListItem Text="2016" Value="2016" />
+                <asp:ListItem Text="2017" Value="2017" />
+            </asp:DropDownList>
+        </td>
+        <td>
+            <asp:Label ID="Lblholidays" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <asp:DropDownList ID="Ddlholiday" runat="server" CssClass="cmbField">
+                <Items>
+                    <asp:ListItem Text="All" Value="2" />
+                    <%--<asp:ListItem Text="Bussiness Day" Value="1"/>--%>
+                    <asp:ListItem Text="All Business Day" Value="3" />
+                    <asp:ListItem Text="Holidays" Value="1" />
+                    <asp:ListItem Text="Weekend" Value="0" />
+                </Items>
+            </asp:DropDownList>
+        </td>
+        <td>
+            <asp:Button ID="Button1" Text="GO" runat="server" CssClass="PCGLongButton" OnClick="btngo_Click" />
+        </td>
+    </tr>
+</table>
+<table cellspacing="0" cellpadding="1" width="100%">
     <tr>
         <td>
             <telerik:RadGrid ID="gvTradeBusinessDate" runat="server" EnableEmbeddedSkins="false"
-                AllowFilteringByColumn="true" AutoGenerateColumns="false" ShowStatusBar="true"
+                AllowFilteringByColumn="false" AutoGenerateColumns="false" ShowStatusBar="true"
                 AllowAutomaticDeletes="true" ShowFooter="true" AllowPaging="true" AllowSorting="true"
                 GridLines="both" AllowAutomaticInserts="false" Skin="Telerik" OnNeedDataSource="gvTradeBusinessDate_NeedDataSource"
-                OnItemCommand="gvTradeBusinessDateDetails_ItemCommand" Width="100%">
+                OnItemCommand="gvTradeBusinessDateDetails_ItemCommand" OnItemDataBound="gvTradeBusinessDate_ItemDataBound"
+                Width="100%">
                 <ExportSettings HideStructureColumns="true" ExportOnlyData="true">
                 </ExportSettings>
-                <MasterTableView EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                    CommandItemSettings-AddNewRecordText="Add TradeBusinessDate" AllowMultiColumnSorting="True"
-                    AutoGenerateColumns="false" DataKeyNames="WTBD_Id">
+                <MasterTableView EditMode="PopUp" CommandItemDisplay="none" CommandItemSettings-ShowRefreshButton="false"
+                    AllowMultiColumnSorting="True" AutoGenerateColumns="false" DataKeyNames="WTBD_DayName"
+                    PageSize="20">
                     <Columns>
-                        <telerik:GridEditCommandColumn UniqueName="EditCommandColumn" HeaderStyle-Width="50px">
+                        <%--<telerik:GridEditCommandColumn UniqueName="EditCommandColumn" HeaderStyle-Width="50px">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
-                        </telerik:GridEditCommandColumn>
-                        <telerik:GridTemplateColumn HeaderText="Checking" UniqueName="check" AllowFiltering="false">
+                        </telerik:GridEditCommandColumn>--%>
+                        <telerik:GridTemplateColumn HeaderText="Select" UniqueName="check" AllowFiltering="false"
+                            HeaderStyle-Width="50px">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" />
                             <ItemTemplate>
                                 <asp:CheckBox ID="CheckBox" runat="server" />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
-                        <telerik:GridBoundColumn UniqueName="WTBD_DayName" HeaderText="Date" DataField="WTBD_DayName"
-                            SortExpression="WTBD_DayName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                            DataFormatString="{0:d}" AutoPostBackOnFilter="true">
+                        <telerik:GridBoundColumn UniqueName="WTBD_DayName" HeaderText="Application Date"
+                            DataField="WTBD_DayName" SortExpression="WTBD_DayName" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains" DataFormatString="{0:0}" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="WTBD_DayName1" HeaderText="ExecutionDate" DataField="WTBD_DayName1"
-                            SortExpression="WTBD_DayName1" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                            DataFormatString="{0:d}" AutoPostBackOnFilter="true">
-                            <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="WTBD_IsHoliday" HeaderText="IsHoliday" DataField="WTBD_IsHoliday"
-                            SortExpression="WTBD_IsHoliday" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                        <telerik:GridBoundColumn UniqueName="WTBD_Day" HeaderText="Application Day" DataField="WTBD_Day"
+                            SortExpression="WTBD_Day" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                             AutoPostBackOnFilter="true">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="WTBD_DayName1" HeaderText="Application ExecutionDate"
+                            DataField="WTBD_DayName1" SortExpression="WTBD_DayName1" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains" DataFormatString="{0:d}" AutoPostBackOnFilter="true">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="WTBD_ExecutionDay" HeaderText="Application ExecutionDay"
+                            DataField="WTBD_ExecutionDay" SortExpression="WTBD_ExecutionDay" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn UniqueName="WTBD_HolidayName" HeaderText="Holiday Name"
+                            DataField="WTBD_HolidayName" SortExpression="WTBD_HolidayName" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="WTBD_IsHoliday" HeaderText="IsHoliday"
+                            DataField="WTBD_IsHoliday" SortExpression="WTBD_IsHoliday" ShowFilterIcon="false"
+                            CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="WTBD_IsWeekend" HeaderText="IsWeekend" DataField="WTBD_IsWeekend"
@@ -65,20 +117,20 @@
                             AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
+                        <%--<telerik:GridButtonColumn ButtonType="LinkButton" Text="Delete" ConfirmText="Do you want to delete the mapping?"
                             CommandName="Delete" UniqueName="DeleteCommandColumn" HeaderStyle-Width="50px">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" Width="50px" Wrap="false" />
-                        </telerik:GridButtonColumn>
+                        </telerik:GridButtonColumn>--%>
                     </Columns>
-                    <EditFormSettings EditFormType="Template" FormTableStyle-Width="100px">
+                    <%-- <EditFormSettings EditFormType="Template" FormTableStyle-Width="100px">
                         <FormTemplate>
                             <table cellspacing="2" cellpadding="2" width="100%">
                                 <tr>
-                                    <td align="left">
+                                    <td align="right">
                                         <asp:Label runat="server" Text="Date :" ID="lblDate"></asp:Label>
-                                        <td align="right">
+                                        <td >
                                             <telerik:RadDatePicker ID="RadDatePicker1" CssClass="txtField" runat="server" Culture="English (United States)"
-                                                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" DbSelectedDate='<%# Bind("WTBD_DayName")%>'>
                                                 <Calendar ID="Calendar1" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                                     ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
                                                 </Calendar>
@@ -91,12 +143,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="left">
+                                    <td align="right">
                                         <asp:Label runat="server" Text="Execution Date :" ID="lb1ExecutionDate"></asp:Label>
                                     </td>
-                                    <td align="right">
+                                    <td>
                                         <telerik:RadDatePicker ID="txtExecutionDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                                            Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" DbSelectedDate='<%# Bind("WTBD_DayName1")%>'>
                                             <Calendar ID="Calendar2" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
                                                 ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false" runat="server">
                                             </Calendar>
@@ -107,12 +159,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="left">
-                                        <asp:RadioButton ID="rbtnIsHoliday" Class="cmbField" runat="server" AutoPostBack="true"
+                                    <td>
+                                        <asp:RadioButton ID="rbtnIsHoliday" Class="cmbFielde" runat="server" AutoPostBack="true"
                                             Text="IsHoliday" />
                                     </td>
-                                    <td align="right">
-                                        <asp:RadioButton ID="rbtnIsWeekened" Class="cmbField" runat="server" AutoPostBack="true"
+                                    <td>
+                                        <asp:RadioButton ID="rbtnIsWeekened" Class="cmbFielde" runat="server" AutoPostBack="true"
                                             Text="IsWeekened" />
                                     </td>
                                 </tr>
@@ -127,39 +179,75 @@
                                 </tr>
                             </table>
                         </FormTemplate>
-                    </EditFormSettings>
+                    </EditFormSettings>--%>
                 </MasterTableView>
+                <%--  <ClientSettings EnablePostBackOnRowClick="True">
+                </ClientSettings>--%>
             </telerik:RadGrid>
         </td>
     </tr>
 </table>
 <table>
     <tr>
+        <td>
+            <asp:Button ID="Btnmarkholiday" Text="Mark as holiday" runat="server" CssClass="PCGLongButton"
+                OnClick="Btnmarkholiday_Onclick" ValidationGroup="Btnmarkholiday" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <asp:Button ID="Btncreatecalander" Text="Create Calander" runat="server" CssClass="PCGLongButton"
+                OnClick="Btncreatecalander_OnClick" ValidationGroup="Btncreatecal" />
+        </td>
+    </tr>
+    <tr id="createcalander" runat="server">
         <td class="leftLabel">
-            <asp:Label ID="lb1Type" runat="server" Text="Type  : " CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1Type" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlyear" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlyear" runat="server" CssClass="cmbField" ValidationGroup="Btncreatecal">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem>2013</asp:ListItem>
                 <asp:ListItem>2014</asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Select year" Display="Dynamic" ControlToValidate="ddlyear"
-                ValidationGroup="Btncreatecal">
+                ValidationGroup="Btncreatecal" InitialValue="0">Please Select year
             </asp:RequiredFieldValidator>
         </td>
-    </tr>
-    <tr>
-        <td align="left">
-            <asp:Button ID="Btncreatecal" Text="createcal" runat="server" CssClass="PCGLongButton"
-                OnClick="Btncreatecal_OnClick" ValidationGroup="Btncreatecal" />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Button ID="Btnmarkholiday" Text="markholiday" runat="server" CssClass="PCGLongButton"
-                OnClick="Btnmarkholiday_Onclick" ValidationGroup="Btnmarkholiday" />
+        <td align="right">
+            <asp:Button ID="Btncreatecal" Text="GO" runat="server" CssClass="PCGLongButton" OnClick="Btncreatecal_OnClick"
+                ValidationGroup="Btncreatecal" />
         </td>
     </tr>
 </table>
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
+    Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
+    Title="Add Holidays">
+    <ContentTemplate>
+        <table>
+            <tr>
+                <td>
+                    <asp:Label ID="Lblcmt" runat="server" Text="Write Holidays Name"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:TextBox ID="Texcmt" runat="server"></asp:TextBox>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="Btnmarkholid" runat="server" Text="Mark as Holiday" OnClick="btnOk_Click"
+                        CssClass="PCGLongButton" />
+                </td>
+                <td>
+                    <asp:Button ID="Butncancle" runat="server" Text="Cancel" OnClick="btnCancel_Click"
+                        CssClass="PCGLongButton" />
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</telerik:RadWindow>
+<asp:HiddenField ID="hdnyear" runat="server" />
+<asp:HiddenField ID="hdnholiday" runat="server" />
