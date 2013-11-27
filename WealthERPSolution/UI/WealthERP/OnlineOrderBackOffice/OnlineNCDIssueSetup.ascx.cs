@@ -25,9 +25,7 @@ namespace WealthERP.OnlineOrderBackOffice
         AdvisorVo advisorVo;
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
-
         OnlineNCDBackOfficeVo onlineNCDBackOfficeVo;
-        string issuerId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -66,10 +64,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 foreach (DataRow dr in dtSeries.Rows)
                 {
                     txtIssueId.Text = issueNo.ToString();
-                    ddlProduct.SelectedValue = "Bonds"; dr["PFISD_SeriesName"].ToString(); ;
+                    ddlProduct.SelectedValue = "Bonds";// dr["AID_IssueDetailName"].ToString();  
                     ddlCategory.SelectedValue = "NCD";
-                    txtName.Text = dr["AIM_IssueName"].ToString(); ;
-                    ddlIssuer.SelectedValue = dr["PFIIM_IssuerId"].ToString();
+                    txtName.Text = dr["AIM_IssueName"].ToString();  
+                   ddlIssuer.SelectedValue =dr["PI_issuerId"].ToString();
                     txtFormRange.Text = dr["AIFR_From"].ToString();
                     txtToRange.Text = dr["AIFR_To"].ToString();
                     txtInitialCqNo.Text = dr["AIM_InitialChequeNo"].ToString();
@@ -96,48 +94,49 @@ namespace WealthERP.OnlineOrderBackOffice
                     //string time                                                                                   txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                     if (!string.IsNullOrEmpty(dr["AIM_OpenTime"].ToString()))
                     {
-                        string opentime=dr["AIM_OpenTime"].ToString();
-                          ddlOpenTimeHours.SelectedValue =opentime.Substring(0,2);
-                          ddlOpenTimeMinutes.SelectedValue =opentime.Substring(3,4);
-                              ddlOpenTimeSeconds.SelectedValue=opentime.Substring(6,2);
+                        string opentime = dr["AIM_OpenTime"].ToString();
+                        ddlOpenTimeHours.SelectedValue = opentime.Substring(0, 2);
+                        ddlOpenTimeMinutes.SelectedValue = opentime.Substring(3, 2);
+                        ddlOpenTimeSeconds.SelectedValue = opentime.Substring(6, 2);
 
                         //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_CloseTime"].ToString()))
                     {
-                        string closetime=dr["AIM_OpenTime"].ToString();
+                        string closetime = dr["AIM_OpenTime"].ToString();
 
                         ddlCloseTimeHours.SelectedValue = closetime.Substring(0, 2);
-                        ddlCloseTimeMinutes.SelectedValue = closetime.Substring(0, 2);
-                        ddlCloseTimeSeconds.SelectedValue = closetime.Substring(0, 2);
+                        ddlCloseTimeMinutes.SelectedValue = closetime.Substring(3, 2);
+                        ddlCloseTimeSeconds.SelectedValue = closetime.Substring(6, 2);
 
                         //txtCloseTimes.Text = dr["AIM_CloseTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
 
                     txtRevisionDates.SelectedDate = DateTime.Now;
 
-                    if (!string.IsNullOrEmpty(dr["TradingLot"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AIM_TradingLot"].ToString()))
                     {
-                        txtTradingLot.Text = dr["TradingLot"].ToString();
+                        txtTradingLot.Text = dr["AIM_TradingLot"].ToString();
                     }
                     else
                     {
                         txtTradingLot.Text = "";
                     }
 
-                    txtBiddingLot.Text = dr["BiddingLot"].ToString();
-                    if (!string.IsNullOrEmpty(dr["IsPrefix"].ToString()))
+                    txtBiddingLot.Text = dr["AIM_BiddingLot"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AIM_IsPrefix"].ToString()))
                     {
-                        txtIsPrefix.Text = dr["IsPrefix"].ToString();
+                        txtIsPrefix.Text = dr["AIM_IsPrefix"].ToString();
                     }
                     else
                     {
                         txtIsPrefix.Text = "";
                     }
+
                     ddlListedInExchange.SelectedValue = "";
                     ddlBankName.Text = "";
                     ddlBankBranch.Text = "";
-                    if (!string.IsNullOrEmpty(dr["AIM_IsNominationRequired"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AIM_IsActive"].ToString()))
                     {
                         chkIsActive.Checked = true;
                     }
@@ -173,18 +172,18 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtTradingInMultipleOf.Text = "";
                     }
 
-                    if (!string.IsNullOrEmpty(dr["FloorPrice"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AIM_FloorPrice"].ToString()))
                     {
-                        txtPrice.Text = dr["FloorPrice"].ToString();
+                        txtPrice.Text = dr["AIM_FloorPrice"].ToString();
                     }
                     else
                     {
                         txtPrice.Text = "";
                     }
 
-                    if (!string.IsNullOrEmpty(dr["FloorPrice"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["AIM_FloorPrice"].ToString()))
                     {
-                        txtPrice.Text = dr["FloorPrice"].ToString();
+                        txtPrice.Text = dr["AIM_FloorPrice"].ToString();
                     }
                     else
                     {
@@ -227,7 +226,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtRating.Text = "";
                     }
 
-                    SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, issueNo);
+                    SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), issueNo);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -363,7 +362,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlCategory.SelectedValue;
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
-                onlineNCDBackOfficeVo.IssuerId = ddlIssuer.SelectedValue;
+                onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
 
                 onlineNCDBackOfficeVo.FromRange = Convert.ToInt32(txtFormRange.Text);
                 onlineNCDBackOfficeVo.ToRange = Convert.ToInt32(txtToRange.Text);
@@ -409,14 +408,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
 
                 onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
-                if (!string.IsNullOrEmpty(txtIsPrefix.Text))
-                {
-                    onlineNCDBackOfficeVo.IsPrefix = txtIsPrefix.Text;
-                }
-                else
-                {
-                    onlineNCDBackOfficeVo.IsPrefix = "";
-                }
+                //if (!string.IsNullOrEmpty(txtIsPrefix.Text))
+                //{
+                //    onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
+                //}
+                //else
+                //{
+                //    onlineNCDBackOfficeVo.IsPrefix = 0;
+                //}
+                onlineNCDBackOfficeVo.IsPrefix = 0;
 
                 onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
 
@@ -499,7 +499,6 @@ namespace WealthERP.OnlineOrderBackOffice
             return issueId;
         }
 
-
         protected void rgSeries_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtIssueDetail;
@@ -514,66 +513,66 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             RadGrid rgSeriesCategories1 = (RadGrid)sender; // Get reference to grid 
             DataTable dtCategory = new DataTable();
-            dtCategory = onlineNCDBackOfficeBo.GetCategory(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text)).Tables[0];
+            dtCategory = onlineNCDBackOfficeBo.GetCategory(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text)).Tables[0];
             rgSeriesCategories1.DataSource = dtCategory;
         }
 
-        protected void rgSeries_UpdateCommand(object source, GridCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName == RadGrid.UpdateCommandName)
-                {
-                    int availblity;
-                    TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
-                    TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
-                    DropDownList ddlTenure = (DropDownList)e.Item.FindControl("ddlTenure");
-                    TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
-                    CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
-                    DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
-                    if (chkBuyAvailability.Checked == true)
-                    {
-                        availblity = 1;
-                    }
-                    else
-                    {
-                        availblity = 0;
-                    }
-                    RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
+        //protected void rgSeries_UpdateCommand(object source, GridCommandEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (e.CommandName == RadGrid.UpdateCommandName)
+        //        {
+        //            int availblity;
+        //            TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
+        //            TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
+        //            DropDownList ddlTenure = (DropDownList)e.Item.FindControl("ddlTenure");
+        //            TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
+        //            CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
+        //            DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
+        //            if (chkBuyAvailability.Checked == true)
+        //            {
+        //                availblity = 1;
+        //            }
+        //            else
+        //            {
+        //                availblity = 0;
+        //            }
+        //            RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
 
-                    foreach (GridDataItem gdi in rgSeriesCat.Items)
-                    {
-                        if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
-                        {
-                            int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
-                            TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
-                            TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
-                        }
-                    }
-                }
-                BindSeriesGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:rgSeries_UpdateCommand()");
-                object[] objects = new object[2];
-                objects[1] = source;
-                objects[2] = e;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //            foreach (GridDataItem gdi in rgSeriesCat.Items)
+        //            {
+        //                if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
+        //                {
+        //                    int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
+        //                    TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
+        //                    TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+        //                }
+        //            }
+        //        }
+        //        BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:rgSeries_UpdateCommand()");
+        //        object[] objects = new object[2];
+        //        objects[1] = source;
+        //        objects[2] = e;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         private int CreateUpdateDeleteSeries(int issueId, int seriesId, string seriesName, int isBuyBackAvailable, int tenure, string interestFrequency,
-         string interestType, string CommandType)
+         string interestType, int SeriesSequence, string CommandType)
         {
             int result = 0;
 
@@ -586,6 +585,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.Tenure = tenure;
                 onlineNCDBackOfficeVo.InterestFrequency = interestFrequency;
                 onlineNCDBackOfficeVo.InterestType = interestType;
+                onlineNCDBackOfficeVo.SeriesSequence = SeriesSequence;
                 result = onlineNCDBackOfficeBo.CreateSeries(onlineNCDBackOfficeVo, userVo.UserId);
             }
             else if (CommandType == "Update")
@@ -597,6 +597,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.Tenure = tenure;
                 onlineNCDBackOfficeVo.InterestFrequency = interestFrequency;
                 onlineNCDBackOfficeVo.InterestType = interestType;
+                onlineNCDBackOfficeVo.SeriesSequence = SeriesSequence;
                 result = onlineNCDBackOfficeBo.UpdateSeries(onlineNCDBackOfficeVo, userVo.UserId);
 
             }
@@ -614,37 +615,37 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private int CreateSeries(int issueId, string seriesName, int isBuyBackAvailable, int tenure, string interestFrequency,
-          string interestType)
-        {
-            try
-            {
-                onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
-                onlineNCDBackOfficeVo.IssueId = issueId;
-                onlineNCDBackOfficeVo.SeriesName = seriesName.Trim();
-                onlineNCDBackOfficeVo.IsBuyBackAvailable = isBuyBackAvailable;
-                onlineNCDBackOfficeVo.Tenure = tenure;
-                onlineNCDBackOfficeVo.InterestFrequency = interestFrequency;
-                onlineNCDBackOfficeVo.InterestType = interestType;
-                return onlineNCDBackOfficeBo.CreateSeries(onlineNCDBackOfficeVo, userVo.UserId);
-            }
+        //private int CreateSeries(int issueId, string seriesName, int isBuyBackAvailable, int tenure, string interestFrequency,
+        //  string interestType)
+        //{
+        //    try
+        //    {
+        //        onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
+        //        onlineNCDBackOfficeVo.IssueId = issueId;
+        //        onlineNCDBackOfficeVo.SeriesName = seriesName.Trim();
+        //        onlineNCDBackOfficeVo.IsBuyBackAvailable = isBuyBackAvailable;
+        //        onlineNCDBackOfficeVo.Tenure = tenure;
+        //        onlineNCDBackOfficeVo.InterestFrequency = interestFrequency;
+        //        onlineNCDBackOfficeVo.InterestType = interestType;
+        //        return onlineNCDBackOfficeBo.CreateSeries(onlineNCDBackOfficeVo, userVo.UserId);
+        //    }
 
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:CreateSeries()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:CreateSeries()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         protected void rgSeries_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -657,6 +658,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
                 CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
                 DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
+                TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
+
+
                 if (chkBuyAvailability.Checked == true)
                 {
                     availblity = 1;
@@ -665,7 +669,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     availblity = 0;
                 }
-                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), txtInterestFrequency.Text, ddlInterestType.SelectedValue, "Insert");
+
+
+                if (string.IsNullOrEmpty(txtTenure.Text))
+                {
+                    txtTenure.Text = 0.ToString();
+                }
+                if (string.IsNullOrEmpty(txtSequence.Text))
+                {
+                    txtSequence.Text = 0.ToString();
+                }
+                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), txtInterestFrequency.Text, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
 
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
@@ -675,10 +689,20 @@ namespace WealthERP.OnlineOrderBackOffice
                         int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
                         TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
                         TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+
+                        if (string.IsNullOrEmpty(txtInterestRate.Text))
+                        {
+                            txtInterestRate.Text = 0.ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtAnnualizedYield.Text))
+                        {
+                            txtAnnualizedYield.Text = 0.ToString();
+                        }
                         CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), "Insert");
                     }
                 }
-                BindSeriesGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+                BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
 
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
@@ -690,6 +714,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
                 CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
                 DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
+                TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
+
                 if (chkBuyAvailability.Checked == true)
                 {
                     availblity = 1;
@@ -698,8 +724,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     availblity = 0;
                 }
-                int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PFISD_SeriesId"].ToString());
-                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), txtInterestFrequency.Text, ddlInterestType.SelectedValue, "Update");
+                if (string.IsNullOrEmpty(txtTenure.Text))
+                 {
+                    txtTenure.Text = 0.ToString();
+                }
+                if (string.IsNullOrEmpty(txtSequence.Text))
+                {
+                    txtSequence.Text = 0.ToString();
+                }
+                int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
+                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), txtInterestFrequency.Text, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -708,10 +742,19 @@ namespace WealthERP.OnlineOrderBackOffice
                         int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
                         TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
                         TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+                        if (string.IsNullOrEmpty(txtInterestRate.Text))
+                        {
+                            txtInterestRate.Text = 0.ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtAnnualizedYield.Text))
+                        {
+                            txtAnnualizedYield.Text = 0.ToString();
+                        }
                         CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), "Update");
                     }
                 }
-                BindSeriesGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+                BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
             {
@@ -740,7 +783,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
                 TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
                 TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
-                
+
+                if (string.IsNullOrEmpty(txtMinBidAmount.Text))
+                {
+                    txtMinBidAmount.Text = 0.ToString();
+                }
+
+                if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
+                {
+                    txtMaxBidAmount.Text = 0.ToString();
+                }
                 categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text), "Insert");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
                 foreach (GridDataItem gdi in rgSubCategories.Items)
@@ -751,10 +803,19 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
                         TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
                         TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
+                        if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
+                        {
+                            txtMinInvestmentAmount.Text = 0.ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
+                        {
+                            txtMaxInvestmentAmount.Text = 0.ToString();
+                        }
                         CreateUpdateDeleteCategoryDetails(categoryId, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Insert");
                     }
                 }
-                BindEligibleInvestorsGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+                BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -767,6 +828,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
                 TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
                 TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
+                if (string.IsNullOrEmpty(txtMinBidAmount.Text))
+                {
+                    txtMinBidAmount.Text = 0.ToString();
+                }
+
+                if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
+                {
+                    txtMaxBidAmount.Text = 0.ToString();
+                }
                 result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text), "Update");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
                 foreach (GridDataItem gdi in rgSubCategories.Items)
@@ -777,11 +847,20 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
                         TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
                         TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
+                        if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
+                        {
+                            txtMinInvestmentAmount.Text = 0.ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
+                        {
+                            txtMaxInvestmentAmount.Text = 0.ToString();
+                        }
                         CreateUpdateDeleteCategoryDetails(categoryId, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text), "Update");
                     }
                 }
 
-                BindEligibleInvestorsGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+                BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
 
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
@@ -789,52 +868,70 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        protected void rgEligibleInvestorCategories_UpdateCommand(object source, GridCommandEventArgs e)
-        {
-            try
-            {
-                if (e.CommandName == RadGrid.UpdateCommandName)
-                {
-                    int categoryId;
-                    TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
-                    TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
-                    TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
-                    TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
-                    TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
-                    categoryId = CreateCategory(Convert.ToInt32(txtIssueId.Text), txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text));
-                    RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
-                    foreach (GridDataItem gdi in rgSubCategories.Items)
-                    {
-                        if (((CheckBox)gdi.FindControl("cbSubCategories")).Checked == true)
-                        {
-                            int lookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);
-                            TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
-                            TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
-                            TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
-                            CreateSubTypePerCategory(categoryId, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text));
-                        }
-                    }
-                    BindEligibleInvestorsGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:rgEligibleInvestorCategories_UpdateCommand()");
-                object[] objects = new object[2];
-                objects[1] = source;
-                objects[2] = e;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //protected void rgEligibleInvestorCategories_UpdateCommand(object source, GridCommandEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (e.CommandName == RadGrid.UpdateCommandName)
+        //        {
+        //            int categoryId;
+        //            TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
+        //            TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
+        //            TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
+        //            TextBox txtMinBidAmount = (TextBox)e.Item.FindControl("txtMinBidAmount");
+        //            TextBox txtMaxBidAmount = (TextBox)e.Item.FindControl("txtMaxBidAmount");
+        //            if (string.IsNullOrEmpty(txtMinBidAmount.Text))
+        //            {
+        //                txtMinBidAmount.Text = 0.ToString();
+        //            }
+
+        //            if (string.IsNullOrEmpty(txtMaxBidAmount.Text))
+        //            {
+        //                txtMaxBidAmount.Text = 0.ToString();
+        //            }
+        //            categoryId = CreateCategory(Convert.ToInt32(txtIssueId.Text), txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text));
+        //            RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
+        //            foreach (GridDataItem gdi in rgSubCategories.Items)
+        //            {
+        //                if (((CheckBox)gdi.FindControl("cbSubCategories")).Checked == true)
+        //                {
+        //                    int lookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);
+        //                    TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
+        //                    TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
+        //                    TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
+        //                    if (string.IsNullOrEmpty(txtMinInvestmentAmount.Text))
+        //                    {
+        //                        txtMinInvestmentAmount.Text = 0.ToString();
+        //                    }
+
+        //                    if (string.IsNullOrEmpty(txtMaxInvestmentAmount.Text))
+        //                    {
+        //                        txtMaxInvestmentAmount.Text = 0.ToString();
+        //                    }
+        //                    CreateSubTypePerCategory(categoryId, lookupId, txtSubCategoryCode.Text, Convert.ToInt32(txtMinInvestmentAmount.Text), Convert.ToInt32(txtMaxInvestmentAmount.Text));
+        //                }
+        //            }
+        //            BindEligibleInvestorsGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:rgEligibleInvestorCategories_UpdateCommand()");
+        //        object[] objects = new object[2];
+        //        objects[1] = source;
+        //        objects[2] = e;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         private int CreateUpdateDeleteCategory(int issueId, int categoryId, string investorCatgeoryName, string investorCatgeoryDescription, string chequePayableTo,
            int mInBidAmount, int maxBidAmount, string CommandType)
@@ -856,7 +953,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 else if (CommandType == "Update")
                 {
                     onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
-                    //onlineNCDBackOfficeVo.IssueId = issueId;
+                    //onlineNCDBackOfficeVo.issueId = issueId;
                     onlineNCDBackOfficeVo.CatgeoryId = categoryId;
                     onlineNCDBackOfficeVo.CatgeoryName = investorCatgeoryName;
                     onlineNCDBackOfficeVo.CatgeoryDescription = investorCatgeoryDescription;
@@ -1021,20 +1118,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
-                    BindCategory(rgSeriesCat, ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+                    BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
 
                 }
                 else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
                 {
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
-                    int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PFISD_SeriesId"].ToString());
+                    int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
                     TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
                     TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
                     TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
                     CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
+                    TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
+
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
-                    BindCategory(rgSeriesCat, ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
-                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, txtInterestFrequency, chkBuyAvailability, rgSeriesCat);
+                    BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, txtInterestFrequency, chkBuyAvailability, txtSequence, rgSeriesCat);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1057,7 +1156,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
-                         TextBox txtInterestFrequency, CheckBox chkBuyAvailability, RadGrid rgSeriesCat)
+                         TextBox txtInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence, RadGrid rgSeriesCat)
         {
             try
             {
@@ -1068,10 +1167,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     foreach (DataRow dr in dtCategory.Rows)
                     {
-                        txtSereiesName.Text = dr["PFISD_SeriesName"].ToString();
-                        txtTenure.Text = dr["PFISD_Tenure"].ToString();
-                        txtInterestFrequency.Text = dr["PFISD_InterestFrequency"].ToString();
-                        chkBuyAvailability.Checked = Convert.ToBoolean(dr["PFISD_BuyBackFacility"].ToString());
+                        txtSereiesName.Text = dr["AID_IssueDetailName"].ToString();
+                        txtTenure.Text = dr["AID_Tenure"].ToString();
+                        txtInterestFrequency.Text = dr["AID_InterestFrequency"].ToString();
+                        chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
+                        txtSequence.Text = dr["AID_Sequence"].ToString();
                         int seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"]);
 
                         foreach (GridDataItem gdi in rgSeriesCat.Items)
@@ -1084,8 +1184,8 @@ namespace WealthERP.OnlineOrderBackOffice
                                 TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
 
                                 cbSeriesCat.Checked = true;
-                                txtInterestRate.Text = dr["PFISD_DefaultInterestRate"].ToString();
-                                txtAnnualizedYield.Text = dr["PFISD_AnnualizedYieldUpto"].ToString();
+                                txtInterestRate.Text = dr["AID_DefaultInterestRate"].ToString();
+                                txtAnnualizedYield.Text = dr["AID_AnnualizedYieldUpto"].ToString();
                             }
                         }
                     }
@@ -1116,28 +1216,30 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             txtIssueId.Text = CreateIssue().ToString();
             VisblityAndEnablityOfScreen("Submited");
-            SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+            SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
         }
 
 
         protected void btnProspect_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','action=ManageRepository');", true);
-       
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','action=ManageRepository&issueId=1');", true);
+
         }
-        
+
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
             int result = UpdateIssue();
             //VisblityAndEnablityOfScreen("AfterUpdate");
-            SeriesAndCategoriesGridsVisiblity(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+            SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
         }
+
         protected void lnkBtnEdit_Click(object sender, EventArgs e)
         {
             VisblityAndEnablityOfScreen("LnkEdit");
-            
+
         }
+
         protected void lnlBack_Click(object sender, EventArgs e)
         {
             string type = "";
@@ -1147,11 +1249,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 type = Request.QueryString["type"].ToString();
                 date = Request.QueryString["date"].ToString();
             }
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','Mfaction=MF');", true);
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type=" + type + "&date=" + date + "'');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type=" + type + "&date=" + date + "');", true);
+            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type="+type + "&date="+date+"'');", true);
         }
 
-        private void SeriesAndCategoriesGridsVisiblity(string issuerId, int issueId)
+        private void SeriesAndCategoriesGridsVisiblity(int  issuerId, int issueId)
         {
             pnlSeries.Visible = true;
             pnlCategory.Visible = true;
@@ -1169,7 +1271,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlCategory.SelectedValue;
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
-                onlineNCDBackOfficeVo.IssuerId = ddlIssuer.SelectedValue;
+                onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
 
                 onlineNCDBackOfficeVo.FromRange = Convert.ToInt32(txtFormRange.Text);
                 onlineNCDBackOfficeVo.ToRange = Convert.ToInt32(txtToRange.Text);
@@ -1203,7 +1305,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
-                onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(  ddlOpenTimeHours.SelectedValue  +":"+ ddlOpenTimeMinutes.SelectedValue +":"+ ddlOpenTimeSeconds.SelectedValue) ; //SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
@@ -1217,11 +1319,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
                 if (!string.IsNullOrEmpty(txtIsPrefix.Text))
                 {
-                    onlineNCDBackOfficeVo.IsPrefix = txtIsPrefix.Text;
+                    onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.IsPrefix = "";
+                    onlineNCDBackOfficeVo.IsPrefix = 0;
                 }
 
                 onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
@@ -1279,14 +1381,30 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsNominationRequired = 0;
                 }
+                if (ddlListedInExchange.SelectedValue == "BSE")
+                {
+                    onlineNCDBackOfficeVo.BSECode = txtNcdBsnCode.Text;
+                    onlineNCDBackOfficeVo.BSECode = "";
+                }
+                else if (ddlListedInExchange.SelectedValue == "NSE")
+                {
+                    onlineNCDBackOfficeVo.NSECode = txtNcdBsnCode.Text;
+                    onlineNCDBackOfficeVo.NSECode = "";
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.NSECode = "";
+                    onlineNCDBackOfficeVo.BSECode = "";
+                }
+
+
+
                 issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, userVo.UserId);
                 if (issueId > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
                 }
-
             }
-
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -1295,7 +1413,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:CreateNewWerpName()");
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:CreateIssue()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -1359,7 +1477,7 @@ namespace WealthERP.OnlineOrderBackOffice
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi;
             gdi = (GridDataItem)buttonlink.NamingContainer;
-            seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[gdi.ItemIndex]["PFISD_SeriesId"].ToString());
+            seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[gdi.ItemIndex]["AID_IssueDetailId"].ToString());
             RadGrid rgSeriesCategories = (RadGrid)gdi.FindControl("rgSeriesCategories");
             Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
 
@@ -1373,9 +1491,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlchild.Visible = false;
                 buttonlink.Text = "+";
             }
-            BindSeriesCategoryGrid(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text), seriesId, rgSeriesCategories);
+            BindSeriesCategoryGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text), seriesId, rgSeriesCategories);
         }
-
 
         protected void btnCategoriesExpandAll_Click(object sender, EventArgs e)
         {
@@ -1404,7 +1521,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             RadGrid rgSubCategories = (RadGrid)sender; // Get reference to grid 
             DataTable dtSubCategory = new DataTable();
-            dtSubCategory = onlineNCDBackOfficeBo.GetSubCategory(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text)).Tables[0];
+            dtSubCategory = onlineNCDBackOfficeBo.GetSubCategory(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text)).Tables[0];
             rgSubCategories.DataSource = dtSubCategory;
         }
 
@@ -1412,18 +1529,18 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             RadGrid rgSeriesCategories1 = (RadGrid)sender; // Get reference to grid 
             GridDataItem nesteditem = (GridDataItem)rgSeriesCategories1.NamingContainer;
-            int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["PFISD_SeriesId"].ToString());
+            int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AID_IssueDetailId"].ToString());
             DataTable dtSeriesCategories = new DataTable();
-            dtSeriesCategories = onlineNCDBackOfficeBo.GetSeriesCategories(ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text), seriesId).Tables[0];
+            dtSeriesCategories = onlineNCDBackOfficeBo.GetSeriesCategories(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text), seriesId).Tables[0];
             rgSeriesCategories1.DataSource = dtSeriesCategories;
         }
 
-        private void BindSeriesCategoryGrid(string issuerid, int issueid, int seriesId, RadGrid rgSeriesCategories)
+        private void BindSeriesCategoryGrid(int  issuerId, int issueId, int seriesId, RadGrid rgSeriesCategories)
         {
             try
             {
                 DataTable dtSeriesCategories = new DataTable();
-                dtSeriesCategories = onlineNCDBackOfficeBo.GetSeriesCategories(issuerid, issueid, seriesId).Tables[0];
+                dtSeriesCategories = onlineNCDBackOfficeBo.GetSeriesCategories(issuerId, issueId, seriesId).Tables[0];
                 rgSeriesCategories.DataSource = dtSeriesCategories;
                 rgSeriesCategories.DataBind();
                 if (Cache[userVo.UserId.ToString() + "SeriesCategories"] != null)
@@ -1440,8 +1557,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesCategoryGrid()");
                 object[] objects = new object[1];
-                objects[1] = issuerid;
-                objects[2] = issueid;
+                objects[1] = issuerId;
+                objects[2] = issueId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1490,12 +1607,12 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindSeriesGrid(string issuerid, int issueid)
+        private void BindSeriesGrid(int  issuerId, int issueId)
         {
             try
             {
                 DataTable dtSeries = new DataTable();
-                dtSeries = onlineNCDBackOfficeBo.GetSeries(issuerid, issueid).Tables[0];
+                dtSeries = onlineNCDBackOfficeBo.GetSeries(issuerId, issueId).Tables[0];
                 rgSeries.DataSource = dtSeries;
                 rgSeries.DataBind();
                 if (Cache[userVo.UserId.ToString() + "Series"] != null)
@@ -1510,10 +1627,10 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesCategoryGrid()");
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesGrid()");
                 object[] objects = new object[2];
-                objects[1] = issuerid;
-                objects[2] = issueid;
+                objects[1] = issuerId;
+                objects[2] = issueId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1521,7 +1638,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindCategory(RadGrid rgCategory, string issuerId, int issueId)
+        private void BindCategory(RadGrid rgCategory, int  issuerId, int issueId)
         {
             try
             {
@@ -1557,8 +1674,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssuer.DataSource = dsIssuer;
-                    ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["PFIIM_IssuerId"].ToString();
-                    ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["PFIIM_IssuerName"].ToString();
+                    ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
+                    ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["PI_IssuerName"].ToString();
                     ddlIssuer.DataBind();
                 }
                 ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
@@ -1592,7 +1709,7 @@ namespace WealthERP.OnlineOrderBackOffice
         //        if (dsIssuer.Tables[0].Rows.Count > 0)
         //        {
         //            ddlFilterIssuer.DataSource = dsIssuer;
-        //            ddlFilterIssuer.DataValueField = dsIssuer.Tables[0].Columns["PFIIM_IssuerId"].ToString();
+        //            ddlFilterIssuer.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
         //            ddlFilterIssuer.DataTextField = dsIssuer.Tables[0].Columns["PFIIM_IssuerName"].ToString();
         //            ddlFilterIssuer.DataBind();
         //        }
@@ -1616,42 +1733,42 @@ namespace WealthERP.OnlineOrderBackOffice
 
         //}
 
-        private void BindFilterIssue(string issuerId)
-        {
-            try
-            {
-                DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(issuerId);
+        //private void BindFilterIssue(int  issuerId)
+        //{
+        //    try
+        //    {
+        //        DataSet dsIssuer = new DataSet();
+        //        dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(issuerId);
 
-                if (dsIssuer.Tables[0].Rows.Count > 0)
-                {
-                    ddlFilterIssue.DataSource = dsIssuer;
-                    ddlFilterIssue.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
-                    ddlFilterIssue.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
-                    ddlFilterIssue.DataBind();
-                }
-                ddlFilterIssue.Items.Insert(0, new ListItem("Select", "Select"));
+        //        if (dsIssuer.Tables[0].Rows.Count > 0)
+        //        {
+        //            ddlFilterIssue.DataSource = dsIssuer;
+        //            ddlFilterIssue.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+        //            ddlFilterIssue.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
+        //            ddlFilterIssue.DataBind();
+        //        }
+        //        ddlFilterIssue.Items.Insert(0, new ListItem("Select", "Select"));
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindIssuer()");
-                object[] objects = new object[0];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindIssuer()");
+        //        object[] objects = new object[0];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
 
-        }
+        //}
 
-        private void BindEligibleInvestorsGrid(string issuerId, int issueId)
+        private void BindEligibleInvestorsGrid(int  issuerId, int issueId)
         {
             try
             {
@@ -1682,7 +1799,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindSubCategoriesGrid(RadGrid rgSubCategory, string issuerId, int issueId)
+        private void BindSubCategoriesGrid(RadGrid rgSubCategory, int  issuerId, int issueId)
         {
             try
             {
@@ -1708,7 +1825,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindAllInvestorTypesForUpdatePopUpCategory(RadGrid rgSubCategory, string issuerId, int issueId)
+        private void BindAllInvestorTypesForUpdatePopUpCategory(RadGrid rgSubCategory, int  issuerId, int issueId)
         {
             try
             {
@@ -1750,7 +1867,6 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
-
                 if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
                 {
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
@@ -1758,16 +1874,13 @@ namespace WealthERP.OnlineOrderBackOffice
 
                     txtIssueName.Text = txtName.Text;
                     RadGrid rgSubCategories = (RadGrid)editform.FindControl("rgSubCategories");
-                    BindSubCategoriesGrid(rgSubCategories, ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
+                    BindSubCategoriesGrid(rgSubCategories, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                 }
                 else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
                 {
-
-
                     int categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-
-
-
+                    TextBox txtIssueName = (TextBox)e.Item.FindControl("txtIssueName");
+                    txtIssueName.Text = txtName.Text;
                     TextBox txtCategoryName = (TextBox)e.Item.FindControl("txtCategoryName");
                     TextBox txtCategoryDescription = (TextBox)e.Item.FindControl("txtCategoryDescription");
                     TextBox txtChequePayableTo = (TextBox)e.Item.FindControl("txtChequePayableTo");
@@ -1778,17 +1891,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     TextBox txtMinInvestmentAmount = (TextBox)e.Item.FindControl("txtMinInvestmentAmount");
                     TextBox txtMaxInvestmentAmount = (TextBox)e.Item.FindControl("txtMaxInvestmentAmount");
                     CheckBox cbSubCategories = (CheckBox)e.Item.FindControl("cbSubCategories");
-
-
-
-                    BindAllInvestorTypesForUpdatePopUpCategory(rgSubCategories, ddlIssuer.SelectedValue, Convert.ToInt32(txtIssueId.Text));
-
+                    BindAllInvestorTypesForUpdatePopUpCategory(rgSubCategories, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     FillCategoryPopupControlsForUpdate(categoryId, txtCategoryName, txtCategoryDescription, txtChequePayableTo, txtMinBidAmount, txtMaxBidAmount, rgSubCategories);
                     //, txtSubCategoryCode, txtMinInvestmentAmount, txtMaxInvestmentAmount, cbSubCategories);
-
                 }
-
-
 
             }
             catch (BaseApplicationException Ex)
@@ -1799,7 +1905,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:rgMaping_ItemDataBound()");
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:rgEligibleInvestorCategories_ItemDataBound()");
                 object[] objects = new object[2];
                 objects[1] = sender;
                 objects[2] = e;
@@ -1814,57 +1920,39 @@ namespace WealthERP.OnlineOrderBackOffice
                        TextBox txtChequePayableTo, TextBox txtMinBidAmount, TextBox txtMaxBidAmount, RadGrid rgSubCategories)
         //, TextBox txtSubCategoryCode, TextBox txtMinInvestmentAmount, TextBox txtMaxInvestmentAmount, CheckBox cbSubCategories)
         {
-
             try
             {
                 DataTable dtCategory = new DataTable();
                 dtCategory = onlineNCDBackOfficeBo.GetCategoryDetails(categoryId).Tables[0];
-
                 if (dtCategory.Rows.Count > 0)
                 {
                     foreach (DataRow dr in dtCategory.Rows)
                     {
-
                         txtCategoryName.Text = dr["AIIC_InvestorCatgeoryName"].ToString();
                         txtCategoryDescription.Text = dr["AIIC_InvestorCatgeoryDescription"].ToString();
                         txtChequePayableTo.Text = dr["AIIC_ChequePayableTo"].ToString();
                         txtMinBidAmount.Text = dr["AIIC_MInBidAmount"].ToString();
                         txtMaxBidAmount.Text = dr["AIIC_MaxBidAmount"].ToString();
-
-
-
                         int lookupId = Convert.ToInt32(dr["WCMV_LookupId"].ToString());
-
-
                         foreach (GridDataItem gdi in rgSubCategories.Items)
                         {
                             int grdLookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);
-
-
                             if (grdLookupId == lookupId)
                             {
                                 TextBox txtSubCategoryCode = ((TextBox)(gdi.FindControl("txtSubCategoryCode")));
                                 TextBox txtMinInvestmentAmount = ((TextBox)(gdi.FindControl("txtMinInvestmentAmount")));
                                 TextBox txtMaxInvestmentAmount = ((TextBox)(gdi.FindControl("txtMaxInvestmentAmount")));
                                 CheckBox cbSubCategories = (CheckBox)gdi.FindControl("cbSubCategories");
-
-
-
                                 cbSubCategories.Checked = true;
-                                txtSubCategoryCode.Text = dr["AIIC_InvestorSubTypeCode"].ToString();
-                                txtMinInvestmentAmount.Text = dr["AIIC_MinInvestmentAmount"].ToString();
-                                txtMaxInvestmentAmount.Text = dr["AIIC_MaxInvestmentAmount"].ToString();
+                                txtSubCategoryCode.Text = dr["AIICS_InvestorSubTypeCode"].ToString();
+                                txtMinInvestmentAmount.Text = dr["AIICS_MinInvestmentAmount"].ToString();
+                                txtMaxInvestmentAmount.Text = dr["AIICS_MaxInvestmentAmount"].ToString();
                             }
                         }
-
 
                     }
                 }
             }
-
-
-
-
 
             catch (BaseApplicationException Ex)
             {
@@ -1882,20 +1970,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
 
-
-
-
         }
 
         private void BindHours()
         {
-
             List<int> hours = new List<int>();
             DataTable dt = new DataTable();
             dt.Columns.Add("Hours");
-
             hours = commonLookupBo.GetHours();
-
             foreach (var array in hours)
             {
                 dt.Rows.Add(array);
@@ -1907,25 +1989,21 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlOpenTimeHours.DataTextField = dt.Columns["Hours"].ToString();
                 ddlOpenTimeHours.DataBind();
 
-                
-                     ddlCloseTimeHours.DataSource = dt;
+                ddlCloseTimeHours.DataSource = dt;
                 ddlCloseTimeHours.DataValueField = dt.Columns["Hours"].ToString();
                 ddlCloseTimeHours.DataTextField = dt.Columns["Hours"].ToString();
                 ddlCloseTimeHours.DataBind();
-
             }
-            //ddlOpenTimeHours.Items.Insert(0, new ListItem("Select", "Select"));
-       
+            ddlOpenTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
+            ddlCloseTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
         }
+
         private void BindMinutesAndSeconds()
         {
-
             List<int> Minutes = new List<int>();
             DataTable dt = new DataTable();
             dt.Columns.Add("Minutes");
-
             Minutes = commonLookupBo.GetMinutes();
-
             foreach (var array in Minutes)
             {
                 dt.Rows.Add(array);
@@ -1937,31 +2015,47 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlOpenTimeMinutes.DataTextField = dt.Columns["Minutes"].ToString();
                 ddlOpenTimeMinutes.DataBind();
 
-
                 ddlOpenTimeSeconds.DataSource = dt;
                 ddlOpenTimeSeconds.DataValueField = dt.Columns["Minutes"].ToString();
                 ddlOpenTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
                 ddlOpenTimeSeconds.DataBind();
 
-                
-
-                        ddlCloseTimeMinutes.DataSource = dt;
+                ddlCloseTimeMinutes.DataSource = dt;
                 ddlCloseTimeMinutes.DataValueField = dt.Columns["Minutes"].ToString();
                 ddlCloseTimeMinutes.DataTextField = dt.Columns["Minutes"].ToString();
                 ddlCloseTimeMinutes.DataBind();
 
-                
-
-                    
-                        ddlCloseTimeSeconds.DataSource = dt;
+                ddlCloseTimeSeconds.DataSource = dt;
                 ddlCloseTimeSeconds.DataValueField = dt.Columns["Minutes"].ToString();
                 ddlCloseTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
                 ddlCloseTimeSeconds.DataBind();
 
             }
-            //ddlOpenTimeMinutes.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlOpenTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
+            ddlCloseTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
+            ddlOpenTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
+            ddlCloseTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
 
         }
-        
+
+        private void ListedExchange(string code)
+        {
+            trExchangeCode.Visible = true;
+            if (ddlListedInExchange.SelectedValue == "NCD")
+            {
+                lb1Code.Text = "NCd" + lb1Code.Text;
+
+            }
+            else if (ddlListedInExchange.SelectedValue == "BSN")
+            {
+                lb1Code.Text = "BSN" + lb1Code.Text;
+            }
+        }
+
+        protected void ddlListedInExchange_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListedExchange(ddlListedInExchange.SelectedValue);
+        }
+
     }
 }

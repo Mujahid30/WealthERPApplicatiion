@@ -31,7 +31,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssuer()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssueDetails()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -63,8 +63,8 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
         }
+
         public int UpdateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
         {
             try
@@ -78,7 +78,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataSet GetSeriesCategories(string issuerId, int issueId, int seriesId)
+        public DataSet GetSeriesCategories(int  issuerId, int issueId, int seriesId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -104,7 +104,8 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public DataSet GetSeries(string issuerId, int issueId)
+
+        public DataSet GetSeries(int  issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -128,7 +129,6 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
         }
 
         public DataSet GetIssuer()
@@ -153,7 +153,6 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
         }
 
         public int CreateSeries(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
@@ -168,6 +167,7 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+
         public int UpdateSeries(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
@@ -180,6 +180,7 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+
         public int CreateIssue(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
@@ -205,6 +206,7 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+
         public bool UpdateSeriesCategory(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
@@ -218,7 +220,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataSet GetAllInvestorTypes(string issuerId, int issueId)
+        public DataSet GetAllInvestorTypes(int  issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -233,7 +235,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSeries()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetAllInvestorTypes()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -242,7 +244,8 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public DataSet GetSubCategory(string issuerId, int issueId)
+
+        public DataSet GetSubCategory(int  issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -257,7 +260,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSeries()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSubCategory()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -266,7 +269,8 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public DataSet GetCategory(string issuerId, int issueId)
+
+        public DataSet GetCategory(int  issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -281,7 +285,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSeries()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetCategory()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -313,7 +317,6 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-
         }
 
         public int CreateCategory(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
@@ -329,6 +332,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
         public bool CreateSubTypePerCategory(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
@@ -340,9 +344,9 @@ namespace BoOnlineOrderManagement
             {
                 throw Ex;
             }
-
         }
-        public DataSet GetEligibleInvestorsCategory(string issuerId, int issueId)
+
+        public DataSet GetEligibleInvestorsCategory(int  issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -382,7 +386,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSeries()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSubTypePerCategoryDetails()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -392,12 +396,13 @@ namespace BoOnlineOrderManagement
 
 
         }
-        public DataSet GetIssuerIssue(string issuerID)
+
+        public DataSet GetIssuerIssue(int  issuerId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetIssuerIssue(issuerID);
+                return onlineNCDBackOfficeDao.GetIssuerIssue(issuerId);
             }
             catch (BaseApplicationException Ex)
             {
@@ -407,7 +412,7 @@ namespace BoOnlineOrderManagement
             {
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetSeries()");
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetIssuerIssue()");
                 object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
@@ -416,9 +421,9 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
         public DataSet GetCategoryDetails(int CatgeoryId)
         {
-
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
@@ -441,6 +446,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
         public int UpdateCategory(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try
@@ -454,6 +460,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
+
         public bool UpdateCategoryDetails(VoOnlineOrderManagemnet.OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
         {
             try

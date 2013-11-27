@@ -376,10 +376,15 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRating;
+
+        protected global::System.Web.UI.WebControls.TextBox txtNcdBsnCode;
+
         protected global::System.Web.UI.HtmlControls.HtmlTable tbIssue;
 
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExchangeCode;
 
+        
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnGo;
 
         /// <summary>
@@ -390,6 +395,9 @@ namespace WealthERP.OnlineOrderBackOffice
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1ModeOfTrading;
+        protected global::System.Web.UI.WebControls.Label lb1Code;
+
+        
 
         /// <summary>
         /// ddlModeOfTrading control.

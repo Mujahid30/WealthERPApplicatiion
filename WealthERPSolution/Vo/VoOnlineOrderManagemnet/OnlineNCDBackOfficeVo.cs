@@ -7,7 +7,7 @@ namespace VoOnlineOrderManagemnet
 {
     public class OnlineNCDBackOfficeVo
     {
-        public string IssuerId { get; set; }
+        public int  IssuerId { get; set; }
         public int SeriesId { get; set; }
         public string SeriesName { get; set; }
         public int IssueId { get; set; }
@@ -42,6 +42,8 @@ namespace VoOnlineOrderManagemnet
         public string InitialChequeNo { get; set; }
         public Double FaceValue { get; set; }
         public Double FloorPrice { get; set; }
+        public Double FixedPrice { get; set; }
+
         public string ModeOfIssue { get; set; }
         public string ModeOfTrading { get; set; }
         public DateTime OpenDate { get; set; }
@@ -52,7 +54,7 @@ namespace VoOnlineOrderManagemnet
         public decimal TradingLot { get; set; }
         public decimal BiddingLot { get; set; }
         public int MinApplicationSize { get; set; }
-        public string IsPrefix { get; set; }
+        public int IsPrefix { get; set; }
         public int TradingInMultipleOf { get; set; }
         public string ListedInExchange { get; set; }
         public string BankName { get; set; }
@@ -68,11 +70,11 @@ namespace VoOnlineOrderManagemnet
 
 
         public string  ModeOfTenure { get; set; }
-
-
-
-
-
-
+        public int SeriesSequence { get; set; }
+         
+        public int  IsListedinBSE { get; set; }
+        public int  IsListedinNSE { get; set; }
+        public string  BSECode { get; set; }
+        public string  NSECode { get; set; }
     }
 }

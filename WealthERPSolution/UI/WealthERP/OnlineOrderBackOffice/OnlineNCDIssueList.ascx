@@ -140,9 +140,9 @@
                                     UniqueName="AIM_CloseDate" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                  <telerik:GridBoundColumn DataField="PFISD_SeriesName" HeaderText="Series Name" SortExpression="PFISD_SeriesName"
+                                  <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderText="Issue Detail Name" SortExpression="AID_IssueDetailName"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                    UniqueName="PFISD_SeriesName" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="AID_IssueDetailName" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                   <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderText="Catgeory Name" SortExpression="AIIC_InvestorCatgeoryName"

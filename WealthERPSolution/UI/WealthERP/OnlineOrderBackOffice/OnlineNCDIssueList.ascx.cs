@@ -39,8 +39,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 DateTime date = DateTime.MinValue;
                 if (Request.QueryString["action"] != null)
                 {
+                   
                     type = Request.QueryString["type"].ToString();
+                   
                     date = Convert.ToDateTime(Request.QueryString["date"].ToString());
+                    ddlType.SelectedValue = type;
+                    txtDate.SelectedDate = date;
+                    pnlIssueList.Visible = true;
                     BindViewListGrid(GetType(type), date);
                 }
 
