@@ -635,7 +635,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="550px" PopUpSettings-Width="700px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="730px">
                                         <FormTemplate>
                                             <table width="75%" cellspacing="2" cellpadding="2">
                                                 <tr>
@@ -804,6 +804,7 @@
         </tr>
     </table>
 </asp:Panel>
+
 <asp:Panel ID="pnlSeries" runat="server" Width="100%">
     <table id="tblSeries" runat="server" width="80%">
         <tr>
