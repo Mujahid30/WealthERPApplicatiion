@@ -361,12 +361,13 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public void cancelBondsBookOrder(string id)
+        public bool cancelBondsBookOrder(int orderId, int is_Cancel)
         {
+            bool bResult = false;
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             try
             {
-                OnlineBondDao.CancelBondsBookOrder(id);
+               bResult= OnlineBondDao.CancelBondsBookOrder(orderId, is_Cancel);
 
             }
             catch (BaseApplicationException Ex)
@@ -379,12 +380,13 @@ namespace BoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:cancelBondsBookOrder(string id)");
                 object[] objects = new object[1];
-                objects[0] = id;
+                objects[0] = orderId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return bResult;
         }
 
 

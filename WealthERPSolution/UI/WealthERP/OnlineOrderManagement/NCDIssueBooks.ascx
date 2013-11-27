@@ -120,6 +120,7 @@
         </td>
     </tr>
 </table>
+
 <div id="divConditional" runat="server" style="padding-top: 4px">
     <table class="TableBackground" cellpadding="2">
         <tr>
@@ -199,7 +200,8 @@
                             <telerik:RadGrid ID="gvBBList" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvBBList_OnNeedDataSource">
+                                Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvBBList_OnNeedDataSource" 
+                                OnUpdateCommand="gvBBList_UpdateCommand">
                                 <%--OnNeedDataSource="gvBBList_OnNeedDataSource"--%>
                                 <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip" Width="100%"
                                     AllowMultiColumnSorting="True" AutoGenerateColumns="false">
@@ -215,6 +217,11 @@
                                             SortExpression="AIM_SchemeName">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>--%>
+                                         <telerik:GridBoundColumn DataField="Scrip" SortExpression="Scrip" AutoPostBackOnFilter="true"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                            HeaderStyle-Width="160px" HeaderText="Scrip Name" UniqueName="Scrip">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
@@ -225,7 +232,7 @@
                                             SortExpression="PI_IssuerId">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
-                                         <telerik:GridBoundColumn DataField="PI_IssuerCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                                         <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer" UniqueName="PI_IssuerCode"
                                             SortExpression="PI_IssuerCode">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -235,7 +242,7 @@
                                             HeaderText="Scrip ID" UniqueName="AID_IssueDetailId" SortExpression="AID_IssueDetailId">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss tt}"
+                                        <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                             AllowFiltering="true" HeaderText="Transaction Date" UniqueName="CO_OrderDate"
                                             SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                             AutoPostBackOnFilter="true" HeaderStyle-Width="120px" FilterControlWidth="60px">
@@ -251,12 +258,7 @@
                                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="80px"
                                             FilterControlWidth="60px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="Scrip" SortExpression="Scrip" AutoPostBackOnFilter="true"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                            HeaderStyle-Width="160px" HeaderText="Scrip Name" UniqueName="Scrip">
-                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                        </telerik:GridBoundColumn>
+                                        </telerik:GridBoundColumn>                                       
                                         <%-- <telerik:GridBoundColumn DataField="Scrip" SortExpression="Scrip" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
                                 HeaderStyle-Width="160px" HeaderText="Scrip Name" UniqueName="Scrip">
@@ -264,13 +266,13 @@
                             </telerik:GridBoundColumn>--%>
                                         <telerik:GridBoundColumn DataField="BBStartDate" SortExpression="BBStartDate" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                            DataFormatString="{0:dd/MM/yyyy HH:mm:ss tt}" HeaderText="Start Date" UniqueName="BBStartDate"
+                                            DataFormatString="{0:dd/MM/yyyy HH:mm:ss}" HeaderText="Start Date" UniqueName="BBStartDate"
                                             HeaderStyle-Width="77px">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="BBEndDate" SortExpression="BBEndDate" AutoPostBackOnFilter="true"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                            HeaderText="End Date" UniqueName="BBEndDate" HeaderStyle-Width="77px" DataFormatString="{0:dd/MM/yyyy HH:mm:ss tt}">
+                                            HeaderText="End Date" UniqueName="BBEndDate" HeaderStyle-Width="77px" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="BBAmounttoinvest" AllowFiltering="false" HeaderText="Amount to invest"
@@ -282,15 +284,21 @@
                                             ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                         </telerik:GridBoundColumn>
+                                         <telerik:GridBoundColumn DataField="WTS_TransactionStatusCode" AllowFiltering="false" HeaderText="Cancel"
+                                            HeaderStyle-Width="70px" UniqueName="WTS_TransactionStatusCode" SortExpression="WTS_TransactionStatusCode"
+                                            ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                            <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                        </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:DropDownList ID="ddlaction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
                                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                                     AllowCustomText="true" Width="100px" AutoPostBack="true">
-                                                    <asp:ListItem Text="select" Value="select" Selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="Select" Value="select" Selected="True"></asp:ListItem>
                                                     <asp:ListItem Text="View" Value="View"></asp:ListItem>
                                                     <asp:ListItem Text="Modify" Value="Edit" Enabled="false"></asp:ListItem>
+                                                    <asp:ListItem Text="Cancel" Value="Cancel"></asp:ListItem>
                                                 </asp:DropDownList>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
@@ -308,9 +316,9 @@
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,CO_OrderId,AID_IssueDetailId"
                                                                     AutoGenerateColumns="false" Width="100%">
                                                                     <Columns>
-                                                                        <telerik:GridBoundColumn DataField="PFISD_SeriesSequence" HeaderStyle-Width="60px"
+                                                                        <telerik:GridBoundColumn DataField="AID_Sequence" HeaderStyle-Width="60px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            HeaderText="Series" UniqueName="PFISD_SeriesSequence" SortExpression="PFISD_SeriesSequence">
+                                                                            HeaderText="Series" UniqueName="AID_Sequence" SortExpression="AID_Sequence">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn visible="false" DataField="AID_IssueDetailId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"

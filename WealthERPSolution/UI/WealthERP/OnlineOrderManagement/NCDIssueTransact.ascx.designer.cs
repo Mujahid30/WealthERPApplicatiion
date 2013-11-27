@@ -165,7 +165,8 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.WebControls.Label lblAvailableLimits;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdsubmit;
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdupdate;
-        
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
 
     }
 }

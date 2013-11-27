@@ -497,16 +497,20 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetNomineeJointHolder;
         }
-        public void CancelBondsBookOrder(string id)
+        public bool CancelBondsBookOrder(int orderId, int is_Cancel)
         {
+            bool bResult = false;
             Database db;
             DbCommand CancelOrderBondsBookcmd;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                CancelOrderBondsBookcmd = db.GetStoredProcCommand("");
-                db.AddInParameter(CancelOrderBondsBookcmd, "", DbType.String, id);
+                CancelOrderBondsBookcmd = db.GetStoredProcCommand("sproc_onl_CancelNCDOrder");
+                db.AddInParameter(CancelOrderBondsBookcmd, "@OrderId", DbType.Int32,orderId);
+                db.AddInParameter(CancelOrderBondsBookcmd, "@Is_Canceled", DbType.Int32, is_Cancel);
                 db.ExecuteDataSet(CancelOrderBondsBookcmd);
+                if (db.ExecuteNonQuery(CancelOrderBondsBookcmd) != 0)
+                    bResult = true;
 
             }
             catch (BaseApplicationException Ex)
@@ -519,12 +523,13 @@ namespace DaoOnlineOrderManagement
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:CancelBondsBookOrder(string id)");
                 object[] objects = new object[1];
-                objects[0] = id;
+                objects[0] = orderId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            return bResult;
         }
 
         public string GetMAXTransactNO()

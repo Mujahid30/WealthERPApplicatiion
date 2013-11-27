@@ -149,15 +149,15 @@ namespace WealthERP.OnlineOrderManagement
             //int structureId = int.Parse(gvBBList.MasterTableView.DataKeyValues[item.ItemIndex]["StructureId"].ToString());
             //string prodType = this.ddProduct.SelectedValue;
 
-            switch (ddlAction.SelectedValue)
-            {
-                case "Cancel":
-                    BoOnlineBondOrder.cancelBondsBookOrder("");
-                    //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=1');", true);
-                    break;
-                default:
-                    return;
-            }
+            //switch (ddlAction.SelectedValue)
+            //{
+            //    case "Cancel":
+            //        BoOnlineBondOrder.cancelBondsBookOrder("");
+            //        //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TestPage", "loadcontrol('ReceivableSetup','StructureId=1');", true);
+            //        break;
+            //    default:
+            //        return;
+            //}
         }
 
         protected void gvBBList_PageIndexChanged(object sender, GridPageChangedEventArgs e)
@@ -238,6 +238,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bool lbResult = false;
             string action = string.Empty;
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
@@ -246,7 +247,6 @@ namespace WealthERP.OnlineOrderManagement
             int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
             int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString());
             string Issuername = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["Scrip"].ToString();
-
             //Session["NCDTransact"] = BoOnlineBondOrder.GetNCDTransactOrder(OrderId, IssuerId);
             if (ddlAction.SelectedItem.Value.ToString() == "View")
             {
@@ -258,7 +258,35 @@ namespace WealthERP.OnlineOrderManagement
                 action = "Edit";
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
             }
+            if (ddlAction.SelectedItem.Value.ToString() == "Cancel")
+            {
+                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
+                if (lbResult == true)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+
+                }
+                BindBBGV(customerVo.CustomerId);
+            }
         }
+        protected void gvBBList_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            //string strRemark = string.Empty;
+            //if (e.CommandName == RadGrid.UpdateCommandName)
+            //{
+            //    GridEditableItem editItem = e.Item as GridEditableItem;
+            //    TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+            //    strRemark = txtRemark.Text;
+            //    //LinkButton buttonEdit = editItem["editColumn"].Controls[0] as LinkButton;
+            //    Int32 systematicId = Convert.ToInt32(gvSIPSummaryBookMIS.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CMFSS_SystematicSetupId"].ToString());
+            //    OnlineMFOrderBo.UpdateCnacleRegisterSIP(systematicId, 1, strRemark, userVo.UserId);
+            //    BindSIPSummaryBook();
+            //    //buttonEdit.Enabled = false;
+            //}
+
+        }
+
+
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
             Button Button = (Button)sender;

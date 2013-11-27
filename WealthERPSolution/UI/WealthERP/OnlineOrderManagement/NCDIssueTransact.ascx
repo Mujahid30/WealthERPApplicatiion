@@ -126,7 +126,7 @@
                         <td align="right">
                             <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                                 runat="server" AlternateText="Excel" ToolTip="Export To Excel" Height="25px"
-                                Width="25px"></asp:ImageButton>
+                                Visible="false" Width="25px"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -134,13 +134,25 @@
         </td>
     </tr>
 </table>
-<table width="100%" class="TableBackground">
-    <div class="divOnlinePageHeading" style="float: right; width: 100%">
-        <div style="float: right; padding-right: 100px;">
-            <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
-            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+    <ContentTemplate>
+        <div class="divOnlinePageHeading" style="float: right; width: 100%">
+            <div style="float: right; padding-right: 100px;">
+                <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
+                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+            </div>
         </div>
-    </div>
+        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
+            <tr id="trSumbitSuccess">
+                <td align="center">
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </ContentTemplate>
+</asp:UpdatePanel>
+<table width="100%" class="TableBackground">
     <tr>
         <td class="leftField" colspan="2" align="center">
             <asp:Label ID="lblMSG" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -182,13 +194,13 @@
                     AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                     AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                    <HeaderContextMenu EnableEmbeddedSkins="False">
-                    </HeaderContextMenu>
-                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
-                    </ExportSettings>
-                    <PagerStyle AlwaysVisible="True" />
-                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AID_InMultiplesOf,AID_BidQty,AIM_MaxApplNo"
-                        AutoGenerateColumns="false" Width="100%">
+                    <headercontextmenu enableembeddedskins="False">
+                    </headercontextmenu>
+                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
+                    </exportsettings>
+                    <pagerstyle alwaysvisible="True" />
+                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AID_InMultiplesOf,AID_BidQty,AIM_MaxApplNo"
+                        autogeneratecolumns="false" width="100%">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
                             <%--<telerik:GridBoundColumn visible="false" DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
@@ -216,7 +228,7 @@
                                 SortExpression="PI_IssuerId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn DataField="PI_IssuerCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                             <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer" UniqueName="PI_IssuerCode"
                                 SortExpression="PI_IssuerCode">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -246,21 +258,20 @@
                                 UniqueName="AID_CouponRate" SortExpression="AID_CouponRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 HeaderText="Renew Coupon Rate(%)" UniqueName="AID_RenewCouponRate" SortExpression="AID_RenewCouponRate">
                                 <HeaderStyle Width="100px" />
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="100px" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_LockingPeriod" HeaderStyle-Width="100px"
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_LockingPeriod" HeaderStyle-Width="100px"
                                 HeaderText="Lock-in Period" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                DataFormatString="{0:N0}" AutoPostBackOnFilter="true" UniqueName="AID_LockingPeriod"
-                                Visible="true">
+                                DataFormatString="{0:N0}" AutoPostBackOnFilter="true" UniqueName="AID_LockingPeriod">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_DefaultInterestRate" HeaderStyle-Width="80px"
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_DefaultInterestRate" HeaderStyle-Width="80px"
                                 HeaderText="Yield at Call(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate" Visible="true">
+                                AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_YieldUpto" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
@@ -268,22 +279,22 @@
                                 UniqueName="AID_YieldUpto" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_YieldatBuyBack" HeaderStyle-Width="105px"
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_YieldatBuyBack" HeaderStyle-Width="105px"
                                 HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_YieldatBuyBack" Visible="true">
+                                AutoPostBackOnFilter="true" UniqueName="AID_YieldatBuyBack">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_CallOption" HeaderStyle-Width="80px" HeaderText="Call Option"
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_CallOption" HeaderStyle-Width="80px" HeaderText="Call Option"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AID_CallOption" Visible="true">
+                                UniqueName="AID_CallOption">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_BuyBackFacility" HeaderStyle-Width="120px"
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_BuyBackFacility" HeaderStyle-Width="120px"
                                 HeaderText="Is Buy Back Facility" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility" Visible="true">
+                                AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_BidQty" HeaderStyle-Width="140px" HeaderText="Minimum Bid Quantity"
+                            <telerik:GridBoundColumn DataField="AID_BidQty" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 UniqueName="AID_BidQty" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -332,13 +343,13 @@
                             </EditColumn>
                         </EditFormSettings>
                         <PagerStyle AlwaysVisible="True" />
-                    </MasterTableView>
-                    <ClientSettings>
+                    </mastertableview>
+                    <clientsettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         <Resizing AllowColumnResize="true" />
-                    </ClientSettings>
-                    <FilterMenu EnableEmbeddedSkins="False">
-                    </FilterMenu>
+                    </clientsettings>
+                    <filtermenu enableembeddedskins="False">
+                    </filtermenu>
                 </telerik:RadGrid>
             </td>
         </tr>

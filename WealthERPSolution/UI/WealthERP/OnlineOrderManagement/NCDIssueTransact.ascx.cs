@@ -136,7 +136,6 @@ namespace WealthERP.OnlineOrderManagement
                 pnlNCDTransactact.Visible = true;
                 trSubmit.Visible = false;
             }
-
         }
         protected void BindDropDownListIssuer()
         {
@@ -159,7 +158,6 @@ namespace WealthERP.OnlineOrderManagement
             }
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
             lblHolderTwo.Text = strbJointHolder.ToString().TrimEnd(',');
-
         }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
@@ -223,10 +221,10 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
             }
-       
         private string CreateUserMessage(int orderId, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
+            orderId = int.Parse(ViewState["OrderId"].ToString());
             if (orderId != 0 && accountDebitStatus == true)
             {
                 //if (isCutOffTimeOver)
@@ -252,10 +250,9 @@ namespace WealthERP.OnlineOrderManagement
             decimal availableBalance = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId);
             int OrderId;
             string message = string.Empty;
-            if (availableBalance > 0)
+           // int Amount = (-OnlineBondVo.Amount);
+            if (availableBalance >=0)
             {
-
-
                 OrderId = int.Parse(ViewState["OrderId"].ToString());
                 //int OrderId = int.Parse(OrderIds["OrderId"].ToString());
                 //var item = gvCommMgmt.MasterTableView.Items[0] as GridDataItem;
@@ -270,21 +267,24 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     ShowAvailableLimits();
                     message = CreateUserMessage(orderId, accountDebitStatus);
-                    //  ShowMessage(message);
+                    ShowMessage(message);
                 }
             }
             else
             {
                 message = CreateUserMessage(0, false);
-                //ShowMessage(message);
-
+                ShowMessage(message);
             }
+        }
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
         }
         protected void lbconfirmOrder_Click(object sender, EventArgs e)
         {
 
         }
-
         protected void btnConfirmOrder_Click(object sender, EventArgs e)
         {
             Button Button = (Button)sender;
@@ -338,14 +338,11 @@ namespace WealthERP.OnlineOrderManagement
             }
             int OrderIds;
             OrderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
-            ViewState["OrderId"] = OrderIds;
-            //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order Placed Successfully')", true);
-            //string CustId = Session["CustId"].ToString();
-            //if (OrderIds > 0)
-            //{
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Placed Successfully');", true);
+            ViewState["OrderId"] = OrderIds;         
+            CreateNCDOrder();
+               // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Placed Successfully');", true);
                // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order Placed Successfully')", true);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','?customerId=" + customerVo.CustomerId + "');", true);
+              //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','?customerId=" + customerVo.CustomerId + "');", true);
            // }
         }
         //protected Dictionary<string, double> CalculateFooterTotal()
