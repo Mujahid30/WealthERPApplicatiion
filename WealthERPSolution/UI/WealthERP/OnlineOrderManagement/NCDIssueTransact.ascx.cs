@@ -343,8 +343,9 @@ namespace WealthERP.OnlineOrderManagement
             //string CustId = Session["CustId"].ToString();
             //if (OrderIds > 0)
             //{
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Order Placed Successfully')", true);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Placed Successfully');", true);
+               // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order Placed Successfully')", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','?customerId=" + customerVo.CustomerId + "');", true);
            // }
         }
         //protected Dictionary<string, double> CalculateFooterTotal()
