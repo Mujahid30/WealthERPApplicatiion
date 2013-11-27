@@ -786,5 +786,65 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSubCategory;
         }
+
+        public void GenereateNcdExtract(int adviserId, int userId)
+        {
+            Database db;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_NCDOrderExtract");
+                db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(cmd, "@U_UserId", DbType.Int32, userId);
+                db.ExecuteDataSet(cmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GenereateNcdExtract(int adviserId, int userId)");
+                object[] objects = new object[2];
+                objects[0] = adviserId;
+                objects[1] = userId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        public DataSet GetOnlineNcdExtractPreview(DateTime date, int adviserId)
+        {
+            Database db;
+            DataSet dsGetOnlineNCDExtractPreview;
+            DbCommand GetOnlineNCDExtractPreviewcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_PreviewNcdExtract");
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, date);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@A_AdviserId", DbType.Int32, adviserId);
+                dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetOnlineNCDExtractPreview()");
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetOnlineNCDExtractPreview;
+        }
     }
 }

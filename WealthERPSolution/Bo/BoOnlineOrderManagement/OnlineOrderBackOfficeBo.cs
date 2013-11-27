@@ -1627,14 +1627,6 @@ namespace BoOnlineOrderManagement
 
             }
             return blResult;
-        }
-        public DataSet GetOnlineNCDExtractPreview(DateTime date)
-        {
-            DataSet dsGetOnlineNCDExtractPreview;
-            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-            dsGetOnlineNCDExtractPreview = daoOnlineOrderBackOffice.GetOnlineNCDExtractPreview(date);
-            return dsGetOnlineNCDExtractPreview;
-
-        }
+        }        
     }
 }

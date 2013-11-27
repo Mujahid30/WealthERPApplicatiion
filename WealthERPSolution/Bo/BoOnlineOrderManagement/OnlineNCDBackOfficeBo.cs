@@ -475,5 +475,20 @@ namespace BoOnlineOrderManagement
 
         }
 
+        public DataSet GetOnlineNcdExtractPreview(DateTime date, int adviserId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            DataSet dsGetOnlineNCDExtractPreview;
+            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
+            dsGetOnlineNCDExtractPreview = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(date, adviserId);
+            return dsGetOnlineNCDExtractPreview;
+
+        }
+
+        public void GenerateOnlineNcdExtract(int adviserId, int userId) {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            onlineNCDBackOfficeDao.GenereateNcdExtract(adviserId, userId);
+        }
     }
 }

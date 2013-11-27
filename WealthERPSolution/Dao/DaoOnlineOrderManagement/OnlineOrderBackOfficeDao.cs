@@ -1541,7 +1541,7 @@ namespace DaoOnlineOrderManagement
                 MakeTradeToHolidayCmd = db.GetStoredProcCommand("SPROC_MakeTradeBussinessHoliday");
                 db.AddInParameter(MakeTradeToHolidayCmd, "@date", DbType.DateTime, TradeBusinessDate);
                 db.AddInParameter(MakeTradeToHolidayCmd, "@datesToBeUpdated", DbType.String, datesToBeUpdated);
-                
+
                 db.ExecuteNonQuery(MakeTradeToHolidayCmd);
 
                 bResult = true;
@@ -1561,34 +1561,6 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return bResult;
-        }
-
-        public DataSet GetOnlineNCDExtractPreview(DateTime date)
-        {
-            Database db;
-            DataSet dsGetOnlineNCDExtractPreview;
-            DbCommand GetOnlineNCDExtractPreviewcmd;
-            try
-            {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_PreviewNcdExtract");
-                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, date);
-                dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetOnlineNCDExtractPreview()");
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-            return dsGetOnlineNCDExtractPreview;
         }
     }
 }
