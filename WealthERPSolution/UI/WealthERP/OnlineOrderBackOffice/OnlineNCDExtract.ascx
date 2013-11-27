@@ -120,6 +120,13 @@
         </td>
     </tr>
 </table>
+<table id="tblMessage" width="100%" runat="server" visible="false">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server"></div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr id="trStepOneHeading" runat="server">
         <td class="tdSectionHeading" colspan="6">
@@ -140,9 +147,12 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="NCD" Value="1" />
                 <asp:ListItem Text="IPO" Value="2" />
-            </asp:DropDownList>
+            </asp:DropDownList>            
         </td>
-        <td>&nbsp;</td>
+        <td class="rightData">
+            <asp:RequiredFieldValidator ID="rfvProduct" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please select a product" ControlToValidate="ddlProduct" 
+                Display="Dynamic" InitialValue="0" ValidationGroup="NcdExtract">Please select a product</asp:RequiredFieldValidator></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
@@ -163,7 +173,7 @@
         <td>&nbsp;</td>
         <td class="rightData">
             <asp:Button ID="btnNcdExtract" runat="server" CssClass="PCGLongButton" Text="NCD Extract"
-                OnClick="btnNcdExtract_Click" /></td>
+                OnClick="btnNcdExtract_Click" ValidationGroup="NcdExtract" /></td>
         <td class="rightData">
             <asp:Label ID="lblCurrentDate" CssClass="FieldName" runat="server" Text="(For current date only)"></asp:Label></td>
         <td>&nbsp;</td>
@@ -190,7 +200,11 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="BSE" Value="1" />
                 <asp:ListItem Text="NSE" Value="2" />
-            </asp:DropDownList></td>
+            </asp:DropDownList><br />
+            <asp:RequiredFieldValidator ID="rfvDownload" runat="server" 
+                ErrorMessage="Please select a download" ControlToValidate="ddlDWNData" 
+                CssClass="rfvPCG" Display="Dynamic" InitialValue="0" 
+                ValidationGroup="NcdExtract">Please select a download</asp:RequiredFieldValidator></td>
         <td class="leftLabel">
             <asp:Label ID="lblDownloadDate" Text="Select Date:" CssClass="FieldName" runat="server"></asp:Label></td>
         <td class="rightData">
@@ -199,9 +213,11 @@
                 <Calendar runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                         Skin="Telerik" EnableEmbeddedSkins="false"></Calendar>
                 <DateInput runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy"></DateInput>
-            </telerik:RadDatePicker></td>
+            </telerik:RadDatePicker><br />
+            <asp:RequiredFieldValidator ID="rfvDOwnloadDate" runat="server" 
+                ErrorMessage="Please select a valid date" Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date" CssClass="rfvPCG" ValidationGroup="NcdExtract">Please select a valid date</asp:RequiredFieldValidator></td>
         <td class="rightData">
-            <asp:Button ID="btnGo" runat="server" Text="Preview" CssClass="PCGButton" OnClick="btnGo_Click" /></td>
+            <asp:Button ID="btnGo" runat="server" Text="Preview" ValidationGroup="NcdExtract" CssClass="PCGButton" OnClick="btnGo_Click" /></td>
         <td>&nbsp;</td>
     </tr>
 </table>

@@ -36,7 +36,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         //private void Set
 
-        protected void BindNCDExtract()
+        protected void BindNcdExtract()
         {
             DataSet dsGetOnlineNCDExtractPreview;
             DataTable dtGetOnlineNCDExtractPreview;
@@ -47,9 +47,9 @@ namespace WealthERP.OnlineOrderBackOffice
             dsGetOnlineNCDExtractPreview = boNcdBackOff.GetOnlineNcdExtractPreview(fromdate, adviserVo.advisorId);
             dtGetOnlineNCDExtractPreview = dsGetOnlineNCDExtractPreview.Tables[0];
 
-            if (Cache["NCDExtract" + adviserVo.advisorId] != null) Cache.Remove("NCDExtract" + adviserVo.advisorId);
+            if (Cache["NCDExtract" + userVo.UserId] != null) Cache.Remove("NCDExtract" + userVo.UserId);
 
-            if (dtGetOnlineNCDExtractPreview.Rows.Count > 0) Cache.Insert("NCDExtract" + adviserVo.advisorId, dtGetOnlineNCDExtractPreview);
+            if (dtGetOnlineNCDExtractPreview.Rows.Count > 0) Cache.Insert("NCDExtract" + userVo.UserId, dtGetOnlineNCDExtractPreview);
 
             gvOnlneNCDExtract.DataSource = dtGetOnlineNCDExtractPreview;
             gvOnlneNCDExtract.DataBind();
@@ -60,12 +60,46 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsGetOnlineNCDExtractPreview = new DataSet();
             DataTable dtGetOnlineNCDExtractPreview = new DataTable();
-            dtGetOnlineNCDExtractPreview = (DataTable)Cache["NCDExtract" + adviserVo.advisorId];
+            dtGetOnlineNCDExtractPreview = (DataTable)Cache["NCDExtract" + userVo.UserId];
 
             if (dtGetOnlineNCDExtractPreview != null)
             {
                 gvOnlneNCDExtract.DataSource = dtGetOnlineNCDExtractPreview;
             }
+        }
+
+        protected void btnNcdExtract_Click(object sender, EventArgs e)
+        {
+            Page.Validate("NcdExtract");
+            if (!Page.IsValid) {
+                ShowMessage("Please check all required fields");
+                return;
+            }
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId);
+
+            ShowMessage("Extraction Done");
+        }
+
+        protected void btnGo_Click(object sender, EventArgs e)
+        {
+            Page.Validate("NcdExtract");
+            if (!Page.IsValid)
+            {
+                ShowMessage("Please check all required fields");
+                return;
+            }
+            BindNcdExtract();
+        }
+
+        private void SetDownloadDate()
+        {
+            rdpDownloadDate.SelectedDate = DateTime.Now;
+        }
+
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
         }
 
         protected void btnExportData_OnClick(object sender, ImageClickEventArgs e)
@@ -76,21 +110,6 @@ namespace WealthERP.OnlineOrderBackOffice
             gvOnlneNCDExtract.ExportSettings.FileName = "NCDExtract";
             gvOnlneNCDExtract.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvOnlneNCDExtract.MasterTableView.ExportToExcel();
-        }
-
-        protected void btnNcdExtract_Click(object sender, EventArgs e)
-        {
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId);
-        }
-
-        protected void btnGo_Click(object sender, EventArgs e)
-        {
-            BindNCDExtract();
-        }
-
-        private void SetDownloadDate()
-        {
-            rdpDownloadDate.SelectedDate = DateTime.Now;
         }
     }
 }
