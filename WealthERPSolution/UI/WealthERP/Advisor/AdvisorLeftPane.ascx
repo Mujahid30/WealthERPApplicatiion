@@ -207,7 +207,13 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Accounting Extract" Value="File_Extraction">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="RTA Extract" Value="Extract">
+                                            <telerik:RadPanelItem runat="server" Text="Extract" Value="Extract">
+                                            <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="RTA Extract" Value="RTA_Extract">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Extract" Value="NCD_Extract">
+                                                    </telerik:RadPanelItem>
+                                                    </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
                                                 <Items>
@@ -302,6 +308,8 @@
                                             <telerik:RadPanelItem runat="server" Text="FixedIncomeOrderEntry" Value="FixedIncomeOrderEntry">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Manage Lookups" Value="Manage Lookups">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Trade Business Date" Value="Trade_Business_Date">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

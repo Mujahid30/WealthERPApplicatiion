@@ -516,6 +516,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
                 }
+                if (e.Item.Value == "Trade_Business_Date")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TradeBusinessDate','login');", true);
+                }
                 else if (e.Item.Value == "Admin Home")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('IFAAdminMainDashboard','login');", true);
@@ -1053,10 +1057,15 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
 
                 }
-                else if (e.Item.Value == "Extract")
+                else if (e.Item.Value == "RTA_Extract")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderExtract','login');", true);
+                }
+                else if (e.Item.Value == "NCD_Extract")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDExtract','login');", true);
                 }
                 else if (e.Item.Value == "File_Extraction")
                 {
