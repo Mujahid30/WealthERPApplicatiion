@@ -66,8 +66,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtIssueId.Text = issueNo.ToString();
                     ddlProduct.SelectedValue = "Bonds";// dr["AID_IssueDetailName"].ToString();  
                     ddlCategory.SelectedValue = "NCD";
-                    txtName.Text = dr["AIM_IssueName"].ToString();  
-                   ddlIssuer.SelectedValue =dr["PI_issuerId"].ToString();
+                    txtName.Text = dr["AIM_IssueName"].ToString();
+                    ddlIssuer.SelectedValue = dr["PI_issuerId"].ToString();
                     txtFormRange.Text = dr["AIFR_From"].ToString();
                     txtToRange.Text = dr["AIFR_To"].ToString();
                     txtInitialCqNo.Text = dr["AIM_InitialChequeNo"].ToString();
@@ -725,7 +725,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     availblity = 0;
                 }
                 if (string.IsNullOrEmpty(txtTenure.Text))
-                 {
+                {
                     txtTenure.Text = 0.ToString();
                 }
                 if (string.IsNullOrEmpty(txtSequence.Text))
@@ -1158,6 +1158,7 @@ namespace WealthERP.OnlineOrderBackOffice
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
                          TextBox txtInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence, RadGrid rgSeriesCat)
         {
+              int seriesCategoryId =0;
             try
             {
                 DataTable dtCategory = new DataTable();
@@ -1172,7 +1173,15 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtInterestFrequency.Text = dr["AID_InterestFrequency"].ToString();
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
                         txtSequence.Text = dr["AID_Sequence"].ToString();
-                        int seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"]);
+                        if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
+                        {
+                            seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
+                        }
+                        else
+                        {
+                            return;
+                        }
+
 
                         foreach (GridDataItem gdi in rgSeriesCat.Items)
                         {
@@ -1253,7 +1262,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList','action=viewIsssueList&type="+type + "&date="+date+"'');", true);
         }
 
-        private void SeriesAndCategoriesGridsVisiblity(int  issuerId, int issueId)
+        private void SeriesAndCategoriesGridsVisiblity(int issuerId, int issueId)
         {
             pnlSeries.Visible = true;
             pnlCategory.Visible = true;
@@ -1399,7 +1408,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-                issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, userVo.UserId);
+                issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
                 if (issueId > 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Issue added successfully.');", true);
@@ -1535,7 +1544,7 @@ namespace WealthERP.OnlineOrderBackOffice
             rgSeriesCategories1.DataSource = dtSeriesCategories;
         }
 
-        private void BindSeriesCategoryGrid(int  issuerId, int issueId, int seriesId, RadGrid rgSeriesCategories)
+        private void BindSeriesCategoryGrid(int issuerId, int issueId, int seriesId, RadGrid rgSeriesCategories)
         {
             try
             {
@@ -1607,7 +1616,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindSeriesGrid(int  issuerId, int issueId)
+        private void BindSeriesGrid(int issuerId, int issueId)
         {
             try
             {
@@ -1638,7 +1647,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindCategory(RadGrid rgCategory, int  issuerId, int issueId)
+        private void BindCategory(RadGrid rgCategory, int issuerId, int issueId)
         {
             try
             {
@@ -1768,7 +1777,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         //}
 
-        private void BindEligibleInvestorsGrid(int  issuerId, int issueId)
+        private void BindEligibleInvestorsGrid(int issuerId, int issueId)
         {
             try
             {
@@ -1799,7 +1808,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindSubCategoriesGrid(RadGrid rgSubCategory, int  issuerId, int issueId)
+        private void BindSubCategoriesGrid(RadGrid rgSubCategory, int issuerId, int issueId)
         {
             try
             {
@@ -1825,7 +1834,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
-        private void BindAllInvestorTypesForUpdatePopUpCategory(RadGrid rgSubCategory, int  issuerId, int issueId)
+        private void BindAllInvestorTypesForUpdatePopUpCategory(RadGrid rgSubCategory, int issuerId, int issueId)
         {
             try
             {
@@ -1920,6 +1929,7 @@ namespace WealthERP.OnlineOrderBackOffice
                        TextBox txtChequePayableTo, TextBox txtMinBidAmount, TextBox txtMaxBidAmount, RadGrid rgSubCategories)
         //, TextBox txtSubCategoryCode, TextBox txtMinInvestmentAmount, TextBox txtMaxInvestmentAmount, CheckBox cbSubCategories)
         {
+            int lookupId = 0;
             try
             {
                 DataTable dtCategory = new DataTable();
@@ -1933,7 +1943,18 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtChequePayableTo.Text = dr["AIIC_ChequePayableTo"].ToString();
                         txtMinBidAmount.Text = dr["AIIC_MInBidAmount"].ToString();
                         txtMaxBidAmount.Text = dr["AIIC_MaxBidAmount"].ToString();
-                        int lookupId = Convert.ToInt32(dr["WCMV_LookupId"].ToString());
+                          lookupId = Convert.ToInt32(dr["WCMV_LookupId"].ToString());
+
+                        if (!string.IsNullOrEmpty(dr["WCMV_LookupId"].ToString()))
+                        {
+                            lookupId = Convert.ToInt32(dr["WCMV_LookupId"].ToString());
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+
                         foreach (GridDataItem gdi in rgSubCategories.Items)
                         {
                             int grdLookupId = Convert.ToInt32(gdi["WCMV_LookupId"].Text);

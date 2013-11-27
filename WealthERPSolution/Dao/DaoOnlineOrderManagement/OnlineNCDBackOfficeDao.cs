@@ -195,7 +195,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSeriesCategories;
         }
         
-        public int CreateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int userID)
+        public int CreateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId)
         {
             int issueId;
             Database db;
@@ -238,7 +238,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@IsListedinBSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinBSE);
                 db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE);
                 db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);                
-                db.AddInParameter(createCmd, "@NSECode", DbType.String, onlineNCDBackOfficeVo.NSECode);  
+                db.AddInParameter(createCmd, "@NSECode", DbType.String, onlineNCDBackOfficeVo.NSECode);
+                db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);  
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {

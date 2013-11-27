@@ -62,8 +62,55 @@
         </td>
     </tr>
 </table>
-<%--<asp:UpdatePanel ID="UpdatePanel3" runat="server">
-    <ContentTemplate>--%>
+
+
+
+<%--<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
+    Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
+    Title="Add New Folio">
+    <ContentTemplate>
+        <div style="padding: 20px">
+            <table width="100%">
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lb1IssuerName" runat="server" Text="Issuer Name: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td>
+                     <asp:TextBox ID="txtIssuer" runat="server" CssClass="txtField"></asp:TextBox><br />
+                        <span id="Span21"></span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator33" ControlToValidate="txtIssuer" ErrorMessage="Please enter Issue name"
+                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                     
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Label ID="lb1IssuerCode" runat="server" Text="Issuer Code: " CssClass="FieldName"></asp:Label>
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
+                        <span id="spnNewFolioValidation"></span>
+                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtNewFolio" ErrorMessage="Please enter folio name"
+                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                        </asp:RequiredFieldValidator>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="leftField" style="width: 10%">
+                        <asp:Button ID="btnSubmitFolio" runat="server" Text="Submit" CssClass="PCGButton"
+                            OnClick="btnOk_Click" ValidationGroup="vgOK" />
+                    </td>
+                    <td class="rightField" style="width: 25%">
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
+                            OnClick="btnCancel_Click" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>--%>
+ 
 <table width="80%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
@@ -540,6 +587,7 @@
         </td>
     </tr>
 </table>
+
 <asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%">
     <table id="Table1" runat="server" width="80%">
         <tr>
@@ -1088,6 +1136,7 @@
         </tr>
     </table>
 </asp:Panel>
+
 <%--<asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%">
     <table id="Table1" runat="server" width="80%">
         <tr>
