@@ -340,7 +340,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnCreateFiles_Click(object sender, EventArgs e)
         {
+            ShowMessage("Extract file creation started...");
             AutoOrderExtract();
+            ShowMessage("Extract file creation completed");
         }
 
         protected void btnBulkDownload_Click(object sender, EventArgs e)
