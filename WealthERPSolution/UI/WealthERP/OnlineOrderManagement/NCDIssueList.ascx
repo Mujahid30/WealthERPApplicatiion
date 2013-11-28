@@ -210,7 +210,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_NatureOfBond" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="AIM_NatureOfBond"
-                                            SortExpression="NatureOfBond">
+                                            SortExpression="AIM_NatureOfBond">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                          <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="70px" HeaderText="Rating"
@@ -246,7 +246,7 @@
                                         </telerik:GridDateTimeColumn>
                                         <telerik:GridDateTimeColumn DataField="AIM_CloseDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                             HeaderStyle-Width="110px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
-                                            AutoPostBackOnFilter="true" HeaderText="End Date" UniqueName="CloseDate" SortExpression="CloseDate">
+                                            AutoPostBackOnFilter="true" HeaderText="End Date" UniqueName="AIM_CloseDate" SortExpression="AIM_CloseDate">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridDateTimeColumn>
                                         <telerik:GridBoundColumn DataField="IsDematFacilityAvail" HeaderStyle-Width="110px"

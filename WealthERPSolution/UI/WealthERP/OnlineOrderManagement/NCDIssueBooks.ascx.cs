@@ -267,6 +267,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
                 BindBBGV(customerVo.CustomerId);
+                ddlAction.Items.FindByText("Cancel").Attributes.Add("Disabled", "Disabled");
             }
         }
         protected void gvBBList_UpdateCommand(object source, GridCommandEventArgs e)

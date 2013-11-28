@@ -199,7 +199,7 @@
                     <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
                     </exportsettings>
                     <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AID_InMultiplesOf,AID_BidQty,AIM_MaxApplNo"
+                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_BestBidQuantity,AIM_MaxApplNo"
                         autogeneratecolumns="false" width="100%">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
@@ -294,14 +294,14 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_BidQty" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
+                            <telerik:GridBoundColumn DataField="AIM_BestBidQuantity" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AID_BidQty" Visible="true">
+                                UniqueName="AIM_BestBidQuantity" Visible="true" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_InMultiplesOf" HeaderStyle-Width="110px"
+                            <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
                                 HeaderText="Multiple allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                AutoPostBackOnFilter="true" UniqueName="AID_InMultiplesOf" Visible="true">
+                                AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -309,7 +309,11 @@
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
                                         Text='<%# Bind("COID_Quantity")%>' Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
-                                </ItemTemplate>
+                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
+                                  ValidationGroup="gvCommMgmt" ErrorMessage="<br />Please enter a Quantity"
+                                  Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                 </asp:RequiredFieldValidator>
+                                </ItemTemplate>                               
                                 <FooterTemplate>
                                     <asp:Label runat="server" ID="lblQuantity"></asp:Label>
                                 </FooterTemplate>
@@ -371,7 +375,7 @@
         <td id="tdupdate" runat="server" visible="false">
             <asp:Label ID="Label2" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdateOrder_Click"
-                CssClass="PCGButton" />
+                ValidationGroup="gvCommMgmt" CssClass="PCGButton" />
         </td>
     </tr>
 </table>
