@@ -341,7 +341,7 @@ namespace BoOnlineOrderManagement
                     seedFileName = "karvy";
                     break;
                 case "TN":
-                    seedFileName = "templeton";
+                    seedFileName = "frank";
                     break;
                 case "SU":
                     seedFileName = "sund";
@@ -1236,7 +1236,10 @@ namespace BoOnlineOrderManagement
                 if (dtAmcWithRta == null) dtAmcWithRta = boCommonLookup.GetAmcWithRta();
                 foreach (DataRow row in dtAmcWithRta.Rows)
                 {
-                    if (row["RTA"].ToString().Equals(RtaCode) == false) continue;
+                    //if (row["RTA"].ToString().Equals(RtaCode) == false) continue;
+                    string[] rtaList = row["RTA"].ToString().Split(',');
+
+                    if (rtaList.Contains(RtaCode) == false) continue;
                     AmcList.Add(new KeyValuePair<string, string>(row["PA_AMCCode"].ToString(), row["PA_AMCName"].ToString()));
                 }
             }
@@ -1366,26 +1369,21 @@ namespace BoOnlineOrderManagement
             KeyValuePair<string, string>[] RtaList = GetRTAList();
             KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
 
-            foreach (KeyValuePair<string, string> rta in RtaList)
-            {
+            foreach (KeyValuePair<string, string> rta in RtaList) {
                 KeyValuePair<string, string>[] AmcList = GetAMCList(rta.Key);
 
-                foreach (KeyValuePair<string, string> amc in AmcList)
-                {
-                    foreach (KeyValuePair<string, string> OrderType in OrderTypeList)
-                    {
+                foreach (KeyValuePair<string, string> amc in AmcList) {
+                    foreach (KeyValuePair<string, string> OrderType in OrderTypeList) {
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
-                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false)
-                        {
+                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false) {
                             Directory.CreateDirectory(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value);
                         }
 
                         string downloadFileName = GetFileName(OrderType.Key, amc.Key, orderExtractForRta.Rows.Count);
-                        if (rta.Key.Equals("CA"))
-                        {
+                        if (rta.Key.Equals("CA")) {
                             CreateTxtFile(orderExtractForRta, downloadFileName, rta.Key, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\");
                             continue;
                         }
