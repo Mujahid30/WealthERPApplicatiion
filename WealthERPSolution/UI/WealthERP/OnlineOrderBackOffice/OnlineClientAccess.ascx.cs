@@ -15,9 +15,6 @@ using VoUser;
 using VoOnlineOrderManagemnet;
 
 
-
-
-
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineClientAccess : System.Web.UI.UserControl
@@ -25,8 +22,6 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineOrderBackOfficeBo onlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();

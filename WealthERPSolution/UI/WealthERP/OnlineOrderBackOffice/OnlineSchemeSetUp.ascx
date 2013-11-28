@@ -5,7 +5,6 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 
-<script language="javascript" type="text/javascript">
     function openpopupSchemeSetUp() {
 
         var hdnSchemePlan = document.getElementById("<%=hdnSchemePlanCode.ClientID %>").value;
