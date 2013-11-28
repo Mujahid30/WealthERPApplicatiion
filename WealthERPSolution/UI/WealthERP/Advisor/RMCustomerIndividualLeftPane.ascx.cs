@@ -1607,6 +1607,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('IPOIssueList','none');", true);
                 }
+                else if (e.Item.Value == "IPOIssueBook")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('CustomerIPOOrderBook','none');", true);
+                }
              }
             catch (BaseApplicationException Ex)
             {

@@ -406,7 +406,9 @@
                                             <telerik:RadPanelItem runat="server" Text="Transact" Value="IPOIssueTransact">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Issue List" Value="IPOIssueList">
-                                                    </telerik:RadPanelItem>                                                   
+                                                    </telerik:RadPanelItem>    
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Issue Book" Value="IPOIssueBook">
+                                                    </telerik:RadPanelItem>                                                
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
