@@ -307,10 +307,10 @@
                                                 <tr>
                                                     <td colspan="100%">
                                                         <asp:Panel ID="pnlchild" runat="server" Style="display: inline" CssClass="Landscape"
-                                                            Width="100%" ScrollBars="Horizontal" Visible="false">
+                                                            Width="100%" ScrollBars="Both" Visible="false">
                                                             <%-- <div style="display: inline; position: relative; left: 25px;">--%>
                                                             <telerik:RadGrid ID="gvChildDetails" runat="server" AutoGenerateColumns="False" enableloadondemand="True"
-                                                                PageSize="10" AllowPaging="True" EnableEmbeddedSkins="False" GridLines="None"
+                                                                PageSize="10" AllowPaging="false" EnableEmbeddedSkins="False" GridLines="None"
                                                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                                                                 AllowFilteringByColumn="false" OnNeedDataSource="gvChildDetails_OnNeedDataSource">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,CO_OrderId,AID_IssueDetailId"
