@@ -43,7 +43,7 @@ namespace BoOnlineOrderManagement
             return dtIPOIssueList;
         }
 
-        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList,OnlineIPOOrderVo onlineIPOOrderVo)
+        public int CreateIPOBidOrderDetails(int adviserId, int userId, DataTable dtIPOBidList, OnlineIPOOrderVo onlineIPOOrderVo)
         {
             int orderId = 0;
             OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
@@ -70,6 +70,36 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return orderId;
+        }
+
+        public DataTable GetCustomerIPOIssueBook(int customerId)
+        {
+
+            DataTable dtCustomerIPOIssueBook;
+            OnlineIPOOrderDao onlineIPOOrderDao = new OnlineIPOOrderDao();
+
+            try
+            {
+                dtCustomerIPOIssueBook = onlineIPOOrderDao.GetCustomerIPOIssueBook(customerId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "BoOnlineOrderManagement.cs:GetCustomerIPOIssueBook(int customerId)");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtCustomerIPOIssueBook;
         }
 
     }
