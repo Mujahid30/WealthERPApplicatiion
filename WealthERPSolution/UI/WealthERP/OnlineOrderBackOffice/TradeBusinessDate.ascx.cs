@@ -279,7 +279,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 createcalanders.Visible = false;
               }
 
-           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Clander created!!');", true);
+           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calender created!!');", true);
             }
             catch (BaseApplicationException Ex)
             {
@@ -302,7 +302,7 @@ namespace WealthERP.OnlineOrderBackOffice
         void BindYearDropdown()
         {
             ddlyear.Items.Clear();
-            ddlyear.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Create New Business Calandar", "0"));
+            ddlyear.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Create New Business Calendar", "0"));
             //ddlyear.Items.Add("--SELECT--");
             int currYear = DateTime.Now.Year;
             for (int i = currYear; i < currYear + 5; i++)
