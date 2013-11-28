@@ -242,7 +242,7 @@
                                     UniqueName="CMFOD_DividendOption" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="DivedendFrequency" HeaderText="Divedend Frequency"
+                                <telerik:GridBoundColumn visible="false" DataField="DivedendFrequency" HeaderText="Divedend Frequency"
                                     AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="DivedendFrequency"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="DivedendFrequency" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
