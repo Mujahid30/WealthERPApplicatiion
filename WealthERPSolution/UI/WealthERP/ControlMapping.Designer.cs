@@ -1177,6 +1177,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderManagement//CustomerIPOOrderBook.ascx.
+        /// </summary>
+        internal static string CustomerIPOOrderBook {
+            get {
+                return ResourceManager.GetString("CustomerIPOOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer//CustomerISAFolioMapping.ascx.
         /// </summary>
         internal static string CustomerISAFolioMapping {

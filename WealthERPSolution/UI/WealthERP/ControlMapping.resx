@@ -1829,4 +1829,8 @@
     <value>OnlineOrderManagement//IPOIssueTransact.ascx</value>
     <comment>OnlineOrderManagement//IPOIssueTransact.ascx</comment>
   </data>
+  <data name="CustomerIPOOrderBook" xml:space="preserve">
+    <value>OnlineOrderManagement//CustomerIPOOrderBook.ascx</value>
+    <comment>OnlineOrderManagement//CustomerIPOOrderBook.ascx</comment>
+  </data>
 </root>
