@@ -32,5 +32,13 @@ namespace VoOnlineOrderManagemnet
         public string AgentCode { get; set; }
         public int PortfolioId { get; set; }
         public int IssuerId { get; set; }
+        public int IssueId { get; set; }
+        public bool IsOrderClosed { get; set; }
+        public bool IsOnlineOrder { get; set; }
+        public char OrderModificationType { get; set; }
+        public bool IsDeclarationAccepted { get; set; }
+        
+
+
     }
 }

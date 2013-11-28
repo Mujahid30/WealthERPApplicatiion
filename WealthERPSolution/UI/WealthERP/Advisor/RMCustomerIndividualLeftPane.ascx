@@ -75,7 +75,6 @@
                     <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <hr />
                 </td>
-                
             </tr>
         </table>
         <table style="valign: top; width: 100%;">
@@ -340,8 +339,8 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="MFOrder" Value="MFOrder">
                                         <Items>
-                                         <telerik:RadPanelItem runat="server" Text="MF Online Landing Page" Value="MF_Online_Landing_Page">
-                                                    </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="MF Online Landing Page" Value="MF_Online_Landing_Page">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transact" Value="Transact">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="NewPurchase" Value="NewPurchase">
@@ -360,9 +359,9 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Transaction Book" Value="TransactionBook">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">                                                     
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPBook">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
+                                                    <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIPSumBook" Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -396,6 +395,18 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="NCDHolding" Value="NCDHolding">
                                                     </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                </Items>
+                                <Items>
+                                    <telerik:RadPanelItem runat="server" Text="IPO Order" Value="IPOOrder">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Transact" Value="IPOIssueTransact">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Issue List" Value="IPOIssueList">
+                                                    </telerik:RadPanelItem>                                                   
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>

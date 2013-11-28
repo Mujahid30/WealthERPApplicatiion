@@ -33,22 +33,6 @@
 </script>
 
 <script type="text/javascript">
-    function DeleteConfirmation() {
-        var bool = window.confirm('Are you sure you want to delete this Question?');
-
-        if (bool) {
-            document.getElementById("ctrl_RiskScore_hdnDeletemsgValue").value = 1;
-            document.getElementById("ctrl_RiskScore_hiddenDeleteQuestion").click();
-
-            return false;
-        }
-        else {
-            return false;
-        }
-    }
-</script>
-
-<script type="text/javascript">
     function closeCustomConfirm() {
         $find("<%=rw_customConfirm.ClientID %>").close();
     }
@@ -109,8 +93,8 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
-                            OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            Width="300px" OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span7" class="spnRequiredField">*</span>

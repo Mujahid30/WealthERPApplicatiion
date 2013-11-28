@@ -1603,6 +1603,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MFOnlineUserLandingPage", "loadcontrol('MFOnlineUserLandingPage','none');", true);
                 }
+                else if (e.Item.Value == "IPOIssueList")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueHoldings", "loadcontrol('IPOIssueList','none');", true);
+                }
              }
             catch (BaseApplicationException Ex)
             {
