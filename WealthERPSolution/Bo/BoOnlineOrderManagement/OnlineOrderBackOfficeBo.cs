@@ -1672,6 +1672,20 @@ namespace BoOnlineOrderManagement
             dsGetAllTradeBussiness = daoOnlineOrderBackOffice.GetAllTradeBussiness(year,holiday);
             return dsGetAllTradeBussiness;
         }
+        public int YearCheck(int year)
+        {
+            int result = 0;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = OnlineOrderBackOfficeDao.YearCheck(year);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
     }
 
 }

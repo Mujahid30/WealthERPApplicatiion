@@ -1650,6 +1650,53 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetAllTradeBussiness;
         }
+        public int  YearCheck(int year)
+        {
+            Database db;
+            DataSet ds;
+            int result;
+            DbCommand cmdYearCheck;
+           int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdYearCheck = db.GetStoredProcCommand("SPROC_CheckYear");
+                db.AddInParameter(cmdYearCheck, "@year", DbType.Int32, year);
+                db.AddOutParameter(cmdYearCheck, "@count", DbType.Int32, 0);
 
+                ds = db.ExecuteDataSet(cmdYearCheck);
+                if (db.ExecuteNonQuery(cmdYearCheck) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdYearCheck, "count").ToString());
+                }
+               // count = db.GetParameterValue(cmdYearCheck,"@count")
+                //Object objCount = db.GetParameterValue(cmdYearCheck, "@count");
+                //if (objCount != DBNull.Value)
+                //    count = int.Parse(db.GetParameterValue(cmdYearCheck, "@count").ToString());
+                //else
+                //    count = 0;
+                //if (count > 0)
+                //    result = 1;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CodeduplicateChack()");
+                object[] objects = new object[2];
+                objects[0] = year;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return count ;
+        }
     }
 }

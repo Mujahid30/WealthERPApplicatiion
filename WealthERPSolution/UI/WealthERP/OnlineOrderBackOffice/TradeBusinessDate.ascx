@@ -194,7 +194,7 @@
                 OnClick="Btnmarkholiday_Onclick" ValidationGroup="Btnmarkholiday" />
         </td>
             <td>
-            <asp:Button ID="Btncreatecalander" Text="Create New Calander Entry" runat="server" CssClass="PCGLongButton"
+            <asp:Button ID="Btncreatecalander" Text="Create New Calender Entry" runat="server" CssClass="PCGLongButton"
                 OnClick="Btncreatecalander_OnClick" ValidationGroup="Btncreatecal" />
         </td>
         
@@ -204,8 +204,8 @@
             <asp:Label ID="lb1Type" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlyear" runat="server" CssClass="cmbField" ValidationGroup="Btncreatecal">
-                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+            <asp:DropDownList ID="ddlyear" runat="server" CssClass="cmbLongField" ValidationGroup="Btncreatecal" Width="215px">
+                <asp:ListItem Selected="True" Value="0">Create New Business Calandar</asp:ListItem>
                 <asp:ListItem>2013</asp:ListItem>
                 <asp:ListItem>2014</asp:ListItem>
             </asp:DropDownList>
