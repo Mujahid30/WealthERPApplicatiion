@@ -57,6 +57,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
                 Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
+                //gvTradeBusinessDate.Rebind();
             }
             catch (BaseApplicationException Ex)
             {
@@ -151,7 +152,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TradeBusinessDateVo.IsTradeBusinessDateHoliday = holiday;
                 TradeBusinessDateVo.IsTradeBusinessDateWeekend = weekend;
                 result = OnlineOrderBackOfficeBo.CreateTradeBusinessDate(TradeBusinessDateVo);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calander Created!!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calender Created!!');", true);
             }
 
             catch (BaseApplicationException Ex)
@@ -302,7 +303,7 @@ namespace WealthERP.OnlineOrderBackOffice
         void BindYearDropdown()
         {
             ddlyear.Items.Clear();
-            ddlyear.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Create New Business Calendar", "0"));
+            ddlyear.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Create New Business Calender", "0"));
             //ddlyear.Items.Add("--SELECT--");
             int currYear = DateTime.Now.Year;
             for (int i = currYear; i < currYear + 5; i++)

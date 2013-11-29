@@ -223,8 +223,8 @@
     </tr>
 </table>
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
-    Width="300px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
-    Title="Add Holidays">
+    Width="350px" Modal="true" BackColor="#4B4726" VisibleStatusbar="false" Behaviors="None"
+    Title="Add Holidays" Left="200" Top="200">
     <ContentTemplate>
         <table>
             <tr>
@@ -244,7 +244,7 @@
                 </td>
                 <td>
                     <asp:Button ID="Butncancle" runat="server" Text="Cancel" OnClick="btnCancel_Click"
-                        CssClass="PCGLongButton" />
+                        CssClass="PCGButton" />
                 </td>
             </tr>
         </table>

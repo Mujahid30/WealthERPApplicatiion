@@ -531,7 +531,7 @@
             &nbsp;
         </td>
         <td class="rightData">
-            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="cmbField" Text="Is Active">
+            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Is Active">
             </asp:CheckBox>
         </td>
         <td class="leftLabel">
@@ -549,7 +549,7 @@
             &nbsp;
         </td>
         <td class="rightData">
-            <asp:CheckBox ID="chkNomineeReQuired" runat="server" CssClass="cmbField" Text="Nominee Required">
+            <asp:CheckBox ID="chkNomineeReQuired" runat="server" CssClass="txtField" Text="Nominee Required">
             </asp:CheckBox>
         </td>
         <td class="leftLabel" colspan="3">
