@@ -167,9 +167,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 string message = string.Empty;
                 int rowno = 0;
-                int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
+                int minQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
+                int maxQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MaxQty"].ToString());
                 int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_TradingInMultipleOf"].ToString());
-                Regex re = new Regex(@"[@\\*+#^\\.\$]+-?");
+                Regex re = new Regex(@"[@\\*+#^\\.\$\-?]+");
                 if (re.IsMatch(txtQuantity.Text))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter only Valid Numbers & in multiples of 1')", true);
@@ -227,11 +228,11 @@ namespace WealthERP.OnlineOrderManagement
                                     //Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                                     lblSum.Text = sum.ToString();
                                 }
-                            if (Quantity > PFISD_BidQty)
+                            if (Quantity < minQty || Quantity > maxQty)
                             {
-                                message = "Order cannot be processed.Quantity should not be greater than Bid Quantity";
-                               // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should not be less than the Minimum BID Qty')+'?PFISD_BidQty=" + PFISD_BidQty + "'", true);
-                                ShowMessage(message);
+                               // message = "Order cannot be processed.Quantity should be within valid  range";
+                               ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Quantity should be within valid  range')", true);
+                               // ShowMessage(message);
                                 txtsumQuantity.Text = "";
                                 txtsumAmount.Text = "";
                                 lblQty.Text = "";
@@ -247,12 +248,6 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        protected void calculate()
-        {
-           
-        
-        }
-
         private string CreateUserMessage(int orderId, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
@@ -317,7 +312,7 @@ namespace WealthERP.OnlineOrderManagement
             Button Button = (Button)sender;
             int MaxAppNo = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[0]["AIM_MaxApplNo"].ToString());
             DataTable dt = new DataTable();
-
+            bool isValid = false;
             //Need to be collect from Session...
             dt.Columns.Add("CustomerId");
             dt.Columns.Add("AID_IssueDetailId");
@@ -333,19 +328,19 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
                 OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
-               
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
                 {
                     if (!string.IsNullOrEmpty(txtQuantity.Text))
                     {
+                        isValid = true;
                         OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);
                         TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Amount"].FindControl("txtAmount");
-                        OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);                       
+                        OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
                         dt.Rows.Add();
                         dt.Rows[tableRow]["CustomerId"] = OnlineBondVo.CustomerId;
                         dt.Rows[tableRow]["AID_IssueDetailId"] = OnlineBondVo.PFISD_SeriesId;
-                        dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;                       
+                        dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                     }
@@ -355,33 +350,28 @@ namespace WealthERP.OnlineOrderManagement
                     rowNo++;
                 else
                     break;
-
-                if (!string.IsNullOrEmpty(txtQuantity.Text))
+            }            
+                int OrderIds;
+                if (isValid)
                 {
-                    int OrderIds;
                     OrderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
                     ViewState["OrderId"] = OrderIds;
                     CreateNCDOrder();
                 }
-                else
+                else 
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Please Enter Quantity');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Quantity')", true);
                 }
-            }
            
-            //int OrderIds;
-            //OrderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
-            //ViewState["OrderId"] = OrderIds;
-            //CreateNCDOrder();
-            // Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Placed Successfully');", true);
+            //else
+            //{
+            //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Placed Successfully');", true);
+            //}
             // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order Placed Successfully')", true);
             //  ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','?customerId=" + customerVo.CustomerId + "');", true);
             // }
         }
-        //protected Dictionary<string, double> CalculateFooterTotal()
-      
-        // }
-        protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
+       protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
             //double sum = 0;
             //if (e.Item is GridDataItem)
@@ -422,8 +412,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 gvCommMgmt.DataSource = dsStructureRules.Tables[0];
                 gvCommMgmt.DataBind();
-                pnlNCDTransactact.Visible = true;
-              //  ibtExportSummary.Visible = true;
+                pnlNCDTransactact.Visible = true;             
                 trSubmit.Visible = true;
                 foreach (GridDataItem gdi in gvCommMgmt.MasterTableView.Items)
                 {
@@ -444,11 +433,9 @@ namespace WealthERP.OnlineOrderManagement
                 //sum = Convert.ToInt32(ViewState["sum"]); 
                 //lblSum.Text = sum.ToString();
 
-
             }
             else
             {
-              //  ibtExportSummary.Visible = false;
                 gvCommMgmt.DataSource = dsStructureRules.Tables[0];
                 gvCommMgmt.DataBind();
                 pnlNCDTransactact.Visible = true;
@@ -458,8 +445,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void Editdetails(int IssuerId)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetNCDAllTransactOrder(orderId, IssuerId);
-            //int ronum = 0;
+            DataSet dsStructureRules = OnlineBondBo.GetNCDAllTransactOrder(orderId, IssuerId);            
             if (dsStructureRules.Tables[0].Rows.Count > 0)
             {
                 gvCommMgmt.DataSource = dsStructureRules.Tables[0];
@@ -467,7 +453,7 @@ namespace WealthERP.OnlineOrderManagement
                 pnlNCDTransactact.Visible = true;
                 ibtExportSummary.Visible = true;
                 trSubmit.Visible = true;
-               
+              
             }
             else
             {
@@ -485,7 +471,6 @@ namespace WealthERP.OnlineOrderManagement
             {
                 lblAvailableLimits.Text = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId).ToString();
             }
-
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -495,7 +480,6 @@ namespace WealthERP.OnlineOrderManagement
             {
                 gvCommMgmt.DataSource = dtIssueDetail;
             }
-
         }
         protected void btnUpdateOrder_Click(object sender, EventArgs e)
         {

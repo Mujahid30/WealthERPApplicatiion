@@ -12,7 +12,19 @@
             return false;
         }
         return true;
-
+function ValidateTextValue()
+{
+//get target base & child control.
+var TargetBaseControl = document.getElementById('<%=this.gvCommMgmt.ClientID%>');
+var TargetChildControl1 = "txtQuantity";
+//get all the control of the type INPUT in the base control.
+var Inputs = TargetBaseControl.getElementsByTagName("input");
+for(var n = 0; n < Inputs.length; ++n)
+   if(Inputs[n].type == 'text' && Inputs[n].id.indexOf(TargetChildControl1,0) >= 0)
+      if(Inputs[n].value!="") return true;
+ alert('Enter some value in textbox!');
+ return false;
+}   
 </script>
 
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
@@ -194,13 +206,13 @@
                     AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                     AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                    <headercontextmenu enableembeddedskins="False">
-                    </headercontextmenu>
-                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
-                    </exportsettings>
-                    <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxApplNo"
-                        autogeneratecolumns="false" width="100%">
+                    <HeaderContextMenu EnableEmbeddedSkins="False">
+                    </HeaderContextMenu>
+                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
+                    </ExportSettings>
+                    <PagerStyle AlwaysVisible="True" />
+                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo"
+                        AutoGenerateColumns="false" Width="100%">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
                             <%--<telerik:GridBoundColumn visible="false" DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
@@ -223,14 +235,14 @@
                                 HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerId" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Id" UniqueName="PI_IssuerId"
-                                SortExpression="PI_IssuerId">
+                            <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerId" HeaderStyle-Width="70px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Issuer Id" UniqueName="PI_IssuerId" SortExpression="PI_IssuerId">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                             <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer" UniqueName="PI_IssuerCode"
-                                SortExpression="PI_IssuerCode">
+                            <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Issuer" UniqueName="PI_IssuerCode" SortExpression="PI_IssuerCode">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_IssueDetailId" HeaderStyle-Width="60px"
@@ -284,9 +296,9 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_YieldatBuyBack">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="AID_CallOption" HeaderStyle-Width="80px" HeaderText="Call Option"
-                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AID_CallOption">
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_CallOption" HeaderStyle-Width="80px"
+                                HeaderText="Call Option" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="AID_CallOption">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_BuyBackFacility" HeaderStyle-Width="120px"
@@ -299,6 +311,11 @@
                                 UniqueName="AIM_MInQty" Visible="true" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn Visible="false" DataField="AIM_MaxQty" HeaderStyle-Width="140px"
+                                HeaderText="Max Quantity" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                AutoPostBackOnFilter="true" UniqueName="AIM_MaxQty" DataFormatString="{0:N0}">
+                                <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
                                 HeaderText="Multiple allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true">
@@ -309,11 +326,13 @@
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
                                         Text='<%# Bind("COID_Quantity")%>' Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
-                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
-                                  ValidationGroup="gvCommMgmt" ErrorMessage="<br />Please enter a Quantity"
-                                  Display="Dynamic" runat="server" CssClass="rfvPCG">
-                                 </asp:RequiredFieldValidator>
-                                </ItemTemplate>                               
+                                  <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="*Required"
+                                        ClientValidationFunction="ValidateTextValue(this)"></asp:CustomValidator>--%>
+                                  <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
+                                        ValidationGroup="gvCommMgmt" ErrorMessage="<br />Please enter a Quantity" Display="Dynamic"
+                                        runat="server" CssClass="rfvPCG">
+                                    </asp:RequiredFieldValidator>--%>
+                                </ItemTemplate>
                                 <FooterTemplate>
                                     <asp:Label runat="server" ID="lblQuantity"></asp:Label>
                                 </FooterTemplate>
@@ -347,13 +366,13 @@
                             </EditColumn>
                         </EditFormSettings>
                         <PagerStyle AlwaysVisible="True" />
-                    </mastertableview>
-                    <clientsettings>
+                    </MasterTableView>
+                    <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         <Resizing AllowColumnResize="true" />
-                    </clientsettings>
-                    <filtermenu enableembeddedskins="False">
-                    </filtermenu>
+                    </ClientSettings>
+                    <FilterMenu EnableEmbeddedSkins="False">
+                    </FilterMenu>
                 </telerik:RadGrid>
             </td>
         </tr>
@@ -370,12 +389,12 @@
         <td id="tdsubmit" runat="server">
             <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
-                CssClass="PCGButton" />
+                CssClass="PCGButton"/>
         </td>
         <td id="tdupdate" runat="server" visible="false">
             <asp:Label ID="Label2" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdateOrder_Click"
-                ValidationGroup="gvCommMgmt" CssClass="PCGButton" />
+                CssClass="PCGButton" />
         </td>
     </tr>
 </table>

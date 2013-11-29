@@ -327,57 +327,57 @@
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBTenure" SortExpression="BBTenure" AutoPostBackOnFilter="true"
-                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false" 
                                                                             HeaderText="Tenure (Months)" UniqueName="BBTenure" HeaderStyle-Width="77px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBCouponrate" SortExpression="BBCouponrate" AutoPostBackOnFilter="true"
-                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false" 
                                                                             HeaderText="Coupon rate(%)" UniqueName="BBCouponrate" HeaderStyle-Width="55px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="true" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="BBInterestPaymentFreq" AllowFiltering="false"
+                                                                        <telerik:GridBoundColumn DataField="BBInterestPaymentFreq" AllowFiltering="false" SortExpression="BBInterestPaymentFreq"
                                                                             HeaderText="Interest Payment Freq" UniqueName="BBInterestPaymentFreq" HeaderStyle-Width="65px">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBRenewedcouponrate" AllowFiltering="false" HeaderText="Renewed coupon rate(%)"
-                                                                            UniqueName="BBRenewedcouponrate" HeaderStyle-Width="81px">
+                                                                            UniqueName="BBRenewedcouponrate" HeaderStyle-Width="81px" SortExpression="BBRenewedcouponrate">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBFacevalue" AllowFiltering="false" HeaderText="Face value"
-                                                                            UniqueName="BBFacevalue" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBFacevalue" HeaderStyle-Width="77px" SortExpression="BBFacevalue">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBYieldatCall" AllowFiltering="false" HeaderText="Yield at Call(%)"
-                                                                            UniqueName="BBYieldatCall" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBYieldatCall" HeaderStyle-Width="77px" SortExpression="BBYieldatCall">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBYieldatMaturity" AllowFiltering="false" HeaderText="Yield at Maturity(%)"
-                                                                            UniqueName="BBYieldatMaturity" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBYieldatMaturity" HeaderStyle-Width="77px" SortExpression="BBYieldatMaturity">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBYieldatbuyback" AllowFiltering="false" HeaderText="Yield at buyback(%)"
-                                                                            UniqueName="BBYieldatbuyback" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBYieldatbuyback" HeaderStyle-Width="77px" SortExpression="BBYieldatbuyback">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBLockinPeriod" AllowFiltering="false" HeaderText="Lockin Period"
-                                                                            UniqueName="BBLockinPeriod" HeaderStyle-Width="77px" DataFormatString="{0:N0}">
+                                                                            UniqueName="BBLockinPeriod" HeaderStyle-Width="77px" DataFormatString="{0:N0}" SortExpression="BBLockinPeriod">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBCallOption" AllowFiltering="false" HeaderText="Call Option"
-                                                                            UniqueName="BBCallOption" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBCallOption" HeaderStyle-Width="77px" SortExpression="BBCallOption">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBBuybackfacility" AllowFiltering="false" HeaderText="Buyback facility"
-                                                                            UniqueName="BBBuybackfacility" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBBuybackfacility" HeaderStyle-Width="77px" SortExpression="BBBuybackfacility">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBQtytoinvest" AllowFiltering="false" HeaderText="Qty to invest"
-                                                                            UniqueName="BBQtytoinvest" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBQtytoinvest" HeaderStyle-Width="77px" SortExpression="BBQtytoinvest">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBAmounttoinvest" AllowFiltering="false" HeaderText="Amount to invest"
-                                                                            UniqueName="BBAmounttoinvest" HeaderStyle-Width="77px">
+                                                                            UniqueName="BBAmounttoinvest" HeaderStyle-Width="77px" SortExpression="BBAmounttoinvest">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="Channel" AllowFiltering="true" HeaderText="Channel"
