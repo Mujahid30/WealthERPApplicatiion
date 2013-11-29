@@ -1065,7 +1065,7 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "NCD_Extract")
                 {
                     Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDExtract','login');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueExtract','login');", true);
                 }
                 else if (e.Item.Value == "File_Extraction")
                 {

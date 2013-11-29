@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDExtract.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineIssueExtract.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineNCDExtract" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>

@@ -2428,11 +2428,11 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnlineOrderBackOffice/OnlineNCDExtract.ascx.
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineIssueExtract.ascx.
         /// </summary>
-        internal static string OnlineNCDExtract {
+        internal static string OnlineIssueExtract {
             get {
-                return ResourceManager.GetString("OnlineNCDExtract", resourceCulture);
+                return ResourceManager.GetString("OnlineIssueExtract", resourceCulture);
             }
         }
         
