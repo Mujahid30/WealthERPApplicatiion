@@ -148,6 +148,10 @@
     }
 </script>
 
+<style type="text/css">
+    success-msg
+    {
+        z-index: -1; !important;}</style>
 <%--<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
@@ -194,6 +198,8 @@
             <div id="msgUploadComplete" runat="server" class="success-msg" align="center" visible="false">
                 Uploading successfully Completed
             </div>
+            <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new upload"
+                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>
         </td>
     </tr>
 </table>
@@ -261,7 +267,6 @@
                 <asp:ListItem Value="MFSS">Systematic</asp:ListItem>
                 <asp:ListItem Value="TRAIL">Trail Commission</asp:ListItem>
                 <asp:ListItem Value="Link">Fixed Income</asp:ListItem>
-               
                 <asp:ListItem Value="P">Profile Only</asp:ListItem>
             </asp:DropDownList>
             <img src="../Images/help.png" class="ScreenTip1" style="height: 15px; width: 15px;" />
@@ -489,7 +494,7 @@
             <asp:Button class="ExportButton" ID="btnExportExcel" runat="server" Style="display: none"
                 OnClick="btnExportExcel_Click" CausesValidation="false" Height="31px" Width="35px" />
         </td>
-    </tr>  
+    </tr>
 </table>
 <div id="divInputErrorList" runat="server" visible="false">
     <table class="TableBackground" style="width: 100%;">
@@ -714,7 +719,7 @@
             </td>
         </tr>
         <tr>
-       <%-- <td><asp:Label ID="lblUploadProcessId" runat="server"></asp:Label></td>
+            <%-- <td><asp:Label ID="lblUploadProcessId" runat="server"></asp:Label></td>
          <td><asp:Label ID="lblpackagePath" runat="server"></asp:Label></td>
           <td><asp:Label ID="lblfileName" runat="server"></asp:Label></td>
            <td><asp:Label ID="lblconfigPath" runat="server"></asp:Label></td>--%>

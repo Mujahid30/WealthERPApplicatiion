@@ -152,7 +152,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TradeBusinessDateVo.IsTradeBusinessDateHoliday = holiday;
                 TradeBusinessDateVo.IsTradeBusinessDateWeekend = weekend;
                 result = OnlineOrderBackOfficeBo.CreateTradeBusinessDate(TradeBusinessDateVo);
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calender Created!!');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calendar Created!!');", true);
             }
 
             catch (BaseApplicationException Ex)
@@ -270,7 +270,7 @@ namespace WealthERP.OnlineOrderBackOffice
            if(count>0)
             {
                 
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Clander allready Exist !!');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calendar allready Exist !!');", true);
              }
              else
               {
@@ -280,7 +280,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 createcalanders.Visible = false;
               }
 
-           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calender created!!');", true);
+           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calendar created!!');", true);
             }
             catch (BaseApplicationException Ex)
             {
@@ -303,7 +303,7 @@ namespace WealthERP.OnlineOrderBackOffice
         void BindYearDropdown()
         {
             ddlyear.Items.Clear();
-            ddlyear.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Create New Business Calender", "0"));
+            ddlyear.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Create New Business Calendar", "0"));
             //ddlyear.Items.Add("--SELECT--");
             int currYear = DateTime.Now.Year;
             for (int i = currYear; i < currYear + 5; i++)
@@ -317,13 +317,30 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void Btnmarkholiday_Onclick(object sender, EventArgs e)
         {
+            int i = 0;
+
+            foreach (GridDataItem gvr in gvTradeBusinessDate.Items)
+            {
+                if (((CheckBox)gvr.FindControl("CheckBox")).Checked == true)
+                {
+                    i = i + 1;
+                }
+            }
+
+            if (i == 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select date!');", true);
+            }
             //    TradeBusinessDateVo TradeBusinessDateVo = new TradeBusinessDateVo();
             //    markholiday();
             //    string[] strDates = strdt.Split();
             //    strdt = strDates[0];
 
             //    OnlineOrderBackOfficeBo.MakeTradeToHoliday(Convert.ToDateTime(strdt), datesToBeUpdated);
-            radwindowPopup.VisibleOnPageLoad = true;
+            else
+            {
+                radwindowPopup.VisibleOnPageLoad = true;
+            }
         }
 
         public void setExecutionDate(DateTime strDate)

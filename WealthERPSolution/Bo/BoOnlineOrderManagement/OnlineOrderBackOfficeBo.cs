@@ -1517,6 +1517,7 @@ namespace BoOnlineOrderManagement
                     }
                     else if (drClientDematJointList.Count() > 1)
                     {
+                        //drFinalClientKYC["Holding"] = drClientDematJointList[0]["Holdings"]; 
                         drFinalClientKYC["SecondHolder"] = drClientDematJointList[0]["JointName"];
                         drFinalClientKYC["SecondHolderPAN"] = drClientDematJointList[0]["JointPAN"];
                         drFinalClientKYC["SecondHolderKYC"] = drClientDematJointList[0]["JointKYC"];

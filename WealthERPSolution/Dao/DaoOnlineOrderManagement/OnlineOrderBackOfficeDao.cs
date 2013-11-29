@@ -1654,7 +1654,6 @@ namespace DaoOnlineOrderManagement
         {
             Database db;
             DataSet ds;
-            int result;
             DbCommand cmdYearCheck;
            int count = 0;
             try
@@ -1694,7 +1693,6 @@ namespace DaoOnlineOrderManagement
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
-
             }
             return count ;
         }

@@ -193,33 +193,31 @@
             <asp:Button ID="Btnmarkholiday" Text="Mark as holiday" runat="server" CssClass="PCGLongButton"
                 OnClick="Btnmarkholiday_Onclick" ValidationGroup="Btnmarkholiday" />
         </td>
-            <td>
-            <asp:Button ID="Btncreatecalander" Text="Create New Calender Entry" runat="server" CssClass="PCGLongButton"
-                OnClick="Btncreatecalander_OnClick" ValidationGroup="Btncreatecal" />
+        <td>
+            <asp:Button ID="Btncreatecalander" Text="Create New calendar Entry" runat="server"
+                CssClass="PCGLongButton" OnClick="Btncreatecalander_OnClick" ValidationGroup="Btncreatecal" />
         </td>
-        
-   
-    <td id="createcalanders" runat="server">
-        <td class="leftLabel">
-            <asp:Label ID="lb1Type" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
+        <td id="createcalanders" runat="server">
+            <td class="leftLabel">
+                <asp:Label ID="lb1Type" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightData">
+                <asp:DropDownList ID="ddlyear" runat="server" CssClass="cmbLongField" ValidationGroup="Btncreatecal"
+                    Width="215px">
+                    <asp:ListItem Selected="True" Value="0">Create New Business Calendar</asp:ListItem>
+                    <asp:ListItem>2013</asp:ListItem>
+                    <asp:ListItem>2014</asp:ListItem>
+                </asp:DropDownList>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
+                    ErrorMessage="Please Select year" Display="Dynamic" ControlToValidate="ddlyear"
+                    ValidationGroup="Btncreatecal" InitialValue="0">Please Select year
+                </asp:RequiredFieldValidator>
+            </td>
+            <td align="right">
+                <asp:Button ID="Btncreatecal" Text="GO" runat="server" CssClass="PCGLongButton" OnClick="Btncreatecal_OnClick"
+                    ValidationGroup="Btncreatecal" />
+            </td>
         </td>
-        <td class="rightData">
-            <asp:DropDownList ID="ddlyear" runat="server" CssClass="cmbLongField" ValidationGroup="Btncreatecal" Width="215px">
-                <asp:ListItem Selected="True" Value="0">Create New Business Calandar</asp:ListItem>
-                <asp:ListItem>2013</asp:ListItem>
-                <asp:ListItem>2014</asp:ListItem>
-            </asp:DropDownList>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Select year" Display="Dynamic" ControlToValidate="ddlyear"
-                ValidationGroup="Btncreatecal" InitialValue="0">Please Select year
-            </asp:RequiredFieldValidator>
-        </td>
-        <td align="right">
-            <asp:Button ID="Btncreatecal" Text="GO" runat="server" CssClass="PCGLongButton" OnClick="Btncreatecal_OnClick"
-                ValidationGroup="Btncreatecal" />
-        </td>
-    
-    </td>
     </tr>
 </table>
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
@@ -235,12 +233,16 @@
             <tr>
                 <td>
                     <asp:TextBox ID="Texcmt" runat="server"></asp:TextBox>
+                    <span id="Span4" class="spnRequiredField">*</span>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="Texcmt"
+                        ErrorMessage="<br />Please Enter holiday name" Display="Dynamic" runat="server"
+                        CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td>
                     <asp:Button ID="Btnmarkholid" runat="server" Text="Mark as Holiday" OnClick="btnOk_Click"
-                        CssClass="PCGLongButton" />
+                        CssClass="PCGLongButton" ValidationGroup="Submit"/>
                 </td>
                 <td>
                     <asp:Button ID="Butncancle" runat="server" Text="Cancel" OnClick="btnCancel_Click"

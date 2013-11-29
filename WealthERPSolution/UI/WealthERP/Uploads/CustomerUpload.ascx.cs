@@ -530,6 +530,7 @@ namespace WealthERP.Uploads
                             if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                             {
                                 msgUploadComplete.Visible = true;
+                                lnkClick.Visible = true;
                             }
 
                         }
@@ -660,6 +661,7 @@ namespace WealthERP.Uploads
                             if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                             {
                                 msgUploadComplete.Visible = true;
+                                lnkClick.Visible = false;
                             }
                         }
                         #endregion Standard Profile Upload
@@ -3938,6 +3940,7 @@ namespace WealthERP.Uploads
                                     if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                                     {
                                         msgUploadComplete.Visible = true;
+                                        lnkClick.Visible = false;
                                     }
                                 }
                                 #endregion Standard Equity Transaction Upload
@@ -4076,6 +4079,8 @@ namespace WealthERP.Uploads
                                     if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                                     {
                                         msgUploadComplete.Visible = true;
+                                        lnkClick.Visible = false;
+
                                     }
 
                                 }
@@ -4491,6 +4496,7 @@ namespace WealthERP.Uploads
                 if (XMLProgress == "Done" && XtrnlInsertionProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done" && XtrnlInsertionProgress == "Done")
                 {
                     msgUploadComplete.Visible = true;
+                    lnkClick.Visible = false;
                 }
             }
         }
@@ -8637,12 +8643,21 @@ namespace WealthERP.Uploads
         protected void btnDownloadSIPPainFile_Click(object sender, EventArgs e)
         {
 
-
+            
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
 
+        }
+        //protected void clickhere_onclick(object sender, EventArgs e)
+        //{
+        //   Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerUpload','none');", true);
+        //}
+
+        protected void lnkClick_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('CustomerUpload','none');", true);
         }
     }
 }
