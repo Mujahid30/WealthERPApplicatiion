@@ -167,9 +167,9 @@ namespace WealthERP.OnlineOrderManagement
             {
                 string message = string.Empty;
                 int rowno = 0;
-                int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_BestBidQuantity"].ToString());
+                int PFISD_BidQty = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
                 int PFISD_InMultiplesOf = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_TradingInMultipleOf"].ToString());
-                Regex re = new Regex(@"[@\\*+#^\\.\$]+");
+                Regex re = new Regex(@"[@\\*+#^\\.\$]+-?");
                 if (re.IsMatch(txtQuantity.Text))
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter only Valid Numbers & in multiples of 1')", true);

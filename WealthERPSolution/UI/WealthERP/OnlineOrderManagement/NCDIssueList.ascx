@@ -218,9 +218,9 @@
                                             UniqueName="AIM_Rating" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                          <telerik:GridBoundColumn DataField="AIM_BestBidQuantity" HeaderStyle-Width="120px" HeaderText="Minimum Qty"
+                                          <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Minimum Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" DataFormatString="{0:N0}"
-                                            UniqueName="AIM_BestBidQuantity" Visible="true">
+                                            UniqueName="AIM_MInQty" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
@@ -364,9 +364,9 @@
                                                                             AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AIM_BestBidQuantity" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
+                                                                        <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            UniqueName="AIM_BestBidQuantity" Visible="true" DataFormatString="{0:N0}">
+                                                                            UniqueName="AIM_MInQty" Visible="true" DataFormatString="{0:N0}">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"

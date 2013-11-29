@@ -199,7 +199,7 @@
                     <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
                     </exportsettings>
                     <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_BestBidQuantity,AIM_MaxApplNo"
+                    <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxApplNo"
                         autogeneratecolumns="false" width="100%">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
@@ -294,9 +294,9 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_BuyBackFacility">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIM_BestBidQuantity" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
+                            <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="140px" HeaderText="Minimum Quantity"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AIM_BestBidQuantity" Visible="true" DataFormatString="{0:N0}">
+                                UniqueName="AIM_MInQty" Visible="true" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
