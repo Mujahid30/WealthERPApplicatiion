@@ -2675,6 +2675,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx.designer.cs">
       <DependentUpon>OnlineAdviserCustomerSIPOrderBook.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx.cs">
+      <DependentUpon>OnlineAdviserNCDOrderBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserNCDOrderBook.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx.cs">
       <DependentUpon>OnlineAdviserSIPSummaryBooks.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7718,6 +7725,7 @@
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineClientAccess.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineIssueExtract.ascx" />
