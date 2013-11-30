@@ -387,7 +387,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD Books" Value="NCDBooks">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Book" Value="NCDOrderBook">
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCDOrderBook">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

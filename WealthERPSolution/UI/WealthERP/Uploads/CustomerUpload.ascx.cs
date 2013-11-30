@@ -661,7 +661,7 @@ namespace WealthERP.Uploads
                             if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                             {
                                 msgUploadComplete.Visible = true;
-                                lnkClick.Visible = false;
+                                lnkClick.Visible = true;
                             }
                         }
                         #endregion Standard Profile Upload
@@ -3940,7 +3940,7 @@ namespace WealthERP.Uploads
                                     if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                                     {
                                         msgUploadComplete.Visible = true;
-                                        lnkClick.Visible = false;
+                                        lnkClick.Visible = true;
                                     }
                                 }
                                 #endregion Standard Equity Transaction Upload
@@ -4079,7 +4079,7 @@ namespace WealthERP.Uploads
                                     if (XMLProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done")
                                     {
                                         msgUploadComplete.Visible = true;
-                                        lnkClick.Visible = false;
+                                        lnkClick.Visible = true;
 
                                     }
 
@@ -4496,7 +4496,7 @@ namespace WealthERP.Uploads
                 if (XMLProgress == "Done" && XtrnlInsertionProgress == "Done" && InputInsertionProgress == "Done" && FirstStagingInsertionProgress == "Done" && SecondStagingInsertionProgress == "Done" && WERPInsertionProgress == "Done" && XtrnlInsertionProgress == "Done")
                 {
                     msgUploadComplete.Visible = true;
-                    lnkClick.Visible = false;
+                    lnkClick.Visible = true;
                 }
             }
         }

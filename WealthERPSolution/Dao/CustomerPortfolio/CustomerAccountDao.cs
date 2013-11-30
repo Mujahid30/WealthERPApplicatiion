@@ -405,6 +405,8 @@ namespace DaoCustomerPortfolio
                 createCustomerMFAccountCmd = db.GetStoredProcCommand("SP_CreateCustomerMFAccount");
                 db.AddInParameter(createCustomerMFAccountCmd, "@CP_PortfolioId", DbType.Int32, customerAccountVo.PortfolioId);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_FolioNum", DbType.String, customerAccountVo.AccountNum);
+                db.AddInParameter(createCustomerMFAccountCmd, "@WCMV_LookupId_BankId", DbType.Int32, customerAccountVo.BankId);
+                db.AddInParameter(createCustomerMFAccountCmd, "@WCMV_LookupId_AccType", DbType.Int32, customerAccountVo.BankAccTypeId);
                 db.AddInParameter(createCustomerMFAccountCmd, "@PAG_AssetGroupCode", DbType.String, customerAccountVo.AssetClass);
                 db.AddInParameter(createCustomerMFAccountCmd, "@PA_AMCCode", DbType.Int32, customerAccountVo.AMCCode);
                 db.AddInParameter(createCustomerMFAccountCmd, "@CMFA_IsJointlyHeld", DbType.Int16, customerAccountVo.IsJointHolding);
