@@ -45,7 +45,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -56,6 +56,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetIssuerlist");
                 db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
+                if (issueId != 0)
+                    db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, issueId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);

@@ -175,9 +175,8 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCDIssuesetup" Value="NCDIssuesetup">
                                             </telerik:RadPanelItem>
-                                              <telerik:RadPanelItem runat="server" Text="NCDIssueList" Value="NCDIssueList">
+                                            <telerik:RadPanelItem runat="server" Text="NCDIssueList" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
-                                            
                                         </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Order" Value="Order_Management" PostBack="false">
@@ -205,15 +204,21 @@
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD IPO Online" Value="NCD_IPO_Online">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Order_Book">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Accounting Extract" Value="File_Extraction">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Extract" Value="Extract">
-                                            <Items>
+                                                <Items>
                                                     <telerik:RadPanelItem runat="server" Text="RTA Extract" Value="RTA_Extract">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Extract" Value="NCD_Extract">
                                                     </telerik:RadPanelItem>
-                                                    </Items>
+                                                </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="User Management" Value="User Management">
                                                 <Items>
@@ -720,7 +725,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCDIssuesetup" Value="NCDIssuesetup">
                                             </telerik:RadPanelItem>
-                                             <telerik:RadPanelItem runat="server" Text="NCDIssueList" Value="NCDIssueList">
+                                            <telerik:RadPanelItem runat="server" Text="NCDIssueList" Value="NCDIssueList">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
@@ -746,6 +751,12 @@
                                                     <telerik:RadPanelItem runat="server" Text="SIP Order Book" Value="MF_Online_SIP_Ord_Book">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="SIP Book" Value="SIP_Book">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD IPO Online" Value="NCD_IPO_Online">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Order Book" Value="NCD_Order_Book">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

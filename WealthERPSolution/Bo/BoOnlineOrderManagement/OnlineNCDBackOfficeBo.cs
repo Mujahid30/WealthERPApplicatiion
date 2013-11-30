@@ -490,5 +490,30 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             onlineNCDBackOfficeDao.GenereateNcdExtract(adviserId, userId);
         }
+        public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
+        {
+            DataTable dtNCDOrder;
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId,status,dtFrom,dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetAdviserNCDOrderBook()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNCDOrder;
+        }
     }
 }

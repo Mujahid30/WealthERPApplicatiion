@@ -849,5 +849,43 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetOnlineNCDExtractPreview;
         }
+        public DataTable GetAdviserNCDOrderBook(int adviserId,string status, DateTime dtFrom, DateTime dtTo)
+        {
+            Database db;
+            DataSet dsNCDOrder;
+            DataTable dtNCDOrder;
+            DbCommand cmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmd = db.GetStoredProcCommand("SPROC_ONL_GetAdviserNCDOrderBook");
+                db.AddInParameter(cmd, "@AdviserId", DbType.Int32, adviserId);
+                if (status != "0")
+                    db.AddInParameter(cmd, "@Status", DbType.String, status);
+                else
+                    db.AddInParameter(cmd, "@Status", DbType.String, DBNull.Value);
+                db.AddInParameter(cmd, "@Fromdate", DbType.DateTime, dtFrom);
+                db.AddInParameter(cmd, "@ToDate", DbType.DateTime, dtTo);
+                dsNCDOrder=db.ExecuteDataSet(cmd);
+                dtNCDOrder = dsNCDOrder.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetAdviserNCDOrderBook()");
+                object[] objects = new object[2];
+                objects[0] = adviserId;               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNCDOrder;
+        }
     }
 }

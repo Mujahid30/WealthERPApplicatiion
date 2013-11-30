@@ -45,12 +45,12 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId,issueId);
 
             }
             catch (BaseApplicationException Ex)
