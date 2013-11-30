@@ -102,6 +102,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+
+        protected global::System.Web.UI.WebControls.DropDownList ddlIssueType;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -345,7 +347,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlModeofIssue;
-        
+
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -371,8 +373,28 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
+
+
+
+        protected global::System.Web.UI.WebControls.TextBox txtBookBuildingPer;
+        protected global::System.Web.UI.WebControls.TextBox txtCapPrice;
+        protected global::System.Web.UI.WebControls.TextBox txtFloorPrice;
+        protected global::System.Web.UI.WebControls.TextBox txtFixedPrice;
+        protected global::System.Web.UI.WebControls.TextBox txtSyndicateMemberCode;
+        protected global::System.Web.UI.WebControls.TextBox txtBrokerCode;
+        protected global::System.Web.UI.WebControls.TextBox txtNoOfBids;
+        protected global::System.Web.UI.WebControls.TextBox txtRegistrar;
         protected global::System.Web.UI.WebControls.TextBox txtRating;
-        
+
+
+     
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssuer;
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell  tdlblCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdddlCategory;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnGo;
+
         /// <summary>
         /// lb1ModeOfTrading control.
         /// </summary>
@@ -822,6 +844,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lb1BankBranch;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLbFixedPrice;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdLbFloorPrice;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdtxtFixedPrice;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtFloorPrice;
+
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trBookBuildingAndCapprices;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFloorAndFixedPrices;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIsActiveandPutCallOption;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssueTypes;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trModeofIssue;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNomineeReQuired;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRatingAndModeofTrading;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRegistrarAndNoofBidsAlloweds;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trSyndicateAndMemberCodes;      
+
         
         /// <summary>
         /// ddlBankBranch control.
@@ -858,6 +898,8 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPutCallOption;
+
+        protected global::System.Web.UI.WebControls.TextBox txtMaxQty;
         
         /// <summary>
         /// CompareValidator4 control.
@@ -885,6 +927,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trBtnSubmit;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trMaxQty;
+
+         
         
         /// <summary>
         /// btnSetUpSubmit control.

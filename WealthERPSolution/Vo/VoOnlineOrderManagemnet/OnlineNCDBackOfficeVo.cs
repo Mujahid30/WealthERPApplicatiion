@@ -76,5 +76,23 @@ namespace VoOnlineOrderManagemnet
         public int  IsListedinNSE { get; set; }
         public string  BSECode { get; set; }
         public string  NSECode { get; set; }
+
+        public int IsBookBuilding { get; set; }
+        public double BookBuildingPercentage { get; set; }
+        public double CapPrice { get; set; }
+        public int LookupBankId { get; set; }
+        public int NoOfBidAllowed { get; set; }
+        public string RtaSourceCode { get; set; }
+
+        public string  SyndicateMemberCode { get; set; }
+        public string BrokerCode { get; set; }
+
+
+        public string DiscuountType { get; set; }
+        public decimal  DiscountValue { get; set; }
+
+        public int MaxQty { get; set; }
+            
+
     }
 }

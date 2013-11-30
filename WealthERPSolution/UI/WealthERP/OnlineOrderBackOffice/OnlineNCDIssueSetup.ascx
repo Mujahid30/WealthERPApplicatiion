@@ -62,9 +62,6 @@
         </td>
     </tr>
 </table>
-
-
-
 <%--<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
     Title="Add New Folio">
@@ -110,7 +107,6 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>--%>
- 
 <table width="80%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
@@ -118,7 +114,7 @@
         </td>
         <td class="rightData">
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
-                Width="205px">
+                Width="205px" OnSelectedIndexChanged="ddlProduct_Selectedindexchanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="IPO">IPO</asp:ListItem>
                 <asp:ListItem Value="Bonds">Bonds</asp:ListItem>
@@ -129,10 +125,10 @@
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel">
+        <td class="leftLabel" ID="tdlblCategory" runat="server" >
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="rightData">
+        <td align="rightData" ID="tdddlCategory" runat="server">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
@@ -202,6 +198,111 @@
                 Type="Double" Operator="GreaterThan" CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>
+    <tr id="trIssueTypes" runat="server">
+        <td class="leftLabel">
+            <asp:Label ID="Label6" runat="server" Text="Issue Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlIssueType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlIssueType_Selectedindexchanged"
+                AutoPostBack="true" Width="205px">
+                <asp:ListItem Text="Select" Value="Select"></asp:ListItem>
+                <asp:ListItem Text="Book Building(%)" Value="BookBuilding"></asp:ListItem>
+                <asp:ListItem Text="FixedPrice" Value="FixedPrice"></asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span21" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator33" runat="server" ErrorMessage="Please Enter FromRange"
+                CssClass="rfvPCG" ControlToValidate="ddlIssueType" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr id="trBookBuildingAndCapprices" runat="server">
+        <td class="leftLabel" id="tdBookBuilding" runat="server">
+            <asp:Label ID="Label7" runat="server" Text="Book Building(%):" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtBookBuildingPer" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span26" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator34" runat="server" ErrorMessage="Please Enter BookBuilding Percentage"
+                CssClass="rfvPCG" ControlToValidate="txtBookBuildingPer" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+        </td>
+        <td class="leftLabel">
+            <asp:Label ID="Label9" runat="server" Text="Cap Price:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtCapPrice" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span28" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator36" runat="server" ErrorMessage="Please Enter Cap Price"
+                CssClass="rfvPCG" ControlToValidate="txtCapPrice" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+        </td>
+    </tr>
+    <tr id="trFloorAndFixedPrices" runat="server">
+        <td id="tdLbFloorPrice" runat="server" class="leftLabel">
+            <asp:Label ID="Label11" runat="server" Text="Floor Price:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="tdTxtFloorPrice" runat="server" class="rightData">
+            <asp:TextBox ID="txtFloorPrice" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span27" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator35" runat="server" ErrorMessage="Please Enter Floor Price"
+                CssClass="rfvPCG" ControlToValidate="txtFloorPrice" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+            <asp:RangeValidator ID="RangeValidator5" Display="Dynamic" ValidationGroup="SetUpSubmit"
+                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                ControlToValidate="txtFloorPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
+                CssClass="cvPCG"></asp:RangeValidator>
+        </td>
+        <td id="tdLbFixedPrice" runat="server" class="leftLabel">
+            <asp:Label ID="Label10" runat="server" Text="Fixed Price:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="tdtxtFixedPrice" runat="server" class="rightData">
+            <asp:TextBox ID="txtFixedPrice" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span29" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator37" runat="server" ErrorMessage="Please Enter Fixed Price"
+                CssClass="rfvPCG" ControlToValidate="txtFixedPrice" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+            <asp:RangeValidator ID="RangeValidator4" Display="Dynamic" ValidationGroup="SetUpSubmit"
+                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                ControlToValidate="txtFixedPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
+                CssClass="cvPCG"></asp:RangeValidator>
+        </td>
+    </tr>
+    <tr id="trSyndicateAndMemberCodes" runat="server">
+        <td id="Td1" runat="server" class="leftLabel">
+            <asp:Label ID="Label8" runat="server" Text="Syndicate Member:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="Td2" runat="server" class="rightData">
+            <asp:TextBox ID="txtSyndicateMemberCode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        </td>
+        <td id="Td3" runat="server" class="leftLabel">
+            <asp:Label ID="Label12" runat="server" Text="Broker:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="Td4" runat="server" class="rightData">
+            <asp:TextBox ID="txtBrokerCode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        </td>
+    </tr>
+    <tr id="trRegistrarAndNoofBidsAlloweds" runat="server">
+        <td id="Td5" runat="server" class="leftLabel">
+            <asp:Label ID="Label13" runat="server" Text="Registrar:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="Td6" runat="server" class="rightData">
+            <asp:TextBox ID="txtRegistrar" runat="server" CssClass="txtField"></asp:TextBox>
+        </td>
+        <td id="Td7" runat="server" class="leftLabel">
+            <asp:Label ID="Label14" runat="server" Text="No Of Bids Allowed:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td id="Td8" runat="server" class="rightData">
+            <asp:TextBox ID="txtNoOfBids" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        </td>
+    </tr>
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1InitialCqNo" runat="server" Text="Initial Cheque Number:" CssClass="FieldName"></asp:Label>
@@ -225,11 +326,11 @@
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>
-    <tr>
-        <td class="leftLabel">
+    <tr id="trModeofIssue" runat="server">
+        <td class="leftLabel" runat="server" visible="false">
             <asp:Label ID="lb1Price" runat="server" Text="Price (floor and fixed):" CssClass="FieldName"></asp:Label>
         </td>
-        <td class="rightData">
+        <td class="rightData" runat="server" visible="false">
             <asp:TextBox ID="txtPrice" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span17" class="spnRequiredField">*</span>
             <br />
@@ -260,7 +361,7 @@
             </asp:RequiredFieldValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trRatingAndModeofTrading" runat="server">
         <td class="leftLabel">
             <asp:Label ID="lb1Rating" runat="server" Text="Rating:" CssClass="FieldName"></asp:Label>
         </td>
@@ -446,30 +547,59 @@
                 MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
         </td>
     </tr>
-    <tr>
+     <tr runat="server" ID="trMaxQty" >
         <td class="leftLabel">
-            <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Application Size:"
-                CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label15" runat="server" Text="Max Qty:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span23" class="spnRequiredField">*</span>
+            <asp:TextBox ID="txtMaxQty" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span30" class="spnRequiredField">*</span>
             <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Enter Min AplicationSize" Display="Dynamic" ControlToValidate="txtMinAplicSize"
+            <asp:RangeValidator ID="RangeValidator7" Display="Dynamic" ValidationGroup="SetUpSubmit"
+                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                ControlToValidate="txtMaxQty" MaximumValue="999999999" MinimumValue="1" Type="Integer"
+                CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel">
+           <td class="leftLabel">
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
+        
+    </tr>
+    <tr runat="server" ID="trMinQty">
+        <td class="leftLabel">
+            <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Qty:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span23" class="spnRequiredField">*</span>
+            <br />
+            <asp:RangeValidator ID="RangeValidator6" Display="Dynamic" ValidationGroup="SetUpSubmit"
+                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                ControlToValidate="txtFloorPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
+                CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Min AplicationSize" Display="Dynamic" ControlToValidate="txtMinAplicSize"
+                InitialValue="" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td colspan="2">&nbsp;</td>
+     <%--   <td class="leftLabel">
+            <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        </td>--%>
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="lb1Trading" runat="server" Text="Trading In Multiple of:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1Trading" runat="server" Text="Multiples of:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
@@ -526,7 +656,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    <tr>
+    <tr id="trIsActiveandPutCallOption" runat="server">
         <td class="leftLabel">
             &nbsp;
         </td>
@@ -544,7 +674,7 @@
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trNomineeReQuired" runat="server">
         <td class="leftLabel">
             &nbsp;
         </td>
@@ -587,7 +717,6 @@
         </td>
     </tr>
 </table>
-
 <asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%">
     <table id="Table1" runat="server" width="80%">
         <tr>
@@ -599,8 +728,8 @@
                     <tr>
                         <td>
                             <telerik:RadGrid ID="rgEligibleInvestorCategories" runat="server" AllowSorting="True"
-                                enableloadondemand="True" PageSize="5" AllowPaging="True" AutoGenerateColumns="False"
-                                EnableEmbeddedSkins="False" GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true"
+                                enableloadondemand="True" PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
                                 OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
@@ -620,7 +749,7 @@
                                         </telerik:GridEditCommandColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="20px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="Catgeory Name" UniqueName="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
+                                            HeaderText="Category Name" UniqueName="AIIC_InvestorCatgeoryName" SortExpression="AIIC_InvestorCatgeoryName"
                                             AllowFiltering="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
@@ -648,9 +777,10 @@
                                                         <asp:Panel ID="pnlCategoriesDetailschild" runat="server" Style="display: inline"
                                                             CssClass="Landscape" ScrollBars="Horizontal" Visible="false">
                                                             <telerik:RadGrid ID="rgCategoriesDetails" runat="server" AutoGenerateColumns="False"
-                                                                enableloadondemand="True" PageSize="5" AllowPaging="True" EnableEmbeddedSkins="False"
-                                                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
-                                                                Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource">
+                                                                enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
+                                                                ShowFooter="True" PagerStyle-AlwaysVisible="false" ShowStatusBar="True" Skin="Telerik"
+                                                                AllowFilteringByColumn="true" OnNeedDataSource="rgCategoriesDetails_OnNeedDataSource"
+                                                                AllowPaging="false">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIIC_InvestorCatgeoryId"
                                                                     AutoGenerateColumns="false">
                                                                     <Columns>
@@ -659,17 +789,17 @@
                                                                             AllowFiltering="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AIICS_InvestorSubTypeCode" HeaderStyle-Width="30px"
+                                                                        <telerik:GridBoundColumn DataField="AIICST_InvestorSubTypeCode" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="SubType Code" UniqueName="AIIC_InvestorSubTypeCode" SortExpression="AIIC_InvestorSubTypeCode">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AIICS_MinInvestmentAmount" HeaderStyle-Width="30px"
+                                                                        <telerik:GridBoundColumn DataField="AIICST_MinInvestmentAmount" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="MinInvestment Amount" UniqueName="AIIC_MinInvestmentAmount" SortExpression="AIIC_MinInvestmentAmount">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AIICS_MaxInvestmentAmount" HeaderStyle-Width="30px"
+                                                                        <telerik:GridBoundColumn DataField="AIICST_MaxInvestmentAmount" HeaderStyle-Width="30px"
                                                                             HeaderText="MaxInvestment Amount" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="AIIC_MaxInvestmentAmount" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
@@ -766,6 +896,37 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                 </tr>
+                                                <tr id="trDiscountType" runat="server">
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lb1DiscountType" runat="server" Text="Discount Type:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData" colspan="2">
+                                                        <asp:DropDownList ID="ddlDiscountType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                                                             >
+                                                            <asp:ListItem Value="Select">Select</asp:ListItem>
+                                                            <asp:ListItem Value="Per">Per(%)</asp:ListItem>
+                                                            <asp:ListItem Value="Amt">Amt</asp:ListItem>
+                                                        </asp:DropDownList>
+                                                        <span id="SpanDiscountType" class="spnRequiredField">*</span>
+                                                        <asp:RequiredFieldValidator ID="rfvDiscountType" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="Please Select Discount Type" Display="Dynamic" ControlToValidate="ddlDiscountType"
+                                                            ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
+                                                <tr id="trDiscountValue" runat="server">
+                                                    <td class="leftLabel">
+                                                        <asp:Label ID="lb1DiscountValue" runat="server" Text="Discount Value:" CssClass="FieldName"></asp:Label>
+                                                    </td>
+                                                    <td class="rightData" colspan="2">
+                                                        <asp:TextBox ID="txtDiscountValue" runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <span id="SpanDiscountValue" class="spnRequiredField">*</span>
+                                                        <asp:RequiredFieldValidator ID="rfvDiscountValue" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="Please Select Discount Value" Display="Dynamic" ControlToValidate="txtDiscountValue"
+                                                            ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td colspan="3">
                                                         <telerik:RadGrid ID="rgSubCategories" runat="server" AllowSorting="True" enableloadondemand="True"
@@ -852,7 +1013,6 @@
         </tr>
     </table>
 </asp:Panel>
-
 <asp:Panel ID="pnlSeries" runat="server" Width="100%">
     <table id="tblSeries" runat="server" width="80%">
         <tr>
@@ -864,10 +1024,10 @@
                     <tr>
                         <td class="leftLabel">
                             <telerik:RadGrid ID="rgSeries" runat="server" AllowSorting="True" enableloadondemand="True"
-                                PageSize="5" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
-                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                OnItemDataBound="rgSeries_ItemDataBound" Skin="Telerik" AllowFilteringByColumn="True"
-                                OnNeedDataSource="rgSeries_OnNeedDataSource" OnItemCommand="rgSeries_ItemCommand">
+                                PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" OnItemDataBound="rgSeries_ItemDataBound"
+                                Skin="Telerik" AllowFilteringByColumn="True" OnNeedDataSource="rgSeries_OnNeedDataSource"
+                                OnItemCommand="rgSeries_ItemCommand" AllowPaging="false">
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId"
                                     AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
                                     CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false">
@@ -909,9 +1069,10 @@
                                                         <asp:Panel ID="pnlchild" runat="server" Style="display: inline" CssClass="Landscape"
                                                             Width="50%" ScrollBars="Horizontal" Visible="false">
                                                             <telerik:RadGrid ID="rgSeriesCategories" runat="server" AutoGenerateColumns="False"
-                                                                enableloadondemand="True" PageSize="5" AllowPaging="True" EnableEmbeddedSkins="False"
-                                                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                                                Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCategories_OnNeedDataSource">
+                                                                enableloadondemand="True" PageSize="5" EnableEmbeddedSkins="False" GridLines="None"
+                                                                ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
+                                                                AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCategories_OnNeedDataSource"
+                                                                AllowPaging="false">
                                                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId"
                                                                     AutoGenerateColumns="false">
                                                                     <Columns>
@@ -949,7 +1110,7 @@
                                             <table width="75%" cellspacing="2" cellpadding="2">
                                                 <tr>
                                                     <td class="leftLabel">
-                                                        <asp:Label ID="lb1SereiesName" runat="server" Text="Sereies Name:" CssClass="FieldName"></asp:Label>
+                                                        <asp:Label ID="lb1SereiesName" runat="server" Text="Series Name:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData" colspan="2">
                                                         <asp:TextBox ID="txtSereiesName" runat="server" CssClass="txtField"></asp:TextBox>
@@ -1048,6 +1209,15 @@
                                                     </td>
                                                     <td class="rightData" colspan="2">
                                                         <asp:TextBox ID="txtSequence" runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <span id="Span32" class="spnRequiredField">*</span>
+                                                        <br />
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator40" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="Please Enter Sequence" Display="Dynamic" ControlToValidate="txtSequence"
+                                                            ValidationGroup="btnOK">
+                                                            <%--<asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtSequence" runat="server"
+                                                                Display="Dynamic" ErrorMessage="Enter integer " Type="Integer" Operator="NotEqual"
+                                                                CssClass="cvPCG"></asp:CompareValidator>--%>
+                                                        </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td class="rightData">
                                                         &nbsp;
@@ -1076,7 +1246,7 @@
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="60px"
-                                                                        CurrentFilterFunction="Contains" HeaderText="Catgeory Name" SortExpression="AIIC_InvestorCatgeoryName"
+                                                                        CurrentFilterFunction="Contains" HeaderText="category Name" SortExpression="AIIC_InvestorCatgeoryName"
                                                                         AllowFiltering="true" ShowFilterIcon="false">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
@@ -1136,7 +1306,6 @@
         </tr>
     </table>
 </asp:Panel>
-
 <%--<asp:Panel ID="pnlCategory" runat="server" CssClass="Landscape" Width="100%">
     <table id="Table1" runat="server" width="80%">
         <tr>

@@ -55,29 +55,39 @@ namespace BoCommon
 
             return SIPDataForOrderEditList;
         }
-        public List<int> GetHours()
+        public List<string> GetHours()
         {
-             List<int> hours = new List<int>();
-
-             for(int i = 1; i <= 24; i++)
-             {
-                 hours.Add(i);
-             }
+            List<string> hours = new List<string>();
+            string val;
+            for (int i = 0; i <= 24; i++)
+            {
+                if (i <= 9)
+                    val = "0" + i.ToString();
+                else
+                    val = i.ToString();
+                hours.Add(val);
+            }
 
             return hours;
         }
 
-        public List<int> GetMinutes()
+        public List<string> GetMinutes()
         {
-            List<int> minutes = new List<int>();
+            List<string> minutes = new List<string>();
+            string val;
 
-            for (int i = 1; i <= 60; i++)
+            for (int i = 0; i <= 60; i++)
             {
-                minutes.Add(i);
+                if (i <= 9)
+                    val = "0" + i.ToString();
+                else
+                    val = i.ToString();
+
+                minutes.Add(val);
             }
 
             return minutes;
-          
+
         }
 
         /// <summary> 
@@ -548,10 +558,12 @@ namespace BoCommon
         /// Gets the list of AMC with RTAs
         /// </summary>
         /// <returns></returns>
-        public DataTable GetAmcWithRta() {
+        public DataTable GetAmcWithRta()
+        {
             DataTable dt;
 
-            try {
+            try
+            {
                 dt = daoCommonLookup.GetAmcWithRta();
             }
             catch (BaseApplicationException Ex)
@@ -614,15 +626,15 @@ namespace BoCommon
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "CommonLookupBo.cs:CheckForBusinessDate(DateTime date)");
                 object[] objParams = new object[1];
-                objParams[0] = date;               
+                objParams[0] = date;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objParams);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-           
+
             return isBusinessDate;
- 
+
         }
 
 

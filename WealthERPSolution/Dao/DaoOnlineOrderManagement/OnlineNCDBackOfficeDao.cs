@@ -48,8 +48,46 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+        public int ChekSeriesSequence(int seqNo,int issueId, int adviserId)
+        {           
+            Database db;
+            DbCommand dbCommand;
+            int DupseqNo=0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_ChekSeriesSequence");
+                db.AddInParameter(dbCommand, "@SequenceNo", DbType.Int32, seqNo);
+                db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, adviserId);
 
-        public DataSet GetAdviserIssueList(DateTime date,int type)
+                DupseqNo = Convert.ToInt32(db.ExecuteScalar(dbCommand).ToString());
+                //if (db.ExecuteNonQuery(dbCommand) != 0)
+                //{
+                //    seqNo = Convert.ToInt32(db.GetParameterValue(dbCommand, "CO_OrderId").ToString());
+                //}
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:ChekSeriesSequence()");
+                object[] objects = new object[2];
+                objects[1] = issueId;
+                objects[2] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return DupseqNo;
+        }
+        public DataSet GetAdviserIssueList(DateTime date, int type, string product)
         {
             DataSet dsIssueDetails;
             Database db;
@@ -60,6 +98,7 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserIssueList");
                 db.AddInParameter(dbCommand, "@date", DbType.Date, date);
                 db.AddInParameter(dbCommand, "@type", DbType.Int32, type);
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);                
                 dsIssueDetails = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -206,7 +245,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createCmd = db.GetStoredProcCommand("SPROC_CreateIssueMaster");
                 //db.AddInParameter(createCmd, "@PAG_AssetGroupCode", DbType.String, onlineNCDBackOfficeVo.AssetGroupCode);
-                db.AddInParameter(createCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, "FICG");
+                db.AddInParameter(createCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, onlineNCDBackOfficeVo.AssetInstrumentCategoryCode);
                 db.AddInParameter(createCmd, "@AIM_IssueName", DbType.String, onlineNCDBackOfficeVo.IssueName);
                 db.AddInParameter(createCmd, "@PFIIM_IssuerId", DbType.String, onlineNCDBackOfficeVo.IssuerId );
                 db.AddInParameter(createCmd, "@AIM_InitialChequeNo", DbType.String, onlineNCDBackOfficeVo.InitialChequeNo);
@@ -239,8 +278,16 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE);
                 db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);                
                 db.AddInParameter(createCmd, "@NSECode", DbType.String, onlineNCDBackOfficeVo.NSECode);
-                db.AddInParameter(createCmd, "@Rating", DbType.String, onlineNCDBackOfficeVo.Rating);  
+                db.AddInParameter(createCmd, "@Rating", DbType.String, onlineNCDBackOfficeVo.Rating);
 
+
+                db.AddInParameter(createCmd, "@IsBookBuilding", DbType.Int32, onlineNCDBackOfficeVo.IsBookBuilding );
+                db.AddInParameter(createCmd, "@BookBuildingPercentage", DbType.Double, onlineNCDBackOfficeVo.BookBuildingPercentage);
+                db.AddInParameter(createCmd, "@CapPrice", DbType.Double, onlineNCDBackOfficeVo.CapPrice);
+                db.AddInParameter(createCmd, "@NoOfBidAllowed", DbType.Int32, onlineNCDBackOfficeVo.NoOfBidAllowed);
+                db.AddInParameter(createCmd, "@RtaSourceCode", DbType.String, onlineNCDBackOfficeVo.RtaSourceCode);
+                db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty); 
+                
                 db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);  
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -460,6 +507,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@ChequePayableTo", DbType.String, onlineNCDBackOfficeVo.ChequePayableTo);
                 db.AddInParameter(createCmd, "@MInBidAmount", DbType.Int32, onlineNCDBackOfficeVo.MInBidAmount);
                 db.AddInParameter(createCmd, "@MaxBidAmount", DbType.Int32, onlineNCDBackOfficeVo.MaxBidAmount);
+                db.AddInParameter(createCmd, "@PriceDiscountType", DbType.String, onlineNCDBackOfficeVo.DiscuountType);
+                db.AddInParameter(createCmd, "@PriceDiscountValue", DbType.Decimal, onlineNCDBackOfficeVo.DiscountValue);
+
+                
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
                     categoryId = Convert.ToInt32(db.GetParameterValue(createCmd, "InvestorCatgeoryId").ToString());

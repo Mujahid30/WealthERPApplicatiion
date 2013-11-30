@@ -59,7 +59,7 @@
             <span id="Span18" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Enter Open Date" Display="Dynamic" ControlToValidate="txtDate"
+                ErrorMessage="Please Enter Date" Display="Dynamic" ControlToValidate="txtDate"
                 InitialValue="" ValidationGroup="btnGo">
             </asp:RequiredFieldValidator> 
             </td>
@@ -77,6 +77,39 @@
                 <span id="Span4" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Type"
+                    CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
+                    InitialValue="Select"></asp:RequiredFieldValidator>
+            </td>
+              <td class="leftLabel">
+                <asp:Label ID="Label1" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightData">
+                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    Width="205px">
+                    <asp:ListItem Value="Select">Select</asp:ListItem>
+                    <asp:ListItem Value="Curent">Curent Issues</asp:ListItem>
+                    <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
+                    <asp:ListItem Value="Future">Future Issues</asp:ListItem>
+                </asp:DropDownList>
+                <span id="Span1" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select Type"
+                    CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
+                    InitialValue="Select"></asp:RequiredFieldValidator>
+            </td>
+               <td class="leftLabel">
+                <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightData">
+                <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    Width="205px">
+                    <asp:ListItem Value="Select">Select</asp:ListItem>
+                    <asp:ListItem Value="NCD">NCD</asp:ListItem>
+                    <asp:ListItem Value="IPO">IPO</asp:ListItem>
+                </asp:DropDownList>
+                <span id="Span2" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Product Type"
                     CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
@@ -142,12 +175,12 @@
                                 </telerik:GridBoundColumn>
                                   <telerik:GridBoundColumn DataField="AID_IssueDetailName" HeaderText="Issue Detail Name" SortExpression="AID_IssueDetailName"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                    UniqueName="AID_IssueDetailName" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="AID_IssueDetailName" FooterStyle-HorizontalAlign="Left" Visible="false">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                   <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderText="Catgeory Name" SortExpression="AIIC_InvestorCatgeoryName"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="AIIC_InvestorCatgeoryName" FooterStyle-HorizontalAlign="Left">
+                                    UniqueName="AIIC_InvestorCatgeoryName" FooterStyle-HorizontalAlign="Left" Visible="false">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 </Columns> 
