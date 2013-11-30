@@ -201,7 +201,7 @@
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvBBList_OnNeedDataSource" 
-                                OnUpdateCommand="gvBBList_UpdateCommand">
+                                OnUpdateCommand="gvBBList_UpdateCommand" OnItemDataBound="gvBBList_OnItemDataCommand" OnItemCommand="gvBBList_OnItemCommand">
                                 <%--OnNeedDataSource="gvBBList_OnNeedDataSource"--%>
                                 <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip" Width="100%"
                                     AllowMultiColumnSorting="True" AutoGenerateColumns="false">

@@ -1106,6 +1106,11 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeMIS','login');", true);
 
                 }
+                else if (e.Item.Value == "NCD_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserNCDOrderBook','login');", true);
+
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -2077,6 +2082,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View_Schemes")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineSchemeMIS','login');", true);
+
+                }
+                else if (e.Item.Value == "NCD_Order_Book")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserNCDOrderBook','login');", true);
 
                 }
 

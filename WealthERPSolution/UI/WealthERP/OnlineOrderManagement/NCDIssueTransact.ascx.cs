@@ -26,7 +26,7 @@ namespace WealthERP.OnlineOrderManagement
         OnlineBondOrderVo OnlineBondVo = new OnlineBondOrderVo();
         CustomerVo customerVo = new CustomerVo();
         AdvisorVo adviserVo;
-        bool RESULT = false;
+        UserVo userVo;        
         int customerId;
         double sum = 0;
         int Quantity = 0;
@@ -37,6 +37,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();            
@@ -67,10 +68,12 @@ namespace WealthERP.OnlineOrderManagement
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
                     BindStructureRuleGrid(IssuerId);
+                    BindStructureRuleGrid();
                 }
                 else
                 {
                     BindDropDownListIssuer();
+                    pnlIssuList.Visible = false;
                     lblIssuer.Text = "Kindly Select Issue Name:";
                     btnConfirm.Enabled = true;
                 }
@@ -104,20 +107,49 @@ namespace WealthERP.OnlineOrderManagement
             IssuerId = int.Parse(ddIssuerList.SelectedValue.ToString());
             BindStructureRuleGrid(IssuerId);
         }
+        protected void BindStructureRuleGrid()
+        {
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId);
+            DataTable dtIssue = dsStructureRules.Tables[0];
+            if (dtIssue.Rows.Count > 0)
+            {
+                if (Cache["NCDIssueList" + userVo.UserId.ToString()] == null)
+                {
+                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
+                }
+                else
+                {
+                    Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
+                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
+                }
+                ibtExportSummary.Visible = false;
+                gvIssueList.DataSource = dtIssue;
+                gvIssueList.DataBind();
+            }
+            else
+            {
+                ibtExportSummary.Visible = false;
+                gvIssueList.DataSource = dtIssue;
+                gvIssueList.DataBind();
+
+            }
+
+
+        }
         protected void BindStructureRuleGrid(int IssuerId)
         {
             DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId);
             DataTable dtTransact = dsStructureRules.Tables[0];
             if (dtTransact.Rows.Count > 0)
             {
-                if (Cache["NCDTransactList" + adviserVo.advisorId.ToString()] == null)
+                if (Cache["NCDTransactList" + userVo.UserId.ToString()] == null)
                 {
-                    Cache.Insert("NCDTransactList" + adviserVo.advisorId.ToString(), dtTransact);
+                    Cache.Insert("NCDTransactList" + userVo.UserId.ToString(), dtTransact);
                 }
                 else
                 {
-                    Cache.Remove("NCDTransactList" + adviserVo.advisorId.ToString());
-                    Cache.Insert("NCDTransactList" + adviserVo.advisorId.ToString(), dtTransact);
+                    Cache.Remove("NCDTransactList" + userVo.UserId.ToString());
+                    Cache.Insert("NCDTransactList" + userVo.UserId.ToString(), dtTransact);
                 }
                 gvCommMgmt.DataSource = dtTransact;
                 ViewState["Transact"] = dtTransact;
@@ -475,7 +507,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtIssueDetail;
-            dtIssueDetail = (DataTable)Cache["NCDTransactList" + adviserVo.advisorId.ToString()];
+            dtIssueDetail = (DataTable)Cache["NCDTransactList" + userVo.UserId.ToString()];
             if (dtIssueDetail != null)
             {
                 gvCommMgmt.DataSource = dtIssueDetail;

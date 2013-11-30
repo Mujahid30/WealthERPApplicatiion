@@ -149,6 +149,9 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvCommMgmt;
+        protected global::Telerik.Web.UI.RadGrid gvIssueList;
+        protected global::System.Web.UI.WebControls.Panel pnlIssuList;
+
 
         /// <summary>
         /// btnConfirmOrder control.

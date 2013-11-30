@@ -14,5 +14,57 @@ namespace WealthERP.OnlineOrderBackOffice
 
     public partial class OnlineAdviserNCDOrderBook
     {
+        protected global::System.Web.UI.ScriptManager scrptMgr;
+
+        /// <summary>
+        /// upBBGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upBBGrid;
+
+        /// <summary>
+        /// ibtExportSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
+
+        /// <summary>
+        /// tblCommissionStructureRule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblCommissionStructureRule;
+
+        /// <summary>
+        /// pnlGrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGrid;
+
+        /// <summary>
+        /// gvBBList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvNCDOrderBook;
+        protected global::System.Web.UI.WebControls.DropDownList ddlOrderStatus;
+        protected global::System.Web.UI.WebControls.Button btnViewOrder;
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrderStatus;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
     }
 }

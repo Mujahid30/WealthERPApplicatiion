@@ -11,20 +11,7 @@
             alert('Only Numeric');
             return false;
         }
-        return true;
-function ValidateTextValue()
-{
-//get target base & child control.
-var TargetBaseControl = document.getElementById('<%=this.gvCommMgmt.ClientID%>');
-var TargetChildControl1 = "txtQuantity";
-//get all the control of the type INPUT in the base control.
-var Inputs = TargetBaseControl.getElementsByTagName("input");
-for(var n = 0; n < Inputs.length; ++n)
-   if(Inputs[n].type == 'text' && Inputs[n].id.indexOf(TargetChildControl1,0) >= 0)
-      if(Inputs[n].value!="") return true;
- alert('Enter some value in textbox!');
- return false;
-}   
+        return true;  
 </script>
 
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
@@ -197,6 +184,114 @@ for(var n = 0; n < Inputs.length; ++n)
         </td>
     </tr>
 </table>
+<asp:Panel ID="pnlIssuList" runat="server" CssClass="Landscape" Width="100%">
+    <table id="tblCommissionStructureRule" runat="server" width="100%">
+        <tr>
+            <td>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <telerik:RadGrid ID="gvIssueList" runat="server" AllowSorting="True" enableloadondemand="True"
+                                PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
+                                GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
+                                Skin="Telerik" AllowFilteringByColumn="false">
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName"
+                                    AutoGenerateColumns="false" Width="100%">
+                                    <Columns>
+                                      <%--  <telerik:GridTemplateColumn>
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
+                                                    Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>--%>
+                                        <telerik:GridBoundColumn DataField="AIM_SchemeName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Scrip Name" UniqueName="AIM_SchemeName"
+                                            SortExpression="AIM_SchemeName">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerId" HeaderStyle-Width="60px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Scrip ID" UniqueName="PI_IssuerId" SortExpression="PI_IssuerId">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            HeaderText="Issuer" UniqueName="PI_IssuerCode" SortExpression="PI_IssuerCode">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_NatureOfBond" HeaderStyle-Width="100px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Type" UniqueName="AIM_NatureOfBond"
+                                            SortExpression="AIM_NatureOfBond">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_Rating" HeaderStyle-Width="70px" HeaderText="Rating"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="AIM_Rating" Visible="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Minimum Qty"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_MaxQty" HeaderStyle-Width="140px" HeaderText="Max Qty"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="AIM_MaxQty" Visible="true" DataFormatString="{0:N0}">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                            UniqueName="FaceValue" Visible="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
+                                            HeaderText="Minimum Application Amount" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" UniqueName="AID_MinApplication" Visible="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
+                                            HeaderText="Multiples allowed" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridDateTimeColumn DataField="AIM_OpenDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
+                                            HeaderStyle-Width="110px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" HeaderText="Start Date" SortExpression="AIM_OpenDate"
+                                            UniqueName="AIM_OpenDate">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridDateTimeColumn>
+                                        <telerik:GridDateTimeColumn DataField="AIM_CloseDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
+                                            HeaderStyle-Width="110px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" HeaderText="End Date" UniqueName="AIM_CloseDate"
+                                            SortExpression="AIM_CloseDate">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridDateTimeColumn>
+                                        <telerik:GridBoundColumn DataField="IsDematFacilityAvail" HeaderStyle-Width="110px"
+                                            HeaderText="Demat Facility" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" UniqueName="IsDematFacilityAvail" Visible="true">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                        </telerik:GridBoundColumn>
+                                       <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                            UniqueName="Action" HeaderText="Action">
+                                            <ItemTemplate>
+                                                <asp:LinkButton ID="llPurchase" runat="server" OnClick="llPurchase_Click" Text="Purchase"></asp:LinkButton>
+                                            </ItemTemplate>
+                                        </telerik:GridTemplateColumn>--%>
+                                    </Columns>
+                                </MasterTableView>
+                            </telerik:RadGrid>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</asp:Panel>
 <asp:Panel ID="pnlNCDTransactact" runat="server" ScrollBars="Horizontal" Width="100%"
     Visible="false">
     <table>
@@ -326,9 +421,9 @@ for(var n = 0; n < Inputs.length; ++n)
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
                                         Text='<%# Bind("COID_Quantity")%>' Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
-                                  <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="*Required"
+                                    <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="*Required"
                                         ClientValidationFunction="ValidateTextValue(this)"></asp:CustomValidator>--%>
-                                  <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
+                                    <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
                                         ValidationGroup="gvCommMgmt" ErrorMessage="<br />Please enter a Quantity" Display="Dynamic"
                                         runat="server" CssClass="rfvPCG">
                                     </asp:RequiredFieldValidator>--%>
@@ -389,7 +484,7 @@ for(var n = 0; n < Inputs.length; ++n)
         <td id="tdsubmit" runat="server">
             <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
-                CssClass="PCGButton"/>
+                CssClass="PCGButton" />
         </td>
         <td id="tdupdate" runat="server" visible="false">
             <asp:Label ID="Label2" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>

@@ -286,13 +286,19 @@ namespace WealthERP.OnlineOrderManagement
             //}
 
         }
+        protected void gvBBList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
+        {
+        }
 
-
+        public void gvBBList_OnItemDataCommand(object sender, GridItemEventArgs e)
+        {
+        }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
-            Button Button = (Button)sender;
-            GridDataItem gvr = (GridDataItem)Button.NamingContainer;
-            RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
+            //Button Button = (Button)sender;
+            //GridDataItem gvr = (GridDataItem)Button.NamingContainer;
+            //RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
+            gvBBList.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvBBList.ExportSettings.OpenInNewWindow = true;
             gvBBList.ExportSettings.IgnorePaging = true;
             gvBBList.ExportSettings.HideStructureColumns = true;
@@ -300,13 +306,13 @@ namespace WealthERP.OnlineOrderManagement
             gvBBList.ExportSettings.FileName = "NCD Order Book";
             gvBBList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvBBList.MasterTableView.ExportToExcel();
-            gvChildDetails.ExportSettings.OpenInNewWindow = true;
-            gvChildDetails.ExportSettings.IgnorePaging = true;
-            gvChildDetails.ExportSettings.HideStructureColumns = true;
-            gvChildDetails.ExportSettings.ExportOnlyData = true;
-            gvChildDetails.ExportSettings.FileName = "NCD Order Book";
-            gvChildDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvChildDetails.MasterTableView.ExportToExcel();
+            //gvChildDetails.ExportSettings.OpenInNewWindow = true;
+            //gvChildDetails.ExportSettings.IgnorePaging = true;
+            //gvChildDetails.ExportSettings.HideStructureColumns = true;
+            //gvChildDetails.ExportSettings.ExportOnlyData = true;
+            //gvChildDetails.ExportSettings.FileName = "NCD Order Book";
+            //gvChildDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //gvChildDetails.MasterTableView.ExportToExcel();
         }
     }
 }

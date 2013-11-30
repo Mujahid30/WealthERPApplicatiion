@@ -24,11 +24,13 @@ namespace WealthERP.OnlineOrderManagement
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
         AdvisorVo advisorVo = new AdvisorVo();
         CustomerVo customerVo = new CustomerVo();
+        UserVo userVo;
         int adviserId;
         int customerId;
         string IssuerId = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
+            userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];
             adviserId = advisorVo.advisorId;
@@ -42,18 +44,18 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId,0);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
-                if (Cache["NCDIssueList" + advisorVo.advisorId.ToString()] == null)
+                if (Cache["NCDIssueList" + userVo.UserId.ToString()] == null)
                 {
-                    Cache.Insert("NCDIssueList" + advisorVo.advisorId.ToString(), dtIssue);
+                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
                 }
                 else
                 {
-                    Cache.Remove("NCDIssueList" + advisorVo.advisorId.ToString());
-                    Cache.Insert("NCDIssueList" + advisorVo.advisorId.ToString(), dtIssue);
+                    Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
+                    Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
                 }
                 ibtExportSummary.Visible = false;
                 gvCommMgmt.DataSource = dtIssue;
@@ -171,7 +173,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtIssueDetail;
-            dtIssueDetail=(DataTable)Cache["NCDIssueList" + advisorVo.advisorId.ToString()];
+            dtIssueDetail = (DataTable)Cache["NCDIssueList" + userVo.UserId.ToString()];
             if (dtIssueDetail != null)
             {
                 gvCommMgmt.DataSource = dtIssueDetail;
