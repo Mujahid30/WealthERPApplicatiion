@@ -376,6 +376,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//AdviserNCDOrderBook.ascx.
+        /// </summary>
+        internal static string AdviserNCDOrderBook {
+            get {
+                return ResourceManager.GetString("AdviserNCDOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//AdviserNewSignupMIS.ascx.
         /// </summary>
         internal static string AdviserNewSignupMIS {
