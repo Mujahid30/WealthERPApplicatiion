@@ -1833,8 +1833,8 @@
     <value>OnlineOrderManagement//CustomerIPOOrderBook.ascx</value>
     <comment>OnlineOrderManagement//CustomerIPOOrderBook.ascx</comment>
   </data>
-  <data name="AdviserNCDOrderBook" xml:space="preserve">
-    <value>OnlineOrderBackOffice//AdviserNCDOrderBook.ascx</value>
-    <comment>OnlineOrderBackOffice//AdviserNCDOrderBook.ascx</comment>
+  <data name="OnlineAdviserNCDOrderBook" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx</comment>
   </data>
 </root>

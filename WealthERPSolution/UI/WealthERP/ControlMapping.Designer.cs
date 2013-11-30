@@ -376,15 +376,6 @@ namespace WealthERP {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OnlineOrderBackOffice//AdviserNCDOrderBook.ascx.
-        /// </summary>
-        internal static string AdviserNCDOrderBook {
-            get {
-                return ResourceManager.GetString("AdviserNCDOrderBook", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to BusinessMIS//AdviserNewSignupMIS.ascx.
         /// </summary>
         internal static string AdviserNewSignupMIS {
@@ -2424,6 +2415,15 @@ namespace WealthERP {
         internal static string OnlineAdviserCustomerSIPOrderBook {
             get {
                 return ResourceManager.GetString("OnlineAdviserCustomerSIPOrderBook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx.
+        /// </summary>
+        internal static string OnlineAdviserNCDOrderBook {
+            get {
+                return ResourceManager.GetString("OnlineAdviserNCDOrderBook", resourceCulture);
             }
         }
         
