@@ -4,6 +4,22 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 
+<script src="../Scripts/jquery.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
 <script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
 
@@ -14,14 +30,17 @@
         }
     }
 </script>
-
 <script type="text/javascript">
+
     function closeCustomConfirm() {
         $find("<%=rw_customConfirm.ClientID %>").close();
     }
+
+   
+    
 </script>
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
     var crnt = 0;
     function PreventClicks() {
 
@@ -31,7 +50,6 @@
 
         if (Page_IsValid) {
             if (++crnt > 1) {
-                alert(crnt);
                 return false;
             }
             return true;
@@ -45,17 +63,19 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
+    <ContentTemplate>    
         <div class="divOnlinePageHeading" style="float: right; width: 100%">
             <div style="float: right; padding-right: 100px;">
                 <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
                 <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
             </div>
         </div>
-        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
-            <tr id="trSumbitSuccess">
+        <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
                 <td align="center">
-                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    <div id="divMessage" align="center">
+                    </div>
+                    <div style="clear: both">
                     </div>
                 </td>
             </tr>
@@ -184,7 +204,7 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder" id="trTermsCondition" runat="server">
-                    <td align="right" style="width: 15%">
+                    <td align="left" style="width: 15%">
                         <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
                             Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
                             CausesValidation="true" />
@@ -202,7 +222,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="right" style="width: 10%">
+                    <td align="left" style="width: 10%">
                         <asp:Button ID="btnConfirmOrder" runat="server" Text="Confirm Order" OnClick="btnConfirmOrder_Click"
                             CssClass="PCGMediumButton" ValidationGroup="btnSubmit" />
                     </td>

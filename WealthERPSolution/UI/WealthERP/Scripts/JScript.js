@@ -30,7 +30,7 @@ function loadcontrol(controlid, logintrue) {
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
-    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue!=null) {
+    if (logintrue != "none" && logintrue != "login" && logintrue != "list" && logintrue != null) {
         if (logintrue.indexOf("?") > -1)
             logintrue = logintrue.substring(1);
         var c_src = "ControlHost.aspx?" + logintrue + "&pageid=";
@@ -46,90 +46,90 @@ function loadcontrol(controlid, logintrue) {
     //setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 10);
     parent.document.getElementById("mainframe").src = url;
 
-//    if (controlid == "AdvisorProfile") {
-//        loadlinks("AdvisorLeftPane");
+    //    if (controlid == "AdvisorProfile") {
+    //        loadlinks("AdvisorLeftPane");
 
-//    }
-//    else if (controlid == "IFAAdminMainDashboard") {
-//        loadlinks("AdvisorLeftPane");
+    //    }
+    //    else if (controlid == "IFAAdminMainDashboard") {
+    //        loadlinks("AdvisorLeftPane");
 
-//    }
-//    else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "none") {
-//        loadlinks("AdvisorRMBMLeftpane");
-//    }
+    //    }
+    //    else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "none") {
+    //        loadlinks("AdvisorRMBMLeftpane");
+    //    }
 
-//    else if (controlid == "AdvisorBMDashBoard" && logintrue == "none") {
-//        loadlinks("AdvisorBMLeftpane");
-//    }
+    //    else if (controlid == "AdvisorBMDashBoard" && logintrue == "none") {
+    //        loadlinks("AdvisorBMLeftpane");
+    //    }
 
-//    else if (controlid == "PortfolioDashboard" && logintrue == "list") {
-//        loadlinks("RMCustomerIndividualLeftPane");
-//    }
+    //    else if (controlid == "PortfolioDashboard" && logintrue == "list") {
+    //        loadlinks("RMCustomerIndividualLeftPane");
+    //    }
 
-//    else if (controlid == "AdvisorRMDashBoard") {
-//        loadlinks("AdvisorRMLeftpane");
+    //    else if (controlid == "AdvisorRMDashBoard") {
+    //        loadlinks("AdvisorRMLeftpane");
 
-//    }
-////    else if (controlid == "BMDashBoard") {
-////        loadlinks("BMLeftpane");
+    //    }
+    ////    else if (controlid == "BMDashBoard") {
+    ////        loadlinks("BMLeftpane");
 
-////    }
-//    else if (controlid == "BMRMDashBoard") {
-//        loadlinks("BMRMLeftpane");
-//    }
-////    else if (controlid == "RMDashBoard") {
-////        //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
-////        loadlinks("RMLeftPane");
-////    }
-//    else if (controlid == "CustomerIndividualDashboard") {
-//        loadlinks("CustomerIndividualLeftPane");
-//    }
-//    else if (controlid == "RMCustomerIndividualDashboard") {
-//        loadlinks("RMCustomerIndividualLeftPane");
-//    }
-//    else if (controlid == "CustomerNonIndividualDashboard") {
-//        loadlinks("CustomerNonIndividualLeftPane");
-//    }
-//    else if (controlid == "RMCustomerNonIndividualDashboard") {
-//        loadlinks("RMCustomerNonIndividualLeftPane");
-//    }
-//    else if (controlid == "AdvisorRMCustIndiDashboard") {
-//        loadlinks("RMCustomerIndividualLeftPane");
-//    }
-//    else if (controlid == "AdvisorRMCustGroupDashboard") {
-//        loadlinks("RMCustomerIndividualLeftPane");
-//    }
-//    else if (controlid == "AdviserRMCustNonIndiDashboard") {
-//        loadlinks("RMCustomerNonIndividualLeftPane");
-//    }
-//    else if (controlid == "RMAlertNotifications") {
-//        loadlinks("RMCustomerIndividualLeftPane")
-//    }
+    ////    }
+    //    else if (controlid == "BMRMDashBoard") {
+    //        loadlinks("BMRMLeftpane");
+    //    }
+    ////    else if (controlid == "RMDashBoard") {
+    ////        //  parent.document.getElementById("AdvisorLogo").src = SourcePath;
+    ////        loadlinks("RMLeftPane");
+    ////    }
+    //    else if (controlid == "CustomerIndividualDashboard") {
+    //        loadlinks("CustomerIndividualLeftPane");
+    //    }
+    //    else if (controlid == "RMCustomerIndividualDashboard") {
+    //        loadlinks("RMCustomerIndividualLeftPane");
+    //    }
+    //    else if (controlid == "CustomerNonIndividualDashboard") {
+    //        loadlinks("CustomerNonIndividualLeftPane");
+    //    }
+    //    else if (controlid == "RMCustomerNonIndividualDashboard") {
+    //        loadlinks("RMCustomerNonIndividualLeftPane");
+    //    }
+    //    else if (controlid == "AdvisorRMCustIndiDashboard") {
+    //        loadlinks("RMCustomerIndividualLeftPane");
+    //    }
+    //    else if (controlid == "AdvisorRMCustGroupDashboard") {
+    //        loadlinks("RMCustomerIndividualLeftPane");
+    //    }
+    //    else if (controlid == "AdviserRMCustNonIndiDashboard") {
+    //        loadlinks("RMCustomerNonIndividualLeftPane");
+    //    }
+    //    else if (controlid == "RMAlertNotifications") {
+    //        loadlinks("RMCustomerIndividualLeftPane")
+    //    }
 
-//    else if (controlid == "AdminUpload") {
-//        loadlinks("LeftPanel_Links");
+    //    else if (controlid == "AdminUpload") {
+    //        loadlinks("LeftPanel_Links");
 
-//    }
-//    else if (controlid == "SessionExpired") {
-//        loadlinks("LeftPanel_Links");
+    //    }
+    //    else if (controlid == "SessionExpired") {
+    //        loadlinks("LeftPanel_Links");
 
-//    }
-//    else if (controlid == "CustomerProspect") {
-//       
-//            loadlinks("RMCustomerIndividualLeftPane");
-//        
-//    }
+    //    }
+    //    else if (controlid == "CustomerProspect") {
+    //       
+    //            loadlinks("RMCustomerIndividualLeftPane");
+    //        
+    //    }
 
-//    else if (controlid == "Userlogin") {
-//        setHeaderLinksFromControl("", "", "Sign In", "false");
-//    }
+    //    else if (controlid == "Userlogin") {
+    //        setHeaderLinksFromControl("", "", "Sign In", "false");
+    //    }
 
-//    else if (controlid == "UserSettings") {
-//        loadlinks("UserSettingsLeftPane");
-//    }
-//    else if (controlid == "AddAdviserSubscription") {
-//    loadlinks("LeftPanel_Links");
-//    }
+    //    else if (controlid == "UserSettings") {
+    //        loadlinks("UserSettingsLeftPane");
+    //    }
+    //    else if (controlid == "AddAdviserSubscription") {
+    //    loadlinks("LeftPanel_Links");
+    //    }
 }
 function loadsearchcontrol(controlid, searchtype, searchstring) {
 
@@ -167,7 +167,7 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
 
 
     debugger;
-    
+
     if (controlid != null)
         parent.PageMethods.AjaxSetSession("Current_PageID", controlid);
 
@@ -256,8 +256,8 @@ function loginloadcontrol(controlid, logintrue, UserName, SourcePath, BranchLogo
         loadlinks("BMLeftpane");
     }
     else if (controlid == "AdminUpload") {
-    loadlinks("LeftPanel_Links");
-    parent.document.getElementById("AdminHeader").style.display = "block";
+        loadlinks("LeftPanel_Links");
+        parent.document.getElementById("AdminHeader").style.display = "block";
     }
     setHeaderLinksFromControl(UserName, "Sign Out", "", "false");
 }
@@ -309,180 +309,180 @@ function loadfrommenu(controlid, logintrue, frombm) {//, PageForm, MenuControlNa
     //var c_src = "ControlHost.aspx?pageid=";
     //var url = c_src + controlid;
 
-//    var ua = window.navigator.userAgent;
-//    var msie = ua.indexOf("MSIE ")
+    //    var ua = window.navigator.userAgent;
+    //    var msie = ua.indexOf("MSIE ")
 
-//    if (msie > 0)      // If Internet Explorer
-//    {
-//        if (document.readyState == "complete") {
+    //    if (msie > 0)      // If Internet Explorer
+    //    {
+    //        if (document.readyState == "complete") {
 
-//            if (controlid == "AdvisorProfile" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorLeftPane");
-//            }
-//            else if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorLeftPane");
-//            }
-//            else if (controlid == "ViewLOB" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorLeftPane");
-//            }
-//            else if (controlid == "ViewBranches" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorLeftPane");
-//            }
-//            else if (controlid == "RMAlertNotifications") {
-//                loadlinksfromDefault("AlertsLeftPane");
-//            }
-//            else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorRMBMLeftpane");
-//            }
-//            else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorBMLeftpane");
-//            }
-//            else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorRMLeftpane");
-//            }
-//            else if (controlid == "BMRMDashBoard" && logintrue == "login") {
-//                loadlinksfromDefault("BMRMLeftpane");
-//            }
-//            else if (controlid == "BMDashBoard" && logintrue == "login") {
-//                loadlinksfromDefault("BMLeftpane");
-//            }
-//            else if (controlid == "RMDashBoard" && logintrue == "login") {
-//                loadlinksfromDefault("RMLeftPane");
-//            }
-//            else if (controlid == "PortfolioDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("PortfolioLeftPane");
-//            }
-//            else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("CustomerIndividualLeftPane");
-//            }
-//            else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("RMCustomerIndividualLeftPane");
-//            }
-//            else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("RMCustomerIndividualLeftPane");
-//            }
-//            else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("CustomerNonIndividualLeftPane");
-//            }
-//            else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
-//                loadlinksfromDefault("RMCustomerNonIndividualLeftPane");
-//            }
-//            else if (controlid == "ViewRMDetails" && logintrue == "login") {
-//                loadlinksfromDefault("RMLeftPane");
-//            }
-//            else if (controlid == "ViewRM" && logintrue == "login") {
-//                if (frombm != null) {
+    //            if (controlid == "AdvisorProfile" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorLeftPane");
+    //            }
+    //            else if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorLeftPane");
+    //            }
+    //            else if (controlid == "ViewLOB" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorLeftPane");
+    //            }
+    //            else if (controlid == "ViewBranches" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorLeftPane");
+    //            }
+    //            else if (controlid == "RMAlertNotifications") {
+    //                loadlinksfromDefault("AlertsLeftPane");
+    //            }
+    //            else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorRMBMLeftpane");
+    //            }
+    //            else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorBMLeftpane");
+    //            }
+    //            else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorRMLeftpane");
+    //            }
+    //            else if (controlid == "BMRMDashBoard" && logintrue == "login") {
+    //                loadlinksfromDefault("BMRMLeftpane");
+    //            }
+    //            else if (controlid == "BMDashBoard" && logintrue == "login") {
+    //                loadlinksfromDefault("BMLeftpane");
+    //            }
+    //            else if (controlid == "RMDashBoard" && logintrue == "login") {
+    //                loadlinksfromDefault("RMLeftPane");
+    //            }
+    //            else if (controlid == "PortfolioDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("PortfolioLeftPane");
+    //            }
+    //            else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("CustomerIndividualLeftPane");
+    //            }
+    //            else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("RMCustomerIndividualLeftPane");
+    //            }
+    //            else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("RMCustomerIndividualLeftPane");
+    //            }
+    //            else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("CustomerNonIndividualLeftPane");
+    //            }
+    //            else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
+    //                loadlinksfromDefault("RMCustomerNonIndividualLeftPane");
+    //            }
+    //            else if (controlid == "ViewRMDetails" && logintrue == "login") {
+    //                loadlinksfromDefault("RMLeftPane");
+    //            }
+    //            else if (controlid == "ViewRM" && logintrue == "login") {
+    //                if (frombm != null) {
 
-//                }
-//                else {
-//                    loadlinksfromDefault("AdvisorLeftPane");
-//                }
-//            }
-//            else if (controlid == "RMCustomer" && logintrue == "login") {
-//                loadlinksfromDefault("RMLeftPane");
-//            }
-//            else if (controlid == "AdminPriceList" && logintrue == "login") {
-//                loadlinksfromDefault("AdvisorLeftPane");
-//            }
-//            else if (controlid == "AdminUpload") {
-//                loadlinksfromDefault("LeftPanel_Links");
+    //                }
+    //                else {
+    //                    loadlinksfromDefault("AdvisorLeftPane");
+    //                }
+    //            }
+    //            else if (controlid == "RMCustomer" && logintrue == "login") {
+    //                loadlinksfromDefault("RMLeftPane");
+    //            }
+    //            else if (controlid == "AdminPriceList" && logintrue == "login") {
+    //                loadlinksfromDefault("AdvisorLeftPane");
+    //            }
+    //            else if (controlid == "AdminUpload") {
+    //                loadlinksfromDefault("LeftPanel_Links");
 
-//            }
-//            else if (controlid == "FinancialPlanning" && logintrue == "login") {
-//                loadlinks("FinancialPlanningLeftPane");
+    //            }
+    //            else if (controlid == "FinancialPlanning" && logintrue == "login") {
+    //                loadlinks("FinancialPlanningLeftPane");
 
-//            }
-            document.getElementById("mainframe").src = url;
-//        }
+    //            }
+    document.getElementById("mainframe").src = url;
+    //        }
 
-//    }
-//    else                // If another browser
-//    {
-//        setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
-//        //parent.document.getElementById("mainframe").src = url;
+    //    }
+    //    else                // If another browser
+    //    {
+    //        setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
+    //        //parent.document.getElementById("mainframe").src = url;
 
-//        if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorLeftPane");
-//        }
-//        else if (controlid == "AdvisorProfile" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorLeftPane");
-//        }
-//        else if (controlid == "FinancialPlanning" && logintrue == "login") {
+    //        if (controlid == "IFAAdminMainDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorLeftPane");
+    //        }
+    //        else if (controlid == "AdvisorProfile" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorLeftPane");
+    //        }
+    //        else if (controlid == "FinancialPlanning" && logintrue == "login") {
 
-//            document.getElementById("mainframe").src = url;
-//            loadlinksfromDefault("FinancialPlanningLeftPane");
+    //            document.getElementById("mainframe").src = url;
+    //            loadlinksfromDefault("FinancialPlanningLeftPane");
 
-//        }
-//        else if (controlid == "ViewLOB" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorLeftPane");
-//        }
-//        else if (controlid == "ViewBranches" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorLeftPane");
-//        }
-//        /*else if (controlid == "ViewRM" && logintrue == "login") {
-//        loadlinksfromDefault("AdvisorLeftPane");
-//        }*/
-//        else if (controlid == "RMAlertNotifications") {
-//            loadlinksfromDefault("AlertsLeftPane");
-//        }
-//        /**/
-//        else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorRMBMLeftpane");
-//        }
-//        else if (controlid == "AdminPriceList" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorLeftPane");
-//        }
-//        else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorBMLeftpane");
-//        }
-//        else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
-//            loadlinksfromDefault("AdvisorRMLeftpane");
-//        }
-//        else if (controlid == "BMRMDashBoard" && logintrue == "login") {
-//            loadlinksfromDefault("BMRMLeftpane");
-//        }
-//        else if (controlid == "BMDashBoard" && logintrue == "login") {
-//            loadlinksfromDefault("BMLeftpane");
-//        }
-//        else if (controlid == "ViewRM" && logintrue == "login") {
-//            if (frombm != null) {
+    //        }
+    //        else if (controlid == "ViewLOB" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorLeftPane");
+    //        }
+    //        else if (controlid == "ViewBranches" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorLeftPane");
+    //        }
+    //        /*else if (controlid == "ViewRM" && logintrue == "login") {
+    //        loadlinksfromDefault("AdvisorLeftPane");
+    //        }*/
+    //        else if (controlid == "RMAlertNotifications") {
+    //            loadlinksfromDefault("AlertsLeftPane");
+    //        }
+    //        /**/
+    //        else if (controlid == "AdvisorRMBMDashBoard" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorRMBMLeftpane");
+    //        }
+    //        else if (controlid == "AdminPriceList" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorLeftPane");
+    //        }
+    //        else if (controlid == "AdvisorBMDashBoard" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorBMLeftpane");
+    //        }
+    //        else if (controlid == "AdvisorRMDashBoard" && logintrue == "login") {
+    //            loadlinksfromDefault("AdvisorRMLeftpane");
+    //        }
+    //        else if (controlid == "BMRMDashBoard" && logintrue == "login") {
+    //            loadlinksfromDefault("BMRMLeftpane");
+    //        }
+    //        else if (controlid == "BMDashBoard" && logintrue == "login") {
+    //            loadlinksfromDefault("BMLeftpane");
+    //        }
+    //        else if (controlid == "ViewRM" && logintrue == "login") {
+    //            if (frombm != null) {
 
-//            }
-//            else {
-//                loadlinksfromDefault("AdvisorLeftPane");
-//            }
-//        }
-//        else if (controlid == "RMDashBoard" && logintrue == "login") {
-//            loadlinksfromDefault("RMLeftPane");
-//        }
-//        else if (controlid == "PortfolioDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("PortfolioLeftPane");
-//        }
-//        else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("CustomerIndividualLeftPane");
-//        }
-//        else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("RMCustomerIndividualLeftPane");
-//        }
-//        else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("RMCustomerIndividualLeftPane");
-//        }
-//        else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("CustomerNonIndividualLeftPane");
-//        }
-//        else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
-//            loadlinksfromDefault("RMCustomerNonIndividualLeftPane");
-//        }
-//        else if (controlid == "ViewRMDetails" && logintrue == "login") {
-//            loadlinksfromDefault("RMLeftPane");
-//        }
-//        else if (controlid == "RMCustomer" && logintrue == "login") {
-//            loadlinksfromDefault("RMLeftPane");
-//        }
-//        else if (controlid == "AdminUpload") {
-//            loadlinksfromDefault("LeftPanel_Links");
-//        }
-//    }
+    //            }
+    //            else {
+    //                loadlinksfromDefault("AdvisorLeftPane");
+    //            }
+    //        }
+    //        else if (controlid == "RMDashBoard" && logintrue == "login") {
+    //            loadlinksfromDefault("RMLeftPane");
+    //        }
+    //        else if (controlid == "PortfolioDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("PortfolioLeftPane");
+    //        }
+    //        else if (controlid == "CustomerIndividualDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("CustomerIndividualLeftPane");
+    //        }
+    //        else if (controlid == "RMCustomerIndividualDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("RMCustomerIndividualLeftPane");
+    //        }
+    //        else if (controlid == "AdvisorRMCustIndiDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("RMCustomerIndividualLeftPane");
+    //        }
+    //        else if (controlid == "CustomerNonIndividualDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("CustomerNonIndividualLeftPane");
+    //        }
+    //        else if (controlid == "RMCustomerNonIndividualDashboard" && logintrue == "login") {
+    //            loadlinksfromDefault("RMCustomerNonIndividualLeftPane");
+    //        }
+    //        else if (controlid == "ViewRMDetails" && logintrue == "login") {
+    //            loadlinksfromDefault("RMLeftPane");
+    //        }
+    //        else if (controlid == "RMCustomer" && logintrue == "login") {
+    //            loadlinksfromDefault("RMLeftPane");
+    //        }
+    //        else if (controlid == "AdminUpload") {
+    //            loadlinksfromDefault("LeftPanel_Links");
+    //        }
+    //    }
 }
 
 function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
@@ -518,7 +518,7 @@ function logoutloadcontrol(controlid, logoPath, branchLogoPath) {
 }
 
 function loginloadcontrolfromDefault(controlid, logintrue, UserName) {
-//    alert(controlid);
+    //    alert(controlid);
     if (controlid != null) {
         PageMethods.AjaxSetSession("Current_PageID", controlid);
     }
@@ -582,7 +582,7 @@ function loadlinksfromDefault(controlid) {
 }
 
 function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) {
-   
+
 
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ")
@@ -594,7 +594,7 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
 
             if (lnkHelp != null)
                 parent.document.getElementById("lnkHelp").style.display = 'none';
-                
+
             parent.document.getElementById("LinkButtonUserSettings").style.display = 'none';
 
         }
@@ -613,7 +613,7 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
                 parent.document.getElementById("lblUserName").innerText = "Welcome " + username;
             else
                 parent.document.getElementById("lblUserName").innerText = "";
-                
+
             parent.document.getElementById("lblSignOut").innerText = signOutText;
             parent.document.getElementById("LinkButtonSignIn").innerText = signInText;
         }
@@ -623,7 +623,7 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
                 parent.document.getElementById("lblUserName").textContent = "Welcome " + username;
             else
                 parent.document.getElementById("lblUserName").textContent = "";
-                
+
             parent.document.getElementById("lblSignOut").textContent = signOutText;
             parent.document.getElementById("LinkButtonSignIn").textContent = signInText;
         }
@@ -636,7 +636,7 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
 
             if (lnkHelp != null)
                 parent.document.getElementById("lnkHelp").style.display = 'none';
-                
+
             document.getElementById("LinkButtonUserSettings").style.display = 'none';
         }
         else {
@@ -644,7 +644,7 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
 
             if (lnkHelp != null)
                 parent.document.getElementById("lnkHelp").style.display = 'inline';
-                
+
             document.getElementById("LinkButtonUserSettings").style.visible = 'inline';
         }
         if (msie > 0)      // If Internet Explorer
@@ -653,7 +653,7 @@ function setHeaderLinksFromControl(username, signOutText, signInText, IsParent) 
                 document.getElementById("lblUserName").innerText = "Welcome " + username;
             else
                 document.getElementById("lblUserName").innerText = "";
-                
+
             document.getElementById("lblSignOut").innerText = signOutText;
             document.getElementById("LinkButtonSignIn").innerText = signInText;
         }
@@ -725,7 +725,7 @@ function loadcontrolCustomer(controlid, logintrue) {
     }
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
-   
+
 
     setTimeout('parent.document.getElementById("mainframe").src="' + url + '"', 25);
     //parent.document.getElementById("mainframe").src = url;
@@ -764,7 +764,7 @@ function loadcontrolCustomer(controlid, logintrue) {
     }
 }
 function loadtopmenu(menutype) {
-    
+
     if (menutype == "AdvisorLeftPane") {
         //parent.document.getElementById("GeneralMenu").style.display = "none";
         parent.document.getElementById("AdvisorHeader").style.display = "block";
@@ -936,21 +936,21 @@ function loadtopmenu(menutype) {
 
     }
     else if (menutype == "SuperAdminLeftTopMenu") {
-          
-           parent.document.getElementById("divSuperAdminMenu").style.display = "block";
-           parent.document.getElementById("GeneralMenu").style.display = "none";
-           parent.document.getElementById("AdvisorHeader").style.display = "none";
-           parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
-           parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
-           parent.document.getElementById("RMHeader").style.display = "none";
-           parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
-           parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
-           parent.document.getElementById("BMHeader").style.display = "none";
-           parent.document.getElementById("AdminHeader").style.display = "none";
-           parent.document.getElementById("SwitchRolesHeader").style.display = "none";
-          
 
-     }
+        parent.document.getElementById("divSuperAdminMenu").style.display = "block";
+        parent.document.getElementById("GeneralMenu").style.display = "none";
+        parent.document.getElementById("AdvisorHeader").style.display = "none";
+        parent.document.getElementById("CustomerIndividualHeader").style.display = "none";
+        parent.document.getElementById("CustomerNonIndividualHeader").style.display = "none";
+        parent.document.getElementById("RMHeader").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderIndividual").style.display = "none";
+        parent.document.getElementById("RMCLientHeaderNonIndividual").style.display = "none";
+        parent.document.getElementById("BMHeader").style.display = "none";
+        parent.document.getElementById("AdminHeader").style.display = "none";
+        parent.document.getElementById("SwitchRolesHeader").style.display = "none";
+
+
+    }
 }
 /*Loads Controls only it wont load any Left Link*/
 function loadcontrolonly(controlid, logintrue) {
@@ -985,7 +985,7 @@ function LoadTopPanelControl(controlid) {
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
 
-//    alert(url);
+    //    alert(url);
     // Check for Browser Type
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE ")
@@ -999,7 +999,7 @@ function LoadTopPanelControl(controlid) {
     }
     else                // If another browser
     {
-//        alert(url);
+        //        alert(url);
         setTimeout('parent.document.getElementById("topframe").src="' + url + '"', 25);
         document.getElementById("topframe").src = url;
     }
@@ -1032,20 +1032,20 @@ function LoadBottomPanelControl(controlid, logintrue) {
 
 function LoadTopPanelDefault(controlid) {
 
-//    alert(controlid);
+    //    alert(controlid);
     if (controlid != null)
         PageMethods.AjaxSetTopPanelSession("Top_Panel_PageID", controlid);
 
-//    alert(controlid);
+    //    alert(controlid);
     var c_src = "OnlineTopHost.aspx?pageid=";
     var randomnumbers = RandomGenerator();
     var url = c_src + controlid + "&rnd=" + randomnumbers;
 
     setTimeout('document.getElementById("topframe").src="' + url + '"', 25);
     document.getElementById("topframe").src = url;
-   
-//    if (controlid = 'OnlineOrderTopMenu')
-//        LoadBottomPanelDefault('NCDIssueTransact');
+
+    //    if (controlid = 'OnlineOrderTopMenu')
+    //        LoadBottomPanelDefault('NCDIssueTransact');
 }
 
 function LoadBottomPanelDefault(controlid) {
@@ -1061,6 +1061,29 @@ function LoadBottomPanelDefault(controlid) {
     setTimeout('document.getElementById("bottomframe").src="' + url + '"', 25);
     document.getElementById("bottomframe").src = url;
 
-//    alert(controlid);
+    //    alert(controlid);
 
 }
+
+function showMsg(msgBody, msgType) {
+    $(".tblMessage").show();
+    if (msgType = 'S') {
+        $('#divMessage').addClass("success-msg");
+    }
+    else if (msgType = 'F') {
+        $('#divMessage').addClass("failure-msg");
+    }
+    else if (msgType = 'W') {
+        $('#divMessage').addClass("warning-msg");
+    }
+    else if (msgType = 'I') {
+        $('#divMessage').addClass("information-msg");
+    }
+    var msg = '<div style="float: right;margin-right: -16px;margin-top: -15px;"><a href="javascript:void(0);" onclick="hideMsg()"><img src="../Images/DeleteRed.png" border="0" /></a></div>' + msgBody;
+    $("#divMessage").html(msg).show();
+}
+
+function hideMsg() {
+    $("#divMessage").html('').hide();
+}
+    

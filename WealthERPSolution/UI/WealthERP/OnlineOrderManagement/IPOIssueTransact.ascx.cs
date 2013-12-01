@@ -33,6 +33,8 @@ namespace WealthERP.OnlineOrderManagement
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];
+            //msgRecordStatus.InnerText = "Order placed successfully, Order reference no is " + 1234.ToString() + ", Order will process next business day";
+            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjuklo", " showMsg('Order placed successfully, Order reference no is 1234 Order will process next business day');", true);
 
             var issueId = string.Empty;
             if (!Page.IsPostBack)
@@ -42,6 +44,7 @@ namespace WealthERP.OnlineOrderManagement
                     issueId = Request.QueryString["issueId"].ToString();
                     BindIPOIssueList(issueId);
                     BindIPOBidGrid(3);
+                    ShowAvailableLimits();
                 }
             }
 
@@ -244,8 +247,9 @@ namespace WealthERP.OnlineOrderManagement
 
         private void ShowMessage(string msg)
         {
-            tblMessage.Visible = true;
-            msgRecordStatus.InnerText = msg;
+
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghj", " showMsg('" + msg + "','S');", true);
+
         }
 
         private string CreateUserMessage(int orderId, bool accountDebitStatus, bool isCutOffTimeOver)
