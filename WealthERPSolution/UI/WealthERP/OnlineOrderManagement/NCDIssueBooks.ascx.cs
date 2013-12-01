@@ -288,10 +288,45 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void gvBBList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
+            bool lbResult = false;
+            string action;
+            int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+            int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+            string Issuername = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Scrip"].ToString();
+
+            if (e.CommandName == "View")
+            {
+                action = "View";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
+            }
+            if (e.CommandName == "Edit")
+            {
+                action = "Edit";
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
+            }
+            if (e.CommandName == "Cancel")
+            {
+                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
+                if (lbResult == true)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                }
+                BindBBGV(customerVo.CustomerId);
+            }
         }
 
         public void gvBBList_OnItemDataCommand(object sender, GridItemEventArgs e)
         {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                string Iscancel = Convert.ToString(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTS_TransactionStatusCode"]);
+                ImageButton imgCancel = (ImageButton)dataItem.FindControl("Cancel");
+                if (Iscancel == "Cancelled")
+                {
+                    imgCancel.Enabled = false;
+                }
+            }
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {

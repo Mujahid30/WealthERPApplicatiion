@@ -203,7 +203,7 @@
                                 Skin="Telerik" AllowFilteringByColumn="false" OnNeedDataSource="gvBBList_OnNeedDataSource" 
                                 OnUpdateCommand="gvBBList_UpdateCommand" OnItemDataBound="gvBBList_OnItemDataCommand" OnItemCommand="gvBBList_OnItemCommand">
                                 <%--OnNeedDataSource="gvBBList_OnNeedDataSource"--%>
-                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip" Width="100%"
+                                <MasterTableView DataKeyNames="CO_OrderId,AIM_IssueId,Scrip,WTS_TransactionStatusCode" Width="100%"
                                     AllowMultiColumnSorting="True" AutoGenerateColumns="false">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
@@ -292,14 +292,18 @@
                                         <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="100px" UniqueName="Action"
                                             HeaderText="Action">
                                             <ItemTemplate>
-                                                <asp:DropDownList ID="ddlaction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
+                                             <asp:ImageButton ID="imgView" runat="server" CommandName="Cancel" ImageUrl="~/Images/View.jpg"
+                                             ToolTip="Cancel" />&nbsp;
+                                            <asp:ImageButton ID="imgCancel" runat="server" CommandName="Cancel" ImageUrl="~/Images/Cancel.jpg"
+                                             ToolTip="Cancel" />&nbsp;                                             
+                                               <%-- <asp:DropDownList ID="ddlaction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
                                                     CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
                                                     AllowCustomText="true" Width="100px" AutoPostBack="true">
                                                     <asp:ListItem Text="Select" Value="select" Selected="True"></asp:ListItem>
-                                                    <asp:ListItem Text="View" Value="View"></asp:ListItem>
+                                                    <asp:ListItem Text="View" Value="View" Enabled="false"></asp:ListItem>
                                                     <asp:ListItem Text="Modify" Value="Edit" Enabled="false"></asp:ListItem>
                                                     <asp:ListItem Text="Cancel" Value="Cancel"></asp:ListItem>
-                                                </asp:DropDownList>
+                                                </asp:DropDownList>--%>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                         <telerik:GridTemplateColumn>
