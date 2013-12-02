@@ -46,6 +46,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     date = Convert.ToDateTime(Request.QueryString["date"].ToString());
                     ddlType.SelectedValue = type;
                     txtDate.SelectedDate = date;
+                    ddlProduct.SelectedValue = product;
                     pnlIssueList.Visible = true;
                     BindViewListGrid(GetType(type), date, product);
                 }
@@ -122,7 +123,7 @@ namespace WealthERP.OnlineOrderBackOffice
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int issueNo = int.Parse((gvIssueList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString()));
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + txtDate.SelectedDate.Value + "&type=" + ddlProduct.SelectedValue + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + txtDate.SelectedDate.Value + "&product=" + ddlProduct.SelectedValue + "');", true);
 
         }
     }

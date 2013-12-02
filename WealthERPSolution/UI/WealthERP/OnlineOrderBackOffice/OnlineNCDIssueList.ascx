@@ -61,7 +61,7 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator21" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Date" Display="Dynamic" ControlToValidate="txtDate"
                 InitialValue="" ValidationGroup="btnGo">
-            </asp:RequiredFieldValidator> 
+            </asp:RequiredFieldValidator>  
             </td>
             <td class="leftLabel">
                 <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
@@ -80,10 +80,10 @@
                     CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
-              <td class="leftLabel">
+             <%-- <td class="leftLabel">
                 <asp:Label ID="Label1" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td class="rightData">
+            </td>--%>
+           <%-- <td class="rightData">
                 <asp:DropDownList ID="DropDownList1" runat="server" CssClass="cmbField" AutoPostBack="true"
                     Width="205px">
                     <asp:ListItem Value="Select">Select</asp:ListItem>
@@ -99,8 +99,8 @@
             </td>
                <td class="leftLabel">
                 <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td class="rightData">
+            </td>--%>
+         <%--   <td class="rightData">
                 <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
                     Width="205px">
                     <asp:ListItem Value="Select">Select</asp:ListItem>
@@ -110,9 +110,31 @@
                 <span id="Span2" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Product Type"
-                    CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
+                    CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
+                    InitialValue="Select"></asp:RequiredFieldValidator>
+            </td>--%>
+    </tr>
+    <tr>
+     <td class="leftLabel">
+                <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
+            </td>
+       <td class="rightData">
+                <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    Width="205px">
+                    <asp:ListItem Value="Select">Select</asp:ListItem>
+                    <asp:ListItem Value="NCD">NCD</asp:ListItem>
+                    <asp:ListItem Value="IP">IPO</asp:ListItem>
+                </asp:DropDownList>
+                <span id="Span2" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Product Type"
+                    CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnGo" Display="Dynamic"
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
+             <td class="rightData">
+             &nbsp;
+             </td>
+    
     </tr>
     
      <tr id="trBtnSubmit" runat="server">
@@ -160,13 +182,13 @@
                                 </telerik:GridTemplateColumn>
                                   <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderText="Issue Name" SortExpression="AIM_IssueName"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left"  >
+                                    UniqueName="AIM_IssueName" FooterStyle-HorizontalAlign="Left"   >
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridDateTimeColumn DataField="AIM_OpenDate" HeaderText="Open Date" SortExpression="AIM_OpenDate"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="AIM_OpenDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
-                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                    UniqueName="AIM_OpenDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}" >
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridDateTimeColumn>
                                 <telerik:GridBoundColumn DataField="AIM_CloseDate" HeaderText="Close Date" SortExpression="AIM_CloseDate"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" DataFormatString="{0:d}"

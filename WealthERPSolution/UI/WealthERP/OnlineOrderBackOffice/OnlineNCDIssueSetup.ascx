@@ -116,8 +116,8 @@
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px" OnSelectedIndexChanged="ddlProduct_Selectedindexchanged">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="IPO">IPO</asp:ListItem>
-                <asp:ListItem Value="Bonds">Bonds</asp:ListItem>
+                <asp:ListItem Value="IP">IPO</asp:ListItem>
+                <asp:ListItem Value="NCD">Bonds</asp:ListItem>
             </asp:DropDownList>
             <span id="Span7" class="spnRequiredField">*</span>
             <br />
@@ -255,7 +255,7 @@
                 CssClass="rfvPCG" ControlToValidate="txtFloorPrice" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
             <asp:RangeValidator ID="RangeValidator5" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                runat="server" ErrorMessage="Date of Floor Price between 1 to 999999999"
                 ControlToValidate="txtFloorPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
                 CssClass="cvPCG"></asp:RangeValidator>
         </td>
@@ -270,7 +270,7 @@
                 CssClass="rfvPCG" ControlToValidate="txtFixedPrice" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
             <asp:RangeValidator ID="RangeValidator4" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                runat="server" ErrorMessage="<br />Date of Fixed Price between 1 to 999999999"
                 ControlToValidate="txtFixedPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
                 CssClass="cvPCG"></asp:RangeValidator>
         </td>
@@ -556,7 +556,7 @@
             <span id="Span30" class="spnRequiredField">*</span>
             <br />
             <asp:RangeValidator ID="RangeValidator7" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                runat="server" ErrorMessage="<br />Date of Max Qty between 1 to 999999999"
                 ControlToValidate="txtMaxQty" MaximumValue="999999999" MinimumValue="1" Type="Integer"
                 CssClass="cvPCG"></asp:RangeValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
@@ -581,7 +581,7 @@
             <span id="Span23" class="spnRequiredField">*</span>
             <br />
             <asp:RangeValidator ID="RangeValidator6" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Systematic Trx between 1 to 999999999"
+                runat="server" ErrorMessage="<br />Date of Min Qty between 1 to 999999999"
                 ControlToValidate="txtFloorPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
                 CssClass="cvPCG"></asp:RangeValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
@@ -1081,19 +1081,19 @@
                                                                             AllowFiltering="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_DefaultInterestRate" HeaderStyle-Width="30px"
+                                                                        <telerik:GridBoundColumn DataField="AIDCSR_DefaultInterestRate" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            HeaderText="Default InterestRate" UniqueName="AID_DefaultInterestRate" SortExpression="AID_DefaultInterestRate">
+                                                                            HeaderText="Default InterestRate" UniqueName="AIDCSR_DefaultInterestRate" SortExpression="AIDCSR_DefaultInterestRate">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_AnnualizedYieldUpto" HeaderStyle-Width="30px"
+                                                                        <telerik:GridBoundColumn DataField="AIDCSR_AnnualizedYieldUpto" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            HeaderText="Annualized YieldUpto" UniqueName="AID_AnnualizedYieldUpto" SortExpression="AID_AnnualizedYieldUpto">
+                                                                            HeaderText="Annualized YieldUpto" UniqueName="AIDCSR_AnnualizedYieldUpto" SortExpression="AIDCSR_AnnualizedYieldUpto">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_InterestFrequency" HeaderStyle-Width="30px"
+                                                                        <telerik:GridBoundColumn DataField="AIDCSR_DefaultInterestRate" HeaderStyle-Width="30px"
                                                                             HeaderText="Interest Frequency" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                                            AutoPostBackOnFilter="true" UniqueName="AID_InterestFrequency" Visible="true">
+                                                                            AutoPostBackOnFilter="true" UniqueName="AIDCSR_InterestFrequency" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                     </Columns>

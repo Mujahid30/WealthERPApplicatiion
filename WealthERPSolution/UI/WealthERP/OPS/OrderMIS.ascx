@@ -513,7 +513,7 @@
         </td>
     </tr>
 </table>
-<asp:Panel ID="tbgvMIS" runat="server" class="Landscape" Width="100%" Height="80%"
+<asp:Panel ID="tbgvMIS" runat="server" class="Landscape" Width="100%" Height="80%" Visible="false" 
     ScrollBars="Both">
     <table width="50%">
         <tr>
