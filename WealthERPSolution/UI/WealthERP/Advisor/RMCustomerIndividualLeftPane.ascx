@@ -383,7 +383,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact">
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact" Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

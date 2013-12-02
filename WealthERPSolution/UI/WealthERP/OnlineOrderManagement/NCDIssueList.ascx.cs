@@ -57,13 +57,13 @@ namespace WealthERP.OnlineOrderManagement
                     Cache.Remove("NCDIssueList" + userVo.UserId.ToString());
                     Cache.Insert("NCDIssueList" + userVo.UserId.ToString(), dtIssue);
                 }
-                ibtExportSummary.Visible = false;
+                //ibtExportSummary.Visible = false;
                 gvCommMgmt.DataSource = dtIssue;
                 gvCommMgmt.DataBind();
             }
             else
             {
-                ibtExportSummary.Visible = false;
+                //ibtExportSummary.Visible = false;
                 gvCommMgmt.DataSource = dtIssue;
                 gvCommMgmt.DataBind();
 
@@ -100,8 +100,10 @@ namespace WealthERP.OnlineOrderManagement
             LinkButton lbButton = (LinkButton)sender;
             GridDataItem item = (GridDataItem)lbButton.NamingContainer;
             int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
+            int minQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
+            int maxQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MaxQty"].ToString());
             string Issuename = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_SchemeName"].ToString();
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
 
         }
         protected void btnEquityBond_Click(object sender, EventArgs e)

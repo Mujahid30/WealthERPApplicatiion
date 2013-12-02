@@ -128,11 +128,11 @@
 </style>
 <%--<asp:UpdatePanel ID="upCMGrid" runat="server">
     <ContentTemplate>--%>
-<table width="100%">
+<%--<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
-                <table width="100%">
+                <table width="100%">s
                     <tr>
                         <td align="left">
                             NCD Issue List
@@ -147,7 +147,7 @@
             </div>
         </td>
     </tr>
-</table>
+</table>--%>
 <%--<table width="100%">
     <tr>
         <td>
@@ -179,7 +179,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound"
                                 OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,AIM_MInQty,AIM_MaxQty"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
@@ -230,7 +230,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="FaceValue" Visible="true">
+                                            UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0)}">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
@@ -351,7 +351,7 @@
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AID_YieldUpto" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
-                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" SortExpression="AID_YieldUpto"
                                                                             UniqueName="AID_YieldUpto" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>

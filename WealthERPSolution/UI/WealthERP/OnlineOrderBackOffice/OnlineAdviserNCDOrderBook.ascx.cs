@@ -106,17 +106,18 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void gvNCDOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            bool lbResult = false;
-            int OrderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-            if (e.CommandName == "Cancel")
-            {
-                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
-                if (lbResult == true)
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+            bool lbResult = false;           
+              
+                if (e.CommandName == "Cancel")
+                {   int OrderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                    lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
+                    if (lbResult == true)
+                    {
+                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                    }
+                    BindAdviserNCCOrderBook();
                 }
-                BindAdviserNCCOrderBook();
-            }
+            
         }
         public void gvNCDOrderBook_OnItemDataCommand(object sender, GridItemEventArgs e)
         {
@@ -124,7 +125,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 string Iscancel = Convert.ToString(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTS_TransactionStatusCode"]);
-                ImageButton imgCancel = (ImageButton)dataItem.FindControl("Cancel");
+                ImageButton imgCancel = (ImageButton)dataItem.FindControl("imgCancel");
                 if (Iscancel == "Cancelled")
                 {
                     imgCancel.Enabled = false;
