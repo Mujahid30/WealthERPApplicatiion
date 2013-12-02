@@ -2892,6 +2892,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineOrderExtract.ascx.designer.cs">
       <DependentUpon>OnlineOrderExtract.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx.cs">
+      <DependentUpon>OnlineOrderUnauthorizedUser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx.designer.cs">
+      <DependentUpon>OnlineOrderUnauthorizedUser.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\SIPBookSummmaryList.ascx.cs">
       <DependentUpon>SIPBookSummmaryList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2905,6 +2912,13 @@
     </Compile>
     <Compile Include="OnlineOrder\MFOnlineOrder.aspx.designer.cs">
       <DependentUpon>MFOnlineOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrder\OnlineOrderDummyTopMenu.ascx.cs">
+      <DependentUpon>OnlineOrderDummyTopMenu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrder\OnlineOrderDummyTopMenu.ascx.designer.cs">
+      <DependentUpon>OnlineOrderDummyTopMenu.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOrder\OnlineOrderTopMenu.ascx.cs">
       <DependentUpon>OnlineOrderTopMenu.ascx</DependentUpon>
@@ -7756,8 +7770,10 @@
     <Content Include="OnlineOrderManagement\NCDIssuesetup.ascx" />
     <Content Include="OnlineOrderManagement\NCDIssueTransact.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderExtract.ascx" />
+    <Content Include="OnlineOrderManagement\OnlineOrderUnauthorizedUser.ascx" />
     <Content Include="OnlineOrderManagement\SIPBookSummmaryList.ascx" />
     <Content Include="OnlineOrder\MFOnlineOrder.aspx" />
+    <Content Include="OnlineOrder\OnlineOrderDummyTopMenu.ascx" />
     <Content Include="OnlineOrder\OnlineOrderTopMenu.ascx" />
     <Content Include="OnlineTopHost.aspx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />

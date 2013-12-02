@@ -1833,6 +1833,14 @@
     <value>OnlineOrderManagement//CustomerIPOOrderBook.ascx</value>
     <comment>OnlineOrderManagement//CustomerIPOOrderBook.ascx</comment>
   </data>
+  <data name="OnlineOrderDummyTopMenu" xml:space="preserve">
+    <value>OnlineOrder//OnlineOrderDummyTopMenu.ascx</value>
+    <comment>OnlineOrder//OnlineOrderDummyTopMenu.ascx</comment>
+  </data>
+  <data name="OnlineOrderUnauthorizedUser" xml:space="preserve">
+    <value>OnlineOrderManagement//OnlineOrderUnauthorizedUser.ascx</value>
+    <comment>OnlineOrderManagement//OnlineOrderUnauthorizedUser.ascx</comment>
+  </data>
   <data name="OnlineAdviserNCDOrderBook" xml:space="preserve">
     <value>OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx</comment>

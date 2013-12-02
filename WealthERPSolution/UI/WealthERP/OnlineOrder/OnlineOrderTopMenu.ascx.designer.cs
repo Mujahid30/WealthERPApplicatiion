@@ -8,11 +8,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WealthERP.OnlineOrder {
-    
-    
-    public partial class OnlineOrderTopPanel {
-        
+namespace WealthERP.OnlineOrder
+{
+
+
+    public partial class OnlineOrderTopPanel
+    {
+
         /// <summary>
         /// ScriptManager control.
         /// </summary>
@@ -49,6 +51,85 @@ namespace WealthERP.OnlineOrder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trMFOrderMenuHoldingsTab;
+
+
+        /// <summary>
+        /// trNCDOrderMenuTransactTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNCDOrderMenuTransactTab;
+
+        /// <summary>
+        /// trNCDOrderMenuBooksTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNCDOrderMenuBooksTab;
+        /// <summary>
+        /// trNCDOrderMenuHoldingsTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNCDOrderMenuHoldingsTab;
+
+
+
+        /// <summary>
+        /// trIPOOrderMenuTransactTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPOOrderMenuTransactTab;
+
+        /// <summary>
+        /// trIPOOrderMenuBooksTab control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPOOrderMenuBooksTab;
+
+        /// <summary>
+        /// tblMF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblMF;
+
+        /// <summary>
+        /// tblNCD control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblNCD;
+
+        /// <summary>
+        /// tblIPO control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+
+        protected global::System.Web.UI.HtmlControls.HtmlTable tblIPO;
 
 
     }

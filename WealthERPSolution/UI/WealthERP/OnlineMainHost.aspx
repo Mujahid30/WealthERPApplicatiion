@@ -111,7 +111,7 @@
         height: 40px;
         background: url('Images/sbi-capsec-header.png') no-repeat left top;
         width: 100%;
-        float: left;
+        float: left;       
     }
     .div-container
     {
@@ -160,8 +160,9 @@
     {
         float: left;
         width: 100%;
-        height: 35px;
+        height: 30px;
         padding-top: 0px;
+        padding-bottom: 0px;
     }
     .top-menu-frame
     {
@@ -180,7 +181,7 @@
         margin: 5px 0;
         list-style: none;
         float: left;
-        padding-left:4px;
+        padding-left: 4px;
     }
     ul li
     {
@@ -226,7 +227,6 @@
         color: White;
         font-weight: bold;
     }
-    
 </style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -247,9 +247,9 @@
         </div>
         <div class="div-container">
             <div class="product-header">
-                <asp:Label ID="lblOnlieProductType" runat="server" Text="Mutual Fund Order" CssClass="product-header-text"></asp:Label>
+                <asp:Label ID="lblOnlieProductType" runat="server" Text="" CssClass="product-header-text"></asp:Label>
             </div>
-            <div class="prduct-main-menu" id="divMFMenu" runat="server">
+            <div class="prduct-main-menu" id="divMFMenu" runat="server" visible="false">
                 <ul class="blue">
                     <li>
                         <asp:LinkButton ID="lnkMFOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
@@ -262,6 +262,38 @@
                     <li>
                         <asp:LinkButton ID="lnkMFOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
                             Style="text-decoration: none" OnClick="lnkMFOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                </ul>
+            </div>
+            <div class="prduct-main-menu" id="divNCDMenu" runat="server" visible="false">
+                <ul class="blue">
+                    <li>
+                        <asp:LinkButton ID="lnkNCDOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkNCDOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="lnkNCDOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkNCDOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="lnkNCDOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkNCDOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                </ul>
+            </div>
+            <div class="prduct-main-menu" id="divIPOMenu" runat="server" visible="false">
+                <ul class="blue">
+                    <li>
+                        <asp:LinkButton ID="lnkIPOOrderMenuTransact" runat="server" Text="TRANSACT" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkIPOOrderMenuTransact_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="lnkIPOOrderMenuBooks" runat="server" Text="BOOKS" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkIPOOrderMenuBooks_Click" Width="120px"></asp:LinkButton>
+                    </li>
+                    <li>
+                        <asp:LinkButton ID="lnkIPOOrderMenuHoldings" runat="server" Text="HOLDINGS" CssClass="LinkButtons"
+                            Style="text-decoration: none" OnClick="lnkIPOOrderMenuHoldings_Click" Width="120px"></asp:LinkButton>
                     </li>
                 </ul>
             </div>

@@ -34,7 +34,7 @@ namespace WealthERP.OnlineOrderManagement
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];
             //msgRecordStatus.InnerText = "Order placed successfully, Order reference no is " + 1234.ToString() + ", Order will process next business day";
-            //ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjuklo", " showMsg('Order placed successfully, Order reference no is 1234 Order will process next business day');", true);
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjuklocvvvvvdddretyu", " showMsg('Order placed successfully, Order reference no is 1234 Order will process next business day','S');", true);
 
             var issueId = string.Empty;
             if (!Page.IsPostBack)

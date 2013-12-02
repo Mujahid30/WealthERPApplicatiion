@@ -73,6 +73,8 @@
             <tr>
                 <td colspan="2" align="right">
                     <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                    <asp:Button ID="btnNCDOnline" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
+                    <asp:Button ID="btnIPOOnline" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <hr />
                 </td>
             </tr>
@@ -406,9 +408,9 @@
                                             <telerik:RadPanelItem runat="server" Text="Transact" Value="IPOIssueTransact">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Issue List" Value="IPOIssueList">
-                                                    </telerik:RadPanelItem>    
+                                                    </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Issue Book" Value="IPOIssueBook">
-                                                    </telerik:RadPanelItem>                                                
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>

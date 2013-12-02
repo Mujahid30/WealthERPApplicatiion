@@ -67,14 +67,28 @@ namespace WealthERP.Advisor
                 rmVo = (RMVo)Session["rmVo"];
                 if (!string.IsNullOrEmpty(customerVo.AccountId))
                 {
-                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-Products=MF&x-Account-ID=" + customerVo.AccountId.ToString();
+                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=MF&x-Account-ID=" + customerVo.AccountId.ToString();
                     btnOnlineOrder.ToolTip = "Click here for MF online Order";
+
+                    btnNCDOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=NCD&x-Account-ID=" + customerVo.AccountId.ToString();
+                    btnNCDOnline.ToolTip = "Click here for NCD online Order";
+
+                    btnIPOOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=IPO&x-Account-ID=" + customerVo.AccountId.ToString();
+                    btnIPOOnline.ToolTip = "Click here for IPO online Order";
                 }
                 else
                 {
-                    btnOnlineOrder.ToolTip = "ClientId not available, Please update clientId from backend";
-                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-Products=MF";
+                    btnOnlineOrder.ToolTip = "ClientId not available, Please update clientId from customer profile";
+                    btnOnlineOrder.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=MF";
                     btnOnlineOrder.Enabled = false;
+
+                    btnNCDOnline.ToolTip = "ClientId not available, Please update clientId from customer profile";
+                    btnNCDOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=NCD";
+                    btnNCDOnline.Enabled = false;
+
+                    btnIPOOnline.ToolTip = "ClientId not available, Please update clientId from customer profile";
+                    btnIPOOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=IPO";
+                    btnIPOOnline.Enabled = false;
                 }
                 if (!IsPostBack)
                 {

@@ -55,10 +55,10 @@
 </style>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <div class="divOnlinePageHeading" style="float: right; width: 100%">
-            <div style="float: right; padding-right: 100px;">
+        <div class="divOnlinePageHeading">
+            <div style="float: right; padding-right: 50px;">
                 <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
-                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
             </div>
         </div>
         <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">

@@ -30,6 +30,7 @@
         }
     }
 </script>
+
 <script type="text/javascript">
 
     function closeCustomConfirm() {
@@ -63,11 +64,11 @@
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>    
-        <div class="divOnlinePageHeading" style="float: right; width: 100%">
-            <div style="float: right; padding-right: 100px;">
-                <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
-                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="FieldName"></asp:Label>
+    <ContentTemplate>
+        <div class="divOnlinePageHeading">
+            <div class="divClientAccountBalance">
+                <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>               
+                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
             </div>
         </div>
         <table class="tblMessage" cellpadding="0" cellspacing="0">

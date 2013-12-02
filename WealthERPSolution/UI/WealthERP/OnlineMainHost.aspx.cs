@@ -53,29 +53,29 @@ namespace WealthERP
             if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
             {
                 userAccountId = Page.Request.Headers["x-Account-ID"].ToString();
-                if (Page.Request.Headers["x-SBI-Products"] != null && Page.Request.Headers["x-SBI-Products"] != "")
+                if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
                 {
-                    productType = Page.Request.Headers["x-SBI-Products"];
+                    productType = Page.Request.Headers["x-SBI-PType"];
                 }
             }
             else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
             {
                 userAccountId = Request.QueryString["x-Account-ID"].ToString();
 
-                if (Request.QueryString["x-SBI-Products"] != null && Request.QueryString["x-SBI-Products"] != "")
+                if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
                 {
-                    productType = Request.QueryString["x-SBI-Products"];
-                    
+                    productType = Request.QueryString["x-SBI-PType"];
+
                 }
             }
             if (Request.QueryString["WERP"] != null)
                 isWerp = Request.QueryString["WERP"];
             //Testing User
 
-            if (string.IsNullOrEmpty(userAccountId))
-                userAccountId = "ESI206315";
-            if (productType != "MF")
-                productType = "MF";
+            //if (string.IsNullOrEmpty(userAccountId))
+            //    userAccountId = "ESI206315";
+            //if (productType != "MF")
+            //    productType = "MF";
 
             if (!string.IsNullOrEmpty(userAccountId))
             {
@@ -83,11 +83,19 @@ namespace WealthERP
                     productType = "MF";
                 if (!Page.IsPostBack)
                 {
-                    SetDefaultPageSetting(productType);
+                    SetProductTypeMenu(productType.ToUpper());
+                    SetDefaultPageSetting(productType.ToUpper());
+
                 }
+                lblWelcomeUser.Text = "Account: " + userAccountId;
+            }
+            else
+            {
+                //Not Authorize to see the page
+                SetDefaultPageSetting("NA");
             }
 
-            lblWelcomeUser.Text = "Account: " + userAccountId;
+
         }
 
 
@@ -114,24 +122,64 @@ namespace WealthERP
                         ValidateUserLogin(userAccountId, isWerp);
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
                     }
+                    else
+                    {
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
+                    }
 
                 }
             }
 
         }
 
-        protected void SetDefaultPageSetting(string ProductType)
+        private void SetProductTypeMenu(string productType)
         {
-            switch (ProductType)
+            switch (productType)
             {
                 case "MF":
-                    defaultProductPageSetting.Add("ProductType", ProductType);
+                    divMFMenu.Visible = true;
+                    lblOnlieProductType.Text = "Mutual Fund Order";
+                    break;
+                case "NCD":
+                    divNCDMenu.Visible = true;
+                    lblOnlieProductType.Text = "NCD Order";
+                    break;
+                case "IPO":
+                    divIPOMenu.Visible = true;
+                    lblOnlieProductType.Text = "IPO Order";
+                    break;
+            }
+        }
+
+        protected void SetDefaultPageSetting(string ProductType)
+        {
+            switch (ProductType.ToUpper())
+            {
+                case "MF":
+                    defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
                     defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
                     defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransactNewPurchase");
                     defaultProductPageSetting.Add("ProductMenuItemPage", "MFOrderPurchaseTransType");
                     break;
-                case "BOND-FD":
+                case "NCD":
+                    defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
+                    defaultProductPageSetting.Add("ProductMenu", "trNCDOrderMenuTransactTab");
+                    defaultProductPageSetting.Add("ProductMenuItem", "RTSNCDOrderMenuTransactNCDIssueList");
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "NCDIssueList");
                     break;
+                case "IPO":
+                    defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
+                    defaultProductPageSetting.Add("ProductMenu", "trIPOOrderMenuTransactTab");
+                    defaultProductPageSetting.Add("ProductMenuItem", "RTSIPOOrderMenuTransactIPOIssueList");
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "IPOIssueList");
+                    break;
+                case "NA":
+                    defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
+                    defaultProductPageSetting.Add("ProductMenu", string.Empty);
+                    defaultProductPageSetting.Add("ProductMenuItem", string.Empty);
+                    defaultProductPageSetting.Add("ProductMenuItemPage", "OnlineOrderUnauthorizedUser");
+                    break;
+
             }
             Session["PageDefaultSetting"] = defaultProductPageSetting;
         }
@@ -243,37 +291,122 @@ namespace WealthERP
             ProductMenuItemChange("MF", "Hodings");
         }
 
+
+        protected void lnkNCDOrderMenuTransact_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("NCD", "Transact");
+        }
+        protected void lnkNCDOrderMenuBooks_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("NCD", "OrderBook");
+        }
+        protected void lnkNCDOrderMenuHoldings_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("NCD", "Hodings");
+        }
+
+        protected void lnkIPOOrderMenuTransact_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("IPO", "Transact");
+        }
+        protected void lnkIPOOrderMenuBooks_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("IPO", "OrderBook");
+        }
+        protected void lnkIPOOrderMenuHoldings_Click(object sender, EventArgs e)
+        {
+            ProductMenuItemChange("IPO", "Hodings");
+        }
+
+
         protected void ProductMenuItemChange(string ProductType, string menuType)
         {
-            switch (menuType)
+            switch (ProductType)
             {
-                case "Transact":
-                    defaultProductPageSetting.Add("ProductType", ProductType);
-                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
-                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransactNewPurchase");
-                    defaultProductPageSetting.Add("ProductMenuItemPage", "MFOrderPurchaseTransType");
+                case "MF":
+                    {
+                        switch (menuType)
+                        {
+                            case "Transact":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuTransactTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuTransactNewPurchase");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "MFOrderPurchaseTransType");
+                                break;
+                            case "OrderBook":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuBooksTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuBooks");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFOrderBookList");
+                                break;
+                            case "Hodings":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuHoldingsTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHoldings");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFUnitHoldingList");
+                                break;
+                        }
+                    }
                     break;
-                case "OrderBook":
-                    defaultProductPageSetting.Add("ProductType", ProductType);
-                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuBooksTab");
-                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuBooks");
-                    defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFOrderBookList");
-                    break;
-                case "Hodings":
-                    defaultProductPageSetting.Add("ProductType", ProductType);
-                    defaultProductPageSetting.Add("ProductMenu", "trMFOrderMenuHoldingsTab");
-                    defaultProductPageSetting.Add("ProductMenuItem", "RTSMFOrderMenuHoldings");
-                    defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerMFUnitHoldingList");
-                    break;
+                case "NCD":
+                    {
+                        switch (menuType)
+                        {
+                            case "Transact":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trNCDOrderMenuTransactTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSNCDOrderMenuTransactNCDIssueList");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "NCDIssueList");
+                                break;
+                            case "OrderBook":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trNCDOrderMenuBooksTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSNCDOrderMenuBooksNCDBook");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "NCDIssueBooks");
+                                break;
+                            case "Hodings":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trNCDOrderMenuHoldingsTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSNCDOrderMenuHoldingsNCDHolding");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "NCDIssueHoldings");
+                                break;
+                        }
+                        break;
+
+                    }
+
+                case "IPO":
+                    {
+                        switch (menuType)
+                        {
+                            case "Transact":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trIPOOrderMenuTransactTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSIPOOrderMenuTransactIPOIssueList");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "IPOIssueList");
+                                break;
+                            case "OrderBook":
+                                defaultProductPageSetting.Add("ProductType", ProductType);
+                                defaultProductPageSetting.Add("ProductMenu", "trIPOOrderMenuBooksTab");
+                                defaultProductPageSetting.Add("ProductMenuItem", "RTSIPOOrderMenuBooksIPOBook");
+                                defaultProductPageSetting.Add("ProductMenuItemPage", "CustomerIPOOrderBook");
+                                break;
+                            //case "Hodings":
+                            //    defaultProductPageSetting.Add("ProductType", ProductType);
+                            //    defaultProductPageSetting.Add("ProductMenu", "trNCDOrderMenuHoldingsTab");
+                            //    defaultProductPageSetting.Add("ProductMenuItem", "RTSNCDOrderMenuHoldingsNCDHolding");
+                            //    defaultProductPageSetting.Add("ProductMenuItemPage", "NCDIssueHoldings");
+                            //    break;
+                        }
+                        break;
+
+                    }
+
             }
             Session["PageDefaultSetting"] = defaultProductPageSetting;
             Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
 
         }
-
-
-
-
 
         [System.Web.Services.WebMethod(EnableSession = true)]
         public static void AjaxSetTopPanelSession(string key, string value)

@@ -118,12 +118,78 @@ namespace WealthERP.OnlineOrder
         {
 
         }
+        protected void RTSNCDOrderMenuTransact_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSNCDOrderMenuTransactNCDIssueList": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueList','login');", true);
+                    break;
+
+                case "RTSNCDOrderMenuTransactIssueTransact": // add a new child tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueTransact','login');", true);
+                    break;
+
+            }
+
+        }
+        protected void RTSNCDOrderMenuBooks_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSNCDOrderMenuBooksNCDBook": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueBooks','login');", true);
+                    break;
+            }
+
+
+        }
+
+        protected void RTSNCDOrderMenuHoldings_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSNCDOrderMenuHoldingsNCDHolding": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueHoldings','login');", true);
+                    break;
+            }
+
+
+        }
+
+
+        protected void RTSIPOOrderMenuTransact_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSIPOOrderMenuTransactIPOIssueList": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('IPOIssueList','login');", true);
+                    break;
+
+            }
+
+        }
+        protected void RTSIPPOOrderMenuBooks_TabClick(object sender, RadTabStripEventArgs e)
+        {
+            switch (e.Tab.Value)
+            {
+                case "RTSIPOOrderMenuBooksIPOBook": // add a new root tab
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('CustomerIPOOrderBook','login');", true);
+                    break;
+
+            }
+
+        }
+
+
+
 
         protected void SetProductPageDefaultSetting(Dictionary<string, string> defaultProductPageSetting)
         {
             string ProductMenuItem;
-            if (defaultProductPageSetting.ContainsKey("ProductMenu"))
-                SetProductMenu(defaultProductPageSetting["ProductMenu"].ToString());
+
+            if (defaultProductPageSetting.ContainsKey("ProductType") && defaultProductPageSetting.ContainsKey("ProductMenu"))
+                SetProductMenu(defaultProductPageSetting["ProductType"].ToString(), defaultProductPageSetting["ProductMenu"].ToString());
 
             if (defaultProductPageSetting.ContainsKey("ProductMenuItem"))
                 ProductMenuItem = defaultProductPageSetting["ProductMenuItem"];
@@ -136,19 +202,64 @@ namespace WealthERP.OnlineOrder
 
         }
 
-        private void SetProductMenu(string tableRow)
+
+        private void SetProductMenu(string productType, string productMenu)
         {
-            switch (tableRow)
+            switch (productType.ToUpper())
             {
-                case "trMFOrderMenuTransactTab":
-                    trMFOrderMenuTransactTab.Visible = true;
-                    break;
-                case "trMFOrderMenuBooksTab":
-                    trMFOrderMenuBooksTab.Visible = true;
-                    break;
-                case "trMFOrderMenuHoldingsTab":
-                    trMFOrderMenuHoldingsTab.Visible = true;
-                    break;
+                case "MF":
+                    {
+                        tblMF.Visible = true;
+                        switch (productMenu)
+                        {
+                            case "trMFOrderMenuTransactTab":
+                                trMFOrderMenuTransactTab.Visible = true;
+                                break;
+                            case "trMFOrderMenuBooksTab":
+                                trMFOrderMenuBooksTab.Visible = true;
+                                break;
+                            case "trMFOrderMenuHoldingsTab":
+                                trMFOrderMenuHoldingsTab.Visible = true;
+                                break;
+                        }
+                        break;
+                    }
+
+                case "NCD":
+                    {
+                        tblNCD.Visible = true;
+                        switch (productMenu)
+                        {
+                            case "trNCDOrderMenuTransactTab":
+                                trNCDOrderMenuTransactTab.Visible = true;
+                                break;
+                            case "trNCDOrderMenuBooksTab":
+                                trNCDOrderMenuBooksTab.Visible = true;
+                                break;
+                            case "trNCDOrderMenuHoldingsTab":
+                                trNCDOrderMenuHoldingsTab.Visible = true;
+                                break;
+                        }
+                        break;
+                    }
+
+                case "IPO":
+                    {
+                        tblIPO.Visible = true;
+                        switch (productMenu)
+                        {
+                            case "trIPOOrderMenuTransactTab":
+                                trIPOOrderMenuTransactTab.Visible = true;
+                                break;
+                            case "trIPOOrderMenuBooksTab":
+                                trIPOOrderMenuBooksTab.Visible = true;
+                                break;
+                            //case "trMFOrderMenuHoldingsTab":
+                            //    trMFOrderMenuHoldingsTab.Visible = true;
+                            //    break;
+                        }
+                        break;
+                    }
             }
 
         }
