@@ -65,7 +65,7 @@ namespace WealthERP
                 if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
                 {
                     productType = Request.QueryString["x-SBI-PType"];
-
+                    lblTest.Text = productType;
                 }
             }
             if (Request.QueryString["WERP"] != null)

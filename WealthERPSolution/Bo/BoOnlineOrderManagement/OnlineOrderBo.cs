@@ -63,7 +63,7 @@ namespace BoOnlineOrderManagement
         {
             string Response = "";
             WebRequest WR = (WebRequest)HttpWebRequest.Create(URL);
-            Response = new StreamReader(WR.GetResponse().GetResponseStream()).ReadToEnd();
+            //Response = new StreamReader(WR.GetResponse().GetResponseStream()).ReadToEnd();
             return Response;
         }
 

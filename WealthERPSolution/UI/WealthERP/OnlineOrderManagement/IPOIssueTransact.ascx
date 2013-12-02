@@ -65,12 +65,18 @@
 </asp:ScriptManager>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <div class="divOnlinePageHeading">
-            <div class="divClientAccountBalance">
-                <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>               
-                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
-            </div>
-        </div>
+        <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <div class="divOnlinePageHeading">
+                        <div class="divClientAccountBalance">
+                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
+                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
         <table class="tblMessage" cellpadding="0" cellspacing="0">
             <tr>
                 <td align="center">

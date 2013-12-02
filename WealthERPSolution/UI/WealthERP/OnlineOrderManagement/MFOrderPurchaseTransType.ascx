@@ -6,6 +6,20 @@
 
 <script src="../Scripts/jquery.js" type="text/javascript"></script>
 
+<script src="../Scripts/jquery-1.2.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-ui-1.7.2.custom.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jquery-1.3.1.min.js" type="text/javascript"></script>
+
+<script src="../Scripts/jQuery.bubbletip-1.0.6.js" type="text/javascript"></script>
+
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
 
@@ -55,16 +69,24 @@
 </style>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <div class="divOnlinePageHeading">
-            <div style="float: right; padding-right: 50px;">
-                <span style="color: Black; font: arial; font-size: smaller">Available Limits:</span>
-                <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
-            </div>
-        </div>
-        <table id="tblMessage" width="100%" runat="server" visible="false" style="padding-top: 20px;">
-            <tr id="trSumbitSuccess">
+        <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <div class="divOnlinePageHeading">
+                        <div class="divClientAccountBalance">
+                            <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
+                            <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="tblMessage" cellpadding="0" cellspacing="0">
+            <tr>
                 <td align="center">
-                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    <div id="divMessage" align="center">
+                    </div>
+                    <div style="clear: both">
                     </div>
                 </td>
             </tr>
@@ -78,8 +100,8 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true" Width="300px"
-                            OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
+                            Width="300px" OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -222,8 +244,7 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField"
-                            OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
@@ -241,8 +262,7 @@
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:"
-                            CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblDividendFrequency" runat="server" Text="Dividend Frequency:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lbldftext" runat="server" CssClass="txtField"></asp:Label>
@@ -362,8 +382,8 @@
                                 <asp:Label ID="confirmMessage" Text="" runat="server" />
                             </div>
                             <div>
-                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click" OnClientClick="return PreventClicks();" ValidationGroup="btnSubmit">
-                                </asp:Button>
+                                <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
+                                    OnClientClick="return PreventClicks();" ValidationGroup="btnSubmit"></asp:Button>
                                 <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
                                 </asp:Button>
                             </div>

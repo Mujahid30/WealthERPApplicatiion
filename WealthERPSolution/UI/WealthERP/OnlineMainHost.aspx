@@ -243,6 +243,7 @@
             </div>
             <div style="float: right; width: 36%; padding-top: 10px;">
                 <asp:Label ID="lblWelcomeUser" runat="server" Text="" CssClass="user-name"></asp:Label>
+                <asp:Label ID="lblTest" runat="server" Text="" CssClass="user-name"></asp:Label>
             </div>
         </div>
         <div class="div-container">

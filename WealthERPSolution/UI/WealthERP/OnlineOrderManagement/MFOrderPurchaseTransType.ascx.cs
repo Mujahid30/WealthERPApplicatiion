@@ -421,9 +421,9 @@ namespace WealthERP.OnlineOrderManagement
 
         private void ShowMessage(string msg)
         {
-            tblMessage.Visible = true;
-            msgRecordStatus.InnerText = msg;
+            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','S');", true);
         }
+
         protected void ddlDivType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
