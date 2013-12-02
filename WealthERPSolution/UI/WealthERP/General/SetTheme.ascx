@@ -29,7 +29,7 @@
                 <asp:ListItem Value="Yellow">Yellow</asp:ListItem>
                  <asp:ListItem Value="LightPurple">LightPurple</asp:ListItem>
                  <asp:ListItem Value="SBICAP">Light Blue</asp:ListItem>
-                <asp:ListItem Value="SBIOnLine">Blue</asp:ListItem>
+                <asp:ListItem Value="SBIOnLine">SBI Blue</asp:ListItem>
                 
             </asp:DropDownList>
         </td>
