@@ -236,40 +236,40 @@ namespace WealthERP.OnlineOrderManagement
             DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
             gvChildDetails.DataSource = ds.Tables[0];
         }
-        protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool lbResult = false;
-            string action = string.Empty;
-            DropDownList ddlAction = (DropDownList)sender;
-            GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
-            RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
-            int selectedRow = gvr.ItemIndex + 1;
-            int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
-            int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString());
-            string Issuername = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["Scrip"].ToString();
-            //Session["NCDTransact"] = BoOnlineBondOrder.GetNCDTransactOrder(OrderId, IssuerId);
-            if (ddlAction.SelectedItem.Value.ToString() == "View")
-            {
-                action = "View";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
-            }
-            if (ddlAction.SelectedItem.Value.ToString() == "Edit")
-            {
-                action = "Edit";
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
-            }
-            if (ddlAction.SelectedItem.Value.ToString() == "Cancel")
-            {
-                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
-                if (lbResult == true)
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+        //protected void ddlAction_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    bool lbResult = false;
+        //    string action = string.Empty;
+        //    DropDownList ddlAction = (DropDownList)sender;
+        //    GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
+        //    RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
+        //    int selectedRow = gvr.ItemIndex + 1;
+        //    int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
+        //    int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString());
+        //    string Issuername = gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["Scrip"].ToString();
+        //    //Session["NCDTransact"] = BoOnlineBondOrder.GetNCDTransactOrder(OrderId, IssuerId);
+        //    if (ddlAction.SelectedItem.Value.ToString() == "View")
+        //    {
+        //        action = "View";
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
+        //    }
+        //    if (ddlAction.SelectedItem.Value.ToString() == "Edit")
+        //    {
+        //        action = "Edit";
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&OrderId=" + OrderId + "&IssuerId=" + IssuerId + "&Issuername=" + Issuername + "&strAction=" + action + " ');", true);
+        //    }
+        //    if (ddlAction.SelectedItem.Value.ToString() == "Cancel")
+        //    {
+        //        lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2);
+        //        if (lbResult == true)
+        //        {
+        //            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
 
-                }
-                BindBBGV(customerVo.CustomerId);
-                ddlAction.Items.FindByText("Cancel").Attributes.Add("Disabled", "Disabled");
-            }
-        }
+        //        }
+        //        BindBBGV(customerVo.CustomerId);
+        //        ddlAction.Items.FindByText("Cancel").Attributes.Add("Disabled", "Disabled");
+        //    }
+        //}
         protected void gvBBList_UpdateCommand(object source, GridCommandEventArgs e)
         {
             //string strRemark = string.Empty;
@@ -289,11 +289,16 @@ namespace WealthERP.OnlineOrderManagement
         protected void gvBBList_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
             bool lbResult = false;
-            string action;
-            int OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-            int IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
-            string Issuername = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Scrip"].ToString();
-
+            int OrderId = 0;
+            int IssuerId = 0;
+            string Issuername = string.Empty;
+            string action;            
+            if (e.CommandName == "View" || e.CommandName == "Edit" || e.CommandName == "Cancel")
+            {
+                OrderId = int.Parse(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+                IssuerId = int.Parse(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+                Issuername = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["Scrip"].ToString();
+            }
             if (e.CommandName == "View")
             {
                 action = "View";
@@ -319,9 +324,9 @@ namespace WealthERP.OnlineOrderManagement
         {
             if (e.Item is GridDataItem)
             {
-                GridDataItem dataItem = (GridDataItem)e.Item;
+               
                 string Iscancel = Convert.ToString(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTS_TransactionStatusCode"]);
-                ImageButton imgCancel = (ImageButton)dataItem.FindControl("Cancel");
+                ImageButton imgCancel = (ImageButton)e.Item.FindControl("imgCancel");
                 if (Iscancel == "Cancelled")
                 {
                     imgCancel.Enabled = false;
@@ -330,9 +335,6 @@ namespace WealthERP.OnlineOrderManagement
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
-            //Button Button = (Button)sender;
-            //GridDataItem gvr = (GridDataItem)Button.NamingContainer;
-            //RadGrid gvChildDetails = (RadGrid)gvr.FindControl("gvChildDetails");
             gvBBList.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvBBList.ExportSettings.OpenInNewWindow = true;
             gvBBList.ExportSettings.IgnorePaging = true;
@@ -341,13 +343,7 @@ namespace WealthERP.OnlineOrderManagement
             gvBBList.ExportSettings.FileName = "NCD Order Book";
             gvBBList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvBBList.MasterTableView.ExportToExcel();
-            //gvChildDetails.ExportSettings.OpenInNewWindow = true;
-            //gvChildDetails.ExportSettings.IgnorePaging = true;
-            //gvChildDetails.ExportSettings.HideStructureColumns = true;
-            //gvChildDetails.ExportSettings.ExportOnlyData = true;
-            //gvChildDetails.ExportSettings.FileName = "NCD Order Book";
-            //gvChildDetails.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //gvChildDetails.MasterTableView.ExportToExcel();
+           
         }
     }
 }
