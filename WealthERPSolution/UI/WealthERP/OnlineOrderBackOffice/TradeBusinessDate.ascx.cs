@@ -37,14 +37,12 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            //BindCurrentPage();
+            BindTradebusinessdate();
             if (!IsPostBack)
             {
                 GetTradeBusinessDates();
                 BindYearDropdown();
                 //btngo_Click();
-                BindTradebusinessdate();
-                
                 //gvTradeBusinessDate.PageIndex = 8;
             }
             createcalanders.Visible = false;
@@ -59,7 +57,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvTradeBusinessDate.DataSource = getTradeBusinessDateDt;
                 gvTradeBusinessDate.DataBind();
                 if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
-                Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
+                    Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
                 Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
                 //gvTradeBusinessDate.Rebind();
             }
@@ -85,19 +83,19 @@ namespace WealthERP.OnlineOrderBackOffice
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
-                TradeBusinessDateVo  TradeBusinessDateVo= new TradeBusinessDateVo();
+                TradeBusinessDateVo TradeBusinessDateVo = new TradeBusinessDateVo();
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 int TradeBusinessId = Convert.ToInt32(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_Id"].ToString());
-                 RadDatePicker date1 = (RadDatePicker)e.Item.FindControl("RadDatePicker1");
+                RadDatePicker date1 = (RadDatePicker)e.Item.FindControl("RadDatePicker1");
                 //RadDatePicker dt2 = (RadDatePicker)e.Item.FindControl("RadDatePicker2");
                 //RadDatePicker txtdate = (RadDatePicker)e.Item.FindControl("txtdate");
-                 TextBox txtHoliday = (TextBox)e.Item.FindControl("txtHolidaysName");
-                TradeBusinessDateVo.HolidayName=txtHoliday.Text.ToString();
+                TextBox txtHoliday = (TextBox)e.Item.FindControl("txtHolidaysName");
+                TradeBusinessDateVo.HolidayName = txtHoliday.Text.ToString();
 
                 if (date1.SelectedDate != null)
                 {
-                    bool bln = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessId,TradeBusinessDateVo.HolidayName);
-                    BindTradebusinessdate();
+                    bool bln = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessId, TradeBusinessDateVo.HolidayName);
+                    GetTradeBusinessDates();
                 }
 
 
@@ -296,11 +294,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     int selYear = int.Parse(ddlyear.SelectedValue);
                     OnlineOrderBackOfficeBo.CreateCalendar(selYear);
-                    gvTradeBusinessDate.Rebind();
                     createcalanders.Visible = false;
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calendar Created!!');", true);
+                    //gvTradeBusinessDate.MasterTableView.Rebind();
+                    //gvTradeBusinessDate.Rebind();
                 }
-
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Calendar Created!!');", true);
+                GetTradeBusinessDates();
             }
             catch (BaseApplicationException Ex)
             {
@@ -415,52 +414,33 @@ namespace WealthERP.OnlineOrderBackOffice
                     item["check"].Font.Bold = true;
                 }
             }
-            // if (e.Item is GridDataItem)
-            //{
-            //    GridDataItem dataItem = e.Item as GridDataItem;
-
-            //    Label lblordertype = dataItem.FindControl("lblOrderType") as Label;
-            //    //    LinkButton lbtnMarkAsReject = dataItem.FindControl("MarkAsReject") as LinkButton;
-            //    LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-
-            //    Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
-            //    int selectedRow = dataItem.ItemIndex + 1;
-
-            //    if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
-            //    {
-            //        if (OrderStep.Text.Trim() == "Executed")
-            //        {
-            //            lbtnMarkAsReject.Visible = true;
-            //        }
-            //        else
-            //        {
-            //            lbtnMarkAsReject.Visible = false;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        lbtnMarkAsReject.Visible = false;
-            //    }
-
 
 
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = (GridDataItem)e.Item;
                 string holidaysname = gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_HolidayName"].ToString();
+                DateTime date=Convert.ToDateTime(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_DayName"].ToString());
                 LinkButton update = dataItem["UPdate"].Controls[0] as LinkButton;
                 //LinkButton update = (LinkButton)dataItem.FindControl("UPdate");
-                if (holidaysname!=null && holidaysname!=string.Empty)
+                if (holidaysname != null && holidaysname != string.Empty)
                 {
-                    update.Visible = true;
-                    //GetTradeBusinessDates();
+                    if (date >= DateTime.Now)
+                    {
+                        update.Visible = true;
+                        //GetTradeBusinessDates();
+                    }
+                    else
+                    {
+                        update.Visible = false;
+                    }
                 }
                 else
                 {
                     update.Visible = false;
 
                 }
-                
+
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -504,13 +484,13 @@ namespace WealthERP.OnlineOrderBackOffice
                         Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
                     }
                     gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
-                    
-                    
+
+
                     int i = 0;
 
                     string s = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
 
-                    foreach(DataRow dr in dtGetAllTradeBussiness.Rows)
+                    foreach (DataRow dr in dtGetAllTradeBussiness.Rows)
                     {
                         if (dtGetAllTradeBussiness.Rows[i][0].ToString().ToLower().Trim() == s.ToLower().Trim())
                         {
@@ -532,7 +512,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
                     gvTradeBusinessDate.DataBind();
-                    
                 }
             }
             catch (BaseApplicationException Ex)
@@ -597,8 +576,8 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SetParameter();
             BindTradebusinessdate();
-           
-           
+
+
         }
         private void BindCurrentPage()
         {
@@ -609,7 +588,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         }
-        
+
 
     }
 }

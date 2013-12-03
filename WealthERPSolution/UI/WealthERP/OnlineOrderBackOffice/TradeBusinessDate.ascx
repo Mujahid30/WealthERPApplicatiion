@@ -82,6 +82,11 @@
                                 <asp:CheckBox ID="CheckBox" runat="server" />
                             </ItemTemplate>
                         </telerik:GridTemplateColumn>
+                        <telerik:GridBoundColumn Visible="false" UniqueName="WTBD_Id" HeaderText="Application"
+                            DataField="WTBD_Id" SortExpression="WTBD_Id" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                            AutoPostBackOnFilter="true">
+                            <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
+                        </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="WTBD_DayName" HeaderText="Application Date"
                             DataField="WTBD_DayName" SortExpression="WTBD_DayName" ShowFilterIcon="false"
                             CurrentFilterFunction="Contains" DataFormatString="{0:0}" AutoPostBackOnFilter="true">
@@ -92,12 +97,12 @@
                             AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="WTBD_DayName1" HeaderText="Application ExecutionDate"
+                        <telerik:GridBoundColumn UniqueName="WTBD_DayName1" HeaderText="Application Execution Date"
                             DataField="WTBD_DayName1" SortExpression="WTBD_DayName1" ShowFilterIcon="false"
                             CurrentFilterFunction="Contains" DataFormatString="{0:d}" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="WTBD_ExecutionDay" HeaderText="Application ExecutionDay"
+                        <telerik:GridBoundColumn UniqueName="WTBD_ExecutionDay" HeaderText="Application Execution Day"
                             DataField="WTBD_ExecutionDay" SortExpression="WTBD_ExecutionDay" ShowFilterIcon="false"
                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
@@ -107,12 +112,12 @@
                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Visible="false" UniqueName="WTBD_IsHoliday" HeaderText="IsHoliday"
+                        <telerik:GridBoundColumn Visible="false" UniqueName="WTBD_IsHoliday" HeaderText="Is Holiday"
                             DataField="WTBD_IsHoliday" SortExpression="WTBD_IsHoliday" ShowFilterIcon="false"
                             CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="WTBD_IsWeekend" HeaderText="IsWeekend" DataField="WTBD_IsWeekend"
+                        <telerik:GridBoundColumn UniqueName="WTBD_IsWeekend" HeaderText="Is Weekend" DataField="WTBD_IsWeekend"
                             SortExpression="WTBD_IsWeekend" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                             AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
@@ -194,7 +199,7 @@
                 OnClick="Btnmarkholiday_Onclick" ValidationGroup="Btnmarkholiday" />
         </td>
         <td>
-            <asp:Button ID="Btncreatecalander" Text="Create New calendar Entry" runat="server"
+            <asp:Button ID="Btncreatecalander" Text="Create New Calendar Entry" runat="server"
                 CssClass="PCGLongButton" OnClick="Btncreatecalander_OnClick" ValidationGroup="Btncreatecal" />
         </td>
         <td id="createcalanders" runat="server">
