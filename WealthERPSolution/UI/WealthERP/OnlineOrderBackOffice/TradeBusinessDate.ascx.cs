@@ -37,11 +37,15 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-
+            //BindCurrentPage();
             if (!IsPostBack)
             {
                 GetTradeBusinessDates();
                 BindYearDropdown();
+                //btngo_Click();
+                BindTradebusinessdate();
+                
+                //gvTradeBusinessDate.PageIndex = 8;
             }
             createcalanders.Visible = false;
         }
@@ -55,7 +59,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvTradeBusinessDate.DataSource = getTradeBusinessDateDt;
                 gvTradeBusinessDate.DataBind();
                 if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
-                    Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
+                Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
                 Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
                 //gvTradeBusinessDate.Rebind();
             }
@@ -81,15 +85,19 @@ namespace WealthERP.OnlineOrderBackOffice
             if (e.CommandName == RadGrid.UpdateCommandName)
             {
                 OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+                TradeBusinessDateVo  TradeBusinessDateVo= new TradeBusinessDateVo();
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 int TradeBusinessId = Convert.ToInt32(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_Id"].ToString());
-                RadDatePicker dt1 = (RadDatePicker)e.Item.FindControl("RadDatePicker1");
-                RadDatePicker dt2 = (RadDatePicker)e.Item.FindControl("RadDatePicker2");
-                RadDatePicker txtdate = (RadDatePicker)e.Item.FindControl("txtdate");
-                RadDatePicker txtExecutionDate = (RadDatePicker)e.Item.FindControl("txtExecutionDate");
-                if (dt1.SelectedDate != null)
+                 RadDatePicker date1 = (RadDatePicker)e.Item.FindControl("RadDatePicker1");
+                //RadDatePicker dt2 = (RadDatePicker)e.Item.FindControl("RadDatePicker2");
+                //RadDatePicker txtdate = (RadDatePicker)e.Item.FindControl("txtdate");
+                 TextBox txtHoliday = (TextBox)e.Item.FindControl("txtHolidaysName");
+                TradeBusinessDateVo.HolidayName=txtHoliday.Text.ToString();
+
+                if (date1.SelectedDate != null)
                 {
-                    updateTradeBusinessDate(TradeBusinessId, dt1.SelectedDate.ToString(), txtExecutionDate.SelectedDate.ToString());
+                    bool bln = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessId,TradeBusinessDateVo.HolidayName);
+                    BindTradebusinessdate();
                 }
 
 
@@ -104,7 +112,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
                 GridDataItem dataItem = (GridDataItem)e.Item;
-                int TradeBusinessId = Convert.ToInt32(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_Id"].ToString());
+                int TradeBusinessId = Convert.ToInt32(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_DayName"].ToString());
                 //RadDatePicker dt1 = (RadDatePicker)e.Item.FindControl("RadDatePicker1");
                 //RadDatePicker dt2 = (RadDatePicker)e.Item.FindControl("RadDatePicker2");
                 //RadDatePicker txtdate = (RadDatePicker)e.Item.FindControl("txtdate");
@@ -175,36 +183,36 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
-        private void updateTradeBusinessDate(int TradeBusinessId, string TradeBusinessDate, string TradeBusinessExecutionDate)
-        {
-            try
-            {
-                bool result;
-                TradeBusinessDateVo TradeBusinessDateVo = new TradeBusinessDateVo();
-                TradeBusinessDateVo.TradeBusinessId = TradeBusinessId;
-                TradeBusinessDateVo.TradeBusinessDate = DateTime.Parse(TradeBusinessDate);
-                TradeBusinessDateVo.TradeBusinessExecutionDate = DateTime.Parse(TradeBusinessExecutionDate);
-                result = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessDateVo);
+        //private void updateTradeBusinessDate(int TradeBusinessId, string TradeBusinessDate, string TradeBusinessExecutionDate)
+        //{
+        //    try
+        //    {
+        //        bool result;
+        //        TradeBusinessDateVo TradeBusinessDateVo = new TradeBusinessDateVo();
+        //        TradeBusinessDateVo.TradeBusinessId = TradeBusinessId;
+        //        TradeBusinessDateVo.TradeBusinessDate = DateTime.Parse(TradeBusinessDate);
+        //        TradeBusinessDateVo.TradeBusinessExecutionDate = DateTime.Parse(TradeBusinessExecutionDate);
+        //        result = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessDateVo);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TradeBusinessDate.ascx.cs:updateTradeBusinessDate()");
-                object[] objects = new object[2];
-                objects[0] = TradeBusinessId;
-                objects[1] = TradeBusinessDate;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "TradeBusinessDate.ascx.cs:updateTradeBusinessDate()");
+        //        object[] objects = new object[2];
+        //        objects[0] = TradeBusinessId;
+        //        objects[1] = TradeBusinessDate;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         private void deleteTradeBusinessDate(int TradeBusinessId)
         {
@@ -243,6 +251,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvTradeBusinessDate.DataSource = dsTradeBusinessDate;
             }
         }
+
+        //protected void gvTradeBusinessDate_SelectionChanged(object sender, Telerik.Web.UI.Calendar.SelectedDatesEventArgs e)
+        //{
+
+        //    gvTradeBusinessDate.CurrentPageIndex = gvTradeBusinessDate.NewPageIndex;
+
+        //// Rebind the data to refresh the DataGrid control. 
+        //gvTradeBusinessDate.DataSource = CreateDataSource();
+        //gvTradeBusinessDate.DataBind();
+
+        //}
+
 
         protected void btnTradeBusinessDate_Click(object sender, ImageClickEventArgs e)
         {
@@ -376,6 +396,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 GridDataItem item = (GridDataItem)e.Item;
                 if (DateTime.Parse(item["WTBD_DayName"].Text) == dt)
                 {
+                    //item["WTBD_DayName"].Focus();
                     item["WTBD_DayName"].BackColor = Color.Red;
                     item["WTBD_DayName"].Font.Bold = true;
                     item["WTBD_Day"].BackColor = Color.Red;
@@ -390,7 +411,56 @@ namespace WealthERP.OnlineOrderBackOffice
                     item["WTBD_HolidayName"].Font.Bold = true;
                     item["WTBD_IsWeekend"].BackColor = Color.Red;
                     item["WTBD_IsWeekend"].Font.Bold = true;
+                    item["check"].BackColor = Color.Red;
+                    item["check"].Font.Bold = true;
                 }
+            }
+            // if (e.Item is GridDataItem)
+            //{
+            //    GridDataItem dataItem = e.Item as GridDataItem;
+
+            //    Label lblordertype = dataItem.FindControl("lblOrderType") as Label;
+            //    //    LinkButton lbtnMarkAsReject = dataItem.FindControl("MarkAsReject") as LinkButton;
+            //    LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+
+            //    Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
+            //    int selectedRow = dataItem.ItemIndex + 1;
+
+            //    if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
+            //    {
+            //        if (OrderStep.Text.Trim() == "Executed")
+            //        {
+            //            lbtnMarkAsReject.Visible = true;
+            //        }
+            //        else
+            //        {
+            //            lbtnMarkAsReject.Visible = false;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        lbtnMarkAsReject.Visible = false;
+            //    }
+
+
+
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataItem = (GridDataItem)e.Item;
+                string holidaysname = gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_HolidayName"].ToString();
+                LinkButton update = dataItem["UPdate"].Controls[0] as LinkButton;
+                //LinkButton update = (LinkButton)dataItem.FindControl("UPdate");
+                if (holidaysname!=null && holidaysname!=string.Empty)
+                {
+                    update.Visible = true;
+                    //GetTradeBusinessDates();
+                }
+                else
+                {
+                    update.Visible = false;
+
+                }
+                
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -434,14 +504,35 @@ namespace WealthERP.OnlineOrderBackOffice
                         Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
                     }
                     gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
-                    gvTradeBusinessDate.DataBind();
+                    
+                    
+                    int i = 0;
 
+                    string s = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+
+                    foreach(DataRow dr in dtGetAllTradeBussiness.Rows)
+                    {
+                        if (dtGetAllTradeBussiness.Rows[i][0].ToString().ToLower().Trim() == s.ToLower().Trim())
+                        {
+                            var page = (i / 20);  //eg row 50 means page = 10
+                            gvTradeBusinessDate.CurrentPageIndex = page;
+
+                            break;
+                        }
+                        else
+                        {
+                            i++;
+                            gvTradeBusinessDate.CurrentPageIndex = 0;
+                        }
+                    }
+
+                    gvTradeBusinessDate.DataBind();
                 }
                 else
                 {
                     gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
                     gvTradeBusinessDate.DataBind();
-
+                    
                 }
             }
             catch (BaseApplicationException Ex)
@@ -506,15 +597,19 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             SetParameter();
             BindTradebusinessdate();
-            gvTradeBusinessDate.Rebind();
+           
+           
+        }
+        private void BindCurrentPage()
+        {
+            //int pageSize = 20;
+            //var page = (DateTime.Now.DayOfYear / pageSize);  //eg row 50 means page = 10
+            //gvTradeBusinessDate.CurrentPageIndex = page;
+            //gvTradeBusinessDate.MasterTableView.Rebind();
+
 
         }
-        //private bool Validation()
-        //{
-
-
-        //    }
-
+        
 
     }
 }

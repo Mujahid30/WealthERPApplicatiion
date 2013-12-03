@@ -1570,12 +1570,12 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public bool updateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        public bool updateTradeBusinessDate(int Tradebusinessid,string txt)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(tradeBusinessDateVo);
+                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(Tradebusinessid,txt);
             }
             catch (BaseApplicationException Ex)
             {

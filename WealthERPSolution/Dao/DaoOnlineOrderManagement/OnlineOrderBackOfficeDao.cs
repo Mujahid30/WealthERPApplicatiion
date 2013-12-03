@@ -1391,7 +1391,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool updateTradeBusinessDate(TradeBusinessDateVo tradeBusinessDateVo)
+        public bool updateTradeBusinessDate(int Tradebusinessid,string txt)
         {
             int affectedRecords = 0;
             bool bResult = false;
@@ -1402,9 +1402,10 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_updateTradeBusinessDate");
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, tradeBusinessDateVo.TradeBusinessId);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime, tradeBusinessDateVo.TradeBusinessDate);
-                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, tradeBusinessDateVo.TradeBusinessExecutionDate);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, Tradebusinessid);
+                //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime,d);
+                //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, TradeBusinessExecutionDate);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_HolidayName", DbType.String, txt);
                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);
 
                 if (db.ExecuteNonQuery(createtradeBusinessDateCmd) != 0)

@@ -403,6 +403,7 @@ namespace WealthERP.CustomerPortfolio
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
             BindCustomerBankList();
+
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
             if (customerAccountsVo.BankId != 0)
             {
