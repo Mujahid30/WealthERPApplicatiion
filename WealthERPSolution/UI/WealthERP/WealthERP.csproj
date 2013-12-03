@@ -2696,6 +2696,13 @@
     <Compile Include="OnlineOrderBackOffice\OnlineClientAccess.ascx.designer.cs">
       <DependentUpon>OnlineClientAccess.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineExternalSourceHeaderManagement.ascx.cs">
+      <DependentUpon>OnlineExternalSourceHeaderManagement.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineExternalSourceHeaderManagement.ascx.designer.cs">
+      <DependentUpon>OnlineExternalSourceHeaderManagement.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineIssueExtract.ascx.cs">
       <DependentUpon>OnlineIssueExtract.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2723,6 +2730,13 @@
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineNCDIssueSetup.ascx.designer.cs">
       <DependentUpon>OnlineNCDIssueSetup.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineNCDOrderMatchExceptionHandling.ascx.cs">
+      <DependentUpon>OnlineNCDOrderMatchExceptionHandling.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineNCDOrderMatchExceptionHandling.ascx.designer.cs">
+      <DependentUpon>OnlineNCDOrderMatchExceptionHandling.ascx</DependentUpon>
     </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx.cs">
       <DependentUpon>OnlineOrderAccountingExtract.ascx</DependentUpon>
@@ -7742,10 +7756,12 @@
     <Content Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserSIPSummaryBooks.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineClientAccess.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineExternalSourceHeaderManagement.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineIssueExtract.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineIssueUpload.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineNCDIssueList.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineNCDIssueSetup.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineNCDOrderMatchExceptionHandling.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineOrderAccountingExtract.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeMIS.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />

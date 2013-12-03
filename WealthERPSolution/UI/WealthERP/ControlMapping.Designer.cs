@@ -2437,6 +2437,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineExternalSourceHeaderManagement.ascx.
+        /// </summary>
+        internal static string OnlineExternalSourceHeaderManagement {
+            get {
+                return ResourceManager.GetString("OnlineExternalSourceHeaderManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineIssueExtract.ascx.
         /// </summary>
         internal static string OnlineIssueExtract {
@@ -2460,6 +2469,15 @@ namespace WealthERP {
         internal static string OnlineNCDIssueSetup {
             get {
                 return ResourceManager.GetString("OnlineNCDIssueSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//OnlineNCDOrderMatchExceptionHandling.ascx.
+        /// </summary>
+        internal static string OnlineNCDOrderMatchExceptionHandling {
+            get {
+                return ResourceManager.GetString("OnlineNCDOrderMatchExceptionHandling", resourceCulture);
             }
         }
         

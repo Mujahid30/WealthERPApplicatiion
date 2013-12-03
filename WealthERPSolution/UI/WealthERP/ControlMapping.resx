@@ -1845,4 +1845,12 @@
     <value>OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineAdviserNCDOrderBook.ascx</comment>
   </data>
+  <data name="OnlineNCDOrderMatchExceptionHandling" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineNCDOrderMatchExceptionHandling.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineNCDOrderMatchExceptionHandling.ascx</comment>
+  </data>
+  <data name="OnlineExternalSourceHeaderManagement" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineExternalSourceHeaderManagement.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineExternalSourceHeaderManagement.ascx</comment>
+  </data>
 </root>
