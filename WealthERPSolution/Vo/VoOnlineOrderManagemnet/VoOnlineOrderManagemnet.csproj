@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OnlineBondOrderVo.cs" />
+    <Compile Include="OnlineCommonBackOfficeVo.cs" />
     <Compile Include="OnlineIPOOrderVo.cs" />
     <Compile Include="OnlineMFOrderVo.cs" />
     <Compile Include="OnlineNCDBackOfficeVo.cs" />
