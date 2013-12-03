@@ -87,7 +87,7 @@ namespace DaoOnlineOrderManagement
             }
             return DupseqNo;
         }
-        public DataSet GetAdviserIssueList(DateTime date, int type, string product)
+        public DataSet GetAdviserIssueList(DateTime date, int type, string product,int adviserId)
         {
             DataSet dsIssueDetails;
             Database db;
@@ -98,7 +98,9 @@ namespace DaoOnlineOrderManagement
                 dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserIssueList");
                 db.AddInParameter(dbCommand, "@date", DbType.Date, date);
                 db.AddInParameter(dbCommand, "@type", DbType.Int32, type);
-                db.AddInParameter(dbCommand, "@product", DbType.String, product);                
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
+                db.AddInParameter(dbCommand, "@adviserId", DbType.String, adviserId);                
+               
                 dsIssueDetails = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -246,6 +248,7 @@ namespace DaoOnlineOrderManagement
                 createCmd = db.GetStoredProcCommand("SPROC_CreateIssueMaster");
                 //db.AddInParameter(createCmd, "@PAG_AssetGroupCode", DbType.String, onlineNCDBackOfficeVo.AssetGroupCode);
                 db.AddInParameter(createCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, onlineNCDBackOfficeVo.AssetInstrumentCategoryCode);
+                db.AddInParameter(createCmd, "@PAIC_AssetInstrumentSubCategoryCode", DbType.String, onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode);
                 db.AddInParameter(createCmd, "@AIM_IssueName", DbType.String, onlineNCDBackOfficeVo.IssueName);
                 db.AddInParameter(createCmd, "@PFIIM_IssuerId", DbType.String, onlineNCDBackOfficeVo.IssuerId );
                 db.AddInParameter(createCmd, "@AIM_InitialChequeNo", DbType.String, onlineNCDBackOfficeVo.InitialChequeNo);

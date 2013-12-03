@@ -1568,11 +1568,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.AssetGroupCode = ddlProduct.SelectedValue;
                 if (ddlProduct.SelectedValue == "IPO")
                 {
-                    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "IP";
+                    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIP";
+                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIP";
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "NCD";// ddlCategory.SelectedValue;
+                    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";// ddlCategory.SelectedValue;
+                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
                 }
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
@@ -1881,9 +1883,15 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int categoryId = 0;
             LinkButton buttonlink = (LinkButton)sender;
-            GridDataItem gdi;
-            gdi = (GridDataItem)buttonlink.NamingContainer;
-            categoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+            GridDataItem gdi=(GridDataItem)buttonlink.NamingContainer;
+            if (!string.IsNullOrEmpty(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString()))
+            {
+                categoryId = int.Parse(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+            }
+            else
+            {
+                categoryId = 0;
+            }
             RadGrid rgCategoriesDetails = (RadGrid)gdi.FindControl("rgCategoriesDetails");
             Panel pnlCategoriesDetailschild = (Panel)gdi.FindControl("pnlCategoriesDetailschild");
 

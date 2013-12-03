@@ -39,6 +39,7 @@ namespace VoOnlineOrderManagemnet
 
         public string AssetGroupCode { get; set; }
         public string AssetInstrumentCategoryCode { get; set; }
+        public string AssetInstrumentSubCategoryCode { get; set; }
         public string InitialChequeNo { get; set; }
         public Double FaceValue { get; set; }
         public Double FloorPrice { get; set; }

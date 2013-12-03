@@ -41,12 +41,12 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetAdviserIssueList(DateTime date, int type, string product)
+        public DataSet GetAdviserIssueList(DateTime date, int type, string product,int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAdviserIssueList(date, type, product);
+                return onlineNCDBackOfficeDao.GetAdviserIssueList(date, type, product, adviserId);
             }
             catch (BaseApplicationException Ex)
             {

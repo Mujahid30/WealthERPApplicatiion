@@ -32,7 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            int adviserId = advisorVo.advisorId;
+           
             if (!IsPostBack)
             {
                 string type = "";
@@ -81,7 +81,7 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataTable dtIssueList = new DataTable();
-                dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(date, type, product).Tables[0];
+                dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(date, type, product, advisorVo.advisorId ).Tables[0];
                 gvIssueList.DataSource = dtIssueList;
                 gvIssueList.DataBind();
                 if (Cache[userVo.UserId.ToString() + "IssueList"] != null)
