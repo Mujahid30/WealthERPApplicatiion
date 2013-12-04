@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="OnlineBondOrderDao.cs" />
     <Compile Include="OnlineCommonBackOfficeDao.cs" />
+    <Compile Include="OnlineIPOBackOfficeDao.cs" />
     <Compile Include="OnlineIPOOrderDao.cs" />
     <Compile Include="OnlineMFOrderDao.cs" />
     <Compile Include="OnlineNCDBackOfficeDao.cs" />
