@@ -26,6 +26,7 @@ namespace WealthERP.OnlineOrderManagement
         AdvisorVo advisorVo;
         CustomerVo customerVo;
         UserVo userVo;
+        DataTable dtOnlineIPOIssueList;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -52,7 +53,7 @@ namespace WealthERP.OnlineOrderManagement
 
         private void BindIPOIssueList(string issueId)
         {
-            DataTable dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId));
+            dtOnlineIPOIssueList = onlineIPOOrderBo.GetIPOIssueList(advisorVo.advisorId, Convert.ToInt32(issueId));
 
             if (dtOnlineIPOIssueList.Rows.Count > 0)
             {
@@ -119,7 +120,11 @@ namespace WealthERP.OnlineOrderManagement
         {
             int currentRowindex = (((GridDataItem)((CheckBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowindex);
-
+            CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
+            if (chkCutOff.Checked)
+                EnableDisableBids(true);
+            else
+                EnableDisableBids(false);
         }
 
         protected void ReseIssueBidValues(int row)
@@ -134,12 +139,13 @@ namespace WealthERP.OnlineOrderManagement
             {
                 txtBidPrice.Text = capPrice.ToString();
                 txtBidPrice.Enabled = false;
+                //EnableDisableBids(true);
             }
             else
             {
                 txtBidPrice.Enabled = true;
                 //txtBidPrice.Text = string.Empty;
-                //txtBidAmount.Text = string.Empty;
+                //txtBidAmount.Text = string.Empty;               
 
             }
 
@@ -147,7 +153,44 @@ namespace WealthERP.OnlineOrderManagement
                 txtBidAmount.Text = (Convert.ToInt32(txtBidQuantity.Text.Trim()) * Convert.ToDecimal(txtBidPrice.Text.Trim())).ToString();
 
 
+
         }
+
+        protected void EnableDisableBids(bool isChecked)
+        {
+            foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
+            {
+                CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
+                TextBox txtBidQuantity = (TextBox)item.FindControl("txtBidQuantity");
+                TextBox txtBidPrice = (TextBox)item.FindControl("txtBidPrice");
+
+                if (chkCutOff.Checked || !isChecked)
+                {
+                    chkCutOff.Enabled = true;
+                    if (chkCutOff.Checked)
+                       chkCutOff.Checked = true;
+                    else
+                       chkCutOff.Checked = false;
+
+                    txtBidQuantity.Enabled = true;
+                    txtBidPrice.Enabled = true;
+
+                }
+                else
+                {
+                    chkCutOff.Enabled = false;
+                    chkCutOff.Checked = false;
+                    txtBidQuantity.Enabled = false;
+                    txtBidPrice.Enabled = false;
+
+
+                }
+
+            }
+
+        }
+
+
 
 
         protected void btnConfirmOrder_Click(object sender, EventArgs e)
@@ -239,9 +282,14 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
 
-                userMessage = CreateUserMessage(orderId, true, false);
-                ShowMessage(userMessage);
+                userMessage = CreateUserMessage(orderId, accountDebitStatus, false);
             }
+            else
+            {
+                userMessage = CreateUserMessage(orderId, false, false);
+            }
+
+            ShowMessage(userMessage);
 
         }
 
@@ -258,9 +306,13 @@ namespace WealthERP.OnlineOrderManagement
             if (orderId != 0 && accountDebitStatus == true)
             {
                 if (isCutOffTimeOver)
-                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day.";
                 else
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+            }
+            else if (orderId == 0)
+            {
+                userMessage = "Please allocate the adequate amount to place the order successfully.";
             }
             return userMessage;
 
@@ -300,6 +352,36 @@ namespace WealthERP.OnlineOrderManagement
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
             CreateIPOOrder();
+        }
+
+        protected void RadGridIPOBid_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem dataform = (GridDataItem)e.Item;
+                RangeValidator rvQuantity = (RangeValidator)dataform.FindControl("rvQuantity");
+                RangeValidator rvBidPrice = (RangeValidator)dataform.FindControl("rvBidPrice");
+                int minQuantity = 0;
+                int maxQuantity = 0;
+                double minBidPrice = 0;
+                double maxBidPrice = 0;
+                int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MInQty"].ToString(), out minQuantity);
+                int.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_MaxQty"].ToString(), out maxQuantity);
+
+                double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_FloorPrice"].ToString(), out minBidPrice);
+                double.TryParse(dtOnlineIPOIssueList.Rows[0]["AIM_CapPrice"].ToString(), out maxBidPrice);
+
+                if (e.Item.RowIndex != -1)
+                {
+                    rvQuantity.MinimumValue = minQuantity.ToString();
+                    rvQuantity.MaximumValue = maxQuantity.ToString();
+
+                    rvBidPrice.MinimumValue = minBidPrice.ToString();
+                    rvBidPrice.MaximumValue = maxBidPrice.ToString();
+
+
+                }
+            }
         }
 
 
