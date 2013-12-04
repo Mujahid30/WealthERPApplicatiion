@@ -11,7 +11,7 @@
 namespace WealthERP.OnlineOrderBackOffice {
     
     
-    public partial class OnlineNCDExtract {
+    public partial class OnlineIssueExtract {
         
         /// <summary>
         /// scrptMgr control.
@@ -21,6 +21,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager scrptMgr;
+        
+        /// <summary>
+        /// upIssueExtract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upIssueExtract;
         
         /// <summary>
         /// imgexportButton control.
@@ -104,6 +113,69 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProduct;
         
         /// <summary>
+        /// rfvProductFileType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProductFileType;
+        
+        /// <summary>
+        /// lblDWNData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDWNData;
+        
+        /// <summary>
+        /// ddlExternalSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlExternalSource;
+        
+        /// <summary>
+        /// rfvDownload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDownload;
+        
+        /// <summary>
+        /// lblFileType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFileType;
+        
+        /// <summary>
+        /// ddlFileType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFileType;
+        
+        /// <summary>
+        /// rfvFileType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFileType;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -113,13 +185,13 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// btnNcdExtract control.
+        /// btnIssueExtract control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNcdExtract;
+        protected global::System.Web.UI.WebControls.Button btnIssueExtract;
         
         /// <summary>
         /// lblCurrentDate control.
@@ -149,42 +221,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Label lblDownloads;
         
         /// <summary>
-        /// lblDWNData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDWNData;
-        
-        /// <summary>
-        /// ddlDWNData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDWNData;
-        
-        /// <summary>
-        /// rfvDownload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDownload;
-        
-        /// <summary>
-        /// lblDownloadDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDownloadDate;
-        
-        /// <summary>
         /// rdpDownloadDate control.
         /// </summary>
         /// <remarks>
@@ -203,30 +239,39 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDOwnloadDate;
         
         /// <summary>
-        /// btnGo control.
+        /// btnPreview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGo;
+        protected global::System.Web.UI.WebControls.Button btnPreview;
         
         /// <summary>
-        /// pnlOnlneNCDExtract control.
+        /// btnDownload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlOnlneNCDExtract;
+        protected global::System.Web.UI.WebControls.Button btnDownload;
         
         /// <summary>
-        /// gvOnlneNCDExtract control.
+        /// pnlOnlneIssueExtract control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadGrid gvOnlneNCDExtract;
+        protected global::System.Web.UI.WebControls.Panel pnlOnlneIssueExtract;
+        
+        /// <summary>
+        /// gvOnlineIssueExtract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvOnlineIssueExtract;
     }
 }

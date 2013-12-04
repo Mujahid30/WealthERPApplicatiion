@@ -496,24 +496,13 @@ namespace BoOnlineOrderManagement
             {
                 throw Ex;
             }
+        }       
 
-        }
-
-        public DataSet GetOnlineNcdExtractPreview(DateTime date, int adviserId)
-        {
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource) {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-
-            DataSet dsGetOnlineNCDExtractPreview;
-            OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-            dsGetOnlineNCDExtractPreview = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(date, adviserId);
-            return dsGetOnlineNCDExtractPreview;
-
+            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource);
         }
-
-        public void GenerateOnlineNcdExtract(int adviserId, int userId) {
-            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            onlineNCDBackOfficeDao.GenereateNcdExtract(adviserId, userId);
-        }
+        
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
         {
             DataTable dtNCDOrder;
@@ -538,6 +527,51 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtNCDOrder;
+        }
+
+        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType);
+        }
+
+        private KeyValuePair<string, string>[] GetHeaderMapping(int fileTypeId, string extSource)
+        {
+            if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            DataTable dtHeaderMap = onlineNCDBackOfficeDao.GetHeaderMapping(fileTypeId, extSource);
+            int nRows = dtHeaderMap.Rows.Count;
+            if (nRows <= 0) return null;
+
+            KeyValuePair<string, string>[] kvpHeaders = new KeyValuePair<string, string>[dtHeaderMap.Rows.Count];
+            for (int i = 0; i < nRows; i++) {
+                string Key = dtHeaderMap.Rows[i]["COLUMN_NAME"].ToString();
+                string Value = dtHeaderMap.Rows[i]["FILE_HEADER"].ToString();
+                kvpHeaders[i] = new KeyValuePair<string, string>(Key, Value);
+            }
+
+            return kvpHeaders;
+        }
+
+        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource)
+        {
+            KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
+
+            if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId).Tables[0];
+
+            if (dtExtract == null) return null;
+
+            if (headers != null)
+            {
+                foreach (KeyValuePair<string, string> header in headers) {
+                    dtExtract.Columns[header.Key].ColumnName = header.Value;
+                }
+                dtExtract.AcceptChanges();
+            }
+            return dtExtract;
         }
     }
 }

@@ -12,83 +12,86 @@ using System.Drawing;
 using System.Globalization;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
+using System.IO;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
-    public partial class OnlineNCDExtract : System.Web.UI.UserControl
+    public partial class OnlineIssueExtract : System.Web.UI.UserControl
     {
         OnlineNCDBackOfficeBo boNcdBackOff = new OnlineNCDBackOfficeBo();
-
         UserVo userVo = new UserVo();
         AdvisorVo adviserVo = new AdvisorVo();
-        DateTime fromdate;
-        DateTime todate;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
             userVo = (UserVo)Session["userVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
+            
+            //if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
+
             if (!IsPostBack)
             {
+                if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
                 SetDownloadDate();
             }
         }
 
-        //private void Set
-
-        protected void BindNcdExtract()
+        protected void BindIssueExtract()
         {
-            DataSet dsGetOnlineNCDExtractPreview;
-            DataTable dtGetOnlineNCDExtractPreview;
+            pnlOnlneIssueExtract.Visible = false;
+
+            GetExtractData();
+
+            DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
             
-            if (rdpDownloadDate.SelectedDate != null)
-                fromdate = DateTime.Parse(rdpDownloadDate.SelectedDate.ToString());
-            
-            dsGetOnlineNCDExtractPreview = boNcdBackOff.GetOnlineNcdExtractPreview(fromdate, adviserVo.advisorId);
-            dtGetOnlineNCDExtractPreview = dsGetOnlineNCDExtractPreview.Tables[0];
+            gvOnlineIssueExtract.DataSource = dtExtractData;
+            gvOnlineIssueExtract.DataBind();
 
-            if (Cache["NCDExtract" + userVo.UserId] != null) Cache.Remove("NCDExtract" + userVo.UserId);
-
-            if (dtGetOnlineNCDExtractPreview.Rows.Count > 0) Cache.Insert("NCDExtract" + userVo.UserId, dtGetOnlineNCDExtractPreview);
-
-            gvOnlneNCDExtract.DataSource = dtGetOnlineNCDExtractPreview;
-            gvOnlneNCDExtract.DataBind();
-        }
-
-
-        protected void gvOnlneNCDExtract_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
-        {
-            DataSet dsGetOnlineNCDExtractPreview = new DataSet();
-            DataTable dtGetOnlineNCDExtractPreview = new DataTable();
-            dtGetOnlineNCDExtractPreview = (DataTable)Cache["NCDExtract" + userVo.UserId];
-
-            if (dtGetOnlineNCDExtractPreview != null)
+            if (dtExtractData == null)
             {
-                gvOnlneNCDExtract.DataSource = dtGetOnlineNCDExtractPreview;
+                ShowMessage("No data available");
+                return;
             }
+            if (dtExtractData.Rows.Count <= 0)
+            {
+                ShowMessage("No data available");
+                return;
+            }
+            
+            pnlOnlneIssueExtract.Visible = true;
         }
 
-        protected void btnNcdExtract_Click(object sender, EventArgs e)
+
+        protected void gvOnlineIssueExtract_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            Page.Validate("NcdExtract");
+            DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
+
+            if (dtExtractData != null) gvOnlineIssueExtract.DataSource = dtExtractData;
+        }
+
+        protected void btnIssueExtract_Click(object sender, EventArgs e)
+        {
+            Page.Validate("IssueExtract");
             if (!Page.IsValid) {
                 ShowMessage("Please check all required fields");
                 return;
             }
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId);
+
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue);
 
             ShowMessage("Extraction Done");
         }
 
-        protected void btnGo_Click(object sender, EventArgs e)
+        protected void btnPreview_Click(object sender, EventArgs e)
         {
-            Page.Validate("NcdExtract");
+            Page.Validate("IssueExtract");
             if (!Page.IsValid)
             {
                 ShowMessage("Please check all required fields");
                 return;
             }
-            BindNcdExtract();
+            BindIssueExtract();
         }
 
         private void SetDownloadDate()
@@ -100,16 +103,121 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
         }
 
         protected void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvOnlneNCDExtract.ExportSettings.OpenInNewWindow = true;
-            gvOnlneNCDExtract.ExportSettings.ExportOnlyData = true;
-            gvOnlneNCDExtract.ExportSettings.IgnorePaging = true;
-            gvOnlneNCDExtract.ExportSettings.FileName = "NCDExtract";
-            gvOnlneNCDExtract.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvOnlneNCDExtract.MasterTableView.ExportToExcel();
+            gvOnlineIssueExtract.ExportSettings.OpenInNewWindow = true;
+            gvOnlineIssueExtract.ExportSettings.ExportOnlyData = true;
+            gvOnlineIssueExtract.ExportSettings.IgnorePaging = true;
+            gvOnlineIssueExtract.ExportSettings.FileName = "IssueExtract";
+            gvOnlineIssueExtract.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOnlineIssueExtract.MasterTableView.ExportToExcel();
+        }
+
+        protected void btnDownload_Click(object sender, EventArgs e)
+        {
+            GetExtractData();
+
+            DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
+            string filename = ddlExternalSource.SelectedValue + ddlProduct.SelectedItem.Text + DateTime.Now.ToString("ddMMyy") + ".csv";
+            string delimit = ",";
+
+            DownloadBidFile(dtExtractData, filename, delimit);
+        }
+
+        private void SetFileType()
+        {
+            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, ddlExternalSource.SelectedValue, 'E');
+
+            DataRow drFileType = dtFileType.NewRow();
+            drFileType["WEFT_Id"] = 0;
+            drFileType["WEFT_FileType"] = "--SELECT--";
+            dtFileType.Rows.InsertAt(drFileType, 0);
+
+            ddlFileType.DataSource = dtFileType;
+            ddlFileType.DataValueField = dtFileType.Columns["WEFT_Id"].ToString();
+            ddlFileType.DataTextField = dtFileType.Columns["WEFT_FileType"].ToString();
+            ddlFileType.DataBind();
+        }
+
+        private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit)
+        {
+            if (dtExtractData == null)
+            {
+                ShowMessage("No data available");
+                return;
+            }
+            if (dtExtractData.Rows.Count <= 0)
+            {
+                ShowMessage("No data available");
+                return;
+            }
+
+            string dateFormat = "dd-mm-yyyy";
+
+            StringWriter sWriter = new StringWriter();
+
+            string Columns = string.Empty;
+            
+            foreach (DataColumn column in dtExtractData.Columns) Columns += column.ColumnName + delimit;
+            
+            sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+
+            DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
+            dtExtractData.Columns.CopyTo(arrCols, 0);
+            foreach (DataRow datarow in dtExtractData.Rows)
+            {
+                string row = string.Empty;
+                int i = 0;
+                foreach (object item in datarow.ItemArray)
+                {
+                    if (arrCols[i].DataType.FullName == "System.DateTime")
+                    {
+                        string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
+                        row += strDate + delimit;
+                    }
+                    else
+                    {
+                        row += item.ToString() + delimit;
+                    }
+                    i++;
+                }
+                sWriter.WriteLine(row.Remove(row.Length - 1, 1));
+            }
+            Response.ContentType = "text/plain";
+
+            Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
+            Response.Clear();
+
+            using (StreamWriter writer = new StreamWriter(Response.OutputStream, System.Text.Encoding.UTF8))
+            {
+                writer.Write(sWriter.ToString());
+            }
+            Response.End();
+            
+            sWriter.Flush();
+            sWriter.Close();
+        }
+
+        protected void ddlExternalSource_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Page.Validate("FileType");
+
+            if (!Page.IsValid) {
+                ShowMessage("Please check all required fields");
+                return;
+            }
+            SetFileType();
+        }
+
+        private void GetExtractData()
+        {
+            DataTable dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue);
+
+            if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
+            if (dtExtractData.Rows.Count > 0) Cache.Insert("IssueExtract" + userVo.UserId, dtExtractData);
         }
     }
 }

@@ -1656,12 +1656,12 @@ namespace BoOnlineOrderManagement
         //    }
         //    return blResult;
         //}
-        public DataSet GetOnlineNCDExtractPreview(DateTime date)
+        public DataSet GetOnlineIssueExtractPreview(DateTime date)
         {
-            DataSet dsGetOnlineNCDExtractPreview;
+            DataSet dsGetOnlineIssueExtractPreview;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-            dsGetOnlineNCDExtractPreview = daoOnlineOrderBackOffice.GetOnlineNCDExtractPreview(date);
-            return dsGetOnlineNCDExtractPreview;
+            dsGetOnlineIssueExtractPreview = daoOnlineOrderBackOffice.GetOnlineNCDExtractPreview(date);
+            return dsGetOnlineIssueExtractPreview;
 
         }
         public DataSet GetAllTradeBussiness(int year, int holiday)
