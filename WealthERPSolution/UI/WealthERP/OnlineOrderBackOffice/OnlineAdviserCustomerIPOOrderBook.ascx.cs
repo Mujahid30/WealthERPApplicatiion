@@ -165,6 +165,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }       
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {
+          //  gvIPOOrderBook.MasterTableView.DetailTables[0].HierarchyDefaultExpanded = true;
             gvIPOOrderBook.MasterTableView.HierarchyLoadMode = GridChildLoadMode.ServerBind;
             gvIPOOrderBook.ExportSettings.OpenInNewWindow = true;
             gvIPOOrderBook.ExportSettings.IgnorePaging = true;
