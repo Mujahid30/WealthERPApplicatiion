@@ -2661,6 +2661,13 @@
     <Compile Include="OnlineOrderBackOffice\ManageLookups.ascx.designer.cs">
       <DependentUpon>ManageLookups.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx.cs">
+      <DependentUpon>OnlineAdviserCustomerIPOOrderBook.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx.designer.cs">
+      <DependentUpon>OnlineAdviserCustomerIPOOrderBook.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx.cs">
       <DependentUpon>OnlineAdviserCustomerOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7751,6 +7758,7 @@
     <Content Include="OnlineMainHost.aspx" />
     <Content Include="OnlineOrderBackOffice\ExternalFieldMapping.ascx" />
     <Content Include="OnlineOrderBackOffice\ManageLookups.ascx" />
+    <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerIPOOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserCustomerSIPOrderBook.ascx" />
     <Content Include="OnlineOrderBackOffice\OnlineAdviserNCDOrderBook.ascx" />
