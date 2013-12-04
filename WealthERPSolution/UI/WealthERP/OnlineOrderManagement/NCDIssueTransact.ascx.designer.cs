@@ -170,6 +170,9 @@ namespace WealthERP.OnlineOrderManagement
         protected global::System.Web.UI.HtmlControls.HtmlTableCell tdupdate;
         protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
+        protected global::Telerik.Web.UI.RadWindow rwTermsCondition;
+        protected global::System.Web.UI.WebControls.CheckBox chkTermsCondition;
+        protected global::Telerik.Web.UI.RadWindow rw_customConfirm;
 
     }
 }

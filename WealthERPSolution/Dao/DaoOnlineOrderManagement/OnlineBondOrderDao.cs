@@ -242,10 +242,12 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public int UpdateOnlineBondTransact(DataTable BondORder, int adviserId)
+        public IDictionary<string, string> UpdateOnlineBondTransact(DataTable BondORder, int adviserId)
         {
             //List<int> orderIds = new List<int>();
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             int orderId=0;
+            int applicationNo;
             Database db;
             DbCommand cmdOnlineBondTransact;
             //bool result = false;
@@ -264,6 +266,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
                 db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 1000000);
+                db.AddOutParameter(cmdOnlineBondTransact, "@application", DbType.Int32, 1000000);
                 //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISM_SchemeId", DbType.Int32, BondORder.PFISM_SchemeId);
                 //db.AddInParameter(cmdOnlineBondTransact, "@PFISD_SeriesId", DbType.Int32, BondORder.PFISD_SeriesId);
@@ -276,9 +279,9 @@ namespace DaoOnlineOrderManagement
                 
                 if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
                 {
-                    orderId = Convert.ToInt32(db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
-                    //orderIds.Add(orderId);
-                
+
+                    OrderIds.Add("Order_Id", db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
+                    OrderIds.Add("application", db.GetParameterValue(cmdOnlineBondTransact, "application").ToString());                  
                 }
 
             }
@@ -298,7 +301,7 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return orderId;
+            return OrderIds;
         }
         public IDictionary<string, string> UpdateTransactOrder(DataTable BondORder,OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
         {
@@ -677,6 +680,41 @@ namespace DaoOnlineOrderManagement
            }
            return GetNCDTransactOrderDs;
 
+       }
+       public DataTable GetNCDHoldingOrder(int customerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+       {
+           DataSet dsNCDHoldingOrder;
+           DataTable dtNCDHoldingOrder;
+           Database db;
+           DbCommand GetNCDHoldingOrdercmd;
+           try
+           {
+               db = DatabaseFactory.CreateDatabase("wealtherp");
+               GetNCDHoldingOrdercmd = db.GetStoredProcCommand("SPROC_ONL_GetNCDHolding");
+               db.AddInParameter(GetNCDHoldingOrdercmd, "@CustomerId", DbType.Int32, customerId);
+               db.AddInParameter(GetNCDHoldingOrdercmd, "@AccountId", DbType.Int32, customerId);
+               db.AddInParameter(GetNCDHoldingOrdercmd, "@fromdate", DbType.DateTime, dtFrom);
+               db.AddInParameter(GetNCDHoldingOrdercmd, "@todate", DbType.DateTime, dtTo);
+               dsNCDHoldingOrder = db.ExecuteDataSet(GetNCDHoldingOrdercmd);
+               dtNCDHoldingOrder = dsNCDHoldingOrder.Tables[0];
+           }
+           catch (BaseApplicationException Ex)
+           {
+               throw Ex;
+           }
+           catch (Exception Ex)
+           {
+               BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+               NameValueCollection FunctionInfo = new NameValueCollection();
+               FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetNCDHoldingOrder()");
+               object[] objects = new object[1];
+               objects[0] = customerId;
+               FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+               exBase.AdditionalInformation = FunctionInfo;
+               ExceptionManager.Publish(exBase);
+               throw exBase;
+           }
+           return dtNCDHoldingOrder;
        }
     }
 }

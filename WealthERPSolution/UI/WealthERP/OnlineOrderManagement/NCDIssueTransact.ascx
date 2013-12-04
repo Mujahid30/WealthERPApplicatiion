@@ -14,6 +14,37 @@
         return true;  
 </script>
 
+<script type="text/javascript">
+    function ValidateTermsConditions(sender, args) {
+
+        if (document.getElementById("<%=chkTermsCondition.ClientID %>").checked == true) {
+            args.IsValid = true;
+        } else {
+            args.IsValid = false;
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    var crnt = 0;
+    function PreventClicks() {
+
+        if (typeof (Page_ClientValidate('btnSubmit')) == 'function') {
+            Page_ClientValidate();
+        }
+
+        if (Page_IsValid) {
+            if (++crnt > 1) {
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
 <asp:ScriptManager ID="scrptMgr" runat="server">
     <Services>
@@ -198,7 +229,7 @@
                                 <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
-                                      <%--  <telerik:GridTemplateColumn>
+                                        <%--  <telerik:GridTemplateColumn>
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="lbDetails" runat="server" CommandName="ExpandCollapse" Font-Underline="False"
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
@@ -246,7 +277,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            UniqueName="FaceValue" Visible="true"  DataFormatString="{0:N0)}">
+                                            UniqueName="FaceValue" Visible="true" DataFormatString="{0:N0}">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
@@ -276,7 +307,7 @@
                                             AutoPostBackOnFilter="true" UniqueName="IsDematFacilityAvail" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                       <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
+                                        <%-- <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="110px"
                                             UniqueName="Action" HeaderText="Action">
                                             <ItemTemplate>
                                                 <asp:LinkButton ID="llPurchase" runat="server" OnClick="llPurchase_Click" Text="Purchase"></asp:LinkButton>
@@ -347,7 +378,7 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderStyle-Width="80px" HeaderText="Face Value"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AIM_FaceValue" Visible="true"  DataFormatString="{0:N0)}">
+                                UniqueName="AIM_FaceValue" Visible="true" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
@@ -420,7 +451,8 @@
                                 UniqueName="Quantity" HeaderText="Quantity">
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtQuantity" runat="server" OnTextChanged="txtQuantity_TextChanged"
-                                        Text='<%# Bind("COID_Quantity")%>' Width="50px" AutoPostBack="true" OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
+                                        MaxLength="5" Text='<%# Bind("COID_Quantity")%>' Width="50px" AutoPostBack="true"
+                                        OnKeypress="javascript:return isNumberKey(event);"></asp:TextBox>
                                     <%--  <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="*Required"
                                         ClientValidationFunction="ValidateTextValue(this)"></asp:CustomValidator>--%>
                                     <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator" ControlToValidate="txtQuantity"
@@ -480,12 +512,39 @@
     </tr>
 </table>
 <table>
-    <tr id="trSubmit" runat="server" visible="false">
-        <td id="tdsubmit" runat="server">
-            <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
-            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
-                CssClass="PCGButton" />
+    <tr class="spaceUnder" id="trTermsCondition" runat="server">
+        <td align="left" style="width: 15%">
+            <asp:CheckBox ID="chkTermsCondition" runat="server" Font-Bold="True" Font-Names="Shruti"
+                Enabled="false" Checked="false" ForeColor="#145765" Text="" ToolTip="Click 'Terms & Conditions' to proceed further"
+                CausesValidation="true" />
+            <asp:LinkButton ID="lnkTermsCondition" CausesValidation="false" Text="Terms & Conditions"
+                runat="server" CssClass="txtField" OnClick="lnkTermsCondition_Click" ToolTip="Click here to accept terms & conditions"></asp:LinkButton>
+            <span id="Span9" class="spnRequiredField">*</span>
         </td>
+        <td colspan="3" style="width: 85%" align="left">
+            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please read terms & conditions"
+                ClientValidationFunction="ValidateTermsConditions" EnableClientScript="true"
+                OnServerValidate="TermsConditionCheckBox" Display="Dynamic" ValidationGroup="btnConfirmOrder"
+                CssClass="rfvPCG">
+                Please read terms & conditions
+            </asp:CustomValidator>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="width:60%">
+            <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
+            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
+                CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
+        </td>       
+    </tr>
+</table>
+<table>
+    <tr id="trSubmit" runat="server" visible="false">
+        <%--<td id="tdsubmit" runat="server">
+        <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
+        <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
+            CssClass="PCGButton" />
+    </td>--%>
         <td id="tdupdate" runat="server" visible="false">
             <asp:Label ID="Label2" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdateOrder_Click"
@@ -493,23 +552,51 @@
         </td>
     </tr>
 </table>
-<%--<table id="tblCommissionStructureRule" runat="server" width="100%">
-         --%>
-<%--<tr>
-                <td>
-                    <asp:Panel ID="pnlGrid" runat="server" CssClass="Landscape" Width="100%" ScrollBars="Horizontal">--%>
-<%-- <table width="100%">
-                            <tr>
-                                <td>--%>
-<%-- </td>
-                            </tr>
-                        </table>--%>
-<%-- </asp:Panel>
-                </td>
-            </tr>--%>
-<%--</table>--%>
-<%--    </ContentTemplate>
-    <Triggers>
-        <asp:PostBackTrigger ControlID="ibtExportSummary" />
-    </Triggers>
-</asp:UpdatePanel>--%>
+<telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
+    Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
+    Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
+    <ContentTemplate>
+        <div style="padding: 0px; width: 100%">
+            <table width="100%" cellpadding="0" cellpadding="0">
+                <tr>
+                    <td align="left">
+                        <%--  <a href="../ReferenceFiles/MF-Terms-Condition.html">../ReferenceFiles/MF-Terms-Condition.html</a>--%>
+                        <iframe src="../ReferenceFiles/MF-Terms-Condition.html" name="iframeTermsCondition"
+                            style="width: 100%"></iframe>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <asp:Button ID="btnAccept" runat="server" Text="Accept" CssClass="PCGButton" OnClick="btnAccept_Click"
+                            CausesValidation="false" ValidationGroup="btnSubmit" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ContentTemplate>
+</telerik:RadWindow>
+<%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">
+    <Windows>
+        <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"
+            Width="700px" Height="160px" runat="server" Title="EUIN Confirm">
+            <ContentTemplate>
+                <div class="rwDialogPopup radconfirm">
+                    <div class="rwDialogText">
+                        <asp:Label ID="confirmMessage" Text="" runat="server" />
+                    </div>
+                    <div>
+                        <%--<td id="tdsubmit" runat="server">
+                            <asp:Label ID="Label1" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
+                            <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
+                                CssClass="PCGButton" OnClientClick="return PreventClicks();" />
+                        </td>--%>
+<%-- <asp:Button runat="server" ID="rbConfirm_OK" Text="OK" OnClick="rbConfirm_OK_Click"
+                            ValidationGroup="btnSubmit" OnClientClick="return PreventClicks();"></asp:Button>
+                        <asp:Button runat="server" ID="rbConfirm_Cancel" Text="Cancel" OnClientClicked="closeCustomConfirm">
+                        </asp:Button>--%>
+<%--   </div>
+                </div>
+            </ContentTemplate>
+        </telerik:RadWindow>
+    </Windows>
+</telerik:RadWindowManager>--%>

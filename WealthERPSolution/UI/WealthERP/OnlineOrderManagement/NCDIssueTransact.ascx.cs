@@ -76,6 +76,16 @@ namespace WealthERP.OnlineOrderManagement
                     BindStructureRuleGrid(IssuerId);
                     BindStructureRuleGrid();
                 }
+                else if (Request.QueryString["IssueId"] != null && Request.QueryString["Issuename"] != null) 
+                {
+                    IssuerId = int.Parse(Request.QueryString["IssueId"].ToString());
+                    string Issuename = Request.QueryString["Issuename"].ToString();                   
+                    lblIssuer.Text = "Selected Issue Name :" + Issuename;                   
+                    ddIssuerList.Visible = false;
+                    btnConfirm.Visible = false;
+                    BindStructureRuleGrid(IssuerId);
+                    BindStructureRuleGrid();
+                }
                 else
                 {
                     BindDropDownListIssuer();
@@ -195,6 +205,29 @@ namespace WealthERP.OnlineOrderManagement
             lblNomineeTwo.Text = strbNominee.ToString().TrimEnd(',');
             lblHolderTwo.Text = strbJointHolder.ToString().TrimEnd(',');
         }
+        protected void lnkTermsCondition_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = true;
+        }
+
+        protected void btnAccept_Click(object sender, EventArgs e)
+        {
+            rwTermsCondition.VisibleOnPageLoad = false;
+            chkTermsCondition.Checked = true;
+        }
+
+        public void TermsConditionCheckBox(object o, ServerValidateEventArgs e)
+        {
+            if (chkTermsCondition.Checked)
+            {
+                e.IsValid = true;
+            }
+            else
+            {
+                e.IsValid = false;
+            }
+        }
+
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
             int rowindex1 = ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
@@ -213,7 +246,7 @@ namespace WealthERP.OnlineOrderManagement
                     int Mod = Qty % PFISD_InMultiplesOf;
                     if (Mod != 0)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Bid Quantity should be in Allowed Multiplication')+'?PFISD_InMultiplesOf=" + PFISD_InMultiplesOf + "'", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert(' Please enter quantity greater than or equal to min quantity required and in multiples of 1')'", true);
                         txtQuantity.Text = "";
                         return;
                     }
@@ -271,20 +304,21 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        private string CreateUserMessage(int orderId, bool accountDebitStatus)
+        private string CreateUserMessage(int orderId,int Applicationno, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
             orderId = int.Parse(ViewState["OrderId"].ToString());
+            Applicationno = int.Parse(ViewState["application"].ToString());  
             if (orderId != 0 && accountDebitStatus == true)
             {
                 //if (isCutOffTimeOver)
                 //     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 //else
-                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString();
+                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no " + Applicationno.ToString();
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
-                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString();
+                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString() + " & Application no " + Applicationno.ToString(); 
             }
             else if (orderId == 0)
             {
@@ -299,25 +333,27 @@ namespace WealthERP.OnlineOrderManagement
             bool accountDebitStatus = false;
             decimal availableBalance = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId);
             int OrderId;
+            int Applicationno;
             string message = string.Empty;
             if (availableBalance >= 0)
             {
                 OrderId = int.Parse(ViewState["OrderId"].ToString());
+                Applicationno=int.Parse(ViewState["application"].ToString());               
 
                 if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                 {
                     accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -OnlineBondVo.Amount, orderId);
                 }
-                if (OrderId != 0)
+                if (OrderId != 0 && Applicationno!=0)
                 {
                     ShowAvailableLimits();
-                    message = CreateUserMessage(orderId, accountDebitStatus);
+                    message = CreateUserMessage(orderId,Applicationno, accountDebitStatus);
                     ShowMessage(message);
                 }
             }
             else
             {
-                message = CreateUserMessage(0, false);
+                message = CreateUserMessage(0,0, false);
                 ShowMessage(message);
             }
         }
@@ -359,6 +395,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty(txtQuantity.Text))
                     {
                         isValid = true;
+                        txtQuantity.Enabled = false;
                         OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);
                         TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Amount"].FindControl("txtAmount");
                         OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
@@ -376,7 +413,7 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     break;
             }
-            int OrderIds;
+            
             if (isValid)
             {
                 Quantity = int.Parse(ViewState["Qty"].ToString());
@@ -419,8 +456,12 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    OrderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
-                    ViewState["OrderId"] = OrderIds;
+                    IDictionary<string, string> orderIds = new Dictionary<string, string>();
+                    orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
+                    int OrderId = int.Parse(orderIds["Order_Id"].ToString()); ;
+                    int Applicationno = int.Parse(orderIds["application"].ToString()); ;
+                    ViewState["OrderId"] = OrderId;
+                    ViewState["application"] = Applicationno;
                     CreateNCDOrder();
                 }
             }

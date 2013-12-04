@@ -198,14 +198,14 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public int onlineBOndtransact(DataTable OnlineBondOrder, int adviserId)
+        public IDictionary<string, string> onlineBOndtransact(DataTable OnlineBondOrder, int adviserId)
         {
-            //List<int> orderIds = new List<int>(); 
+            IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             //bool result = false;
-            int orderIds = 0; 
+           //int orderIds = 0; 
             try
             {
-                orderIds = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId);
+                OrderIds = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId);
 
             }
             catch (BaseApplicationException Ex)
@@ -224,7 +224,7 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            return orderIds;
+            return OrderIds;
         }
         public IDictionary<string, string> UpdateTransactOrder(DataTable OnlineBondOrder,OnlineBondOrderVo OnlineBondOrderVo, int adviserId, int IssuerId, int OrderId, int seriesId)
         {
@@ -495,6 +495,33 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dsNCD;
+        }
+        public DataTable GetNCDHoldingOrder(int customerId, int AccountId, DateTime dtFrom, DateTime dtTo)
+        {
+            DataTable dtNCDHoldingOrder;
+
+            OnlineBondOrderDao OnlineBondOrderDao = new OnlineBondOrderDao();
+            try
+            {
+                dtNCDHoldingOrder = OnlineBondOrderDao.GetNCDHoldingOrder(customerId,AccountId, dtFrom, dtTo);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderBo.cs:GetNCDHoldingOrder()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNCDHoldingOrder;
         }
     }
 }
