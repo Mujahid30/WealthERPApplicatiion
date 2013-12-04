@@ -1853,6 +1853,10 @@
     <value>OnlineOrderBackOffice//OnlineExternalSourceHeaderManagement.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineExternalSourceHeaderManagement.ascx</comment>
   </data>
+  <data name="OnlineIssueUpload" xml:space="preserve">
+    <value>OnlineOrderBackOffice//OnlineIssueUpload.ascx</value>
+    <comment>OnlineOrderBackOffice//OnlineIssueUpload.ascx</comment>
+  </data>
   <data name="OnlineAdviserCustomerIPOOrderBook" xml:space="preserve">
     <value>OnlineOrderBackOffice//OnlineAdviserCustomerIPOOrderBook.ascx</value>
     <comment>OnlineOrderBackOffice//OnlineAdviserCustomerIPOOrderBook.ascx</comment>
