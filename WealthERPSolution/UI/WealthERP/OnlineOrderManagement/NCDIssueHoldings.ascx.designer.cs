@@ -68,5 +68,12 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid gvBHList;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAccount;
+        protected global::System.Web.UI.WebControls.Button btnViewOrder;
+        protected global::System.Web.UI.WebControls.HiddenField hdnAccount;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderTo;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell tdTxtToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtOrderFrom;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divConditional;
     }
 }

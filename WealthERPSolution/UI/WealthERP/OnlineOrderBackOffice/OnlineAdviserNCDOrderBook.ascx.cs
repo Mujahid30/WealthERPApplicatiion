@@ -14,19 +14,16 @@ namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineAdviserNCDOrderBook : System.Web.UI.UserControl
     {
-        UserVo userVo;
-        CustomerVo customerVo = new CustomerVo();
+        UserVo userVo;       
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
-        AdvisorVo advisorVo;
-        int customerId;
+        AdvisorVo advisorVo;       
         DateTime fromDate;
         DateTime toDate;
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
-        OnlineNCDBackOfficeBo onlineNCDBackOfficeDao = new OnlineNCDBackOfficeBo();
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            userVo = (UserVo)Session[SessionContents.UserVo];
-            customerVo = (CustomerVo)Session["customerVo"];
+            userVo = (UserVo)Session[SessionContents.UserVo];           
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
@@ -79,7 +76,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (txtOrderTo.SelectedDate != null)
                 toDate = DateTime.Parse(txtOrderTo.SelectedDate.ToString());
             DataTable dtNCDOrder;
-            dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(advisorVo.advisorId, hdnOrderStatus.Value, fromDate, toDate);
+            dtNCDOrder = onlineNCDBackOfficeBo.GetAdviserNCDOrderBook(advisorVo.advisorId, hdnOrderStatus.Value, fromDate, toDate);
             if (dtNCDOrder.Rows.Count >= 0)
             {
                 if (Cache["NCDBookList" + userVo.UserId.ToString()] == null)
@@ -164,6 +161,32 @@ namespace WealthERP.OnlineOrderBackOffice
         //        ddlAction.Items.FindByText("Cancel").Attributes.Add("Disabled", "Disabled");
         //    }
         //}
+        protected void btnExpandAll_Click(object sender, EventArgs e)
+        {
+            DataTable dtIssueDetail;
+            int strIssuerId = 0;
+            LinkButton buttonlink = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)buttonlink.NamingContainer;
+            strIssuerId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            int orderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[gdi.ItemIndex]["CO_OrderId"].ToString());
+            RadGrid gvChildDetails = (RadGrid)gdi.FindControl("gvChildDetails");
+            Panel PnlChild = (Panel)gdi.FindControl("pnlchild");
+            if (PnlChild.Visible == false)
+            {
+                PnlChild.Visible = true;
+                buttonlink.Text = "-";
+            }
+            else if (PnlChild.Visible == true)
+            {
+                PnlChild.Visible = false;
+                buttonlink.Text = "+";
+            }
+            DataTable dtNCDOrderBook = onlineNCDBackOfficeBo.GetAdviserNCDOrderSubBook(advisorVo.advisorId, strIssuerId, orderId);
+            dtIssueDetail = dtNCDOrderBook;
+            gvChildDetails.DataSource = dtIssueDetail;
+            gvChildDetails.DataBind();
+        }
         protected void gvNCDOrderBook_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtIssueDetail;
@@ -173,6 +196,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvNCDOrderBook.DataSource = dtIssueDetail;
             }
 
+        }
+        protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            //RadGrid gvChildDetails = (RadGrid)sender; // Get reference to grid 
+            //GridDataItem nesteditem = (GridDataItem)gvChildDetails.NamingContainer;
+            //int strIssuerId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
+            //int orderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["CO_OrderId"].ToString());
+            //DataSet ds = BoOnlineBondOrder.GetOrderBondSubBook(customerVo.CustomerId, strIssuerId, orderId);
+            //gvChildDetails.DataSource = ds.Tables[0];
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {

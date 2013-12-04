@@ -950,6 +950,41 @@ namespace DaoOnlineOrderManagement
             }
             return dtNCDOrder;
         }
+        public DataTable GetAdviserNCDOrderSubBook(int adviserId, int IssuerId, int orderid)
+        {
+            DataSet dsNCDOrderBook;
+            DataTable dtNCDOrderBook;
+            Database db;
+            DbCommand GetNCDOrderBookcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetNCDOrderBookcmd = db.GetStoredProcCommand("SPROC_ONL_GetAdviserBondOrdersubBook");
+                db.AddInParameter(GetNCDOrderBookcmd, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(GetNCDOrderBookcmd, "@IssuerId", DbType.Int32, IssuerId);
+                db.AddInParameter(GetNCDOrderBookcmd, "@orderId", DbType.Int32, orderid);
+                dsNCDOrderBook = db.ExecuteDataSet(GetNCDOrderBookcmd);
+                dtNCDOrderBook = dsNCDOrderBook.Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineBondOrderDao.cs:GetAdviserNCDOrderSubBook()");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNCDOrderBook;
+        }
 
         public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType)
         {

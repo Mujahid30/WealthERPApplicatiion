@@ -528,6 +528,31 @@ namespace BoOnlineOrderManagement
             }
             return dtNCDOrder;
         }
+        public DataTable GetAdviserNCDOrderSubBook(int adviserId, int IssuerId, int orderid)
+        {
+            DataTable dtNCDOrderBook;
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtNCDOrderBook = onlineNCDBackOfficeDao.GetAdviserNCDOrderSubBook(adviserId, IssuerId, orderid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetAdviserNCDOrderSubBook()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtNCDOrderBook;
+        }
 
         public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType)
         {
