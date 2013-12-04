@@ -160,10 +160,11 @@
                     <asp:Label ID="lblproduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField">
+                    <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" 
+                        AutoPostBack="True" onselectedindexchanged="ddlProduct_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                        <asp:ListItem Text="NCD" Value="1" />
-                        <asp:ListItem Text="IPO" Value="2" />
+                        <asp:ListItem Text="NCD/Bond" Value="FI" />
+                        <asp:ListItem Text="IPO" Value="IP" />
                     </asp:DropDownList><br />
                     <asp:RequiredFieldValidator ID="rfvProduct" runat="server" CssClass="rfvPCG"
                         ErrorMessage="Please select a product" ControlToValidate="ddlProduct" 

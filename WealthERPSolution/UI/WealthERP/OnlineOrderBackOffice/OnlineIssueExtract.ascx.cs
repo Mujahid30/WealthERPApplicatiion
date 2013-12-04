@@ -78,7 +78,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue);
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue);
 
             ShowMessage("Extraction Done");
         }
@@ -129,7 +129,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void SetFileType()
         {
-            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, ddlExternalSource.SelectedValue, 'E');
+            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, ddlExternalSource.SelectedValue, 'E', ddlProduct.SelectedValue);
 
             DataRow drFileType = dtFileType.NewRow();
             drFileType["WEFT_Id"] = 0;
@@ -218,6 +218,18 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
             if (dtExtractData.Rows.Count > 0) Cache.Insert("IssueExtract" + userVo.UserId, dtExtractData);
+        }
+
+        protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Page.Validate("FileType");
+
+            if (!Page.IsValid)
+            {
+                ShowMessage("Please check all required fields");
+                return;
+            }
+            SetFileType();
         }
     }
 }

@@ -844,7 +844,7 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode)
+        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset)
         {
             Database db;
             DbCommand cmd;
@@ -855,6 +855,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(cmd, "@U_UserId", DbType.Int32, UserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, SourceCode);
+                db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductAsset);
                 db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
@@ -986,7 +987,7 @@ namespace DaoOnlineOrderManagement
             return dtNCDOrderBook;
         }
 
-        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType)
+        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType, string ProductCode)
         {
             Database db;
             DbCommand cmd;
@@ -998,6 +999,7 @@ namespace DaoOnlineOrderManagement
                 if (FileTypeId > 0) db.AddInParameter(cmd, "@WEFT_Id", DbType.Int32, FileTypeId);
                 if (!string.IsNullOrEmpty(ExternalSource)) db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, ExternalSource);
                 db.AddInParameter(cmd, "@WEFT_FileSubType", DbType.String, FileSubType);
+                if (!string.IsNullOrEmpty(ProductCode)) db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductCode);
                 DataSet ds = db.ExecuteDataSet(cmd);
                 dtFileType = ds.Tables[0];
             }

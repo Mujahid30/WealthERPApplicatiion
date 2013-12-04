@@ -498,10 +498,9 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource)
-        {
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset) {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource);
+            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset);
         }
 
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
@@ -555,11 +554,11 @@ namespace BoOnlineOrderManagement
             return dtNCDOrderBook;
         }
 
-        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType)
+        public DataTable GetFileTypeList(int FileTypeId, string ExternalSource, char FileSubType, string ProductCode)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType);
+            return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode);
         }
 
         private KeyValuePair<string, string>[] GetHeaderMapping(int fileTypeId, string extSource)
