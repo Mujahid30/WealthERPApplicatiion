@@ -41,7 +41,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetAdviserIssueList(DateTime date, int type, string product,int adviserId)
+        public DataSet GetAdviserIssueList(DateTime date, int type, string product, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -102,7 +102,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataSet GetSeriesCategories(int  issuerId, int issueId, int seriesId)
+        public DataSet GetSeriesCategories(int issuerId, int issueId, int seriesId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -129,7 +129,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetSeries(int  issuerId, int issueId)
+        public DataSet GetSeries(int issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -244,7 +244,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataSet GetAllInvestorTypes(int  issuerId, int issueId)
+        public DataSet GetAllInvestorTypes(int issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -269,7 +269,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetSubCategory(int  issuerId, int issueId)
+        public DataSet GetSubCategory(int issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -294,7 +294,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetCategory(int  issuerId, int issueId)
+        public DataSet GetCategory(int issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -370,7 +370,7 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public DataSet GetEligibleInvestorsCategory(int  issuerId, int issueId)
+        public DataSet GetEligibleInvestorsCategory(int issuerId, int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -421,7 +421,7 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetIssuerIssue(int  issuerId)
+        public DataSet GetIssuerIssue(int issuerId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -496,20 +496,21 @@ namespace BoOnlineOrderManagement
             {
                 throw Ex;
             }
-        }       
+        }
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource) {
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource)
+        {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource);
         }
-        
+
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
         {
             DataTable dtNCDOrder;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId,status,dtFrom,dtTo);
+                dtNCDOrder = onlineNCDBackOfficeDao.GetAdviserNCDOrderBook(adviserId, status, dtFrom, dtTo);
             }
             catch (BaseApplicationException Ex)
             {
@@ -570,7 +571,8 @@ namespace BoOnlineOrderManagement
             if (nRows <= 0) return null;
 
             KeyValuePair<string, string>[] kvpHeaders = new KeyValuePair<string, string>[dtHeaderMap.Rows.Count];
-            for (int i = 0; i < nRows; i++) {
+            for (int i = 0; i < nRows; i++)
+            {
                 string Key = dtHeaderMap.Rows[i]["COLUMN_NAME"].ToString();
                 string Value = dtHeaderMap.Rows[i]["FILE_HEADER"].ToString();
                 kvpHeaders[i] = new KeyValuePair<string, string>(Key, Value);
@@ -591,12 +593,117 @@ namespace BoOnlineOrderManagement
 
             if (headers != null)
             {
-                foreach (KeyValuePair<string, string> header in headers) {
+                foreach (KeyValuePair<string, string> header in headers)
+                {
                     dtExtract.Columns[header.Key].ColumnName = header.Value;
                 }
                 dtExtract.AcceptChanges();
             }
             return dtExtract;
+        }
+
+        public bool UpdateNcdOrderMannualMatch(int orderId, int allotmentId)
+        {
+            bool result = false;
+            try
+            {
+                result = onlineNCDBackOfficeDao.UpdateNcdOrderMannualMatch(orderId, allotmentId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:OrderMannualMatch()");
+                object[] objects = new object[2];
+                objects[0] = orderId;
+                objects[1] = allotmentId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
+        public bool UpdateNcdAutoMatch(int orderId)
+        {
+            bool result = false;
+            try
+            {
+                result = onlineNCDBackOfficeDao.UpdateNcdAutoMatch(orderId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:OrderMannualMatch()");
+                object[] objects = new object[1];
+                objects[0] = orderId;
+
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+
+        }
+
+        public DataSet GetUnmatchedAllotments(int adviserId, int issuerId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetUnmatchedAllotments(adviserId, issuerId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetCategoryDetails()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+        }
+        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId,Product,Status,FromDate,ToDate);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetAdviserOrders()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
         }
     }
 }

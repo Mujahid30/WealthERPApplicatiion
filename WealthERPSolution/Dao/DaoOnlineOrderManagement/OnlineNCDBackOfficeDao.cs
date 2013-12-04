@@ -790,8 +790,8 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                dbCommand = db.GetStoredProcCommand("SPROC_GetIssuerIssue");
-                db.AddInParameter(dbCommand, "@issuerId", DbType.Int32, issuerId);
+                dbCommand = db.GetStoredProcCommand("SPROC_GetIssuerIssues");
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, issuerId);
                 dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)
@@ -1054,6 +1054,147 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dtHeaders;
+        }
+        public bool UpdateNcdOrderMannualMatch(int orderId, int allotmentId)
+        {
+            Database db;
+            DbCommand updateCmd;
+            bool status = false;
+            int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateNcdOrderMannualMatch");
+                db.AddInParameter(updateCmd, "@OrderId", DbType.Int32, orderId);
+                db.AddInParameter(updateCmd, "@AllotmentId", DbType.Int32, allotmentId);
+                db.AddOutParameter(updateCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:UpdateNcdOrderMannualMatch()");
+                object[] objects = new object[7];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
+        }
+
+        public bool UpdateNcdAutoMatch(int orderId)
+        {
+            Database db;
+            DbCommand updateCmd;
+            bool status = false;
+            int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                updateCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateNcdAutoMatch");
+                db.AddInParameter(updateCmd, "@OrderId", DbType.Int32, orderId);
+                db.AddOutParameter(updateCmd, "@IsSuccess", DbType.Int16, 0);
+                if (db.ExecuteNonQuery(updateCmd) != 0)
+                    affectedRecords = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:UpdateNcdAutoMatch()");
+                object[] objects = new object[7];
+                objects[0] = orderId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            if (affectedRecords > 0)
+                return status = true;
+            else
+                return status = false;
+        }
+
+        public DataSet GetUnmatchedAllotments(int adviserId, int issuerId)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand GetCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetCmd = db.GetStoredProcCommand("SPROC_GetUnmatchedAllotments");
+                db.AddInParameter(GetCmd, "@advisorId", DbType.Int32, adviserId);
+                db.AddInParameter(GetCmd, "@isseuerId", DbType.Int32, issuerId);
+                ds = db.ExecuteDataSet(GetCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType)");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return ds;
+        }
+        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate)
+        {
+            DataSet dsOrders;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetAdviserWiseOrders");
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, IssueId);
+                db.AddInParameter(dbCommand, "@Product", DbType.String, Product);
+                db.AddInParameter(dbCommand, "@Status", DbType.String, Status);
+                db.AddInParameter(dbCommand, "@FromDate", DbType.Date, FromDate);
+                db.AddInParameter(dbCommand, "@ToDate", DbType.Date, ToDate);
+
+                dsOrders = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetAdviserOrders()");
+                object[] objects = new object[1];
+                objects[1] = IssueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrders;
         }
     }
 }
