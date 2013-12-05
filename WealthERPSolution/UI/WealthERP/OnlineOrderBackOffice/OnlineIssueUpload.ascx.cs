@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Data;
+
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -11,7 +14,12 @@ namespace WealthERP.OnlineOrderBackOffice
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //ddlFileType.Enabled = false;
 
         }
-    }
+        protected void Readcsvfile()
+        {
+            //StreamReader StreamReader=new StreamReader(
+        }
+     }
 }
