@@ -1200,7 +1200,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrders;
         }
-        public DataSet GetAdviserissueallotmentList(int adviserId)
+        public DataSet GetAdviserissueallotmentList(int adviserId,int issureid,string type,DateTime fromdate,DateTime todate)
         {
 
             Database db;
@@ -1211,6 +1211,16 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetAdviserissueallotmentListcmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueAllotmentDetail");
                 db.AddInParameter(GetAdviserissueallotmentListcmd, "@AdviserId", DbType.Int32, adviserId);
+                if(issureid!=0)
+                db.AddInParameter(GetAdviserissueallotmentListcmd, "@Issuerid", DbType.Int32,issureid);
+                else
+                    db.AddInParameter(GetAdviserissueallotmentListcmd, "@Issuerid", DbType.Int32, 0);
+                if (type != "0")
+                    db.AddInParameter(GetAdviserissueallotmentListcmd, "@type", DbType.String, type);
+                else
+                    db.AddInParameter(GetAdviserissueallotmentListcmd, "@type", DbType.String, DBNull.Value);               
+                db.AddInParameter(GetAdviserissueallotmentListcmd, "@fromdate", DbType.Date, fromdate);
+                db.AddInParameter(GetAdviserissueallotmentListcmd, "@todate", DbType.Date, todate);
                 dsGetAdviserissueallotmentList = db.ExecuteDataSet(GetAdviserissueallotmentListcmd);
             }
             catch (BaseApplicationException Ex)

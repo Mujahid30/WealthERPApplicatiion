@@ -210,6 +210,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD/IPO Issue Allotment" Value="NCD_IPO_Issue_Allotment">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Accounting Extract" Value="File_Extraction">
@@ -764,7 +766,7 @@
                                                     </telerik:RadPanelItem>
                                                      <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotment" Value="NCD_Allotments">
+                                                     <telerik:RadPanelItem runat="server" Text="NCD/IPO Issue Allotment" Value="NCD_IPO_Issue_Allotment">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>

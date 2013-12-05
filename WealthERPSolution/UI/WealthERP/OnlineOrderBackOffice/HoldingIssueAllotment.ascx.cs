@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using WealthERP.Base;
 using BoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
+using Telerik.Web.UI;
 
 
 namespace WealthERP.OnlineOrderBackOffice
@@ -31,9 +32,13 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
+                
                 fromdate = DateTime.Now.AddMonths(-1);
-                txtFromDate.Text = fromdate.Date.ToString();
-                BindAdviserIssueAllotmentList();
+                txtFromDate.SelectedDate= fromdate;
+                txtToDate.SelectedDate = DateTime.Now;
+                
+                //BindAdviserIssueAllotmentList();
+                BindDropDownListIssuer();
                 //BindIssuerId();
             }
 
@@ -43,8 +48,15 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataSet dsGetAdviserissueallotmentList = new DataSet();
+                if (txtFromDate.SelectedDate != null)
+                    fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
+                if (txtToDate.SelectedDate != null)
+                    todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
+               // if(ddlIssuer.SelectedValue!=null)
+
+                
                 //DataTable dtGetAdviserissueallotmentList = new DataTable();
-                dsGetAdviserissueallotmentList = OnlineNCDBackOfficeBo.GetAdviserissueallotmentList(advisorVo.advisorId);
+                    dsGetAdviserissueallotmentList = OnlineNCDBackOfficeBo.GetAdviserissueallotmentList(advisorVo.advisorId, int.Parse(ddlIssuer.SelectedValue.ToString()), ddlType.SelectedValue.ToString(), fromdate, todate);
                 if (dsGetAdviserissueallotmentList.Tables[0].Rows.Count > 0)
                 {
                     if (Cache["AdviserIssueList" + advisorVo.advisorId] == null)
@@ -58,6 +70,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     gvAdviserIssueList.DataSource = dsGetAdviserissueallotmentList;
                     gvAdviserIssueList.DataBind();
+                    AdviserIssueList.Visible = true;
                 }
                 else
                 {
@@ -82,39 +95,61 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
         }
-        protected void BindIssuerId(int adviserid)
+        //protected void BindIssuerId()
+        //{
+        //    OnlineBondOrderBo OnlineBondOrderBo = new OnlineBondOrderBo();
+        //    try
+        //    {
+
+        //        DataTable dtissuerid;
+        //        dtissuerid = OnlineBondOrderBo.GetIssuerid(adviserid);
+        //        if (dtissuerid.Rows.Count > 0)
+        //        {
+        //            ddlIssuer.DataSource = dtissuerid;
+        //            ddlIssuer.DataValueField = dtissuerid.Columns["PI_IssuerId"].ToString();
+        //            ddlIssuer.DataBind();
+        //        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+
+        //        FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:BindCategoryDropDown()");
+
+        //        object[] objects = new object[3];
+
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+
+
+        protected void BindDropDownListIssuer()
         {
-            try
+            OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransactionList();
+            ddlIssuer.DataTextField = dsStructureRules.Tables[0].Columns["PFIIM_IssuerId"].ToString();
+            ddlIssuer.DataValueField = dsStructureRules.Tables[0].Columns["AIM_IssueId"].ToString();
+            if (dsStructureRules.Tables[0].Rows.Count > 0)
             {
-
-                DataTable dtissuerid;
-                dtissuerid = OnlineNCDBackOfficeBo.GetIssuerid(adviserid);
-                if (dtissuerid.Rows.Count > 0)
-                {
-                //    ddlIssuer.DataSource = dtissuerid;
-                //    ddlIssuer.DataValueField = dtissuerid.Columns["PI_IssuerId"].ToString();
-                //    ddlIssuer.DataBind();
-                }
+                ddlIssuer.DataSource = dsStructureRules.Tables[0];
+                ddlIssuer.DataBind();
             }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "OnlineSchemeSetUp.ascx:BindCategoryDropDown()");
-
-                object[] objects = new object[3];
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
+            ddlIssuer.Items.Insert(0, new ListItem("All", "0"));
         }
+        protected void Go_OnClick(object sender, EventArgs e)
+        {
+            BindAdviserIssueAllotmentList();
+            
+        }
+
 
     }
 }

@@ -1369,21 +1369,26 @@ namespace BoOnlineOrderManagement
             KeyValuePair<string, string>[] RtaList = GetRTAList();
             KeyValuePair<string, string>[] OrderTypeList = GetOrderTypeList();
 
-            foreach (KeyValuePair<string, string> rta in RtaList) {
+            foreach (KeyValuePair<string, string> rta in RtaList)
+            {
                 KeyValuePair<string, string>[] AmcList = GetAMCList(rta.Key);
 
-                foreach (KeyValuePair<string, string> amc in AmcList) {
-                    foreach (KeyValuePair<string, string> OrderType in OrderTypeList) {
+                foreach (KeyValuePair<string, string> amc in AmcList)
+                {
+                    foreach (KeyValuePair<string, string> OrderType in OrderTypeList)
+                    {
                         DataTable orderExtractForRta = GetOrderExtractForRta(DateTime.Now.Date, adviserId, OrderType.Key, rta.Key, int.Parse(amc.Key));
 
                         if (orderExtractForRta.Rows.Count <= 0) continue;
 
-                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false) {
+                        if (Directory.Exists(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value) == false)
+                        {
                             Directory.CreateDirectory(extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value);
                         }
 
                         string downloadFileName = GetFileName(OrderType.Key, amc.Key, orderExtractForRta.Rows.Count);
-                        if (rta.Key.Equals("CA")) {
+                        if (rta.Key.Equals("CA"))
+                        {
                             CreateTxtFile(orderExtractForRta, downloadFileName, rta.Key, extractPath + @"\" + adviserId.ToString() + @"\" + dailyDirName + @"\" + rta.Value + @"\" + amc.Value + @"\" + OrderType.Value + @"\");
                             continue;
                         }
@@ -1570,12 +1575,12 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public bool updateTradeBusinessDate(int Tradebusinessid,string txt)
+        public bool updateTradeBusinessDate(int Tradebusinessid, string txt)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(Tradebusinessid,txt);
+                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(Tradebusinessid, txt);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1668,7 +1673,7 @@ namespace BoOnlineOrderManagement
         {
             DataSet dsGetAllTradeBussiness;
             OnlineOrderBackOfficeDao daoOnlineOrderBackOffice = new OnlineOrderBackOfficeDao();
-            dsGetAllTradeBussiness = daoOnlineOrderBackOffice.GetAllTradeBussiness(year,holiday);
+            dsGetAllTradeBussiness = daoOnlineOrderBackOffice.GetAllTradeBussiness(year, holiday);
             return dsGetAllTradeBussiness;
         }
         public int YearCheck(int year)
@@ -1685,6 +1690,8 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
+       
+        
     }
 
 }

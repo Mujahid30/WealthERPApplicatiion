@@ -1,6 +1,8 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HoldingIssueAllotment.ascx.cs" Inherits="WealthERP.OnlineOrderBackOffice.HoldingIssueAllotment" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="HoldingIssueAllotment.ascx.cs"
+    Inherits="WealthERP.OnlineOrderBackOffice.HoldingIssueAllotment" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:ScriptManager ID="scrptMgr" runat="server">
-    <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 </asp:ScriptManager>
 <table width="100%">
     <tr>
@@ -9,7 +11,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            External Field Mapping
+                            Issue Allotment
                         </td>
                         <%--<td align="right">
                             <asp:ImageButton ID="btnTradeBusinessDate" ImageUrl="~/Images/Export_Excel.png" runat="server"
@@ -68,48 +70,79 @@
 <table>
     <tr>
         <td>
-            <asp:Label ID="lblFromDate" runat="server" CssClass="FieldName" Text="Frome Date:"></asp:Label>
+            <asp:Label ID="lblType" CssClass="FieldName" runat="server" Text="Type:"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtFromDate" runat="server"></asp:TextBox>
-            <cc1:CalendarExtender ID="CalendarFromDate" runat="server" TargetControlID="txtFromDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender1" runat="server" TargetControlID="txtFromDate"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
+                <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                <asp:ListItem Text="NCD" Value="FI" />
+                <asp:ListItem Text="IPO" Value="IP" />
+            </asp:DropDownList>
+            <asp:RequiredFieldValidator ID="rfvType" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a Type"
+                ControlToValidate="ddlType" Display="Dynamic" InitialValue="0" ValidationGroup="Issueallotment">
+            </asp:RequiredFieldValidator>
         </td>
         <td>
+            <asp:Label ID="lblissuer" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:Label ID="lblToDate" runat="server" CssClass="FieldName" Text="To Date:"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtToDate" runat="server"></asp:TextBox>
-            <cc1:CalendarExtender ID="CalendarToDate" runat="server" TargetControlID="txtToDate"
-                Format="dd/MM/yyyy">
-            </cc1:CalendarExtender>
-            <cc1:TextBoxWatermarkExtender ID="TextBoxWatermarkExtender2" runat="server" TargetControlID="txtToDate"
-                WatermarkText="dd/mm/yyyy">
-            </cc1:TextBoxWatermarkExtender>
+            <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField">
+            </asp:DropDownList>
         </td>
     </tr>
     <tr>
-        <td>
-            <%--<asp:Label ID="lblissuer" runat="server" Text="Issuer" CssClass="FieldName"></asp:Label>--%>
+        <td align="right">
+            <asp:Label ID="lblNfostartdate" runat="server" Text="From Date" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-           <%-- <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField">
-            </asp:DropDownList>--%>
+            <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                MinDate="1900-01-01" TabIndex="5">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <%--<span id="Span7" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select NFO Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
         </td>
+        <td align="right">
+            <asp:Label ID="lblNfoEnddate" runat="server" Text="To Date" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
+                MinDate="1900-01-01" TabIndex="5">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <%--<span id="Span1" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
+                CssClass="rfvPCG" ErrorMessage="<br />Please select NFO End Date" Display="Dynamic"
+                runat="server" InitialValue="" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>--%>
+        </td>
+        <asp:CompareValidator ID="CompareValidator14" runat="server" ControlToValidate="txtToDate"
+            ErrorMessage="<br/> To Date should be greater than From Date" Type="Date" Operator="GreaterThanEqual"
+            ControlToCompare="txtFromDate" CssClass="cvPCG" ValidationGroup="btnsubmit" Display="Dynamic">
+        </asp:CompareValidator>
     </tr>
     <tr>
         <td>
-         <%--   <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" />--%>
+            <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" OnClick="Go_OnClick"
+                ValidationGroup="Issueallotment" />
         </td>
     </tr>
 </table>
-<asp:Panel ID="AdviserIssueList" runat="server" ScrollBars="Horizontal" Width="100%">
+<asp:Panel ID="AdviserIssueList" runat="server" ScrollBars="Horizontal" Width="100%"
+    Visible="false">
     <table width="100%" cellspacing="0" cellpadding="1">
         <tr>
             <td>

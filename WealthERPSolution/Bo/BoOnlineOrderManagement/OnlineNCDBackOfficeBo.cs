@@ -706,12 +706,12 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public DataSet GetAdviserissueallotmentList(int adviserId)
+        public DataSet GetAdviserissueallotmentList(int adviserId, int issureid, string type, DateTime fromdate, DateTime todate)
         {
             OnlineNCDBackOfficeDao OnlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             
             DataSet dsGetAdviserissueallotmentList;
-            dsGetAdviserissueallotmentList = OnlineNCDBackOfficeDao.GetAdviserissueallotmentList(adviserId);
+            dsGetAdviserissueallotmentList = OnlineNCDBackOfficeDao.GetAdviserissueallotmentList(adviserId,issureid,type,fromdate,todate);
             return dsGetAdviserissueallotmentList;
 
         }
