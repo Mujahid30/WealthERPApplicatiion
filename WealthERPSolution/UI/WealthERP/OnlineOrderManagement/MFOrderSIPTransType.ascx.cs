@@ -113,7 +113,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(boOnlineOrder.CreateClientMFAccessMessage(clientMFAccessCode));
+                    ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode));
                     FreezeControls();
                     divControlContainer.Visible = false;
                 }
@@ -372,7 +372,7 @@ namespace WealthERP.OnlineOrderManagement
             rgvAmount.MaximumValue = ((int)99999999).ToString();
             Page.Validate("btnSubmit");
 
-            confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
+            confirmMessage.Text = boOnlineOrder.GetOnlineOrderUserMessage("EUIN");
             string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
 
@@ -406,32 +406,24 @@ namespace WealthERP.OnlineOrderManagement
                 IDictionary<string, string> sipOrderIds = new Dictionary<string, string>();
                 decimal availableBalance = boOnlineOrder.GetUserRMSAccountBalance(customerVo.AccountId);
                 string message = string.Empty;
-
-                if (availableBalance > 0)
+                int OrderId = 0;
+                int sipId = 0;
+                if (availableBalance >= Convert.ToDecimal(onlineMFOrderVo.Amount))
                 {
                     SaveOrderDetails();
                     sipOrderIds = boOnlineOrder.CreateOrderMFSipDetails(onlineMFOrderVo, userVo.UserId);
-                    int OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
-                    int sipId = int.Parse(sipOrderIds["SIPId"].ToString());
+                    OrderId = int.Parse(sipOrderIds["OrderId"].ToString());
+                    sipId = int.Parse(sipOrderIds["SIPId"].ToString());
 
                     if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                     {
                         accountDebitStatus = boOnlineOrder.DebitRMSUserAccountBalance(customerVo.AccountId, -onlineMFOrderVo.Amount, OrderId);
-
-                    }
-                    if (OrderId != 0 || sipId != 0)
-                    {
                         ShowAvailableLimits();
-                        message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
-                        ShowMessage(message);
                     }
                 }
-                else
-                {
-                    message = CreateUserMessage(0, 0, false, retVal == 1 ? true : false);
-                    ShowMessage(message);
 
-                }
+                message = CreateUserMessage(OrderId, sipId, accountDebitStatus, retVal == 1 ? true : false);
+                ShowMessage(message);
             }
             else
             {
@@ -477,7 +469,7 @@ namespace WealthERP.OnlineOrderManagement
             else if (orderId == 0 && sipId == 0)
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
-               
+
             }
             return userMessage;
 
@@ -485,6 +477,10 @@ namespace WealthERP.OnlineOrderManagement
 
         private void ShowMessage(string msg)
         {
+            //--S(success)
+            //--F(failure)
+            //--W(warning)
+            //--I(information)
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "wsedrftgyhjukloghjnnnghj", " showMsg('" + msg + "','S');", true);
         }
 

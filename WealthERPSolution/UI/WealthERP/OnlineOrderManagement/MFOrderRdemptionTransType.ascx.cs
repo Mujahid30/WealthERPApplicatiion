@@ -77,7 +77,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
                 }
@@ -459,7 +459,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
-            confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
+            confirmMessage.Text = onlineMforderBo.GetOnlineOrderUserMessage("EUIN");
             string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
 

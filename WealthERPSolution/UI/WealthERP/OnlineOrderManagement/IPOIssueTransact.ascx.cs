@@ -88,17 +88,19 @@ namespace WealthERP.OnlineOrderManagement
             dtIPOBid.Columns.Add("IsCutOff");
             dtIPOBid.Columns.Add("BidPrice");
             dtIPOBid.Columns.Add("BidQty");
-            dtIPOBid.Columns.Add("BidAmount");
+            dtIPOBid.Columns.Add("BidAmountPayable", typeof(double));
+            dtIPOBid.Columns.Add("BidAmount", typeof(double));
 
             for (int i = 1; i <= noOfBid; i++)
             {
                 drIPOBid = dtIPOBid.NewRow();
                 drIPOBid["IssueBidNo"] = i.ToString();
-                drIPOBid["BidOptions"] = "Bid" + i.ToString();
+                drIPOBid["BidOptions"] = "Bid Option" + i.ToString();
                 drIPOBid["IsCutOff"] = 0;
                 drIPOBid["BidPrice"] = null;
                 drIPOBid["BidQty"] = null;
-                drIPOBid["BidAmount"] = null;
+                drIPOBid["BidAmountPayable"] = 0;
+                drIPOBid["BidAmount"] = 0;
                 dtIPOBid.Rows.Add(drIPOBid);
 
             }
@@ -139,11 +141,13 @@ namespace WealthERP.OnlineOrderManagement
             {
                 txtBidPrice.Text = capPrice.ToString();
                 txtBidPrice.Enabled = false;
+                txtBidPrice.CssClass = "txtDisableField";
                 //EnableDisableBids(true);
             }
             else
             {
-                txtBidPrice.Enabled = true;
+                //txtBidPrice.Enabled = true;
+                //txtBidPrice.CssClass = "txtField";
                 //txtBidPrice.Text = string.Empty;
                 //txtBidAmount.Text = string.Empty;               
 
@@ -172,8 +176,12 @@ namespace WealthERP.OnlineOrderManagement
                     else
                        chkCutOff.Checked = false;
 
-                    txtBidQuantity.Enabled = true;
-                    txtBidPrice.Enabled = true;
+                    txtBidQuantity.Enabled = true; 
+                    txtBidQuantity.CssClass = "txtField";
+
+
+                    txtBidPrice.Enabled = false;
+                    txtBidPrice.CssClass = "txtDisableField";
 
                 }
                 else
@@ -182,6 +190,9 @@ namespace WealthERP.OnlineOrderManagement
                     chkCutOff.Checked = false;
                     txtBidQuantity.Enabled = false;
                     txtBidPrice.Enabled = false;
+
+                    txtBidQuantity.CssClass = "txtDisableField";
+                    txtBidPrice.CssClass = "txtDisableField";
 
 
                 }

@@ -69,7 +69,7 @@ namespace BoOnlineOrderManagement
 
         public decimal GetUserRMSAccountBalance(string userAccountId)
         {
-            decimal accountBalance= 0;
+            decimal accountBalance = 0;
             string response = string.Empty;
             string rmsAPI = ConfigurationSettings.AppSettings["RMS_USER_ACCOUNT_BALANCE_CHECK_API"];
             string[] resultAPI = new string[5];
@@ -90,24 +90,24 @@ namespace BoOnlineOrderManagement
 
 
             }
-            return Math.Round(accountBalance,2);
+            return Math.Round(accountBalance, 2);
 
         }
 
-        public string CreateClientMFAccessMessage(string accessCode)
-        {
-            string message = string.Empty;
-            switch (accessCode)
-            {
-                case "NA":
-                    message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
-                    break;
-                case "PA":
-                    message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
-                    break;
-            }
-            return message;
-        }
+        //public string CreateClientMFAccessMessage(string accessCode)
+        //{
+        //    string message = string.Empty;
+        //    switch (accessCode)
+        //    {
+        //        case "NA":
+        //            message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
+        //            break;
+        //        case "PA":
+        //            message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
+        //            break;
+        //    }
+        //    return message;
+        //}
 
         public string GetClientMFAccessStatus(int customerId)
         {
@@ -144,6 +144,23 @@ namespace BoOnlineOrderManagement
 
             }
             return strClientAccess;
+        }
+        public string GetOnlineOrderUserMessage(string messageType)
+        {
+            string message = string.Empty;
+            switch (messageType)
+            {
+                case "EUIN":
+                    message = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not charged any advisory fees on this transaction";
+                    break;
+                case "PA":
+                    message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
+                    break;
+                case "NA":
+                    message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
+                    break;
+            }
+            return message;
         }
     }
 }

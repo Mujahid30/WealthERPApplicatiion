@@ -70,6 +70,7 @@ div#MainDivLeft
     color: #0396cc;
     width: 145px;
 }
+
 .txtLongAddField
 {
     font-family: Verdana,Tahoma;
@@ -1478,6 +1479,7 @@ p.tip
     margin: 0px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
     box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
+    text-align:left !Important;
 }
 .popbox h2
 {    
@@ -1496,6 +1498,7 @@ p.tip
     background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* IE10+ */
     background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=0 ); /* IE6-8 */
+    text-align:left !Important;
 }
 .popper
 {
@@ -1503,4 +1506,18 @@ p.tip
     height: 6px;
     text-decoration: none
 }
+
+
+.txtDisableField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: x-small;
+    color: #0396cc;
+    width: 145px;
+    background-color:#E7E7E7;
+    
+}
+
+
 /* End */

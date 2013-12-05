@@ -181,13 +181,13 @@
                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                 DataKeyNames="IssueBidNo" Width="100%" PagerStyle-AlwaysVisible="false">
                                 <Columns>
-                                    <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                    <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
-                                        UniqueName="BidOptions" SortExpression="BidOptions">
+                                        UniqueName="BidOptions" SortExpression="BidOptions" >
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
-                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                        Visible="true" UniqueName="CheckCutOff" HeaderText="Cut-Off">
+                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="80px"
+                                        Visible="true" UniqueName="CheckCutOff" HeaderText="Cut-Off" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:CheckBox ID="cbCutOffCheck" runat="server" AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
                                             <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -200,7 +200,8 @@
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                        UniqueName="BidQuantity" HeaderText="Quantity" FooterAggregateFormatString="{0:N2}">
+                                        UniqueName="BidQuantity" HeaderText="Quantity" FooterAggregateFormatString="{0:N2}"
+                                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
                                                 OnTextChanged="bidTextBoxs_TextChanged" AutoPostBack="true"> </asp:TextBox>
@@ -218,12 +219,10 @@
                                                 runat="server" ErrorMessage="Please enter a valid bid quantity" Text="*" Display="Dynamic"
                                                 ValidationExpression="[0-9]*" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>
                                         </ItemTemplate>
-                                        <FooterTemplate>
-                                            <asp:Label runat="server" ID="lblBidQuantity"></asp:Label>
-                                        </FooterTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                        FooterText="" UniqueName="BidPrice" HeaderText="Price" FooterAggregateFormatString="{0:N2}">
+                                        FooterText="" UniqueName="BidPrice" HeaderText="Price" FooterAggregateFormatString="{0:N2}"
+                                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
                                                 AutoPostBack="false"> </asp:TextBox>
@@ -244,18 +243,24 @@
                                                 ValidationExpression="^\d+(\.\d{1,2})?$" CssClass="rfvPCG" ValidationGroup="btnConfirmOrder"></asp:RegularExpressionValidator>
                                         </ItemTemplate>
                                         <FooterTemplate>
-                                            <asp:Label runat="server" ID="lblBidPrice"></asp:Label>
+                                            <asp:Label runat="server" ID="lblBidHighestValue" Text="Highest Bid Value"></asp:Label>
                                         </FooterTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                        FooterText="" UniqueName="BidAmount" HeaderText="Amount" FooterAggregateFormatString="{0:N2}">
+                                        FooterText="" UniqueName="BidAmount" HeaderText="Amount Payable" FooterAggregateFormatString="{0:N2}"
+                                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
-                                            <asp:TextBox ID="txtBidAmount" runat="server" ReadOnly="true" CssClass="txtField"
-                                                BackColor="LightGray" Text='<%# Bind("BidAmount")%>'></asp:TextBox>
+                                            <asp:TextBox ID="txtBidAmountPayable" runat="server" ReadOnly="true" CssClass="txtDisableField"
+                                                Text='<%# Bind("BidAmountPayable")%>'></asp:TextBox>
                                         </ItemTemplate>
-                                        <FooterTemplate>
-                                            <asp:Label runat="server" ID="lblBidAmount"></asp:Label>
-                                        </FooterTemplate>
+                                    </telerik:GridTemplateColumn>
+                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
+                                        FooterText="" UniqueName="BidAmount" HeaderText="Amount Bid" 
+                                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="txtBidAmount" runat="server" ReadOnly="true" CssClass="txtDisableField"
+                                                Text='<%# Bind("BidAmount")%>'></asp:TextBox> 
+                                        </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                 </Columns>
                             </MasterTableView>

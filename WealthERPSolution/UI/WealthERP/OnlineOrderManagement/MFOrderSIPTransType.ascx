@@ -104,7 +104,8 @@
             <tr align="center">
                 <td align="center">
                     <div id="divValidationError" runat="server" class="failure-msg" align="center" visible="true">
-                        <asp:ValidationSummary ID="vsSummary" runat="server" Visible="true" ValidationGroup="btnSubmit" />
+                        <asp:ValidationSummary ID="vsSummary" runat="server" Visible="true" ValidationGroup="btnSubmit"
+                            ShowSummary="true" DisplayMode="BulletList" />
                     </div>
                 </td>
             </tr>
@@ -391,10 +392,14 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server">
-                            <asp:ListItem Selected="True">--SELECT--</asp:ListItem>
+                            <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
                         </asp:DropDownList>
+                        <span id="Span10" class="spnRequiredField">*</span>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please select Dividend Option"
+                            ControlToValidate="ddlDividendFreq" InitialValue="0" ValidationGroup="btnSubmit"
+                            CssClass="rfvPCG" Display="Dynamic">Please select Dividend Option</asp:RequiredFieldValidator>
                     </td>
                     <td>
                     </td>

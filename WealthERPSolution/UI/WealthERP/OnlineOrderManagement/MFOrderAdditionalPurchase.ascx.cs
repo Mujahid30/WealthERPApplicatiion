@@ -60,14 +60,14 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
                     {
-                        ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                        ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
                         PurchaseOrderControlsEnable(false);
                         btnSubmit.Visible = false;
                     }
                 }
                 else
                 {
-                    ShowMessage(onlineMforderBo.CreateClientMFAccessMessage(clientMFAccessCode));
+                    ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
                     PurchaseOrderControlsEnable(false);
                     btnSubmit.Visible = false;
                 }
@@ -348,7 +348,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void OnClick_Submit(object sender, EventArgs e)
         {
-            confirmMessage.Text = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not chargedany advisory fees on this transaction";
+            confirmMessage.Text = onlineMforderBo.GetOnlineOrderUserMessage("EUIN");
             string script = "function f(){radopen(null, 'rw_customConfirm'); Sys.Application.remove_load(f);}Sys.Application.add_load(f);";
             ScriptManager.RegisterStartupScript(Page, Page.GetType(), "customConfirmOpener", script, true);
 
@@ -361,6 +361,7 @@ namespace WealthERP.OnlineOrderManagement
 
         private void CreateAdditionalPurchaseOrderType()
         {
+            string message = string.Empty;
             List<int> OrderIds = new List<int>();
             bool accountDebitStatus = false;
             onlinemforderVo.SchemePlanCode = Int32.Parse(ddlScheme.SelectedValue.ToString());
@@ -411,21 +412,22 @@ namespace WealthERP.OnlineOrderManagement
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('You have entered amount less than Minimum Initial amount allowed');", true); return;
                 }
             }
-
-            OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
-            OrderId = int.Parse(OrderIds[0].ToString());
-            string message = string.Empty;
-            if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+            decimal availableBalance = onlineMforderBo.GetUserRMSAccountBalance(customerVo.AccountId);
+            if (availableBalance >= Convert.ToDecimal(onlinemforderVo.Amount))
             {
-                accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
-            }
-            if (OrderId != 0)
-            {
-                ShowAvailableLimits();
-                message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false);
-                ShowMessage(message);
+                OrderIds = onlineMforderBo.CreateCustomerOnlineMFOrderDetails(onlinemforderVo, userVo.UserId, customerVo.CustomerId);
+                OrderId = int.Parse(OrderIds[0].ToString());
+
+                if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                {
+                    accountDebitStatus = onlineMforderBo.DebitRMSUserAccountBalance(customerVo.AccountId, -onlinemforderVo.Amount, OrderId);
+                    ShowAvailableLimits();
+                }
+
             }
 
+            message = CreateUserMessage(OrderId, accountDebitStatus, retVal == 1 ? true : false);
+            ShowMessage(message);
             PurchaseOrderControlsEnable(false);
 
         }
