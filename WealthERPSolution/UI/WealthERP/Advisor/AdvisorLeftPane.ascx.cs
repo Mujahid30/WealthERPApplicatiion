@@ -1111,6 +1111,11 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserNCDOrderBook','login');", true);
 
                 }
+                else if (e.Item.Value == "NCD_Allotments")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
+
+                }
                 else if (e.Item.Value == "NcdIpoRecon")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineNCDOrderMatchExceptionHandling','login');", true);

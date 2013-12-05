@@ -1200,5 +1200,67 @@ namespace DaoOnlineOrderManagement
             }
             return dsOrders;
         }
+        public DataSet GetAdviserissueallotmentList(int adviserId)
+        {
+
+            Database db;
+            DataSet dsGetAdviserissueallotmentList;
+            DbCommand GetAdviserissueallotmentListcmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetAdviserissueallotmentListcmd = db.GetStoredProcCommand("SPROC_GetAdviserIssueAllotmentDetail");
+                db.AddInParameter(GetAdviserissueallotmentListcmd, "@AdviserId", DbType.Int32, adviserId);
+                dsGetAdviserissueallotmentList = db.ExecuteDataSet(GetAdviserissueallotmentListcmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "GetAdviserClientKYCStatusList(int adviserId)");
+                object[] objects = new object[1];
+                objects[0] = adviserId;
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetAdviserissueallotmentList;
+        }
+        public DataTable GetIssuerid(int adviserid)
+        {
+            DataSet dsGetIssuerid;
+            DataTable dt;
+            Database db;
+            DbCommand GetIssueridCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIssueridCmd = db.GetStoredProcCommand("SPROC_GetIssuerId");
+                db.AddInParameter(GetIssueridCmd, "@AdviserId", DbType.Int32, adviserid);
+                dsGetIssuerid = db.ExecuteDataSet(GetIssueridCmd);
+                dt = dsGetIssuerid.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssuerid()");
+                object[] objects = new object[1];
+                objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
     }
 }

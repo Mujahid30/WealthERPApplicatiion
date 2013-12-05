@@ -764,6 +764,8 @@
                                                     </telerik:RadPanelItem>
                                                      <telerik:RadPanelItem runat="server" Text="IPO Order Book" Value="IPO_Order_Book">
                                                     </telerik:RadPanelItem>
+                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotment" Value="NCD_Allotments">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="RTA Extract" Value="Extract">

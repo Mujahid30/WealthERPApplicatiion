@@ -706,5 +706,36 @@ namespace BoOnlineOrderManagement
             }
 
         }
+        public DataSet GetAdviserissueallotmentList(int adviserId)
+        {
+            OnlineNCDBackOfficeDao OnlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            
+            DataSet dsGetAdviserissueallotmentList;
+            dsGetAdviserissueallotmentList = OnlineNCDBackOfficeDao.GetAdviserissueallotmentList(adviserId);
+            return dsGetAdviserissueallotmentList;
+
+        }
+        public DataTable GetIssuerid(int adviserid)
+        {
+            DataTable dtGetIssuerid;
+            OnlineNCDBackOfficeDao OnlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                dtGetIssuerid = OnlineNCDBackOfficeDao.GetIssuerid(adviserid);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:OnlinebindRandT()");
+                object[] objects = new object[1];
+                objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtGetIssuerid;
+        }
     }
 }
