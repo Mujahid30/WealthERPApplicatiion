@@ -66,7 +66,29 @@ namespace WealthERP.OnlineOrderBackOffice
                 foreach (DataRow dr in dtSeries.Rows)
                 {
                     txtIssueId.Text = issueNo.ToString();
-                    ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
+
+                    if (!string.IsNullOrEmpty(dr["PAIC_AssetInstrumentCategoryCode"].ToString()))
+                    {
+                        if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIP")
+                        {
+                            ddlProduct.SelectedValue = "IP";
+                        }
+                        else
+                        {
+                            if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FISD")
+                            {
+                                ddlCategory.SelectedValue = "NCD";
+                                ddlProduct.SelectedValue = "NCD";
+                            }
+                            else if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIB")
+                            {
+                                ddlCategory.SelectedValue = "IB";
+                                ddlProduct.SelectedValue = "NCD";
+
+                            }
+                        }
+                    }
+                    //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
 
                     ddlCategory.SelectedValue = "NCD";
@@ -222,7 +244,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlIssueType.SelectedValue = "FixedPrice";
                     }
                     EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
-                    
+
 
                     if (!string.IsNullOrEmpty(dr["AIM_FaceValue"].ToString()))
                     {
@@ -275,7 +297,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else if (Mode == "Submited")
             {
                 //After Submit
-                EnablityOfScreen(false, true, true, false);                
+                EnablityOfScreen(false, true, true, false);
             }
             else if (Mode == "View")
             {
@@ -594,132 +616,132 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.MaxQty = 0;
                 }
-                
-               // onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
-               // onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
-               // if (ddlProduct.SelectedValue == "IPO")
-               // {
-               //     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "IP";
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "NCD";// ddlCategory.SelectedValue;
-               // }
-               // onlineNCDBackOfficeVo.AssetGroupCode = ddlProduct.SelectedValue;
-               //// onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlCategory.SelectedValue;
 
-               // onlineNCDBackOfficeVo.IssueName = txtName.Text;
-               // onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
+                // onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
+                // onlineNCDBackOfficeVo.IssueId = Convert.ToInt32(txtIssueId.Text);
+                // if (ddlProduct.SelectedValue == "IPO")
+                // {
+                //     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "IP";
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "NCD";// ddlCategory.SelectedValue;
+                // }
+                // onlineNCDBackOfficeVo.AssetGroupCode = ddlProduct.SelectedValue;
+                //// onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = ddlCategory.SelectedValue;
 
-               // onlineNCDBackOfficeVo.FromRange = Convert.ToInt32(txtFormRange.Text);
-               // onlineNCDBackOfficeVo.ToRange = Convert.ToInt32(txtToRange.Text);
+                // onlineNCDBackOfficeVo.IssueName = txtName.Text;
+                // onlineNCDBackOfficeVo.IssuerId = Convert.ToInt32(ddlIssuer.SelectedValue);
 
-               // if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
-               // {
-               //     onlineNCDBackOfficeVo.InitialChequeNo = txtInitialCqNo.Text;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.InitialChequeNo = "";
-               // }
+                // onlineNCDBackOfficeVo.FromRange = Convert.ToInt32(txtFormRange.Text);
+                // onlineNCDBackOfficeVo.ToRange = Convert.ToInt32(txtToRange.Text);
 
-               // onlineNCDBackOfficeVo.FaceValue = Convert.ToDouble(txtFaceValue.Text);
+                // if (!string.IsNullOrEmpty(txtInitialCqNo.Text))
+                // {
+                //     onlineNCDBackOfficeVo.InitialChequeNo = txtInitialCqNo.Text;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.InitialChequeNo = "";
+                // }
 
-               // onlineNCDBackOfficeVo.FloorPrice = Convert.ToDouble(txtPrice.Text);
-               // onlineNCDBackOfficeVo.ModeOfIssue = ddlModeofIssue.SelectedValue;
+                // onlineNCDBackOfficeVo.FaceValue = Convert.ToDouble(txtFaceValue.Text);
 
-               // if (!string.IsNullOrEmpty(txtRating.Text))
-               // {
-               //     onlineNCDBackOfficeVo.Rating = txtRating.Text;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.Rating = "";
-               // }
-               // onlineNCDBackOfficeVo.ModeOfTrading = ddlModeOfTrading.SelectedValue;
+                // onlineNCDBackOfficeVo.FloorPrice = Convert.ToDouble(txtPrice.Text);
+                // onlineNCDBackOfficeVo.ModeOfIssue = ddlModeofIssue.SelectedValue;
 
-               // onlineNCDBackOfficeVo.OpenDate = txtOpenDate.SelectedDate.Value;
-               // onlineNCDBackOfficeVo.CloseDate = txtCloseDate.SelectedDate.Value;
+                // if (!string.IsNullOrEmpty(txtRating.Text))
+                // {
+                //     onlineNCDBackOfficeVo.Rating = txtRating.Text;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.Rating = "";
+                // }
+                // onlineNCDBackOfficeVo.ModeOfTrading = ddlModeOfTrading.SelectedValue;
 
-
-               // //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
-               // onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue);// txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
-               // onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);  //SelectedDate.Value.ToShortTimeString().ToString();
-
-               // if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
-               //     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
-               // else
-               //     onlineNCDBackOfficeVo.IssueRevis = DateTime.MinValue;
-
-               // onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
-               // onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
-
-               // onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
-               // //if (!string.IsNullOrEmpty(txtIsPrefix.Text))
-               // //{
-               // //    onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
-               // //}
-               // //else
-               // //{
-               // //    onlineNCDBackOfficeVo.IsPrefix = 0;
-               // //}
-               // onlineNCDBackOfficeVo.IsPrefix = 0;
-
-               // onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
-
-               // if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
-               // {
-               //     onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.ListedInExchange = "";
-               // }
+                // onlineNCDBackOfficeVo.OpenDate = txtOpenDate.SelectedDate.Value;
+                // onlineNCDBackOfficeVo.CloseDate = txtCloseDate.SelectedDate.Value;
 
 
-               // if (!string.IsNullOrEmpty(ddlBankName.Text))
-               // {
-               //     onlineNCDBackOfficeVo.BankName = ddlBankName.SelectedValue;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.BankName = "";
-               // }
+                // //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
+                // onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue);// txtOpenTimes.Text; //SelectedDate.Value.ToShortTimeString().ToString();
+                // onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);  //SelectedDate.Value.ToShortTimeString().ToString();
 
-               // if (!string.IsNullOrEmpty(ddlBankBranch.Text))
-               // {
-               //     onlineNCDBackOfficeVo.BankBranch = ddlBankBranch.SelectedValue;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.BankBranch = "";
-               // }
+                // if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
+                //     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
+                // else
+                //     onlineNCDBackOfficeVo.IssueRevis = DateTime.MinValue;
 
-               // if (chkIsActive.Checked == true)
-               // {
-               //     onlineNCDBackOfficeVo.IsActive = 1;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.IsActive = 0;
-               // }
-               // if (!string.IsNullOrEmpty(txtPutCallOption.Text))
-               // {
-               //     onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.PutCallOption = "";
-               // }
+                // onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
+                // onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
 
-               // if (chkNomineeReQuired.Checked == true)
-               // {
-               //     onlineNCDBackOfficeVo.IsNominationRequired = 1;
-               // }
-               // else
-               // {
-               //     onlineNCDBackOfficeVo.IsNominationRequired = 0;
-               // }
+                // onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
+                // //if (!string.IsNullOrEmpty(txtIsPrefix.Text))
+                // //{
+                // //    onlineNCDBackOfficeVo.IsPrefix = Convert.ToInt32(txtIsPrefix.Text);
+                // //}
+                // //else
+                // //{
+                // //    onlineNCDBackOfficeVo.IsPrefix = 0;
+                // //}
+                // onlineNCDBackOfficeVo.IsPrefix = 0;
+
+                // onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
+
+                // if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
+                // {
+                //     onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.ListedInExchange = "";
+                // }
+
+
+                // if (!string.IsNullOrEmpty(ddlBankName.Text))
+                // {
+                //     onlineNCDBackOfficeVo.BankName = ddlBankName.SelectedValue;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.BankName = "";
+                // }
+
+                // if (!string.IsNullOrEmpty(ddlBankBranch.Text))
+                // {
+                //     onlineNCDBackOfficeVo.BankBranch = ddlBankBranch.SelectedValue;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.BankBranch = "";
+                // }
+
+                // if (chkIsActive.Checked == true)
+                // {
+                //     onlineNCDBackOfficeVo.IsActive = 1;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.IsActive = 0;
+                // }
+                // if (!string.IsNullOrEmpty(txtPutCallOption.Text))
+                // {
+                //     onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.PutCallOption = "";
+                // }
+
+                // if (chkNomineeReQuired.Checked == true)
+                // {
+                //     onlineNCDBackOfficeVo.IsNominationRequired = 1;
+                // }
+                // else
+                // {
+                //     onlineNCDBackOfficeVo.IsNominationRequired = 0;
+                // }
                 issueId = onlineNCDBackOfficeBo.UpdateIssue(onlineNCDBackOfficeVo);
                 if (issueId > 0)
                 {
@@ -923,7 +945,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 int dupSeqNo = onlineNCDBackOfficeBo.ChekSeriesSequence(Convert.ToInt32(txtSequence.Text), Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
-                if (dupSeqNo !=0)
+                if (dupSeqNo != 0)
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Seq No exist.');", true);
                     return;
@@ -1024,7 +1046,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void rgEligibleInvestorCategories_ItemCommand(object source, GridCommandEventArgs e)
         {
             string description = string.Empty;
-            string discountType=string.Empty;
+            string discountType = string.Empty;
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 int categoryId;
@@ -1058,7 +1080,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtDiscountValue.Text = 0.ToString();
                 }
-                 
+
                 categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
                 foreach (GridDataItem gdi in rgSubCategories.Items)
@@ -1512,7 +1534,7 @@ namespace WealthERP.OnlineOrderBackOffice
             SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
             VisblityAndEnablityOfScreen("Submited");
 
-            
+
         }
 
 
@@ -1566,15 +1588,24 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 onlineNCDBackOfficeVo = new OnlineNCDBackOfficeVo();
                 onlineNCDBackOfficeVo.AssetGroupCode = ddlProduct.SelectedValue;
-                if (ddlProduct.SelectedValue == "IPO")
+                if (ddlProduct.SelectedValue == "IP")
                 {
                     onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIP";
                     onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIP";
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";// ddlCategory.SelectedValue;
-                    onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
+                    if (ddlCategory.SelectedValue == "NCD")
+                    {
+                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";
+                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
+                    }
+                    else if (ddlCategory.SelectedValue == "IB")
+                    {
+                        onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
+                        onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
+                    }
+
                 }
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
@@ -1779,7 +1810,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.MaxQty = 0;
                 }
-                
+
 
 
 
@@ -1883,7 +1914,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int categoryId = 0;
             LinkButton buttonlink = (LinkButton)sender;
-            GridDataItem gdi=(GridDataItem)buttonlink.NamingContainer;
+            GridDataItem gdi = (GridDataItem)buttonlink.NamingContainer;
             if (!string.IsNullOrEmpty(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString()))
             {
                 categoryId = int.Parse(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
@@ -2268,17 +2299,17 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountType = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trDiscountType");
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountValue = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trDiscountValue");
-                       
+
                         trDiscountType.Visible = true;
-                        trDiscountValue.Visible = true;  
+                        trDiscountValue.Visible = true;
                     }
                     else
                     {
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountType = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trDiscountType");
                         System.Web.UI.HtmlControls.HtmlTableRow trDiscountValue = (System.Web.UI.HtmlControls.HtmlTableRow)editform.FindControl("trDiscountValue");
-                       
+
                         trDiscountType.Visible = false;
-                        trDiscountValue.Visible = false; 
+                        trDiscountValue.Visible = false;
                     }
                     RadGrid rgSubCategories = (RadGrid)editform.FindControl("rgSubCategories");
                     BindSubCategoriesGrid(rgSubCategories, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -2381,7 +2412,7 @@ namespace WealthERP.OnlineOrderBackOffice
                                 ddlDiscountType.SelectedValue = "Amt";
                             }
                         }
-                        
+
                         lookupId = Convert.ToInt32(dr["WCMV_LookupId"].ToString());
 
                         if (!string.IsNullOrEmpty(dr["WCMV_LookupId"].ToString()))
@@ -2597,18 +2628,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 trMaxQty.Visible = false;
             }
         }
-        private void DesignControls()
-        {
 
-
-
-
-
-
-
-
-
-        }
 
 
 

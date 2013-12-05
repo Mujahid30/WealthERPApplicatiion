@@ -45,7 +45,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     product =Request.QueryString["product"].ToString() ;
                     date = Convert.ToDateTime(Request.QueryString["date"].ToString());
                     ddlType.SelectedValue = type;
-                    txtDate.SelectedDate = date;
+                    txtDate.SelectedDate = DateTime.Now;
                     ddlProduct.SelectedValue = product;
                     pnlIssueList.Visible = true;
                     BindViewListGrid(GetType(type), date, product);
@@ -73,7 +73,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnGo_Click(object sender, EventArgs e)
         {
             int type = GetType(ddlType.SelectedValue);
-            BindViewListGrid(type, txtDate.SelectedDate.Value, ddlProduct.SelectedValue);
+            BindViewListGrid(type, DateTime.Now, ddlProduct.SelectedValue);
             pnlIssueList.Visible = true;
         }
         private void BindViewListGrid(int type, DateTime date,string product)
@@ -81,7 +81,7 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataTable dtIssueList = new DataTable();
-                dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(date, type, product, advisorVo.advisorId ).Tables[0];
+                dtIssueList = onlineNCDBackOfficeBo.GetAdviserIssueList(DateTime.Now, type, product, advisorVo.advisorId ).Tables[0];
                 gvIssueList.DataSource = dtIssueList;
                 gvIssueList.DataBind();
                 if (Cache[userVo.UserId.ToString() + "IssueList"] != null)
@@ -123,7 +123,7 @@ namespace WealthERP.OnlineOrderBackOffice
             gdi = (GridDataItem)lnkOrderNo.NamingContainer;
             int selectedRow = gdi.ItemIndex + 1;
             int issueNo = int.Parse((gvIssueList.MasterTableView.DataKeyValues[selectedRow - 1]["AIM_IssueId"].ToString()));
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + txtDate.SelectedDate.Value + "&product=" + ddlProduct.SelectedValue + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueSetup", "loadcontrol('OnlineNCDIssueSetup','action=viewIsssueList&issueNo=" + issueNo + "&type=" + ddlType.SelectedValue + "&date=" + DateTime.Now + "&product=" + ddlProduct.SelectedValue + "');", true);
 
         }
     }

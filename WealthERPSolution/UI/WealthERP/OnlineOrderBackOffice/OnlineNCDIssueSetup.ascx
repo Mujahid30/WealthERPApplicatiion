@@ -133,7 +133,7 @@
                 Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
-                <asp:ListItem Value="Infrastructurebonds">Infrastructure bonds</asp:ListItem>
+                <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
