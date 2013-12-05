@@ -85,7 +85,7 @@
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar1_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <Items>
+                        <items>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="CusHome">
@@ -326,8 +326,8 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </Items>
-                        <ExpandAnimation Type="InCubic" />
+                        </items>
+                        <expandanimation type="InCubic" />
                     </telerik:RadPanelBar>
                 </td>
             </tr>
@@ -336,7 +336,7 @@
                     <telerik:RadPanelBar ID="RPBOnlineOrder" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RPBOnlineOrder_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <Items>
+                        <items>
                             <telerik:RadPanelItem runat="server" Value="Profile Dashboard" Text="OnlineOrder">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="MFOrder" Value="MFOrder">
@@ -411,14 +411,16 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="IPO Issue Book" Value="IPOIssueBook">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="IPO Holding" Value="IPOHolding">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </Items>
-                        <ExpandAnimation Type="InCubic" />
+                        </items>
+                        <expandanimation type="InCubic" />
                     </telerik:RadPanelBar>
                 </td>
             </tr>

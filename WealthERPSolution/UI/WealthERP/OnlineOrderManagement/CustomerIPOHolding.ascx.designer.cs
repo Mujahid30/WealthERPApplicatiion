@@ -14,5 +14,9 @@ namespace WealthERP.OnlineOrderManagement
 
     public partial class CustomerIPOHolding
     {
+        protected global::System.Web.UI.ScriptManager scrptMgr;
+        protected global::System.Web.UI.WebControls.ImageButton ibtExportSummary;
+        protected global::System.Web.UI.WebControls.Panel pnlGrid;
+        protected global::Telerik.Web.UI.RadGrid gvIPOHolding;
     }
 }

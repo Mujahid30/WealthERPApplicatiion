@@ -133,6 +133,37 @@ namespace DaoOnlineOrderManagement
             }
             return dtCustomerIPOIssueBook;
         }
+        public DataTable GetIPOHolding(int customerId)
+        {
+            DataTable dtIPOHolding;
+            Database db;
+            DbCommand GetIPOHoldingCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIPOHoldingCmd = db.GetStoredProcCommand("SPROC_ONL_GetIPOHolding");
+                db.AddInParameter(GetIPOHoldingCmd, "@customerId", DbType.Int32, customerId);
+                dtIPOHolding = db.ExecuteDataSet(GetIPOHoldingCmd).Tables[0];
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "DaoOnlineOrderManagement.cs:GetIPOHolding()");
+                object[] objects = new object[1];
+                objects[0] = customerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dtIPOHolding;
+        }
 
     }
 }
