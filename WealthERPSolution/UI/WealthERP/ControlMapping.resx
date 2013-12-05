@@ -1865,4 +1865,8 @@
     <value>OnlineOrderBackOffice//HoldingIssueAllotment.ascx</value>
     <comment>OnlineOrderBackOffice//HoldingIssueAllotment.ascx</comment>
   </data>
+  <data name="CustomerIPOHolding" xml:space="preserve">
+    <value>OnlineOrderManagement//CustomerIPOHolding.ascx</value>
+    <comment>OnlineOrderManagement//CustomerIPOHolding.ascx</comment>
+  </data>
 </root>

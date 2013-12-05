@@ -2787,6 +2787,13 @@
     <Compile Include="OnlineOrderManagement\BondOrderManagement.ascx.designer.cs">
       <DependentUpon>BondOrderManagement.ascx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineOrderManagement\CustomerIPOHolding.ascx.cs">
+      <DependentUpon>CustomerIPOHolding.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrderManagement\CustomerIPOHolding.ascx.designer.cs">
+      <DependentUpon>CustomerIPOHolding.ascx</DependentUpon>
+    </Compile>
     <Compile Include="OnlineOrderManagement\CustomerIPOOrderBook.ascx.cs">
       <DependentUpon>CustomerIPOOrderBook.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7783,6 +7790,7 @@
     <Content Include="OnlineOrderBackOffice\OnlineSchemeSetUp.ascx" />
     <Content Include="OnlineOrderBackOffice\TradeBusinessDate.ascx" />
     <Content Include="OnlineOrderManagement\BondOrderManagement.ascx" />
+    <Content Include="OnlineOrderManagement\CustomerIPOHolding.ascx" />
     <Content Include="OnlineOrderManagement\CustomerIPOOrderBook.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFOrderBookList.ascx" />
     <Content Include="OnlineOrderManagement\CustomerMFUnitHoldingList.ascx" />
