@@ -242,7 +242,7 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public IDictionary<string, string> UpdateOnlineBondTransact(DataTable BondORder, int adviserId)
+        public IDictionary<string, string> UpdateOnlineBondTransact(DataTable BondORder, int adviserId, int IssuerId)
         {
             //List<int> orderIds = new List<int>();
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
@@ -265,6 +265,7 @@ namespace DaoOnlineOrderManagement
 
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
+                db.AddInParameter(cmdOnlineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
                 db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 1000000);
                 db.AddOutParameter(cmdOnlineBondTransact, "@application", DbType.Int32, 1000000);
                 //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);

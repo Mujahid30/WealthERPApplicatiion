@@ -72,6 +72,7 @@ namespace WealthERP.OnlineOrderManagement
                     lblIssuer.Text = "Selected Issue Name :" + Issuename;
                     ViewState["minQty"] = minQty;
                     ViewState["maxQty"] = maxQty;
+                    ViewState["IssueId"] = IssuerId;
                     //int IssueIdN = Convert.ToInt32(IssueId);
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
@@ -380,7 +381,7 @@ namespace WealthERP.OnlineOrderManagement
             //Need to be collect from Session...
             dt.Columns.Add("CustomerId");
             dt.Columns.Add("AID_IssueDetailId");
-            dt.Columns.Add("AIM_IssueId");
+            //dt.Columns.Add("AIM_IssueId");
             dt.Columns.Add("Qty");
             dt.Columns.Add("Amount");
             int rowNo = 0;
@@ -391,7 +392,7 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
-                OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
+               // OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
                 {
@@ -405,7 +406,7 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows.Add();
                         dt.Rows[tableRow]["CustomerId"] = OnlineBondVo.CustomerId;
                         dt.Rows[tableRow]["AID_IssueDetailId"] = OnlineBondVo.PFISD_SeriesId;
-                        dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
+                       // dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                     }
@@ -460,7 +461,8 @@ namespace WealthERP.OnlineOrderManagement
                 else
                 {
                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
-                    orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId);
+                    IssuerId = int.Parse(ViewState["IssueId"].ToString());
+                    orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId,IssuerId);
                     int OrderId = int.Parse(orderIds["Order_Id"].ToString()); ;
                     int Applicationno = int.Parse(orderIds["application"].ToString()); ;
                     ViewState["OrderId"] = OrderId;

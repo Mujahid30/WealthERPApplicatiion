@@ -198,14 +198,14 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
-        public IDictionary<string, string> onlineBOndtransact(DataTable OnlineBondOrder, int adviserId)
+        public IDictionary<string, string> onlineBOndtransact(DataTable OnlineBondOrder, int adviserId, int IssuerId)
         {
             IDictionary<string, string> OrderIds = new Dictionary<string, string>();
             //bool result = false;
            //int orderIds = 0; 
             try
             {
-                OrderIds = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId);
+                OrderIds = onlineBondDao.UpdateOnlineBondTransact(OnlineBondOrder, adviserId, IssuerId);
 
             }
             catch (BaseApplicationException Ex)
