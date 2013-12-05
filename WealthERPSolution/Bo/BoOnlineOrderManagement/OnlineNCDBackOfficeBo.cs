@@ -604,6 +604,7 @@ namespace BoOnlineOrderManagement
         public bool UpdateNcdOrderMannualMatch(int orderId, int allotmentId)
         {
             bool result = false;
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
                 result = onlineNCDBackOfficeDao.UpdateNcdOrderMannualMatch(orderId, allotmentId);
@@ -628,12 +629,13 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-        public bool UpdateNcdAutoMatch(int orderId)
+        public bool UpdateNcdAutoMatch(int orderId, int applictionNo, string dpId)
         {
             bool result = false;
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                result = onlineNCDBackOfficeDao.UpdateNcdAutoMatch(orderId);
+                result = onlineNCDBackOfficeDao.UpdateNcdAutoMatch(orderId, applictionNo, dpId);
             }
             catch (BaseApplicationException Ex)
             {

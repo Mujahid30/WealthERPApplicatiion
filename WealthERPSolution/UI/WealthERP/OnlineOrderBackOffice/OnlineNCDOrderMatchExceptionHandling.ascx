@@ -196,7 +196,7 @@
                                     UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                  <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="App No" SortExpression="WOS_OrderStep"
+                                  <telerik:GridBoundColumn DataField="WOS_OrderStep" HeaderText="Status" SortExpression="WOS_OrderStep"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                     UniqueName="WOS_OrderStep" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
@@ -247,12 +247,12 @@
                                     EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
                                 </telerik:GridEditCommandColumn>--%>
                             </Columns>
-                            <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="500px">
+                            <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="550px">
                                 <FormTemplate>
                                     <table>
                                         <tr>
                                             <td class="leftLabel">
-                                                <asp:Label ID="lb1Issuer" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
+                                                <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
                                             </td>
                                             <td class="rightData">
                                                 <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField">
@@ -308,7 +308,7 @@
                                                             <telerik:GridBoundColumn DataField="CO_ApplicationNo" HeaderText="Application No"
                                                                 SortExpression="CO_ApplicationNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                                 AutoPostBackOnFilter="true" UniqueName="CO_ApplicationNo" FooterStyle-HorizontalAlign="Left"
-                                                                Visible="false">
+                                                               >
                                                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                                             </telerik:GridBoundColumn>
                                                             <telerik:GridBoundColumn DataField="AIA_Quantity" HeaderText="Quantity" SortExpression="AIA_Quantity"

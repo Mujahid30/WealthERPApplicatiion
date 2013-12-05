@@ -202,8 +202,9 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvUnmatchedAllotments_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtUNmatchedAllotments = new DataTable();
+            RadGrid gvUnmatchedAllotments = (RadGrid)sender;
             dtUNmatchedAllotments = (DataTable)Cache[userVo.UserId.ToString() + "UnAllotedOrders"];// Cache["OrderMIS" + userVo.UserId];
-            gvOrders.DataSource = dtUNmatchedAllotments;
+            gvUnmatchedAllotments.DataSource = dtUNmatchedAllotments;
 
         }
 
@@ -304,12 +305,12 @@ namespace WealthERP.OnlineOrderBackOffice
             try
             {
                 DataSet dsIssuer = new DataSet();
-                dsIssuer = onlineNCDBackOfficeBo.GetIssuer();
+                dsIssuer = onlineNCDBackOfficeBo.GetIssuerIssue(advisorVo.advisorId);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssuer.DataSource = dsIssuer;
-                    ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
-                    ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["PI_IssuerName"].ToString();
+                    ddlIssuer.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+                    ddlIssuer.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
                     ddlIssuer.DataBind();
                 }
                 ddlIssuer.Items.Insert(0, new ListItem("Select", "Select"));
@@ -330,6 +331,35 @@ namespace WealthERP.OnlineOrderBackOffice
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            //try
+            //{
+            //    DataSet dsIssuer = new DataSet();
+            //    dsIssuer = onlineNCDBackOfficeBo.GetIssuer();
+            //    if (dsIssuer.Tables[0].Rows.Count > 0)
+            //    {
+            //        ddlIssuerr.DataSource = dsIssuer;
+            //        ddlIssuerr.DataValueField = dsIssuer.Tables[0].Columns["PI_issuerId"].ToString();
+            //        ddlIssuerr.DataTextField = dsIssuer.Tables[0].Columns["PI_IssuerName"].ToString();
+            //        ddlIssuerr.DataBind();
+            //    }
+            //    ddlIssuerr.Items.Insert(0, new ListItem("Select", "Select"));
+
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+            //catch (Exception Ex)
+            //{
+            //    BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+            //    NameValueCollection FunctionInfo = new NameValueCollection();
+            //    FunctionInfo.Add("Method", "OnlineNCDOrderMatchExceptionHandling.ascx.cs:BindIssuer()");
+            //    object[] objects = new object[0];
+            //    FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+            //    exBase.AdditionalInformation = FunctionInfo;
+            //    ExceptionManager.Publish(exBase);
+            //    throw exBase;
+            //}
 
         }
 
@@ -378,10 +408,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (((CheckBox)gdi.FindControl("cbAutoMatch")).Checked == true)
                 {
                     int selectedRow = gdi.ItemIndex + 1;
+                    int applicationNo = Convert.ToInt32(gdi["CO_ApplicationNo"].Text);
+                    string dpId = gdi["CEDA_DPId"].Text;
                     OrderId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
-
-                    result = onlineNCDBackOfficeBo.UpdateNcdAutoMatch(OrderId);
-
+                    result = onlineNCDBackOfficeBo.UpdateNcdAutoMatch(OrderId, applicationNo, dpId);
                 }
             }
 

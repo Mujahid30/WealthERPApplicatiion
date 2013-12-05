@@ -1095,7 +1095,7 @@ namespace DaoOnlineOrderManagement
                 return status = false;
         }
 
-        public bool UpdateNcdAutoMatch(int orderId)
+        public bool UpdateNcdAutoMatch(int orderId,int applictionNo,string dpId)
         {
             Database db;
             DbCommand updateCmd;
@@ -1106,6 +1106,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateNcdAutoMatch");
                 db.AddInParameter(updateCmd, "@OrderId", DbType.Int32, orderId);
+                db.AddInParameter(updateCmd, "@AppNo", DbType.Int32, applictionNo);
+                db.AddInParameter(updateCmd, "@DpId", DbType.String, dpId);
                 db.AddOutParameter(updateCmd, "@IsSuccess", DbType.Int16, 0);
                 if (db.ExecuteNonQuery(updateCmd) != 0)
                     affectedRecords = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
