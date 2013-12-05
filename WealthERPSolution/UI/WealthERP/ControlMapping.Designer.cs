@@ -1843,6 +1843,15 @@ namespace WealthERP {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OnlineOrderBackOffice//HoldingIssueAllotment.ascx.
+        /// </summary>
+        internal static string HoldingIssueAllotment {
+            get {
+                return ResourceManager.GetString("HoldingIssueAllotment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Advisor//AdviserLandingPage.ascx.
         /// </summary>
         internal static string IFAAdminMainDashboard {
