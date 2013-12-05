@@ -141,7 +141,7 @@
         </td>--%>
     </tr>
 </table>
-<asp:Panel ID="pnlGrid" runat="server" ScrollBars="Both" Width="60%" Visible="false">
+<asp:Panel ID="pnlGrid" runat="server" ScrollBars="Both" Width="70%" Visible="false" class="leftLabel" >
     <table width="70%">
         <tr>
             <td>
@@ -157,7 +157,7 @@
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="Order" Excel-Format="ExcelML">
                         </ExportSettings>
-                        <MasterTableView DataKeyNames="CO_OrderId,WOS_OrderStepCode" Width="100%" AllowMultiColumnSorting="True"
+                        <MasterTableView DataKeyNames="CO_OrderId,WOS_OrderStepCode,AIM_IssueId" Width="100%" AllowMultiColumnSorting="True"
                             AutoGenerateColumns="false" CommandItemDisplay="None" EditMode="PopUp">
                             <Columns>
                                 <telerik:GridTemplateColumn HeaderText="Select">
@@ -227,7 +227,7 @@
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIA_AllotmentDate" HeaderText="Allotment Date"
                                     SortExpression="AIA_AllotmentDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                    AutoPostBackOnFilter="true" UniqueName="AIA_AllotmentDate" FooterStyle-HorizontalAlign="Left">
+                                    AutoPostBackOnFilter="true" UniqueName="AIA_AllotmentDate" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:d}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="AIA_Quantity" HeaderText="Alloted Qty" SortExpression="AIA_Quantity"
@@ -250,7 +250,7 @@
                             <EditFormSettings EditFormType="Template" PopUpSettings-Height="200px" PopUpSettings-Width="550px">
                                 <FormTemplate>
                                     <table>
-                                        <tr>
+                                        <tr  id="trUnMatchedddl" runat="server" >
                                             <td class="leftLabel">
                                                 <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
                                             </td>
@@ -354,7 +354,7 @@
         </tr>
     </table>
 </asp:Panel>
-<asp:Panel ID="pnlBtns" runat="server" ScrollBars="Both" Width="60%" Visible="false">
+<asp:Panel ID="pnlBtns" runat="server"   Width="70%" Visible="false" Height="50px" BorderStyle="Solid" BorderWidth="0px">
     <table>
         <tr>
             <td class="leftField">

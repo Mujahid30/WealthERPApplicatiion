@@ -48,14 +48,13 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-
-            if (ddlProduct.SelectedValue == "IP")
+            if (ddlOrderStatus.SelectedValue == "IP")
             {
-                categoryCode = "FIIP";
+                pnlBtns.Visible = true;
             }
             else
             {
-                categoryCode = "FISD";
+                pnlBtns.Visible = false;
             }
             BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
         }
@@ -77,20 +76,26 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void gvOrders_ItemDataBound(object sender, GridItemEventArgs e)
         {
+            int issueId;
             try
             {
                 if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
                 {
-                    DropDownList ddlIssuer = (DropDownList)e.Item.FindControl("ddlIssuer");
+                    //  DropDownList ddlIssuer = (DropDownList)e.Item.FindControl("ddlIssuer");
                     RadGrid gvUnmatchedAllotments = (RadGrid)e.Item.FindControl("gvUnmatchedAllotments");
                     Button btnMatchGO = (Button)e.Item.FindControl("btnMatchGO");
                     System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedGrd = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedGrd");
                     System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedBtns = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedBtns");
-                    //Label lblordertype = e.Item.FindControl("lblOrderType") as Label;
+                    System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedddl = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedddl");
 
-                    trUnMatchedGrd.Visible = false;
-                    trUnMatchedBtns.Visible = false;
-                    BindIssuer(ddlIssuer);
+                    
+                    issueId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+                    trUnMatchedGrd.Visible = true;
+                    trUnMatchedBtns.Visible = true;
+                    trUnMatchedddl.Visible = false;
+                    //     BindIssuer(ddlIssuer);
+                    BindUnmatchedAllotmentsGrid(gvUnmatchedAllotments, issueId);
+
                 }
                 if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
                 {
@@ -173,11 +178,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (i > 1)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select One record!');", true);
+                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
                 return;
             }
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
+                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
                 return;
             }
 
@@ -193,10 +200,11 @@ namespace WealthERP.OnlineOrderBackOffice
             if (result == true)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
-                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
+            //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+
         }
 
         protected void gvUnmatchedAllotments_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
@@ -245,7 +253,16 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataTable dtOrdersMatch = new DataTable();
                 pnlGrid.Visible = true;
-                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, Product, Status, FromDate, ToDate).Tables[0];
+
+                if (ddlProduct.SelectedValue == "IP")
+                {
+                    categoryCode = "FIIP";
+                }
+                else
+                {
+                    categoryCode = "FISD";
+                }
+                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, categoryCode, Status, FromDate, ToDate).Tables[0];
                 gvOrders.DataSource = dtOrdersMatch;
                 gvOrders.DataBind();
                 if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
@@ -289,14 +306,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlOrderStatus.SelectedValue == "IP")
-            {
-                pnlBtns.Visible = true;
-            }
-            else
-            {
-                pnlBtns.Visible = false;
-            }
+           
 
         }
 
@@ -377,6 +387,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     ddlIssue.DataBind();
                 }
                 ddlIssue.Items.Insert(0, new ListItem("Select", "Select"));
+                ddlIssue.Items.Insert(1, new ListItem("All", "0"));
 
             }
             catch (BaseApplicationException Ex)
