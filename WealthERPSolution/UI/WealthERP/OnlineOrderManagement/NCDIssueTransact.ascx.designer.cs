@@ -173,6 +173,7 @@ namespace WealthERP.OnlineOrderManagement
         protected global::Telerik.Web.UI.RadWindow rwTermsCondition;
         protected global::System.Web.UI.WebControls.CheckBox chkTermsCondition;
         protected global::Telerik.Web.UI.RadWindow rw_customConfirm;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trTermsCondition;
 
     }
 }

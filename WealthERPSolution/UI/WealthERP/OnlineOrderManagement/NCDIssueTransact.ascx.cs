@@ -60,6 +60,8 @@ namespace WealthERP.OnlineOrderManagement
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
                     tdsubmit.Visible = false;
+                    trTermsCondition.Visible = false;
+                    //tdsubmit.Visible = false;
                 }
                 else if (Request.QueryString["IssuerId"] != null && Request.QueryString["Issuename"] != null && Request.QueryString["minQty"] != null && Request.QueryString["maxQty"] != null)
                 {
@@ -100,6 +102,7 @@ namespace WealthERP.OnlineOrderManagement
                         Viewdetails(IssuerId);
                         btnConfirm.Visible = false;
                         tdsubmit.Visible = false;
+                        trTermsCondition.Visible = false;
                     }
                     if (Request.QueryString["strAction"].Trim() == "Edit")
                     {

@@ -218,7 +218,7 @@
                                             UniqueName="AIM_Rating" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Minimum Qty"
+                                        <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min Qty"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />

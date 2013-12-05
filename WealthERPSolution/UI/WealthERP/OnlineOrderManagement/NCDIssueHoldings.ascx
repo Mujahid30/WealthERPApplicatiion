@@ -291,12 +291,12 @@
                                                         UniqueName="BHCurrentRatings">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
+                                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px" Visible="true"
                                                         UniqueName="Action" HeaderText="Action">
                                                         <ItemTemplate>
-                                                        <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" ImageUrl="~/Images/Buy-Button.png"
+                                                        <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" Enabled="false" ImageUrl="~/Images/Buy-Button.png"
                                                           ToolTip="BUY" />&nbsp;
-                                                        <asp:ImageButton ID="imgSell" runat="server" CommandName="Sell" ImageUrl="~/Images/Sell-Button.png"
+                                                        <asp:ImageButton ID="imgSell" runat="server" CommandName="Sell" Visible="false" ImageUrl="~/Images/Sell-Button.png"
                                                         ToolTip="SELL" />&nbsp;
                                                       </ItemTemplate>                                                     
                                                     </telerik:GridTemplateColumn>
