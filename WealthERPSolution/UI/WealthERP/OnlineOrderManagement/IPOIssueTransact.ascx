@@ -95,7 +95,7 @@
                             PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                             GridLines="None" ShowFooter="false" PagerStyle-AlwaysVisible="false" ShowStatusBar="True"
                             Skin="Telerik" AllowFilteringByColumn="false">
-                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId"
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IPOPriceDiscountType,AIM_IPOPriceDiscountValue"
                                 AutoGenerateColumns="false" Width="100%" PagerStyle-AlwaysVisible="false">
                                 <Columns>
                                     <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
@@ -138,11 +138,13 @@
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AIM_FloorPrice" HeaderStyle-Width="200px" HeaderText="Min Bid Price"
-                                        ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true">
+                                        ShowFilterIcon="false" UniqueName="AIM_FloorPrice" Visible="true" DataType="System.Decimal"
+                                        DataFormatString="{0:0.00}">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AIM_CapPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
-                                        ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true">
+                                        ShowFilterIcon="false" UniqueName="AIM_CapPrice" Visible="true" DataType="System.Decimal"
+                                        DataFormatString="{0:0.00}">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridBoundColumn DataField="AIM_FixedPrice" HeaderStyle-Width="200px" HeaderText="Max Bid Price"
@@ -157,9 +159,14 @@
                                         ShowFilterIcon="false" UniqueName="AIM_CloseDate" Visible="true">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
+                                    
                                 </Columns>
                             </MasterTableView>
                         </telerik:RadGrid>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
                     </td>
                 </tr>
                 <tr>
@@ -183,11 +190,12 @@
                                 <Columns>
                                     <telerik:GridBoundColumn DataField="BidOptions" HeaderStyle-Width="120px" CurrentFilterFunction="Contains"
                                         ShowFilterIcon="true" AutoPostBackOnFilter="true" HeaderText="Bidding Options"
-                                        UniqueName="BidOptions" SortExpression="BidOptions" >
+                                        UniqueName="BidOptions" SortExpression="BidOptions">
                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                     </telerik:GridBoundColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="80px"
-                                        Visible="true" UniqueName="CheckCutOff" HeaderText="Cut-Off" ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
+                                        Visible="true" UniqueName="CheckCutOff" HeaderText="Cut-Off" ItemStyle-HorizontalAlign="Center"
+                                        HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:CheckBox ID="cbCutOffCheck" runat="server" AutoPostBack="true" OnCheckedChanged="CutOffCheckBox_Changed" />
                                             <a href="#" class="popper" data-popbox="divCutOffCheck">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -204,7 +212,7 @@
                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
-                                                OnTextChanged="bidTextBoxs_TextChanged" AutoPostBack="true"> </asp:TextBox>
+                                                OnTextChanged="bidTextBoxs_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
                                             <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                             <div id="divBidQuantity" class="popbox">
                                                 <h2>
@@ -247,19 +255,22 @@
                                         </FooterTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                        FooterText="" UniqueName="BidAmount" HeaderText="Amount Payable" FooterAggregateFormatString="{0:N2}"
+                                        FooterText="" UniqueName="BidAmountPayable" HeaderText="Amount Payable" FooterAggregateFormatString="{0:N2}"
                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidAmountPayable" runat="server" ReadOnly="true" CssClass="txtDisableField"
                                                 Text='<%# Bind("BidAmountPayable")%>'></asp:TextBox>
                                         </ItemTemplate>
+                                        <FooterTemplate>
+                                            <asp:Label runat="server" ID="lblFinalBidAmountPayable" Text=""></asp:Label>
+                                        </FooterTemplate>
                                     </telerik:GridTemplateColumn>
                                     <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
-                                        FooterText="" UniqueName="BidAmount" HeaderText="Amount Bid" 
-                                        ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
+                                        FooterText="" UniqueName="BidAmount" HeaderText="Amount Bid" ItemStyle-HorizontalAlign="Center"
+                                        HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidAmount" runat="server" ReadOnly="true" CssClass="txtDisableField"
-                                                Text='<%# Bind("BidAmount")%>'></asp:TextBox> 
+                                                Text='<%# Bind("BidAmount")%>'></asp:TextBox>
                                         </ItemTemplate>
                                     </telerik:GridTemplateColumn>
                                 </Columns>

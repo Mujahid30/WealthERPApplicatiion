@@ -124,80 +124,130 @@ namespace WealthERP.OnlineOrderManagement
             ReseIssueBidValues(currentRowindex);
             CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
             if (chkCutOff.Checked)
-                EnableDisableBids(true);
+                EnableDisableBids(true,3);
             else
-                EnableDisableBids(false);
+                EnableDisableBids(false,3);
         }
 
         protected void ReseIssueBidValues(int row)
         {
+            double bidAmount = 0;
+            double ipoPriceDiscountValue = 0;
             CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[row]["CheckCutOff"].FindControl("cbCutOffCheck");
             TextBox txtBidQuantity = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidQuantity"].FindControl("txtBidQuantity");
             TextBox txtBidPrice = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidPrice"].FindControl("txtBidPrice");
             TextBox txtBidAmount = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidAmount"].FindControl("txtBidAmount");
-            decimal capPrice = Convert.ToDecimal(RadGridIPOIssueList.MasterTableView.Items[0]["AIM_CapPrice"].Text.Trim());
+            TextBox txtBidAmountPayable = (TextBox)RadGridIPOBid.MasterTableView.Items[row]["BidAmountPayable"].FindControl("txtBidAmountPayable");
+           
+             
+            double capPrice = Convert.ToDouble(RadGridIPOIssueList.MasterTableView.Items[0]["AIM_CapPrice"].Text.Trim());
+            string ipoPriceDiscountType = RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountType"].ToString();
+            if (!string.IsNullOrEmpty(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountValue"].ToString()))
+                ipoPriceDiscountValue = Convert.ToDouble(RadGridIPOIssueList.MasterTableView.DataKeyValues[0]["AIM_IPOPriceDiscountValue"].ToString());
 
+            double bidAmountPayable = 0;
             if (chkCutOff.Checked)
             {
                 txtBidPrice.Text = capPrice.ToString();
                 txtBidPrice.Enabled = false;
                 txtBidPrice.CssClass = "txtDisableField";
-                //EnableDisableBids(true);
-            }
-            else
-            {
-                //txtBidPrice.Enabled = true;
-                //txtBidPrice.CssClass = "txtField";
-                //txtBidPrice.Text = string.Empty;
-                //txtBidAmount.Text = string.Empty;               
-
             }
 
             if (!string.IsNullOrEmpty(txtBidQuantity.Text.Trim()) && !string.IsNullOrEmpty(txtBidPrice.Text.Trim()))
+            {
                 txtBidAmount.Text = (Convert.ToInt32(txtBidQuantity.Text.Trim()) * Convert.ToDecimal(txtBidPrice.Text.Trim())).ToString();
 
+                bidAmount = double.Parse(txtBidAmount.Text);
+                bidAmountPayable = bidAmount;
 
+                if (!string.IsNullOrEmpty(ipoPriceDiscountType.Trim()))
+                {
+                    switch (ipoPriceDiscountType)
+                    {
+                        case "AM":
+                            {
+                                bidAmountPayable = bidAmount - ipoPriceDiscountValue;
+                                break;
+                            }
+                        case "PE":
+                            {
+                                bidAmountPayable = (bidAmount - ((ipoPriceDiscountValue * 100) / bidAmount));
+                                break;
+                            }
+                    }
+                }
 
+                txtBidAmountPayable.Text = Math.Round(bidAmountPayable,2).ToString();
+
+            }
+                       
         }
 
-        protected void EnableDisableBids(bool isChecked)
+        protected void EnableDisableBids(bool isChecked, int noOfBid)
         {
+            double[] bidMaxPayableAmount = new double[noOfBid];
+            int count = 0;
+            double finalBidPayableAmount = 0;
             foreach (GridDataItem item in RadGridIPOBid.MasterTableView.Items)
             {
                 CheckBox chkCutOff = (CheckBox)item.FindControl("cbCutOffCheck");
                 TextBox txtBidQuantity = (TextBox)item.FindControl("txtBidQuantity");
                 TextBox txtBidPrice = (TextBox)item.FindControl("txtBidPrice");
 
-                if (chkCutOff.Checked || !isChecked)
+                TextBox txtBidAmount = (TextBox)item.FindControl("txtBidAmount");
+                TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
+                bidMaxPayableAmount[count] = Convert.ToDouble(txtBidAmountPayable.Text);
+                if (isChecked)
                 {
-                    chkCutOff.Enabled = true;
                     if (chkCutOff.Checked)
-                       chkCutOff.Checked = true;
+                    {
+                        txtBidQuantity.Enabled = true;
+                        txtBidQuantity.CssClass = "txtField";
+
+                        txtBidPrice.Enabled = false;
+                        txtBidPrice.CssClass = "txtDisableField";
+                    }
                     else
-                       chkCutOff.Checked = false;
+                    {
+                        chkCutOff.Enabled = false;
 
-                    txtBidQuantity.Enabled = true; 
-                    txtBidQuantity.CssClass = "txtField";
+                        txtBidQuantity.Enabled = false;
+                        txtBidQuantity.CssClass = "txtDisableField";
 
+                        txtBidPrice.Enabled = false;
+                        txtBidPrice.CssClass = "txtDisableField";
 
-                    txtBidPrice.Enabled = false;
-                    txtBidPrice.CssClass = "txtDisableField";
+                        txtBidQuantity.Text = string.Empty;
+                        txtBidPrice.Text = string.Empty;
+                        txtBidAmount.Text = "0";
+                        txtBidAmountPayable.Text = "0";
+
+                    }
+
 
                 }
                 else
                 {
-                    chkCutOff.Enabled = false;
-                    chkCutOff.Checked = false;
-                    txtBidQuantity.Enabled = false;
-                    txtBidPrice.Enabled = false;
+                    chkCutOff.Enabled = true;
 
-                    txtBidQuantity.CssClass = "txtDisableField";
-                    txtBidPrice.CssClass = "txtDisableField";
+                    txtBidQuantity.Enabled = true;
+                    txtBidQuantity.CssClass = "txtField";
 
+                    txtBidPrice.Enabled = true;
+                    txtBidPrice.CssClass = "txtField";
 
                 }
 
+                finalBidPayableAmount = bidMaxPayableAmount.Max();
+
             }
+
+            foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
+            {
+                Label lblBidHighestValue = (Label)footeritem["BidAmountPayable"].FindControl("lblFinalBidAmountPayable");
+                lblBidHighestValue.Text = finalBidPayableAmount.ToString();
+            }
+
 
         }
 
