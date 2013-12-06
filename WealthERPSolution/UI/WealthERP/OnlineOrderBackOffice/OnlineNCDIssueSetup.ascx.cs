@@ -2592,6 +2592,10 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCloseTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
             ddlOpenTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
             ddlCloseTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
+            ddlOpenTimeMinutes.SelectedValue = "00";
+            ddlCloseTimeMinutes.SelectedValue = "00";
+            ddlOpenTimeSeconds.SelectedValue = "00";
+            ddlCloseTimeSeconds.SelectedValue = "00";
 
         }
 
