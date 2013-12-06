@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 
 using DaoOnlineOrderManagement;
+using VoOnlineOrderManagemnet;
 
 namespace BoOnlineOrderManagement
 {
@@ -609,7 +610,7 @@ namespace BoOnlineOrderManagement
             return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode);
         }
 
-        private KeyValuePair<string, string>[] GetHeaderMapping(int fileTypeId, string extSource)
+        private KeyValuePair<string,string>[] GetHeaderMapping(int fileTypeId, string extSource)
         {
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
@@ -617,14 +618,25 @@ namespace BoOnlineOrderManagement
             int nRows = dtHeaderMap.Rows.Count;
             if (nRows <= 0) return null;
 
-            KeyValuePair<string, string>[] kvpHeaders = new KeyValuePair<string, string>[dtHeaderMap.Rows.Count];
-            for (int i = 0; i < nRows; i++)
-            {
-                string Key = dtHeaderMap.Rows[i]["COLUMN_NAME"].ToString();
-                string Value = dtHeaderMap.Rows[i]["FILE_HEADER"].ToString();
-                kvpHeaders[i] = new KeyValuePair<string, string>(Key, Value);
+            List<OnlineIssueHeader> fileHeaderList = new List<OnlineIssueHeader>();
+            for (int i = 0; i < nRows; i++) {                
+                OnlineIssueHeader header = new OnlineIssueHeader();
+                header.HeaderSequence = int.Parse(dtHeaderMap.Rows[i]["WEEHM_HeaderSequence"].ToString());
+                header.ColumnAlias = dtHeaderMap.Rows[i]["WEIH_ColumnAlias"].ToString();
+                header.HeaderName = dtHeaderMap.Rows[i]["WEEHM_HeaderName"].ToString();
+                fileHeaderList.Add(header);
             }
 
+            KeyValuePair<string, string>[] kvpHeaders = new KeyValuePair<string, string>[nRows];
+
+            List<OnlineIssueHeader> sortedBySeq = fileHeaderList.OrderBy(o => o.HeaderSequence).ToList();
+
+            int j = 0;
+            foreach (OnlineIssueHeader header in sortedBySeq)
+            {
+                kvpHeaders[j] = new KeyValuePair<string, string>(header.ColumnAlias, header.HeaderName);
+                j++;
+            }
             return kvpHeaders;
         }
 

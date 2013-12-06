@@ -951,7 +951,7 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_ONL_NCDExtractPreview");
+                GetOnlineNCDExtractPreviewcmd = db.GetStoredProcCommand("SPROC_ONL_IssueExtractPreview");
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, Today);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@WIFT_Id", DbType.Int32, FileType);

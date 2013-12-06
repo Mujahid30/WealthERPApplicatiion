@@ -54,28 +54,32 @@
         </td>
     </tr>
 </table>
+<table id="tblMessage" width="100%" runat="server" visible="false">
+    <tr id="trSumbitSuccess">
+        <td align="center">
+            <div id="msgRecordStatus" class="success-msg" align="center" runat="server"></div>
+        </td>
+    </tr>
+</table>
 <table width="100%">
     <tr>
         <td colspan="6" class="fltlftStep">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
-                <div class="divSectionHeadingNumber fltlftStep">
-                    1</div>
+                <div class="divSectionHeadingNumber fltlftStep">1</div>
             </div>
         </td>
-    </tr>
-    <tr>
     </tr>
     <tr>
         <td align="right" class="leftLabel">
             <asp:Label ID="lblProduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" 
+                onselectedindexchanged="ddlProduct_SelectedIndexChanged">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                <asp:ListItem Text="NCD" Value="1" />
-                <asp:ListItem Text="IPO" Value="2" />
-            </asp:DropDownList>
-            </br>
+                <asp:ListItem Text="NCD/Bond" Value="FI" />
+                <asp:ListItem Text="IPO" Value="IP" />
+            </asp:DropDownList></br>
             <asp:RequiredFieldValidator ID="rfvProduct" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a product"
                 ControlToValidate="ddlProduct" Display="Dynamic" InitialValue="0" ValidationGroup="OnlineIssueUpload">
             </asp:RequiredFieldValidator>
@@ -84,12 +88,12 @@
             <asp:Label ID="lblSourceData" runat="server" CssClass="FieldName" Text="Source Data:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlSourceData" runat="server" CssClass="cmbField" AutoPostBack="true">
+            <asp:DropDownList ID="ddlSourceData" runat="server" CssClass="cmbField" 
+                AutoPostBack="true" onselectedindexchanged="ddlSourceData_SelectedIndexChanged">
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                <asp:ListItem Text="BSE" Value="1" />
-                <asp:ListItem Text="NSE" Value="2" />
-            </asp:DropDownList>
-            <br />
+                <asp:ListItem Text="BSE" Value="BSE" />
+                <asp:ListItem Text="NSE" Value="NSE" />
+            </asp:DropDownList><br />
             <asp:RequiredFieldValidator ID="rfvSourceData" runat="server" ErrorMessage="Please select Source Data"
                 ControlToValidate="ddlSourceData" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
                 ValidationGroup="OnlineIssueUpload"></asp:RequiredFieldValidator>
@@ -110,8 +114,6 @@
         </td>
     </tr>
     <tr>
-    </tr>
-    <tr>
         <td colspan="6" class="fltlftStep">
             <div class="divSectionHeading" style="vertical-align: text-bottom">
                 <div class="divSectionHeadingNumber fltlftStep">
@@ -120,17 +122,14 @@
         </td>
     </tr>
     <tr>
-    </tr>
-    <tr>
         <td align="right">
             <asp:FileUpload ID="FileUpload" runat="server" />
         </td>
         <td>
-            <asp:Button ID="btnFileUpload" CssClass="PCGButton" Text="Upload" runat="server"
+            <asp:Button ID="btnFileUpload" CssClass="PCGButton" Text="Upload" 
+                runat="server" onclick="btnFileUpload_Click"
                 />
         </td>
-    </tr>
-    <tr>
     </tr>
     <tr>
         <td colspan="6" class="fltlftStep">
@@ -139,8 +138,6 @@
                     3</div>
             </div>
         </td>
-    </tr>
-    <tr>
     </tr>
     <tr>
         <td>

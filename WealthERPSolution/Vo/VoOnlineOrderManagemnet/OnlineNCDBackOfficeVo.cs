@@ -100,4 +100,12 @@ namespace VoOnlineOrderManagemnet
             
 
     }
+
+    public class OnlineIssueHeader
+    {
+        public int FileTypeId { get; set; }
+        public string ColumnAlias { get; set; }
+        public string HeaderName { get; set; }
+        public int HeaderSequence { get; set; }
+    }
 }
