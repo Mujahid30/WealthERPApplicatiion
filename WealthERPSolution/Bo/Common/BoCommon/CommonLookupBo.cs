@@ -59,7 +59,7 @@ namespace BoCommon
         {
             List<string> hours = new List<string>();
             string val;
-            for (int i = 0; i <= 24; i++)
+            for (int i = 0; i < 24; i++)
             {
                 if (i <= 9)
                     val = "0" + i.ToString();
@@ -76,7 +76,7 @@ namespace BoCommon
             List<string> minutes = new List<string>();
             string val;
 
-            for (int i = 0; i <= 60; i++)
+            for (int i = 0; i < 60; i++)
             {
                 if (i <= 9)
                     val = "0" + i.ToString();

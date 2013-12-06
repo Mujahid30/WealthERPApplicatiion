@@ -93,6 +93,10 @@ namespace VoOnlineOrderManagemnet
         public decimal  DiscountValue { get; set; }
 
         public int MaxQty { get; set; }
+
+        public int IssueSizeQty { get; set; }
+
+        public decimal IssueSizeAmt { get; set; }
             
 
     }

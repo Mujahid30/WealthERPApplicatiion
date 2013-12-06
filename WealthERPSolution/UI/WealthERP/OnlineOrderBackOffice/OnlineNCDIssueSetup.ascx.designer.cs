@@ -221,6 +221,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtToRange;
+
+        protected global::System.Web.UI.WebControls.TextBox txtIssueSizeQty;
+        protected global::System.Web.UI.WebControls.TextBox txtIssueSizeAmt;
+        protected global::System.Web.UI.WebControls.DropDownList ddlRegistrar;
         
         /// <summary>
         /// RequiredFieldValidator9 control.
@@ -439,7 +443,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtOpenDate;
-        
+
+        protected global::Telerik.Web.UI.RadDatePicker txtAllotmentDate;
+
         /// <summary>
         /// RequiredFieldValidator21 control.
         /// </summary>
@@ -1002,6 +1008,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgEligibleInvestorCategories;
+        protected global::Telerik.Web.UI.RadGrid rgIssuer;
+        protected global::Telerik.Web.UI.RadWindow radwindowPopup;
+
+        
         
         /// <summary>
         /// pnlSeries control.

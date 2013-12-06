@@ -62,51 +62,105 @@
         </td>
     </tr>
 </table>
-<%--<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
+<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
-    Title="Add New Folio">
+    Title="Add New Issuer">
     <ContentTemplate>
         <div style="padding: 20px">
             <table width="100%">
                 <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lb1IssuerName" runat="server" Text="Issuer Name: " CssClass="FieldName"></asp:Label>
+                    <td colspan="2">
+                        <telerik:RadGrid ID="rgIssuer" runat="server" AllowSorting="True" enableloadondemand="True"
+                            PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                            ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
+                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgIssuer_OnNeedDataSource"
+                            OnItemCommand="rgIssuer_ItemCommand" OnItemDataBound="rgIssuer_ItemDataBound">
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="PI_IssuerId"
+                                AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create Issuer"
+                                CommandItemDisplay="Top">
+                                <Columns>
+                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        UpdateText="Update">
+                                    </telerik:GridEditCommandColumn>
+                                    <telerik:GridBoundColumn DataField="PI_IssuerCode" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Code" UniqueName="PI_IssuerCode"
+                                        SortExpression="PI_IssuerCode" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="PI_IssuerName" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Name" UniqueName="PI_IssuerName"
+                                        SortExpression="PI_IssuerName" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete">
+                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    </telerik:GridButtonColumn>
+                                    <%--<telerik:GridEditCommandColumn EditText="Delete" UniqueName="DeleteIssuer" CancelText="Cancel"
+                                            UpdateText="Delete">
+                                        </telerik:GridEditCommandColumn>--%>
+                                </Columns>
+                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="150px" PopUpSettings-Width="330px">
+                                    <FormTemplate>
+                                        <table width="75%" cellspacing="2" cellpadding="2">
+                                            <tr>
+                                                <td class="leftField" style="width: 10%">
+                                                    <asp:Label ID="lb1IssuerName" runat="server" Text="Issuer Name: " CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td>
+                                                    <asp:TextBox ID="txtIssuerName" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                                    <span id="Span21"></span>
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator33" ControlToValidate="txtIssuerName"
+                                                        ErrorMessage="Please enter Issuer name" ValidationGroup="rgIssuerOk" Display="Dynamic"
+                                                        runat="server" CssClass="rfvPCG">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField" style="width: 10%">
+                                                    <asp:Label ID="lb1IssuerCode" runat="server" Text="Issuer Code: " CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" style="width: 25%">
+                                                    <asp:TextBox ID="txtIssuerCode" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                                    <span id="spnNewFolioValidation"></span>
+                                                    <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtIssuerCode" ErrorMessage="Please enter Issuer Code"
+                                                        ValidationGroup="rgIssuerOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                                    </asp:RequiredFieldValidator>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftLabel">
+                                                    <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                        Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CausesValidation="True"
+                                                        ValidationGroup="rgIssuerOk" />
+                                                    </asp:Button>
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                </td>
+                                                <td class="leftLabel" colspan="2">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FormTemplate>
+                                </EditFormSettings>
+                            </MasterTableView>
+                        </telerik:RadGrid>
                     </td>
-                    <td>
-                     <asp:TextBox ID="txtIssuer" runat="server" CssClass="txtField"></asp:TextBox><br />
-                        <span id="Span21"></span>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator33" ControlToValidate="txtIssuer" ErrorMessage="Please enter Issue name"
-                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
-                        </asp:RequiredFieldValidator>
-                    </td>
-                     
                 </tr>
                 <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Label ID="lb1IssuerCode" runat="server" Text="Issuer Code: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:TextBox ID="txtNewFolio" runat="server" CssClass="txtField"></asp:TextBox><br />
-                        <span id="spnNewFolioValidation"></span>
-                        <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtNewFolio" ErrorMessage="Please enter folio name"
-                            ValidationGroup="vgOK" Display="Dynamic" runat="server" CssClass="rfvPCG">
-                        </asp:RequiredFieldValidator>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="leftField" style="width: 10%">
-                        <asp:Button ID="btnSubmitFolio" runat="server" Text="Submit" CssClass="PCGButton"
-                            OnClick="btnOk_Click" ValidationGroup="vgOK" />
-                    </td>
-                    <td class="rightField" style="width: 25%">
-                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="PCGButton" CausesValidation="false"
-                            OnClick="btnCancel_Click" />
+                    <td class="RightData">
+                        <asp:Button ID="btnIssuerPopClose" runat="server" Text="Close" CssClass="PCGButton"
+                            OnClick="btnIssuerPopClose_Click" />
                     </td>
                 </tr>
             </table>
         </div>
     </ContentTemplate>
-</telerik:RadWindow>--%>
+</telerik:RadWindow>
 <table width="80%" runat="server" id="tbIssue">
     <tr>
         <td class="leftLabel">
@@ -125,10 +179,10 @@
                 CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-        <td class="leftLabel" ID="tdlblCategory" runat="server" >
+        <td class="leftLabel" id="tdlblCategory" runat="server">
             <asp:Label ID="lblCategory" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
         </td>
-        <td align="rightData" ID="tdddlCategory" runat="server">
+        <td align="rightData" id="tdddlCategory" runat="server">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
@@ -162,6 +216,9 @@
                 Width="205px">
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
+            <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Issuer" OnClick="btnIssuerPopUp_Click"
+                Height="15px" Width="15px"></asp:ImageButton>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select Issuer"
                 CssClass="rfvPCG" ControlToValidate="ddlIssuer" ValidationGroup="SetUpSubmit"
@@ -179,9 +236,14 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="Please Enter FromRange"
                 CssClass="rfvPCG" ControlToValidate="txtFormRange" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtFormRange" runat="server"
-                ControlToCompare="txtToRange" Display="Dynamic" ErrorMessage="From range Should Be Greater Than To Range"
-                Type="Double" Operator="LessThan" CssClass="cvPCG"></asp:CompareValidator>
+           
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator11" ControlToValidate="txtFormRange"
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtFormRange">     
+            </asp:RegularExpressionValidator>
+             <asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtFormRange" runat="server"
+                ControlToCompare="txtToRange" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
+                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1ToRange" runat="server" Text="To:" CssClass="FieldName"></asp:Label>
@@ -193,9 +255,14 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Enter ToRange"
                 CssClass="rfvPCG" ControlToValidate="txtToRange" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator3" ControlToValidate="txtToRange" runat="server"
-                ControlToCompare="txtFormRange" Display="Dynamic" ErrorMessage="To range Should Be Less Than To Range"
-                Type="Double" Operator="GreaterThan" CssClass="cvPCG"></asp:CompareValidator>
+           
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator12" ControlToValidate="txtToRange"
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtToRange" />
+                
+                 <asp:CompareValidator ID="CompareValidator3" ControlToValidate="txtToRange" runat="server"
+                ControlToCompare="txtFormRange" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
+                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr id="trIssueTypes" runat="server">
@@ -248,16 +315,23 @@
             <asp:Label ID="Label11" runat="server" Text="Floor Price:" CssClass="FieldName"></asp:Label>
         </td>
         <td id="tdTxtFloorPrice" runat="server" class="rightData">
-            <asp:TextBox ID="txtFloorPrice" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtFloorPrice" runat="server" CssClass="txtField" Width="200px"
+                MaxLength="10"></asp:TextBox>
             <span id="Span27" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator35" runat="server" ErrorMessage="Please Enter Floor Price"
                 CssClass="rfvPCG" ControlToValidate="txtFloorPrice" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator5" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="Date of Floor Price between 1 to 999999999"
-                ControlToValidate="txtFloorPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
-                CssClass="cvPCG"></asp:RangeValidator>
+            <%-- <asp:RangeValidator ID="RangeValidator5" Display="Dynamic" ValidationGroup="SetUpSubmit"
+                runat="server" ErrorMessage="Date of Floor Price between 1 to 999999999" ControlToValidate="txtFloorPrice"
+                MaximumValue="999999999" MinimumValue="1" Type="Integer" CssClass="cvPCG"></asp:RangeValidator>   --%>
+            <%--  <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtFloorPrice"
+                runat="server" Display="Dynamic" ErrorMessage="Pls Enter Integer Type" Type="Integer"
+                Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="txtFloorPrice"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d+(\.\d{1,2})?$" ValidationGroup="txtFloorPrice">     
+            </asp:RegularExpressionValidator>
         </td>
         <td id="tdLbFixedPrice" runat="server" class="leftLabel">
             <asp:Label ID="Label10" runat="server" Text="Fixed Price:" CssClass="FieldName"></asp:Label>
@@ -269,10 +343,10 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator37" runat="server" ErrorMessage="Please Enter Fixed Price"
                 CssClass="rfvPCG" ControlToValidate="txtFixedPrice" ValidationGroup="SetUpSubmit"
                 Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator4" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Fixed Price between 1 to 999999999"
-                ControlToValidate="txtFixedPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
-                CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtFixedPrice"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d+(\.\d{1,2})?$" ValidationGroup="txtFixedPrice">     
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr id="trSyndicateAndMemberCodes" runat="server">
@@ -294,7 +368,15 @@
             <asp:Label ID="Label13" runat="server" Text="Registrar:" CssClass="FieldName"></asp:Label>
         </td>
         <td id="Td6" runat="server" class="rightData">
-            <asp:TextBox ID="txtRegistrar" runat="server" CssClass="txtField"></asp:TextBox>
+            <asp:DropDownList ID="ddlRegistrar" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="205px">
+            </asp:DropDownList>
+            <span id="Span34" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator42" runat="server" ErrorMessage="Please Enter FromRange"
+                CssClass="rfvPCG" ControlToValidate="ddlRegistrar" ValidationGroup="SetUpSubmit"
+                Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+            <%--<asp:TextBox ID="txtRegistrar" runat="server" CssClass="txtField"></asp:TextBox>--%>
         </td>
         <td id="Td7" runat="server" class="leftLabel">
             <asp:Label ID="Label14" runat="server" Text="No Of Bids Allowed:" CssClass="FieldName"></asp:Label>
@@ -321,9 +403,16 @@
                 ErrorMessage="Please Enter Face Value" Display="Dynamic" ControlToValidate="txtFaceValue"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtFaceValue" runat="server"
-                Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="Double"
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtFaceValue"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d+(\.\d{1,2})?$" ValidationGroup="txtFaceValue">     
+            </asp:RegularExpressionValidator>
+            <%--<asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtFaceValue" runat="server"
+                Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="double"
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                <asp:RangeValidator ID="RangeValidator10" Display="Dynamic" ValidationGroup="SetUpSubmit"
+                runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtFaceValue"
+                MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>--%>
         </td>
     </tr>
     <tr id="trModeofIssue" runat="server">
@@ -452,14 +541,14 @@
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
+            <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator29" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeSeconds"
                 InitialValue="SS" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1Closetime" runat="server" Text="Close Time:" CssClass="FieldName"></asp:Label>
@@ -475,14 +564,14 @@
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator31" runat="server" CssClass="rfvPCG"
+            <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator31" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator32" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeSeconds"
                 InitialValue="SS" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
     <tr>
@@ -490,7 +579,6 @@
             <asp:Label ID="lb1RevisionDate" runat="server" Text="Revision Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <%--<asp:TextBox ID="txtRevisionDate" runat="server" CssClass="txtField"></asp:TextBox>--%>
             <telerik:RadDatePicker ID="txtRevisionDates" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 Width="200px" TabIndex="17">
@@ -501,18 +589,56 @@
                 <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
                 </DateInput>
             </telerik:RadDatePicker>
-            <%-- <span id="Span22" class="spnRequiredField">*</span>
-                    <br />
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please Enter Revision Date" Display="Dynamic" ControlToValidate="txtRevisionDates"
-                        InitialValue="" ValidationGroup="SetUpSubmit">
-                    </asp:RequiredFieldValidator>--%>
         </td>
         <td class="leftLabel">
-            &nbsp;
+            <asp:Label ID="Label18" runat="server" Text="Allotment Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            &nbsp;
+            <telerik:RadDatePicker ID="txtAllotmentDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                Width="200px" TabIndex="17">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+        </td>
+    </tr>
+    <tr>
+        <td class="leftLabel">
+            <asp:Label ID="Label16" runat="server" Text="Issue Size Qty:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtIssueSizeQty" runat="server" CssClass="txtField" Width="200px"
+                MaxLength="10"></asp:TextBox>
+            <span id="Span31" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator39" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Trading Lot" Display="Dynamic" ControlToValidate="txtIssueSizeAmt"
+                InitialValue="" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="txtIssueSizeQty"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtIssueSizeQty">     
+            </asp:RegularExpressionValidator>
+        </td>
+        <td class="leftLabel">
+            <asp:Label ID="Label17" runat="server" Text="Issue Size Amt:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtIssueSizeAmt" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span33" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator41" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Bidding Lot" Display="Dynamic" ControlToValidate="txtIssueSizeAmt"
+                InitialValue="" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtIssueSizeAmt"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Type" CssClass="cvPCG"
+                ValidationExpression="@^[0-9]\d*$" ValidationGroup="txtIssueSizeAmt">     
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
     <tr>
@@ -523,13 +649,14 @@
             <asp:TextBox ID="txtTradingLot" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span22" class="spnRequiredField">*</span>
             <br />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator8" ControlToValidate="txtTradingLot"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtTradingLot">                     
+            </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator19" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Trading Lot" Display="Dynamic" ControlToValidate="txtTradingLot"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator1" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtTradingLot"
-                MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1BiddingLot" runat="server" Text="Bidding Lot:" CssClass="FieldName"></asp:Label>
@@ -542,12 +669,13 @@
                 ErrorMessage="Please Enter Bidding Lot" Display="Dynamic" ControlToValidate="txtBiddingLot"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:RangeValidator ID="RangeValidator2" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtBiddingLot"
-                MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator9" ControlToValidate="txtBiddingLot"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtBiddingLot">                     
+            </asp:RegularExpressionValidator>
         </td>
     </tr>
-     <tr runat="server" ID="trMaxQty" >
+    <tr runat="server" id="trMaxQty">
         <td class="leftLabel">
             <asp:Label ID="Label15" runat="server" Text="Max Qty:" CssClass="FieldName"></asp:Label>
         </td>
@@ -555,24 +683,23 @@
             <asp:TextBox ID="txtMaxQty" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span30" class="spnRequiredField">*</span>
             <br />
-            <asp:RangeValidator ID="RangeValidator7" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Max Qty between 1 to 999999999"
-                ControlToValidate="txtMaxQty" MaximumValue="999999999" MinimumValue="1" Type="Integer"
-                CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtMaxQty"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtMaxQty">                     
+            </asp:RegularExpressionValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
         </td>
-           <td class="leftLabel">
+        <td class="leftLabel">
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
-        
     </tr>
-    <tr runat="server" ID="trMinQty">
+    <tr runat="server" id="trMinQty">
         <td class="leftLabel">
             <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Qty:" CssClass="FieldName"></asp:Label>
         </td>
@@ -580,17 +707,19 @@
             <asp:TextBox ID="txtMinAplicSize" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span23" class="spnRequiredField">*</span>
             <br />
-            <asp:RangeValidator ID="RangeValidator6" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Date of Min Qty between 1 to 999999999"
-                ControlToValidate="txtFloorPrice" MaximumValue="999999999" MinimumValue="1" Type="Integer"
-                CssClass="cvPCG"></asp:RangeValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Min AplicationSize" Display="Dynamic" ControlToValidate="txtMinAplicSize"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinAplicSize"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtMinAplicSize">     
+            </asp:RegularExpressionValidator>
         </td>
-        <td colspan="2">&nbsp;</td>
-     <%--   <td class="leftLabel">
+        <td colspan="2">
+            &nbsp;
+        </td>
+        <%--   <td class="leftLabel">
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
@@ -609,10 +738,10 @@
                 ErrorMessage="Please Enter Trading In Multiple Of" Display="Dynamic" ControlToValidate="txtTradingInMultipleOf"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <br />
-            <asp:RangeValidator ID="RangeValidator3" Display="Dynamic" ValidationGroup="SetUpSubmit"
-                runat="server" ErrorMessage="<br />Please enter a numeric value" ControlToValidate="txtTradingInMultipleOf"
-                MaximumValue="2147483647" MinimumValue="0" Type="Double" CssClass="cvPCG"></asp:RangeValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="txtTradingInMultipleOf"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="txtTradingInMultipleOf">     
+            </asp:RegularExpressionValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1ListedInExchange" runat="server" Text="Listed In Exchange:" CssClass="FieldName"></asp:Label>
@@ -620,6 +749,9 @@
         <td class="rightData">
             <asp:DropDownList ID="ddlListedInExchange" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px" OnSelectedIndexChanged="ddlListedInExchange_SelectedIndexChanged">
+                <asp:ListItem Value="Select">Select</asp:ListItem>
+                <asp:ListItem Value="NSE">NSE</asp:ListItem>
+                <asp:ListItem Value="BSE">BSE</asp:ListItem>
             </asp:DropDownList>
             <%-- <asp:TextBox ID="txtListedInExchange" runat="server" CssClass="txtField"></asp:TextBox>--%>
         </td>
@@ -669,9 +801,9 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtPutCallOption" runat="server" CssClass="txtField" Width="205px"></asp:TextBox>
-            <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtCloseDate" runat="server"
+            <%--<asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtCloseDate" runat="server"
                 Display="Dynamic" ErrorMessage="<br />Please enter a Put Call Option" Type="Date"
-                Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
         </td>
     </tr>
     <tr id="trNomineeReQuired" runat="server">
@@ -901,8 +1033,7 @@
                                                         <asp:Label ID="lb1DiscountType" runat="server" Text="Discount Type:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td class="rightData" colspan="2">
-                                                        <asp:DropDownList ID="ddlDiscountType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                                                             >
+                                                        <asp:DropDownList ID="ddlDiscountType" runat="server" CssClass="cmbField" AutoPostBack="true">
                                                             <asp:ListItem Value="Select">Select</asp:ListItem>
                                                             <asp:ListItem Value="Per">Per(%)</asp:ListItem>
                                                             <asp:ListItem Value="Amt">Amt</asp:ListItem>

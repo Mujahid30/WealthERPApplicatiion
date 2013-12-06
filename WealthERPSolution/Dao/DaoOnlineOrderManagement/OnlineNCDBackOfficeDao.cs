@@ -235,7 +235,39 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSeriesCategories;
         }
-        
+
+        public int CreateUpdateDeleteIssuer(int issuerId, string issuerCode, string issuerName, string commandType)
+        {
+            int issueId;
+            Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetIssuer");
+                db.AddInParameter(createCmd, "@CommandType", DbType.String, commandType);
+                db.AddInParameter(createCmd, "@issuerId", DbType.Int32, issuerId);
+                db.AddInParameter(createCmd, "@IssuerName", DbType.String, issuerCode);
+                db.AddInParameter(createCmd, "@IssuerCode", DbType.String, issuerName);
+
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                   
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+
         public int CreateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo, int adviserId)
         {
             int issueId;
@@ -289,8 +321,13 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@CapPrice", DbType.Double, onlineNCDBackOfficeVo.CapPrice);
                 db.AddInParameter(createCmd, "@NoOfBidAllowed", DbType.Int32, onlineNCDBackOfficeVo.NoOfBidAllowed);
                 db.AddInParameter(createCmd, "@RtaSourceCode", DbType.String, onlineNCDBackOfficeVo.RtaSourceCode);
-                db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty); 
-                
+                db.AddInParameter(createCmd, "@MaxQty", DbType.Int32, onlineNCDBackOfficeVo.MaxQty);
+                db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int32, onlineNCDBackOfficeVo.IssueSizeQty);
+                db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt); 
+                //db.AddInParameter(createCmd, "@IsListedinBSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinBSE); 
+                //db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE); 
+                //db.AddInParameter(createCmd, "@NSECode", DbType.String, onlineNCDBackOfficeVo.NSECode);
+                //db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);
                 db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);  
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
@@ -399,7 +436,34 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSeriesCategories;
         }
-
+        public DataSet BindRta()
+        {
+            DataSet dsGetSeriesCategories;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_BindRta");                
+                dsGetSeriesCategories = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindRta()");
+                object[] objects = new object[0];                
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetSeriesCategories;
+        }
         public DataSet GetAllInvestorTypes(int  issuerId, int issueId)
         {
             DataSet dsGetSubCategory;
@@ -1134,7 +1198,7 @@ namespace DaoOnlineOrderManagement
                 return status = false;
         }
 
-        public DataSet GetUnmatchedAllotments(int adviserId, int issuerId)
+        public DataSet GetUnmatchedAllotments(int adviserId, int issueId)
         {
             Database db;
             DataSet ds;
@@ -1145,7 +1209,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetCmd = db.GetStoredProcCommand("SPROC_GetUnmatchedAllotments");
                 db.AddInParameter(GetCmd, "@advisorId", DbType.Int32, adviserId);
-                db.AddInParameter(GetCmd, "@isseuerId", DbType.Int32, issuerId);
+                db.AddInParameter(GetCmd, "@isseueId", DbType.Int32, issueId);
                 ds = db.ExecuteDataSet(GetCmd);
             }
             catch (BaseApplicationException Ex)
