@@ -66,8 +66,8 @@ div#MainDivLeft
 {
     font-family: Verdana,Tahoma;
     font-weight: normal;
-    font-size: x-small;
-    color: #0396cc;
+    font-size: small;
+    color: #104259;
     width: 145px;
 }
 
@@ -76,16 +76,24 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #006699;
+    color: #104259;
     width: 250px;
 }
+.readOnlyField
+{
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: #104259;
+ }
+ 
 .AddLongField
 {
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
     vertical-align: middle;
-    color: #16518A;
+    color: #104259;
     width: 250px;
 }
 .txtSchemeName
@@ -93,7 +101,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #0B49AE;
+    color: #104259;
     width: 500px;
 }
 .cmbFielde
@@ -101,7 +109,7 @@ div#MainDivLeft
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: x-small;
-    color: #4B4726;
+    color: #104259;
     width: 150px;
 }
 .cmbField
@@ -122,6 +130,11 @@ div#MainDivLeft
     text-overflow: " ";
     display: inline-block;
     border: 0 !important; /*   font-family: Verdana,Tahoma;     font-weight: normal;     font-size: x-small;     color: #4B4726;     width: 150px;*/
+    
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: #104259;
 }
 
 .cmbLongField
@@ -140,7 +153,34 @@ div#MainDivLeft
     text-overflow: " ";
     display: inline-block;
     border: 0 !important;
-    width: 150px;
+    width: 250px;
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: #104259;
+}
+
+.cmbExtraLongField
+{
+    overflow: hidden;
+    background: url(/../Images/downArrow.png) no-repeat right white; /*Adds background-image*/
+    border-left: 1px double #6a7887;
+    border-bottom: 2px double #2672c5;
+    border-top: 2px double #98c6fa;
+    border-right: 1px double #98c6fa;
+    border-radius: 6px; /*display: inline-block;                position:relative;*/
+    appearance: none; /*Removes default IE style*/
+    -webkit-appearance: none; /*Removes default chrome and safari style*/
+    -moz-appearance: window; /*Removes Default Firefox style*/
+    text-indent: 0.01px; /*Removes default arrow from firefox*/
+    text-overflow: " ";
+    display: inline-block;
+    border: 0 !important;
+    width: 400px;
+    font-family: Verdana,Tahoma;
+    font-weight: normal;
+    font-size: small;
+    color: #104259;
 }
 
 .Button
@@ -1479,11 +1519,11 @@ p.tip
     margin: 0px;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
     box-shadow: 0px 0px 5px 0px rgba(164, 164, 164, 1);
-    text-align:left !Important;
+    text-align: left !important;
 }
 .popbox h2
-{    
-    color:White;
+{
+    color: White;
     font-size: 10px;
     display: block;
     width: 100%;
@@ -1498,13 +1538,13 @@ p.tip
     background: -ms-linear-gradient(top, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* IE10+ */
     background: linear-gradient(to bottom, #d0e4f7 0%,#73b1e7 24%,#0a77d5 50%,#539fe1 79%,#87bcea 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d0e4f7', endColorstr='#87bcea',GradientType=0 ); /* IE6-8 */
-    text-align:left !Important;
+    text-align: left !important;
 }
 .popper
 {
     background: url(/../Images/field-help.png) no-repeat;
     height: 6px;
-    text-decoration: none
+    text-decoration: none;
 }
 
 
@@ -1512,11 +1552,10 @@ p.tip
 {
     font-family: Verdana,Tahoma;
     font-weight: normal;
-    font-size: x-small;
-    color: #0396cc;
+    font-size: small;
+    color: #104259;
     width: 145px;
-    background-color:#E7E7E7;
-    
+    background-color: #E7E7E7;
 }
 
 

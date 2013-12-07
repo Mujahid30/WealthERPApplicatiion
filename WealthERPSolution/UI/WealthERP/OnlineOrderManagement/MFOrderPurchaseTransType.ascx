@@ -100,8 +100,8 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="300px" OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -137,8 +137,8 @@
                         <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="300px" OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
+                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+                             OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
                         </asp:DropDownList>
                         <span id="Span2" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
@@ -169,7 +169,7 @@
                         <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -181,7 +181,7 @@
                         <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -193,7 +193,7 @@
                         <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -205,13 +205,13 @@
                         <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td style="vertical-align: top;">
-                        <asp:Label ID="lblMintxt" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -234,7 +234,7 @@
                         <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td style="vertical-align: top;">
-                        <asp:Label ID="lblMulti" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                 </tr>
                 <tr class="spaceUnder" id="trDivtype" visible="false" runat="server">

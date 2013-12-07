@@ -119,8 +119,8 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="300px" OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+                           OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span7" class="spnRequiredField">*</span>
@@ -161,8 +161,8 @@
                         <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="300px" OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
+                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+                            OnSelectedIndexChanged="ddlScheme_SelectedIndexChanged">
                             <asp:ListItem Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
@@ -203,7 +203,7 @@
                         <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -217,7 +217,7 @@
                         <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -231,7 +231,7 @@
                         <asp:Label ID="lblNav" runat="server" Text="Last Recorded NAV(Rs):" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -245,7 +245,7 @@
                         <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -259,7 +259,7 @@
                         <asp:Label ID="lblUnitHeld" runat="server" Text="Unit Held:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblUnitHeldDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblUnitHeldDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td>
                     </td>
@@ -337,14 +337,14 @@
                         <asp:Label ID="lblEndDate" runat="server" Text="End Date:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:"
                             CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -367,7 +367,7 @@
                     <td style="vertical-align: top;">
                         <asp:TextBox Style="display: none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false"
                             runat="server"></asp:TextBox>
-                        <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                 </tr>
                 <tr style="display: none;" id="trDividendType" runat="server" class="spaceUnder">
@@ -377,7 +377,7 @@
                         <asp:Label ID="lblDividendType" runat="server" Text="DividendType:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblDividendTypeDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblDividendTypeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td align="right">
                     </td>

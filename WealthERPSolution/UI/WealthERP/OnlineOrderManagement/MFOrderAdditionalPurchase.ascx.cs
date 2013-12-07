@@ -60,9 +60,14 @@ namespace WealthERP.OnlineOrderManagement
 
                     if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
                     {
-                        ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
-                        PurchaseOrderControlsEnable(false);
-                        btnSubmit.Visible = false;
+                        int accountId = 0;
+                        int schemeCode = 0;
+                        int amcCode = 0;
+                        string category = string.Empty;
+                        accountId = int.Parse(Request.QueryString["accountId"].ToString());
+                        schemeCode = int.Parse(Request.QueryString["SchemeCode"].ToString());
+                        commonLookupBo.GetSchemeAMCCategory(schemeCode, out amcCode, out category);
+                        SetSelectedDisplay(accountId, schemeCode, amcCode, category);
                     }
                 }
                 else
@@ -250,10 +255,12 @@ namespace WealthERP.OnlineOrderManagement
             lblUnitsheldDisplay.Visible = true;
             if (lblDividendType.Text == "Growth")
             {
-                lblDividendFrequency.Visible = false;
-                lbldftext.Visible = false;
-                lblDivType.Visible = false;
-                ddlDivType.Visible = false;
+                //lblDividendFrequency.Visible = false;
+                //lbldftext.Visible = false;
+                trDivfeq.Visible = false;
+                //lblDivType.Visible = false;
+                //ddlDivType.Visible = false;
+                trDividendType.Visible = false;
                 RequiredFieldValidator4.Enabled = false;
 
             }
@@ -261,8 +268,11 @@ namespace WealthERP.OnlineOrderManagement
             {
                 //lblDividendFrequency.Visible = true;
                 //lbldftext.Visible = true;
-                lblDivType.Visible = true;
-                ddlDivType.Visible = true;
+                //trDivfeq.Visible = true;
+
+                //lblDivType.Visible = true;
+                //ddlDivType.Visible = true;
+                trDividendType.Visible = true;
                 RequiredFieldValidator4.Enabled = true;
 
 

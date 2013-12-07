@@ -22,6 +22,43 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divControlContainer;
+        
+        /// <summary>
+        /// trDivfeq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivfeq;
+
+        /// <summary>
+        /// trDivtype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
+
+        /// <summary>
+        /// trDividendOption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDividendOption;
+
+        /// <summary>
+        /// trRedeemType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trRedeemType;
+
 
         /// <summary>
         /// trTermsCondition control.
@@ -59,7 +96,7 @@ namespace WealthERP.OnlineOrderManagement
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTable tblMessage;
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
+       
 
         /// <summary>
         /// trSumbitSuccess control.

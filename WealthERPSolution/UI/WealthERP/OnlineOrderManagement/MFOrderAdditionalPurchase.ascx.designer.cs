@@ -59,6 +59,9 @@ namespace WealthERP.OnlineOrderManagement
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivtype;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDivfeq;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trDividendType;
+        
 
         /// <summary>
         /// msgRecordStatus control.

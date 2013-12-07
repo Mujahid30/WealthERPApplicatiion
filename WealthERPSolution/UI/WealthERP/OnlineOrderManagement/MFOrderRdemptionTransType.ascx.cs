@@ -60,9 +60,11 @@ namespace WealthERP.OnlineOrderManagement
                     lnkOfferDoc.Visible = false;
                     lnkFactSheet.Visible = false;
                     lnkExitLoad.Visible = false;
-                    txtRedeemTypeValue.Visible = false;
-                    lblOption.Visible = false;
-                    lblDividendType.Visible = false;
+                    //txtRedeemTypeValue.Visible = false;
+                    //lblOption.Visible = false;
+                    //lblDividendType.Visible = false;
+                    trDividendOption.Visible = false;
+                    trRedeemType.Visible = false;
                     if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
                     {
                         int accountId = 0;
@@ -303,10 +305,12 @@ namespace WealthERP.OnlineOrderManagement
             lblUnitsheldDisplay.Visible = true;
             if (lblDividendType.Text == "Growth")
             {
-                lblDividendFrequency.Visible = false;
-                lbldftext.Visible = false;
-                lblDivType.Visible = false;
-                ddlDivType.Visible = false;
+                //lblDividendFrequency.Visible = false;
+                //lbldftext.Visible = false;
+                trDivfeq.Visible = false;
+                //lblDivType.Visible = false;
+                //ddlDivType.Visible = false;
+                trDivtype.Visible = false;
                 RequiredFieldValidator3.Enabled = false;
 
 
@@ -315,8 +319,10 @@ namespace WealthERP.OnlineOrderManagement
             {
                 //lblDividendFrequency.Visible = true;
                 //lbldftext.Visible = true;
-                lblDivType.Visible = true;
-                ddlDivType.Visible = true;
+                //lblDivType.Visible = true;
+                //ddlDivType.Visible = true;
+                trDivfeq.Visible = true;
+                trDivtype.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
 
 
@@ -401,7 +407,8 @@ namespace WealthERP.OnlineOrderManagement
                 txtRedeemTypeValue.Text = lblUnitsheldDisplay.Text;
                 txtRedeemTypeValue.Enabled = false;
             }
-            txtRedeemTypeValue.Visible = true;
+            //txtRedeemTypeValue.Visible = true;
+            trRedeemType.Visible = true;
         }
         protected void BindNomineeAndJointHolders()
         {

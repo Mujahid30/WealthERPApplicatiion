@@ -100,8 +100,8 @@
                         <asp:Label ID="lblAmc" runat="server" Text="AMC:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="300px" OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -137,8 +137,8 @@
                         <asp:Label ID="lblScheme" runat="server" Text="Scheme:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbField" AutoPostBack="true"
-                            Width="300px" OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
+                        <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
+                             OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
                         </asp:DropDownList>
                         <span id="Span2" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
@@ -171,7 +171,7 @@
                         <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -183,7 +183,7 @@
                         <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -195,7 +195,7 @@
                         <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -207,7 +207,7 @@
                         <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -219,7 +219,7 @@
                         <asp:Label ID="lblUnitsheld" runat="server" Text="Units Held:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
@@ -232,40 +232,12 @@
                             CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:Label ID="lblCurrentValueDisplay" runat="server" CssClass="FieldName"></asp:Label>
+                        <asp:Label ID="lblCurrentValueDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>
                 </tr>
-                <%-- <tr class="spaceUnder">
-            <td>
-            </td>
-            <td align="right" style="vertical-align: top;">
-                <asp:Label ID="lblAmt" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:TextBox ID="txtAmt" runat="server" CssClass="txtField"></asp:TextBox>
-                <span id="Span3" class="spnRequiredField">*</span>
-                <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtAmt"
-                    ErrorMessage="Please Enter Only Numbers" CssClass="rfvPCG" ValidationExpression="^\d+$"
-                    ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
-                </br>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select a Amount"
-                    CssClass="rfvPCG" ControlToValidate="txtAmt" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
-            </td>
-            
-        </tr>--%>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                    </td>
-                    <td>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr class="spaceUnder" id="trDivtype">
+                <tr class="spaceUnder" id="trDivtype" runat="server">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
@@ -286,7 +258,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDivfeq">
+                <tr class="spaceUnder" id="trDivfeq" runat="server" visible="false">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
@@ -319,14 +291,14 @@
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <tr class="spaceUnder">
+                <tr class="spaceUnder" id="trRedeemType" runat="server">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblRedeemType" runat="server" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="FieldName" MaxLength="11"></asp:TextBox>
+                        <asp:TextBox ID="txtRedeemTypeValue" runat="server" CssClass="txtField" MaxLength="11"></asp:TextBox>
                         <span id="Span4" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please enter required value"
                             CssClass="rfvPCG" ControlToValidate="txtRedeemTypeValue" ValidationGroup="btnSubmit"
@@ -334,7 +306,7 @@
                         </br>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
                             ErrorMessage="Please Enter Only Numbers and 2 digits after Decimal" CssClass="rfvPCG"
-                            ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit"></asp:RegularExpressionValidator>
+                            ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                         <asp:RangeValidator ID="RangeValidator1" Text="Please enter value greater than 0 "
                             ControlToValidate="txtRedeemTypeValue" MinimumValue="1" MaximumValue="9999999999"
                             ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic"
@@ -343,7 +315,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder">
+                <tr class="spaceUnder" id="trDividendOption" runat="server">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
@@ -379,11 +351,11 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder">
-                    <td style="width: 150px;">
+                    <td style="width: 150px;" colspan="2">
                     </td>
                     <td>
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
-                            CssClass="FieldName" ValidationGroup="btnSubmit"></asp:Button>
+                            CssClass="PCGButton" ValidationGroup="btnSubmit"></asp:Button>
                     </td>
                 </tr>
             </table>
