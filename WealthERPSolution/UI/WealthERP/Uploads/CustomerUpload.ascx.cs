@@ -4497,6 +4497,11 @@ namespace WealthERP.Uploads
                 {
                     msgUploadComplete.Visible = true;
                     lnkClick.Visible = true;
+                    ddlUploadType.Enabled = false;
+                    ddlListCompany.Enabled = false;
+                    FileUpload.Enabled = false;
+                    ddlListBranch.Enabled = false;
+                    btn_Upload.Visible = false;
                 }
             }
         }
