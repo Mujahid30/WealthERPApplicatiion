@@ -822,7 +822,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNcdBsnCode;
+        protected global::System.Web.UI.WebControls.TextBox txtBSECode;
+        protected global::System.Web.UI.WebControls.TextBox txtNSECode;
+
         
         /// <summary>
         /// lb1BankName control.

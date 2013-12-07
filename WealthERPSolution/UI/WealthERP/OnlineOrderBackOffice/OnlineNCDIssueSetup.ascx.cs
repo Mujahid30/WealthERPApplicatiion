@@ -73,6 +73,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIP")
                         {
                             ddlProduct.SelectedValue = "IP";
+                            if (!string.IsNullOrEmpty(dr["AIM_CapPrice"].ToString()))
+                            {
+                                ddlIssueType.SelectedValue = "BookBuilding";
+                                txtCapPrice.Text = dr["AIM_CapPrice"].ToString();
+                            }
+                            else
+                            {
+                                txtCapPrice.Text = "";
+                                ddlIssueType.SelectedValue = "FixedPrice";
+                            }
                         }
                         else
                         {
@@ -87,12 +97,15 @@ namespace WealthERP.OnlineOrderBackOffice
                                 ddlProduct.SelectedValue = "NCD";
 
                             }
+                            ddlIssueType.SelectedValue = "Select";
                         }
                     }
+                    
                     //ddlProduct.SelectedValue =dr["PAIC_AssetInstrumentCategoryCode"].ToString();
                     EnablityOfControlsonProductAndIssueTypeSelection(ddlProduct.SelectedValue);
+                    EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
 
-                    ddlCategory.SelectedValue = "NCD";
+                   // ddlCategory.SelectedValue = "NCD";
                     txtName.Text = dr["AIM_IssueName"].ToString();
                     ddlIssuer.SelectedValue = dr["PI_issuerId"].ToString();
                     txtFormRange.Text = dr["AIFR_From"].ToString();
@@ -167,7 +180,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtIsPrefix.Text = "";
                     }
 
-                    ddlListedInExchange.SelectedValue = "";
+                   // ddlListedInExchange.SelectedValue = "";
                     ddlBankName.Text = "";
                     ddlBankBranch.Text = "";
                     if (!string.IsNullOrEmpty(dr["AIM_IsActive"].ToString()))
@@ -233,33 +246,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtBookBuildingPer.Text = "";
                     }
 
-                    if (!string.IsNullOrEmpty(dr["AIM_CapPrice"].ToString()))
-                    {
-                        txtCapPrice.Text = dr["AIM_CapPrice"].ToString();
-                    }
-                    else
-                    {
-                        txtCapPrice.Text = "";
-                    }
-
-                   
-
-                    if (!string.IsNullOrEmpty(txtFixedPrice.Text))
-                    {
-                        ddlIssueType.SelectedValue = "FixedPrice";
-                        if (Convert.ToDouble(txtFixedPrice.Text) != 0)
-                        {
-                            EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
-
-                        }
-                    }
-                    if (!string.IsNullOrEmpty(txtBookBuildingPer.Text))
-                    {
-                        ddlIssueType.SelectedValue = "BookBuilding";
-                        EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
-                    }
-
-
+                    
+                    
                     if (!string.IsNullOrEmpty(dr["AIM_FaceValue"].ToString()))
                     {
                         txtFaceValue.Text = dr["AIM_FaceValue"].ToString();
@@ -303,6 +291,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     else
                     {
                         txtIssueSizeAmt.Text = "";
+                    }
+                    if (!string.IsNullOrEmpty(dr["AIM_NSECode"].ToString()))
+                    {
+                        txtNSECode.Text = dr["AIM_NSECode"].ToString();
+                    }
+                    else
+                    {
+                        txtNSECode.Text = "";
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_BSECode"].ToString()))
+                    {
+                        txtBSECode.Text = dr["AIM_BSECode"].ToString();
+                    }
+                    else
+                    {
+                        txtBSECode.Text = "";
+
                     }
 
 
@@ -398,7 +404,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
             txtTradingInMultipleOf.Enabled = value;
-            ddlListedInExchange.Enabled = value;
+            //ddlListedInExchange.Enabled = value;
 
             ddlBankName.Enabled = value;
             ddlBankBranch.Enabled = value;
@@ -522,14 +528,14 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
 
-                if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
-                {
-                    onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
-                }
-                else
-                {
-                    onlineNCDBackOfficeVo.ListedInExchange = "";
-                }
+                //if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
+                //{
+                //    onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
+                //}
+                //else
+                //{
+                //    onlineNCDBackOfficeVo.ListedInExchange = "";
+                //}
 
 
                 if (!string.IsNullOrEmpty(ddlBankName.Text))
@@ -659,22 +665,25 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-                if (ddlListedInExchange.SelectedValue == "NSE")
+                if (!string.IsNullOrEmpty(txtNSECode.Text))
                 {
                     onlineNCDBackOfficeVo.IsListedinNSE = 1;
-                    onlineNCDBackOfficeVo.NSECode = txtNcdBsnCode.Text;
-                }
-                else if (ddlListedInExchange.SelectedValue == "BSE")
-                {
-                    onlineNCDBackOfficeVo.IsListedinBSE = 1;
-                    onlineNCDBackOfficeVo.BSECode = txtNcdBsnCode.Text;
+                    onlineNCDBackOfficeVo.NSECode = txtNSECode.Text;
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.IsListedinBSE = 0;
-                    onlineNCDBackOfficeVo.IsListedinNSE = 0;
                     onlineNCDBackOfficeVo.NSECode = "";
+                }
+
+                if (!string.IsNullOrEmpty(txtBSECode.Text))
+                {
+                    onlineNCDBackOfficeVo.IsListedinBSE = 1;
+                    onlineNCDBackOfficeVo.BSECode = txtBSECode.Text;
+                }
+                else
+                {
                     onlineNCDBackOfficeVo.BSECode = "";
+
                 }
 
 
@@ -1668,14 +1677,14 @@ namespace WealthERP.OnlineOrderBackOffice
 
                 onlineNCDBackOfficeVo.TradingInMultipleOf = Convert.ToInt32(txtTradingInMultipleOf.Text);
 
-                if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
-                {
-                    onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
-                }
-                else
-                {
-                    onlineNCDBackOfficeVo.ListedInExchange = "";
-                }
+                //if (!string.IsNullOrEmpty(ddlListedInExchange.SelectedValue))
+                //{
+                //    onlineNCDBackOfficeVo.ListedInExchange = ddlListedInExchange.SelectedValue;
+                //}
+                //else
+                //{
+                //    onlineNCDBackOfficeVo.ListedInExchange = "";
+                //}
 
 
                 if (!string.IsNullOrEmpty(ddlBankName.SelectedValue))
@@ -1837,24 +1846,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
 
 
-                if (ddlListedInExchange.SelectedValue == "NSE")
+                if (!string.IsNullOrEmpty(txtNSECode.Text))
                 {
                     onlineNCDBackOfficeVo.IsListedinNSE = 1;
-                    onlineNCDBackOfficeVo.NSECode = txtNcdBsnCode.Text;
-                }
-                else if (ddlListedInExchange.SelectedValue == "BSE")
-                {
-                    onlineNCDBackOfficeVo.IsListedinBSE = 1;
-                    onlineNCDBackOfficeVo.BSECode = txtNcdBsnCode.Text;
+                    onlineNCDBackOfficeVo.NSECode = txtNSECode.Text;
                 }
                 else
                 {
-                    onlineNCDBackOfficeVo.IsListedinBSE = 0;
-                    onlineNCDBackOfficeVo.IsListedinNSE = 0;
                     onlineNCDBackOfficeVo.NSECode = "";
-                    onlineNCDBackOfficeVo.BSECode = "";
                 }
 
+                if (!string.IsNullOrEmpty(txtBSECode.Text))
+                {
+                    onlineNCDBackOfficeVo.IsListedinBSE = 1;
+                    onlineNCDBackOfficeVo.BSECode = txtBSECode.Text;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.BSECode = "";
+
+                }
 
 
                 issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
@@ -2645,21 +2656,21 @@ namespace WealthERP.OnlineOrderBackOffice
         private void ListedExchange(string code)
         {
             trExchangeCode.Visible = true;
-            if (ddlListedInExchange.SelectedValue == "NCD")
-            {
-                lb1Code.Text = "NCd" + lb1Code.Text;
+            //if (ddlListedInExchange.SelectedValue == "NCD")
+            //{
+            //    lb1Code.Text = "NCd" + lb1Code.Text;
 
-            }
-            else if (ddlListedInExchange.SelectedValue == "BSN")
-            {
-                lb1Code.Text = "BSN" + lb1Code.Text;
-            }
+            //}
+            //else if (ddlListedInExchange.SelectedValue == "BSN")
+            //{
+            //    lb1Code.Text = "BSN" + lb1Code.Text;
+            //}
         }
 
-        protected void ddlListedInExchange_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ListedExchange(ddlListedInExchange.SelectedValue);
-        }
+        //protected void ddlListedInExchange_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //   // ListedExchange(ddlListedInExchange.SelectedValue);
+        //}
 
         protected void ddlProduct_Selectedindexchanged(object sender, EventArgs e)
         {
@@ -2720,6 +2731,7 @@ namespace WealthERP.OnlineOrderBackOffice
             trRegistrarAndNoofBidsAlloweds.Visible = false;
             //both
             //trFloorAndFixedPrices.Visible = true;
+            trExchangeCode.Visible = false;
 
             if (product == "NCD")
             {
@@ -2739,6 +2751,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdlblCategory.Visible = false;
                 tdddlCategory.Visible = false;
                 trMaxQty.Visible = false;
+                trExchangeCode.Visible = true;
             }
         }
 
@@ -2748,11 +2761,11 @@ namespace WealthERP.OnlineOrderBackOffice
             if (i > 0)
             {
                 if (commandType == "INSERT")
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Inserted SuccessFully.');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Inserted Successfully.');", true);
                 else if (commandType == "UPDATE")
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated SuccessFully.');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated Successfully.');", true);
                 else
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted SuccessFully.');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
             }
         }
 

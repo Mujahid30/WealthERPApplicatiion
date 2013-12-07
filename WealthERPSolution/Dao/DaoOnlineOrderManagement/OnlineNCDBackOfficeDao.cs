@@ -248,8 +248,8 @@ namespace DaoOnlineOrderManagement
                 createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetIssuer");
                 db.AddInParameter(createCmd, "@CommandType", DbType.String, commandType);
                 db.AddInParameter(createCmd, "@issuerId", DbType.Int32, issuerId);
-                db.AddInParameter(createCmd, "@IssuerName", DbType.String, issuerCode);
-                db.AddInParameter(createCmd, "@IssuerCode", DbType.String, issuerName);
+                db.AddInParameter(createCmd, "@IssuerName", DbType.String,issuerName);
+                db.AddInParameter(createCmd, "@IssuerCode", DbType.String, issuerCode);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
