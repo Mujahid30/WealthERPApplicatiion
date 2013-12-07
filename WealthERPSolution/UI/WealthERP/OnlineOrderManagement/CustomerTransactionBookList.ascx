@@ -160,12 +160,12 @@
                                     UniqueName="Customer Name" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                               <%-- <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
                                     AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
                                     SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                                 <%--  <telerik:GridBoundColumn DataField="TransactionNumber" HeaderText="TransactionNo"
                                     AllowFiltering="false" SortExpression="TransactionNumber" ShowFilterIcon="false"
                                     CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" UniqueName="TransactionNumber"
@@ -178,11 +178,11 @@
                                     FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
+                               <%-- <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
                                     UniqueName="OrderNo" SortExpression="OrderNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
                                     <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                                </telerik:GridBoundColumn>
+                                </telerik:GridBoundColumn>--%>
                                 <telerik:GridBoundColumn DataField="AMC" HeaderText="Fund Name" AllowFiltering="true"
                                     HeaderStyle-Wrap="false" SortExpression="AMC" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="AMC" FooterStyle-HorizontalAlign="Left">
@@ -330,6 +330,17 @@
                                                                 </script>
                                                             </telerik:RadScriptBlock>
                                                         </FilterTemplate>--%>
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                                    AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CO_OrderDate"
+                                    SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="OrderNo" AllowFiltering="true" HeaderText="Order No."
+                                    UniqueName="OrderNo" SortExpression="OrderNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" HeaderStyle-Width="75px" FilterControlWidth="50px">
+                                    <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" DataField="CreatedOn" HeaderText="Add Date (System)"
                                     AllowFiltering="false" HeaderStyle-Wrap="false" SortExpression="CreatedOn" ShowFilterIcon="false"
