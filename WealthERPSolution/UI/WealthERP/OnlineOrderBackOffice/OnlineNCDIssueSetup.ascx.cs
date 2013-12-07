@@ -118,6 +118,13 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
 
 
+                    if (!string.IsNullOrEmpty(dr["AIM_AllotmentDate"].ToString()))
+                    {
+                        txtAllotmentDate.SelectedDate = Convert.ToDateTime(dr["AIM_AllotmentDate"].ToString());
+                    }
+
+                    
+
                     //string time                                                                                   txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                     if (!string.IsNullOrEmpty(dr["AIM_OpenTime"].ToString()))
                     {
@@ -238,13 +245,18 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (!string.IsNullOrEmpty(txtBookBuildingPer.Text))
                     {
                         ddlIssueType.SelectedValue = "BookBuilding";
+                        EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
                     }
 
                     if (!string.IsNullOrEmpty(txtFixedPrice.Text))
                     {
                         ddlIssueType.SelectedValue = "FixedPrice";
+                        if (Convert.ToDouble(txtFixedPrice.Text) != 0)
+                        {
+                            EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
+
+                        }
                     }
-                    EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
 
 
                     if (!string.IsNullOrEmpty(dr["AIM_FaceValue"].ToString()))
@@ -264,6 +276,36 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         txtRating.Text = "";
                     }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_NoOfBidAllowed"].ToString()))
+                    {
+                        txtNoOfBids.Text = dr["AIM_NoOfBidAllowed"].ToString();
+                    }
+                    else
+                    {
+                        txtNoOfBids.Text = "";
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_IssueSizeQty"].ToString()))
+                    {
+                        txtIssueSizeQty.Text = dr["AIM_IssueSizeQty"].ToString();
+                    }
+                    else
+                    {
+                        txtIssueSizeQty.Text = "";
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_IssueSizeAmt"].ToString()))
+                    {
+                        txtIssueSizeAmt.Text = dr["AIM_IssueSizeAmt"].ToString();
+                    }
+                    else
+                    {
+                        txtIssueSizeAmt.Text = "";
+                    }
+
+
+                    
 
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), issueNo);
                 }

@@ -634,7 +634,7 @@
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="txtIssueSizeAmt"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Type" CssClass="cvPCG"
-                ValidationExpression="@^[0-9]\d*$" ValidationGroup="SetUpSubmit">     
+                ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
         </td>
     </tr>
