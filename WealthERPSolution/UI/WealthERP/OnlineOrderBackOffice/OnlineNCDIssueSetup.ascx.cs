@@ -242,11 +242,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtCapPrice.Text = "";
                     }
 
-                    if (!string.IsNullOrEmpty(txtBookBuildingPer.Text))
-                    {
-                        ddlIssueType.SelectedValue = "BookBuilding";
-                        EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
-                    }
+                   
 
                     if (!string.IsNullOrEmpty(txtFixedPrice.Text))
                     {
@@ -256,6 +252,11 @@ namespace WealthERP.OnlineOrderBackOffice
                             EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
 
                         }
+                    }
+                    if (!string.IsNullOrEmpty(txtBookBuildingPer.Text))
+                    {
+                        ddlIssueType.SelectedValue = "BookBuilding";
+                        EnablityOfControlsonIssueTypeSelection(ddlIssueType.SelectedValue);
                     }
 
 
