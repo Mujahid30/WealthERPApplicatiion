@@ -212,7 +212,7 @@
                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidQuantity" runat="server" Text='<%# Bind("BidQty")%>' CssClass="txtField"
-                                                OnTextChanged="bidTextBoxs_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
+                                                OnTextChanged="BidQuantityPrice_TextChanged" AutoPostBack="true" onkeypress="return isNumberKey(event)"> </asp:TextBox>
                                             <a href="#" class="popper" data-popbox="divBidQuantity">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                             <div id="divBidQuantity" class="popbox">
                                                 <h2>
@@ -233,7 +233,7 @@
                                         ItemStyle-HorizontalAlign="Center" HeaderStyle-HorizontalAlign="Center" FooterStyle-HorizontalAlign="Center">
                                         <ItemTemplate>
                                             <asp:TextBox ID="txtBidPrice" runat="server" CssClass="txtField" Text='<%# Bind("BidPrice")%>'
-                                                AutoPostBack="false"> </asp:TextBox>
+                                                AutoPostBack="true"  OnTextChanged="BidQuantityPrice_TextChanged" onkeypress="return isNumberKey(event)"> </asp:TextBox>
                                             <a href="#" class="popper" data-popbox="divBidPrice">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
                                             <div id="divBidPrice" class="popbox">
                                                 <h2>

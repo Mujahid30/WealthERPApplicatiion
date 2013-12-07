@@ -111,7 +111,7 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-        protected void bidTextBoxs_TextChanged(object sender, EventArgs e)
+        protected void BidQuantityPrice_TextChanged(object sender, EventArgs e)
         {
             int currentRowidex = (((GridDataItem)((TextBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowidex);
@@ -122,11 +122,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             int currentRowindex = (((GridDataItem)((CheckBox)sender).NamingContainer).RowIndex / 2) - 1;
             ReseIssueBidValues(currentRowindex);
-            CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
-            if (chkCutOff.Checked)
-                EnableDisableBids(true,3);
-            else
-                EnableDisableBids(false,3);
+            //CheckBox chkCutOff = (CheckBox)RadGridIPOBid.MasterTableView.Items[currentRowindex]["CheckCutOff"].FindControl("cbCutOffCheck");
+            
         }
 
         protected void ReseIssueBidValues(int row)
@@ -180,6 +177,11 @@ namespace WealthERP.OnlineOrderManagement
                 txtBidAmountPayable.Text = Math.Round(bidAmountPayable,2).ToString();
 
             }
+
+            if (chkCutOff.Checked)
+                EnableDisableBids(true, 3);
+            else
+                EnableDisableBids(false, 3);
                        
         }
 
@@ -196,7 +198,7 @@ namespace WealthERP.OnlineOrderManagement
 
                 TextBox txtBidAmount = (TextBox)item.FindControl("txtBidAmount");
                 TextBox txtBidAmountPayable = (TextBox)item.FindControl("txtBidAmountPayable");
-                bidMaxPayableAmount[count] = Convert.ToDouble(txtBidAmountPayable.Text);
+               
                 if (isChecked)
                 {
                     if (chkCutOff.Checked)
@@ -238,9 +240,12 @@ namespace WealthERP.OnlineOrderManagement
 
                 }
 
-                finalBidPayableAmount = bidMaxPayableAmount.Max();
+                bidMaxPayableAmount[count] = Convert.ToDouble(txtBidAmountPayable.Text);
+                count = count + 1;
 
             }
+
+            finalBidPayableAmount = bidMaxPayableAmount.Max();
 
             foreach (GridFooterItem footeritem in RadGridIPOBid.MasterTableView.GetItems(GridItemType.Footer))
             {
