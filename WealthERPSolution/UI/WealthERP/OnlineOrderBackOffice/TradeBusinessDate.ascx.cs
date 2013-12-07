@@ -460,7 +460,7 @@ namespace WealthERP.OnlineOrderBackOffice
             OnlineOrderBackOfficeBo.MakeTradeToHoliday(Convert.ToDateTime(strdt), datesToBeUpdated, TradeBusinessDateVo);
             radwindowPopup.VisibleOnPageLoad = false;
             Texcmt.Text = String.Empty;
-            // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Holiday created!!');", true);
+           ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Holiday created!!');", true);
             gvTradeBusinessDate.Rebind();
             GetTradeBusinessDates();
         }
@@ -486,25 +486,25 @@ namespace WealthERP.OnlineOrderBackOffice
                     gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
 
 
-                    int i = 0;
+                    //int i = 0;
 
-                    string s = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
+                    //string s = string.Format("{0:yyyy-MM-dd}", DateTime.Now);
 
-                    foreach (DataRow dr in dtGetAllTradeBussiness.Rows)
-                    {
-                        if (dtGetAllTradeBussiness.Rows[i][0].ToString().ToLower().Trim() == s.ToLower().Trim())
-                        {
-                            var page = (i / 20);  //eg row 50 means page = 10
-                            gvTradeBusinessDate.CurrentPageIndex = page;
+                    //foreach (DataRow dr in dtGetAllTradeBussiness.Rows)
+                    //{
+                    //    if (dtGetAllTradeBussiness.Rows[i][0].ToString().ToLower().Trim() == s.ToLower().Trim())
+                    //    {
+                    //        var page = (i / 20);  //eg row 50 means page = 10
+                    //        gvTradeBusinessDate.CurrentPageIndex = page;
 
-                            break;
-                        }
-                        else
-                        {
-                            i++;
-                            gvTradeBusinessDate.CurrentPageIndex = 0;
-                        }
-                    }
+                    //        break;
+                    //    }
+                    //    else
+                    //    {
+                    //        i++;
+                    //        gvTradeBusinessDate.CurrentPageIndex = 0;
+                    //    }
+                    //}
 
                     gvTradeBusinessDate.DataBind();
                 }

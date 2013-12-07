@@ -307,8 +307,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlGenerationfreq.DataBind();
             ddlGenerationfreq.Items.Insert(0, new ListItem("Select", "Select"));
         }
-        protected void
-            ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
+        protected void ddlAmcCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ddlAmc.SelectedIndex != 0)
             {
@@ -1411,7 +1410,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 //    ddlDFrequency.SelectedValue = "0";
                 //}
-                if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString()))
+                if (ddlBname.SelectedIndex!=0)
                 {
                     mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId =int.Parse(ddlBname.SelectedValue.ToString());
                 }

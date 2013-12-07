@@ -407,6 +407,9 @@ namespace DaoOnlineOrderManagement
                         if (dr["XF_DividendFrequency"].ToString() != null && dr["XF_DividendFrequency"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
                         mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
+                        if(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId !=0)
+                          mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());    
+                        
                         mfProductAMCSchemePlanDetailsVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
                         mfProductAMCSchemePlanDetailsVo.Branch = dr["PASPD_Branch"].ToString();
                         if (dr["PASPD_IsNFO"].ToString() == "True")
@@ -1612,14 +1615,6 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 GetAllTradeBussinessCmd = db.GetStoredProcCommand("SPROC_GetAllTradeBussinessDay");
-                //if (Assettype == "All")
-                //{
-                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, null);
-                //}
-                //else
-                //{
-                //    db.AddInParameter(GetSchemeMISCmd, "@assettype", DbType.String, Assettype);
-                //}
                 db.AddInParameter(GetAllTradeBussinessCmd, "@year", DbType.Int32, year);
                 if (holiday ==2)
                 {
@@ -1670,14 +1665,6 @@ namespace DaoOnlineOrderManagement
                 {
                     count = Convert.ToInt32(db.GetParameterValue(cmdYearCheck, "count").ToString());
                 }
-               // count = db.GetParameterValue(cmdYearCheck,"@count")
-                //Object objCount = db.GetParameterValue(cmdYearCheck, "@count");
-                //if (objCount != DBNull.Value)
-                //    count = int.Parse(db.GetParameterValue(cmdYearCheck, "@count").ToString());
-                //else
-                //    count = 0;
-                //if (count > 0)
-                //    result = 1;
             }
             catch (BaseApplicationException Ex)
             {
