@@ -318,11 +318,11 @@ namespace WealthERP.OnlineOrderManagement
                 //if (isCutOffTimeOver)
                 //     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 //else
-                userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + " & Application no " + Applicationno.ToString();
+                userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
             }
             else if (orderId != 0 && accountDebitStatus == false)
             {
-                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no is " + orderId.ToString() + " & Application no " + Applicationno.ToString(); 
+                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString(); 
             }
             else if (orderId == 0)
             {
@@ -339,7 +339,7 @@ namespace WealthERP.OnlineOrderManagement
             int OrderId;
             int Applicationno;
             string message = string.Empty;
-            if (availableBalance >= 0)
+            if (availableBalance >0)
             {
                 OrderId = int.Parse(ViewState["OrderId"].ToString());
                 Applicationno=int.Parse(ViewState["application"].ToString());               
@@ -468,6 +468,7 @@ namespace WealthERP.OnlineOrderManagement
                     ViewState["OrderId"] = OrderId;
                     ViewState["application"] = Applicationno;
                     CreateNCDOrder();
+                    btnConfirmOrder.Enabled = false;
                 }
             }
             else
