@@ -312,7 +312,12 @@ namespace WealthERP.SuperAdmin
                 strExternalType = txtExtType.Text;
                 Isonline =Convert.ToInt32(ddlIsonline.Text.ToString());
                 editedDate = DateTime.Now;
-                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode,Isonline, strExternalType, createdDate, editedDate, deletedDate);
+                int count = customerBo.ToCheckSchemeisonline(strSchemePlanCode, Isonline, strExternalCode);
+                if (count > 1)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('this scheme is allready onlline!!');", true);
+                }
+                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)

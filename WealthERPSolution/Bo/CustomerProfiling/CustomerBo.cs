@@ -2572,6 +2572,7 @@ namespace BoCustomerProfiling
             return isEdited;
         }
 
+
         public DataTable GetMemberRelationShip()
         {
             CustomerDao customerDao = new CustomerDao();
@@ -3298,6 +3299,32 @@ namespace BoCustomerProfiling
             }
             return dsCustomerProfileSetupLookupData;
         }
+        public int ToCheckSchemeisonline(int schemeplanecode,int Isonline,string sourcecode)
+        {
+            CustomerDao CustomerDao=new CustomerDao();
+            int count;
+            try
+            {
+                count = CustomerDao.ToCheckSchemeisonline(schemeplanecode, Isonline, sourcecode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
 
+                FunctionInfo.Add("Method", "CustomerBo.cs:ToCheckSchemeisonline()");
+                object[] objects = new object[3];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return count;
+        }
     }
 }

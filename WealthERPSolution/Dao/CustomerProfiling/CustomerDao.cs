@@ -1521,6 +1521,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCode", DbType.String, strExtCode);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalCodeToBeEdited", DbType.String, strExternalCodeToBeEdited);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@externalType", DbType.String, strExtName);
+               // db.AddInParameter(editProductAMCSchemeMappingCmd, "@count", DbType.Int32, 0);
                 db.AddInParameter(editProductAMCSchemeMappingCmd, "@Isonline", DbType.Int32, Isonline);
                 if (createdDate != DateTime.MinValue)
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@createdDate", DbType.DateTime, createdDate);
@@ -5900,5 +5901,49 @@ namespace DaoCustomerProfiling
 
  
         }
+        public int ToCheckSchemeisonline(int schemeplanecode, int Isonline, string sourcecode)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdToCheckSchemeisonline;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdToCheckSchemeisonline = db.GetStoredProcCommand("SPROC_ToValidateIsonline");
+                db.AddInParameter(cmdToCheckSchemeisonline, "@schemeplancode", DbType.Int32,schemeplanecode);
+                db.AddInParameter(cmdToCheckSchemeisonline, "@Isonline", DbType.Int32, Isonline);
+                db.AddInParameter(cmdToCheckSchemeisonline, "@sourcecode", DbType.String, sourcecode);
+                //db.AddInParameter(cmdToCheckSchemeisonline, "@count", DbType.Int32, 0);
+                count = Convert.ToInt32(db.ExecuteScalar(cmdToCheckSchemeisonline).ToString());
+
+                //ds = db.ExecuteDataSet(cmdToCheckSchemeisonline);
+                //if (db.ExecuteNonQuery(cmdToCheckSchemeisonline) != 0)
+                //{
+                //    count = Convert.ToInt32(db.GetParameterValue(cmdToCheckSchemeisonline, "count").ToString());
+                //}
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:ToCheckSchemeisonline()");
+                object[] objects = new object[3];
+                objects[0] = schemeplanecode;
+                objects[1]=sourcecode;
+                objects[2] = Isonline;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return count;
+        }
+       
     }
 }
