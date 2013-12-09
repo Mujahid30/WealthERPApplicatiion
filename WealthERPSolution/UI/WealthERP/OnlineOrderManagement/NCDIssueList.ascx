@@ -369,9 +369,9 @@
                                                                             SortExpression="AID_YieldUpto" UniqueName="AID_YieldUpto" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_YieldatBuyBack" HeaderStyle-Width="105px"
-                                                                            SortExpression="AID_YieldatBuyBack" HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="AID_YieldatBuyBack"
+                                                                        <telerik:GridBoundColumn DataField="AID_YieldBuyBack" HeaderStyle-Width="105px"
+                                                                            SortExpression="AID_YieldBuyBack" HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains"
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="AID_YieldBuyBack"
                                                                             Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
