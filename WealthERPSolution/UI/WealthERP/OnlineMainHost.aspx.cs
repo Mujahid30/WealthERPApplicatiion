@@ -58,6 +58,7 @@ namespace WealthERP
                 if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
                 {
                     productType = Page.Request.Headers["x-SBI-PType"];
+                    lblTest.Text = productType;
                 }
             }
             else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")

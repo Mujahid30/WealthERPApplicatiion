@@ -437,11 +437,13 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = false;
                 txtRedeemTypeValue.Enabled = false;
                 ddlDivType.Enabled = false;
-                lnkFactSheet.Enabled = false;
-                btnSubmit.Enabled = false;
+                lnkFactSheet.Enabled = false;              
                 ddlRedeem.Enabled = false;
                 txtRedeemTypeValue.Enabled = false;
                 trTermsCondition.Visible = false;
+
+                btnSubmit.Visible = false;
+                trNewOrder.Visible = true;
 
             }
             else
@@ -452,9 +454,11 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = true;
                 txtRedeemTypeValue.Enabled = true;
                 ddlDivType.Enabled = true;
-                lnkFactSheet.Enabled = true;
-                btnSubmit.Enabled = true;
+                lnkFactSheet.Enabled = true;               
                 ddlRedeem.Enabled = true;
+
+                btnSubmit.Visible = true;
+                trNewOrder.Visible = false;
 
 
             }
@@ -597,6 +601,18 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
+        protected void lnkNewOrder_Click(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderRdemptionTransType')", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderRdemptionTransType')", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+            }
+        }
 
     }
 }

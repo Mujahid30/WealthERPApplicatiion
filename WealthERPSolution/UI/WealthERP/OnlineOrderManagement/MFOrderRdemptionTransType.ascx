@@ -90,6 +90,12 @@
                     </div>
                 </td>
             </tr>
+            <tr id="trNewOrder" runat="server" visible="false">
+                <td align="center">
+                    <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Redeemption"
+                        runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
+                </td>
+            </tr>
         </table>
         <div style="float: left;" id="divControlContainer" runat="server">
             <table id="tbpurchase">
@@ -101,7 +107,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
-                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                            OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -138,7 +144,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
-                             OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
+                            OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
                         </asp:DropDownList>
                         <span id="Span2" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"

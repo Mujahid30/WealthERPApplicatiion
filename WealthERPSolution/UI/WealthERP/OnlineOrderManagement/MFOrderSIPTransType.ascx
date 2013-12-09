@@ -99,6 +99,12 @@
                     </div>
                 </td>
             </tr>
+            <tr id="trNewOrder" runat="server" visible="false">
+                <td align="center">
+                    <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another SIP"
+                        runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
+                </td>
+            </tr>
         </table>
         <table width="100%">
             <tr align="center">
@@ -120,7 +126,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
-                           OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                            OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         </asp:DropDownList>
                         <span id="Span7" class="spnRequiredField">*</span>

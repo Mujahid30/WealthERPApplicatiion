@@ -116,6 +116,12 @@
                     </div>
                 </td>
             </tr>
+            <tr id="trNewOrder" runat="server" visible="false">
+                <td align="center">
+                    <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Aditional Purchase"
+                        runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
+                </td>
+            </tr>
         </table>
         <div style="float: left; padding-top: 5px; width: 100%">
             <table id="tbpurchase" width="100%">

@@ -338,9 +338,11 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = false;
                 txtAmt.Enabled = false;
                 ddlDivType.Enabled = false;
-                lnkFactSheet.Enabled = false;
-                btnSubmit.Enabled = false;
+                lnkFactSheet.Enabled = false;               
                 trTermsCondition.Visible = false;
+
+                btnSubmit.Visible = false;
+                trNewOrder.Visible = true;
             }
             else
             {
@@ -350,8 +352,10 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = true;
                 txtAmt.Enabled = true;
                 ddlDivType.Enabled = true;
-                lnkFactSheet.Enabled = true;
-                btnSubmit.Enabled = true;
+                lnkFactSheet.Enabled = true;               
+
+                btnSubmit.Visible = true;
+                trNewOrder.Visible = false;
 
             }
 
@@ -518,6 +522,21 @@ namespace WealthERP.OnlineOrderManagement
             }
 
         }
+
+        protected void lnkNewOrder_Click(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderAdditionalPurchase')", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderAdditionalPurchase')", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+            }
+        }
+
+
 
 
     }

@@ -379,6 +379,19 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
+        protected void lnkNewOrder_Click(object sender, EventArgs e)
+        {
+            if (Session["PageDefaultSetting"] != null)
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('MFOrderSIPTransType')", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "loadcontrol('MFOrderSIPTransType')", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('IPOIssueTransact','&issueId=" + issueId + "')", true);
+            }
+        }
+
         protected void rbConfirm_OK_Click(object sender, EventArgs e)
         {
             CreateSIPOrder();
@@ -842,12 +855,14 @@ namespace WealthERP.OnlineOrderManagement
             ddlFolio.Enabled = false;
             ddlFrequency.Enabled = false;
             ddlStartDate.Enabled = false;
-            txtAmount.Enabled = false;
-            btnSubmit.Enabled = false;
+            txtAmount.Enabled = false;            
             ddlTotalInstallments.Enabled = false;
             ddlDividendFreq.Enabled = false;
             ddlDividendOption.Enabled = false;
             trTermsCondition.Visible = false;
+
+            btnSubmit.Visible = false;
+            trNewOrder.Visible = true;
         }
 
         protected void ddlFolio_SelectedIndexChanged(object sender, EventArgs e)

@@ -175,7 +175,7 @@ div#MainDivLeft
     text-overflow: " ";
     display: inline-block;
     border: 0 !important;
-    width: 400px;
+    width: 500px;
     font-family: Verdana,Tahoma;
     font-weight: normal;
     font-size: small;
@@ -198,7 +198,7 @@ div#MainDivLeft
     font-family: Arial;
     font-weight: bold;
     font-size: small; /*color:#993434;*/
-    color: #000000;
+    color: #2475C7;
 }
 
 .LinkButtonsWithoutUnderLine
