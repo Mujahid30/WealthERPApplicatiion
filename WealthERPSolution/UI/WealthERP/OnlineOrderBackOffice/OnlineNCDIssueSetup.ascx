@@ -389,7 +389,7 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtInitialCqNo" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span36" class="spnRequiredField">*</span>
+           <%-- <span id="Span36" class="spnRequiredField">*</span>--%>
             <br />
            
             <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ControlToValidate="txtInitialCqNo"
