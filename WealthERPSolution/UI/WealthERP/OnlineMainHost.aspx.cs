@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 using System.Data;
 using System.Collections;
@@ -41,6 +42,7 @@ namespace WealthERP
         string productType;
         string isWerp;
         Dictionary<string, string> defaultProductPageSetting = new Dictionary<string, string>();
+        HttpCookie UserPreference;
         protected void Page_PreInit(object sender, EventArgs e)
         {
             Page.Theme = "SBIOnLine";
@@ -91,6 +93,7 @@ namespace WealthERP
             }
             else
             {
+                productType = "NP";
                 //Not Authorize to see the page
                 SetDefaultPageSetting("NA");
             }
@@ -102,32 +105,25 @@ namespace WealthERP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            bool isValidUser = false;
 
             if (!IsPostBack)
             {
-                if (Request.QueryString["UserId"] != null)
+                if (!string.IsNullOrEmpty(userAccountId))
                 {
-                    if (!string.IsNullOrEmpty(userAccountId))
-                    {
-                        //ValidateUserLogin(userAccountId);
-                        //string userId = Request.QueryString["UserId"].ToString();
-                        //Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscript", "loginloadcontrolfromDefault('OnlineOrderTopMenu','" + userId + "','');", true);
-                    }
+                    isValidUser = ValidateUserLogin(userAccountId, isWerp);
+                }
 
+                if (isValidUser)
+                {
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(userAccountId))
-                    {
-                        ValidateUserLogin(userAccountId, isWerp);
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcd", "LoadTopPanelDefault('OnlineOrderTopMenu');", true);
-                    }
-                    else
-                    {
-                        Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
-                    }
-
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "pageloadscriptabcdnnn", "LoadTopPanelDefault('OnlineOrderDummyTopMenu');", true);
                 }
+
+
             }
 
         }
@@ -175,7 +171,7 @@ namespace WealthERP
                     break;
                 case "NA":
                     defaultProductPageSetting.Add("ProductType", ProductType.ToUpper());
-                    defaultProductPageSetting.Add("ProductMenu", string.Empty);
+                    defaultProductPageSetting.Add("ProductMenu", "DUMMY");
                     defaultProductPageSetting.Add("ProductMenuItem", string.Empty);
                     defaultProductPageSetting.Add("ProductMenuItemPage", "OnlineOrderUnauthorizedUser");
                     break;
@@ -184,10 +180,10 @@ namespace WealthERP
             Session["PageDefaultSetting"] = defaultProductPageSetting;
         }
 
-        private void ValidateUserLogin(string userAccountId, string isWerp)
+        private bool ValidateUserLogin(string userAccountId, string isWerp)
         {
+            bool isValidUser = false;
             UserBo userBo = new UserBo();
-
             AssociatesVO associatesVo = new AssociatesVO();
             AdvisorBranchVo advisorBranchVo = new AdvisorBranchVo();
             AssociatesUserHeirarchyVo associatesUserHeirarchyVo = new AssociatesUserHeirarchyVo();
@@ -207,6 +203,7 @@ namespace WealthERP
                 if (userVo != null)
                 {
                     customerVo = customerBo.GetCustomerInfo(userVo.UserId);
+                    isValidUser = true;
                 }
                 Session["CustomerVo"] = customerVo;
 
@@ -252,10 +249,7 @@ namespace WealthERP
 
                 Session[SessionContents.LogoPath] = advisorVo.LogoPath;
             }
-            else
-            {
-                InvalidateUser();
-            }
+            return isValidUser;
 
         }
 
@@ -263,7 +257,15 @@ namespace WealthERP
         {
             AdviserPreferenceBo adviserPreferenceBo = new AdviserPreferenceBo();
             advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(advisorVo.advisorId);
-            Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
+            if (advisorPreferenceVo != null)
+            {
+                UserPreference.Values["UserTheme"] = Page.Theme.ToString();
+                hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+                UserPreference.Values["UserLoginPageURL"] = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+                UserPreference.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(UserPreference);
+                Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
+            }
 
         }
 
@@ -273,7 +275,33 @@ namespace WealthERP
         }
         protected void lnkLogOut_Click(object sender, EventArgs e)
         {
-            Response.Redirect("http://sspr.sbicapstestlab.com/AGLogout ");
+            string currentURL = string.Empty;
+            string logoutPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGOUT_URL"];
+            if (Request.ServerVariables["HTTPS"].ToString() == "")
+            {
+                currentURL = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 4).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();
+            }
+            if (currentURL.Contains("localhost"))
+            {
+                currentURL = currentURL.Replace("OnlineMainHost", "Default");
+                Session.Abandon();
+                Response.Redirect(currentURL);
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(hidUserLogOutPageUrl.Value))
+                {
+                    Session.Abandon();
+                    Response.Redirect(hidUserLogOutPageUrl.Value);
+                }
+                else
+                {
+                    Session.Abandon();
+                    Response.Redirect(logoutPageURL);
+                }
+            }
+
+            //Response.Redirect("http://sspr.sbicapstestlab.com/AGLogout");
         }
 
         protected void lnkMFOrderMenuTransact_Click(object sender, EventArgs e)

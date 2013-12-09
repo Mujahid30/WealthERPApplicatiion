@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace WealthERP.General
 {
@@ -11,7 +12,7 @@ namespace WealthERP.General
     {
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (Request.Cookies["UserPreference"] != null) 
+            if (Request.Cookies["UserPreference"] != null)
             {
                 // get the cookie
                 HttpCookie cookie = Request.Cookies["UserPreference"];
@@ -19,7 +20,7 @@ namespace WealthERP.General
                 string userTheme = Request.Cookies["UserPreference"].Values["UserTheme"];
                 Page.Theme = userTheme;
             }
- 
+
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -28,23 +29,13 @@ namespace WealthERP.General
 
         protected void lblSignOut_Click(object sender, EventArgs e)
         {
-            if (Request.Cookies["UserPreference"] != null)
+            string userLoginPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];           
+            if (!string.IsNullOrEmpty(userLoginPageURL))
             {
-                // get the cookie
-                HttpCookie cookie = Request.Cookies["UserPreference"];
-                // get the cookie value
-                string userLoginPageURL = Request.Cookies["UserPreference"].Values["UserLoginPageURL"];
-                if (!string.IsNullOrEmpty(userLoginPageURL))
-                {
-                    Session.Abandon();
-                    Response.Redirect(userLoginPageURL);
-                }
-                else
-                {
-                    Session.Abandon();
-                    Response.Redirect("https://app.wealtherp.com/");
-                }
+                Session.Abandon();
+                Response.Redirect(userLoginPageURL);
             }
+            
         }
     }
 }

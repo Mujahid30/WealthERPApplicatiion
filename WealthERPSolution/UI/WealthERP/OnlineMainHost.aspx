@@ -111,7 +111,7 @@
         height: 40px;
         background: url('Images/sbi-capsec-header.png') no-repeat left top;
         width: 100%;
-        float: left;       
+        float: left;
     }
     .div-container
     {
@@ -234,6 +234,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <div class="div-with-header">
