@@ -75,9 +75,6 @@ namespace WealthERP.Advisor
 
                     btnIPOOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=IPO&x-Account-ID=" + customerVo.AccountId.ToString();
                     btnIPOOnline.ToolTip = "Click here for IPO online Order";
-
-                    btnInvalidUser.PostBackUrl = "~/OnlineMainHost.aspx?WERP&x-SBI-PType=&x-Account-ID=";
-                    btnInvalidUser.ToolTip = "Click here to check invalid user";
                 }
                 else
                 {
@@ -92,9 +89,6 @@ namespace WealthERP.Advisor
                     btnIPOOnline.ToolTip = "ClientId not available, Please update clientId from customer profile";
                     btnIPOOnline.PostBackUrl = "~/OnlineMainHost.aspx?WERP=CustomerDrillDown&x-SBI-PType=IPO";
                     btnIPOOnline.Enabled = false;
-
-                    btnInvalidUser.PostBackUrl = "~/OnlineMainHost.aspx?WERP&x-SBI-PType=&x-Account-ID=";
-                    btnInvalidUser.ToolTip = "Click here to check invalid user";
                 }
                 if (!IsPostBack)
                 {
@@ -1180,7 +1174,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerEQAccountView", "loadcontrol('CustomerEQAccountView', 'none')", true);
                 }
-                else if (e.Item.Value == "MF")
+                else if (e.Item.Value == "M_F")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ViewMutualFundPortfolio", "loadcontrol('ViewMutualFundPortfolio', 'none')", true);
                 }
@@ -1635,7 +1629,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOHolding", "loadcontrol('CustomerIPOHolding','none');", true);
                 }
-            }
+             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;

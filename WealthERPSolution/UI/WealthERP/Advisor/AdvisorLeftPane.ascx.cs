@@ -830,10 +830,6 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UploadDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "NCD_IPO_Issue_Upload")
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueUpload','login');", true);
-                }
                 else if (e.Item.Value == "Uploads History")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
@@ -2218,7 +2214,7 @@ namespace WealthERP.Advisor
                 tempView = new DataView(dsAdminTreeNodes.Tables[2]);
                 tempView.Sort = "WTSSN_TreeSubSubNode";
                 //Setting Primary key for the datatable inorder to find a value based on the key
-                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] { dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
+                dsAdminTreeNodes.Tables[2].PrimaryKey = new DataColumn[] {dsAdminTreeNodes.Tables[2].Columns["WTSSN_TreeSubSubNode"] };
                 foreach (RadPanelItem Item in RadPanelBar1.GetAllItems())
                 {
 

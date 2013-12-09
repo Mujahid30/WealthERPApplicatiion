@@ -75,8 +75,6 @@
                     <asp:Button ID="btnOnlineOrder" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <asp:Button ID="btnNCDOnline" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <asp:Button ID="btnIPOOnline" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
-                    &nbsp;&nbsp;
-                    <asp:Button ID="btnInvalidUser" runat="server" CssClass="OnlineOrder" OnClientClick="window.document.forms[0].target='_blank'; setTimeout(function(){window.document.forms[0].target='';}, 500);" />
                     <hr />
                 </td>
             </tr>
@@ -223,7 +221,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="MF" Value="MF">
+                                    <telerik:RadPanelItem runat="server" Text="MF" Value="M_F">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="View MF Transaction" Value="View MF Transactions">
                                             </telerik:RadPanelItem>
