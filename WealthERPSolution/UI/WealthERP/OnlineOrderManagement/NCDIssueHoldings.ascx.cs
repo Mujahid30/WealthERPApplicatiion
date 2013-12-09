@@ -8,6 +8,7 @@ using Telerik.Web.UI;
 using VoUser;
 using WealthERP.Base;
 using System.Data;
+using BoCommon;
 
 namespace WealthERP.OnlineOrderManagement
 {
@@ -20,6 +21,7 @@ namespace WealthERP.OnlineOrderManagement
         DateTime toDate;
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
             if (!IsPostBack)

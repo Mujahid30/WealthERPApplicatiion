@@ -39,6 +39,7 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
@@ -79,11 +80,11 @@ namespace WealthERP.OnlineOrderManagement
                     BindStructureRuleGrid(IssuerId);
                     BindStructureRuleGrid();
                 }
-                else if (Request.QueryString["IssueId"] != null && Request.QueryString["Issuename"] != null) 
+                else if (Request.QueryString["IssueId"] != null && Request.QueryString["Issuename"] != null)
                 {
                     IssuerId = int.Parse(Request.QueryString["IssueId"].ToString());
-                    string Issuename = Request.QueryString["Issuename"].ToString();                   
-                    lblIssuer.Text = "Selected Issue Name :" + Issuename;                   
+                    string Issuename = Request.QueryString["Issuename"].ToString();
+                    lblIssuer.Text = "Selected Issue Name :" + Issuename;
                     ddIssuerList.Visible = false;
                     btnConfirm.Visible = false;
                     BindStructureRuleGrid(IssuerId);
@@ -308,21 +309,15 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        private string CreateUserMessage(int orderId,int Applicationno, bool accountDebitStatus)
+        private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
-            orderId = int.Parse(ViewState["OrderId"].ToString());
-            Applicationno = int.Parse(ViewState["application"].ToString());  
             if (orderId != 0 && accountDebitStatus == true)
             {
                 //if (isCutOffTimeOver)
                 //     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 //else
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
-            }
-            else if (orderId != 0 && accountDebitStatus == false)
-            {
-                userMessage = "Order placed successfully,Order will not process due to insufficient balance, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString(); 
             }
             else if (orderId == 0)
             {
@@ -332,35 +327,9 @@ namespace WealthERP.OnlineOrderManagement
             return userMessage;
         }
 
-        protected void CreateNCDOrder()
-        {
-            bool accountDebitStatus = false;
-            decimal availableBalance = OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId);
-            int OrderId;
-            int Applicationno;
-            string message = string.Empty;
-            if (availableBalance >0)
-            {
-                OrderId = int.Parse(ViewState["OrderId"].ToString());
-                Applicationno=int.Parse(ViewState["application"].ToString());               
 
-                if (OrderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
-                {
-                    accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -OnlineBondVo.Amount, orderId);
-                }
-                if (OrderId != 0 && Applicationno!=0)
-                {
-                    ShowAvailableLimits();
-                    message = CreateUserMessage(orderId,Applicationno, accountDebitStatus);
-                    ShowMessage(message);
-                }
-            }
-            else
-            {
-                message = CreateUserMessage(0,0, false);
-                ShowMessage(message);
-            }
-        }
+
+
         private void ShowMessage(string msg)
         {
             tblMessage.Visible = true;
@@ -392,7 +361,7 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
-               // OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
+                // OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
                 {
@@ -406,7 +375,7 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows.Add();
                         dt.Rows[tableRow]["CustomerId"] = OnlineBondVo.CustomerId;
                         dt.Rows[tableRow]["AID_IssueDetailId"] = OnlineBondVo.PFISD_SeriesId;
-                       // dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
+                        // dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                     }
@@ -417,7 +386,7 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     break;
             }
-            
+
             if (isValid)
             {
                 Quantity = int.Parse(ViewState["Qty"].ToString());
@@ -462,13 +431,31 @@ namespace WealthERP.OnlineOrderManagement
                 {
                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
-                    orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId,IssuerId);
-                    int OrderId = int.Parse(orderIds["Order_Id"].ToString()); ;
-                    int Applicationno = int.Parse(orderIds["application"].ToString()); ;
-                    ViewState["OrderId"] = OrderId;
-                    ViewState["application"] = Applicationno;
-                    CreateNCDOrder();
-                    btnConfirmOrder.Enabled = false;
+                    double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
+                    int totalOrderAmt = int.Parse(ViewState["Sum"].ToString()); ;
+                    string message;
+                    bool accountDebitStatus = false;
+                    int Applicationno = 0;
+                    int orderId = 0;
+                    if (availableBalance >= totalOrderAmt)
+                    {
+                        orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId, IssuerId);
+                        orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
+                        Applicationno = int.Parse(orderIds["application"].ToString());
+                        ViewState["OrderId"] = orderId;
+                        ViewState["application"] = Applicationno;
+                        btnConfirmOrder.Enabled = false;
+                        if (orderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
+                        {
+                            accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
+                            ShowAvailableLimits();
+
+                        }
+
+                    }
+
+                    message = CreateUserMessage(orderId, Applicationno, accountDebitStatus);
+                    ShowMessage(message);
                 }
             }
             else

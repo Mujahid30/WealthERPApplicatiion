@@ -30,6 +30,7 @@ namespace WealthERP.OnlineOrderManagement
         string IssuerId = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVo = (CustomerVo)Session["customerVo"];

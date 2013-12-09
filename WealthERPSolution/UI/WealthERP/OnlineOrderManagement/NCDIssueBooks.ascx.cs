@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Telerik.Web.UI;
 using VoUser;
+using BoCommon;
 using BoOnlineOrderManagement;
 using WealthERP.Base;
 
@@ -25,6 +26,7 @@ namespace WealthERP.OnlineOrderManagement
         BoOnlineOrderManagement.OnlineBondOrderBo BoOnlineBondOrder = new BoOnlineOrderManagement.OnlineBondOrderBo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             customerVo = (CustomerVo)Session["customerVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
