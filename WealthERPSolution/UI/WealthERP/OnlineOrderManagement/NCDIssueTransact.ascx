@@ -295,13 +295,13 @@
                                             AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridDateTimeColumn DataField="AIM_OpenDate" DataFormatString="r"
+                                        <telerik:GridDateTimeColumn DataField="AIM_OpenDate" DataFormatString="{0:D}"
                                             HeaderStyle-Width="110px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
                                             AutoPostBackOnFilter="true" HeaderText="Openning Date" SortExpression="AIM_OpenDate"
                                             UniqueName="AIM_OpenDate">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridDateTimeColumn>
-                                        <telerik:GridDateTimeColumn DataField="AIM_CloseDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
+                                        <telerik:GridDateTimeColumn DataField="AIM_CloseDate" DataFormatString="{0:D}"
                                             HeaderStyle-Width="110px" CurrentFilterFunction="EqualTo" ShowFilterIcon="false"
                                             AutoPostBackOnFilter="true" HeaderText="Closing Date" UniqueName="AIM_CloseDate"
                                             SortExpression="AIM_CloseDate">
@@ -397,7 +397,7 @@
                                 UniqueName="AIM_FaceValue" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
+                            <telerik:GridBoundColumn DataField="AID_Tenure" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Tenure (Months)"
                                 UniqueName="AID_Tenure" SortExpression="AID_Tenure">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
