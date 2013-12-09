@@ -127,7 +127,7 @@
                 <td align="right" style="width: 10px">
                     <asp:ImageButton ID="ibtExportSummary" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
                         runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="ibtExport_OnClick"
-                        Height="25px" Width="25px"></asp:ImageButton>
+                        Height="25px" Width="25px" Visible="false"></asp:ImageButton>
                 </td>
             </tr>
         </table>
