@@ -379,7 +379,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
             {
-                mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+                mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
             }
             else
             {
