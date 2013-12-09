@@ -259,6 +259,7 @@ namespace WealthERP
             advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(advisorVo.advisorId);
             if (advisorPreferenceVo != null)
             {
+                UserPreference = new HttpCookie("UserPreference");
                 UserPreference.Values["UserTheme"] = "SBIOnLine";
                 hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
                 if (!string.IsNullOrEmpty(advisorPreferenceVo.LoginWidgetLogOutPageURL))
