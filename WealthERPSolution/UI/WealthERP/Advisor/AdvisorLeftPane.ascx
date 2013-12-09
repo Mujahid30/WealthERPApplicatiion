@@ -245,6 +245,8 @@
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
                                                     </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD/IPO Issue Upload" Value="NCD_IPO_Issue_Upload">
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Commission" Value="Commissions">
@@ -781,6 +783,8 @@
                                                     <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="View Exceptions" Value="Uploads_Exception">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="NCD/IPO Issue Upload" Value="NCD_IPO_Issue_Upload">
                                                     </telerik:RadPanelItem>
                                                     <%--  <telerik:RadPanelItem runat="server" Text="MF NP & Tranx Compare" Value="MFNP_Tranx_Compare">
                                                     </telerik:RadPanelItem>--%>

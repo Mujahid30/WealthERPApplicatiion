@@ -830,6 +830,10 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('UploadDashBoard','login');", true);
                 }
+                else if (e.Item.Value == "NCD_IPO_Issue_Upload")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueUpload','login');", true);
+                }
                 else if (e.Item.Value == "Uploads History")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewUploadProcessLog','login');", true);
