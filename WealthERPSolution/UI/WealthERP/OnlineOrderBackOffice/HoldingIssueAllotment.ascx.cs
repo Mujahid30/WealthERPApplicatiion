@@ -32,11 +32,11 @@ namespace WealthERP.OnlineOrderBackOffice
             advisorVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
-                
+
                 fromdate = DateTime.Now.AddMonths(-1);
-                txtFromDate.SelectedDate= fromdate;
+                txtFromDate.SelectedDate = fromdate;
                 txtToDate.SelectedDate = DateTime.Now;
-                
+
                 //BindAdviserIssueAllotmentList();
                 BindDropDownListIssuer();
                 //BindIssuerId();
@@ -52,11 +52,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     fromdate = DateTime.Parse(txtFromDate.SelectedDate.ToString());
                 if (txtToDate.SelectedDate != null)
                     todate = DateTime.Parse(txtToDate.SelectedDate.ToString());
-               // if(ddlIssuer.SelectedValue!=null)
+                // if(ddlIssuer.SelectedValue!=null)
 
-                
+
                 //DataTable dtGetAdviserissueallotmentList = new DataTable();
-                    dsGetAdviserissueallotmentList = OnlineNCDBackOfficeBo.GetAdviserissueallotmentList(advisorVo.advisorId, int.Parse(ddlIssuer.SelectedValue.ToString()), ddlType.SelectedValue.ToString(), fromdate, todate);
+                dsGetAdviserissueallotmentList = OnlineNCDBackOfficeBo.GetAdviserissueallotmentList(advisorVo.advisorId, int.Parse(ddlIssuer.SelectedValue.ToString()), ddlType.SelectedValue.ToString(), fromdate, todate);
                 if (dsGetAdviserissueallotmentList.Tables[0].Rows.Count > 0)
                 {
                     if (Cache["AdviserIssueList" + advisorVo.advisorId] == null)
@@ -147,9 +147,29 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void Go_OnClick(object sender, EventArgs e)
         {
             BindAdviserIssueAllotmentList();
-            
+            imgexportButton.Visible = true;
+
         }
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
 
+            gvAdviserIssueList.ExportSettings.OpenInNewWindow = true;
+            gvAdviserIssueList.ExportSettings.IgnorePaging = true;
+            gvAdviserIssueList.ExportSettings.HideStructureColumns = true;
+            gvAdviserIssueList.ExportSettings.ExportOnlyData = true;
+            gvAdviserIssueList.ExportSettings.FileName = "Issue Allotment";
+            gvAdviserIssueList.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvAdviserIssueList.MasterTableView.ExportToExcel();
+        }
+        protected void gvAdviserIssueList_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataSet dsGetAdviserissueallotmentList = new DataSet();
+            dsGetAdviserissueallotmentList = (DataSet)Cache["AdviserIssueList" + advisorVo.advisorId];
 
+            if (dsGetAdviserissueallotmentList != null)
+            {
+                gvAdviserIssueList.DataSource = dsGetAdviserissueallotmentList;
+            }
+        }
     }
 }

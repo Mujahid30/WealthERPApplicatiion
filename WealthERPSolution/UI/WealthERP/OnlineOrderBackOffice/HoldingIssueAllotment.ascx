@@ -13,18 +13,18 @@
                         <td align="left">
                             Issue Allotment
                         </td>
-                        <%--<td align="right">
-                            <asp:ImageButton ID="btnTradeBusinessDate" ImageUrl="~/Images/Export_Excel.png" runat="server"
-                                AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
-                                Height="25px" Width="25px" OnClick="btnTradeBusinessDate_Click"></asp:ImageButton>
-                        </td>--%>
+                        <td align="right">
+                            <asp:ImageButton ID="imgexportButton" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                Visible="false" runat="server" AlternateText="Excel" ToolTip="Export To Excel"
+                                OnClick="btnExportData_OnClick" OnClientClick="setFormat('excel')" Height="22px"
+                                Width="25px"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
         </td>
     </tr>
 </table>
-
 <table>
     <tr>
         <td>
@@ -41,7 +41,7 @@
             </asp:RequiredFieldValidator>
         </td>
         <td>
-            <asp:Label ID="lblissuer" runat="server" Text="Issuer:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblissuer" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlIssuer" runat="server" CssClass="cmbField">
@@ -107,8 +107,10 @@
                 <telerik:RadGrid ID="gvAdviserIssueList" runat="server" fAllowAutomaticDeletes="false"
                     EnableEmbeddedSkins="false" AllowFilteringByColumn="true" AutoGenerateColumns="False"
                     ShowStatusBar="false" ShowFooter="false" AllowPaging="true" AllowSorting="true"
-                    GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true">
-                    <ExportSettings HideStructureColumns="true">
+                    GridLines="none" AllowAutomaticInserts="false" Skin="Telerik" EnableHeaderContextMenu="true"
+                    OnNeedDataSource="gvAdviserIssueList_OnNeedDataSource">
+                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                        FileName="MF Order Recon" Excel-Format="ExcelML">
                     </ExportSettings>
                     <MasterTableView DataKeyNames="AIA_Id" Width="99%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" PageSize="20">

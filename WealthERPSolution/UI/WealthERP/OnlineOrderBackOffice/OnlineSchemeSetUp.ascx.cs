@@ -415,14 +415,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlBname.SelectedValue = "Select";
             }
 
-            if (ddlBname.SelectedIndex!=0)
-            {
-                mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedValue.ToString());
-            }
-            else
-            {
-                ddlBname.SelectedValue="Select";
-            }
+            //if (ddlBname.SelectedIndex!=0)
+            //{
+            //    mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(ddlBname.SelectedValue.ToString());
+            //}
+            //else
+            //{
+            //    ddlBname.SelectedValue="Select";
+            //}
             mfProductAMCSchemePlanDetailsVo.Branch = txtBranch.Text;
             mfProductAMCSchemePlanDetailsVo.AccountNumber = txtACno.Text;
             mfProductAMCSchemePlanDetailsVo.DividendFrequency = ddlDFrequency.SelectedValue;

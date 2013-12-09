@@ -101,7 +101,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
-                             OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
+                            OnSelectedIndexChanged="ddlAmc_OnSelectedIndexChanged">
                         </asp:DropDownList>
                         <span id="Span1" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" CssClass="rfvPCG"
@@ -138,7 +138,7 @@
                     </td>
                     <td>
                         <asp:DropDownList ID="ddlScheme" runat="server" CssClass="cmbExtraLongField" AutoPostBack="true"
-                             OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
+                            OnSelectedIndexChanged="ddlScheme_onSelectedChanged">
                         </asp:DropDownList>
                         <span id="Span2" class="spnRequiredField">*</span>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select a scheme"
