@@ -50,6 +50,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl msgRecordStatus;
         
         /// <summary>
+        /// trStepOneHeading control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStepOneHeading;
+        
+        /// <summary>
+        /// lblStep1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStep1;
+        
+        /// <summary>
         /// lblProduct control.
         /// </summary>
         /// <remarks>
@@ -77,31 +95,31 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProduct;
         
         /// <summary>
-        /// lblSourceData control.
+        /// lblSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSourceData;
+        protected global::System.Web.UI.WebControls.Label lblSource;
         
         /// <summary>
-        /// ddlSourceData control.
+        /// ddlSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSourceData;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSource;
         
         /// <summary>
-        /// rfvSourceData control.
+        /// rfvSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSourceData;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSource;
         
         /// <summary>
         /// lblFileType control.
@@ -131,6 +149,33 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfgFileType;
         
         /// <summary>
+        /// trStep2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trStep2;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// lblUploadFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUploadFile;
+        
+        /// <summary>
         /// FileUpload control.
         /// </summary>
         /// <remarks>
@@ -149,12 +194,21 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.Button btnFileUpload;
         
         /// <summary>
-        /// btnGo control.
+        /// pnlOnlneIssueUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGo;
+        protected global::System.Web.UI.WebControls.Panel pnlOnlneIssueUpload;
+        
+        /// <summary>
+        /// gvOnlineIssueUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Telerik.Web.UI.RadGrid gvOnlineIssueUpload;
     }
 }

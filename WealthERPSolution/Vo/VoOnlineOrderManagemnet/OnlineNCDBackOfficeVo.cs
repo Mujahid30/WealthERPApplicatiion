@@ -107,5 +107,6 @@ namespace VoOnlineOrderManagemnet
         public string ColumnAlias { get; set; }
         public string HeaderName { get; set; }
         public int HeaderSequence { get; set; }
+        public string RegularExpression { get; set; }
     }
 }

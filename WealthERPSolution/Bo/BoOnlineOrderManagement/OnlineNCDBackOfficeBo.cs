@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
-
 using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
-
 using DaoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
+using System.Text.RegularExpressions;
 
 namespace BoOnlineOrderManagement
 {
@@ -796,6 +795,74 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dtGetIssuerid;
+        }
+
+        public List<OnlineIssueHeader> GetHeaderDetails(int fileTypeId, string extSource) {
+            if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+
+            DataTable dtHeaderMap = onlineNCDBackOfficeDao.GetHeaderMapping(fileTypeId, extSource);
+            if (dtHeaderMap.Rows.Count <= 0) return null;
+
+            List<OnlineIssueHeader> fileHeaderList = new List<OnlineIssueHeader>();
+            foreach(DataRow row in dtHeaderMap.Rows)
+            {
+                OnlineIssueHeader header = new OnlineIssueHeader();
+                header.HeaderSequence = int.Parse(row["WEEHM_HeaderSequence"].ToString());
+                header.ColumnAlias = row["WEIH_ColumnAlias"].ToString();
+                header.HeaderName = row["WEEHM_HeaderName"].ToString();
+                header.RegularExpression = row["WEEHM_RegularExpression"].ToString();
+                fileHeaderList.Add(header);
+            }
+            return fileHeaderList.OrderBy(o => o.HeaderSequence).ToList();
+        }
+
+        public string GetErrorsForRow(List<OnlineIssueHeader> Headers, DataRow row, int rowNum) {
+            StringBuilder strErr = new StringBuilder();
+
+            foreach (OnlineIssueHeader Header in Headers) {
+                int colInx = Header.HeaderSequence;
+                string colRegex = Header.RegularExpression;
+                string colVal = row[colInx].ToString();
+                string colNam = Header.HeaderName;
+
+                Regex regex = new Regex(colRegex);
+                if (!regex.IsMatch(colVal)) {
+                    strErr.AppendLine("Error at: " + colNam + "(" + rowNum + ", " + colInx + ")");
+                }
+            }
+
+            return strErr.ToString();
+        }
+
+        private static bool FindHeaders(OnlineIssueHeader Header)
+        {
+            if (string.IsNullOrEmpty(Header.RegularExpression) == true) return false;
+            return true;
+        }
+
+        public DataTable ValidateUploadData(DataTable dtRawData, int fileTypeId, string extSource)
+        {
+            DataColumn serialNo = new DataColumn("SN", System.Type.GetType("System.Int32"));
+            DataColumn errorCol = new DataColumn("Remarks", System.Type.GetType("System.String"), "");
+
+            dtRawData.Columns.Add(serialNo);
+            dtRawData.Columns.Add(errorCol);
+            dtRawData.AcceptChanges();
+
+            List<OnlineIssueHeader> AllHeaders = GetHeaderDetails(fileTypeId, extSource);
+
+            if (AllHeaders == null) return null;
+            List<OnlineIssueHeader> Headers = AllHeaders.FindAll(FindHeaders);
+
+            int i = 1;
+            foreach (DataRow row in dtRawData.Rows) {
+                row["SN"] = i.ToString();
+                row["Remarks"] = GetErrorsForRow(Headers, row, i);
+            }
+
+            dtRawData.AcceptChanges();
+
+            return dtRawData;
         }
     }
 }
