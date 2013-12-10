@@ -138,9 +138,9 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
                                                 <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Agent/Associate Code" Value="AddAgentCode">
+                                                    <telerik:RadPanelItem runat="server" Text="Add Sub Broker Code" Value="AddAgentCode">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="View Agent/Associate Code" Value="ViewAgentCode">
+                                                    <telerik:RadPanelItem runat="server" Text="View Sub Broker Code" Value="ViewAgentCode">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
