@@ -322,7 +322,7 @@ namespace WealthERP.OnlineOrderManagement
                 //lblDivType.Visible = true;
                 //ddlDivType.Visible = true;
                 trDivfeq.Visible = true;
-                trDivtype.Visible = true;
+               // trDivtype.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
 
 

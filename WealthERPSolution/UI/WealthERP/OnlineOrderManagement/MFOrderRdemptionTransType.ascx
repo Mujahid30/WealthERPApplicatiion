@@ -237,7 +237,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDivtype" runat="server">
+                <tr class="spaceUnder" id="trDivtype" runat="server" visible="false">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
@@ -315,7 +315,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDividendOption" runat="server">
+                <tr class="spaceUnder" id="trDividendOption" runat="server" >
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
