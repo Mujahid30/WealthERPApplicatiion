@@ -251,7 +251,7 @@ namespace WealthERP.OnlineOrderManagement
                     int Mod = Qty % PFISD_InMultiplesOf;
                     if (Mod != 0)
                     {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert(' Please enter quantity greater than or equal to min quantity required and in multiples of 1')'", true);
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter quantity greater than or equal to min quantity required and in multiples of 1')", true);
                         txtQuantity.Text = "";
                         return;
                     }
@@ -286,7 +286,7 @@ namespace WealthERP.OnlineOrderManagement
                 }
                 else
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Please enter only Valid Numbers & in multiples of 1')", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please enter only Valid Numbers & in multiples of 1')", true);
 
                 }
             }
