@@ -1127,6 +1127,12 @@ namespace WealthERP.Advisor
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineAdviserCustomerIPOOrderBook','login');", true);
 
                 }
+                else if (e.Item.Value == "NCD/IPO_allotment")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueUpload','login');", true);
+
+                }
+                
             }
             catch (BaseApplicationException Ex)
             {
