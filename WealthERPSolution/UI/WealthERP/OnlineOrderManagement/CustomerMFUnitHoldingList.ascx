@@ -147,7 +147,7 @@
                                 Aggregate="Sum">                               
                               <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                               <ItemTemplate>
-                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "UnitsSold")) %>'>
+                                    <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
                                     </asp:LinkButton>
                               </ItemTemplate>                                  
                             </telerik:GridTemplateColumn>
