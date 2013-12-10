@@ -165,7 +165,7 @@
     <tr>
         <td>&nbsp;</td>
         <td class="leftLabel">
-            <asp:Label ID="lblOverwrite" class="FieldName" runat="server" Text="Overwite: "></asp:Label></td>
+            <asp:Label ID="lblOverwrite" class="FieldName" runat="server" Text="Over Write: "></asp:Label></td>
         <td>
             <asp:CheckBox ID="chkOverwrite" runat="server" />
             <asp:Label ID="lblYes" class="FieldName" runat="server" Text="Yes"></asp:Label></td>
