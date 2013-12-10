@@ -446,6 +446,24 @@ namespace WealthERP.OnlineOrderManagement {
         protected global::System.Web.UI.WebControls.Button btnSubmit;
         
         /// <summary>
+        /// trNewOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNewOrder;
+        
+        /// <summary>
+        /// lnkNewOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkNewOrder;
+        
+        /// <summary>
         /// lblUsefulLinks control.
         /// </summary>
         /// <remarks>
@@ -535,33 +553,13 @@ namespace WealthERP.OnlineOrderManagement {
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button rbConfirm_OK;
         
-        ///// <summary>
-        ///// rbConfirm_Cancel control.
-        ///// </summary>
-        ///// <remarks>
-        ///// Auto-generated field.
-        ///// To modify move field declaration from designer file to code-behind file.
-        ///// </remarks>
-        //protected global::System.Web.UI.WebControls.Label confirmMessage;
-
-
         /// <summary>
-        /// lnkNewOrder control.
+        /// rbConfirm_Cancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkNewOrder;
-
-        /// <summary>
-        /// trNewOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow trNewOrder;
-
+        protected global::System.Web.UI.WebControls.Button rbConfirm_Cancel;
     }
 }

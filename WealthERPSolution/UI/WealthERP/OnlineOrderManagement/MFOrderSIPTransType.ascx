@@ -391,7 +391,7 @@
                         <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" runat="server">
+                        <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" style="width:300px;" runat="server">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>
