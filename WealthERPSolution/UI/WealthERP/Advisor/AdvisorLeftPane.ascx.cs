@@ -703,7 +703,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerReportsDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "MF")
+                else if (e.Item.Value == "View MF Transaction")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
@@ -812,7 +812,7 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "Transactions")
+                else if (e.Item.Value == "MF")
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
@@ -989,7 +989,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepository','login');", true);
                 }
-                else if (e.Item.Value == "MF")
+                else if (e.Item.Value == "View MF Transaction")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
