@@ -108,5 +108,7 @@ namespace VoOnlineOrderManagemnet
         public string HeaderName { get; set; }
         public int HeaderSequence { get; set; }
         public string RegularExpression { get; set; }
+        public string ColumnName { get; set; }
+        public bool IsUploadRelated { get; set; }
     }
 }

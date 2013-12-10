@@ -9,6 +9,8 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 using System.Collections.Specialized;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using VoOnlineOrderManagemnet;
+using System.Configuration;
+
 
 
 namespace DaoOnlineOrderManagement
@@ -1387,6 +1389,88 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dt;
+        }
+
+        public void UploadIssueData(string sqlUpdate, string sqlSel, string csvParams, string csvDataType, DataTable dtData)
+        {
+            try
+            {
+                string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(conString);
+
+                SqlCommand cmdUpdate = new SqlCommand(sqlUpdate, sqlCon);
+
+
+                string[] Params = csvParams.Split(',');
+                string[] ParamsType = csvDataType.Split(',');
+                //foreach (DataRow row in dtData.Rows) {
+                for(int i = 0; i < Params.Length; i++){
+                    SqlDbType sqlType = GetSqlDbType(ParamsType[i]);
+                    SqlParameter param = cmdUpdate.Parameters.Add("@" + Params[i], sqlType, 50, Params[i]);
+                    param.SourceVersion = DataRowVersion.Original;
+                }
+               // }
+
+                //DataSet ds = new DataSet("AdviserIssueOrderExtract");
+                //ds.Tables.Add(dtData);
+
+                foreach (DataRow row in dtData.Rows) {
+                    if (row.RowState == DataRowState.Unchanged) {
+                        row.SetModified();
+                    }
+                }
+                
+                //dtData.
+                SqlDataAdapter da = new SqlDataAdapter(sqlSel, sqlCon);
+
+                da.AcceptChangesDuringUpdate = true;
+                da.UpdateCommand = cmdUpdate;
+                sqlCon.Open();
+                int nRows = da.Update(dtData);
+                //int nRows = da.Update(ds, "AdviserIssueOrderExtract");
+                sqlCon.Close();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssuerid()");
+                object[] objects = new object[1];
+                //objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+
+        private SqlDbType GetSqlDbType(string sDataType)
+        {
+            switch (sDataType)
+            {
+                case "System.Int64":
+                    return SqlDbType.BigInt;
+                case "System.Boolean":
+                    return SqlDbType.TinyInt;
+                case "System.DateTime":
+                    return SqlDbType.Date;
+                case "System.Decimal":
+                    return SqlDbType.Decimal;
+                case "System.Int32":
+                    return SqlDbType.Int;
+                case "System.String":
+                    return SqlDbType.VarChar;
+                case "System.Int16":
+                    return SqlDbType.SmallInt;
+                case "System.TimeSpan":
+                    return SqlDbType.Time;
+                default:
+                    return SqlDbType.VarChar;
+            }
         }
     }
 }

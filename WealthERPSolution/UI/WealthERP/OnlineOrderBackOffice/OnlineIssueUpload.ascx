@@ -2,6 +2,7 @@
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineIssueUpload" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<script src="../Scripts/JScript.js" type="text/javascript"></script>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <style type="text/css">
@@ -192,7 +193,7 @@
             <td class="rightData">
                 <asp:FileUpload ID="FileUpload" runat="server" CssClass="FieldName" /></td>
             <td class="rightData">
-                <asp:Button ID="btnFileUpload" CssClass="PCGButton" Text="Upload" 
+                <asp:Button ID="btnFileUpload" CssClass="PCGLongButton" Text="Upload File" 
                     runat="server" onclick="btnFileUpload_Click" 
                     ValidationGroup="OnlineIssueUpload"/>
             </td>
@@ -201,14 +202,26 @@
             <td>&nbsp;</td>
         </tr>
     </table>
+    <table width="100%">
+        <tr id="tr1" runat="server">
+            <td class="tdSectionHeading">
+                <div class="divSectionHeading" style="vertical-align: text-bottom">
+                    <div class="divSectionHeadingNumber fltlftStep">3</div>
+                    <div class="fltlft">
+                        <asp:Label ID="lblValidateData" runat="server" Text="Validate & Upload"></asp:Label>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
     <asp:Panel ID="pnlOnlneIssueUpload" runat="server" Width="100%" ScrollBars="Horizontal" Visible="false">
         <telerik:RadGrid ID="gvOnlineIssueUpload" runat="server" AutoGenerateColumns="true"
             AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
-            OnNeedDataSource="gvOnlineIssueUpload_OnNeedDataSource" GridLines="Both"
-            EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
+            OnNeedDataSource="gvOnlineIssueUpload_OnNeedDataSource" OnItemDataBound="gvOnlineIssueUpload_ItemDataBound" 
+            GridLines="Both" EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
             EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="true"></ExportSettings>
-            <MasterTableView Width="100%" AllowMultiColumnSorting="True"
+            <MasterTableView Width="90%" AllowMultiColumnSorting="True" DataKeyNames="SN"
                 AutoGenerateColumns="true" HeaderStyle-Width="120px" PageSize="20">
             </MasterTableView>
             <ClientSettings>
@@ -218,6 +231,19 @@
             <FilterMenu EnableEmbeddedSkins="false"></FilterMenu>
         </telerik:RadGrid>
     </asp:Panel>
+    <table width="100%">
+        <tr>
+            <td class="leftLabel">
+                <asp:Label ID="lblUploadData" runat="server" Text="Upload Data: " CssClass="FieldName"></asp:Label></td>
+            <td class="rightData">
+                <asp:Button ID="btnUploadData" runat="server" Text="Upload Data:" 
+                    CssClass="PCGLongButton" onclick="btnUploadData_Click" /></td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
 <%--    </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="FileUpload" />

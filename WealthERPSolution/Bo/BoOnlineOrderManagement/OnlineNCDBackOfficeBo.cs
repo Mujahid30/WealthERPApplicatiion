@@ -9,6 +9,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using DaoOnlineOrderManagement;
 using VoOnlineOrderManagemnet;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace BoOnlineOrderManagement
 {
@@ -811,26 +812,59 @@ namespace BoOnlineOrderManagement
                 header.ColumnAlias = row["WEIH_ColumnAlias"].ToString();
                 header.HeaderName = row["WEEHM_HeaderName"].ToString();
                 header.RegularExpression = row["WEEHM_RegularExpression"].ToString();
+                header.ColumnName = row["WEIH_ColumnName"].ToString();
+                header.IsUploadRelated = bool.Parse(row["WEIH_IsUploadRelated"].ToString());
                 fileHeaderList.Add(header);
             }
             return fileHeaderList.OrderBy(o => o.HeaderSequence).ToList();
         }
 
+        private string HtmError(string csvError)
+        {
+            string[] strErrList = csvError.Split('|');
+            StringBuilder sbError = new StringBuilder();
+
+            sbError.AppendLine("<a href=\"#\" class=\"popper\" data-popbox=\"divCutOffCheck\">KBAJPAI</a>");
+            sbError.AppendLine("<div id=\"divCutOffCheck\" class=\"popbox\">");
+            sbError.AppendLine("<h2>Error Details:</h2>");
+            //sbError.AppendLine("<ol>");       
+            for (int i = 0; i < strErrList.Length; i++) {
+                sbError.Append("<p>" + strErrList[i] + "</p>");
+            }
+            //sbError.AppendLine("</ol>");
+            sbError.AppendLine("</div>");
+
+            return sbError.ToString();
+        }
+
         public string GetErrorsForRow(List<OnlineIssueHeader> Headers, DataRow row, int rowNum) {
             StringBuilder strErr = new StringBuilder();
+            List<string> ErrorList = new List<string>();
 
             foreach (OnlineIssueHeader Header in Headers) {
-                int colInx = Header.HeaderSequence;
+                int colInx = row.Table.Columns[Header.HeaderName].Ordinal;
+                //int colInx = Header.HeaderSequence;
                 string colRegex = Header.RegularExpression;
                 string colVal = row[colInx].ToString();
                 string colNam = Header.HeaderName;
 
                 Regex regex = new Regex(colRegex);
                 if (!regex.IsMatch(colVal)) {
-                    strErr.AppendLine("Error at: " + colNam + "(" + rowNum + ", " + colInx + ")");
+                    ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (colInx + 3) + ")");
                 }
             }
 
+            int i = 0;
+            foreach (string err in ErrorList)
+            {
+                strErr.Append(err);
+                if (i < ErrorList.Count - 1) strErr.Append("|");
+                i++;
+            }
+
+            string htmError = HtmError(strErr.ToString());
+
+            //return htmError;
             return strErr.ToString();
         }
 
@@ -860,9 +894,76 @@ namespace BoOnlineOrderManagement
                 row["Remarks"] = GetErrorsForRow(Headers, row, i);
             }
 
+            dtRawData.Columns["SN"].SetOrdinal(0);
+            dtRawData.Columns["Remarks"].SetOrdinal(1);
             dtRawData.AcceptChanges();
 
             return dtRawData;
         }
+
+        //private bool Find(OnlineIssueHeader header)
+        //{
+        //    if(
+        //}
+
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, string extSrc) {
+            int nRows = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+
+            dtCheckOrder.Columns.Remove("SN");
+            dtCheckOrder.Columns.Remove("Remarks");
+            dtCheckOrder.AcceptChanges();
+
+            List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc).FindAll(
+                delegate(OnlineIssueHeader header)
+                {
+                    return header.IsUploadRelated;
+                });
+
+            //List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc);
+            foreach (OnlineIssueHeader header in updHeaders)
+            {
+                if (dtCheckOrder.Columns[header.HeaderName] != null)
+                {
+                    dtCheckOrder.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                }
+            }
+            dtCheckOrder.AcceptChanges();
+
+            //foreach (DataColumn col in dtCheckOrder.Columns)
+            //{
+            //    string newColName = allHeaders.Find(
+            //        delegate(OnlineIssueHeader header)
+            //        {
+            //            return header.HeaderName == col.ColumnName;
+            //        }).ColumnName;
+            //    if (string.IsNullOrEmpty(newColName.Trim())) continue;
+            //    dtCheckOrder.Columns[col.ColumnName].ColumnName = newColName;
+            //}
+
+            try
+            {
+                string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
+                string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
+                string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
+                string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
+                daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeBo.cs:OnlinebindRandT()");
+                object[] objects = new object[1];
+                objects[0] = dtCheckOrder;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return nRows;
+        }
+
+        //private string BuilSelectQuery(string tableName, string[] c
     }
 }

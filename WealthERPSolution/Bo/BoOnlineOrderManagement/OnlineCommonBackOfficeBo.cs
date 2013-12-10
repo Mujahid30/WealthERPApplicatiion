@@ -5,7 +5,6 @@ using System.Text;
 using System.IO;
 using System.Data;
 using Microsoft.Practices.EnterpriseLibrary.Data;
-using System.Data;
 using System.Data.Common;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
