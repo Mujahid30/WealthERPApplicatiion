@@ -90,12 +90,6 @@
                     </div>
                 </td>
             </tr>
-            <tr id="trNewOrder" runat="server" visible="false">
-                <td align="center">
-                    <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another NewPurchase"
-                        runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
-                </td>
-            </tr>
         </table>
         <div style="float: left; width: 100%" id="divControlContainer" runat="server">
             <table id="tbpurchase" width="100%">
@@ -323,6 +317,12 @@
                     CssClass="FieldName"></asp:Button>
             </td>--%>
                     <td>
+                    </td>
+                </tr>
+                <tr id="trNewOrder" runat="server" visible="false">
+                    <td align="center" colspan="4">
+                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another NewPurchase"
+                            runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>
             </table>

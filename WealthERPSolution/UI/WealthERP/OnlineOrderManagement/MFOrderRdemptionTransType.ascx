@@ -90,12 +90,6 @@
                     </div>
                 </td>
             </tr>
-            <tr id="trNewOrder" runat="server" visible="false">
-                <td align="center">
-                    <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Redeemption"
-                        runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
-                </td>
-            </tr>
         </table>
         <div style="float: left;" id="divControlContainer" runat="server">
             <table id="tbpurchase">
@@ -359,9 +353,15 @@
                 <tr class="spaceUnder">
                     <td style="width: 150px;" colspan="2">
                     </td>
-                    <td>
+                    <td colspan="2">
                         <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="OnClick_Submit"
                             CssClass="PCGButton" ValidationGroup="btnSubmit"></asp:Button>
+                    </td>
+                </tr>
+                <tr id="trNewOrder" runat="server" visible="false">
+                    <td align="center" colspan="4">
+                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Redeemption"
+                            runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>
             </table>

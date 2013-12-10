@@ -99,12 +99,6 @@
                     </div>
                 </td>
             </tr>
-            <tr id="trNewOrder" runat="server" visible="false">
-                <td align="center">
-                    <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another SIP"
-                        runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
-                </td>
-            </tr>
         </table>
         <table width="100%">
             <tr align="center">
@@ -464,6 +458,12 @@
                             OnClick="btnSubmit_Click"></asp:Button>
                     </td>
                     <td>
+                    </td>
+                </tr>
+                <tr id="trNewOrder" runat="server" visible="false">
+                    <td align="center" colspan="4">
+                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another SIP"
+                            runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>
             </table>
