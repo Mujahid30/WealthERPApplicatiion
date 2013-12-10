@@ -110,6 +110,12 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Zone/Cluster" Value="Zone_Cluster">
                                             </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Branch/Association" Value="Branch/Association">
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
@@ -119,12 +125,6 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Hierarchy Setup" Value="Hierarchy_Setup">
-                                            </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
-                                                <Items>
-                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
-                                                    </telerik:RadPanelItem>
-                                                </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
                                                 <Items>
@@ -218,10 +218,10 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="View Schemes" Value="View_Schemes">
                                                     </telerik:RadPanelItem>
-                                                     <telerik:RadPanelItem runat="server" Text="Online Scheme Add" Value="Scheme_Setup">
+                                                    <telerik:RadPanelItem runat="server" Text="Online Scheme Add" Value="Scheme_Setup">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Scheme/Data Translation Mapping" Value="Scheme_DataTrans_Mapping">
-                                                    </telerik:RadPanelItem>                                                   
+                                                    </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD and IPO Issue Add" Value="NCDIssuesetup">
