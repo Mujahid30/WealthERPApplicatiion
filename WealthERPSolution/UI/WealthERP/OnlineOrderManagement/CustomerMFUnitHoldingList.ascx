@@ -77,9 +77,9 @@
                     OnItemCommand="rgUnitHolding_OnItemCommand" OnItemDataBound="rgUnitHolding_ItemDataBound">
                     <%-- OnItemDataBound="rgUnitHolding_ItemDataBound" AllowSorting="true" EnableViewState="true"
                      OnNeedDataSource="rgUnitHolding_OnNeedDataSource" AllowFilteringByColumn="true"--%>
-                    <pagerstyle mode="NextPrevAndNumeric"></pagerstyle>
-                    <mastertableview datakeynames="MFNPId,AccountId,AMCCode,SchemeCode" showfooter="true"
-                        width="105%" autogeneratecolumns="false" commanditemdisplay="None">
+                    <PagerStyle Mode="NextPrevAndNumeric"></PagerStyle>
+                    <MasterTableView DataKeyNames="MFNPId,AccountId,AMCCode,SchemeCode" ShowFooter="true"
+                        Width="105%" AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
                             <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="100px" SortExpression="MFNPId"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
@@ -142,14 +142,14 @@
                                     </telerik:RadDatePicker>
                                 </FilterTemplate>
                             </telerik:GridDateTimeColumn>
-                            <telerik:GridTemplateColumn HeaderStyle-Width="80px" UniqueName="PurchasedUnits" HeaderText="Units"
-                                DataField="PurchasedUnits" AllowFiltering="false" FooterAggregateFormatString="{0:N3}" FooterStyle-HorizontalAlign="Right"
-                                Aggregate="Sum">                               
-                              <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
-                              <ItemTemplate>
+                            <telerik:GridTemplateColumn HeaderStyle-Width="80px" UniqueName="PurchasedUnits"
+                                HeaderText="Units" DataField="PurchasedUnits" AllowFiltering="false" FooterAggregateFormatString="{0:N3}"
+                                FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
+                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
+                                <ItemTemplate>
                                     <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
                                     </asp:LinkButton>
-                              </ItemTemplate>                                  
+                                </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn Visible="false" HeaderStyle-Width="80px" UniqueName="DVRUnits"
                                 HeaderText="DVR Units" DataField="DVRUnits" AllowFiltering="false" FooterStyle-HorizontalAlign="Right"
@@ -174,8 +174,8 @@
                                 DataField="CMFNP_NAVDate" AllowFiltering="false" DataFormatString="{0:d}">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="RealizesdGain" HeaderText="Unrealised Gain/Loss"
-                                DataField="RealizesdGain" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
+                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="TotalPL" HeaderText="Unrealised Gain/Loss"
+                                DataField="TotalPL" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
                                 AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
@@ -200,12 +200,11 @@
                                 Aggregate="Sum" AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="RedeemedAmount" AutoPostBackOnFilter="true"
-                                HeaderText="Sold Value" ShowFilterIcon="false" CurrentFilterFunction="Contains"
-                                HeaderStyle-Width="75px" SortExpression="RedeemedAmount" Aggregate="Sum" FooterText=" "
-                                FooterStyle-HorizontalAlign="Right" FooterAggregateFormatString="{0:n3}">
-                                <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />                                
-                            </telerik:GridTemplateColumn>
+                            <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="RedeemedAmount" HeaderText="Sold Value"
+                                DataField="RedeemedAmount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
+                                Aggregate="Sum" AllowFiltering="false">
+                                <ItemStyle HorizontalAlign="Right" />
+                            </telerik:GridBoundColumn>
                             <%-- <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="RedeemedAmount" HeaderText="Sold Price"
                                 DataField="RedeemedAmount" FooterStyle-HorizontalAlign="Right" AllowFiltering="false"
                                 Aggregate="Sum" DataFormatString="{0:N0}">
@@ -216,8 +215,8 @@
                                 FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="TotalPL" HeaderText="Realised Gain/Loss"
-                                DataField="TotalPL" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
+                            <telerik:GridBoundColumn HeaderStyle-Width="65px" UniqueName="RealizesdGain" HeaderText="Realised Gain/Loss"
+                                DataField="RealizesdGain" DataFormatString="{0:N0}" FooterStyle-HorizontalAlign="Right"
                                 AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
@@ -259,11 +258,11 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>
-                    </mastertableview>
-                    <clientsettings>
+                    </MasterTableView>
+                    <ClientSettings>
                         <Resizing AllowColumnResize="true" />
                         <Selecting AllowRowSelect="true" />
-                    </clientsettings>
+                    </ClientSettings>
                 </telerik:RadGrid>
             </td>
         </tr>
