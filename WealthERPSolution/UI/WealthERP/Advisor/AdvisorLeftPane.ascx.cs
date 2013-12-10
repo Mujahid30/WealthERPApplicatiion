@@ -989,7 +989,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepository','login');", true);
                 }
-                else if (e.Item.Value == "View MF Transactions")
+                else if (e.Item.Value == "MF")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RMMultipleTransactionView','none');", true);
                 }
