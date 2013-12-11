@@ -379,13 +379,13 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (!string.IsNullOrEmpty(ddlSchemeList.SelectedValue))
             {
-                mfProductAMCSchemePlanDetailsVo.SchemePlanCode = int.Parse(ddlSchemeList.SelectedValue);
+                mfProductAMCSchemePlanDetailsVo.SchemePlanName = ddlSchemeList.SelectedValue.ToString();
             }
             else
             {
                 ddlSchemeList.SelectedValue = "Select";
             }
-            mfProductAMCSchemePlanDetailsVo.SchemePlanName = ddlSchemeList.SelectedItem.Text;
+           // mfProductAMCSchemePlanDetailsVo.SchemePlanName = ddlSchemeList.SelectedItem.Text;
             mfProductAMCSchemePlanDetailsVo.ExternalCode = txtESSchemecode.Text.ToString();
             if (!string.IsNullOrEmpty(ddlAmc.SelectedValue))
             {
@@ -806,16 +806,16 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkBO.Checked = true;
             }
-            //if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
-            //{
-            //    chkonline.Checked = true;
-            //    chkoffline.Checked = false;
-            //}
-            //else
-            //{
-            //    chkonline.Checked = false;
-            //    chkoffline.Checked = true;
-            //}
+            if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
+            {
+                chkonline.Checked = true;
+               
+            }
+            else
+            {
+                chkonline.Checked = false;
+                
+            }
 
 
             if (mfProductAMCSchemePlanDetailsVo.IsNFO == 1)
@@ -1082,14 +1082,14 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 ChkBO.Checked = true;
             }
-            if (mfProductAMCSchemePlanDetailsVo.IsOnline == 1)
+            if (mfProductAMCSchemePlanDetailsVo.IsOnline != 1)
             {
-                chkonline.Checked = true;
+                chkonline.Checked = false;
                 //chkoffline.Checked = false;
             }
             else
             {
-                chkonline.Checked = false;
+                chkonline.Checked = true;
                 //chkoffline.Checked = true;
             }
 
@@ -1346,14 +1346,14 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void oncheckedOnlin_OnCheckedChanged(object sender, EventArgs e)
         {
-            if (chkonline.Checked)
-            {
-                schemedetails.Visible = true;
-            }
-            else
-            {
-                schemedetails.Visible = false;
-            }
+            //if (chkonline.Checked)
+            //{
+            //    schemedetails.Visible = true;
+            //}
+            //else
+            //{
+            //    schemedetails.Visible = false;
+            //}
         }
         protected void btnUpdate_click(object sender, EventArgs e)
         {

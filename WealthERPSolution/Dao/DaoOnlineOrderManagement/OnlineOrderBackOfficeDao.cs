@@ -286,6 +286,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WCMV_Lookup_BankId", DbType.Int32, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);
                 db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);
                 if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
                 {

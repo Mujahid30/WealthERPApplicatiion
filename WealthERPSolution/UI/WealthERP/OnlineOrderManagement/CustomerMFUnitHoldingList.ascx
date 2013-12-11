@@ -98,10 +98,10 @@
                                 ShowFilterIcon="false" HeaderText="SubCategory" DataField="SubCategoryName" AllowFiltering="true">
                                 <ItemStyle HorizontalAlign="Left" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn HeaderStyle-Width="96px" SortExpression="FolioNum" AutoPostBackOnFilter="true"
+                            <telerik:GridBoundColumn HeaderStyle-Width="100px" SortExpression="FolioNum" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" UniqueName="FolioNum"
                                 HeaderText="Folio" DataField="FolioNum">
-                                <ItemStyle HorizontalAlign="Right" />
+                                <ItemStyle HorizontalAlign="Left" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderStyle-Width="150px" UniqueName="AmcName" SortExpression="AmcName"
                                 AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"

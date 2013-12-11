@@ -160,7 +160,7 @@
         <td>
             &nbsp;
             <asp:CheckBox ID="chkonline" AutoPostBack="true" runat="server" Text="Online Scheme"
-                CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false" />
+                CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="true" />
                <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                 &nbsp;
                 
@@ -171,7 +171,7 @@
     
 </table>
 </div>
-<div id="schemedetails" runat="server" visible="false">
+<div id="schemedetails" runat="server" visible="true">
     <table width="100%">
         <tr>
             <td colspan="5">
