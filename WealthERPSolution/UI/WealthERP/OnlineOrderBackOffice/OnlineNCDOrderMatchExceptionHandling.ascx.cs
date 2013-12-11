@@ -56,7 +56,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 pnlBtns.Visible = false;
             }
-            BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+            BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
         }
 
         protected void btnManualMatchGo_Click(object sender, EventArgs e)
@@ -157,7 +157,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 RadGrid gvUnmatchedAllotments = (RadGrid)e.Item.FindControl("gvUnmatchedAllotments");
                 int orderId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
                 ManualMatch(gvUnmatchedAllotments, orderId);
-                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
             }
         }
 
@@ -178,13 +178,13 @@ namespace WealthERP.OnlineOrderBackOffice
             if (i > 1)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select One record!');", true);
-                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
                 return;
             }
             if (i == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please select a record!');", true);
-                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+                //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
                 return;
             }
 
@@ -203,7 +203,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);
-            //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+            //BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
 
         }
 
@@ -409,7 +409,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
 
-        private bool MFAutoMatch()
+        private bool NCDAutoMatch()
         {
             int OrderId = 0;
 
@@ -449,12 +449,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
-            result = MFAutoMatch();
+            result = NCDAutoMatch();
 
             if (result == true)
             {
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Match is done');", true);
-                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFrom.Text), Convert.ToDateTime(txtTo.Text));
+                BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), ddlProduct.SelectedValue, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
             }
             else
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Not able to match');", true);

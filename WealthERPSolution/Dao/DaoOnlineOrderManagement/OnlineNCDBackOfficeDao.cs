@@ -50,6 +50,45 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+
+        public int GetSeriesSequence(int issueId, int adviserId)
+        {
+            Database db;
+            DbCommand dbCommand;
+            int DupseqNo = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetSeriesSequence");
+                db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@IssueId", DbType.Int32, issueId);
+
+                DupseqNo = Convert.ToInt32(db.ExecuteScalar(dbCommand).ToString());
+                //if (db.ExecuteNonQuery(dbCommand) != 0)
+                //{
+                //    seqNo = Convert.ToInt32(db.GetParameterValue(dbCommand, "CO_OrderId").ToString());
+                //}
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:ChekSeriesSequence()");
+                object[] objects = new object[2];
+                objects[1] = issueId;
+                objects[2] = adviserId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return DupseqNo;
+        }
         public int ChekSeriesSequence(int seqNo,int issueId, int adviserId)
         {           
             Database db;
@@ -289,7 +328,34 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetSeriesCategories;
         }
-
+        public DataSet GetSyndicateMaster()
+        {
+            DataSet dsGetSeriesCategories;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetIssuer");
+                dsGetSeriesCategories = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetSeriesCategories;
+        }
         public int CreateUpdateDeleteIssuer(int issuerId, string issuerCode, string issuerName, string commandType)
         {
             int issueId;
@@ -313,6 +379,37 @@ namespace DaoOnlineOrderManagement
                 {
                     return 0;
                    
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
+        {
+            int issueId;
+            Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeleteViewSyndicateMaster");
+                db.AddInParameter(createCmd, "@CommandType", DbType.String, commandType);
+                db.AddInParameter(createCmd, "@SyndicateId", DbType.Int32, syndicateId);
+                db.AddInParameter(createCmd, "@SyndicateCode", DbType.String, syndicateCode);
+                db.AddInParameter(createCmd, "@SyndicateName", DbType.String, syndicateName);
+
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+
                 }
 
             }
@@ -1383,6 +1480,36 @@ namespace DaoOnlineOrderManagement
                 FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssuerid()");
                 object[] objects = new object[1];
                 objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dt;
+        }
+        public DataTable GetFrequency()
+        {
+            DataSet dsGetIssuerid;
+            DataTable dt;
+            Database db;
+            DbCommand GetIssueridCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                GetIssueridCmd = db.GetStoredProcCommand("SPROC_GetFrequency");               
+                dsGetIssuerid = db.ExecuteDataSet(GetIssueridCmd);
+                dt = dsGetIssuerid.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:GetIssuerid()");
+                object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);

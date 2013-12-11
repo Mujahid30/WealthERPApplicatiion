@@ -319,9 +319,17 @@ namespace WealthERP.OnlineOrderBackOffice
                         txtMaxQty.Text = "";
 
                     }
+                    if (!string.IsNullOrEmpty(dr["PI_IssuerId"].ToString()))
+                    {
+                        ddlIssuer.SelectedValue  = dr["PI_IssuerId"].ToString();
+                    }
+                    else
+                    {
+                        ddlIssuer.SelectedValue = "Select";
+                    }
 
-                    
-
+                    if (ddlIssuer.SelectedValue == "Select")
+                        return;
                     SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), issueNo);
                 }
             }
@@ -359,7 +367,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else if (Mode == "View")
             {
-                EnablityOfScreen(false, false, true, true);
+                EnablityOfScreen(false, true, true, true);
             }
             else if (Mode == "LnkEdit")
             {
@@ -425,8 +433,10 @@ namespace WealthERP.OnlineOrderBackOffice
             chkIsActive.Enabled = value;
             chkNomineeReQuired.Enabled = value;
 
-            pnlSeries.Enabled = boolGridsEnablity;
-            pnlCategory.Enabled = boolGridsEnablity;
+            //pnlSeries.Enabled = boolGridsEnablity;
+            //pnlCategory.Enabled = boolGridsEnablity;
+            rgSeries.Enabled = boolGridsEnablity;
+            rgEligibleInvestorCategories.Enabled = boolGridsEnablity;
 
             btnSetUpSubmit.Enabled = value;
 
@@ -1185,7 +1195,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
                 TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
                 DropDownList ddlTenure = (DropDownList)e.Item.FindControl("ddlTenure");
-                TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
+                DropDownList ddltInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
                 CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
                 DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
                 TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
@@ -1216,16 +1226,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtTenure.Text = 0.ToString();
                 }
+                //if (string.IsNullOrEmpty(ddltInterestFrequency.Text))
+                //{
+                //    txtTenure.Text = 0.ToString();
+                //}
 
 
-                int dupSeqNo = onlineNCDBackOfficeBo.ChekSeriesSequence(Convert.ToInt32(txtSequence.Text), Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
-                if (dupSeqNo != 0)
-                {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Seq No exist.');", true);
-                    return;
-                }
-
-                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), txtInterestFrequency.Text, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
+                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue , ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
 
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1256,7 +1263,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
                 TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
                 DropDownList ddlTenure = (DropDownList)e.Item.FindControl("ddlTenure");
-                TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
+                DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
                 CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
                 DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
                 TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
@@ -1278,7 +1285,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtSequence.Text = 0.ToString();
                 }
                 int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
-                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), txtInterestFrequency.Text, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
+                int InsseriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), seriesId, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), ddlInterestFrequency.SelectedValue , ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Update");
                 RadGrid rgSeriesCat = (RadGrid)e.Item.FindControl("rgSeriesCat");
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
@@ -1714,6 +1721,13 @@ namespace WealthERP.OnlineOrderBackOffice
                     GridEditFormItem editform = (GridEditFormItem)e.Item;
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
+                    TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
+                    DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
+                    int SeqNo = onlineNCDBackOfficeBo.GetSeriesSequence(Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
+                    txtSequence.Text = SeqNo.ToString();
+                    BindFrequency(ddlInterestFrequency);
+
+                    
 
                 }
                 else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
@@ -1722,13 +1736,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     int seriesId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AID_IssueDetailId"].ToString());
                     TextBox txtSereiesName = (TextBox)e.Item.FindControl("txtSereiesName");
                     TextBox txtTenure = (TextBox)e.Item.FindControl("txtTenure");
-                    TextBox txtInterestFrequency = (TextBox)e.Item.FindControl("txtInterestFrequency");
+                    DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
                     CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
-
+                    DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
+                   
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
+                    BindFrequency(ddlInterestFrequency);
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, txtInterestFrequency, chkBuyAvailability, txtSequence, rgSeriesCat);
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, txtSequence, ddlInterestType, rgSeriesCat);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1751,7 +1767,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
-                         TextBox txtInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence, RadGrid rgSeriesCat)
+                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence,DropDownList  ddlInterestType,RadGrid rgSeriesCat)
         {
             int seriesCategoryId = 0;
             try
@@ -1765,9 +1781,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         txtSereiesName.Text = dr["AID_IssueDetailName"].ToString();
                         txtTenure.Text = dr["AID_Tenure"].ToString();
-                        txtInterestFrequency.Text = dr["AID_InterestFrequency"].ToString();
+                       // ddlInterestFrequency.SelectedValue = dr["AID_InterestFrequency"].ToString();
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
                         txtSequence.Text = dr["AID_Sequence"].ToString();
+                        //ddlInterestType.SelectedValue = dr[""].ToString();
                         if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
                         {
                             seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
@@ -2895,6 +2912,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlBankName.DataBind();
             }
         }
+        private void BindFrequency(DropDownList ddlFrequency)
+        {
+            DataTable dtFrequency = new DataTable();
+            dtFrequency = onlineNCDBackOfficeBo.GetFrequency();
+
+            
+            if (dtFrequency.Rows.Count > 0)
+            {
+                ddlFrequency.DataSource = dtFrequency;
+                ddlFrequency.DataValueField = dtFrequency.Columns["WCMV_LookupId"].ToString();
+                ddlFrequency.DataTextField = dtFrequency.Columns["WCMV_Name"].ToString();
+                ddlFrequency.DataBind();
+            }
+        }
         //private void BindBankBranch(int BankId)
         //{
         //    DataTable dtBankNames = new DataTable();
@@ -3066,6 +3097,46 @@ namespace WealthERP.OnlineOrderBackOffice
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
             }
         }
+        private void CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
+        {
+            int i = onlineNCDBackOfficeBo.CreateUpdateDeleteSyndicateMaster(syndicateId, syndicateCode, syndicateName, commandType);
+            if (i > 0)
+            {
+                if (commandType == "INSERT")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Inserted Successfully.');", true);
+                else if (commandType == "UPDATE")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated Successfully.');", true);
+                else
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
+            }
+        }
+        protected void rgSyndicate_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            //int SyndicateId;
+            //if (e.CommandName == RadGrid.PerformInsertCommandName)
+            //{
+            //    TextBox txtSyndicateCode = (TextBox)e.Item.FindControl("txtSyndicateCode");
+            //    TextBox txtSyndicatename = (TextBox)e.Item.FindControl("txtSyndicatename");
+
+            //    CreateUpdateDeleteSyndicateMaster(0, txtSyndicateCode.Text, txtSyndicatename.Text, "INSERT");
+            //}
+            //else if (e.CommandName == RadGrid.UpdateCommandName)
+            //{
+            //    SyndicateId = Convert.ToInt32(rgSyndicate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PI_SyndicateId"].ToString());
+            //    TextBox txtSyndicateCode = (TextBox)e.Item.FindControl("txtSyndicateCode");
+            //    TextBox txtSyndicatename = (TextBox)e.Item.FindControl("txtSyndicatename");
+
+            //    CreateUpdateDeleteSyndicateMaster(SyndicateId, txtSyndicateCode.Text, txtSyndicatename.Text, "UPDATE");
+
+            //}
+            //else if (e.CommandName == RadGrid.DeleteCommandName)
+            //{
+            //    SyndicateId = Convert.ToInt32(rgSyndicate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PI_SyndicateId"].ToString());
+            //    CreateUpdateDeleteSyndicateMaster(SyndicateId, "", "", "DELETE");
+
+            //}
+            //BindSyndicateGrid();
+        }
 
         protected void rgIssuer_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -3136,6 +3207,34 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
+        private void BindSyndicateGrid()
+        {
+            try
+            {
+                //DataTable dtIssuer = new DataTable();
+                //dtIssuer = onlineNCDBackOfficeBo.GetIssuer().Tables[0];
+                //rgIssuer.DataSource = dtIssuer;
+                //rgIssuer.DataBind();
+                //if (Cache[userVo.UserId.ToString() + "Issuer"] != null)
+                //    Cache.Remove(userVo.UserId.ToString() + "Issuer");
+                //Cache.Insert(userVo.UserId.ToString() + "Issuer", dtIssuer);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesCategoryGrid()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         protected void rgIssuer_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             DataTable dtIssuer = new DataTable();

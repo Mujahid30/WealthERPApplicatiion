@@ -1260,7 +1260,7 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIDCSR_DefaultInterestRate" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            HeaderText="Default InterestRate" UniqueName="AIDCSR_DefaultInterestRate" SortExpression="AIDCSR_DefaultInterestRate">
+                                                                            HeaderText="Coupon Rate" UniqueName="AIDCSR_DefaultInterestRate" SortExpression="AIDCSR_DefaultInterestRate">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIDCSR_AnnualizedYieldUpto" HeaderStyle-Width="30px"
@@ -1268,11 +1268,11 @@
                                                                             HeaderText="Annualized YieldUpto" UniqueName="AIDCSR_AnnualizedYieldUpto" SortExpression="AIDCSR_AnnualizedYieldUpto">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AIDCSR_DefaultInterestRate" HeaderStyle-Width="30px"
+                                                                       <%-- <telerik:GridBoundColumn DataField="AIDCSR_DefaultInterestRate" HeaderStyle-Width="30px"
                                                                             HeaderText="Interest Frequency" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             AutoPostBackOnFilter="true" UniqueName="AIDCSR_InterestFrequency" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
-                                                                        </telerik:GridBoundColumn>
+                                                                        </telerik:GridBoundColumn>--%>
                                                                     </Columns>
                                                                 </MasterTableView>
                                                             </telerik:RadGrid>
@@ -1282,14 +1282,14 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="530px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="500px">
                                         <FormTemplate>
-                                            <table width="75%" cellspacing="2" cellpadding="2">
+                                            <table width="80%" >
                                                 <tr>
-                                                    <td class="leftLabel">
+                                                    <td width="20%" align="right">
                                                         <asp:Label ID="lb1SereiesName" runat="server" Text="Series Name:" CssClass="FieldName"></asp:Label>
                                                     </td>
-                                                    <td class="rightData" colspan="2">
+                                                    <td width="30%" align="left">
                                                         <asp:TextBox ID="txtSereiesName" runat="server" CssClass="txtField"></asp:TextBox>
                                                         <span id="Span24" class="spnRequiredField">*</span>
                                                         <br />
@@ -1298,26 +1298,12 @@
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td>
-                                                        &nbsp;
-                                                    </td>
-                                                    <%--  <td class="rightData">
-                                                        &nbsp;
-                                                    </td>--%>
-                                                </tr>
-                                                <tr>
-                                                    <td class="leftLabel">
+                                                    <td width="25%" align="left">
                                                         <asp:Label ID="lb1Tenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        <asp:TextBox ID="txtTenure" runat="server" CssClass="txtField"></asp:TextBox>
-                                               
-                                                        <span id="Span1" class="spnRequiredField">*</span>
-                                                        <%--  <asp:DropDownList ID="ddlTenure" runat="server" CssClass="cmbField">
-                                                            <asp:ListItem Value="Select">Select</asp:ListItem>
-                                                            <asp:ListItem Value="Month">Month</asp:ListItem>
-                                                            <asp:ListItem Value="Year">Year</asp:ListItem>
-                                                        </asp:DropDownList>--%>
+                                                   
+                                                        <asp:TextBox ID="txtTenure" runat="server" CssClass="txtField" Width="100px" ></asp:TextBox>
+                                                          <span id="Span1" class="spnRequiredField">*</span>
+                                                       
                                                         <br />
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
                                                             ErrorMessage="Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
@@ -1327,44 +1313,39 @@
                                                             Display="Dynamic" ErrorMessage="<br />Please enter a Integer" Type="Integer"
                                                             Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
                                                     </td>
-                                                    <td class="rightData">
-                                                        <asp:DropDownList ID="ddlTenure" runat="server" CssClass="cmbField" Visible="false">
-                                                            <asp:ListItem Value="Select">Select</asp:ListItem>
-                                                            <asp:ListItem Value="Month">Month</asp:ListItem>
-                                                            <asp:ListItem Value="Year">Year</asp:ListItem>
-                                                        </asp:DropDownList>
-                                                        <%-- <span id="Span25" class="spnRequiredField">*</span>
-                                                                
-                                                                    <br />--%>
-                                                        <%--   <asp:RequiredFieldValidator ID="RequiredFieldValidator25" runat="server" CssClass="rfvPCG"
-                                                                    ErrorMessage="Please Enter Sereies Name" Display="Dynamic" ControlToValidate="ddlTenure" Enabled="false"
-                                                                    ValidationGroup="btnOK" InitialValue="Select"  >
-                                                                </asp:RequiredFieldValidator>--%>
-                                                    </td>
+                                                   
                                                 </tr>
+                                         
                                                 <tr>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="lb1InterestFrequency" runat="server" Text="Interest Frequency:" CssClass="FieldName"></asp:Label>
+                                                    <td width="20%" align="right">
+                                                        <asp:Label ID="lb1InterestFrequency" runat="server" Text="Interest Freq.:" CssClass="FieldName"></asp:Label>
                                                     </td>
-                                                    <td class="rightData">
-                                                        <asp:TextBox ID="txtInterestFrequency" runat="server" CssClass="txtField"></asp:TextBox>
+                                                    <td width="20%" align="left">
+                                                        <asp:DropDownList ID="ddlInterestFrequency" runat="server" CssClass="txtField"></asp:DropDownList>
                                                         <span id="Span3" class="spnRequiredField">*</span>
+                                                        
                                                         <br />
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" CssClass="rfvPCG"
-                                                            ErrorMessage="Please Enter Interest Frequency" Display="Dynamic" ControlToValidate="txtInterestFrequency"
-                                                            ValidationGroup="btnOK">
+                                                            ErrorMessage="Please Enter Interest Frequency" Display="Dynamic" ControlToValidate="ddlInterestFrequency"
+                                                            ValidationGroup="btnOK" InitialValue="Select">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td class="rightData">
-                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbField" Text="Is Buy Back Available">
-                                                        </asp:CheckBox>
+                                                    <td width="35%" align="left">
+                                                        <asp:Label ID="Label5" runat="server" Text="Sequence:" CssClass="FieldName"></asp:Label>
+                                                  <%--  </td>
+                                                    <td class="rightData" >--%>
+                                                        <asp:TextBox ID="txtSequence" runat="server" CssClass="txtField" Enabled="false" Width="80px" ></asp:TextBox>
+                                                        
                                                     </td>
+                                                    
+                                                    <td>&nbsp;</td>
+                                                  
                                                 </tr>
                                                 <tr>
-                                                    <td class="leftLabel">
+                                                    <td width="20%" align="right">
                                                         <asp:Label ID="lb1InterestType" runat="server" Text="Interest Type:" CssClass="FieldName"></asp:Label>
                                                     </td>
-                                                    <td class="rightData" colspan="2">
+                                                    <td width="20%" align="left">
                                                         <asp:DropDownList ID="ddlInterestType" runat="server" CssClass="cmbField">
                                                             <asp:ListItem Value="Select">Select</asp:ListItem>
                                                             <asp:ListItem Value="Fixed">Fixed</asp:ListItem>
@@ -1373,38 +1354,24 @@
                                                         <span id="Span5" class="spnRequiredField">*</span>
                                                         <br />
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator26" runat="server" CssClass="rfvPCG"
-                                                            ErrorMessage="Please Enter Interest Type" Display="Dynamic" ControlToValidate="txtInterestFrequency"
-                                                            ValidationGroup="btnOK">
+                                                            ErrorMessage="Please Enter Interest Type" Display="Dynamic" ControlToValidate="ddlInterestType"
+                                                            ValidationGroup="btnOK" InitialValue="Select">
                                                         </asp:RequiredFieldValidator>
                                                     </td>
-                                                    <td class="rightData">
-                                                        &nbsp;
+                                              
+                                                 
+                                                 <td  width="35%" align="left">
+                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbField" Text="Is Buy Back">
+                                                        </asp:CheckBox>
+                                                        
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="leftLabel">
-                                                        <asp:Label ID="Label5" runat="server" Text="Sequence:" CssClass="FieldName"></asp:Label>
-                                                    </td>
-                                                    <td class="rightData" colspan="2">
-                                                        <asp:TextBox ID="txtSequence" runat="server" CssClass="txtField"></asp:TextBox>
-                                                        <span id="Span32" class="spnRequiredField">*</span>
-                                                        <br />
-                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator40" runat="server" CssClass="rfvPCG"
-                                                            ErrorMessage="Please Enter Sequence" Display="Dynamic" ControlToValidate="txtSequence"
-                                                            ValidationGroup="btnOK">
-                                                            <%--<asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtSequence" runat="server"
-                                                                Display="Dynamic" ErrorMessage="Enter integer " Type="Integer" Operator="NotEqual"
-                                                                CssClass="cvPCG"></asp:CompareValidator>--%>
-                                                        </asp:RequiredFieldValidator>
-                                                    </td>
-                                                    <td class="rightData">
-                                                        &nbsp;
-                                                    </td>
+                                                 
+                                                  
                                                 </tr>
                                                 <tr>
                                                     <td colspan="3">
                                                         <telerik:RadGrid ID="rgSeriesCat" runat="server" AllowSorting="True" enableloadondemand="True"
-                                                            PageSize="5" AllowPaging="True" AutoGenerateColumns="false" EnableEmbeddedSkins="False"
+                                                            PageSize="5" AllowPaging="false" AutoGenerateColumns="false" EnableEmbeddedSkins="False"
                                                             GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCat_OnNeedDataSource">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
