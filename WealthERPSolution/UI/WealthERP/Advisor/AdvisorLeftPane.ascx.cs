@@ -325,9 +325,13 @@ namespace WealthERP.Advisor
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('AdvisorLeftPane');", true);
                 if (Session["NodeType"] == "CustomerUpload")
                 {
-                    RadPanelBar1.FindItemByValue("Operations").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Upload").Expanded = true;
-                    RadPanelBar1.FindItemByValue("Upload").Selected = true;
+
+                    RadPanelBar1.FindItemByValue("File_Upload").Expanded = true;
+                    RadPanelBar1.FindItemByValue("Start_Upload").Expanded = true;
+                    RadPanelBar1.FindItemByValue("Start_Upload").Selected = true;
+                    //RadPanelBar1.FindItemByValue("Operations").Expanded = true;
+                    //RadPanelBar1.FindItemByValue("Upload").Expanded = true;
+                    //RadPanelBar1.FindItemByValue("Upload").Selected = true;
                 }
                 else if (Session["NodeType"] == "AdviserCustomer")
                 {
