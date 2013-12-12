@@ -333,11 +333,17 @@
                                                                             UniqueName="AID_Tenure" SortExpression="AID_Tenure">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="true" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_CouponFreq" HeaderStyle-Width="85px" CurrentFilterFunction="Contains"
+                                                                        <%--<telerik:GridBoundColumn DataField="AID_CouponFreq" HeaderStyle-Width="85px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Frequency of Coupon Payment"
                                                                             UniqueName="AID_CouponFreq" SortExpression="AID_CouponFreq">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                                                        </telerik:GridBoundColumn>--%>
+                                                                        <telerik:GridBoundColumn DataField="WCMV_Name" HeaderStyle-Width="85px" CurrentFilterFunction="Contains"
+                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Frequency of Coupon Payment"
+                                                                            UniqueName="WCMV_Name" SortExpression="WCMV_Name">
+                                                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
+                                                                        
                                                                         <telerik:GridBoundColumn DataField="AID_CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
                                                                             UniqueName="AID_CouponRate" SortExpression="AID_CouponRate">
