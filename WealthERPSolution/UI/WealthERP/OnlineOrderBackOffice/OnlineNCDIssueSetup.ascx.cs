@@ -1781,10 +1781,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         txtSereiesName.Text = dr["AID_IssueDetailName"].ToString();
                         txtTenure.Text = dr["AID_Tenure"].ToString();
-                       // ddlInterestFrequency.SelectedValue = dr["AID_InterestFrequency"].ToString();
+                        ddlInterestFrequency.SelectedValue = dr["WCMV_LookupId"].ToString();
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
                         txtSequence.Text = dr["AID_Sequence"].ToString();
-                        //ddlInterestType.SelectedValue = dr[""].ToString();
+                        ddlInterestType.SelectedValue = dr["AID_InterestType"].ToString();
                         if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
                         {
                             seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
@@ -1845,7 +1845,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnProspect_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','action=ManageRepository&issueId=1');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','action=NCDRepository&issueId=" + txtIssueId.Text  + "');", true);
 
         }
 
