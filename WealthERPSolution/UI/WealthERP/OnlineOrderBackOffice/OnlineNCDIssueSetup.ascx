@@ -552,7 +552,12 @@
             <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
+            </asp:RequiredFieldValidator>            
+             
+                
+             <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlOpenTimeHours" runat="server"
+                ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Open Time be Greater Than Close Time"
+                Type="Integer" Operator="LessThan"  CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
             <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
@@ -578,6 +583,12 @@
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
+            
+             <asp:CompareValidator ID="CompareValidator7" ControlToValidate="ddlCloseTimeHours" runat="server"
+                ControlToCompare="ddlOpenTimeHours" Display="Dynamic" ErrorMessage="<br/>Close Time be Less Than Open Time"
+                Type="Integer" Operator="GreaterThan"  CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+            
+            
             <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator31" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
@@ -705,6 +716,10 @@
                 ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
+            
+            <asp:CompareValidator ID="CompareValidator8" ControlToValidate="txtMaxQty" runat="server"
+                ControlToCompare="txtMinAplicSize" Display="Dynamic" ErrorMessage="<br/>Max Qty be Greater Than Min Qty"
+                Type="Integer" Operator="GreaterThan"  CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
@@ -722,13 +737,17 @@
             <span id="Span23" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator20" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Enter Min AplicationSize" Display="Dynamic" ControlToValidate="txtMinAplicSize"
+                ErrorMessage="Please Enter Min Qty" Display="Dynamic" ControlToValidate="txtMinAplicSize"
                 InitialValue="" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ControlToValidate="txtMinAplicSize"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
                 ValidationExpression="[1-9]\d*$" ValidationGroup="txtMinAplicSize">     
             </asp:RegularExpressionValidator>
+            
+              <asp:CompareValidator ID="CompareValidator10" ControlToValidate="txtMinAplicSize" runat="server"
+                ControlToCompare="txtMaxQty" Display="Dynamic" ErrorMessage="<br/>Min Qty be Less Than Max Qty"
+                Type="Integer" Operator="LessThan"  CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
         <td colspan="2">
             &nbsp;
