@@ -360,155 +360,179 @@ namespace DaoCustomerProfiling
                     customerVo.CustCode = dr["C_CustCode"].ToString();
                     customerVo.CustomerId = customerId;
                     customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
-                    if (dr["AB_BranchId"].ToString() != "")
+                    if (dr["AB_BranchId"].ToString() != string.Empty)
                         customerVo.BranchId = int.Parse(dr["AB_BranchId"].ToString());
-                    else
-                        customerVo.BranchId = 0;
-                    customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
-                    customerVo.FirstName = dr["C_FirstName"].ToString();
-                    customerVo.MiddleName = dr["C_MiddleName"].ToString();
-                    if (dr["C_IsDummyPAN"] != null && dr["C_IsDummyPAN"] != "")
+                    if (dr["U_UMId"].ToString() != string.Empty)
+                        customerVo.UserId = int.Parse(dr["U_UMId"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_FirstName"].ToString()))
+                        customerVo.FirstName = dr["C_FirstName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_MiddleName"].ToString()))
                     {
+                        customerVo.MiddleName = dr["C_MiddleName"].ToString();
+                    }
+                    else
+                    {
+                        customerVo.MiddleName = string.Empty;    
+                    }
+                    if (dr["C_IsDummyPAN"].ToString() != string.Empty)
                         customerVo.DummyPAN = int.Parse(dr["C_IsDummyPAN"].ToString());
-                    }
-                    else
-                    {
-                        customerVo.DummyPAN = 0;
-                    }
-                    if (dr["C_IsActive"] != null && dr["C_IsActive"] != "")
-                    {
-
+                    if (dr["C_IsActive"].ToString() != string.Empty)
                         customerVo.IsActive = int.Parse(dr["C_IsActive"].ToString());
-
-                    }
-                    else
-                    {
-                        customerVo.IsActive = 0;
-                    }
-                    if (dr["C_AlertViaSMS"] == null || dr["C_AlertViaSMS"].ToString() == "")
-                    {
-
-                        customerVo.ViaSMS = 0;
-
-                    }
-                    else
-                    {
+                    if (dr["C_AlertViaSMS"].ToString() != string.Empty)
                         customerVo.ViaSMS = int.Parse(dr["C_AlertViaSMS"].ToString());
-
-
-                    }
-                    if (dr["C_AlertViaEmail"] == null || dr["C_AlertViaEmail"].ToString() == "")
-                    {
-                        customerVo.AlertViaEmail = 0;
-
-
-                    }
-                    else
-                    {
+                    if (dr["C_AlertViaEmail"].ToString() != string.Empty)
                         customerVo.AlertViaEmail = int.Parse(dr["C_AlertViaEmail"].ToString());
-
-                    }
-
-                    if (dr["C_IsProspect"] == null || dr["C_IsProspect"].ToString() == "")
-                    {
-                        customerVo.IsProspect = 0;
-                    }
-                    else
-                    {
+                    if (dr["C_IsProspect"].ToString() != string.Empty)
                         customerVo.IsProspect = int.Parse(dr["C_IsProspect"].ToString());
-                    }
                     if (!string.IsNullOrEmpty(dr["C_ProspectAddDate"].ToString()))
                         customerVo.ProspectAddDate = Convert.ToDateTime(dr["C_ProspectAddDate"].ToString());
-
-                    customerVo.AdviseNote = dr["C_Comments"].ToString();
-                    if (!string.IsNullOrEmpty(dr["ACC_CustomerCategoryCode"].ToString()))
-                    {
+                    if (!string.IsNullOrEmpty(dr["C_Comments"].ToString()))
+                        customerVo.AdviseNote = dr["C_Comments"].ToString();
+                    if (dr["ACC_CustomerCategoryCode"].ToString() != string.Empty)
                         customerVo.CustomerClassificationID = int.Parse(dr["ACC_CustomerCategoryCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_LastName"].ToString()))
+                    {
+                        customerVo.LastName = dr["C_LastName"].ToString();
                     }
                     else
                     {
-                        customerVo.CustomerClassificationID = 0;
+                        customerVo.LastName = string.Empty;
                     }
-
-                    customerVo.LastName = dr["C_LastName"].ToString();
-                    customerVo.Gender = dr["C_Gender"].ToString();
-                    customerVo.BranchName = dr["AB_BranchName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AB_BranchName"].ToString()))
+                        customerVo.Gender = dr["AB_BranchName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AB_BranchName"].ToString()))
+                        customerVo.BranchName = dr["AB_BranchName"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_DOB"].ToString()))
                         customerVo.Dob = Convert.ToDateTime(dr["C_DOB"].ToString());
                     //customerVo.Dob = DateTime.Parse(dr["C_DOB"].ToString());
-
-                    customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                   if(!string.IsNullOrEmpty(dr["XCT_CustomerTypeCode"].ToString()))
+                      customerVo.Type = dr["XCT_CustomerTypeCode"].ToString();
+                   if (!string.IsNullOrEmpty(dr["XCST_CustomerSubTypeCode"].ToString()))
                     customerVo.SubType = dr["XCST_CustomerSubTypeCode"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_Salutation"].ToString()))
                     customerVo.Salutation = dr["C_Salutation"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_PANNum"].ToString()))
                     customerVo.PANNum = dr["C_PANNum"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_Adr1Line1"].ToString()))
                     customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_Adr1Line2"].ToString()))
                     customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_Adr1Line3"].ToString()))
                     customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                   if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
                     customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
+                   if (!string.IsNullOrEmpty(dr["C_Adr1City"].ToString()))
                     customerVo.Adr1City = dr["C_Adr1City"].ToString();
-                    customerVo.Adr1State = dr["C_Adr1State"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1State"].ToString()))
+                      customerVo.Adr1State = dr["C_Adr1State"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1Country"].ToString()))
                     customerVo.Adr1Country = dr["C_Adr1Country"].ToString();
-                    customerVo.Adr2Line1 = dr["C_Adr2Line1"].ToString();
-                    customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
-                    customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
-                    customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
-                    customerVo.Adr2City = dr["C_Adr2City"].ToString();
-                    customerVo.Adr2State = dr["C_Adr2State"].ToString();
-                    customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2Line1"].ToString()))
+                     customerVo.Adr2Line1 = dr["C_Adr2Line1"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2Line2"].ToString()))
+                      customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2Line3"].ToString()))
+                      customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2PinCode"].ToString()))
+                        customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_Adr2City"].ToString()))
+                        customerVo.Adr2City = dr["C_Adr2City"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2State"].ToString()))
+                        customerVo.Adr2State = dr["C_Adr2State"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2Country"].ToString()))
+                        customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_ResidenceLivingDate"].ToString()))
                         customerVo.ResidenceLivingDate = Convert.ToDateTime(dr["C_ResidenceLivingDate"].ToString());
-                    customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
-                    customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
-                    customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
-                    customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
-                    customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
-                    customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
-                    customerVo.Email = dr["C_Email"].ToString();
-                    customerVo.AltEmail = dr["C_AltEmail"].ToString();
-                    customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
-                    customerVo.Mobile2 = long.Parse(dr["C_Mobile2"].ToString());
-                    customerVo.ISDFax = int.Parse(dr["C_ISDFax"].ToString());
-                    customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
-                    customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
-                    customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
-                    customerVo.OfcSTDFax = int.Parse(dr["C_OfcFaxSTD"].ToString());
-                    customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
-                    customerVo.Occupation = dr["XO_OccupationCode"].ToString();
-                    customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
-                    customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
+                    if (dr["C_ResISDCode"].ToString() != string.Empty)
+                        customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
+                    if (dr["C_ResSTDCode"].ToString() != string.Empty)
+                        customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
+                    if (dr["C_ResPhoneNum"].ToString() != string.Empty)
+                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                    if (dr["C_OfcISDCode"].ToString() != string.Empty)
+                        customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
+                    if (dr["C_OfcSTDCode"].ToString() != string.Empty)
+                        customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
+                    if (dr["C_OfcPhoneNum"].ToString() != string.Empty)
+                        customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_Email"].ToString()))
+                        customerVo.Email = dr["C_Email"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_AltEmail"].ToString()))
+                        customerVo.AltEmail = dr["C_AltEmail"].ToString();
+                    if (dr["C_Mobile1"].ToString() != string.Empty)
+                        customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+                    if (dr["C_Mobile2"].ToString() != string.Empty)
+                        customerVo.Mobile2 = long.Parse(dr["C_Mobile2"].ToString());
+                    if (dr["C_ISDFax"].ToString() != string.Empty)
+                        customerVo.ISDFax = int.Parse(dr["C_ISDFax"].ToString());
+                    if (dr["C_STDFax"].ToString() != string.Empty)
+                        customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
+                    if (dr["C_Fax"].ToString() != string.Empty)
+                        customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
+                    if (dr["C_OfcFaxISD"].ToString() != string.Empty)
+                        customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
+                    if (dr["C_OfcFaxSTD"].ToString() != string.Empty)
+                        customerVo.OfcSTDFax = int.Parse(dr["C_OfcFaxSTD"].ToString());
+                    if (dr["C_OfcFax"].ToString() != string.Empty)
+                        customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
+                    if (!string.IsNullOrEmpty(dr["XO_OccupationCode"].ToString()))
+                        customerVo.Occupation = dr["XO_OccupationCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XQ_QualificationCode"].ToString()))
+                        customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XMS_MaritalStatusCode"].ToString()))
+                        customerVo.MaritalStatus = dr["XMS_MaritalStatusCode"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_MarriageDate"].ToString()))
                         customerVo.MarriageDate = Convert.ToDateTime(dr["C_MarriageDate"].ToString());
-                    customerVo.Nationality = dr["XN_NationalityCode"].ToString();
-                    customerVo.RBIRefNum = dr["C_RBIRefNum"].ToString();
+                    if (!string.IsNullOrEmpty(dr["XN_NationalityCode"].ToString()))
+                        customerVo.Nationality = dr["XN_NationalityCode"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_RBIRefNum"].ToString()))
+                        customerVo.RBIRefNum = dr["C_RBIRefNum"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_RBIApprovalDate"].ToString()))
                         customerVo.RBIApprovalDate = Convert.ToDateTime(dr["C_RBIApprovalDate"].ToString());
-                    customerVo.CompanyName = dr["C_CompanyName"].ToString();
-                    customerVo.OfcAdrLine1 = dr["C_OfcAdrLine1"].ToString();
-                    customerVo.OfcAdrLine2 = dr["C_OfcAdrLine2"].ToString();
-                    customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
-                    customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
-                    customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
-                    customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();
-                    customerVo.OfcAdrCountry = dr["C_OfcAdrCountry"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_CompanyName"].ToString()))
+                        customerVo.CompanyName = dr["C_CompanyName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrLine1"].ToString()))
+                        customerVo.OfcAdrLine1 = dr["C_OfcAdrLine1"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrLine2"].ToString()))
+                        customerVo.OfcAdrLine2 = dr["C_OfcAdrLine2"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrLine3"].ToString()))
+                        customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrLine3"].ToString()))
+                        customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrLine3"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrCity"].ToString()))
+                        customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrState"].ToString()))
+                        customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrCountry"].ToString()))
+                        customerVo.OfcAdrCountry = dr["C_OfcAdrCountry"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_JobStartDate"].ToString()))
                         customerVo.JobStartDate = Convert.ToDateTime(dr["C_JobStartDate"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_RegistrationDate"].ToString()))
                         customerVo.RegistrationDate = Convert.ToDateTime(dr["C_RegistrationDate"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_CommencementDate"].ToString()))
                         customerVo.CommencementDate = Convert.ToDateTime(dr["C_CommencementDate"].ToString());
-                    customerVo.RegistrationPlace = dr["C_RegistrationPlace"].ToString();
-                    customerVo.RegistrationNum = dr["C_RegistrationNum"].ToString();
-                    customerVo.CompanyWebsite = dr["C_CompanyWebsite"].ToString();
-                    customerVo.ContactMiddleName = dr["C_ContactGuardianMiddleName"].ToString();
-                    customerVo.ContactFirstName = dr["C_ContactGuardianFirstName"].ToString();
-                    customerVo.ContactLastName = dr["C_ContactGuardianLastName"].ToString();
-                    customerVo.MothersMaidenName = dr["C_MothersMaidenName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_RegistrationPlace"].ToString()))
+                        customerVo.RegistrationPlace = dr["C_RegistrationPlace"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_RegistrationNum"].ToString()))
+                        customerVo.RegistrationNum = dr["C_RegistrationNum"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_CompanyWebsite"].ToString()))
+                        customerVo.CompanyWebsite = dr["C_CompanyWebsite"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_ContactGuardianMiddleName"].ToString()))
+                        customerVo.ContactMiddleName = dr["C_ContactGuardianMiddleName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_ContactGuardianFirstName"].ToString()))
+                        customerVo.ContactFirstName = dr["C_ContactGuardianFirstName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_ContactGuardianLastName"].ToString()))
+                        customerVo.ContactLastName = dr["C_ContactGuardianLastName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_MothersMaidenName"].ToString()))
+                        customerVo.MothersMaidenName = dr["C_MothersMaidenName"].ToString();
                     if (dr["CA_AssociationId"].ToString() != string.Empty)
                         customerVo.AssociationId = int.Parse(dr["CA_AssociationId"].ToString());
                     if (dr["XR_RelationshipCode"].ToString() != string.Empty)
                         customerVo.RelationShip = dr["XR_RelationshipCode"].ToString();
-                    customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
-                    customerVo.RMName = dr["AR_RM_FullName"].ToString();
+                    if (!string.IsNullOrEmpty(dr["ParentCustomer"].ToString()))
+                        customerVo.ParentCustomer = dr["ParentCustomer"].ToString();
+                    if (!string.IsNullOrEmpty(dr["AR_RM_FullName"].ToString()))
+                        customerVo.RMName = dr["AR_RM_FullName"].ToString();
                     if (!string.IsNullOrEmpty(dr["AR_RM_Email"].ToString()))
                         customerVo.RMEmail = dr["AR_RM_Email"].ToString();
                     else
