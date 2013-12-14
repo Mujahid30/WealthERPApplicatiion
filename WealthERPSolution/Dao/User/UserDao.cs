@@ -45,7 +45,7 @@ namespace DaoUser
                     db.AddInParameter(createUserCmd, "@U_LastName", DbType.String, DBNull.Value);
 
                 db.AddInParameter(createUserCmd, "@U_Email", DbType.String, userVo.Email.ToString());
-                
+
                 db.AddInParameter(createUserCmd, "@U_UserType", DbType.String, userVo.UserType.ToString());
                 db.AddInParameter(createUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(createUserCmd, "@U_CreatedBy", DbType.String, 100);//temp
@@ -110,8 +110,8 @@ namespace DaoUser
                         userVo.IsTempPassword = int.Parse(dr["U_IsTempPassword"].ToString());
                     if (dr["U_Theme"].ToString() != "")
                         userVo.theme = dr["U_Theme"].ToString();
-                    
-                    if(!string.IsNullOrEmpty(dr["RoleList"].ToString()))
+
+                    if (!string.IsNullOrEmpty(dr["RoleList"].ToString()))
                         userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
 
                     if (!string.IsNullOrEmpty(dr["PermissionList"].ToString()))
@@ -145,7 +145,7 @@ namespace DaoUser
                 throw exBase;
 
             }
-             return userVo;
+            return userVo;
 
         }
 
@@ -185,7 +185,7 @@ namespace DaoUser
                         userVo.theme = dr["U_Theme"].ToString();
                     if (dr["U_PwdSaltValue"] != null)
                         userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString();
-                    if(dr["U_IsTempPassword"] != null)
+                    if (dr["U_IsTempPassword"] != null)
                         userVo.IsTempPassword = Convert.ToInt16(dr["U_IsTempPassword"].ToString());
                 }
 
@@ -349,7 +349,7 @@ namespace DaoUser
                 db.AddInParameter(updateUserCmd, "@U_LoginId", DbType.String, userVo.LoginId);
                 db.AddInParameter(updateUserCmd, "@U_Password", DbType.String, userVo.Password);
                 if (!string.IsNullOrEmpty(userVo.PasswordSaltValue))
-                db.AddInParameter(updateUserCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
+                    db.AddInParameter(updateUserCmd, "@U_PasswordSaltValue", DbType.String, userVo.PasswordSaltValue);
                 db.AddInParameter(updateUserCmd, "@U_IsTempPassword", DbType.String, userVo.IsTempPassword);
                 db.ExecuteNonQuery(updateUserCmd);
                 bResult = true;
@@ -696,7 +696,7 @@ namespace DaoUser
             return roleList;
         }
 
-        public bool ChangePassword(int userId, string password,string pwdSaltValue, int isTempPass)
+        public bool ChangePassword(int userId, string password, string pwdSaltValue, int isTempPass)
         {
             bool bResult = false;
             Database db;
@@ -710,9 +710,9 @@ namespace DaoUser
                 db.AddInParameter(changePasswordCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(changePasswordCmd, "@U_Password", DbType.String, password);
                 if (!string.IsNullOrEmpty(pwdSaltValue))
-                 db.AddInParameter(changePasswordCmd, "@U_PwdSaltValue", DbType.String, pwdSaltValue);
+                    db.AddInParameter(changePasswordCmd, "@U_PwdSaltValue", DbType.String, pwdSaltValue);
                 db.AddInParameter(changePasswordCmd, "@U_IsTempPassword", DbType.Int16, isTempPass);
-                
+
                 db.ExecuteNonQuery(changePasswordCmd);
                 bResult = true;
 
@@ -732,7 +732,7 @@ namespace DaoUser
                 object[] objects = new object[4];
                 objects[0] = userId;
                 objects[1] = password;
-                objects[2]=pwdSaltValue;
+                objects[2] = pwdSaltValue;
                 objects[3] = isTempPass;
 
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
@@ -1034,7 +1034,7 @@ namespace DaoUser
             }
         }
 
-        public bool CheckIPAvailabilityInIPPool(int adviserID,string userCurrentIPAddress)
+        public bool CheckIPAvailabilityInIPPool(int adviserID, string userCurrentIPAddress)
         {
             bool bResult;
             Database db;
@@ -1102,10 +1102,10 @@ namespace DaoUser
             int rowCount;
             string userDBPassWord = string.Empty;
             string actualPassWord = string.Empty;
-            string strPwdSaltValue=string.Empty;
+            string strPwdSaltValue = string.Empty;
             Hashtable hashUserAuthenticationDetails = new Hashtable();
             DataSet ds;
-            OneWayEncryption oneWayEncryption=new OneWayEncryption();
+            OneWayEncryption oneWayEncryption = new OneWayEncryption();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1113,21 +1113,21 @@ namespace DaoUser
                 db.AddInParameter(chkAvailabilityCmd, "@A_AdviserID", DbType.Int32, adviserID);
                 db.AddInParameter(chkAvailabilityCmd, "@User_LoginId", DbType.String, userLoginId);
                 db.AddInParameter(chkAvailabilityCmd, "@User_IPAddress", DbType.String, userCurrentIPAddress);
-                
-                if(isIPEnable == false)
+
+                if (isIPEnable == false)
                     db.AddInParameter(chkAvailabilityCmd, "@IPEnableFlag", DbType.Int32, 0);
                 else
                     db.AddInParameter(chkAvailabilityCmd, "@IPEnableFlag", DbType.Int32, 1);
 
                 ds = db.ExecuteDataSet(chkAvailabilityCmd);
-                
+
                 rowCount = ds.Tables[0].Rows.Count;
 
                 if (ds.Tables[0].Rows.Count != 0)
                 {
                     userDBPassWord = ds.Tables[0].Rows[0]["U_Password"].ToString().Trim();
-                    if (ds.Tables[0].Rows[0]["U_PwdSaltValue"]!=null)
-                     strPwdSaltValue = ds.Tables[0].Rows[0]["U_PwdSaltValue"].ToString().Trim();
+                    if (ds.Tables[0].Rows[0]["U_PwdSaltValue"] != null)
+                        strPwdSaltValue = ds.Tables[0].Rows[0]["U_PwdSaltValue"].ToString().Trim();
 
                     if (!string.IsNullOrEmpty(userDBPassWord))
                     {
@@ -1144,7 +1144,7 @@ namespace DaoUser
                             {
                                 actualPassWord = Encryption.Decrypt(userDBPassWord.ToString());
                             }
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -1215,14 +1215,14 @@ namespace DaoUser
         {
             StringBuilder builder = new StringBuilder();
             Random random = new Random();
-            char ch ;
-            for(int i=0; i<size; i++)
+            char ch;
+            for (int i = 0; i < size; i++)
             {
-            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65))) ;
-            builder.Append(ch);
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
             }
-            if(lowerCase)
-            return builder.ToString().ToLower();
+            if (lowerCase)
+                return builder.ToString().ToLower();
             return builder.ToString();
         }
         private int RandomNumber(int min, int max)
@@ -1251,10 +1251,10 @@ namespace DaoUser
                 CheckRoleAssociationCmd = db.GetStoredProcCommand("SP_CheckCheckerMaker");
                 db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(CheckRoleAssociationCmd, "@UP_PermisionId", DbType.Int32, PermisionId);
-                 Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
-                 rowcount = Role.Tables[0].Rows.Count;
-                if (rowcount>0)
-                     bResult = true;
+                Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
+                rowcount = Role.Tables[0].Rows.Count;
+                if (rowcount > 0)
+                    bResult = true;
                 else
                     bResult = false;
             }
@@ -1323,15 +1323,16 @@ namespace DaoUser
             DbCommand CheckRoleAssociationCmd;
             DataSet Role;
             int rowcount;
-            try{
+            try
+            {
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
+                db = DatabaseFactory.CreateDatabase("wealtherp");
                 CheckRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteCHMK");
                 db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
                 db.AddInParameter(CheckRoleAssociationCmd, "@UP_PermisionId", DbType.Int32, PermisionId);
-                 Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
-                
-                 bResult = true;
+                Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
+
+                bResult = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1360,15 +1361,16 @@ namespace DaoUser
             DbCommand CheckRoleAssociationCmd;
             DataSet Role;
             int rowcount;
-            try{
+            try
+            {
 
-            db = DatabaseFactory.CreateDatabase("wealtherp");
+                db = DatabaseFactory.CreateDatabase("wealtherp");
                 CheckRoleAssociationCmd = db.GetStoredProcCommand("SP_DeleteFromPermission");
                 db.AddInParameter(CheckRoleAssociationCmd, "@U_UserId", DbType.Int32, userId);
-               
-                 Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
-                
-                 bResult = true;
+
+                Role = db.ExecuteDataSet(CheckRoleAssociationCmd);
+
+                bResult = true;
             }
             catch (BaseApplicationException Ex)
             {
@@ -1398,7 +1400,7 @@ namespace DaoUser
             Database db;
             DbCommand getLoginCmd;
             DataSet getLoginDs;
-           try
+            try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getLoginCmd = db.GetStoredProcCommand("SP_GetLoginTrack");
@@ -1414,17 +1416,17 @@ namespace DaoUser
                     dtTo = DateTime.MinValue;
 
                 getLoginDs = db.ExecuteDataSet(getLoginCmd);
-               // if (getLoginDs.Tables[0].Rows.Count > 0)
-               // {
-               //     foreach (DataRow dr in getLoginDs.Tables[0].Rows)
-               //     {
-               //         userVo = new UserVo();
-               //         userVo.LoginId = dr["LoginId"].ToString();
-               //         userVo.FirstName = dr["U_FirstName"].ToString();
-               //         userVo.LTDateTime = DateTime.Parse(dr["LT_CreatedOn"].ToString());
+                // if (getLoginDs.Tables[0].Rows.Count > 0)
+                // {
+                //     foreach (DataRow dr in getLoginDs.Tables[0].Rows)
+                //     {
+                //         userVo = new UserVo();
+                //         userVo.LoginId = dr["LoginId"].ToString();
+                //         userVo.FirstName = dr["U_FirstName"].ToString();
+                //         userVo.LTDateTime = DateTime.Parse(dr["LT_CreatedOn"].ToString());
 
-               //     }
-               //}
+                //     }
+                //}
 
             }
             catch (BaseApplicationException Ex)
@@ -1452,7 +1454,7 @@ namespace DaoUser
 
         }
 
-        public UserVo GetUserAccountDetails(string userAccountId)
+        public UserVo GetUserAccountDetails(string userAccountId, int onlineAdviserId)
         {
             Database db;
             DbCommand getUserAccountDetailsCmd;
@@ -1464,7 +1466,9 @@ namespace DaoUser
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 getUserAccountDetailsCmd = db.GetStoredProcCommand("SPROC_ONL_GetUserAccountDetails");
                 db.AddInParameter(getUserAccountDetailsCmd, "@UserAccountId", DbType.String, userAccountId);
-                getUserDs=db.ExecuteDataSet(getUserAccountDetailsCmd);
+                if (onlineAdviserId != 0)
+                    db.AddInParameter(getUserAccountDetailsCmd, "@OnlineAdviserId", DbType.String, onlineAdviserId);
+                getUserDs = db.ExecuteDataSet(getUserAccountDetailsCmd);
 
                 if (getUserDs.Tables[0].Rows.Count > 0)
                 {
@@ -1484,17 +1488,17 @@ namespace DaoUser
                     if (dr["U_Theme"].ToString() != "")
                         userVo.theme = dr["U_Theme"].ToString();
 
-                    if (!string.IsNullOrEmpty(dr["RoleList"].ToString()))
-                        userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
+                    //if (!string.IsNullOrEmpty(dr["RoleList"].ToString()))
+                    //    userVo.RoleList = dr["RoleList"].ToString().Split(new char[] { ',' });
 
-                    if (!string.IsNullOrEmpty(dr["PermissionList"].ToString()))
-                        userVo.PermisionList = dr["PermissionList"].ToString().Split(new char[] { ',' });
-                    if (!string.IsNullOrEmpty(dr["U_PwdSaltValue"].ToString()))
-                        userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString().Trim();
+                    //if (!string.IsNullOrEmpty(dr["PermissionList"].ToString()))
+                    //    userVo.PermisionList = dr["PermissionList"].ToString().Split(new char[] { ',' });
+                    //if (!string.IsNullOrEmpty(dr["U_PwdSaltValue"].ToString()))
+                    //    userVo.PasswordSaltValue = dr["U_PwdSaltValue"].ToString().Trim();
                 }
                 else
                     userVo = null;
-               
+
 
             }
             catch (BaseApplicationException Ex)
@@ -1518,7 +1522,7 @@ namespace DaoUser
 
             }
             return userVo;
- 
+
         }
 
 

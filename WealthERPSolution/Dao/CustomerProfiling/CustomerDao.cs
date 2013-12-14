@@ -716,6 +716,7 @@ namespace DaoCustomerProfiling
                     customerVo.Adr1Line1 = dr["C_Adr1Line1"].ToString();
                     customerVo.Adr1Line2 = dr["C_Adr1Line2"].ToString();
                     customerVo.Adr1Line3 = dr["C_Adr1Line3"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr1PinCode"].ToString()))
                     customerVo.Adr1PinCode = int.Parse(dr["C_Adr1PinCode"].ToString());
                     customerVo.Adr1City = dr["C_Adr1City"].ToString();
                     customerVo.Adr1State = dr["C_Adr1State"].ToString();
@@ -723,25 +724,40 @@ namespace DaoCustomerProfiling
                     customerVo.Adr2Line1 = dr["C_Adr2Line1"].ToString();
                     customerVo.Adr2Line2 = dr["C_Adr2Line2"].ToString();
                     customerVo.Adr2Line3 = dr["C_Adr2Line3"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Adr2PinCode"].ToString()))
                     customerVo.Adr2PinCode = int.Parse(dr["C_Adr2PinCode"].ToString());
                     customerVo.Adr2City = dr["C_Adr2City"].ToString();
                     customerVo.Adr2State = dr["C_Adr2State"].ToString();
                     customerVo.Adr2Country = dr["C_Adr2Country"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_ResISDCode"].ToString()))
                     customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_ResSTDCode"].ToString()))
                     customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_ResPhoneNum"].ToString()))
                     customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcISDCode"].ToString()))
                     customerVo.OfcISDCode = int.Parse(dr["C_OfcISDCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcSTDCode"].ToString()))
                     customerVo.OfcSTDCode = int.Parse(dr["C_OfcSTDCode"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcPhoneNum"].ToString()))
                     customerVo.OfcPhoneNum = int.Parse(dr["C_OfcPhoneNum"].ToString());
                     customerVo.Email = dr["C_Email"].ToString();
                     customerVo.AltEmail = dr["C_AltEmail"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_Mobile1"].ToString()))
                     customerVo.Mobile1 = long.Parse(dr["C_Mobile1"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_Mobile2"].ToString()))
                     customerVo.Mobile2 = long.Parse(dr["C_Mobile2"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_ISDFax"].ToString()))
                     customerVo.ISDFax = int.Parse(dr["C_ISDFax"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_STDFax"].ToString()))
                     customerVo.STDFax = int.Parse(dr["C_STDFax"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_Fax"].ToString()))
                     customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcFaxISD"].ToString()))
                     customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
-                    customerVo.OfcSTDFax = int.Parse(dr["C_OfcFaxSTD"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcFaxISD"].ToString()))
+                        customerVo.OfcSTDFax = int.Parse(dr["C_OfcFax"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
                     customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
                     customerVo.Occupation = dr["XO_OccupationCode"].ToString();
                     customerVo.Qualification = dr["XQ_QualificationCode"].ToString();
@@ -754,6 +770,7 @@ namespace DaoCustomerProfiling
                     customerVo.OfcAdrLine1 = dr["C_OfcAdrLine1"].ToString();
                     customerVo.OfcAdrLine2 = dr["C_OfcAdrLine2"].ToString();
                     customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrPinCode"].ToString()))
                     customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
                     customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     customerVo.OfcAdrState = dr["C_OfcAdrState"].ToString();

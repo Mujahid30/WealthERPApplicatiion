@@ -1557,7 +1557,7 @@ namespace WealthERP.General
         private void ValidateUserLogin(string userAccountId)
         {
 
-            userVo = userBo.GetUserAccountDetails(userAccountId);
+            userVo = userBo.GetUserAccountDetails(userAccountId,0);
 
             if (userVo != null)
             {

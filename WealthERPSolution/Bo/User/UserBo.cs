@@ -867,13 +867,13 @@ namespace BoUser
             return ds;
         }
 
-        public UserVo GetUserAccountDetails(string userAccountId)
+        public UserVo GetUserAccountDetails(string userAccountId, int onlineAdviserId)
         {
             UserDao userDao = new UserDao();
             UserVo userVo;
             try
             {
-                userVo = userDao.GetUserAccountDetails(userAccountId);
+                userVo = userDao.GetUserAccountDetails(userAccountId, onlineAdviserId);
             }
             catch (BaseApplicationException Ex)
             {

@@ -3084,7 +3084,7 @@ namespace DaoAdvisorProfiling
                             customerVo.PANNum = dr["C_PANNum"].ToString();
                         customerVo.ResISDCode = int.Parse(dr["C_ResISDCode"].ToString());
                         customerVo.ResSTDCode = int.Parse(dr["C_ResSTDCode"].ToString());
-                        customerVo.ResPhoneNum = int.Parse(dr["C_ResPhoneNum"].ToString());
+                        customerVo.ResPhoneNum = Convert.ToInt32(dr["C_ResPhoneNum"].ToString());
                         customerVo.Email = dr["C_Email"].ToString();
                         customerVo.RmId = int.Parse(dr["AR_RMId"].ToString());
                         customerVo.Adr1City = dr["C_Adr1City"].ToString();

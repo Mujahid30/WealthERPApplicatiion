@@ -183,6 +183,8 @@ namespace WealthERP
 
         private bool ValidateUserLogin(string userAccountId, string isWerp)
         {
+            
+            string strOnlineAdviser = "0";
             bool isValidUser = false;
             UserBo userBo = new UserBo();
             AssociatesVO associatesVo = new AssociatesVO();
@@ -196,8 +198,11 @@ namespace WealthERP
             AdvisorBranchBo advisorBranchBo = new AdvisorBranchBo();
             PortfolioBo portfolioBo = new PortfolioBo();
             CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
-
-            userVo = userBo.GetUserAccountDetails(userAccountId);
+            strOnlineAdviser = ConfigurationSettings.AppSettings["ONLINE_ADVISER"].ToString();
+            if (string.IsNullOrEmpty(isWerp))
+                userVo = userBo.GetUserAccountDetails(userAccountId, Convert.ToInt32(strOnlineAdviser));
+            else
+                userVo = userBo.GetUserAccountDetails(userAccountId, 0);
 
             if (!string.IsNullOrEmpty(isWerp))
             {
@@ -211,6 +216,7 @@ namespace WealthERP
             }
             else if (userVo != null)
             {
+                isValidUser = true;
                 List<string> roleList = new List<string>();
                 string branchLogoSourcePath;
                 string sourcePath;
