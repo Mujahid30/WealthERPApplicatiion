@@ -10,6 +10,14 @@ using BoOnlineOrderManagement;
 using VoUser;
 using WealthERP.Base;
 using Telerik.Web.UI;
+using Microsoft.ApplicationBlocks.ExceptionManagement;
+
+
+ 
+using BoCommon;
+
+ 
+using VoOnlineOrderManagemnet;
 
 namespace WealthERP.OnlineOrderBackOffice
 {
@@ -30,9 +38,37 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!IsPostBack) {
                 if (Cache["UPLOAD" + userVo.UserId] != null) Cache.Remove("UPLOAD" + userVo.UserId);
+                BindIssuerIssue();
+              
             }
 
         }
+
+        private void BindIssuerIssue()
+        {
+            try
+            {
+                DataSet dsIssuer = new DataSet();
+                boNcdBackOff = new OnlineNCDBackOfficeBo();
+                dsIssuer = boNcdBackOff.GetIssuerIssue(advisorVo.advisorId);
+                if (dsIssuer.Tables[0].Rows.Count > 0)
+                {
+                    ddlIssueName.DataSource = dsIssuer;
+                    ddlIssueName.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+                    ddlIssueName.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
+                    ddlIssueName.DataBind();
+                }
+               // ddlIssueName.Items.Insert(0, new ListItem("Select", "Select"));
+                 
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            
+
+        }
+
         protected void Readcsvfile()
         {
             //StreamReader StreamReader=new StreamReader(
@@ -99,6 +135,7 @@ namespace WealthERP.OnlineOrderBackOffice
             msgRecordStatus.InnerText = msg;
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
         }
+        
 
         protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -123,6 +160,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             SetFileType();
         }
+        
 
         protected void gvOnlineIssueUpload_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -205,7 +243,7 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
 
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
-           nRows= boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
+            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue, int.Parse(ddlIssueName.SelectedValue));
            ShowMessage("data uploaded");
         }
      }

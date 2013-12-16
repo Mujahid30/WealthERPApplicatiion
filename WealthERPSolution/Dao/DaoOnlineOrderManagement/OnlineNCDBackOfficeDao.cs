@@ -1518,7 +1518,7 @@ namespace DaoOnlineOrderManagement
             return dt;
         }
 
-        public int  UploadAllotmentIssueData(DataTable dtData)
+        public int UploadAllotmentIssueData(DataTable dtData, int issueId)
         {
              int result;
             try
@@ -1530,6 +1530,8 @@ namespace DaoOnlineOrderManagement
                 SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData", sqlCon);
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
+                cmdProc.Parameters.AddWithValue("@issueId", issueId);
+
                 result = cmdProc.ExecuteNonQuery();
             }
             catch (BaseApplicationException Ex)

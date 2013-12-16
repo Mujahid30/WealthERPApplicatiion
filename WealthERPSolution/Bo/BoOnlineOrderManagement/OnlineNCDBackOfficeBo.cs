@@ -997,7 +997,7 @@ namespace BoOnlineOrderManagement
         //    if(
         //}
 
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, string extSrc) {
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, string extSrc,int issueId) {
             int nRows = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
 
@@ -1034,10 +1034,10 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                if (fileTypeId == 12)
+                if (fileTypeId == 12 | fileTypeId == 13 | fileTypeId == 14 | fileTypeId == 15)
                 {
 
-                   nRows= daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder);
+                    nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId);
                 }
                 else
                 {
