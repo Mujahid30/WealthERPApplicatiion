@@ -358,10 +358,11 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void SaveSchemeDetails()
         {
+            btnupdate.Visible = false;
             mfProductAMCSchemePlanDetailsVo.Product = ddlProduct.SelectedValue;
             if (ChkNRI.Checked)
             {
-                mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "IND";
+                mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode = "NRI";
 
             }
             if (ChkBO.Checked)
@@ -632,12 +633,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlDFrequency.Enabled = false;
                 btnupdate.Visible = false;
                 btnsubmit.Visible = false;
-                //txtAddNewScheme.Enabled = false;
+                txtScname.Enabled = false;
 
             }
             else
             {
-               // txtAddNewScheme.Enabled = false;
+                txtScname.Enabled = false;
                 txtScname.Enabled = false;
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
@@ -686,6 +687,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnupdate.Visible = true;
                 tblMessage.Visible = false;
                 lbBack.Visible = false;
+                
                 //gvSIPDetails.MasterTableView.IsItemInserted = false;
                 //GridCommandItem commandItem = (GridCommandItem)gvSIPDetails.MasterTableView.GetItems(GridItemType.CommandItem)[100];
                 //commandItem.FindControl("AddNewRecordButton").Parent.Visible = false; 
@@ -1191,6 +1193,8 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsSIPAvailable == 1)
             {
                 ChkISSIP.Checked = true;
+                gvSIPDetails.Visible = true;
+                BindSystematicDetails();
             }
             else
             {
@@ -1980,7 +1984,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
-                userMessage = "You have Updated successfully";
+                userMessage = "Scheme Updated successfully";
             }
 
             return userMessage;

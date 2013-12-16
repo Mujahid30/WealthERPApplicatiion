@@ -41,7 +41,7 @@
                     <MasterTableView DataKeyNames="CustomerId" Width="99%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" PageSize="20">
                         <Columns>
-                            <telerik:GridBoundColumn DataField="CustomerId" UniqueName="CustomerId" HeaderText="Client ID"
+                            <telerik:GridBoundColumn DataField="CustomerId" UniqueName="CustomerId" HeaderText="System Id"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="90px"
                                 SortExpression="C_CustomerId" FilterControlWidth="70px" CurrentFilterFunction="Contains">
                                 <ItemStyle Width="90px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />

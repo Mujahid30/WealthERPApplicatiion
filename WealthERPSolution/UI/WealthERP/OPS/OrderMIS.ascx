@@ -686,7 +686,7 @@
                                     AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CO_OrderId") %>'
+                                        <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'
                                             OnClick="lnkOrderNo_Click">
                                         </asp:LinkButton>
                                     </ItemTemplate>

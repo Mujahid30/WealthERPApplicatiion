@@ -33,7 +33,7 @@
                 <table cellspacing="0" width="100%">
                     <tr>
                         <td align="left">
-                            NCD Order Match
+                            NCD and IPO Order Match
                         </td>
                     </tr>
                 </table>
@@ -177,7 +177,7 @@
                                 AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbField" Text='<%# Eval("CO_OrderId") %>'>
+                                    <asp:LinkButton ID="lnkOrderNo" Font-Underline="false" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>

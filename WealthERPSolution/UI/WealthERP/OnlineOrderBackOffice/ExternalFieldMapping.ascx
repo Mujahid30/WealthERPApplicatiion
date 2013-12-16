@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="2" width="100%">
                     <tr>
                         <td align="left">
-                            Issue Allotment
+                            External Header Mapping
                         </td>
                         <%--<td align="right">
                             <asp:ImageButton ID="btnTradeBusinessDate" ImageUrl="~/Images/Export_Excel.png" runat="server"

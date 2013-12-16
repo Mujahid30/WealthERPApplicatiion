@@ -409,7 +409,7 @@ namespace DaoOnlineOrderManagement
                         if (dr["XF_DividendFrequency"].ToString() != null) //&& dr["XF_DividendFrequency"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
                         mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
-                        if (dr["WCMV_Lookup_BankId"].ToString() != null)
+                        if (dr["WCMV_Lookup_BankId"].ToString()!=string.Empty)
                           mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());    
                         
                         mfProductAMCSchemePlanDetailsVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
@@ -498,6 +498,8 @@ namespace DaoOnlineOrderManagement
                             mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount = Convert.ToDouble(dr["PASPD_AdditionalMultipleAmount"].ToString());
                         if (dr["PASPD_MinRedemptionAmount"].ToString() != null && dr["PASPD_MinRedemptionAmount"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount = Convert.ToDouble(dr["PASPD_MinRedemptionAmount"].ToString());
+                        if (dr["PASPD_AdditionalPruchaseAmount"].ToString() != null && dr["PASPD_AdditionalPruchaseAmount"].ToString() != string.Empty)
+                            mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount = Convert.ToDouble(dr["PASPD_AdditionalPruchaseAmount"].ToString());
                         if (dr["PASPD_RedemptionMultipleAmount"].ToString() != null && dr["PASPD_RedemptionMultipleAmount"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount = Convert.ToDouble(dr["PASPD_RedemptionMultipleAmount"].ToString());
                         if (dr["PASPD_MinRedemptionUnits"].ToString() != null && dr["PASPD_MinRedemptionUnits"].ToString() != string.Empty)

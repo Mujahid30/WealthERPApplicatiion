@@ -251,7 +251,7 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridDateTimeColumn DataField="AIM_OpenDate" DataFormatString="{0:D}" HeaderStyle-Width="110px"
                                             CurrentFilterFunction="EqualTo" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="Openning Date" SortExpression="AIM_OpenDate" UniqueName="AIM_OpenDate">
+                                            HeaderText="Opening Date" SortExpression="AIM_OpenDate" UniqueName="AIM_OpenDate">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridDateTimeColumn>
                                         <telerik:GridBoundColumn DataField="AIM_CloseDate" DataFormatString="{0:D}" HeaderStyle-Width="110px"

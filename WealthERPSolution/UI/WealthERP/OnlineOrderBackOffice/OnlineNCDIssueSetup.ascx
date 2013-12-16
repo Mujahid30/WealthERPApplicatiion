@@ -858,14 +858,26 @@
             &nbsp;
         </td>
         <td class="rightData">
-            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Is Active">
+            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Online Enablement">
             </asp:CheckBox>
+            <%--<asp:RequiredFieldValidator ID="rfvIsActive" ControlToValidate="chkIsActive"
+                  ErrorMessage="Please check" Display="Dynamic" runat="server"
+                  CssClass="rfvPCG" ValidationGroup="SetUpSubmit"></asp:RequiredFieldValidator>--%>
+        <%-- <asp:RequiredFieldValidator ID="rfvchkIsActive" CssClass="rfvPCG"
+                    ErrorMessage="Please Check" Display="Dynamic" ControlToValidate="chkIsActive"
+                    ValidationGroup="SetUpSubmit">
+                </asp:RequiredFieldValidator>--%>
         </td>
-        <td class="leftLabel">
+        <%--<td class="leftLabel">
+        <asp:RequiredFieldValidator ID="rfvtxtMM" ControlToValidate="txtMM"
+                  ErrorMessage="<br />Please enter min" Display="Dynamic" runat="server"
+                  CssClass="rfvPCG" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
             <asp:Label ID="lb1PutCallOption" runat="server" Text="Put Call Option:" CssClass="FieldName"></asp:Label>
-        </td>
+        </td>--%>
         <td class="rightData">
-            <asp:TextBox ID="txtPutCallOption" runat="server" CssClass="txtField" Width="205px"></asp:TextBox>
+        <asp:CheckBox ID="chkPutCallOption" runat="server" CssClass="txtField" Text="Put Call Option">
+            </asp:CheckBox>
+            <%--<asp:TextBox ID="txtPutCallOption" runat="server" CssClass="txtField" Width="205px"></asp:TextBox>--%>
             <%--<asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtCloseDate" runat="server"
                 Display="Dynamic" ErrorMessage="<br />Please enter a Put Call Option" Type="Date"
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>--%>
@@ -886,7 +898,7 @@
     <tr id="trBtnSubmit" runat="server">
         <td class="leftLabel">
             <asp:Button ID="btnSetUpSubmit" runat="server" Text="Submit" CssClass="PCGButton"
-                ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" />
+                ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" Visible="false"/>
             <%-- </td>
         <td class="rightData">--%>
             <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="PCGButton" ValidationGroup="SetUpSubmit"

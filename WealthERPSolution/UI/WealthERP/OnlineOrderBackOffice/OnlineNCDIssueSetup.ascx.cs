@@ -187,15 +187,19 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         chkIsActive.Checked = true;
                     }
-
                     if (!string.IsNullOrEmpty(dr["AIM_PutCallOption"].ToString()))
                     {
-                        txtPutCallOption.Text = dr["AIM_PutCallOption"].ToString();
+                        chkPutCallOption.Checked = true;
                     }
-                    else
-                    {
-                        txtPutCallOption.Text = "";
-                    }
+
+                    //if (!string.IsNullOrEmpty(dr["AIM_PutCallOption"].ToString()))
+                    //{
+                    //    txtPutCallOption.Text = dr["AIM_PutCallOption"].ToString();
+                    //}
+                    //else
+                    //{
+                    //    txtPutCallOption.Text = "";
+                    //}
 
                     if (!string.IsNullOrEmpty(dr["AIM_IsNominationRequired"].ToString()))
                     {
@@ -425,7 +429,7 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlBankName.Enabled = value;
             ddlBankBranch.Enabled = value;
 
-            txtPutCallOption.Enabled = value;
+            chkPutCallOption.Enabled = value;
 
             txtMinAplicSize.Enabled = value;
             txtIsPrefix.Enabled = value;
@@ -856,14 +860,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsActive = 0;
                 }
-                if (!string.IsNullOrEmpty(txtPutCallOption.Text))
-                {
-                    onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
-                }
-                else
-                {
-                    onlineNCDBackOfficeVo.PutCallOption = "";
-                }
+                //if (!string.IsNullOrEmpty(txtPutCallOption.Text))
+                //{
+                //    onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
+                //}
+                //else
+                //{
+                //    onlineNCDBackOfficeVo.PutCallOption = "";
+                //}
 
                 if (chkNomineeReQuired.Checked == true)
                 {
@@ -2028,14 +2032,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsActive = 0;
                 }
-                if (!string.IsNullOrEmpty(txtPutCallOption.Text))
-                {
-                    onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
-                }
-                else
-                {
-                    onlineNCDBackOfficeVo.PutCallOption = "";
-                }
+                //if (!string.IsNullOrEmpty(txtPutCallOption.Text))
+                //{
+                //    onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
+                //}
+                //else
+                //{
+                //    onlineNCDBackOfficeVo.PutCallOption = "";
+                //}
 
                 if (chkNomineeReQuired.Checked == true)
                 {
@@ -3070,7 +3074,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 trModeofIssue.Visible = true;
                 trFloorAndFixedPrices.Visible = true;
                 trMaxQty.Visible = true;
-
+                trExchangeCode.Visible = true;
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
             }
@@ -3248,6 +3252,13 @@ namespace WealthERP.OnlineOrderBackOffice
         //protected void btnCancel_Click(object sender, EventArgs e)
         //{
         //    radwindowPopup.VisibleOnPageLoad = false;
+        //}
+        //protected void oncheckedIsActive_OnCheckedChanged(object sender, EventArgs e)
+        //{
+        //    if (chkIsActive.Checked)
+        //    {
+        //        btnSetUpSubmit.Visible = true;
+        //    }
         //}
     }
 }

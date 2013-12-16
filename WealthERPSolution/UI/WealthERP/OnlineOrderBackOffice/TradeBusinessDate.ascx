@@ -89,7 +89,7 @@
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="WTBD_DayName" HeaderText="Application Date"
                             DataField="WTBD_DayName" SortExpression="WTBD_DayName" ShowFilterIcon="false"
-                            CurrentFilterFunction="Contains" DataFormatString="{0:0}" AutoPostBackOnFilter="true">
+                            CurrentFilterFunction="Contains" DataFormatString="{0:d}" AutoPostBackOnFilter="true">
                             <ItemStyle HorizontalAlign="left" Wrap="false" Width="30px" VerticalAlign="Top" />
                         </telerik:GridBoundColumn>
                         <telerik:GridBoundColumn UniqueName="WTBD_Day" HeaderText="Application Day" DataField="WTBD_Day"

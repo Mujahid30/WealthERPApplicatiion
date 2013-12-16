@@ -30,7 +30,7 @@
                 <table cellspacing="0" cellpadding="3" width="100%">
                     <tr>
                         <td align="left">
-                            NCD Issue List
+                            NCD and IPO Issue List
                         </td>
                     </tr>
                 </table>
@@ -182,7 +182,7 @@
                                 <telerik:GridTemplateColumn HeaderText="Issue No" AllowFiltering="false" DataField="AIM_IssueId">
                                     <ItemStyle />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkIssueNo" runat="server" CssClass="cmbField" Text='<%# Eval("AIM_IssueId") %>'
+                                        <asp:LinkButton ID="lnkIssueNo" runat="server" CssClass="cmbFielde" Text='<%# Eval("AIM_IssueId") %>'
                                             OnClick="lnkIssueNo_Click">
                                         </asp:LinkButton>
                                     </ItemTemplate>

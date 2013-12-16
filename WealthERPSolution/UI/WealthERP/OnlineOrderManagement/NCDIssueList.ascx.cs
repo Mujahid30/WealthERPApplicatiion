@@ -111,7 +111,7 @@ namespace WealthERP.OnlineOrderManagement
         {   
             //string CustId = Session["CustId"].ToString();
             
-            string IssuerId = ddlListOfBonds.SelectedValue.ToString();
+            //string IssuerId = ddlListOfBonds.SelectedValue.ToString();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&customerId=" + customerVo.CustomerId + "&IssuerId=" + IssuerId + " ');", true);
            
 

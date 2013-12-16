@@ -77,13 +77,7 @@
         </td>
     </tr>
     <tr>
-        <td align="right">
-            <asp:Label ID="lblScname" runat="server" Text="New Scheme Name" CssClass="FieldName"
-                Visible="false"></asp:Label>
-        </td>
-        <td>
-            <asp:TextBox ID="txtScname" runat="server" CssClass="cmbFielde" Visible="false"></asp:TextBox>
-        </td>
+       
         <td align="right">
             <asp:Label ID="lblAcode" runat="server" Text="AMFI Code" CssClass="FieldName" Visible="false"></asp:Label>
         </td>
@@ -147,12 +141,12 @@
                 </asp:ListItem>--%>
             </asp:DropDownList>
         </td>
-        <td align="right">
-            <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
-                Width="15px"></asp:ImageButton>--%>
-            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
-                OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
+          <td align="right">
+            <asp:Label ID="lblScname" runat="server" Text="New Scheme Name" CssClass="FieldName"
+                Visible="true"></asp:Label>
+        </td>
+        <td>
+            <asp:TextBox ID="txtScname" runat="server" CssClass="cmbFielde" Visible="true"></asp:TextBox>
         </td>
         <%--<td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
     </tr>
@@ -169,7 +163,13 @@
                 
                <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
         </td>
-        
+        <td align="right">
+            <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
+                Width="15px"></asp:ImageButton>--%>
+            <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
+                OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
+        </td>
     </tr> 
     
 </table>
