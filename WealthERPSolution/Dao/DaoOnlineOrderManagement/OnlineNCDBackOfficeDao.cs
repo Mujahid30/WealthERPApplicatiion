@@ -1518,6 +1518,38 @@ namespace DaoOnlineOrderManagement
             return dt;
         }
 
+        public int  UploadAllotmentIssueData(DataTable dtData)
+        {
+             int result;
+            try
+            {
+
+                string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(conString);
+                sqlCon.Open();
+                SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData", sqlCon);
+                cmdProc.CommandType = CommandType.StoredProcedure;
+                cmdProc.Parameters.AddWithValue("@Details", dtData);
+                result = cmdProc.ExecuteNonQuery();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UploadAllotmentIssueData()");
+                object[] objects = new object[1];
+                //objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
         public void UploadIssueData(string sqlUpdate, string sqlSel, string csvParams, string csvDataType, DataTable dtData)
         {
             try

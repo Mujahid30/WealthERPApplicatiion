@@ -1034,11 +1034,20 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
-                string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
-                string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
-                string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
-                daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
+                if (fileTypeId == 12)
+                {
+
+                   nRows= daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder);
+                }
+                else
+                {
+
+                    string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
+                    string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
+                    string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
+                    string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
+                    daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
+                }
             }
             catch (Exception Ex)
             {

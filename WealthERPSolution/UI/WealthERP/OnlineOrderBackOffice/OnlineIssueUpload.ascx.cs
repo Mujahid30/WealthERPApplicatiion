@@ -197,6 +197,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnUploadData_Click(object sender, EventArgs e)
         {
+            int nRows=0;
             if (Cache["UPLOAD" + userVo.UserId] == null) {
                 ShowMessage("No data to upload");
                 return;
@@ -204,7 +205,8 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
 
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
-            boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
+           nRows= boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
+           ShowMessage("data uploaded");
         }
      }
 }
