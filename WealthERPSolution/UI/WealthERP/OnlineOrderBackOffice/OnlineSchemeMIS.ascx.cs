@@ -26,12 +26,14 @@ namespace WealthERP.OnlineOrderBackOffice
         int SchemePlanCode = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
-            userVo = (UserVo)Session["userVo"];
-            adviserVo = (AdvisorVo)Session["advisorVo"];
+
+            if (!IsPostBack)
+            {
+                SessionBo.CheckSession();
+                userVo = (UserVo)Session["userVo"];
+                adviserVo = (AdvisorVo)Session["advisorVo"];
+            }
         }
-
-
         protected void SetParameter()
         {
             try
@@ -41,7 +43,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     hdnAssettype.Value = ddlProduct.SelectedValue;
                     ViewState["Assettype"] = hdnAssettype.Value;
                 }
-              
+
                 else
                 {
                     hdnAssettype.Value = "0";
@@ -93,18 +95,18 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 DataSet dsSchemeMIs = new DataSet();
                 DataTable dtschememis = new DataTable();
-                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value,int.Parse(ddlTosee.SelectedItem.Value));
+                dsSchemeMIs = OnlineOrderMISBo.GetSchemeMIS(hdnAssettype.Value, int.Parse(ddlTosee.SelectedItem.Value));
                 dtschememis = dsSchemeMIs.Tables[0];
                 if (dtschememis.Rows.Count > 0)
                 {
-                    if (Cache["SchemeMIS" + adviserVo.advisorId] == null)
+                    if (Cache["SchemeMIS" + userVo.UserId] == null)
                     {
-                        Cache.Insert("SchemeMIS" + adviserVo.advisorId, dtschememis);
+                        Cache.Insert("SchemeMIS" + userVo.UserId, dtschememis);
                     }
                     else
                     {
-                        Cache.Remove("SchemeMIS" + adviserVo.advisorId);
-                        Cache.Insert("SchemeMIS" + adviserVo.advisorId, dtschememis);
+                        Cache.Remove("SchemeMIS" + userVo.UserId);
+                        Cache.Insert("SchemeMIS" + userVo.UserId, dtschememis);
                     }
                     gvonlineschememis.DataSource = dtschememis;
                     gvonlineschememis.DataBind();
@@ -113,7 +115,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    tdtosee.Visible=false;
+                    // tdtosee.Visible = false;
                     gvonlineschememis.DataSource = dtschememis;
                     gvonlineschememis.DataBind();
                     SchemeMIS.Visible = true;
@@ -196,18 +198,18 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void gvonlineschememis_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            DataSet dsSchemeMIS = new DataSet();
+
             DataTable dtschememis = new DataTable();
             //dsSchemeMIS = (DataSet)Cache["SchemeMIS" + adviserVo.advisorId.ToString()];
             //DataTable dtCustomer = new DataTable();
-            dtschememis = (DataTable)Cache["SchemeMIS" + adviserVo.advisorId];
+            dtschememis = (DataTable)Cache["SchemeMIS" + userVo.UserId];
 
-            if(dtschememis!=null)
-                {
-                gvonlineschememis.DataSource=dtschememis;
-                }
+            if (dtschememis != null)
+            {
+                gvonlineschememis.DataSource = dtschememis;
+            }
         }
-    
+
         protected void btngo_Click(object sender, EventArgs e)
         {
             try

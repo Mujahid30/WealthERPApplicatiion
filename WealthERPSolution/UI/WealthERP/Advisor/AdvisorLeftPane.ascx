@@ -333,7 +333,7 @@
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="View MF Exception" Value="Uploads_Exception">
                                             </telerik:RadPanelItem>
-                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Allotment" Value="NCD/IPO_allotment">
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Upload" Value="NCD/IPO_allotment">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>

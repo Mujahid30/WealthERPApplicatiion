@@ -30,6 +30,8 @@
                             <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
                                 OnClick="lbBack_OnClick"></asp:LinkButton>
                         </td>
+                        <td><asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="true"
+                                OnClick="lbBack1_OnClick"></asp:LinkButton></td>
                     </tr>
                 </table>
             </div>
@@ -69,7 +71,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlAmc" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlAmcCode_SelectedIndexChanged">
+                OnSelectedIndexChanged="ddlAmcCode_SelectedIndexChanged" style="width:250px;">
                 <%--  <asp:ListItem Text="Select" Value="Select" Selected="true" />--%>
             </asp:DropDownList>
         </td>
@@ -103,7 +105,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlScategory" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlScategory_OnSelectedIndexChanged">
+                OnSelectedIndexChanged="ddlScategory_OnSelectedIndexChanged" style="width:250px;">
                 <asp:ListItem Text="Select" Value="Select" Selected="false" />
             </asp:DropDownList>
         </td>
@@ -122,7 +124,7 @@
         </td>
         <td>
             <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged">
+                OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" style="width:250px;">
                 <asp:ListItem Text="Select" Value="Select" Selected="false" />
             </asp:DropDownList>
         </td>
@@ -152,6 +154,7 @@
             <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
                 OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
         </td>
+        <%--<td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
     </tr>
     <tr>
         <td align="right">
@@ -309,10 +312,21 @@
             </td>
             <td>
                 <asp:TextBox ID="txtHH" runat="server" CssClass="cmbFielde" Width="20px"></asp:TextBox>
+                 <asp:RequiredFieldValidator ID="rfvtxtHH" runat="server" CssClass="rfvPCG"
+                    ErrorMessage="Please enter hour" Display="Dynamic" ControlToValidate="txtHH"
+                    ValidationGroup="btnsubmit">
+                </asp:RequiredFieldValidator>
                 <asp:Label ID="Label1" runat="server" Text="HH" CssClass="FieldName"></asp:Label>
                 <asp:TextBox ID="txtMM" runat="server" CssClass="cmbFielde" Width="20px"></asp:TextBox>
+                 <asp:RequiredFieldValidator ID="rfvtxtMM" ControlToValidate="txtMM"
+                  ErrorMessage="<br />Please enter min" Display="Dynamic" runat="server"
+                  CssClass="rfvPCG" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
                 <asp:Label ID="Label2" runat="server" Text="MM" CssClass="FieldName"></asp:Label>
                 <asp:TextBox ID="txtSS" runat="server" CssClass="cmbFielde" Width="20px"></asp:TextBox>
+                 <asp:RequiredFieldValidator ID="rfvtxtSS" runat="server" CssClass="rfvPCG"
+                    ErrorMessage="Please enter sec" Display="Dynamic" ControlToValidate="txtSS"
+                    ValidationGroup="btnsubmit">
+                </asp:RequiredFieldValidator>
                 <asp:Label ID="Label3" runat="server" Text="SS" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
@@ -322,7 +336,7 @@
                     CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                <asp:TextBox ID="txtESSchemecode" runat="server" CssClass="cmbFielde"> </asp:TextBox>
             </td>
             <td align="right">
                 <asp:Label ID="lblFvalue" runat="server" Text="Face Value" CssClass="FieldName"></asp:Label>
@@ -364,13 +378,13 @@
                 <asp:Label ID="LalISPurchage" runat="server" Text="IS Purchase Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="ChkISPurchage" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedISpurchage_OnCheckedChanged" AutoPostBack="true"/>
+                <asp:CheckBox ID="ChkISPurchage" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedISpurchage_OnCheckedChanged"/>
             </td>
             <td align="right">
                 <asp:Label ID="LalISRedeem" runat="server" Text="Is Redeem Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="ChkISRedeem" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedredemavaliable_OnCheckedChanged" AutoPostBack="true"/>
+                <asp:CheckBox ID="ChkISRedeem" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedredemavaliable_OnCheckedChanged"/>
             </td>
         </tr>
         <tr>
@@ -378,7 +392,7 @@
                 <asp:Label ID="LalChkISSwitch" runat="server" Text="Is Switch Available" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedSwtchAvaliable_OnCheckedChanged" AutoPostBack="true"/>
+                <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedSwtchAvaliable_OnCheckedChanged"/>
             </td>
             <td align="right">
                 <asp:Label ID="LbllISactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
@@ -389,42 +403,90 @@
         </tr>
         <tr>
             <td align="right">
-                <asp:Label ID="lblIMultipleamount" runat="server" Text="Inital Multiple Amount" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblIMultipleamount" runat="server" Text=" New Purchase Multiple Amount" CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtIMultipleamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                 <span id="Span13" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvtxtIMultipleamount" runat="server" ErrorMessage="Please Enter FromRange"
+                CssClass="rfvPCG" ControlToValidate="txtIMultipleamount" ValidationGroup="btnsubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regetxtIMultipleamount" ControlToValidate="txtIMultipleamount"
+                runat="server" Display="Dynamic"
+                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="btnsybmit">     
+            </asp:RegularExpressionValidator>
+            <asp:CompareValidator ID="CmptxtIMultipleamount" ControlToValidate="txtIMultipleamount" runat="server"
+                ControlToCompare="txtAddMultipleamount" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
+                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                  
             </td>
             <td align="right">
-                <asp:Label ID="lblAddMultipleamount" runat="server" Text="Additional Multiple Amount"
+                <asp:Label ID="lblAddMultipleamount" runat="server" Text="Additional Purchase Multiple Amount"
                     CssClass="FieldName"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtAddMultipleamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                <span id="Span5" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="rfvtxtAddMultipleamount" runat="server" ErrorMessage="Please Enter ToRange"
+                CssClass="rfvPCG" ControlToValidate="txtAddMultipleamount" ValidationGroup="btnsubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regetxtAddMultipleamount" ControlToValidate="txtAddMultipleamount"
+                runat="server" Display="Dynamic"
+                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" />
+            <asp:CompareValidator ID="CmptxtAddMultipleamount" ControlToValidate="txtAddMultipleamount" runat="server"
+                ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
+                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>
             </td>
         </tr>
-        <tr id="trIPAmount" runat="server" visible="false">
+        <tr id="trIPAmount" runat="server">
             <td colspan="4">
                 <table width="100%">
                     <tr>
                         <td align="right" style="width:24%";>
-                            <asp:Label ID="lblInitalPamount" runat="server" Text="Initial Purchase Amount" CssClass="FieldName"></asp:Label>
+                            <asp:Label ID="lblInitalPamount" runat="server" Text="Minimum New Purchase Amount" CssClass="FieldName"></asp:Label>
                         </td>
                         <td style="width:24%;">
                             <asp:TextBox ID="txtInitalPamount" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                                <span id="Span6" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvtxtInitalPamount" runat="server" ErrorMessage="Please Enter FromRange"
+                CssClass="rfvPCG" ControlToValidate="txtInitalPamount" ValidationGroup="btnsubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regfvtxtInitalPamount" ControlToValidate="txtInitalPamount"
+                runat="server" Display="Dynamic"
+                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="btnsybmit">     
+            </asp:RegularExpressionValidator>
+            <asp:CompareValidator ID="CmptxtInitalPamount" ControlToValidate="txtInitalPamount" runat="server"
+                ControlToCompare="txtAdditional" Display="Dynamic" ErrorMessage="<br/>From Range Less Than To Range"
+                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                  
                         </td>
                         <td align="right" style="width:24.5%;">
-                            <asp:Label ID="lblAdditionalPamount" runat="server" Text="Additional Purchase Amount"
+                            <asp:Label ID="lblAdditionalPamount" runat="server" Text="Minimum Additional Purchase Amount"
                                 CssClass="FieldName"></asp:Label>
                         </td>
                         <td style="width:24.5%;">
                             <asp:TextBox ID="txtAdditional" runat="server" CssClass="cmbFielde"></asp:TextBox>
+                            <span id="Span7" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="rfvtxtAdditional" runat="server" ErrorMessage="Please Enter ToRange"
+                CssClass="rfvPCG" ControlToValidate="txtAdditional" ValidationGroup="btnsubmit"
+                Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="regfvtxtAdditional" ControlToValidate="txtAdditional"
+                runat="server" Display="Dynamic"
+                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit" />
+            <asp:CompareValidator ID="cmptxtAdditional" ControlToValidate="txtAdditional" runat="server"
+                ControlToCompare="txtIMultipleamount" Display="Dynamic" ErrorMessage="<br/>To Range Greater Than From Range"
+                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="btnsubmit"></asp:CompareValidator>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
         
-        <tr id="trMINRedemPtion" runat="server" visible="false">
+        <tr id="trMINRedemPtion" runat="server">
             <td colspan="4">
                 <table width="100%">
                     <tr>
@@ -461,7 +523,7 @@
                 </table>
             </td>
         </tr>
-        <tr  id="trSwitchPavailable" runat="server" visible="false">
+        <tr  id="trSwitchPavailable" runat="server">
             <td colspan="4">
                 <table width="100%">
                     <tr>
@@ -540,11 +602,11 @@
             </td>
             <td align="right">
                 <asp:CheckBox ID="ChkISSWP" runat="server" Text="Is SWP Available" AutoPostBack="true"
-                    CssClass="FieldName" OnCheckedChanged="ChkISSWP_OnCheckedChanged" />
+                    CssClass="FieldName" OnCheckedChanged="ChkISSWP_OnCheckedChanged" Visible="false"/>
             </td>
             <td align="right">
                 <asp:CheckBox ID="ChkISSTP" runat="server" Text="Is STP Available" AutoPostBack="true"
-                    CssClass="FieldName" OnCheckedChanged="ChkISSTP_OnCheckedChanged" />
+                    CssClass="FieldName" OnCheckedChanged="ChkISSTP_OnCheckedChanged" Visible="false"/>
             </td>
         </tr>
 
@@ -739,11 +801,11 @@
 </tr>
 <tr>
     <td align="right">
-        <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click" />
+        <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click" ValidationGroup="btnsubmit"/>
     </td>
     <td align="left">
         <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
-            Style="height: 26px" />
+            Style="height: 26px" ValidationGroup="btnsubmit"/>
         <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
     </td>
 </tr>

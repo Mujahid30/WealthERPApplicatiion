@@ -406,10 +406,10 @@ namespace DaoOnlineOrderManagement
                             mfProductAMCSchemePlanDetailsVo.FaceValue = Convert.ToDouble(dr["PASPD_FaceValue"].ToString());
                         mfProductAMCSchemePlanDetailsVo.SchemeType = dr["PSLV_LookupValueCodeForSchemeType"].ToString();
                         mfProductAMCSchemePlanDetailsVo.SchemeOption = dr["PSLV_LookupValueCodeForSchemeOption"].ToString();
-                        if (dr["XF_DividendFrequency"].ToString() != null && dr["XF_DividendFrequency"].ToString() != string.Empty)
+                        if (dr["XF_DividendFrequency"].ToString() != null) //&& dr["XF_DividendFrequency"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
                         mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
-                        if(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId !=0)
+                        if (dr["WCMV_Lookup_BankId"].ToString() != null)
                           mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());    
                         
                         mfProductAMCSchemePlanDetailsVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
@@ -422,9 +422,11 @@ namespace DaoOnlineOrderManagement
                         {
                             mfProductAMCSchemePlanDetailsVo.IsNFO = 0;
                         }
-                        if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
+                        if ( dr["PASPD_NFOStartDate"].ToString() != string.Empty)
+
                             mfProductAMCSchemePlanDetailsVo.NFOStartDate = DateTime.Parse(dr["PASPD_NFOStartDate"].ToString());
-                        if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
+                        if (dr["PASPD_NFOEndDate"].ToString() != string.Empty)
+
                             mfProductAMCSchemePlanDetailsVo.NFOEndDate = DateTime.Parse(dr["PASPD_NFOEndDate"].ToString());
                         if (dr["PASPD_LockInPeriod"].ToString() != null && dr["PASPD_LockInPeriod"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.LockInPeriod = int.Parse(dr["PASPD_LockInPeriod"].ToString());
@@ -528,10 +530,10 @@ namespace DaoOnlineOrderManagement
                         {
                             mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment = 0;
                         }
-                        if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BankId"].ToString()))
-                        {
-                            mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());
-                        }
+                        //if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BankId"].ToString()))
+                        //{
+                        //    mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());
+                        //}
                         if (!string.IsNullOrEmpty(dr["PASC_AMC_ExternalCode"].ToString()))
                         {
                             mfProductAMCSchemePlanDetailsVo.ExternalCode = dr["PASC_AMC_ExternalCode"].ToString();

@@ -86,7 +86,7 @@
                                     <ItemTemplate>
                                         <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
                                             AutoPostBack="true" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChanged"
-                                            Width="120px" AppendDataBoundItems="true">
+                                            Width="120px">
                                             <Items>
                                                 <asp:ListItem Text="Select" Value="Select" Selected="true" />
                                                 <asp:ListItem Text="View" Value="View" />
@@ -97,18 +97,18 @@
                                 </telerik:GridTemplateColumn>
                                 <telerik:GridBoundColumn DataField="PA_AMCName" UniqueName="PA_AMCName" HeaderText="AMC"
                                     ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderStyle-Width="120px"
-                                    SortExpression="PA_AMCNamee" FilterControlWidth="50px" CurrentFilterFunction="Contains">
+                                    SortExpression="PA_AMCName" FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" DataField="PA_AMCCode" UniqueName="PA_AMCCode"
                                     HeaderText="PA_AMCCode" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
-                                    HeaderStyle-Width="120px" SortExpression="PA_AMCNamee" FilterControlWidth="50px"
+                                    HeaderStyle-Width="120px" SortExpression="PA_AMCCode" FilterControlWidth="50px"
                                     CurrentFilterFunction="Contains">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="PASC_AMC_ExternalType" UniqueName="PASC_AMC_ExternalType"
                                     HeaderText="External Type" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                    AllowFiltering="true" HeaderStyle-Width="120px" SortExpression="PA_AMCNamee"
+                                    AllowFiltering="true" HeaderStyle-Width="120px" SortExpression="PASC_AMC_ExternalType"
                                     FilterControlWidth="50px" CurrentFilterFunction="Contains">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
@@ -147,7 +147,7 @@
                                     <ItemStyle Width="100px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="true" DataField="PASP_Status" UniqueName="PASP_Status"
-                                    HeaderText="PASP_Status" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
+                                    HeaderText="Status" ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true"
                                     HeaderStyle-Width="120px" SortExpression="PASP_Status" FilterControlWidth="50px"
                                     CurrentFilterFunction="Contains">
                                     <ItemStyle Width="150px" HorizontalAlign="left" Wrap="false" VerticalAlign="top" />
