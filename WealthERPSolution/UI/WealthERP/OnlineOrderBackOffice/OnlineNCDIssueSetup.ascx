@@ -51,7 +51,7 @@
                             &nbsp; &nbsp;
                             <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Back" Visible="false"
                                 OnClick="lnlBack_Click"></asp:LinkButton>&nbsp; &nbsp;
-                            <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" Text="Delete"
+                            <asp:LinkButton runat="server" ID="lnkDelete" CssClass="LinkButtons" Text="Delete" Visible="false"
                                 OnClientClick="javascript: return confirm('Are you sure you want to Delete the Order?')"></asp:LinkButton>&nbsp;
                             <%-- OnClick="lnkDelete_Click"--%>
                             &nbsp;
