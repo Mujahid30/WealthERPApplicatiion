@@ -223,9 +223,15 @@
                                 UniqueName="COID_Quantity" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="PurchaseAmt" HeaderText="Purchase Amt" SortExpression="PurchaseAmt"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="PurchaseAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
                             <telerik:GridBoundColumn DataField="COID_Price" HeaderText="Price" SortExpression="COID_Price"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="COID_Price" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="COID_Price" FooterStyle-HorizontalAlign="Left" Visible="false" >
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIA_AllotmentDate" HeaderText="Allotment Date"
@@ -244,6 +250,13 @@
                                 UniqueName="AIA_Price" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            
+                             <telerik:GridBoundColumn DataField="AlotedAmt" HeaderText="Alloted Amt" SortExpression="AlotedAmt"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="AlotedAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
                             <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="Match"
                                 EditText="Match" CancelText="Cancel" UpdateText="OK">
                             </telerik:GridEditCommandColumn>
