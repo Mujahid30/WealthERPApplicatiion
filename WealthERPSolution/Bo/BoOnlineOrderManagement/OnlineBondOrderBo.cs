@@ -45,12 +45,12 @@ namespace BoOnlineOrderManagement
             return dsLookupData;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId, int type)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId,issueId);
+                dsCommissionStructureRules = onlineBondDao.GetAdviserIssuerList(adviserId, issueId, type);
 
             }
             catch (BaseApplicationException Ex)
@@ -71,6 +71,7 @@ namespace BoOnlineOrderManagement
             }
             return dsCommissionStructureRules;
         }
+
         public DataSet GetLiveBondTransaction(int SeriesId)
         {
 
@@ -120,6 +121,20 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
             return dsCommissionStructureRules;
+        }
+        public string GetCutOFFTimeForCurent(int orderId)
+        {
+            string cutOffTime = "";
+            try
+            {
+                cutOffTime = onlineBondDao.GetCutOFFTimeForCurent(orderId);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return cutOffTime;
         }
         public DataSet GetLookupDataForReceivableSetUP(int adviserId, string structureId)
         {

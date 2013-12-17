@@ -130,7 +130,8 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid()
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId);
+            //1--- For Curent Issues
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -312,11 +313,14 @@ namespace WealthERP.OnlineOrderManagement
         private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
+            string cutOffTime= string.Empty;
             if (orderId != 0 && accountDebitStatus == true)
             {
-                //if (isCutOffTimeOver)
-                //     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
-                //else
+
+                cutOffTime = OnlineBondBo.GetCutOFFTimeForCurent(orderId);
+                if (cutOffTime == "Closed")
+                    userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
+                else
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
             }
             else if (orderId == 0)
@@ -453,6 +457,7 @@ namespace WealthERP.OnlineOrderManagement
                         }
 
                     }
+
 
                     message = CreateUserMessage(orderId, Applicationno, accountDebitStatus);
                     ShowMessage(message);

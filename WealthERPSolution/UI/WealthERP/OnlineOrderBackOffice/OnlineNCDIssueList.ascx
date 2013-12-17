@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDIssueList.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDIssueList.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineNCDIssueList" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
@@ -136,7 +136,7 @@
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="Curent">Curent Issues</asp:ListItem>
+                <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
                 <asp:ListItem Value="Closed">Closed Issues</asp:ListItem>
                 <asp:ListItem Value="Future">Future Issues</asp:ListItem>
             </asp:DropDownList>

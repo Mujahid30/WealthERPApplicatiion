@@ -39,13 +39,37 @@ namespace WealthERP.OnlineOrderManagement
             if (!IsPostBack)
             {
                 //Session["CustId"] = "123456";
-                BindStructureRuleGrid();
+                ddlType.SelectedValue = "Curent";
+                BindStructureRuleGrid(GetType(ddlType.SelectedValue));
                 BindDropDownListIssuer();
             }
         }
-        protected void BindStructureRuleGrid()
+        protected void btnGo_Click(object sender, EventArgs e)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId,0);
+            int type = GetType(ddlType.SelectedValue);
+            BindStructureRuleGrid(type);
+            
+        }
+        private int GetType(string ddlSelection)
+        {
+            int type = 0;
+            if (ddlSelection == "Curent")
+            {
+                type = 1;
+            }
+            else if (ddlSelection == "Closed")
+            {
+                type = 2;
+            }
+            else
+            {
+                type = 3;
+            }
+            return type;
+        }
+        protected void BindStructureRuleGrid(int type)
+        {
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId,0,type);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -130,6 +154,28 @@ namespace WealthERP.OnlineOrderManagement
             //    gvchildIssue.DataSource = dtIssueDetail;
             //    gvchildIssue.DataBind();
             //}
+
+
+            //string Status = Convert.ToString(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueTimeType"].ToString());
+            // EditCommandColumn colmatch = (EditCommandColumn)e.Item["Match"];
+            if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {             
+
+
+                LinkButton editButton = (LinkButton)e.Item.FindControl("llPurchase");
+
+
+                if (ddlType.SelectedValue == "Curent")
+                {
+                    editButton.Visible = true;
+                }
+                else
+                {
+                    editButton.Visible = false;
+                }
+            }
+
+
         }
 
          protected void btnExpandAll_Click(object sender, EventArgs e)

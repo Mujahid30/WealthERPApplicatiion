@@ -45,7 +45,38 @@ namespace DaoOnlineOrderManagement
             return ds;
         }
 
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId)
+        public string  GetCutOFFTimeForCurent(int orderId)
+        {
+            Database db;
+            DbCommand dbCommand;
+            string  cutOffTime ="";
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetCutOFFTimeForCurent");
+                db.AddInParameter(dbCommand, "@OrderId", DbType.Int32, orderId);
+                cutOffTime =db.ExecuteScalar(dbCommand).ToString();
+                
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:ChekSeriesSequence()");
+                object[] objects = new object[0];               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return cutOffTime;
+        }
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId,int type)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -58,6 +89,11 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdGetCommissionStructureRules, "@AdviserId", DbType.Int32, adviserId);
                 if (issueId != 0)
                     db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, issueId);
+                else
+                    db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, 0);
+
+                db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
+
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
                 ds = db.ExecuteDataSet(cmdGetCommissionStructureRules);

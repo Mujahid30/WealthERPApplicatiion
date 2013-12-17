@@ -126,6 +126,46 @@
         padding-right: 5px;
     }
 </style>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                        <td align="left">
+                            NCD Issue List
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<table width="60%" runat="server" id="tbNcdIssueList">
+    <tr>
+        <td class="leftLabel">
+            <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
+                >
+                <asp:ListItem Value="Select">Select</asp:ListItem>
+                <asp:ListItem Value="Curent" >Current Issues</asp:ListItem>
+                <asp:ListItem Value="Closed" Enabled="false" >Closed Issues</asp:ListItem>
+                <asp:ListItem Value="Future">Future Issues</asp:ListItem>
+            </asp:DropDownList>
+            <span id="Span4" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select Type"
+                CssClass="rfvPCG" ControlToValidate="ddlType" ValidationGroup="btnGo" Display="Dynamic"
+                InitialValue="Select"></asp:RequiredFieldValidator>
+        </td>
+        <td class="rightData">
+            <asp:Button ID="btnGo" runat="server" Text="Go" CssClass="PCGButton" ValidationGroup="btnGo"
+                OnClick="btnGo_Click" />
+        </td>
+    </tr>
+</table>
 <%--<asp:UpdatePanel ID="upCMGrid" runat="server">
     <ContentTemplate>--%>
 <%--<table width="100%">
@@ -179,7 +219,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound"
                                 OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,AIM_MInQty,AIM_MaxQty"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,AIM_MInQty,AIM_MaxQty,IssueTimeType"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
@@ -313,9 +353,9 @@
                                                                             HeaderText="Issuer Id" UniqueName="PI_IssuerId" SortExpression="PI_IssuerId">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px" CurrentFilterFunction="Contains"
-                                                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Id" UniqueName="PI_IssuerCode"
-                                                                            SortExpression="PI_IssuerCode">
+                                                                        <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerCode" HeaderStyle-Width="70px"
+                                                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                                                            HeaderText="Issuer Id" UniqueName="PI_IssuerCode" SortExpression="PI_IssuerCode">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn Visible="false" DataField="AID_IssueDetailId" HeaderStyle-Width="60px"
@@ -343,13 +383,12 @@
                                                                             UniqueName="WCMV_Name" SortExpression="WCMV_Name">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        
                                                                         <telerik:GridBoundColumn DataField="AID_CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
                                                                             UniqueName="AID_CouponRate" SortExpression="AID_CouponRate">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                      <%--  <telerik:GridBoundColumn  Visible ="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
+                                                                        <%--  <telerik:GridBoundColumn  Visible ="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                                                             HeaderText="Renew Coupon Rate(%)" UniqueName="AID_RenewCouponRate" SortExpression="AID_RenewCouponRate">
                                                                             <HeaderStyle Width="100px" />
@@ -360,7 +399,7 @@
                                                                             DataFormatString="{0:N0}" AutoPostBackOnFilter="true" UniqueName="AID_LockingPeriod">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                       <%-- <telerik:GridBoundColumn Visible="false" DataField="MaxRetailValue" HeaderStyle-Width="100px"
+                                                                        <%-- <telerik:GridBoundColumn Visible="false" DataField="MaxRetailValue" HeaderStyle-Width="100px"
                                                                             HeaderText="Max Retail Value" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                                                             DataFormatString="{0:N0}" AutoPostBackOnFilter="true" UniqueName="MaxRetailValue">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -375,7 +414,7 @@
                                                                             SortExpression="AID_YieldUpto" UniqueName="AID_YieldUpto" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                    <%--    <telerik:GridBoundColumn DataField="AID_YieldBuyBack" HeaderStyle-Width="105px"
+                                                                        <%--    <telerik:GridBoundColumn DataField="AID_YieldBuyBack" HeaderStyle-Width="105px"
                                                                             SortExpression="AID_YieldBuyBack" HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" UniqueName="AID_YieldBuyBack"
                                                                             Visible="true">
