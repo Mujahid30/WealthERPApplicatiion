@@ -835,6 +835,7 @@ namespace BoOnlineOrderManagement
             }
 
         }
+        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid)
         public DataSet GetUploadIssue(string product, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -863,7 +864,7 @@ namespace BoOnlineOrderManagement
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, Status, FromDate, ToDate);
+                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId,Product,Status,FromDate,ToDate,adviserid);
             }
             catch (BaseApplicationException Ex)
             {

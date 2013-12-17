@@ -471,6 +471,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@AIM_ModeOfTrading", DbType.String, onlineNCDBackOfficeVo.ModeOfTrading);
                 db.AddInParameter(createCmd, "@AIM_OpenDate", DbType.Date, onlineNCDBackOfficeVo.OpenDate);
                 db.AddInParameter(createCmd, "@AIM_CloseDate", DbType.Date, onlineNCDBackOfficeVo.CloseDate);
+                db.AddInParameter(createCmd, "@issuerevisiondate", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
+                db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, onlineNCDBackOfficeVo.AllotmentDate);
                 db.AddInParameter(createCmd, "@AIM_OpenTime", DbType.Time, onlineNCDBackOfficeVo.OpenTime);
                 db.AddInParameter(createCmd, "@AIM_CloseTime", DbType.Time, onlineNCDBackOfficeVo.CloseTime);
                 //db.AddInParameter(createCmd, "@IssueRevis", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
@@ -1441,7 +1443,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate)
+        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate,int adviserid)
         {
             DataSet dsOrders;
             Database db;
@@ -1455,6 +1457,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(dbCommand, "@Status", DbType.String, Status);
                 db.AddInParameter(dbCommand, "@FromDate", DbType.Date, FromDate);
                 db.AddInParameter(dbCommand, "@ToDate", DbType.Date, ToDate);
+                db.AddInParameter(dbCommand, "@AdviserId", DbType.Int32, adviserid);
 
                 dsOrders = db.ExecuteDataSet(dbCommand);
             }

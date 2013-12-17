@@ -32,6 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         OnlineNCDBackOfficeVo onlineNCDBackOfficeVo;
         string categoryCode = "";
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -262,7 +263,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     categoryCode = "FISD";
                 }
-                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, categoryCode, Status, FromDate, ToDate).Tables[0];
+                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, categoryCode, Status, FromDate, ToDate,advisorVo.advisorId).Tables[0];
                 gvOrders.DataSource = dtOrdersMatch;
                 gvOrders.DataBind();
                 if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
@@ -278,7 +279,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindSeriesCategoryGrid()");
-                object[] objects = new object[1];
+                object[] objects = new object[5];
                 //objects[1] = issuerId;
                 //objects[2] = issueId;
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);

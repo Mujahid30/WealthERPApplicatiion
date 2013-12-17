@@ -147,11 +147,10 @@
             <asp:Label ID="lb1Type" runat="server" Text="Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true"
-                >
+            <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
-                <asp:ListItem Value="Curent" >Current Issues</asp:ListItem>
-                <asp:ListItem Value="Closed" Enabled="false" >Closed Issues</asp:ListItem>
+                <asp:ListItem Value="Curent">Current Issues</asp:ListItem>
+                <asp:ListItem Value="Closed" Enabled="false">Closed Issues</asp:ListItem>
                 <asp:ListItem Value="Future">Future Issues</asp:ListItem>
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
@@ -236,6 +235,12 @@
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             HeaderText="Scrip ID" UniqueName="AIM_IssueId" SortExpression="AIM_IssueId">
+                                            <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
+                                        </telerik:GridBoundColumn>
+                                        <telerik:GridBoundColumn Visible="true" DataField="PAIC_AssetInstrumentCategoryName"
+                                            HeaderStyle-Width="60px" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            AutoPostBackOnFilter="true" HeaderText="Category" UniqueName="PAIC_AssetInstrumentCategoryName"
+                                            SortExpression="PAIC_AssetInstrumentCategoryName">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width=" " Wrap="true" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="PI_IssuerId" HeaderStyle-Width="60px"

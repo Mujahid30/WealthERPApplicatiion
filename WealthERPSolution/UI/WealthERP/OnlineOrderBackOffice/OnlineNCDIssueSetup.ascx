@@ -801,6 +801,12 @@
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtBSECode" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span32" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="rfvtxtBSECode" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter BSE Code" Display="Dynamic" ControlToValidate="txtBSECode"
+                InitialValue="" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
         </td>
     </tr>
     <tr>

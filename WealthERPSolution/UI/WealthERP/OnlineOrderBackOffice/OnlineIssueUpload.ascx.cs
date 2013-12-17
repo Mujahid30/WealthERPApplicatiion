@@ -134,7 +134,7 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             if (bUpload) {
                 btnUploadData.Enabled = true;
-                ShowMessage("Please file data has been uploaded, click Upload Data button to upload");
+                ShowMessage("File data has been uploaded, click Upload Data button to upload");
             }
         }
 

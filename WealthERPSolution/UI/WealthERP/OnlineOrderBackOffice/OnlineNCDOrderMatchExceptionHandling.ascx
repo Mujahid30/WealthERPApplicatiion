@@ -223,11 +223,17 @@
                                 UniqueName="COID_Quantity" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                              <telerik:GridBoundColumn DataField="PurchaseAmt" HeaderText="Purchase Amt" SortExpression="PurchaseAmt"
+                            <telerik:GridBoundColumn DataField="AIM_FaceValue" HeaderText="Face value" SortExpression="AIM_FaceValue"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="PurchaseAmt" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="AIM_FaceValue" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                              <telerik:GridBoundColumn DataField="purchaseAmt" HeaderText="Purchase Amt" SortExpression="purchaseAmt"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="purchaseAmt" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
                             
                             <telerik:GridBoundColumn DataField="COID_Price" HeaderText="Price" SortExpression="COID_Price"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
@@ -245,15 +251,15 @@
                                 UniqueName="AIA_Quantity" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AIA_Price" HeaderText="Alloted Price" SortExpression="AIA_Price"
+                            <telerik:GridBoundColumn Visible="false" DataField="AIA_Price" HeaderText="Alloted Price" SortExpression="AIA_Price"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="AIA_Price" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             
-                             <telerik:GridBoundColumn DataField="AlotedAmt" HeaderText="Alloted Amt" SortExpression="AlotedAmt"
+                             <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="AlotedAmt" FooterStyle-HorizontalAlign="Left">
+                                UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             

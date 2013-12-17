@@ -1418,6 +1418,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.TextBox txtBSECode;
         
         /// <summary>
+        /// rfvtxtBSECode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtBSECode;
+        
+        /// <summary>
         /// lb1BankName control.
         /// </summary>
         /// <remarks>

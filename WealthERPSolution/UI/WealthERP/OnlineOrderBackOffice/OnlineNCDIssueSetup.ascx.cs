@@ -158,8 +158,11 @@ namespace WealthERP.OnlineOrderBackOffice
 
                         //txtCloseTimes.Text = dr["AIM_CloseTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
-
-                    txtRevisionDates.SelectedDate = DateTime.Now;
+                    if (!string.IsNullOrEmpty(dr["AIM_IssueRevisionDate"].ToString()))
+                    {
+                        txtRevisionDates.SelectedDate = Convert.ToDateTime(dr["AIM_IssueRevisionDate"].ToString());
+                    }
+                   // txtRevisionDates.SelectedDate = DateTime.Now;
 
                     if (!string.IsNullOrEmpty(dr["AIM_TradingLot"].ToString()))
                     {
@@ -1980,6 +1983,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
                 else
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.MinValue;
+                if (!string.IsNullOrEmpty((txtAllotmentDate.SelectedDate).ToString().Trim()))
+                    onlineNCDBackOfficeVo.AllotmentDate = DateTime.Parse(txtAllotmentDate.SelectedDate.ToString());
+                else
+                    onlineNCDBackOfficeVo.AllotmentDate = DateTime.MinValue;
 
                 onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
                 onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
@@ -2134,11 +2141,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.MaxQty = 0;
                 }
-
-
-                if (!string.IsNullOrEmpty(ddlRegistrar.Text))
+                
+                if (!string.IsNullOrEmpty(ddlRegistrar.SelectedValue))
                 {
-                    onlineNCDBackOfficeVo.RtaSourceCode = ddlRegistrar.Text;
+                    onlineNCDBackOfficeVo.RtaSourceCode = ddlRegistrar.SelectedValue.ToString();
                 }
                 else
                 {
@@ -2185,7 +2191,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.BSECode = "";
 
                 }
-
+                
 
                 issueId = onlineNCDBackOfficeBo.CreateIssue(onlineNCDBackOfficeVo, advisorVo.advisorId);
                 if (issueId > 0)
