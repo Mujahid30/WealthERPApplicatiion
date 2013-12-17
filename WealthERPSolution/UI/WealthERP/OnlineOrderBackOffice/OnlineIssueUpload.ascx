@@ -144,7 +144,7 @@
             <asp:Label ID="lblProduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
+            <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged" AutoPostBack="true" >
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="NCD/Bond" Value="FI" />
                 <asp:ListItem Text="IPO" Value="IP" />

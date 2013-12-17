@@ -38,19 +38,21 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (!IsPostBack) {
                 if (Cache["UPLOAD" + userVo.UserId] != null) Cache.Remove("UPLOAD" + userVo.UserId);
-                BindIssuerIssue();
+               
               
             }
 
         }
 
-        private void BindIssuerIssue()
+        private void BindIssuerIssue(string product)
         {
             try
             {
                 DataSet dsIssuer = new DataSet();
                 boNcdBackOff = new OnlineNCDBackOfficeBo();
-                dsIssuer = boNcdBackOff.GetIssuerIssue(advisorVo.advisorId);
+              
+
+                dsIssuer = boNcdBackOff.GetUploadIssue(product, advisorVo.advisorId);
                 if (dsIssuer.Tables[0].Rows.Count > 0)
                 {
                     ddlIssueName.DataSource = dsIssuer;
@@ -105,6 +107,13 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
+            
+            //DataTable dtReqData = new DataTable();
+
+            //var datatable = new DataTable();
+            //var abccolumns = datatable.Columns.Cast<DataColumn>()
+            //                                  .Where(c => c.ColumnName.StartsWith("abc"));
+
             if(boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
             DataTable dtValidatedData = boNcdBackOff.ValidateUploadData(dtUploadFile, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
 
@@ -139,14 +148,17 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Page.Validate("FileType");
+            //Page.Validate("FileType");
 
-            if (!Page.IsValid)
-            {
-                ShowMessage("Please check all required fields");
+            //if (!Page.IsValid)
+            //{
+            //    ShowMessage("Please check all required fields");
+            //    return;
+            //}
+            if (ddlProduct.SelectedValue == "0")
                 return;
-            }
             SetFileType();
+            BindIssuerIssue(ddlProduct.SelectedValue );
         }
 
         protected void ddlSource_SelectedIndexChanged(object sender, EventArgs e)

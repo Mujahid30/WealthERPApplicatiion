@@ -50,6 +50,35 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+        public string GetExtractStepCode(int fileId)
+        {
+            Database db;
+            DbCommand dbCommand;
+            string stepCode;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetExtractStepCode");
+                db.AddInParameter(dbCommand, "@fileTypeId", DbType.Int32, fileId);
+                stepCode = db.ExecuteScalar(dbCommand).ToString();              
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetExtractStepCode()");
+                object[] objects = new object[0];               
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return stepCode;
+        }
 
         public int GetSeriesSequence(int issueId, int adviserId)
         {
@@ -1027,7 +1056,39 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetIssuerIssue;
         }
+        public DataSet GetUploadIssue(string product,int adviserId)
+        {
+            DataSet dsGetIssuerIssue;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetUploadIssue");
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@product", DbType.String, product);
 
+                //@product
+                dsGetIssuerIssue = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetUploadIssue()");
+                object[] objects = new object[1];
+                objects[1] = product;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetIssuerIssue;
+        }
         public DataSet GetSubTypePerCategoryDetails(int investorCatgeoryId)
         {
             DataSet dsGetSubCategory;
@@ -1528,6 +1589,40 @@ namespace DaoOnlineOrderManagement
                 SqlConnection sqlCon = new SqlConnection(conString);
                 sqlCon.Open();
                 SqlCommand cmdProc = new SqlCommand("SPROC_UploadAllotmentIssueData", sqlCon);
+                cmdProc.CommandType = CommandType.StoredProcedure;
+                cmdProc.Parameters.AddWithValue("@Details", dtData);
+                cmdProc.Parameters.AddWithValue("@issueId", issueId);
+
+                result = cmdProc.ExecuteNonQuery();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UploadAllotmentIssueData()");
+                object[] objects = new object[1];
+                //objects[0] = adviserid;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return result;
+        }
+        public int UploadChequeIssueData(DataTable dtData, int issueId)
+        {
+            int result;
+            try
+            {
+
+                string conString = ConfigurationManager.ConnectionStrings["wealtherp"].ConnectionString;
+                SqlConnection sqlCon = new SqlConnection(conString);
+                sqlCon.Open();
+                SqlCommand cmdProc = new SqlCommand("SPROC_UploadChequeIssueData", sqlCon);
                 cmdProc.CommandType = CommandType.StoredProcedure;
                 cmdProc.Parameters.AddWithValue("@Details", dtData);
                 cmdProc.Parameters.AddWithValue("@issueId", issueId);

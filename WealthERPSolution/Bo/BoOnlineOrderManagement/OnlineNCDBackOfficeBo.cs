@@ -124,7 +124,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-          public int CreateUpdateDeleteIssuer(int issuerId, string issuerCode, string issuerName, string commandType)
+        public int CreateUpdateDeleteIssuer(int issuerId, string issuerCode, string issuerName, string commandType)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -147,7 +147,7 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-         public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
+        public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -170,8 +170,8 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-             
-          public DataSet BindRta()
+
+        public DataSet BindRta()
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
@@ -187,7 +187,7 @@ namespace BoOnlineOrderManagement
                 BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
                 NameValueCollection FunctionInfo = new NameValueCollection();
                 FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:BindRta()");
-                object[] objects = new object[0];                
+                object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -638,7 +638,8 @@ namespace BoOnlineOrderManagement
             }
         }
 
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset) {
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset)
+        {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset);
         }
@@ -701,7 +702,7 @@ namespace BoOnlineOrderManagement
             return onlineNCDBackOfficeDao.GetFileTypeList(FileTypeId, ExternalSource, FileSubType, ProductCode);
         }
 
-        private KeyValuePair<string,string>[] GetHeaderMapping(int fileTypeId, string extSource)
+        private KeyValuePair<string, string>[] GetHeaderMapping(int fileTypeId, string extSource)
         {
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
@@ -710,7 +711,8 @@ namespace BoOnlineOrderManagement
             if (nRows <= 0) return null;
 
             List<OnlineIssueHeader> fileHeaderList = new List<OnlineIssueHeader>();
-            for (int i = 0; i < nRows; i++) {                
+            for (int i = 0; i < nRows; i++)
+            {
                 OnlineIssueHeader header = new OnlineIssueHeader();
                 header.HeaderSequence = int.Parse(dtHeaderMap.Rows[i]["WEEHM_HeaderSequence"].ToString());
                 header.ColumnAlias = dtHeaderMap.Rows[i]["WEIH_ColumnAlias"].ToString();
@@ -833,12 +835,35 @@ namespace BoOnlineOrderManagement
             }
 
         }
+        public DataSet GetUploadIssue(string product, int adviserId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetUploadIssue(product, adviserId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetUploadIssue()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId,Product,Status,FromDate,ToDate);
+                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, Status, FromDate, ToDate);
             }
             catch (BaseApplicationException Ex)
             {
@@ -860,9 +885,9 @@ namespace BoOnlineOrderManagement
         public DataSet GetAdviserissueallotmentList(int adviserId, int issureid, string type, DateTime fromdate, DateTime todate)
         {
             OnlineNCDBackOfficeDao OnlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            
+
             DataSet dsGetAdviserissueallotmentList;
-            dsGetAdviserissueallotmentList = OnlineNCDBackOfficeDao.GetAdviserissueallotmentList(adviserId,issureid,type,fromdate,todate);
+            dsGetAdviserissueallotmentList = OnlineNCDBackOfficeDao.GetAdviserissueallotmentList(adviserId, issureid, type, fromdate, todate);
             return dsGetAdviserissueallotmentList;
 
         }
@@ -889,14 +914,15 @@ namespace BoOnlineOrderManagement
             return dtGetIssuerid;
         }
 
-        public List<OnlineIssueHeader> GetHeaderDetails(int fileTypeId, string extSource) {
+        public List<OnlineIssueHeader> GetHeaderDetails(int fileTypeId, string extSource)
+        {
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
             DataTable dtHeaderMap = onlineNCDBackOfficeDao.GetHeaderMapping(fileTypeId, extSource);
             if (dtHeaderMap.Rows.Count <= 0) return null;
 
             List<OnlineIssueHeader> fileHeaderList = new List<OnlineIssueHeader>();
-            foreach(DataRow row in dtHeaderMap.Rows)
+            foreach (DataRow row in dtHeaderMap.Rows)
             {
                 OnlineIssueHeader header = new OnlineIssueHeader();
                 header.HeaderSequence = int.Parse(row["WEEHM_HeaderSequence"].ToString());
@@ -919,7 +945,8 @@ namespace BoOnlineOrderManagement
             sbError.AppendLine("<div id=\"divCutOffCheck\" class=\"popbox\">");
             sbError.AppendLine("<h2>Error Details:</h2>");
             //sbError.AppendLine("<ol>");       
-            for (int i = 0; i < strErrList.Length; i++) {
+            for (int i = 0; i < strErrList.Length; i++)
+            {
                 sbError.Append("<p>" + strErrList[i] + "</p>");
             }
             //sbError.AppendLine("</ol>");
@@ -928,20 +955,39 @@ namespace BoOnlineOrderManagement
             return sbError.ToString();
         }
 
-        public string GetErrorsForRow(List<OnlineIssueHeader> Headers, DataRow row, int rowNum) {
+        public string GetErrorsForRow(List<OnlineIssueHeader> Headers, DataRow row, int rowNum)
+        {
             StringBuilder strErr = new StringBuilder();
             List<string> ErrorList = new List<string>();
 
-            foreach (OnlineIssueHeader Header in Headers) {
-                int colInx = row.Table.Columns[Header.HeaderName].Ordinal;
-                //int colInx = Header.HeaderSequence;
-                string colRegex = Header.RegularExpression;
-                string colVal = row[colInx].ToString();
-                string colNam = Header.HeaderName;
+            foreach (OnlineIssueHeader Header in Headers)
+            {
 
-                Regex regex = new Regex(colRegex);
-                if (!regex.IsMatch(colVal)) {
-                    ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (colInx + 3) + ")");
+                for (int j = 0; j < row.Table.Columns.Count - 1; j++)
+                {
+                    if (row.Table.Columns[j].ToString().Trim() == Header.HeaderName.Trim())
+                    {
+                        // int colInx = row.Table.Columns[Header.HeaderName].Ordinal;
+                        //int colInx = Header.HeaderSequence;
+                        string colRegex = Header.RegularExpression;
+                        string colVal = row[j].ToString();
+                        string colNam = Header.HeaderName;
+
+                        Regex regex = new Regex(colRegex);
+                        if (!regex.IsMatch(colVal))
+                        {
+                            //string colRegexs=@"(\d+[.]\d{2})";
+                            //string colRegexs =@"[1-9]\d*$";
+
+                            //Regex regexs = new Regex(colRegexs);
+
+                            //if (!regexs.IsMatch(colVal))
+                            //{
+                            ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (j + 3) + ")");
+
+                            //}
+                        }
+                    }
                 }
             }
 
@@ -973,6 +1019,7 @@ namespace BoOnlineOrderManagement
             dtRawData.Columns.Add(serialNo);
             dtRawData.Columns.Add(errorCol);
             dtRawData.AcceptChanges();
+            dtRawData.Columns.ToString().Trim();
 
             List<OnlineIssueHeader> AllHeaders = GetHeaderDetails(fileTypeId, extSource);
 
@@ -980,7 +1027,8 @@ namespace BoOnlineOrderManagement
             List<OnlineIssueHeader> Headers = AllHeaders.FindAll(FindHeaders);
 
             int i = 1;
-            foreach (DataRow row in dtRawData.Rows) {
+            foreach (DataRow row in dtRawData.Rows)
+            {
                 row["SN"] = i.ToString();
                 row["Remarks"] = GetErrorsForRow(Headers, row, i);
             }
@@ -997,7 +1045,8 @@ namespace BoOnlineOrderManagement
         //    if(
         //}
 
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, string extSrc,int issueId) {
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, string extSrc, int issueId)
+        {
             int nRows = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
 
@@ -1034,19 +1083,33 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                if (fileTypeId == 12 | fileTypeId == 13 | fileTypeId == 14 | fileTypeId == 15)
+                string extractStepCode=daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
+                if (extractStepCode == "UA")
                 {
 
                     nRows = daoOnlNcdBackOff.UploadAllotmentIssueData(dtCheckOrder, issueId);
                 }
-                else
+                else if (extractStepCode == "UC")
                 {
+                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
 
-                    string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
-                    string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
-                    string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
-                    string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
-                    daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
+
+                    //string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
+                    //string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
+                    //string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
+                    //string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
+                    //daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
+                }
+                else 
+                {
+                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
+
+
+                    //string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
+                    //string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
+                    //string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
+                    //string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
+                    //daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
                 }
             }
             catch (Exception Ex)
