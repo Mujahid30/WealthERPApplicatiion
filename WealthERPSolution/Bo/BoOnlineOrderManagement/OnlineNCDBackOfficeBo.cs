@@ -835,7 +835,6 @@ namespace BoOnlineOrderManagement
             }
 
         }
-        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid)
         public DataSet GetUploadIssue(string product, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -859,12 +858,12 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
-        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate)
+        public DataSet GetAdviserOrders(int IssueId, string Product, string Status, DateTime FromDate, DateTime ToDate, int adviserid)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId,Product,Status,FromDate,ToDate,adviserid);
+                return onlineNCDBackOfficeDao.GetAdviserOrders(IssueId, Product, Status, FromDate, ToDate, adviserid);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1084,7 +1083,7 @@ namespace BoOnlineOrderManagement
 
             try
             {
-                string extractStepCode=daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
+                string extractStepCode = daoOnlNcdBackOff.GetExtractStepCode(fileTypeId);
                 if (extractStepCode == "UA")
                 {
 
@@ -1101,7 +1100,7 @@ namespace BoOnlineOrderManagement
                     //string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
                     //daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
                 }
-                else 
+                else
                 {
                     nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
 
