@@ -1067,6 +1067,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator7;
         
         /// <summary>
+        /// trIssueqtySize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trIssueqtySize;
+        
+        /// <summary>
         /// Label16 control.
         /// </summary>
         /// <remarks>
@@ -1137,6 +1146,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
+        
+        /// <summary>
+        /// trTradinglotBidding control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trTradinglotBidding;
         
         /// <summary>
         /// lb1TradingLot control.
@@ -1481,6 +1499,24 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::Telerik.Web.UI.RadDatePicker txtRevisionDates;
         
         /// <summary>
+        /// CmptxtRevisionDates1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CmptxtRevisionDates1;
+        
+        /// <summary>
+        /// CmptxtRevisionDates control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CmptxtRevisionDates;
+        
+        /// <summary>
         /// Label18 control.
         /// </summary>
         /// <remarks>
@@ -1497,6 +1533,15 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtAllotmentDate;
+        
+        /// <summary>
+        /// cmp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmp;
         
         /// <summary>
         /// trIsActiveandPutCallOption control.

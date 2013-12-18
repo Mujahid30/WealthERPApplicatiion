@@ -132,7 +132,7 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
-                            <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                            <telerik:GridBoundColumn DataField="CO_OrderDate" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                 AllowFiltering="true" HeaderText="Order Date/Time" UniqueName="CO_OrderDate"
                                 SortExpression="CO_OrderDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">

@@ -122,7 +122,7 @@
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
-                            <telerik:GridBoundColumn DataField="CMFSS_CreatedOn" DataFormatString="{0:dd/MM/yyyy hh:mm:ss}"
+                            <telerik:GridBoundColumn DataField="CMFSS_CreatedOn" DataFormatString="{0:dd/MM/yyyy HH:mm:ss}"
                                 AllowFiltering="true" HeaderText="Request Date/Time" UniqueName="CMFSS_CreatedOn"
                                 SortExpression="CMFSS_CreatedOn" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">

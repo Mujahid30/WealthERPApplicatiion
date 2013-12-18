@@ -821,6 +821,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }
+                else if (e.Item.Value == "NCD_Allotments")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingIssueAllotment','login');", true);
+                }
                 else if (e.Item.Value == "Scheme_DataTrans_Mapping")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddSchemeMapping','login')", true);

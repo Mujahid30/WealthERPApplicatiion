@@ -1987,10 +1987,22 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.AllotmentDate = DateTime.Parse(txtAllotmentDate.SelectedDate.ToString());
                 else
                     onlineNCDBackOfficeVo.AllotmentDate = DateTime.MinValue;
-
-                onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
-                onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
-
+                if (!String.IsNullOrEmpty(txtTradingLot.Text))
+                {
+                    onlineNCDBackOfficeVo.TradingLot = Convert.ToDecimal(txtTradingLot.Text);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.TradingLot = 0;
+                   }
+                if (!string.IsNullOrEmpty(txtBiddingLot.Text))
+                {
+                    onlineNCDBackOfficeVo.BiddingLot = Convert.ToDecimal(txtBiddingLot.Text);
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.BiddingLot = 0;
+                }
                 onlineNCDBackOfficeVo.MinApplicationSize = Convert.ToInt32(txtMinAplicSize.Text);
                 if (!string.IsNullOrEmpty(txtIsPrefix.Text))
                 {
@@ -3063,6 +3075,9 @@ namespace WealthERP.OnlineOrderBackOffice
             trRatingAndModeofTrading.Visible = false;
             trModeofIssue.Visible = false;
             trMaxQty.Visible = false;
+            trIssueqtySize.Visible = false;
+            trTradinglotBidding.Visible = false;
+           
             //Ipo
             trIssueTypes.Visible = false;
             trBookBuildingAndCapprices.Visible = false;
@@ -3078,11 +3093,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 trIsActiveandPutCallOption.Visible = true;
                 trRatingAndModeofTrading.Visible = true;
                 trModeofIssue.Visible = true;
-                trFloorAndFixedPrices.Visible = true;
+                trFloorAndFixedPrices.Visible = false;
                 trMaxQty.Visible = true;
                 trExchangeCode.Visible = true;
                 tdlblCategory.Visible = true;
                 tdddlCategory.Visible = true;
+
             }
             else if (product == "IP")
             {
@@ -3091,6 +3107,9 @@ namespace WealthERP.OnlineOrderBackOffice
                 tdddlCategory.Visible = false;
                 trMaxQty.Visible = false;
                 trExchangeCode.Visible = true;
+                trTradinglotBidding.Visible = true;
+                trIssueqtySize.Visible = true;
+
             }
         }
 

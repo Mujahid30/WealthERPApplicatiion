@@ -471,8 +471,22 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@AIM_ModeOfTrading", DbType.String, onlineNCDBackOfficeVo.ModeOfTrading);
                 db.AddInParameter(createCmd, "@AIM_OpenDate", DbType.Date, onlineNCDBackOfficeVo.OpenDate);
                 db.AddInParameter(createCmd, "@AIM_CloseDate", DbType.Date, onlineNCDBackOfficeVo.CloseDate);
-                db.AddInParameter(createCmd, "@issuerevisiondate", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
-                db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, onlineNCDBackOfficeVo.AllotmentDate);
+                if (onlineNCDBackOfficeVo.IssueRevis != DateTime.MinValue)
+                {
+                    db.AddInParameter(createCmd, "@issuerevisiondate", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);
+                }
+                else
+                {
+                    db.AddInParameter(createCmd, "@issuerevisiondate", DbType.Date, DBNull.Value);
+                }
+                if (onlineNCDBackOfficeVo.AllotmentDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, onlineNCDBackOfficeVo.AllotmentDate);
+                }
+                else
+                {
+                    db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, DBNull.Value);
+                }
                 db.AddInParameter(createCmd, "@AIM_OpenTime", DbType.Time, onlineNCDBackOfficeVo.OpenTime);
                 db.AddInParameter(createCmd, "@AIM_CloseTime", DbType.Time, onlineNCDBackOfficeVo.CloseTime);
                 //db.AddInParameter(createCmd, "@IssueRevis", DbType.Date, onlineNCDBackOfficeVo.IssueRevis);

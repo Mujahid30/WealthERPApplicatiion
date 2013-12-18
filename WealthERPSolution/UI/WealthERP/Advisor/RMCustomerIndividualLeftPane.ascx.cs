@@ -1410,11 +1410,11 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString().ToLower() == "message")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
                             if (Item.Value == "CusQuickLinks" || Item.Text == "CusHome")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
                         }
                     }
@@ -1440,7 +1440,7 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString() == "Bank Details")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
 
                         }
@@ -1468,7 +1468,7 @@ namespace WealthERP.Advisor
                             Item.Text = dr[2].ToString();
                             if (dr[2].ToString().ToLower() == "vault proof" || dr[2].ToString() == "Add Bank Account" || dr[2].ToString() == "Add Bank Transaction/Balance" || dr[2].ToString() == "View Bank Transaction")
                             {
-                                Item.Text += " <img id='img1' src='/Images/new.gif'/>";
+                                //Item.Text += " <img id='img1' src='/Images/new.gif'/>";
                             }
                         }
                     }
