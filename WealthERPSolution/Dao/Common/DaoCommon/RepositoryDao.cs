@@ -78,7 +78,7 @@ namespace DaoCommon
             return ds;
         }
 
-        public bool AddRepositoryItem(RepositoryVo repoVo)
+        public bool AddRepositoryItem(RepositoryVo repoVo,int issueId)
         {
             Database db;
             DbCommand cmdAddRepository;
@@ -94,6 +94,8 @@ namespace DaoCommon
                 db.AddInParameter(cmdAddRepository, "@repoDescription", DbType.String, repoVo.Description);
                 db.AddInParameter(cmdAddRepository, "@repoIsFile", DbType.Boolean, repoVo.IsFile);
                 db.AddInParameter(cmdAddRepository, "@repoLink", DbType.String, repoVo.Link);
+                if(issueId>0)
+                    db.AddInParameter(cmdAddRepository, "@issueId", DbType.Int32, issueId);
 
                 db.ExecuteNonQuery(cmdAddRepository);
                 blResult = true;

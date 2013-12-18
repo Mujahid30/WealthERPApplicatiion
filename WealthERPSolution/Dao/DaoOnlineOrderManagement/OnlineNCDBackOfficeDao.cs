@@ -1349,12 +1349,12 @@ namespace DaoOnlineOrderManagement
             }
             return dtHeaders;
         }
-        public bool UpdateNcdOrderMannualMatch(int orderId, int allotmentId)
+        public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId,ref int isAllotmented,ref int isUpdated)
         {
             Database db;
             DbCommand updateCmd;
-            bool status = false;
-            int affectedRecords = 0;
+            //bool status = false;
+            //int affectedRecords = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1362,8 +1362,13 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@OrderId", DbType.Int32, orderId);
                 db.AddInParameter(updateCmd, "@AllotmentId", DbType.Int32, allotmentId);
                 db.AddOutParameter(updateCmd, "@IsSuccess", DbType.Int16, 0);
+                db.AddOutParameter(updateCmd, "@IsAlloted", DbType.Int16, 0);
+
                 if (db.ExecuteNonQuery(updateCmd) != 0)
-                    affectedRecords = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
+                {
+                    isUpdated = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
+                    isAllotmented = int.Parse(db.GetParameterValue(updateCmd, "@IsAlloted").ToString());
+                }
             }
             catch (BaseApplicationException Ex)
             {
@@ -1381,18 +1386,18 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            if (affectedRecords > 0)
-                return status = true;
-            else
-                return status = false;
+            //if (affectedRecords > 0)
+            //    return status = true;
+            //else
+            //    return status = false;
         }
 
-        public bool UpdateNcdAutoMatch(int orderId,int applictionNo,string dpId)
+        public void  UpdateNcdAutoMatch(int orderId,int applictionNo,string dpId,ref int isAllotmented,ref int isUpdated)
         {
             Database db;
             DbCommand updateCmd;
-            bool status = false;
-            int affectedRecords = 0;
+          //  bool status = false;
+            //int affectedRecords = 0;
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1401,8 +1406,15 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateCmd, "@AppNo", DbType.Int32, applictionNo);
                 db.AddInParameter(updateCmd, "@DpId", DbType.String, dpId);
                 db.AddOutParameter(updateCmd, "@IsSuccess", DbType.Int16, 0);
+                db.AddOutParameter(updateCmd, "@IsAlloted", DbType.Int16, 0);
+
+
                 if (db.ExecuteNonQuery(updateCmd) != 0)
-                    affectedRecords = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
+                {
+                    isUpdated = int.Parse(db.GetParameterValue(updateCmd, "@IsSuccess").ToString());
+                    isAllotmented = int.Parse(db.GetParameterValue(updateCmd, "@IsAlloted").ToString());
+                }
+
             }
             catch (BaseApplicationException Ex)
             {
@@ -1420,10 +1432,10 @@ namespace DaoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-            if (affectedRecords > 0)
-                return status = true;
-            else
-                return status = false;
+            //if (affectedRecords > 0)
+            //    return status = true;
+            //else
+            //    return status = false;
         }
 
         public DataSet GetUnmatchedAllotments(int adviserId, int issueId)

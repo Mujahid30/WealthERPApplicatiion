@@ -1852,7 +1852,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnProspect_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','action=NCDRepository&issueId=" + txtIssueId.Text  + "');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "ManageRepository", "loadcontrol('ManageRepository','NCDProspect=NCDProspect&issueId=" + txtIssueId.Text + "');", true);
 
         }
 

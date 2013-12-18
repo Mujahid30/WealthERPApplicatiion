@@ -167,6 +167,8 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             int i = 0;
             bool result = false;
+            int isAlloted = 0;
+            int isUpdated = 0;
 
             foreach (GridDataItem gvRow in gvUnmatchedAllotments.Items)
             {
@@ -194,7 +196,17 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (((CheckBox)gdi.FindControl("cbUnMatched")).Checked == true)
                 {
                     int allotmentId = Convert.ToInt32(gdi["AIA_Id"].Text);// Convert.ToInt32(gvUnmatchedAllotments.MasterTableView.DataKeyValues[selectedRow - 1]["AIA_Id"].ToString());
-                    result = onlineNCDBackOfficeBo.UpdateNcdOrderMannualMatch(orderId, allotmentId);
+                    onlineNCDBackOfficeBo.UpdateNcdOrderMannualMatch(orderId, allotmentId, ref isAlloted, ref isUpdated);
+                    if (isAlloted == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill Allotment Date.Not able to match');", true);
+                        result = false;
+                    }
+                    else if (isUpdated == 1)
+                    {
+                        result = true;
+
+                    }
                 }
             }
 
@@ -413,6 +425,8 @@ namespace WealthERP.OnlineOrderBackOffice
         private bool NCDAutoMatch()
         {
             int OrderId = 0;
+            int isAlloted=0;
+            int isUpdated=0;
 
             bool result = false;
             foreach (GridDataItem gdi in gvOrders.Items)
@@ -423,7 +437,18 @@ namespace WealthERP.OnlineOrderBackOffice
                     int applicationNo = Convert.ToInt32(gdi["CO_ApplicationNo"].Text);
                     string dpId = gdi["CEDA_DPId"].Text;
                     OrderId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
-                    result = onlineNCDBackOfficeBo.UpdateNcdAutoMatch(OrderId, applicationNo, dpId);
+                     onlineNCDBackOfficeBo.UpdateNcdAutoMatch(OrderId, applicationNo, dpId, ref  isAlloted, ref isUpdated);
+                    if (isAlloted == 0)
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill Allotment Date.Not able to match');", true);
+                        result = false;
+                    }
+                    else if (isUpdated == 1)
+                    {
+                        result = true;
+
+                    }
+
                 }
             }
 

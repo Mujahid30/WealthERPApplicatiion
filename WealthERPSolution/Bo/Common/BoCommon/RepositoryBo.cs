@@ -69,14 +69,14 @@ namespace BoCommon
             return ds;
         }
 
-        public bool AddRepositoryItem(RepositoryVo repoVo)
+        public bool AddRepositoryItem(RepositoryVo repoVo,int issueId)
         {
             RepositoryDao repoDao = new RepositoryDao();
             bool blResult = false;
 
             try
             {
-                blResult = repoDao.AddRepositoryItem(repoVo);
+                blResult = repoDao.AddRepositoryItem(repoVo, issueId);
             }
             catch (BaseApplicationException Ex)
             {

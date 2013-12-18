@@ -1634,7 +1634,7 @@ namespace WealthERP.OPS
 
                 if (gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
                 {
-                    if (OrderStep.Text.Trim() == "Executed")
+                    if (OrderStep.Text.Trim().ToUpper() == "Executed".ToUpper())
                     {
                         lbtnMarkAsReject.Visible = true;
                     }

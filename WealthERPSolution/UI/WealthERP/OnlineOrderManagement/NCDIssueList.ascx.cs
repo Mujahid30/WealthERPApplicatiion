@@ -48,7 +48,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             int type = GetType(ddlType.SelectedValue);
             BindStructureRuleGrid(type);
-            
+
         }
         private int GetType(string ddlSelection)
         {
@@ -69,7 +69,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid(int type)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId,0,type);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -95,10 +95,10 @@ namespace WealthERP.OnlineOrderManagement
             }
 
             //FILING THE DATA FOR THE CHILD GRID
-           // gvCommMgmt.MasterTableView.DetailTables[0].DataSource = dsStructureRules.Tables[1];
+            // gvCommMgmt.MasterTableView.DetailTables[0].DataSource = dsStructureRules.Tables[1];
 
 
-            
+
         }
         protected void gvCommMgmt_PreRender(object sender, EventArgs e)
         {
@@ -107,7 +107,7 @@ namespace WealthERP.OnlineOrderManagement
                 //gvCommMgmt.MasterTableView.Items[0].Expanded = true;
                 //gvCommMgmt.MasterTableView.Items[0].ChildItem.NestedTableViews[0].Items[0].Expanded = false;
             }
-            
+
         }
         protected void BindDropDownListIssuer()
         {
@@ -132,14 +132,34 @@ namespace WealthERP.OnlineOrderManagement
 
         }
         protected void btnEquityBond_Click(object sender, EventArgs e)
-        {   
+        {
             //string CustId = Session["CustId"].ToString();
-            
+
             //string IssuerId = ddlListOfBonds.SelectedValue.ToString();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&customerId=" + customerVo.CustomerId + "&IssuerId=" + IssuerId + " ');", true);
-           
+
 
         }
+        protected void gvCommMgmt_ItemCommand(object sender, GridCommandEventArgs e)
+        {
+            if (e.CommandName == "download_file" & e.Item is GridDataItem && e.Item.ItemIndex != -1)
+            {
+                string filename = gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_Filename"].ToString();
+                if (filename == string.Empty)
+                    return;
+                string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId +"\\"+ filename;                
+                byte[] bts = System.IO.File.ReadAllBytes(path);
+                Response.Clear();
+                Response.ClearHeaders();
+                Response.AddHeader("Content-Type", "Application/octet-stream");
+                Response.AddHeader("Content-Length", bts.Length.ToString());
+                Response.AddHeader("Content-Disposition", "attachment; filename=" + filename);
+                Response.BinaryWrite(bts);
+                Response.Flush();
+                Response.End();
+            }
+        }
+
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
             //DataTable dtIssueDetail;
@@ -159,7 +179,7 @@ namespace WealthERP.OnlineOrderManagement
             //string Status = Convert.ToString(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueTimeType"].ToString());
             // EditCommandColumn colmatch = (EditCommandColumn)e.Item["Match"];
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
-            {             
+            {
 
 
                 LinkButton editButton = (LinkButton)e.Item.FindControl("llPurchase");
@@ -178,46 +198,46 @@ namespace WealthERP.OnlineOrderManagement
 
         }
 
-         protected void btnExpandAll_Click(object sender, EventArgs e)
+        protected void btnExpandAll_Click(object sender, EventArgs e)
         {
-           DataTable dtIssueDetail;
-           int strIssuerId = 0;
-           LinkButton buttonlink = (LinkButton)sender;
-           GridDataItem gdi;
-           gdi = (GridDataItem)buttonlink.NamingContainer;
-          //  foreach (GridDataItem gvr in this.gvCommMgmt.Items)
-           // {
-           strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
-                RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
-                //LinkButton buttonlink = (LinkButton)gvr.FindControl("Detailslink");
-                Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
-                //DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
-                //dtIssueDetail = ds.Tables[0];
-                //gvchildIssue.DataSource = dtIssueDetail;
-                //gvchildIssue.DataBind();
-                //gvchildIssue.Visible = true;
-                //pnlchild.Visible = true;
+            DataTable dtIssueDetail;
+            int strIssuerId = 0;
+            LinkButton buttonlink = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)buttonlink.NamingContainer;
+            //  foreach (GridDataItem gvr in this.gvCommMgmt.Items)
+            // {
+            strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
+            RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
+            //LinkButton buttonlink = (LinkButton)gvr.FindControl("Detailslink");
+            Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
+            //DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
+            //dtIssueDetail = ds.Tables[0];
+            //gvchildIssue.DataSource = dtIssueDetail;
+            //gvchildIssue.DataBind();
+            //gvchildIssue.Visible = true;
+            //pnlchild.Visible = true;
             //}
-                if (pnlchild.Visible == false)
-                {
-                    pnlchild.Visible = true;
-                    buttonlink.Text = "-";
-                }
-                else if (pnlchild.Visible == true)
-                {
-                    pnlchild.Visible = false;
-                    buttonlink.Text = "+";
-                }
-                DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
-                dtIssueDetail = ds.Tables[0];
-                gvchildIssue.DataSource = dtIssueDetail;
-                gvchildIssue.DataBind();
-         }
+            if (pnlchild.Visible == false)
+            {
+                pnlchild.Visible = true;
+                buttonlink.Text = "-";
+            }
+            else if (pnlchild.Visible == true)
+            {
+                pnlchild.Visible = false;
+                buttonlink.Text = "+";
+            }
+            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
+            dtIssueDetail = ds.Tables[0];
+            gvchildIssue.DataSource = dtIssueDetail;
+            gvchildIssue.DataBind();
+        }
         protected void gvChildDetails_ItemDataBound(object sender, GridItemEventArgs e)
         {
-        
-        
-        
+
+
+
         }
         protected void gvCommMgmt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -227,7 +247,7 @@ namespace WealthERP.OnlineOrderManagement
             {
                 gvCommMgmt.DataSource = dtIssueDetail;
             }
-            
+
         }
         protected void gvChildDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
@@ -235,7 +255,7 @@ namespace WealthERP.OnlineOrderManagement
             GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
             int strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
             DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
-            gvchildIssue.DataSource = ds.Tables[0]; 
+            gvchildIssue.DataSource = ds.Tables[0];
         }
         public void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)
         {

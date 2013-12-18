@@ -216,9 +216,9 @@
                             <telerik:RadGrid ID="gvCommMgmt" runat="server" AllowSorting="True" enableloadondemand="True"
                                 PageSize="10" AllowPaging="True" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
-                                Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound"
+                                Skin="Telerik" AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnItemCommand="gvCommMgmt_ItemCommand"
                                 OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,AIM_MInQty,AIM_MaxQty,IssueTimeType"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,AIM_MInQty,AIM_MaxQty,IssueTimeType,AR_Filename"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridTemplateColumn>
@@ -320,6 +320,7 @@
                                                 <asp:LinkButton ID="llPurchase" runat="server" OnClick="llPurchase_Click" Text="Purchase"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
+                                        <telerik:GridButtonColumn CommandName="download_file" Text="Download" UniqueName="Download" HeaderText="Download"></telerik:GridButtonColumn>
                                         <telerik:GridTemplateColumn>
                                             <ItemTemplate>
                                                 <tr>

@@ -34,6 +34,7 @@ namespace WealthERP.Admin
         const string strRepositoryCategoryValueField = "ARC_RepositoryCategoryCode";
         float fStorageBalance;
         float fMaxStorage;
+        int issueId = 0;
 
         public enum Constants
         {
@@ -65,6 +66,7 @@ namespace WealthERP.Admin
 
                 // Clear Session
                 Session[SessionContents.RepositoryVo] = null;
+               
             }
 
             if (Session[SessionContents.RepositoryVo] != null)
@@ -193,7 +195,11 @@ namespace WealthERP.Admin
                                 repoVo.HeadingText = txtHeadingText.Text.Trim();
                                 repoVo.IsFile = true;
                                 repoVo.Link = newFileName;
-                                blResult = repoBo.AddRepositoryItem(repoVo);
+                                if (Request.QueryString["NCDProspect"] != null)
+                                {
+                                    issueId = Convert.ToInt32(Request.QueryString["issueId"].ToString());
+                                }
+                                blResult = repoBo.AddRepositoryItem(repoVo, issueId);
 
                                 if (blResult)
                                 {
@@ -429,7 +435,7 @@ namespace WealthERP.Admin
             repoBo = new RepositoryBo();
             try
             {
-                blResult = (strAction.Equals(Constants.Add.ToString())) ? repoBo.AddRepositoryItem(repoVo) : repoBo.UpdateRepositoryItem(repoVo);
+                blResult = (strAction.Equals(Constants.Add.ToString())) ? repoBo.AddRepositoryItem(repoVo,issueId) : repoBo.UpdateRepositoryItem(repoVo);
             }
             catch (BaseApplicationException Ex)
             {
