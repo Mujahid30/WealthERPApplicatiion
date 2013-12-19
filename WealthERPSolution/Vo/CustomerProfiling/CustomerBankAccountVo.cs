@@ -20,7 +20,7 @@ namespace VoCustomerProfiling
         private string m_WERPBMBankName;
         private string m_ModeOfOperationCode;
         private string m_AccountTypeCode;
-
+        private string m_BankCity;
         private int m_IsJointHolding;
         private string m_ModeOfOperation;
         private string m_BranchName;
@@ -61,7 +61,11 @@ namespace VoCustomerProfiling
             get { return m_PortfolioId; }
             set { m_PortfolioId = value; }
         }
-
+        public string BankCity
+        {
+            get { return m_BankCity; }
+            set { m_BankCity = value; }
+        }
         public int IsJointHolding
         {
             get { return m_IsJointHolding; }
