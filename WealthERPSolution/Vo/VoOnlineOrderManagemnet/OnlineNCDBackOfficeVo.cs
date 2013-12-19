@@ -99,6 +99,7 @@ namespace VoOnlineOrderManagemnet
         public decimal IssueSizeAmt { get; set; }
        
         public DateTime AllotmentDate { get; set; }
+        public int TradableExchange { get; set; }
 
     }
 
