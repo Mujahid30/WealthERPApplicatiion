@@ -150,7 +150,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_CloseTime"].ToString()))
                     {
-                        string closetime = dr["AIM_OpenTime"].ToString();
+                        string closetime = dr["AIM_CloseTime"].ToString();
 
                         ddlCloseTimeHours.SelectedValue = closetime.Substring(0, 2);
                         ddlCloseTimeMinutes.SelectedValue = closetime.Substring(3, 2);
@@ -186,11 +186,15 @@ namespace WealthERP.OnlineOrderBackOffice
                    // ddlListedInExchange.SelectedValue = "";
                     ddlBankName.Text = "";
                     ddlBankBranch.Text = "";
-                    if (!string.IsNullOrEmpty(dr["AIM_IsActive"].ToString()))
+                    if (bool.Parse(dr["AIM_IsActive"].ToString()) != false)
                     {
                         chkIsActive.Checked = true;
                     }
-                    if (!string.IsNullOrEmpty(dr["AIM_PutCallOption"].ToString()))
+                    else
+                    {
+                        chkIsActive.Checked = false;
+                    }
+                    if (dr["AIM_PutCallOption"].ToString()!="N")
                     {
                         chkPutCallOption.Checked = true;
                     }
@@ -203,8 +207,15 @@ namespace WealthERP.OnlineOrderBackOffice
                     //{
                     //    txtPutCallOption.Text = "";
                     //}
-
-                    if (!string.IsNullOrEmpty(dr["AIM_IsNominationRequired"].ToString()))
+                    //if (mfProductAMCSchemePlanDetailsVo.IsDirect != 0)
+                    //{
+                    //    mfProductAMCSchemePlanDetailsVo.IsDirect = int.Parse(dr["PASP_IsDirect"].ToString());
+                    //}
+                    //else
+                    //{
+                    //    mfProductAMCSchemePlanDetailsVo.IsDirect = 0;
+                    //}
+                    if (int.Parse(dr["AIM_IsNominationRequired"].ToString())!=0)
                     {
                         chkNomineeReQuired.Checked = true;
                     }
@@ -863,14 +874,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsActive = 0;
                 }
-                //if (!string.IsNullOrEmpty(txtPutCallOption.Text))
-                //{
-                //    onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
-                //}
-                //else
-                //{
-                //    onlineNCDBackOfficeVo.PutCallOption = "";
-                //}
+                if (chkPutCallOption.Checked==true)
+                {
+                    onlineNCDBackOfficeVo.PutCallOption= "Y";
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.PutCallOption = "N";
+                }
 
                 if (chkNomineeReQuired.Checked == true)
                 {
@@ -2051,14 +2062,22 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     onlineNCDBackOfficeVo.IsActive = 0;
                 }
-                //if (!string.IsNullOrEmpty(txtPutCallOption.Text))
-                //{
-                //    onlineNCDBackOfficeVo.PutCallOption = txtPutCallOption.Text;
-                //}
-                //else
-                //{
-                //    onlineNCDBackOfficeVo.PutCallOption = "";
-                //}
+                if (chkPutCallOption.Checked==true)
+                {
+                 onlineNCDBackOfficeVo.PutCallOption ="y";
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.PutCallOption = "N";
+                }
+                if (chkTradebleExchange.Checked == true)
+                {
+                    onlineNCDBackOfficeVo.TradableExchange = 1;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.TradableExchange =0;
+                }
 
                 if (chkNomineeReQuired.Checked == true)
                 {

@@ -550,9 +550,9 @@
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlOpenTimeHours"
+            <%--<asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlOpenTimeHours"
                 runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Open Time be Greater Than Close Time"
-                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>--%>
             <%-- <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlOpenTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
@@ -578,9 +578,9 @@
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator7" ControlToValidate="ddlCloseTimeHours"
+            <%-- <asp:CompareValidator ID="CompareValidator7" ControlToValidate="ddlCloseTimeHours"
                 runat="server" ControlToCompare="ddlOpenTimeHours" Display="Dynamic" ErrorMessage="<br/>Close Time be Less Than Open Time"
-                Type="Integer" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                Type="Integer" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>--%>
             <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator31" runat="server" CssClass="rfvPCG"
                 ErrorMessage="Please Enter  Time" Display="Dynamic" ControlToValidate="ddlCloseTimeMinutes"
                 InitialValue="MM" ValidationGroup="SetUpSubmit">
@@ -897,8 +897,9 @@
             <asp:CheckBox ID="chkNomineeReQuired" runat="server" CssClass="txtField" Text="Nominee Required">
             </asp:CheckBox>
         </td>
-        <td class="leftLabel" colspan="3">
-            &nbsp;
+        <td></td>
+        <td>
+            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Tradable Exchange" /></asp:CheckBox>
         </td>
     </tr>
     <tr id="trBtnSubmit" runat="server">
