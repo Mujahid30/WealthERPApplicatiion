@@ -232,7 +232,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="false" HeaderText="Date of allotment" UniqueName="AIA_AllotmentDate">
+                                                        AllowFiltering="false" HeaderText="Date of Allotment" UniqueName="AIA_AllotmentDate">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COID_MaturityDate" SortExpression="COID_MaturityDate"
@@ -242,7 +242,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="BBCouponrate" SortExpression="BBCouponrate" AutoPostBackOnFilter="true"
                                                         CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="false"
-                                                        HeaderText="Coupon" UniqueName="BBCouponrate">
+                                                        HeaderText="Coupon Rate(%)" UniqueName="BBCouponrate">
                                                         <itemstyle width="" horizontalalign="left" wrap="true" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn Visible="false" DataField="BHInteresttype" SortExpression="BHInteresttype"
@@ -250,15 +250,15 @@
                                                         AllowFiltering="false" HeaderText="Interest type" UniqueName="BHInteresttype">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="BBRenewedcouponrate" AllowFiltering="false" HeaderText="Renewed coupon rate"
+                                                    <telerik:GridBoundColumn DataField="BBRenewedcouponrate" AllowFiltering="false" HeaderText="Renewed Coupon Rate(%)"
                                                         UniqueName="BBRenewedcouponrate" SortExpression="BBRenewedcouponrate">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="BHYieldtillcall" AllowFiltering="false" HeaderText="Yield till call"
+                                                    <telerik:GridBoundColumn DataField="BHYieldtillcall" AllowFiltering="false" HeaderText="Yield To Call(%)"
                                                         UniqueName="BHYieldtillcall">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridBoundColumn DataField="BHYieldtillMaturity" AllowFiltering="false" HeaderText="Yield till Maturity"
+                                                    <telerik:GridBoundColumn DataField="BHYieldtillMaturity" AllowFiltering="false" HeaderText="Yield Till Maturity(%)"
                                                         UniqueName="BHYieldtillMaturity">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>

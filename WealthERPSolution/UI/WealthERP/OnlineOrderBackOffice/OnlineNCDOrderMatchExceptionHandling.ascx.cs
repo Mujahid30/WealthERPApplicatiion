@@ -160,6 +160,36 @@ namespace WealthERP.OnlineOrderBackOffice
                 ManualMatch(gvUnmatchedAllotments, orderId);
                 BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
             }
+            if (e.Item is GridDataItem)
+            {
+                GridDataItem gvr = (GridDataItem)e.Item;
+                if (e.CommandName.ToString() != "Filter")
+                {
+                    if (e.CommandName.ToString() != "Sort")
+                    {
+                        if (e.CommandName.ToString() != "Page")
+                        {
+                            if (e.CommandName.ToString() != "ChangePageSize")
+                            {
+                                // GridDataItem gvr = (GridDataItem)e.Item;
+                                int selectedRow = gvr.ItemIndex + 1;
+                                int orderid = int.Parse(gvr.GetDataKeyValue("CO_OrderId").ToString());
+                                if (e.CommandName == "Select")
+                                {
+                                    if (Session["PageDefaultSetting"] != null)
+                                    {
+                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueBooks','?orderid=" + orderid + "');", true);
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + orderid + "", false);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
 

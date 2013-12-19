@@ -524,7 +524,8 @@ namespace DaoOnlineOrderManagement
                 //db.AddInParameter(createCmd, "@IsListedinNSE", DbType.Int32, onlineNCDBackOfficeVo.IsListedinNSE); 
                 //db.AddInParameter(createCmd, "@NSECode", DbType.String, onlineNCDBackOfficeVo.NSECode);
                 //db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);
-                db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);  
+                db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(createCmd, "@Tradableexchane", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {

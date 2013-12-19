@@ -458,9 +458,10 @@ namespace WealthERP.OnlineOrderManagement
 
                     }
 
-
+                    btnConfirmOrder.Visible = false;
                     message = CreateUserMessage(orderId, Applicationno, accountDebitStatus);
                     ShowMessage(message);
+                    lnlBack.Visible = true;
                 }
             }
             else
@@ -638,7 +639,10 @@ namespace WealthERP.OnlineOrderManagement
             //  if (OrderIds != null)
             //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueBooks','&customerId=" + customerVo.CustomerId + "');", true);
         }
-
+        protected void lnlktoviewncdissue_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList');", true);
+        }
     }
 
 }
