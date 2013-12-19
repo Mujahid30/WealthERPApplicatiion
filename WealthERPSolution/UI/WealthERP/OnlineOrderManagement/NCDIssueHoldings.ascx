@@ -288,11 +288,11 @@
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="BHCurrentRatings" AllowFiltering="false" HeaderText="Current Ratings( agency ½)"
-                                                        UniqueName="BHCurrentRatings">
+                                                        UniqueName="BHCurrentRatings" Visible="false" >
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
-                                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px" Visible="true"
-                                                        UniqueName="Action" HeaderText="Action">
+                                                    <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"  
+                                                        UniqueName="Action" HeaderText="Action" Visible="false">
                                                         <ItemTemplate>
                                                         <asp:ImageButton ID="imgBuy" runat="server" CommandName="Buy" Enabled="false" ImageUrl="~/Images/Buy-Button.png"
                                                           ToolTip="BUY" />&nbsp;

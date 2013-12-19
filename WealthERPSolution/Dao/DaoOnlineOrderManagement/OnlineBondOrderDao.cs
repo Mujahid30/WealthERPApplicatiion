@@ -539,7 +539,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsGetNomineeJointHolder;
         }
-        public bool CancelBondsBookOrder(int orderId, int is_Cancel)
+        public bool CancelBondsBookOrder(int orderId, int is_Cancel, string remarks)
         {
             bool bResult = false;
             Database db;
@@ -547,8 +547,10 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                CancelOrderBondsBookcmd = db.GetStoredProcCommand("sproc_onl_CancelNCDOrder");
+                CancelOrderBondsBookcmd = db.GetStoredProcCommand("SPROC_NCDMarkAsCancel");
+                //CancelOrderBondsBookcmd = db.GetStoredProcCommand("sproc_onl_CancelNCDOrder");
                 db.AddInParameter(CancelOrderBondsBookcmd, "@OrderId", DbType.Int32,orderId);
+                db.AddInParameter(CancelOrderBondsBookcmd, "@Remarks", DbType.String, remarks);                
                 db.AddInParameter(CancelOrderBondsBookcmd, "@Is_Canceled", DbType.Int32, is_Cancel);
                 db.ExecuteDataSet(CancelOrderBondsBookcmd);
                 if (db.ExecuteNonQuery(CancelOrderBondsBookcmd) != 0)

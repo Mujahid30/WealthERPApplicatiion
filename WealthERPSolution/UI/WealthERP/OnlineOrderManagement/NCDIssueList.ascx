@@ -320,7 +320,7 @@
                                                 <asp:LinkButton ID="llPurchase" runat="server" OnClick="llPurchase_Click" Text="Purchase"></asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridButtonColumn CommandName="download_file" Text="Download" UniqueName="Download" HeaderText="Download"></telerik:GridButtonColumn>
+                                        <telerik:GridButtonColumn CommandName="download_file" Text="View Prospectus" UniqueName="Download" HeaderText="Download"></telerik:GridButtonColumn>
                                         <telerik:GridTemplateColumn>
                                             <ItemTemplate>
                                                 <tr>

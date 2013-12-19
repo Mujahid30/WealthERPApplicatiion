@@ -376,13 +376,13 @@ namespace BoOnlineOrderManagement
             }
             return dsLookupData;
         }
-        public bool cancelBondsBookOrder(int orderId, int is_Cancel)
+        public bool cancelBondsBookOrder(int orderId, int is_Cancel, string remarks)
         {
             bool bResult = false;
             OnlineBondOrderDao OnlineBondDao = new OnlineBondOrderDao();
             try
             {
-               bResult= OnlineBondDao.CancelBondsBookOrder(orderId, is_Cancel);
+               bResult= OnlineBondDao.CancelBondsBookOrder(orderId, is_Cancel,remarks);
 
             }
             catch (BaseApplicationException Ex)
