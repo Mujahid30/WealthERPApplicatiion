@@ -113,6 +113,24 @@
         </tr>
         <tr>
             <td class="leftField">
+                <asp:Label ID="lblBankCity" runat="server" Text="Bank City:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtBankCity" runat="server" CssClass="txtField" Style="width: 225px;"
+                    Text='<%# Bind("CB_BankCity") %>'></asp:TextBox>
+                <span id="Span5" class="spnRequiredField">*</span>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtBankCity"
+                    ValidationGroup="btnSubmit" ErrorMessage="<br />Please Enter Bank City " Display="Dynamic"
+                    runat="server" CssClass="rfvPCG">
+                </asp:RequiredFieldValidator>
+            </td>
+            <td colspan="2">
+                &nbsp;
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="leftField">
                 <asp:Label ID="lblBranchName" runat="server" Text="Branch Name:" CssClass="FieldName"></asp:Label>
             </td>
             <td class="rightField">
