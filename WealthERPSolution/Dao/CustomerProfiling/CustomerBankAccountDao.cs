@@ -35,6 +35,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(createCustomerBankCmd, "@CB_IsHeldJointly", DbType.Int32, customerBankAccountVo.IsJointHolding);
                 db.AddInParameter(createCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
+                db.AddInParameter(createCustomerBankCmd, "@CB_BankCity", DbType.String, customerBankAccountVo.BankCity);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
                 db.AddInParameter(createCustomerBankCmd, "@CB_BranchAdrLine2", DbType.String, customerBankAccountVo.BranchAdrLine2);
@@ -331,6 +332,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateCustomerBankCmd, "@CB_AccountNum", DbType.String, customerBankAccountVo.BankAccountNum);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_IsHeldJointly", DbType.Int32, customerBankAccountVo.IsJointHolding);
                 db.AddInParameter(updateCustomerBankCmd, "@XMOH_ModeOfHoldingCode", DbType.String, customerBankAccountVo.ModeOfOperation);
+                db.AddInParameter(updateCustomerBankCmd, "@CB_BankCity", DbType.String, customerBankAccountVo.BankCity);
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchName", DbType.String, customerBankAccountVo.BranchName);
                 //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrLine1))
                 db.AddInParameter(updateCustomerBankCmd, "@CB_BranchAdrLine1", DbType.String, customerBankAccountVo.BranchAdrLine1);
@@ -553,6 +555,7 @@ namespace DaoCustomerProfiling
                     customerBankAccountVo.ModeOfOperation = dr["XMOH_ModeOfHoldingCode"].ToString();
                     customerBankAccountVo.ModeOfOperationCode = dr["XMOH_ModeOfHolding"].ToString();
                     customerBankAccountVo.BranchName = dr["CB_BranchName"].ToString();
+                    customerBankAccountVo.BankCity = dr["CB_BankCity"].ToString();
                     if (dr["CB_IsHeldJointly"].ToString() != "")
                         customerBankAccountVo.IsJointHolding = int.Parse(dr["CB_IsHeldJointly"].ToString());
                     customerBankAccountVo.BranchAdrLine1 = dr["CB_BranchAdrLine1"].ToString();
