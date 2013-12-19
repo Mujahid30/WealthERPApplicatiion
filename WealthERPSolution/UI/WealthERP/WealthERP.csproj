@@ -7859,6 +7859,7 @@
     <Content Include="Admin\WERPAdminDownloadProcessLog.ascx" />
     <Content Include="CommisionManagement\ReceivableSetup.ascx" />
     <Content Include="ReferenceFiles\MF-Terms-Condition.html" />
+    <Content Include="ReferenceFiles\NCD-Terms-Condition.html" />
     <Content Include="Register.aspx" />
     <Content Include="RegistrationConfirmation.aspx" />
     <Content Include="Releases.html" />
