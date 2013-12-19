@@ -63,6 +63,7 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(createCustomerBankCmd, "@WCMV_Lookup_BranchAddCountryId", DbType.Int32, customerBankAccountVo.BranchAddCountryId);
 
                 db.AddOutParameter(createCustomerBankCmd, "@CB_CustBankAccId", DbType.Int32, 10000);
+                db.AddInParameter(createCustomerBankCmd, "@CB_IsCurrent", DbType.Int16, customerBankAccountVo.IsCurrent);
 
 
 
@@ -364,7 +365,7 @@ namespace DaoCustomerProfiling
 
                 if (customerBankAccountVo.BranchAddCountryId != 0)
                     db.AddInParameter(updateCustomerBankCmd, "@WCMV_Lookup_BranchAddCountryId", DbType.Int32, customerBankAccountVo.BranchAddCountryId);
-
+                db.AddInParameter(updateCustomerBankCmd, "@CB_IsCurrent", DbType.Int16, customerBankAccountVo.IsCurrent);
                 db.ExecuteNonQuery(updateCustomerBankCmd);
 
                 bResult = true;
@@ -590,6 +591,7 @@ namespace DaoCustomerProfiling
                     if (!string.IsNullOrEmpty(dr["WCMV_Lookup_BranchAddCountryId"].ToString()))
                         customerBankAccountVo.BranchAddCountryId = int.Parse(dr["WCMV_Lookup_BranchAddCountryId"].ToString());
 
+                    customerBankAccountVo.IsCurrent = Convert.ToBoolean(dr["CB_IsCurrent"]);
 
                 }
             }

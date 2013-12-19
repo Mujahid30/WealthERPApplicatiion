@@ -372,10 +372,6 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAddStateId = int.Parse(ddlBankAdrState.SelectedValue.ToString());
             if (ddlBankAdrCountry.SelectedIndex != 0)
                 customerBankAccountVo.BranchAddCountryId = int.Parse(ddlBankAdrCountry.SelectedValue.ToString());
-
-
-
-
             if (RadioButton1.Checked)
             {
                 customerBankAccountVo.IsJointHolding = 0;
@@ -383,6 +379,14 @@ namespace WealthERP.Customer
             if (rbtnYes.Checked)
             {
                 customerBankAccountVo.IsJointHolding = 1;
+            }
+            if (chk_Ismain.Checked)
+            {
+                customerBankAccountVo.IsCurrent = true;
+            }
+            else
+            {
+                customerBankAccountVo.IsCurrent = false;
             }
             accountId = customerBankAccountBo.CreateCustomerBankAccount(customerBankAccountVo, customerId, userId);
             customerAccountAssociationVo.AccountId = accountId;
@@ -485,6 +489,14 @@ namespace WealthERP.Customer
             customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
             customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
             customerBankAccountVo.BankCity = txtBankCity.Text.ToString();
+            if (chk_Ismain.Checked)
+            {
+                customerBankAccountVo.IsCurrent = true;
+            }
+            else
+            {
+                customerBankAccountVo.IsCurrent = false;
+            }
             if (txtBankAdrPinCode.Text.ToString() != "")
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
             else
@@ -877,6 +889,10 @@ namespace WealthERP.Customer
                 trgvjointHolder.Visible = false;
                 gvJointHolders.Visible = false;
             }
+            if (customerBankAccountVo.IsCurrent!=false)
+            {
+                chk_Ismain.Checked = true;
+            }
             txtBankCity.Text = customerBankAccountVo.BankCity;
             txtBranchName.Text = customerBankAccountVo.BranchName;
             txtBankAdrLine1.Text = customerBankAccountVo.BranchAdrLine1;
@@ -1022,6 +1038,7 @@ namespace WealthERP.Customer
                 txtIfsc.Enabled = false;
                 txtBankCity.Enabled = false;
                 ddlBankAdrCountry.Enabled = false;
+                chk_Ismain.Enabled = false;
             }
             else
             {
@@ -1044,7 +1061,7 @@ namespace WealthERP.Customer
                 txtBankCity.Enabled = true;
                 ddlBankAdrCity.Enabled = true;
                 ddlBankAdrCountry.Enabled = true;
-
+                chk_Ismain.Enabled = true;
 
             }
         }

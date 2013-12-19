@@ -494,7 +494,7 @@ namespace WealthERP.Customer
                 ddlQualification.DataBind();
                 ddlQualification.Items.Insert(0, new ListItem("--SELECT--", "0"));
 
-                dtState = commonLookupBo.GetWERPLookupMasterValueList(9000, 0);
+                dtState = commonLookupBo.GetWERPLookupMasterValueList(14000, 0);
 
                 ddlCorrAdrState.DataSource = dtState;
                 ddlCorrAdrState.DataTextField = "WCMV_Name";

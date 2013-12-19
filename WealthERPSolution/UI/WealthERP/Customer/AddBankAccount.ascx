@@ -194,6 +194,15 @@
                 <%--OnCheckedChanged="rbtnYes_CheckedChanged"--%>
             </td>
         </tr>
+        <tr>
+            <td class="leftField">
+                <asp:Label ID="lbl_Ismain" runat="server" CssClass="FieldName" Text="IsMainBranch:"></asp:Label>
+            </td>
+            <td>
+                <asp:CheckBox ID="chk_Ismain" runat="server" /> 
+               
+            </td>
+        </tr>
         <tr id="trjointholder" runat="server" visible="false">
             <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">

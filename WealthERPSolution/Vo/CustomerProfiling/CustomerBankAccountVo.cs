@@ -35,6 +35,7 @@ namespace VoCustomerProfiling
         private string m_IFSC;
         private float m_Balance;
         private float m_InterestRate;
+        private bool  m_IsCurrent;
 
         public int BankId { get; set; }
         public int BankAccTypeId { get; set; }
@@ -174,6 +175,12 @@ namespace VoCustomerProfiling
             get { return m_InterestRate; }
             set { m_InterestRate = value; }
         }
+        public bool IsCurrent
+        {
+            get { return m_IsCurrent; }
+            set { m_IsCurrent = value; }
+        }
+
 
         #endregion Properties
     }
