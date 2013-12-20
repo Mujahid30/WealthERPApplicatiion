@@ -32,7 +32,7 @@ namespace WealthERP.OnlineOrderBackOffice
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         OnlineNCDBackOfficeVo onlineNCDBackOfficeVo;
         string categoryCode = "";
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -89,7 +89,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedBtns = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedBtns");
                     System.Web.UI.HtmlControls.HtmlTableRow trUnMatchedddl = (System.Web.UI.HtmlControls.HtmlTableRow)e.Item.FindControl("trUnMatchedddl");
 
-                    
+
                     issueId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
                     trUnMatchedGrd.Visible = true;
                     trUnMatchedBtns.Visible = true;
@@ -171,19 +171,12 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             if (e.CommandName.ToString() != "ChangePageSize")
                             {
-                                // GridDataItem gvr = (GridDataItem)e.Item;
+
                                 int selectedRow = gvr.ItemIndex + 1;
                                 int orderid = int.Parse(gvr.GetDataKeyValue("CO_OrderId").ToString());
                                 if (e.CommandName == "Select")
                                 {
-                                    if (Session["PageDefaultSetting"] != null)
-                                    {
-                                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscriptvvvv", "LoadBottomPanelControl('NCDIssueBooks','?orderid=" + orderid + "');", true);
-                                    }
-                                    else
-                                    {
-                                        Response.Redirect("ControlHost.aspx?pageid=CustomerSIPBookList&systematicId=" + orderid + "", false);
-                                    }
+                                    Response.Redirect("ControlHost.aspx?pageid=OnlineAdviserNCDOrderBook&orderid=" + orderid + "", false);
                                 }
                             }
                         }
@@ -305,7 +298,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     categoryCode = "FISD";
                 }
-                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, categoryCode, Status, FromDate, ToDate,advisorVo.advisorId).Tables[0];
+                dtOrdersMatch = onlineNCDBackOfficeBo.GetAdviserOrders(IssueId, categoryCode, Status, FromDate, ToDate, advisorVo.advisorId).Tables[0];
                 gvOrders.DataSource = dtOrdersMatch;
                 gvOrders.DataBind();
                 if (Cache[userVo.UserId.ToString() + "OrdersMatch"] != null)
@@ -349,7 +342,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlOrderStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
 
         }
 
@@ -455,8 +448,8 @@ namespace WealthERP.OnlineOrderBackOffice
         private bool NCDAutoMatch()
         {
             int OrderId = 0;
-            int isAlloted=0;
-            int isUpdated=0;
+            int isAlloted = 0;
+            int isUpdated = 0;
 
             bool result = false;
             foreach (GridDataItem gdi in gvOrders.Items)
@@ -467,7 +460,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     int applicationNo = Convert.ToInt32(gdi["CO_ApplicationNo"].Text);
                     string dpId = gdi["CEDA_DPId"].Text;
                     OrderId = Convert.ToInt32(gvOrders.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
-                     onlineNCDBackOfficeBo.UpdateNcdAutoMatch(OrderId, applicationNo, dpId, ref  isAlloted, ref isUpdated);
+                    onlineNCDBackOfficeBo.UpdateNcdAutoMatch(OrderId, applicationNo, dpId, ref  isAlloted, ref isUpdated);
                     if (isAlloted == 0)
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "alert('Please fill Allotment Date.Not able to match');", true);
@@ -518,7 +511,9 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-
+        //protected void lnkOrderId_Click(object sender, EventArgs e)
+        //{
+        //}
 
     }
 }

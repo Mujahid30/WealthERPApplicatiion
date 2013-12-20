@@ -526,7 +526,7 @@
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator5" ControlToValidate="txtCloseDate" runat="server"
                 ControlToCompare="txtOpenDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To Range"
-                Type="Date" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                Type="Date" Operator="Equal" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -862,8 +862,8 @@
             &nbsp;
         </td>
         <td class="rightData">
-            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Online Enablement">
-            </asp:CheckBox>
+            <asp:CheckBox ID="chkIsActive" runat="server" CssClass="txtField" Text="Online Enablement"
+                OnCheckedChanged="chkOnlineEnablement_changed" AutoPostBack="true"></asp:CheckBox>
             <%--<asp:RequiredFieldValidator ID="rfvIsActive" ControlToValidate="chkIsActive"
                   ErrorMessage="Please check" Display="Dynamic" runat="server"
                   CssClass="rfvPCG" ValidationGroup="SetUpSubmit"></asp:RequiredFieldValidator>--%>
@@ -897,7 +897,8 @@
             <asp:CheckBox ID="chkNomineeReQuired" runat="server" CssClass="txtField" Text="Nominee Required">
             </asp:CheckBox>
         </td>
-        <td></td>
+        <td>
+        </td>
         <td>
             <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Tradable Exchange" /></asp:CheckBox>
         </td>
@@ -1393,7 +1394,7 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td width="35%" align="left">
-                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbField" Text="Is Buy Back">
+                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back">
                                                         </asp:CheckBox>
                                                     </td>
                                                 </tr>

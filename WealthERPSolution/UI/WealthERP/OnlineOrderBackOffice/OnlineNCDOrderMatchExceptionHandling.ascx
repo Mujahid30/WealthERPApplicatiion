@@ -17,14 +17,11 @@
         width: 25%;
         text-align: right;
     }
-   
     .rightData
     {
         width: 20%;
         text-align: left;
     }
-    
-     
 </style>
 <table width="100%">
     <tr>
@@ -46,7 +43,7 @@
         <td class="leftLabel">
             <asp:Label ID="lblFrom" runat="server" Text=" Order From Date: " CssClass="FieldName"></asp:Label>
         </td>
-        <td   class="rightData">
+        <td class="rightData">
             <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
@@ -67,9 +64,9 @@
         </td>
         <td class="leftLabel" colspan="2">
             <asp:Label ID="lblTo" runat="server" Text="Order To Date: " CssClass="FieldName"></asp:Label>
-       <%-- </td>
+            <%-- </td>
         <td class="rightData"  >--%>
-             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
+            <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
@@ -90,14 +87,15 @@
                 Type="Date" ControlToValidate="txtTo" ControlToCompare="txtFrom" Operator="GreaterThanEqual"
                 CssClass="cvPCG" Display="Dynamic" ValidationGroup="btnGo"></asp:CompareValidator>--%>
         </td>
-        <td width="5px">&nbsp;</td>
-        
+        <td width="5px">
+            &nbsp;
+        </td>
     </tr>
     <tr>
         <td class="leftLabel">
             <asp:Label ID="Label2" runat="server" Text="Product:" CssClass="FieldName"></asp:Label>
         </td>
-        <td >
+        <td>
             <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
@@ -111,7 +109,7 @@
         </td>
         <td class="leftLabel" colspan="2">
             <asp:Label ID="lb1Issue" runat="server" Text="Issue:" CssClass="FieldName"></asp:Label>
-      <%--  </td>
+            <%--  </td>
         <td class="rightLabelData">--%>
             <asp:DropDownList ID="ddlIssue" runat="server" CssClass="cmbField" AutoPostBack="true">
             </asp:DropDownList>
@@ -126,7 +124,7 @@
         <td class="leftLabel">
             <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>
         </td>
-        <td >
+        <td>
             <asp:DropDownList ID="ddlOrderStatus" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlOrderStatus_SelectedIndexChanged">
             </asp:DropDownList>
@@ -136,7 +134,6 @@
                 CssClass="rfvPCG" ControlToValidate="ddlOrderStatus" ValidationGroup="btnGo"
                 Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
         </td>
-       
     </tr>
     <tr>
         <td class="leftLabel">
@@ -177,7 +174,7 @@
                                 AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 <ItemTemplate>
-                                    <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'>
+                                    <asp:LinkButton ID="lnkOrderNo" Font-Underline="false" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
@@ -228,16 +225,14 @@
                                 UniqueName="AIM_FaceValue" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                              <telerik:GridBoundColumn DataField="purchaseAmt" HeaderText="Purchase Amt" SortExpression="purchaseAmt"
+                            <telerik:GridBoundColumn DataField="purchaseAmt" HeaderText="Purchase Amt" SortExpression="purchaseAmt"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="purchaseAmt" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
-                            
                             <telerik:GridBoundColumn DataField="COID_Price" HeaderText="Price" SortExpression="COID_Price"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="COID_Price" FooterStyle-HorizontalAlign="Left" Visible="false" >
+                                UniqueName="COID_Price" FooterStyle-HorizontalAlign="Left" Visible="false">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="AIA_AllotmentDate" HeaderText="Allotment Date"
@@ -251,18 +246,16 @@
                                 UniqueName="AIA_Quantity" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="AIA_Price" HeaderText="Alloted Price" SortExpression="AIA_Price"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="AIA_Price" FooterStyle-HorizontalAlign="Left">
+                            <telerik:GridBoundColumn Visible="false" DataField="AIA_Price" HeaderText="Alloted Price"
+                                SortExpression="AIA_Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" UniqueName="AIA_Price" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
-                             <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
+                            <telerik:GridBoundColumn DataField="AllotmentAmt" HeaderText="Alloted Amt" SortExpression="AllotmentAmt"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="AllotmentAmt" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
-                            
                             <telerik:GridEditCommandColumn Visible="true" HeaderStyle-Width="60px" UniqueName="Match"
                                 EditText="Match" CancelText="Cancel" UpdateText="OK">
                             </telerik:GridEditCommandColumn>
