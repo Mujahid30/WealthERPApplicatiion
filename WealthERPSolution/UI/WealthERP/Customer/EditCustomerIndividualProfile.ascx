@@ -399,6 +399,9 @@
                                                                     <td class="rightField">
                                                                         <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label>
                                                                     </td>
+                                                                    <td>
+                                                                    <asp:CheckBox ID="chkIsrealInvestorMem" runat="server" Text="ISRealInvestor" />
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="leftField" align="right">
@@ -461,6 +464,9 @@
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                                    </td>
+                                                                    <td>
+                                                                    <asp:CheckBox ID="isRealInvestor" runat="server" Text="ISRealInvestor" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>

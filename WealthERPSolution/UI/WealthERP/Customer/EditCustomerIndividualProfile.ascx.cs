@@ -1192,6 +1192,7 @@ namespace WealthERP.Customer
             HtmlTableRow trExCustomerType = editedItem.FindControl("trExCustomerType") as HtmlTableRow;
             HtmlTableRow trNewCustHeader = editedItem.FindControl("trNewCustHeader") as HtmlTableRow;
             HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
+          
 
 
             if (rbtnExisting.Checked == true)
@@ -1200,6 +1201,7 @@ namespace WealthERP.Customer
                 trExCustomerType.Visible = true;
                 trNewCustHeader.Visible = false;
                 trNewCustomer.Visible = false;
+
             }
             else if (rbtnNew.Checked == true)
             {
@@ -1207,6 +1209,7 @@ namespace WealthERP.Customer
                 trExCustomerType.Visible = false;
                 trNewCustHeader.Visible = true;
                 trNewCustomer.Visible = true;
+
             }
         }
 
@@ -1962,6 +1965,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrLine1 = txtBankAdrLine1.Text.ToString();
                 customerBankAccountVo.BranchAdrLine2 = txtBankAdrLine2.Text.ToString();
                 customerBankAccountVo.BranchAdrLine3 = txtBankAdrLine3.Text.ToString();
+               
                 if (txtBankAdrPinCode.Text.ToString() != "")
                     customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
                 customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
@@ -2209,12 +2213,16 @@ namespace WealthERP.Customer
             {
                 CustomerBo customerBo = new CustomerBo();
                 bool isUpdated = false;
+                bool isrealInvestor=false;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 gridEditableItem.OwnerTableView.IsItemInserted = false; 
                 int AssociationId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CA_AssociationId"].ToString());
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
+                CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsrealInvestorMem");
+                if (chkIsrealInvestorMem.Checked)
+                    isrealInvestor = true;
                 if (Button3.Visible == true)
                 {
                     TextBox txtMember = (TextBox)e.Item.FindControl("txtMember");
@@ -2223,6 +2231,7 @@ namespace WealthERP.Customer
                     txtMember.Enabled = false;
                     lblGetPan.Enabled = false;
                     relationCode = ddlRelation.SelectedValue;
+
                 }
                 else if (Button1.Visible == true)
                 {
@@ -2234,7 +2243,7 @@ namespace WealthERP.Customer
                     relationCode = ddlNewRelationship.SelectedValue;
                 }
 
-                isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode);
+                isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor);
 
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
@@ -2257,9 +2266,18 @@ namespace WealthERP.Customer
                         customerNewVo.Type = "IND";
                         TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
                         TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
+                        CheckBox chkIsrealInvestorMem =(CheckBox)e.Item.FindControl("chkIsrealInvestorMem");
                         DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
                         customerNewVo.FirstName = txtNewMemName.Text;
                         customerNewVo.PANNum = txtNewMemPan.Text;
+                        if (chkIsrealInvestorMem.Checked)
+                        {
+                            customerNewVo.IsRealInvestor = true;
+                        }
+                        else
+                        {
+                            customerNewVo.IsRealInvestor = false;
+                        }
                         if (!(customerBo.PANNumberDuplicateCheck(advisorVo.advisorId, customerNewVo.PANNum, customerVo.CustomerId)))
                         {
                         customerVo.ProfilingDate = DateTime.Today;
@@ -2268,6 +2286,7 @@ namespace WealthERP.Customer
                         customerPortfolioVo.IsMainPortfolio = 1;
                         customerPortfolioVo.PortfolioTypeCode = "RGL";
                         customerPortfolioVo.PortfolioName = "MyPortfolio";
+
                         customerVo.ViaSMS = 1;
                         customerIds = customerBo.CreateCompleteCustomer(customerNewVo, tempUserVo, customerPortfolioVo, tempUserVo.UserId);
                         if (customerIds != null)
@@ -2276,15 +2295,15 @@ namespace WealthERP.Customer
                             CustomerFamilyVo familyVo = new CustomerFamilyVo();
                             CustomerFamilyBo familyBo = new CustomerFamilyBo();
                             familyVo.AssociateCustomerId = customerIds[1];
-                            familyVo.CustomerId = associateId;
-                            familyVo.Relationship = "SELF";
-                            familyBo.CreateCustomerFamily(familyVo, customerIds[1], userVo.UserId);
+                            familyVo.CustomerId = customerVo.CustomerId;
+                            familyVo.Relationship = ddlNewMemRel.SelectedItem.Value;
+                            familyBo.CreateCustomerFamily(familyVo, customerVo.CustomerId, userVo.UserId);
                         }
-                        if (customerVo != null)
-                            customerId = customerVo.CustomerId;
-                        if (ddlNewMemRel.SelectedIndex != 0)
-                            relCode = ddlNewMemRel.SelectedItem.Value;
-                        customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
+                        //if (customerVo != null)
+                        //    customerId = customerVo.CustomerId;
+                        //if (ddlNewMemRel.SelectedIndex != 0)
+                        //    relCode = ddlNewMemRel.SelectedItem.Value;
+                        //customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
                     }
                     else
                     {
