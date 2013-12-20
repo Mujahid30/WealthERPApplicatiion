@@ -64,6 +64,7 @@ namespace WealthERP.OnlineOrderManagement
                     ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
                     PurchaseOrderControlsEnable(false);
                     divControlContainer.Visible = false;
+                    divClientAccountBalance.Visible = false;
                 }
             }
 

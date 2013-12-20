@@ -116,6 +116,7 @@ namespace WealthERP.OnlineOrderManagement
                     ShowMessage(boOnlineOrder.GetOnlineOrderUserMessage(clientMFAccessCode));
                     FreezeControls();
                     divControlContainer.Visible = false;
+                    divClientAccountBalance.Visible = false;
                 }
             }
         }

@@ -99,7 +99,7 @@
             <tr>
                 <td>
                     <div class="divOnlinePageHeading">
-                        <div class="divClientAccountBalance">
+                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                         </div>
@@ -117,7 +117,7 @@
                 </td>
             </tr>
         </table>
-        <div style="float: left; padding-top: 5px; width: 100%">
+        <div style="float: left; padding-top: 5px; width: 100%" id="divControlContainer" runat="server">
             <table id="tbpurchase" width="100%">
                 <tr class="spaceUnder">
                     <td>

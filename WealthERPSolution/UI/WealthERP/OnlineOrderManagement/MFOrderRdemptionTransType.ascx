@@ -73,7 +73,7 @@
             <tr>
                 <td>
                     <div class="divOnlinePageHeading">
-                        <div class="divClientAccountBalance">
+                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                         </div>
@@ -360,7 +360,7 @@
                 </tr>
                 <tr id="trNewOrder" runat="server" visible="false">
                     <td align="center" colspan="4">
-                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Redeemption"
+                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Redemption"
                             runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>

@@ -73,8 +73,8 @@ namespace WealthERP.OnlineOrderManagement
                 else
                 {
                     ShowMessage(onlineMforderBo.GetOnlineOrderUserMessage(clientMFAccessCode));
-                    PurchaseOrderControlsEnable(false);
-                    btnSubmit.Visible = false;
+                    divControlContainer.Visible = false;
+                    divClientAccountBalance.Visible = false;
                 }
             }
 
@@ -338,7 +338,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = false;
                 txtAmt.Enabled = false;
                 ddlDivType.Enabled = false;
-                lnkFactSheet.Enabled = false;               
+                lnkFactSheet.Enabled = false;
                 trTermsCondition.Visible = false;
 
                 btnSubmit.Visible = false;
@@ -352,7 +352,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = true;
                 txtAmt.Enabled = true;
                 ddlDivType.Enabled = true;
-                lnkFactSheet.Enabled = true;               
+                lnkFactSheet.Enabled = true;
 
                 btnSubmit.Visible = true;
                 trNewOrder.Visible = false;
