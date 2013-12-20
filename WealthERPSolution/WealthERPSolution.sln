@@ -290,11 +290,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaoOnlineOrderManagement", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoOnlineOrderManagement", "Bo\BoOnlineOrderManagement\BoOnlineOrderManagement.csproj", "{895BD846-24E9-48CA-90EF-37FE761296FB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OnlineOrderProject", "OnlineOrderProject", "{2E81E8A7-EBAA-4718-9C50-08CC6D77EC8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineOrderRMSAccountDebitProcess", "OnlineOrderRMSAccountDebitProcess\OnlineOrderRMSAccountDebitProcess.csproj", "{06246BFA-6448-4F60-9AA3-5D72F4C906FE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 112
+		SccNumberOfProjects = 113
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20Wealtherp
+		SccTeamFoundationServer = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Bo\\AdvisorProfiling\\BoAdvisorProfiling.csproj
 		SccProjectTopLevelParentUniqueName1 = WealthERPSolution.sln
@@ -507,12 +511,10 @@ Global
 		SccProjectUniqueName53 = Bo\\BoReports\\BoReports.csproj
 		SccProjectTopLevelParentUniqueName53 = WealthERPSolution.sln
 		SccProjectName53 = Bo/BoReports
-		SccAuxPath53 = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath53 = Bo\\BoReports
 		SccProjectUniqueName54 = Dao\\DaoReports\\DaoReports.csproj
 		SccProjectTopLevelParentUniqueName54 = WealthERPSolution.sln
 		SccProjectName54 = Dao/DaoReports
-		SccAuxPath54 = http://moon:8080/tfs/Ampsys%20WealthERP
 		SccLocalPath54 = Dao\\DaoReports
 		SccProjectUniqueName55 = Vo\\VoReports\\VoReports.csproj
 		SccProjectTopLevelParentUniqueName55 = WealthERPSolution.sln
@@ -742,6 +744,10 @@ Global
 		SccProjectTopLevelParentUniqueName111 = WealthERPSolution.sln
 		SccProjectName111 = Bo/BoOnlineOrderManagement
 		SccLocalPath111 = Bo\\BoOnlineOrderManagement
+		SccProjectUniqueName112 = OnlineOrderRMSAccountDebitProcess\\OnlineOrderRMSAccountDebitProcess.csproj
+		SccProjectTopLevelParentUniqueName112 = WealthERPSolution.sln
+		SccProjectName112 = OnlineOrderRMSAccountDebitProcess
+		SccLocalPath112 = OnlineOrderRMSAccountDebitProcess
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1196,6 +1202,10 @@ Global
 		{895BD846-24E9-48CA-90EF-37FE761296FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{895BD846-24E9-48CA-90EF-37FE761296FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{895BD846-24E9-48CA-90EF-37FE761296FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06246BFA-6448-4F60-9AA3-5D72F4C906FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06246BFA-6448-4F60-9AA3-5D72F4C906FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06246BFA-6448-4F60-9AA3-5D72F4C906FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06246BFA-6448-4F60-9AA3-5D72F4C906FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1291,6 +1301,7 @@ Global
 		{C647B099-9127-48AF-AEB7-C74A141E733D} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
 		{4B428E7B-A968-4113-AE99-186A48573FB3} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
 		{12DD3E39-E014-4C64-8C24-09CE008863E7} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
+		{2E81E8A7-EBAA-4718-9C50-08CC6D77EC8D} = {2FCE7859-BA5D-4014-BCC0-CCCB65CB6560}
 		{DEE28FF1-B036-4E3B-B918-F072EAD23DA9} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
 		{C1D81E96-A54F-4AB4-8FAB-2250A6B9D441} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
 		{BC5B407E-ECDB-4CB2-B173-0058F2EEDBD0} = {8827221A-E5D7-4E5E-AB4C-84CC43981A8F}
@@ -1322,5 +1333,6 @@ Global
 		{512FCEB3-2420-4BB8-A2D8-DB9E94787F00} = {FFFD35C8-5D5F-4122-ADDD-881231B72841}
 		{687EED6E-E023-4CC7-99CC-AC244ADF504B} = {FFFD35C8-5D5F-4122-ADDD-881231B72841}
 		{9A00D147-EB1D-4BA0-90FF-A598F0014EDD} = {FFFD35C8-5D5F-4122-ADDD-881231B72841}
+		{06246BFA-6448-4F60-9AA3-5D72F4C906FE} = {2E81E8A7-EBAA-4718-9C50-08CC6D77EC8D}
 	EndGlobalSection
 EndGlobal
