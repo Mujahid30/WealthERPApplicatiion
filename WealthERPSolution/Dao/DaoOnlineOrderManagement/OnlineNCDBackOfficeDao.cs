@@ -190,7 +190,27 @@ namespace DaoOnlineOrderManagement
             }
             return dsIssueDetails;
         }
+        public bool UpdateOnlineEnablement(int issueId)
+        {
+            bool result = false;
+            Database db;
+            DbCommand createCmd;
 
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_UpdateOnlineEnablement");
+                db.AddInParameter(createCmd, "@issueId", DbType.Int32, issueId);
+                db.ExecuteNonQuery(createCmd);
+                result = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                result = false;
+                throw Ex;                
+            }
+            return result;
+        }
         public int UpdateIssue(OnlineNCDBackOfficeVo onlineNCDBackOfficeVo)
         {
             int issueId;

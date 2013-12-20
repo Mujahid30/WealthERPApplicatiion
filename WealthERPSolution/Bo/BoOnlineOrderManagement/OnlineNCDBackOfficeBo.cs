@@ -78,6 +78,18 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
+        public bool UpdateOnlineEnablement(int issueId)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                return onlineNCDBackOfficeDao.UpdateOnlineEnablement(issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
         public int GetSeriesSequence(int issueId, int adviserId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -972,20 +984,14 @@ namespace BoOnlineOrderManagement
                         string colRegex = Header.RegularExpression;
                         string colVal = row[j].ToString();
                         string colNam = Header.HeaderName;
-
-                        Regex regex = new Regex(colRegex);
-                        if (!regex.IsMatch(colVal))
+                        if (colRegex != "NULL" )
                         {
-                            //string colRegexs=@"(\d+[.]\d{2})";
-                            //string colRegexs =@"[1-9]\d*$";
+                            Regex regex = new Regex(colRegex);
+                            if (!regex.IsMatch(colVal))
+                            {
+                                ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (j + 3) + ")");
 
-                            //Regex regexs = new Regex(colRegexs);
-
-                            //if (!regexs.IsMatch(colVal))
-                            //{
-                            ErrorList.Add("Error at: " + colNam + "(" + rowNum + ", " + (j + 3) + ")");
-
-                            //}
+                            }
                         }
                     }
                 }
@@ -1031,15 +1037,47 @@ namespace BoOnlineOrderManagement
             {
                 row["SN"] = i.ToString();
                 row["Remarks"] = GetErrorsForRow(Headers, row, i);
+                
+                i++;
             }
+
 
             dtRawData.Columns["SN"].SetOrdinal(0);
             dtRawData.Columns["Remarks"].SetOrdinal(1);
             dtRawData.AcceptChanges();
 
+            
+
+            
+
+
+
             return dtRawData;
         }
+    //    private DataTable AddColumnToDataTable(DataTable dtRaw, string  dataColumn)
+    //{
+    //    if (!dtRaw.Columns.Contains(dataColumn))
+    //    {
+    //        DataColumn newColumn = new DataColumn(dataColumn, dataColumn.DataType);
+    //        dataTable.Columns.Add(newColumn);
+	 
+    //        for (int i = 0; i < dataColumn.Table.Rows.Count; i++)
+    //        {
+    //            while (dataTable.Rows.Count <= i)
+    //            {
+    //                dataTable.Rows.Add(dataTable.NewRow());
+    //            }
+    //            dataTable.Rows[i][newColumn.ColumnName] = dataColumn.Table.Rows[i][dataColumn.ColumnName];
+    //        }
+    //    }
+    //    return dataTable;
 
+    //    //else
+    //    //{
+    //    //    throw new Exception(string.Format("Data Table already contains a column named '{0}", dataColumn.ColumnName));
+    //    //}
+
+    //}
         //private bool Find(OnlineIssueHeader header)
         //{
         //    if(
@@ -1054,19 +1092,29 @@ namespace BoOnlineOrderManagement
             dtCheckOrder.Columns.Remove("Remarks");
             dtCheckOrder.AcceptChanges();
 
-            List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc).FindAll(
-                delegate(OnlineIssueHeader header)
-                {
-                    return header.IsUploadRelated;
-                });
+            List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc);
+                //.FindAll(
+                //delegate(OnlineIssueHeader header)
+                //{
+                //    return header.IsUploadRelated;
+                //});
 
             //List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc);
             foreach (OnlineIssueHeader header in updHeaders)
             {
-                if (dtCheckOrder.Columns[header.HeaderName] != null)
-                {
-                    dtCheckOrder.Columns[header.HeaderName].ColumnName = header.ColumnName;
-                }
+                //if (dtCheckOrder.Columns[header.HeaderName] != null)
+                //{
+                    if (header.IsUploadRelated == true)
+                    {
+                        dtCheckOrder.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                    }
+                    else
+                    {
+                        dtCheckOrder.Columns.Remove(dtCheckOrder.Columns[header.HeaderName]);
+                        //dtCheckOrder.Columns[header.HeaderName].ColumnName.Remove();
+                        //dtCheckOrder.ColumnName.
+                    }
+                //}
             }
             dtCheckOrder.AcceptChanges();
 
