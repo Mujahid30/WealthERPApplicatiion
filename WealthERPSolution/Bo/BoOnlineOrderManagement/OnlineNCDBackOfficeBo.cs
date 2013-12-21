@@ -1093,41 +1093,38 @@ namespace BoOnlineOrderManagement
             dtCheckOrder.AcceptChanges();
 
             List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc);
-                //.FindAll(
-                //delegate(OnlineIssueHeader header)
-                //{
-                //    return header.IsUploadRelated;
-                //});
-
-            //List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc);
+               
             foreach (OnlineIssueHeader header in updHeaders)
-            {
-                //if (dtCheckOrder.Columns[header.HeaderName] != null)
-                //{
+            {             
                     if (header.IsUploadRelated == true)
                     {
-                        dtCheckOrder.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                        if (dtCheckOrder.Columns.Contains(header.HeaderName))
+                        {
+                            dtCheckOrder.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                        }
+                        else
+                        {
+                            return 0;
+                        }
                     }
                     else
                     {
-                        dtCheckOrder.Columns.Remove(dtCheckOrder.Columns[header.HeaderName]);
-                        //dtCheckOrder.Columns[header.HeaderName].ColumnName.Remove();
-                        //dtCheckOrder.ColumnName.
+                        if (dtCheckOrder.Columns.Contains(header.HeaderName))
+                        {
+                            dtCheckOrder.Columns.Remove(dtCheckOrder.Columns[header.HeaderName]);
+
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                        
                     }
-                //}
+                 
             }
             dtCheckOrder.AcceptChanges();
 
-            //foreach (DataColumn col in dtCheckOrder.Columns)
-            //{
-            //    string newColName = allHeaders.Find(
-            //        delegate(OnlineIssueHeader header)
-            //        {
-            //            return header.HeaderName == col.ColumnName;
-            //        }).ColumnName;
-            //    if (string.IsNullOrEmpty(newColName.Trim())) continue;
-            //    dtCheckOrder.Columns[col.ColumnName].ColumnName = newColName;
-            //}
+            
 
             try
             {
@@ -1139,14 +1136,7 @@ namespace BoOnlineOrderManagement
                 }
                 else if (extractStepCode == "UC")
                 {
-                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
-
-
-                    //string sqlSel = "SELECT * FROM [dbo].[AdviserIssueOrderExtract]";
-                    //string sqlUpd = "UPDATE AdviserIssueOrderExtract SET C_CustCode = @C_CustCode,CO_ApplicationNumber = @CO_ApplicationNumber,AIOE_FirstApplicantName = @AIOE_FirstApplicantName,AIOE_CheckAmount = @AIOE_CheckAmount,AIM_InitialChequeNo = @AIM_InitialChequeNo,AIOE_ChequeBankName = @AIOE_ChequeBankName WHERE CO_OrderId = @CO_OrderId";
-                    //string csvParams = "C_CustCode,CO_ApplicationNumber,AIOE_FirstApplicantName,AIOE_CheckAmount,AIM_InitialChequeNo,AIOE_ChequeBankName,CO_OrderId";
-                    //string csvParamDataType = "System.String,System.Int32,System.String,System.Decimal,System.String,System.String,System.Int32";
-                    //daoOnlNcdBackOff.UploadIssueData(sqlUpd, sqlSel, csvParams, csvParamDataType, dtCheckOrder);
+                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);                  
                 }
                 else if (extractStepCode == "UB")
                 {
@@ -1154,10 +1144,7 @@ namespace BoOnlineOrderManagement
                     nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
 
                 }
-                //else
-                //{
-                //    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
-                //}
+               
             }
             catch (Exception Ex)
             {
@@ -1174,6 +1161,6 @@ namespace BoOnlineOrderManagement
             return nRows;
         }
 
-        //private string BuilSelectQuery(string tableName, string[] c
+         
     }
 }
