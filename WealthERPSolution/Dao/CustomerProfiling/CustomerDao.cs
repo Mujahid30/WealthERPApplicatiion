@@ -497,8 +497,8 @@ namespace DaoCustomerProfiling
                         customerVo.OfcAdrLine2 = dr["C_OfcAdrLine2"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrLine3"].ToString()))
                         customerVo.OfcAdrLine3 = dr["C_OfcAdrLine3"].ToString();
-                    if (!string.IsNullOrEmpty(dr["C_OfcAdrLine3"].ToString()))
-                        customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrLine3"].ToString());
+                    if (!string.IsNullOrEmpty(dr["C_OfcAdrPinCode"].ToString()))
+                        customerVo.OfcAdrPinCode = int.Parse(dr["C_OfcAdrPinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrCity"].ToString()))
                         customerVo.OfcAdrCity = dr["C_OfcAdrCity"].ToString();
                     if (!string.IsNullOrEmpty(dr["C_OfcAdrState"].ToString()))
@@ -755,7 +755,7 @@ namespace DaoCustomerProfiling
                     customerVo.Fax = int.Parse(dr["C_Fax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFaxISD"].ToString()))
                     customerVo.OfcISDFax = int.Parse(dr["C_OfcFaxISD"].ToString());
-                    if (!string.IsNullOrEmpty(dr["C_OfcFaxISD"].ToString()))
+                    if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
                         customerVo.OfcSTDFax = int.Parse(dr["C_OfcFax"].ToString());
                     if (!string.IsNullOrEmpty(dr["C_OfcFax"].ToString()))
                     customerVo.OfcFax = int.Parse(dr["C_OfcFax"].ToString());
