@@ -904,7 +904,13 @@
             <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Tradable Exchange" /></asp:CheckBox>
         </td>
     </tr>
+    <tr >
+    <td colspan="4">&nbsp;</td>
+    </tr>
     <tr id="trBtnSubmit" runat="server">
+     <td class="leftLabel">
+            &nbsp;
+        </td>
         <td class="leftLabel">
             <asp:Button ID="btnSetUpSubmit" runat="server" Text="Submit" CssClass="PCGButton"
                 ValidationGroup="SetUpSubmit" OnClick="btnSetUpSubmit_Click" Visible="false" />
@@ -916,9 +922,7 @@
                 OnClick="btnProspect_Click" />
             <%-- ValidationGroup="SetUpSubmit"--%>
         </td>
-        <td class="leftLabel">
-            &nbsp;
-        </td>
+       
         <td class="rightData">
             &nbsp;
         </td>
@@ -1322,7 +1326,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="500px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="590px">
                                         <FormTemplate>
                                             <table width="80%">
                                                 <tr>
@@ -1330,7 +1334,7 @@
                                                         <asp:Label ID="lb1SereiesName" runat="server" Text="Series Name:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td width="30%" align="left">
-                                                        <asp:TextBox ID="txtSereiesName" runat="server" CssClass="txtField"></asp:TextBox>
+                                                        <asp:TextBox ID="txtSereiesName" runat="server" CssClass="txtField" Width="100px"></asp:TextBox>
                                                         <span id="Span24" class="spnRequiredField">*</span>
                                                         <br />
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator23" runat="server" CssClass="rfvPCG"
@@ -1339,12 +1343,13 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td width="25%" align="left">
-                                                        <asp:Label ID="lb1Tenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>
-                                                        <asp:TextBox ID="txtTenure" runat="server" CssClass="txtField" Width="100px"></asp:TextBox>
-                                                        <span id="Span1" class="spnRequiredField">*</span>
-                                                        <br />
+                                                        <asp:Label ID="lb1Tenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>&nbsp;&nbsp;&nbsp;
+                                                        <asp:TextBox ID="txtTenure" runat="server" CssClass="txtField" Width="90px"></asp:TextBox> <span id="Span1" class="spnRequiredField">*</span>
+                                                       <asp:Label ID="Label20" runat="server" Text="(Months)" CssClass="FieldName"></asp:Label>
+                                                       
+                                                        
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator24" runat="server" CssClass="rfvPCG"
-                                                            ErrorMessage="Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
+                                                            ErrorMessage="<br />Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
                                                             ValidationGroup="btnOK" InitialValue="">
                                                         </asp:RequiredFieldValidator>
                                                         <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtTenure" runat="server"
@@ -1357,7 +1362,7 @@
                                                         <asp:Label ID="lb1InterestFrequency" runat="server" Text="Interest Freq.:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td width="20%" align="left">
-                                                        <asp:DropDownList ID="ddlInterestFrequency" runat="server" CssClass="txtField">
+                                                        <asp:DropDownList ID="ddlInterestFrequency" runat="server" CssClass="txtField" Width="104px">
                                                         </asp:DropDownList>
                                                         <span id="Span3" class="spnRequiredField">*</span>
                                                         <br />
@@ -1382,7 +1387,7 @@
                                                         <asp:Label ID="lb1InterestType" runat="server" Text="Interest Type:" CssClass="FieldName"></asp:Label>
                                                     </td>
                                                     <td width="20%" align="left">
-                                                        <asp:DropDownList ID="ddlInterestType" runat="server" CssClass="cmbField">
+                                                        <asp:DropDownList ID="ddlInterestType" runat="server" CssClass="cmbField"  Width="104px">
                                                             <asp:ListItem Value="Select">Select</asp:ListItem>
                                                             <asp:ListItem Value="Fixed">Fixed</asp:ListItem>
                                                             <asp:ListItem Value="Floating">Floating</asp:ListItem>
@@ -1403,7 +1408,7 @@
                                                     <td colspan="3">
                                                         <telerik:RadGrid ID="rgSeriesCat" runat="server" AllowSorting="True" enableloadondemand="True"
                                                             PageSize="5" AllowPaging="false" AutoGenerateColumns="false" EnableEmbeddedSkins="False"
-                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
+                                                            GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" OnItemDataBound="rgSeriesCat_ItemDataBound"
                                                             Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgSeriesCat_OnNeedDataSource">
                                                             <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" AutoGenerateColumns="false"
                                                                 DataKeyNames="AIIC_InvestorCatgeoryId">
@@ -1416,46 +1421,54 @@
                                                                             <asp:CheckBox ID="cbSeriesCat" runat="server" Checked="false" />
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="20px"
+                                                                    <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="10px"
                                                                         Visible="false" ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderText="CatgoryID"
                                                                         SortExpression="AIIC_InvestorCatgeoryId">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
                                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryName" HeaderStyle-Width="60px"
-                                                                        CurrentFilterFunction="Contains" HeaderText="category Name" SortExpression="AIIC_InvestorCatgeoryName"
+                                                                        CurrentFilterFunction="Contains" HeaderText="Category Name" SortExpression="AIIC_InvestorCatgeoryName"
                                                                         AllowFiltering="true" ShowFilterIcon="false">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Coupon Rate(%)" AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Coupon Rate(%)" AllowFiltering="false" HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblInterest" runat="server" Text="Coupon Rate(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Annualized Yield(%)" AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Annualized Yield(%) " AllowFiltering="false" HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lblAnnualized" runat="server" Text="Annualized Yield(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                      <telerik:GridTemplateColumn HeaderText="Ren. CouponRate(%)" AllowFiltering="false">
+                                                                      <telerik:GridTemplateColumn HeaderText="Ren. Coupon Rate(%)" AllowFiltering="false">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Ren. CouponRate(%)"></asp:Label>
+                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Ren. Coupon Rate(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtRenCpnRate" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtRenCpnRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                      <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false">
+                                                                      <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false" UniqueName="YieldAtCall">
                                                                         <HeaderTemplate>
                                                                             <asp:Label ID="lb1YieldAtCall" runat="server" Text="Yield At Call"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtYieldAtCall" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtYieldAtCall" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>
+                                                                     <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false" UniqueName="YieldAtBuyBack">
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                 </Columns>

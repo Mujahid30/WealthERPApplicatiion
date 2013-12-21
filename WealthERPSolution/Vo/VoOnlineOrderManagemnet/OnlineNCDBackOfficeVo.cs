@@ -19,6 +19,7 @@ namespace VoOnlineOrderManagemnet
         public double AnnualizedYieldUpto { get; set; }
         public double RenCpnRate { get; set; }
         public double YieldAtCall { get; set; }
+        public double YieldAtBuyBack { get; set; }
         public double RenewCouponRate { get; set; }
         public string LockinPeriod { get; set; }
         public double DiscountPrice { get; set; }
