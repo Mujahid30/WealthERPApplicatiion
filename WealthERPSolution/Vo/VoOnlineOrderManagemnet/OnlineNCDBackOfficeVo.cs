@@ -7,7 +7,7 @@ namespace VoOnlineOrderManagemnet
 {
     public class OnlineNCDBackOfficeVo
     {
-        public int  IssuerId { get; set; }
+        public int IssuerId { get; set; }
         public int SeriesId { get; set; }
         public string SeriesName { get; set; }
         public int IssueId { get; set; }
@@ -17,6 +17,8 @@ namespace VoOnlineOrderManagemnet
         public string InterestType { get; set; }
         public double DefaultInterestRate { get; set; }
         public double AnnualizedYieldUpto { get; set; }
+        public double RenCpnRate { get; set; }
+        public double YieldAtCall { get; set; }
         public double RenewCouponRate { get; set; }
         public string LockinPeriod { get; set; }
         public double DiscountPrice { get; set; }
@@ -70,13 +72,13 @@ namespace VoOnlineOrderManagemnet
         public int IsNominationRequired { get; set; }
 
 
-        public string  ModeOfTenure { get; set; }
+        public string ModeOfTenure { get; set; }
         public int SeriesSequence { get; set; }
-         
-        public int  IsListedinBSE { get; set; }
-        public int  IsListedinNSE { get; set; }
-        public string  BSECode { get; set; }
-        public string  NSECode { get; set; }
+
+        public int IsListedinBSE { get; set; }
+        public int IsListedinNSE { get; set; }
+        public string BSECode { get; set; }
+        public string NSECode { get; set; }
 
         public int IsBookBuilding { get; set; }
         public double BookBuildingPercentage { get; set; }
@@ -85,19 +87,19 @@ namespace VoOnlineOrderManagemnet
         public int NoOfBidAllowed { get; set; }
         public string RtaSourceCode { get; set; }
 
-        public string  SyndicateMemberCode { get; set; }
+        public string SyndicateMemberCode { get; set; }
         public string BrokerCode { get; set; }
 
 
         public string DiscuountType { get; set; }
-        public decimal  DiscountValue { get; set; }
+        public decimal DiscountValue { get; set; }
 
         public int MaxQty { get; set; }
 
         public int IssueSizeQty { get; set; }
 
         public decimal IssueSizeAmt { get; set; }
-       
+
         public DateTime AllotmentDate { get; set; }
         public int TradableExchange { get; set; }
 

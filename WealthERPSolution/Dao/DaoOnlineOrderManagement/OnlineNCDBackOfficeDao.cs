@@ -610,6 +610,10 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@InvestorCatgeoryId", DbType.Int32, onlineNCDBackOfficeVo.CatgeoryId);
                 db.AddInParameter(createCmd, "@DefaultInterestRate", DbType.Double, onlineNCDBackOfficeVo.DefaultInterestRate);
                 db.AddInParameter(createCmd, "@AnnualizedYieldUpto", DbType.Double, onlineNCDBackOfficeVo.AnnualizedYieldUpto);
+                db.AddInParameter(createCmd, "@RenCpnRate", DbType.Double, onlineNCDBackOfficeVo.RenCpnRate);
+                db.AddInParameter(createCmd, "@YieldAtCall", DbType.Double, onlineNCDBackOfficeVo.YieldAtCall);
+
+
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
             }
@@ -984,11 +988,14 @@ namespace DaoOnlineOrderManagement
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                createCmd = db.GetStoredProcCommand("[SPROC_UpdateSeriesCategories]");
+                createCmd = db.GetStoredProcCommand("SPROC_UpdateSeriesCategories");
                 db.AddInParameter(createCmd, "@SeriesId", DbType.Int32, onlineNCDBackOfficeVo.SeriesId);
                 db.AddInParameter(createCmd, "@InvestorCatgeoryId", DbType.Int32, onlineNCDBackOfficeVo.CatgeoryId);
                 db.AddInParameter(createCmd, "@DefaultInterestRate", DbType.Double, onlineNCDBackOfficeVo.DefaultInterestRate);
                 db.AddInParameter(createCmd, "@AnnualizedYieldUpto", DbType.Double, onlineNCDBackOfficeVo.AnnualizedYieldUpto);
+                db.AddInParameter(createCmd, "@RenCpnRate", DbType.Double, onlineNCDBackOfficeVo.RenCpnRate);
+                db.AddInParameter(createCmd, "@YieldAtCall", DbType.Double, onlineNCDBackOfficeVo.YieldAtCall);
+
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;

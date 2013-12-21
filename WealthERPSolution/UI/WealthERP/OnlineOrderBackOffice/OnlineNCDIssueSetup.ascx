@@ -408,8 +408,9 @@
             </asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtFaceValue"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Numeric Value" CssClass="cvPCG"
-                ValidationExpression="[1-9]\d+(\.\d{1,2})?$" ValidationGroup="SetUpSubmit">     
+                ValidationExpression="[1-9]\d*$"  ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
+          <%--  "[1-9]\d+(\.\d{1,2})?$"--%>
             <%--<asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtFaceValue" runat="server"
                 Display="Dynamic" ErrorMessage="<br />Please enter a numeric value" Type="double"
                 Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
@@ -502,7 +503,7 @@
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtOpenDate" runat="server"
                 ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To Range"
-                Type="Date" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
         <td class="leftLabel">
             <asp:Label ID="lb1CloseDate" runat="server" Text="Close Date:" CssClass="FieldName"></asp:Label>
@@ -526,7 +527,7 @@
             </asp:RequiredFieldValidator>
             <asp:CompareValidator ID="CompareValidator5" ControlToValidate="txtCloseDate" runat="server"
                 ControlToCompare="txtOpenDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To Range"
-                Type="Date" Operator="Equal" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+                Type="Date" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
     </tr>
     <tr>
@@ -1439,6 +1440,22 @@
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>
+                                                                      <telerik:GridTemplateColumn HeaderText="Ren. CouponRate(%)" AllowFiltering="false">
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Ren. CouponRate(%)"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtRenCpnRate" runat="server" CssClass="txtField"></asp:TextBox>
+                                                                        </ItemTemplate>
+                                                                    </telerik:GridTemplateColumn>
+                                                                      <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false">
+                                                                        <HeaderTemplate>
+                                                                            <asp:Label ID="lb1YieldAtCall" runat="server" Text="Yield At Call"></asp:Label>
+                                                                        </HeaderTemplate>
+                                                                        <ItemTemplate>
+                                                                            <asp:TextBox ID="txtYieldAtCall" runat="server" CssClass="txtField"></asp:TextBox>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                 </Columns>

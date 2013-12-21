@@ -381,7 +381,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else if (Mode == "Submited")
             {
                 //After Submit
-                
+
                 EnablityOfScreen(false, true, true, false);
             }
             else if (Mode == "View")
@@ -1260,6 +1260,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
                         TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
                         TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+                        TextBox txtRenCpnRate = (TextBox)gdi.FindControl("txtRenCpnRate");
+                        TextBox txtYieldAtCall = (TextBox)gdi.FindControl("txtYieldAtCall");
 
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
@@ -1270,7 +1272,17 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtAnnualizedYield.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), "Insert");
+                        if (string.IsNullOrEmpty(txtRenCpnRate.Text))
+                        {
+                            txtRenCpnRate.Text = 0.ToString();
+                        }
+
+                        if (string.IsNullOrEmpty(txtYieldAtCall.Text))
+                        {
+                            txtYieldAtCall.Text = 0.ToString();
+                        }
+
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), "Insert");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1313,6 +1325,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         int categoryId = Convert.ToInt32(gdi["AIIC_InvestorCatgeoryId"].Text);
                         TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
                         TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+                        TextBox txtRenCpnRate = (TextBox)gdi.FindControl("txtRenCpnRate");
+                        TextBox txtYieldAtCall = (TextBox)gdi.FindControl("txtYieldAtCall");
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
                             txtInterestRate.Text = 0.ToString();
@@ -1322,7 +1336,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             txtAnnualizedYield.Text = 0.ToString();
                         }
-                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), "Update");
+                        CreateUpdateDeleteSeriesCategories(seriesId, categoryId, Convert.ToDouble(txtInterestRate.Text), Convert.ToDouble(txtAnnualizedYield.Text), Convert.ToDouble(txtRenCpnRate.Text), Convert.ToDouble(txtYieldAtCall.Text), "Update");
                     }
                 }
                 BindSeriesGrid(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
@@ -1731,6 +1745,42 @@ namespace WealthERP.OnlineOrderBackOffice
             }
         }
 
+
+        protected void rgSeriesCat_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if (e.Item is GridEditFormInsertItem && e.Item.OwnerTableView.IsItemInserted)
+            {
+                TextBox txtRenCpnRate = (TextBox)e.Item.FindControl("txtRenCpnRate");
+                TextBox txtYieldAtCall = (TextBox)e.Item.FindControl("txtYieldAtCall");
+
+                if (chkPutCallOption.Checked == true)
+                {
+                    txtYieldAtCall.Visible = true;
+                }
+                else
+                {
+                    txtYieldAtCall.Visible = false;
+
+                }
+            }
+            else if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode))
+            {
+                TextBox txtRenCpnRate = (TextBox)e.Item.FindControl("txtRenCpnRate");
+                TextBox txtYieldAtCall = (TextBox)e.Item.FindControl("txtYieldAtCall");
+
+                if (chkPutCallOption.Checked == true)
+                {
+                    txtYieldAtCall.Visible = true;
+                }
+                else
+                {
+                    txtYieldAtCall.Visible = false;
+
+                }
+            }
+
+        }
+
         protected void rgSeries_ItemDataBound(object sender, GridItemEventArgs e)
         {
             try
@@ -1742,6 +1792,10 @@ namespace WealthERP.OnlineOrderBackOffice
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
+
+
+
+
                     int SeqNo = onlineNCDBackOfficeBo.GetSeriesSequence(Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
                     txtSequence.Text = SeqNo.ToString();
                     BindFrequency(ddlInterestFrequency);
@@ -1760,10 +1814,12 @@ namespace WealthERP.OnlineOrderBackOffice
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlInterestType = (DropDownList)e.Item.FindControl("ddlInterestType");
 
+
+
                     RadGrid rgSeriesCat = (RadGrid)editform.FindControl("rgSeriesCat");
                     BindFrequency(ddlInterestFrequency);
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
-                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, txtSequence, ddlInterestType, rgSeriesCat);
+                    FillSeriesPopupControlsForUpdate(seriesId, txtSereiesName, txtTenure, ddlInterestFrequency, chkBuyAvailability, txtSequence, ddlInterestType,  rgSeriesCat);
                 }
             }
             catch (BaseApplicationException Ex)
@@ -1786,7 +1842,7 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         private void FillSeriesPopupControlsForUpdate(int seriesId, TextBox txtSereiesName, TextBox txtTenure,
-                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence, DropDownList ddlInterestType, RadGrid rgSeriesCat)
+                         DropDownList ddlInterestFrequency, CheckBox chkBuyAvailability, TextBox txtSequence, DropDownList ddlInterestType,RadGrid rgSeriesCat)
         {
             int seriesCategoryId = 0;
             try
@@ -1804,6 +1860,8 @@ namespace WealthERP.OnlineOrderBackOffice
                         chkBuyAvailability.Checked = Convert.ToBoolean(dr["AID_BuyBackFacility"].ToString());
                         txtSequence.Text = dr["AID_Sequence"].ToString();
                         ddlInterestType.SelectedValue = dr["AID_InterestType"].ToString();
+
+
                         if (!string.IsNullOrEmpty(dr["AIIC_InvestorCatgeoryId"].ToString()))
                         {
                             seriesCategoryId = Convert.ToInt32(dr["AIIC_InvestorCatgeoryId"].ToString());
@@ -1822,10 +1880,14 @@ namespace WealthERP.OnlineOrderBackOffice
                                 CheckBox cbSeriesCat = (CheckBox)gdi.FindControl("cbSeriesCat");
                                 TextBox txtInterestRate = ((TextBox)(gdi.FindControl("txtInterestRate")));
                                 TextBox txtAnnualizedYield = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+                                TextBox txtYieldAtCall = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
+                                TextBox txtRenCpnRate = ((TextBox)(gdi.FindControl("txtAnnualizedYield")));
 
                                 cbSeriesCat.Checked = true;
                                 txtInterestRate.Text = dr["AIDCSR_DefaultInterestRate"].ToString();
                                 txtAnnualizedYield.Text = dr["AIDCSR_AnnualizedYieldUpto"].ToString();
+                                txtYieldAtCall.Text = dr["AIDCSR_YieldAtCall"].ToString();
+                                txtRenCpnRate.Text = dr["AIDCSR_RenewCouponRate"].ToString();
                             }
                         }
                     }
@@ -1873,14 +1935,14 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
             if (string.IsNullOrEmpty(txtIssueId.Text))
-            {           
+            {
                 txtIssueId.Text = CreateIssue().ToString();
                 SeriesAndCategoriesGridsVisiblity(Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
             }
-            
+
             VisblityAndEnablityOfScreen("Submited");
             btnSetUpSubmit.Enabled = true;
-           
+
         }
 
 
@@ -2278,7 +2340,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
-        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, string commandType)
+        private void CreateUpdateDeleteSeriesCategories(int seriesId, int catgeoryId, double defaultInterestRate, double annualizedYieldUpto, double RenCpnRate, double YieldAtCall, string commandType)
         {
             bool result;
             try
@@ -2290,6 +2352,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.CatgeoryId = catgeoryId;
                     onlineNCDBackOfficeVo.DefaultInterestRate = defaultInterestRate;
                     onlineNCDBackOfficeVo.AnnualizedYieldUpto = annualizedYieldUpto;
+                    onlineNCDBackOfficeVo.RenCpnRate = RenCpnRate;
+                    onlineNCDBackOfficeVo.YieldAtCall = YieldAtCall;
                     result = onlineNCDBackOfficeBo.CreateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
                 else if (commandType == "Update")
@@ -2299,6 +2363,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.CatgeoryId = catgeoryId;
                     onlineNCDBackOfficeVo.DefaultInterestRate = defaultInterestRate;
                     onlineNCDBackOfficeVo.AnnualizedYieldUpto = annualizedYieldUpto;
+                    onlineNCDBackOfficeVo.RenCpnRate = RenCpnRate;
+                    onlineNCDBackOfficeVo.YieldAtCall = YieldAtCall;
                     result = onlineNCDBackOfficeBo.UpdateSeriesCategory(onlineNCDBackOfficeVo, userVo.UserId);
                 }
 
