@@ -39,7 +39,7 @@ namespace OnlineOrderRMSAccountDebitProcess
             dtOrderList = GetMFOnlineOrderListForRMSAccountDebit();
             foreach (DataRow dr in dtOrderList.Rows)
             {
-                onlineOrderBo.DebitRMSUserAccountBalance(dr["C_CustCode"].ToString(), Convert.ToDouble(dr["CMFOD_Amount"].ToString()), Convert.ToInt32(dr["CO_OrderId"].ToString()));
+                onlineOrderBo.DebitRMSUserAccountBalance(dr["C_CustCode"].ToString(), -Convert.ToDouble(dr["CMFOD_Amount"].ToString()), Convert.ToInt32(dr["CO_OrderId"].ToString()));
 
             }
         }
