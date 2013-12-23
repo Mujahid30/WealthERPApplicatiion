@@ -117,7 +117,8 @@
                 </td>
             </tr>
         </table>
-        <div style="float: left; padding-top: 5px; width: 100%" id="divControlContainer" runat="server">
+        <div style="float: left; padding-top: 5px; width: 100%" id="divControlContainer"
+            runat="server">
             <table id="tbpurchase" width="100%">
                 <tr class="spaceUnder">
                     <td>
@@ -175,6 +176,42 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder">
+                    <td colspan="2">
+                    </td>
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="75%" class="SchemeInfoTable">
+                            <tr class="SchemeInfoTable">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount: " CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr class="SchemeInfoTable">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td style="vertical-align: top;">
+                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="spaceUnder">
                     <td>
                     </td>
                     <td align="right" align="right" style="vertical-align: top;">
@@ -187,56 +224,31 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="Please Select a Folio"
                             CssClass="rfvPCG" ControlToValidate="ddlFolio" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RequiredFieldValidator>
                     </td>
-                    </td>
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr id="trJointHolder" runat="server" class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
+                <tr class="spaceUnder" id="trNomineeJoint" runat="server">
                     <td colspan="2">
                     </td>
-                </tr>
-                <tr id="trNominee" runat="server" class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td style="vertical-align: top;">
-                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="75%" class="SchemeInfoTable" id="tblNomineeJoint" runat="server">
+                            <tr id="trJointHolder" runat="server" class="spaceUnder">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr id="trNominee" runat="server" class="spaceUnder">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -247,12 +259,6 @@
                     </td>
                     <td>
                         <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount: " CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td style="vertical-align: top;">
-                        <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -271,11 +277,7 @@
                             ErrorMessage="Please Enter Only Numbers and 2 digits after decimal" CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                     </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                    <td colspan="2">
                     </td>
                 </tr>
                 <tr class="spaceUnder" id="trDivtype">
@@ -361,7 +363,7 @@
                 </tr>
                 <tr id="trNewOrder" runat="server" visible="false">
                     <td align="center" colspan="4">
-                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Aditional Purchase"
+                        <asp:LinkButton ID="lnkNewOrder" CausesValidation="false" Text="Make another Additional Purchase"
                             runat="server" OnClick="lnkNewOrder_Click" CssClass="LinkButtons"></asp:LinkButton>
                     </td>
                 </tr>

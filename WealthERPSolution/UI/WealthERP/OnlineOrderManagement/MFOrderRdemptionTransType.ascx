@@ -149,6 +149,30 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder">
+                    <td colspan="2">
+                    </td>
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="75%" class="SchemeInfoTable">
+                            <tr class="SchemeInfoTable">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr class="SchemeInfoTable">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="spaceUnder">
                     <td>
                     </td>
                     <td align="right" align="right" style="vertical-align: top;">
@@ -164,52 +188,28 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr id="trJointHolder" runat="server" class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
+                <tr class="spaceUnder" id="trNomineeJoint" runat="server">
                     <td colspan="2">
                     </td>
-                </tr>
-                <tr id="trNominee" runat="server" class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="75%" class="SchemeInfoTable" id="tblNomineeJoint" runat="server">
+                            <tr id="trJointHolder" runat="server" class="spaceUnder">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr id="trNominee" runat="server" class="spaceUnder">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -315,7 +315,7 @@
                     <td colspan="2">
                     </td>
                 </tr>
-                <tr class="spaceUnder" id="trDividendOption" runat="server" >
+                <tr class="spaceUnder" id="trDividendOption" runat="server">
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">

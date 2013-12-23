@@ -170,9 +170,44 @@
                             CssClass="rfvPCG" ControlToValidate="ddlScheme" Display="Dynamic" InitialValue="0"
                             ValidationGroup="btnSubmit">Please select a scheme</asp:RequiredFieldValidator>
                     </td>
-                    <td>
+                    <td colspan="2">
                     </td>
-                    <td>
+                </tr>
+                <tr class="spaceUnder">
+                    <td colspan="2">
+                    </td>
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="100%" class="SchemeInfoTable">
+                            <tr class="SchemeInfoTable">
+                                <td align="left">
+                                    <asp:Label ID="lblNav" runat="server" Text="Last Recorded NAV(Rs):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left">
+                                    <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:"
+                                        CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr class="SchemeInfoTable">
+                                <td align="left">
+                                    <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td style="vertical-align: top;" align="left">
+                                    <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -191,65 +226,31 @@
                             CssClass="rfvPCG" ControlToValidate="ddlFolio" Display="Dynamic" InitialValue="0"
                             ValidationGroup="btnSubmit">Please select folio number</asp:RequiredFieldValidator>
                     </td>
-                    <td>
-                    </td>
-                    <td>
+                    <td colspan="2">
                     </td>
                 </tr>
-                <tr id="trNominee" runat="server" class="spaceUnder">
-                    <td>
+                <tr class="spaceUnder" id="trNomineeJoint" runat="server">
+                    <td colspan="2">
                     </td>
-                    <td align="right">
-                        <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr id="trJointHolder" runat="server" class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right">
-                        <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right">
-                        <asp:Label ID="lblNav" runat="server" Text="Last Recorded NAV(Rs):" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right">
-                        <asp:Label ID="lblCutOffTime" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="100%" class="SchemeInfoTable" id="tblNomineeJoint" runat="server">
+                            <tr id="trNominee" runat="server">
+                                <td align="left">
+                                    <asp:Label ID="lblHolder" runat="server" Text="Joint Holder:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblHolderDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr id="trJointHolder" runat="server">
+                                <td align="left">
+                                    <asp:Label ID="lblNominee" runat="server" Text="Nominee:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNomineeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -339,12 +340,7 @@
                     <td>
                         <asp:Label ID="lblEndDateDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
-                    <td>
-                        <asp:Label ID="lblMinAmountrequired" runat="server" Text="Minimum Initial Amount:"
-                            CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblMinAmountrequiredDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                    <td colspan="2">
                     </td>
                 </tr>
                 <tr class="spaceUnder">
@@ -361,13 +357,9 @@
                         <asp:RangeValidator ID="rgvAmount" runat="server" ControlToValidate="txtAmount" ErrorMessage="You have entered the amount less than the Minimum Initial Amount"
                             Type="Double" ValidationGroup="btnSubmit" CssClass="rfvPCG" Display="Dynamic"> You should enter the amount in multiple of subsequent amount</asp:RangeValidator>
                     </td>
-                    <td style="vertical-align: top;" align="right">
-                        <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
-                    </td>
-                    <td style="vertical-align: top;">
+                    <td style="vertical-align: top;" colspan="2">
                         <asp:TextBox Style="display: none;" ID="txtMinAmtDisplay" CssClass="txtField" Enabled="false"
                             runat="server"></asp:TextBox>
-                        <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                     </td>
                 </tr>
                 <tr style="display: none;" id="trDividendType" runat="server" class="spaceUnder">
@@ -391,7 +383,8 @@
                         <asp:Label ID="lblDividendOption" runat="server" Text="Dividend Option:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" style="width:300px;" runat="server">
+                        <asp:DropDownList ID="ddlDividendFreq" CssClass="cmbField" Style="width: 300px;"
+                            runat="server">
                             <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>

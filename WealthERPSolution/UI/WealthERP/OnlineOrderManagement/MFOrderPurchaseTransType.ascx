@@ -72,7 +72,7 @@
         <table class="tblMessage" cellpadding="0" cellspacing="0">
             <tr>
                 <td>
-                    <div class="divOnlinePageHeading" >
+                    <div class="divOnlinePageHeading">
                         <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
@@ -149,6 +149,44 @@
                     </td>
                 </tr>
                 <tr class="spaceUnder">
+                    <td colspan="2">
+                    </td>
+                    <td align="left" style="vertical-align: top;" colspan="3">
+                        <table width="75%" class="SchemeInfoTable">
+                            <tr class="SchemeInfoTable">
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td align="left" style="vertical-align: top;">
+                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr class="spaceUnder">
                     <td>
                     </td>
                     <td align="right" align="right" style="vertical-align: top;">
@@ -190,34 +228,6 @@
                     <td>
                     </td>
                     <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblNav" runat="server" Text=" Last Recorded NAV (Rs):" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td colspan="2">
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblCutt" runat="server" Text="Cut-Off time:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblMin" runat="server" Text="Minimum Initial Amount:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td style="vertical-align: top;">
-                        <asp:Label ID="lblMintxt" runat="server" CssClass="readOnlyField"></asp:Label>
-                    </td>
-                </tr>
-                <tr class="spaceUnder">
-                    <td>
-                    </td>
-                    <td align="right" style="vertical-align: top;">
                         <asp:Label ID="lblAmt" runat="server" Text="Amount:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
@@ -230,11 +240,7 @@
                             ErrorMessage="Please Enter Only Numbers and 2 digits after decimal " CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
                     </td>
-                    <td align="right" style="vertical-align: top;">
-                        <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
-                    </td>
-                    <td style="vertical-align: top;">
-                        <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
+                    <td colspan="2">
                     </td>
                 </tr>
                 <tr class="spaceUnder" id="trDivtype" visible="false" runat="server">
@@ -244,7 +250,8 @@
                         <asp:Label ID="lblDivType" runat="server" Text="Dividend Type:" CssClass="FieldName"></asp:Label>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" style="width:250px;" OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
+                        <asp:DropDownList ID="ddlDivType" runat="server" CssClass="cmbField" Style="width: 250px;"
+                            OnSelectedIndexChanged="ddlDivType_OnSelectedIndexChanged">
                             <asp:ListItem Text="Select" Value="0"></asp:ListItem>
                             <asp:ListItem Text="Dividend Reinvestment" Value="DVR"></asp:ListItem>
                             <asp:ListItem Text="Dividend Payout" Value="DVP"></asp:ListItem>

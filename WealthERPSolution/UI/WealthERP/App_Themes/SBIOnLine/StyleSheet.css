@@ -1574,9 +1574,14 @@ p.tip
     font-weight: bold;
     text-align: center;
     vertical-align: middle;
-    width:100%;
-    text-align:center;
+    width: 100%;
+    text-align: center;
 }
 
 
+.SchemeInfoTable
+{    
+    border: 1px solid #2475C7;
+   /* border-collapse:collapse;*/
+}
 /* End */
