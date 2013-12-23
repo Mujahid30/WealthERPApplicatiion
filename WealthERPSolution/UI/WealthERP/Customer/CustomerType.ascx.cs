@@ -51,6 +51,7 @@ namespace WealthERP.Customer
                 userVo = (UserVo)Session["userVo"];
                 rmVo = (RMVo)Session["rmVo"];
                 bmID = rmVo.RMId;
+                chkRealInvestor.Attributes.Add("onClick", "javascript:ShowSubmitAndSave();");
                 if (Session[SessionContents.CurrentUserRole].ToString().ToLower() == "associates")
                 {
                     btnCustomerProfile.Visible = false;

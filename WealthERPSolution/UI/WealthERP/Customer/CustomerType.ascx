@@ -26,6 +26,16 @@
             document.getElementById("<%= trSalutation.ClientID %>").style.display = 'block';
         }
     }
+    function ShowSubmitAndSave() {
+        var check = document.getElementById("<%= chkRealInvestor.ClientID %>").checked;
+        if (check) {
+            document.getElementById("<%=btnCustomerProfile.ClientID %>").style.visibility = 'visible';
+        }
+        else 
+        {
+            document.getElementById("<%=btnCustomerProfile.ClientID %>").style.visibility = 'hidden';
+        }
+    }
 </script>
 
 <%--<asp:UpdatePanel ID="upPnl" runat="server">
@@ -126,7 +136,7 @@
             </asp:DropDownList>
             <span id="Span1" class="spnRequiredField">*</span> &nbsp;
             <asp:CheckBox ID="chkRealInvestor" runat="server" CssClass="txtField" Text="IsRealInvestor"
-                AutoPostBack="false" Checked="true" />
+                AutoPostBack="false"  Checked="true" onclick="javascript:ShowSubmitAndSave();" />
             <br />
             <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="ddlCustomerSubType"
                 ErrorMessage="Please select a Customer Sub-Type" Operator="NotEqual" ValueToCompare="Select"
