@@ -301,8 +301,8 @@ namespace WealthERP.OnlineOrderManagement
                 LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
                 Int32 orderId = Convert.ToInt32(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
 
-                
-                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text );
+
+                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
                 if (lbResult == true)
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
@@ -354,61 +354,18 @@ namespace WealthERP.OnlineOrderManagement
             if (e.Item is GridDataItem)
             {
                 GridDataItem dataItem = e.Item as GridDataItem;
-
-              //  Label lblordertype = dataItem.FindControl("lblOrderType") as Label;
-                //    LinkButton lbtnMarkAsReject = dataItem.FindControl("MarkAsReject") as LinkButton;
                 LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
-
-                //Label OrderStep = dataItem.FindControl("lblOrderStep") as Label;
-                //int selectedRow = dataItem.ItemIndex + 1;
-
-                //if (gvBBList.MasterTableView.DataKeyValues[selectedRow - 1]["CO_IsOnline"].ToString().Trim() == "1")
-                //{
-                //    if (OrderStep.Text.Trim().ToUpper() == "Executed".ToUpper())
-                //    {
-                //        lbtnMarkAsReject.Visible = true;
-                //    }
-                //    else
-                //    {
-                //        lbtnMarkAsReject.Visible = false;
-                //    }
-                //}
-                //else
-                //{
-                //    lbtnMarkAsReject.Visible = false;
-                //}
-
-
-                //string ordertype = null;
-                //ordertype = lblordertype.Text;
-                //if (ordertype == "1")
-                //    lblordertype.Text = "Immediate";
-                //else
-                //    lblordertype.Text = "Future";
-
                 string OrderStepCode = gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString();
                 if (OrderStepCode.Trim() == "AL")
                 {
                     lbtnMarkAsReject.Visible = true;
-
                 }
                 else
                 {
                     lbtnMarkAsReject.Visible = false;
                 }
-
             }
-
-            //if (e.Item is GridDataItem)
-            //{
-
-            //    string Iscancel = Convert.ToString(gvBBList.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTS_TransactionStatusCode"]);
-            //    ImageButton imgCancel = (ImageButton)e.Item.FindControl("imgCancel");
-            //    if (Iscancel == "Cancelled")
-            //    {
-            //        imgCancel.Enabled = false;
-            //    }
-            //}
+            
         }
         public void ibtExport_OnClick(object sender, ImageClickEventArgs e)
         {

@@ -232,7 +232,7 @@
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="AIA_AllotmentDate" SortExpression="AIA_AllotmentDate"
                                                         AutoPostBackOnFilter="true" CurrentFilterFunction="Contains" ShowFilterIcon="false"
-                                                        AllowFiltering="false" HeaderText="Date of Allotment" UniqueName="AIA_AllotmentDate">
+                                                        AllowFiltering="false" HeaderText="Allotment Date" UniqueName="AIA_AllotmentDate">
                                                         <itemstyle width="" horizontalalign="left" wrap="false" verticalalign="Top" />
                                                     </telerik:GridBoundColumn>
                                                     <telerik:GridBoundColumn DataField="COID_MaturityDate" SortExpression="COID_MaturityDate"

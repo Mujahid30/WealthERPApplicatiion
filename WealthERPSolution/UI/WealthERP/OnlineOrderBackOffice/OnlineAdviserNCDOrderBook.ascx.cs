@@ -101,31 +101,51 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlGrid.Visible = true;
             }
         }
+        protected void gvNCDOrderBook_UpdateCommand(object source, GridCommandEventArgs e)
+        {
+            string strRemark = string.Empty;
+            int IsMarked = 0;
+            bool lbResult = false;
+            if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                GridEditableItem editItem = e.Item as GridEditableItem;
+                TextBox txtRemark = (TextBox)e.Item.FindControl("txtRemark");
+                strRemark = txtRemark.Text;
+                LinkButton buttonEdit = editItem["MarkAsReject"].Controls[0] as LinkButton;
+                Int32 orderId = Convert.ToInt32(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
+
+
+                lbResult = BoOnlineBondOrder.cancelBondsBookOrder(orderId, 2, txtRemark.Text);
+                if (lbResult == true)
+                {
+                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
+                }
+                BindAdviserNCCOrderBook();
+
+                //IsMarked = mforderBo.MarkAsReject(orderId, txtRemark.Text);
+                //BindMISGridView();
+
+            }
+        }
         protected void gvNCDOrderBook_OnItemCommand(object sender, Telerik.Web.UI.GridCommandEventArgs e)
         {
-            bool lbResult = false;           
-              
-                if (e.CommandName == "Cancel")
-                {   int OrderId = int.Parse(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CO_OrderId"].ToString());
-                    lbResult = BoOnlineBondOrder.cancelBondsBookOrder(OrderId, 2,"");
-                    if (lbResult == true)
-                    {
-                        Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Pageloadscript", "alert('Order Cancelled Successfully');", true);
-                    }
-                    BindAdviserNCCOrderBook();
-                }
+          
             
         }
         public void gvNCDOrderBook_OnItemDataCommand(object sender, GridItemEventArgs e)
         {
             if (e.Item is GridDataItem)
             {
-                GridDataItem dataItem = (GridDataItem)e.Item;
-                string Iscancel = Convert.ToString(gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTS_TransactionStatusCode"]);
-                ImageButton imgCancel = (ImageButton)dataItem.FindControl("imgCancel");
-                if (Iscancel == "Cancelled")
+                GridDataItem dataItem = e.Item as GridDataItem;
+                LinkButton lbtnMarkAsReject = dataItem["MarkAsReject"].Controls[0] as LinkButton;
+                string OrderStepCode = gvNCDOrderBook.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WOS_OrderStepCode"].ToString();
+                if (OrderStepCode.Trim() == "AL")
                 {
-                    imgCancel.Enabled = false;
+                    lbtnMarkAsReject.Visible = true;
+                }
+                else
+                {
+                    lbtnMarkAsReject.Visible = false;
                 }
             }
         }
