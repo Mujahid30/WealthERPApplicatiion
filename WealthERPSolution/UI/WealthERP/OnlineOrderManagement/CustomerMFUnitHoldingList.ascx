@@ -2,6 +2,12 @@
     Inherits="WealthERP.OnlineOrderManagement.CustomerMFUnitHoldingList" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<style type="text/css">
+    .style1
+    {
+        width: 37%;
+    }
+</style>
 <asp:ScriptManager ID="scriptmanager" runat="server">
 </asp:ScriptManager>
 <%--<table width="100%">
@@ -25,20 +31,18 @@
     </tr>
 </table>--%>
 <div class="divOnlinePageHeading" style="float: right; width: 100%">
-    <div style="float: right; padding-right: 100px;">
-        <table cellspacing="0" cellpadding="3" width="100%">
+    <div style="float: right; padding-right: 100px; height: 41px;">
+        <table cellspacing="0" cellpadding="3" style="width: 105%">
             <tr>
                 <td align="right" style="width: 5%">
-                    <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                        OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
-                </td>
+                    &nbsp;</td>
             </tr>
         </table>
     </div>
 </div>
-<table style="width: 100%" class="TableBackground" style="padding-top: 4px">
-    <tr>
+<div style="padding-top:4px">
+<table style="width: 100%" class="TableBackground" style="padding-top: 4px" >
+        <tr>
         <td class="leftField" style="width: 10%">
             <asp:Label ID="lblPortfolio" runat="server" CssClass="FieldName" Text="Account:"></asp:Label>
         </td>
@@ -47,15 +51,19 @@
             </asp:DropDownList>
         </td>
         <td class="rightField" style="width: 10%">
-            <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
-        </td>
-        <td class="rightField" style="width: 15%">
             <asp:Button ID="btnUnitHolding" runat="server" Text="GO" CssClass="PCGButton" OnClick="btnUnitHolding_Click" />
         </td>
-        <td>
+        <td class="style1">
+            <asp:Label ID="lblPickDate" Text="" runat="server" CssClass="FieldName" Visible="false"> </asp:Label>
         </td>
+        <td style="margin-left: 80px" align="right">
+                    <asp:ImageButton Visible="true" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                        runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                        OnClientClick="setFormat('excel')" Height="25px" Width="29px" ></asp:ImageButton>
+                </td>
     </tr>
 </table>
+</div>
 <table style="width: 100%" class="TableBackground">
     <tr id="trNoRecords" runat="server" visible="false">
         <td align="center">
