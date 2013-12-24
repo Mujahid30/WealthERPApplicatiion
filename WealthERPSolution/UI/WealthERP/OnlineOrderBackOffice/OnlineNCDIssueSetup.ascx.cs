@@ -41,6 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlCategory.Visible = false;
                 BindHours();
                 BindMinutesAndSeconds();
+                BindNcdCategory();
                 EnablityOfControlsonProductAndIssueTypeSelection("Select");
                 if (Request.QueryString["action"] != null)
                 {
@@ -88,12 +89,12 @@ namespace WealthERP.OnlineOrderBackOffice
                         {
                             if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FISD")
                             {
-                                ddlCategory.SelectedValue = "NCD";
+                                ddlCategory.SelectedValue = "FISD";
                                 ddlProduct.SelectedValue = "NCD";
                             }
                             else if (dr["PAIC_AssetInstrumentCategoryCode"].ToString() == "FIIB")
                             {
-                                ddlCategory.SelectedValue = "IB";
+                                ddlCategory.SelectedValue = "FIIB";
                                 ddlProduct.SelectedValue = "NCD";
 
                             }
@@ -157,6 +158,16 @@ namespace WealthERP.OnlineOrderBackOffice
                         ddlCloseTimeSeconds.SelectedValue = closetime.Substring(6, 2);
 
                         //txtCloseTimes.Text = dr["AIM_CloseTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
+                    }
+
+                    if (!string.IsNullOrEmpty(dr["AIM_CutOffTime"].ToString()))
+                    {
+                        string opentime = dr["AIM_CutOffTime"].ToString();
+                        ddlCutOffTimeHours.SelectedValue = opentime.Substring(0, 2);
+                        ddlCutOffTimeMinutes.SelectedValue = opentime.Substring(3, 2);
+                        ddlCutOffTimeSeconds.SelectedValue = opentime.Substring(6, 2);
+
+                        //txtOpenTimes.Text = dr["AIM_OpenTime"].ToString(); ; //SelectedDate.Value.ToShortTimeString().ToString();
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_IssueRevisionDate"].ToString()))
                     {
@@ -431,6 +442,12 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlCloseTimeSeconds.Enabled = value;
             txtRevisionDates.Enabled = value;
 
+
+
+            ddlCutOffTimeHours.Enabled = value;
+            ddlCutOffTimeMinutes.Enabled = value;
+            ddlCutOffTimeSeconds.Enabled = value;
+
             txtTradingLot.Enabled = value;
             txtBiddingLot.Enabled = value;
 
@@ -465,7 +482,7 @@ namespace WealthERP.OnlineOrderBackOffice
             btnUpdate.Visible = boolBtnsVisblity;
             lnkBtnEdit.Visible = boolBtnsVisblity;
             lnlBack.Visible = boolBtnsVisblity;
-            lnkDelete.Visible = boolBtnsVisblity;
+            //lnkDelete.Visible = boolBtnsVisblity;
 
 
             if (ddlProduct.SelectedValue == "IP")
@@ -497,17 +514,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    if (ddlCategory.SelectedValue == "NCD")
+                    if (ddlCategory.SelectedValue == "FISD")
                     {
                         onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";
                         onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
                     }
-                    else if (ddlCategory.SelectedValue == "IB")
+                    else if (ddlCategory.SelectedValue == "FIIB")
                     {
                         onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
                         onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
                     }
-
                 }
 
                 onlineNCDBackOfficeVo.IssueName = txtName.Text;
@@ -557,6 +573,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlCloseTimeMinutes.SelectedValue = "00";
                 }
+                if (ddlCutOffTimeMinutes.SelectedValue == "MM")
+                {
+                    ddlCutOffTimeMinutes.SelectedValue = "00";
+                }
                 if (ddlOpenTimeSeconds.SelectedValue == "SS")
                 {
                     ddlOpenTimeSeconds.SelectedValue = "00";
@@ -565,9 +585,15 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlCloseTimeSeconds.SelectedValue = "00";
                 }
+                if (ddlCutOffTimeSeconds.SelectedValue == "SS")
+                {
+                    ddlCutOffTimeSeconds.SelectedValue = "00";
+                }
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
+                onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
+
 
                 if (!string.IsNullOrEmpty((txtRevisionDates.SelectedDate).ToString().Trim()))
                     onlineNCDBackOfficeVo.IssueRevis = DateTime.Parse(txtRevisionDates.SelectedDate.ToString());
@@ -1019,7 +1045,7 @@ namespace WealthERP.OnlineOrderBackOffice
                         TextBox txtYieldAtCall = (TextBox)gdi.FindControl("txtYieldAtCall");
                         TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
 
-                        
+
                         if (string.IsNullOrEmpty(txtInterestRate.Text))
                         {
                             txtInterestRate.Text = 0.ToString();
@@ -1553,7 +1579,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
-               
+
                 //GridDataItem item = (GridDataItem)e.Item;
 
                 //RadGrid rgSeriesCat = (RadGrid)item.FindControl("rgSeriesCat");
@@ -1572,7 +1598,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
                 //TextBox txtYieldAtCall = e.Item.FindControl("YieldAtCall") as TextBox;
-             
+
                 //if (chkPutCallOption.Checked == true)
                 //{
                 //    txtYieldAtCall.Visible = true;
@@ -1585,7 +1611,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             }
 
- 
+
         }
 
         protected void rgSeries_ItemDataBound(object sender, GridItemEventArgs e)
@@ -1611,7 +1637,7 @@ namespace WealthERP.OnlineOrderBackOffice
                             column.Visible = true;
 
                         }
-                        
+
                     }
                     int SeqNo = onlineNCDBackOfficeBo.GetSeriesSequence(Convert.ToInt32(txtIssueId.Text), advisorVo.advisorId);
                     txtSequence.Text = SeqNo.ToString();
@@ -1634,7 +1660,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-                    foreach (GridColumn column in rgSeriesCat.Columns )
+                    foreach (GridColumn column in rgSeriesCat.Columns)
                     {
                         if (column.UniqueName == "YieldAtCall" && chkPutCallOption.Checked == false)
                         {
@@ -1847,12 +1873,12 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else
                 {
-                    if (ddlCategory.SelectedValue == "NCD")
+                    if (ddlCategory.SelectedValue == "FISD")
                     {
                         onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FISD";
                         onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FINCD";
                     }
-                    else if (ddlCategory.SelectedValue == "IB")
+                    else if (ddlCategory.SelectedValue == "FIIB")
                     {
                         onlineNCDBackOfficeVo.AssetInstrumentCategoryCode = "FIIB";
                         onlineNCDBackOfficeVo.AssetInstrumentSubCategoryCode = "FIIB";
@@ -1915,6 +1941,23 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     ddlCloseTimeSeconds.SelectedValue = "00";
                 }
+
+
+                if (ddlCutOffTimeMinutes.SelectedValue == "MM")
+                {
+                    ddlCutOffTimeMinutes.SelectedValue = "00";
+                }
+
+                if (ddlCutOffTimeSeconds.SelectedValue == "SS")
+                {
+                    ddlCutOffTimeSeconds.SelectedValue = "00";
+                }
+
+                onlineNCDBackOfficeVo.CutOffTime = Convert.ToDateTime(ddlCutOffTimeHours.SelectedValue + ":" + ddlCutOffTimeMinutes.SelectedValue + ":" + ddlCutOffTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
+
+
+
+
                 //string time = txtOpenTimes.SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.OpenTime = Convert.ToDateTime(ddlOpenTimeHours.SelectedValue + ":" + ddlOpenTimeMinutes.SelectedValue + ":" + ddlOpenTimeSeconds.SelectedValue); //SelectedDate.Value.ToShortTimeString().ToString();
                 onlineNCDBackOfficeVo.CloseTime = Convert.ToDateTime(ddlCloseTimeHours.SelectedValue + ":" + ddlCloseTimeMinutes.SelectedValue + ":" + ddlCloseTimeSeconds.SelectedValue);//SelectedDate.Value.ToShortTimeString().ToString();
@@ -2862,9 +2905,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlCloseTimeHours.DataValueField = dt.Columns["Hours"].ToString();
                 ddlCloseTimeHours.DataTextField = dt.Columns["Hours"].ToString();
                 ddlCloseTimeHours.DataBind();
+
+
+                ddlCutOffTimeHours.DataSource = dt;
+                ddlCutOffTimeHours.DataValueField = dt.Columns["Hours"].ToString();
+                ddlCutOffTimeHours.DataTextField = dt.Columns["Hours"].ToString();
+                ddlCutOffTimeHours.DataBind();
+
             }
             ddlOpenTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
             ddlCloseTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
+            ddlCutOffTimeHours.Items.Insert(0, new ListItem("Hours", "HH"));
+
         }
 
         private void BindRTA()
@@ -2890,6 +2942,20 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlBankName.DataTextField = dtBankNames.Columns["WCMV_Name"].ToString();
                 ddlBankName.DataBind();
             }
+        }
+        private void BindNcdCategory()
+        {
+            DataTable dtCategory = new DataTable();
+            dtCategory = onlineNCDBackOfficeBo.BindNcdCategory().Tables[0];
+            if (dtCategory.Rows.Count > 0)
+            {
+                ddlCategory.DataSource = dtCategory;
+                ddlCategory.DataValueField = dtCategory.Columns["PAIC_AssetInstrumentCategoryCode"].ToString();
+                ddlCategory.DataTextField = dtCategory.Columns["PAIC_AssetInstrumentCategoryName"].ToString();
+                ddlCategory.DataBind();
+            }
+            ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
         }
         private void BindFrequency(DropDownList ddlFrequency)
         {
@@ -2949,15 +3015,34 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlCloseTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
                 ddlCloseTimeSeconds.DataBind();
 
+
+
+                ddlCutOffTimeMinutes.DataSource = dt;
+                ddlCutOffTimeMinutes.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlCutOffTimeMinutes.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlCutOffTimeMinutes.DataBind();
+
+                ddlCutOffTimeSeconds.DataSource = dt;
+                ddlCutOffTimeSeconds.DataValueField = dt.Columns["Minutes"].ToString();
+                ddlCutOffTimeSeconds.DataTextField = dt.Columns["Minutes"].ToString();
+                ddlCutOffTimeSeconds.DataBind();
+
+
+
             }
             ddlOpenTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
             ddlCloseTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
             ddlOpenTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
             ddlCloseTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
+            ddlCutOffTimeMinutes.Items.Insert(0, new ListItem("Minutes", "MM"));
+            ddlCutOffTimeSeconds.Items.Insert(0, new ListItem("Seconds", "SS"));
+
             ddlOpenTimeMinutes.SelectedValue = "00";
             ddlCloseTimeMinutes.SelectedValue = "00";
             ddlOpenTimeSeconds.SelectedValue = "00";
             ddlCloseTimeSeconds.SelectedValue = "00";
+            ddlCutOffTimeMinutes.SelectedValue = "00";
+            ddlCutOffTimeSeconds.SelectedValue = "00";
 
         }
 

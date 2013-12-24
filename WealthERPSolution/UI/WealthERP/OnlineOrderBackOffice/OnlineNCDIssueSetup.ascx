@@ -185,9 +185,9 @@
         <td align="rightData" id="tdddlCategory" runat="server">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
-                <asp:ListItem Value="Select">Select</asp:ListItem>
+               <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
-                <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>
+                <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
             </asp:DropDownList>
             <span id="Span4" class="spnRequiredField">*</span>
             <br />
@@ -592,6 +592,43 @@
             </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
+    
+    <tr>
+        <td class="leftLabel">
+            <asp:Label ID="Label21" runat="server" Text="Cut-Off Time:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+           
+            <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px" />
+            <asp:DropDownList ID="ddlCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px" />
+            <asp:DropDownList ID="ddlCutOffTimeSeconds" runat="server" CssClass="cmbField" AutoPostBack="true"
+                Width="60px" />
+            <span id="Span36" class="spnRequiredField">*</span>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlCutOffTimeHours"
+                InitialValue="HH" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            
+             <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlCutOffTimeHours" runat="server"
+                ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
+                Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+           
+        </td>
+        <td class="leftLabel">
+           &nbsp;
+        </td>
+        <td class="rightData">
+              &nbsp;          
+        </td>
+    </tr>
+    
+    
+    
+    
+    
     <%-- <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1RevisionDate" runat="server" Text="Revision Date:" CssClass="FieldName"></asp:Label>
@@ -804,6 +841,7 @@
             <asp:Label ID="lb1BankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
+        
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
             </asp:DropDownList>
@@ -901,7 +939,7 @@
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Tradable Exchange" /></asp:CheckBox>
+            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Tradeable Exchange" /></asp:CheckBox>
         </td>
     </tr>
     <tr>
@@ -1457,9 +1495,9 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Ren. Coupon Rate(%)" AllowFiltering="false">
+                                                                    <telerik:GridTemplateColumn HeaderText="Renewed Coupon Rate(%)" AllowFiltering="false">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Ren. Coupon Rate(%)"></asp:Label>
+                                                                            <asp:Label ID="lblRenCpnRate" runat="server" Text="Renewed Coupon Rate(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtRenCpnRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
@@ -1471,7 +1509,7 @@
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At Call" AllowFiltering="false" UniqueName="YieldAtCall">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lb1YieldAtCall" runat="server" Text="Yield At Call"></asp:Label>
+                                                                            <asp:Label ID="lb1YieldAtCall" runat="server" Text="Yield At Call(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtYieldAtCall" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
@@ -1485,11 +1523,11 @@
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"
                                                                         UniqueName="YieldAtBuyBack">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack"></asp:Label>
+                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
-                                                                             <asp:RegularExpressionValidator ID="rgYieldAtBuyBack" ControlToValidate="txtYieldAtBuyBack"
+                                                                            <asp:RegularExpressionValidator ID="rgYieldAtBuyBack" ControlToValidate="txtYieldAtBuyBack"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>

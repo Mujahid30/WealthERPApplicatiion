@@ -169,7 +169,16 @@
                                     <asp:CheckBox ID="cbAutoMatch" runat="server" Checked="false" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
-                            <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
+                            
+                            <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Status" SortExpression="CO_OrderId"
+                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
+                            
+                            
+                            
+                        <%--    <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
                                 SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
@@ -177,7 +186,7 @@
                                     <asp:LinkButton ID="lnkOrderNo" Font-Underline="false" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'>
                                     </asp:LinkButton>
                                 </ItemTemplate>
-                            </telerik:GridTemplateColumn>
+                            </telerik:GridTemplateColumn>--%>
                             <telerik:GridTemplateColumn HeaderText="OrderDetID" AllowFiltering="false" DataField="COID_DetailsId"
                                 Visible="false">
                                 <ItemStyle />

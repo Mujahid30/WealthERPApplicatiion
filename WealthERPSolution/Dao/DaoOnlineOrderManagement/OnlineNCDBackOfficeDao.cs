@@ -275,6 +275,7 @@ namespace DaoOnlineOrderManagement
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, DBNull.Value);
                 }
+                db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
 
                 issueId = db.ExecuteNonQuery(createCmd);
             }
@@ -516,6 +517,7 @@ namespace DaoOnlineOrderManagement
                 //db.AddInParameter(createCmd, "@BSECode", DbType.String, onlineNCDBackOfficeVo.BSECode);
                 db.AddInParameter(createCmd, "@adviserId", DbType.Int32, adviserId);
                 db.AddInParameter(createCmd, "@Tradableexchane", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
+                db.AddInParameter(createCmd, "@CutOffTime", DbType.Time, onlineNCDBackOfficeVo.CutOffTime);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                 {
@@ -621,6 +623,35 @@ namespace DaoOnlineOrderManagement
                 object[] objects = new object[2];
                 objects[1] = issueId;
                 objects[2] = issuerId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsGetSeriesCategories;
+        }
+
+        public DataSet BindNcdCategory()
+        {
+            DataSet dsGetSeriesCategories;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetNcdCategory");
+                dsGetSeriesCategories = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:BindNcdCategory()");
+                object[] objects = new object[0];
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -1148,6 +1179,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@U_UserId", DbType.Int32, UserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, SourceCode);
                 db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductAsset);
+                db.AddInParameter(cmd, "@AIM_IssueId", DbType.Int32, UserId);
+
                 db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
