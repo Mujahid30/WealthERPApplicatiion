@@ -729,7 +729,12 @@ namespace BoOnlineOrderManagement
                                         }
                                         break;
 
-
+                                    case "AMFE_NominationNotOpted":
+                                        if (nominee > 0)
+                                            drFinalRTAExtract[dcc.ToString()] = "N";
+                                        else
+                                            drFinalRTAExtract[dcc.ToString()] = "Y";
+                                        break;
 
                                     case "AMFE_Dp_Id":
                                         drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_Dp_Id"];
