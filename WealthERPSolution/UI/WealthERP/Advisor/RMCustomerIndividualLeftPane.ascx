@@ -85,7 +85,7 @@
                     <telerik:RadPanelBar ID="RadPanelBar1" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RadPanelBar1_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="Home">
                             </telerik:RadPanelItem>
                             <telerik:RadPanelItem runat="server" Text="Home" Value="CusHome">
@@ -326,8 +326,8 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                 </td>
             </tr>
@@ -336,7 +336,7 @@
                     <telerik:RadPanelBar ID="RPBOnlineOrder" runat="server" EnableEmbeddedSkins="false"
                         ExpandAnimation-Type="InCubic" Skin="Telerik" Width="100%" OnItemClick="RPBOnlineOrder_ItemClick"
                         AllowCollapseAllItems="True" ExpandMode="SingleExpandedItem">
-                        <items>
+                        <Items>
                             <telerik:RadPanelItem runat="server" Value="Profile Dashboard" Text="OnlineOrder">
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="MFOrder" Value="MFOrder">
@@ -383,7 +383,8 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Issue List" Value="NCDIssueList">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact" Visible="false">
+                                                    <telerik:RadPanelItem runat="server" Text="NCD Issue Transact" Value="NCDIssueTransact"
+                                                        Visible="false">
                                                     </telerik:RadPanelItem>
                                                 </Items>
                                             </telerik:RadPanelItem>
@@ -419,8 +420,8 @@
                                     </telerik:RadPanelItem>
                                 </Items>
                             </telerik:RadPanelItem>
-                        </items>
-                        <expandanimation type="InCubic" />
+                        </Items>
+                        <ExpandAnimation Type="InCubic" />
                     </telerik:RadPanelBar>
                 </td>
             </tr>

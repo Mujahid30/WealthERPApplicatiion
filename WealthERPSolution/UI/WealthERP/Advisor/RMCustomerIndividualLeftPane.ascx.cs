@@ -15,7 +15,7 @@ using BoCustomerProfiling;
 using Telerik.Web.UI;
 using BoAdvisorProfiling;
 using System.Data;
-
+using System.Configuration;
 
 namespace WealthERP.Advisor
 {
@@ -52,6 +52,7 @@ namespace WealthERP.Advisor
             userVo = (UserVo)Session["userVo"];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             bool isGrpHead = false;
+
 
             Session["IsCustomerDrillDown"] = "Yes";
 
@@ -414,11 +415,11 @@ namespace WealthERP.Advisor
                     }
 
                     //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadtopmenu('RMCustomerIndividualLeftPane');", true);
-                    if (Session["NodeType"] == "MF")
+                    if (Session["NodeType"] == "M_F")
                     {
                         RadPanelBar1.FindItemByValue("Portfolio Dashboard").Expanded = true;
-                        RadPanelBar1.FindItemByValue("MF").Expanded = true;
-                        RadPanelBar1.FindItemByValue("MF").Selected = true;
+                        RadPanelBar1.FindItemByValue("M_F").Expanded = true;
+                        RadPanelBar1.FindItemByValue("M_F").Selected = true;
 
                     }
                     else if (Session["NodeType"] == "Equity")
@@ -460,7 +461,12 @@ namespace WealthERP.Advisor
                         Session.Remove("NodeType");
                     }
 
-
+                    if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+                    {
+                        RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
+                        RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
+                    }
+                    
                 }
 
 
@@ -490,6 +496,7 @@ namespace WealthERP.Advisor
             }
 
         }
+
 
         //protected void Page_PreRender(object sender, EventArgs e)
         //{
@@ -877,13 +884,14 @@ namespace WealthERP.Advisor
         //    }
         //}
 
+
         protected void RadPanelBar1_ItemClick(object sender, RadPanelBarEventArgs e)
         {
             RadPanelItem ItemClicked = e.Item;
             DataSet dspotentialHomePage;
             string potentialHomePage = "";
 
-
+           
             try
             {
                 if (e.Item.Value == "Home")
@@ -1553,10 +1561,12 @@ namespace WealthERP.Advisor
                 }
             }
         }
+        
 
         protected void RPBOnlineOrder_ItemClick(object sender, RadPanelBarEventArgs e)
         {
             RadPanelItem ItemClicked = e.Item;
+
 
             try
             {

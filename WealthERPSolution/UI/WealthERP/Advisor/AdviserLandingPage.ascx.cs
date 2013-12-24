@@ -11,7 +11,7 @@ using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using BoWerpAdmin;
 using System.Data;
-
+using System.Configuration;
 namespace WealthERP.Advisor
 {
     public partial class AdviserLandingPage : System.Web.UI.UserControl
@@ -29,6 +29,11 @@ namespace WealthERP.Advisor
             {
                 //ShowUnreadMessageAlert();
                 ShowMessageBroadcast();
+            }
+            if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+            {
+                tdorderentry.Visible = false;
+                tdfpclient.Visible = false;
             }
         }
 

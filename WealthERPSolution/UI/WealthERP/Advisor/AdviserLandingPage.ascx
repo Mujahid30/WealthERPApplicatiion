@@ -120,7 +120,7 @@
                                 OnClick="lnkbtnUploads_OnClick" Text="Uploads"></asp:LinkButton>
                         </div>
                     </td>
-                    <td style="width: 30%;" align="center">
+                    <td style="width: 30%;" align="center" id="tdorderentry" runat="server">
                          <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgOrderentry" ImageUrl="~/Images/Dashboard-MF-Order.png" runat="server"
                                 ToolTip="Navigate to Order Entry" OnClick="imgOrderentry_OnClick" Width="70px" />
@@ -169,7 +169,7 @@
                                 ToolTip="Navigate to Inbox"  Text="Reports"></asp:LinkButton>
                         </div>
                     </td>
-                    <td style="width: 30%;" align="center">
+                    <td style="width: 30%;" align="center" id="tdfpclient" runat="server">
                             <div class="divDashBoardMouseInLinks" onmouseover="this.className='divDashBoardMouseOutLinks'" onmouseout="this.className='divDashBoardMouseInLinks'">
                             <asp:ImageButton ID="imgbtnFPClients" ImageUrl="~/Images/DashBoard-ProspectUser.png"
                                 runat="server" ToolTip="Navigate to Add FP Customers" OnClick="imgbtnFPClients_OnClick"

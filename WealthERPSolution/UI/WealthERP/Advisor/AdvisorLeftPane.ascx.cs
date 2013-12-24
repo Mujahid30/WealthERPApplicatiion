@@ -14,6 +14,7 @@ using Telerik.Web.UI;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
 using System.Collections.Specialized;
 using System.Data;
+using System.Configuration;
 
 namespace WealthERP.Advisor
 {
@@ -63,6 +64,8 @@ namespace WealthERP.Advisor
                 string userRole = "";
                 //Code to display and hide the searches based on the roles
                 //Code to display and hide the searches based on the roles
+                
+
                 if (userVo.RoleList.Contains("Admin"))
                 {
                     if (advisorVo.IsOpsEnable != 1)
@@ -229,6 +232,10 @@ namespace WealthERP.Advisor
                     RadPanelBar4.Visible = false;
                 if (!userVo.RoleList.Contains("Research"))
                     RadPanelBar5.Visible = false;
+                if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+                {
+                    RadPanelBar5.Visible = false;
+                }
 
                 //Code to expand the home node based on the User Roles
                 if (Session[SessionContents.CurrentUserRole].ToString() == "Admin")
@@ -3446,7 +3453,8 @@ namespace WealthERP.Advisor
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
+            
         }
-
+       
     }
 }
