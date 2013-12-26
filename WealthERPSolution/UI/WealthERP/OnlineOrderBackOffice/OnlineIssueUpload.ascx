@@ -164,6 +164,7 @@
                 <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                 <asp:ListItem Text="BSE" Value="BSE" />
                 <asp:ListItem Text="NSE" Value="NSE" />
+                  <asp:ListItem Text="Internal Ops" Value="IOPS" />
             </asp:DropDownList>
             <br />
             <asp:RequiredFieldValidator ID="rfvSource" runat="server" ErrorMessage="Please select Source Data"

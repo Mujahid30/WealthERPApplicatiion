@@ -71,6 +71,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         }
 
+     
+
         protected void Readcsvfile()
         {
             //StreamReader StreamReader=new StreamReader(
@@ -228,23 +230,59 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void gvOnlineIssueUpload_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //if (e.Item is GridDataItem) {
-            //    GridDataItem item = e.Item as GridDataItem;
-            //    ite
-            //}
-            //if(e.
-            //if (e.Item is GridDataItem)
-            //{
-            //    GridDataItem item = e.Item as GridDataItem;
-            //    DropDownList myDD = item.FindControl("ddAction") as DropDownList;
-            //    string itemVal = ((DataRowView)e.Item.DataItem).Row["StructureId"].ToString();
-            //    myDD.Items.Insert(0, "Action");
-            //    myDD.Items.Insert(1, new ListItem("View Details", itemVal));
-            //    myDD.Items.Insert(2, new ListItem("View Mapped Schemes", itemVal));
-            //    myDD.SelectedIndexChanged += new EventHandler(ddAction_OnSelectedIndexChanged);
-            //}
+             
         }
+        private DataTable CheckHeaders(DataTable dtUploadData)
+        {
 
+            int nRows = 0;
+            boNcdBackOff = new OnlineNCDBackOfficeBo();
+
+
+            List<OnlineIssueHeader> updHeaders = boNcdBackOff.GetHeaderDetails(int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue);
+
+            foreach (OnlineIssueHeader header in updHeaders)
+            {
+                if (header.IsUploadRelated == true)
+                {
+                    if (dtUploadData.Columns.Contains(header.HeaderName))
+                    {
+                        dtUploadData.Columns[header.HeaderName].ColumnName = header.ColumnName;
+                    }                    
+                }
+                else
+                {
+                    if (dtUploadData.Columns.Contains(header.HeaderName))
+                    {
+                        dtUploadData.Columns.Remove(dtUploadData.Columns[header.HeaderName]);
+
+                    }                
+
+                }
+
+            }
+
+            //dtUploadData.Columns.RemoveAt(0);
+            //dtUploadData.Columns.RemoveAt(1);
+
+            if (dtUploadData.Columns.Contains("SN"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["SN"]);
+
+            }
+            if (dtUploadData.Columns.Contains("Remarks"))
+            {
+                dtUploadData.Columns.Remove(dtUploadData.Columns["Remarks"]);
+
+            }
+
+         
+
+            dtUploadData.AcceptChanges();
+
+            return dtUploadData;
+
+        }
         protected void btnUploadData_Click(object sender, EventArgs e)
         {
             int nRows=0;
@@ -255,7 +293,8 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
 
             if (boNcdBackOff == null) boNcdBackOff = new OnlineNCDBackOfficeBo();
-            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData, int.Parse(ddlFileType.SelectedValue), ddlSource.SelectedValue, int.Parse(ddlIssueName.SelectedValue));
+            dtUploadData = CheckHeaders(dtUploadData);
+            nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData,int.Parse(ddlFileType.SelectedValue),  int.Parse(ddlIssueName.SelectedValue));
            ShowMessage("data uploaded");
         }
      }

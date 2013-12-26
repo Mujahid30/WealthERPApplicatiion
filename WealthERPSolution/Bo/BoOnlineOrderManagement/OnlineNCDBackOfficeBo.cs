@@ -1107,47 +1107,11 @@ namespace BoOnlineOrderManagement
         //    if(
         //}
 
-        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, string extSrc, int issueId)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder,  int fileTypeId,int issueId)
         {
-            int nRows = 0;
+
+            int nRows=0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
-
-            dtCheckOrder.Columns.Remove("SN");
-            dtCheckOrder.Columns.Remove("Remarks");
-            dtCheckOrder.AcceptChanges();
-
-            List<OnlineIssueHeader> updHeaders = GetHeaderDetails(fileTypeId, extSrc);
-               
-            foreach (OnlineIssueHeader header in updHeaders)
-            {             
-                    if (header.IsUploadRelated == true)
-                    {
-                        if (dtCheckOrder.Columns.Contains(header.HeaderName))
-                        {
-                            dtCheckOrder.Columns[header.HeaderName].ColumnName = header.ColumnName;
-                        }
-                        else
-                        {
-                            return 0;
-                        }
-                    }
-                    else
-                    {
-                        if (dtCheckOrder.Columns.Contains(header.HeaderName))
-                        {
-                            dtCheckOrder.Columns.Remove(dtCheckOrder.Columns[header.HeaderName]);
-
-                        }
-                        else
-                        {
-                            return 0;
-                        }
-                        
-                    }
-                 
-            }
-            dtCheckOrder.AcceptChanges();
-
             
 
             try

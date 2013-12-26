@@ -65,7 +65,7 @@
 <telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
     Title="Add New Issuer">
-    <ContentTemplate>
+    <contenttemplate>
         <div style="padding: 20px">
             <table width="100%">
                 <tr>
@@ -159,7 +159,7 @@
                 </tr>
             </table>
         </div>
-    </ContentTemplate>
+    </contenttemplate>
 </telerik:RadWindow>
 <table width="80%" runat="server" id="tbIssue">
     <tr>
@@ -185,7 +185,7 @@
         <td align="rightData" id="tdddlCategory" runat="server">
             <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
-               <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
+                <%-- <asp:ListItem Value="Select">Select</asp:ListItem>
                 <asp:ListItem Value="NCD">NCD</asp:ListItem>
                 <asp:ListItem Value="IB">Infrastructure bonds</asp:ListItem>--%>
             </asp:DropDownList>
@@ -488,12 +488,12 @@
             <telerik:RadDatePicker ID="txtOpenDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 TabIndex="17" Width="200px">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <span id="Span18" class="spnRequiredField">*</span>
             <br />
@@ -512,12 +512,12 @@
             <telerik:RadDatePicker ID="txtCloseDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 Width="200px" TabIndex="17">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <span id="Span19" class="spnRequiredField">*</span>
             <br />
@@ -592,13 +592,11 @@
             </asp:RequiredFieldValidator>--%>
         </td>
     </tr>
-    
     <tr>
         <td class="leftLabel">
             <asp:Label ID="Label21" runat="server" Text="Cut-Off Time:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-           
             <asp:DropDownList ID="ddlCutOffTimeHours" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="60px" />
             <asp:DropDownList ID="ddlCutOffTimeMinutes" runat="server" CssClass="cmbField" AutoPostBack="true"
@@ -611,24 +609,17 @@
                 ErrorMessage="Please Enter Time" Display="Dynamic" ControlToValidate="ddlCutOffTimeHours"
                 InitialValue="HH" ValidationGroup="SetUpSubmit">
             </asp:RequiredFieldValidator>
-            
-             <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlCutOffTimeHours" runat="server"
-                ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
+            <asp:CompareValidator ID="CompareValidator6" ControlToValidate="ddlCutOffTimeHours"
+                runat="server" ControlToCompare="ddlCloseTimeHours" Display="Dynamic" ErrorMessage="<br/>Cut-Off TIme Should be Less Than Close Time"
                 Type="Integer" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
-           
         </td>
         <td class="leftLabel">
-           &nbsp;
+            &nbsp;
         </td>
         <td class="rightData">
-              &nbsp;          
+            &nbsp;
         </td>
     </tr>
-    
-    
-    
-    
-    
     <%-- <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1RevisionDate" runat="server" Text="Revision Date:" CssClass="FieldName"></asp:Label>
@@ -841,7 +832,6 @@
             <asp:Label ID="lb1BankName" runat="server" Text="Bank Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-        
             <asp:DropDownList ID="ddlBankName" runat="server" CssClass="cmbField" AutoPostBack="true"
                 Width="205px">
             </asp:DropDownList>
@@ -863,12 +853,12 @@
             <telerik:RadDatePicker ID="txtRevisionDates" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 Width="200px" TabIndex="17">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="CmptxtRevisionDates1" ControlToValidate="txtRevisionDates"
                 runat="server" ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Revision Date between open date and close date"
@@ -884,12 +874,12 @@
             <telerik:RadDatePicker ID="txtAllotmentDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
                 Width="200px" TabIndex="17">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="cmp" ControlToValidate="txtAllotmentDate" runat="server"
                 ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>allotment Date should be grater than close date"
@@ -993,9 +983,9 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false"
                                 ShowStatusBar="True" Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgEligibleInvestorCategories_OnNeedDataSource"
                                 OnItemCommand="rgEligibleInvestorCategories_ItemCommand" OnItemDataBound="rgEligibleInvestorCategories_ItemDataBound">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIIC_InvestorCatgeoryId"
-                                    AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create InvestorCategory"
-                                    CommandItemDisplay="Top">
+                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AIM_IssueId,AIIC_InvestorCatgeoryId"
+                                    autogeneratecolumns="false" width="100%" editmode="PopUp" commanditemsettings-addnewrecordtext="Create InvestorCategory"
+                                    commanditemdisplay="Top">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -1262,9 +1252,9 @@
                                             </table>
                                         </FormTemplate>
                                     </EditFormSettings>
-                                </MasterTableView>
-                                <ClientSettings>
-                                </ClientSettings>
+                                </mastertableview>
+                                <clientsettings>
+                                </clientsettings>
                             </telerik:RadGrid>
                         </td>
                     </tr>
@@ -1288,9 +1278,9 @@
                                 ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" OnItemDataBound="rgSeries_ItemDataBound"
                                 Skin="Telerik" AllowFilteringByColumn="True" OnNeedDataSource="rgSeries_OnNeedDataSource"
                                 OnItemCommand="rgSeries_ItemCommand" AllowPaging="false">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AID_IssueDetailId"
-                                    AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Series"
-                                    CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false">
+                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AID_IssueDetailId"
+                                    autogeneratecolumns="false" width="100%" editmode="PopUp" commanditemsettings-addnewrecordtext="Create New Series"
+                                    commanditemdisplay="Top" commanditemsettings-showrefreshbutton="false">
                                     <Columns>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
                                             <ItemTemplate>
@@ -1390,9 +1380,9 @@
                                                             ErrorMessage="<br />Please Enter Tenure" Display="Dynamic" ControlToValidate="txtTenure"
                                                             ValidationGroup="btnOK" InitialValue="">
                                                         </asp:RequiredFieldValidator>
-                                                        <asp:CompareValidator ID="CompareValidator9" ControlToValidate="txtTenure" runat="server"
-                                                            Display="Dynamic" ErrorMessage="<br />Please enter a Integer" Type="Integer"
-                                                            Operator="DataTypeCheck" CssClass="cvPCG"></asp:CompareValidator>
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtTenure"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter (+)Ve Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1478,7 +1468,7 @@
                                                                             <asp:TextBox ID="txtInterestRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgCouponRate" ControlToValidate="txtInterestRate"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">     
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
@@ -1491,7 +1481,7 @@
                                                                             <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgAnnualizedYield" ControlToValidate="txtAnnualizedYield"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">     
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
@@ -1503,7 +1493,7 @@
                                                                             <asp:TextBox ID="txtRenCpnRate" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgRenCouponRate" ControlToValidate="txtRenCpnRate"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">     
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
@@ -1515,7 +1505,7 @@
                                                                             <asp:TextBox ID="txtYieldAtCall" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgYieldAtCall" ControlToValidate="txtYieldAtCall"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">   
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   
                                                                                  
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
@@ -1529,7 +1519,7 @@
                                                                             <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px" AutoPostBack="true"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgYieldAtBuyBack" ControlToValidate="txtYieldAtBuyBack"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">     
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
@@ -1564,7 +1554,7 @@
                                             </table>
                                         </FormTemplate>
                                     </EditFormSettings>
-                                </MasterTableView>
+                                </mastertableview>
                             </telerik:RadGrid>
                         </td>
                     </tr>
