@@ -60,9 +60,9 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField HeaderText="DP Name" DataField="CEDA_DPName" />
-                    <asp:BoundField HeaderText="DP Client Id" DataField="CEDA_DPClientId" />
+                    <asp:BoundField HeaderText="Beneficiary Acct No" DataField="CEDA_DPClientId" />
                     <asp:BoundField HeaderText="DP Id" DataField="CEDA_DPId" />
-                    <asp:BoundField HeaderText="Beneficiary Acct No" DataField="CEDA_BeneficiaryAccountNum" />
+                    <asp:BoundField HeaderText="Depository Name" DataField="CEDA_DepositoryName" />
                     <asp:BoundField HeaderText="Mode of holding" DataField="XMOH_ModeOfHolding" />
                     <asp:BoundField HeaderText="Account Opening Date" DataFormatString="{0:dd/MM/yyyy}" HtmlEncode="false" DataField="CEDA_AccountOpeningDate" />
                 </Columns>
