@@ -256,7 +256,7 @@ namespace BoOnlineOrderManagement
                     foreach (DataColumn dc in dtOrderExtract.Columns)
                     {
                         string werpColName = headerMap.Find(c => c.HeaderName == dc.ColumnName).WerpColumnName;
-                        if (werpColName == "UNKNOWN") { lsItems.Add(0); continue; }
+                        if (werpColName == "UNKNOWN") { lsItems.Add(""); continue; }
                         lsItems.Add(row[werpColName]);
                     }
                     dtOrderExtract.Rows.Add(lsItems.ToArray());
