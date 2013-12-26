@@ -389,9 +389,9 @@
                                                                             UniqueName="WCMV_Name" SortExpression="WCMV_Name">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
+                                                                        <telerik:GridBoundColumn DataField="CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
                                                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
-                                                                            UniqueName="AID_CouponRate" SortExpression="AID_CouponRate">
+                                                                            UniqueName="CouponRate" SortExpression="CouponRate">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <%--  <telerik:GridBoundColumn  Visible ="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
@@ -415,9 +415,9 @@
                                                                             AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="AID_YieldUpto" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
+                                                                        <telerik:GridBoundColumn DataField="YieldAtMAturity" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            SortExpression="AID_YieldUpto" UniqueName="AID_YieldUpto" Visible="true">
+                                                                            SortExpression="YieldAtMAturity" UniqueName="YieldAtMAturity" Visible="true">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <%--    <telerik:GridBoundColumn DataField="AID_YieldBuyBack" HeaderStyle-Width="105px"

@@ -1203,7 +1203,7 @@ namespace DaoOnlineOrderManagement
             }
         }
 
-        public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType)
+        public DataSet GetOnlineNcdExtractPreview(DateTime Today, int AdviserId, int FileType,int issueId)
         {
             Database db;
             DataSet dsGetOnlineNCDExtractPreview;
@@ -1216,6 +1216,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@Today", DbType.DateTime, Today);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@A_AdviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@WIFT_Id", DbType.Int32, FileType);
+                db.AddInParameter(GetOnlineNCDExtractPreviewcmd, "@IssueId", DbType.Int32, issueId);
                 dsGetOnlineNCDExtractPreview = db.ExecuteDataSet(GetOnlineNCDExtractPreviewcmd);
             }
             catch (BaseApplicationException Ex)

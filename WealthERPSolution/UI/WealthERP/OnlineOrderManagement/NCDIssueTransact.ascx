@@ -404,9 +404,9 @@
                                 UniqueName="AID_CouponFreq" SortExpression="AID_CouponFreq">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
+                            <telerik:GridBoundColumn DataField="CouponRate" HeaderStyle-Width="90px" CurrentFilterFunction="Contains"
                                 ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Coupon Rate(%)"
-                                UniqueName="AID_CouponRate" SortExpression="AID_CouponRate">
+                                UniqueName="CouponRate" SortExpression="CouponRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_RenewCouponRate" HeaderStyle-Width="100px"
@@ -425,9 +425,9 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="AID_YieldUpto" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
+                            <telerik:GridBoundColumn DataField="YieldAtMAturity" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="AID_YieldUpto" Visible="true">
+                                UniqueName="YieldAtMAturity" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_YieldatBuyBack" HeaderStyle-Width="105px"
@@ -543,7 +543,11 @@
             </asp:CustomValidator>
         </td>
     </tr>
-    <tr>
+    <tr >
+    <td>
+    <asp:Label ID="lb1CustOffTimeMsg" runat="server"  CssClass="FieldName"></asp:Label>
+    
+    </td>
         <td id="tdsubmit" runat="server" align="left" style="width: 60%">
             <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"

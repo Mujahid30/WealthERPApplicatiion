@@ -1438,7 +1438,7 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td width="35%" align="left">
-                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back">
+                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back" OnCheckedChanged="chkBuyAvailability_changed" AutoPostBack="true" >
                                                         </asp:CheckBox>
                                                     </td>
                                                 </tr>
@@ -1520,13 +1520,13 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"
+                                                                    <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"  runat="server"
                                                                         UniqueName="YieldAtBuyBack">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)"></asp:Label>
+                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)" ></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px" AutoPostBack="true"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgYieldAtBuyBack" ControlToValidate="txtYieldAtBuyBack"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[1-9])?$" ValidationGroup="btnOK">     

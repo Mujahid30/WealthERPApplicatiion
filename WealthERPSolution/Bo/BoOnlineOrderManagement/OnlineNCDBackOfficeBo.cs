@@ -769,13 +769,13 @@ namespace BoOnlineOrderManagement
             return kvpHeaders;
         }
 
-        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource)
+        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource,int issueId)
         {
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
 
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
-            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId).Tables[0];
+            DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId).Tables[0];
 
             if (dtExtract == null) return null;
 

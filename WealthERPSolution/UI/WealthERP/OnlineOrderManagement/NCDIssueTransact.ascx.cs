@@ -449,6 +449,8 @@ namespace WealthERP.OnlineOrderManagement
                         ViewState["OrderId"] = orderId;
                         ViewState["application"] = Applicationno;
                         btnConfirmOrder.Enabled = false;
+                        Label3.Visible = false;
+
                         if (orderId != 0 && !string.IsNullOrEmpty(customerVo.AccountId))
                         {
                             accountDebitStatus = OnlineBondBo.DebitRMSUserAccountBalance(customerVo.AccountId, -totalOrderAmt, orderId);
@@ -641,7 +643,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void lnlktoviewncdissue_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineNCDIssueList", "loadcontrol('OnlineNCDIssueList');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('NCDIssueTransact');", true);
         }
     }
 

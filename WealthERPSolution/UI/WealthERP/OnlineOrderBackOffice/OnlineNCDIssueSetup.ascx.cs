@@ -1625,6 +1625,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     BindCategory(rgSeriesCat, Convert.ToInt32(ddlIssuer.SelectedValue), Convert.ToInt32(txtIssueId.Text));
                     TextBox txtSequence = (TextBox)e.Item.FindControl("txtSequence");
                     DropDownList ddlInterestFrequency = (DropDownList)e.Item.FindControl("ddlInterestFrequency");
+                    CheckBox chkBuyAvailability = (CheckBox)e.Item.FindControl("chkBuyAvailability");
 
                     foreach (GridColumn column in rgSeriesCat.Columns)
                     {
@@ -3335,6 +3336,64 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+        protected void chkBuyAvailability_changed(object sender, EventArgs e)
+        {
+            CheckBox chkBuyAvailability = (CheckBox)sender;
+            GridEditableItem editedItem = chkBuyAvailability.NamingContainer as GridEditableItem;
+            RadGrid rgSeriesCat = (RadGrid)editedItem.FindControl("rgSeriesCat");
+            //foreach (GridColumn column in rgSeriesCat.Columns)
+            //{
+            //    if (column.UniqueName == "YieldAtBuyBack")
+            //    {
+            //        column.Visible = false;
+            //    }
+            //    else
+            //    {
+            //        column.Visible = true;
+
+            //    }
+            //}
+            foreach (GridDataItem gdi in rgSeriesCat.Items)
+            {
+                if (chkBuyAvailability.Checked == true)
+                {
+                    TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
+                    txtYieldAtBuyBack.Visible = true;
+                }
+                else
+                {
+                    if (chkBuyAvailability.Checked == false)
+                    {
+                        //gdi["YieldAtBuyBack"].Text = "";
+                        TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
+                        if (txtYieldAtBuyBack != null)
+                            txtYieldAtBuyBack.Visible = false;
+                    }
+                }
+
+            }
+          
+
+
+
+            //foreach (GridDataItem gdi in rgSeries.Items)
+            //{
+            //    if (((CheckBox)gdi.FindControl("chkBuyAvailability")).Checked == true)
+            //    {
+            //        TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
+            //        txtYieldAtBuyBack.Visible = true;
+            //    }
+            //    else
+            //    {
+            //        TextBox txtYieldAtBuyBack = (TextBox)gdi.FindControl("txtYieldAtBuyBack");
+            //        if (txtYieldAtBuyBack != null)
+            //            txtYieldAtBuyBack.Visible = false;
+
+            //    }
+            //}
+
+        }
+
         private void UpdateOnlineEnblement(int issueId)
         {
             onlineNCDBackOfficeBo.UpdateOnlineEnablement(issueId);

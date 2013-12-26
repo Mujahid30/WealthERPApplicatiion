@@ -181,6 +181,7 @@
                         <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         <asp:ListItem Text="BSE" Value="BSE" />
                         <asp:ListItem Text="NSE" Value="NSE" />
+                         <asp:ListItem Text="Internal Ops" Value="IOPS" />
                     </asp:DropDownList><br />
                     <asp:RequiredFieldValidator ID="rfvDownload" runat="server" 
                         ErrorMessage="Please select a download" ControlToValidate="ddlExternalSource" 
@@ -197,6 +198,24 @@
                         CssClass="rfvPCG" Display="Dynamic" InitialValue="0" 
                         ValidationGroup="IssueExtract">Please select a file type</asp:RequiredFieldValidator></td>
             </tr>
+             <tr>
+        <td class="leftLabel">
+            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField" > 
+                <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
+                           
+            </asp:DropDownList>
+            <br />
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIssueName"
+                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a IssueName" InitialValue="Select"
+                ValidationGroup="OnlineIssueUpload">
+            </asp:RequiredFieldValidator>
+        </td>
+        <td volspan="2">
+        </td>
+    </tr>
         </table>
         <table width="100%">
             <tr>

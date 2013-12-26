@@ -80,7 +80,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
             boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue);
 
-            ShowMessage("Extraction Done");
+            ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
         }
 
         protected void btnPreview_Click(object sender, EventArgs e)
@@ -141,7 +141,32 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlFileType.DataTextField = dtFileType.Columns["WEFT_FileType"].ToString();
             ddlFileType.DataBind();
         }
+        private void BindIssue(string product)
+        {
+            //try
+            //{
+                DataSet dsIssuer = new DataSet();
+                boNcdBackOff = new OnlineNCDBackOfficeBo();
 
+
+                dsIssuer = boNcdBackOff.GetUploadIssue(product, adviserVo.advisorId);
+                if (dsIssuer.Tables[0].Rows.Count > 0)
+                {
+                    ddlIssueName.DataSource = dsIssuer;
+                    ddlIssueName.DataValueField = dsIssuer.Tables[0].Columns["AIM_IssueId"].ToString();
+                    ddlIssueName.DataTextField = dsIssuer.Tables[0].Columns["AIM_IssueName"].ToString();
+                    ddlIssueName.DataBind();
+                }
+                // ddlIssueName.Items.Insert(0, new ListItem("Select", "Select"));
+
+            //}
+            //catch (BaseApplicationException Ex)
+            //{
+            //    throw Ex;
+            //}
+
+
+        }
         private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit)
         {
             if (dtExtractData == null)
@@ -214,7 +239,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void GetExtractData()
         {
-            DataTable dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue);
+            DataTable dtExtractData = boNcdBackOff.GetOnlineNcdExtractPreview(rdpDownloadDate.SelectedDate.Value, adviserVo.advisorId, int.Parse(ddlFileType.SelectedValue), ddlExternalSource.SelectedValue,int.Parse(ddlIssueName.SelectedValue));
 
             if (Cache["IssueExtract" + userVo.UserId] != null) Cache.Remove("IssueExtract" + userVo.UserId);
             if (dtExtractData.Rows.Count > 0) Cache.Insert("IssueExtract" + userVo.UserId, dtExtractData);
@@ -230,6 +255,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
             SetFileType();
+            BindIssue(ddlProduct.SelectedValue);
         }
     }
 }
