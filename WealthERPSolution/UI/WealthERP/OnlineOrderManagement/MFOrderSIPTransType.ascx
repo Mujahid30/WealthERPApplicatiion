@@ -201,7 +201,7 @@
                                     <asp:Label ID="lblCutOffTimeDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td style="vertical-align: top;" align="left">
-                                    <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:"></asp:Label>
+                                    <asp:Label ID="lblMutiplesThereAfter" runat="server" CssClass="FieldName" Text="Subsequent Amount:</br>(In Multiples Of)"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMutiplesThereAfterDisplay" runat="server" CssClass="readOnlyField"></asp:Label>

@@ -175,7 +175,7 @@
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td align="left" style="vertical-align: top;">
-                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblMultiple" runat="server" Text="Subsequent Amount:</br>(In Multiples Of)" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMulti" runat="server" CssClass="readOnlyField"></asp:Label>
