@@ -1192,8 +1192,8 @@ namespace WealthERP.Customer
             HtmlTableRow trExCustomerType = editedItem.FindControl("trExCustomerType") as HtmlTableRow;
             HtmlTableRow trNewCustHeader = editedItem.FindControl("trNewCustHeader") as HtmlTableRow;
             HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
-          
-
+            //HtmlTableRow chkbisRealInvestor = editedItem.FindControl("chkIsinvestmem") as HtmlTableRow;
+            CheckBox chkbisRealInvestor = editedItem.FindControl("chkIsinvestmem") as CheckBox;
 
             if (rbtnExisting.Checked == true)
             {
@@ -1201,6 +1201,8 @@ namespace WealthERP.Customer
                 trExCustomerType.Visible = true;
                 trNewCustHeader.Visible = false;
                 trNewCustomer.Visible = false;
+                chkbisRealInvestor.Visible = false;
+
 
             }
             else if (rbtnNew.Checked == true)
@@ -1209,6 +1211,7 @@ namespace WealthERP.Customer
                 trExCustomerType.Visible = false;
                 trNewCustHeader.Visible = true;
                 trNewCustomer.Visible = true;
+                chkbisRealInvestor.Visible = true;
 
             }
         }
@@ -1382,6 +1385,7 @@ namespace WealthERP.Customer
                 if (drCustomerISAAccounts.Count() > 0)
                 {
                     gvISAAccountList.MasterTableView.CommandItemDisplay = GridCommandItemDisplay.None;
+
                     
                 }
                 else
@@ -2059,9 +2063,14 @@ namespace WealthERP.Customer
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
 
                 TextBox txtMember = (TextBox)item.FindControl("txtMember");
-                Label lblGetPan = (Label)item.FindControl("lblGetPan");
+                //Label lblGetPan = (Label)item.FindControl("lblGetPan");
+                TextBox txtpan = (TextBox)item.FindControl("txtPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
-                Session["lblGetPan"] = lblGetPan;
+                CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
+                chkbisRealInvestor.Visible = false;
+
+
+                Session["lblGetPan"] = txtpan;
 
                 DropDownList ddlRelation = (DropDownList)gefi.FindControl("ddlRelation");
                 ddlRelation.DataSource = dtRelationship;
@@ -2113,10 +2122,12 @@ namespace WealthERP.Customer
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
 
                 TextBox txtMember = (TextBox)editedItem.FindControl("txtMember");
-                Label lblGetPan = (Label)editedItem.FindControl("lblGetPan");
+                //Label lblGetPan = (Label)editedItem.FindControl("lblGetPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
-                lblGetPan.Text = panNum;
+                TextBox txtPan = (TextBox)editedItem.FindControl("txtPan");
+               // lblGetPan.Text = panNum;
                 txtNewMemPan.Text = panNum;
+                txtPan.Text = panNum;
 
                 DropDownList ddlRelation = (DropDownList)editedItem.FindControl("ddlRelation");
                 ddlRelation.DataSource = dtRelationship;
@@ -2209,28 +2220,34 @@ namespace WealthERP.Customer
         protected void gvFamilyAssociate_ItemCommand(object source, GridCommandEventArgs e)
         {
             int associateCustomerId;
-            if (e.CommandName == RadGrid.UpdateCommandName)
+            CustomerBo customerBo = new CustomerBo();
+            TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan"); 
+           if (e.CommandName == RadGrid.UpdateCommandName)
             {
-                CustomerBo customerBo = new CustomerBo();
+               
                 bool isUpdated = false;
                 bool isrealInvestor=false;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 gridEditableItem.OwnerTableView.IsItemInserted = false; 
                 int AssociationId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["CA_AssociationId"].ToString());
+                int cutomerid = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_AssociateCustomerId"].ToString());
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
-                CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsrealInvestorMem");
+                CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 if (chkIsrealInvestorMem.Checked)
                     isrealInvestor = true;
                 if (Button3.Visible == true)
                 {
                     TextBox txtMember = (TextBox)e.Item.FindControl("txtMember");
-                    Label lblGetPan = (Label)e.Item.FindControl("lblGetPan");
+                    //Label lblGetPan = (Label)e.Item.FindControl("lblGetPan");
+                    TextBox txtPan = (TextBox)e.Item.FindControl("txtPan");
                     DropDownList ddlRelation = (DropDownList)e.Item.FindControl("ddlRelation");
                     txtMember.Enabled = false;
-                    lblGetPan.Enabled = false;
+                    //lblGetPan.Enabled = false;
+                    //lblGetPan.Visible = false;
                     relationCode = ddlRelation.SelectedValue;
+                   
 
                 }
                 else if (Button1.Visible == true)
@@ -2240,14 +2257,23 @@ namespace WealthERP.Customer
                     DropDownList ddlNewRelationship = (DropDownList)e.Item.FindControl("ddlNewRelationship");
                     txtMember.Enabled = false;
                     lblGetPan.Enabled = false;
+                    chkIsrealInvestorMem.Visible = false;
                     relationCode = ddlNewRelationship.SelectedValue;
                 }
+                TextBox txtPan1 = (TextBox)e.Item.FindControl("txtPan");
+                if (CheckPanDuplicate(txtPan1.Text.ToString(), cutomerid))
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                }
+                else
+                {
 
-                isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor);
-
+                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor);
+                }
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
+
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 CustomerVo customerNewVo = new CustomerVo();
                 List<int> customerIds = null;
@@ -2265,8 +2291,8 @@ namespace WealthERP.Customer
                         customerNewVo.BranchId = customerVo.BranchId;
                         customerNewVo.Type = "IND";
                         TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
-                        TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
-                        CheckBox chkIsrealInvestorMem =(CheckBox)e.Item.FindControl("chkIsrealInvestorMem");
+                        //TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
+                        CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("isRealInvestormem");
                         DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
                         customerNewVo.FirstName = txtNewMemName.Text;
                         customerNewVo.PANNum = txtNewMemPan.Text;
@@ -2278,7 +2304,7 @@ namespace WealthERP.Customer
                         {
                             customerNewVo.IsRealInvestor = false;
                         }
-                        if (!(customerBo.PANNumberDuplicateCheck(advisorVo.advisorId, customerNewVo.PANNum, customerVo.CustomerId)))
+                        if (!customerBo.PANNumberDuplicateChild(advisorVo.advisorId, customerNewVo.PANNum))
                         {
                         customerVo.ProfilingDate = DateTime.Today;
                         tempUserVo.FirstName = txtNewMemName.Text;
@@ -2286,7 +2312,6 @@ namespace WealthERP.Customer
                         customerPortfolioVo.IsMainPortfolio = 1;
                         customerPortfolioVo.PortfolioTypeCode = "RGL";
                         customerPortfolioVo.PortfolioName = "MyPortfolio";
-
                         customerVo.ViaSMS = 1;
                         customerIds = customerBo.CreateCompleteCustomer(customerNewVo, tempUserVo, customerPortfolioVo, tempUserVo.UserId);
                         if (customerIds != null)
@@ -2299,16 +2324,13 @@ namespace WealthERP.Customer
                             familyVo.Relationship = ddlNewMemRel.SelectedItem.Value;
                             familyBo.CreateCustomerFamily(familyVo, customerVo.CustomerId, userVo.UserId);
                         }
-                        //if (customerVo != null)
-                        //    customerId = customerVo.CustomerId;
-                        //if (ddlNewMemRel.SelectedIndex != 0)
-                        //    relCode = ddlNewMemRel.SelectedItem.Value;
-                        //customerFamilyBo.CustomerAssociateUpdate(customerId, associateId, relCode, userVo.UserId);
+                       
                     }
                     else
                     {
-                        string msg = "PAN Number already exists";
-                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "err_msg", "alert('" + msg + "');", true);
+                    
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('PAN Number Already Exists.');", true);
+                      
                     }
 
                 }
@@ -2344,6 +2366,12 @@ namespace WealthERP.Customer
             }
 
             BindFamilyAssociationList(customerVo.CustomerId);
+        }
+        protected bool CheckPanDuplicate(string pan, int cutomerid)
+        {
+
+            bool result = customerBo.PANNumberDuplicateCheck(advisorVo.advisorId, pan, cutomerid);
+            return result;
         }
 
         protected void gvBankDetails_ItemDataBound(object sender, GridItemEventArgs e)

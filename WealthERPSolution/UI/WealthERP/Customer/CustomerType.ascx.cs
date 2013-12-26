@@ -191,7 +191,7 @@ namespace WealthERP.Customer
             int adviserId = (int)Session["adviserId"];
             try
             {
-                if (customerBo.PANNumberDuplicateCheck(adviserId, txtPanNumber.Text.ToString(), customerVo.CustomerId))
+                if(customerBo.PANNumberDuplicateChild(adviserId,txtPanNumber.Text.ToString()))
                 {
                     result = false;
                     lblPanDuplicate.Visible = true;

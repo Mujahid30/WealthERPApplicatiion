@@ -305,7 +305,7 @@
                                     </ExportSettings>
                                     <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None">--%>
-                                    <MasterTableView DataKeyNames="CA_AssociationId,XR_RelationshipCode,C_PANNum,AB_BranchId"
+                                    <MasterTableView DataKeyNames="CA_AssociationId,XR_RelationshipCode,C_PANNum,AB_BranchId,C_AssociateCustomerId"
                                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="EditForms"
                                         CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Family Associates">
                                         <Columns>
@@ -397,12 +397,19 @@
                                                                         <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                                                                     </td>
                                                                     <td class="rightField">
-                                                                        <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label>
+                                                                       <%-- <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label>--%>
+                                                                       
+                                                                        <asp:TextBox ID="txtPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
+                                                                        <span id="Span10" class="spnRequiredField">*</span>
+                                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtPan"
+                                                                            ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
+                                                                            CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
                                                                     <td>
-                                                                    <asp:CheckBox ID="chkIsrealInvestorMem" runat="server" Text="ISRealInvestor" />
+                                                                     <asp:CheckBox ID="chkIsinvestmem" Text="IS Real Investor" runat="server" />
                                                                     </td>
                                                                 </tr>
+                                                                        
                                                                 <tr>
                                                                     <td class="leftField" align="right">
                                                                         <asp:Label ID="lblRelation" runat="server" CssClass="FieldName" Text="RelationShip:"></asp:Label>
@@ -411,8 +418,7 @@
                                                                         <asp:DropDownList ID="ddlRelation" runat="server" CssClass="cmbField">
                                                                         </asp:DropDownList>
                                                                         <span id="Span7" class="spnRequiredField">*</span>
-                                                                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRelation"
-                                                                            CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Relation"
+                                                                        <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlRelation"    CssClass="cvPCG" Display="Dynamic" ErrorMessage="<br />Please select Relation"
                                                                             Operator="NotEqual" ValidationGroup="Submit" ValueToCompare="Select"></asp:CompareValidator>
                                                                     </td>
                                                                 </tr>
@@ -461,12 +467,13 @@
                                                                     <td class="rightField">
                                                                         <asp:TextBox ID="txtNewPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
                                                                         <span id="Span6" class="spnRequiredField">*</span>
+                                                                         <asp:Label ID="Label10" runat="server" CssClass="Error" Text="PAN Number already exists" Visible="false"></asp:Label>
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txtNewPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
                                                                     <td>
-                                                                    <asp:CheckBox ID="isRealInvestor" runat="server" Text="ISRealInvestor" />
+                                                                    <asp:CheckBox ID="isRealInvestormem" runat="server" Text="ISRealInvestor" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
