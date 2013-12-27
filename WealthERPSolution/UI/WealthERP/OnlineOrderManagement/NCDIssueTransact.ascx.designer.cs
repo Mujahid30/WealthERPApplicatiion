@@ -48,9 +48,6 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAvailableLimits;
-        protected global::System.Web.UI.WebControls.Label lb1CustOffTimeMsg;
-
-        
         
         /// <summary>
         /// tblMessage control.
@@ -249,6 +246,15 @@ namespace WealthERP.OnlineOrderManagement {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
+        
+        /// <summary>
+        /// lb1CustOffTimeMsg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lb1CustOffTimeMsg;
         
         /// <summary>
         /// tdsubmit control.

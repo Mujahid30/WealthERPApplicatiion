@@ -552,9 +552,10 @@
             <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
                 CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
-            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
-                Visible="false" OnClick="lnlktoviewncdissue_Click"></asp:LinkButton>
+            
         </td>
+        <td><asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
+                Visible="false" OnClick="lnlktoviewncdissue_Click"></asp:LinkButton></td>
     </tr>
 </table>
 <table>

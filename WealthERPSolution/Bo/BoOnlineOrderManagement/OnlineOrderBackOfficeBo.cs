@@ -518,6 +518,22 @@ namespace BoOnlineOrderManagement
             }
             return dsSchemeSetUpFromOverAllCategoryList;
         }
+        public int ExternalcodeCheck(string externalcode)
+        {
+            int result = 0;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                result = OnlineOrderBackOfficeDao.ExternalcodeCheck(externalcode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
+       
+
         public bool AMFIduplicateCheck(int schemeplancode, string externalcode)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();

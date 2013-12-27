@@ -460,7 +460,7 @@ namespace WealthERP.OnlineOrderManagement
 
                     }
 
-                    btnConfirmOrder.Visible = false;
+                    tdsubmit.Visible = false;
                     message = CreateUserMessage(orderId, Applicationno, accountDebitStatus);
                     ShowMessage(message);
                     lnlBack.Visible = true;
@@ -522,6 +522,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvCommMgmt.DataBind();
                 pnlNCDTransactact.Visible = true;
                 trSubmit.Visible = false;
+               
             }
         }
         private void ShowAvailableLimits()
@@ -643,7 +644,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void lnlktoviewncdissue_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueTransact", "loadcontrol('NCDIssueTransact');", true);
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "NCDIssueList", "loadcontrol('NCDIssueList');", true);
         }
     }
 

@@ -170,10 +170,10 @@
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                             
-                            <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Status" SortExpression="CO_OrderId"
+                            <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Order No" SortExpression="CO_OrderId"
                                 ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
                                 UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
-                                <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             
                             
