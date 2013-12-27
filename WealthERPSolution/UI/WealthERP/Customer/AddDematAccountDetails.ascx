@@ -77,7 +77,7 @@
     {
         if (rbtnYes.Checked)
         {
-            ddlModeOfHolding.SelectedIndex = 8;
+            ddlModeOfHolding.SelectedIndex = 7;
             gvPickJointHolder.Visible = true;
             lblPickJointHolder.Visible = true;
             hrPickJointHolder.Visible = true;
@@ -86,7 +86,7 @@
         }
         else
         {
-            ddlModeOfHolding.SelectedIndex = 7;
+            ddlModeOfHolding.SelectedIndex = 8;
             ddlModeOfHolding.Enabled = false;
             gvPickJointHolder.Visible = false;            
             lblPickJointHolder.Visible = false;
@@ -145,16 +145,16 @@
         </td>
         <td>
             <asp:TextBox ID="txtDPId" runat="server" CssClass="txtField"></asp:TextBox>
-            <span id="Span3" class="spnRequiredField">*</span>
+            <%--<span id="Span3" class="spnRequiredField">*</span>--%>
         </td>
-        <td>
+        <%--<td>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Required Dp Id"
                 ControlToValidate="txtDpId" CssClass="cvPCG"></asp:RequiredFieldValidator>
-        </td>
+        </td>--%>
     </tr>
     <tr>
         <td align="right">
-            <asp:Label ID="lblDpClientId" runat="server" Text="Dp ClientId" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lblDpClientId" runat="server" Text="Beneficiary Acct No" CssClass="FieldName"></asp:Label>
         </td>
         <td>
             <asp:TextBox ID="txtDpClientId" runat="server" CssClass="txtField"></asp:TextBox>
@@ -215,11 +215,11 @@
             &nbsp;
         </td>
         <td align="right">
-            &nbsp;<asp:Label ID="lblBeneficiaryAcctNbr" runat="server" Text="Beneficiary Acct No"
+            &nbsp;<asp:Label ID="lblDepositoryName" runat="server" Text="Depository Name"
                 CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:TextBox ID="txtBeneficiaryAcctNbr" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>
+            <asp:TextBox ID="txtDepositoryName" runat="server" CssClass="txtField" MaxLength="25"></asp:TextBox>
             <%--<span id="Span4" class="spnRequiredField">*  </td>--%>
              <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Beneficiary Account Number Required"
                 ControlToValidate="txtBeneficiaryAcctNbr" CssClass="cvPCG"></asp:RequiredFieldValidator>--%>
@@ -239,6 +239,18 @@
         </td>
     </tr>
     &nbsp;
+     </tr>
+    <tr>
+        <td align="right">
+            &nbsp;<asp:Label ID="lblisactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+           <asp:CheckBox ID="chk_isactive" runat="server" CssClass="cmbField" /> 
+        </td>
+        <td>
+            &nbsp;
+        </td>
+    </tr>
     <tr>
         <td colspan="6">
             <hr id="hrPickJointHolder" runat="server" />

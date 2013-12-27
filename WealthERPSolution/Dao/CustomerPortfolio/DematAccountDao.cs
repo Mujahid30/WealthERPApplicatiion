@@ -173,8 +173,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematDetails,"@CEDA_DPClientId",DbType.String,demataccountvo.DpclientId);
                 db.AddInParameter(dbDematDetails,"@CEDA_DPId",DbType.String,demataccountvo.DpId);
                 db.AddInParameter(dbDematDetails,"@CEDA_DPName",DbType.String,demataccountvo.DpName);
+                db.AddInParameter(dbDematDetails, "@CEDA_DepositoryName", DbType.String, demataccountvo.DepositoryName);
                 db.AddInParameter(dbDematDetails,"@XMOH_ModeOfHoldingCode",DbType.String,demataccountvo.ModeOfHolding);
                 db.AddInParameter(dbDematDetails,"@CEDA_IsJointlyHeld",DbType.Int16,demataccountvo.IsHeldJointly);
+                db.AddInParameter(dbDematDetails, "@CEDA_IsActive", DbType.Int16, demataccountvo.IsActive);
                 if (demataccountvo.AccountOpeningDate!=DateTime.MinValue)
                 db.AddInParameter(dbDematDetails,"@CEDA_AccountOpeningDate",DbType.DateTime,demataccountvo.AccountOpeningDate);
                 else
@@ -614,8 +616,10 @@ namespace DaoCustomerPortfolio
                 db.AddInParameter(dbDematDetails, "@CEDA_DPClientId", DbType.String, demataccountvo.DpclientId);
                 db.AddInParameter(dbDematDetails, "@CEDA_DPId", DbType.String, demataccountvo.DpId);
                 db.AddInParameter(dbDematDetails, "@CEDA_DPName", DbType.String, demataccountvo.DpName);
+                db.AddInParameter(dbDematDetails, "@CEDA_DepositoryName", DbType.String, demataccountvo.DepositoryName);
                 db.AddInParameter(dbDematDetails, "@XMOH_ModeOfHoldingCode", DbType.String, demataccountvo.ModeOfHolding);
                 db.AddInParameter(dbDematDetails, "@CEDA_IsJointlyHeld", DbType.Int16, demataccountvo.IsHeldJointly);
+                db.AddInParameter(dbDematDetails, "@CEDA_IsActive", DbType.Int16, demataccountvo.IsActive);
                 if (demataccountvo.AccountOpeningDate == DateTime.MinValue)
                 {
                     db.AddInParameter(dbDematDetails, "@CEDA_AccountOpeningDate", DbType.DateTime, DBNull.Value);

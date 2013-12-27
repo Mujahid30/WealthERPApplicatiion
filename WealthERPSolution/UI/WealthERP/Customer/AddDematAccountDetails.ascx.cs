@@ -46,14 +46,14 @@ namespace WealthERP.Customer
                 {
                     lblTitle.Text = "View Demat Account";
                     # region View Section
-                    txtBeneficiaryAcctNbr.Enabled = false;
+                    txtDepositoryName.Enabled = false;
                     rbtnYes.Enabled = false;
                     rbtnNo.Enabled = false;
                     txtDpClientId.Enabled = false;
                     txtDPId.Enabled = false;
                     txtDpName.Enabled = false;
                     ddlModeOfHolding.Enabled = false;
-                    txtBeneficiaryAcctNbr.Enabled = false;
+                    txtDepositoryName.Enabled = false;
                     gvPickJointHolder.Enabled = false;
                     gvPickNominee.Enabled = false;
                     lstAvailableTrades.Enabled = false;
@@ -63,6 +63,7 @@ namespace WealthERP.Customer
                     txtAccountOpeningDate.Enabled = false;
                     btnSubmit.Visible = false;
                     lbtnBackButton.Visible = true;
+                    chk_isactive.Enabled = false;
                     ViewEditMode(); 
                     
                     # endregion
@@ -72,14 +73,14 @@ namespace WealthERP.Customer
                 else if (Session["DematDetailsView"].ToString() == "Edit")
                 {
                     lblTitle.Text = "Edit Demat Account";
-                    txtBeneficiaryAcctNbr.Enabled = true;
+                    txtDepositoryName.Enabled = true;
                     txtDpClientId.Enabled = true;
                     txtDPId.Enabled = true;
                     txtDpName.Enabled = true;
                     rbtnYes.Enabled = true;
                     rbtnNo.Enabled = true;
                     ddlModeOfHolding.Enabled = true;
-                    txtBeneficiaryAcctNbr.Enabled = true;
+                    txtDepositoryName.Enabled = true;
                     gvPickJointHolder.Enabled = true;
                     gvPickNominee.Enabled = true;
                     lstAvailableTrades.Enabled = true;
@@ -89,6 +90,7 @@ namespace WealthERP.Customer
                     txtAccountOpeningDate.Enabled = true;
                     btnSubmit.Visible = true;
                     lbtnBackButton.Visible = false;
+                    chk_isactive.Enabled = true;
                     ViewEditMode();
                    
                 }
@@ -110,7 +112,7 @@ namespace WealthERP.Customer
                         ddlModeOfHolding.DataTextField = "XMOH_ModeOfHolding";
                         ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
                         ddlModeOfHolding.DataBind();
-                        ddlModeOfHolding.SelectedIndex = 7;
+                        ddlModeOfHolding.SelectedIndex = 8;
                         //This for IsJointlyHeld and Drop down loading based on that
                         //====================================
                         
@@ -190,8 +192,18 @@ namespace WealthERP.Customer
             ddlModeOfHolding.DataValueField = "XMOH_ModeOfHoldingCode";
             ddlModeOfHolding.DataBind();
             //=========================================================
-            
-            txtBeneficiaryAcctNbr.Text = dsDematDetails.Tables[0].Rows[0]["BeneficiaryAccountNum"].ToString();
+
+            txtDepositoryName.Text = dsDematDetails.Tables[0].Rows[0]["DepositoryName"].ToString();
+            if (dsDematDetails.Tables[0].Rows[0]["IsActive"].ToString() == "1")
+            {
+                chk_isactive.Checked = true;
+            }
+            else
+            {
+                chk_isactive.Checked = false;
+            }
+
+
             if (dsDematDetails.Tables[0].Rows[0]["IsHeldJointly"].ToString() == "1")
             {
                 rbtnYes.Checked = true;
@@ -357,14 +369,19 @@ namespace WealthERP.Customer
                     {
                         if (!string.IsNullOrEmpty(accountopeningdate.Trim()))
                         demataccountvo.AccountOpeningDate = DateTime.Parse(accountopeningdate);
-                        demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
+                    //    demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
+                        demataccountvo.DepositoryName = txtDepositoryName.Text;
                         if (rbtnYes.Checked == true)
                             demataccountvo.IsHeldJointly = 1;
                         else
                             demataccountvo.IsHeldJointly = 0;
+                        if (chk_isactive.Checked == true)
+                            demataccountvo.IsActive = 1;
+                        else
+                            demataccountvo.IsActive = 0;
                         demataccountvo.ModeOfHolding = hdnSelectedModeOfHolding.Value;
 
                         if (gvPickJointHolder.Rows.Count != 0)
@@ -418,14 +435,20 @@ namespace WealthERP.Customer
                             demataccountvo.AccountOpeningDate = DateTime.MinValue;
                             
                         }
-                        demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
+                      //  demataccountvo.BeneficiaryAccountNbr = txtBeneficiaryAcctNbr.Text;
                         demataccountvo.DpclientId = txtDpClientId.Text;
                         demataccountvo.DpId = txtDPId.Text;
                         demataccountvo.DpName = txtDpName.Text;
+                        demataccountvo.DepositoryName = txtDepositoryName.Text;
                         if (rbtnYes.Checked == true)
                             demataccountvo.IsHeldJointly = 1;
                         else
                             demataccountvo.IsHeldJointly = 0;
+
+                        if (chk_isactive.Checked == true)
+                            demataccountvo.IsActive = 1;
+                        else
+                            demataccountvo.IsActive = 0;
                         demataccountvo.ModeOfHolding = hdnSelectedModeOfHolding.Value;
 
                         if (gvPickJointHolder.Rows.Count != 0)

@@ -58,6 +58,19 @@ namespace VoCustomerPortfolio
             get { return _beneficiaryaccountnbr; }
             set { _beneficiaryaccountnbr = value; }
         }
+        private string _depositoryname;
+
+        public string DepositoryName
+        {
+            get { return _depositoryname; }
+            set { _depositoryname = value; }
+        }
+        private int _isactive ;
+        public int IsActive
+        {
+            get { return _isactive; }
+            set { _isactive = value; }
+        }
         
     }
 }
