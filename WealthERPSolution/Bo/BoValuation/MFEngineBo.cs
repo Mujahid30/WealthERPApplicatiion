@@ -1461,6 +1461,8 @@ namespace BoValuation
                             drMFNetPosition["CMFNP_RET_Hold_AbsReturn"] = (returnHoldingTotalPL / CMFNP_RET_Hold_AcqCost) * 100;
                         }
                         returnRealisedInvestedCost = returnInvestedCost - CMFNP_RET_Hold_AcqCost;
+                        if (returnRealisedInvestedCost < .5)
+                            returnRealisedInvestedCost = Math.Round(returnRealisedInvestedCost);
 
                         drMFNetPosition["CMFNP_RET_Realized_InvestedCost"] = returnRealisedInvestedCost;
 
