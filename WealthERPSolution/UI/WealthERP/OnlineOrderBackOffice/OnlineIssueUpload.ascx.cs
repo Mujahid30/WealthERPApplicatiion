@@ -285,9 +285,12 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnUploadData_Click(object sender, EventArgs e)
         {
+            ControlUploadMode(true);
             int nRows=0;
             if (Cache["UPLOAD" + userVo.UserId] == null) {
                 ShowMessage("No data to upload");
+                
+                btnUploadData.Enabled = false;
                 return;
             }
             DataTable dtUploadData = (DataTable)Cache["UPLOAD" + userVo.UserId];
@@ -296,6 +299,21 @@ namespace WealthERP.OnlineOrderBackOffice
             dtUploadData = CheckHeaders(dtUploadData);
             nRows = boNcdBackOff.UploadCheckOrderFile(dtUploadData,int.Parse(ddlFileType.SelectedValue),  int.Parse(ddlIssueName.SelectedValue));
            ShowMessage("data uploaded");
+        
+           btnUploadData.Enabled = false;
+        }
+        private void ControlUploadMode(bool uploadMode)
+        {
+            ddlProduct.Enabled = false;
+            ddlSource.Enabled = false;
+            ddlFileType.Enabled = false;
+            ddlIssueName.Enabled = false;
+            FileUpload.Enabled = false;
+            btnFileUpload.Enabled = false;
+        }
+        protected void lnkClick_Click(object sender, EventArgs e)
+        {
+            Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OnlineIssueUpload','none');", true);
         }
      }
 }

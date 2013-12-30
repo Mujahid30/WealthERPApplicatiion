@@ -386,9 +386,9 @@
                                                                             UniqueName="BBYieldatbuyback" HeaderStyle-Width="77px" SortExpression="BBYieldatbuyback">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
-                                                                        <telerik:GridBoundColumn DataField="BBLockinPeriod" AllowFiltering="false" HeaderText="Lockin Period"
-                                                                            UniqueName="BBLockinPeriod" HeaderStyle-Width="77px" DataFormatString="{0:N0}"
-                                                                            SortExpression="BBLockinPeriod">
+                                                                        <telerik:GridBoundColumn DataField="BBTenure" AllowFiltering="false" HeaderText="Lockin Period"
+                                                                            UniqueName="BBTenure" HeaderStyle-Width="77px" DataFormatString="{0:N0}"
+                                                                            SortExpression="BBTenure">
                                                                             <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="BBCallOption" AllowFiltering="false" HeaderText="Call Option"

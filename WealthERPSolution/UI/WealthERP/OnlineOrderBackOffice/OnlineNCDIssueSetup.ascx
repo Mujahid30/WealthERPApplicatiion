@@ -198,7 +198,7 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="lb1Name" runat="server" Text="Name:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1Name" runat="server" Text="Issue Name:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtName" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
