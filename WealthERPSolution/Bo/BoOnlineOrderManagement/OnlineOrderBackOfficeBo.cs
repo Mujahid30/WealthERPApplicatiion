@@ -52,13 +52,13 @@ namespace BoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime toDate,string status)
         {
             DataSet dsExtractType;
             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dsExtractType = OnlineOrderBackOfficeDao.GetExtractTypeDataForFileCreation(orderDate, AdviserId, extractType);
+                dsExtractType = OnlineOrderBackOfficeDao.GetExtractTypeDataForFileCreation(orderDate, AdviserId, extractType, toDate, status);
             }
             catch (BaseApplicationException Ex)
             {

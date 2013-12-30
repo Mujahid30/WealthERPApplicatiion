@@ -13,6 +13,8 @@ using VoUser;
 using WealthERP.Base;
 using System.Configuration;
 
+using BoOps;
+
 namespace WealthERP.OnlineOrderBackOffice
 {
     public partial class OnlineOrderAccountingExtract : System.Web.UI.UserControl
@@ -20,6 +22,7 @@ namespace WealthERP.OnlineOrderBackOffice
         CommonProgrammingBo commonProgrammingBo;
         DataSet dsextractType;
         OnlineOrderBackOfficeBo OnlineOrderBackOfficeBo = new OnlineOrderBackOfficeBo();
+        OperationBo operationBo = new OperationBo();
         string fileExtension = string.Empty;
         string strGuid = string.Empty;
         string ExtractPath = string.Empty;
@@ -40,12 +43,42 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 txtExtractDate.MaxDate = DateTime.Now;
                 txtExtractDate.SelectedDate = DateTime.Now;
+                BindOrderStatus();
             }
         }
 
         protected void btnExtract_Click(object sender, EventArgs e)
         {
-            if (ddlExtractType.SelectedValue != "0")
+            DataSet dsBackOfficeAccountingExtract = new DataSet();
+            //  DataTable dtBackOfficeAccountingExtract = new DataTable();
+
+
+            if (ddlExtractType.SelectedValue == "0")
+                return;
+
+
+            if (ddlExtractType.SelectedValue == "43" || ddlExtractType.SelectedValue == "44" || ddlExtractType.SelectedValue == "45")
+            {
+                orderDate = Convert.ToDateTime(txtExtractDate.SelectedDate);
+
+                string filename = ddlExtractType.SelectedValue + "MF" + DateTime.Now.ToString("ddMMyy") + ".csv";
+                string delimit = ",";
+
+                dsBackOfficeAccountingExtract = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
+                if (dsBackOfficeAccountingExtract.Tables.Count == 0)
+                {
+                    ShowMessage("No Data Available");
+                    return;
+                }
+                else if (dsBackOfficeAccountingExtract.Tables[0].Rows.Count <= 0)
+                {
+                    ShowMessage("No Data Available");
+                    return;
+                }
+
+                DownloadBidFile(dsBackOfficeAccountingExtract.Tables[0], filename, delimit);
+            }
+            else
             {
                 CreateFileForextractAndSaveinServer();
                 GetExtractTypeDataForFileCreation();
@@ -54,7 +87,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void CreateFileForextractAndSaveinServer()
         {
-            commonProgrammingBo=new CommonProgrammingBo();
+            commonProgrammingBo = new CommonProgrammingBo();
             string strFileNameAndDelimeter = string.Empty;
 
             strFileNameAndDelimeter = commonProgrammingBo.SetFileNameAndDelimeter(Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtExtractDate.SelectedDate));
@@ -66,7 +99,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void GetExtractTypeDataForFileCreation()
         {
             orderDate = Convert.ToDateTime(txtExtractDate.SelectedDate);
-            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId,Convert.ToInt32(ddlExtractType.SelectedValue));
+            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
             CreateDataTableForExtract();
         }
 
@@ -117,8 +150,8 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void SetFileNameAndDelimeter(string strFileNameAndDelimeter)
         {
-            string[] FileNameAndDelimeter= strFileNameAndDelimeter.Split('~');
-            filename=FileNameAndDelimeter[0];
+            string[] FileNameAndDelimeter = strFileNameAndDelimeter.Split('~');
+            filename = FileNameAndDelimeter[0];
             delimeter = FileNameAndDelimeter[1];
         }
 
@@ -127,43 +160,43 @@ namespace WealthERP.OnlineOrderBackOffice
         //{
 
 
-            //string strExtractDate = Convert.ToDateTime(txtExtractDate.SelectedDate).ToShortDateString();
-            //string[] strSplitExtractDate = strExtractDate.Split('/');
+        //string strExtractDate = Convert.ToDateTime(txtExtractDate.SelectedDate).ToShortDateString();
+        //string[] strSplitExtractDate = strExtractDate.Split('/');
 
-            //string DD = strSplitExtractDate[0].ToString();
-            //string MM = strSplitExtractDate[1].ToString();
-            //string YYYY = strSplitExtractDate[2].ToString();
+        //string DD = strSplitExtractDate[0].ToString();
+        //string MM = strSplitExtractDate[1].ToString();
+        //string YYYY = strSplitExtractDate[2].ToString();
 
-            //if(FileID==37)
-            //{
-            //    filename = "sbiemf" + DD + MM + ".txt";
-            //    delimeter = "#";                
-            //}
-            //else if(FileID==38)
-            //{
-            //    filename = "sbipay" + DD + MM + ".txt";
-            //    delimeter = "   ";
-            //}
-            //else if(FileID==39)
-            //{
-            //    filename = "HDFCPAY" + MM + DD + ".txt";
-            //    delimeter = " ";
-            //}
-            //else if(FileID==40)
-            //{
-            //    filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
-            //    delimeter = "|";
-            //}
-            //else if(FileID==41)
-            //{
-            //    filename = "eMF-Executed" + MM + DD + YYYY + ".txt";
-            //    delimeter = "|";
-            //}
-            //else if (FileID == 42)
-            //{
-            //    filename = "SSL104" + DD + MM + ".txt";
-            //    delimeter = ",";
-            //}
+        //if(FileID==37)
+        //{
+        //    filename = "sbiemf" + DD + MM + ".txt";
+        //    delimeter = "#";                
+        //}
+        //else if(FileID==38)
+        //{
+        //    filename = "sbipay" + DD + MM + ".txt";
+        //    delimeter = "   ";
+        //}
+        //else if(FileID==39)
+        //{
+        //    filename = "HDFCPAY" + MM + DD + ".txt";
+        //    delimeter = " ";
+        //}
+        //else if(FileID==40)
+        //{
+        //    filename = "eMF-InProcess" + DD + MM + YYYY + ".txt";
+        //    delimeter = "|";
+        //}
+        //else if(FileID==41)
+        //{
+        //    filename = "eMF-Executed" + MM + DD + YYYY + ".txt";
+        //    delimeter = "|";
+        //}
+        //else if (FileID == 42)
+        //{
+        //    filename = "SSL104" + DD + MM + ".txt";
+        //    delimeter = ",";
+        //}
         //}
 
         protected void CreateTextFile(int FileID)
@@ -209,7 +242,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 #region download notepad or text file.
                 Response.ContentType = "application/octet-stream";
 
-             
+
 
                 Response.AppendHeader("Content-Disposition", "attachment;filename=" + filename);
                 string aaa = Server.MapPath("~/UploadFiles/" + filename);
@@ -232,7 +265,50 @@ namespace WealthERP.OnlineOrderBackOffice
                 CreateTextFile(Convert.ToInt32(ddlExtractType.SelectedValue));
             }
         }
+        private void BindOrderStatus()
+        {
+            DataSet dsOrderStaus;
+            DataTable dtOrderStatus;
+            dsOrderStaus = operationBo.Get_Onl_OrderStatus();
+            dtOrderStatus = dsOrderStaus.Tables[0];
+            if (dtOrderStatus.Rows.Count > 0)
+            {
+                ddlOrderStatus.DataSource = dtOrderStatus;
+                ddlOrderStatus.DataValueField = dtOrderStatus.Columns["WOS_OrderStepCode"].ToString();
+                ddlOrderStatus.DataTextField = dtOrderStatus.Columns["WOS_OrderStep"].ToString();
+                ddlOrderStatus.DataBind();
+            }
+            ddlOrderStatus.Items.Insert(0, new ListItem("Select", "Select"));
+            ddlOrderStatus.Items.Insert(0, new ListItem("ALL", "ALL"));
 
+        }
+        protected void ddlExtractType_Selectedindexchanged(object sender, EventArgs e)
+        {
+            ddlSaveAs.Enabled = false;
+
+            if (ddlExtractType.SelectedValue == "43" || ddlExtractType.SelectedValue == "44" || ddlExtractType.SelectedValue == "45")
+            {
+                if (ddlExtractType.SelectedValue == "45")
+                    trOrderStatus.Visible = true;
+                else
+                    trOrderStatus.Visible = false;
+
+                lb1ExtractAndFromdate.Text = "From Date:";
+                ddlSaveAs.SelectedValue = "2";
+                tdToDate.Visible = true;
+                txtExtractDate.SelectedDate = DateTime.Now.AddDays(-1);
+                txtToDate.SelectedDate = DateTime.Now;
+
+            }
+            else
+            {
+                lb1ExtractAndFromdate.Text = "Extract Date:";
+                ddlSaveAs.SelectedValue = "1";
+                tdToDate.Visible = false;
+                txtExtractDate.SelectedDate = DateTime.Now;
+            }
+
+        }
         protected void BindddlExtractType()
         {
             dsextractType = new DataSet();
@@ -248,7 +324,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(sbiemf)";
                 else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 38)
                     dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(sbipay)";
-                else     if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 39)
+                else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 39)
                     dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(HDFCPAY)";
                 else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 40)
                     dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(eMF-InProcess)";
@@ -256,7 +332,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(eMF-Executed)";
                 else if (Convert.ToInt32(dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileTypeId"]) == 42)
                     dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] = dsextractType.Tables[0].Rows[i]["WUXFT_XMLFileName"] + "(SSL104)";
-                
+
 
                 i++;
                 j++;
@@ -272,5 +348,73 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlExtractType.Items.Insert(0, new System.Web.UI.WebControls.ListItem("--SELECT--", "0"));
             ddlExtractType.SelectedIndex = 0;
         }
+
+
+        private void DownloadBidFile(DataTable dtExtractData, string filename, string delimit)
+        {
+            if (dtExtractData == null)
+            {
+                ShowMessage("No data available");
+                return;
+            }
+            if (dtExtractData.Rows.Count <= 0)
+            {
+                ShowMessage("No data available");
+                return;
+            }
+
+            string dateFormat = "dd-mm-yyyy";
+
+            StringWriter sWriter = new StringWriter();
+
+            string Columns = string.Empty;
+
+            foreach (DataColumn column in dtExtractData.Columns) Columns += column.ColumnName + delimit;
+
+            sWriter.WriteLine(Columns.Remove(Columns.Length - 1, 1));
+
+            DataColumn[] arrCols = new DataColumn[dtExtractData.Columns.Count];
+            dtExtractData.Columns.CopyTo(arrCols, 0);
+            foreach (DataRow datarow in dtExtractData.Rows)
+            {
+                string row = string.Empty;
+                int i = 0;
+                foreach (object item in datarow.ItemArray)
+                {
+                    if (arrCols[i].DataType.FullName == "System.DateTime")
+                    {
+                        string strDate = string.IsNullOrEmpty(item.ToString()) ? "" : DateTime.Parse(item.ToString()).ToString(dateFormat);
+                        row += strDate + delimit;
+                    }
+                    else
+                    {
+                        row += item.ToString() + delimit;
+                    }
+                    i++;
+                }
+                sWriter.WriteLine(row.Remove(row.Length - 1, 1));
+            }
+            Response.ContentType = "text/plain";
+
+            Response.AddHeader("content-disposition", "attachment;filename=" + string.Format(filename, string.Format("{0:ddMMyyyy}", DateTime.Today)));
+            Response.Clear();
+
+            using (StreamWriter writer = new StreamWriter(Response.OutputStream, System.Text.Encoding.UTF8))
+            {
+                writer.Write(sWriter.ToString());
+            }
+            Response.End();
+
+            sWriter.Flush();
+            sWriter.Close();
+        }
+
+        private void ShowMessage(string msg)
+        {
+            tblMessage.Visible = true;
+            msgRecordStatus.InnerText = msg;
+            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
+        }
+
     }
 }
