@@ -105,12 +105,12 @@
 </script>
 
 <table class="TableBackground" style="width: 100%;">
-     <tr>
+     <tr valign="top">
                 <td colspan="6" width="100%">
-                    <div class="divPageHeading">
-                        <table cellspacing="0" cellpadding="3" width="100%">
+                    <div class="divPageHeading" style="vertical-align:top">
+                        <table cellspacing="0" cellpadding="3" width="100%" style="vertical-align:top">
                             <tr id="lblLifeInsurance" runat="server">
-                                <td align="left">
+                                <td align="left" style="vertical-align:top">
                                     <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
                                 </td>
                                 <td align="right" style="padding-bottom:2px;">
