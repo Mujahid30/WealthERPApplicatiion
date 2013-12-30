@@ -39,6 +39,8 @@ namespace VoCustomerProfiling
 
         public int BankId { get; set; }
         public int BankAccTypeId { get; set; }
+        public string NeftCode { get; set; }
+        public string RTGSCode { get; set; }
 
         public int BranchAddCityId { get; set; }
         public int BranchAddStateId { get; set; }
@@ -138,6 +140,8 @@ namespace VoCustomerProfiling
             get { return m_BranchAdrPinCode; }
             set { m_BranchAdrPinCode = value; }
         }
+
+
         public string BranchAdrCity
         {
             get { return m_BranchAdrCity; }

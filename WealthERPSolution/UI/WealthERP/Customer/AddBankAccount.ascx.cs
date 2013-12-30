@@ -201,7 +201,7 @@ namespace WealthERP.Customer
 
         public void BindCountry()
         {
-            DataTable dtBankCountry;
+              DataTable dtBankCountry;
             dtBankCountry = commonLookupBo.GetWERPLookupMasterValueList(13000, 0);
             ddlBankAdrCountry.DataSource = dtBankCountry;
             ddlBankAdrCountry.DataTextField = "WCMV_Name";
@@ -353,6 +353,10 @@ namespace WealthERP.Customer
             customerBankAccountVo.BankCity = txtBankCity.Text.ToString();
             if (txtBankAdrPinCode.Text.ToString() != "")
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
+            //if (txtNEFTCode.Text.ToString() != "")
+                customerBankAccountVo.NeftCode = txtNEFTCode.Text.ToString();
+           //if (txtRTGSCode.Text.ToString() != "")
+                customerBankAccountVo.RTGSCode = txtRTGSCode.Text.ToString();
             //customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
 
             //if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
@@ -501,6 +505,14 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrPinCode = int.Parse(txtBankAdrPinCode.Text.ToString());
             else
                 customerBankAccountVo.BranchAdrPinCode = 0;
+            if (txtNEFTCode.Text.ToString() != "")
+                customerBankAccountVo.NeftCode = txtNEFTCode.Text.ToString();
+            else
+                customerBankAccountVo.NeftCode = null;
+            if (txtRTGSCode.Text.ToString() != "")
+                customerBankAccountVo.RTGSCode = txtRTGSCode.Text.ToString();
+            else
+                customerBankAccountVo.RTGSCode = null;
 
             //customerBankAccountVo.BranchAdrCity = txtBankAdrCity.Text.ToString();
             //if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
@@ -899,6 +911,9 @@ namespace WealthERP.Customer
             txtBankAdrLine2.Text = customerBankAccountVo.BranchAdrLine2;
             txtBankAdrLine3.Text = customerBankAccountVo.BranchAdrLine3;
             txtBankCity.Text = customerBankAccountVo.BankCity;
+            txtRTGSCode.Text = customerBankAccountVo.RTGSCode;
+            txtNEFTCode.Text = customerBankAccountVo.NeftCode;
+
             if (customerBankAccountVo.BranchAdrPinCode.ToString() != "")
             {
                 txtBankAdrPinCode.Text = customerBankAccountVo.BranchAdrPinCode.ToString();
@@ -906,6 +921,7 @@ namespace WealthERP.Customer
             else
                 txtBankAdrPinCode.Text = "";
 
+           
 
             //txtBankAdrCity.Text = customerBankAccountVo.BranchAdrCity;
             //if (!string.IsNullOrEmpty(customerBankAccountVo.BranchAdrState))
@@ -1029,6 +1045,8 @@ namespace WealthERP.Customer
                 txtBankAdrLine2.Enabled = false;
                 txtBankAdrLine3.Enabled = false;
                 txtBankAdrPinCode.Enabled = false;
+                txtRTGSCode.Enabled = false;
+                txtNEFTCode.Enabled = false;
                 //txtBankAdrCity.Enabled = false;
                 ddlBankAdrCity.Enabled = false;
                 ddlBankAdrState.Enabled = false;
@@ -1052,6 +1070,8 @@ namespace WealthERP.Customer
                 txtBankAdrLine2.Enabled = true;
                 txtBankAdrLine3.Enabled = true;
                 txtBankAdrPinCode.Enabled = true;
+                txtNEFTCode.Enabled = true;
+                txtRTGSCode.Enabled = true;
                 //txtBankAdrCity.Enabled = true;
                 ddlBankAdrState.Enabled = true;
                 RadioButton1.Enabled = true;

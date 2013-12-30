@@ -317,9 +317,18 @@
                 <asp:TextBox ID="txtBankAdrLine2" runat="server" CssClass="txtField" Style="width: 250px;"
                     Text='<%# Bind("CB_BranchAdrLine2") %>'></asp:TextBox>
             </td>
-            <td colspan="2">
-                &nbsp;
+            <%--<td colspan="2">--%>
+                            <td class="leftField">
+                <asp:Label ID="lblNEFTCode" runat="server" Text="NEFT Code:" CssClass="FieldName"></asp:Label>
             </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtNEFTCode" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_NEFT") %>'></asp:TextBox>
+            
+            <asp:CompareValidator ID="CompareValidator5" runat="server" 
+                    CssClass="rfvPCG" Type="String" ControlToValidate="txtNEFTCode" ValidationGroup="btnSubmit"
+                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    </td>
+           <%--</td>--%>
         </tr>
         <tr>
             <td class="leftField">
@@ -329,8 +338,19 @@
                 <asp:TextBox ID="txtBankAdrLine3" runat="server" CssClass="txtField" Style="width: 250px;"
                     Text='<%# Bind("CB_BranchAdrLine3") %>'></asp:TextBox>
             </td>
-            <td colspan="2">
+                  
+           
+<%--            <td colspan="2">
                 &nbsp;
+            </td>--%>
+                                        <td class="leftField">
+                <asp:Label ID="lblRTGSCode" runat="server" Text="RTGS Code:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td class="rightField">
+                <asp:TextBox ID="txtRTGSCode" runat="server" CssClass="txtField" MaxLength="11" Text='<%# Bind("CB_RTGS") %>'></asp:TextBox>
+            <asp:CompareValidator ID="CompareValidator6" runat="server" 
+                    CssClass="rfvPCG" Type="String" ControlToValidate="txtRTGSCode" ValidationGroup="btnSubmit"
+                    Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
             </td>
         </tr>
         <tr>
