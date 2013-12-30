@@ -14,6 +14,7 @@ using System.Data;
 using BoCustomerPortfolio;
 using VoUser;
 using Microsoft.ApplicationBlocks.ExceptionManagement;
+using Telerik.Web.UI;
 
 namespace WealthERP.Customer
 {
@@ -21,7 +22,7 @@ namespace WealthERP.Customer
     {
         BoDematAccount bodemataccount = new BoDematAccount();
         CustomerVo customervo = new CustomerVo();
-        
+        UserVo uservo = new UserVo();
 
 
 
@@ -137,7 +138,7 @@ namespace WealthERP.Customer
                 DataSet dsDematDetails = bodemataccount.GetDematAccountHolderDetails(customerId);
                 if (dsDematDetails == null)
                 {
-                    gvDematDetails.Visible = false;
+                    gvDematDetailsTeleR.Visible = false;
                     lblError.Visible = true;
                     lblError.Text = "No data available to show";
                 }
@@ -147,14 +148,15 @@ namespace WealthERP.Customer
                     {
                         lblError.Visible = true;
                         lblError.Text = "No data available to show";
-                        mypager.Visible = false;
+                        //mypager.Visible = false;
                     }
                     else
                     {
                         lblError.Visible = false;
-                        gvDematDetails.Visible = true;
-                        gvDematDetails.DataSource = dsDematDetails.Tables[0];
-                        gvDematDetails.DataBind();
+                        gvDematDetailsTeleR.Visible = true;
+                        gvDematDetailsTeleR.DataSource = dsDematDetails.Tables[0];
+                        gvDematDetailsTeleR.DataBind();
+                        gvDematDetailsTele.Visible = true;
                     }
                 }
             }
@@ -169,15 +171,15 @@ namespace WealthERP.Customer
         {
             int selectedRow=0;
             int dematAccountId=0;
-            GridViewRow gvr=null;
+            GridDataItem gvr=null;
             DropDownList ddlAction = null;
             ddlAction = (DropDownList)sender;      
             
             try
             {
-                gvr = (GridViewRow)ddlAction.NamingContainer;
-                selectedRow = gvr.RowIndex;
-                dematAccountId = int.Parse(gvDematDetails.DataKeys[selectedRow].Value.ToString());
+                gvr = (GridDataItem)ddlAction.NamingContainer;
+                selectedRow = gvr.ItemIndex;
+                dematAccountId = int.Parse(gvDematDetailsTeleR.MasterTableView.DataKeyValues[selectedRow]["CEDA_DematAccountId"].ToString());
                 Session["DematAccountId"] = dematAccountId;
                 if (ddlAction.SelectedItem.Value == "View")
                 {
@@ -293,6 +295,44 @@ namespace WealthERP.Customer
             //    ExceptionManager.Publish(exBase);
             //    throw exBase;
             //}
+        }
+
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            try
+            {
+                gvDematDetailsTeleR.ExportSettings.OpenInNewWindow = true;
+                gvDematDetailsTeleR.ExportSettings.IgnorePaging = true;
+                gvDematDetailsTeleR.ExportSettings.HideStructureColumns = true;
+                gvDematDetailsTeleR.ExportSettings.ExportOnlyData = true;
+                gvDematDetailsTeleR.ExportSettings.FileName = "Demat Details";
+                gvDematDetailsTeleR.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvDematDetailsTeleR.MasterTableView.ExportToExcel();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineSchemeMIS.ascx.cs:btnExportData_OnClick()");
+                object[] objects = new object[4];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
+        protected void gvDematDetailsTeleR_NeedDataSource(object sender, GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtAssocCust = new DataTable();
+            if (Cache[uservo.UserId.ToString() + "DematDetailsView"] != null)
+            {
+                dtAssocCust = (DataTable)Cache[uservo.UserId.ToString() + "DematDetailsView"];
+                gvDematDetailsTeleR.DataSource = dtAssocCust;
+            }
         }
 
     }
