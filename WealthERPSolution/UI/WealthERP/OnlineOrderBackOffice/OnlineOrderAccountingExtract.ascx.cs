@@ -41,7 +41,7 @@ namespace WealthERP.OnlineOrderBackOffice
             BindddlExtractType();
             if (!IsPostBack)
             {
-                txtExtractDate.MaxDate = DateTime.Now;
+                //txtExtractDate.MaxDate = DateTime.Now;
                 txtExtractDate.SelectedDate = DateTime.Now;
                 BindOrderStatus();
             }
@@ -61,7 +61,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 orderDate = Convert.ToDateTime(txtExtractDate.SelectedDate);
 
-                string filename = ddlExtractType.SelectedValue + "MF" + DateTime.Now.ToString("ddMMyy") + ".csv";
+                string filename = GetFilename(Convert.ToInt32(ddlExtractType.SelectedValue));
                 string delimit = ",";
 
                 dsBackOfficeAccountingExtract = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
@@ -83,6 +83,68 @@ namespace WealthERP.OnlineOrderBackOffice
                 CreateFileForextractAndSaveinServer();
                 GetExtractTypeDataForFileCreation();
             }
+        }
+
+        private string GetRandomNumber(DateTime dt)
+        {
+            string strMonth = string.Empty, strday = string.Empty, strRandomNo = string.Empty;
+            
+            int month = dt.Month;
+            int day = dt.Day;
+
+            if (month == 1)
+            {
+                strMonth = 1.ToString();
+            }
+            else
+            {
+                month = month - 1;
+                strMonth = month.ToString();
+            }
+
+            if (day == 1)
+            {
+                strday = 1.ToString();
+            }
+            else
+            {
+                day = day - 1;
+                strday = day.ToString();
+            }
+           // strRandomNo = strRandomNo.PadRight(4, '0') +strday+ strMonth;
+           // strRandomNo = "0000"+strMonth + strday;
+
+            
+            strRandomNo =strday+ strMonth  ;
+                if(strRandomNo.Length==2)
+                    strRandomNo = "0" + strday + "0" + strMonth ;
+                else
+                    strRandomNo = strday + strMonth;
+
+
+            return strRandomNo;
+        }
+
+
+        private string  GetFilename(int fileId)
+        {
+            string fileName=string.Empty;
+            int r = (new Random()).Next(100, 1000);
+
+            if (fileId == 43)
+            {
+                fileName = "BackOfficeReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(Convert.ToDateTime(txtExtractDate.SelectedDate)) + ".csv";
+            }
+            else if (fileId == 44)
+            {
+                fileName = "BankSummaryReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(Convert.ToDateTime(txtExtractDate.SelectedDate)) + ".csv";
+            }
+            else
+            {
+                fileName = "MFOrderReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(Convert.ToDateTime(txtExtractDate.SelectedDate)) + ".csv";
+            }
+            return fileName;
+
         }
 
         protected void CreateFileForextractAndSaveinServer()
