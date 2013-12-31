@@ -7,77 +7,29 @@
 <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
 
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
-
+<asp:ScriptManager ID="scrptMgr" runat="server">
+</asp:ScriptManager>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('.loadme').click(function() {
-            var panel = document.getElementById('<%= gvRMUsers.ClientID %>');
-            var chkArray = panel.getElementsByTagName("input");
-            var checked = 0;
-            for (var i = 0; i < chkArray.length; i++) {
-                if (chkArray[i].type == "checkbox" && chkArray[i].checked == true) {
-                    checked = 1;
-                    break;
-                }
-            }
-
-            if (checked != 1) {
-                alert('Please select RM to send Password');
-                return false;
-            }
-            else {
-                $(".loadmediv").colorbox({ width: "260px", overlayClose: false, inline: true, open: true, href: "#LoadImage" });
-            }
-        });
-
-    });
-
-
-
-    function CheckAll() {
-        alert("abc..");
-        var panel = document.getElementById('<%= gvRMUsers.ClientID %>');
-        var chkArray = gvRMUsers.getElementsByTagName("input");
-        alert(chkArray);
-        for (var i = 0; i < chkArray.length; i++) {
-            if (chkArray[i].type == "checkbox") {
-                alert(chkArray[i]);
-                if (chkArray[i].checked == false) {
-
-                    chkArray[i].checked = true;
-                }
-                else
-                    chkArray[i].checked = false;
-            }
-        }
-
-
-
-    };
+    
 
     function checkAllBoxes() {
 
-        //get total number of rows in the gridview and do whatever
-        //you want with it..just grabbing it just cause
-        var totalChkBoxes = parseInt('<%= gvRMUsers.Rows.Count %>');
-        var gvControl = document.getElementById('<%= gvRMUsers.ClientID %>');
+        var totalChkBoxes = parseInt('<%= gvUserMgt.Items.Count %>');
+        var gvControl = document.getElementById('<%= gvUserMgt.ClientID %>');
 
-        //this is the checkbox in the item template...this has to be the same name as the ID of it
-        var gvChkBoxControl = "chkBoxChild";
 
-        //this is the checkbox in the header template
-        var mainChkBox = document.getElementById("chkBoxAll");
+        var gvChkBoxControl = "cbRecons";
 
-        //get an array of input types in the gridview
+
+        var mainChkBox = document.getElementById("chkBxWerpAll");
+
         var inputTypes = gvControl.getElementsByTagName("input");
 
         for (var i = 0; i < inputTypes.length; i++) {
-            //if the input type is a checkbox and the id of it is what we set above
-            //then check or uncheck according to the main checkbox in the header template            
             if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
         }
-    } 
+    }
     
    
 </script>
@@ -125,65 +77,70 @@
         </td>
     </tr>
     <tr>
-        <td rowspan="2">
-            <asp:GridView ID="gvRMUsers" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                AllowSorting="True" OnSorting="gvRMUsers_Sorting" ShowFooter="true" AutoGenerateColumns="False"
-                OnRowCommand="gvRMUsers_RowCommand" DataKeyNames="UserId">
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" HorizontalAlign="Left" VerticalAlign="Middle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle " />
-                <Columns>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false" >
-                        <HeaderTemplate>
-                           <%-- <asp:Label ID="LblSelect" runat="server" Text="Select All"></asp:Label>
-                            --%>
-                            <br />
-                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
-                           <input id="chkBoxAll"  name="vehicle" value="Bike" type="checkbox" onclick="checkAllBoxes()" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkBoxChild" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <%--<asp:BoundField DataField="RMName" HeaderText="RM Name" />--%>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblRMName" runat="server" Text="RM Name"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtRMNameSearch" runat="server" Text='<%# hdnNameFilter.Value %>'
-                                CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_RMUserDetails_btnNameSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRMNameHeader" runat="server" Text='<%# Eval("RMName").ToString() %>'></asp:Label>
-                           <%-- <asp:LinkButton ID="lnkRMNames" runat="server" CausesValidation="false" CommandName="ViewDetails"
-                                Text='<%# Eval("RMName").ToString() %>' CommandArgument='<%# Eval("UserId") %>'></asp:LinkButton>--%>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="LoginId" HeaderText="Login Id" />
-                    <%--<asp:BoundField DataField="Password" HeaderText="Password" SortExpression="Password" />--%>
-                    <asp:BoundField DataField="EmailId" HeaderText="Email Id" />
-                    <asp:ButtonField CommandName="resetPassword" Text="Reset Password" />
-                      <asp:BoundField DataField="UserId" HeaderText="User Id" />
-                </Columns>
-            </asp:GridView>
-        </td>
+       <td>
+       <div id="dvUserMgt" runat="server" style="width: 840px;">
+                    <telerik:RadGrid ID="gvUserMgt" runat="server" GridLines="None" AutoGenerateColumns="False"
+                        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvAssoMgt_OnNeedDataSource"
+                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                        AllowAutomaticInserts="false">
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                            Excel-Format="ExcelML">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="None">
+                            <Columns>
+                                <telerik:GridTemplateColumn HeaderText="Select" AllowFiltering="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblchkBxSelect" runat="server"></asp:Label>
+                                        <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="RMName" HeaderText="RM Name" AllowFiltering="true"
+                                    SortExpression="RMName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="RMName" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="LoginId" HeaderText="Login Id" AllowFiltering="true"
+                                    SortExpression="LoginId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="LoginId" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="EmailId" HeaderText="Email Id" SortExpression="EmailId"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="EmailId" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridTemplateColumn HeaderText="" AllowFiltering="false">
+                                    <ItemStyle />
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="lnkReset" runat="server" CssClass="cmbField" Text="Reset Password"
+                                            OnClick="lnkReset_Click">
+                                        </asp:LinkButton>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                 <telerik:GridBoundColumn DataField="UserId" HeaderText="User Id" SortExpression="UserId"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="UserId" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                            </Columns>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                    </div>
+       </td>
     </tr>
     <tr>
         <td>
             &nbsp;
         </td>
     </tr>
-    <tr>
-        <td align="center">
-            <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-        </td>
-    </tr>
+     
     <tr>
         <td>
             <asp:Label ID="lblStatus" class="FieldName" runat="server" Text=""></asp:Label>
@@ -226,7 +183,7 @@
         </td>
     </tr>
 </table>
-<asp:Button ID="btnNameSearch" runat="server" Text="" OnClick="btnNameSearch_Click"
+<asp:Button ID="btnNameSearch" runat="server" Text="" 
     BorderStyle="None" BackColor="Transparent" />
 <asp:HiddenField ID="hdnRecordCount" runat="server" />
 <asp:HiddenField ID="hdnSort" runat="server" Value="RMName ASC" />

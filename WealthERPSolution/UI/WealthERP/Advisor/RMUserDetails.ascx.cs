@@ -18,6 +18,7 @@ using WealthERP.Base;
 using VoHostConfig;
 using System.Configuration;
 using System.IO;
+using Telerik.Web.UI;
 
 namespace WealthERP.Advisor
 {
@@ -39,7 +40,7 @@ namespace WealthERP.Advisor
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
-           
+            advisorVo = (AdvisorVo)Session["AdvisorVo"];
             tblMessage.Visible = false;
             SuccessMsg.Visible = false;
             ErrorMessage.Visible = false;
@@ -52,115 +53,13 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMUserDeatils.ascx.cs:OnInit()");
-                object[] objects = new object[0];
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.showRMUserDetails();
-
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMUserDeatils.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[0];
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
-
-        private void GetPageCount()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                if (hdnRecordCount.Value != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 15;
-                    mypager.PageCount = rowCount % 15 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    lowerlimit = (((mypager.CurrentPage - 1) * 15)+1).ToString();
-                    upperlimit = (mypager.CurrentPage * 15).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RMCustomerUserDetails.ascx.cs:GetPageCount()");
-
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[0] = rowCount;
-                objects[0] = ratio;
-                objects[0] = lowerlimit;
-                objects[0] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
+        
 
         public void showRMUserDetails()
         {
             try
             {
-                advisorVo = (AdvisorVo)Session["AdvisorVo"];
+                
 
                 UserVo uservo = (UserVo)Session["userVo"];
                 AdvisorStaffBo adviserstaffbo = new AdvisorStaffBo();
@@ -214,20 +113,28 @@ namespace WealthERP.Advisor
 
                         dtRMUsers.Rows.Add(drRMUsers);
                     }
-
-                    gvRMUsers.DataSource = dtRMUsers;                   
-                    gvRMUsers.DataBind();
+                    if (Cache["customerList" + advisorVo.advisorId] == null)
+                    {
+                        Cache.Insert("customerList" + advisorVo.advisorId, dtRMUsers);
+                    }
+                    else
+                    {
+                        Cache.Remove("customerList" + advisorVo.advisorId);
+                        Cache.Insert("customerList" + advisorVo.advisorId, dtRMUsers);
+                    }
+                    gvUserMgt.DataSource = dtRMUsers;
+                    gvUserMgt.DataBind();
                     //gvRMUsers.PageSize = PageSize;
 
-                    if (trPagger.Visible == false)
-                        trPagger.Visible = true;
+                    //if (trPagger.Visible == false)
+                    //    trPagger.Visible = true;
 
-                    this.GetPageCount();
+                    //this.GetPageCount();
 
-                    if (btnGenerate.Visible == false)
-                        btnGenerate.Visible = true;
-                    if (mypager.Visible == false)
-                        mypager.Visible = true;
+                    //if (btnGenerate.Visible == false)
+                    //    btnGenerate.Visible = true;
+                    //if (mypager.Visible == false)
+                    //    mypager.Visible = true;
                 }
                 else
                 {
@@ -241,7 +148,7 @@ namespace WealthERP.Advisor
                     ErrorMessage.InnerText = "No Records Found...!";
                     trPagger.Visible = false;
                     btnGenerate.Visible = false;
-                    mypager.Visible = false;
+                   
                    
                 }
             }
@@ -274,151 +181,53 @@ namespace WealthERP.Advisor
             }
         }
 
-        private SortDirection GridViewSortDirection
-        {
-            get
-            {
-                if (ViewState["sortDirection"] == null)
-                    ViewState["sortDirection"] = SortDirection.Ascending;
-                return (SortDirection)ViewState["sortDirection"];
-            }
-            set { ViewState["sortDirection"] = value; }
-        }
-
-        protected void gvRMUsers_Sorting(object sender, GridViewSortEventArgs e)
-        {
-            string sortExpression = e.SortExpression;
-            ViewState["sortExpression"] = sortExpression;
-            if (GridViewSortDirection == SortDirection.Ascending)
-            {
-                GridViewSortDirection = SortDirection.Descending;
-                sortGridViewRMUserDetails(sortExpression, DESCENDING);
-            }
-            else
-            {
-                GridViewSortDirection = SortDirection.Ascending;
-                sortGridViewRMUserDetails(sortExpression, ASCENDING);
-            }
-
-        }
-
-        private void sortGridViewRMUserDetails(string sortExpression, string direction)
-        {
-            try
-            {
-                advisorVo = (AdvisorVo)Session["AdvisorVo"];
-
-
-                rmUserList = advisorStaffBo.GetRMList(advisorVo.advisorId);
-                DataTable dtRMUsers = new DataTable();
-
-                dtRMUsers.Columns.Add("S.No");
-                dtRMUsers.Columns.Add("RMName");
-                dtRMUsers.Columns.Add("LoginId");
-                dtRMUsers.Columns.Add("EmailId");
-                dtRMUsers.Columns.Add("UserId");
-
-                DataRow drRMUsers;
-
-                for (int i = 0; i < rmUserList.Count; i++)
-                {
-                    drRMUsers = dtRMUsers.NewRow();
-                    rmVo = new RMVo();
-                    rmVo = rmUserList[i];
-                    userId = rmVo.UserId;
-                    userVo = new UserVo();
-                    userVo = userBo.GetUserDetails(userId);
-
-                    drRMUsers[0] = (i + 1).ToString();
-                    drRMUsers[1] = rmVo.FirstName.ToString() + " " + rmVo.MiddleName.ToString() + " " + rmVo.LastName.ToString();
-                    drRMUsers[2] = userVo.LoginId.ToString();
-                    drRMUsers[3] = userVo.Email;
-                    drRMUsers[4] = userVo.UserId;
-                    dtRMUsers.Rows.Add(drRMUsers);
-                }
-                DataView dv = new DataView(dtRMUsers);
-                dv.Sort = sortExpression + direction;
-                gvRMUsers.DataSource = dv;
-                gvRMUsers.DataBind();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RMUserDetails.ascx:sortGridViewRMUserDetails()");
-
-
-                object[] objects = new object[5];
-                objects[0] = advisorVo;
-                objects[1] = rmVo;
-                objects[2] = userVo;
-                objects[3] = rmUserList;
-                objects[4] = userId;
-
-
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-
-            }
-        }
-
-        protected void gvRMUsers_RowCommand(object sender, GridViewCommandEventArgs e)
+        
+        protected void lnkReset_Click(object sender, EventArgs e)
         {
             Random r = new Random();
             encryption = new OneWayEncryption();
             bool isSuccess = false;
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int userId = int.Parse((gvUserMgt.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
 
-            if (e.CommandName == "resetPassword")
+            userVo = userBo.GetUserDetails(userId);
+            if (userVo != null)
             {
+                string hassedPassword = string.Empty;
+                string saltValue = string.Empty;
+                string password = r.Next(20000, 100000).ToString();
 
-                userVo = userBo.GetUserDetails(Convert.ToInt32(gvRMUsers.DataKeys[int.Parse(e.CommandArgument.ToString())].Value));
-                if (userVo != null)
-                {
-                    string hassedPassword = string.Empty;
-                    string saltValue = string.Empty;
-                    string password = r.Next(20000, 100000).ToString();
-
-                    //userVo = userBo.GetUserDetails(userId);
-                    string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
-                    userVo.Password = hassedPassword;
-                    userVo.PasswordSaltValue = saltValue;
-                    userVo.OriginalPassword = password;
-                    userVo.IsTempPassword = 1;
-                    isSuccess = userBo.UpdateUser(userVo);
-                }
-
-                if (isSuccess)
-                {
-                    tblMessage.Visible = true;
-                    SuccessMsg.Visible = true;
-                    ErrorMessage.Visible = false;
-                    SuccessMsg.InnerText = "Password has been reset successfully...";
-                  
-                }
-                else
-                {
-                    tblMessage.Visible = true;
-                    SuccessMsg.Visible = false;
-                    ErrorMessage.Visible = true;
-                    ErrorMessage.InnerText= "An error occurred while reseting password.";
-
-                }
+                //userVo = userBo.GetUserDetails(userId);
+                string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                userVo.Password = hassedPassword;
+                userVo.PasswordSaltValue = saltValue;
+                userVo.OriginalPassword = password;
+                userVo.IsTempPassword = 1;
+                isSuccess = userBo.UpdateUser(userVo);
             }
-            else if (e.CommandName == "ViewDetails")
+
+            if (isSuccess)
             {
-                string userId = e.CommandArgument.ToString();
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                tblMessage.Visible = true;
+                SuccessMsg.Visible = true;
+                ErrorMessage.Visible = false;
+                SuccessMsg.InnerText = "Password has been reset successfully...";
+
+            }
+            else
+            {
+                tblMessage.Visible = true;
+                SuccessMsg.Visible = false;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "An error occurred while reseting password.";
+
             }
         }
+
 
         protected void btnGenerate_Click(object sender, EventArgs e)
         {
@@ -437,14 +246,13 @@ namespace WealthERP.Advisor
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "$.colorbox({width: '700px', overlayClose: false, inline: true, href: '#LoadImage'});", true);
                 try
                 {
-                    foreach (GridViewRow gvr in gvRMUsers.Rows)
+                    foreach (GridDataItem gvr in gvUserMgt.Items)
                     {
-                        if (((CheckBox)gvr.FindControl("chkBoxChild")).Checked == true)
+                        if (((CheckBox)gvr.FindControl("cbRecons")).Checked == true)
                         {
                             selectedRecords++;
-
-                            userId = int.Parse(gvRMUsers.DataKeys[gvr.RowIndex].Value.ToString());
-
+                            int selectedRow = gvr.ItemIndex + 1;
+                            userId = int.Parse((gvUserMgt.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
                             Emailer emailer = new Emailer();
                             EmailMessage email = new EmailMessage();
                             string hassedPassword = string.Empty;
@@ -590,31 +398,14 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected void btnNameSearch_Click(object sender, EventArgs e)
+        protected void gvAssoMgt_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            TextBox txtName = GetRMNameTextBox();
+            
+            DataTable dtCustomer = new DataTable();
+            dtCustomer = (DataTable)Cache["customerList" + advisorVo.advisorId];
+            gvUserMgt.DataSource = dtCustomer;
 
-            if (txtName != null)
-            {
-                hdnNameFilter.Value = txtName.Text.Trim();
-                this.showRMUserDetails();
-            }
         }
-
-        private TextBox GetRMNameTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvRMUsers.HeaderRow != null)
-            {
-                if ((TextBox)gvRMUsers.HeaderRow.FindControl("txtRMNameSearch") != null)
-                {
-                    txt = (TextBox)gvRMUsers.HeaderRow.FindControl("txtRMNameSearch");
-                }
-            }
-            else
-                txt = null;
-
-            return txt;
-        }
+        
     }
 }

@@ -236,10 +236,10 @@
                                     AutoPostBackOnFilter="true" UniqueName="Transaction Date" FooterStyle-HorizontalAlign="Center">
                                     <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
-                                <telerik:GridBoundColumn DataField="CMFOD_DividendOption" HeaderText="Dividend Type"
-                                    AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="CMFOD_DividendOption"
+                                <telerik:GridBoundColumn DataField="DivReinvestment" HeaderText="Dividend Type"
+                                    AllowFiltering="true" HeaderStyle-Wrap="false" SortExpression="DivReinvestment"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                    UniqueName="CMFOD_DividendOption" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
+                                    UniqueName="DivReinvestment" FooterStyle-HorizontalAlign="Left" HeaderStyle-Width="100px">
                                     <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn visible="false" DataField="DivedendFrequency" HeaderText="Divedend Frequency"

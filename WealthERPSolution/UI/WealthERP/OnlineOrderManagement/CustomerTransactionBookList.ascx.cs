@@ -216,6 +216,7 @@ namespace WealthERP.OnlineOrderManagement
             mfTransactionList = customerTransactionBo.GetCustomerTransactionsBook(advisorVo.advisorId, customerId, fromDate, toDate, int.Parse(ddlPortfolioGroup.SelectedItem.Value.ToString()), int.Parse(hdnAmc.Value), AccountId, schemePlanCode);
             if (mfTransactionList.Count != 0)
             {
+                
 
                 DataTable dtMFTransactions = new DataTable();
                 dtMFTransactions.Columns.Add("TransactionId");

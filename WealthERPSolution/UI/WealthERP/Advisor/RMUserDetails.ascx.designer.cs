@@ -14,6 +14,15 @@ namespace WealthERP.Advisor {
     public partial class RMUserDetails {
         
         /// <summary>
+        /// scrptMgr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager scrptMgr;
+        
+        /// <summary>
         /// lblTitle control.
         /// </summary>
         /// <remarks>
@@ -95,22 +104,22 @@ namespace WealthERP.Advisor {
         protected global::System.Web.UI.WebControls.Label lblTotalRows;
         
         /// <summary>
-        /// gvRMUsers control.
+        /// dvUserMgt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvRMUsers;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvUserMgt;
         
         /// <summary>
-        /// mypager control.
+        /// gvUserMgt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::WealthERP.Pager mypager;
+        protected global::Telerik.Web.UI.RadGrid gvUserMgt;
         
         /// <summary>
         /// lblStatus control.
