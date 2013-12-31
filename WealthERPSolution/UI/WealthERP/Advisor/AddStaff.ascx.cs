@@ -90,14 +90,14 @@ namespace WealthERP.Advisor
                 }
             }
 
-            if(userVo.UserType != "Advisor") lnkEditStaff.Visible = false;
+            if (userVo.UserType != "Advisor") lnkEditStaff.Visible = false;
         }
 
         private RMVo CollectAdviserStaffData()
         {
-            
+
             rmStaffVo = new RMVo();
-            string AllBranchId=string.Empty;
+            string AllBranchId = string.Empty;
             rmStaffVo.FirstName = txtFirstName.Text;
             if (!string.IsNullOrEmpty(txtMiddleName.Text.Trim()))
                 rmStaffVo.MiddleName = txtMiddleName.Text;
@@ -149,16 +149,18 @@ namespace WealthERP.Advisor
                 rmStaffVo.AAC_AgentCode = txtAgentCode.Text;
             else
                 rmStaffVo.AAC_AgentCode = null;
-            
-            rmStaffVo.IsAssociateUser = true;
-           foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
+            if (ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS")
+                rmStaffVo.IsAssociateUser = false;
+            else
+                rmStaffVo.IsAssociateUser = true;
+            foreach (RadListBoxItem ListItem in this.RadListBoxDestination.Items)
             {
-                AllBranchId = AllBranchId+ListItem.Value.ToString() + ",";
+                AllBranchId = AllBranchId + ListItem.Value.ToString() + ",";
 
             }
             rmStaffVo.StaffBranchAssociation = AllBranchId;
             return rmStaffVo;
-            }
+        }
 
         private UserVo CollectAdviserStaffUserData()
         {
@@ -177,8 +179,11 @@ namespace WealthERP.Advisor
             rmUserVo.Email = txtEmail.Text.ToString();
 
             rmVo.Email = txtEmail.Text.ToString();
+            if (ddlTitleList.SelectedItem.Text.Trim().ToUpper() == "OPS")
+                rmUserVo.UserType = "OPS";
+            else
+                rmUserVo.UserType = "Associates";
 
-            rmUserVo.UserType = "Associates";
             rmVo.FirstName = txtFirstName.Text.ToString();
             rmVo.LastName = txtLastName.Text.ToString();
 
@@ -269,7 +274,7 @@ namespace WealthERP.Advisor
             LBStaffBranch.DataValueField = dsAdviserBranchList.Tables[0].Columns["AB_BranchId"].ToString(); ;
             LBStaffBranch.DataTextField = dsAdviserBranchList.Tables[0].Columns["AB_BranchName"].ToString();
             LBStaffBranch.DataBind();
-        
+
         }
         private void BindTeamDropList()
         {
@@ -397,9 +402,9 @@ namespace WealthERP.Advisor
         }
         protected void ListBoxSource_Transferred(object source, Telerik.Web.UI.RadListBoxTransferredEventArgs e)
         {
-            
+
             LBStaffBranch.Items.Sort();
-           
+
         }
         private void ControlViewEditMode(bool isViewMode)
         {
@@ -437,7 +442,7 @@ namespace WealthERP.Advisor
                 txtAgentCode.Enabled = false;
                 btnSubmit.Visible = false;
                 btnUpdate.Visible = false;
-                
+
                 LBStaffBranch.Enabled = false;
                 lnkAddNewStaff.Visible = false;
                 lnkEditStaff.Visible = true;
@@ -452,8 +457,8 @@ namespace WealthERP.Advisor
                 txtStaffcode.Enabled = true;
 
                 LBStaffBranch.Enabled = true;
-                 trTeamTitle.Visible = true;
-                 RadListBoxDestination.Enabled = true;
+                trTeamTitle.Visible = true;
+                RadListBoxDestination.Enabled = true;
                 ddlBranch.Enabled = true;
                 ddlChannel.Enabled = false;
                 ddlRportingRole.Enabled = true;
@@ -507,15 +512,15 @@ namespace WealthERP.Advisor
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
-                if (Validation(txtAgentCode.Text)&& EmailValidation(txtEmail.Text))
+                if (Validation(txtAgentCode.Text) && EmailValidation(txtEmail.Text))
                 {
-                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, false, false);
+                    rmIds = advisorStaffBo.CreateCompleteRM(rmUserVo, rmStaffVo, userVo.UserId, ddlTitleList.SelectedItem.Text.Trim().ToUpper()=="OPS"?true:false, false);
                     hidRMid.Value = rmIds[1].ToString();
                     ControlViewEditMode(true);
                     divMsgSuccess.InnerText = " Staff Added Sucessfully";
                     trSuccessMsg.Visible = true;
                 }
-               
+
             }
 
         }
@@ -543,7 +548,7 @@ namespace WealthERP.Advisor
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-           if(ValidateStaffReportingManager())
+            if (ValidateStaffReportingManager())
             {
                 rmStaffVo = CollectAdviserStaffData();
                 rmUserVo = CollectAdviserStaffUserData();
@@ -663,7 +668,7 @@ namespace WealthERP.Advisor
                 //imgBtnReferesh.Visible = false;
                 //imgAddAgentCode.Visible = false;
             }
-            
+
             else
             {
                 //lblAgentCode.Text = "N/A";
@@ -672,7 +677,7 @@ namespace WealthERP.Advisor
             }
             if (!string.IsNullOrEmpty(rmStaffVo.StaffBranchAssociation))
             {
-                DataSet ds = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation,advisorVo.advisorId);
+                DataSet ds = advisorStaffBo.GetStaffBranchAssociation(rmStaffVo.StaffBranchAssociation, advisorVo.advisorId);
                 RadListBoxDestination.DataSource = ds.Tables[0];
                 RadListBoxDestination.DataValueField = ds.Tables[0].Columns["StaffBranch"].ToString(); ;
                 RadListBoxDestination.DataTextField = ds.Tables[0].Columns["AB_BranchName"].ToString();
@@ -697,7 +702,7 @@ namespace WealthERP.Advisor
 
             }
             return AllBranchId;
-            
+
 
         }
         protected void imgBtnReferesh_OnClick(object sender, EventArgs e)
