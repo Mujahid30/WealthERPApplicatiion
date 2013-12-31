@@ -81,6 +81,7 @@ namespace WealthERP.OnlineOrderBackOffice
             boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue);
 
             ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
+            lnkClick.Visible = true;
         }
 
         protected void btnPreview_Click(object sender, EventArgs e)
@@ -117,14 +118,18 @@ namespace WealthERP.OnlineOrderBackOffice
         }
 
         protected void btnDownload_Click(object sender, EventArgs e)
+
         {
+           
             GetExtractData();
 
             DataTable dtExtractData = (DataTable)Cache["IssueExtract" + userVo.UserId];
             string filename = ddlExternalSource.SelectedValue + ddlProduct.SelectedItem.Text + DateTime.Now.ToString("ddMMyy") + ".csv";
             string delimit = ",";
-
+           // ControlExtractMode(false);
             DownloadBidFile(dtExtractData, filename, delimit);
+          
+          
         }
 
         private void SetFileType()
@@ -172,12 +177,15 @@ namespace WealthERP.OnlineOrderBackOffice
             if (dtExtractData == null)
             {
                 ShowMessage("No data available");
-                return;
+                 return;
+                 
             }
             if (dtExtractData.Rows.Count <= 0)
             {
                 ShowMessage("No data available");
                 return;
+              
+            
             }
 
             string dateFormat = "dd-mm-yyyy";
@@ -257,5 +265,19 @@ namespace WealthERP.OnlineOrderBackOffice
             SetFileType();
             BindIssue(ddlProduct.SelectedValue);
         }
+        //protected void lnkClick_Click(object sender, EventArgs e)
+        //{
+        //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('OnlineIssueExtract','none');", true);
+        //}
+        //private void ControlExtractMode(bool Extractmode)
+        //{
+        //    ddlProduct.Enabled = Extractmode;
+        //    ddlIssueName.Enabled = Extractmode;
+        //    ddlFileType.Enabled = Extractmode;
+        //    ddlExternalSource.Enabled = Extractmode;
+        //    btnIssueExtract.Enabled = Extractmode;
+        //    btnPreview.Enabled = Extractmode;
+        //    btnDownload.Enabled = Extractmode;
+        //}
     }
 }

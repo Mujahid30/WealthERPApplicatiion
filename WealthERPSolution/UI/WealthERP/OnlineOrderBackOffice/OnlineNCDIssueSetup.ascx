@@ -227,7 +227,7 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="lb1ActiveFormRange" runat="server" Text="Active Form Range:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1ActiveFormRange" runat="server" Text="Form No-Starting Series No:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtFormRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
@@ -245,7 +245,7 @@
                 Type="Integer" Operator="LessThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
         <td class="leftLabel">
-            <asp:Label ID="lb1ToRange" runat="server" Text="To:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1ToRange" runat="server" Text="Form No-Ending Series No:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtToRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
@@ -721,33 +721,6 @@
             </asp:RegularExpressionValidator>
         </td>
     </tr>
-    <tr runat="server" id="trMaxQty">
-        <td class="leftLabel">
-            <asp:Label ID="Label15" runat="server" Text="Max Qty:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtMaxQty" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-            <span id="Span30" class="spnRequiredField">*</span>
-            <br />
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtMaxQty"
-                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
-                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">                     
-            </asp:RegularExpressionValidator>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
-                ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
-                InitialValue="" ValidationGroup="SetUpSubmit">
-            </asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator8" ControlToValidate="txtMaxQty" runat="server"
-                ControlToCompare="txtMinAplicSize" Display="Dynamic" ErrorMessage="<br/>Max Qty be Greater Than Min Qty"
-                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
-        </td>
-        <td class="leftLabel">
-            <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
-        </td>
-    </tr>
     <tr runat="server" id="trMinQty">
         <td class="leftLabel">
             <asp:Label ID="lb1MinApplicationsize" runat="server" Text="Min Qty:" CssClass="FieldName"></asp:Label>
@@ -778,6 +751,34 @@
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>--%>
     </tr>
+    <tr runat="server" id="trMaxQty">
+        <td class="leftLabel">
+            <asp:Label ID="Label15" runat="server" Text="Max Qty:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtMaxQty" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <span id="Span30" class="spnRequiredField">*</span>
+            <br />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator10" ControlToValidate="txtMaxQty"
+                runat="server" Display="Dynamic" ErrorMessage="Please Enter Integer Value" CssClass="cvPCG"
+                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">                     
+            </asp:RegularExpressionValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator38" runat="server" CssClass="rfvPCG"
+                ErrorMessage="Please Enter Max Qty" Display="Dynamic" ControlToValidate="txtMaxQty"
+                InitialValue="" ValidationGroup="SetUpSubmit">
+            </asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator8" ControlToValidate="txtMaxQty" runat="server"
+                ControlToCompare="txtMinAplicSize" Display="Dynamic" ErrorMessage="<br/>Max Qty be Greater Than Min Qty"
+                Type="Integer" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
+        </td>
+        <td class="leftLabel">
+            <asp:Label ID="lb1IsPrefix" runat="server" Text="Is Prefix:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td class="rightData">
+            <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+        </td>
+    </tr>
+    
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1Trading" runat="server" Text="Multiples of:" CssClass="FieldName"></asp:Label>
@@ -882,7 +883,7 @@
                 </dateinput>
             </telerik:RadDatePicker>
             <asp:CompareValidator ID="cmp" ControlToValidate="txtAllotmentDate" runat="server"
-                ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>allotment Date should be grater than close date"
+                ControlToCompare="txtCloseDate" Display="Dynamic" ErrorMessage="<br/>Allotment Date Should Be Greater Than Close Date"
                 Type="Date" Operator="GreaterThan" CssClass="cvPCG" ValidationGroup="SetUpSubmit"></asp:CompareValidator>
         </td>
     </tr>
@@ -1011,11 +1012,11 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="MInBid Amount" UniqueName="AIIC_MInBidAmount" SortExpression="AIIC_MInBidAmount">
+                                            HeaderText="MIn Bid Amount" UniqueName="AIIC_MInBidAmount" SortExpression="AIIC_MInBidAmount">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_MaxBidAmount" HeaderStyle-Width="200px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="MaxBid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
+                                            HeaderText="Max Bid Amount" UniqueName="AIIC_MaxBidAmount" SortExpression="AIIC_MaxBidAmount">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridTemplateColumn AllowFiltering="false">
@@ -1472,10 +1473,10 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Annualized Yield(%) " AllowFiltering="false"
+                                                                    <telerik:GridTemplateColumn HeaderText="Yield At Maturity" AllowFiltering="false"
                                                                         HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblAnnualized" runat="server" Text="Annualized Yield(%)"></asp:Label>
+                                                                            <asp:Label ID="lblAnnualized" runat="server" Text="Yield At Maturity"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
