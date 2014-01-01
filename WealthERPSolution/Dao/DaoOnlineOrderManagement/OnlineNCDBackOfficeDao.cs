@@ -1167,10 +1167,11 @@ namespace DaoOnlineOrderManagement
             return dsGetSubCategory;
         }
 
-        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset)
+        public void GenereateNcdExtract(int AdviserId, int UserId, string SourceCode, string ProductAsset,int issueId)
         {
             Database db;
             DbCommand cmd;
+            DataSet dt=new DataSet();
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
@@ -1179,9 +1180,9 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmd, "@U_UserId", DbType.Int32, UserId);
                 db.AddInParameter(cmd, "@XES_SourceCode", DbType.String, SourceCode);
                 db.AddInParameter(cmd, "@PAG_AssetGroupCode", DbType.String, ProductAsset);
-                db.AddInParameter(cmd, "@AIM_IssueId", DbType.Int32, UserId);
+                db.AddInParameter(cmd, "@AIM_IssueId", DbType.Int32, issueId);
 
-                db.ExecuteDataSet(cmd);
+                dt=db.ExecuteDataSet(cmd);
             }
             catch (BaseApplicationException Ex)
             {

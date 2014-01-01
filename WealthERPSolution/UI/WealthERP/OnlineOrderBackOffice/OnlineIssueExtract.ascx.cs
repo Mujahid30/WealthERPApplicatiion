@@ -78,7 +78,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 return;
             }
 
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue);
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue,Convert.ToInt32(ddlIssueName.SelectedValue));
 
             ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
             //lnkClick.Visible = true;

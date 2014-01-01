@@ -42,6 +42,8 @@ namespace WealthERP.OnlineOrderBackOffice
             if (!IsPostBack)
             {
                 //txtExtractDate.MaxDate = DateTime.Now;
+                txtFromDate.SelectedDate = DateTime.Now.AddDays(-1);
+                txtToDate.SelectedDate = DateTime.Now;
                 txtExtractDate.SelectedDate = DateTime.Now;
                 BindOrderStatus();
             }
@@ -64,7 +66,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 string filename = GetFilename(Convert.ToInt32(ddlExtractType.SelectedValue));
                 string delimit = ",";
 
-                dsBackOfficeAccountingExtract = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
+                dsBackOfficeAccountingExtract = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtFromDate.SelectedDate),Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
                 if (dsBackOfficeAccountingExtract.Tables.Count == 0)
                 {
                     ShowMessage("No Data Available");
@@ -88,7 +90,7 @@ namespace WealthERP.OnlineOrderBackOffice
         private string GetRandomNumber(DateTime dt)
         {
             string strMonth = string.Empty, strday = string.Empty, strRandomNo = string.Empty;
-            
+
             int month = dt.Month;
             int day = dt.Day;
 
@@ -111,37 +113,37 @@ namespace WealthERP.OnlineOrderBackOffice
                 day = day - 1;
                 strday = day.ToString();
             }
-           // strRandomNo = strRandomNo.PadRight(4, '0') +strday+ strMonth;
-           // strRandomNo = "0000"+strMonth + strday;
+            // strRandomNo = strRandomNo.PadRight(4, '0') +strday+ strMonth;
+            // strRandomNo = "0000"+strMonth + strday;
 
-            
-            strRandomNo =strday+ strMonth  ;
-                if(strRandomNo.Length==2)
-                    strRandomNo = "0" + strday + "0" + strMonth ;
-                else
-                    strRandomNo = strday + strMonth;
+
+            strRandomNo = strday + strMonth;
+            if (strRandomNo.Length == 2)
+                strRandomNo = "0" + strday + "0" + strMonth;
+            else
+                strRandomNo = strday + strMonth;
 
 
             return strRandomNo;
         }
 
 
-        private string  GetFilename(int fileId)
+        private string GetFilename(int fileId)
         {
-            string fileName=string.Empty;
+            string fileName = string.Empty;
             int r = (new Random()).Next(100, 1000);
 
             if (fileId == 43)
             {
-                fileName = "BackOfficeReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(Convert.ToDateTime(txtExtractDate.SelectedDate)) + ".csv";
+                fileName = "BackOfficeReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(DateTime.Now) + ".csv";
             }
             else if (fileId == 44)
             {
-                fileName = "BankSummaryReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(Convert.ToDateTime(txtExtractDate.SelectedDate)) + ".csv";
+                fileName = "BankSummaryReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(DateTime.Now) + ".csv";
             }
             else
             {
-                fileName = "MFOrderReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(Convert.ToDateTime(txtExtractDate.SelectedDate)) + ".csv";
+                fileName = "MFOrderReport" + "-" + DateTime.Now.ToString("MMddyyyy") + GetRandomNumber(DateTime.Now) + ".csv";
             }
             return fileName;
 
@@ -161,7 +163,7 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void GetExtractTypeDataForFileCreation()
         {
             orderDate = Convert.ToDateTime(txtExtractDate.SelectedDate);
-            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue), Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
+            dsExtractTypeDataForFileCreation = OnlineOrderBackOfficeBo.GetExtractTypeDataForFileCreation(orderDate, advisorVo.advisorId, Convert.ToInt32(ddlExtractType.SelectedValue),  Convert.ToDateTime(txtFromDate.SelectedDate),Convert.ToDateTime(txtToDate.SelectedDate), ddlOrderStatus.SelectedValue);
             CreateDataTableForExtract();
         }
 
@@ -344,33 +346,36 @@ namespace WealthERP.OnlineOrderBackOffice
             ddlOrderStatus.Items.Insert(0, new ListItem("ALL", "ALL"));
 
         }
+
         protected void ddlExtractType_Selectedindexchanged(object sender, EventArgs e)
         {
             ddlSaveAs.Enabled = false;
 
-            if (ddlExtractType.SelectedValue == "43" || ddlExtractType.SelectedValue == "44" || ddlExtractType.SelectedValue == "45")
+            if (ddlExtractType.SelectedValue == "45")
             {
-                if (ddlExtractType.SelectedValue == "45")
-                    trOrderStatus.Visible = true;
-                else
-                    trOrderStatus.Visible = false;
-
-                lb1ExtractAndFromdate.Text = "From Date:";
+                trOrderStatus.Visible = true;
+                trFromToDate.Visible = true;
+                trExtractDate.Visible = false;
                 ddlSaveAs.SelectedValue = "2";
-                tdToDate.Visible = true;
-                txtExtractDate.SelectedDate = DateTime.Now.AddDays(-1);
-                txtToDate.SelectedDate = DateTime.Now;
-
+               
             }
             else
             {
-                lb1ExtractAndFromdate.Text = "Extract Date:";
-                ddlSaveAs.SelectedValue = "1";
-                tdToDate.Visible = false;
+                trOrderStatus.Visible = false;
+                trFromToDate.Visible = false;
+                trExtractDate.Visible = true;
+                if (ddlExtractType.SelectedValue == "43" || ddlExtractType.SelectedValue == "44")
+                {
+                    ddlSaveAs.SelectedValue = "2";
+                }
+                else
+                {
+                    ddlSaveAs.SelectedValue = "1";
+                }
                 txtExtractDate.SelectedDate = DateTime.Now;
             }
-
         }
+
         protected void BindddlExtractType()
         {
             dsextractType = new DataSet();

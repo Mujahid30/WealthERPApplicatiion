@@ -53,7 +53,7 @@ namespace DaoOnlineOrderManagement
 
 
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime toDate,string status)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType,DateTime fromDate, DateTime toDate,string status)
         {
             DataSet dsExtractType;
             Database db;
@@ -66,6 +66,7 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(GetGetMfOrderExtractCmd, "@orderDate", DbType.DateTime, orderDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@adviserId", DbType.Int32, AdviserId);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@extractType", DbType.Int32, extractType);
+                db.AddInParameter(GetGetMfOrderExtractCmd, "@fromDate", DbType.DateTime, fromDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@toDate", DbType.DateTime, toDate);
                 db.AddInParameter(GetGetMfOrderExtractCmd, "@status", DbType.String, status);
 

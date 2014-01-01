@@ -55,15 +55,16 @@
                 Display="Dynamic" ControlToValidate="ddlExtractType" InitialValue="0" ValidationGroup="btnSubmit">Please Select an ExtractType</asp:RequiredFieldValidator>
         </td>
     </tr>
-    <tr>
+    <tr id="trFromToDate" runat="server" visible="false">
         <td>
         </td>
         <td align="right">
-            <asp:Label ID="lb1ExtractAndFromdate" runat="server" Text="Extract Date:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="From Date:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <telerik:RadDatePicker ID="txtExtractDate" CssClass="txtField" runat="server" Culture="English (United States)"
-                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01" AutoPostBack="true">
+            <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                TabIndex="17" Width="200px">
                 <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
                     Skin="Telerik" EnableEmbeddedSkins="false">
                 </Calendar>
@@ -72,15 +73,14 @@
                 </DateInput>
             </telerik:RadDatePicker>
             <span class="spnRequiredField">*</span>
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmitTemp"
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ValidationGroup="vgBtnSubmitTemp"
                 runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
                 ControlToValidate="txtExtractDate"></asp:RequiredFieldValidator>
-            <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtExtractDate" runat="server"
+            <asp:CompareValidator ID="CompareValidator2" ControlToValidate="txtExtractDate" runat="server"
                 ControlToCompare="txtToDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To date"
                 Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
         </td>
-        
-        <td id="tdToDate" runat="server" visible="false">
+        <td id="tdToDate" runat="server" >
             <asp:Label ID="lb1ToDate" runat="server" Text="To Date:" CssClass="FieldName"></asp:Label>
             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
@@ -101,12 +101,56 @@
         </td>
         <td colspan="2">
         </td>
-        
-        
     </tr>
-    
+    <tr id="trExtractDate" runat="server" visible="false">
+        <td>
+        </td>
+        <td align="right">
+            <asp:Label ID="lb1ExtractAndFromdate" runat="server" Text="Extract Date:" CssClass="FieldName"></asp:Label>
+        </td>
+        <td>
+            <telerik:RadDatePicker ID="txtExtractDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
+                AutoPostBack="true">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <span class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ValidationGroup="vgBtnSubmitTemp"
+                runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
+                ControlToValidate="txtExtractDate"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator4" ControlToValidate="txtExtractDate" runat="server"
+                ControlToCompare="txtToDate" Display="Dynamic" ErrorMessage="<br/>From Date be Less Than To date"
+                Type="Date" Operator="LessThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
+        </td>
+        <%--  <td id="tdToDate" runat="server" visible="false">
+            <asp:Label ID="lb1ToDate" runat="server" Text="To Date:" CssClass="FieldName"></asp:Label>
+            <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
+                Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
+                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                    Skin="Telerik" EnableEmbeddedSkins="false">
+                </Calendar>
+                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                </DateInput>
+            </telerik:RadDatePicker>
+            <span id="spanToDate" class="spnRequiredField">*</span>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ValidationGroup="vgBtnSubmitTemp"
+                runat="server" CssClass="cvPCG" ErrorMessage="Enter A Date" Display="Dynamic"
+                ControlToValidate="txtToDate"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="CompareValidator1" ControlToValidate="txtToDate" runat="server"
+                ControlToCompare="txtExtractDate" Display="Dynamic" ErrorMessage="<br/>To Date be greater Than From Date"
+                Type="Date" Operator="GreaterThanEqual" CssClass="cvPCG" ValidationGroup="vgBtnSubmitTemp"></asp:CompareValidator>
+        </td>--%>
+        <td colspan="2">
+        </td>
+    </tr>
     <tr id="trOrderStatus" runat="server" visible="false">
-     <td>
+        <td>
         </td>
         <td align="right">
             <asp:Label ID="lblOrderStatus" runat="server" Text="Order Status: " CssClass="FieldName"></asp:Label>

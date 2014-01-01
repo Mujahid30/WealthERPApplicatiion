@@ -42,7 +42,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trSumbitSuccess;
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trOrderStatus;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trFromToDate;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow trExtractDate;
 
+        
         
         
         /// <summary>
@@ -126,6 +129,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// </remarks>
         protected global::Telerik.Web.UI.RadDatePicker txtExtractDate;
         protected global::Telerik.Web.UI.RadDatePicker txtToDate;
+        protected global::Telerik.Web.UI.RadDatePicker txtFromDate;
+
+        
 
         
         /// <summary>
