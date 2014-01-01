@@ -143,6 +143,15 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
+        protected void ddlFolio_onSelectedChanged(object sender, EventArgs e)
+        {
+            if (ddlFolio.SelectedIndex != -1)
+            {
+                GetControlDetails(int.Parse(ddlScheme.SelectedValue), ddlFolio.SelectedValue.ToString());
+            }
+
+        }
+
         protected void ResetControlDetails(object sender, EventArgs e)
         {
             lblDividendType.Text = "";
@@ -323,7 +332,7 @@ namespace WealthERP.OnlineOrderManagement
                 //lblDivType.Visible = true;
                 //ddlDivType.Visible = true;
                 //trDivfeq.Visible = true;
-               // trDivtype.Visible = true;
+                // trDivtype.Visible = true;
                 RequiredFieldValidator3.Enabled = true;
 
 
@@ -438,7 +447,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = false;
                 txtRedeemTypeValue.Enabled = false;
                 ddlDivType.Enabled = false;
-                lnkFactSheet.Enabled = false;              
+                lnkFactSheet.Enabled = false;
                 ddlRedeem.Enabled = false;
                 txtRedeemTypeValue.Enabled = false;
                 trTermsCondition.Visible = false;
@@ -455,7 +464,7 @@ namespace WealthERP.OnlineOrderManagement
                 ddlFolio.Enabled = true;
                 txtRedeemTypeValue.Enabled = true;
                 ddlDivType.Enabled = true;
-                lnkFactSheet.Enabled = true;               
+                lnkFactSheet.Enabled = true;
                 ddlRedeem.Enabled = true;
 
                 btnSubmit.Visible = true;
