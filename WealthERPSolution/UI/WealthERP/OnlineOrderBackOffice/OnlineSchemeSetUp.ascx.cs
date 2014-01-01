@@ -622,6 +622,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             if (isViewMode)
             {
+                txtRedemptionmultiple.Enabled = false;
                 txtScname.Enabled = false;
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
@@ -677,10 +678,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlSchemeList.Visible = true;
                 Label4.Visible = true;
                 rfvtxtScname.Visible = false;
-
+                txtSwitchMultipleAmount.Enabled = false;
+                txtSwitchMultipleUnits.Enabled = false;
+                txtNFOStartDate.Enabled=false;
+                txtNFOendDate.Enabled=false;
             }
             else
             {
+                txtNFOendDate.Enabled=true;
+                txtNFOStartDate.Enabled=true;
+                txtSwitchMultipleUnits.Enabled = true;
+                txtSwitchMultipleAmount.Enabled = true;
+                txtRedemptionmultiple.Enabled = true;
                 rfvtxtScname.Visible = false;
                 Label4.Visible = true;
                 ddlSchemeList.Visible = true;

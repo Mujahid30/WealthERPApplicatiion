@@ -27,11 +27,12 @@
                         <td align="left">
                             Online Scheme Setup
                         </td>
-                        <td>
+                        <td align="right">
                             <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
                                 OnClick="lbBack_OnClick"></asp:LinkButton>
                         </td>
-                        <td><asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="true"
+                        &nbsp &nbsp
+                        <td align="left"><asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="true"
                                 OnClick="lbBack1_OnClick"></asp:LinkButton></td>
                     </tr>
                 </table>
@@ -391,16 +392,16 @@
             </td>
             <td>
                 <asp:TextBox ID="txtHH" runat="server" CssClass="cmbFielde" Width="20px" AutoPostBack="false"></asp:TextBox>
-                <asp:Label ID="Label1" runat="server" Text="HH:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="HH" CssClass="FieldName"></asp:Label>
                 <asp:TextBox ID="txtMM" runat="server" CssClass="cmbFielde" Width="20px" AutoPostBack="false"></asp:TextBox>
-                <asp:Label ID="Label2" runat="server" Text="MM:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="MM" CssClass="FieldName"></asp:Label>
                 <asp:TextBox ID="txtSS" runat="server" CssClass="cmbFielde" Width="20px" AutoPostBack="false"></asp:TextBox>
-                <asp:Label ID="Label3" runat="server" Text="SS:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="Label3" runat="server" Text="SS" CssClass="FieldName"></asp:Label>
             </td>
         </tr>
         <tr>
        <td align="right">
-                <asp:Label ID="lblMaxinvestment" runat="server" Text="Max Investment:" CssClass="FieldName"></asp:Label>
+                <asp:Label ID="lblMaxinvestment" runat="server" Text="Max Investment:" CssClass="cmbFielde"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtinvestment" runat="server"></asp:TextBox>
