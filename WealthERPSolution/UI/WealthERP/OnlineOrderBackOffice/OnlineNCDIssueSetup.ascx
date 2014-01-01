@@ -1007,12 +1007,12 @@
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_ChequePayableTo" HeaderStyle-Width="200px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="ChequePayableTo" UniqueName="AIIC_ChequePayableTo" SortExpression="AIIC_ChequePayableTo">
+                                            HeaderText="Cheque Payable To" UniqueName="AIIC_ChequePayableTo" SortExpression="AIIC_ChequePayableTo">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_MInBidAmount" HeaderStyle-Width="200px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                            HeaderText="MIn Bid Amount" UniqueName="AIIC_MInBidAmount" SortExpression="AIIC_MInBidAmount">
+                                            HeaderText="Min Bid Amount" UniqueName="AIIC_MInBidAmount" SortExpression="AIIC_MInBidAmount">
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIIC_MaxBidAmount" HeaderStyle-Width="200px"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
@@ -1065,7 +1065,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="730px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="663px">
                                         <FormTemplate>
                                             <table width="75%" cellspacing="2" cellpadding="2">
                                                 <tr>
@@ -1240,7 +1240,7 @@
                                                 <tr>
                                                     <td class="leftLabel">
                                                         <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                            CausesValidation="True" ValidationGroup="btnOK" />
+                                                            CausesValidation="True" ValidationGroup="btnOK"/>
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
@@ -1356,7 +1356,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="590px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="620px">
                                         <FormTemplate>
                                             <table width="80%">
                                                 <tr>
@@ -1452,7 +1452,7 @@
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridBoundColumn DataField="AIIC_InvestorCatgeoryId" HeaderStyle-Width="10px"
-                                                                        Visible="false" ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderText="CatgoryID"
+                                                                        Visible="false" ShowFilterIcon="false" CurrentFilterFunction="Contains" HeaderText="Category ID"
                                                                         SortExpression="AIIC_InvestorCatgeoryId">
                                                                         <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                                                     </telerik:GridBoundColumn>
@@ -1476,7 +1476,7 @@
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At Maturity" AllowFiltering="false"
                                                                         HeaderStyle-Width="30px">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lblAnnualized" runat="server" Text="Yield At Maturity"></asp:Label>
+                                                                            <asp:Label ID="lblAnnualized" runat="server" Text="Yield At Maturity(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
                                                                             <asp:TextBox ID="txtAnnualizedYield" runat="server" CssClass="txtField" Width="40px"></asp:TextBox>
@@ -1517,7 +1517,7 @@
                                                                             <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)" ></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px" AutoPostBack="true"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px" AutoPostBack="true" Visible="false"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgYieldAtBuyBack" ControlToValidate="txtYieldAtBuyBack"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     

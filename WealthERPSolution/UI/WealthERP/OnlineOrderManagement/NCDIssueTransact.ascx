@@ -364,9 +364,9 @@
                                 HeaderText="Series" UniqueName="AID_IssueDetailName" SortExpression="AID_IssueDetailName">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn Visible="false" DataField="AID_Sequence" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
-                                ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Sequence" UniqueName="AID_Sequence"
-                                SortExpression="AID_Sequence">
+                            <telerik:GridBoundColumn Visible="false" DataField="AID_Sequence" HeaderStyle-Width="60px"
+                                CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
+                                HeaderText="Sequence" UniqueName="AID_Sequence" SortExpression="AID_Sequence">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
@@ -543,19 +543,19 @@
             </asp:CustomValidator>
         </td>
     </tr>
-    <tr >
-    <td>
-    <asp:Label ID="lb1CustOffTimeMsg" runat="server"  CssClass="FieldName"></asp:Label>
-    
-    </td>
+    <tr>
+        <td>
+            <asp:Label ID="lb1CustOffTimeMsg" runat="server" CssClass="FieldName"></asp:Label>
+        </td>
         <td id="tdsubmit" runat="server" align="left" style="width: 60%">
             <asp:Label ID="Label3" runat="server" Text="Confirm Your Order :" CssClass="FieldName"></asp:Label>
             <asp:Button ID="btnConfirmOrder" runat="server" Text="Submit" OnClick="btnConfirmOrder_Click"
                 CssClass="PCGButton" ValidationGroup="btnConfirmOrder" />
-            
         </td>
-        <td><asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
-                Visible="false" OnClick="lnlktoviewncdissue_Click"></asp:LinkButton></td>
+        <td>
+            <asp:LinkButton runat="server" ID="lnlBack" CssClass="LinkButtons" Text="Click here to view the issue list"
+                Visible="false" OnClick="lnlktoviewncdissue_Click"></asp:LinkButton>
+        </td>
     </tr>
 </table>
 <table>

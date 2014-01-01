@@ -372,7 +372,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty(txtQuantity.Text))
                     {
                         isValid = true;
-                        txtQuantity.Enabled = false;
+                        txtQuantity.Enabled = true;
                         OnlineBondVo.Qty = Convert.ToInt32(txtQuantity.Text);
                         TextBox txtAmount = (TextBox)gvCommMgmt.MasterTableView.Items[rowNo]["Amount"].FindControl("txtAmount");
                         OnlineBondVo.Amount = Convert.ToDouble(txtAmount.Text);
@@ -425,6 +425,7 @@ namespace WealthERP.OnlineOrderManagement
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
                         // ShowMessage(message);
+                     
                         txtsumQuantity.Text = "";
                         txtsumAmount.Text = "";
                         lblQty.Text = "";
@@ -490,7 +491,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (ronum < gvCommMgmt.MasterTableView.Items.Count)
                     {
                         TextBox txt = gvCommMgmt.Items[ronum].Cells[17].FindControl("txtQuantity") as TextBox;
-                        txt.Enabled = false;
+                        //txt.Enabled = true;
                         ronum++;
                     }
                 }
