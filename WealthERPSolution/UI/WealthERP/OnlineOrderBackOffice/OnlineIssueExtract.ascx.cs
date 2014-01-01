@@ -81,7 +81,7 @@ namespace WealthERP.OnlineOrderBackOffice
             boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue);
 
             ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
-            lnkClick.Visible = true;
+            //lnkClick.Visible = true;
         }
 
         protected void btnPreview_Click(object sender, EventArgs e)

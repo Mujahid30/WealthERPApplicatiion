@@ -141,8 +141,8 @@
             <tr id="trSumbitSuccess">
                 <td align="center">
                     <div id="msgRecordStatus" class="success-msg" align="center" runat="server"></div>
-                     <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new Extract"
-                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>
+                    <%-- <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new Extract"
+                Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>--%>
                 </td>
             </tr>
         </table>
