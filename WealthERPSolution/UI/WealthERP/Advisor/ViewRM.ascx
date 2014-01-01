@@ -162,38 +162,20 @@
                     <MasterTableView DataKeyNames="UserId" Width="100%" AllowMultiColumnSorting="True"
                         AutoGenerateColumns="false" CommandItemDisplay="None">
                         <Columns>
-                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" Visible="false">
-                                <%--<ItemTemplate>
-                                    <asp:DropDownList ID="ddlMenu" AutoPostBack="true" runat="server" CssClass="GridViewCmbField"
-                                        OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" EnableViewState="True">
-                                        <asp:ListItem>Select </asp:ListItem>
-                                        <asp:ListItem Text="View profile" Value="View profile">View profile</asp:ListItem>
-                                        <asp:ListItem Text="Edit Profile" Value="Edit Profile">Edit Profile</asp:ListItem>
-                                    </asp:DropDownList>
-                                </ItemTemplate>--%>
-                                <%-- <asp:TemplateField HeaderText="Action" ItemStyle-Width="80Px">--%>
-                                <ItemTemplate>
-                                    <telerik:RadComboBox ID="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
-                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik" 
-                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
-                                        <Items>
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true">
-                                            </telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem Text="View profile" Value="View profile" ImageUrl="~/Images/DetailedView.png"
-                                                runat="server"></telerik:RadComboBoxItem>
-                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit Profile" Value="Edit Profile"
-                                                runat="server"></telerik:RadComboBoxItem>
-                                        </Items>
-                                    </telerik:RadComboBox>
-                                </ItemTemplate>
-                                <%-- </asp:TemplateField>--%>
-                            </telerik:GridTemplateColumn>
-                            <%-- <telerik:GridTemplateColumn AllowFiltering="true">
-                                <ItemTemplate>
-                                    <asp:Label CssClass="label" ID="lblContainer" runat="server" Text='<%# Eval("RMName") %>'></asp:Label>
-                                </ItemTemplate>
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
-                            </telerik:GridTemplateColumn> --%>
+                            
+                            <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" >
+                                                <ItemTemplate>
+                                                    <telerik:RadComboBox ID="ddlMenu" UniqueName="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
+                                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                                        <Items>
+                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true"></telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png" runat="server"></telerik:RadComboBoxItem>
+                                                            <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit" runat="server"></telerik:RadComboBoxItem>
+                                                        </Items>
+                                                    </telerik:RadComboBox>
+                                                </ItemTemplate>
+                                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn DataField="RMName" SortExpression="RMName" AutoPostBackOnFilter="true"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AllowFiltering="true"
                                 HeaderText="Name" UniqueName="RMName">

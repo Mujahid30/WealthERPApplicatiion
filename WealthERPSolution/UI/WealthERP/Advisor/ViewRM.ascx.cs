@@ -567,24 +567,27 @@ namespace WealthERP.Advisor
                 Session["CurrentrmVo"] = rmVo;
                 menu = MyDropDownList.SelectedItem.Value.ToString();
                 //Session["S_CurrentUserRole"] = "RM";
-                if (menu == "Edit Profile")
+                if (menu == "Edit")
                 {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu=" + menu + "');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu=" + menu + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddStaff", "loadcontrol('AddStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
                 }
-                if (menu == "View profile")
+                if (menu == "View")
                 {
                     Session["FromAdvisorView"] = "FromAdvView";
 
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu="+ menu + "');", true);
+                    //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('EditRMDetails','?Menu="+ menu + "');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "AddStaff", "loadcontrol('AddStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
+
                 }
-                if (menu == "RM Dashboard")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
-                }
-                if (menu == "User Profile")
-                {
-                    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
-                }
+                //if (menu == "RM Dashboard")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('RMDashBoard','none');", true);
+                //}
+                //if (menu == "User Profile")
+                //{
+                //    Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+                //}
             }
             catch (BaseApplicationException Ex)
             {
