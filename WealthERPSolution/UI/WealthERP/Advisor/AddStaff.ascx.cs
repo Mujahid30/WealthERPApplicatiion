@@ -605,7 +605,10 @@ namespace WealthERP.Advisor
             txtFaxNumber.Text = string.Empty;
             txtFaxISD.Text = string.Empty;
             txtExtSTD.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtEUIN.Text = string.Empty;
             ddlChannel.Enabled = false;
+
 
             //imgBtnReferesh.Enabled = false;
             //imgAddAgentCode.Enabled = false;
