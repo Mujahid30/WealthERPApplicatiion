@@ -38,12 +38,13 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session[SessionContents.AdvisorVo];
             ExtractPath = Server.MapPath("UploadFiles");
-            BindddlExtractType();
+           
             if (!IsPostBack)
             {
                 //txtExtractDate.MaxDate = DateTime.Now;
                 txtFromDate.SelectedDate = DateTime.Now.AddDays(-1);
                 txtToDate.SelectedDate = DateTime.Now;
+                BindddlExtractType();
                 txtExtractDate.SelectedDate = DateTime.Now;
                 BindOrderStatus();
             }
