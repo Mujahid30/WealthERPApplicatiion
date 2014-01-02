@@ -19,6 +19,7 @@
         return false;
     }
 </script>
+
 <style type="text/css">
     .table
     {
@@ -26,12 +27,12 @@
     }
     .leftLabel
     {
-        width: 15%;
+        width: 18%;
         text-align: right;
     }
     .rightData
     {
-        width: 18%;
+        width: 15%;
         text-align: left;
     }
     .rightDataTwoColumn
@@ -140,7 +141,8 @@
         <table id="tblMessage" width="100%" runat="server" visible="false">
             <tr id="trSumbitSuccess">
                 <td align="center">
-                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server"></div>
+                    <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                    </div>
                     <%-- <asp:LinkButton ID="lnkClick" runat="server" Text="Click here to start new Extract"
                 Font-Size="Small" Font-Underline="false" class="textfield" OnClick="lnkClick_Click" Visible="false"></asp:LinkButton>--%>
                 </td>
@@ -150,7 +152,8 @@
             <tr id="trStepOneHeading" runat="server">
                 <td class="tdSectionHeading" colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        <div class="divSectionHeadingNumber fltlftStep">1</div>
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            1</div>
                         <div class="fltlft">
                             <asp:Label ID="lblStep1" runat="server" Text="Product"></asp:Label>
                         </div>
@@ -162,68 +165,47 @@
                     <asp:Label ID="lblproduct" runat="server" CssClass="FieldName" Text="Select Product:"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" 
-                        AutoPostBack="True" onselectedindexchanged="ddlProduct_SelectedIndexChanged">
+                    <asp:DropDownList ID="ddlProduct" runat="server" CssClass="cmbField" AutoPostBack="True"
+                        OnSelectedIndexChanged="ddlProduct_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
                         <asp:ListItem Text="NCD/Bond" Value="FI" />
                         <asp:ListItem Text="IPO" Value="IP" />
-                    </asp:DropDownList><br />
-                    <asp:RequiredFieldValidator ID="rfvProduct" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please select a product" ControlToValidate="ddlProduct" 
-                        Display="Dynamic" InitialValue="0" ValidationGroup="IssueExtract">Please select a product</asp:RequiredFieldValidator>
+                    </asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvProduct" runat="server" CssClass="rfvPCG" ErrorMessage="Please select a product"
+                        ControlToValidate="ddlProduct" Display="Dynamic" InitialValue="0" ValidationGroup="IssueExtract">Please select a product</asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="rfvProductFileType" runat="server" CssClass="rfvPCG"
-                        ErrorMessage="Please select a product" ControlToValidate="ddlProduct" 
-                        Display="Dynamic" InitialValue="0" ValidationGroup="FileType">Please select a product</asp:RequiredFieldValidator></td>
+                        ErrorMessage="Please select a product" ControlToValidate="ddlProduct" Display="Dynamic"
+                        InitialValue="0" ValidationGroup="FileType">Please select a product</asp:RequiredFieldValidator>
+                </td>
                 <td class="leftLabel">
-                    <asp:Label ID="lblDWNData" runat="server" CssClass="FieldName" Text="Download Data:"></asp:Label></td></td>
+                    <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
+                </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="true" 
-                        onselectedindexchanged="ddlExternalSource_SelectedIndexChanged" 
-                        ValidationGroup="FileType">
-                        <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                        <asp:ListItem Text="BSE" Value="BSE" />
-                        <asp:ListItem Text="NSE" Value="NSE" />
-                         <asp:ListItem Text="Internal Ops" Value="IOPS" />
-                    </asp:DropDownList><br />
-                    <asp:RequiredFieldValidator ID="rfvDownload" runat="server" 
-                        ErrorMessage="Please select a download" ControlToValidate="ddlExternalSource" 
-                        CssClass="rfvPCG" Display="Dynamic" InitialValue="0" 
-                        ValidationGroup="IssueExtract">Please select a download</asp:RequiredFieldValidator></td>
-                <td class="leftLabel">
-                    <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label></td></td>
-                <td class="rightData">
-                    <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField">
-                        <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
-                    </asp:DropDownList><br />
-                    <asp:RequiredFieldValidator ID="rfvFileType" runat="server" 
-                        ErrorMessage="Please select a file type" ControlToValidate="ddlFileType" 
-                        CssClass="rfvPCG" Display="Dynamic" InitialValue="0" 
-                        ValidationGroup="IssueExtract">Please select a file type</asp:RequiredFieldValidator></td>
+                    <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbLongField">
+                        <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
+                    </asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIssueName"
+                        CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a IssueName"
+                        InitialValue="Select" ValidationGroup="OnlineIssueUpload">
+                    </asp:RequiredFieldValidator>
+                </td>
+                <td colspan="3">
+                    <asp:Button ID="btnIssueExtract" runat="server" CssClass="PCGLongButton" Text="NCD Extract"
+                        OnClick="btnIssueExtract_Click" />
+                </td>
             </tr>
-             <tr>
-        <td class="leftLabel">
-            <asp:Label ID="Label2" runat="server" CssClass="FieldName" Text="Select Issue:"></asp:Label>
-        </td>
-        <td class="rightData">
-            <asp:DropDownList ID="ddlIssueName" runat="server" CssClass="cmbField" > 
-                <asp:ListItem Selected="True" Value="Select">--SELECT--</asp:ListItem>
-                           
-            </asp:DropDownList>
-            <br />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlIssueName"
-                CssClass="rfvPCG" Display="Dynamic" ErrorMessage="Please select a IssueName" InitialValue="Select"
-                ValidationGroup="OnlineIssueUpload">
-            </asp:RequiredFieldValidator>
-        </td>
-        <td volspan="2">
-        </td>
-    </tr>
+             
         </table>
-        <table width="100%">
+      <%--  ValidationGroup="IssueExtract" --%>
+      <%--ValidationGroup="FileType"--%>
+        <table width="100%" >
             <tr>
                 <td class="tdSectionHeading" colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        <div class="divSectionHeadingNumber fltlftStep">2</div>
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            2</div>
                         <div class="fltlft">
                             <asp:Label ID="Label1" runat="server" Text="NCD Extract"></asp:Label>
                         </div>
@@ -231,22 +213,82 @@
                 </td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                <td class="leftLabel" style="width:10%";>
+                    <asp:Label ID="lblDWNData" runat="server" CssClass="FieldName" Text="Download Data:"></asp:Label>
+                </td>
                 <td class="rightData">
+                    <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlExternalSource_SelectedIndexChanged" >
+                        <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                        <asp:ListItem Text="BSE" Value="BSE" />
+                        <asp:ListItem Text="NSE" Value="NSE" />
+                        <asp:ListItem Text="Internal Ops" Value="IOPS" />
+                    </asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvDownload" runat="server" ErrorMessage="Please select a download"
+                        ControlToValidate="ddlExternalSource" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
+                        ValidationGroup="IssueExtract">Please select a download</asp:RequiredFieldValidator>
+                </td>
+                <td class="leftLabel" style="width:5%";>
+                    <asp:Label ID="lblFileType" runat="server" CssClass="FieldName" Text="File Type:"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <asp:DropDownList ID="ddlFileType" runat="server" CssClass="cmbField">
+                        <asp:ListItem Selected="True" Value="0">--SELECT--</asp:ListItem>
+                    </asp:DropDownList>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvFileType" runat="server" ErrorMessage="Please select a file type"
+                        ControlToValidate="ddlFileType" CssClass="rfvPCG" Display="Dynamic" InitialValue="0"
+                        ValidationGroup="IssueExtract">Please select a file type</asp:RequiredFieldValidator>
+                </td>
+                <td class="leftLabel" style="width:5%";>
+                    <asp:Label ID="Label3" runat="server" CssClass="FieldName" Text="Date:"></asp:Label>
+                </td>
+                <td class="rightData">
+                    <telerik:RadDatePicker ID="rdpDownloadDate" CssClass="txtField" runat="server" AutoPostBack="false"
+                        Skin="Telerik" EnableEmbeddedSkins="false">
+                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvDOwnloadDate" runat="server" ErrorMessage="Please select a valid date"
+                        Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date"
+                        CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator>
+                </td>
+               <%-- <td class="leftLabel" colspan="2">&nbsp;</td>--%>
+               
+            </tr>
+            <tr>
+               <%-- <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>--%>
+                <%-- <td class="rightData">
                     <asp:Button ID="btnIssueExtract" runat="server" CssClass="PCGLongButton" Text="NCD Extract"
-                        OnClick="btnIssueExtract_Click" ValidationGroup="IssueExtract" /></td>
-                <td class="rightData">
-                    <asp:Label ID="lblCurrentDate" CssClass="FieldName" runat="server" Text="(For current date only)"></asp:Label></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                        OnClick="btnIssueExtract_Click" ValidationGroup="IssueExtract" />
+                </td>--%>
+                <%--<td class="rightData">
+                    <asp:Label ID="lblCurrentDate" CssClass="FieldName" runat="server" Text="(For current date only)"></asp:Label>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>--%>
             </tr>
         </table>
         <table width="100%">
             <tr id="tr2" runat="server">
                 <td class="tdSectionHeading" colspan="6">
                     <div class="divSectionHeading" style="vertical-align: text-bottom">
-                        <div class="divSectionHeadingNumber fltlftStep">3</div>
+                        <div class="divSectionHeadingNumber fltlftStep">
+                            3</div>
                         <div class="fltlft">
                             <asp:Label ID="lblDownloads" runat="server" Text="Downloads"></asp:Label>
                         </div>
@@ -254,43 +296,59 @@
                 </td>
             </tr>
             <tr>
-                <td>&nbsp;</td>
-                <td class="leftLabel">
-                    <telerik:RadDatePicker ID="rdpDownloadDate" CssClass="txtField" runat="server"
-                        AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false">
-                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                            Skin="Telerik" EnableEmbeddedSkins="false"></Calendar>
-                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy"></DateInput>
-                    </telerik:RadDatePicker><br />
-                    <asp:RequiredFieldValidator ID="rfvDOwnloadDate" runat="server" 
-                        ErrorMessage="Please select a valid date" Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date" CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator></td>                
+                <td>
+                    &nbsp;
+                </td>
+                <%-- <td class="leftLabel">
+                    <telerik:RadDatePicker ID="rdpDownloadDate" CssClass="txtField" runat="server" AutoPostBack="false"
+                        Skin="Telerik" EnableEmbeddedSkins="false">
+                        <Calendar ID="Calendar1" runat="server" UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False"
+                            ViewSelectorText="x" Skin="Telerik" EnableEmbeddedSkins="false">
+                        </Calendar>
+                        <DateInput ID="DateInput1" runat="server" DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                        </DateInput>
+                    </telerik:RadDatePicker>
+                    <br />
+                    <asp:RequiredFieldValidator ID="rfvDOwnloadDate" runat="server" ErrorMessage="Please select a valid date"
+                        Display="Dynamic" ControlToValidate="rdpDownloadDate" Text="Please select a valid date"
+                        CssClass="rfvPCG" ValidationGroup="IssueExtract">Please select a valid date</asp:RequiredFieldValidator>
+                </td>--%>
                 <td class="rightData">
-                    <asp:Button ID="btnPreview" runat="server" Text="Preview Data" ValidationGroup="IssueExtract" CssClass="PCGLongButton" OnClick="btnPreview_Click" /></td>
+                    <asp:Button ID="btnPreview" runat="server" Text="Preview Data" ValidationGroup="IssueExtract"
+                        CssClass="PCGLongButton" OnClick="btnPreview_Click" />
+                </td>
                 <td class="rightData">
-                    <asp:Button ID="btnDownload" runat="server" Text="Download File" 
-                        ValidationGroup="IssueExtract" CssClass="PCGLongButton" 
-                        OnClick="btnDownload_Click" /></td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
+                    <asp:Button ID="btnDownload" runat="server" Text="Download File" ValidationGroup="IssueExtract"
+                        CssClass="PCGLongButton" OnClick="btnDownload_Click" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
             </tr>
         </table>
-        <asp:Panel ID="pnlOnlneIssueExtract" runat="server" Width="100%" ScrollBars="Horizontal" Visible="false">
+        <asp:Panel ID="pnlOnlneIssueExtract" runat="server" Width="100%" ScrollBars="Horizontal"
+            Visible="false">
             <tr>
                 <td>
                     <telerik:RadGrid ID="gvOnlineIssueExtract" runat="server" AutoGenerateColumns="true"
                         AllowPaging="true" AllowSorting="true" Skin="Telerik" EnableHeaderContextMenu="true"
-                        OnNeedDataSource="gvOnlineIssueExtract_OnNeedDataSource" GridLines="Both"
-                        EnableEmbeddedSkins="false" ShowFooter="true" PagerStyle-AlwaysVisible="true"
-                        EnableViewState="true" ShowStatusBar="true" AllowFilteringByColumn="true">
-                        <ExportSettings HideStructureColumns="true"></ExportSettings>
-                        <MasterTableView Width="100%" AllowMultiColumnSorting="True"
-                            AutoGenerateColumns="true" HeaderStyle-Width="120px" PageSize="20">
+                        OnNeedDataSource="gvOnlineIssueExtract_OnNeedDataSource" GridLines="Both" EnableEmbeddedSkins="false"
+                        ShowFooter="true" PagerStyle-AlwaysVisible="true" EnableViewState="true" ShowStatusBar="true"
+                        AllowFilteringByColumn="true">
+                        <ExportSettings HideStructureColumns="true">
+                        </ExportSettings>
+                        <MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="true"
+                            HeaderStyle-Width="120px" PageSize="20">
                         </MasterTableView>
                         <ClientSettings>
                             <Resizing AllowColumnResize="true" />
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         </ClientSettings>
-                        <FilterMenu EnableEmbeddedSkins="false"></FilterMenu>
+                        <FilterMenu EnableEmbeddedSkins="false">
+                        </FilterMenu>
                     </telerik:RadGrid>
                 </td>
             </tr>
@@ -300,4 +358,3 @@
         <asp:PostBackTrigger ControlID="btnDownload" />
     </Triggers>
 </asp:UpdatePanel>
-

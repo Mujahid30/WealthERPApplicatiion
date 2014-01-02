@@ -776,7 +776,7 @@ namespace BoOnlineOrderManagement
             if (onlineNCDBackOfficeDao == null) onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
 
             DataTable dtExtract = onlineNCDBackOfficeDao.GetOnlineNcdExtractPreview(extractDate, adviserId, fileTypeId, issueId).Tables[0];
-
+            //No maping Has to do
             if (dtExtract == null) return null;
 
             if (headers != null)

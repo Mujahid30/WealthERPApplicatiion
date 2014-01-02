@@ -72,12 +72,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnIssueExtract_Click(object sender, EventArgs e)
         {
-            Page.Validate("IssueExtract");
-            if (!Page.IsValid) {
-                ShowMessage("Please check all required fields");
-                return;
-            }
-
+            //Page.Validate("IssueExtract");
+            //if (!Page.IsValid) {
+            //    ShowMessage("Please check all required fields");
+            //    return;
+            //}
+            ddlExternalSource.SelectedValue = "IOPS";
             boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue,Convert.ToInt32(ddlIssueName.SelectedValue));
 
             ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
@@ -236,12 +236,12 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void ddlExternalSource_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Page.Validate("FileType");
+            //Page.Validate("FileType");
 
-            if (!Page.IsValid) {
-                ShowMessage("Please check all required fields");
-                return;
-            }
+            //if (!Page.IsValid) {
+            //    ShowMessage("Please check all required fields");
+            //    return;
+            //}
             SetFileType();
         }
 
