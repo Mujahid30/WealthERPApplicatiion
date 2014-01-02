@@ -128,6 +128,8 @@
                 Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
         </td>
     </tr>--%>
+    </table>
+    <table>
     <tr>
         <td align="right">
             <asp:Label ID="lblDpName" runat="server" Text="DP Name" CssClass="FieldName"></asp:Label>
