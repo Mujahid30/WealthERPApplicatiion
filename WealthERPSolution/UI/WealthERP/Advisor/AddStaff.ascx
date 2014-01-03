@@ -270,7 +270,9 @@
             <asp:TextBox ID="txtAgentCode" onblur="return checkInsuranceNoAvailability()" runat="server"
                 CssClass="txtField">
             </asp:TextBox>
-            <span id="Span9" class="spnRequiredField">*</span>
+           
+           <%--<asp:Label ID="lblrg" runat="server" Text="*" class="spnRequiredField"></asp:Label>--%>
+            <span  runat="server" id="Span9" class="spnRequiredField"><asp:Label ID="lblrg" runat="server" Text="*"></asp:Label></span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txtAgentCode"
                 ErrorMessage="Please enter a AgentCode" Display="Dynamic" runat="server" ValidationGroup="btnSubmit"

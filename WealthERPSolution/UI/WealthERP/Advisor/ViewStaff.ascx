@@ -53,15 +53,23 @@
                                         <Columns>
                                             <telerik:GridTemplateColumn ItemStyle-Width="80Px" AllowFiltering="false" >
                                                 <ItemTemplate>
-                                                    <telerik:RadComboBox ID="ddlMenu" UniqueName="ddlMenu" OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged"
+                                                   <%-- <telerik:RadComboBox ID="ddlMenu" UniqueName="ddlMenu"   OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" 
                                                         CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                                        AllowCustomText="true" Width="120px" AutoPostBack="true" >
                                                         <Items>
                                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true"></telerik:RadComboBoxItem>
                                                             <telerik:RadComboBoxItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png" runat="server"></telerik:RadComboBoxItem>
                                                             <telerik:RadComboBoxItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit" runat="server"></telerik:RadComboBoxItem>
                                                         </Items>
-                                                    </telerik:RadComboBox>
+                                                    </telerik:RadComboBox>--%>
+                                                     <asp:DropDownList ID="ddlMenu"  OnSelectedIndexChanged="ddlMenu_SelectedIndexChanged" runat="server" EnableEmbeddedSkins="false" AutoPostBack="true"
+                                                     Width="120px" AppendDataBoundItems="true" CssClass="cmbField" >
+                                                     <items>
+                                                     <asp:ListItem ImageUrl="~/Images/Select.png" Text="Select" Value="0" Selected="true"></asp:ListItem>
+                                                     <asp:ListItem Text="View" Value="View" ImageUrl="~/Images/DetailedView.png" runat="server"></asp:ListItem>
+                                                     <asp:ListItem ImageUrl="~/Images/RecordEdit.png" Text="Edit" Value="Edit" runat="server" ></asp:ListItem>
+                                                     </items>
+                                                     </asp:DropDownList>
                                                 </ItemTemplate>
                                             </telerik:GridTemplateColumn>
                                             <telerik:GridBoundColumn HeaderStyle-Width="130px" DataField="RMName" SortExpression="RMName" AutoPostBackOnFilter="true"

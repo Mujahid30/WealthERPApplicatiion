@@ -77,7 +77,7 @@ namespace WealthERP.Advisor
 
                 rmUserList = advisorStaffBo.GetRMList(advisorVo.advisorId, hdnSort.Value.Trim(),hdnNameFilter.Value.Trim());
 
-                lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
 
                 if (rmUserList != null)
                 {
@@ -163,16 +163,12 @@ namespace WealthERP.Advisor
 
                 FunctionInfo.Add("Method", "RMUserDetails.ascx:showRMUserDetails()");
 
-
                 object[] objects = new object[5];
                 objects[0] = advisorVo;
                 objects[1] = rmVo;
                 objects[2] = userVo;
                 objects[3] = rmUserList;
                 objects[4] = userId;
-
-
-
                 FunctionInfo = exBase.AddObject(FunctionInfo, objects);
                 exBase.AdditionalInformation = FunctionInfo;
                 ExceptionManager.Publish(exBase);
@@ -405,6 +401,16 @@ namespace WealthERP.Advisor
             dtCustomer = (DataTable)Cache["customerList" + advisorVo.advisorId];
             gvUserMgt.DataSource = dtCustomer;
 
+        }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvUserMgt.ExportSettings.OpenInNewWindow = true;
+            gvUserMgt.ExportSettings.IgnorePaging = true;
+            gvUserMgt.ExportSettings.HideStructureColumns = true;
+            gvUserMgt.ExportSettings.ExportOnlyData = true;
+            gvUserMgt.ExportSettings.FileName = "StaffUserDetails";
+            gvUserMgt.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvUserMgt.MasterTableView.ExportToExcel();
         }
         
     }

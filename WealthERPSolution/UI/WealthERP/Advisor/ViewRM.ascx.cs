@@ -553,8 +553,8 @@ namespace WealthERP.Advisor
             string menu;
             try
             {
-                RadComboBox MyDropDownList = (RadComboBox)sender; 
-                //DropDownList MyDropDownList = (DropDownList)sender;                
+                //RadComboBox MyDropDownList = (RadComboBox)sender; 
+                DropDownList MyDropDownList = (DropDownList)sender;                
                 GridDataItem gvr = (GridDataItem)MyDropDownList.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;
                 //int selectedRow = gvr.RowIndex;

@@ -23,6 +23,7 @@ using DanLudwig;
 using CrystalDecisions.CrystalReports.Engine;
 using System.Collections.Specialized;
 using Telerik.Web.UI;
+using System.Web.UI.HtmlControls;
 
 namespace WealthERP.Advisor
 {
@@ -46,6 +47,7 @@ namespace WealthERP.Advisor
         String userType;
         string agentCode = string.Empty;
         int agentId = 0;
+       
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -377,7 +379,18 @@ namespace WealthERP.Advisor
         {
             if (ddlTitleList.SelectedIndex != -1)
             {
-                BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
+                if (ddlTitleList.SelectedItem.Text == "OPS")
+                {
+                    lblrg.Visible = false;
+                    RequiredFieldValidator6.Enabled = false;
+                }
+                else
+                {
+                    lblrg.Visible = true;
+                    RequiredFieldValidator6.Enabled = true;
+                }
+                
+                    BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
             }
 
         }
@@ -387,7 +400,9 @@ namespace WealthERP.Advisor
 
             if (ddlTeamList.SelectedIndex != -1)
             {
+                
                 BindTeamTitleDropList(Convert.ToInt32(ddlTeamList.SelectedValue));
+                
             }
 
         }

@@ -34,21 +34,41 @@
    
 </script>
 
-<table width="100%" class="TableBackground">
+<%--<table width="100%" class="TableBackground">
     <tr>
         <td class="HeaderCell">
             <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Staff user Management:"></asp:Label>
             <hr />
         </td>
     </tr>
-    <%--<tr id="trMessage" runat="server" visible="false">
+    <tr id="trMessage" runat="server" visible="false">
         <td>
             <div class="failure-msg" align="center" id="ErrorMessage" runat="server">
             <asp:Label ID="lblMessage" runat="server" ></asp:Label>
            
             </div>
         </td>
-    </tr>--%>
+    </tr>
+</table>--%>
+<table width="100%">
+    <tr>
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                          Staff user Management
+                        </td>
+                        <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
 </table>
     
   <table id="tblMessage" width="100%" cellspacing="0" cellpadding="0" runat="server" visible="false">
@@ -98,15 +118,15 @@
                                         <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
                                     </ItemTemplate>
                                 </telerik:GridTemplateColumn>
-                                <telerik:GridBoundColumn DataField="RMName" HeaderText="RM Name" AllowFiltering="true"
+                                <telerik:GridBoundColumn DataField="RMName" HeaderText="Staff" AllowFiltering="true"
                                     SortExpression="RMName" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="RMName" FooterStyle-HorizontalAlign="Left">
-                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                  <telerik:GridBoundColumn DataField="LoginId" HeaderText="Login Id" AllowFiltering="true"
                                     SortExpression="LoginId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="LoginId" FooterStyle-HorizontalAlign="Left">
-                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                    <ItemStyle Width="" HorizontalAlign="Left"  Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="EmailId" HeaderText="Email Id" SortExpression="EmailId"
                                     ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
@@ -116,7 +136,7 @@
                                  <telerik:GridTemplateColumn HeaderText="" AllowFiltering="false">
                                     <ItemStyle />
                                     <ItemTemplate>
-                                        <asp:LinkButton ID="lnkReset" runat="server" CssClass="cmbField" Text="Reset Password"
+                                        <asp:LinkButton ID="lnkReset" runat="server"  Text="Reset Password"
                                             OnClick="lnkReset_Click">
                                         </asp:LinkButton>
                                     </ItemTemplate>

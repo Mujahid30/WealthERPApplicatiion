@@ -686,8 +686,10 @@ namespace WealthERP.Advisor {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label5;
         
+
+        protected global::System.Web.UI.WebControls.Label lblrg;
+
         /// <summary>
         /// td6 control.
         /// </summary>
@@ -695,7 +697,7 @@ namespace WealthERP.Advisor {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell td6;
+       protected global::System.Web.UI.HtmlControls.HtmlTableCell td6;
         
         /// <summary>
         /// txtEUIN control.
