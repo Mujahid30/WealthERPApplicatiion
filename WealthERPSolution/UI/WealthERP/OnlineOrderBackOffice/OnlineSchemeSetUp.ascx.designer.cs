@@ -977,96 +977,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trIPAmount;
         
         /// <summary>
-        /// lblIMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIMultipleamount;
-        
-        /// <summary>
-        /// txtIMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIMultipleamount;
-        
-        /// <summary>
-        /// rfvtxtIMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtIMultipleamount;
-        
-        /// <summary>
-        /// regetxtIMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regetxtIMultipleamount;
-        
-        /// <summary>
-        /// CmptxtIMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CmptxtIMultipleamount;
-        
-        /// <summary>
-        /// lblAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAddMultipleamount;
-        
-        /// <summary>
-        /// txtAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAddMultipleamount;
-        
-        /// <summary>
-        /// rfvtxtAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtAddMultipleamount;
-        
-        /// <summary>
-        /// regetxtAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator regetxtAddMultipleamount;
-        
-        /// <summary>
-        /// CmptxtAddMultipleamount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CmptxtAddMultipleamount;
-        
-        /// <summary>
         /// lblInitalPamount control.
         /// </summary>
         /// <remarks>
@@ -1103,13 +1013,40 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regfvtxtInitalPamount;
         
         /// <summary>
-        /// CmptxtInitalPamount control.
+        /// lblIMultipleamount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CmptxtInitalPamount;
+        protected global::System.Web.UI.WebControls.Label lblIMultipleamount;
+        
+        /// <summary>
+        /// txtIMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIMultipleamount;
+        
+        /// <summary>
+        /// rfvtxtIMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtIMultipleamount;
+        
+        /// <summary>
+        /// regetxtIMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regetxtIMultipleamount;
         
         /// <summary>
         /// lblAdditionalPamount control.
@@ -1148,13 +1085,40 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regfvtxtAdditional;
         
         /// <summary>
-        /// cmptxtAdditional control.
+        /// lblAddMultipleamount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtAdditional;
+        protected global::System.Web.UI.WebControls.Label lblAddMultipleamount;
+        
+        /// <summary>
+        /// txtAddMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAddMultipleamount;
+        
+        /// <summary>
+        /// rfvtxtAddMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtAddMultipleamount;
+        
+        /// <summary>
+        /// regetxtAddMultipleamount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regetxtAddMultipleamount;
         
         /// <summary>
         /// trMINRedemPtion control.
@@ -1202,15 +1166,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegtxtMinRedemption;
         
         /// <summary>
-        /// cmptxtMinRedemption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtMinRedemption;
-        
-        /// <summary>
         /// lblRedemptionmultiple control.
         /// </summary>
         /// <remarks>
@@ -1245,15 +1200,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rfvtxtRedemptionmultiple;
-        
-        /// <summary>
-        /// cmptxtRedemptionmultiple control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtRedemptionmultiple;
         
         /// <summary>
         /// lblMinRedemptionUnits control.
@@ -1292,15 +1238,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rgetxtMinRedemptioUnits;
         
         /// <summary>
-        /// cmptxtRedemptionMultiplesUnits control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtRedemptionMultiplesUnits;
-        
-        /// <summary>
         /// lblRedemptionMultiplesUnits control.
         /// </summary>
         /// <remarks>
@@ -1335,15 +1272,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator rgetxtRedemptionMultiplesUnits;
-        
-        /// <summary>
-        /// cmpttxtRedemptionMultiplesUnits control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmpttxtRedemptionMultiplesUnits;
         
         /// <summary>
         /// trSwitchPavailable control.
@@ -1391,15 +1319,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regtxtMinSwitchAmount;
         
         /// <summary>
-        /// cmptxtMinSwitchAmount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtMinSwitchAmount;
-        
-        /// <summary>
         /// lblSwitchMultipleAmount control.
         /// </summary>
         /// <remarks>
@@ -1434,15 +1353,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regetxtSwitchMultipleAmount;
-        
-        /// <summary>
-        /// CompareValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator1;
         
         /// <summary>
         /// lblMinSwitchUnits control.
@@ -1481,15 +1391,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator reptxtMinSwitchUnits;
         
         /// <summary>
-        /// cmptxtMinSwitchUnits control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtMinSwitchUnits;
-        
-        /// <summary>
         /// lblSwitchMultipleUnits control.
         /// </summary>
         /// <remarks>
@@ -1524,15 +1425,6 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regtxtSwitchMultipleUnits;
-        
-        /// <summary>
-        /// cmptxtSwitchMultipleUnits control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cmptxtSwitchMultipleUnits;
         
         /// <summary>
         /// lblGenerationfreq control.

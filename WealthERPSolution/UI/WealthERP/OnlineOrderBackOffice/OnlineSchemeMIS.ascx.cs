@@ -26,14 +26,38 @@ namespace WealthERP.OnlineOrderBackOffice
         int SchemePlanCode = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            //string controlName = this.Request.Params.Get("__EVENTTARGET");
+
+            //if (controlName != "ctrl_OnlineSchemeMIS$btngo")
+            //{ }
 
             if (!IsPostBack)
             {
                 SessionBo.CheckSession();
                 userVo = (UserVo)Session["userVo"];
                 adviserVo = (AdvisorVo)Session["advisorVo"];
+
+            }
+            int SchemePlanCode;
+            string strAction;
+            if (Request.QueryString["strAction"] != null)
+            {
+                SchemePlanCode = int.Parse(Request.QueryString["schemeplancode"].ToString());
+                strAction = Request.QueryString["strAction"].ToString();
+               string product = Request.QueryString["product"].ToString();
+              int type = Convert.ToInt32(Request.QueryString["type"].ToString());
+               hdnAssettype.Value = product;
+             ddlTosee.SelectedValue = type.ToString();
+             ddlProduct.SelectedValue = product;
+               
+               BindSchemeMIS();
+                //ddlAction.SelectedValue = strAction;
             }
         }
+
+            
+
+        
         protected void SetParameter()
         {
             try
@@ -168,17 +192,23 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void ddlAction_OnSelectedIndexChanged(object sender, EventArgs e)
         {
+
+            string product="";
+            string type="";
             DropDownList ddlAction = (DropDownList)sender;
             GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
             string action = "";
             SchemePlanCode = int.Parse(gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_SchemePlanCode"].ToString());
             // string Status = (gvonlineschememis.MasterTableView.DataKeyValues[gvr.ItemIndex]["PASP_Status"].ToString());
             Session["SchemeList"] = OnlineOrderBackOfficeBo.GetOnlineSchemeSetUp(SchemePlanCode);
+           //product= ddlProduct.SelectedValue;
+           //type = ddlTosee.SelectedValue;
+
             if (ddlAction.SelectedItem.Value.ToString() == "View")
             {
                 if (ddlProduct.SelectedItem.Value.ToString() == "MF")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + " ');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() +"&product="+ ddlProduct.SelectedValue +"&type="+ddlTosee.SelectedValue +"');", true);
                 }
                 //else
                 //{
@@ -189,7 +219,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (ddlProduct.SelectedItem.Value.ToString() == "MF")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + " ');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + " & type=" + ddlTosee.SelectedValue + " ');", true);
 
                 }
 

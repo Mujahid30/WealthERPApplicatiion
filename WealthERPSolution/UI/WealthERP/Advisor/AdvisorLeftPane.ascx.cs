@@ -823,11 +823,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
                 }
-                else if (e.Item.Value == "MF")
-                {
-                    Session["UserType"] = "adviser";
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
-                }
+                //else if (e.Item.Value == "MF")
+                //{
+                //    Session["UserType"] = "adviser";
+                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                //}
                 else if (e.Item.Value == "NCD_Allotments")
                 {
                     Session["UserType"] = "adviser";

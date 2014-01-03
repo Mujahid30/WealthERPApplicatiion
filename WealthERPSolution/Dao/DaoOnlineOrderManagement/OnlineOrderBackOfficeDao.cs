@@ -416,8 +416,8 @@ namespace DaoOnlineOrderManagement
                         if (dr["XF_DividendFrequency"].ToString() != null) //&& dr["XF_DividendFrequency"].ToString() != string.Empty)
                             mfProductAMCSchemePlanDetailsVo.DividendFrequency = dr["XF_DividendFrequency"].ToString();
                         mfProductAMCSchemePlanDetailsVo.BankName = dr["PASPD_BankName"].ToString();
-                        if (dr["WCMV_Lookup_BankId"].ToString()!=string.Empty)
-                          mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());    
+                        if (dr["WCMV_Lookup_BankId"].ToString() != string.Empty && dr["WCMV_Lookup_BankId"].ToString() != null)
+                            mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId = int.Parse(dr["WCMV_Lookup_BankId"].ToString());    
                         
                         mfProductAMCSchemePlanDetailsVo.AccountNumber = dr["PASPD_AccountNumber"].ToString();
                         mfProductAMCSchemePlanDetailsVo.Branch = dr["PASPD_Branch"].ToString();
