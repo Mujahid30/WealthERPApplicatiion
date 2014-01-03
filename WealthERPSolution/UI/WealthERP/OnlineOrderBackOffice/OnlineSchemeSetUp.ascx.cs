@@ -689,9 +689,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 ChkNRI.Enabled = false;
                 ChkBO.Enabled = false;
                 chkonline.Enabled = false;
+                lblBack.Visible = true;
             }
             else
             {
+                lblBack.Visible = true;
                 ChkNRI.Enabled = true;
                 ChkBO.Enabled = true;
                 chkonline.Enabled = true;
@@ -1151,11 +1153,15 @@ namespace WealthERP.OnlineOrderBackOffice
             //{
             //    ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString();
             //}
-
-            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.BankName.ToString()))
+            if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString()))
             {
-                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.BankName.ToString();
+                ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId.ToString();
             }
+           
+            //if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.BankName.ToString()))
+            //{
+            //    ddlBname.SelectedValue = mfProductAMCSchemePlanDetailsVo.BankName.ToString();
+            //}
             if (!string.IsNullOrEmpty(mfProductAMCSchemePlanDetailsVo.Branch))
             {
                 txtBranch.Text = mfProductAMCSchemePlanDetailsVo.Branch.ToString();

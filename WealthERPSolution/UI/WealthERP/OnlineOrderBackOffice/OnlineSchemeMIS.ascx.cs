@@ -219,7 +219,7 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 if (ddlProduct.SelectedItem.Value.ToString() == "MF")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product=" + ddlProduct.SelectedValue + " & type=" + ddlTosee.SelectedValue + " ');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineSchemeSetUp", "loadcontrol('OnlineSchemeSetUp','?SchemePlanCode=" + SchemePlanCode + "&strAction=" + ddlAction.SelectedItem.Value.ToString() + "&product="+ ddlProduct.SelectedValue +"&type=" + ddlTosee.SelectedValue + " ');", true);
 
                 }
 

@@ -32,8 +32,9 @@
                             <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
                                 OnClick="lbBack_OnClick"></asp:LinkButton>
                         </td>
+                   
                         <td>
-                            <asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="true"
+                            <asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="false"
                                 OnClick="lbBack1_OnClick"></asp:LinkButton>
                         </td>
                     </tr>
