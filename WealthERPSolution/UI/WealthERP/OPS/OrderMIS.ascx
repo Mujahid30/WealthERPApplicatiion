@@ -803,6 +803,11 @@
                                     UniqueName="CMFT_Units" FooterStyle-HorizontalAlign="Left" DataFormatString="{0:n}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Remark"
+                                    HeaderStyle-Width="80px" UniqueName="COS_Reason" SortExpression="COS_Reason"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                               </telerik:GridBoundColumn>
                                 <%--<telerik:GridTemplateColumn AllowFiltering="false" >
                                     <ItemStyle />
                                     <ItemTemplate>
