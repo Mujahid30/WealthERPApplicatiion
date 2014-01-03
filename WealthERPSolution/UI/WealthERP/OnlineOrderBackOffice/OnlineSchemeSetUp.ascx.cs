@@ -1257,6 +1257,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable == 1)
             {
                 ChkISPurchage.Checked = true;
+                trIPAmount.Visible = true;
             }
             else
             {
@@ -1265,6 +1266,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable == 1)
             {
                 ChkISRedeem.Checked = true;
+                trMINRedemPtion.Visible = true;
             }
 
             else
@@ -1292,6 +1294,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable == 1)
             {
                 ChkISSwitch.Checked = true;
+                trSwitchPavailable.Visible = true;
             }
             else
             {
