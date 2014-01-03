@@ -247,7 +247,7 @@
             &nbsp;<asp:Label ID="lblisactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-           <asp:CheckBox ID="chk_isactive" runat="server" CssClass="cmbField" /> 
+           <asp:CheckBox ID="chk_isactive" runat="server" CssClass="cmbFielde" /> 
         </td>
         <td>
             &nbsp;
