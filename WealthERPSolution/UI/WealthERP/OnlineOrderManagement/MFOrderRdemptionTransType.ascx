@@ -73,7 +73,7 @@
             <tr>
                 <td>
                     <div class="divOnlinePageHeading">
-                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server">
+                        <div class="divClientAccountBalance" id="divClientAccountBalance" runat="server" visible="false">
                             <asp:Label ID="Label1" runat="server" Text="Available Limits:" CssClass="BalanceLabel"> </asp:Label>
                             <asp:Label ID="lblAvailableLimits" runat="server" Text="" CssClass="BalanceAmount"></asp:Label>
                         </div>
