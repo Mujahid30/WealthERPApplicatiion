@@ -304,15 +304,21 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Reason"
+                                HeaderStyle-Width="100px" UniqueName="COS_Reason" SortExpression="COS_Reason" ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Channel" AllowFiltering="false" HeaderText="Channel"
                                 HeaderStyle-Width="65px" UniqueName="Channel" SortExpression="Channel" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+
                             <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="false">
                                 <ItemTemplate>
-                                    <asp:ImageButton ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />
+                                    <asp:ImageButton visible="false" ID="ImageButton1" runat="server" CommandName="Edit" ImageUrl="~/Images/Buy-Button.png" />
                                 </ItemTemplate>
                             </telerik:GridTemplateColumn>
                         </Columns>

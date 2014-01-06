@@ -294,11 +294,17 @@
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="COS_Reason" AllowFiltering="false" HeaderText="Remark"
+                                HeaderStyle-Width="105px" UniqueName="COS_Reason " SortExpression="COS_Reason " ShowFilterIcon="false"
+                                CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                            </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="Channel" AllowFiltering="false" HeaderText="Channel"
                                 HeaderStyle-Width="65px" UniqueName="Channel" SortExpression="Channel" ShowFilterIcon="false"
                                 CurrentFilterFunction="Contains" AutoPostBackOnFilter="true">
                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
+
                             <telerik:GridTemplateColumn ItemStyle-Width="60px" AllowFiltering="false" HeaderText="Action"
                                 Visible="false">
                                 <ItemTemplate>
