@@ -19,6 +19,8 @@ using System.Configuration;
 using BoCommon;
 using VoAdvisorProfiling;
 using System.IO;
+using Telerik.Web.UI;
+
 
 namespace WealthERP.Advisor
 {
@@ -29,6 +31,7 @@ namespace WealthERP.Advisor
         CustomerBo customerBo = new CustomerBo();
         AdvisorStaffBo advisorStaffBo = new AdvisorStaffBo();
         AdvisorBo advisorBo = new AdvisorBo();
+        //AdvisorVo advisorVo = new AdvisorVo();
         int customerId;
         int userId;
         UserVo userVo = new UserVo();
@@ -65,7 +68,7 @@ namespace WealthERP.Advisor
                 }
 
                 advisorUserVo = (UserVo)Session[SessionContents.UserVo];
-
+                advisorVo = (AdvisorVo)Session["AdvisorVo"];
                 //**************************lblStatusMsg.Text = string.Empty;
                 //lblMailSent.Visible = false;
             }
@@ -87,105 +90,11 @@ namespace WealthERP.Advisor
             }
         }
 
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
+      
 
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMCustomerUserDeatils.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+       
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
-                this.BindGrid();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "RMCustomerUserDeatils.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[1];
-                objects[0] = mypager.CurrentPage;
-
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
-
-        private void GetPageCount()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                ratio = rowCount / 10;
-                mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                upperlimit = (mypager.CurrentPage * 10).ToString();
-                if (mypager.CurrentPage == mypager.PageCount)
-                    upperlimit = hdnRecordCount.Value;
-                PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                lblCurrentPage.Text = PageRecords;
-                hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "RMCustomerUserDetails.ascx.cs:GetPageCount()");
-
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[0] = rowCount;
-                objects[0] = ratio;
-                objects[0] = lowerlimit;
-                objects[0] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-
-        }
+       
 
         protected void BindGrid()
         {
@@ -199,14 +108,13 @@ namespace WealthERP.Advisor
             try
             {
                 // rmVo = (RMVo)Session["rmVo"];              
-                AdvisorVo advisorVo = new AdvisorVo();
+                
                 advisorVo = (AdvisorVo)Session["advisorVo"];
 
                 int Count = 0;
 
-                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId, mypager.CurrentPage, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "", "0", out genDictParent, out genDictRM, out genDicReassigntRM);
-                lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
-
+                customerUserList = advisorBo.GetAdviserCustomerList(advisorVo.advisorId,0, out Count, "", "", hdnNameFilter.Value.Trim(), "", "", "", "", "", "0", out genDictParent, out genDictRM, out genDicReassigntRM);
+                //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
                 if (customerUserList != null)
                 {
                     //lblMsg.Visible = false;
@@ -234,36 +142,24 @@ namespace WealthERP.Advisor
                         drRMCustomerUser[4] = userVo.Password.ToString();
                         dtRMCustomer.Rows.Add(drRMCustomerUser);
                     }
-                    gvCustomers.DataSource = dtRMCustomer;
-                    gvCustomers.DataBind();
 
-                    TextBox txtName = new TextBox();
-                    if (gvCustomers.HeaderRow != null)
+                    if (Cache["Customerdetails" + advisorVo.advisorId] == null)
                     {
-                        if ((TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch") != null)
-                        {
-                            txtName = (TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch");
-                            txtName.Text = hdnNameFilter.Value.Trim();
-                        }
+                        Cache.Insert("Customerdetails" + advisorVo.advisorId, dtRMCustomer);
                     }
                     else
-                        txtName = null;
+                    {
+                        Cache.Remove("Customerdetails" + advisorVo.advisorId);
+                        Cache.Insert("Customerdetails" + advisorVo.advisorId, dtRMCustomer);
+                    }
+                    gvCustomer.DataSource = dtRMCustomer;
+                    gvCustomer.DataBind();
 
-                    if (trPagger.Visible == false)
-                        trPagger.Visible = true;
-
-                    this.GetPageCount();
-
-
-                    if (btnGenerate.Visible == false)
-                        btnGenerate.Visible = true;
-
-                    if (mypager.Visible == false)
-                        mypager.Visible = true;
+                    
                 }
                 else
                 {
-                    mypager.Visible = false;
+                    //mypager.Visible = false;
                     //lblCurrentPage.Visible = false;
                     //lblTotalRows.Visible = false;
                     //tblPager.Visible = false;
@@ -350,9 +246,9 @@ namespace WealthERP.Advisor
             encryption = new OneWayEncryption();
             try
             {
-                foreach (GridViewRow gvr in this.gvCustomers.Rows)
+                foreach (GridDataItem gvr in this.gvCustomer.Items)
                 {
-                    if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                    if (((CheckBox)gvr.FindControl("cbRecons")).Checked == true)
                     {
                         Count = Count + 1;
                     }
@@ -365,14 +261,16 @@ namespace WealthERP.Advisor
                 }
                 else
                 {
-                    foreach (GridViewRow gvr in this.gvCustomers.Rows)
+                    foreach (GridDataItem gvr in this.gvCustomer.Items)
                     {
-                        if (((CheckBox)gvr.FindControl("chkId")).Checked == true)
+                        if (((CheckBox)gvr.FindControl("cbRecons")).Checked == true)
                         {
                             string password = r.Next(20000, 100000).ToString();
                             string hassedPassword;
                             string saltValue;
-                            userId = int.Parse(gvCustomers.DataKeys[gvr.RowIndex].Value.ToString());
+                            int selectedRow = gvr.ItemIndex + 1;
+                            int userId = int.Parse((gvCustomer.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
+                            //userId = int.Parse(gvCustomers.DataKeys[gvr.RowIndex].Value.ToString());
                             userVo = new UserVo();
                             userVo = userBo.GetUserDetails(userId);
 
@@ -414,7 +312,7 @@ namespace WealthERP.Advisor
                     //SuccessMsg.InnerText = statusMessage;
                     if (loginReset == true)
                     {
-                        mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
+                        //mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
                         BindGrid();
                     }
                 }
@@ -623,111 +521,213 @@ namespace WealthERP.Advisor
             return isMailSent;
         }
 
-        protected void gvCustomers_RowCommand(object sender, GridViewCommandEventArgs e)
+        protected void lnkReset_Click(object sender, EventArgs e)
         {
-
             Random r = new Random();
             encryption = new OneWayEncryption();
             bool isSuccess = false;
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int userId = int.Parse((gvCustomer.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
 
-            if (e.CommandName == "resetPassword")
+            userVo = userBo.GetUserDetails(userId);
+            if (userVo != null)
             {
-                int userId = int.Parse(e.CommandArgument.ToString());
-                userVo = userBo.GetUserDetails(userId);
-                if (userVo != null)
-                {
-                    string hassedPassword = string.Empty;
-                    string saltValue = string.Empty;
-                    string password = r.Next(20000, 100000).ToString();
-
-                    userVo = userBo.GetUserDetails(userId);
-                    string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
-                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
-                    userVo.Password = hassedPassword;
-                    userVo.PasswordSaltValue = saltValue;
-                    userVo.OriginalPassword = password;
-                    userVo.IsTempPassword = 1;
-                    isSuccess = userBo.UpdateUser(userVo);
-                }
-                if (isSuccess)
-                {
-                    //********************lblStatusMsg.Text = "Password has been reset.";
-                    tblMessage.Visible = true;
-                    SuccessMsg.Visible = true;
-                    SuccessMsg.InnerText = "Password has been reset.";
-                }
-                else
-                {
-                    //************************lblStatusMsg.Text = "An error occurred while reseting password.";
-                    tblMessage.Visible = true;
-                    ErrorMessage.Visible = true;
-                    ErrorMessage.InnerText = "An error occurred while reseting password.";
-
-                }
-            }
-            else if (e.CommandName == "GenerateLogin")
-            {
-                int userId = int.Parse(e.CommandArgument.ToString());
+                string hassedPassword = string.Empty;
+                string saltValue = string.Empty;
                 string password = r.Next(20000, 100000).ToString();
-                string hassedPassword;
-                string saltValue;
-                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
-                userVo = userBo.GetUserDetails(userId);
 
-                if (string.IsNullOrEmpty(userVo.LoginId))
-                {
-                    userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
-                    encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
-                    userVo.Password = hassedPassword;
-                    userVo.PasswordSaltValue = saltValue;
-                    userVo.OriginalPassword = password;
-                    userVo.IsTempPassword = 1;
-                    userBo.UpdateUser(userVo);
-
-                }
-                SendMail(userVo, true);
-
-                mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
-                BindGrid();
-
+                //userVo = userBo.GetUserDetails(userId);
+                string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                userVo.Password = hassedPassword;
+                userVo.PasswordSaltValue = saltValue;
+                userVo.OriginalPassword = password;
+                userVo.IsTempPassword = 1;
+                isSuccess = userBo.UpdateUser(userVo);
             }
-        }
 
-        protected void btnNameSearch_Click(object sender, EventArgs e)
-        {
-            TextBox txtName = GetCustNameTextBox();
-
-            if (txtName != null)
+            if (isSuccess)
             {
-                hdnNameFilter.Value = txtName.Text.Trim();
-                this.BindGrid();
-            }
-        }
+                tblMessage.Visible = true;
+                SuccessMsg.Visible = true;
+                ErrorMessage.Visible = false;
+                SuccessMsg.InnerText = "Password has been reset successfully...";
 
-        private TextBox GetCustNameTextBox()
-        {
-            TextBox txt = new TextBox();
-            if (gvCustomers.HeaderRow != null)
-            {
-                if ((TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch") != null)
-                {
-                    txt = (TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch");
-                }
             }
             else
-                txt = null;
+            {
+                tblMessage.Visible = true;
+                SuccessMsg.Visible = false;
+                ErrorMessage.Visible = true;
+                ErrorMessage.InnerText = "An error occurred while reseting password.";
 
-            return txt;
+            }
         }
 
-        protected void gvCustomers_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void lnkGenerate_Click(object sender, EventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            Random r = new Random();
+            encryption = new OneWayEncryption();
+            bool isSuccess = false;
+            LinkButton lnkOrderNo = (LinkButton)sender;
+            GridDataItem gdi;
+            gdi = (GridDataItem)lnkOrderNo.NamingContainer;
+            int selectedRow = gdi.ItemIndex + 1;
+            int userId = int.Parse((gvCustomer.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
+
+            userVo = userBo.GetUserDetails(userId);
+            string password = r.Next(20000, 100000).ToString();
+            string hassedPassword;
+            string saltValue;
+            //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+            userVo = userBo.GetUserDetails(userId);
+
+            if (string.IsNullOrEmpty(userVo.LoginId))
             {
-                Label lblLoginId = e.Row.FindControl("lblLoginId") as Label;
-                LinkButton lblGenerateLogin = e.Row.FindControl("lnkGenerateLogin") as LinkButton;
-                LinkButton lnkResetPassword = e.Row.FindControl("lnkResetPassword") as LinkButton;
-                CheckBox chkBox = e.Row.FindControl("chkId") as CheckBox;
+                userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
+                encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+                userVo.Password = hassedPassword;
+                userVo.PasswordSaltValue = saltValue;
+                userVo.OriginalPassword = password;
+                userVo.IsTempPassword = 1;
+                userBo.UpdateUser(userVo);
+
+            }
+            SendMail(userVo, true);
+            BindGrid();
+
+
+        
+        }
+
+        //protected void gvCustomers_RowCommand(object sender, GridViewCommandEventArgs e)
+        //{
+
+        //    Random r = new Random();
+        //    encryption = new OneWayEncryption();
+        //    bool isSuccess = false;
+
+        //    if (e.CommandName == "resetPassword")
+        //    {
+        //        int userId = int.Parse(e.CommandArgument.ToString());
+        //        userVo = userBo.GetUserDetails(userId);
+        //        if (userVo != null)
+        //        {
+        //            string hassedPassword = string.Empty;
+        //            string saltValue = string.Empty;
+        //            string password = r.Next(20000, 100000).ToString();
+
+        //            userVo = userBo.GetUserDetails(userId);
+        //            string userName = userVo.FirstName + " " + userVo.MiddleName + " " + userVo.LastName;
+        //            encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+        //            userVo.Password = hassedPassword;
+        //            userVo.PasswordSaltValue = saltValue;
+        //            userVo.OriginalPassword = password;
+        //            userVo.IsTempPassword = 1;
+        //            isSuccess = userBo.UpdateUser(userVo);
+        //        }
+        //        if (isSuccess)
+        //        {
+        //            //********************lblStatusMsg.Text = "Password has been reset.";
+        //            tblMessage.Visible = true;
+        //            SuccessMsg.Visible = true;
+        //            SuccessMsg.InnerText = "Password has been reset.";
+        //        }
+        //        else
+        //        {
+        //            //************************lblStatusMsg.Text = "An error occurred while reseting password.";
+        //            tblMessage.Visible = true;
+        //            ErrorMessage.Visible = true;
+        //            ErrorMessage.InnerText = "An error occurred while reseting password.";
+
+        //        }
+        //    }
+        //    else if (e.CommandName == "GenerateLogin")
+        //    {
+        //        int userId = int.Parse(e.CommandArgument.ToString());
+        //        string password = r.Next(20000, 100000).ToString();
+        //        string hassedPassword;
+        //        string saltValue;
+        //        //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('GenerateLoginPassword','?GenLoginPassword_UserId=" + userId + "');", true);
+        //        userVo = userBo.GetUserDetails(userId);
+
+        //        if (string.IsNullOrEmpty(userVo.LoginId))
+        //        {
+        //            userVo.LoginId = "Cu" + r.Next(100000, 999999).ToString();
+        //            encryption.GetHashAndSaltString(password, out hassedPassword, out saltValue);
+        //            userVo.Password = hassedPassword;
+        //            userVo.PasswordSaltValue = saltValue;
+        //            userVo.OriginalPassword = password;
+        //            userVo.IsTempPassword = 1;
+        //            userBo.UpdateUser(userVo);
+
+        //        }
+        //        SendMail(userVo, true);
+
+        //        mypager.CurrentPage = int.Parse(hdnCurrentPage.Value.ToString());
+        //        BindGrid();
+
+        //    }
+        //}
+
+        //protected void btnNameSearch_Click(object sender, EventArgs e)
+        //{
+        //    TextBox txtName = GetCustNameTextBox();
+
+        //    if (txtName != null)
+        //    {
+        //        hdnNameFilter.Value = txtName.Text.Trim();
+        //        this.BindGrid();
+        //    }
+        //}
+
+        //private TextBox GetCustNameTextBox()
+        //{
+        //    TextBox txt = new TextBox();
+        //    if (gvCustomers.HeaderRow != null)
+        //    {
+        //        if ((TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch") != null)
+        //        {
+        //            txt = (TextBox)gvCustomers.HeaderRow.FindControl("txtCustNameSearch");
+        //        }
+        //    }
+        //    else
+        //        txt = null;
+
+        //    return txt;
+        //}
+
+        protected void ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    Label lblLoginId = e.Row.FindControl("lblLoginId") as Label;
+            //    LinkButton lblGenerateLogin = e.Row.FindControl("lnkGenerateLogin") as LinkButton;
+            //    LinkButton lnkResetPassword = e.Row.FindControl("lnkResetPassword") as LinkButton;
+            //    CheckBox chkBox = e.Row.FindControl("chkId") as CheckBox;
+            //    if (!string.IsNullOrEmpty(lblLoginId.Text.Trim()))
+            //    {
+            //        lblGenerateLogin.Visible = false;
+
+            //    }
+            //    else
+            //    {
+            //        lblLoginId.Visible = false;
+            //        chkBox.Enabled = false;
+            //        lnkResetPassword.Visible = false;
+            //    }
+            if(e.Item is GridDataItem)
+            {
+                GridDataItem item = (GridDataItem)e.Item;
+                Label lblLoginId = (Label)item.FindControl("lblLoginId");
+                LinkButton lblGenerateLogin = (LinkButton)item.FindControl("lnkGenerateLogin");
+                //LinkButton lblGenerateLogin=e.Item.FindControl("lnkGenerateLogin") as LinkButton;
+                //LinkButton lnkResetPassword =e.Item.FindControl("lnkResetPassword") as LinkButton;
+                LinkButton lnkResetPassword = (LinkButton)item.FindControl("lnkResetPassword");
+                CheckBox chkBox =e.Item.FindControl("cbRecons") as CheckBox;
                 if (!string.IsNullOrEmpty(lblLoginId.Text.Trim()))
                 {
                     lblGenerateLogin.Visible = false;
@@ -740,7 +740,26 @@ namespace WealthERP.Advisor
                     lnkResetPassword.Visible = false;
                 }
             }
+            }
+        protected void gvCustomer_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtCustomer = new DataTable();
+            dtCustomer = (DataTable)Cache["Customerdetails" + advisorVo.advisorId];
+            gvCustomer.DataSource = dtCustomer;
+
+        }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvCustomer.ExportSettings.OpenInNewWindow = true;
+            gvCustomer.ExportSettings.IgnorePaging = true;
+            gvCustomer.ExportSettings.HideStructureColumns = true;
+            gvCustomer.ExportSettings.ExportOnlyData = true;
+            gvCustomer.ExportSettings.FileName = "CustomerUserDetails";
+            gvCustomer.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvCustomer.MasterTableView.ExportToExcel();
+        }
 
         }
     }
-}
+
