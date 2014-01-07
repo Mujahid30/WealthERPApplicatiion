@@ -248,6 +248,7 @@ namespace WealthERP.Uploads
             {
 
                 RadComboBox ddlAction = (RadComboBox)sender;
+               
                 uploadsCommonBo = new UploadCommonBo();
                 //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "Page_ClientValidate();Loading(true);", true); 
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;

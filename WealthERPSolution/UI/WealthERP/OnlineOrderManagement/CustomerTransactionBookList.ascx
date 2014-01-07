@@ -227,7 +227,7 @@
                                 <telerik:GridBoundColumn DataField="Price" HeaderText="Actioned NAV" AllowFiltering="false"
                                     SortExpression="Price" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     HeaderStyle-Wrap="false" AutoPostBackOnFilter="true" UniqueName="Price" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n4}" Aggregate="Sum">
+                                    DataFormatString="{0:n4}" >
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Transaction Date" HeaderText="Date" AllowFiltering="false"
@@ -251,13 +251,13 @@
                                 <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n2}" Aggregate="Sum">
+                                    DataFormatString="{0:n2}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="Units" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n3}" Aggregate="Sum">
+                                    DataFormatString="{0:n3}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" DataField="CurrentNav" HeaderText="Current NAV"

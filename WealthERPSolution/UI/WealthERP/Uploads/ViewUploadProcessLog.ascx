@@ -60,7 +60,6 @@
         }
     }
 </script>
-
 <table width="100%">
     <tr>
         <td>
@@ -184,8 +183,8 @@
                             <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="action" DataField="action">
                                 <ItemTemplate>
                                     <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_OnSelectedIndexChange"
-                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
-                                        AllowCustomText="true" Width="120px" AutoPostBack="true">
+                                        CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"  
+                                         Width="120px" AutoPostBack="true"  AllowCustomText="false" EnableLoadOnDemand="false" >
                                         <Items>
                                             <telerik:RadComboBoxItem ImageUrl="~/Images/Select.png" Text="Select" Value="Select"
                                                 Selected="true"></telerik:RadComboBoxItem>

@@ -24,6 +24,7 @@ using iTextSharp.text.html.simpleparser;
 using VoCustomerPortfolio;
 using BoCustomerPortfolio;
 using BoCommon;
+using Telerik.Web.UI;
 
 namespace WealthERP.Advisor
 {
@@ -44,70 +45,70 @@ namespace WealthERP.Advisor
         CustomerPortfolioVo customerPortfolioVo = new CustomerPortfolioVo();
         PortfolioBo portfolioBo = new PortfolioBo();
         AdvisorBranchBo advisorBranchBO = new AdvisorBranchBo();
-        protected override void OnInit(EventArgs e)
-        {
-            try
-            {
-                ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
-                mypager.EnableViewState = true;
-                base.OnInit(e);
+        //protected override void OnInit(EventArgs e)
+        //{
+        //    try
+        //    {
+        //        ((Pager)mypager).ItemClicked += new Pager.ItemClickEventHandler(this.HandlePagerEvent);
+        //        mypager.EnableViewState = true;
+        //        base.OnInit(e);
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:OnInit()");
-                object[] objects = new object[0];
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:OnInit()");
+        //        object[] objects = new object[0];
 
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-        public void HandlePagerEvent(object sender, ItemClickEventArgs e)
-        {
-            try
-            {
-                GetPageCount();
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
+        //public void HandlePagerEvent(object sender, ItemClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        GetPageCount();
 
-                this.BindCustomer(mypager.CurrentPage);
+        //        this.BindCustomer();
 
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:HandlePagerEvent()");
-                object[] objects = new object[2];
-                objects[0] = mypager.CurrentPage;
-                objects[1] = user;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:HandlePagerEvent()");
+        //        object[] objects = new object[2];
+        //        objects[0] = mypager.CurrentPage;
+        //        objects[1] = user;
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            AdvisorVo advisorVo = new AdvisorVo();
             SuccessMsg.Visible = false;
             ErrorMessage.Visible = false;
             adviserVo = (AdvisorVo)Session["advisorVo"];
             if (!IsPostBack)
             {
 
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
                 setShowHideControls(1);
 
             }
@@ -118,16 +119,16 @@ namespace WealthERP.Advisor
         protected void BindGrid(int CurrentPage)
         {
 
-            if (hdnCurrentPage.Value.ToString() != "")
-            {
-                mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                hdnCurrentPage.Value = "";
-            }
+            //if (hdnCurrentPage.Value.ToString() != "")
+            //{
+            //    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+            //    hdnCurrentPage.Value = "";
+            //}
 
             int Count = 0;
 
             //customerList = advisorBranchBO.(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictRM, out genDictReassignRM);
-            lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+            //lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
         }
 
@@ -142,17 +143,20 @@ namespace WealthERP.Advisor
             if (!chkSelectAllpages.Checked)
             {
                 //'Navigate through each row in the GridView for checkbox items
-                foreach (GridViewRow gvRow in gvAssociation.Rows)
+                foreach (GridDataItem gvr in gvAssociations.Items)
                 {
-                    int rowIndex = gvRow.RowIndex;
-                    DataKey dKey = gvAssociation.DataKeys[rowIndex];
+                    //int rowIndex = gvr.RowIndex;
+                    //DataKey dKey = gvAssociation.DataKeys[rowIndex];
 
-                    int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+                    //int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
+                    int selectedRow = gvr.ItemIndex + 1;
+                    int customerId = int.Parse((gvAssociations.MasterTableView.DataKeyValues[selectedRow - 1]["CustomerId"].ToString()));
 
-                    CheckBox chkBxItem = (CheckBox)gvRow.FindControl("chkId");
+                    CheckBox chkBxItem = (CheckBox)gvr.FindControl("cbRecons");
                     if (chkBxItem.Checked)
                     {
-                        customerIds.Append(dKey.Values["CustomerId"].ToString());
+                        //customerIds.Append(dKey.Values["CustomerId"].ToString());
+                        customerIds.Append((gvAssociations.MasterTableView.DataKeyValues[selectedRow - 1]["CustomerId"].ToString()));
                         customerIds.Append("~");
                         //customerIds += dKey.Values["CustomerId"].ToString() + "~";
                     }
@@ -294,7 +298,7 @@ namespace WealthERP.Advisor
             if (txtName != null)
             {
                 hdnNameFilter.Value = txtName.Text.Trim();
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
             }
 
         }
@@ -307,7 +311,7 @@ namespace WealthERP.Advisor
             {
                 hdnBranchFilter.Value = txtName.Text.Trim();
                 //this.showRMUserDetails();
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
             }
         }
 
@@ -318,7 +322,7 @@ namespace WealthERP.Advisor
             if (txtRMName != null)
             {
                 hdnRMNameFilter.Value = txtRMName.Text.Trim();
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
             }
 
 
@@ -333,7 +337,7 @@ namespace WealthERP.Advisor
             {
                 hdnAreaFilter.Value = txtArea.Text.Trim();
 
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
 
             }
 
@@ -346,64 +350,14 @@ namespace WealthERP.Advisor
             if (txtCity != null)
             {
                 hdnCityFilter.Value = txtCity.Text.Trim();
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
             }
 
         }
+        
+      
 
-        private void GetPageCount()
-        {
-            string upperlimit = null;
-            int rowCount = 0;
-            int ratio = 0;
-            string lowerlimit = null;
-            string PageRecords = null;
-            try
-            {
-                if (hdnRecordCount.Value.ToString() != "")
-                    rowCount = Convert.ToInt32(hdnRecordCount.Value);
-                if (rowCount > 0)
-                {
-                    ratio = rowCount / 10;
-                    mypager.PageCount = rowCount % 10 == 0 ? ratio : ratio + 1;
-                    mypager.Set_Page(mypager.CurrentPage, mypager.PageCount);
-                    if (((mypager.CurrentPage - 1) * 10) != 0)
-                        lowerlimit = (((mypager.CurrentPage - 1) * 10) + 1).ToString();
-                    else
-                        lowerlimit = "1";
-                    upperlimit = (mypager.CurrentPage * 10).ToString();
-                    if (mypager.CurrentPage == mypager.PageCount)
-                        upperlimit = hdnRecordCount.Value;
-                    PageRecords = String.Format("{0}- {1} of ", lowerlimit, upperlimit);
-                    lblCurrentPage.Text = PageRecords;
-                    hdnCurrentPage.Value = mypager.CurrentPage.ToString();
-                }
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-
-                FunctionInfo.Add("Method", "AdviserCustomer.ascx.cs:GetPageCount()");
-
-                object[] objects = new object[5];
-                objects[0] = upperlimit;
-                objects[1] = rowCount;
-                objects[2] = ratio;
-                objects[3] = lowerlimit;
-                objects[4] = PageRecords;
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
-
-        private void BindCustomer(int CurrentPage)
+        private void BindCustomer()
         {
             //Dictionary<string, string> genDictParent = new Dictionary<string, string>();
             //Dictionary<string, string> genDictRM = new Dictionary<string, string>();
@@ -434,11 +388,11 @@ namespace WealthERP.Advisor
 
                 adviserVo = (AdvisorVo)Session["advisorVo"];
 
-                if (hdnCurrentPage.Value.ToString() != "")
-                {
-                    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
-                    hdnCurrentPage.Value = "";
-                }
+                //if (hdnCurrentPage.Value.ToString() != "")
+                //{
+                //    mypager.CurrentPage = Int32.Parse(hdnCurrentPage.Value.ToString());
+                //    hdnCurrentPage.Value = "";
+                //}
 
                 int Count = 0;
 
@@ -446,9 +400,9 @@ namespace WealthERP.Advisor
                 //hdnNameFilter.Value = customer;
 
                 //customerList = adviserBranchBo.(adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnAreaFilter.Value, hdnPincodeFilter.Value, hdnParentFilter.Value, hdnRMFilter.Value, out genDictParent, out genDictRM, out genDictReassignRM);
-                customerList = adviserBranchBo.GetAdviserCustomerListForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId, mypager.CurrentPage, out Count, hdnSort.Value, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnAreaFilter.Value, hdnCityFilter.Value, out advisorBranchList);
+                customerList = adviserBranchBo.GetAdviserCustomerListForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId,0, out Count, hdnSort.Value, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnAreaFilter.Value, hdnCityFilter.Value, out advisorBranchList);
                 allcustomerList = adviserBranchBo.GetAdviserCustomerListForAssociation(int.Parse(hndBranchIdFilter.Value.ToString()), adviserVo.advisorId,0, out Count, hdnSort.Value, hdnNameFilter.Value, hdnBranchFilter.Value, hdnRMNameFilter.Value, hdnAreaFilter.Value, hdnCityFilter.Value, out advisorBranchList);
-                lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
+               // lblTotalRows.Text = hdnRecordCount.Value = Count.ToString();
 
                 #region forcustomerlist
                 dtRMCustomer.Columns.Add("CustomerId");
@@ -523,7 +477,7 @@ namespace WealthERP.Advisor
 
                     ErrorMessage.Visible = true;
                     trPager.Visible = false;
-                    lblTotalRows.Visible = false;
+                   // lblTotalRows.Visible = false;
                     lblCurrentPage.Visible = false;
                     btnReassignRM.Visible = false;
                     trReassignRM.Visible = false;
@@ -538,9 +492,9 @@ namespace WealthERP.Advisor
                     }
 
                     ErrorMessage.Visible = false;
-                    trPager.Visible = true;
-                    lblTotalRows.Visible = true;
-                    lblCurrentPage.Visible = true;
+                    //trPager.Visible = true;
+                   // lblTotalRows.Visible = true;
+                    //lblCurrentPage.Visible = true;
 
                     DataRow drRMCustomer;
                     DataRow drRMCustomerALL;
@@ -688,8 +642,8 @@ namespace WealthERP.Advisor
 
                     #endregion
 
-                    gvAssociation.DataSource = dtRMCustomer;
-                    gvAssociation.DataBind();
+                    gvAssociations.DataSource = dtRMCustomer;
+                    gvAssociations.DataBind();
 
                     #region customerlist
                     
@@ -720,9 +674,9 @@ namespace WealthERP.Advisor
 
 
 
-                    gvAssociation.Columns[4].Visible = false;
+                    gvAssociations.Columns[4].Visible = false;
                     //gvAssociation.Columns[5].Visible = false;
-                    gvAssociation.Columns[8].Visible = false;
+                    gvAssociations.Columns[8].Visible = false;
                     //ReAssignRMControl(genDictRM);
 
                     //if (genDictParent.Count > 0)
@@ -773,55 +727,7 @@ namespace WealthERP.Advisor
                         }
                     }
 
-                    //Branch search
-                    TextBox txtBranch = GetBranchTextBox();
-                    if (txtBranch != null)
-                    {
-                        if (hdnBranchFilter.Value != "")
-                        {
-                            txtBranch.Text = hdnBranchFilter.Value.ToString();
-                        }
-                    }
-                    //RM search
-                    TextBox txtRMName = GetRMNameTextBox();
-                    if (txtBranch != null)
-                    {
-                        if (hdnRMNameFilter.Value != "")
-                        {
-                            txtRMName.Text = hdnRMNameFilter.Value.ToString();
-                        }
-                    }
-                    //Area Search
-                    TextBox txtArea = GetAreaTextBox();
-                    if (txtArea != null)
-                    {
-                        if (hdnAreaFilter.Value != "")
-                        {
-                            txtArea.Text = hdnAreaFilter.Value.ToString();
-                        }
-                    }
-                    //City Search
-                    TextBox txtCity = GetCustCityTextBox();
-                    if (txtCity != null)
-                    {
-                        if (hdnCityFilter.Value != "")
-                        {
-                            txtCity.Text = hdnCityFilter.Value.ToString();
-                        }
-                    }
-                    //Customer Search
-                    TextBox txtName = GetCustNameTextBox();
-                    if (txtName != null)
-                    {
-                        if (hdnNameFilter.Value != "")
-                        {
-                            txtName.Text = hdnNameFilter.Value.ToString();
-                        }
-                    }
-
-
-
-                    this.GetPageCount();
+                  
                 }
             }
             catch (BaseApplicationException Ex)
@@ -855,13 +761,13 @@ namespace WealthERP.Advisor
                 {
                     GridViewSortDirection = SortDirection.Descending;
                     hdnSort.Value = sortExpression + " DESC";
-                    this.BindCustomer(1);
+                    this.BindCustomer();
                 }
                 else
                 {
                     GridViewSortDirection = SortDirection.Ascending;
                     hdnSort.Value = sortExpression + " ASC";
-                    this.BindCustomer(1);
+                    this.BindCustomer();
                 }
             }
             catch (BaseApplicationException Ex)
@@ -931,17 +837,17 @@ namespace WealthERP.Advisor
                 ddlBranchRMList.DataValueField = dtRMList.Columns["AR_RMId"].ToString();
                 ddlBranchRMList.DataBind();
                 ddlBranchRMList.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
-                foreach (GridViewRow dr in gvAssociation.Rows)
+                foreach (GridDataItem dr in gvAssociations.Items)
                 {
-                    int rowIndex = dr.RowIndex;
-                    DataKey dKey = gvAssociation.DataKeys[rowIndex];
+               
+                    int selectedRow = dr.ItemIndex + 1;
+                    int userId = int.Parse((gvAssociations.MasterTableView.DataKeyValues[selectedRow - 1]["UserId"].ToString()));
+                    int customerId = int.Parse((gvAssociations.MasterTableView.DataKeyValues[selectedRow - 1]["CustomerId"].ToString()));
+                    string rmId = gvAssociations.MasterTableView.DataKeyValues[selectedRow - 1]["RMId"].ToString();
+                    int branchId = int.Parse((gvAssociations.MasterTableView.DataKeyValues[selectedRow - 1]["BranchId"].ToString()));
 
-                    int customerId = int.Parse(dKey.Values["CustomerId"].ToString());
-                    int userId = int.Parse(dKey.Values["UserId"].ToString());
-                    string rmId = dKey.Values["RMId"].ToString();
-                    int branchId = int.Parse(dKey.Values["BranchId"].ToString());
 
-                    if (((CheckBox)dr.FindControl("chkId")).Checked == true)
+                    if (((CheckBox)dr.FindControl("cbRecons")).Checked == true)
                     {
                         dtRMList.DefaultView.Sort = "AR_RMId";
                         int i = dtRMList.DefaultView.Find(rmId);
@@ -976,7 +882,7 @@ namespace WealthERP.Advisor
             else
                 advisorBranchBO.ReassignCustomersBranchRM(selectedCusmoerIds, int.Parse(ddlAdvisorBranchList.SelectedValue), 0);
 
-            this.BindCustomer(mypager.CurrentPage);
+            this.BindCustomer();
             SuccessMsg.Visible = true;
             setShowHideControls(1);
         }
@@ -988,7 +894,7 @@ namespace WealthERP.Advisor
             {
                 advisorBranchBO.ReassignCustomersBranchRM(selectedCusmoerIds, int.Parse(ddlBranchList.SelectedValue), int.Parse(ddlBranchRMList.SelectedValue));
                 SuccessMsg.Visible = true;
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
 
             }
 
@@ -999,7 +905,7 @@ namespace WealthERP.Advisor
             setShowHideControls(0);
             ddlBranchList.SelectedIndex = 0;
             hndBranchIdFilter.Value = "0";
-            this.BindCustomer(mypager.CurrentPage);
+            this.BindCustomer();
             ddlBranchList.SelectedIndex = 0;
             trReassignRM.Visible = false;
             //bindBranchRMDropdown(int.Parse(ddlBranchList.SelectedValue));
@@ -1010,14 +916,14 @@ namespace WealthERP.Advisor
             if (ddlBranchList.SelectedIndex == 0)
             {
                 hndBranchIdFilter.Value = "0";
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
 
             }
             else
             {
                 trReassignRM.Visible = true;
                 hndBranchIdFilter.Value = ddlBranchList.SelectedValue;
-                this.BindCustomer(mypager.CurrentPage);
+                this.BindCustomer();
                 bindBranchRMDropdown(int.Parse(hndBranchIdFilter.Value.ToString()));
                 ddlBranchList.SelectedValue = hndBranchIdFilter.Value.ToString();
             }
@@ -1027,7 +933,7 @@ namespace WealthERP.Advisor
         {
             hdnBranchFilter.Value = string.Empty;
             hndBranchIdFilter.Value = "0";
-            this.BindCustomer(mypager.CurrentPage);
+            this.BindCustomer();
             setShowHideControls(1);
 
         }
@@ -1073,10 +979,28 @@ namespace WealthERP.Advisor
         protected void chkSelectAllpages_CheckedChanged(object sender, EventArgs e)
         {
             if (chkSelectAllpages.Checked == true)
-                gvAssociation.Columns[0].Visible = false;
+                gvAssociations.Columns[0].Visible = false;
             else
-                gvAssociation.Columns[0].Visible = true;
+                gvAssociations.Columns[0].Visible = true;
 
+        }
+        protected void gvAssociations_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+
+            DataTable dtCustomer = new DataTable();
+            dtCustomer = (DataTable)Cache["gvAssociation" + adviserVo.advisorId];
+            gvAssociations.DataSource = dtCustomer;
+
+        }
+        public void btnExportFilteredData_OnClick(object sender, ImageClickEventArgs e)
+        {
+            gvAssociations.ExportSettings.OpenInNewWindow = true;
+            gvAssociations.ExportSettings.IgnorePaging = true;
+            gvAssociations.ExportSettings.HideStructureColumns = true;
+            gvAssociations.ExportSettings.ExportOnlyData = true;
+            gvAssociations.ExportSettings.FileName = "Customer Branch_RM Association";
+            gvAssociations.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvAssociations.MasterTableView.ExportToExcel();
         }
     }
 }

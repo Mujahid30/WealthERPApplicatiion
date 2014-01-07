@@ -7,27 +7,25 @@
 <script src="/Scripts/jquery.colorbox-min.js" type="text/javascript"></script>
 
 <link href="/CSS/colorbox.css" rel="stylesheet" type="text/css" />
+<asp:ScriptManager ID="scrptMgr" runat="server">
+</asp:ScriptManager>
 
 <script language="javascript" type="text/javascript">
+
     function checkAllBoxes() {
 
-        //get total number of rows in the gridview and do whatever
-        //you want with it..just grabbing it just cause
-        var totalChkBoxes = parseInt('<%= gvAssociation.Rows.Count %>');
-        var gvControl = document.getElementById('<%= gvAssociation.ClientID %>');
+        var totalChkBoxes = parseInt('<%= gvAssociations.Items.Count %>');
+        var gvControl = document.getElementById('<%= gvAssociations.ClientID %>');
 
-        //this is the checkbox in the item template...this has to be the same name as the ID of it
-        var gvChkBoxControl = "chkId";
 
-        //this is the checkbox in the header template
-        var mainChkBox = document.getElementById("chkBoxAll");
+        var gvChkBoxControl = "cbRecons";
 
-        //get an array of input types in the gridview
+
+        var mainChkBox = document.getElementById("chkBxWerpAll");
+
         var inputTypes = gvControl.getElementsByTagName("input");
 
         for (var i = 0; i < inputTypes.length; i++) {
-            //if the input type is a checkbox and the id of it is what we set above
-            //then check or uncheck according to the main checkbox in the header template
             if (inputTypes[i].type == 'checkbox' && inputTypes[i].id.indexOf(gvChkBoxControl, 0) >= 0)
                 inputTypes[i].checked = mainChkBox.checked;
         }
@@ -41,7 +39,7 @@
 
     function CheckSelection(type) {
 
-        var gvAssociation = document.getElementById("ctrl_CuCustomerAssociationSetup_gvAssociation");
+        var gvAssociation = document.getElementById("ctrl_CuCustomerAssociationSetup_gvAssociations");
         var chkArray = gvAssociation.getElementsByTagName("input");
 
 
@@ -133,15 +131,27 @@
     
 }
 </style>
-<table width="100%" class="TableBackground">
+<table width="100%">
     <tr>
-        <td class="HeaderCell">
-            <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig" Text="Customer Branch/RM Association"></asp:Label>
-            <hr />
+        <td>
+            <div class="divPageHeading">
+                <table cellspacing="0" cellpadding="2" width="100%">
+                    <tr>
+                        <td align="left">
+                          Customer Branch/RM Association
+                        </td>
+                        <td align="right" style="width: 10px">
+                            <asp:ImageButton ID="imgBtnrgHoldings" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
+                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
+                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
-   
 </table>
+
 <div class="failure-msg" id="ErrorMessage" runat="server" visible="false" 
     align="center" style="margin-left: 80px">
     No Records found.....
@@ -151,11 +161,11 @@
     Reassign successfully.....
 </div>
 <asp:Panel ID="Panel2" runat="server" class="Landscape" Width="100%" ScrollBars="Horizontal">
-    <table width="100%" cellspacing="0" cellpadding="0">
+    <table width="100%" cellspacing="0" cellpadding="2" style="margin-top:15px">
 <tr>
 <td colspan="3">
 <table>
-<tr style="width:100%" id="trHeader" runat="server">
+<tr style="width:100%" id="trHeader" runat="server" >
         <%--<td align="right">
           <asp:Label ID="lblPickRMBranch" Text="Please pick the association you want to change: "
                 CssClass="FieldName" runat="server"></asp:Label>
@@ -219,123 +229,78 @@
     </tr>
     <tr>
         <td colspan="3">
-            <asp:GridView ID="gvAssociation" runat="server" CellPadding="4" CssClass="GridViewStyle"
-                AllowSorting="True" OnSorting="gvAssociation_Sort" ShowFooter="true" AutoGenerateColumns="False"
-                DataKeyNames="CustomerId,UserId,RMId,BranchId">
-                <RowStyle CssClass="RowStyle" />
-                <FooterStyle CssClass="FooterStyle" />
-                <PagerStyle HorizontalAlign="Center" CssClass="PagerStyle" />
-                <SelectedRowStyle CssClass="SelectedRowStyle" />
-                <HeaderStyle CssClass="HeaderStyle" HorizontalAlign="Left" VerticalAlign="Middle" />
-                <EditRowStyle CssClass="EditRowStyle" />
-                <AlternatingRowStyle CssClass="AltRowStyle " />
-                <Columns>
-                    <asp:TemplateField HeaderText="Select">
-                     <HeaderTemplate>
-                            <asp:Label ID="LblSelect" runat="server" Text=""></asp:Label>
-                            <br />
-                            <%--<asp:Button ID="lnkSelectAll" Text="All" runat="server"  OnClientClick="return CheckAll();" />--%>
-                           <input id="chkBoxAll" class="CheckField" name="CheckAllCustomer" value="Customer" type="checkbox" onclick="checkAllBoxes()"  />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:CheckBox ID="chkId" runat="server" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblCustomerName" runat="server" Text="Name"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtCustNameSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_CuCustomerAssociationSetup_btnCustomerSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                           <asp:Label ID="lblCustNameHeader" runat="server" Text='<%# Eval("Cust_Comp_Name").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblBranchName" runat="server" Text="Branch"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtBranchSearch" runat="server" Text='<%# hdnBranchFilter.Value %>'
-                                CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_CuCustomerAssociationSetup_btnBranchSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRMBranchNameHeader" runat="server" Text='<%# Eval("BranchName").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblRMName" runat="server" Text="RM"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtRMNameSearch" runat="server" Text='<%# hdnRMFilter.Value %>'
-                                CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_CuCustomerAssociationSetup_btnRMSearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRMNameHeader" runat="server" Text='<%# Eval("RMName").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                         <HeaderTemplate>
-                                <asp:Label ID="lblArea" runat="server" Text="Area"></asp:Label>
-                                <br />
-                                <asp:TextBox ID="txtAreaSearch" runat="server" CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_CuCustomerAssociationSetup_btnAreaSearch');" />
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <asp:Label ID="lblAreaHeader" runat="server" Text='<%# Eval("Area").ToString() %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle Wrap="False" />
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblCityName" runat="server" Text="City & Area"></asp:Label>
-                            <br />
-                            <asp:TextBox ID="txtCitySearch" runat="server" Text='<%# hdnCityFilter.Value %>'
-                                CssClass="GridViewTxtField" onkeydown="return JSdoPostback(event,'ctrl_CuCustomerAssociationSetup_btnCitySearch');" />
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblCityHeader" runat="server" Text='<%# Eval("City").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblCustomerType" runat="server" Text="Type"></asp:Label>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRMCustomerType" runat="server" Text='<%# Eval("CustomerType").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblPANNumber" runat="server" Text="PAN"></asp:Label>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblRMPANHeader" runat="server" Text='<%# Eval("PAN Number").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="False"></HeaderStyle>
-                        <ItemStyle Wrap="False"></ItemStyle>
-                    </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-Wrap="false" HeaderStyle-Wrap="false">
-                        <HeaderTemplate>
-                            <asp:Label ID="lblAddressName" runat="server" Text="Address"></asp:Label>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <asp:Label ID="lblAddress" runat="server" Text='<%# Eval("Address").ToString() %>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle Wrap="false"></HeaderStyle>
-                        <ItemStyle Wrap="false"></ItemStyle>
-                    </asp:TemplateField>
-                    
-                </Columns>
-            </asp:GridView>
+            
+             <div id="dvUserMgt" runat="server" style="width: 840px;">
+                    <telerik:RadGrid ID="gvAssociations" runat="server" GridLines="None" AutoGenerateColumns="False" 
+                        PageSize="15" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" 
+                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowFilteringByColumn="true"
+                        AllowAutomaticInserts="false"  OnNeedDataSource="gvAssociations_OnNeedDataSource" >
+                        <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
+                            Excel-Format="ExcelML">
+                        </ExportSettings>
+                        <MasterTableView DataKeyNames="CustomerId,UserId,RMId,BranchId" Width="100%" AllowMultiColumnSorting="True"
+                            AutoGenerateColumns="false" CommandItemDisplay="None">
+                            <Columns>
+                                <telerik:GridTemplateColumn HeaderText="Select" AllowFiltering="false">
+                                    <HeaderTemplate>
+                                        <asp:Label ID="lblchkBxSelect" runat="server"></asp:Label>
+                                        <input id="chkBxWerpAll" name="chkBxWerpAll" type="checkbox" onclick="checkAllBoxes()" />
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <asp:CheckBox ID="cbRecons" runat="server" Checked="false" />
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+                                <telerik:GridBoundColumn DataField="Cust_Comp_Name" HeaderText="Customer Name" AllowFiltering="true"
+                                    SortExpression="Cust_Comp_Name" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                    AutoPostBackOnFilter="true" UniqueName="Cust_Comp_Name" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="BranchName" HeaderText="Branch Name" SortExpression="BranchName"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="BranchName" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                              
+                                 <telerik:GridBoundColumn DataField="RMName" HeaderText="RM" SortExpression="RMName"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="RMName" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="Area" HeaderText="Area" SortExpression="Area"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="Area" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="City" HeaderText="City" SortExpression="City"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="City" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                 <telerik:GridBoundColumn DataField="CustomerType" HeaderText="Type" SortExpression="CustomerType"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="CustomerType" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                
+                                <telerik:GridBoundColumn DataField="PAN Number" HeaderText="PAN Number" SortExpression="PAN Number"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="PAN Number" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                <telerik:GridBoundColumn DataField="Address" HeaderText="Address" SortExpression="Address"
+                                    ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                    UniqueName="Address" FooterStyle-HorizontalAlign="Left">
+                                    <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
+                                </telerik:GridBoundColumn>
+                                
+                            </Columns>
+                        </MasterTableView>
+                        <ClientSettings>
+                            <Selecting AllowRowSelect="True" EnableDragToSelectRows="True"  />
+                            
+                        </ClientSettings>
+                    </telerik:RadGrid>
+                    </div>
         </td>
     </tr>
     <tr style="width:100%">
@@ -400,10 +365,10 @@
         </td>
     </tr>
      </table>
-    <tr id="trPager" runat="server" width="100%" >
+    <%--<tr id="trPager" runat="server" width="100%" >
         <td align="right">
             <Pager:Pager ID="mypager" runat="server"></Pager:Pager>
-        </td>
+        </td>--%>
        
     </tr>
     </table>
