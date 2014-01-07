@@ -52,13 +52,13 @@ namespace BoOnlineOrderManagement
             return dsExtractType;
         }
 
-        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType,DateTime fromDate, DateTime toDate,string status)
+        public DataSet GetExtractTypeDataForFileCreation(DateTime orderDate, int AdviserId, int extractType, DateTime fromDate, DateTime toDate, string status)
         {
             DataSet dsExtractType;
             OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                dsExtractType = OnlineOrderBackOfficeDao.GetExtractTypeDataForFileCreation(orderDate, AdviserId, extractType, fromDate,toDate, status);
+                dsExtractType = OnlineOrderBackOfficeDao.GetExtractTypeDataForFileCreation(orderDate, AdviserId, extractType, fromDate, toDate, status);
             }
             catch (BaseApplicationException Ex)
             {
@@ -532,7 +532,7 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-       
+
 
         public bool AMFIduplicateCheck(int schemeplancode, string externalcode)
         {
@@ -620,6 +620,8 @@ namespace BoOnlineOrderManagement
                     int joint = 1;
                     int nominee = 1;
                     int jointPan = 1;
+                    int jointPanIsValid = 1;
+
 
                     foreach (DataColumn dcc in dtRTAOrderExtract.Columns)
                     {
@@ -648,116 +650,163 @@ namespace BoOnlineOrderManagement
                         }
                         else
                         {
+                            if (dtCustomerJointNomineeDetails.Rows.Count > 0)
+                            {
 
-                            foreach (DataRow drJointNominee in dtCustomerJointNomineeDetails.Rows)
+                                foreach (DataRow drJointNominee in dtCustomerJointNomineeDetails.Rows)
+                                {
+                                    switch (dcc.ToString())
+                                    {
+                                        case "AMFE_JointName1":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH" && joint == 1)
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                                joint = joint + 1;
+                                            }
+                                            break;
+                                        case "AMFE_JointName2":
+                                            if (joint == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                                joint = joint + 1;
+                                            }
+                                            break;
+                                        case "AMFE_JointHolderRelation":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
+
+                                            }
+                                            break;
+                                        case "AMFE_JointDateofBirth":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
+
+                                            }
+                                            break;
+                                        case "AMFE_JointGaurdianName":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
+
+                                            }
+                                            break;
+                                        case "AMFE_JointHolder1Pan":
+                                            if (jointPan == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineePan"];
+                                                jointPan = jointPan + 1;
+                                            }
+                                            break;
+                                        case "AMFE_JointHolder2Pan":
+                                            if (jointPan == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineePan"];
+                                                jointPan = jointPan + 1;
+                                            }
+                                            break;
+
+                                        case "AMFE_JH1PanValid":
+                                            if (jointPanIsValid == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                jointPanIsValid = jointPanIsValid + 1;
+
+                                                if (!string.IsNullOrEmpty(drJointNominee["AMFE_JointNomineePan"].ToString()))
+                                                {
+                                                    drFinalRTAExtract[dcc.ToString()] = 'Y';
+                                                }
+                                                else
+                                                {
+                                                    drFinalRTAExtract[dcc.ToString()] = 'N';
+                                                }
+                                            }
+                                            break;
+
+                                        case "AMFE_JH2PanValid":
+                                            if (jointPanIsValid == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
+                                            {
+                                                jointPanIsValid = jointPanIsValid + 1;
+
+                                                if (!string.IsNullOrEmpty(drJointNominee["AMFE_JointNomineePan"].ToString()))
+                                                {
+                                                    drFinalRTAExtract[dcc.ToString()] = 'Y';
+                                                }
+                                                else
+                                                {
+                                                    drFinalRTAExtract[dcc.ToString()] = 'N';
+                                                }
+                                            }
+                                            break;
+
+
+
+
+
+
+                                        case "AMFE_NomineeName1":
+                                            if (nominee == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                                nominee = nominee + 1;
+                                            }
+                                            break;
+                                        case "AMFE_NomineeName2":
+                                            if (nominee == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
+                                                nominee = nominee + 1;
+                                            }
+                                            break;
+                                        case "AMFE_NomineeRelation":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
+
+                                            }
+                                            break;
+                                        case "AMFE_NomineeDateofBirth":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
+
+                                            }
+                                            break;
+                                        case "AMFE_NomineeGaurdianName":
+                                            if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
+
+                                            }
+                                            break;
+
+                                        case "AMFE_NominationNotOpted":
+                                            if (nominee > 0)
+                                                drFinalRTAExtract[dcc.ToString()] = "N";
+                                            else
+                                                drFinalRTAExtract[dcc.ToString()] = "Y";
+                                            break;
+
+                                        case "AMFE_Dp_Id":
+                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_Dp_Id"];
+                                            break;
+
+                                        default:
+                                            drFinalRTAExtract[dcc.ToString()] = null;
+                                            break;
+                                    }
+
+                                }
+                            }
+                            else
                             {
                                 switch (dcc.ToString())
                                 {
-                                    case "AMFE_JointName1":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH" && joint == 1)
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                            joint = joint + 1;
-                                        }
+                                    case "AMFE_JH1PanValid":
+                                        drFinalRTAExtract[dcc.ToString()] = 'N';
                                         break;
-                                    case "AMFE_JointName2":
-                                        if (joint == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                            joint = joint + 1;
-                                        }
-                                        break;
-                                    case "AMFE_JointHolderRelation":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
-
-                                        }
-                                        break;
-                                    case "AMFE_JointDateofBirth":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
-
-                                        }
-                                        break;
-                                    case "AMFE_JointGaurdianName":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
-
-                                        }
-                                        break;
-                                    case "AMFE_JointHolder1Pan":
-                                        if (jointPan == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                            jointPan = jointPan + 1;
-                                        }
-                                        break;
-                                    case "AMFE_JointHolder2Pan":
-                                        if (jointPan == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "JH")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                            jointPan = jointPan + 1;
-                                        }
-                                        break;
-
-
-
-
-
-
-
-                                    case "AMFE_NomineeName1":
-                                        if (nominee == 1 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                            nominee = nominee + 1;
-                                        }
-                                        break;
-                                    case "AMFE_NomineeName2":
-                                        if (nominee == 2 && drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeName"];
-                                            nominee = nominee + 1;
-                                        }
-                                        break;
-                                    case "AMFE_NomineeRelation":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeRelation"];
-
-                                        }
-                                        break;
-                                    case "AMFE_NomineeDateofBirth":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeDateofBirth"];
-
-                                        }
-                                        break;
-                                    case "AMFE_NomineeGaurdianName":
-                                        if (drJointNominee["CEDAA_AssociationType"].ToString() == "N")
-                                        {
-                                            drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_JointNomineeGaurdianName"];
-
-                                        }
-                                        break;
-
                                     case "AMFE_NominationNotOpted":
-                                        if (nominee > 0)
-                                            drFinalRTAExtract[dcc.ToString()] = "N";
-                                        else
-                                            drFinalRTAExtract[dcc.ToString()] = "Y";
-                                        break;
-
-                                    case "AMFE_Dp_Id":
-                                        drFinalRTAExtract[dcc.ToString()] = drJointNominee["AMFE_Dp_Id"];
-                                        break;
-
-                                    default:
-                                        drFinalRTAExtract[dcc.ToString()] = null;
+                                        drFinalRTAExtract[dcc.ToString()] = 'N';
                                         break;
                                 }
 
@@ -948,6 +997,12 @@ namespace BoOnlineOrderManagement
             dtAdviserExtractedOrderList.Columns.Add("AMFE_CreatedOn", typeof(DateTime), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_DepositDate", typeof(DateTime), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_BankMandateProof", typeof(Char), null);
+
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_ExternalSourceId", typeof(Int32), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_LOG_WT", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_IsGuardianPANValid", typeof(string), null);
+            dtAdviserExtractedOrderList.Columns.Add("AMFE_LOG", typeof(string), null);
+            
             return dtAdviserExtractedOrderList;
         }
         public DataSet GetFrequency()
@@ -1711,8 +1766,8 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-       
-        
+
+
     }
 
 }
