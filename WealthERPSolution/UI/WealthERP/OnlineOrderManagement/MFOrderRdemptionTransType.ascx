@@ -331,7 +331,7 @@
                             runat="server" />
                         <asp:CompareValidator runat="server" ID="cmpMinAmountUnits" ControlToValidate="txtRedeemTypeValue"
                              Operator="GreaterThanEqual" Type="Double" CssClass="rfvPCG"
-                            ErrorMessage="Amount/Unit should be greater than minimum Amount/Unit" ValidationGroup="btnSubmit" /><br />
+                            ErrorMessage="Minimum Redemption Unit/Amount should be greater than Minimum Redemption Unit/Amount - xxxxt" ValidationGroup="btnSubmit" /><br />
                         
                     </td>
                     <td colspan="2">
