@@ -64,7 +64,7 @@ namespace WealthERP.OnlineOrderManagement
                     //lblOption.Visible = false;
                     //lblDividendType.Visible = false;
                     trDividendOption.Visible = false;
-                    trRedeemType.Visible = false;
+                    trRedeemType.Visible = true;
                     if (Request.QueryString["accountId"] != null && Request.QueryString["SchemeCode"] != null)
                     {
                         int accountId = 0;
@@ -156,6 +156,8 @@ namespace WealthERP.OnlineOrderManagement
         {
             lblDividendType.Text = "";
 
+            //lblMintxt.Text = "";
+            //lblMulti.Text = "";
             lbltime.Text = "";
             lbldftext.Text = "";
             txtRedeemTypeValue.Text = "";
@@ -249,7 +251,23 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
                         lbltime.Text = dr["CutOffTime"].ToString();
+                        lbltime.Visible = true; 
                     }
+
+                    if (!string.IsNullOrEmpty(dr["RedeemMinAmt"].ToString()))
+                    {
+                        lblMinAmountValue.Text = dr["RedeemMinAmt"].ToString();
+                        lblMinAmountValue.Visible = true;
+                    }
+
+                    
+
+                    if (!string.IsNullOrEmpty(dr["RedeemMinUnit"].ToString()))
+                    {
+                        lblMinUnitValue.Text = dr["RedeemMinUnit"].ToString();
+                        lblMinUnitValue.Visible = true;
+                    }
+
 
                     if (!string.IsNullOrEmpty(dr["divFrequency"].ToString()))
                     {
@@ -308,7 +326,7 @@ namespace WealthERP.OnlineOrderManagement
         {
             lbltime.Visible = true;
             //lblDividendType.Visible = true;
-
+            
 
             lblDivType.Visible = true;
             lblCurrentValueDisplay.Visible = true;
@@ -403,12 +421,14 @@ namespace WealthERP.OnlineOrderManagement
                 lblRedeemType.Text = "Units:";
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
+                cmpMinAmountUnits.ValueToCompare = lblMinUnitValue.Text;               
             }
             else if (ddlRedeem.SelectedValue == "2")
             {
                 lblRedeemType.Text = "Amount (Rs):";
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
+                cmpMinAmountUnits.ValueToCompare = lblMinAmountValue.Text;
 
             }
             else if (ddlRedeem.SelectedValue == "3")
@@ -416,6 +436,7 @@ namespace WealthERP.OnlineOrderManagement
                 lblRedeemType.Text = "All Units:";
                 txtRedeemTypeValue.Text = lblUnitsheldDisplay.Text;
                 txtRedeemTypeValue.Enabled = false;
+                cmpMinAmountUnits.IsValid = true;
             }
             //txtRedeemTypeValue.Visible = true;
             trRedeemType.Visible = true;

@@ -65,6 +65,11 @@
             return false;
         }
     }
+
+
+   
+
+    }
 </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -160,6 +165,12 @@
                                 <td>
                                     <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
+                                <td>
+                                    <asp:Label ID="lblMinAmount" runat="server" Text="Min Amount(Rs):" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMinAmountValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
+                                </td>
                             </tr>
                             <tr class="SchemeInfoTable">
                                 <td align="left" style="vertical-align: top;">
@@ -167,6 +178,12 @@
                                 </td>
                                 <td>
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMinUnit" runat="server" Text="Min Units:" CssClass="FieldName"></asp:Label>
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblMinUnitValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
                                 </td>
                             </tr>
                         </table>
@@ -312,6 +329,10 @@
                             ControlToValidate="txtRedeemTypeValue" MinimumValue="1" MaximumValue="9999999999"
                             ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic"
                             runat="server" />
+                        <asp:CompareValidator runat="server" ID="cmpMinAmountUnits" ControlToValidate="txtRedeemTypeValue"
+                             Operator="GreaterThanEqual" Type="Double" CssClass="rfvPCG"
+                            ErrorMessage="Amount/Unit should be greater than minimum Amount/Unit" ValidationGroup="btnSubmit" /><br />
+                        
                     </td>
                     <td colspan="2">
                     </td>
@@ -438,6 +459,9 @@
                 </telerik:RadWindow>
             </Windows>
         </telerik:RadWindowManager>
+        <div style="float: inherit;">
+           
+        </div>
     </ContentTemplate>
     <Triggers>
     </Triggers>
