@@ -22,6 +22,7 @@ namespace WealthERP.OnlineOrderManagement
     public partial class NCDIssueList : System.Web.UI.UserControl
     {
         OnlineBondOrderBo OnlineBondBo = new OnlineBondOrderBo();
+        OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         AdvisorVo advisorVo = new AdvisorVo();
         CustomerVo customerVo = new CustomerVo();
         UserVo userVo;
@@ -147,7 +148,7 @@ namespace WealthERP.OnlineOrderManagement
                 string filename = gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AR_Filename"].ToString();
                 if (filename == string.Empty)
                     return;
-                string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId +"\\"+ filename;                
+                string path = MapPath("~/Repository") + "\\advisor_" + advisorVo.advisorId + "\\" + filename;
                 byte[] bts = System.IO.File.ReadAllBytes(path);
                 Response.Clear();
                 Response.ClearHeaders();
@@ -162,32 +163,26 @@ namespace WealthERP.OnlineOrderManagement
 
         protected void gvCommMgmt_ItemDataBound(object sender, GridItemEventArgs e)
         {
-            //DataTable dtIssueDetail;
-            //string strIssuerId = string.Empty;
-            //if (e.Item is GridDataItem)
-            //{
-            //    strIssuerId = gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["PFIIM_IssuerId"].ToString();
-            //    RadGrid gvchildIssue = (RadGrid)e.Item.FindControl("gvChildDetails");
-            //    LinkButton buttonlink = (LinkButton)e.Item.FindControl("Detailslink");                
-            //    DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
-            //    dtIssueDetail = ds.Tables[0];
-            //    gvchildIssue.DataSource = dtIssueDetail;
-            //    gvchildIssue.DataBind();
-            //}
-
-
-            //string Status = Convert.ToString(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["IssueTimeType"].ToString());
-            // EditCommandColumn colmatch = (EditCommandColumn)e.Item["Match"];
+            int isPurchaseAvailblity = 0;
             if (e.Item is GridDataItem && e.Item.ItemIndex != -1)
             {
-
-
+                
                 LinkButton editButton = (LinkButton)e.Item.FindControl("llPurchase");
-
-
+                
                 if (ddlType.SelectedValue == "Curent")
                 {
                     editButton.Visible = true;
+                    int IssueId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIM_IssueId"].ToString());
+
+                    onlineNCDBackOfficeBo.GetOrdersEligblity(IssueId, ref isPurchaseAvailblity);
+                    if (isPurchaseAvailblity == 1)
+                    {
+                        editButton.Enabled = true;
+                    }
+                    else
+                    {
+                        editButton.Enabled = false;
+                    }
                 }
                 else
                 {
@@ -205,19 +200,11 @@ namespace WealthERP.OnlineOrderManagement
             LinkButton buttonlink = (LinkButton)sender;
             GridDataItem gdi;
             gdi = (GridDataItem)buttonlink.NamingContainer;
-            //  foreach (GridDataItem gvr in this.gvCommMgmt.Items)
-            // {
+          
             strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[gdi.ItemIndex]["AIM_IssueId"].ToString());
             RadGrid gvchildIssue = (RadGrid)gdi.FindControl("gvChildDetails");
-            //LinkButton buttonlink = (LinkButton)gvr.FindControl("Detailslink");
             Panel pnlchild = (Panel)gdi.FindControl("pnlchild");
-            //DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
-            //dtIssueDetail = ds.Tables[0];
-            //gvchildIssue.DataSource = dtIssueDetail;
-            //gvchildIssue.DataBind();
-            //gvchildIssue.Visible = true;
-            //pnlchild.Visible = true;
-            //}
+            
             if (pnlchild.Visible == false)
             {
                 pnlchild.Visible = true;

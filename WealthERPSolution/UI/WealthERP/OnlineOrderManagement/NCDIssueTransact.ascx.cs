@@ -313,19 +313,25 @@ namespace WealthERP.OnlineOrderManagement
         private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
-            string cutOffTime= string.Empty;
+            string cutOffTimeType= string.Empty;
             if (orderId != 0 && accountDebitStatus == true)
             {
 
-                cutOffTime = OnlineBondBo.GetCutOFFTimeForCurent(orderId);
-                if (cutOffTime == "Closed")
+                cutOffTimeType = OnlineBondBo.GetCutOFFTimeForCurent(orderId);
+                if (cutOffTimeType == "2")
+                //if (cutOffTime == "Closed")
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 else
                 userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
             }
-            else if (orderId == 0)
+            else if (orderId == 0 & lblAvailableLimits.Text =="0")
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
+
+            }
+            else if (orderId == 0 )
+            {
+                userMessage = "Order cannot be processed. Issue Got Closed";
 
             }
             return userMessage;

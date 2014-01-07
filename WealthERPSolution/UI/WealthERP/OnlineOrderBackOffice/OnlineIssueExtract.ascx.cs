@@ -78,6 +78,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //    return;
             //}
             ddlExternalSource.SelectedValue = "IOPS";
+            SetFileType(ddlExternalSource.SelectedValue);
             boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue,Convert.ToInt32(ddlIssueName.SelectedValue));
 
             ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
@@ -104,7 +105,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             tblMessage.Visible = true;
             msgRecordStatus.InnerText = msg;
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
         }
 
         protected void btnExportData_OnClick(object sender, ImageClickEventArgs e)
@@ -132,9 +133,9 @@ namespace WealthERP.OnlineOrderBackOffice
           
         }
 
-        private void SetFileType()
+        private void SetFileType(string externalSource)
         {
-            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, ddlExternalSource.SelectedValue, 'E', ddlProduct.SelectedValue);
+            DataTable dtFileType = boNcdBackOff.GetFileTypeList(0, externalSource, 'E', ddlProduct.SelectedValue);
 
             DataRow drFileType = dtFileType.NewRow();
             drFileType["WEFT_Id"] = 0;
@@ -242,7 +243,7 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ShowMessage("Please check all required fields");
             //    return;
             //}
-            SetFileType();
+            SetFileType(ddlExternalSource.SelectedValue);
         }
 
         private void GetExtractData()
@@ -262,7 +263,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 ShowMessage("Please check all required fields");
                 return;
             }
-            SetFileType();
+           // SetFileType();
             BindIssue(ddlProduct.SelectedValue);
         }
         //protected void lnkClick_Click(object sender, EventArgs e)

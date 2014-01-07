@@ -673,7 +673,18 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-
+        public void GetOrdersEligblity(int issueId, ref int isPurchaseAvailable)
+        {
+            try
+            {
+                onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+                 onlineNCDBackOfficeDao.GetOrdersEligblity(issueId, ref isPurchaseAvailable);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
         public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset,int issueId)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();

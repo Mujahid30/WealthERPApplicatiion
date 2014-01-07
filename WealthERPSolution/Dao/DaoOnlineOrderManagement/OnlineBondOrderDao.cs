@@ -54,10 +54,12 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetCutOFFTimeForCurent");
-                db.AddInParameter(dbCommand, "@OrderId", DbType.Int32, orderId);
-                cutOffTime =db.ExecuteScalar(dbCommand).ToString();
-                
+                db.AddInParameter(dbCommand,"@OrderId", DbType.Int32, orderId);
+                db.AddOutParameter(dbCommand, "@IssueTimeType", DbType.Int32, 0);
+              DataSet ds=  db.ExecuteDataSet(dbCommand);
+                //if(ds.Tables[1].
 
+                cutOffTime = db.GetParameterValue(dbCommand, "@IssueTimeType").ToString();
             }
             catch (BaseApplicationException Ex)
             {

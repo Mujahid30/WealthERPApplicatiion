@@ -1384,6 +1384,45 @@ namespace DaoOnlineOrderManagement
             }
             return dtHeaders;
         }
+        public void GetOrdersEligblity(int issueId, ref int isPurchaseAvailable)
+        {
+            Database db;
+            DbCommand dbCommand;
+             
+            //bool status = false;
+            //int affectedRecords = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_PurchaseAvailablity");
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                db.AddOutParameter(dbCommand, "@IsPurchaseAvailable", DbType.Int32, isPurchaseAvailable);
+                db.ExecuteDataSet(dbCommand);
+                isPurchaseAvailable = int.Parse(db.GetParameterValue(dbCommand, "@IsPurchaseAvailable").ToString());
+
+               // isPurchaseAvailable = Convert.ToInt32(db.ExecuteScalar(dbCommand).ToString());
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:UpdateNcdOrderMannualMatch()");
+                object[] objects = new object[7];
+                objects[0] = issueId;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            //if (affectedRecords > 0)
+            //    return status = true;
+            //else
+            //    return status = false;
+        }
         public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId,ref int isAllotmented,ref int isUpdated)
         {
             Database db;
