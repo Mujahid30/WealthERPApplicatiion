@@ -14,6 +14,7 @@ using WealthERP.Base;
 using BoWerpAdmin;
 using BoCustomerProfiling;
 using BoCustomerPortfolio;
+using VoUser;
 
 
 
@@ -31,8 +32,10 @@ namespace WealthERP.SuperAdmin
         String DisplayType;
         DataSet dsDataTransDetails;
         DataSet dsTransactionType = new DataSet();
+        UserVo userVo = new UserVo();
         protected void Page_Load(object sender, EventArgs e)
         {
+            //userVo = (UserVo)Session["userVo"];
             if (Session["OnlineSchemeSetupSchemecode"] != null)
             {
                 ViewState["OnlineSchemeSetupSchemecode"] = Session["OnlineSchemeSetupSchemecode"];
@@ -236,6 +239,29 @@ namespace WealthERP.SuperAdmin
             //}
            
         }
+
+
+        protected void btnAddScheme_Click(object sender, EventArgs e)
+        {
+           // btnUpdate.Visible = false;
+            //btnInsert.visible = true;
+            //btnAddScheme.visible = false;
+            Button buttonAddMaping = (Button)sender;
+            GridEditFormItem gdi = (GridEditFormItem)buttonAddMaping.NamingContainer;
+           
+            //if(gdi<>null)
+           
+            {
+                Button btn = gdi.FindControl("btnUpdate") as Button;
+                btn.Text = "Add Mapping";
+                //btn.Visible = false;
+                //btn.Attributes.Add("Text", "Add Mapping");
+                //btn.Attributes.Add("BackColor", "Black");
+                //btn.CommandName = "";
+                //btn.Text = "Add Mapping";
+            }
+            
+        }
         protected void btnGo_Click(object sender, EventArgs e)
         {
 
@@ -317,7 +343,7 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('this scheme is allready onlline!!');", true);
                 }
-                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate);
+                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate, userVo.UserId);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -343,7 +369,7 @@ namespace WealthERP.SuperAdmin
                 TextBox txtExtCode = (TextBox)e.Item.FindControl("txtExternalCodeForEditForm");
                 DropDownList txtExtType = (DropDownList)e.Item.FindControl("ddlExternalType");
                 TextBox txtSchemePlancode = (TextBox)e.Item.FindControl("txtSchemePlanCodeForEditForm");
-                TextBox txtSchemePlanName = (TextBox)e.Item.FindControl("txtSchemePlanCodeForEditForm");
+                TextBox txtSchemePlanName = (TextBox)e.Item.FindControl("txtSchemePlanNameForEditForm");
                 strSchemePlanCode = int.Parse(txtSchemePlancode.Text);
                 strExternalCode = txtExtCode.Text;
                 strExternalType = txtExtType.Text;
@@ -351,6 +377,7 @@ namespace WealthERP.SuperAdmin
                 isInserted = customerBo.InsertProductAMCSchemeMappingDetalis(strSchemePlanCode, strExternalCode, strExternalType, createdDate, editedDate, deletedDate);
             }
             BindSchemePlanDetails();
+         
         }
         protected void gvCamsKarvy_ItemCommand(object source, GridCommandEventArgs e)
         {
@@ -633,7 +660,9 @@ namespace WealthERP.SuperAdmin
                 //txtBox.Text = txtSchemePlanCode.Value;
                 //txtBoxScName.Text = txtSchemeName.Text;
                 txtBox.Enabled = false;
-                txtBoxScName.Enabled = false;             
+                txtBoxScName.Enabled = false;
+                Button btn = (Button)item.FindControl("btnUpdate");
+                btn.Text = "add";
 
             }
             if (e.Item is GridDataItem)
@@ -852,12 +881,26 @@ namespace WealthERP.SuperAdmin
                 gvSchemeDetails.MasterTableView.FilterExpression = "([PASP_SchemePlanCode] = \'" + schemePlanCode + "\') ";
                 GridColumn column = gvSchemeDetails.MasterTableView.GetColumnSafe("PASP_SchemePlanCode");
                 column.CurrentFilterFunction = GridKnownFunction.Contains;
-                column.CurrentFilterValue =Convert.ToInt32(schemePlanCode).ToString();
+                column.CurrentFilterValue = Convert.ToInt32(schemePlanCode).ToString();
                 DataRow[] rows = dtCustomerList.Select(gvSchemeDetails.MasterTableView.FilterExpression.ToString());
                 gvSchemeDetails.MasterTableView.Rebind();
-               
+
                 ddlSchemeMappingType.Enabled = false;
-             }           
+            }
+
+            //if (gvSchemeDetails.MasterTableView.GetItems(GridItemType.CommandItem).Length > 0)
+            //{
+                //GridCommandItem commandItem = gvSchemeDetails.MasterTableView.GetItems(GridItemType.CommandItem)[0] as GridCommandItem;
+                //Button btn = (Button)commandItem.FindControl("btnUpdate");
+                //btn.Text = "add";
+                //commandItem.FindControl("InitInsertButton").Visible = false;
+            //}
+            //Button buttonAddMaping = (Button)sender;
+            //GridEditFormItem filterItem = (GridEditFormItem)gvSchemeDetails.MasterTableView.GetItems(GridItemType.EditFormItem)[2];
+            //Button btn = (Button)filterItem.FindControl("btnUpdate");
+
+
+            //btn.Text = "Add Mapping";
 
         }
       }

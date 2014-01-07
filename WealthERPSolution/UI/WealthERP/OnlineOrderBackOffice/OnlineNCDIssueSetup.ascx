@@ -930,7 +930,7 @@
         <td>
         </td>
         <td>
-            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Tradeable Exchange" /></asp:CheckBox>
+            <asp:CheckBox ID="chkTradebleExchange" runat="server" CssClass="txtField" Text="Exchange Tradable" /></asp:CheckBox>
         </td>
     </tr>
     <tr>

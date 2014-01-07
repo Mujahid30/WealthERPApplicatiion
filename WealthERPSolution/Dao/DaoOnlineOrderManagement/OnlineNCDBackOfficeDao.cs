@@ -267,6 +267,7 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@IssueSizeQty", DbType.Int32, onlineNCDBackOfficeVo.IssueSizeQty);
                 db.AddInParameter(createCmd, "@IssueSizeAmt", DbType.Decimal, onlineNCDBackOfficeVo.IssueSizeAmt);
                 db.AddInParameter(createCmd, "@issueID", DbType.Int32, onlineNCDBackOfficeVo.IssueId);
+                db.AddInParameter(createCmd, "@Tradableexchange", DbType.Int32, onlineNCDBackOfficeVo.TradableExchange);
                 if (onlineNCDBackOfficeVo.AllotmentDate != DateTime.MinValue)
                 {
                     db.AddInParameter(createCmd, "@AllotmentDate", DbType.Date, onlineNCDBackOfficeVo.AllotmentDate);

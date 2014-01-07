@@ -36,6 +36,12 @@
                     eventArgs.get_menu().get_items().getItem(9).get_element().style.display = "none";
                 }
             }
+            function change() // no ';' here
+            {
+                var elem = document.getElementById("btnUpdate");
+                if (elem.value == "Close Curtain") elem.value = "Update";
+                else elem.value = "Add scheme";
+            }
         </script>
 
         <%--   <script type="text/javascript">
@@ -153,7 +159,7 @@
                             <asp:DropDownList ID="ddlExternalSource" runat="server" CssClass="cmbField" AutoPostBack="false">
                                 <asp:ListItem Text="Select" Value="Select">Select</asp:ListItem>
                                 <asp:ListItem Text="CAMS" Value="CAMS"></asp:ListItem>
-                               <%-- <asp:ListItem Text="Deutsche" Value="Deutsche">
+                                <%-- <asp:ListItem Text="Deutsche" Value="Deutsche">
                                 </asp:ListItem>--%>
                                 <asp:ListItem Text="Templeton" Value="Templeton">
                                 </asp:ListItem>
@@ -175,69 +181,65 @@
         </tr>
     </div>
     <br />
-    
-        <asp:Panel ID="pnlgvScheme" Visible="false" runat="server" class="Landscape" ScrollBars="Horizontal">
-            <telerik:RadGrid ID="gvSchemeDetails" runat="server"  GridLines="None" OnPreRender="gvSchemeDetails_PreRender"
-                AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
-                ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
-                AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvSchemeDetails_ItemDataBound"
-                OnNeedDataSource="gvSchemeDetails_NeedDataSource" EnableEmbeddedSkins="false"
-                OnItemCommand="gvSchemeDetails_ItemCommand" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
-                AllowFilteringByColumn="true">
-                <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-                </ExportSettings>
-                <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode,PASP_SchemePlanName"
-                    EditMode="PopUp" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false"
-                    Width="102%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
-                    <Columns>
-                        <telerik:GridEditCommandColumn EditText="Add/Update" UniqueName="editColumn" CancelText="Cancel"
-                            UpdateText="Add/Update" HeaderStyle-Width="80px" >
-                          
-                        </telerik:GridEditCommandColumn>
-                         <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px" FilterControlWidth="50px"
-                            HeaderText="Type" DataField="Type" SortExpression="Type" AllowFiltering="true"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                           
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="300px"
-                            HeaderText="Scheme Plan Name" DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
-                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Visible="true" UniqueName="PASP_SchemePlanCode" HeaderStyle-Width="80px"
-                            HeaderText="Scheme Code" DataField="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode"
-                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Visible="true" UniqueName="PA_AMCName" HeaderStyle-Width="200px"
-                            HeaderText="AMC" DataField="PA_AMCName" SortExpression="PA_AMCName" AllowFiltering="true"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                         <telerik:GridBoundColumn Visible="true" UniqueName="PASC_IsOnline" HeaderStyle-Width="130px"
-                            HeaderText="Is Online/Is Offline" DataField="PASC_IsOnline" SortExpression="PASC_IsOnline" AllowFiltering="true"
-                            ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn Visible="true" UniqueName="PAIC_AssetInstrumentCategoryName"
-                            HeaderStyle-Width="120px" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName"
-                            SortExpression="PAIC_AssetInstrumentCategoryName" AllowFiltering="true" ShowFilterIcon="false"
-                            AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="External Code"
-                            HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode"
-                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                        <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="External Type"
-                            HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType"
-                            AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
-                            <HeaderStyle></HeaderStyle>
-                        </telerik:GridBoundColumn>
-                       
-                        <%--  <telerik:GridTemplateColumn DataField="PASC_AMC_ExternalType" UniqueName="ShipCity"
+    <asp:Panel ID="pnlgvScheme" Visible="false" runat="server" class="Landscape" ScrollBars="Horizontal">
+        <telerik:RadGrid ID="gvSchemeDetails" runat="server" GridLines="None" OnPreRender="gvSchemeDetails_PreRender"
+            AllowPaging="True" PageSize="10" AllowSorting="True" AutoGenerateColumns="false"
+            ShowStatusBar="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
+            AllowAutomaticUpdates="false" Skin="Telerik" OnItemDataBound="gvSchemeDetails_ItemDataBound"
+            OnNeedDataSource="gvSchemeDetails_NeedDataSource" EnableEmbeddedSkins="false"
+            OnItemCommand="gvSchemeDetails_ItemCommand" EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true"
+            AllowFilteringByColumn="true">
+            <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
+            </ExportSettings>
+            <MasterTableView DataKeyNames="PASP_SchemePlanCode,PASC_AMC_ExternalType,PASC_AMC_ExternalCode,PASP_SchemePlanName"
+                EditMode="PopUp" CommandItemDisplay="None" CommandItemSettings-ShowRefreshButton="false"
+                Width="102%" CommandItemSettings-AddNewRecordText="Scheme Mapping">
+                <Columns>
+                    <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
+                        UpdateText="Add/Update" HeaderStyle-Width="80px">
+                    </telerik:GridEditCommandColumn>
+                    <telerik:GridBoundColumn Visible="true" UniqueName="Type" HeaderStyle-Width="80px"
+                        FilterControlWidth="50px" HeaderText="Type" DataField="Type" SortExpression="Type"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PASP_SchemePlanName" HeaderStyle-Width="300px"
+                        HeaderText="Scheme Plan Name" DataField="PASP_SchemePlanName" SortExpression="PASP_SchemePlanName"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="true" UniqueName="PASP_SchemePlanCode" HeaderStyle-Width="80px"
+                        HeaderText="Scheme Code" DataField="PASP_SchemePlanCode" SortExpression="PASP_SchemePlanCode"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="true" UniqueName="PA_AMCName" HeaderStyle-Width="200px"
+                        HeaderText="AMC" DataField="PA_AMCName" SortExpression="PA_AMCName" AllowFiltering="true"
+                        ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="true" UniqueName="PASC_IsOnline" HeaderStyle-Width="130px"
+                        HeaderText="Is Online/Is Offline" DataField="PASC_IsOnline" SortExpression="PASC_IsOnline"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn Visible="true" UniqueName="PAIC_AssetInstrumentCategoryName"
+                        HeaderStyle-Width="120px" HeaderText="Category" DataField="PAIC_AssetInstrumentCategoryName"
+                        SortExpression="PAIC_AssetInstrumentCategoryName" AllowFiltering="true" ShowFilterIcon="false"
+                        AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalCode" HeaderText="External Code"
+                        HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalCode" SortExpression="PASC_AMC_ExternalCode"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <telerik:GridBoundColumn UniqueName="PASC_AMC_ExternalType" HeaderText="External Type"
+                        HeaderStyle-Width="99px" DataField="PASC_AMC_ExternalType" SortExpression="PASC_AMC_ExternalType"
+                        AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
+                        <HeaderStyle></HeaderStyle>
+                    </telerik:GridBoundColumn>
+                    <%--  <telerik:GridTemplateColumn DataField="PASC_AMC_ExternalType" UniqueName="ShipCity"
                         InitializeTemplatesFirst="false" HeaderStyle-Width="100" HeaderText="Ship city">
                         <HeaderTemplate>
                             <table>
@@ -256,126 +258,136 @@
                             <asp:Label ID="lblCity" runat="server" Text='<%#Eval("PASC_AMC_ExternalType") %>'></asp:Label>
                         </ItemTemplate>
                     </telerik:GridTemplateColumn>--%>
-                        <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Scheme?"
-                            ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
-                            Text="Delete" HeaderStyle-Width="100px">
-                            <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                        </telerik:GridButtonColumn>
-                    </Columns>
+                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Scheme?"
+                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                        Text="Delete" HeaderStyle-Width="100px">
+                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                    </telerik:GridButtonColumn>
+                </Columns>
                 <%--     <EditFormSettings FormTableStyle-Height="100%" EditFormType="Template" PopUpSettings-Height="505px"
                 PopUpSettings-Width="810px" FormMainTableStyle-Width="3500px">--%>
-                    <EditFormSettings EditFormType="Template" FormTableStyle-Width="800px" PopUpSettings-Width="530px" PopUpSettings-Height="200px">
-                        <FormTemplate>
-                            <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
-                                background: white;">
-                                <tr class="EditFormHeader">
-                                    <td colspan="2" style="font-size: small">
-                                        <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Scheme Mapping"></asp:Label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table id="Table3" cellspacing="1" cellpadding="1" border="0" class="module">
-                                            <tr>
-                                                <td colspan="5">
-                                                </td>
-                                            </tr>
-                                            <tr runat="server" id="trSchemeDDL" visible="false">
-                                                <td align="right">
-                                                    <asp:Label ID="lblMemberAddMode" Text="Scheme Plan Code:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox CssClass="txtField" ID="txtSchemePlanCodeForEditForm" Text='<%# Bind("PASP_SchemePlanCode") %>'
-                                                        runat="server"></asp:TextBox>
-                                                </td>
-                                            </tr>
-                                            <tr runat="server" id="tr1">
-                                                <td align="right">
-                                                    <asp:Label ID="Label2" Text="Scheme Plan Name:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox Width="300px" CssClass="txtField" ID="txtSchemePlanNameForEditForm"
-                                                        Text='<%# Bind("PASP_SchemePlanName") %>' runat="server"></asp:TextBox>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td id="tdlblSchemeName" runat="server" align="right">
-                                                    <asp:Label ID="Label133" Text="External Code:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <asp:TextBox CssClass="txtField" ID="txtExternalCodeForEditForm" Text='<%# Bind("PASC_AMC_ExternalCode") %>'
-                                                        runat="server"></asp:TextBox>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td id="td1" runat="server" align="right">
-                                                    <asp:Label ID="Label1" Text="External Type:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>
-                                                </td>
-                                                <td>
-                                                    <%--                                                <asp:TextBox ID="txtExternalTypeForEditForm" Text='<%# Bind("PASC_AMC_ExternalType") %>' runat="server"></asp:TextBox>
---%>
-                                                    <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlExternalType" AutoPostBack="true">
-                                                        <asp:ListItem Text="Select" Value="Select">
-                                                        </asp:ListItem>
-                                                        <asp:ListItem Text="CAMS" Value="CAMS">
-                                                        </asp:ListItem>
-                                                       <%-- <asp:ListItem Text="Deutsche" Value="Deutsche" Enabled="false">
-                                                        </asp:ListItem>--%>
-                                                        <asp:ListItem Text="Templeton" Value="Templeton">
-                                                        </asp:ListItem>
-                                                        <asp:ListItem Text="KARVY" Value="KARVY">
-                                                        </asp:ListItem>
-                                                        <asp:ListItem Text="Sundaram" Value="Sundaram">
-                                                        </asp:ListItem>
-                                                    </asp:DropDownList>
-                                                </td>
-                                            </tr>
-                                            <tr>
+                <EditFormSettings EditFormType="Template" FormTableStyle-Width="800px" PopUpSettings-Width="530px"
+                    PopUpSettings-Height="200px" CaptionFormatString="Scheme Mapping">
+                    <FormTemplate>
+                        <table id="Table2" cellspacing="2" cellpadding="1" border="0" rules="none" style="border-collapse: collapse;
+                            background: white;">
+                            <tr class="EditFormHeader">
+                                <td colspan="2" style="font-size: small">
+                                    <asp:Label ID="EditFormHeader" runat="server" CssClass="HeaderTextSmall" Text="Scheme Mapping"
+                                        Visible="false"></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <table id="Table3" cellspacing="1" cellpadding="1" border="0" class="module">
+                                        <tr>
+                                            <td colspan="5">
+                                            </td>
+                                        </tr>
+                                        <tr runat="server" id="trSchemeDDL" visible="false">
                                             <td align="right">
-                                            <asp:Label ID="lblisonline" Text="Is Online:" CssClass="FieldName" runat="server">
-                                                    </asp:Label>
+                                                <asp:Label ID="lblMemberAddMode" Text="Scheme Plan Code:" CssClass="FieldName" runat="server">
+                                                </asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox CssClass="txtField" ID="txtSchemePlanCodeForEditForm" Text='<%# Bind("PASP_SchemePlanCode") %>'
+                                                    runat="server"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr runat="server" id="tr1">
+                                            <td align="right">
+                                                <asp:Label ID="Label2" Text="Scheme Plan Name:" CssClass="FieldName" runat="server">
+                                                </asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:Label CssClass="FieldName" ID="txtSchemePlanNameForEditForm" Text='<%# Bind("PASP_SchemePlanName") %>'
+                                                    runat="server"></asp:Label>
+                                                <%--<asp:TextBox Width="300px" CssClass="txtField" ID="txtSchemePlanNameForEditForm"
+                                                        Text='<%# Bind("PASP_SchemePlanName") %>' runat="server" ReadOnly="false"></asp:TextBox>--%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="tdlblSchemeName" runat="server" align="right">
+                                                <asp:Label ID="Label133" Text="External Code:" CssClass="FieldName" runat="server">
+                                                </asp:Label>
+                                            </td>
+                                            <td>
+                                                <asp:TextBox CssClass="txtField" ID="txtExternalCodeForEditForm" Text='<%# Bind("PASC_AMC_ExternalCode") %>'
+                                                    runat="server"></asp:TextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td id="td1" runat="server" align="right">
+                                                <asp:Label ID="Label1" Text="External Type:" CssClass="FieldName" runat="server">
+                                                </asp:Label>
+                                            </td>
+                                            <td>
+                                                <%--                                                <asp:TextBox ID="txtExternalTypeForEditForm" Text='<%# Bind("PASC_AMC_ExternalType") %>' runat="server"></asp:TextBox>
+--%>
+                                                <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlExternalType" AutoPostBack="true"
+                                                    Enabled="false">
+                                                    <asp:ListItem Text="Select" Value="Select">
+                                                    </asp:ListItem>
+                                                    <asp:ListItem Text="CAMS" Value="CAMS">
+                                                    </asp:ListItem>
+                                                    <%-- <asp:ListItem Text="Deutsche" Value="Deutsche" Enabled="false">
+                                                        </asp:ListItem>--%>
+                                                    <asp:ListItem Text="Templeton" Value="Templeton">
+                                                    </asp:ListItem>
+                                                    <asp:ListItem Text="KARVY" Value="KARVY">
+                                                    </asp:ListItem>
+                                                    <asp:ListItem Text="Sundaram" Value="Sundaram">
+                                                    </asp:ListItem>
+                                                </asp:DropDownList>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                <asp:Label ID="lblisonline" Text="Is Online:" CssClass="FieldName" runat="server">
+                                                </asp:Label>
                                             </td>
                                             <td>
                                                 <asp:DropDownList CssClass="cmbField" runat="server" ID="ddlONline" AutoPostBack="true">
-                                                <asp:ListItem Text="Is Online" Value="1">
-                                                        </asp:ListItem>
-                                                        <asp:ListItem Text="Is Offline" Value="0">
-                                                        </asp:ListItem>
+                                                    <asp:ListItem Text="Is Online" Value="1">
+                                                    </asp:ListItem>
+                                                    <asp:ListItem Text="Is Offline" Value="0">
+                                                    </asp:ListItem>
                                                 </asp:DropDownList>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="right" colspan="2">
-                                        <asp:Button ID="Button1" Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Add/Update" %>'
-                                            runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
-                                        </asp:Button>&nbsp;
-                                        <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
-                                            CommandName="Cancel"></asp:Button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </FormTemplate>
-                    </EditFormSettings>
-                </MasterTableView>
-                <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
-                    <Scrolling AllowScroll="false" />
-                    <ClientEvents OnHeaderMenuShowing="HeaderMenuShowing" />
-                    <Resizing AllowColumnResize="true" />
-                    <Selecting AllowRowSelect="true" />
-                </ClientSettings>
-            </telerik:RadGrid>
-        </asp:Panel>
-  
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right" colspan="2">
+                                    <asp:Button ID="btnUpdate" runat="server" Text="Add/Update" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    </asp:Button>&nbsp;
+                                    <%--<asp:Button Visible="false" ID="btnInsert" Text="Insert" runat="server" CssClass="PCGButton"
+                                        CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'>
+                                    </asp:Button>&nbsp;--%>
+                                    <asp:Button ID="btnAddScheme" Text="Scheme Mapping" runat="server" CssClass="PCGButton"
+                                        OnClick="btnAddScheme_Click" Visible="false"></asp:Button>
+                                    <asp:Button ID="Button2" Text="Cancel" runat="server" CausesValidation="False" CssClass="PCGButton"
+                                        CommandName="Cancel"></asp:Button>
+                                    <%--    <asp:Button ID="Button3" Text='<%# (Container is GridEditFormInsertItem) ? "Insert":""%>'
+                                        runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Insert" %>'>
+                                    </asp:Button>&nbsp;--%>
+                                </td>
+                            </tr>
+                        </table>
+                    </FormTemplate>
+                </EditFormSettings>
+            </MasterTableView>
+            <ClientSettings ReorderColumnsOnClient="True" AllowColumnsReorder="True" EnableRowHoverStyle="true">
+                <Scrolling AllowScroll="false" />
+                <ClientEvents OnHeaderMenuShowing="HeaderMenuShowing" />
+                <Resizing AllowColumnResize="true" />
+                <Selecting AllowRowSelect="true" />
+            </ClientSettings>
+        </telerik:RadGrid>
+    </asp:Panel>
     <br />
 </body>
 <div>
@@ -670,8 +682,8 @@
             EnableHeaderContextMenu="true" EnableHeaderContextFilterMenu="true" AllowFilteringByColumn="true">
             <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
             </ExportSettings>
-            <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
-                Width="70%" CommandItemSettings-AddNewRecordText="Add New Templeton Data For Mapping">
+            <MasterTableView DataKeyNames="ClassificationCode" EditMode="PopUp" CommandItemDisplay="Top"
+                CommandItemSettings-ShowRefreshButton="false" Width="70%" CommandItemSettings-AddNewRecordText="Add New Templeton Data For Mapping">
                 <Columns>
                     <telerik:GridEditCommandColumn EditText="Update" UniqueName="editColumn" CancelText="Cancel"
                         HeaderStyle-Width="80px" UpdateText="Update">
