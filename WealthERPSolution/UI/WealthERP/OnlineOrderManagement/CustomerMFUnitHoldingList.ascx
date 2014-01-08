@@ -152,7 +152,7 @@
                             </telerik:GridDateTimeColumn>
                             <telerik:GridTemplateColumn HeaderStyle-Width="80px" UniqueName="PurchasedUnits"
                                 HeaderText="Units" DataField="PurchasedUnits" AllowFiltering="false" FooterAggregateFormatString="{0:N3}"
-                                FooterStyle-HorizontalAlign="Right" Aggregate="Sum">
+                                FooterStyle-HorizontalAlign="Right"  >
                                 <ItemStyle Wrap="false" Width="" HorizontalAlign="Right" />
                                 <ItemTemplate>
                                     <asp:LinkButton ID="lnkprAmcB" runat="server" CommandName="SelectTransaction" Text='<%# String.Format("{0:N3}", DataBinder.Eval(Container.DataItem, "PurchasedUnits")) %>'>
@@ -205,7 +205,7 @@
                             </telerik:GridTemplateColumn>--%>
                             <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="UnitsSold" HeaderText="Units Sold"
                                 DataField="UnitsSold" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
-                                Aggregate="Sum" AllowFiltering="false">
+                                 AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="RedeemedAmount" HeaderText="Sold Value"
