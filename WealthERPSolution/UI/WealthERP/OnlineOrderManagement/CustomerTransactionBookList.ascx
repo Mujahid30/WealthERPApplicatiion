@@ -138,7 +138,7 @@
                     <telerik:RadGrid ID="gvTransationBookMIS" runat="server" GridLines="None" AutoGenerateColumns="False"
                         allowfiltering="true" AllowFilteringByColumn="true" PageSize="10" AllowSorting="true"
                         AllowPaging="True" ShowStatusBar="True" OnNeedDataSource="gvTransationBookMIS_OnNeedDataSource"
-                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false">
+                        ShowFooter="true" Skin="Telerik" EnableEmbeddedSkins="false" Width="120%" AllowAutomaticInserts="false" OnItemDataBound="ItemDataBound" >
                         <%--OnItemCommand="gvTransationBookMIS_OnItemCommand"OnPreRender="gvTransationBookMIS_PreRender" 
                                             OnItemDataBound="gvTransationBookMIS_ItemDataBound"--%>
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true">
@@ -251,13 +251,13 @@
                                 <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n2}">
+                                    DataFormatString="{0:n2}" Aggregate="Sum" >
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="Units" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="Units" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n3}">
+                                    DataFormatString="{0:n3}" Aggregate="Sum">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn Visible="false" DataField="CurrentNav" HeaderText="Current NAV"
@@ -352,6 +352,7 @@
                         </MasterTableView>
                         <ClientSettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                           
                         </ClientSettings>
                     </telerik:RadGrid>
                 </div>

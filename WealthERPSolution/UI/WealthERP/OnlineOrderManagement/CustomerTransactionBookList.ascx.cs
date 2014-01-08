@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Drawing;
 using System.Data;
 using BoCommon;
 using VoUser;
@@ -23,6 +24,7 @@ namespace WealthERP.OnlineOrderManagement
 {
     public partial class CustomerTransactionBookList : System.Web.UI.UserControl
     {
+        Color color = Color.Crimson;
         OnlineMFOrderBo OnlineMFOrderBo = new OnlineMFOrderBo();
         AdvisorVo advisorVo;
         CustomerVo customerVO = new CustomerVo();
@@ -356,6 +358,26 @@ namespace WealthERP.OnlineOrderManagement
             gvTransationBookMIS.ExportSettings.FileName = "Transaction Book Details";
             gvTransationBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             gvTransationBookMIS.MasterTableView.ExportToExcel();
+        }
+        protected void ItemDataBound(object sender, Telerik.Web.UI.GridItemEventArgs e)
+        {
+            
+            if (e.Item is GridDataItem)
+            {
+                
+                GridDataItem dataBoundItem = e.Item as GridDataItem;
+              
+
+            
+                if (double.Parse(dataBoundItem["Amount"].Text) < 0)
+                {
+                    dataBoundItem["Amount"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Amount"].Font.Bold = true;
+                    dataBoundItem["Units"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Units"].Font.Bold = true;
+                    
+                }
+            }
         }
 
     }
