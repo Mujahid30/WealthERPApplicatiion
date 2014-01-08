@@ -191,17 +191,19 @@ namespace WealthERP.OPS
                 {
                     BindBranchDropDown();
                     BindRMDropDown();
+                    BindOrderStatus();
                 }
                 if (userType == "bm")
                 {
                     BindBranchForBMDropDown();
                     BindRMforBranchDropdown(0, bmID);
+                    BindOrderStatus();
                 }
                 BindAMC();
                 //BindPortfolioDropdown();
                 //BindFolionumberDropdown(portfolioId);
                 //BindTransactionType();
-                BindOrderStatus();
+               
                 //BindAssetType();
                 lblselectCustomer.Visible = false;
                 txtIndividualCustomer.Visible = false;
@@ -270,7 +272,7 @@ namespace WealthERP.OPS
         }
 
         private void BindOrderStatus()
-        {
+         {
             DataSet dsOrderStaus;
             DataTable dtOrderStatus;
             dsOrderStaus = operationBo.Get_Onl_OrderStatus();
@@ -361,14 +363,15 @@ namespace WealthERP.OPS
         private void BindFIMISGridView()
         {
             //DataTable dtBindGridView = new DataTable();
-            DataSet dsFIOrderMIS;
-            DataTable dtFIOrderMIS;
+            DataSet dsFIOrderMIS = new DataSet();
+            DataTable dtFIOrderMIS =  new DataTable();
             //dsFIOrderMIS = operationBo.GetFIOrderMIS(advisorVo.advisorId,hdnBranchId.Value,hdnRMId.Value,hdnTransactionType.Value,hdnOrdStatus.Value,hdnOrderType.Value,hdnamcCode.Value,DateTime.Parse(hdnFromdate.Value),DateTime.Parse(hdnTodate.Value), mypager.CurrentPage, out  count);
             dsFIOrderMIS = fiorderBo.GetCustomerFIOrderMIS(advisorVo.advisorId, DateTime.Parse(hdnFromdate.Value), DateTime.Parse(hdnTodate.Value), hdnBranchId.Value, hdnRMId.Value, hdnTransactionType.Value, hdnOrdStatus.Value, hdnOrderType.Value, hdnamcCode.Value, hdnCustomerId.Value);
             dtFIOrderMIS = dsFIOrderMIS.Tables[0];
             if (dtFIOrderMIS.Rows.Count > 0)
             {
                 //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                gvCustomerFIOrderMIS.DataSource = null;
                 gvCustomerFIOrderMIS.DataSource = dtFIOrderMIS;
                 gvCustomerFIOrderMIS.DataBind();
                 gvCustomerFIOrderMIS.Visible = true;
@@ -422,8 +425,8 @@ namespace WealthERP.OPS
         private void BindMISGridView()
         {
             //DataTable dtBindGridView = new DataTable();
-            DataSet dsOrderMIS;
-            DataTable dtOrderMIS;
+            DataSet dsOrderMIS = new DataSet();
+            DataTable dtOrderMIS = new DataTable();
             int OnlineStatus = 0;
 
             if (ddlOnlineOffline.SelectedValue == "Online")
@@ -437,6 +440,8 @@ namespace WealthERP.OPS
             if (dtOrderMIS.Rows.Count > 0)
             {
                 //lblTotalRows.Text = hdnRecordCount.Value = count.ToString();
+                gvCustomerOrderMIS.DataSource = null;
+                gvCustomerOrderMIS.DataBind();
                 gvCustomerOrderMIS.DataSource = dtOrderMIS;
                 gvCustomerOrderMIS.DataBind();
                 gvCustomerOrderMIS.Visible = true;
@@ -632,6 +637,7 @@ namespace WealthERP.OPS
                 tbgvMIS.Visible = true;
                 gvCustomerOrderMIS.Visible = true;
                 gvCustomerFIOrderMIS.Visible = false;
+                hdnOrdStatus.Value = string.Empty;
                 SetParameters();
                 BindMISGridView();
             }
