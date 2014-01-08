@@ -1549,7 +1549,7 @@ namespace DaoCustomerProfiling
             return dsAMCExternalType;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode,int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode,int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate,int userid)
         {
             bool bResult = false;
             Database db;
@@ -1578,7 +1578,8 @@ namespace DaoCustomerProfiling
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@deletedDate", DbType.DateTime, deletedDate);
                 else
                     db.AddInParameter(editProductAMCSchemeMappingCmd, "@deletedDate", DbType.DateTime, DBNull.Value);
-
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@ModifiedBy", DbType.Int16, userid);
+                db.AddInParameter(editProductAMCSchemeMappingCmd, "@CreatedBy", DbType.Int16, userid);
                 if (db.ExecuteNonQuery(editProductAMCSchemeMappingCmd) != 0)
                     bResult = true;
             }

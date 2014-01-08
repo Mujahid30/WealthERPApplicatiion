@@ -2557,13 +2557,13 @@ namespace BoCustomerProfiling
             return isDeleted;
         }
 
-        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate)
+        public bool EditProductAMCSchemeMapping(int schemePlanCode, string strExternalCodeToBeEdited, string strExtCode, int Isonline, string strExtName, DateTime createdDate, DateTime editedDate, DateTime deletedDate, int userid)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isEdited = false;
             try
             {
-                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExternalCodeToBeEdited, strExtCode, Isonline,strExtName, createdDate, editedDate, deletedDate);
+                isEdited = customerDao.EditProductAMCSchemeMapping(schemePlanCode, strExternalCodeToBeEdited, strExtCode, Isonline, strExtName, createdDate, editedDate, deletedDate, userid);
             }
             catch (BaseApplicationException Ex)
             {
