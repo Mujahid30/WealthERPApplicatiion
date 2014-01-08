@@ -77,10 +77,14 @@ namespace WealthERP.OnlineOrderBackOffice
             //    ShowMessage("Please check all required fields");
             //    return;
             //}
+            int isextracted = 0;
             ddlExternalSource.SelectedValue = "IOPS";
             SetFileType(ddlExternalSource.SelectedValue);
-            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue,Convert.ToInt32(ddlIssueName.SelectedValue));
 
+            boNcdBackOff.GenerateOnlineNcdExtract(adviserVo.advisorId, userVo.UserId, ddlExternalSource.SelectedValue, ddlProduct.SelectedValue, Convert.ToInt32(ddlIssueName.SelectedValue), ref isextracted);
+            if(isextracted==0)
+                ShowMessage("Extraction Done Only On Business Days");
+            else
             ShowMessage("Extraction Done For "+ddlIssueName.SelectedItem.Text);
             //lnkClick.Visible = true;
         }

@@ -44,6 +44,8 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
+           // lblAvailableLimits.Text = "500000";
+
             if (!IsPostBack)
             {
                 Session["sum"] = null;
@@ -313,23 +315,23 @@ namespace WealthERP.OnlineOrderManagement
         private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus)
         {
             string userMessage = string.Empty;
-            string cutOffTimeType= string.Empty;
+            string cutOffTimeType = string.Empty;
             if (orderId != 0 && accountDebitStatus == true)
             {
 
                 cutOffTimeType = OnlineBondBo.GetCutOFFTimeForCurent(orderId);
                 if (cutOffTimeType == "2")
-                //if (cutOffTime == "Closed")
+                    //if (cutOffTime == "Closed")
                     userMessage = "Order placed successfully, Order reference no is " + orderId.ToString() + ", Order will process next business day";
                 else
-                userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
+                    userMessage = "Order placed successfully, Order reference no. is " + orderId.ToString() + " & Application no. " + Applicationno.ToString();
             }
-            else if (orderId == 0 & lblAvailableLimits.Text =="0")
+            else if (orderId == 0 & lblAvailableLimits.Text == "0")
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
 
             }
-            else if (orderId == 0 )
+            else if (orderId == 0)
             {
                 userMessage = "Order cannot be processed. Issue Got Closed";
 
@@ -360,7 +362,7 @@ namespace WealthERP.OnlineOrderManagement
             //Need to be collect from Session...
             dt.Columns.Add("CustomerId");
             dt.Columns.Add("AID_IssueDetailId");
-            //dt.Columns.Add("AIM_IssueId");
+            dt.Columns.Add("AIM_IssueId");
             dt.Columns.Add("Qty");
             dt.Columns.Add("Amount");
             int rowNo = 0;
@@ -371,7 +373,7 @@ namespace WealthERP.OnlineOrderManagement
                 OnlineBondVo.CustomerId = customerVo.CustomerId;
                 OnlineBondVo.BankAccid = 1002321521;
                 OnlineBondVo.PFISD_SeriesId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AID_IssueDetailId"].ToString());
-                // OnlineBondVo.IssuerId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
+                OnlineBondVo.IssueId = Convert.ToInt32(gvCommMgmt.MasterTableView.DataKeyValues[rowNo]["AIM_IssueId"].ToString());
                 CheckBox Check = (CheckBox)gvCommMgmt.MasterTableView.Items[rowNo]["Check"].FindControl("cbOrderCheck");
                 if (Check.Checked == true)
                 {
@@ -385,7 +387,7 @@ namespace WealthERP.OnlineOrderManagement
                         dt.Rows.Add();
                         dt.Rows[tableRow]["CustomerId"] = OnlineBondVo.CustomerId;
                         dt.Rows[tableRow]["AID_IssueDetailId"] = OnlineBondVo.PFISD_SeriesId;
-                        // dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssuerId;
+                        dt.Rows[tableRow]["AIM_IssueId"] = OnlineBondVo.IssueId;
                         dt.Rows[tableRow]["Qty"] = OnlineBondVo.Qty;
                         dt.Rows[tableRow]["Amount"] = OnlineBondVo.Amount;
                     }
@@ -431,7 +433,7 @@ namespace WealthERP.OnlineOrderManagement
                         Label lblSum = (Label)footerItemAmount.FindControl("lblAmount");
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Order cannot be processed.Please enter quantity less than or equal to maximum quantity allowed for this issue')", true);
                         // ShowMessage(message);
-                     
+
                         txtsumQuantity.Text = "";
                         txtsumAmount.Text = "";
                         lblQty.Text = "";
@@ -443,7 +445,8 @@ namespace WealthERP.OnlineOrderManagement
                     IDictionary<string, string> orderIds = new Dictionary<string, string>();
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
-                    int totalOrderAmt = int.Parse(ViewState["Sum"].ToString()); ;
+                    int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
+                   // availableBalance = 50000;
                     string message;
                     bool accountDebitStatus = false;
                     int Applicationno = 0;
@@ -529,7 +532,7 @@ namespace WealthERP.OnlineOrderManagement
                 gvCommMgmt.DataBind();
                 pnlNCDTransactact.Visible = true;
                 trSubmit.Visible = false;
-               
+
             }
         }
         private void ShowAvailableLimits()

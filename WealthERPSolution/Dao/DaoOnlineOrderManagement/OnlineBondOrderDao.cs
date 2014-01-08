@@ -292,29 +292,22 @@ namespace DaoOnlineOrderManagement
 
             try
             {
-                db = DatabaseFactory.CreateDatabase("wealtherp");
-                cmdOnlineBondTransact = db.GetStoredProcCommand("SPROC_ONL_OnlineBondTransaction");
 
                 DataSet ds = new DataSet();
-                ds.Tables.Add(BondORder);
-
+                DataTable dt = new DataTable();
+                dt = BondORder.Copy();
+                ds.Tables.Add(dt);
                 String sb;
                 sb = ds.GetXml().ToString();
 
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                cmdOnlineBondTransact = db.GetStoredProcCommand("SPROC_ONL_OnlineBondTransaction");
                 db.AddInParameter(cmdOnlineBondTransact, "@xmlBondsOrder", DbType.Xml, sb);
                 db.AddInParameter(cmdOnlineBondTransact, "@AdviserId", DbType.Int32,adviserId);
                 db.AddInParameter(cmdOnlineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
                 db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 1000000);
                 db.AddOutParameter(cmdOnlineBondTransact, "@application", DbType.Int32, 1000000);
-                //db.AddInParameter(cmdOnlineBondTransact, "@CustomerId", DbType.String, BondORder.CustomerId);
-                //db.AddInParameter(cmdOnlineBondTransact, "@PFISM_SchemeId", DbType.Int32, BondORder.PFISM_SchemeId);
-                //db.AddInParameter(cmdOnlineBondTransact, "@PFISD_SeriesId", DbType.Int32, BondORder.PFISD_SeriesId);
-                //db.AddInParameter(cmdOnlineBondTransact, "@PFIIM_IssuerId", DbType.String, BondORder.PFIIM_IssuerId);
-                //db.AddInParameter(cmdOnlineBondTransact, "@Qty", DbType.Int32, BondORder.Qty);
-                //db.AddInParameter(cmdOnlineBondTransact, "@Amount", DbType.Double, BondORder.Amount);
-                //db.AddInParameter(cmdOnlineBondTransact, "@BankAccid", DbType.Double, BondORder.BankAccid);
-                //db.ExecuteNonQuery(cmdOnlineBondTransact);
-                //result = true;
+               
                 
                 if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
                 {

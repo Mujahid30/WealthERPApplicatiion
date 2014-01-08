@@ -685,10 +685,10 @@ namespace BoOnlineOrderManagement
                 throw Ex;
             }
         }
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset,int issueId)
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset,int issueId, ref int isExtracted)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId);
+            onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted);
         }
 
         public DataTable GetAdviserNCDOrderBook(int adviserId, string status, DateTime dtFrom, DateTime dtTo)
