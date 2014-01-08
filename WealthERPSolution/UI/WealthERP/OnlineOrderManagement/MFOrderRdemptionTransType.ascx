@@ -165,8 +165,8 @@
                                 <td>
                                     <asp:Label ID="lblNavDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
                                 </td>
-                                <td>
-                                    <asp:Label ID="lblMinAmount" runat="server" Text="Min Amount(Rs):" CssClass="FieldName"></asp:Label>
+                                <td align="left" style="width:25%";>
+                                    <asp:Label ID="lblMinAmount" runat="server" Text="Minimum Amount(Rs):"  CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMinAmountValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -180,7 +180,7 @@
                                     <asp:Label ID="lbltime" runat="server" Text="" CssClass="readOnlyField"></asp:Label>
                                 </td>
                                 <td>
-                                    <asp:Label ID="lblMinUnit" runat="server" Text="Min Units:" CssClass="FieldName"></asp:Label>
+                                    <asp:Label ID="lblMinUnit" runat="server" Text="Minimum Units:" CssClass="FieldName"></asp:Label>
                                 </td>
                                 <td>
                                     <asp:Label ID="lblMinUnitValue" runat="server" Text="" CssClass="FieldName"></asp:Label>
@@ -323,15 +323,15 @@
                             Display="Dynamic"></asp:RequiredFieldValidator>
                         </br>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtRedeemTypeValue"
-                            ErrorMessage="Please Enter Only Numbers and 2 digits after Decimal" CssClass="rfvPCG"
+                            ErrorMessage="Please Enter Only Numbers and 2 digits after Decimal. " CssClass="rfvPCG"
                             ValidationExpression="^[0-9]+(\.[0-9]{1,2})?$" ValidationGroup="btnSubmit" Display="Dynamic"></asp:RegularExpressionValidator>
-                        <asp:RangeValidator ID="RangeValidator1" Text="Please enter value greater than 0 "
+                        <asp:RangeValidator ID="RangeValidator1" Text="Please enter value greater than 0. "
                             ControlToValidate="txtRedeemTypeValue" MinimumValue="1" MaximumValue="9999999999"
                             ValidationGroup="btnSubmit" Type="Double" CssClass="rfvPCG" Display="Dynamic"
                             runat="server" />
                         <asp:CompareValidator runat="server" ID="cmpMinAmountUnits" ControlToValidate="txtRedeemTypeValue"
                              Operator="GreaterThanEqual" Type="Double" CssClass="rfvPCG"
-                            ErrorMessage="Minimum Redemption Unit/Amount should be greater than Minimum Redemption Unit/Amount - xxxxt" ValidationGroup="btnSubmit" /><br />
+                             ValidationGroup="btnSubmit" /><br />
                         
                     </td>
                     <td colspan="2">

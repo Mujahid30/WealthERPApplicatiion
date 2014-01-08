@@ -421,7 +421,8 @@ namespace WealthERP.OnlineOrderManagement
                 lblRedeemType.Text = "Units:";
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
-                cmpMinAmountUnits.ValueToCompare = lblMinUnitValue.Text;               
+                cmpMinAmountUnits.ValueToCompare = lblMinUnitValue.Text;
+                cmpMinAmountUnits.ErrorMessage = "Minimum Redemption Unit should be greater than Minimum Redemption Unit." + lblMinUnitValue .Text;
             }
             else if (ddlRedeem.SelectedValue == "2")
             {
@@ -429,6 +430,7 @@ namespace WealthERP.OnlineOrderManagement
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
                 cmpMinAmountUnits.ValueToCompare = lblMinAmountValue.Text;
+                cmpMinAmountUnits.ErrorMessage = "Minimum Redemption Amount should be greater than Minimum Redemption Amount." + lblMinAmountValue.Text;
 
             }
             else if (ddlRedeem.SelectedValue == "3")
