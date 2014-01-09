@@ -241,7 +241,7 @@
         </td>
     </tr>
     &nbsp;
-     </tr>
+     <%--</tr>--%>
     <tr>
         <td align="right">
             &nbsp;<asp:Label ID="lblisactive" runat="server" Text="Is Active" CssClass="FieldName"></asp:Label>
@@ -253,16 +253,21 @@
             &nbsp;
         </td>
     </tr>
-    <tr>
+<%--    <tr>
         <td colspan="6">
             <hr id="hrPickJointHolder" runat="server" />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
-        <td >
-            &nbsp;<asp:Label ID="lblPickJointHolder" runat="server" Text="Pick Joint Holder"
-                CssClass="FieldName"></asp:Label>
+    
+    <td colspan="10">
+            <div class="divSectionHeading" style="vertical-align: text-bottom">
+            &nbsp;<asp:Label ID="lblPickJointHolder" runat="server" Text="Pick Joint Holder" CssClass="FieldName"></asp:Label>
+        
+                        
+             </div>
         </td>
+        
         <td>
             &nbsp;
         </td>
@@ -270,6 +275,13 @@
             &nbsp;
         </td>
     </tr>
+<%--    <tr id="trNomineeCaption" runat="server" visible="true">
+                <td colspan="6" style="vertical-align: text-bottom; padding-top: 6px; padding-bottom: 6px">
+                    <div class="divSectionHeading" style="vertical-align: text-bottom">
+                        Pick Joint Holder
+                    </div>
+                </td>
+            </tr>--%>
     <tr>
         <td colspan="2">
             <asp:GridView ID="gvPickJointHolder" runat="server" DataKeyNames="CA_AssociationId"
@@ -296,14 +308,19 @@
         </td>
     </tr>
     &nbsp;
-    <tr>
-        <td colspan="6">
+<%--    <tr>
+        <%--<td colspan="6">
             <hr />
-        </td>
-    </tr>
+        </td>--%>
+   
+    <td>
+    <%--<table width="100%">--%>
     <tr>
-        <td colspan="2">
-            &nbsp;<asp:Label ID="lblPickNominee" runat="server" Text="Pick Nominee" CssClass="FieldName"></asp:Label>
+        <td colspan="10">
+        <div class="divSectionHeading" style="vertical-align: text-bottom">
+            &nbsp;<asp:Label ID="lblPickNominee" runat="server" Text="Pick Nominee"
+                CssClass="FieldName"></asp:Label>
+        </div>
         </td>
         <td>
             &nbsp;
@@ -312,6 +329,8 @@
             &nbsp;
         </td>
     </tr>
+    <%--</table>--%>
+    </td>
     <tr>
         <td colspan="2">
             <asp:GridView ID="gvPickNominee" runat="server" DataKeyNames="CA_AssociationId" AutoGenerateColumns="False"
@@ -337,11 +356,11 @@
             </asp:GridView>
         </td>
     </tr>
-    <tr>
+<%--    <tr>
         <td colspan="6">
             <hr />
         </td>
-    </tr>
+    </tr>--%>
     <tr>
         <td colspan="2">
             <table border="0">

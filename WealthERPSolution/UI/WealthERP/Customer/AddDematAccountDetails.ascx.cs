@@ -130,7 +130,7 @@ namespace WealthERP.Customer
                         }
                         else
                         {
-                            lblPickNominee.Text = "Pick Nominee";
+                            lblPickNominee.Text = "Pick JointHolder";
                             gvPickNominee.DataSource = dsCustomerAssociation.Tables[0];
                             gvPickNominee.DataBind();
                         }
@@ -144,7 +144,7 @@ namespace WealthERP.Customer
                         }
                         else
                         {
-                            lblPickJointHolder.Text = "Pick JointHolder";
+                            lblPickJointHolder.Text = "Pick Nominee";
                             gvPickJointHolder.DataSource = dsCustomerAssociation;
                             gvPickJointHolder.DataBind();
                         }
@@ -262,7 +262,7 @@ namespace WealthERP.Customer
             }
             else
             {
-                lblPickNominee.Text = "Pick Joint Holder";
+                lblPickNominee.Text = "Pick Nominee";
                 gvPickNominee.DataSource = dsCustomerAssociation.Tables[0];
                 gvPickNominee.DataBind();
             }
@@ -275,7 +275,7 @@ namespace WealthERP.Customer
             }
             else
             {
-                lblPickJointHolder.Text = "Pick Nominee";
+                lblPickJointHolder.Text = "Pick Joint Holder";
                 gvPickJointHolder.DataSource = dsCustomerAssociation;
                 gvPickJointHolder.DataBind();
             }
