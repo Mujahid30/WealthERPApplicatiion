@@ -39,6 +39,31 @@ namespace BoOps
             }
             return dsOrderStatus;
         }
+        
+            public DataSet Get_Onl_NcdOrderStatus()
+        {
+            DataSet dsOrderStatus;
+            try
+            {
+                dsOrderStatus = operationDao.Get_Onl_NcdOrderStatus();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw (Ex);
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationBo.cs:GetOrderStatus()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrderStatus;
+        }
         public DataSet Get_Onl_OrderStatus()
         {
             DataSet dsOrderStatus;

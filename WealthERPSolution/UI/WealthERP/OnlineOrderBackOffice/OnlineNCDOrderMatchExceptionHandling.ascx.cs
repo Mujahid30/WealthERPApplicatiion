@@ -49,7 +49,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void btnGo_Click(object sender, EventArgs e)
         {
-            if (ddlOrderStatus.SelectedValue == "IP")
+            if (ddlOrderStatus.SelectedValue == "OR")
             {
                 pnlBtns.Visible = true;
             }
@@ -110,7 +110,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     {
                         editButton.Visible = false;
                     }
-                    if (Status.Trim() == "IP")
+                    if (Status.Trim().ToUpper() == "OR")
                     {
                         editButton.Visible = true;
                     }
@@ -328,7 +328,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsOrderStaus;
             DataTable dtOrderStatus;
-            dsOrderStaus = operationBo.Get_Onl_OrderStatus();
+            dsOrderStaus = operationBo.Get_Onl_NcdOrderStatus();
             dtOrderStatus = dsOrderStaus.Tables[0];
             if (dtOrderStatus.Rows.Count > 0)
             {

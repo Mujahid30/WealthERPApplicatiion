@@ -44,6 +44,35 @@ namespace DaoOps
              }
             return dsOrderStatus;
         }
+        public DataSet Get_Onl_NcdOrderStatus()
+        {
+            DataSet dsOrderStatus;
+            Database db;
+            DbCommand getOrderStatusCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                getOrderStatusCmd = db.GetStoredProcCommand("SPROC_GetNcdOrderStatus");
+                dsOrderStatus = db.ExecuteDataSet(getOrderStatusCmd);
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OperationDao.cs:GetOrderStatus()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsOrderStatus;
+        }
        
         public DataSet Get_Onl_OrderStatus()
         {
