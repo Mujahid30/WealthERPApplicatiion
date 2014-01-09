@@ -430,7 +430,7 @@ namespace WealthERP.OnlineOrderManagement
                 txtRedeemTypeValue.Text = null;
                 txtRedeemTypeValue.Enabled = true;
                 cmpMinAmountUnits.ValueToCompare = lblMinAmountValue.Text;
-                cmpMinAmountUnits.ErrorMessage = "Redemption Amount entered should be greater than Minimum Redemption Amount. " + lblMinAmountValue.Text;
+                cmpMinAmountUnits.ErrorMessage = "Redemption Amount entered should be greater than Minimum Redemption Amount (Rs): " + lblMinAmountValue.Text;
 
             }
             else if (ddlRedeem.SelectedValue == "3")
