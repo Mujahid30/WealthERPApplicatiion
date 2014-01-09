@@ -625,7 +625,12 @@ namespace BoOnlineOrderManagement
 
                     foreach (DataColumn dcc in dtRTAOrderExtract.Columns)
                     {
-                        var abccolumns = (dvCustomerBankDetails.ToTable()).Columns.Cast<DataColumn>().Where(c => c.ColumnName.StartsWith(dcc.ToString()));
+                        //if (dcc.ToString() == "AMFE_JH1PanValid" || dcc.ToString() == "AMFE_AltFolioNumber")
+                        //{
+ 
+                        //}
+
+                        //var abccolumns = (dvCustomerBankDetails.ToTable()).Columns.Cast<DataColumn>().Where(c => c.ColumnName.StartsWith(dcc.ToString()));
                         if (drProfileOrder.Table.Columns.Contains(dcc.ToString()))
                         {
                             if (dcc.ToString() == "AMFE_TransactionTime")
@@ -637,7 +642,7 @@ namespace BoOnlineOrderManagement
                                 drFinalRTAExtract[dcc.ToString()] = drProfileOrder[dcc.ToString()];
                             }
                         }
-                        else if (!string.IsNullOrEmpty(abccolumns.ToString()))
+                        else if ((dvCustomerBankDetails.ToTable()).Columns.Contains(dcc.ToString()))
                         {
                             foreach (DataRow drBank in dvCustomerBankDetails.ToTable().Rows)
                             {
@@ -649,7 +654,8 @@ namespace BoOnlineOrderManagement
                             }
                         }
                         else
-                        {
+                        {                           
+
                             if (dtCustomerJointNomineeDetails.Rows.Count > 0)
                             {
 
@@ -721,6 +727,10 @@ namespace BoOnlineOrderManagement
                                                     drFinalRTAExtract[dcc.ToString()] = 'N';
                                                 }
                                             }
+                                            else
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = 'N';
+                                            }
                                             break;
 
                                         case "AMFE_JH2PanValid":
@@ -736,6 +746,10 @@ namespace BoOnlineOrderManagement
                                                 {
                                                     drFinalRTAExtract[dcc.ToString()] = 'N';
                                                 }
+                                            }
+                                            else
+                                            {
+                                                drFinalRTAExtract[dcc.ToString()] = 'N';
                                             }
                                             break;
 
@@ -792,7 +806,7 @@ namespace BoOnlineOrderManagement
                                             break;
 
                                         default:
-                                            drFinalRTAExtract[dcc.ToString()] = null;
+                                            drFinalRTAExtract[dcc.ToString()] = DBNull.Value;
                                             break;
                                     }
 
@@ -803,6 +817,9 @@ namespace BoOnlineOrderManagement
                                 switch (dcc.ToString())
                                 {
                                     case "AMFE_JH1PanValid":
+                                        drFinalRTAExtract[dcc.ToString()] = 'N';
+                                        break;
+                                    case "AMFE_JH2PanValid":
                                         drFinalRTAExtract[dcc.ToString()] = 'N';
                                         break;
                                     case "AMFE_NominationNotOpted":
@@ -1580,8 +1597,11 @@ namespace BoOnlineOrderManagement
                 drFinalClientKYC["Name"] = dr["ClientName"];
                 drFinalClientKYC["PAN"] = dr["C_PANNum"];
                 drFinalClientKYC["KYCStatus"] = dr["C_IsKYCAvailable"];
-                drFinalClientKYC["Holding"] = dr["Holding"];
-                kycStatus.Add("JOINT1", dr["C_IsKYCAvailable"].ToString());
+                if (drClientDematJointList.Count()>0)
+                    drFinalClientKYC["Holding"] = drClientDematJointList[0][8].ToString();
+                else
+                    drFinalClientKYC["Holding"] = dr["Holding"];
+                kycStatus.Add("JOINT1", dr["C_IsKYCAvailable"].ToString()=="Y"?"1":"0");
                 if (drClientDematJointList.Count() > 0)
                 {
                     if (drClientDematJointList.Count() == 1)
@@ -1590,9 +1610,9 @@ namespace BoOnlineOrderManagement
                         drFinalClientKYC["SecondHolderPAN"] = drClientDematJointList[0]["JointPAN"];
                         drFinalClientKYC["SecondHolderKYC"] = drClientDematJointList[0]["JointKYC"];
 
-                        drFinalClientKYC["Holding"] = "";
-                        drFinalClientKYC["Holding"] = "";
-                        drFinalClientKYC["Holding"] = "";
+                        //drFinalClientKYC["Holding"] = "";
+                        //drFinalClientKYC["Holding"] = "";
+                        //drFinalClientKYC["Holding"] = "";
 
                         kycStatus.Add("JOINT2", drClientDematJointList[0]["JointKYC"].ToString());
                     }
