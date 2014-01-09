@@ -227,7 +227,8 @@
     </tr>
     <tr>
         <td class="leftLabel">
-            <asp:Label ID="lb1ActiveFormRange" runat="server" Text="Form No-Starting Series No:" CssClass="FieldName"></asp:Label>
+            <asp:Label ID="lb1ActiveFormRange" runat="server" Text="Form No-Starting Series No:"
+                CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
             <asp:TextBox ID="txtFormRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
@@ -487,7 +488,7 @@
         <td class="rightData">
             <telerik:RadDatePicker ID="txtOpenDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                TabIndex="17" Width="200px">
+                TabIndex="17" Width="200px" autopostback="true">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
                     skin="Telerik" enableembeddedskins="false">
                 </calendar>
@@ -778,13 +779,13 @@
             <asp:TextBox ID="txtIsPrefix" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
         </td>
     </tr>
-    
     <tr>
         <td class="leftLabel">
             <asp:Label ID="lb1Trading" runat="server" Text="Multiples of:" CssClass="FieldName"></asp:Label>
         </td>
         <td class="rightData">
-            <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
+            <asp:TextBox ID="txtTradingInMultipleOf" runat="server" CssClass="txtField" Width="200px"
+                Text="1" Enabled="false"></asp:TextBox>
             <span id="Span15" class="spnRequiredField">*</span>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator27" runat="server" CssClass="rfvPCG"
@@ -1065,7 +1066,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="663px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="600px" PopUpSettings-Width="695px">
                                         <FormTemplate>
                                             <table width="75%" cellspacing="2" cellpadding="2">
                                                 <tr>
@@ -1133,6 +1134,9 @@
                                                             ErrorMessage="Please Enter Min Bid Amount" Display="Dynamic" ControlToValidate="txtMinBidAmount"
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtMinBidAmount"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1146,6 +1150,9 @@
                                                             ErrorMessage="Please Enter Max Bid Amount" Display="Dynamic" ControlToValidate="txtMaxBidAmount"
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator16" ControlToValidate="txtMaxBidAmount"
+                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
+                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
                                                     </td>
                                                 </tr>
                                                 <tr id="trDiscountType" runat="server">
@@ -1356,7 +1363,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="620px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="555px">
                                         <FormTemplate>
                                             <table width="80%">
                                                 <tr>

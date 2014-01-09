@@ -3340,7 +3340,7 @@ namespace DaoCustomerPortfolio
                     if (!string.IsNullOrEmpty(dr1["CB_BranchAdrPinCode"].ToString()))
                         AccountVo.BranchAdrPinCode = int.Parse(dr1["CB_BranchAdrPinCode"].ToString());
                     if (!string.IsNullOrEmpty(dr1["CB_MICR"].ToString()))
-                        AccountVo.MICR = int.Parse(dr1["CB_MICR"].ToString());
+                        AccountVo.MICR = dr1["CB_MICR"].ToString();
                     if (!string.IsNullOrEmpty(dr1["CB_IFSC"].ToString()))
                         AccountVo.IFSC = dr1["CB_IFSC"].ToString();
                     if (!string.IsNullOrEmpty(dr1["WERPBM_BankCode"].ToString()))
@@ -3514,19 +3514,19 @@ namespace DaoCustomerPortfolio
                 }
                 if (AccountVo.CPhoneOffice != 0)
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, AccountVo.CPhoneOffice);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Double, AccountVo.CPhoneOffice);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_OFF", DbType.Double, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(AccountVo.Name))
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int64, AccountVo.CPhoneRes);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Double, AccountVo.CPhoneRes);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Int64, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CMGCXP_PHONE_RES", DbType.Double, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(AccountVo.CEmail))
                 {
@@ -3652,19 +3652,19 @@ namespace DaoCustomerPortfolio
 
                 if (AccountVo.Balance != 0)
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_Balance", DbType.Int32, AccountVo.Balance);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_Balance", DbType.Double, AccountVo.Balance);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_Balance", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_Balance", DbType.Double, DBNull.Value);
                 }
-                if (AccountVo.MICR != 0)
+                if (!string.IsNullOrEmpty(AccountVo.MICR))
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_MICR", DbType.Int32, AccountVo.MICR);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_MICR", DbType.String, AccountVo.MICR);
                 }
                 else
                 {
-                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_MICR", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(updateMFFolioDetailsCmd, "@CB_MICR", DbType.String, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(AccountVo.IFSC))
                 {
@@ -3678,10 +3678,7 @@ namespace DaoCustomerPortfolio
               
 
                
-                
-
-
-                #endregion
+               #endregion
 
 
 

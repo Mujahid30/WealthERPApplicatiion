@@ -291,7 +291,7 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AIM_TradingInMultipleOf" HeaderStyle-Width="110px"
-                                            HeaderText="Is Multiple" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                            HeaderText="Multiples Of" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AutoPostBackOnFilter="true" UniqueName="AIM_TradingInMultipleOf" Visible="true"
                                             AllowFiltering="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />

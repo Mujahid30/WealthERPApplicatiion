@@ -150,10 +150,11 @@ namespace WealthERP.Customer
                 //customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
                 customerBankAccountVo.BranchAdrCountry = ddlBankAdrCountry.SelectedItem.Value.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
-                if (txtMicr.Text.ToString() != "" )
-                    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
-                else
-                    customerBankAccountVo.MICR = 0;
+                customerBankAccountVo.IFSC = txtMicr.Text.ToString();
+                //if (txtMicr.Text.ToString() != "" )
+                //    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
+                //else
+                //    customerBankAccountVo.MICR = 0;
                 customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
 
                 Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadcontrol('ViewBankDetails','none');", true);

@@ -193,8 +193,9 @@ namespace DaoCustomerProfiling
                         if (dr["CB_Balance"].ToString() != "")
                             if (!string.IsNullOrEmpty(dr["CB_Balance"].ToString()))
                                 customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
-                        if (!string.IsNullOrEmpty(dr["CB_MICR"].ToString()))
-                            customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                        //if (!string.IsNullOrEmpty(dr["CB_MICR"].ToString()))
+                        //    customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                        customerBankAccountVo.MICR = dr["CB_MICR"].ToString();
                         customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
 
                         if (!string.IsNullOrEmpty(dr["WCMV_LookupId_AccType"].ToString()))
@@ -290,8 +291,9 @@ namespace DaoCustomerProfiling
                     customerBankAccountVo.BranchAdrCountry = dr["CB_BranchAdrCountry"].ToString();
                     if (dr["CB_Balance"].ToString() != "")
                         customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
-                    if (dr["CB_MICR"].ToString() != "")
-                        customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                    //if (dr["CB_MICR"].ToString() != "")
+                    //    customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                    customerBankAccountVo.MICR = dr["CB_MICR"].ToString();
                     customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
                 }
             }
@@ -582,8 +584,8 @@ namespace DaoCustomerProfiling
 
                     if (dr["CB_Balance"].ToString() != "")
                         customerBankAccountVo.Balance = float.Parse(dr["CB_Balance"].ToString());
-                    if (dr["CB_MICR"].ToString() != "")
-                        customerBankAccountVo.MICR = long.Parse(dr["CB_MICR"].ToString());
+                    //if (dr["CB_MICR"].ToString() != "")
+                        customerBankAccountVo.MICR = dr["CB_MICR"].ToString();
                     customerBankAccountVo.IFSC = dr["CB_IFSC"].ToString();
 
                     if (!string.IsNullOrEmpty(dr["WCMV_BankName"].ToString()))

@@ -544,19 +544,19 @@ namespace DaoCustomerPortfolio
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.CPhoneOffice.ToString()))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, customerAccountVo.CPhoneOffice);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Double, customerAccountVo.CPhoneOffice);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Int64, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_OFF", DbType.Double, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.CPhoneRes.ToString()))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int64, customerAccountVo.CPhoneRes);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Double, customerAccountVo.CPhoneRes);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Int64, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CMGCXP_PHONE_RES", DbType.Double, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.CEmail))
                 {
@@ -654,11 +654,11 @@ namespace DaoCustomerPortfolio
                 }
                 if (customerAccountVo.BranchAdrPinCode != 0)
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrPinCode", DbType.Int32, customerAccountVo.BranchAdrPinCode);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrPinCode", DbType.Double, customerAccountVo.BranchAdrPinCode);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrPinCode", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_BranchAdrPinCode", DbType.Double, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.BranchAdrCity))
                 {
@@ -682,19 +682,19 @@ namespace DaoCustomerPortfolio
 
                 if (customerAccountVo.Balance != 0)
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_Balance", DbType.Int32, customerAccountVo.Balance);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_Balance", DbType.Double, customerAccountVo.Balance);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_Balance", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_Balance", DbType.Double, DBNull.Value);
                 }
-                if (customerAccountVo.MICR != 0)
+                if (!string.IsNullOrEmpty(customerAccountVo.MICR))
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_MICR", DbType.Int32, customerAccountVo.MICR);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_MICR", DbType.String, customerAccountVo.MICR);
                 }
                 else
                 {
-                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_MICR", DbType.Int32, DBNull.Value);
+                    db.AddInParameter(createCustomerMFAccountCmd, "@CB_MICR", DbType.String, DBNull.Value);
                 }
                 if (!string.IsNullOrEmpty(customerAccountVo.IFSC))
                 {
@@ -727,7 +727,7 @@ namespace DaoCustomerPortfolio
                 {
                     accountId = int.Parse(db.GetParameterValue(createCustomerMFAccountCmd, "IsFolioExist").ToString());
                 }
-                //DataSet ds = db.ExecuteDataSet(createCustomerMFAccountCmd);
+               // DataSet ds = db.ExecuteDataSet(createCustomerMFAccountCmd);
             }
             catch (BaseApplicationException Ex)
             {

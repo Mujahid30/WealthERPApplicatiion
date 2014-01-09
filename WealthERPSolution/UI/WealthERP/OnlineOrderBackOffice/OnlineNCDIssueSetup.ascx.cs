@@ -33,8 +33,10 @@ namespace WealthERP.OnlineOrderBackOffice
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
             int adviserId = advisorVo.advisorId;
+            
             if (!IsPostBack)
             {
+                txtOpenDate.SelectedDate = DateTime.Now;
                 BindIssuer();
                 BindRTA();
                 pnlSeries.Visible = false;
@@ -204,6 +206,14 @@ namespace WealthERP.OnlineOrderBackOffice
                     else
                     {
                         chkIsActive.Checked = false;
+                    }
+                    if (!string.IsNullOrEmpty(dr["AIM_TradeableAtExchange"].ToString()))
+                    {
+                        chkTradebleExchange.Checked = true;
+                    }
+                    else
+                    {
+                        chkTradebleExchange.Checked = false;
                     }
                     if (!string.IsNullOrEmpty(dr["AIM_PutCallOption"].ToString()))
                     {
@@ -453,7 +463,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
 
-            txtTradingInMultipleOf.Enabled = value;
+            //txtTradingInMultipleOf.Enabled = value;
             //ddlListedInExchange.Enabled = value;
 
             ddlBankName.Enabled = value;
@@ -658,6 +668,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 else
                 {
                     onlineNCDBackOfficeVo.PutCallOption = "N";
+                }
+                if (chkTradebleExchange.Checked == true)
+                {
+                    onlineNCDBackOfficeVo.TradableExchange = 1;
+                }
+                else
+                {
+                    onlineNCDBackOfficeVo.TradableExchange =0;
                 }
 
                 if (chkNomineeReQuired.Checked == true)
@@ -1212,7 +1230,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     txtDiscountValue.Text = 0.ToString();
                 }
 
-                categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
+                categoryId = CreateUpdateDeleteCategory(Convert.ToInt32(txtIssueId.Text), 0, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt64(txtMinBidAmount.Text), Convert.ToInt64(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Insert");
 
                 foreach (GridDataItem gdi in rgSubCategories.Items)
                 {
@@ -1270,7 +1288,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
                     txtDiscountValue.Text = 0.ToString();
                 }
-                result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt32(txtMinBidAmount.Text), Convert.ToInt32(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Update");
+                result = CreateUpdateDeleteCategory(0, categoryId, txtCategoryName.Text, txtCategoryDescription.Text, txtChequePayableTo.Text, Convert.ToInt64(txtMinBidAmount.Text), Convert.ToInt64(txtMaxBidAmount.Text), discountType, Convert.ToDecimal(txtDiscountValue.Text), "Update");
                 RadGrid rgSubCategories = (RadGrid)e.Item.FindControl("rgSubCategories");
                 foreach (GridDataItem gdi in rgSubCategories.Items)
                 {
@@ -1367,7 +1385,7 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
 
         private int CreateUpdateDeleteCategory(int issueId, int categoryId, string investorCatgeoryName, string investorCatgeoryDescription, string chequePayableTo,
-           int mInBidAmount, int maxBidAmount, string discountType, decimal discountValue, string CommandType)
+           long mInBidAmount, long maxBidAmount, string discountType, decimal discountValue, string CommandType)
         {
             int result = 0;
             try
@@ -1379,8 +1397,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.CatgeoryName = investorCatgeoryName;
                     onlineNCDBackOfficeVo.CatgeoryDescription = investorCatgeoryDescription;
                     onlineNCDBackOfficeVo.ChequePayableTo = chequePayableTo;
-                    onlineNCDBackOfficeVo.MInBidAmount = mInBidAmount;
-                    onlineNCDBackOfficeVo.MaxBidAmount = maxBidAmount;
+                    onlineNCDBackOfficeVo.MInBidAmount =Convert.ToInt64(mInBidAmount.ToString());
+                    onlineNCDBackOfficeVo.MaxBidAmount = Convert.ToInt64(maxBidAmount.ToString());
                     onlineNCDBackOfficeVo.DiscuountType = discountType;
                     onlineNCDBackOfficeVo.DiscountValue = discountValue;
 
@@ -1394,8 +1412,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.CatgeoryName = investorCatgeoryName;
                     onlineNCDBackOfficeVo.CatgeoryDescription = investorCatgeoryDescription;
                     onlineNCDBackOfficeVo.ChequePayableTo = chequePayableTo;
-                    onlineNCDBackOfficeVo.MInBidAmount = mInBidAmount;
-                    onlineNCDBackOfficeVo.MaxBidAmount = maxBidAmount;
+                    onlineNCDBackOfficeVo.MInBidAmount = Convert.ToInt64(mInBidAmount.ToString());
+                    onlineNCDBackOfficeVo.MaxBidAmount = Convert.ToInt64(maxBidAmount.ToString());
                     onlineNCDBackOfficeVo.DiscuountType = discountType;
                     onlineNCDBackOfficeVo.DiscountValue = discountValue;
                     result = onlineNCDBackOfficeBo.UpdateCategory(onlineNCDBackOfficeVo, userVo.UserId);
@@ -1407,8 +1425,8 @@ namespace WealthERP.OnlineOrderBackOffice
                     onlineNCDBackOfficeVo.CatgeoryName = investorCatgeoryName;
                     onlineNCDBackOfficeVo.CatgeoryDescription = investorCatgeoryDescription;
                     onlineNCDBackOfficeVo.ChequePayableTo = chequePayableTo;
-                    onlineNCDBackOfficeVo.MInBidAmount = mInBidAmount;
-                    onlineNCDBackOfficeVo.MaxBidAmount = maxBidAmount;
+                    onlineNCDBackOfficeVo.MInBidAmount = Convert.ToInt64(mInBidAmount.ToString());
+                    onlineNCDBackOfficeVo.MaxBidAmount = Convert.ToInt64(maxBidAmount.ToString());
                 }
                 return result;
             }
@@ -1432,7 +1450,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
 
         private int CreateCategory(int issueId, string investorCatgeoryName, string investorCatgeoryDescription, string chequePayableTo,
-            int mInBidAmount, int maxBidAmount)
+            long mInBidAmount, long maxBidAmount)
         {
             try
             {
@@ -1441,8 +1459,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 onlineNCDBackOfficeVo.CatgeoryName = investorCatgeoryName;
                 onlineNCDBackOfficeVo.CatgeoryDescription = investorCatgeoryDescription;
                 onlineNCDBackOfficeVo.ChequePayableTo = chequePayableTo;
-                onlineNCDBackOfficeVo.MInBidAmount = mInBidAmount;
-                onlineNCDBackOfficeVo.MaxBidAmount = maxBidAmount;
+                onlineNCDBackOfficeVo.MInBidAmount = int.Parse(mInBidAmount.ToString());
+                onlineNCDBackOfficeVo.MaxBidAmount = int.Parse(maxBidAmount.ToString());
                 return onlineNCDBackOfficeBo.CreateCategory(onlineNCDBackOfficeVo, userVo.UserId);
             }
 
@@ -1923,7 +1941,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 onlineNCDBackOfficeVo.ModeOfTrading = ddlModeOfTrading.SelectedValue;
 
-                onlineNCDBackOfficeVo.OpenDate = txtOpenDate.SelectedDate.Value;
+                onlineNCDBackOfficeVo.OpenDate = DateTime.Now;
                 onlineNCDBackOfficeVo.CloseDate = txtCloseDate.SelectedDate.Value;
 
                 if (ddlOpenTimeMinutes.SelectedValue == "MM")

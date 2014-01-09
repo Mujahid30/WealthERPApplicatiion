@@ -823,11 +823,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HoldingDashBoard','login');", true);
                 }
-                //else if (e.Item.Value == "MF")
-                //{
-                //    Session["UserType"] = "adviser";
-                //    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
-                //}
+                else if (e.Item.Value == "MFT")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
+                }
                 else if (e.Item.Value == "NCD_Allotments")
                 {
                     Session["UserType"] = "adviser";
@@ -1902,6 +1902,11 @@ namespace WealthERP.Advisor
                 else if (e.Item.Value == "View_Systematic_Transaction_Exceptions")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('RejectedSystematicTransactionStaging','login');", true);
+                }
+                    else if (e.Item.Value == "MFT")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TransactionDashBoard','login');", true);
                 }
                 else if (e.Item.Value == "Trail_Commission_Exception")
                 {

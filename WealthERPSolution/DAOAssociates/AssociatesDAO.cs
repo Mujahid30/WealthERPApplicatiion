@@ -908,10 +908,10 @@ namespace DAOAssociates
                         associatesVo.BranchAdrCountry = dr["AA_BranchAdrCountry"].ToString();
                     else
                         associatesVo.BranchAdrCountry = string.Empty;
-                    if (dr["CB_MICR"] != DBNull.Value && dr["CB_MICR"].ToString() != "")
-                        associatesVo.MICR = Int64.Parse(dr["CB_MICR"].ToString());
+                    if (dr["CB_MICR"] != DBNull.Value)
+                        associatesVo.MICR = (dr["CB_MICR"].ToString());
                     else
-                        associatesVo.MICR = 0;
+                        associatesVo.MICR = string.Empty;
 
                     if (dr["CB_IFSC"] != DBNull.Value)
                         associatesVo.IFSC = dr["CB_IFSC"].ToString();
@@ -1216,10 +1216,10 @@ namespace DAOAssociates
                         associatesVo.BranchAdrCountry = dr["AA_BranchAdrCountry"].ToString();
                     else
                         associatesVo.BranchAdrCountry = string.Empty;
-                    if (dr["CB_MICR"] != DBNull.Value && dr["CB_MICR"].ToString() != "")
-                        associatesVo.MICR = Int64.Parse(dr["CB_MICR"].ToString());
+                    if (dr["CB_MICR"] != DBNull.Value)
+                        associatesVo.MICR = dr["CB_MICR"].ToString();
                     else
-                        associatesVo.MICR = 0;
+                        associatesVo.MICR = string.Empty;
 
                     if (dr["CB_IFSC"] != DBNull.Value)
                         associatesVo.IFSC = dr["CB_IFSC"].ToString();

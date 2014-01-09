@@ -94,7 +94,7 @@ namespace WealthERP.Customer
                 customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedItem.Value.ToString();
                 customerBankAccountVo.BranchAdrCountry = ddlBankAdrCountry.SelectedItem.Value.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
-                customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
+                customerBankAccountVo.MICR = txtMicr.Text.ToString();
 
                 customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId);
             }

@@ -29,8 +29,8 @@ namespace VoOnlineOrderManagemnet
         public string CatgeoryName { get; set; }
         public string CatgeoryDescription { get; set; }
         public string ChequePayableTo { get; set; }
-        public int MInBidAmount { get; set; }
-        public int MaxBidAmount { get; set; }
+        public long MInBidAmount { get; set; }
+        public long MaxBidAmount { get; set; }
 
 
         public int SubCatgeoryId { get; set; }

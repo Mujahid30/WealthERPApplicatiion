@@ -362,8 +362,8 @@ namespace WealthERP.Customer
             //if (ddlBankAdrState.SelectedValue.ToString() != "Select a State")
             //    customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
             //customerBankAccountVo.BranchAdrCountry = "India";
-            if (txtMicr.Text.ToString() != "")
-                customerBankAccountVo.MICR = long.Parse(txtMicr.Text.ToString());
+            //if (txtMicr.Text.ToString() != "")
+                customerBankAccountVo.MICR = txtMicr.Text.ToString();
             customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
             customerBankAccountVo.Balance = 0;
 
@@ -531,12 +531,12 @@ namespace WealthERP.Customer
             if (ddlBankAdrCountry.SelectedIndex != 0)
                 customerBankAccountVo.BranchAddCountryId = int.Parse(ddlBankAdrCountry.SelectedValue.ToString());
 
-
+            customerBankAccountVo.IFSC = txtMicr.Text.ToString();
             customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
-            if (txtMicr.Text.ToString() != "")
-                customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
-            else
-                customerBankAccountVo.MICR = 0;
+            //if (txtMicr.Text.ToString() != "")
+            //    customerBankAccountVo.MICR = int.Parse(txtMicr.Text.ToString());
+            //else
+            //    customerBankAccountVo.MICR = 0;
 
             customerAccountAssociationVo.AccountId = bankId;
             if (customerBankAccountBo.UpdateCustomerBankAccount(customerBankAccountVo, customerId))

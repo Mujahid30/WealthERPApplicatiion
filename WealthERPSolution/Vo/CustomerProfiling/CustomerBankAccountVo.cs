@@ -31,7 +31,7 @@ namespace VoCustomerProfiling
         private string m_BranchAdrCity;
         private string m_BranchAdrState;
         private string m_BranchAdrCountry;
-        private long m_MICR;
+        private string m_MICR;
         private string m_IFSC;
         private float m_Balance;
         private float m_InterestRate;
@@ -157,7 +157,7 @@ namespace VoCustomerProfiling
             get { return m_BranchAdrCountry; }
             set { m_BranchAdrCountry = value; }
         }
-        public long MICR
+        public string MICR
         {
             get { return m_MICR; }
             set { m_MICR = value; }

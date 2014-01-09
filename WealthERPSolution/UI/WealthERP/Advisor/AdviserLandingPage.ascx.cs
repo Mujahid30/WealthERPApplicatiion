@@ -72,6 +72,9 @@ namespace WealthERP.Advisor
         {
             if (advisorVo.IsOpsEnable == 1)
             {
+                //Session["NodeType"] = "CustomerUpload";
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
             }
             else
@@ -85,7 +88,10 @@ namespace WealthERP.Advisor
         {
             if (advisorVo.IsOpsEnable == 1)
             {
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
+                Session["NodeType"] = "CustomerUpload";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "leftpane", "loadlinks('AdvisorLeftPane','login');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "LoadUploads", "loadcontrol('CustomerUpload','login');", true);
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Functionality is disabled for current Login. Please Contact Administrator');", true);
             }
             else
             {

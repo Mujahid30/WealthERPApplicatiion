@@ -754,10 +754,10 @@ namespace WealthERP.Associates
                 associatesVo.BranchAdrState = ddlBankAdrState.SelectedValue;
             else
                 associatesVo.BranchAdrState = "";
-            if (!string.IsNullOrEmpty(txtMicr.Text))
-                associatesVo.MICR = int.Parse(txtMicr.Text);
+            if (txtMicr.Text !=null)
+                associatesVo.MICR = txtMicr.Text;
             else
-                associatesVo.MICR = 0;
+                associatesVo.MICR = "";
             if (txtIfsc.Text != null)
                 associatesVo.IFSC = txtIfsc.Text;
             else

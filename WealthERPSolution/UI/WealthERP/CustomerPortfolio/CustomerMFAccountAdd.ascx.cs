@@ -1033,7 +1033,8 @@ namespace WealthERP.CustomerPortfolio
                     if (txtPinCode.Text != "")
                         customerAccountsVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
                     if (txtMicr.Text != "")
-                        customerAccountsVo.MICR = int.Parse(txtMicr.Text);
+                        customerAccountsVo.MICR = txtMicr.Text;
+
                     if (txtIfsc.Text != "")
                         customerAccountsVo.IFSC = txtIfsc.Text;
                     if (ddlBCountry.SelectedValue != "0")
@@ -1257,7 +1258,7 @@ namespace WealthERP.CustomerPortfolio
                     if (txtPinCode.Text != "")
                         newAccountVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
                     if (txtMicr.Text != "")
-                        newAccountVo.MICR = int.Parse(txtMicr.Text);
+                        newAccountVo.MICR = txtMicr.Text;
                     if (txtIfsc.Text != "")
                         newAccountVo.IFSC = txtIfsc.Text;
                     if (ddlBCountry.SelectedValue != "0")
@@ -1420,7 +1421,7 @@ namespace WealthERP.CustomerPortfolio
                         if (txtPinCode.Text != "")
                             newAccountVo.BranchAdrPinCode = int.Parse(txtPinCode.Text);
                         if (txtMicr.Text != "")
-                            newAccountVo.MICR = int.Parse(txtMicr.Text);
+                            newAccountVo.MICR = txtMicr.Text;
                         if (txtIfsc.Text != "")
                             newAccountVo.IFSC = txtIfsc.Text;
                         if (ddlBCountry.SelectedValue != "0")
