@@ -1139,7 +1139,8 @@ namespace BoOnlineOrderManagement
                 }
                 else if (extractStepCode == "UB")
                 {
-                    dtCheckOrder.Columns.RemoveAt(3);
+                   if( dtCheckOrder.Columns.Contains("Error Text"))
+                  dtCheckOrder.Columns.RemoveAt(3);
                     nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
 
                 }

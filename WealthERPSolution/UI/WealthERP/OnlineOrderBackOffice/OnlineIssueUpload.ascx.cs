@@ -200,6 +200,7 @@ namespace WealthERP.OnlineOrderBackOffice
 
         private void GetExtractData(DataTable dtUploadFile) {
             if (Cache["UPLOAD" + userVo.UserId] != null) Cache.Remove("UPLOAD" + userVo.UserId);
+
             if (dtUploadFile.Rows.Count > 0) Cache.Insert("UPLOAD" + userVo.UserId, dtUploadFile);
         }
 
