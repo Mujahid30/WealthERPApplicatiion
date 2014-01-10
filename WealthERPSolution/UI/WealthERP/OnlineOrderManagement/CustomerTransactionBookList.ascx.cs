@@ -375,10 +375,38 @@ namespace WealthERP.OnlineOrderManagement
                     dataBoundItem["Amount"].Font.Bold = true;
                     dataBoundItem["Units"].BackColor = System.Drawing.Color.Red;
                     dataBoundItem["Units"].Font.Bold = true;
-                    
-                }
+                    dataBoundItem["Customer Name"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Customer Name"].Font.Bold = true;
+                    dataBoundItem["TransactionId"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["TransactionId"].Font.Bold = true;
+                    dataBoundItem["AMC"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["AMC"].Font.Bold = true;
+                    dataBoundItem["Folio Number"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Folio Number"].Font.Bold = true;
+                    dataBoundItem["Category"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Category"].Font.Bold = true;
+                    dataBoundItem["Scheme Name"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Scheme Name"].Font.Bold = true;
+                    dataBoundItem["PAISC_AssetInstrumentSubCategoryName"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["PAISC_AssetInstrumentSubCategoryName"].Font.Bold = true;
+                    dataBoundItem["Transaction Type"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Transaction Type"].Font.Bold = true;
+                    dataBoundItem["Price"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Price"].Font.Bold = true;
+                    dataBoundItem["CO_OrderDate"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["CO_OrderDate"].Font.Bold = true;
+                    dataBoundItem["OrderNo"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["OrderNo"].Font.Bold = true;
+                    dataBoundItem["Channel"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Channel"].Font.Bold = true;
+                    dataBoundItem["Transaction Date"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["Transaction Date"].Font.Bold = true;
+                    dataBoundItem["DivReinvestment"].BackColor = System.Drawing.Color.Red;
+                    dataBoundItem["DivReinvestment"].Font.Bold = true;
+                 }
             }
         }
+       
 
     }
 }

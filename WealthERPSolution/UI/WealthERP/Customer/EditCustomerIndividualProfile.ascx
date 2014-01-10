@@ -390,6 +390,10 @@
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txtMember"
                                                                             ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
+                                                                    
+                                                                    </td>
+                                                                    <td>
+                                                                    <asp:CheckBox ID="chKInsideKyc" runat="server" Text=" IS KYC" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -459,7 +463,10 @@
                                                                             ErrorMessage="<br />Please Enter Customer Name" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
                                                                     </td>
-                                                                </tr>
+                                                                    <td>
+                                                                     <asp:CheckBox ID="chKInsideKyc1" runat="server" Text="IS KYC" />
+                                                                    </td>
+                                                                </tr>       
                                                                 <tr>
                                                                     <td class="leftField" align="right">
                                                                         <asp:Label ID="lblNewPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>

@@ -91,6 +91,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(createCustomerCmd, "@C_OfcISDCode", DbType.Int32, customerVo.OfcISDCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcSTDCode", DbType.Int32, customerVo.OfcSTDCode);
                 db.AddInParameter(createCustomerCmd, "@C_OfcPhoneNum", DbType.Int32, customerVo.OfcPhoneNum);
+                db.AddInParameter(createCustomerCmd, "@@C_MfKYC", DbType.Int32, customerVo.MfKYC);
                 db.AddInParameter(createCustomerCmd, "@C_Email", DbType.String, customerVo.Email);
                 db.AddInParameter(createCustomerCmd, "@C_AltEmail", DbType.String, customerVo.AltEmail);
                 db.AddInParameter(createCustomerCmd, "@C_Mobile1", DbType.Int64, customerVo.Mobile1);
@@ -5105,7 +5106,7 @@ namespace DaoCustomerProfiling
 
         }
 
-        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor)
+        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc)
         {
             bool isEdited = false;
             Database db;
@@ -5117,6 +5118,7 @@ namespace DaoCustomerProfiling
                 db.AddInParameter(updateMemberRelationCmd, "@associationId", DbType.Int32, AssociationId);
                 db.AddInParameter(updateMemberRelationCmd, "@relationCode", DbType.String, relationCode);
                 db.AddInParameter(updateMemberRelationCmd, "@IsRealInvestor", DbType.Boolean, isrealInvestor ? 1 : 0);
+                db.AddInParameter(updateMemberRelationCmd, "@Iskyc", DbType.Int16, iskyc);
                 if (db.ExecuteNonQuery(updateMemberRelationCmd) != 0)
                     isEdited = true;
             }

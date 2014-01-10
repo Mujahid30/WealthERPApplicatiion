@@ -1194,6 +1194,9 @@ namespace WealthERP.Customer
             HtmlTableRow trNewCustomer = editedItem.FindControl("trNewCustomer") as HtmlTableRow;
             //HtmlTableRow chkbisRealInvestor = editedItem.FindControl("chkIsinvestmem") as HtmlTableRow;
             CheckBox chkbisRealInvestor = editedItem.FindControl("chkIsinvestmem") as CheckBox;
+            CheckBox chkKy = editedItem.FindControl("chKInsideKyc") as CheckBox;
+            CheckBox chkKy1 = editedItem.FindControl("chKInsideKyc1") as CheckBox;
+
 
             if (rbtnExisting.Checked == true)
             {
@@ -1202,7 +1205,7 @@ namespace WealthERP.Customer
                 trNewCustHeader.Visible = false;
                 trNewCustomer.Visible = false;
                 chkbisRealInvestor.Visible = false;
-
+                chkKy.Visible = false;
 
             }
             else if (rbtnNew.Checked == true)
@@ -1212,6 +1215,8 @@ namespace WealthERP.Customer
                 trNewCustHeader.Visible = true;
                 trNewCustomer.Visible = true;
                 chkbisRealInvestor.Visible = true;
+                chkKy1.Visible =true;
+                
 
             }
         }
@@ -1978,7 +1983,7 @@ namespace WealthERP.Customer
                     customerBankAccountVo.BranchAdrState = ddlBankAdrState.SelectedValue.ToString();
                 customerBankAccountVo.BranchAdrCountry = "India";
                 //if (txtMicr.Text.ToString() != "")
-                    customerBankAccountVo.MICR =txtMicr.Text.ToString();
+                   // customerBankAccountVo.MICR =txtMicr.Text.ToString();
                 customerBankAccountVo.IFSC = txtIfsc.Text.ToString();
                 customerBankAccountVo.Balance = 0;
                 //customerBankAccountVo.Balance = long.Parse(txtBalance.Text.ToString());
@@ -2068,7 +2073,10 @@ namespace WealthERP.Customer
                 TextBox txtpan = (TextBox)item.FindControl("txtPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
                 CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
+                CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
+
                 chkbisRealInvestor.Visible = false;
+                chkycinside.Visible = false;
 
 
                 Session["lblGetPan"] = txtpan;
@@ -2219,6 +2227,7 @@ namespace WealthERP.Customer
         }
 
         protected void gvFamilyAssociate_ItemCommand(object source, GridCommandEventArgs e)
+        
         {
             int associateCustomerId;
             CustomerBo customerBo = new CustomerBo();
@@ -2228,6 +2237,7 @@ namespace WealthERP.Customer
                
                 bool isUpdated = false;
                 bool isrealInvestor=false;
+                int iskyc =0;
                 string relationCode = string.Empty;
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
                 gridEditableItem.OwnerTableView.IsItemInserted = false; 
@@ -2236,8 +2246,13 @@ namespace WealthERP.Customer
                 Button Button3 = (Button)e.Item.FindControl("Button3");
                 Button Button1 = (Button)e.Item.FindControl("Button1");
                 CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("chkIsinvestmem");
+                CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
+                CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc1");
+                
                 if (chkIsrealInvestorMem.Checked)
                     isrealInvestor = true;
+                if (chkycinside.Checked)
+                    iskyc=1;
                 if (Button3.Visible == true)
                 {
                     TextBox txtMember = (TextBox)e.Item.FindControl("txtMember");
@@ -2248,6 +2263,7 @@ namespace WealthERP.Customer
                     //lblGetPan.Enabled = false;
                     //lblGetPan.Visible = false;
                     relationCode = ddlRelation.SelectedValue;
+                    chkycinside.Visible = false;
                    
 
                 }
@@ -2259,6 +2275,7 @@ namespace WealthERP.Customer
                     txtMember.Enabled = false;
                     lblGetPan.Enabled = false;
                     chkIsrealInvestorMem.Visible = false;
+                    chkycinside.Visible = false;
                     relationCode = ddlNewRelationship.SelectedValue;
                 }
                 TextBox txtPan1 = (TextBox)e.Item.FindControl("txtPan");
@@ -2269,7 +2286,7 @@ namespace WealthERP.Customer
                 else
                 {
 
-                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor);
+                    isUpdated = customerBo.UpdateMemberRelation(AssociationId, relationCode, isrealInvestor,iskyc);
                 }
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
@@ -2294,9 +2311,12 @@ namespace WealthERP.Customer
                         TextBox txtNewMemName = (TextBox)e.Item.FindControl("txtNewName");
                         //TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
                         CheckBox chkIsrealInvestorMem = (CheckBox)e.Item.FindControl("isRealInvestormem");
+                        CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc1");
+                        CheckBox chkycinside1 = (CheckBox)e.Item.FindControl("chKInsideKyc");
                         DropDownList ddlNewMemRel = (DropDownList)e.Item.FindControl("ddlNewRelationship");
                         customerNewVo.FirstName = txtNewMemName.Text;
                         customerNewVo.PANNum = txtNewMemPan.Text;
+                        chkycinside1.Visible = false;
                         if (chkIsrealInvestorMem.Checked)
                         {
                             customerNewVo.IsRealInvestor = true;
@@ -2304,6 +2324,14 @@ namespace WealthERP.Customer
                         else
                         {
                             customerNewVo.IsRealInvestor = false;
+                        }
+                        if (chkycinside.Checked)
+                        {
+                            customerNewVo.MfKYC = 1; 
+                        }
+                        else
+                        {
+                            customerNewVo.MfKYC = 0;
                         }
                         if (!customerBo.PANNumberDuplicateChild(advisorVo.advisorId, customerNewVo.PANNum))
                         {

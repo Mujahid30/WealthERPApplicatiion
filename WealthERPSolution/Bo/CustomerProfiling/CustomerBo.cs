@@ -2725,13 +2725,13 @@ namespace BoCustomerProfiling
         }
 
 
-        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor)
+        public bool UpdateMemberRelation(int AssociationId, string relationCode, bool isrealInvestor,int iskyc)
         {
             CustomerDao customerDao = new CustomerDao();
             bool isEdited = false;
             try
             {
-                isEdited = customerDao.UpdateMemberRelation(AssociationId, relationCode,isrealInvestor);
+                isEdited = customerDao.UpdateMemberRelation(AssociationId, relationCode,isrealInvestor,iskyc);
             }
             catch (BaseApplicationException Ex)
             {
