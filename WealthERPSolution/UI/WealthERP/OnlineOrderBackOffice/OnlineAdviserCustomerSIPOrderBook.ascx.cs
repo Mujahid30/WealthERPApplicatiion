@@ -281,7 +281,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             gvSIPBookMIS.ExportSettings.OpenInNewWindow = true;
             gvSIPBookMIS.ExportSettings.IgnorePaging = true;
-            gvSIPBookMIS.ExportSettings.HideStructureColumns = true;
+            gvSIPBookMIS.ExportSettings.HideStructureColumns = false;
             gvSIPBookMIS.ExportSettings.ExportOnlyData = true;
             gvSIPBookMIS.ExportSettings.FileName = "OrderBook Details";
             gvSIPBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
