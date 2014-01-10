@@ -119,6 +119,11 @@
                                     <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
                                       Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
                                 </td>
+                                 <td style="padding-bottom:2px;">
+                                      
+                                    <asp:LinkButton ID="lbtnBack2Button" runat="server" OnClick="lbtnBack2Button_Click"
+                                      Visible="true" CssClass="LinkButtons">Back</asp:LinkButton>
+                                </td>
                             </tr>
                         </table>
                     </div>

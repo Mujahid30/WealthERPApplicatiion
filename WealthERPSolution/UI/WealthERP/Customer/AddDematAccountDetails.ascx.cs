@@ -509,8 +509,7 @@ namespace WealthERP.Customer
 
         protected void lbtnBack2Button_Click(object sender, EventArgs e)
         {
-            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
-            Session["DematDetailsView"] = "rmvo";
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('DematAccountDetails','none');", true);
         }
        
     }
