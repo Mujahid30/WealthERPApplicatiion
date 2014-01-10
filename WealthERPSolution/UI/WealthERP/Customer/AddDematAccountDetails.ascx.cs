@@ -119,7 +119,7 @@ namespace WealthERP.Customer
                         
                         gvPickJointHolder.Visible = false;
                         lblPickJointHolder.Visible = false;
-                        hrPickJointHolder.Visible = false;
+                        //hrPickJointHolder.Visible = false;
                         //====================================
                         //Pick nominee Grid Populating
                         //==========================================================
@@ -318,7 +318,7 @@ namespace WealthERP.Customer
         {
             if (ddlModeOfHolding.SelectedIndex != 8)
             {
-                hrPickJointHolder.Visible = true;
+                //hrPickJointHolder.Visible = true;
                 gvPickJointHolder.Visible = true;
                 lblPickJointHolder.Visible = true;
                
@@ -327,7 +327,7 @@ namespace WealthERP.Customer
             {
                 gvPickJointHolder.Visible = false;
                 lblPickJointHolder.Visible = false;
-                hrPickJointHolder.Visible = false;
+                //hrPickJointHolder.Visible = false;
                 
                 
             }
@@ -506,8 +506,12 @@ namespace WealthERP.Customer
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
             Session["DematDetailsView"] = "Edit";
         }
-            
 
+        protected void lbtnBack2Button_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "leftpane", "loadcontrol('AddDematAccountDetails','none');", true);
+            Session["DematDetailsView"] = "rmvo";
+        }
        
     }
 }

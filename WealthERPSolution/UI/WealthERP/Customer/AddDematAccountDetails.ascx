@@ -80,7 +80,7 @@
             ddlModeOfHolding.SelectedIndex = 7;
             gvPickJointHolder.Visible = true;
             lblPickJointHolder.Visible = true;
-            hrPickJointHolder.Visible = true;
+            //hrPickJointHolder.Visible = true;
             ddlModeOfHolding.Enabled = true;
 
         }
@@ -90,7 +90,7 @@
             ddlModeOfHolding.Enabled = false;
             gvPickJointHolder.Visible = false;            
             lblPickJointHolder.Visible = false;
-            hrPickJointHolder.Visible = false;
+            //hrPickJointHolder.Visible = false;
         }
     }
     protected void rbtnNo_Load(object sender, EventArgs e)
@@ -113,7 +113,9 @@
                                 <td align="left" style="vertical-align:top">
                                     <asp:Label ID="lblTitle" runat="server" CssClass="HeaderTextBig"></asp:Label>
                                 </td>
+                                
                                 <td align="right" style="padding-bottom:2px;">
+                                      
                                     <asp:LinkButton ID="lbtnBackButton" runat="server" OnClick="lbtnBackButton_Click"
                                       Visible="False" CssClass="LinkButtons">Edit</asp:LinkButton>
                                 </td>
