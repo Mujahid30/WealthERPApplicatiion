@@ -259,7 +259,7 @@ namespace WealthERP.CustomerPortfolio
         {
             try
             {
-                RadComboBox ddlAction = (RadComboBox)sender;
+                DropDownList ddlAction = (DropDownList)sender;
                 GridDataItem gvr = (GridDataItem)ddlAction.NamingContainer;
                 int selectedRow = gvr.ItemIndex + 1;;
                 FolioId = Convert.ToInt32(gvMFFolio.MasterTableView.DataKeyValues[selectedRow - 1]["FolioId"].ToString());

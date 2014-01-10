@@ -221,10 +221,17 @@ namespace WealthERP.CustomerPortfolio
 
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
-            ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            //ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
             txtAssociateCode.Text = customerAccountsVo.AssociateCode.ToString();
             BindCustomerBankList();
-            ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            if (customerAccountsVo.AMCCode != 0)
+            {
+                ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            }
+            else
+            {
+                ddlProductAmc.SelectedValue = "0";
+            }
             if (!string.IsNullOrEmpty(customerAccountsVo.BankName))
             ddlBankList.SelectedItem.Text = customerAccountsVo.BankName.ToString();
             txtInvestorName.Text = customerAccountsVo.Name;
@@ -402,9 +409,10 @@ namespace WealthERP.CustomerPortfolio
                 txtAccountDate.SelectedDate = null;
             txtFolioNumber.Text = customerAccountsVo.AccountNum.ToString();
             BindAMC();
-            BindCustomerBankList();
+            
 
             ddlProductAmc.SelectedValue = customerAccountsVo.AMCCode.ToString();
+            BindCustomerBankList();
             if (customerAccountsVo.BankId != 0)
             {
                 ddlBankList.SelectedValue = customerAccountsVo.BankId.ToString();

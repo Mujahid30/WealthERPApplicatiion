@@ -129,16 +129,31 @@
         PageSize="10" AllowSorting="true" AllowPaging="True" ShowStatusBar="True" ShowFooter="true"
         Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" AllowFilteringByColumn="true"
         AllowAutomaticInserts="false" OnItemDataBound="gvMFFolio_ItemDataBound" OnNeedDataSource="gvMFFolio_NeedDataSource">
-        <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
-        </ExportSettings>
-        <MasterTableView DataKeyNames="FolioId,Folio No" CommandItemDisplay="None">
+        <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="ExistMFInvestlist">
+        </exportsettings>
+        <mastertableview datakeynames="FolioId,Folio No" commanditemdisplay="None">
             <Columns>
                 <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="40px">
                     <ItemTemplate>
                         <asp:CheckBox ID="chkBox" runat="server" />
                     </ItemTemplate>
                 </telerik:GridTemplateColumn>
-                <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="120px">
+                 <telerik:GridTemplateColumn AllowFiltering="false" UniqueName="Action" DataField="Action"
+                                    HeaderStyle-Width="140px">
+                                    <ItemTemplate>
+                                        <asp:DropDownList ID="ddlAction" CssClass="cmbField" runat="server" EnableEmbeddedSkins="false"
+                                            AutoPostBack="true" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
+                                            Width="120px">
+                                            <Items>
+                                                <asp:ListItem Text="Select" Value="Select" Selected="true" />
+                                                <asp:ListItem Text="View" Value="View" />
+                                                <asp:ListItem Text="Edit" Value="Edit" />
+                                                <asp:ListItem Text="Delete" Value="Delete" />
+                                            </Items>
+                                        </asp:DropDownList>
+                                    </ItemTemplate>
+                                </telerik:GridTemplateColumn>
+               <%-- <telerik:GridTemplateColumn AllowFiltering="false" HeaderStyle-Width="120px">
                     <ItemTemplate>
                         <telerik:RadComboBox ID="ddlAction" OnSelectedIndexChanged="ddlAction_SelectedIndexChanged"
                             CssClass="cmbField" runat="server" EnableEmbeddedSkins="false" Skin="Telerik"
@@ -155,7 +170,7 @@
                             </Items>
                         </telerik:RadComboBox>
                     </ItemTemplate>
-                </telerik:GridTemplateColumn>
+                </telerik:GridTemplateColumn>--%>
                 <telerik:GridBoundColumn UniqueName="Folio No" HeaderStyle-Width="80px" HeaderText="Folio No."
                     DataField="Folio No" SortExpression="Folio No" AllowFiltering="true" ShowFilterIcon="false"
                     AutoPostBackOnFilter="true">
@@ -200,11 +215,11 @@
                 </telerik:GridTemplateColumn>
             </Columns>
             <HeaderStyle Width="110px" />
-        </MasterTableView>
-        <ClientSettings>
+        </mastertableview>
+        <clientsettings>
             <Selecting AllowRowSelect="true" />
             <Resizing AllowColumnResize="true" />
-        </ClientSettings>
+        </clientsettings>
     </telerik:RadGrid>
 </div>
 <table class="TableBackground" style="width: 100%">
@@ -425,7 +440,8 @@
     <table style="width: 100%">
         <tr align="center">
             <td>
-                <Pager:Pager ID="Pager1" runat="server"></Pager:Pager>
+                <Pager:Pager ID="Pager1" runat="server">
+                </Pager:Pager>
             </td>
         </tr>
     </table>
