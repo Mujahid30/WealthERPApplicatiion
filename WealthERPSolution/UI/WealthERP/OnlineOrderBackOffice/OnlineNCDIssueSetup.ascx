@@ -393,7 +393,7 @@
             <br />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator13" ControlToValidate="txtInitialCqNo"
                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
-                ValidationExpression="[1-9]\d*$" ValidationGroup="SetUpSubmit">     
+                ValidationExpression="[0-9]\d*$" ValidationGroup="SetUpSubmit">     
             </asp:RegularExpressionValidator>
         </td>
         <td class="leftLabel">
@@ -1363,9 +1363,22 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
                                     </Columns>
-                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="555px">
+                                    <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="580px">
                                         <FormTemplate>
                                             <table width="80%">
+                                            <tr>
+                                            <td>
+                                           <%-- <table id="tblMessage" width="100%" runat="server" visible="false">
+                                         <tr id="trSumbitSuccess" runat="server">
+                                       <td align="center">
+                                       <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
+                                             </div>
+                                             </td>
+                                             </tr>
+                                             </table>--%>
+                                             <asp:Label ID="lblmessage" runat="server" Visible="false"></asp:Label>
+                                            </td>
+                                            </tr>
                                                 <tr>
                                                     <td width="20%" align="right">
                                                         <asp:Label ID="lb1SereiesName" runat="server" Text="Series Name:" CssClass="FieldName"></asp:Label>
@@ -1378,6 +1391,12 @@
                                                             ErrorMessage="Please Enter Sereies Name" Display="Dynamic" ControlToValidate="txtSereiesName"
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
+                                                        
+                                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator29" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="" Display="Dynamic" ControlToValidate="txtSereiesName"
+                                                            ValidationGroup="btnOK">
+                                                        </asp:RequiredFieldValidator>
+                                                        
                                                     </td>
                                                     <td width="25%" align="left">
                                                         <asp:Label ID="lb1Tenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>&nbsp;&nbsp;&nbsp;
@@ -1389,8 +1408,8 @@
                                                             ValidationGroup="btnOK" InitialValue="">
                                                         </asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtTenure"
-                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter (+)Ve Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
+                                                       runat="server" Display="Dynamic" ErrorMessage="Please Enter (+)Ve Digits" CssClass="cvPCG"
+                                                       ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1478,6 +1497,10 @@
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
+                                                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator26" runat="server" CssClass="rfvPCG"
+                                                            ErrorMessage="Please Enter value" Display="Dynamic" ControlToValidate="txtInterestRate"
+                                                            ValidationGroup="btnOK" InitialValue="">
+                                                        </asp:RequiredFieldValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At Maturity" AllowFiltering="false"

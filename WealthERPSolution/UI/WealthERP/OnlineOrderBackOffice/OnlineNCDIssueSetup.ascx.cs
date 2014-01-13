@@ -26,7 +26,7 @@ namespace WealthERP.OnlineOrderBackOffice
         OnlineNCDBackOfficeBo onlineNCDBackOfficeBo = new OnlineNCDBackOfficeBo();
         CommonLookupBo commonLookupBo = new CommonLookupBo();
         OnlineNCDBackOfficeVo onlineNCDBackOfficeVo;
-
+        int count=0;
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
@@ -1003,7 +1003,13 @@ namespace WealthERP.OnlineOrderBackOffice
         //        throw exBase;
         //    }
         //}
-
+        private void ShowMessage(string msg)
+        {
+            
+            //tblMessage.Visible = true;
+            //msgRecordStatus.InnerText = msg;
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "mykey", "hide();", true);
+        }
         protected void rgSeries_ItemCommand(object source, GridCommandEventArgs e)
         {
             int count = 0;
@@ -1048,10 +1054,25 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 //    txtTenure.Text = 0.ToString();
                 //}
+                //{
+                if (string.IsNullOrEmpty(txtSereiesName.Text))
+                    return;
 
 
-                int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
-
+                    count = onlineNCDBackOfficeBo.CheckIssueName(txtSereiesName.Text,Convert.ToInt32(txtIssueId.Text));
+                    if (count > 0)
+                    {
+                        //Label lbl = (Label)e.Item.FindControl("lblmessage");
+                        //lbl.Text = "Issue Name Already Exist";
+                        //lbl.Visible = true;
+                        //ShowMessage("Issue Name Already Exist");
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Issue Name Already Exist');", true);
+                        return;
+                    }
+                   
+                    
+                        int seriesId = CreateUpdateDeleteSeries(Convert.ToInt32(txtIssueId.Text), 0, txtSereiesName.Text, availblity, Convert.ToInt32(txtTenure.Text), ddltInterestFrequency.SelectedValue, ddlInterestType.SelectedValue, Convert.ToInt32(txtSequence.Text), "Insert");
+                    
                 foreach (GridDataItem gdi in rgSeriesCat.Items)
                 {
                     if (((CheckBox)gdi.FindControl("cbSeriesCat")).Checked == true)
@@ -1702,10 +1723,6 @@ namespace WealthERP.OnlineOrderBackOffice
                 {
 
                 }
-
-
-
-
             }
             catch (BaseApplicationException Ex)
             {
@@ -2345,6 +2362,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 pnlCategoriesDetailschild.Visible = false;
                 buttonlink.Text = "+";
             }
+           
             BindCategoriesDetailsGrid(categoryId, rgCategoriesDetails);
         }
 

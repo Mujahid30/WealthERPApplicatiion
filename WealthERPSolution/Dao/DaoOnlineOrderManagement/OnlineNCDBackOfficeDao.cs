@@ -865,8 +865,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@InvestorCatgeoryName", DbType.String, onlineNCDBackOfficeVo.CatgeoryName);
                 db.AddInParameter(createCmd, "@InvestorCatgeoryDescription", DbType.String, onlineNCDBackOfficeVo.CatgeoryDescription);
                 db.AddInParameter(createCmd, "@ChequePayableTo", DbType.String, onlineNCDBackOfficeVo.ChequePayableTo);
-                db.AddInParameter(createCmd, "@MInBidAmount", DbType.Int32, onlineNCDBackOfficeVo.MInBidAmount);
-                db.AddInParameter(createCmd, "@MaxBidAmount", DbType.Int32, onlineNCDBackOfficeVo.MaxBidAmount);
+                db.AddInParameter(createCmd, "@MInBidAmount", DbType.Double, onlineNCDBackOfficeVo.MInBidAmount);
+                db.AddInParameter(createCmd, "@MaxBidAmount", DbType.Double, onlineNCDBackOfficeVo.MaxBidAmount);
                 categoryId = db.ExecuteNonQuery(createCmd);
             }
             catch (BaseApplicationException Ex)
@@ -915,8 +915,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(createCmd, "@InvestorCatgeoryId ", DbType.Int32, onlineNCDBackOfficeVo.CatgeoryId);
                 db.AddInParameter(createCmd, "@InvestorId", DbType.Int32, onlineNCDBackOfficeVo.LookUpId);
                 db.AddInParameter(createCmd, "@InvestorSubTypeCode", DbType.String, onlineNCDBackOfficeVo.SubCatgeoryTypeCode);
-                db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Int32, onlineNCDBackOfficeVo.MinInvestmentAmount);
-                db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Int32, onlineNCDBackOfficeVo.MaxInvestmentAmount);
+                db.AddInParameter(createCmd, "@MinInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MinInvestmentAmount);
+                db.AddInParameter(createCmd, "@MaxInvestmentAmount", DbType.Double, onlineNCDBackOfficeVo.MaxInvestmentAmount);
 
                 if (db.ExecuteNonQuery(createCmd) != 0)
                     bResult = true;
@@ -1870,6 +1870,46 @@ namespace DaoOnlineOrderManagement
                 default:
                     return SqlDbType.VarChar;
             }
+        }
+        public int CheckIssueName(string externalcode,int issueid)
+        {
+            Database db;
+            DataSet ds;
+            DbCommand cmdCheckIssueName;
+            int count = 0;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                //checking year
+                cmdCheckIssueName = db.GetStoredProcCommand("SPROC_TocheckingIssueDetailName");
+                db.AddInParameter(cmdCheckIssueName, "@IssueDetailName", DbType.String, externalcode);
+                db.AddInParameter(cmdCheckIssueName, "@Issueid", DbType.Int32, issueid);
+                db.AddOutParameter(cmdCheckIssueName, "@count", DbType.Int32, 0);
+
+                ds = db.ExecuteDataSet(cmdCheckIssueName);
+                if (db.ExecuteNonQuery(cmdCheckIssueName) != 0)
+                {
+                    count = Convert.ToInt32(db.GetParameterValue(cmdCheckIssueName, "count").ToString());
+                }
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "AssociateDAO.cs:CheckIssueName()");
+                object[] objects = new object[2];
+                objects[0] = externalcode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return count;
         }
     }
 }

@@ -1160,7 +1160,20 @@ namespace BoOnlineOrderManagement
             }
             return nRows;
         }
-
+        public int CheckIssueName(string Issuename,int issueid)
+        {
+            int result = 0;
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            try
+            {
+                result = daoOnlNcdBackOff.CheckIssueName(Issuename,issueid);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return result;
+        }
          
     }
 }
