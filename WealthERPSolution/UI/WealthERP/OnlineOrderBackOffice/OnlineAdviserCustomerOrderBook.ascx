@@ -139,7 +139,7 @@
                     </exportsettings>
                     <mastertableview datakeynames="CO_OrderId,C_CustomerId,PAG_AssetGroupCode,CO_OrderDate,WMTT_TransactionClassificationCode"
                         width="102%" allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None"
-                        allowfilteringbycolumn="true">
+                        allowfilteringbycolumn="true" UseAllDataFields="true">
                         <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                             ShowExportToCsvButton="false" ShowAddNewRecordButton="false" ShowRefreshButton="false" />
                         <Columns>
