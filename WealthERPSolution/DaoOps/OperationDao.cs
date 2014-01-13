@@ -272,7 +272,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getMannualMatchcmd = db.GetStoredProcCommand("SPORC_Onl_EXGetMannualOrderMapping");
+                getMannualMatchcmd = db.GetStoredProcCommand("SPORC_Onl_GetMannualOrderMapping");
                 db.AddInParameter(getMannualMatchcmd, "@schemeCode", DbType.Int32, scheme);
                 db.AddInParameter(getMannualMatchcmd, "@accountId", DbType.Int32, accountId);
                 db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
