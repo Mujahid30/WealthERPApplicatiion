@@ -1280,6 +1280,7 @@ namespace WealthERP.OPS
                 string TrxType = string.Empty;
                 DateTime OrderDate = DateTime.MinValue;
                 int OnlineStatus = 0;
+                int UserTransactionNo = 0;
 
                 foreach (GridDataItem gdi in gvCustomerOrderMIS.Items)
                 {
@@ -1291,6 +1292,8 @@ namespace WealthERP.OPS
                         //gdi = (GridDataItem)lnkOrderId.NamingContainer;
                         int selectedRow = gdi.ItemIndex + 1;
                         OrderId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CO_OrderId"].ToString());
+                        if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_UserTransactionNo"].ToString()))
+                            UserTransactionNo = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFT_UserTransactionNo"].ToString());
                         CustomerId = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["C_CustomerId"].ToString());
                         SchemeCode = int.Parse(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["PASP_SchemePlanCode"].ToString());
                         if (!string.IsNullOrEmpty(gvCustomerOrderMIS.MasterTableView.DataKeyValues[selectedRow - 1]["CMFA_AccountId"].ToString().Trim()))
@@ -1310,7 +1313,7 @@ namespace WealthERP.OPS
                         else
                             OnlineStatus = 0;
 
-                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "&OnlineStatus=" + OnlineStatus + "','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
+                        Response.Write("<script type='text/javascript'>detailedresults=window.open('OPS/ManualOrderMapping.aspx?result=" + OrderId + "&SchemeCode=" + SchemeCode + "&AccountId=" + accountId + "&Type=" + TrxType + "&Amount=" + Amount + "&OrderDate=" + OrderDate + "&Customerid=" + CustomerId + "&SchemeSwitch=" + schemeCodeSwitch + "&OnlineStatus=" + OnlineStatus + "&userTranscationNo=" +UserTransactionNo +"','mywindow', 'width=1000,height=450,scrollbars=yes,location=center');</script>");
                     }
 
                 }

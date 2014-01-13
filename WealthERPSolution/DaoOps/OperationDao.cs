@@ -262,9 +262,9 @@ namespace DaoOps
             }
             return dsOrderMIS;
         }
-        
 
-        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+
+        public DataSet Get_Onl_OrderMannualMatch(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo)
         {
             DataSet dsmannualMatch;
             Database db;
@@ -272,7 +272,7 @@ namespace DaoOps
             try
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
-                getMannualMatchcmd = db.GetStoredProcCommand("SPORC_Onl_GetMannualOrderMapping");
+                getMannualMatchcmd = db.GetStoredProcCommand("SPORC_Onl_EXGetMannualOrderMapping");
                 db.AddInParameter(getMannualMatchcmd, "@schemeCode", DbType.Int32, scheme);
                 db.AddInParameter(getMannualMatchcmd, "@accountId", DbType.Int32, accountId);
                 db.AddInParameter(getMannualMatchcmd, "@transactiontype", DbType.String, type);
@@ -280,6 +280,7 @@ namespace DaoOps
                 db.AddInParameter(getMannualMatchcmd, "@orderDate", DbType.DateTime, orderDate);
                 db.AddInParameter(getMannualMatchcmd, "@customerId", DbType.Int32, customerId);
                 db.AddInParameter(getMannualMatchcmd, "@schemeSwitchCode", DbType.Int32, schemeSwitch);
+                db.AddInParameter(getMannualMatchcmd, "@CMFT_UserTransactionNo", DbType.Int32,UserTransactionNo);
                 dsmannualMatch = db.ExecuteDataSet(getMannualMatchcmd);
             }
             catch (BaseApplicationException Ex)

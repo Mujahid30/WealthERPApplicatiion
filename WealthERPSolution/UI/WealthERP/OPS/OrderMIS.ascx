@@ -661,7 +661,7 @@
                         <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
                             FileName="MF Order Recon" Excel-Format="ExcelML">
                         </ExportSettings>
-                        <MasterTableView DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch,CO_IsOnline"
+                        <MasterTableView DataKeyNames="CO_OrderId,CMFOD_OrderDetailsId,C_CustomerId,CP_portfolioId,PASP_SchemePlanCode,CMFA_AccountId,WMTT_TransactionClassificationCode,CMFOD_Amount,CO_OrderDate,PASP_SchemePlanSwitch,CO_IsOnline,CMFT_UserTransactionNo"
                             Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
                             EditMode="PopUp">
                             <Columns>
