@@ -155,7 +155,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvOrderBookMIS.DataBind();
                 gvOrderBookMIS.Visible = true;
                 pnlOrderBook.Visible = true;
-                btnExport.Visible = true;
+                imgexportButton.Visible = true;
                 trNoRecords.Visible = false;
                 if (Cache["OrderList" + advisorVo.advisorId] == null)
                 {
@@ -174,7 +174,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 gvOrderBookMIS.DataBind();               
                 pnlOrderBook.Visible = true;
                 trNoRecords.Visible = true;
-                btnExport.Visible = false;
+                imgexportButton.Visible = false;
             }
         }
         private void SetParameter()
@@ -246,16 +246,27 @@ namespace WealthERP.OnlineOrderBackOffice
           
         }
            
-        protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        //protected void btnExportFilteredData_OnClick(object sender, EventArgs e)
+        //{
+        //    gvOrderBookMIS.ExportSettings.OpenInNewWindow = true;
+        //    gvOrderBookMIS.ExportSettings.IgnorePaging = true;
+        //    gvOrderBookMIS.ExportSettings.HideStructureColumns = false;
+        //    gvOrderBookMIS.ExportSettings.ExportOnlyData = true;
+        //    gvOrderBookMIS.ExportSettings.FileName = "OrderBook Details";
+        //    gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+        //    gvOrderBookMIS.MasterTableView.ExportToExcel();
+        //}
+        public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            gvOrderBookMIS.ExportSettings.OpenInNewWindow = true;
-            gvOrderBookMIS.ExportSettings.IgnorePaging = true;
-            gvOrderBookMIS.ExportSettings.HideStructureColumns = true;
-            gvOrderBookMIS.ExportSettings.ExportOnlyData = true;
-            gvOrderBookMIS.ExportSettings.FileName = "OrderBook Details";
-            gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            gvOrderBookMIS.MasterTableView.ExportToExcel();
-        }
-
+            
+                gvOrderBookMIS.ExportSettings.OpenInNewWindow = true;
+                gvOrderBookMIS.ExportSettings.IgnorePaging = true;
+                //gvOrderBookMIS.ExportSettings.HideStructureColumns = false;
+                gvOrderBookMIS.ExportSettings.ExportOnlyData = true;
+                gvOrderBookMIS.ExportSettings.FileName = "OrderBook Details";
+                gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+                gvOrderBookMIS.MasterTableView.ExportToExcel();
+            }
+            
         }
     }

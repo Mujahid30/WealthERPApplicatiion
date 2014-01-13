@@ -21,9 +21,9 @@
                                 OnClick="lnkBtnBack_Click"></asp:LinkButton>
                         </td>--%>
                         <td align="right" style="width: 10px">
-                            <asp:ImageButton Visible="false" ID="btnExport" ImageUrl="~/App_Themes/Maroon/Images/Export_Excel.png"
-                                runat="server" AlternateText="Excel" ToolTip="Export To Excel" OnClick="btnExportFilteredData_OnClick"
-                                OnClientClick="setFormat('excel')" Height="20px" Width="25px"></asp:ImageButton>
+                       <asp:ImageButton ID="imgexportButton" ImageUrl="~/Images/Export_Excel.png" runat="server"
+                                AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
+                                Height="25px" Width="25px" OnClick="btnExportData_OnClick"></asp:ImageButton>
                         </td>
                     </tr>
                 </table>
@@ -287,7 +287,13 @@
                                 AllowFiltering="true" HeaderText="Approval Date" UniqueName="CMFOD_ApprovalDate"
                                 SortExpression="CMFOD_ApprovalDate" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                 AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
-                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />                                 
+                            </telerik:GridBoundColumn>
+                            <telerik:GridBoundColumn DataField="CMFOD_ISAllunits" DataFormatString="{0:dd/MM/yyyy}"
+                                AllowFiltering="true" HeaderText="Redeem All" UniqueName="CMFOD_ISAllunits"
+                                SortExpression="CMFOD_ISAllunits" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                AutoPostBackOnFilter="true" HeaderStyle-Width="80px" FilterControlWidth="60px">
+                                <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />                                 
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn DataField="XS_Status" AllowFiltering="false" HeaderText="Status"
                                 HeaderStyle-Width="90px" UniqueName="XS_Status" SortExpression="XS_Status" ShowFilterIcon="false"
