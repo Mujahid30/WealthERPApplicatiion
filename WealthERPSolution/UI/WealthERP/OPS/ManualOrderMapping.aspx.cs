@@ -19,6 +19,7 @@ namespace WealthERP.OPS
         int accountId;
         int customerId;
         int schemeSwitch;
+        int UserTransactionNo;
         int onlineMFOrderFlag = 0;
         string type;
         double amount;
@@ -71,13 +72,16 @@ namespace WealthERP.OPS
             {
                 onlineMFOrderFlag = Convert.ToInt32(Request.QueryString["OnlineStatus"]);
             }
-           
+            if (Request.QueryString["userTranscationNo"] != null)
+            {
+                UserTransactionNo = Convert.ToInt32(Request.QueryString["userTranscationNo"]);
+            }
 
             if (!IsPostBack)
             {
                 if (onlineMFOrderFlag == 1)
                 {
-                    Bind_Onl_MannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+                    Bind_Onl_MannualMatchGrid(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch,UserTransactionNo);
                 }
                 else
                 {
@@ -86,13 +90,13 @@ namespace WealthERP.OPS
 
             }
         }
-        private void Bind_Onl_MannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch)
+        private void Bind_Onl_MannualMatchGrid(int scheme, int accountId, string type, double amount, DateTime orderDate, int customerId, int schemeSwitch, int UserTransactionNo)
         {
             //string orderIds = Ids;
             string OrderType;
             DataSet dsOrderMannualMatch;
             DataTable dtOrderMannualMatch;
-            dsOrderMannualMatch = operationBo.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch);
+            dsOrderMannualMatch = operationBo.Get_Onl_OrderMannualMatch(scheme, accountId, type, amount, orderDate, customerId, schemeSwitch,UserTransactionNo);
             dtOrderMannualMatch = dsOrderMannualMatch.Tables[0];
             if (dtOrderMannualMatch.Rows.Count > 0)
             {
