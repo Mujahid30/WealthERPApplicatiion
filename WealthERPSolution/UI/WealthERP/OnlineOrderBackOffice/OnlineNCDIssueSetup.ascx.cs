@@ -2417,12 +2417,25 @@ namespace WealthERP.OnlineOrderBackOffice
 
         protected void rgCategoriesDetails_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
-            RadGrid rgCategoriesDetails = (RadGrid)sender; // Get reference to grid 
-            GridDataItem nesteditem = (GridDataItem)rgCategoriesDetails.NamingContainer;
-            int catgeoryId = Convert.ToInt32(rgSeries.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
-            DataTable dtCategoriesDetails = new DataTable();
-            dtCategoriesDetails = onlineNCDBackOfficeBo.GetSubTypePerCategoryDetails(catgeoryId).Tables[0];
-            rgCategoriesDetails.DataSource = dtCategoriesDetails;
+
+
+
+            RadGrid rgCategoriesDetails1 = (RadGrid)sender; // Get reference to grid 
+            GridDataItem nesteditem = (GridDataItem)rgCategoriesDetails1.NamingContainer;
+            //RadGrid rgCategoriesDetails2 = (RadGrid)rgCategoriesDetails1.NamingContainer; // Get reference to grid 
+
+            int catgeoryId = 0;
+
+            if (nesteditem.ItemIndex > 0)
+            {
+
+                catgeoryId = Convert.ToInt32(rgEligibleInvestorCategories.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIIC_InvestorCatgeoryId"].ToString());
+            }
+                DataTable dtCategoriesDetails = new DataTable();
+                dtCategoriesDetails = onlineNCDBackOfficeBo.GetSubTypePerCategoryDetails(catgeoryId).Tables[0];
+                rgCategoriesDetails1.DataSource = dtCategoriesDetails;
+            
+
         }
 
         private void BindCategoriesDetailsGrid(int categoryId, RadGrid rgCategoriesDetails)

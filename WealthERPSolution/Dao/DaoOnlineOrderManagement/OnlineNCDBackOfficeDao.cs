@@ -1146,7 +1146,7 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 dbCommand = db.GetStoredProcCommand("SPROC_GetCategoryDetails");
-                db.AddInParameter(dbCommand, "@AIIC_InvestorCatgeoryId", DbType.Int32, investorCatgeoryId);
+                db.AddInParameter(dbCommand, "@categoryId", DbType.Int32, investorCatgeoryId);
                 dsGetSubCategory = db.ExecuteDataSet(dbCommand);
             }
             catch (BaseApplicationException Ex)

@@ -1044,7 +1044,7 @@
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIICST_InvestorSubTypeCode" HeaderStyle-Width="30px"
                                                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                                                            HeaderText="SubType Code" UniqueName="AIIC_InvestorSubTypeCode" SortExpression="AIIC_InvestorSubTypeCode">
+                                                                            HeaderText="SubType Code" UniqueName="AIICST_InvestorSubTypeCode" SortExpression="AIICST_InvestorSubTypeCode">
                                                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="20px" Wrap="false" />
                                                                         </telerik:GridBoundColumn>
                                                                         <telerik:GridBoundColumn DataField="AIICST_MinInvestmentAmount" HeaderStyle-Width="30px"
