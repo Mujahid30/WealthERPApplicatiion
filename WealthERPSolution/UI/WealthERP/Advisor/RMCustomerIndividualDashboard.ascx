@@ -128,9 +128,9 @@
                 <Columns>
                     <asp:TemplateField HeaderText="Member Name">
                         <ItemTemplate>
-                            <asp:LinkButton ID="lnkCustomerName" runat="server" CssClass="CmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
-                                Text='<%# Eval("Name") %>'>
-                            </asp:LinkButton>
+                            <asp:Label ID="lnkCustomerName" runat="server" CssClass="CmbField" OnClick="lnkCustomerNameFamilyGrid_Click"
+                                Text='<%# Eval("Name") %>' >
+                            </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:BoundField DataField="Relationship" HeaderText="Relationship" />
