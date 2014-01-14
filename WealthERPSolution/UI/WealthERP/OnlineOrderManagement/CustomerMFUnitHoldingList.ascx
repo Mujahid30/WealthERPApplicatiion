@@ -209,7 +209,7 @@
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn HeaderStyle-Width="80px" UniqueName="RedeemedAmount" HeaderText="Sold Value"
-                                DataField="RedeemedAmount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N2}"
+                                DataField="RedeemedAmount" FooterStyle-HorizontalAlign="Right" DataFormatString="{0:N0}"
                                 Aggregate="Sum" AllowFiltering="false">
                                 <ItemStyle HorizontalAlign="Right" />
                             </telerik:GridBoundColumn>

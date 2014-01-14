@@ -251,7 +251,7 @@
                                 <telerik:GridBoundColumn DataField="Amount" HeaderText="Amount (Rs)" AllowFiltering="false"
                                     HeaderStyle-Wrap="false" SortExpression="Amount" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="Amount" FooterStyle-HorizontalAlign="Right"
-                                    DataFormatString="{0:n2}" Aggregate="Sum" >
+                                    DataFormatString="{0:n0}">
                                     <ItemStyle Width="" HorizontalAlign="Right" Wrap="false" VerticalAlign="Top" />
                                 </telerik:GridBoundColumn>
                                 <telerik:GridBoundColumn DataField="Units" HeaderText="Units" AllowFiltering="false"
