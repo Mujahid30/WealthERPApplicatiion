@@ -287,7 +287,7 @@ namespace WealthERP.OnlineOrderManagement
             }
             CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows[0][1].ToString());
             lblUnitsheldDisplay.Text = finalunits.ToString();
-            lblCurrentValueDisplay.Text = finalamt.ToString();
+            lblCurrentValueDisplay.Text = Math.Round(finalamt,2).ToString();
 
         }
         protected void BindAmcForDrillDown()
