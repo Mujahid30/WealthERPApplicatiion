@@ -681,16 +681,16 @@
                         </telerik:GridBoundColumn>--%>
                                 <%--<telerik:GridButtonColumn HeaderStyle-Width="50px" ButtonType="LinkButton" Text='<%#Eval("CMFOD_OrderNumber").ToString() %>' CommandName="ViewOrder">
                           </telerik:GridButtonColumn>--%>
-                                <telerik:GridTemplateColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
+                                <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Order/Transaction No."
                                     SortExpression="CO_OrderId" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                     AutoPostBackOnFilter="true" UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
-                                    <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
+                                   <%-- <ItemStyle Width="" HorizontalAlign="Center" Wrap="false" VerticalAlign="Top" />
                                     <ItemTemplate>
                                         <asp:LinkButton ID="lnkOrderNo" runat="server" CssClass="cmbFielde" Text='<%# Eval("CO_OrderId") %>'
                                             OnClick="lnkOrderNo_Click">
                                         </asp:LinkButton>
-                                    </ItemTemplate>
-                                </telerik:GridTemplateColumn>
+                                    </ItemTemplate>--%>
+                                </telerik:GridBoundColumn>
                                 <telerik:GridTemplateColumn HeaderText="OrderDetID" AllowFiltering="false" DataField="CMFOD_OrderNumber"
                                     Visible="false">
                                     <ItemStyle />
@@ -821,7 +821,7 @@
                                     EditText="Mark As Reject" CancelText="Cancel" UpdateText="OK">
                                 </telerik:GridEditCommandColumn>
                             </Columns>
-                            <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px">
+                            <EditFormSettings FormTableStyle-Height="40%" EditFormType="Template" FormMainTableStyle-Width="300px" >
                                 <FormTemplate>
                                     <table style="background-color: White;" border="0">
                                         <tr>

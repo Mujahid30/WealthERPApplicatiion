@@ -377,6 +377,12 @@ namespace WealthERP.Advisor
 
         protected void ddlTitleList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            AgentCodesvalidation();
+        }
+
+        protected void AgentCodesvalidation()
+        {
+
             if (ddlTitleList.SelectedIndex != -1)
             {
                 if (ddlTitleList.SelectedItem.Text == "OPS")
@@ -389,11 +395,12 @@ namespace WealthERP.Advisor
                     lblrg.Visible = true;
                     RequiredFieldValidator6.Enabled = true;
                 }
-                
-                    BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
+
+                BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
             }
 
         }
+
 
         protected void ddlTeamList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -646,6 +653,7 @@ namespace WealthERP.Advisor
 
             ddlTeamList.SelectedValue = rmStaffVo.HierarchyTeamId.ToString();
             ddlTitleList.SelectedValue = rmStaffVo.HierarchyTitleId.ToString();
+            AgentCodesvalidation();
             ddlRportingRole.SelectedValue = rmStaffVo.HierarchyRoleId.ToString();
             ddlReportingMgr.SelectedValue = rmStaffVo.ReportingManagerId.ToString();
 

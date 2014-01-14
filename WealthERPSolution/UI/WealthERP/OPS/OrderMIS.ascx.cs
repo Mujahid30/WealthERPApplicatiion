@@ -1868,7 +1868,10 @@ namespace WealthERP.OPS
                         mforderVo.ARNNo = dr["CMFOD_ARNNo"].ToString();
                     else
                         mforderVo.ARNNo = "";
-
+                    if (!string.IsNullOrEmpty(dr["Ordstatus"].ToString()))
+                   mforderVo.OrderStatusCode=  dr["Ordstatus"].ToString();
+                      else
+                         mforderVo.OrderStatusCode="";
                 }
                 Session["orderVo"] = orderVo;
                 Session["mforderVo"] = mforderVo;
