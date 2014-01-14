@@ -29,13 +29,23 @@ namespace WealthERP.General
 
         protected void lblSignOut_Click(object sender, EventArgs e)
         {
-            string userLoginPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];           
-            if (!string.IsNullOrEmpty(userLoginPageURL))
+            string loginPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];
+            string logoutPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGOUT_URL"];
+            HttpCookie cookie;
+            Session.Abandon();
+            if (Request.Cookies["UserPreference"] != null)
             {
-                Session.Abandon();
-                Response.Redirect(userLoginPageURL);
+                cookie = Request.Cookies["UserPreference"];
+                Response.Redirect(Request.Cookies["UserPreference"].Values["UserLogOutPageURL"].ToString());
+                Response.Redirect(Request.Cookies["UserPreference"].Values["UserLoginPageURL"].ToString());
+
             }
-            
+            else if (!string.IsNullOrEmpty(loginPageURL))
+            {
+                Response.Redirect(logoutPageURL);
+                Response.Redirect(loginPageURL);
+            }
+
         }
     }
 }

@@ -274,7 +274,9 @@ namespace WealthERP.General
                         }
                     }
 
-                    if ((isPassWordMathed && isIPAuthenticated) || (isPassWordMathed && advisorVo.IsIPEnable == 0))  // Validating the User Using the Username and Password
+                    bool isUserAlreadyLogedIn = ValidateSingleUserAuthentication(userVo.UserId.ToString());
+
+                    if ((isPassWordMathed && isIPAuthenticated && isUserAlreadyLogedIn) || (isPassWordMathed && advisorVo.IsIPEnable == 0 && isUserAlreadyLogedIn))  // Validating the User Using the Username and Password
                     {
                         Session["id"] = "";
                         lblIllegal.Visible = true;
@@ -822,11 +824,16 @@ namespace WealthERP.General
                         {
                             if (((advisorVo.IsIPEnable == 0) && (!isPassWordMathed)) || ((advisorVo.IsIPEnable == 1) && ((!isPassWordMathed))))
                             {
-                                lblIllegal.Text = "Username and Password does not match";
+                                lblIllegal.Text = "Username and Password does not match..!!";
                             }
                             else if ((advisorVo.IsIPEnable == 1) && (!isIPAuthenticated))
                             {
                                 lblIllegal.Text = "IP Authentication is failed..!!";
+                            }
+                            else if (!isUserAlreadyLogedIn)
+                            {
+                                lblIllegal.Text = "User already logged in..!!";
+
                             }
 
                         }
@@ -839,6 +846,29 @@ namespace WealthERP.General
                     }
                 }
             }
+        }
+
+        private bool ValidateSingleUserAuthentication(string userId)
+        {
+            bool isUserLogedIn = false;
+            Hashtable currentLoginUserList = new Hashtable();
+            if (Application["LoginUserList"] != null)
+                currentLoginUserList = (Hashtable)Application["LoginUserList"];
+
+            isUserLogedIn = currentLoginUserList.ContainsValue(userId);
+            if (!isUserLogedIn)
+            {
+                currentLoginUserList.Add(Session.SessionID.ToString(), userId);
+                Application["LoginUserList"] = currentLoginUserList;
+                isUserLogedIn = true;
+            }
+            else
+            {
+                isUserLogedIn = false;
+            }
+
+            return isUserLogedIn;
+
         }
 
         private bool CheckIPAuthentication(List<string> roleList, AdvisorVo advisorVo)
@@ -1557,7 +1587,7 @@ namespace WealthERP.General
         private void ValidateUserLogin(string userAccountId)
         {
 
-            userVo = userBo.GetUserAccountDetails(userAccountId,0);
+            userVo = userBo.GetUserAccountDetails(userAccountId, 0);
 
             if (userVo != null)
             {

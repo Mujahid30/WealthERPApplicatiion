@@ -235,6 +235,7 @@
 <body>
     <form id="form1" runat="server">
     <asp:HiddenField ID="hidUserLogOutPageUrl" Value="" runat="server" />
+    <asp:HiddenField ID="hidUserLogInPageUrl" Value="" runat="server" />
     <div>
         <asp:ScriptManager ID="ScriptManager" runat="server" EnablePageMethods="true" />
         <div class="div-with-header">

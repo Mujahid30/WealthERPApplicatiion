@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.IO;
+using System.Collections;
+using System.Net.Cache;
+
 
 namespace WealthERP
 {
@@ -41,7 +44,13 @@ namespace WealthERP
 
         protected void Session_End(object sender, EventArgs e)
         {
-            
+            Hashtable currentLoginUserList = new Hashtable();
+            if (Application["LoginUserList"] != null)
+            {
+                currentLoginUserList = (Hashtable)Application["LoginUserList"];
+                currentLoginUserList.Remove(Session.SessionID.ToString());
+                Application["LoginUserList"] = currentLoginUserList;
+            }
         }
 
         protected void Application_End(object sender, EventArgs e)

@@ -55,6 +55,34 @@ namespace WealthERP.OnlineOrderManagement
         List<OnlineMFOrderVo> SipDataForOrderEditList = new List<OnlineMFOrderVo>();
         DataTable dtFrequency;
         string clientMFAccessCode = string.Empty;
+        string userAccountId;
+        string productType;
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
+            {
+                userAccountId = Page.Request.Headers["x-Account-ID"].ToString();
+                if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
+                {
+                    productType = Page.Request.Headers["x-SBI-PType"];
+                    
+                }
+            }
+            else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
+            {
+                userAccountId = Request.QueryString["x-Account-ID"].ToString();
+
+                if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
+                {
+                    productType = Request.QueryString["x-SBI-PType"];                   
+                }
+            }
+
+            lblTest.Text = productType;
+            lblUserAccount.Text = userAccountId;
+
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -856,7 +884,7 @@ namespace WealthERP.OnlineOrderManagement
             ddlFolio.Enabled = false;
             ddlFrequency.Enabled = false;
             ddlStartDate.Enabled = false;
-            txtAmount.Enabled = false;            
+            txtAmount.Enabled = false;
             ddlTotalInstallments.Enabled = false;
             ddlDividendFreq.Enabled = false;
             ddlDividendOption.Enabled = false;

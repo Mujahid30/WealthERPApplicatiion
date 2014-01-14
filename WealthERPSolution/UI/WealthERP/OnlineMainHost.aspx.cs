@@ -183,7 +183,7 @@ namespace WealthERP
 
         private bool ValidateUserLogin(string userAccountId, string isWerp)
         {
-            
+
             string strOnlineAdviser = "0";
             bool isValidUser = false;
             UserBo userBo = new UserBo();
@@ -263,14 +263,24 @@ namespace WealthERP
         private void SetAdviserPreference()
         {
             AdviserPreferenceBo adviserPreferenceBo = new AdviserPreferenceBo();
+            string logoutPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGOUT_URL"];
+            string loginPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];
             advisorPreferenceVo = adviserPreferenceBo.GetAdviserPreference(advisorVo.advisorId);
             if (advisorPreferenceVo != null)
             {
                 UserPreference = new HttpCookie("UserPreference");
                 UserPreference.Values["UserTheme"] = "SBIOnLine";
-                hidUserLogOutPageUrl.Value = advisorPreferenceVo.LoginWidgetLogOutPageURL;
-                if (!string.IsNullOrEmpty(advisorPreferenceVo.LoginWidgetLogOutPageURL))
-                    UserPreference.Values["UserLoginPageURL"] = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+                hidUserLogOutPageUrl.Value = logoutPageURL;
+                hidUserLogInPageUrl.Value = loginPageURL;
+
+                if (!string.IsNullOrEmpty(loginPageURL))
+                    UserPreference.Values["UserLoginPageURL"] = loginPageURL;
+
+                if (!string.IsNullOrEmpty(logoutPageURL))
+                    UserPreference.Values["UserLogOutPageURL"] = logoutPageURL;
+                else if (!string.IsNullOrEmpty(advisorPreferenceVo.LoginWidgetLogOutPageURL))
+                    UserPreference.Values["UserLogOutPageURL"] = advisorPreferenceVo.LoginWidgetLogOutPageURL;
+
                 UserPreference.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(UserPreference);
                 Session["AdvisorPreferenceVo"] = advisorPreferenceVo;
@@ -286,6 +296,9 @@ namespace WealthERP
         {
             string currentURL = string.Empty;
             string logoutPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGOUT_URL"];
+            string loginPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];
+            Session.Abandon();
+
             if (Request.ServerVariables["HTTPS"].ToString() == "")
             {
                 currentURL = Request.ServerVariables["SERVER_PROTOCOL"].ToString().ToLower().Substring(0, 4).ToString() + "://" + Request.ServerVariables["SERVER_NAME"].ToString() + ":" + Request.ServerVariables["SERVER_PORT"].ToString() + Request.ServerVariables["SCRIPT_NAME"].ToString();
@@ -293,20 +306,25 @@ namespace WealthERP
             if (currentURL.Contains("localhost"))
             {
                 currentURL = currentURL.Replace("OnlineMainHost", "Default");
-                Session.Abandon();
                 Response.Redirect(currentURL);
             }
             else
             {
-                if (!string.IsNullOrEmpty(hidUserLogOutPageUrl.Value))
+                if (!string.IsNullOrEmpty(loginPageURL))
                 {
-                    Session.Abandon();
+                    Response.Redirect(logoutPageURL);
+                    Response.Redirect(loginPageURL);
+                }
+                else if (!string.IsNullOrEmpty(hidUserLogInPageUrl.Value))
+                {
                     Response.Redirect(hidUserLogOutPageUrl.Value);
+                    Response.Redirect(hidUserLogInPageUrl.Value);
                 }
                 else
                 {
-                    Session.Abandon();
-                    Response.Redirect(logoutPageURL);
+                    currentURL = currentURL.Replace("OnlineMainHost", "Default");
+                    Response.Redirect(currentURL);
+
                 }
             }
 

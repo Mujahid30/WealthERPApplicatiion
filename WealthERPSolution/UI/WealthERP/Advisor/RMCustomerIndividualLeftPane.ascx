@@ -341,7 +341,7 @@
                                 <Items>
                                     <telerik:RadPanelItem runat="server" Text="MFOrder" Value="MFOrder">
                                         <Items>
-                                            <telerik:RadPanelItem runat="server" Text="MF Online Landing Page" Value="MF_Online_Landing_Page">
+                                            <telerik:RadPanelItem runat="server" Text="MF Online Landing Page" Value="MF_Online_Landing_Page" Visible="false">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Transact" Value="Transact">
                                                 <Items>
