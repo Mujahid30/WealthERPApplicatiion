@@ -677,10 +677,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 ddlDFrequency.Enabled = false;
                 btnupdate.Visible = false;
                 btnsubmit.Visible = false;
-                txtScname.Visible = false;
-                lblScname.Visible = false;
-                ddlSchemeList.Visible = true;
-                Label4.Visible = true;
+                txtScname.Visible = true;
+                lblScname.Visible = true;
+                ddlSchemeList.Visible = false;
+                Label4.Visible = false;
                 rfvtxtScname.Visible = false;
                 txtSwitchMultipleAmount.Enabled = false;
                 txtSwitchMultipleUnits.Enabled = false;
@@ -703,11 +703,11 @@ namespace WealthERP.OnlineOrderBackOffice
                 txtSwitchMultipleAmount.Enabled = true;
                 txtRedemptionmultiple.Enabled = true;
                 rfvtxtScname.Visible = false;
-                Label4.Visible = true;
-                ddlSchemeList.Visible = true;
-                txtScname.Visible = false;
-                lblScname.Visible = false;
-                txtScname.Enabled = false;
+                Label4.Visible = false;
+                ddlSchemeList.Visible = false;
+                txtScname.Visible = true;
+                lblScname.Visible = true;
+                txtScname.Enabled = true;
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
                 ddlcategory.Enabled = false;
@@ -766,7 +766,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
 
-            // txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
+            txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             //txtAMFI.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             //BindAMC();           
@@ -1052,7 +1052,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             mfProductAMCSchemePlanDetailsVo = (MFProductAMCSchemePlanDetailsVo)Session["SchemeList"];
 
-            // txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
+           txtScname.Text = mfProductAMCSchemePlanDetailsVo.SchemePlanName;
             txtESSchemecode.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             //txtAMFI.Text = mfProductAMCSchemePlanDetailsVo.ExternalCode;
             //BindAMC();
@@ -2068,10 +2068,11 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             else
             {
+                Label4.Visible = false;
                 ddlProduct.Enabled = false;
                 ChkNRI.Enabled = false;
                 ChkBO.Enabled = false;
-                txtScname.Enabled = false;
+                txtScname.Enabled = true;
                 txtAMFI.Enabled = false;
                 ddlAmc.Enabled = false;
                 ddlcategory.Enabled = false;

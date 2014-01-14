@@ -1133,6 +1133,9 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateSchemeSetUpDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateSchemeSetUpDetail");
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@AmcCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@AmcCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@SchemplanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode); //1
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue); //2
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType); //3

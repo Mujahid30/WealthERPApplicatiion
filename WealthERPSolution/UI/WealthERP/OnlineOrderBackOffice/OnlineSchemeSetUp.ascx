@@ -141,15 +141,17 @@
                     CssClass="rfvPCG" ControlToValidate="ddlSScategory" ValidationGroup="btnsubmit"
                     Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
-            <td align="right">
-                <asp:Label ID="Label4" runat="server" Text="Scheme:" CssClass="FieldName" Visible="false"> </asp:Label>
+             <td align="right">
+                <asp:Label ID="lblScname" runat="server" Text="Scheme Name:" CssClass="FieldName"
+                    Visible="true"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" Style="width: 300px;"
-                    Visible="false">
-                    <asp:ListItem Text="Select" Value="Select" Selected="false" />
-                </asp:DropDownList>
+                <asp:TextBox ID="txtScname" runat="server" CssClass="cmbFielde" Visible="true" Width="294"></asp:TextBox>
+                 <span id="Span25" class="spnRequiredField">*</span>
+                    <br />
+                <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter New Scheme Name"
+                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnsubmit" Display="Dynamic"
+                    InitialValue=""></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -177,17 +179,16 @@
                     CssClass="rfvPCG" ControlToValidate="ddlRT" ValidationGroup="btnsubmit" Display="Dynamic"
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
+           
             <td align="right">
-                <asp:Label ID="lblScname" runat="server" Text="New Scheme Name:" CssClass="FieldName"
-                    Visible="true"></asp:Label>
+                <asp:Label ID="Label4" runat="server" Text="Scheme:" CssClass="FieldName" Visible="false"> </asp:Label>
             </td>
             <td>
-                <asp:TextBox ID="txtScname" runat="server" CssClass="cmbFielde" Visible="true" Width="300"></asp:TextBox>
-                <%-- <span id="Span25" class="spnRequiredField">*</span>
-                    <br />--%>
-                <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter New Scheme Name"
-                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue=""></asp:RequiredFieldValidator>
+                <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" Style="width: 300px;"
+                    Visible="false">
+                    <asp:ListItem Text="Select" Value="Select" Selected="false" />
+                </asp:DropDownList>
             </td>
             <%--<td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
         </tr>

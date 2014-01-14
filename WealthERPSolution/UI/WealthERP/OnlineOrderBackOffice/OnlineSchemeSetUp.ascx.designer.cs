@@ -221,22 +221,31 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvddlSScategory;
         
         /// <summary>
-        /// Label4 control.
+        /// lblScname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label4;
+        protected global::System.Web.UI.WebControls.Label lblScname;
         
         /// <summary>
-        /// ddlSchemeList control.
+        /// txtScname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList;
+        protected global::System.Web.UI.WebControls.TextBox txtScname;
+        
+        /// <summary>
+        /// rfvtxtScname control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtScname;
         
         /// <summary>
         /// lblRT control.
@@ -266,31 +275,22 @@ namespace WealthERP.OnlineOrderBackOffice {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvddlRT;
         
         /// <summary>
-        /// lblScname control.
+        /// Label4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScname;
+        protected global::System.Web.UI.WebControls.Label Label4;
         
         /// <summary>
-        /// txtScname control.
+        /// ddlSchemeList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtScname;
-        
-        /// <summary>
-        /// rfvtxtScname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvtxtScname;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSchemeList;
         
         /// <summary>
         /// lblToadd control.
