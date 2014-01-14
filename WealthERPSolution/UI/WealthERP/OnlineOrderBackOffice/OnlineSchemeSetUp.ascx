@@ -32,7 +32,6 @@
                             <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Edit" Visible="false"
                                 OnClick="lbBack_OnClick"></asp:LinkButton>
                         </td>
-                   
                         <td>
                             <asp:LinkButton runat="server" ID="lblBack" CssClass="LinkButtons" Text="Back" Visible="false"
                                 OnClick="lbBack1_OnClick"></asp:LinkButton>
@@ -141,17 +140,16 @@
                     CssClass="rfvPCG" ControlToValidate="ddlSScategory" ValidationGroup="btnsubmit"
                     Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
-             <td align="right">
+            <td align="right">
                 <asp:Label ID="lblScname" runat="server" Text="Scheme Name:" CssClass="FieldName"
                     Visible="true"></asp:Label>
             </td>
             <td>
                 <asp:TextBox ID="txtScname" runat="server" CssClass="cmbFielde" Visible="true" Width="294"></asp:TextBox>
-                 <span id="Span25" class="spnRequiredField">*</span>
-                    <br />
-                <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter New Scheme Name"
-                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue=""></asp:RequiredFieldValidator>
+                <span id="Span25" class="spnRequiredField">*</span>
+                <br />
+                <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter Scheme Name"
+                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -179,7 +177,6 @@
                     CssClass="rfvPCG" ControlToValidate="ddlRT" ValidationGroup="btnsubmit" Display="Dynamic"
                     InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
-           
             <td align="right">
                 <asp:Label ID="Label4" runat="server" Text="Scheme:" CssClass="FieldName" Visible="false"> </asp:Label>
             </td>
@@ -248,7 +245,7 @@
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtSecuritycode" runat="server" ErrorMessage="Please Enter Security Code"
                     CssClass="rfvPCG" ControlToValidate="txtSecuritycode" ValidationGroup="btnsubmit"
-                    Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
+                    Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -302,8 +299,7 @@
                 <span id="Span10" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtBranch" runat="server" ErrorMessage="Please Enter Bank Branch"
-                    CssClass="rfvPCG" ControlToValidate="txtBranch" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue="Select"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtBranch" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -333,12 +329,12 @@
                 <telerik:RadDatePicker ID="txtNFOStartDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
                     MinDate="1900-01-01" TabIndex="5">
-                    <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                        Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                    </DateInput>
+                    <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                        skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <%--<span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
@@ -352,12 +348,12 @@
                 <telerik:RadDatePicker ID="txtNFOendDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
                     MinDate="1900-01-01" TabIndex="5">
-                    <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                        Skin="Telerik" EnableEmbeddedSkins="false">
-                    </Calendar>
-                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                    <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                    </DateInput>
+                    <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                        skin="Telerik" enableembeddedskins="false">
+                    </calendar>
+                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                    <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                    </dateinput>
                 </telerik:RadDatePicker>
                 <%--<span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
@@ -850,11 +846,11 @@
                             Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" ClientSettings-AllowColumnsReorder="true"
                             AllowAutomaticInserts="false" OnNeedDataSource="gvSIPDetails_OnNeedDataSource"
                             OnItemDataBound="gvSIPDetails_OnItemDataBound" OnItemCommand="gvSIPDetails_OnItemCommand">
-                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
-                            </ExportSettings>
-                            <MasterTableView DataKeyNames="PASPSD_SystematicDetailsId,PASP_SchemePlanCode,XF_FrequencyCode" AllowFilteringByColumn="true"
-                                Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="Top"
-                                EditMode="PopUp">
+                            <exportsettings hidestructurecolumns="true" exportonlydata="true" filename="OrderMIS">
+                            </exportsettings>
+                            <mastertableview datakeynames="PASPSD_SystematicDetailsId,PASP_SchemePlanCode,XF_FrequencyCode"
+                                allowfilteringbycolumn="true" width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false"
+                                commanditemdisplay="Top" editmode="PopUp">
                                 <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                                     AddNewRecordText="Add New Systematic Details" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                                     ShowRefreshButton="false" />
@@ -1003,31 +999,29 @@
                                                         </tr>
                                             </tr>
                                         </table>
-                                        </td> </tr> </table>
-                                    </FormTemplate>
-                                </EditFormSettings>
-                            </MasterTableView>
-                            <ClientSettings>
-                                <Resizing AllowColumnResize="true" />
-                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                            </ClientSettings>
-                        </telerik:RadGrid>
                     </td>
                 </tr>
             </table>
-        </asp:Panel>
+            </FormTemplate> </EditFormSettings> </MasterTableView>
+            <clientsettings>
+                                <Resizing AllowColumnResize="true" />
+                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                            </clientsettings>
+        </telerik:RadGrid> </td>
     </tr>
-    <tr>
-        <td align="right">
-            <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click"
-                ValidationGroup="btnsubmit" />
-        </td>
-        <td align="left">
-            <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
-                Style="height: 26px" ValidationGroup="btnsubmit" Visible="false" />
-            <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
-        </td>
-    </tr>
+</table>
+</asp:Panel> </tr>
+<tr>
+    <td align="right">
+        <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click"
+            ValidationGroup="btnsubmit" />
+    </td>
+    <td align="left">
+        <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
+            Style="height: 26px" ValidationGroup="btnsubmit" Visible="false" />
+        <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
+    </td>
+</tr>
 </table>
 <asp:HiddenField ID="hdnSchemePlanCode" runat="server" />
 <asp:HiddenField ID="hdnCategory" runat="server" />
