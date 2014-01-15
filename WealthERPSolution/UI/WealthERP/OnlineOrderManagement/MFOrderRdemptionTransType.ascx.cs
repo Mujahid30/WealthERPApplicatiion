@@ -562,6 +562,10 @@ namespace WealthERP.OnlineOrderManagement
             }
             else if (ddlRedeem.SelectedValue == "3")
             {
+                if (!string.IsNullOrEmpty(txtRedeemTypeValue.Text))
+                    onlinemforderVo.Redeemunits = double.Parse(txtRedeemTypeValue.Text);
+                else
+                    onlinemforderVo.Redeemunits = 0;
                 onlinemforderVo.IsAllUnits = true;
 
             }
