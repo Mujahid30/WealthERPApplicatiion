@@ -206,7 +206,8 @@ namespace WealthERP.OnlineOrderBackOffice
             dtOrderBookMIS = (DataTable)Cache["OrderList" + advisorVo.advisorId.ToString()];
             if (dtOrderBookMIS != null)
 
-            {   gvOrderBookMIS.DataSource = dtOrderBookMIS;                
+            {
+                gvOrderBookMIS.DataSource = dtOrderBookMIS;                
                 gvOrderBookMIS.Visible = true;
             }
 
@@ -258,15 +259,15 @@ namespace WealthERP.OnlineOrderBackOffice
         //}
         public void btnExportData_OnClick(object sender, ImageClickEventArgs e)
         {
-            
-                gvOrderBookMIS.ExportSettings.OpenInNewWindow = true;
-                gvOrderBookMIS.ExportSettings.IgnorePaging = true;
-                //gvOrderBookMIS.ExportSettings.HideStructureColumns = false;
-                gvOrderBookMIS.ExportSettings.ExportOnlyData = true;
-                gvOrderBookMIS.ExportSettings.FileName = "OrderBook Details";
-                gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-                gvOrderBookMIS.MasterTableView.ExportToExcel();
-            }
-            
+
+            gvOrderBookMIS.ExportSettings.OpenInNewWindow = true;
+            gvOrderBookMIS.ExportSettings.IgnorePaging = true;
+            //gvOrderBookMIS.ExportSettings.HideStructureColumns = false;
+            gvOrderBookMIS.MasterTableView.GetColumn("C_CustCode").Display = true;
+            gvOrderBookMIS.ExportSettings.ExportOnlyData = true;
+            gvOrderBookMIS.ExportSettings.FileName = "OrderBook Details";
+            gvOrderBookMIS.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOrderBookMIS.MasterTableView.ExportToExcel();
+            }  
         }
     }

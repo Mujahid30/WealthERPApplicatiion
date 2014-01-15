@@ -226,8 +226,8 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <mastertableview allowmulticolumnsorting="True" allowsorting="true" datakeynames="AIM_IssueId,AIM_SchemeName,IssueTimeType"
-                                    autogeneratecolumns="false" width="100%">
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,IssueTimeType"
+                                    AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <%--  <telerik:GridTemplateColumn>
                                             <ItemTemplate>
@@ -265,7 +265,7 @@
                                             UniqueName="AIM_Rating" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min Qty"
+                                        <telerik:GridBoundColumn DataField="AIM_MInQty" HeaderStyle-Width="120px" HeaderText="Min Qty(across all series)"
                                             CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             DataFormatString="{0:N0}" UniqueName="AIM_MInQty" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
@@ -281,12 +281,12 @@
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="AID_MinApplication" HeaderStyle-Width="110px"
-                                            HeaderText="Min Amt" CurrentFilterFunction="Contains" ShowFilterIcon="false" DataFormatString="{0:N0}"
+                                            HeaderText="Min Amt" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                             AutoPostBackOnFilter="true" UniqueName="AID_MinApplication" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn DataField="Maxamount" HeaderStyle-Width="110px" HeaderText="Max Amt"
-                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true" DataFormatString="{0:N0}"
+                                            CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                             UniqueName="Maxamount" Visible="true">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
@@ -322,7 +322,7 @@
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
                                     </Columns>
-                                </mastertableview>
+                                </MasterTableView>
                             </telerik:RadGrid>
                         </td>
                     </tr>
@@ -340,13 +340,13 @@
                     AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
                     ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True" Skin="Telerik"
                     AllowFilteringByColumn="false" OnItemDataBound="gvCommMgmt_ItemDataBound" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                    <headercontextmenu enableembeddedskins="False">
-                    </headercontextmenu>
-                    <exportsettings hidestructurecolumns="false" exportonlydata="true" filename="LiveBondList">
-                    </exportsettings>
-                    <pagerstyle alwaysvisible="True" />
-                    <mastertableview allowmulticolumnsorting="True" allowsorting="false" datakeynames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo"
-                        autogeneratecolumns="false" width="100%">
+                    <HeaderContextMenu EnableEmbeddedSkins="False">
+                    </HeaderContextMenu>
+                    <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="LiveBondList">
+                    </ExportSettings>
+                    <PagerStyle AlwaysVisible="True" />
+                    <MasterTableView AllowMultiColumnSorting="True" AllowSorting="false" DataKeyNames="AID_IssueDetailId,AIM_IssueId,AID_DefaultInterestRate,AID_Tenure,AIM_FaceValue,AIM_TradingInMultipleOf,AIM_MInQty,AIM_MaxQty,AIM_MaxApplNo"
+                        AutoGenerateColumns="false" Width="100%" ShowFooter="true">
                         <CommandItemSettings ExportToPdfText="Export to Pdf" />
                         <Columns>
                             <%--<telerik:GridBoundColumn visible="false" DataField="PFISM_SchemeId" HeaderStyle-Width="60px" CurrentFilterFunction="Contains"
@@ -425,11 +425,21 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <telerik:GridBoundColumn DataField="YieldAtMAturity" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
+                            <%--<telerik:GridBoundColumn DataField="YieldAtMAturity" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
                                 UniqueName="YieldAtMAturity" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>
+                            </telerik:GridBoundColumn>--%>
+                            <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
+                                UniqueName="YieldAtMAturity" HeaderText="Yield at Maturity(%)">
+                                <%--<ItemTemplate>
+                                    <asp:TextBox ID="txtYieldAtMAturity" runat="server" ForeColor="White" MaxLength="5"
+                                        Text='<%# Bind("YieldAtMAturity")%>' Width="50px" BackColor="Gray"></asp:TextBox>
+                                </ItemTemplate>--%>
+                                <FooterTemplate>
+                                    <asp:Label runat="server" ID="lblYieldAtMAturity" Text="Total"></asp:Label>
+                                </FooterTemplate>
+                            </telerik:GridTemplateColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AID_YieldatBuyBack" HeaderStyle-Width="105px"
                                 HeaderText="Yield at BuyBack(%)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="AID_YieldatBuyBack">
@@ -446,7 +456,7 @@
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
                             <telerik:GridBoundColumn Visible="false" DataField="AIM_MInQty" HeaderStyle-Width="140px"
-                                HeaderText="Minimum Quantity" CurrentFilterFunction="Contains" ShowFilterIcon="false"
+                                HeaderText="Min Qty(across all series)" CurrentFilterFunction="Contains" ShowFilterIcon="false"
                                 AutoPostBackOnFilter="true" UniqueName="AIM_MInQty" DataFormatString="{0:N0}">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
@@ -506,13 +516,13 @@
                             </EditColumn>
                         </EditFormSettings>
                         <PagerStyle AlwaysVisible="True" />
-                    </mastertableview>
-                    <clientsettings>
+                    </MasterTableView>
+                    <ClientSettings>
                         <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         <Resizing AllowColumnResize="true" />
-                    </clientsettings>
-                    <filtermenu enableembeddedskins="False">
-                    </filtermenu>
+                    </ClientSettings>
+                    <FilterMenu EnableEmbeddedSkins="False">
+                    </FilterMenu>
                 </telerik:RadGrid>
             </td>
         </tr>
@@ -575,7 +585,7 @@
 <telerik:RadWindow ID="rwTermsCondition" runat="server" VisibleOnPageLoad="false"
     Width="1000px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="Move, Resize,Close"
     Title="Terms & Conditions" EnableShadow="true" Left="580" Top="-8">
-    <contenttemplate>
+    <ContentTemplate>
         <div style="padding: 0px; width: 100%">
             <table width="100%" cellpadding="0" cellpadding="0">
                 <tr>
@@ -593,7 +603,7 @@
                 </tr>
             </table>
         </div>
-    </contenttemplate>
+    </ContentTemplate>
 </telerik:RadWindow>
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">
     <Windows>
