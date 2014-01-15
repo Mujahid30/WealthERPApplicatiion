@@ -31,6 +31,16 @@ namespace WealthERP.BusinessMIS
             if (!IsPostBack)
             {
                 BindReptPerformanceDashBoard();
+                if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+                {
+                    foreach (RepeaterItem ri in rptPerformanceTree.Items)
+                        ri.FindControl("eqtrans").Visible = false;
+                }
+                else
+                {
+                    foreach (RepeaterItem ri in rptPerformanceTree.Items)
+                        ri.FindControl("eqtrans").Visible = true;
+                }
             }
         }
         private void BindReptPerformanceDashBoard()

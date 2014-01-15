@@ -1174,6 +1174,15 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
-         
+        public DataTable BankBranchName(int bankid)
+        {
+            OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
+            DataTable dtBankBranchName;
+            {
+                dtBankBranchName = daoOnlNcdBackOff.BankBranchName(bankid);
+
+            }
+            return dtBankBranchName;
+        }
     }
 }

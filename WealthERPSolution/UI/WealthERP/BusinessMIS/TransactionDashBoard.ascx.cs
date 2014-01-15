@@ -31,6 +31,17 @@ namespace WealthERP.BusinessMIS
             if (!IsPostBack)
             {
                 BindReptTransactionDashBoard();
+
+                if (advisorVo.advisorId ==Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
+                {
+                    foreach (RepeaterItem ri in rptTransationTree.Items)
+                        ri.FindControl("eqtrans").Visible = false;
+                }
+                else
+                {
+                    foreach (RepeaterItem ri in rptTransationTree.Items)
+                        ri.FindControl("eqtrans").Visible = true;
+                }
             }
         }
 
@@ -92,8 +103,9 @@ namespace WealthERP.BusinessMIS
             LinkButton lnkbtn1 = e.Item.FindControl("lnkTransationTreeNode1") as LinkButton;
 
           //  ImageButton imgBtn2 = e.Item.FindControl("imgbtnTransation2") as ImageButton;
+            
             LinkButton lnkbtn2 = e.Item.FindControl("lnkTransationTreeNode2") as LinkButton;
-
+            
             if (e.CommandName == "Tree_Navi_Row1")
             {
 
@@ -104,7 +116,7 @@ namespace WealthERP.BusinessMIS
             }
             if (e.CommandName == "Tree_Navi_Row2")
             {
-
+               
                 if (lnkbtn2.CommandArgument == "3025")
                 {
                     Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('RMEQMultipleTransactionsView','login');", true);

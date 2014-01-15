@@ -15,7 +15,7 @@ using BoWerpAdmin;
 using BoCustomerProfiling;
 using BoCustomerPortfolio;
 using VoUser;
-
+using BoCommon;
 
 
 namespace WealthERP.SuperAdmin
@@ -33,9 +33,16 @@ namespace WealthERP.SuperAdmin
         DataSet dsDataTransDetails;
         DataSet dsTransactionType = new DataSet();
         UserVo userVo = new UserVo();
+      
+        AdvisorVo advisorVo;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            //userVo = (UserVo)Session["userVo"];
+            SessionBo.CheckSession();
+            userVo = (UserVo)Session[SessionContents.UserVo];
+            advisorVo = (AdvisorVo)Session["advisorVo"];
+            int adviserId = advisorVo.advisorId;
+
             if (Session["OnlineSchemeSetupSchemecode"] != null)
             {
                 ViewState["OnlineSchemeSetupSchemecode"] = Session["OnlineSchemeSetupSchemecode"];

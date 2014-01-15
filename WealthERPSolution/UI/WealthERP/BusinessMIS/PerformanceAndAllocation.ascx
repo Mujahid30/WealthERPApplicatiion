@@ -40,7 +40,7 @@
                                         </div>
                                     </td>
                                   <td id="td2" runat="server" align="center" >
-                                    <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
+                                    <div id="eqtrans" runat="server" class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
 
                                            
                                             <asp:LinkButton ID="lnkPerformanceTreeNode2" Font-Underline="false" CssClass="LinkTextBig" Text='<%# Eval("TreeNodeText2").ToString() %>'

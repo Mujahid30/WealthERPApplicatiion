@@ -1911,5 +1911,26 @@ namespace DaoOnlineOrderManagement
             }
             return count;
         }
+        public DataTable BankBranchName(int bankid)
+        {
+            DataSet dsBankBranchName;
+            Database db;
+            DataTable dt;
+            DbCommand CmdBankBranchName;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CmdBankBranchName = db.GetStoredProcCommand("SPROC_GetBankBranch");
+                db.AddInParameter(CmdBankBranchName, "@bankId", DbType.Int32, bankid);
+                dsBankBranchName = db.ExecuteDataSet(CmdBankBranchName);
+                dt = dsBankBranchName.Tables[0];
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            return dt;
+        }
+
     }
 }

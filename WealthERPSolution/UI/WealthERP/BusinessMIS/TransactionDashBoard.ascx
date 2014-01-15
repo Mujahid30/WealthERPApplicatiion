@@ -42,7 +42,7 @@
                                         </div>
                                     </td>
                                     <td id="td2" runat="server" align="center">
-                                       <div class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
+                                       <div id="eqtrans" runat="server" class="divRectangleLinks" onmouseout="this.className='divRectangleLinks'" onmouseover="this.className='divRectangleMouseOverLinks'">
                                             
                                            <%-- <asp:ImageButton ID="imgbtnTransation2"  ImageUrl='<%# Eval("Path2").ToString() %>' runat="server"
                                                 Width="70px" CommandName="Tree_Navi_Row2" CommandArgument='<%# Eval("TreeNode2").ToString() %>' />
