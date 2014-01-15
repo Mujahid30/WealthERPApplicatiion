@@ -305,7 +305,7 @@
                                     </ExportSettings>
                                     <%--<MasterTableView Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
                                         CommandItemDisplay="None">--%>
-                                    <MasterTableView DataKeyNames="CA_AssociationId,XR_RelationshipCode,C_PANNum,AB_BranchId,C_AssociateCustomerId"
+                                    <MasterTableView DataKeyNames="CA_AssociationId,XR_RelationshipCode,C_PANNum,AB_BranchId,C_AssociateCustomerId,C_IsKYCAvailable,C_IsRealInvestor"
                                         Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false" EditMode="EditForms"
                                         CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" CommandItemSettings-AddNewRecordText="Add Family Associates">
                                         <Columns>

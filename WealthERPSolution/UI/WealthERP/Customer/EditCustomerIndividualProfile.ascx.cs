@@ -2126,7 +2126,14 @@ namespace WealthERP.Customer
                 strRelationshipCode = gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["XR_RelationshipCode"].ToString();
                 string panNum = gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_PANNum"].ToString();
                 int branchId = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AB_BranchId"].ToString());
-
+                int iskyc = int.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsKYCAvailable"].ToString());
+                bool irealInvestor = bool.Parse(gvFamilyAssociate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["C_IsRealInvestor"].ToString());
+                CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
+                 CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
+                if (iskyc == 1)
+                    chkycinside.Checked = true;
+                if (irealInvestor)
+                    chkbisRealInvestor.Checked = true;
                 GridEditFormItem editedItem = (GridEditFormItem)e.Item;
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
 
