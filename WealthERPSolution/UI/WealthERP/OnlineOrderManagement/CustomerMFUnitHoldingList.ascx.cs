@@ -278,7 +278,7 @@ namespace WealthERP.OnlineOrderManagement
                         drMFUnitHoplding["CMFNP_NAVDate"] = mfPortfolioVo.NavDate.ToShortDateString();
                     drMFUnitHoplding["CMFNP_ValuationDate"] = mfPortfolioVo.ValuationDate.ToShortDateString();
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
-                        drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n2", CultureInfo.CreateSpecificCulture("hi-IN"));
+                        drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
                         drMFUnitHoplding["RealizesdGain"] = "0.00";
 
