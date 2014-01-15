@@ -241,7 +241,7 @@ namespace WealthERP.General
 
                         }
 
-                        Session["advisorVo"] = advisorVo;
+                       
                         SetAdviserPreference();
 
                         currentUserIP = HttpContext.Current.Request.UserHostAddress.Trim();
@@ -274,14 +274,14 @@ namespace WealthERP.General
                         }
                     }
 
-                    bool isUserAlreadyLogedIn = ValidateSingleUserAuthentication(userVo.UserId.ToString());
+                    bool isUserAlreadyLogedIn = ValidateSingleSessionPerUser(userVo.UserId.ToString());
 
                     if ((isPassWordMathed && isIPAuthenticated && isUserAlreadyLogedIn) || (isPassWordMathed && advisorVo.IsIPEnable == 0 && isUserAlreadyLogedIn))  // Validating the User Using the Username and Password
                     {
                         Session["id"] = "";
                         lblIllegal.Visible = true;
 
-
+                        Session["advisorVo"] = advisorVo;
                         Session["UserVo"] = userVo;
 
                         AddLoginTrack(txtLoginId.Text, txtPassword.Text, true, userVo.UserId);
@@ -848,18 +848,23 @@ namespace WealthERP.General
             }
         }
 
-        private bool ValidateSingleUserAuthentication(string userId)
+        private bool ValidateSingleSessionPerUser(string userId)
         {
             bool isUserLogedIn = false;
             Hashtable currentLoginUserList = new Hashtable();
+
             if (Application["LoginUserList"] != null)
+            {
                 currentLoginUserList = (Hashtable)Application["LoginUserList"];
+            }
 
             isUserLogedIn = currentLoginUserList.ContainsValue(userId);
             if (!isUserLogedIn)
             {
                 currentLoginUserList.Add(Session.SessionID.ToString(), userId);
+                Application.Lock();
                 Application["LoginUserList"] = currentLoginUserList;
+                Application.UnLock();
                 isUserLogedIn = true;
             }
             else

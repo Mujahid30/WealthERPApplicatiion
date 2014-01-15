@@ -31,13 +31,20 @@ namespace WealthERP.General
         {
             string loginPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGIN_URL"];
             string logoutPageURL = ConfigurationSettings.AppSettings["SSO_USER_LOGOUT_URL"];
+            string mFLnik = ConfigurationSettings.AppSettings["MF_LINK"];
             HttpCookie cookie;
-            Session.Abandon();
+            //Session.Abandon();
+                        
             if (Request.Cookies["UserPreference"] != null)
             {
                 cookie = Request.Cookies["UserPreference"];
-                Response.Redirect(Request.Cookies["UserPreference"].Values["UserLogOutPageURL"].ToString());
-                Response.Redirect(Request.Cookies["UserPreference"].Values["UserLoginPageURL"].ToString());
+                if (!string.IsNullOrEmpty(Request.Cookies["UserPreference"].Values["OnlineUser"].ToString()))
+                    Response.Redirect(mFLnik);
+                else
+                {
+                    Response.Redirect(Request.Cookies["UserPreference"].Values["UserLogOutPageURL"].ToString());
+                    Response.Redirect(Request.Cookies["UserPreference"].Values["UserLoginPageURL"].ToString());
+                }
 
             }
             else if (!string.IsNullOrEmpty(loginPageURL))

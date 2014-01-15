@@ -47,9 +47,11 @@ namespace WealthERP
             Hashtable currentLoginUserList = new Hashtable();
             if (Application["LoginUserList"] != null)
             {
+                Application.Lock();
                 currentLoginUserList = (Hashtable)Application["LoginUserList"];
                 currentLoginUserList.Remove(Session.SessionID.ToString());
                 Application["LoginUserList"] = currentLoginUserList;
+                Application.UnLock();
             }
         }
 

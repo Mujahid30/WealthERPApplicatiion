@@ -270,6 +270,7 @@ namespace WealthERP
             {
                 UserPreference = new HttpCookie("UserPreference");
                 UserPreference.Values["UserTheme"] = "SBIOnLine";
+                UserPreference.Values["OnlineUser"] = "Yes";
                 hidUserLogOutPageUrl.Value = logoutPageURL;
                 hidUserLogInPageUrl.Value = loginPageURL;
 
