@@ -174,12 +174,11 @@ namespace WealthERP.OnlineOrderManagement
         protected void CalculateCurrentholding(DataSet dscurrent, out double units, out double amt, string nav)
         {
             DataTable dt = new DataTable();
-            double holdingUnits;
-            double holdingAmt;
-            double ValuatedUnits;
-            double ValuatedAmt;
+            double holdingUnits=0;         
+            double valuatedUnits=0;          
             double finalUnits;
             double finalAmt;
+            double immatureUnits=0;
             double Nav = double.Parse(nav);
             if (dscurrent.Tables[1].Rows.Count > 0)
             {
@@ -192,32 +191,27 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][0]).ToString()))
                     {
                         holdingUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
-                    }
-                    else holdingUnits = 0.0;
+                    }                    
 
                     if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][0].ToString()))
                     {
-                        ValuatedUnits = double.Parse(dscurrent.Tables[2].Rows[1][0].ToString());
+                        valuatedUnits = double.Parse(dscurrent.Tables[2].Rows[1][0].ToString());
                     }
-                    else ValuatedUnits = 0.0;
-                    finalUnits = holdingUnits - ValuatedUnits;
-                    //if (!string.IsNullOrEmpty((dscurrent.Tables[1].Rows[0][1]).ToString()))
-                    //{
-                    //    holdingAmt = double.Parse((dscurrent.Tables[1].Rows[0][1]).ToString());
-                    //}
-                    //else holdingAmt = 0.0;
-                    //if (!string.IsNullOrEmpty(dscurrent.Tables[2].Rows[1][1].ToString()))
-                    //{
-                    //    ValuatedAmt = double.Parse(dscurrent.Tables[2].Rows[1][1].ToString());
-                    //}
-                    //else ValuatedAmt = 0.0;
-                    //finalAmt = holdingAmt - ValuatedAmt;
+                    
+
+                    if (!string.IsNullOrEmpty(dscurrent.Tables[3].Rows[0][0].ToString()))
+                        immatureUnits = double.Parse(dscurrent.Tables[3].Rows[0][0].ToString());
+
+                    finalUnits = holdingUnits - (valuatedUnits + immatureUnits);
+                    
                     finalAmt = finalUnits * Nav;
 
                 }
                 else
                 {
-                    finalUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString());
+                    if (!string.IsNullOrEmpty(dscurrent.Tables[3].Rows[0][0].ToString()))
+                        immatureUnits = double.Parse(dscurrent.Tables[3].Rows[0][0].ToString());
+                    finalUnits = double.Parse((dscurrent.Tables[1].Rows[0][0]).ToString()) - immatureUnits;
                     finalAmt = finalUnits * Nav;
                 }
 
@@ -567,6 +561,7 @@ namespace WealthERP.OnlineOrderManagement
                 else
                     onlinemforderVo.Redeemunits = 0;
                 onlinemforderVo.IsAllUnits = true;
+                //onlinemforderVo.Redeemunits = float.Parse(txtRedeemTypeValue.Text);
 
             }
 
