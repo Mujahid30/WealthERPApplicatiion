@@ -10,6 +10,8 @@ namespace WealthERP.General
 {
     public partial class SessionExpired : System.Web.UI.UserControl
     {
+        string mFLnik = ConfigurationSettings.AppSettings["MF_LINK"];
+
         protected void Page_PreInit(object sender, EventArgs e)
         {
             if (Request.Cookies["UserPreference"] != null)
@@ -24,6 +26,14 @@ namespace WealthERP.General
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                Response.Redirect(mFLnik);
+            }
+            else
+            {
+                Server.Transfer(mFLnik);
+            }
 
         }
 
@@ -35,23 +45,23 @@ namespace WealthERP.General
             HttpCookie cookie;
             //Session.Abandon();
                         
-            if (Request.Cookies["UserPreference"] != null)
-            {
-                cookie = Request.Cookies["UserPreference"];
-                if (!string.IsNullOrEmpty(Request.Cookies["UserPreference"].Values["OnlineUser"].ToString()))
-                    Response.Redirect(mFLnik);
-                else
-                {
-                    Response.Redirect(Request.Cookies["UserPreference"].Values["UserLogOutPageURL"].ToString());
-                    Response.Redirect(Request.Cookies["UserPreference"].Values["UserLoginPageURL"].ToString());
-                }
+            //if (Request.Cookies["UserPreference"] != null)
+            //{
+            //    cookie = Request.Cookies["UserPreference"];
+            //    if (!string.IsNullOrEmpty(Request.Cookies["UserPreference"].Values["OnlineUser"].ToString()))
+            //        Response.Redirect(mFLnik);
+            //    else
+            //    {
+            //        Response.Redirect(Request.Cookies["UserPreference"].Values["UserLogOutPageURL"].ToString());
+            //        Response.Redirect(Request.Cookies["UserPreference"].Values["UserLoginPageURL"].ToString());
+            //    }
 
-            }
-            else if (!string.IsNullOrEmpty(loginPageURL))
-            {
-                Response.Redirect(logoutPageURL);
-                Response.Redirect(loginPageURL);
-            }
+            //}
+            //else if (!string.IsNullOrEmpty(loginPageURL))
+            //{
+            //    Response.Redirect(logoutPageURL);
+            //    Response.Redirect(loginPageURL);
+            //}
 
         }
     }
