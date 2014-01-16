@@ -1675,6 +1675,19 @@ namespace WealthERP.Advisor
             hdfSession.Value = "Ops";
             try
             {
+                if (e.Item.Value == "Manage Lookups")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageLookups','login');", true);
+                }
+                if (e.Item.Value == "Trade_Business_Date")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TradeBusinessDate','login');", true);
+                }
+                if (e.Item.Value == "Client_access")
+                {
+                    Session["Customer"] = "Customer";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "OnlineClientAccess", "loadcontrol('OnlineClientAccess','login');", true);
+                }
                 if (e.Item.Value == "CustomerList")
                 {
                     Session["Customer"] = "Customer";

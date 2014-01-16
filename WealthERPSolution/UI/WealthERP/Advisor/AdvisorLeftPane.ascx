@@ -718,6 +718,44 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
+                                     <telerik:RadPanelItem runat="server" Text="Configure" Value="Configure">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Settings" Value="Settings">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Setup Advisor Staff SMTP" Value="Setup Advisor Staff SMTP">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Environment Settings" Value="Environment_Settings">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Setup IP pool" Value="Setup IP pool">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Online Repository" Value="Online_Repository">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Repository Category" Value="RepositoryCategory">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Repository Upload" Value="Repository">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Code Master" Value="Code_Master">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Manage Code Master" Value="Manage Lookups">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Calendar" Value="Trade_Business_Date">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="customer category" Value="Setup_customer_category">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Setup Associate Category" Value="Setup Associate Category">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Alert Configuration" Value="Alert Configuration">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
@@ -732,6 +770,8 @@
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Cliant Access" Value="Client_access">
+                                            </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
@@ -906,6 +946,18 @@
                                             <telerik:RadPanelItem runat="server" Text="Mutual Fund" Value="RTA_Extract">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="NCD/IPO" Value="NCD_Extract">
+                                            </telerik:RadPanelItem>
+                                        </Items>
+                                    </telerik:RadPanelItem>
+                                      <telerik:RadPanelItem runat="server" Text="File Upload" Value="File_Upload">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="MF upload" Value="Start_Upload">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Uploads History" Value="Uploads History">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View MF Exception" Value="Uploads_Exception">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="NCD/IPO Upload" Value="NCD/IPO_allotment">
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
