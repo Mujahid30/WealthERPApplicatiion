@@ -280,7 +280,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (mfPortfolioVo.ReturnsRealizedTotalPL != 0)
                         drMFUnitHoplding["RealizesdGain"] = mfPortfolioVo.ReturnsRealizedTotalPL.ToString("n0", CultureInfo.CreateSpecificCulture("hi-IN"));
                     else
-                        drMFUnitHoplding["RealizesdGain"] = "0.00";
+                        drMFUnitHoplding["RealizesdGain"] = "0";
 
                     drMFUnitHoplding["IsSchemeSIPType"] = mfPortfolioVo.IsSchemeSIPType;
                     dtMFUnitHoplding.Rows.Add(drMFUnitHoplding);
