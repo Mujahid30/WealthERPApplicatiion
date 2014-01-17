@@ -350,7 +350,8 @@ namespace WealthERP.SuperAdmin
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('this scheme is allready onlline!!');", true);
                 }
-                isUpdated = customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate, userVo.UserId);
+                isUpdated = false;
+                    //customerBo.EditProductAMCSchemeMapping(strSchemePlanCode, strExternalCodeToBeEdited, strExternalCode, Isonline, strExternalType, createdDate, editedDate, deletedDate, userVo.UserId);
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)

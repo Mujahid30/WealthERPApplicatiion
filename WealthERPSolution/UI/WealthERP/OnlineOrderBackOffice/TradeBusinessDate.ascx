@@ -28,7 +28,7 @@
             <asp:Label ID="Lblselyear" runat="server" Text="Select year:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="Ddlyears" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="Ddlyears" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <%--<asp:ListItem Text="Select" Value="Select" Selected="false" />--%>
                 <asp:ListItem Text="2013" Value="2013" />
                 <%--<asp:ListItem Text="Bussiness Day" Value="1"/>--%>
@@ -58,7 +58,7 @@
     </tr>
 </table>
 <table cellspacing="0" cellpadding="1" width="100%">
-    <tr>
+    <tr> 
         <td>
             <telerik:RadGrid ID="gvTradeBusinessDate" runat="server" EnableEmbeddedSkins="false"
                 AllowFilteringByColumn="false" AutoGenerateColumns="false" ShowStatusBar="true"

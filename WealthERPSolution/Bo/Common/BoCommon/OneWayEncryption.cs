@@ -145,9 +145,12 @@ namespace BoCommon
 
         public bool VerifyHashString(string Data, string Hash, string Salt)
         {
+           
+            //string df = Encoding.UTF8.GetString(Salt,0,Salt.Length,);
             byte[] HashToVerify = Convert.FromBase64String(Hash);
             byte[] SaltToVerify = Convert.FromBase64String(Salt);
             byte[] DataToVerify = Encoding.UTF8.GetBytes(Data);
+            //string v = Convert.ToBase64String(SaltToVerify);
             return VerifyHash(DataToVerify, HashToVerify, SaltToVerify);
         }
 

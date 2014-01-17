@@ -378,6 +378,7 @@ namespace WealthERP.Advisor
         protected void ddlTitleList_SelectedIndexChanged(object sender, EventArgs e)
         {
             AgentCodesvalidation();
+            BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
         }
 
         protected void AgentCodesvalidation()
@@ -396,7 +397,7 @@ namespace WealthERP.Advisor
                     RequiredFieldValidator6.Enabled = true;
                 }
 
-                BindTitleApplicableLevelAndChannel(Convert.ToInt32(ddlTitleList.SelectedValue));
+                
             }
 
         }

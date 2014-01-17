@@ -37,10 +37,11 @@ namespace WealthERP.OnlineOrderBackOffice
             SessionBo.CheckSession();
             userVo = (UserVo)Session[SessionContents.UserVo];
             advisorVo = (AdvisorVo)Session["advisorVo"];
-            BindTradebusinessdate();
             if (!IsPostBack)
             {
-                GetTradeBusinessDates();
+                BindTradebusinessdate();
+
+                //GetTradeBusinessDates();
                 BindYearDropdown();
                 //btngo_Click();
                 //gvTradeBusinessDate.PageIndex = 8;
@@ -48,35 +49,35 @@ namespace WealthERP.OnlineOrderBackOffice
             createcalanders.Visible = false;
         }
 
-        private void GetTradeBusinessDates()
-        {
-            try
-            {
-                DataTable getTradeBusinessDateDt = new DataTable();
-                getTradeBusinessDateDt = OnlineOrderBackOfficeBo.GetTradeBusinessDates().Tables[0];
-                gvTradeBusinessDate.DataSource = getTradeBusinessDateDt;
-                gvTradeBusinessDate.DataBind();
-                if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
-                    Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
-                Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
-                //gvTradeBusinessDate.Rebind();
-            }
-            catch (BaseApplicationException Ex)
-            {
-                throw Ex;
-            }
-            catch (Exception Ex)
-            {
-                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
-                NameValueCollection FunctionInfo = new NameValueCollection();
-                FunctionInfo.Add("Method", "TradeBusinessDate.ascx.cs:CreateTradeBusinessDate()");
-                object[] objects = new object[1];
-                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
-                exBase.AdditionalInformation = FunctionInfo;
-                ExceptionManager.Publish(exBase);
-                throw exBase;
-            }
-        }
+        //private void GetTradeBusinessDates()
+        //{
+        //    try
+        //    {
+        //        DataTable getTradeBusinessDateDt = new DataTable();
+        //        getTradeBusinessDateDt = OnlineOrderBackOfficeBo.//GetTradeBusinessDates().Tables[0];
+        //        gvTradeBusinessDate.DataSource = getTradeBusinessDateDt;
+        //        gvTradeBusinessDate.DataBind();
+        //        if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
+        //            Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
+        //        Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", getTradeBusinessDateDt);
+        //        //gvTradeBusinessDate.Rebind();
+        //    }
+        //    catch (BaseApplicationException Ex)
+        //    {
+        //        throw Ex;
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+        //        NameValueCollection FunctionInfo = new NameValueCollection();
+        //        FunctionInfo.Add("Method", "TradeBusinessDate.ascx.cs:CreateTradeBusinessDate()");
+        //        object[] objects = new object[1];
+        //        FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+        //        exBase.AdditionalInformation = FunctionInfo;
+        //        ExceptionManager.Publish(exBase);
+        //        throw exBase;
+        //    }
+        //}
         protected void gvTradeBusinessDateDetails_ItemCommand(object source, GridCommandEventArgs e)
         {
             DataTable getTradeBusinessDateDt = new DataTable();
@@ -95,14 +96,14 @@ namespace WealthERP.OnlineOrderBackOffice
                 if (date1.SelectedDate != null)
                 {
                     bool bln = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessId, TradeBusinessDateVo.HolidayName);
-                    GetTradeBusinessDates();
+                    //GetTradeBusinessDates();
                 }
 
 
             }
             if (e.CommandName == RadGrid.RebindGridCommandName)
             {
-                GetTradeBusinessDates();
+                //GetTradeBusinessDates();
 
             }
             if (e.CommandName == RadGrid.DeleteCommandName)
@@ -119,7 +120,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 //{
                 deleteTradeBusinessDate(TradeBusinessId);
                 //}
-                //GetTradeBusinessDates();
+                ////GetTradeBusinessDates();
             }
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
@@ -248,6 +249,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 dsTradeBusinessDate = (DataTable)Cache[userVo.UserId.ToString() + "TradeBusinessDates"];
                 gvTradeBusinessDate.DataSource = dsTradeBusinessDate;
             }
+            
         }
 
         //protected void gvTradeBusinessDate_SelectionChanged(object sender, Telerik.Web.UI.Calendar.SelectedDatesEventArgs e)
@@ -299,7 +301,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //gvTradeBusinessDate.MasterTableView.Rebind();
                     //gvTradeBusinessDate.Rebind();
                 }
-                GetTradeBusinessDates();
+                //GetTradeBusinessDates();
             }
             catch (BaseApplicationException Ex)
             {
@@ -428,7 +430,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     if (date >= DateTime.Now)
                     {
                         update.Visible = true;
-                        //GetTradeBusinessDates();
+                        ////GetTradeBusinessDates();
                     }
                     else
                     {
@@ -462,7 +464,7 @@ namespace WealthERP.OnlineOrderBackOffice
             Texcmt.Text = String.Empty;
            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Holiday created!!');", true);
             gvTradeBusinessDate.Rebind();
-            GetTradeBusinessDates();
+            //GetTradeBusinessDates();
         }
         protected void BindTradebusinessdate()
         {
@@ -474,15 +476,31 @@ namespace WealthERP.OnlineOrderBackOffice
                 dtGetAllTradeBussiness = dsGetAllTradeBussiness.Tables[0];
                 if (dtGetAllTradeBussiness.Rows.Count > 0)
                 {
-                    if (Cache["Tradebussiness" + adviserVo.advisorId] == null)
-                    {
-                        Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
-                    }
-                    else
-                    {
-                        Cache.Remove("Tradebussiness" + adviserVo.advisorId);
-                        Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
-                    }
+                    if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
+                        Cache.Remove(userVo.UserId.ToString() + "TradeBusinessDates");
+                    Cache.Insert(userVo.UserId.ToString() + "TradeBusinessDates", dtGetAllTradeBussiness);
+                    //if (Cache[userVo.UserId.ToString() + "TradeBusinessDates"] != null)
+                    //{
+                    //    Cache.Remove("Tradebussiness" + adviserVo.advisorId);
+                    //    Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
+                    //    Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
+                    //}
+                    //else
+                    //{
+                       
+                    //}
+
+
+                    //  sai
+                    //if (Cache["Tradebussiness" + adviserVo.advisorId] == null)
+                    //{
+                    //    Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
+                    //}
+                    //else
+                    //{
+                    //    Cache.Remove("Tradebussiness" + adviserVo.advisorId);
+                    //    Cache.Insert("Tradebussiness" + adviserVo.advisorId, dtGetAllTradeBussiness);
+                    //}
                     gvTradeBusinessDate.DataSource = dtGetAllTradeBussiness;
 
 

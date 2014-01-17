@@ -32,13 +32,13 @@
         <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="ExistMFInvestlist">
         </ExportSettings>
         <MasterTableView DataKeyNames="AH_Id,AH_HierarchyName,AH_TitleId,AH_Teamname,AH_TeamId,AH_ReportsToId,AH_ReportsTo,AH_ChannelName,AH_ChannelId,AH_Sequence"
-           >
-         <%--   EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"--%>
-          <%--  CommandItemSettings-AddNewRecordText="Add Hierarchy Setup">--%>
+            
+        EditMode="PopUp" CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false" 
+        CommandItemSettings-AddNewRecordText="Add Hierarchy Setup"> 
             <Columns>
-               <%-- <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+               <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
                     UpdateText="Update">
-                </telerik:GridEditCommandColumn>--%>
+                </telerik:GridEditCommandColumn> 
                   <telerik:GridBoundColumn Visible="false" UniqueName="AH_Id" HeaderText="Type"
                     DataField="AH_Id" SortExpression="AH_Id" AllowFiltering="true"
                     ShowFilterIcon="false" AutoPostBackOnFilter="true">
@@ -75,11 +75,11 @@
                     SortExpression="AH_Sequence" AllowFiltering="true" ShowFilterIcon="false" AutoPostBackOnFilter="true">
                     <HeaderStyle></HeaderStyle>
                 </telerik:GridBoundColumn>
-                <%--<telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Hierarchy?"
+            <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete this Hierarchy?"
                     ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
                     Text="Delete">
                     <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
-                </telerik:GridButtonColumn>--%>
+                </telerik:GridButtonColumn> 
             </Columns>
            
             <HeaderStyle Width="100px" />

@@ -278,6 +278,15 @@ namespace WealthERP.OPS
                         //cvOrderDate.ValueToCompare = DateTime.Now.ToShortDateString();
                         //cvFutureDate1.ValueToCompare = DateTime.Now.ToShortDateString();
                     }
+                    if (mforderVo.OrderStatusCode.ToUpper() == "RJ".ToUpper())
+                    {
+                        lnkBtnEdit.Visible = false;
+                    }
+                    else
+                    {
+                        lnkBtnEdit.Visible = true;
+
+                    }
                 }
                 else
                 {
@@ -1081,6 +1090,8 @@ namespace WealthERP.OPS
                 {
                     //sai ddlsearch.SelectedItem.Value = "0";
                     //sai ddlsearch.Enabled = false;
+                   
+
                     txtAssociateSearch.Text = orderVo.AgentCode;
                     trCust.Visible = true;
                     //sai ddlsearch.SelectedItem.Value = "1";
