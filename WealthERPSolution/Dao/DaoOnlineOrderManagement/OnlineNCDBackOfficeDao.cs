@@ -408,6 +408,43 @@ namespace DaoOnlineOrderManagement
                 throw Ex;
             }
         }
+        public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType,ref string status)
+        {
+            
+            Database db;
+            DbCommand createCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                createCmd = db.GetStoredProcCommand("SPROC_CreateUpdateDeletetAplicationNos");
+                db.AddInParameter(createCmd, "@FromRange", DbType.String, fromRange );
+                db.AddInParameter(createCmd, "@ToRange", DbType.String, toRange );
+                db.AddInParameter(createCmd, "@AdviserId", DbType.Int32,adviserId);
+                db.AddInParameter(createCmd, "@issueId", DbType.String, issueId);
+                db.AddInParameter(createCmd, "@formRangeId", DbType.String, formRangeId);
+                db.AddInParameter(createCmd, "@commandType", DbType.String, commandType);
+                db.AddOutParameter(createCmd, "@status", DbType.String, 50);
+
+
+                if (db.ExecuteNonQuery(createCmd) != 0)
+                {
+                    status = db.GetParameterValue(createCmd, "status").ToString() ;
+
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+
+                }
+
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
         public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
         {
             int issueId;
@@ -687,6 +724,36 @@ namespace DaoOnlineOrderManagement
                 throw exBase;
             }
             return dsGetSeriesCategories;
+        }
+        public DataSet GetActiveRange(int adviserId,int issueId)
+        {
+            DataSet dsgetActiveRange;
+            Database db;
+            DbCommand dbCommand;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                dbCommand = db.GetStoredProcCommand("SPROC_GetActiveRange");
+                db.AddInParameter(dbCommand, "@adviserId", DbType.Int32, adviserId);
+                db.AddInParameter(dbCommand, "@issueId", DbType.Int32, issueId);
+                dsgetActiveRange = db.ExecuteDataSet(dbCommand);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeDao.cs:GetActiveRange()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+            return dsgetActiveRange;
         }
         public DataSet GetAllInvestorTypes(int  issuerId, int issueId)
         {

@@ -56,7 +56,9 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Telerik.Web.UI.RadWindow radwindowPopup;
+        protected global::Telerik.Web.UI.RadWindow radIssuerPopUp;
+        protected global::Telerik.Web.UI.RadWindow radAplicationPopUp;
+
         
         /// <summary>
         /// rgIssuer control.
@@ -237,6 +239,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFormRange;
+        protected global::System.Web.UI.WebControls.TextBox txtFrom;
+
+        protected global::System.Web.UI.WebControls.TextBox txtTo;
+        
         
         /// <summary>
         /// RequiredFieldValidator8 control.
@@ -1713,6 +1719,11 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Telerik.Web.UI.RadGrid rgEligibleInvestorCategories;
+
+        protected global::Telerik.Web.UI.RadGrid rgAplication;
+
+
+        
         
         /// <summary>
         /// pnlSeries control.

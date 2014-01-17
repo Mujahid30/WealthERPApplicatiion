@@ -62,7 +62,133 @@
         </td>
     </tr>
 </table>
-<telerik:RadWindow ID="radwindowPopup" runat="server" VisibleOnPageLoad="false" Height="30%"
+<telerik:RadWindow ID="radAplicationPopUp" runat="server" VisibleOnPageLoad="false"
+    Height="30%" Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false"
+    Behaviors="None" Visible="false" Title="Add New Active Range">
+    <contenttemplate>
+        <div style="padding: 20px">
+            <table width="100%">
+                <tr>
+                    <td colspan="2">
+                        <telerik:RadGrid ID="rgAplication" runat="server" AllowSorting="True" enableloadondemand="True"
+                            PageSize="5" AutoGenerateColumns="False" EnableEmbeddedSkins="False" GridLines="None"
+                            ShowFooter="True" PagerStyle-AlwaysVisible="true" AllowPaging="false" ShowStatusBar="True"
+                            Skin="Telerik" AllowFilteringByColumn="true" OnNeedDataSource="rgAplication_OnNeedDataSource"
+                            OnItemCommand="rgAplication_ItemCommand" OnItemDataBound="rgAplication_ItemDataBound">
+                            <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIFR_Id"
+                                AutoGenerateColumns="false" Width="100%" EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create Active Range"
+                                CommandItemDisplay="Top">
+                                <Columns>
+                                    <telerik:GridEditCommandColumn EditText="Edit" UniqueName="editColumn" CancelText="Cancel"
+                                        UpdateText="Update">
+                                    </telerik:GridEditCommandColumn>
+                                     <telerik:GridBoundColumn DataField="AIFR_Id" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Name" UniqueName="AIFR_Id"
+                                        SortExpression="AIFR_Id" AllowFiltering="true" Visible="false">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="AIM_IssueId" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issuer Name" UniqueName="AIM_IssueId"
+                                        SortExpression="AIM_IssueId" AllowFiltering="true"  Visible="false">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="AIFR_From" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="From" UniqueName="AIFR_From"
+                                        SortExpression="AIFR_From" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="AIFR_To" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="To" UniqueName="AIFR_To"
+                                        SortExpression="AIFR_To" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridBoundColumn DataField="AIFR_IsActive" HeaderStyle-Width="20px" CurrentFilterFunction="Contains"
+                                        ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Active" UniqueName="AIFR_IsActive"
+                                        SortExpression="AIFR_IsActive" AllowFiltering="true">
+                                        <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
+                                    </telerik:GridBoundColumn>
+                                    <telerik:GridButtonColumn UniqueName="deleteColumn" ConfirmText="Are you sure you want to delete?"
+                                        ConfirmDialogType="RadWindow" ConfirmTitle="Delete" ButtonType="LinkButton" CommandName="Delete"
+                                        Text="Delete">
+                                        <ItemStyle HorizontalAlign="Center" CssClass="MyImageButton" />
+                                    </telerik:GridButtonColumn>
+                                    <%--<telerik:GridEditCommandColumn EditText="Delete" UniqueName="DeleteIssuer" CancelText="Cancel"
+                                            UpdateText="Delete">
+                                        </telerik:GridEditCommandColumn>--%>
+                                </Columns>
+                                <EditFormSettings EditFormType="Template" PopUpSettings-Height="150px" PopUpSettings-Width="330px">
+                                    <FormTemplate>
+                                        <table width="75%" cellspacing="2" cellpadding="2">
+                                          
+                                            <tr>
+                                                <td class="leftField" style="width: 10%">
+                                                    <asp:Label ID="lb1FromRange" runat="server" Text="From: " CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" style="width: 25%">
+                                                    <asp:TextBox ID="txtFrom" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                                    <span id="spnNewFolioValidation">*</span>
+                                                    
+                                                     <asp:RegularExpressionValidator ID="regFrom" ControlToValidate="txtFrom"
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value"
+                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
+            </asp:RegularExpressionValidator>
+                                                    
+                                                    
+                                                    
+                                                 <%--   <asp:RequiredFieldValidator ID="rfvName" ControlToValidate="txtFrom" ErrorMessage="Please enter From Range"
+                                                        ValidationGroup="rgApllOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                                    </asp:RequiredFieldValidator>--%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftField" style="width: 10%">
+                                                    <asp:Label ID="Label22" runat="server" Text="To: " CssClass="FieldName"></asp:Label>
+                                                </td>
+                                                <td class="rightField" style="width: 25%">
+                                                    <asp:TextBox ID="txtTo" runat="server" CssClass="txtField"></asp:TextBox><br />
+                                                    <span id="Span37">*</span>
+                                                      <asp:RegularExpressionValidator ID="regTo" ControlToValidate="txtTo"
+                runat="server" Display="Dynamic" ErrorMessage="<br/>Please Enter Integer Value"
+                CssClass="cvPCG" ValidationExpression="[1-9]\d*$" ValidationGroup="rgApllOk">     
+            </asp:RegularExpressionValidator>
+                                                    
+                                                  <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator31" ControlToValidate="txtTo" ErrorMessage="Please enter To Range"
+                                                        ValidationGroup="rgApllOk" Display="Dynamic" runat="server" CssClass="rfvPCG">
+                                                    </asp:RequiredFieldValidator>--%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="leftLabel">
+                                                    <asp:Button ID="btnOK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
+                                                        Text='<%# (Container is GridEditFormInsertItem) ? "Insert" : "Update" %>' CausesValidation="True"
+                                                        ValidationGroup="rgApllOk"  >
+                                                    </asp:Button>
+                                                </td>
+                                                <td class="rightData">
+                                                    <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
+                                                        CssClass="PCGButton" CommandName="Cancel"></asp:Button>
+                                                </td>
+                                                <td class="leftLabel" colspan="2">
+                                                    &nbsp;
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </FormTemplate>
+                                </EditFormSettings>
+                            </MasterTableView>
+                        </telerik:RadGrid>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="RightData">
+                        <asp:Button ID="Button1" runat="server" Text="Close" CssClass="PCGButton" OnClick="btnImageActivRange_Click" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </contenttemplate>
+</telerik:RadWindow>
+<telerik:RadWindow ID="radIssuerPopUp" runat="server" VisibleOnPageLoad="false" Height="30%"
     Width="400px" Modal="true" BackColor="#DADADA" VisibleStatusbar="false" Behaviors="None"
     Title="Add New Issuer">
     <contenttemplate>
@@ -216,7 +342,7 @@
                 Width="205px">
             </asp:DropDownList>
             <span id="Span10" class="spnRequiredField">*</span>
-            <asp:ImageButton ID="imgFolioAdd" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+            <asp:ImageButton ID="imgIssuer" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
                 AlternateText="Add" runat="server" ToolTip="Click here to Add Issuer" OnClick="btnIssuerPopUp_Click"
                 Height="15px" Width="15px"></asp:ImageButton>
             <br />
@@ -251,6 +377,9 @@
         <td class="rightData">
             <asp:TextBox ID="txtToRange" runat="server" CssClass="txtField" Width="200px"></asp:TextBox>
             <span id="Span14" class="spnRequiredField">*</span>
+            <asp:ImageButton ID="ImageActivRange" ImageUrl="~/App_Themes/Maroon/Images/user_add.png"
+                AlternateText="Add" runat="server" ToolTip="Click here to Add Active Range" OnClick="btnImageActivRange_Click"
+                Height="15px" Width="15px"></asp:ImageButton>
             <br />
             <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Enter ToRange"
                 CssClass="rfvPCG" ControlToValidate="txtToRange" ValidationGroup="SetUpSubmit"
@@ -488,7 +617,7 @@
         <td class="rightData">
             <telerik:RadDatePicker ID="txtOpenDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01"
-                TabIndex="17" Width="200px" autopostback="true">
+                TabIndex="17" Width="200px" AutoPostBack="true">
                 <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
                     skin="Telerik" enableembeddedskins="false">
                 </calendar>
@@ -1135,8 +1264,8 @@
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator15" ControlToValidate="txtMinBidAmount"
-                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
+                                                            runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
+                                                            ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1151,8 +1280,8 @@
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator16" ControlToValidate="txtMaxBidAmount"
-                                                                                runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
-                                                                                ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
+                                                            runat="server" Display="Dynamic" ErrorMessage="Please Enter Digits" CssClass="cvPCG"
+                                                            ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr id="trDiscountType" runat="server">
@@ -1247,7 +1376,7 @@
                                                 <tr>
                                                     <td class="leftLabel">
                                                         <asp:Button ID="btnOK" Text="OK" runat="server" CssClass="PCGButton" CommandName='<%# (Container is GridEditFormInsertItem) ? "PerformInsert" : "Update" %>'
-                                                            CausesValidation="True" ValidationGroup="btnOK"/>
+                                                            CausesValidation="True" ValidationGroup="btnOK" />
                                                     </td>
                                                     <td class="rightData">
                                                         <asp:Button ID="btnCancel" Text="Cancel" runat="server" CausesValidation="False"
@@ -1366,9 +1495,9 @@
                                     <EditFormSettings EditFormType="Template" PopUpSettings-Height="350px" PopUpSettings-Width="580px">
                                         <FormTemplate>
                                             <table width="80%">
-                                            <tr>
-                                            <td>
-                                           <%-- <table id="tblMessage" width="100%" runat="server" visible="false">
+                                                <tr>
+                                                    <td>
+                                                        <%-- <table id="tblMessage" width="100%" runat="server" visible="false">
                                          <tr id="trSumbitSuccess" runat="server">
                                        <td align="center">
                                        <div id="msgRecordStatus" class="success-msg" align="center" runat="server">
@@ -1376,9 +1505,9 @@
                                              </td>
                                              </tr>
                                              </table>--%>
-                                             <asp:Label ID="lblmessage" runat="server" Visible="false"></asp:Label>
-                                            </td>
-                                            </tr>
+                                                        <asp:Label ID="lblmessage" runat="server" Visible="false"></asp:Label>
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td width="20%" align="right">
                                                         <asp:Label ID="lb1SereiesName" runat="server" Text="Series Name:" CssClass="FieldName"></asp:Label>
@@ -1391,12 +1520,9 @@
                                                             ErrorMessage="Please Enter Sereies Name" Display="Dynamic" ControlToValidate="txtSereiesName"
                                                             ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
-                                                        
                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator29" runat="server" CssClass="rfvPCG"
-                                                            ErrorMessage="" Display="Dynamic" ControlToValidate="txtSereiesName"
-                                                            ValidationGroup="btnOK">
+                                                            ErrorMessage="" Display="Dynamic" ControlToValidate="txtSereiesName" ValidationGroup="btnOK">
                                                         </asp:RequiredFieldValidator>
-                                                        
                                                     </td>
                                                     <td width="25%" align="left">
                                                         <asp:Label ID="lb1Tenure" runat="server" Text="Tenure:" CssClass="FieldName"></asp:Label>&nbsp;&nbsp;&nbsp;
@@ -1408,8 +1534,8 @@
                                                             ValidationGroup="btnOK" InitialValue="">
                                                         </asp:RequiredFieldValidator>
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator14" ControlToValidate="txtTenure"
-                                                       runat="server" Display="Dynamic" ErrorMessage="Please Enter (+)Ve Digits" CssClass="cvPCG"
-                                                       ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator> 
+                                                            runat="server" Display="Dynamic" ErrorMessage="Please Enter (+)Ve Digits" CssClass="cvPCG"
+                                                            ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">   </asp:RegularExpressionValidator>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1455,8 +1581,8 @@
                                                         </asp:RequiredFieldValidator>
                                                     </td>
                                                     <td width="35%" align="left">
-                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back" OnCheckedChanged="chkBuyAvailability_changed" AutoPostBack="true" >
-                                                        </asp:CheckBox>
+                                                        <asp:CheckBox ID="chkBuyAvailability" runat="server" CssClass="cmbFielde" Text="Is Buy Back"
+                                                            OnCheckedChanged="chkBuyAvailability_changed" AutoPostBack="true"></asp:CheckBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1498,9 +1624,9 @@
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     
                                                                             </asp:RegularExpressionValidator>
                                                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator26" runat="server" CssClass="rfvPCG"
-                                                            ErrorMessage="Please Enter value" Display="Dynamic" ControlToValidate="txtInterestRate"
-                                                            ValidationGroup="btnOK" InitialValue="">
-                                                        </asp:RequiredFieldValidator>
+                                                                                ErrorMessage="Please Enter value" Display="Dynamic" ControlToValidate="txtInterestRate"
+                                                                                ValidationGroup="btnOK" InitialValue="">
+                                                                            </asp:RequiredFieldValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
                                                                     <telerik:GridTemplateColumn HeaderText="Yield At Maturity" AllowFiltering="false"
@@ -1541,13 +1667,14 @@
                                                                             </asp:RegularExpressionValidator>
                                                                         </ItemTemplate>
                                                                     </telerik:GridTemplateColumn>
-                                                                    <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"  runat="server"
-                                                                        UniqueName="YieldAtBuyBack">
+                                                                    <telerik:GridTemplateColumn HeaderText="Yield At BuyBack" AllowFiltering="false"
+                                                                        runat="server" UniqueName="YieldAtBuyBack">
                                                                         <HeaderTemplate>
-                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)" ></asp:Label>
+                                                                            <asp:Label ID="lb1YieldAtBuyBack" runat="server" Text="Yield At BuyBack(%)"></asp:Label>
                                                                         </HeaderTemplate>
                                                                         <ItemTemplate>
-                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px" AutoPostBack="true" Visible="false"></asp:TextBox>
+                                                                            <asp:TextBox ID="txtYieldAtBuyBack" runat="server" CssClass="txtField" Width="40px"
+                                                                                AutoPostBack="true" Visible="false"></asp:TextBox>
                                                                             <asp:RegularExpressionValidator ID="rgYieldAtBuyBack" ControlToValidate="txtYieldAtBuyBack"
                                                                                 runat="server" Display="Dynamic" ErrorMessage="Please Enter +(ve) Digits" CssClass="cvPCG"
                                                                                 ValidationExpression="[0-9]\d*(\.\d?[0-9])?$" ValidationGroup="btnOK">     

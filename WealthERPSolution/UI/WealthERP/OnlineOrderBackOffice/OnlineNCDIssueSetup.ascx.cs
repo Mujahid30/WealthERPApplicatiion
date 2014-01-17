@@ -439,6 +439,7 @@ namespace WealthERP.OnlineOrderBackOffice
             else if (Mode == "View")
             {
                 EnablityOfScreen(false, true, true, true);
+                radAplicationPopUp.Visible = true;
             }
             else if (Mode == "LnkEdit")
             {
@@ -2811,6 +2812,30 @@ namespace WealthERP.OnlineOrderBackOffice
             //    int TradeBusinessId = Convert.ToInt32(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_DayName"].ToString());
             //}
         }
+        protected void rgAplication_ItemDataBound(object sender, GridItemEventArgs e)
+        {
+            if ((e.Item is GridEditFormItem) && (e.Item.IsInEditMode) && e.Item.ItemIndex != -1)
+            {
+                GridEditFormItem editform = (GridEditFormItem)e.Item;
+                int formrangeId =Convert.ToInt32( rgAplication.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIFR_Id"].ToString());
+
+                TextBox txtFrom = (TextBox)editform.FindControl("txtFrom");
+                TextBox txtTo = (TextBox)editform.FindControl("txtTo");
+                DataTable dtIssuer = new DataTable();
+                dtIssuer = onlineNCDBackOfficeBo.GetActiveRange(advisorVo.advisorId,Convert.ToInt32(txtIssueId.Text)).Tables[0];
+                DataTable tbl = (from DataRow dr in dtIssuer.Rows
+                                 where dr["AIFR_Id"].ToString() == formrangeId.ToString()
+                                 select dr).CopyToDataTable();
+                
+                foreach (DataRow dr in tbl.Rows)
+                {
+                    txtFrom.Text = dr["AIFR_From"].ToString();
+                    txtTo.Text = dr["AIFR_To"].ToString();
+                }
+            }
+           
+        }
+        
         protected void rgEligibleInvestorCategories_ItemDataBound(object sender, GridItemEventArgs e)
         {
             try
@@ -3287,6 +3312,32 @@ namespace WealthERP.OnlineOrderBackOffice
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
             }
         }
+
+        private void CreateUpdateDeleteAplication(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType)
+        {
+            string status = string.Empty;
+            int i = onlineNCDBackOfficeBo.CreateUpdateDeleteAplicationNos(fromRange, toRange, adviserId, issueId, formRangeId, commandType, ref status);
+            if (i > 0)
+            {
+                if (commandType == "INSERT" & status == "Refill")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Inserted Successfully.');", true);
+                else if (commandType == "INSERT" & status == "Filled")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Cant insert,Already Being used.');", true);
+                else if (commandType == "INSERT" & status == "Not Used")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Active Range Exist.');", true);
+               
+                else if (commandType == "UPDATE" & status == "DontUpdate")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Cant Update.');", true);
+                else if (commandType == "UPDATE")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Updated Successfully.');", true);
+                else if (commandType == "DELETE" & status == "Filled")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Cant delete,Already Being used.');", true);
+                else if (commandType == "DELETE")
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
+
+                //ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "Message", "alert('Deleted Successfully.');", true);
+            }
+        }
         protected void rgSyndicate_ItemCommand(object source, GridCommandEventArgs e)
         {
             //int SyndicateId;
@@ -3313,6 +3364,36 @@ namespace WealthERP.OnlineOrderBackOffice
 
             //}
             //BindSyndicateGrid();
+        }
+        private void BindApplGrid()
+        {
+            try
+            {
+                DataTable dtGetActiveRange = new DataTable();
+                dtGetActiveRange = onlineNCDBackOfficeBo.GetActiveRange(advisorVo.advisorId,Convert.ToInt32 (txtIssueId.Text)).Tables[0];
+                rgAplication.DataSource = dtGetActiveRange;
+                rgAplication.DataBind();
+                if (Cache[userVo.UserId.ToString() + "Aplication"] != null)
+                    Cache.Remove(userVo.UserId.ToString() + "Aplication");
+                Cache.Insert(userVo.UserId.ToString() + "Aplication", dtGetActiveRange);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "NCDIssuesetup.ascx.cs:BindApplGrid()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+
+
         }
 
         protected void rgIssuer_ItemCommand(object source, GridCommandEventArgs e)
@@ -3342,19 +3423,59 @@ namespace WealthERP.OnlineOrderBackOffice
             }
             BindIssuerGrid();
         }
+        //rgAplication_ItemCommand
+
+        protected void rgAplication_ItemCommand(object source, GridCommandEventArgs e)
+        {
+            int formRangeId = 0;
+            if (e.CommandName == RadGrid.PerformInsertCommandName)
+            {
+                TextBox txtFrom = (TextBox)e.Item.FindControl("txtFrom");
+                TextBox txtTo = (TextBox)e.Item.FindControl("txtTo");
+
+                CreateUpdateDeleteAplication(Convert.ToInt32(txtFrom.Text), Convert.ToInt32(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), 0, "INSERT");
+            }
+            else if (e.CommandName == RadGrid.UpdateCommandName)
+            {
+                formRangeId = Convert.ToInt32(rgAplication.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIFR_Id"].ToString());
+                TextBox txtFrom = (TextBox)e.Item.FindControl("txtFrom");
+                TextBox txtTo = (TextBox)e.Item.FindControl("txtTo");
+
+                CreateUpdateDeleteAplication(Convert.ToInt32(txtFrom.Text), Convert.ToInt32(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), formRangeId, "UPDATE");
+
+            }
+            else if (e.CommandName == RadGrid.DeleteCommandName)
+            {
+                formRangeId = Convert.ToInt32(rgAplication.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIFR_Id"].ToString());
+                CreateUpdateDeleteAplication(0, 0, 0, 0, formRangeId, "DELETE");
+
+            }
+            BindApplGrid();
+        }
+
 
         protected void btnIssuerPopUp_Click(object sender, ImageClickEventArgs e)
         {
-            radwindowPopup.VisibleOnPageLoad = true;
-            BindIssuerGrid();
+            radIssuerPopUp.VisibleOnPageLoad = true;
+            BindApplGrid();
 
         }
         protected void btnIssuerPopClose_Click(object sender, EventArgs e)
         {
-            radwindowPopup.VisibleOnPageLoad = false;
-            BindIssuer();
+            radIssuerPopUp.VisibleOnPageLoad = false;
+           // BindIssuer();
         }
 
+        protected void btnImageActivRange_Click(object sender, ImageClickEventArgs e)
+        {
+            radAplicationPopUp.VisibleOnPageLoad = true;
+            BindApplGrid();
+        }
+        protected void btnImageActivRange_Click(object sender, EventArgs e)
+        {
+            radAplicationPopUp.VisibleOnPageLoad = false;
+
+        }
         private void BindIssuerGrid()
         {
             try
@@ -3422,9 +3543,19 @@ namespace WealthERP.OnlineOrderBackOffice
             }
 
         }
+        protected void rgAplication_OnNeedDataSource(object sender, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
+        {
+            DataTable dtAplication = new DataTable();
+            dtAplication = (DataTable)Cache[userVo.UserId.ToString() + "Aplication"];
+            if (dtAplication != null)
+            {
+                rgAplication.DataSource = dtAplication;
+            }
+
+        }
         //protected void btnCancel_Click(object sender, EventArgs e)
         //{
-        //    radwindowPopup.VisibleOnPageLoad = false;
+        //    radIssuerPopUp.VisibleOnPageLoad = false;
         //}
         protected void chkOnlineEnablement_changed(object sender, EventArgs e)
         {

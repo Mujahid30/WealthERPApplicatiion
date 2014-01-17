@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-           // lblAvailableLimits.Text = "500000";
+         // lblAvailableLimits.Text = "500000";
 
             if (!IsPostBack)
             {
@@ -312,7 +312,7 @@ namespace WealthERP.OnlineOrderManagement
 
             }
         }
-        private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus)
+        private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus, string aplicationNoStatus)
         {
             string userMessage = string.Empty;
             string cutOffTimeType = string.Empty;
@@ -329,6 +329,12 @@ namespace WealthERP.OnlineOrderManagement
             else if (orderId == 0 & lblAvailableLimits.Text == "0")
             {
                 userMessage = "Order cannot be processed. Insufficient balance";
+
+            }
+
+            else if (aplicationNoStatus == "Refill")
+            {
+                userMessage = "Please Contact sbi team to fill Aplications";
 
             }
             else if (orderId == 0)
@@ -446,8 +452,9 @@ namespace WealthERP.OnlineOrderManagement
                     IssuerId = int.Parse(ViewState["IssueId"].ToString());
                     double availableBalance = Convert.ToDouble(OnlineBondBo.GetUserRMSAccountBalance(customerVo.AccountId));
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
-                   // availableBalance = 50000;
+                   // availableBalance = 5000000;
                     string message;
+                    string aplicationNoStatus=string.Empty ;
                     bool accountDebitStatus = false;
                     int Applicationno = 0;
                     int orderId = 0;
@@ -456,8 +463,11 @@ namespace WealthERP.OnlineOrderManagement
                         orderIds = OnlineBondBo.onlineBOndtransact(dt, adviserVo.advisorId, IssuerId);
                         orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
                         Applicationno = int.Parse(orderIds["application"].ToString());
+                        aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
+                        
                         ViewState["OrderId"] = orderId;
                         ViewState["application"] = Applicationno;
+
                         btnConfirmOrder.Enabled = false;
                         Label3.Visible = false;
 
@@ -471,7 +481,7 @@ namespace WealthERP.OnlineOrderManagement
                     }
 
                     tdsubmit.Visible = false;
-                    message = CreateUserMessage(orderId, Applicationno, accountDebitStatus);
+                    message = CreateUserMessage(orderId, Applicationno, accountDebitStatus, aplicationNoStatus);
                     ShowMessage(message);
                     lnlBack.Visible = true;
                 }

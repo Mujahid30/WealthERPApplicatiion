@@ -159,6 +159,29 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
         }
+        public int CreateUpdateDeleteAplicationNos(int fromRange, int toRange, int adviserId, int issueId, int formRangeId, string commandType, ref string status)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.CreateUpdateDeleteAplicationNos(fromRange, toRange, adviserId, issueId, formRangeId, commandType, ref  status);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:CreateUpdateDeleteIssuer()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public int CreateUpdateDeleteSyndicateMaster(int syndicateId, string syndicateCode, string syndicateName, string commandType)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -230,6 +253,29 @@ namespace BoOnlineOrderManagement
                 throw exBase;
             }
 
+        }
+        public DataSet GetActiveRange(int adviserId,int issueId)
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetActiveRange(adviserId, issueId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetActiveRange()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
         }
 
 
@@ -678,14 +724,14 @@ namespace BoOnlineOrderManagement
             try
             {
                 onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
-                 onlineNCDBackOfficeDao.GetOrdersEligblity(issueId, ref isPurchaseAvailable);
+                onlineNCDBackOfficeDao.GetOrdersEligblity(issueId, ref isPurchaseAvailable);
             }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
             }
         }
-        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset,int issueId, ref int isExtracted)
+        public void GenerateOnlineNcdExtract(int AdviserId, int UserId, string ExternalSource, string ProductAsset, int issueId, ref int isExtracted)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             onlineNCDBackOfficeDao.GenereateNcdExtract(AdviserId, UserId, ExternalSource, ProductAsset, issueId, ref isExtracted);
@@ -780,7 +826,7 @@ namespace BoOnlineOrderManagement
             return kvpHeaders;
         }
 
-        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource,int issueId)
+        public DataTable GetOnlineNcdExtractPreview(DateTime extractDate, int adviserId, int fileTypeId, string extSource, int issueId)
         {
             KeyValuePair<string, string>[] headers = GetHeaderMapping(fileTypeId, extSource);
 
@@ -801,7 +847,7 @@ namespace BoOnlineOrderManagement
             return dtExtract;
         }
 
-        public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId,ref int isAllotmented,ref int isUpdated)
+        public void UpdateNcdOrderMannualMatch(int orderId, int allotmentId, ref int isAllotmented, ref int isUpdated)
         {
             //bool result = false;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -831,11 +877,11 @@ namespace BoOnlineOrderManagement
         }
         public void UpdateNcdAutoMatch(int orderId, int applictionNo, string dpId, ref int isAllotmented, ref int isUpdated)
         {
-           // bool result = false;
+            // bool result = false;
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                  onlineNCDBackOfficeDao.UpdateNcdAutoMatch(orderId, applictionNo, dpId,ref isAllotmented, ref isUpdated);
+                onlineNCDBackOfficeDao.UpdateNcdAutoMatch(orderId, applictionNo, dpId, ref isAllotmented, ref isUpdated);
             }
             catch (BaseApplicationException Ex)
             {
@@ -854,7 +900,7 @@ namespace BoOnlineOrderManagement
                 ExceptionManager.Publish(exBase);
                 throw exBase;
             }
-         //   return result;
+            //   return result;
 
         }
 
@@ -1019,7 +1065,7 @@ namespace BoOnlineOrderManagement
                         string colRegex = Header.RegularExpression;
                         string colVal = row[j].ToString();
                         string colNam = Header.HeaderName;
-                        if (colRegex != "NULL" )
+                        if (colRegex != "NULL")
                         {
                             Regex regex = new Regex(colRegex);
                             if (!regex.IsMatch(colVal))
@@ -1072,7 +1118,7 @@ namespace BoOnlineOrderManagement
             {
                 row["SN"] = i.ToString();
                 row["Remarks"] = GetErrorsForRow(Headers, row, i);
-                
+
                 i++;
             }
 
@@ -1081,49 +1127,49 @@ namespace BoOnlineOrderManagement
             dtRawData.Columns["Remarks"].SetOrdinal(1);
             dtRawData.AcceptChanges();
 
-            
 
-            
+
+
 
 
 
             return dtRawData;
         }
-    //    private DataTable AddColumnToDataTable(DataTable dtRaw, string  dataColumn)
-    //{
-    //    if (!dtRaw.Columns.Contains(dataColumn))
-    //    {
-    //        DataColumn newColumn = new DataColumn(dataColumn, dataColumn.DataType);
-    //        dataTable.Columns.Add(newColumn);
-	 
-    //        for (int i = 0; i < dataColumn.Table.Rows.Count; i++)
-    //        {
-    //            while (dataTable.Rows.Count <= i)
-    //            {
-    //                dataTable.Rows.Add(dataTable.NewRow());
-    //            }
-    //            dataTable.Rows[i][newColumn.ColumnName] = dataColumn.Table.Rows[i][dataColumn.ColumnName];
-    //        }
-    //    }
-    //    return dataTable;
+        //    private DataTable AddColumnToDataTable(DataTable dtRaw, string  dataColumn)
+        //{
+        //    if (!dtRaw.Columns.Contains(dataColumn))
+        //    {
+        //        DataColumn newColumn = new DataColumn(dataColumn, dataColumn.DataType);
+        //        dataTable.Columns.Add(newColumn);
 
-    //    //else
-    //    //{
-    //    //    throw new Exception(string.Format("Data Table already contains a column named '{0}", dataColumn.ColumnName));
-    //    //}
+        //        for (int i = 0; i < dataColumn.Table.Rows.Count; i++)
+        //        {
+        //            while (dataTable.Rows.Count <= i)
+        //            {
+        //                dataTable.Rows.Add(dataTable.NewRow());
+        //            }
+        //            dataTable.Rows[i][newColumn.ColumnName] = dataColumn.Table.Rows[i][dataColumn.ColumnName];
+        //        }
+        //    }
+        //    return dataTable;
 
-    //}
+        //    //else
+        //    //{
+        //    //    throw new Exception(string.Format("Data Table already contains a column named '{0}", dataColumn.ColumnName));
+        //    //}
+
+        //}
         //private bool Find(OnlineIssueHeader header)
         //{
         //    if(
         //}
 
-        public int UploadCheckOrderFile(DataTable dtCheckOrder,  int fileTypeId,int issueId)
+        public int UploadCheckOrderFile(DataTable dtCheckOrder, int fileTypeId, int issueId)
         {
 
-            int nRows=0;
+            int nRows = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
-            
+
 
             try
             {
@@ -1135,16 +1181,16 @@ namespace BoOnlineOrderManagement
                 }
                 else if (extractStepCode == "UC")
                 {
-                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);                  
+                    nRows = daoOnlNcdBackOff.UploadChequeIssueData(dtCheckOrder, issueId);
                 }
                 else if (extractStepCode == "UB")
                 {
-                   if( dtCheckOrder.Columns.Contains("Error Text"))
-                  dtCheckOrder.Columns.RemoveAt(3);
+                    if (dtCheckOrder.Columns.Contains("Error Text"))
+                        dtCheckOrder.Columns.RemoveAt(3);
                     nRows = daoOnlNcdBackOff.UploadBidSuccessData(dtCheckOrder, issueId);
 
                 }
-               
+
             }
             catch (Exception Ex)
             {
@@ -1160,13 +1206,13 @@ namespace BoOnlineOrderManagement
             }
             return nRows;
         }
-        public int CheckIssueName(string Issuename,int issueid)
+        public int CheckIssueName(string Issuename, int issueid)
         {
             int result = 0;
             OnlineNCDBackOfficeDao daoOnlNcdBackOff = new OnlineNCDBackOfficeDao();
             try
             {
-                result = daoOnlNcdBackOff.CheckIssueName(Issuename,issueid);
+                result = daoOnlNcdBackOff.CheckIssueName(Issuename, issueid);
             }
             catch (BaseApplicationException Ex)
             {

@@ -307,13 +307,16 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(cmdOnlineBondTransact, "@AIM_IssueId", DbType.Int32, IssuerId);
                 db.AddOutParameter(cmdOnlineBondTransact, "@Order_Id", DbType.Int32, 1000000);
                 db.AddOutParameter(cmdOnlineBondTransact, "@application", DbType.Int32, 1000000);
-               
+                 db.AddOutParameter(cmdOnlineBondTransact, "@aplicationNoStatus", DbType.String, 10);
+           
                 
                 if (db.ExecuteNonQuery(cmdOnlineBondTransact) != 0)
                 {
 
                     OrderIds.Add("Order_Id", db.GetParameterValue(cmdOnlineBondTransact, "Order_Id").ToString());
-                    OrderIds.Add("application", db.GetParameterValue(cmdOnlineBondTransact, "application").ToString());                  
+                    OrderIds.Add("application", db.GetParameterValue(cmdOnlineBondTransact, "application").ToString());
+                    OrderIds.Add("aplicationNoStatus", db.GetParameterValue(cmdOnlineBondTransact, "aplicationNoStatus").ToString());                  
+                
                 }
 
             }
