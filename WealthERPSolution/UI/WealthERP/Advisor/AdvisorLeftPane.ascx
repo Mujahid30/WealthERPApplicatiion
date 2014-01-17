@@ -756,7 +756,7 @@
                                             </telerik:RadPanelItem>
                                         </Items>
                                     </telerik:RadPanelItem>
-                                    <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
+                                   <%-- <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
                                                 <Items>
@@ -767,12 +767,66 @@
                                                 </Items>
                                             </telerik:RadPanelItem>
                                         </Items>
+                                    </telerik:RadPanelItem>--%>
+                                      <telerik:RadPanelItem runat="server" Text="Organization" Value="Organization">
+                                        <Items>
+                                            <telerik:RadPanelItem runat="server" Text="Profile" Value="Profile">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Edit Profile" Value="Edit Profile">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Zone/Cluster" Value="Zone_Cluster">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Staff" Value="Staff">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Staff" Value="Add Staff">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Branch/Association" Value="Branch/Association">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Branch" Value="Add Branch">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Branch Association" Value="View Branch Association">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Hierarchy Setup" Value="Hierarchy_Setup">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Associates" Value="Associatess">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="View Associates List" Value="ViewAssociatess">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Request Associate" Value="AddAssociates">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="Associates Status" Value="ViewAssociates">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="Sub Broker Code" Value="Sub_Broker_Code">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add Sub Broker Code" Value="AddAgentCode">
+                                                    </telerik:RadPanelItem>
+                                                    <telerik:RadPanelItem runat="server" Text="View Sub Broker Code" Value="ViewAgentCode">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="LOB" Value="LOB">
+                                                <Items>
+                                                    <telerik:RadPanelItem runat="server" Text="Add LOB" Value="Add LOB">
+                                                    </telerik:RadPanelItem>
+                                                </Items>
+                                            </telerik:RadPanelItem>
+                                        </Items>
                                     </telerik:RadPanelItem>
                                     <telerik:RadPanelItem runat="server" Text="Customer" Value="Customer">
                                         <Items>
                                             <telerik:RadPanelItem runat="server" Text="Cliant Access" Value="Client_access">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Customer List" Value="CustomerList">
+                                            </telerik:RadPanelItem>
+                                            <telerik:RadPanelItem runat="server" Text="View Customer Association" Value="View_Customer_Association">
                                             </telerik:RadPanelItem>
                                             <telerik:RadPanelItem runat="server" Text="Add Customer" Value="Add Customer">
                                             </telerik:RadPanelItem>

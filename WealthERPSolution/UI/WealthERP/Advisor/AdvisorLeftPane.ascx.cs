@@ -1683,6 +1683,69 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('TradeBusinessDate','login');", true);
                 }
+                else if (e.Item.Value == "Setup Advisor Staff SMTP")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserStaffSMTP','login');", true);
+                }
+                else if (e.Item.Value == "Set Theme")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SetTheme','login');", true);
+                }
+                else if (e.Item.Value == "Setup_customer_category")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CustomerCategorySetup','login');", true);
+                }
+                else if (e.Item.Value == "Environment_Settings")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEnvironmentSettings','login');", true);
+                }
+                else if (e.Item.Value == "RepositoryCategory")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepositoryCategory','login');", true);
+                }
+                else if (e.Item.Value == "Repository")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepository','login');", true);
+                }
+                else if (e.Item.Value == "Setup Associate Category")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
+                }
+                else if (e.Item.Value == "Edit Profile")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EditAdvisorProfile','login');", true);
+                }
+                else if (e.Item.Value == "Zone_Cluster")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserZoneCluster','login');", true);
+                }
+                else if (e.Item.Value == "Add Staff")
+                {
+                    // ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
+                    if (advisorVo.A_AgentCodeBased == 0)
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddRM','login');", true);
+                    else
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddStaff','login');", true);
+                }
+                else if (e.Item.Value == "Add Branch")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddBranch','login');", true);
+                }
+                else if (e.Item.Value == "View Branch Association")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewBranchAssociation','login');", true);
+                }
+                else if (e.Item.Value == "Hierarchy_Setup")
+                {
+                    //Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('HierarchySetup','login');", true);
+                }
+                else if (e.Item.Value == "Add LOB")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AddLOB','login');", true);
+                }
                 if (e.Item.Value == "Client_access")
                 {
                     Session["Customer"] = "Customer";
@@ -1692,6 +1755,11 @@ namespace WealthERP.Advisor
                 {
                     Session["Customer"] = "Customer";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserCustomer','login');", true);
+                }
+                else if (e.Item.Value == "View_Customer_Association")
+                {
+                    //Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AssociateCustomerList','login');", true);
                 }
                 else if (e.Item.Value == "Status_ISA")
                 {
@@ -2101,7 +2169,11 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderAccountingExtract','login');", true);
                 }
-
+                else if (e.Item.Value == "RTA_Extract")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderExtract','login');", true);
+                }
 
                 else if (e.Item.Value == "File_Generation")
                 {

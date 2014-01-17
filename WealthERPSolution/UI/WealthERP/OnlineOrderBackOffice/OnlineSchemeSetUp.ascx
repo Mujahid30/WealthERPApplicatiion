@@ -201,10 +201,16 @@
                 &nbsp;
                 <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
             </td>
-            <td align="center" colspan="2">
+             <td align="right">
+                <asp:Label ID="LbllISactive" runat="server" Text="Is Active:" CssClass="FieldName"></asp:Label>
+            </td>
+            <td>
+                <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
+            
                 <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
                 ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
                 Width="15px"></asp:ImageButton>--%>
+                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
                     OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
             </td>
@@ -513,12 +519,7 @@
                 <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedSwtchAvaliable_OnCheckedChanged"
                     AutoPostBack="true" />
             </td>
-            <td align="right">
-                <asp:Label ID="LbllISactive" runat="server" Text="Is Active:" CssClass="FieldName"></asp:Label>
-            </td>
-            <td>
-                <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
-            </td>
+           
         </tr>
         <tr id="trIPAmount" runat="server" visible="false">
             <td colspan="4">
