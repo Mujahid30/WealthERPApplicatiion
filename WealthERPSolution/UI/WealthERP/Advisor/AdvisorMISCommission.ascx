@@ -203,7 +203,7 @@
                             <asp:Label ID="lblSelectSchemeNAV" runat="server" CssClass="FieldName" Text="Select Scheme Name:"></asp:Label>
                         </td>
                         <td>
-                            <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbField">
+                            <asp:DropDownList ID="ddlSelectSchemeNAV" runat="server" CssClass="cmbFielde">
                                 <asp:ListItem Text="All" Value="0"></asp:ListItem>
                             </asp:DropDownList>
                             <asp:CompareValidator ID="CompareValidator2" runat="server" ControlToValidate="ddlSelectSchemeNAV"
@@ -590,7 +590,7 @@
 <table width="100%">
     <tr>
         <td>
-            <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField"
+            <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbFielde"
                 Text="Note: 1.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection."></asp:Label>
         </td>
     </tr>
