@@ -463,7 +463,8 @@ namespace WealthERP.OnlineOrderBackOffice
             radwindowPopup.VisibleOnPageLoad = false;
             Texcmt.Text = String.Empty;
            ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Holiday created!!');", true);
-            gvTradeBusinessDate.Rebind();
+           BindTradebusinessdate();
+           
             //GetTradeBusinessDates();
         }
         protected void BindTradebusinessdate()
