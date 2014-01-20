@@ -33,7 +33,7 @@
         <td align="left">
             <asp:Label ID="lnlType" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
             <asp:DropDownList ID="ddlType" runat="server" CssClass="cmbField">
-                <asp:ListItem Text="Customer Wise" Value="CustomerWise"></asp:ListItem>
+                <asp:ListItem Text="Customer Wise" Value="CustomerWise"></asp:ListItem> 
                 <asp:ListItem Text="Scheme Wise" Value="SchemeWise"></asp:ListItem>
             </asp:DropDownList>
         </td>
@@ -261,7 +261,7 @@
 <table width="100%">
     <tr>
         <td>
-            <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbField"
+            <asp:Label ID="LabelMainNote" runat="server" Font-Size="Small" CssClass="cmbFielde"
                 Text="Note: 1.You can group/ungroup or hide/unhide fields by a right click on the grid label and then making the selection."></asp:Label>
         </td>
     </tr>
