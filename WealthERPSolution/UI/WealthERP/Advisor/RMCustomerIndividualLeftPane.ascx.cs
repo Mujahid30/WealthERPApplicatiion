@@ -463,10 +463,14 @@ namespace WealthERP.Advisor
 
                     if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
                     {
-                        RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
-                        RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
+                        if (!ConfigurationSettings.AppSettings["NCD_TREE_NODE"].ToString().Contains(advisorVo.advisorId.ToString()))
+                        {
+                            RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
+                            RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
+
+                        }
                     }
-                    
+
                 }
 
 
@@ -891,7 +895,7 @@ namespace WealthERP.Advisor
             DataSet dspotentialHomePage;
             string potentialHomePage = "";
 
-           
+
             try
             {
                 if (e.Item.Value == "Home")
@@ -1561,7 +1565,7 @@ namespace WealthERP.Advisor
                 }
             }
         }
-        
+
 
         protected void RPBOnlineOrder_ItemClick(object sender, RadPanelBarEventArgs e)
         {
@@ -1639,7 +1643,7 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "CustomerIPOHolding", "loadcontrol('CustomerIPOHolding','none');", true);
                 }
-             }
+            }
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
