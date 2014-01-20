@@ -602,7 +602,7 @@ namespace DaoOnlineOrderManagement
             }
             return dsSchemeSetUpFromOverAllCategoryList;
         }
-        public int ExternalcodeCheck(string externalcode)
+        public int ExternalcodeCheck(string externalcode, string externaltype)
         {
             Database db;
             DataSet ds;
@@ -614,6 +614,7 @@ namespace DaoOnlineOrderManagement
                 //checking year
                 cmdExternalcodeCheck = db.GetStoredProcCommand("SPROC_TocheckingExternalCode");
                 db.AddInParameter(cmdExternalcodeCheck, "@Externalcode", DbType.String, externalcode);
+                db.AddInParameter(cmdExternalcodeCheck, "@ExternalType", DbType.String, externaltype);
                 db.AddOutParameter(cmdExternalcodeCheck, "@count", DbType.Int32, 0);
 
                 ds = db.ExecuteDataSet(cmdExternalcodeCheck);
@@ -1451,7 +1452,7 @@ namespace DaoOnlineOrderManagement
             return bResult;
         }
 
-        public bool updateTradeBusinessDate(int Tradebusinessid,string txt)
+        public bool updateTradeBusinessDate(int Tradebusinessid,string txt,DateTime date)
         {
             int affectedRecords = 0;
             bool bResult = false;
@@ -1463,7 +1464,7 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 createtradeBusinessDateCmd = db.GetStoredProcCommand("SPROC_updateTradeBusinessDate");
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_TradeId", DbType.Int32, Tradebusinessid);
-                //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime,d);
+                db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_Date", DbType.DateTime,date);
                 //db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_ExecutionDate", DbType.DateTime, TradeBusinessExecutionDate);
                 db.AddInParameter(createtradeBusinessDateCmd, "@WTBD_HolidayName", DbType.String, txt);
                 db.AddOutParameter(createtradeBusinessDateCmd, "@IsSuccess", DbType.Int16, 0);

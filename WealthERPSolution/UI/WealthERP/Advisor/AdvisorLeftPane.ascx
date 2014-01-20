@@ -724,7 +724,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="Set Theme" Value="Set Theme">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="Setup Advisor Staff SMTP" Value="Setup Advisor Staff SMTP">
+                                                    <telerik:RadPanelItem runat="server" Text="Email/SMS Account" Value="Setup Advisor Staff SMTP">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="Environment Settings" Value="Environment_Settings">
                                                     </telerik:RadPanelItem>

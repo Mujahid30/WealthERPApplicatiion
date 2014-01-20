@@ -1490,11 +1490,11 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnsubmit_click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtESSchemecode.Text))
+            if (string.IsNullOrEmpty(txtESSchemecode.Text) && string.IsNullOrEmpty(ddlRT.SelectedValue))
                 return;
 
 
-            int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtESSchemecode.Text);
+            int count = OnlineOrderBackOfficeBo.ExternalcodeCheck(txtESSchemecode.Text,ddlRT.SelectedValue);
             if (count > 0)
             {
 

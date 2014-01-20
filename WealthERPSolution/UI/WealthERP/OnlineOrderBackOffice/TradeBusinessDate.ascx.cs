@@ -89,14 +89,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 int TradeBusinessId = Convert.ToInt32(gvTradeBusinessDate.MasterTableView.DataKeyValues[e.Item.ItemIndex]["WTBD_Id"].ToString());
                 RadDatePicker date1 = (RadDatePicker)e.Item.FindControl("RadDatePicker1");
                 //RadDatePicker dt2 = (RadDatePicker)e.Item.FindControl("RadDatePicker2");
-                //RadDatePicker txtdate = (RadDatePicker)e.Item.FindControl("txtdate");
+               // RadDatePicker txtdate = (RadDatePicker)e.Item.FindControl("txtdate");
                 TextBox txtHoliday = (TextBox)e.Item.FindControl("txtHolidaysName");
                 TradeBusinessDateVo.HolidayName = txtHoliday.Text.ToString();
+                TradeBusinessDateVo.TradeBusinessDate = date1.SelectedDate.Value;
 
                 if (date1.SelectedDate != null)
                 {
-                    bool bln = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessId, TradeBusinessDateVo.HolidayName);
+                    bool bln = OnlineOrderBackOfficeBo.updateTradeBusinessDate(TradeBusinessId, TradeBusinessDateVo.HolidayName,TradeBusinessDateVo.TradeBusinessDate);
                     //GetTradeBusinessDates();
+                    BindTradebusinessdate();
                 }
 
 
@@ -526,6 +528,7 @@ namespace WealthERP.OnlineOrderBackOffice
                     //}
 
                     gvTradeBusinessDate.DataBind();
+                    //BindTradebusinessdate();
                 }
                 else
                 {

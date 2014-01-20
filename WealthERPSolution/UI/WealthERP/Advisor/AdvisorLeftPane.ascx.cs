@@ -1686,7 +1686,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "Setup Advisor Staff SMTP")
                 {
-                    Session["UserType"] = "adviser";
+                    //Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserStaffSMTP','login');", true);
                 }
                 else if (e.Item.Value == "Set Theme")
@@ -1701,6 +1701,11 @@ namespace WealthERP.Advisor
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserEnvironmentSettings','login');", true);
                 }
+                else if (e.Item.Value == "Setup IP pool")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserIPPool','login');", true);
+                }
+
                 else if (e.Item.Value == "RepositoryCategory")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ManageRepositoryCategory','login');", true);

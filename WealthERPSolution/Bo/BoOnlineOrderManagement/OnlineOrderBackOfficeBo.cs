@@ -518,13 +518,13 @@ namespace BoOnlineOrderManagement
             }
             return dsSchemeSetUpFromOverAllCategoryList;
         }
-        public int ExternalcodeCheck(string externalcode)
+        public int ExternalcodeCheck(string externalcode, string externaltype)
         {
             int result = 0;
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                result = OnlineOrderBackOfficeDao.ExternalcodeCheck(externalcode);
+                result = OnlineOrderBackOfficeDao.ExternalcodeCheck(externalcode, externaltype);
             }
             catch (BaseApplicationException Ex)
             {
@@ -1671,12 +1671,12 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public bool updateTradeBusinessDate(int Tradebusinessid, string txt)
+        public bool updateTradeBusinessDate(int Tradebusinessid, string txt,DateTime date)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
             {
-                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(Tradebusinessid, txt);
+                return OnlineOrderBackOfficeDao.updateTradeBusinessDate(Tradebusinessid, txt, date);
             }
             catch (BaseApplicationException Ex)
             {

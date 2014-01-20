@@ -42,7 +42,7 @@
             <asp:Label ID="Lblholidays" runat="server" Text="Select Type:" CssClass="FieldName"></asp:Label>
         </td>
         <td>
-            <asp:DropDownList ID="Ddlholiday" runat="server" CssClass="cmbField">
+            <asp:DropDownList ID="Ddlholiday" runat="server" CssClass="cmbField" AutoPostBack="true">
                 <Items>
                     <asp:ListItem Text="All" Value="2" />
                     <%--<asp:ListItem Text="Bussiness Day" Value="1"/>--%>
