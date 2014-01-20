@@ -151,7 +151,7 @@ namespace BoOnlineOrderManagement
             switch (messageType)
             {
                 case "EUIN":
-                    message = "I/We here by confirm that this is an execution-only transaction without any iteraction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not charged any advisory fees on this transaction";
+                    message = "I/We here by confirm that this is an execution-only transaction without any interaction or advice by the employee/relationship manager/sales person of the above distributor or notwithstanding the advice of in-appropriateness, if any, provided by the employee/relationship manager/sales person of the distributor and the distributor has not charged any advisory fees on this transaction";
                     break;
                 case "PA":
                     message = "KRA not completed / updated. Hence cannot invest in mutual fund. Please contact SSL customer care";
