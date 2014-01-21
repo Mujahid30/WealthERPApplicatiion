@@ -66,6 +66,7 @@ namespace WealthERP.Customer
         string relCode = string.Empty;
         string viewForm = string.Empty;
         int requestNo = 0;
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -1271,15 +1272,23 @@ namespace WealthERP.Customer
 
         protected void txtCustomerId_ValueChanged(object sender, EventArgs e)
         {
+            
             if (txtCustomerId.Value != string.Empty)
             {
+                    //TextBox txtpan = (TextBox)item.FindControl("txtPan");
                     DataTable dt = customerBo.GetCustomerPanAddress(int.Parse(txtCustomerId.Value));
-                    DataRow dr = dt.Rows[0];                
-                    hdnPannum.Value = dr["C_PANNum"].ToString();              
+                    DataRow dr = dt.Rows[0];
+        
+                    hdnPannum.Value = dr["C_PANNum"].ToString();
+                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannumfbgf", "DisplayPanId('" + hdnPannum.Value + "');", true);
+                    
+               }
+                                   
+                
+               
+                
 
-                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "CustomerSearchPannum", "DisplayPanId('" + hdnPannum.Value + "');", true);
-
-            }
+            
         }
 
         //protected void btnSubmit_Click(object sender, EventArgs e)
@@ -2069,15 +2078,17 @@ namespace WealthERP.Customer
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
 
                 TextBox txtMember = (TextBox)item.FindControl("txtMember");
-                //Label lblGetPan = (Label)item.FindControl("lblGetPan");
+                Label lblGetPan = (Label)item.FindControl("lblGetPan");
+                Label lblspan = (Label)item.FindControl("lblspan");
                 TextBox txtpan = (TextBox)item.FindControl("txtPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
                 CheckBox chkbisRealInvestor = (CheckBox)e.Item.FindControl("chkIsinvestmem");
                 CheckBox chkycinside = (CheckBox)e.Item.FindControl("chKInsideKyc");
-
+                //Label lblspan = (Label)item.FindControl("lblspan");
                 chkbisRealInvestor.Visible = false;
                 chkycinside.Visible = false;
-
+                txtpan.Visible = false;
+                lblspan.Visible = false;
 
                 Session["lblGetPan"] = txtpan;
 
@@ -2138,12 +2149,13 @@ namespace WealthERP.Customer
                 DataTable dtRelationship = customerBo.GetMemberRelationShip();
 
                 TextBox txtMember = (TextBox)editedItem.FindControl("txtMember");
-                //Label lblGetPan = (Label)editedItem.FindControl("lblGetPan");
+                Label lblGetPan = (Label)editedItem.FindControl("lblGetPan");
                 TextBox txtNewMemPan = (TextBox)e.Item.FindControl("txtNewPan");
                 TextBox txtPan = (TextBox)editedItem.FindControl("txtPan");
-               // lblGetPan.Text = panNum;
+                lblGetPan.Visible = false;
                 txtNewMemPan.Text = panNum;
                 txtPan.Text = panNum;
+                //lblspan.Visible = true;
 
                 DropDownList ddlRelation = (DropDownList)editedItem.FindControl("ddlRelation");
                 ddlRelation.DataSource = dtRelationship;

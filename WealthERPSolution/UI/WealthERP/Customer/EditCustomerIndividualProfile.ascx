@@ -317,7 +317,7 @@
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="C_PANNum" HeaderText="C_PANNum" UniqueName="C_PANNum"
-                                                SortExpression="C_PANNum" Visible="false">
+                                                SortExpression="C_PANNum">
                                                 <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                             </telerik:GridBoundColumn>
                                             <telerik:GridBoundColumn DataField="XR_Relationship" HeaderText="Relationship" AllowFiltering="false"
@@ -396,15 +396,15 @@
                                                                     <asp:CheckBox ID="chKInsideKyc" runat="server" Text=" IS KYC" />
                                                                     </td>
                                                                 </tr>
-                                                                <tr>
+                                                                <tr runat="server">
                                                                     <td class="leftField" align="right">
                                                                         <asp:Label ID="lblPan" runat="server" CssClass="FieldName" Text="PAN:"></asp:Label>
                                                                     </td>
-                                                                    <td class="rightField">
-                                                                       <%-- <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label>--%>
+                                                                    <td class="rightField" runat="server">
+                                                                       <asp:Label ID="lblGetPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="FieldName"></asp:Label> 
                                                                        
                                                                         <asp:TextBox ID="txtPan" runat="server" Text='<%# Bind("C_PANNum") %>' CssClass="txtField"></asp:TextBox>
-                                                                        <span id="Span10" class="spnRequiredField">*</span>
+                                                                        <%--<span id="Span10" class="spnRequiredField">*</span>--%><asp:Label ID="lblspan" runat="server" CssClass="spnRequiredField">*</asp:Label>
                                                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txtPan"
                                                                             ErrorMessage="<br />Please Enter PAN Number" Display="Dynamic" runat="server"
                                                                             CssClass="rfvPCG" ValidationGroup="Submit"></asp:RequiredFieldValidator>
