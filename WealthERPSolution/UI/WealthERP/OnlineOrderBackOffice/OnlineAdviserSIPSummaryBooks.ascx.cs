@@ -225,6 +225,8 @@ namespace WealthERP.OnlineOrderBackOffice
                 drSIPOrderBook["CMFSS_CreatedOn"] = DateTime.Parse(drSIP["CMFSS_CreatedOn"].ToString());
                 drSIPOrderBook["CMFSS_SystematicSetupId"] = drSIP["CMFSS_SystematicSetupId"];
                 drSIPOrderBook["PA_AMCName"] = drSIP["PA_AMCName"].ToString();
+                drSIPOrderBook["C_FirstName"] = drSIP["C_FirstName"].ToString();
+                drSIPOrderBook["C_PANNum"] = drSIP["C_PANNum"].ToString();
                 drSIPOrderBook["PASP_SchemePlanName"] = drSIP["PASP_SchemePlanName"].ToString();
                 drSIPOrderBook["PAISC_AssetInstrumentSubCategoryName"] = drSIP["PAISC_AssetInstrumentSubCategoryName"].ToString();
                 drSIPOrderBook["CMFSS_DividendOption"] = drSIP["CMFSS_DividendOption"];
@@ -264,6 +266,8 @@ namespace WealthERP.OnlineOrderBackOffice
             DataTable dtSIPOrderBook = new DataTable();
             dtSIPOrderBook.Columns.Add("CMFSS_CreatedOn", typeof(DateTime));
             dtSIPOrderBook.Columns.Add("CMFSS_SystematicSetupId");
+            dtSIPOrderBook.Columns.Add("C_FirstName");
+            dtSIPOrderBook.Columns.Add("C_PANNum");
             dtSIPOrderBook.Columns.Add("PA_AMCName");
             dtSIPOrderBook.Columns.Add("PASP_SchemePlanName");
             dtSIPOrderBook.Columns.Add("PAISC_AssetInstrumentSubCategoryName");

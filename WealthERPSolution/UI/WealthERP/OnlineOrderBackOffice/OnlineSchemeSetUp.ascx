@@ -195,7 +195,7 @@
             </td>
             <td>
                 &nbsp;
-                <asp:CheckBox ID="chkonline" AutoPostBack="false" runat="server" Text="Online Scheme"
+                <asp:CheckBox ID="chkonline" AutoPostBack="false" runat="server" Text="Online Scheme" Enabled="false"
                     CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="true" />
                 <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                 &nbsp;
@@ -404,11 +404,11 @@
                 <asp:TextBox ID="txtinvestment" runat="server" CssClass="cmbFielde"></asp:TextBox>
             </td>
             <td colspan="2" align="center">
-                <asp:RequiredFieldValidator ID="rfvtxtHH" runat="server" CssClass="rfvPCG" ErrorMessage="please Enter hour"
+                <asp:RequiredFieldValidator ID="rfvtxtHH" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter Hour"
                     Display="Dynamic" ControlToValidate="txtHH" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="rfvtxtMM" ControlToValidate="txtMM" ErrorMessage="Please enter min"
+                <asp:RequiredFieldValidator ID="rfvtxtMM" ControlToValidate="txtMM" ErrorMessage="Please Enter minute"
                     Display="Dynamic" runat="server" CssClass="rfvPCG" ValidationGroup="btnsubmit"></asp:RequiredFieldValidator>
-                <asp:RequiredFieldValidator ID="rfvtxtSS" runat="server" CssClass="rfvPCG" ErrorMessage="Please enter sec"
+                <asp:RequiredFieldValidator ID="rfvtxtSS" runat="server" CssClass="rfvPCG" ErrorMessage="Please Enter Seconnd"
                     Display="Dynamic" ControlToValidate="txtSS" ValidationGroup="btnsubmit">
                 </asp:RequiredFieldValidator>
                 <asp:RangeValidator ID="rngtxtHH" runat="server" Type="Integer" MinimumValue="0"

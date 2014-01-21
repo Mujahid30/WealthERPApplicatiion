@@ -1498,7 +1498,7 @@ namespace WealthERP.OnlineOrderBackOffice
             if (count > 0)
             {
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('please enter unique EXternal System Scheme code You Can Use Combination of 0-9 and a-z');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "MyScript", "alert('Please Enter Unique EXternal System Scheme Code You Can Use Combination of 0-9 and a-z');", true);
                 return;
             }
 
