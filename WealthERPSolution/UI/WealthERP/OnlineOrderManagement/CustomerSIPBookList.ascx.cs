@@ -34,7 +34,7 @@ namespace WealthERP.OnlineOrderManagement
         int systematicId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
+            OnlineUserSessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userType = Session[SessionContents.CurrentUserRole].ToString();

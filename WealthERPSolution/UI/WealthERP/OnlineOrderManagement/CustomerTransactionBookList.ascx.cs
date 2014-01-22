@@ -42,7 +42,7 @@ namespace WealthERP.OnlineOrderManagement
         DataTable dtMFTransactions = new DataTable();
         protected void Page_Load(object sender, EventArgs e)
         {
-            SessionBo.CheckSession();
+            OnlineUserSessionBo.CheckSession();
             advisorVo = (AdvisorVo)Session["advisorVo"];
             customerVO = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];

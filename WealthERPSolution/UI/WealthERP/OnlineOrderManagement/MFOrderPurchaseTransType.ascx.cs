@@ -43,7 +43,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void Page_Load(object sender, EventArgs e)
         {
             path = Server.MapPath(ConfigurationManager.AppSettings["xmllookuppath"].ToString());
-            SessionBo.CheckSession();
+            OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
             Session["OrderId"] = OrderId;

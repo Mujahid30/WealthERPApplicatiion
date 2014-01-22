@@ -51,54 +51,78 @@ namespace WealthERP
 
         protected void Page_Init(object sender, EventArgs e)
         {
-
-            if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
+            if (IsPostBack)
             {
-                userAccountId = Page.Request.Headers["x-Account-ID"].ToString();
-                if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
-                {
-                    productType = Page.Request.Headers["x-SBI-PType"];
-                    lblTest.Text = productType;
-                }
-            }
-            else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
-            {
-                userAccountId = Request.QueryString["x-Account-ID"].ToString();
-
-                if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
-                {
-                    productType = Request.QueryString["x-SBI-PType"];
-                    lblTest.Text = productType;
-                }
-            }
-            if (Request.QueryString["WERP"] != null)
-                isWerp = Request.QueryString["WERP"];
-            //Testing User
-
-            //if (string.IsNullOrEmpty(userAccountId))
-            //    userAccountId = "ESI206315";
-            //if (productType != "MF")
-            //    productType = "MF";
-
-            if (!string.IsNullOrEmpty(userAccountId))
-            {
-                if (string.IsNullOrEmpty(productType))
-                    productType = "MF";
-                if (!Page.IsPostBack)
-                {
-                    SetProductTypeMenu(productType.ToUpper());
-                    SetDefaultPageSetting(productType.ToUpper());
-
-                }
-                lblWelcomeUser.Text = "Account: " + userAccountId;
+                OnlineUserSessionBo.CheckSession();
             }
             else
             {
-                productType = "NP";
-                //Not Authorize to see the page
-                SetDefaultPageSetting("NA");
-            }
 
+                if (Page.Request.Headers["x-Account-ID"] != null && Page.Request.Headers["x-Account-ID"] != "")
+                {
+                    userAccountId = Page.Request.Headers["x-Account-ID"].ToString();
+                    if (Page.Request.Headers["x-SBI-PType"] != null && Page.Request.Headers["x-SBI-PType"] != "")
+                    {
+                        productType = Page.Request.Headers["x-SBI-PType"];
+                        lblTest.Text = productType;
+                    }
+                }
+                else if (Request.QueryString["x-Account-ID"] != null && Request.QueryString["x-Account-ID"] != "")
+                {
+                    userAccountId = Request.QueryString["x-Account-ID"].ToString();
+
+                    if (Request.QueryString["x-SBI-PType"] != null && Request.QueryString["x-SBI-PType"] != "")
+                    {
+                        productType = Request.QueryString["x-SBI-PType"];
+                        lblTest.Text = productType;
+                    }
+                }
+                if (Request.QueryString["WERP"] != null)
+                    isWerp = Request.QueryString["WERP"];
+                //Testing User
+
+                //if (string.IsNullOrEmpty(userAccountId))
+                //    userAccountId = "A800003";
+                //if (productType != "MF")
+                //    productType = "MF";
+
+                //if (!Page.IsPostBack)
+                //{
+                //    if (Session["Loaded"] != null && Convert.ToBoolean(Session["Loaded"]) == true)
+                //    {
+                //        Session["Loaded"] = false;
+                //    }
+                //    else
+                //    {
+                //        Session["Loaded"] = true;
+                //        //Register a javascript to set the parent
+
+                //        Page.ClientScript.RegisterStartupScript(this.GetType(),
+                //            "pageloadscript", "window.parent.location.href = 'OnlineMainHost.aspx'", true);
+                //    }
+                //}
+
+
+                if (!string.IsNullOrEmpty(userAccountId))
+                {
+                    if (string.IsNullOrEmpty(productType))
+                        productType = "MF";
+                    if (!Page.IsPostBack)
+                    {
+                        SetProductTypeMenu(productType.ToUpper());
+                        SetDefaultPageSetting(productType.ToUpper());
+
+                    }
+                    lblWelcomeUser.Text = "Account: " + userAccountId;
+                }
+                else
+                {
+                    productType = "NP";
+                    //Not Authorize to see the page
+                    SetDefaultPageSetting("NA");
+                }
+
+            }
 
         }
 
@@ -110,6 +134,8 @@ namespace WealthERP
 
             if (!IsPostBack)
             {
+               
+
                 if (!string.IsNullOrEmpty(userAccountId))
                 {
                     isValidUser = ValidateUserLogin(userAccountId, isWerp);

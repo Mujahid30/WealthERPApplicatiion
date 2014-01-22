@@ -25,6 +25,7 @@ namespace WealthERP.OnlineOrderManagement
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            OnlineUserSessionBo.CheckSession();
             customerVo = (CustomerVo)Session["customerVo"];
             userVo = (UserVo)Session["userVo"];
 
