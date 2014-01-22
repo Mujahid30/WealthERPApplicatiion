@@ -112,6 +112,11 @@
                                 <td align="left">
                                     Manage Lookup
                                 </td>
+                                <td align="right">
+                                    <asp:ImageButton ID="btnManageLookup" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                                        AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
+                                        Height="25px" Width="25px" OnClick="btnManageLookup_Click"></asp:ImageButton>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -125,7 +130,7 @@
                     <asp:Label ID="lb1Category" runat="server" Text="Category:" CssClass="FieldName"></asp:Label>
                 </td>
                 <td class="rightData">
-                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="cmbLongField" AutoPostBack="true"
                         OnSelectedIndexChanged="ddlCategory_OnSelectedIndexChanged">
                     </asp:DropDownList>
                     <span id="Span7" class="spnRequiredField">*</span>

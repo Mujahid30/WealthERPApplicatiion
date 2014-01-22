@@ -635,6 +635,16 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
+        protected void btnManageLookup_Click(object sender, ImageClickEventArgs e)
+        {
+            rgWerp.ExportSettings.OpenInNewWindow = true;
+            rgWerp.ExportSettings.ExportOnlyData = true;
+            rgWerp.ExportSettings.IgnorePaging = true;
+            rgWerp.ExportSettings.FileName = "Manage Lookups";
+            rgWerp.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgWerp.MasterTableView.ExportToExcel();
+
+        }
         protected void rgMaping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
         {
             try
