@@ -2969,6 +2969,13 @@
     <Compile Include="OnlineTopHost.aspx.designer.cs">
       <DependentUpon>OnlineTopHost.aspx</DependentUpon>
     </Compile>
+    <Compile Include="OnlineUserValidation.aspx.cs">
+      <DependentUpon>OnlineUserValidation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineUserValidation.aspx.designer.cs">
+      <DependentUpon>OnlineUserValidation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OPS\BondsOrderEntry.ascx.cs">
       <DependentUpon>BondsOrderEntry.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7826,6 +7833,7 @@
     <Content Include="OnlineOrder\OnlineOrderDummyTopMenu.ascx" />
     <Content Include="OnlineOrder\OnlineOrderTopMenu.ascx" />
     <Content Include="OnlineTopHost.aspx" />
+    <Content Include="OnlineUserValidation.aspx" />
     <Content Include="OPS\BondsOrderEntry.ascx" />
     <Content Include="OPS\CustomerGeneralInsuranceOrder.ascx" />
     <Content Include="OPS\CustomerOrderList.ascx" />
