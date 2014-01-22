@@ -25,7 +25,9 @@ namespace WealthERP.Advisor
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             string FromPageToCheckOps = string.Empty;
+            
             try
             {
                 SessionBo.CheckSession();
@@ -164,8 +166,10 @@ namespace WealthERP.Advisor
             if (hdnEnableOpsMsg.Value == "1")
             {
                 PreviousPage = "EnvironmentalSettings";
-                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddRM','PreviousPageName=" + PreviousPage + "');", true);
+                //Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddRM','PreviousPageName=" + PreviousPage + "');", true);
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "pageloadscript", "loadcontrol('AddStaff','PreviousPageName=" + PreviousPage + "');", true);
 
+                //Page.ClientScript.RegisterClientScriptBlock(this.Page, this.GetType(), "AddStaff", "loadcontrol('AddStaff','?RmId=" + rmVo.RMId + "&action=" + menu + "');", true);
             }
         }
 
