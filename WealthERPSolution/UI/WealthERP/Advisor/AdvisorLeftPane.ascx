@@ -299,7 +299,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Transactions" Value="MFT">
+                                                    <telerik:RadPanelItem runat="server" Text="Transactions" Value="MFT">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotments" Value="NCD_Allotments">
                                                     </telerik:RadPanelItem>
@@ -977,7 +977,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Transactions" Value="MFT">
+                                                    <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="NCD Allotments" Value="NCD_Allotments">
                                                     </telerik:RadPanelItem>
@@ -1383,7 +1383,7 @@
                                                 <Items>
                                                     <telerik:RadPanelItem runat="server" Text="MF Folio Accounts" Value="MF Folios">
                                                     </telerik:RadPanelItem>
-                                                    <telerik:RadPanelItem runat="server" Text="MF Transactions" Value="MFT">
+                                                    <telerik:RadPanelItem runat="server" Text="Transactionss" Value="MFT">
                                                     </telerik:RadPanelItem>
                                                     <telerik:RadPanelItem runat="server" Text="MF SIP MIS" Value="MF systematic MIS">
                                                     </telerik:RadPanelItem>
