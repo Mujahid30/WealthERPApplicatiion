@@ -65,6 +65,7 @@
     <Compile Include="GetDifferenceInTables.cs" />
     <Compile Include="MessageBo.cs" />
     <Compile Include="OneWayEncryption.cs" />
+    <Compile Include="OnlineUserSessionBo.cs" />
     <Compile Include="REadExternalFileBO.cs" />
     <Compile Include="RepositoryBo.cs" />
     <Compile Include="SessionBo.cs" />
