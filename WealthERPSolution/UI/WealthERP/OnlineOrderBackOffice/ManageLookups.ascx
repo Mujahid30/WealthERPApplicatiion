@@ -113,7 +113,10 @@
                                     Manage Lookup
                                 </td>
                                 <td align="right">
-                                    <asp:ImageButton ID="btnManageLookup" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                                    <asp:LinkButton runat="server" ID="lbBack" CssClass="LinkButtons" Text="Back" Visible="false"></asp:LinkButton>
+                                </td>
+                                <td align="right">
+                                    <asp:ImageButton ID="btnexport" runat="server" ImageUrl="~/Images/Export_Excel.png"
                                         AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
                                         Height="25px" Width="25px" OnClick="btnManageLookup_Click"></asp:ImageButton>
                                 </td>
@@ -200,7 +203,7 @@
                             AllowFilteringByColumn="true" AllowAutomaticDeletes="True" AllowAutomaticInserts="false"
                             AllowAutomaticUpdates="false" Skin="Telerik" OnNeedDataSource="rgWerp_NeedDataSource"
                             EnableEmbeddedSkins="false" Width="100%" OnItemCommand="rgWerp_ItemCommand">
-                            <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName="CommissionStructureRule">
+                            <ExportSettings HideStructureColumns="false" ExportOnlyData="true" FileName = "Manage Lookups" >
                             </ExportSettings>
                             <MasterTableView CommandItemDisplay="Top" CommandItemSettings-ShowRefreshButton="false"
                                 EditMode="PopUp" CommandItemSettings-AddNewRecordText="Create New Internal Code Value"

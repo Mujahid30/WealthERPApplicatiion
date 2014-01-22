@@ -46,14 +46,23 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+
                 DataTable dtCategory = new DataTable();
+
+
+
                 dtCategory = onlineOrderBackOfficeBo.GetLookupCategory().Tables[0];
                 ddlCategory.DataSource = dtCategory;
                 ddlCategory.DataValueField = dtCategory.Columns["WCM_Id"].ToString();
                 ddlCategory.DataTextField = dtCategory.Columns["WCM_Name"].ToString();
                 ddlCategory.DataBind();
                 ddlCategory.Items.Insert(0, new ListItem("Select", "Select"));
+
+
             }
+
+
+
             catch (BaseApplicationException Ex)
             {
                 throw Ex;
@@ -637,12 +646,20 @@ namespace WealthERP.OnlineOrderBackOffice
         }
         protected void btnManageLookup_Click(object sender, ImageClickEventArgs e)
         {
+
             rgWerp.ExportSettings.OpenInNewWindow = true;
-            rgWerp.ExportSettings.ExportOnlyData = true;
             rgWerp.ExportSettings.IgnorePaging = true;
+            rgWerp.ExportSettings.HideStructureColumns = true;
+            rgWerp.ExportSettings.ExportOnlyData = true;
             rgWerp.ExportSettings.FileName = "Manage Lookups";
             rgWerp.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rgWerp.MasterTableView.ExportToExcel();
+            //rgWerp.ExportSettings.OpenInNewWindow = true;
+            //rgWerp.ExportSettings.ExportOnlyData = true;
+            //rgWerp.ExportSettings.IgnorePaging = true;
+            //rgWerp.ExportSettings.FileName = "Manage Lookups";
+            //rgWerp.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            //rgWerp.MasterTableView.ExportToExcel();
 
         }
         protected void rgMaping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)
