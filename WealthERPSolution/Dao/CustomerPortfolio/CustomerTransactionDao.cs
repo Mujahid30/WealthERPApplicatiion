@@ -2508,6 +2508,17 @@ namespace DaoCustomerPortfolio
                         mfTransactionVo.Folio = dr["CMFA_FolioNum"].ToString();                      
                         mfTransactionVo.PortfolioName = dr["CP_PortfolioName"].ToString();
                         mfTransactionVo.CreatedOn = DateTime.Parse(dr["CMFT_CreatedOn"].ToString());
+                        
+                         //&& dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
+                        if (dr["CMFT_UserTransactionNo"].ToString() != string.Empty)
+                           
+                        {
+                            mfTransactionVo.UserTransactionNo = dr["CMFT_UserTransactionNo"].ToString();
+                        }
+                        else
+                        {
+                            mfTransactionVo.UserTransactionNo = "N/A";
+                        }
                         if (A_AgentCodeBased == 1)
                         {
                             if (dr["ZonalManagerName"].ToString() != null && dr["ZonalManagerName"].ToString() != string.Empty)

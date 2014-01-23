@@ -1091,6 +1091,7 @@ namespace WealthERP.CustomerPortfolio
                     dtMFTransactions.Columns.Add("ReportingManagerName");
                     dtMFTransactions.Columns.Add("UserType");
                     dtMFTransactions.Columns.Add("DeuptyHead");
+                    dtMFTransactions.Columns.Add("CMFT_UserTransactionNo");
                     
                     DataRow drMFTransaction;
                     for (int i = 0; i < mfTransactionList.Count; i++)
@@ -1154,6 +1155,7 @@ namespace WealthERP.CustomerPortfolio
                             drMFTransaction["ReportingManagerName"] = mfTransactionVo.ReportingManagerName.ToString();
                             drMFTransaction["UserType"] = mfTransactionVo.UserType.ToString();
                             drMFTransaction["DeuptyHead"] = mfTransactionVo.DeuptyHead.ToString();
+                            drMFTransaction["CMFT_UserTransactionNo"] = mfTransactionVo.UserTransactionNo.ToString();
                         }
 
                         dtMFTransactions.Rows.Add(drMFTransaction);

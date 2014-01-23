@@ -80,6 +80,7 @@ namespace VoCustomerPortfolio
         public int orderNo { get; set; }
         public string channel { get; set; }
         public string TrxnNo { get; set; }
+        public string UserTransactionNo { get; set; }
         public DateTime OrdDate { get; set; }
         public string PortfolioName
         {
@@ -254,7 +255,7 @@ namespace VoCustomerPortfolio
             get { return m_TransactionClassificationCode; }
             set { m_TransactionClassificationCode = value; }
         }
-
+       
         public string TransactionTrigger
         {
             get { return m_TransactionTrigger; }
