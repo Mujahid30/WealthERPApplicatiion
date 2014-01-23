@@ -795,11 +795,18 @@ function goBack()
                                                         CurrentFilterFunction="Contains" AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
+                                                    
                                                     <telerik:GridBoundColumn DataField="DeuptyHead" AllowFiltering="true" HeaderText="Deupty Head"
                                                         UniqueName="DeuptyHead" SortExpression="DeuptyHead" ShowFilterIcon="false" CurrentFilterFunction="Contains"
                                                         AutoPostBackOnFilter="true" HeaderStyle-Width="130px">
                                                         <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
                                                     </telerik:GridBoundColumn>
+                                                     <telerik:GridBoundColumn DataField="UserTransactionNo" AllowFiltering="true" HeaderText="User Transaction No"
+                                                        UniqueName="UserTransactionNo" SortExpression="UserTransactionNo" ShowFilterIcon="false" CurrentFilterFunction="Contains"
+                                                        AutoPostBackOnFilter="true" HeaderStyle-Width="330px">
+                                                        <ItemStyle Width="" HorizontalAlign="left" Wrap="false" VerticalAlign="Top" />
+                                                    </telerik:GridBoundColumn>
+                                                   
                                                 </Columns>
                                             </MasterTableView>
                                             <ClientSettings>
