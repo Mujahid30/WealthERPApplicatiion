@@ -1081,7 +1081,7 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "NCD_Extract")
                 {
-                    Session["UserType"] = "adviser";
+                   Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueExtract','login');", true);
                 }
                 else if (e.Item.Value == "File_Extraction")
@@ -1719,6 +1719,10 @@ namespace WealthERP.Advisor
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdviserAssociateCategorySetup','login');", true);
                 }
+                else if (e.Item.Value == "Profile")
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('AdvisorProfile','login');", true);
+                }
                 else if (e.Item.Value == "Edit Profile")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('EditAdvisorProfile','login');", true);
@@ -2228,6 +2232,11 @@ namespace WealthERP.Advisor
                 {
                     Session["UserType"] = "adviser";
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineOrderExtract','login');", true);
+                }
+                else if (e.Item.Value == "NCD_Extract")
+                {
+                    Session["UserType"] = "adviser";
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('OnlineIssueExtract','login');", true);
                 }
 
                 else if (e.Item.Value == "File_Generation")
