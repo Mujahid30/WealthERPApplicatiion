@@ -183,8 +183,8 @@
               Class="cmbField" GroupName="SelectCustomer" oncheckedchanged="rdoPickCustomer_CheckedChanged"/>--%>
             <asp:DropDownList ID="ddlProductType" Style="vertical-align: middle" runat="server"
                 CssClass="cmbField" AutoPostBack="true" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged">
-                <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
-                <asp:ListItem Value="MF" Text="Mutual Fund"></asp:ListItem>
+                <%--<asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>--%>
+                <asp:ListItem Value="MF" Text="Mutual Fund" Selected="True"></asp:ListItem>
                 <asp:ListItem Value="IN" Text="Life Insurance" Enabled="false"></asp:ListItem>
                 <asp:ListItem Value="FI" Text="FixedIncome" Enabled="false"></asp:ListItem>
             </asp:DropDownList>
@@ -195,8 +195,8 @@
         <td>
             <asp:DropDownList ID="ddlOnlineOffline" runat="server" CssClass="cmbField" AutoPostBack="true"
                 OnSelectedIndexChanged="ddlOnlineOffline_SelectedIndexChanged">
-                <asp:ListItem Value="Select" Text="Select" Selected="True"></asp:ListItem>
-                <asp:ListItem Value="Online" Text="Online"></asp:ListItem>
+                <%--<asp:ListItem Value="Select" Text="Select" Selected="False"></asp:ListItem>--%>
+                <asp:ListItem Value="Online" Text="Online" Selected="True"></asp:ListItem>
                 <asp:ListItem Value="Offline" Text="Offline"></asp:ListItem>
             </asp:DropDownList>
             <asp:RequiredFieldValidator ID="rvOnlineOffline" ControlToValidate="ddlOnlineOffline"

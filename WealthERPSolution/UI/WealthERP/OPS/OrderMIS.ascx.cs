@@ -160,8 +160,10 @@ namespace WealthERP.OPS
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionBo.CheckSession();
+            
 
             userVo = (UserVo)Session["userVo"];
+            
 
             if (!string.IsNullOrEmpty(Session["advisorVo"].ToString()))
                 advisorVo = (AdvisorVo)Session["advisorVo"];
@@ -179,6 +181,8 @@ namespace WealthERP.OPS
             gvCustomerOrderMIS.Visible = false;
             btnMannualMatch.Visible = false;
             btnSync.Visible = false;
+
+            
             if (Request.QueryString["result"] != null)
             {
                 gvCustomerOrderMIS.Visible = true;
@@ -192,6 +196,8 @@ namespace WealthERP.OPS
                     BindBranchDropDown();
                     BindRMDropDown();
                     BindOrderStatus();
+                    OnMfOrdersMediumSelection(ddlOnlineOffline.SelectedValue);
+                    
                 }
                 if (userType == "bm")
                 {
@@ -533,7 +539,7 @@ namespace WealthERP.OPS
                 Common_MfControls_Visiblity(false);
 
             }
-            else if (ddlProductType.SelectedValue == "MF")
+            if (ddlProductType.SelectedValue == "MF")
             {
                 //  online/offline mf drop down  visiblity             
                 ddlOnlineOffline.Visible = true;
@@ -563,7 +569,7 @@ namespace WealthERP.OPS
                 return;
             }
 
-            if (ordersMedium == "Online")
+            else if (ordersMedium == "Online")
             {
                 Common_MfControls_Visiblity(true);
                 OnlineMforders_Controls_Visiblity(false);
