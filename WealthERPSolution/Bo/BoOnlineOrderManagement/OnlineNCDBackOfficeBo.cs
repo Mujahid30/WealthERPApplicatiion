@@ -355,6 +355,30 @@ namespace BoOnlineOrderManagement
         //        throw exBase;
         //    }
         //}
+        
+        public DataSet GetAplRanges()
+        {
+            onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
+            try
+            {
+                return onlineNCDBackOfficeDao.GetAplRanges();
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineNCDBackOfficeBo.cs:GetAplRanges()");
+                object[] objects = new object[0];
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+            }
+        }
         public DataSet GetIssuer()
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
@@ -491,12 +515,12 @@ namespace BoOnlineOrderManagement
 
         }
 
-        public DataSet GetSubCategory(int issuerId, int issueId)
+        public DataSet GetSubCategory(int issuerId, int issueId,int size)
         {
             onlineNCDBackOfficeDao = new OnlineNCDBackOfficeDao();
             try
             {
-                return onlineNCDBackOfficeDao.GetSubCategory(issuerId, issueId);
+                return onlineNCDBackOfficeDao.GetSubCategory(issuerId, issueId, size);
             }
             catch (BaseApplicationException Ex)
             {
