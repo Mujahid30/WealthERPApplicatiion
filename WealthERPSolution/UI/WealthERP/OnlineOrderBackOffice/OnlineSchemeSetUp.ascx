@@ -70,7 +70,7 @@
                 <span id="Span26" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlProduct" runat="server" ErrorMessage="Please Select Product"
-                    CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnsubmit"
+                    CssClass="rfvPCG" ControlToValidate="ddlProduct" ValidationGroup="btnbasicsubmit"
                     Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>
             </td>
             <td align="right" width="10%">
@@ -84,8 +84,8 @@
                 <span id="Span27" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlAmc" runat="server" ErrorMessage="Please Select AMC"
-                    CssClass="rfvPCG" ControlToValidate="ddlAmc" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue="Select"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="ddlAmc" ValidationGroup="btnbasicsubmit"
+                    Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -108,7 +108,7 @@
                 <span id="Span28" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlcategory" runat="server" ErrorMessage="Please Select Category"
-                    CssClass="rfvPCG" ControlToValidate="ddlcategory" ValidationGroup="btnsubmit"
+                    CssClass="rfvPCG" ControlToValidate="ddlcategory" ValidationGroup="btnbasicsubmit"
                     Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
             <td align="right">
@@ -122,7 +122,7 @@
                 <span id="Span29" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlScategory" runat="server" ErrorMessage="Please Select SubCategory"
-                    CssClass="rfvPCG" ControlToValidate="ddlScategory" ValidationGroup="btnsubmit"
+                    CssClass="rfvPCG" ControlToValidate="ddlScategory" ValidationGroup="btnbasicsubmit"
                     Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
         </tr>
@@ -137,7 +137,7 @@
                 <span id="Span30" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlSScategory" runat="server" ErrorMessage="Please Select SubSubCategory"
-                    CssClass="rfvPCG" ControlToValidate="ddlSScategory" ValidationGroup="btnsubmit"
+                    CssClass="rfvPCG" ControlToValidate="ddlSScategory" ValidationGroup="btnbasicsubmit"
                     Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
             <td align="right">
@@ -149,7 +149,8 @@
                 <span id="Span25" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter Scheme Name"
-                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnsubmit" Display="Dynamic"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnbasicsubmit"
+                    Display="Dynamic"></asp:RequiredFieldValidator>
             </td>
         </tr>
         <tr>
@@ -174,18 +175,20 @@
                 <span id="Span31" class="spnRequiredField">*</span>
                 <br />
                 <asp:RequiredFieldValidator ID="rfvddlRT" runat="server" ErrorMessage="Please Select R&T"
-                    CssClass="rfvPCG" ControlToValidate="ddlRT" ValidationGroup="btnsubmit" Display="Dynamic"
-                    InitialValue="Select"></asp:RequiredFieldValidator>
+                    CssClass="rfvPCG" ControlToValidate="ddlRT" ValidationGroup="btnbasicsubmit"
+                    Display="Dynamic" InitialValue="Select"></asp:RequiredFieldValidator>
             </td>
             <td align="right">
-                <asp:Label ID="Label4" runat="server" Text="Scheme:" CssClass="FieldName" Visible="false"> </asp:Label>
+                <asp:Label ID="LbllISactive" runat="server" Text="Is Active:" CssClass="FieldName"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" Style="width: 300px;"
-                    Visible="false">
-                    <asp:ListItem Text="Select" Value="Select" Selected="false" />
-                </asp:DropDownList>
+                <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
+                <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
+                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
+                Width="15px"></asp:ImageButton>--%>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
+                    OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
             </td>
             <%--<td><asp:TextBox ID="txtAddNewScheme" runat="server"></asp:TextBox></td>--%>
         </tr>
@@ -195,34 +198,36 @@
             </td>
             <td>
                 &nbsp;
-                <asp:CheckBox ID="chkonline" AutoPostBack="false" runat="server" Text="Online Scheme" Enabled="false"
-                    CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="true" />
+                <asp:CheckBox ID="chkonline" AutoPostBack="false" runat="server" Text="Online Scheme"
+                    CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" />
                 <%-- CssClass="FieldName" OnCheckedChanged="oncheckedOnlin_OnCheckedChanged" Checked="false"/>--%>
                 &nbsp;
                 <%-- <asp:CheckBox ID="chkoffline" runat="server" Text="Offline Scheme" CssClass="FieldName" Checked="false"/>--%>
             </td>
-             <td align="right">
-                <asp:Label ID="LbllISactive" runat="server" Text="Is Active:" CssClass="FieldName"></asp:Label>
+            <td align="right">
+                <asp:Label ID="Label4" runat="server" Text="Scheme:" CssClass="FieldName" Visible="false"> </asp:Label>
             </td>
-            <td>
-                <asp:CheckBox ID="ChkISactive" runat="server" Text="Yes" CssClass="FieldName" />
-            
-                <%--ID="imgBtnAddBank" ImageUrl="~/Images/user_add.png" runat="server"
-                ToolTip="Click here to Add Bank" OnClientClick="return openpopupAddBank()" Height="15px"
-                Width="15px"></asp:ImageButton>--%>
-                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                <asp:LinkButton runat="server" ID="LinkButton1" CssClass="LinkButtons" Text="Scheme Mapping"
-                    OnClientClick="return openpopupSchemeSetUp()"></asp:LinkButton>
+            <td align="center">
+                <asp:DropDownList ID="ddlSchemeList" runat="server" CssClass="cmbField" AutoPostBack="true"
+                    OnSelectedIndexChanged="ddlSchemeList_OnSelectedIndexChanged" Style="width: 300px;"
+                    Visible="false">
+                    <asp:ListItem Text="Select" Value="Select" Selected="false" />
+                </asp:DropDownList>
+                <asp:Button ID="btnBasicDSubmit" runat="server" Text="Submit" CssClass="PCGButton"
+                    OnClick="btnBasicDSubmit_click" ValidationGroup="btnbasicsubmit" />
+                <asp:Button ID="btnBasicDupdate" runat="server" Text="Update" CssClass="PCGButton"
+                    Visible="false" OnClick="btnBasicDupdate_click" />
             </td>
         </tr>
     </table>
 </div>
-<div id="schemedetails" runat="server" visible="true">
+<div id="schemedetails" runat="server" visible="false">
     <table width="100%">
         <tr>
             <td colspan="5">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
-                    Scheme Details
+                    Scheme Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:LinkButton ID="lnkEdit" runat="server" Text="Edit" CssClass="LinkButtons" OnClick="lnkEdit_OnClick" Visible="false"></asp:LinkButton>
                 </div>
             </td>
         </tr>
@@ -335,12 +340,12 @@
                 <telerik:RadDatePicker ID="txtNFOStartDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
                     MinDate="1900-01-01" TabIndex="5">
-                    <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
-                        skin="Telerik" enableembeddedskins="false">
-                    </calendar>
-                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                    <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                    </dateinput>
+                    <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                        Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
                 </telerik:RadDatePicker>
                 <%--<span id="Span7" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="appRecidRequiredFieldValidator" ControlToValidate="txtNFOStartDate"
@@ -354,12 +359,12 @@
                 <telerik:RadDatePicker ID="txtNFOendDate" CssClass="txtField" runat="server" Culture="English (United States)"
                     AutoPostBack="false" Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade"
                     MinDate="1900-01-01" TabIndex="5">
-                    <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
-                        skin="Telerik" enableembeddedskins="false">
-                    </calendar>
-                    <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
-                    <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
-                    </dateinput>
+                    <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
+                        Skin="Telerik" EnableEmbeddedSkins="false">
+                    </Calendar>
+                    <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
+                    <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
+                    </DateInput>
                 </telerik:RadDatePicker>
                 <%--<span id="Span1" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txtNFOStartDate"
@@ -412,13 +417,13 @@
                     Display="Dynamic" ControlToValidate="txtSS" ValidationGroup="btnsubmit">
                 </asp:RequiredFieldValidator>
                 <asp:RangeValidator ID="rngtxtHH" runat="server" Type="Integer" MinimumValue="0"
-                    MaximumValue="24" ControlToValidate="txtHH" ErrorMessage="HH must be between 0 to 23"
+                    CssClass="rfvPCG" MaximumValue="24" ControlToValidate="txtHH" ErrorMessage="HH must be between 0 to 23"
                     ValidationGroup="btnsubmit"></asp:RangeValidator>
                 <asp:RangeValidator ID="rngtxtMM" runat="server" Type="Integer" MinimumValue="0"
-                    MaximumValue="60" ControlToValidate="txtMM" ErrorMessage="MIN must be between 0 to 59"
+                    CssClass="rfvPCG" MaximumValue="60" ControlToValidate="txtMM" ErrorMessage="MIN must be between 0 to 59"
                     ValidationGroup="btnsubmit"></asp:RangeValidator>
                 <asp:RangeValidator ID="rngtxtSS" runat="server" Type="Integer" MinimumValue="0"
-                    MaximumValue="60" ControlToValidate="txtSS" ErrorMessage="SEC must be between 0 to 59"
+                    CssClass="rfvPCG" MaximumValue="60" ControlToValidate="txtSS" ErrorMessage="SEC must be between 0 to 59"
                     ValidationGroup="btnsubmit"></asp:RangeValidator>
             </td>
         </tr>
@@ -519,7 +524,6 @@
                 <asp:CheckBox ID="ChkISSwitch" runat="server" Text="Yes" CssClass="FieldName" OnCheckedChanged="oncheckedSwtchAvaliable_OnCheckedChanged"
                     AutoPostBack="true" />
             </td>
-           
         </tr>
         <tr id="trIPAmount" runat="server" visible="false">
             <td colspan="4">
@@ -847,11 +851,11 @@
                             Skin="Telerik" EnableEmbeddedSkins="false" Width="100%" ClientSettings-AllowColumnsReorder="true"
                             AllowAutomaticInserts="false" OnNeedDataSource="gvSIPDetails_OnNeedDataSource"
                             OnItemDataBound="gvSIPDetails_OnItemDataBound" OnItemCommand="gvSIPDetails_OnItemCommand">
-                            <exportsettings hidestructurecolumns="true" exportonlydata="true" filename="OrderMIS">
-                            </exportsettings>
-                            <mastertableview datakeynames="PASPSD_SystematicDetailsId,PASP_SchemePlanCode,XF_FrequencyCode"
-                                allowfilteringbycolumn="true" width="100%" allowmulticolumnsorting="True" autogeneratecolumns="false"
-                                commanditemdisplay="Top" editmode="PopUp">
+                            <ExportSettings HideStructureColumns="true" ExportOnlyData="true" FileName="OrderMIS">
+                            </ExportSettings>
+                            <MasterTableView DataKeyNames="PASPSD_SystematicDetailsId,PASP_SchemePlanCode,XF_FrequencyCode"
+                                AllowFilteringByColumn="true" Width="100%" AllowMultiColumnSorting="True" AutoGenerateColumns="false"
+                                CommandItemDisplay="Top" EditMode="PopUp">
                                 <CommandItemSettings ShowExportToWordButton="false" ShowExportToExcelButton="false"
                                     AddNewRecordText="Add New Systematic Details" ShowExportToCsvButton="false" ShowAddNewRecordButton="true"
                                     ShowRefreshButton="false" />
@@ -1000,29 +1004,31 @@
                                                         </tr>
                                             </tr>
                                         </table>
+                                        </td> </tr> </table>
+                                    </FormTemplate>
+                                </EditFormSettings>
+                            </MasterTableView>
+                            <ClientSettings>
+                                <Resizing AllowColumnResize="true" />
+                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
+                            </ClientSettings>
+                        </telerik:RadGrid>
                     </td>
                 </tr>
             </table>
-            </FormTemplate> </EditFormSettings> </MasterTableView>
-            <clientsettings>
-                                <Resizing AllowColumnResize="true" />
-                                <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
-                            </clientsettings>
-        </telerik:RadGrid> </td>
+        </asp:Panel>
     </tr>
-</table>
-</asp:Panel> </tr>
-<tr>
-    <td align="right">
-        <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click"
-            ValidationGroup="btnsubmit" />
-    </td>
-    <td align="left">
-        <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
-            Style="height: 26px" ValidationGroup="btnsubmit" Visible="false" />
-        <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
-    </td>
-</tr>
+    <tr>
+        <td align="right">
+            <asp:Button ID="btnsubmit" runat="server" Text="Submit" CssClass="PCGButton" OnClick="btnsubmit_click"
+                Visible="false" ValidationGroup="btnsubmit" />
+        </td>
+        <td align="left">
+            <asp:Button ID="btnupdate" runat="server" Text="Update" CssClass="PCGButton" OnClick="btnUpdate_click"
+                Style="height: 26px" ValidationGroup="btnsubmit" Visible="false" />
+            <%-- ValidationGroup="btnsubmit"  ValidationGroup="btnsubmit"--%>
+        </td>
+    </tr>
 </table>
 <asp:HiddenField ID="hdnSchemePlanCode" runat="server" />
 <asp:HiddenField ID="hdnCategory" runat="server" />

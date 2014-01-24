@@ -2190,8 +2190,9 @@ namespace WealthERP.Advisor
                 }
                 else if (e.Item.Value == "View_Scheme_Structure_Association")
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('CommissionStructureToSchemeMapping','none');", true);
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('ViewSchemeStructureAssociation','none');", true);
                 }
+               
                  else if (e.Item.Value == "Receivable_Scheme_Structure_Association")
                 {
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "pageloadscript", "loadcontrol('SchemeStructureRuleAssociation','none');", true);

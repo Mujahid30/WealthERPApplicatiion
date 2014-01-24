@@ -1134,9 +1134,6 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 updateSchemeSetUpDetailsCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateSchemeSetUpDetail");
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@AmcCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@AmcCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@SchemplanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode); //1
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue); //2
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType); //3
@@ -1146,7 +1143,6 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber); //7
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);//8
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);//9
-
                 if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue) //10
                 {
                     db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
@@ -1193,25 +1189,8 @@ namespace DaoOnlineOrderManagement
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_SecurityCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SecurityCode);//39
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);//40
                 db.AddInParameter(updateSchemeSetUpDetailsCmd, "@WCMV_Lookup_BankId", DbType.String, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);//41
-                db.AddInParameter(updateSchemeSetUpDetailsCmd, "@status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String,mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetCategoryCode);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PAG_AssetGroupCode",DbType.String, mfProductAMCSchemePlanDetailsVo.Product);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_Status", DbType.String,mfProductAMCSchemePlanDetailsVo.Status);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_IsOnline", DbType.Int32,mfProductAMCSchemePlanDetailsVo.IsOnline);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASP_IsDirect", DbType.Int32,mfProductAMCSchemePlanDetailsVo.IsDirect);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XES_SourceCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SourceCode);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalCode", DbType.String,mfProductAMCSchemePlanDetailsVo.ExternalCode);
-                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@ExternalType", DbType.String,mfProductAMCSchemePlanDetailsVo.ExternalType);
-                // db.AddInParameter(updateSchemeSetUpDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, UserId);
-                // db.AddOutParameter(createMFOnlineSchemeSetUpCmd, "@PASP_SchemePlanCode",DbType.Int32, 10000);
-                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@XF_DividendFrequency",DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
+                //db.AddInParameter(updateSchemeSetUpDetailsCmd, "@status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
                 db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd);
-
                 if (db.ExecuteNonQuery(updateSchemeSetUpDetailsCmd) != 0)
                     blResult = true;
             }
@@ -1742,6 +1721,171 @@ namespace DaoOnlineOrderManagement
             }
             return count ;
         }
-       
+        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
+        {
+            bool blResult = false;
+            Database db;
+            DbCommand UpdateproductamcschemeCmd;
+
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                UpdateproductamcschemeCmd = db.GetStoredProcCommand("SPROC_Onl_UpdateSchemeplan");
+                db.AddInParameter(UpdateproductamcschemeCmd, "@SchemePlancode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@SchemeName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@Status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
+                db.AddInParameter(UpdateproductamcschemeCmd, "@Isonline", DbType.String, mfProductAMCSchemePlanDetailsVo.IsOnline);
+                db.ExecuteNonQuery(UpdateproductamcschemeCmd);
+
+                if (db.ExecuteNonQuery(UpdateproductamcschemeCmd) != 0)
+                    blResult = true;
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
+                object[] objects = new object[3];
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
+                objects[1] = SchemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
+
+            }
+            return blResult;
+        }
+        public void CreateOnlineSchemeSetupPlan(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId, ref int schemeplancode)
+        {
+            //int schemeplancode = 0;
+            
+         
+            Database db;
+            DbCommand CreateOnlineSchemeSetupPlanCmd;
+              try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateOnlineSchemeSetupPlanCmd = db.GetStoredProcCommand("SPROC_CreateOnlineschemebasicdetail");
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PA_AMCCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.AMCCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_SchemePlanName", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemePlanName);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAISSC_AssetInstrumentSubSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubSubCategory);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAISC_AssetInstrumentSubCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetSubCategoryCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAIC_AssetInstrumentCategoryCode", DbType.String, mfProductAMCSchemePlanDetailsVo.AssetCategoryCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PAG_AssetGroupCode", DbType.String, mfProductAMCSchemePlanDetailsVo.Product);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_Status", DbType.String, mfProductAMCSchemePlanDetailsVo.Status);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_IsOnline", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsOnline);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd, "@PASP_IsDirect", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsDirect);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd,"@PASP_CreatedBy",DbType.Int32,userId);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanCmd,"@PASP_ModifiedBy",DbType.Int32,userId);
+                db.AddOutParameter(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode", DbType.Int32, 0);
+                //db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd);
+
+              if (db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanCmd) != 0)
+                    schemeplancode = int.Parse(db.GetParameterValue(CreateOnlineSchemeSetupPlanCmd, "@SchemePlanCode").ToString());
+               
+            }
+              catch (BaseApplicationException Ex)
+              {
+                  throw Ex;
+              }
+              catch (Exception Ex)
+              {
+                  BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                  NameValueCollection FunctionInfo = new NameValueCollection();
+                  FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
+                  object[] objects = new object[3];
+                  objects[0] = mfProductAMCSchemePlanDetailsVo;
+                  objects[1] = userId;
+                  FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                  exBase.AdditionalInformation = FunctionInfo;
+                  ExceptionManager.Publish(exBase);
+                  throw exBase;
+
+              }
+              
+        }
+        public void CreateOnlineSchemeSetupPlanDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
+        {
+            //int schemeplancode = 0;
+            
+         
+            Database db;
+            DbCommand CreateOnlineSchemeSetupPlanDetailsCmd;
+            try
+            {
+                db = DatabaseFactory.CreateDatabase("wealtherp");
+                CreateOnlineSchemeSetupPlanDetailsCmd = db.GetStoredProcCommand("SPROC_Toinsertproducctamcdetail");
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASP_SchemePlanCode", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SchemePlanCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@ExternalCode", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@ExternalType", DbType.String, mfProductAMCSchemePlanDetailsVo.ExternalType);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_FaceValue", DbType.Double, mfProductAMCSchemePlanDetailsVo.FaceValue);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PSLV_LookupValueCodeForSchemeType", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeType);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PSLV_LookupValueCodeForSchemeOption", DbType.String, mfProductAMCSchemePlanDetailsVo.SchemeOption);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XF_DividendFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.DividendFrequency);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_BankName", DbType.String, mfProductAMCSchemePlanDetailsVo.BankName);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_AccountNumber", DbType.String, mfProductAMCSchemePlanDetailsVo.AccountNumber);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_Branch", DbType.String, mfProductAMCSchemePlanDetailsVo.Branch);
+                //db.AddInParameter(createMFOnlineSchemeSetUpCmd, "@WCMV_Lookup_BankId", DbType.Int32, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsNFO", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsNFO);
+                if (mfProductAMCSchemePlanDetailsVo.NFOStartDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOStartDate);
+                }
+                else
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOStartDate", DbType.DateTime, DBNull.Value);
+                }
+                if (mfProductAMCSchemePlanDetailsVo.NFOEndDate != DateTime.MinValue)
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, mfProductAMCSchemePlanDetailsVo.NFOEndDate);
+                }
+                else
+                {
+                    db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_NFOEndDate", DbType.DateTime, DBNull.Value);
+                }
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_LockInPeriod", DbType.Int32, mfProductAMCSchemePlanDetailsVo.LockInPeriod);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_CutOffTime", DbType.String, mfProductAMCSchemePlanDetailsVo.CutOffTime.ToString());
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_EntryLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.EntryLoadPercentag);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_EntryLoadRemark", DbType.String, mfProductAMCSchemePlanDetailsVo.EntryLoadRemark);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_ExitLoadPercentage", DbType.Double, mfProductAMCSchemePlanDetailsVo.ExitLoadPercentage);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_ExitLoadRemark", DbType.String, mfProductAMCSchemePlanDetailsVo.ExitLoadRemark);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsPurchaseAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsPurchaseAvailable);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsRedeemAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsRedeemAvailable);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsSIPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSIPAvailable);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsSWPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSWPAvailable);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsSwitchAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSwitchAvailable);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_IsSTPAvailable", DbType.Int32, mfProductAMCSchemePlanDetailsVo.IsSTPAvailable);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_InitialPurchaseAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.InitialPurchaseAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_InitialMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.InitialMultipleAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_AdditionalPruchaseAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalPruchaseAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_AdditionalMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.AdditionalMultipleAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinRedemptionAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinRedemptionAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_RedemptionMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.RedemptionMultipleAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinRedemptionUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinRedemptionUnits);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_RedemptionMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.RedemptionMultiplesUnits);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinSwitchAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.MinSwitchAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_SwitchMultipleAmount", DbType.Double, mfProductAMCSchemePlanDetailsVo.SwitchMultipleAmount);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MinSwitchUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.MinSwitchUnits);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_SwitchMultiplesUnits", DbType.Int32, mfProductAMCSchemePlanDetailsVo.SwitchMultiplesUnits);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XF_FileGenerationFrequency", DbType.String, mfProductAMCSchemePlanDetailsVo.GenerationFrequency);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XES_SourceCode", DbType.String, DBNull.Value);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@XCST_CustomerSubTypeCode", DbType.String, mfProductAMCSchemePlanDetailsVo.CustomerSubTypeCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_SecurityCode", DbType.String, mfProductAMCSchemePlanDetailsVo.SecurityCode);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_MaxInvestment", DbType.Double, mfProductAMCSchemePlanDetailsVo.PASPD_MaxInvestment);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@WCMV_Lookup_BankId", DbType.Int32, mfProductAMCSchemePlanDetailsVo.WCMV_Lookup_BankId);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_CreatedBy", DbType.Int32, userId);
+                db.AddInParameter(CreateOnlineSchemeSetupPlanDetailsCmd, "@PASPD_ModifiedBy", DbType.Int32, userId);
+                db.ExecuteNonQuery(CreateOnlineSchemeSetupPlanDetailsCmd);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+       }
     }
 }

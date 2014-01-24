@@ -627,7 +627,7 @@ namespace BoOnlineOrderManagement
                     {
                         //if (dcc.ToString() == "AMFE_JH1PanValid" || dcc.ToString() == "AMFE_AltFolioNumber")
                         //{
- 
+
                         //}
 
                         //var abccolumns = (dvCustomerBankDetails.ToTable()).Columns.Cast<DataColumn>().Where(c => c.ColumnName.StartsWith(dcc.ToString()));
@@ -654,7 +654,7 @@ namespace BoOnlineOrderManagement
                             }
                         }
                         else
-                        {                           
+                        {
 
                             if (dtCustomerJointNomineeDetails.Rows.Count > 0)
                             {
@@ -1019,7 +1019,7 @@ namespace BoOnlineOrderManagement
             dtAdviserExtractedOrderList.Columns.Add("AMFE_LOG_WT", typeof(string), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_IsGuardianPANValid", typeof(string), null);
             dtAdviserExtractedOrderList.Columns.Add("AMFE_LOG", typeof(string), null);
-            
+
             return dtAdviserExtractedOrderList;
         }
         public DataSet GetFrequency()
@@ -1597,11 +1597,11 @@ namespace BoOnlineOrderManagement
                 drFinalClientKYC["Name"] = dr["ClientName"];
                 drFinalClientKYC["PAN"] = dr["C_PANNum"];
                 drFinalClientKYC["KYCStatus"] = dr["C_IsKYCAvailable"];
-                if (drClientDematJointList.Count()>0)
+                if (drClientDematJointList.Count() > 0)
                     drFinalClientKYC["Holding"] = drClientDematJointList[0][8].ToString();
                 else
                     drFinalClientKYC["Holding"] = dr["Holding"];
-                kycStatus.Add("JOINT1", dr["C_IsKYCAvailable"].ToString()=="Y"?"1":"0");
+                kycStatus.Add("JOINT1", dr["C_IsKYCAvailable"].ToString() == "Y" ? "1" : "0");
                 if (drClientDematJointList.Count() > 0)
                 {
                     if (drClientDematJointList.Count() == 1)
@@ -1671,7 +1671,7 @@ namespace BoOnlineOrderManagement
         }
 
 
-        public bool updateTradeBusinessDate(int Tradebusinessid, string txt,DateTime date)
+        public bool updateTradeBusinessDate(int Tradebusinessid, string txt, DateTime date)
         {
             OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
             try
@@ -1786,8 +1786,59 @@ namespace BoOnlineOrderManagement
             }
             return result;
         }
+        public bool Updateproductamcscheme(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int SchemePlanCode)
+        {
+            bool blResult = false;
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                blResult = OnlineOrderBackOfficeDao.Updateproductamcscheme(mfProductAMCSchemePlanDetailsVo, SchemePlanCode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+            catch (Exception Ex)
+            {
+                BaseApplicationException exBase = new BaseApplicationException(Ex.Message, Ex);
+                NameValueCollection FunctionInfo = new NameValueCollection();
+                FunctionInfo.Add("Method", "OnlineOrderBackOfficeDao.cs:UpdateSchemeSetUpDetail()");
+                object[] objects = new object[3];
+                objects[0] = mfProductAMCSchemePlanDetailsVo;
+                objects[1] = SchemePlanCode;
+                FunctionInfo = exBase.AddObject(FunctionInfo, objects);
+                exBase.AdditionalInformation = FunctionInfo;
+                ExceptionManager.Publish(exBase);
+                throw exBase;
 
+            }
+            return blResult;
+        }
+        public void CreateOnlineSchemeSetupPlan(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId, ref int schemeplancode)
+        {
 
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                OnlineOrderBackOfficeDao.CreateOnlineSchemeSetupPlan(mfProductAMCSchemePlanDetailsVo, userId, ref schemeplancode);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
+        public void CreateOnlineSchemeSetupPlanDetails(MFProductAMCSchemePlanDetailsVo mfProductAMCSchemePlanDetailsVo, int userId)
+        {
+            OnlineOrderBackOfficeDao OnlineOrderBackOfficeDao = new OnlineOrderBackOfficeDao();
+            try
+            {
+                OnlineOrderBackOfficeDao.CreateOnlineSchemeSetupPlanDetails(mfProductAMCSchemePlanDetailsVo, userId);
+            }
+            catch (BaseApplicationException Ex)
+            {
+                throw Ex;
+            }
+        }
     }
 
 }
