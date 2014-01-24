@@ -490,16 +490,18 @@ namespace WealthERP.OnlineOrderBackOffice
                 
                 tblwerpGrd.Visible = false;
                 tblExtMapGrd.Visible = false;
-                trSourceType.Visible = true;
+                trSourceType.Visible = false;
                 if (viewType == "Lookup")
                 {
                     tblwerpGrd.Visible = true;
+                    btnWERPExport.Visible = true;
                     BindWerpGrid(Convert.ToInt32(ddlCategory.SelectedValue));
                 }
                 else if (viewType == "Mapping")
                 {
                     
                     tblExtMapGrd.Visible = true;
+                    btnMapingExport.Visible = true;
                     BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
                 }
             }
@@ -647,22 +649,26 @@ namespace WealthERP.OnlineOrderBackOffice
                 throw exBase;
             }
         }
-        protected void btnManageLookup_Click(object sender, ImageClickEventArgs e)
+        protected void btnWERPExport_Click(object sender, ImageClickEventArgs e)
         {
-
             rgWerp.ExportSettings.OpenInNewWindow = true;
             rgWerp.ExportSettings.IgnorePaging = true;
             rgWerp.ExportSettings.HideStructureColumns = true;
             rgWerp.ExportSettings.ExportOnlyData = true;
-            rgWerp.ExportSettings.FileName = "Manage Lookups";
+            rgWerp.ExportSettings.FileName = "Internal Lookups";
             rgWerp.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
             rgWerp.MasterTableView.ExportToExcel();
-            //rgWerp.ExportSettings.OpenInNewWindow = true;
-            //rgWerp.ExportSettings.ExportOnlyData = true;
-            //rgWerp.ExportSettings.IgnorePaging = true;
-            //rgWerp.ExportSettings.FileName = "Manage Lookups";
-            //rgWerp.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
-            //rgWerp.MasterTableView.ExportToExcel();
+
+        }
+        protected void btnMapingExport_Click(object sender, ImageClickEventArgs e)
+        {
+            rgMaping.ExportSettings.OpenInNewWindow = true;
+            rgMaping.ExportSettings.IgnorePaging = true;
+            rgMaping.ExportSettings.HideStructureColumns = true;
+            rgMaping.ExportSettings.ExportOnlyData = true;
+            rgMaping.ExportSettings.FileName = "External Lookups";
+            rgMaping.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            rgMaping.MasterTableView.ExportToExcel();
 
         }
         protected void rgMaping_NeedDataSource(object source, Telerik.Web.UI.GridNeedDataSourceEventArgs e)

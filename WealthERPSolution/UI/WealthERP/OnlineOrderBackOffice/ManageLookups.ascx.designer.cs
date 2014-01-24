@@ -75,6 +75,10 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlView;
+        protected global::System.Web.UI.WebControls.ImageButton btnWERPExport;
+
+        protected global::System.Web.UI.WebControls.ImageButton btnMapingExport;
+
         
         /// <summary>
         /// RequiredFieldValidator1 control.
