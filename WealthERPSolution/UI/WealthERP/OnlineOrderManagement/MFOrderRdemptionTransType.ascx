@@ -69,7 +69,7 @@
 
    
 
-    }
+    
 </script>
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -238,6 +238,20 @@
                     </td>
                     <td>
                         <asp:Label ID="lblUnitsheldDisplay" runat="server" CssClass="readOnlyField"></asp:Label>
+                    </td>
+                    
+                    <td colspan="2"> 
+<%--                    <asp:Label ID="lblMsg" runat="server" Visible="false" Text="Units under lock in period" CssClass="FieldName"></asp:Label>
+--%>                    </td>
+                </tr>
+                      <tr class="spaceUnder">
+                    <td>
+                    </td>
+                    <td style="vertical-align: top;">
+                        
+                    </td>
+                    <td>
+                        <asp:Label ID="lblMsg" runat="server" Visible="false" Text="Units under lock in period" CssClass="FieldName"></asp:Label>
                     </td>
                     <td colspan="2">
                     </td>

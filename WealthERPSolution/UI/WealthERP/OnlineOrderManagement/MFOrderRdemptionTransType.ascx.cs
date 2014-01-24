@@ -42,6 +42,7 @@ namespace WealthERP.OnlineOrderManagement
         DataTable dtgetfolioNo;
         int retVal;
         string clientMFAccessCode = string.Empty;
+        string subcategory = string.Empty;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -245,7 +246,7 @@ namespace WealthERP.OnlineOrderManagement
                     if (!string.IsNullOrEmpty(dr["CutOffTime"].ToString()))
                     {
                         lbltime.Text = dr["CutOffTime"].ToString();
-                        lbltime.Visible = true; 
+                        lbltime.Visible = true;
                     }
 
                     if (!string.IsNullOrEmpty(dr["RedeemMinAmt"].ToString()))
@@ -254,7 +255,7 @@ namespace WealthERP.OnlineOrderManagement
                         lblMinAmountValue.Visible = true;
                     }
 
-                    
+
 
                     if (!string.IsNullOrEmpty(dr["RedeemMinUnit"].ToString()))
                     {
@@ -271,6 +272,10 @@ namespace WealthERP.OnlineOrderManagement
                     {
                         lnkFactSheet.PostBackUrl = dr["url"].ToString();
                     }
+                    if (!string.IsNullOrEmpty(dr["PAISC_AssetInstrumentSubCategoryCode"].ToString()) && lblUnitsheldDisplay.Text != null)
+                    {
+                        subcategory = dr["PAISC_AssetInstrumentSubCategoryCode"].ToString();
+                    }
                 }
             }
             DataSet dsNav = commonLookupBo.GetLatestNav(scheme);
@@ -282,7 +287,7 @@ namespace WealthERP.OnlineOrderManagement
             CalculateCurrentholding(ds, out finalunits, out finalamt, dsNav.Tables[0].Rows[0][1].ToString());
             lblUnitsheldDisplay.Text = Math.Round(finalunits,2).ToString();
             lblCurrentValueDisplay.Text = Math.Round(finalamt,2).ToString();
-            if (double.Parse(lblUnitsheldDisplay.Text)<=0)
+            if ((double.Parse(lblUnitsheldDisplay.Text) <= 0) && (subcategory == "MFEQTP"))
             {   
                 DisableControls(); 
             }
@@ -294,6 +299,7 @@ namespace WealthERP.OnlineOrderManagement
             chkTermsCondition.Enabled = false;
             lnkTermsCondition.Enabled = false;
             btnSubmit.Enabled = false;
+            lblMsg.Visible = true;
         }
         protected void BindAmcForDrillDown()
         {
