@@ -82,6 +82,7 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+                
                 ShowControlsBasedonView(ddlView.SelectedValue);
             }
             catch (BaseApplicationException Ex)
@@ -486,9 +487,10 @@ namespace WealthERP.OnlineOrderBackOffice
             // 1 for lookups grid 2 for maping grid
             try
             {
+                
                 tblwerpGrd.Visible = false;
                 tblExtMapGrd.Visible = false;
-                trSourceType.Visible = false;
+                trSourceType.Visible = true;
                 if (viewType == "Lookup")
                 {
                     tblwerpGrd.Visible = true;
@@ -496,6 +498,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 }
                 else if (viewType == "Mapping")
                 {
+                    
                     tblExtMapGrd.Visible = true;
                     BindMapingGrid(ddlRTA.SelectedValue, Convert.ToInt32(ddlCategory.SelectedValue));
                 }
