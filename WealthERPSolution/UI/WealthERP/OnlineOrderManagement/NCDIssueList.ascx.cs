@@ -68,6 +68,17 @@ namespace WealthERP.OnlineOrderManagement
             }
             return type;
         }
+        protected void btnNcdIssueList_Click(object sender, ImageClickEventArgs e)
+        {
+            gvCommMgmt.ExportSettings.OpenInNewWindow = true;
+            gvCommMgmt.ExportSettings.IgnorePaging = true;
+            gvCommMgmt.ExportSettings.HideStructureColumns = true;
+            gvCommMgmt.ExportSettings.ExportOnlyData = true;
+            gvCommMgmt.ExportSettings.FileName = "NcdIpo Recon";
+            gvCommMgmt.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvCommMgmt.MasterTableView.ExportToExcel();
+
+        }
         protected void BindStructureRuleGrid(int type)
         {
             DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type);

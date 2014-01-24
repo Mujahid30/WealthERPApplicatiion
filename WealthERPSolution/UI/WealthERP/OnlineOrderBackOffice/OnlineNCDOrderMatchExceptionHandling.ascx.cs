@@ -57,9 +57,20 @@ namespace WealthERP.OnlineOrderBackOffice
             {
                 pnlBtns.Visible = false;
             }
+            btnNcdIpoExport.Visible = true;
             BindOrdersGrid(Convert.ToInt32(ddlIssue.SelectedValue), categoryCode, ddlOrderStatus.SelectedValue, Convert.ToDateTime(txtFromDate.SelectedDate), Convert.ToDateTime(txtToDate.SelectedDate));
         }
+        protected void btnNcdIpoExport_Click(object sender, ImageClickEventArgs e)
+        {
+            gvOrders.ExportSettings.OpenInNewWindow = true;
+            gvOrders.ExportSettings.IgnorePaging = true;
+            gvOrders.ExportSettings.HideStructureColumns = true;
+            gvOrders.ExportSettings.ExportOnlyData = true;
+            gvOrders.ExportSettings.FileName = "NcdIpo Recon";
+            gvOrders.ExportSettings.Excel.Format = GridExcelExportFormat.ExcelML;
+            gvOrders.MasterTableView.ExportToExcel();
 
+        }
         protected void btnManualMatchGo_Click(object sender, EventArgs e)
         {
             Button btnMatchGO = (Button)sender;

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDIssueList.ascx.cs"
+<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDIssueList.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineNCDIssueList" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
 <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
@@ -31,6 +31,12 @@
                     <tr>
                         <td align="left">
                             NCD and IPO Issue List
+                        </td>
+                        <td>
+                        <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                                AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
+                                Height="25px" Width="25px" OnClick="btnNcdIpoExport_Click"></asp:ImageButton>
+                        
                         </td>
                     </tr>
                 </table>

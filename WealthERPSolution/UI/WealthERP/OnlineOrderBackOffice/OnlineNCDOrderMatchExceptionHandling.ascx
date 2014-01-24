@@ -1,10 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OnlineNCDOrderMatchExceptionHandling.ascx.cs"
     Inherits="WealthERP.OnlineOrderBackOffice.OnlineNCDOrderMatchExceptionHandling" %>
-<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
+<%--<%@ Register Src="~/General/Pager.ascx" TagPrefix="Pager" TagName="Pager" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register TagPrefix="telerik" Namespace="Telerik.Web.UI" Assembly="Telerik.Web.UI" %>
-<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>
+<%@ Register TagPrefix="telerik" Namespace="Telerik.Charting" Assembly="Telerik.Web.UI" %>--%>
 <asp:ScriptManager ID="scrptMgr" runat="server">
 </asp:ScriptManager>
 <style type="text/css">
@@ -32,6 +33,11 @@
                         <td align="left">
                             NCD and IPO Order Match
                         </td>
+                        <td align="right">
+                            <asp:ImageButton ID="btnNcdIpoExport" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                                AlternateText="Excel" ToolTip="Export To Excel" Visible="false" OnClientClick="setFormat('excel')"
+                                Height="25px" Width="25px" OnClick="btnNcdIpoExport_Click"></asp:ImageButton>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -46,12 +52,12 @@
         <td class="rightData">
             <telerik:RadDatePicker ID="txtFromDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <span id="Span3" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rvFromdate" ControlToValidate="txtFromDate" CssClass="rfvPCG"
@@ -68,12 +74,12 @@
         <td class="rightData"  >--%>
             <telerik:RadDatePicker ID="txtToDate" CssClass="txtField" runat="server" Culture="English (United States)"
                 Skin="Telerik" EnableEmbeddedSkins="false" ShowAnimation-Type="Fade" MinDate="1900-01-01">
-                <Calendar UseRowHeadersAsSelectors="False" UseColumnHeadersAsSelectors="False" ViewSelectorText="x"
-                    Skin="Telerik" EnableEmbeddedSkins="false">
-                </Calendar>
-                <DatePopupButton ImageUrl="" HoverImageUrl=""></DatePopupButton>
-                <DateInput DisplayDateFormat="d/M/yyyy" DateFormat="d/M/yyyy">
-                </DateInput>
+                <calendar userowheadersasselectors="False" usecolumnheadersasselectors="False" viewselectortext="x"
+                    skin="Telerik" enableembeddedskins="false">
+                </calendar>
+                <datepopupbutton imageurl="" hoverimageurl=""></datepopupbutton>
+                <dateinput displaydateformat="d/M/yyyy" dateformat="d/M/yyyy">
+                </dateinput>
             </telerik:RadDatePicker>
             <span id="Span4" class="spnRequiredField">*</span>
             <asp:RequiredFieldValidator ID="rvtoDate" ControlToValidate="txtToDate" CssClass="rfvPCG"
@@ -154,12 +160,12 @@
                     Skin="Telerik" EnableEmbeddedSkins="false" AllowFilteringByColumn="false" AllowAutomaticInserts="false"
                     ExportSettings-FileName="NCD Order Recon" OnItemDataBound="gvOrders_ItemDataBound"
                     OnItemCommand="gvOrders_ItemCommand" OnNeedDataSource="gvOrders_OnNeedDataSource">
-                    <ExportSettings HideStructureColumns="true" ExportOnlyData="true" IgnorePaging="true"
-                        FileName="Order" Excel-Format="ExcelML">
-                    </ExportSettings>
-                    <MasterTableView DataKeyNames="CO_OrderId,WOS_OrderStepCode,AIM_IssueId" Width="100%"
-                        AllowMultiColumnSorting="True" AutoGenerateColumns="false" CommandItemDisplay="None"
-                        EditMode="PopUp">
+                    <exportsettings hidestructurecolumns="true" exportonlydata="true" ignorepaging="true"
+                        filename="Order" excel-format="ExcelML">
+                    </exportsettings>
+                    <mastertableview datakeynames="CO_OrderId,WOS_OrderStepCode,AIM_IssueId" width="100%"
+                        allowmulticolumnsorting="True" autogeneratecolumns="false" commanditemdisplay="None"
+                        editmode="PopUp">
                         <Columns>
                             <telerik:GridTemplateColumn HeaderText="Select">
                                 <HeaderTemplate>
@@ -171,8 +177,8 @@
                             </telerik:GridTemplateColumn>
                             
                             <telerik:GridBoundColumn DataField="CO_OrderId" HeaderText="Order No" SortExpression="CO_OrderId"
-                                ShowFilterIcon="false" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
-                                UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left">
+                                ShowFilterIcon="true" CurrentFilterFunction="Contains" AutoPostBackOnFilter="true"
+                                UniqueName="CO_OrderId" FooterStyle-HorizontalAlign="Left" AllowSorting="True">
                                 <ItemStyle Width="" HorizontalAlign="Left" Wrap="false" VerticalAlign="Top" />
                             </telerik:GridBoundColumn>
                             
@@ -368,7 +374,7 @@
                                 </table>
                             </FormTemplate>
                         </EditFormSettings>
-                    </MasterTableView>
+                    </mastertableview>
                     <%--<clientsettings>
                             <Selecting AllowRowSelect="True" EnableDragToSelectRows="True" />
                         </clientsettings>--%>

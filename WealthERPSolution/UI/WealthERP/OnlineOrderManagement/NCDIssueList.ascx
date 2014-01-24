@@ -135,6 +135,12 @@
                         <td align="left">
                             NCD Issue List
                         </td>
+                         <td align="right">
+                        <asp:ImageButton ID="btnNcdIssueList" runat="server" ImageUrl="~/Images/Export_Excel.png"
+                                AlternateText="Excel" ToolTip="Export To Excel" Visible="true" OnClientClick="setFormat('excel')"
+                                Height="25px" Width="25px" OnClick="btnNcdIssueList_Click"></asp:ImageButton>
+                        
+                        </td>
                     </tr>
                 </table>
             </div>

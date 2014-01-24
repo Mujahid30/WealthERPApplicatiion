@@ -30,6 +30,7 @@ namespace WealthERP.OnlineOrderBackOffice {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow trOrderDates;
+        protected global::System.Web.UI.WebControls.ImageButton btnNcdIpoExport;
         
         /// <summary>
         /// lblFrom control.
