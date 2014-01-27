@@ -196,6 +196,7 @@ namespace WealthERP.OPS
                     BindBranchDropDown();
                     BindRMDropDown();
                     BindOrderStatus();
+                    hdnProductType.Value= "MF";
                     OnMfOrdersMediumSelection(ddlOnlineOffline.SelectedValue);
                     
                 }
@@ -532,13 +533,13 @@ namespace WealthERP.OPS
 
         protected void ddlProductType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ddlProductType.SelectedValue == "Select")
-            {
-                //  online/offline mf drop down visiblity             
-                ddlOnlineOffline.Visible = false;
-                Common_MfControls_Visiblity(false);
+            //if (ddlProductType.SelectedValue == "Select")
+            //{
+            //    //  online/offline mf drop down visiblity             
+            //    ddlOnlineOffline.Visible = false;
+            //    Common_MfControls_Visiblity(false);
 
-            }
+            //}
             if (ddlProductType.SelectedValue == "MF")
             {
                 //  online/offline mf drop down  visiblity             
