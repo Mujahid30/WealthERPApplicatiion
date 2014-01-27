@@ -19,7 +19,6 @@
    
 </script>
 
-<table width="100%">
     <tr>
         <td>
             <div class="divPageHeading">
@@ -151,6 +150,9 @@
                 <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter Scheme Name"
                     CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnbasicsubmit"
                     Display="Dynamic"></asp:RequiredFieldValidator>
+                <%-- <asp:RequiredFieldValidator ID="rfvtxtScname" runat="server" ErrorMessage="Please Enter Scheme Name"
+                    CssClass="rfvPCG" ControlToValidate="txtScname" ValidationGroup="btnbasicsubmit"
+                    Display="Dynamic" InitialValue=""></asp:RequiredFieldValidator>--%>
             </td>
         </tr>
         <tr>
@@ -216,7 +218,7 @@
                 <asp:Button ID="btnBasicDSubmit" runat="server" Text="Submit" CssClass="PCGButton"
                     OnClick="btnBasicDSubmit_click" ValidationGroup="btnbasicsubmit" />
                 <asp:Button ID="btnBasicDupdate" runat="server" Text="Update" CssClass="PCGButton"
-                    Visible="false" OnClick="btnBasicDupdate_click" />
+                    Visible="false" OnClick="btnBasicDupdate_click" ValidationGroup="btnbasicsubmit" />
             </td>
         </tr>
     </table>
@@ -227,7 +229,8 @@
             <td colspan="5">
                 <div class="divSectionHeading" style="vertical-align: text-bottom">
                     Scheme Details&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:LinkButton ID="lnkEdit" runat="server" Text="Edit" CssClass="LinkButtons" OnClick="lnkEdit_OnClick" Visible="false"></asp:LinkButton>
+                    <asp:LinkButton ID="lnkEdit" runat="server" Text="Edit" CssClass="LinkButtons" OnClick="lnkEdit_OnClick"
+                        Visible="false"></asp:LinkButton>
                 </div>
             </td>
         </tr>

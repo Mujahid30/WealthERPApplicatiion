@@ -71,12 +71,14 @@ namespace WealthERP.OnlineOrderBackOffice
                         EditSchemeDetails();
                         lbBack.Visible = true;
                         ControlViewEditMode(false);
+                        btnsubmit.Visible = false;
 
                     }
                     else if (Request.QueryString["strAction"].Trim() == "View")
                     {
                         ViewSchemeDetails();
                         lbBack.Visible = true;
+                        btnsubmit.Visible = false;
                         ControlViewEditMode(true);
 
                     }
@@ -617,7 +619,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 lblScname.Visible = true;
                 ddlSchemeList.Visible = false;
                 Label4.Visible = false;
-                rfvtxtScname.Visible = false;
+               // rfvtxtScname.Visible = false;
                 txtSwitchMultipleAmount.Enabled = false;
                 txtSwitchMultipleUnits.Enabled = false;
                 txtNFOStartDate.Enabled = false;
@@ -637,7 +639,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 btnBasicDupdate.Visible = true;
                 lblBack.Visible = true;
 
-                rfvtxtScname.Visible = false;
+              //  rfvtxtScname.Visible = false;
                 Label4.Visible = false;
                 ddlSchemeList.Visible = false;
                 txtScname.Visible = true;
@@ -1904,6 +1906,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 message = CreateUserMessage(schemeplancode);
                 ShowMessage(message);
                 lbBack.Visible = true;
+                btnupdate.Visible = false;
                 ControlMode(false);
             }
             catch (BaseApplicationException Ex)
@@ -2060,16 +2063,28 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             DataSet dsSystematicDetails;
             DataTable dtSystematicDetails;
-            if (ViewState["Schemeplancode"] != null)
+            //int SchemePlanCode;
+            //if (ViewState["Schemeplancode"] != null)
+            //{
+            //    schemeplancode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+            //}
+            //else
+            //{
+            //    if (ViewState["Schemecode"] != null)
+            //        schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+            //}
+            if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
             {
-                schemeplancode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+                if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
+                {
+                    schemeplancode = int.Parse(ViewState["Schemeplancode"].ToString());
+                }
             }
             else
             {
-                if (ViewState["Schemecode"] != null)
-                    schemeplancode = int.Parse(ViewState["Schemecode"].ToString());
+                schemeplancode = int.Parse(Session["newschemeplancode"].ToString());//
             }
-            schemeplancode = int.Parse(Session["newschemeplancode"].ToString());
+        
             dsSystematicDetails = OnlineOrderBackOfficeBo.GetSystematicDetails(schemeplancode);
             dtSystematicDetails = dsSystematicDetails.Tables[0];
             if (dtSystematicDetails.Rows.Count > 0)
@@ -2186,18 +2201,31 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void gvSIPDetails_OnItemCommand(object source, GridCommandEventArgs e)
         {
             int schemecode = 0;
-            if (ViewState["Schemeplancode"] != null)
+            if (Request.QueryString["strAction"] != "" && Request.QueryString["strAction"] != null)
             {
-                schemecode = Convert.ToInt32(ViewState["Schemeplancode"].ToString());
+                if (Request.QueryString["strAction"].Trim() == "Edit" || Request.QueryString["strAction"].Trim() == "View")
+                {
+                    schemecode = int.Parse(ViewState["Schemeplancode"].ToString());
+                }
             }
             else
             {
-                if (ViewState["Schemecode"] != null)
-                    schemecode = int.Parse(ViewState["Schemecode"].ToString());
-                else
-                    schemecode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+                //mfProductAMCSchemePlanDetailsVo = new MFProductAMCSchemePlanDetailsVo();
+               
+                  schemecode = int.Parse(Session["newschemeplancode"].ToString());//
             }
-            schemecode = int.Parse(Session["newschemeplancode"].ToString());
+            //if (ViewState["Schemeplancode"] != null)
+            //{
+            //    schemecode = Convert.ToInt32(ViewState["Schemeplancode"].ToString());
+            //}
+            //else
+            //{
+            //    if (ViewState["Schemecode"] != null)
+            //        schemecode = int.Parse(ViewState["Schemecode"].ToString());
+            //    else
+            //        schemecode = int.Parse(ddlSchemeList.SelectedValue.ToString());
+            //}
+            //schemecode = int.Parse(Session["newschemeplancode"].ToString());
             if (e.CommandName == RadGrid.PerformInsertCommandName)
             {
                 GridEditableItem gridEditableItem = (GridEditableItem)e.Item;
