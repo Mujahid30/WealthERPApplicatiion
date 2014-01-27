@@ -20,14 +20,40 @@
 
 <script src="../Scripts/JScript.js" type="text/javascript"></script>
 
+
 <asp:ScriptManager ID="ScriptManager1" runat="server">
 </asp:ScriptManager>
+
 <style>
     tr.spaceUnder > td
     {
         padding-bottom: .5em;
     }
 </style>
+
+<%--
+    function Startblink() {
+        alert(hello);
+        var lbl = document.getElementById(lblMsg);
+        
+        lbl.style.textDecoration = 'blink';
+    }
+--%>
+
+<script type="text/javascript">
+    function blink() {
+        var blinks = document.getElementsByTagName('blink');
+        for (var i = blinks.length - 1; i >= 0; i--) {
+            var s = blinks[i];
+            s.style.visibility = (s.style.visibility === 'visible') ? 'hidden' : 'visible';
+        }
+        window.setTimeout(blink, 1000);
+    }
+    if (document.addEventListener) document.addEventListener("DOMContentLoaded", blink, false);
+    else if (window.addEventListener) window.addEventListener("load", blink, false);
+    else if (window.attachEvent) window.attachEvent("onload", blink);
+    else window.onload = blink;
+</script>
 
 <script type="text/javascript">
     function ValidateTermsConditions(sender, args) {
@@ -45,6 +71,11 @@
         $find("<%=rw_customConfirm.ClientID %>").close();
     }
 </script>
+
+
+
+
+
 
 <script language="javascript" type="text/javascript">
     var crnt = 0;
@@ -251,7 +282,9 @@
                         
                     </td>
                     <td>
-                        <asp:Label ID="lblMsg" runat="server" Visible="false" Text="Units under lock in period" CssClass="FieldName"></asp:Label>
+                    <%--<labe id="lblblink" runat="server" visible="false" CssClass="FieldName">Text to blink here</blink>--%>
+                   <blink><asp:Label ID="lblMsg" runat="server" Visible="false"  
+                                     Text="Units under lock in period"  CssClass="FieldName"></asp:Label></blink> 
                     </td>
                     <td colspan="2">
                     </td>

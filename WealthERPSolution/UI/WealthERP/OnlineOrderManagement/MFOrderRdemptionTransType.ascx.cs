@@ -288,8 +288,12 @@ namespace WealthERP.OnlineOrderManagement
             lblUnitsheldDisplay.Text = Math.Round(finalunits,2).ToString();
             lblCurrentValueDisplay.Text = Math.Round(finalamt,2).ToString();
             if ((double.Parse(lblUnitsheldDisplay.Text) <= 0) && (subcategory == "MFEQTP"))
-            {   
-                DisableControls(); 
+            {
+                DisableControls();
+            }
+            else {
+                lblMsg.Visible = false;
+
             }
         }
         public void DisableControls()
@@ -300,6 +304,7 @@ namespace WealthERP.OnlineOrderManagement
             lnkTermsCondition.Enabled = false;
             btnSubmit.Enabled = false;
             lblMsg.Visible = true;
+                     
         }
         protected void BindAmcForDrillDown()
         {
