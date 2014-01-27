@@ -226,7 +226,7 @@
                                 PageSize="10" AllowPaging="false" AutoGenerateColumns="False" EnableEmbeddedSkins="False"
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="false">
-                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_SchemeName,IssueTimeType"
+                                <MasterTableView AllowMultiColumnSorting="True" AllowSorting="true" DataKeyNames="AIM_IssueId,AIM_IssueName,IssueTimeType"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <%--  <telerik:GridTemplateColumn>
@@ -235,9 +235,9 @@
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>--%>
-                                        <telerik:GridBoundColumn DataField="AIM_SchemeName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
-                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issue" UniqueName="AIM_SchemeName"
-                                            SortExpression="AIM_SchemeName">
+                                        <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                            ShowFilterIcon="false" AutoPostBackOnFilter="true" HeaderText="Issue" UniqueName="AIM_IssueName"
+                                            SortExpression="AIM_IssueName">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"
@@ -425,11 +425,11 @@
                                 AutoPostBackOnFilter="true" UniqueName="AID_DefaultInterestRate">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                             </telerik:GridBoundColumn>
-                            <%--<telerik:GridBoundColumn DataField="YieldAtMAturity" HeaderStyle-Width="105px" HeaderText="Yield at Maturity(%)"
+                            <telerik:GridBoundColumn DataField="CatSubTypeCode" HeaderStyle-Width="105px" HeaderText="SubType Code"
                                 CurrentFilterFunction="Contains" ShowFilterIcon="false" AutoPostBackOnFilter="true"
-                                UniqueName="YieldAtMAturity" Visible="true">
+                                UniqueName="CatSubTypeCode" Visible="true">
                                 <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
-                            </telerik:GridBoundColumn>--%>
+                            </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
                                 UniqueName="YieldAtMAturity" HeaderText="Yield at Maturity(%)">
                                 <%--<ItemTemplate>

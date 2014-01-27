@@ -81,7 +81,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid(int type)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserId, 0, type, customerVo.CustomerId);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -139,7 +139,7 @@ namespace WealthERP.OnlineOrderManagement
             int IssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueId"].ToString());
             int minQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MInQty"].ToString());
             int maxQty = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_MaxQty"].ToString());
-            string Issuename = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_SchemeName"].ToString();
+            string Issuename = gvCommMgmt.MasterTableView.DataKeyValues[rowindex]["AIM_IssueName"].ToString();
             ScriptManager.RegisterClientScriptBlock(this.Page, this.GetType(), "TransactionPage", "loadcontrol('NCDIssueTransact','&IssuerId=" + IssuerId + "&Issuename=" + Issuename + "&minQty=" + minQty + "&maxQty=" + maxQty + "');", true);
 
         }
@@ -226,7 +226,7 @@ namespace WealthERP.OnlineOrderManagement
                 pnlchild.Visible = false;
                 buttonlink.Text = "+";
             }
-            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
+            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId, customerVo.CustomerId);
             dtIssueDetail = ds.Tables[0];
             gvchildIssue.DataSource = dtIssueDetail;
             gvchildIssue.DataBind();
@@ -252,7 +252,7 @@ namespace WealthERP.OnlineOrderManagement
             RadGrid gvchildIssue = (RadGrid)sender; // Get reference to grid 
             GridDataItem nesteditem = (GridDataItem)gvchildIssue.NamingContainer;
             int strIssuerId = int.Parse(gvCommMgmt.MasterTableView.DataKeyValues[nesteditem.ItemIndex]["AIM_IssueId"].ToString()); // Get the value 
-            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId);
+            DataSet ds = OnlineBondBo.GetIssueDetail(strIssuerId,customerVo.CustomerId);
             gvchildIssue.DataSource = ds.Tables[0];
         }
         public void ibtExportSummary_OnClick(object sender, ImageClickEventArgs e)

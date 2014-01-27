@@ -3562,13 +3562,19 @@ namespace WealthERP.OnlineOrderBackOffice
         {
             try
             {
+                if (txtIssueId.Text == string.Empty)
+                    txtIssueId.Text = "0";
+
                 DataTable dtGetActiveRange = new DataTable();
                 dtGetActiveRange = onlineNCDBackOfficeBo.GetActiveRange(advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text)).Tables[0];
                 rgAplication.DataSource = dtGetActiveRange;
-                rgAplication.DataBind();
+
                 if (Cache[userVo.UserId.ToString() + "Aplication"] != null)
                     Cache.Remove(userVo.UserId.ToString() + "Aplication");
                 Cache.Insert(userVo.UserId.ToString() + "Aplication", dtGetActiveRange);
+
+                rgAplication.DataBind();
+               
             }
             catch (BaseApplicationException Ex)
             {
@@ -3627,6 +3633,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtTo = (TextBox)e.Item.FindControl("txtTo");
 
                 CreateUpdateDeleteAplication(Convert.ToInt32(txtFrom.Text), Convert.ToInt32(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), 0, "INSERT");
+                BindApplGrid();
             }
             else if (e.CommandName == RadGrid.UpdateCommandName)
             {
@@ -3635,6 +3642,7 @@ namespace WealthERP.OnlineOrderBackOffice
                 TextBox txtTo = (TextBox)e.Item.FindControl("txtTo");
 
                 CreateUpdateDeleteAplication(Convert.ToInt32(txtFrom.Text), Convert.ToInt32(txtTo.Text), advisorVo.advisorId, Convert.ToInt32(txtIssueId.Text), formRangeId, "UPDATE");
+                BindApplGrid();
 
             }
             else if (e.CommandName == RadGrid.DeleteCommandName)
@@ -3644,23 +3652,24 @@ namespace WealthERP.OnlineOrderBackOffice
                     formRangeId = Convert.ToInt32(rgAplication.MasterTableView.DataKeyValues[e.Item.ItemIndex]["AIFR_Id"].ToString());
                     CreateUpdateDeleteAplication(0, 0, 0, 0, formRangeId, "DELETE");
                 }
+                BindApplGrid();
 
             }
-            BindApplGrid();
+           
         }
 
 
         protected void btnIssuerPopUp_Click(object sender, ImageClickEventArgs e)
         {
             radIssuerPopUp.VisibleOnPageLoad = true;
-            BindApplGrid();
+            BindIssuer();
 
         }
 
         protected void btnIssuerPopClose_Click(object sender, EventArgs e)
         {
             radIssuerPopUp.VisibleOnPageLoad = false;
-            // BindIssuer();
+            BindIssuer();
         }
 
         protected void btnImageActivRange_Click(object sender, ImageClickEventArgs e)

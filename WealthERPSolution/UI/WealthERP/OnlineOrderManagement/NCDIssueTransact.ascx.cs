@@ -133,7 +133,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStructureRuleGrid()
         {
             //1--- For Curent Issues
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1,customerVo.CustomerId);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {

@@ -224,7 +224,7 @@
                                 GridLines="None" ShowFooter="True" PagerStyle-AlwaysVisible="true" ShowStatusBar="True"
                                 Skin="Telerik" AllowFilteringByColumn="true" OnItemDataBound="gvCommMgmt_ItemDataBound"
                                 OnItemCommand="gvCommMgmt_ItemCommand" OnNeedDataSource="gvCommMgmt_OnNeedDataSource">
-                                <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AIM_IssueId,AIM_SchemeName,AIM_MInQty,AIM_MaxQty,IssueTimeType,AR_Filename"
+                                <MasterTableView AllowMultiColumnSorting="false" AllowSorting="false" DataKeyNames="AIM_IssueId,AIM_IssueName,AIM_MInQty,AIM_MaxQty,IssueTimeType,AR_Filename"
                                     AutoGenerateColumns="false" Width="100%">
                                     <Columns>
                                         <telerik:GridTemplateColumn ShowFilterIcon="false" AllowFiltering="false" CurrentFilterFunction="Contains">
@@ -233,9 +233,9 @@
                                                     Font-Bold="true" UniqueName="Detailslink" OnClick="btnExpandAll_Click" Font-Size="Medium">+</asp:LinkButton>
                                             </ItemTemplate>
                                         </telerik:GridTemplateColumn>
-                                        <telerik:GridBoundColumn DataField="AIM_SchemeName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
+                                        <telerik:GridBoundColumn DataField="AIM_IssueName" HeaderStyle-Width="200px" CurrentFilterFunction="Contains"
                                             ShowFilterIcon="false" AutoPostBackOnFilter="true" AllowFiltering="true" HeaderText="Issue"
-                                            UniqueName="AIM_SchemeName" SortExpression="false">
+                                            UniqueName="AIM_IssueName" SortExpression="false">
                                             <ItemStyle HorizontalAlign="left" VerticalAlign="Top" Width="" Wrap="false" />
                                         </telerik:GridBoundColumn>
                                         <telerik:GridBoundColumn Visible="false" DataField="AIM_IssueId" HeaderStyle-Width="60px"

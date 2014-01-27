@@ -461,6 +461,11 @@ namespace WealthERP.OnlineOrderBackOffice
                     trSourceType.Visible = true;
                     BindRtA();
                 }
+                else if (ddlView.SelectedValue == "Lookup")
+                {
+                    trSourceType.Visible = false;
+                    
+                }
 
 
             }
@@ -490,7 +495,10 @@ namespace WealthERP.OnlineOrderBackOffice
                 
                 tblwerpGrd.Visible = false;
                 tblExtMapGrd.Visible = false;
-                trSourceType.Visible = false;
+               // trSourceType.Visible = false;
+                btnWERPExport.Visible = false;
+                btnMapingExport.Visible = false;
+
                 if (viewType == "Lookup")
                 {
                     tblwerpGrd.Visible = true;

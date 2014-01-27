@@ -78,7 +78,7 @@ namespace DaoOnlineOrderManagement
             }
             return cutOffTime;
         }
-        public DataSet GetAdviserIssuerList(int adviserId, int issueId,int type)
+        public DataSet GetAdviserIssuerList(int adviserId, int issueId,int type,int customerId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -95,6 +95,9 @@ namespace DaoOnlineOrderManagement
                     db.AddInParameter(cmdGetCommissionStructureRules, "@IssueId", DbType.Int32, 0);
 
                 db.AddInParameter(cmdGetCommissionStructureRules, "@type", DbType.Int32, type);
+
+                db.AddInParameter(cmdGetCommissionStructureRules, "@customerId", DbType.Int32, customerId);
+
 
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@IssuerId", DbType.String, IssuerId);
                 //db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.String, structureId);
@@ -249,7 +252,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetIssueDetail(int IssuerId)
+        public DataSet GetIssueDetail(int IssuerId,int CustomerId)
         {
             Database db;
             DbCommand cmdGetIssueDetail;
@@ -260,6 +263,8 @@ namespace DaoOnlineOrderManagement
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetIssueDetail = db.GetStoredProcCommand("SPROC_ONL_GetIssueDetail");
                 db.AddInParameter(cmdGetIssueDetail, "@IssuerId", DbType.Int32, IssuerId);
+                db.AddInParameter(cmdGetIssueDetail, "@CustomerId", DbType.Int32, CustomerId);
+
                 ds = db.ExecuteDataSet(cmdGetIssueDetail);
             }
             catch (BaseApplicationException Ex)
