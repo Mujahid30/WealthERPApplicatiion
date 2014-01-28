@@ -459,6 +459,7 @@ namespace WealthERP.Advisor
                     {
 
                         Session.Remove("NodeType");
+                        Session.Remove("NodeType");
                     }
 
                     if (advisorVo.advisorId == Convert.ToInt32(ConfigurationSettings.AppSettings["ONLINE_ADVISER"]))
@@ -467,8 +468,8 @@ namespace WealthERP.Advisor
                         {
                             RPBOnlineOrder.FindItemByValue("NCDMFOrder").Visible = false;
                             RPBOnlineOrder.FindItemByValue("IPOOrder").Visible = false;
-
-                        }
+                            RPBOnlineOrder.FindItemByValue("MF_Online_Landing_Page").Visible = false;
+                        } 
                     }
 
                 }
