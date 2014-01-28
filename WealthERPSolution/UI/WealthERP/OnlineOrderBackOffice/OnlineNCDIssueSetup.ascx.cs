@@ -3662,14 +3662,16 @@ namespace WealthERP.OnlineOrderBackOffice
         protected void btnIssuerPopUp_Click(object sender, ImageClickEventArgs e)
         {
             radIssuerPopUp.VisibleOnPageLoad = true;
-            BindIssuer();
-
+           // BindIssuer();
+            BindIssuerGrid();
         }
 
         protected void btnIssuerPopClose_Click(object sender, EventArgs e)
         {
             radIssuerPopUp.VisibleOnPageLoad = false;
-            BindIssuer();
+            //BindIssuer();
+
+            BindIssuerGrid();
         }
 
         protected void btnImageActivRange_Click(object sender, ImageClickEventArgs e)

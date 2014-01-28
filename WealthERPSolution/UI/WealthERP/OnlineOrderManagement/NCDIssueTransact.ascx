@@ -432,8 +432,8 @@
                             </telerik:GridBoundColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="YieldAtMAturity" HeaderStyle-Width="100px"
                                 UniqueName="YieldAtMAturity" HeaderText="Yield at Maturity(%)">
-                                <%--<ItemTemplate>
-                                    <asp:TextBox ID="txtYieldAtMAturity" runat="server" ForeColor="White" MaxLength="5"
+                               <%-- <ItemTemplate>
+                                    <asp:TextBox ID="txtYieldAtMAturity" runat="server" ForeColor="White" MaxLength="5" OnTextChanged="txtYieldAtMAturity_TextChanged"
                                         Text='<%# Bind("YieldAtMAturity")%>' Width="50px" BackColor="Gray"></asp:TextBox>
                                 </ItemTemplate>--%>
                                 <FooterTemplate>
@@ -494,7 +494,7 @@
                                         Width="50px" Font-Bold="true" Text='<%# Bind("COID_AmountPayable")%>'></asp:TextBox>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                    <asp:Label runat="server" ID="lblAmount"></asp:Label>
+                                    <asp:Label runat="server" ID="lblAmount" OnTextChanged="lblAmount_TextChanged"></asp:Label>
                                 </FooterTemplate>
                             </telerik:GridTemplateColumn>
                             <telerik:GridTemplateColumn AllowFiltering="false" DataField="" HeaderStyle-Width="100px"
@@ -605,6 +605,9 @@
         </div>
     </ContentTemplate>
 </telerik:RadWindow>
+
+<asp:HiddenField ID="txtTotAmt" runat="server" OnValueChanged="txtTotAmt_ValueChanged" />
+
 <%--<telerik:RadWindowManager runat="server" ID="RadWindowManager1">
     <Windows>
         <telerik:RadWindow ID="rw_customConfirm" Modal="true" Behaviors="Close, Move" VisibleStatusbar="false"

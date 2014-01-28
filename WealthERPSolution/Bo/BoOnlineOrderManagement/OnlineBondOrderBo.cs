@@ -72,12 +72,12 @@ namespace BoOnlineOrderManagement
             return dsCommissionStructureRules;
         }
 
-        public DataSet GetLiveBondTransaction(int SeriesId)
+        public DataSet GetLiveBondTransaction(int SeriesId,int customerId)
         {
 
             try
             {
-                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransaction(SeriesId);
+                dsCommissionStructureRules = onlineBondDao.GetLiveBondTransaction(SeriesId, customerId);
 
             }
             catch (BaseApplicationException Ex)

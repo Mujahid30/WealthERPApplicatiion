@@ -44,7 +44,7 @@ namespace WealthERP.OnlineOrderManagement
             customerVo = (CustomerVo)Session["customerVo"];
             adviserVo = (AdvisorVo)Session["advisorVo"];
             ShowAvailableLimits();
-         // lblAvailableLimits.Text = "500000";
+           // lblAvailableLimits.Text = "500000";
 
             if (!IsPostBack)
             {
@@ -133,7 +133,7 @@ namespace WealthERP.OnlineOrderManagement
         protected void BindStructureRuleGrid()
         {
             //1--- For Curent Issues
-            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1,customerVo.CustomerId);
+            DataSet dsStructureRules = OnlineBondBo.GetAdviserIssuerList(adviserVo.advisorId, IssuerId, 1, customerVo.CustomerId);
             DataTable dtIssue = dsStructureRules.Tables[0];
             if (dtIssue.Rows.Count > 0)
             {
@@ -162,7 +162,7 @@ namespace WealthERP.OnlineOrderManagement
         }
         protected void BindStructureRuleGrid(int IssuerId)
         {
-            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId);
+            DataSet dsStructureRules = OnlineBondBo.GetLiveBondTransaction(IssuerId, customerVo.CustomerId);
             DataTable dtTransact = dsStructureRules.Tables[0];
             if (dtTransact.Rows.Count > 0)
             {
@@ -236,6 +236,13 @@ namespace WealthERP.OnlineOrderManagement
             }
         }
 
+        protected void lblAmount_TextChanged(object sender, EventArgs e)
+        {
+
+
+
+
+        }
         protected void txtQuantity_TextChanged(object sender, EventArgs e)
         {
             int rowindex1 = ((GridDataItem)((TextBox)sender).NamingContainer).RowIndex;
@@ -280,6 +287,8 @@ namespace WealthERP.OnlineOrderManagement
                                 ViewState["Sum"] = sum;
                                 lblQty.Text = Quantity.ToString();
                                 lblSum.Text = sum.ToString();
+
+                                //txtTotAmt_ValueChanged(null, new EventArgs());
                             }
                         if (rowno < gvCommMgmt.MasterTableView.Items.Count)
                             rowno++;
@@ -311,6 +320,19 @@ namespace WealthERP.OnlineOrderManagement
                 }
 
             }
+        }
+
+
+        protected void txtTotAmt_ValueChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+        //    dt = (DataTable)Cache("NCDTransactList" + userVo.UserId.ToString());
+
+            dt = (DataTable)Cache["NCDTransactList" + userVo.UserId.ToString()];
+
+
+
+
         }
         private string CreateUserMessage(int orderId, int Applicationno, bool accountDebitStatus, string aplicationNoStatus)
         {
@@ -454,7 +476,7 @@ namespace WealthERP.OnlineOrderManagement
                     int totalOrderAmt = int.Parse(ViewState["Sum"].ToString());
                    // availableBalance = 5000000;
                     string message;
-                    string aplicationNoStatus=string.Empty ;
+                    string aplicationNoStatus = string.Empty;
                     bool accountDebitStatus = false;
                     int Applicationno = 0;
                     int orderId = 0;
@@ -464,7 +486,7 @@ namespace WealthERP.OnlineOrderManagement
                         orderId = int.Parse(orderIds["Order_Id"].ToString()); ;
                         Applicationno = int.Parse(orderIds["application"].ToString());
                         aplicationNoStatus = orderIds["aplicationNoStatus"].ToString();
-                        
+
                         ViewState["OrderId"] = orderId;
                         ViewState["application"] = Applicationno;
 

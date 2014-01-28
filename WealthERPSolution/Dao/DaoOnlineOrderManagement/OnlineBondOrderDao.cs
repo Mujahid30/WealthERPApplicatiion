@@ -121,7 +121,7 @@ namespace DaoOnlineOrderManagement
             }
             return ds;
         }
-        public DataSet GetLiveBondTransaction(int SeriesId)
+        public DataSet GetLiveBondTransaction(int SeriesId,int customerId)
         {
             Database db;
             DbCommand cmdGetCommissionStructureRules;
@@ -131,7 +131,10 @@ namespace DaoOnlineOrderManagement
             {
                 db = DatabaseFactory.CreateDatabase("wealtherp");
                 cmdGetCommissionStructureRules = db.GetStoredProcCommand("SPROC_ONL_GetLiveBondTransaction");
+
                 db.AddInParameter(cmdGetCommissionStructureRules, "@SeriesId", DbType.Int32, SeriesId);
+                db.AddInParameter(cmdGetCommissionStructureRules, "@CustomerId", DbType.Int32, customerId);
+
                 //if (orderId!=0)
                 //    db.AddInParameter(cmdGetCommissionStructureRules, "@orderId", DbType.Int32, orderId);
                 //else
